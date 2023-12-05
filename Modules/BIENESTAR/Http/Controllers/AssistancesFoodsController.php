@@ -24,7 +24,17 @@ class AssistancesFoodsController extends Controller
      */
     public function index()
     {
-        $AssistancesFoods = AssistanceFood::with(['postulationBenefit.benefit', 'apprentice.course.program'])->get();
+        $AssistancesFoods = DB::table('postulations_benefits')
+        ->select('people.first_name', 'people.first_last_name', 'people.document_number', 'courses.code', 'programs.name', 'benefits.name', 'benefits.porcentege')
+        ->join('postulations', 'postulations_benefits.postulation_id', '=', 'postulations.id')
+        ->join('apprentices', 'postulations.apprentice_id', '=', 'apprentices.id')
+        ->join('people', 'apprentices.person_id', '=', 'people.id')
+        ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
+        ->join('courses', 'apprentices.course_id', '=', 'courses.id')
+        ->join('programs', 'courses.program_id', '=', 'programs.id')
+        ->where('postulations_benefits.state', '=', 'beneficiario')
+        ->where('benefits.name', '=', 'Alimentacion')
+        ->get();
         $data = ['AssistancesFoods' => $AssistancesFoods];
         return view('bienestar::foodrecord', $data);
     }
@@ -59,8 +69,6 @@ class AssistancesFoodsController extends Controller
         return view('bienestar::partial.assistancefood_table', $data);
     }
     
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function indexassistances()
     {
         return view('bienestar::food-attendance.food-assistance');
@@ -84,7 +92,7 @@ class AssistancesFoodsController extends Controller
                 DB::raw('NOW() as date_time')
             )
             ->where('people.document_number', $documentNumber)
-            ->where('postulations_benefits.state', 'Beneficiario')
+            ->where('postulations_benefits.state', 'beneficiario')
             ->where('benefits.name', 'Alimentacion')
             ->get();
     

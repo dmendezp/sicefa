@@ -44,12 +44,12 @@ Route::middleware(['lang'])->group(function () {
           Route::put('/transportation_benefits_leader/benefits/update/{id}', 'BenefitsController@update')->name('bienestar.transportation_benefits_leader.edit.benefits');
 
         //Vista CRUD Buses(ADMINISTRADOR)
-        Route::get('/admin/buses', 'BusesController@index')->name('bienestar.admin.crud.buses');
+        Route::get('/admin/buses', 'BusesController@index')->name('bienestar.admin.transportation.crud.buses');
         Route::post('/admin/buses/store', 'BusesController@store')->name('bienestar.admin.save.buses');
         Route::put('/admin/buses/update/{id} ', 'BusesController@update')->name('bienestar.admin.edit.buses');
         Route::delete('/admin/buses/delete/{id}', 'BusesController@destroy')->name('bienestar.admin.delete.buses');
         //Vista CRUD Buses(LIDER BENEFICIO DE TRANSPORTE)
-        Route::get('/transportation_benefits_leader/buses', 'BusesController@index')->name('bienestar.transportation_benefits_leader.crud.buses');
+        Route::get('/transportation_benefits_leader/buses', 'BusesController@index')->name('bienestar.transportation_benefits_leader.transportation.crud.buses');
         Route::post('/transportation_benefits_leader/buses/store', 'BusesController@store')->name('bienestar.transportation_benefits_leader.save.buses');
         Route::put('/transportation_benefits_leader/buses/update/{id} ', 'BusesController@update')->name('bienestar.transportation_benefits_leader.edit.buses');
         Route::delete('/transportation_benefits_leader/buses/delete/{id}', 'BusesController@destroy')->name('bienestar.transportation_benefits_leader.delete.buses');
@@ -96,41 +96,41 @@ Route::middleware(['lang'])->group(function () {
         Route::put('/food_benefits_leaders/postulation-management/{id}/update-score', 'PostulationBenefitController@updateScore')->name('bienestar.food_benefits_leaders.update-score.postulation-management');
         Route::post('/food_benefits_leaders/postulation-management/update-benefits', 'PostulationBenefitController@updateBenefits')->name('bienestar.food_benefits_leaders.update-benefits.postulation-management');
         // Rutas para la vista postulation-management(LIDER BENEFICIO DE TRANSPORTE)
-        Route::get('/food_benefits_leaders/postulation-management', 'PostulationBenefitController@index')->name('bienestar.transportation_benefits_leader.view.postulation-management');
-        Route::get('/food_benefits_leaders/postulation-management/{id}', 'PostulationBenefitController@show')->name('bienestar.food_benefits_leaders.show.postulation-management');
-        Route::put('/food_benefits_leaders/postulation-management/{id}/update-score', 'PostulationBenefitController@updateScore')->name('bienestar.food_benefits_leaders.update-score.postulation-management');
-        Route::post('/food_benefits_leaders/postulation-management/update-benefits', 'PostulationBenefitController@updateBenefits')->name('bienestar.food_benefits_leaders.update-benefits.postulation-management');
+        Route::get('/transportation_benefits_leader/postulation-management', 'PostulationBenefitController@index')->name('bienestar.transportation_benefits_leader.view.postulation-management');
+        Route::get('/transportation_benefits_leader/postulation-management/{id}', 'PostulationBenefitController@show')->name('bienestar.transportation_benefits_leader.show.postulation-management');
+        Route::put('/transportation_benefits_leader/postulation-management/{id}/update-score', 'PostulationBenefitController@updateScore')->name('bienestar.transportation_benefits_leader.update-score.postulation-management');
+        Route::post('/transportation_benefits_leader/postulation-management/update-benefits', 'PostulationBenefitController@updateBenefits')->name('bienestar.transportation_benefits_leader.update-benefits.postulation-management');
         
         //Vistas Rutas de transporte(ADMINISTRADOR)
-        Route::get('/admin/transportroutes', 'RoutesTransportationController@index')->name('bienestar.admin.crud.transportroutes');
+        Route::get('/admin/transportroutes', 'RoutesTransportationController@index')->name('bienestar.admin.transportation.crud.transportroutes');
         Route::post('/admin/transportroutes/add', 'RoutesTransportationController@store')->name('bienestar.admin.save.transportroutes');
         Route::delete('/admin/transportroutes/delete/{id}', 'RoutesTransportationController@destroy')->name('bienestar.admin.delete.transportroutes');
         Route::put('/admin/transportroutes/update/{id}', 'RoutesTransportationController@update')->name('bienestar.admin.edit.transportroutes');
          //Vistas Rutas de transporte(LIDER BENEFICIO DE TRANSPORTE)
-         Route::get('/transportation_benefits_leader/transportroutes', 'RoutesTransportationController@index')->name('bienestar.transportation_benefits_leader.crud.transportroutes');
+         Route::get('/transportation_benefits_leader/transportroutes', 'RoutesTransportationController@index')->name('bienestar.transportation_benefits_leader.transportation.crud.transportroutes');
          Route::post('/transportation_benefits_leader/transportroutes/add', 'RoutesTransportationController@store')->name('bienestar.transportation_benefits_leader.save.transportroutes');
          Route::delete('/transportation_benefits_leader/transportroutes/delete/{id}', 'RoutesTransportationController@destroy')->name('bienestar.transportation_benefits_leader.delete.transportroutes');
          Route::put('/transportation_benefits_leader/transportroutes/update/{id}', 'RoutesTransportationController@update')->name('bienestar.transportation_benefits_leader.edit.transportroutes');
 
         // vista de conductores(ADMINISTRADOR)
-        Route::get('/admin/drivers', 'BusDriversController@drivers')->name('bienestar.admin.crud.drivers');
+        Route::get('/admin/drivers', 'BusDriversController@drivers')->name('bienestar.admin.transportation.crud.drivers');
         Route::post('/admin/drivers/add', 'BusDriversController@driversAdd')->name('bienestar.admin.save.drivers');
         Route::put('/admin/drivers/update/{id}', 'BusDriversController@driversUp')->name('bienestar.admin.edit.drivers');
         Route::delete('/admin/drivers/delete/{id}', 'BusDriversController@delete')->name('bienestar.admin.delete.drivers');
         // vista de conductores(LIDER BENEFICIO DE TRANSPORTE)
-        Route::get('/transportation_benefits_leader/drivers', 'BusDriversController@drivers')->name('bienestar.transportation_benefits_leader.crud.drivers');
+        Route::get('/transportation_benefits_leader/drivers', 'BusDriversController@drivers')->name('bienestar.transportation_benefits_leader.transportation.crud.drivers');
         Route::post('/transportation_benefits_leader/drivers/add', 'BusDriversController@driversAdd')->name('bienestar.transportation_benefits_leader.save.drivers');
         Route::put('/transportation_benefits_leader/drivers/update/{id}', 'BusDriversController@driversUp')->name('bienestar.transportation_benefits_leader.edit.drivers');
         Route::delete('/transportation_benefits_leader/drivers/delete/{id}', 'BusDriversController@delete')->name('bienestar.transportation_benefits_leader.delete.drivers');
 
         // vista de gestiones de convocatorias(ADMINISTRADOR)
-        Route::get('/admin/convocations', 'ConvocationsController@index')->name('bienestar.admin.crud.convocations');
+        Route::get('/admin/convocations', 'ConvocationsController@index')->name('bienestar.admin.convocations.crud.convocations');
         Route::post('/admin/convocations/store', 'ConvocationsController@store')->name('bienestar.admin.save.convocations');
         Route::delete('/admin/convocations/delete/{id}', 'ConvocationsController@destroy')->name('bienestar.admin.delete.convocations');
         Route::put('/admin/convocations/update/{id}', 'ConvocationsController@update')->name('bienestar.admin.edit.convocations');
 
         //Vista crud formularios(ADMINISTRADOR)
-        Route::get('/admin/editforms', 'ConvocationsQuestionsController@editform')->name('bienestar.admin.crud.editform');
+        Route::get('/admin/editforms', 'ConvocationsQuestionsController@editform')->name('bienestar.admin.convocations.crud.editform');
         Route::post('/admin/saveform', 'ConvocationsQuestionsController@saveform')->name('bienestar.admin.saveform.editform');
         Route::post('/admin/editforms/update/{id}', 'ConvocationsQuestionsController@updateQuestion')->name('bienestar.admin.edit.editform');
         Route::delete('/admin/delete/question/{id}', 'ConvocationsQuestionsController@deleteQuestion')->name('bienestar.admin.delete.editform');
@@ -153,37 +153,37 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/postulations/save', 'PostulationsController@savepostulation')->name('cefa.bienestar.savepostulation'); 
         
         //vista el listados apoyo alimentacion(ADMINISTRADOR)
-        Route::get('/admin/foodrecord', 'AssistancesFoodsController@index')->name('bienestar.admin.crud.beneficiaries_food');
-        Route::get('/admin/assistancefood', 'AssistancesFoodsController@assistancefoodrecord')->name('bienestar.admin.view.food_assistance_lists');
+        Route::get('/admin/foodrecord', 'AssistancesFoodsController@index')->name('bienestar.admin.food.crud.beneficiaries_food');
+        Route::get('/admin/assistancefood', 'AssistancesFoodsController@assistancefoodrecord')->name('bienestar.admin.food.view.food_assistance_lists');
         Route::get('/admin/filtro-porcentaje', 'AssistancesFoodsController@filtrarPorcentaje')->name('bienestar.admin.route.food_assistance_lists.filter');
         //vista el listados apoyo alimentacion(LIDER BENEFICIO DE ALIMENTACION)
-        Route::get('/food_benefits_leaders/foodrecord', 'AssistancesFoodsController@index')->name('bienestar.food_benefits_leaders.crud.beneficiaries_food');
-        Route::get('/assistancefood', 'AssistancesFoodsController@assistancefoodrecord')->name('bienestar.food_benefits_leaders.view.food_assistance_lists');
+        Route::get('/food_benefits_leaders/foodrecord', 'AssistancesFoodsController@index')->name('bienestar.food_benefits_leaders.food.crud.beneficiaries_food');
+        Route::get('/food_benefits_leaders/assistancefood', 'AssistancesFoodsController@assistancefoodrecord')->name('bienestar.food_benefits_leaders.food.view.food_assistance_lists');
         Route::get('/food_benefits_leaders/filtro-porcentaje', 'AssistancesFoodsController@filtrarPorcentaje')->name('bienestar.food_benefits_leaders.route.food_assistance_lists.filter');
         //Vistas Asignar Rutas de transporte
-        Route::get('/admin/assign-transportation-routes', 'AssingTransportRoutesController@mostrarAsignaciones')->name('bienestar.admin.view.assign_transport_route');
+        Route::get('/admin/assign-transportation-routes', 'AssingTransportRoutesController@mostrarAsignaciones')->name('bienestar.admin.transportation.view.assign_transport_route');
         Route::get('/assign-transportation-routes/{apprenticeId}', 'AssingTransportRoutesController@showAssignmentForm')->name('cefa.bienestar.assign-transportation-routes');
 
         //Vista de Formulario de asignacion de rutas de transporte(ADMINISTRADOR)
-        Route::get('/admin/assing-form-transportation-routes', 'AssingFormTransporRoutesController@index')->name('bienestar.admin.view.assing_form_transportation_routes');
+        Route::get('/admin/assing-form-transportation-routes', 'AssingFormTransporRoutesController@index')->name('bienestar.admin.transportation.view.assing_form_transportation_routes');
         Route::put('/admin/assing-form-transportation-routes/updateInline', 'AssingFormTransporRoutesController@updateInline')->name('bienestar.admin.updateInline.assing_form_transportation_routes');
 
         //Vista de Formulario de asignacion de rutas de transporte(LIDER BENEFICIO DE TRANSPORTE)
-        Route::get('/transportation_benefits_leader/assing-form-transportation-routes', 'AssingFormTransporRoutesController@index')->name('bienestar.transportation_benefits_leader.view.assing_form_transportation_routes');
+        Route::get('/transportation_benefits_leader/assing-form-transportation-routes', 'AssingFormTransporRoutesController@index')->name('bienestar.transportation_benefits_leader.transportation.view.assing_form_transportation_routes');
         Route::put('/transportation_benefits_leader/assing-form-transportation-routes/updateInline', 'AssingFormTransporRoutesController@updateInline')->name('bienestar.transportation_benefits_leader.updateInline.assing_form_transportation_routes');
 
         //vista de listado lista de asistencia de transporte(ADMINISTRADOR)
-        route::get('/admin/transportation_assistance_list', 'TransportationAssistancesController@index')->name('bienestar.admin.view.transportation_assistance_lists');
+        route::get('/admin/transportation_assistance_list', 'TransportationAssistancesController@index')->name('bienestar.admin.transportation.view.transportation_assistance_lists');
         Route::post('/admin/busqueda/documentos', 'TransportationAssistancesController@search')->name('bienestar.admin.view.transportation_assistance_lists.consult');
         //vista de listado lista de asistencia de transporte(LIDER BENEFICIO DE TRANSPORTE)
-        route::get('/transportation_benefits_leader/transportation_assistance_list', 'TransportationAssistancesController@index')->name('bienestar.transportation_benefits_leader.view.transportation_assistance_lists');
+        route::get('/transportation_benefits_leader/transportation_assistance_list', 'TransportationAssistancesController@index')->name('bienestar.transportation_benefits_leader.transportation.view.transportation_assistance_lists');
         Route::post('/transportation_benefits_leader/busqueda/documentos', 'TransportationAssistancesController@search')->name('bienestar.transportation_benefits_leader.view.transportation_assistance_lists.consult');
 
         //Vista transportation-assistance
-        Route::get('/admin/transportation_asistance', 'TransportationAssistancesController@indexasistances')->name('bienestar.admin.view.asistance_transport');
+        Route::get('/admin/transportation_asistance', 'TransportationAssistancesController@indexasistances')->name('bienestar.admin.transportation.view.asistance_transport');
         Route::post('/admin/transportation_asistance/search', 'TransportationAssistancesController@searchapprentice')->name('bienestar.admin.form.asistance_transport');
         //Vista transportation-assistance(LIDER BENEFICIO DE TRANSPORTE)
-        Route::get('/transportation_benefits_leader/transportation_asistance', 'TransportationAssistancesController@indexasistances')->name('bienestar.transportation_benefits_leader.view.asistance_transport');
+        Route::get('/transportation_benefits_leader/transportation_asistance', 'TransportationAssistancesController@indexasistances')->name('bienestar.transportation_benefits_leader.transportation.view.asistance_transport');
         Route::post('/transportation_benefits_leader/transportation_asistance/search', 'TransportationAssistancesController@searchapprentice')->name('bienestar.transportation_benefits_leader.form.asistance_transport');
 
         //Vista transportation-assistance

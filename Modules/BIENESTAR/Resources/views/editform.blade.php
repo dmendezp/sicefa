@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.saveform.editform'))
-    <form method="POST" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.saveform.editform') }}" id="mainForm">
+    <form method="POST" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.saveform.editform') }}" id="mainForm" class="formGuardar">
         @csrf
         <h1 class="mb-4">{{ trans('bienestar::menu.Edit Form')}} <i class="fas fa-clipboard-list"></i></h1>
         <div class="card">
@@ -39,7 +39,7 @@
                                 <a class="btn btn-primary mr-2 editQuestion" data-question-id="{{ $question->id }}">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.editform', ['id' => $question->id]) }}" class="btn btn-danger formEliminar2" data-method="delete">
+                                <a href="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.editform', ['id' => $question->id]) }}" class="btn btn-danger formEliminar" data-method="delete">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </div>
@@ -84,7 +84,7 @@
             </div>
             <div class="modal-body">
                 @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.editform'))
-                <form id="editForm{{ $question->id }}" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.editform', ['id' => $question->id]) }}" method="POST">
+                <form id="editForm{{ $question->id }}" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.editform', ['id' => $question->id]) }}" method="POST" class="formEditar">
                     @csrf
                     <!-- Campos de edición aquí -->
                     <div class="form-group">

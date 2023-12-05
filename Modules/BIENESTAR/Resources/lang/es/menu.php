@@ -140,10 +140,18 @@ return[
     'New Score' => 'Nueva Puntuación',
     'Save Score' => 'Guardar Puntuación',
 
-
-
-
-
+//Alert Eliminar
+    '¿Are You Sure?' => '¿Está seguro?',
+    'This Action Is Irreversible' =>'Esta acción es irreversible',
+    'Yes, Delete It' => 'Si, Borrarlo',
+    'Successful Elimination' => 'Eliminación con éxito',
+    'An error occurred while trying to delete.'=> 'Se ha producido un error al intentar borrar',
+//Alert Guardar
+    'Success!' => 'Exito!',
+    'An error occurred while trying to delete.' => 'Se ha producido un error al intentar eliminar.',
+    'An error occurred while trying to edit.' => 'Se ha producido un error al intentar editar.',
+    'An error occurred while trying to save records.' => 'Ha ocurrido un error al intentar guardar registros.',
+    'Successful operation!' => 'Operación exitosa'
     
 ]
 

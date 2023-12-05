@@ -1,3 +1,6 @@
+@php
+    $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
+@endphp
 @extends('bienestar::layouts.master')
 
 @section('content')
@@ -36,7 +39,7 @@
         miObjeto = $('#assitance').val();
         var data = JSON.stringify(miObjeto);
         console.log(miObjeto);
-        ajaxReplace('divAssitance', '/bienestar/admin/transportation_asistance/search', data);
+        ajaxReplace('divAssitance', '/bienestar/{{ $role_name }}/transportation_asistance/search', data);
         
     }
 </script>
