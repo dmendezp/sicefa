@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +13,17 @@
 |
 */
 
-Route::prefix('hangarauto')->group(function() {
-    Route::get('/', 'HANGARAUTOController@index');
+Route::middleware(['lang'])->group(function () {
+    Route::prefix('hangarauto')->group(function () {
+
+
+        Route::controller(HANGARAUTOController::class)->group(function(){
+            Route::get('/index', 'index')->name('cefa.hangarauto.index');
+        });
+
+
+        Route::controller(DevelopersController::class)->group(function(){
+            Route::get('/developer', 'developer')->name('cefa.hangarauto.developers');
+        });
+    });
 });

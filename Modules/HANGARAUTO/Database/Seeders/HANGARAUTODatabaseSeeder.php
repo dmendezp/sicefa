@@ -4,6 +4,7 @@ namespace Modules\HANGARAUTO\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class HANGARAUTODatabaseSeeder extends Seeder
 {
@@ -14,8 +15,9 @@ class HANGARAUTODatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        DB::beginTransaction();
+        $this->call(AppTableSeeder::class);
 
-        // $this->call("OthersTableSeeder");
+        DB::commit();
     }
 }
