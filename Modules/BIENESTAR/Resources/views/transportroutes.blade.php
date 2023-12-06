@@ -142,7 +142,7 @@
                             @for ($i = 1; $i <= 8; $i++) <option value="{{ $i }}" @if ($i==$transport->route_number) selected @endif>{{ $i }}</option>
                                 @endfor
                         </select>
-                    </div>
+                    </div>                    
                     <div class="form-group">
                         <label for="name_route{{ $transport->id }}">Nombre De La Ruta:</label>
                         <input type="text" name="new_name_route" id="name_route{{ $transport->id }}" class="form-control" placeholder="Nombre Ruta" required value="{{ $transport->name_route }}">
@@ -151,15 +151,16 @@
                         <label for="bus{{ $transport->id }}">Bus:</label>
                         <select name="new_bus" id="bus{{ $transport->id }}" class="form-control" required onchange="updateDriverName{{ $transport->id }}()">
                             <option value="">Selecciona un bus</option>
-                            <!-- Aquí puedes agregar opciones dinámicamente con tu backend -->
-                            <option value="1" data-bus-driver="Conductor 1" @if ($transport->bus_id == 1) selected @endif>Bus 1</option>
-                            <option value="2" data-bus-driver="Conductor 2" @if ($transport->bus_id == 2) selected @endif>Bus 2</option>
+                            @foreach ( $buses as $b )
+                                <option value="{{ $b->id }}" data-bus-driver="{{ $b->bus_driver->name }}">{{ $b->plate }}</option>
+                                @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="bus_driver{{ $transport->id }}">Nombre del Conductor:</label>
                         <input id="bus_driver{{ $transport->id }}" name="new_driver_name" type="text" class="form-control" placeholder="Nombre del Conductor" readonly="readonly" value="{{ $transport->bus->bus_driver->name }}">
                     </div>
+                    <input type="hidden" id="bus_quota{{ $transport->id }}" name="new_bus_quota" class="form-control" value="{{ $transport->bus->quota}}" readonly="readonly">
                     <div class="form-group">
                         <label for="stop_bus{{ $transport->id }}">Parada:</label>
                         <input id="stop_bus{{ $transport->id }}" name="new_stop_bus" type="text" class="form-control" placeholder="Ej: Juncal" value="{{ $transport->stop_bus }}">

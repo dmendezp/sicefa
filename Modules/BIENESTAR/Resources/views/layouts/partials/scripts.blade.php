@@ -192,7 +192,7 @@ document.querySelectorAll('.formEliminar[data-method="delete"]').forEach(functio
                 })
                 .catch(function(error) {
                     // Mostrar el SweetAlert de error en caso de problemas
-                    showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to delete.') }}",3000);
+                    showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}",3000);
                 });
         });
     });

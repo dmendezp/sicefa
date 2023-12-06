@@ -9,6 +9,8 @@ return[
     'Configuration'=>'Configuration',
     'Log Out'=>'Cerrar Sesion',
     'Food Benefits Leader'=>'Lider Beneficio de Alimentacion',
+    'User Manual' => 'Manual de Usuario',
+    'Administrator Role User Manual' => 'Manual de usuario del Rol Administrador',
         //sidebar
     'Back to Sicefa'=>'Volver a Sicefa',
     'Apprentices'=>'Aprendices',
@@ -140,7 +142,6 @@ return[
     'Total Score' => 'Puntaje Total',
     'New Score' => 'Nueva Puntuación',
     'Save Score' => 'Guardar Puntuación',
-
 
     //vita assistancefood
     'Food Attendance Record' => 'Registro de Asistencia de Alimentación ',
