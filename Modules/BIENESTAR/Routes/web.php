@@ -26,6 +26,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/home/food_benefits_leader', 'BIENESTARController@home')->name('bienestar.transportation_benefits_leader.dashboard');//home Lider del beneficio de Transporte
         Route::get('/home/feeding_assistant', 'BIENESTARController@home')->name('bienestar.feeding_assistant.dashboard');//home Asistente de Alimentacion
         Route::get('/home/route_leader', 'BIENESTARController@home')->name('bienestar.route_leader.dashboard');//home Lider de ruta
+        Route::get('/user_manual', 'BIENESTARController@manual')->name('cefa.bienestar.user_manual');
 
         //Vista Crud Beneficio(ADMINISTRADOR)
         Route::get('/admin/benefits', 'BenefitsController@benefitsView')->name('bienestar.admin.crud.benefits');

@@ -192,7 +192,7 @@ document.querySelectorAll('.formEliminar[data-method="delete"]').forEach(functio
                 })
                 .catch(function(error) {
                     // Mostrar el SweetAlert de error en caso de problemas
-                    showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to delete.') }}",3000);
+                    showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}",3000);
                 });
         });
     });
@@ -335,3 +335,27 @@ document.querySelectorAll('.formEliminar[data-method="delete"]').forEach(functio
         });
     });
 </script>
+<!-- Alerta para guardar y editar -->
+@if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Exito!',
+            text: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 4000 // Tiempo en milisegundos (2 segundos en este caso)
+        });
+    </script>
+@endif
+
+@if (session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '{{ session('error') }}',
+            showConfirmButton: false,
+            timer: 4000 // Tiempo en milisegundos (2 segundos en este caso)
+        });
+    </script>
+@endif
