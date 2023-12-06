@@ -9,6 +9,8 @@ return[
     'Configuration'=>'Configuration',
     'Log Out'=>'Log Out',
     'Food Benefits Leader'=> 'Food Benefits Leader',
+    'User Manual' => 'User Manual',
+    'Administrator Role User Manual' => 'Administrator Role User Manual',
         //sidebar
     'Back to Sicefa'=>'Back to Sicefa',
     'Apprentices'=>'Apprentices',

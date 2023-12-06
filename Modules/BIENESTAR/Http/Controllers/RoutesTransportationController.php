@@ -74,7 +74,7 @@ class RoutesTransportationController extends Controller
         $transportRoute->stop_bus = $request->input('new_stop_bus');
         $transportRoute->name_route = $request->input('new_name_route');
         $transportRoute->bus_id = $request->input('new_bus');
-        $transportRoute->quota = $request->input('bus_quota');
+        $transportRoute->quota = $request->input('new_bus_quota');
         $transportRoute->arrival_time = $request->input('new_arrival_time');
         $transportRoute->departure_time = $request->input('new_departure_time');
 
