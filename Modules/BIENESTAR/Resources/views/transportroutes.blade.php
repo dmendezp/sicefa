@@ -96,6 +96,8 @@
                                         <button class="btn btn-primary editButton mr-2" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#editModal{{$transport->id}}"><i class="fas fa-edit"></i></button>
                                         @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.transportroutes'))
                                         <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.transportroutes', ['id' => $transport->id]) }}" method="POST" class="formEliminar">
+                                            @csrf
+                                            @method("DELETE")
                                             <!-- Botón para abrir el modal de eliminación -->
                                             <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
                                         </form>
@@ -129,7 +131,7 @@
             <div class="modal-body">
                 <!-- Formulario de edición con validación -->
                 @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.transportroutes'))
-                <form id="editForm-{{ $transport->id }}" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.transportroutes', ['id' => $transport->id]) }}" method="post" role="formedit" onsubmit="return validateForm{{ $transport->id }}()">
+                <form id="editForm-{{ $transport->id }}" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.transportroutes', ['id' => $transport->id]) }}" method="post" role="formedit" onsubmit="return validateForm{{ $transport->id }}()"  class="formEditar">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
