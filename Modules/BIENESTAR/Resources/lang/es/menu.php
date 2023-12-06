@@ -9,6 +9,8 @@ return[
     'Configuration'=>'Configuration',
     'Log Out'=>'Cerrar Sesion',
     'Food Benefits Leader'=>'Lider Beneficio de Alimentacion',
+    'User Manual' => 'Manual de Usuario',
+    'Administrator Role User Manual' => 'Manual de usuario del Rol Administrador',
         //sidebar
     'Back to Sicefa'=>'Volver a Sicefa',
     'Apprentices'=>'Aprendices',

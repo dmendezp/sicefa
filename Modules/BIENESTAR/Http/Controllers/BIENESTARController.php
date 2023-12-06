@@ -14,6 +14,11 @@ class BIENESTARController extends Controller
         return view('bienestar::home');
     }
 
+    public function manual()
+    {
+        $pdfPath1 = asset('modules\bienestar\manual\Manual de Usuarios BIENESTAR - Rol de Administrador.pdf');
 
+        return view('bienestar::user-manual.user-manual', compact('pdfPath1'));
+    }
     
 }
