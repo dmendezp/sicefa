@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\BIENESTAR\Entities\Convocation;
 use Modules\SICA\Entities\Quarter;
+use Illuminate\Support\Facades\Route;
 
 
 class ConvocationsController extends Controller
@@ -56,9 +57,9 @@ class ConvocationsController extends Controller
         $convocations->save();
         
         if($convocations->save()){
-            return redirect()->route('bienestar.admin.crud.convocations')->with('success', 'Convocatoria registrada Correctamente');
+            return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.convocations.crud.convocations')->with('success', 'Convocatoria registrada Correctamente');
         }else{
-            return redirect()->route('bienestar.admin.crud.convocations')->with('error', 'Se Ha Producido Un Error');
+            return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.convocations.crud.convocations')->with('error', 'Se Ha Producido Un Error');
         }
     }
 
@@ -90,9 +91,9 @@ class ConvocationsController extends Controller
         $convocations->quarter_id= $request->input('quarter_id');
          
         if($convocations->save()){
-            return redirect()->route('bienestar.admin.crud.convocations')->with('success', 'Registro Actualizado Correctamente');
+            return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.convocations.crud.convocations')->with('success', 'Registro Actualizado Correctamente');
         }
-        return redirect()->route('bienestar.admin.crud.convocations')->with('errror', 'Se Ha Producido Un Error');
+        return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.convocations.crud.convocations')->with('errror', 'Se Ha Producido Un Error');
     }
 
     /**
