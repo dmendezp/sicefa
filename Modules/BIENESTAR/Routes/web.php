@@ -89,7 +89,9 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/admin/postulation-management', 'PostulationBenefitController@index')->name('bienestar.admin.view.postulation-management');
         Route::get('/admin/postulation-management/{id}', 'PostulationBenefitController@show')->name('bienestar.admin.show.postulation-management');
         Route::put('/admin/postulation-management/{id}/update-score', 'PostulationBenefitController@updateScore')->name('bienestar.admin.update-score.postulation-management');
-        Route::post('/admin/postulation-management/update-benefits', 'PostulationBenefitController@updateBenefits')->name('bienestar.admin.update-benefits.postulation-management');        
+        Route::post('/admin/postulation-management/update-benefits', 'PostulationBenefitController@updateBenefits')->name('bienestar.admin.update-benefits.postulation-management');
+        Route::put('/update-benefit/{id}', 'PostulationBenefitController@updateBenefit')->name('cefa.bienestar.update-benefit');
+        
         // Rutas para la vista postulation-management(LIDER BENEFICIO DE ALIMENTACION)
         Route::get('/food_benefits_leaders/postulation-management', 'PostulationBenefitController@index')->name('bienestar.food_benefits_leaders.view.postulation-management');
         Route::get('/food_benefits_leaders/postulation-management/{id}', 'PostulationBenefitController@show')->name('bienestar.food_benefits_leaders.show.postulation-management');

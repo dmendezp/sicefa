@@ -96,9 +96,11 @@ public function updateInline(Request $request)
             }
         }
 
-        return response()->json(['success' => 'Registro actualizado exitosamente.'], 200);
+        return response()->json([
+            'success' => 'Registros actualizados con éxito.',
+        ], 200);
     } catch (\Exception $e) {
-        return response()->json(['error' => $e->getMessage()], 500);
+        return response()->json(['error' => 'Error al actualizar los registros: ' . $e->getMessage()], 500);
     }
 }
 

@@ -145,9 +145,6 @@ public function updateBenefits(Request $request)
         $foodQuotas = $convocation->food_quotas;
         $transportQuotas = $convocation->transport_quotas;
 
-        // Validar si se están registrando postulaciones para Transporte
-        $isRegisteringForTransport = in_array('Transporte', Benefit::pluck('name')->toArray());
-
         // Obtener todas las postulaciones para la convocatoria activa
         $allPostulations = Postulation::where('convocation_id', $convocation->id)->pluck('id');
 
@@ -183,9 +180,37 @@ public function updateBenefits(Request $request)
                     ->where('benefit_id', $benefitId)
                     ->first();
 
-                if ($postulationBenefit) {
+                if (!$postulationBenefit) {
+                    // Crear el registro solo si no existe un registro Beneficiario
+                    PostulationBenefit::updateOrCreate(
+                        ['postulation_id' => $postulationId, 'benefit_id' => $benefitId],
+                        ['state' => 'No Beneficiario', 'message' => 'No hay cuotas disponibles y no adquiere Beneficio']
+                    );
+
+                    // Verificar cuotas disponibles y actualizar según sea necesario
+                    $availableQuotas = ($benefitId === Benefit::where('name', 'Transporte')->first()->id) ? $transportQuotas : $foodQuotas;
+
+                    if ($availableQuotas > 0) {
+                        $state = 'Beneficiario';
+                        $message = 'Felicidades, has sido aceptado para recibir el beneficio solicitado';
+
+                        $postulationBenefit->update([
+                            'state' => $state,
+                            'message' => $message,
+                        ]);
+
+                        // Reducir la cantidad de cuotas disponibles solo si el estado es "Beneficiario"
+                        if ($state === 'Beneficiario') {
+                            if ($benefitId === Benefit::where('name', 'Transporte')->first()->id) {
+                                $transportQuotas--;
+                            } else {
+                                $foodQuotas--;
+                            }
+                        }
+                    }
+                } else {
+                    // Si ya existe un registro, actualizar el estado y el mensaje si es necesario
                     if ($postulationBenefit->state !== 'Beneficiario') {
-                        // Validar si todavía hay cuotas disponibles para el beneficio
                         $availableQuotas = ($benefitId === Benefit::where('name', 'Transporte')->first()->id) ? $transportQuotas : $foodQuotas;
 
                         if ($availableQuotas > 0) {
@@ -197,7 +222,7 @@ public function updateBenefits(Request $request)
                                 'message' => $message,
                             ]);
 
-                            // Reduce la cantidad de cuotas disponibles solo si el estado es "Beneficiario"
+                            // Reducir la cantidad de cuotas disponibles solo si el estado es "Beneficiario"
                             if ($state === 'Beneficiario') {
                                 if ($benefitId === Benefit::where('name', 'Transporte')->first()->id) {
                                     $transportQuotas--;
@@ -219,7 +244,7 @@ public function updateBenefits(Request $request)
 
         // Establecer como "No Beneficiario" las postulaciones que no están seleccionadas
         foreach ($notSelectedPostulations as $postulationId) {
-            $benefitIds = Benefit::pluck('id');
+            $benefitIds = Benefit::whereIn('name', ['Alimentacion', 'Transporte'])->pluck('id');
             foreach ($benefitIds as $benefitId) {
                 // Verificar si existe un registro Beneficiario
                 $benefitState = PostulationBenefit::where('postulation_id', $postulationId)
@@ -242,26 +267,27 @@ public function updateBenefits(Request $request)
         $convocation->transport_quotas = $transportQuotas;
         $convocation->save();
 
-        // Maneja y responde a un mensaje de advertencia enviado desde JavaScript
+        // Manejar y responder a un mensaje de advertencia enviado desde JavaScript
         if ($request->has('message')) {
             $message = $request->input('message');
             $responseType = $request->input('type', 'warning'); // Tipo predeterminado si no se especifica
 
-            // Responde con un mensaje JSON
+            // Responder con un mensaje JSON
             return response()->json([
                 'warning' => 'Se ha superado el límite de cuotas seleccionadas',
             ], 200);
         }
 
-        // Devuelve una respuesta JSON con los datos actualizados en caso de éxito
+        // Devolver una respuesta JSON con los datos actualizados en caso de éxito
         return response()->json([
             'success' => 'Registros actualizados con éxito.',
         ], 200);
     } catch (\Exception $e) {
-        // Maneja errores si es necesario
+        // Manejar errores si es necesario
         return response()->json(['error' => 'Error al actualizar los registros: ' . $e->getMessage()], 500);
     }
 }
+
 
 
 
