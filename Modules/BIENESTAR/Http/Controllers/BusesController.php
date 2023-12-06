@@ -57,9 +57,15 @@ class BusesController extends Controller
     
         if ($buses->save()) {
             // Redirige con un mensaje de éxito
+<<<<<<< HEAD
+            return redirect()->route('bienestar.admin.crud.buses')->with('success', 'Bus creado correctamente.');
+        }else{
+            return redirect()->route('bienestar.admin.crud.buses')->with('errror', 'Se Ha Producido Un Error.');
+=======
             return redirect()->route('bienestar.admin.transportation.crud.buses')->with('message', 'Bus creado correctamente.')->with('typealert', 'success');
         }else{
             return redirect()->route('bienestar.admin.transportation.crud.buses')->with('message', 'Se Ha Producido Un Error.')->with('typealert', 'danger');
+>>>>>>> b4f36394365dcebd937a75daee0f9eb320461157
         }
 
     }
@@ -87,9 +93,15 @@ class BusesController extends Controller
     // Actualiza otros campos aquí
 
     if ($buses->save()) {
+<<<<<<< HEAD
+        return redirect()->route('bienestar.admin.crud.buses')->with('message', 'Bus actualizado correctamente.');
+    } else {
+        return redirect()->route('bienestar.admin.crud.buses')->with('message', 'Se ha producido un error');
+=======
         return redirect()->route('bienestar.admin.transportation.crud.buses')->with('message', 'Bus actualizado correctamente.')->with('typealert', 'success');
     } else {
         return redirect()->route('bienestar.admin.transportation.crud.buses')->with('message', 'Se ha producido un error')->with('typealert', 'danger');
+>>>>>>> b4f36394365dcebd937a75daee0f9eb320461157
     }
 }
 
@@ -104,9 +116,9 @@ class BusesController extends Controller
        try{
           $bus = Bus::findOrFail($id);
           $bus->delete();
-          return response()->json(['mensaje' => 'eliminado with success']);      
+          return response()->json(['mensaje' => 'eliminado con éxito']);      
         }  catch (\Exception $e) {
-            return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
+            return response()->json(['mensaje' =>'Error deleting trainee'], 500);
         }  
     }
 }

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <h1>Registro de Asistencia de Alimentación <i class="fas fa-pizza-slice"></i></h1>
+    <h1>{{ trans('bienestar::menu.Food Attendance Record')}} <i class="fas fa-pizza-slice"></i></h1>
     <div class="row justify-content-md-center pt-4">
         <div class="card shadow col-md-8">
             <div class="card-body">
@@ -10,9 +10,9 @@
                 <form method="GET" action="{{ route('bienestar.admin.route.food_assistance_lists.filter') }}">
                     @csrf
                     <div class="form-group col-md-6">
-                        <label for="porcentaje">porcentajes:</label>
+                        <label for="porcentaje">{{ trans('bienestar::menu.percentages')}}</label>
                         <select name="porcentaje" id="porcentaje" class="form-control">
-                            <option value="">Mostrar todos</option>
+                            <option value="">{{ trans('bienestar::menu.show all')}}</option>
                             <option value="100">100%</option>
                             <option value="75">75%</option>
                             <option value="50">50%</option>
@@ -21,11 +21,11 @@
                     
                <div class="form-row">
                <div class="form-group col-md-3">
-               <label for="fecha_inicio">Fecha de inicio:</label>
+               <label for="fecha_inicio">{{ trans('bienestar::menu.start date')}}</label>
                <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control">
                </div>
               <div class="form-group col-md-3">
-              <label for="fecha_fin">Fecha de fin:</label>
+              <label for="fecha_fin">{{ trans('bienestar::menu.end date')}}</label>
               <input type="date" name="fecha_fin" id="fecha_fin" class="form-control">
               </div>
              </div>
