@@ -2,7 +2,7 @@
 
 return [
     //Indicador del Reporte de huella de carbono
-    'Report_Indicator' => 'Reporte Huella de Carbono',
+    'Report_Indicator' => 'Reporte Huella Carbono',
 
     //Titulo principal de la vista reporte
     'Title_View_Report' => 'Informe de Huella de Carbono',

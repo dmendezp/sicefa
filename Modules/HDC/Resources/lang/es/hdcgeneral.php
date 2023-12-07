@@ -15,13 +15,13 @@ return [
     'RegisterConsumption' => 'Registro de Consumo',
     'consumptionconsultation' => 'Consulta de Consumo',
     'instructions' => 'Instrucciones',
-    'assign_environmental_aspects' => 'Asignar Aspectos Ambientales',
+    'assign_environmental_aspects' => 'Asignar Aspecto',
     'calculatefootprint' => 'Calcula Tu Huella',
-    
+
 
     // Indicador pagina Inicio
     'Indicator_Homepage' => 'Pagina Principal',
-    
+
 
     // Titulo Bienvenido a HDC
     'title1' => 'Bienvenido a HDC',
@@ -33,11 +33,11 @@ return [
     'title4' => 'Grafica Del Año',
     // Titulo ¿Cual Es Su Objetivo?
     'title5' => '¿Cual Es Su Objetivo?',
-    
 
- 
 
-   
+
+
+
 
     // Subtitulo
     'caption1' => '(Huella de Carbono)',

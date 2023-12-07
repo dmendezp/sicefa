@@ -60,7 +60,7 @@ class CarbonfootprintreportController extends Controller
                 ->havingRaw('carbon_footprint IS NOT NULL')
                 ->groupBy('sectors.id', 'productive_units.id', 'sectors.name', 'productive_units.name')
                 ->get();
-                
+
 
             return view('hdc::report.reporttables', compact('quarters', 'aspectosAmbientales'));
         } catch (ValidationException $e) {
@@ -133,8 +133,8 @@ class CarbonfootprintreportController extends Controller
 
             // Primera fila de la unidad productiva y huella de carbono
             $html .= '<td style="vertical-align: middle; text-align: center;">' . $aspects[0]['productive_unit_name'] . '</td>';
-            $html .= '<td style="vertical-align: middle; text-align: center;">' . number_format($aspects[0]['carbon_footprint'], 2) . '</td>'; // 2 es el número de decimales
-            $html .= '<td rowspan="' . $rowCount . '" style="vertical-align: middle; text-align: center;">' . number_format(array_sum(array_column($aspects->toArray(), 'carbon_footprint')), 2) . '</td>';
+            $html .= '<td style="vertical-align: middle; text-align: center;">' . number_format($aspects[0]['carbon_footprint'], 5) . '</td>'; // 2 es el número de decimales
+            $html .= '<td rowspan="' . $rowCount . '" style="vertical-align: middle; text-align: center;">' . number_format(array_sum(array_column($aspects->toArray(), 'carbon_footprint')), 5) . '</td>';
             $html .= '</tr>';
 
             // Resto de las filas
@@ -143,7 +143,7 @@ class CarbonfootprintreportController extends Controller
                 if ($aspects[$i]['carbon_footprint'] > 0) {
                     $html .= '<tr>';
                     $html .= '<td style="vertical-align: middle; text-align: center;">' . $aspects[$i]['productive_unit_name'] . '</td>';
-                    $html .= '<td style="vertical-align: middle; text-align: center;">' . number_format($aspects[$i]['carbon_footprint'], 2) . '</td>'; // 2 es el número de decimales
+                    $html .= '<td style="vertical-align: middle; text-align: center;">' . number_format($aspects[$i]['carbon_footprint'], 5) . '</td>'; // 2 es el número de decimales
                     $html .= '</tr>';
                 }
             }

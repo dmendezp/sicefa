@@ -1,6 +1,8 @@
 @extends('hdc::layouts.master')
 
 @section('content')
+<h2 class="text-center">Consultar Aspectos Ambientales</h2>
+<br>
 <div class="content">
     <div class="container-fluid mt">
         <div class="row justify-content-center">
@@ -31,7 +33,36 @@
 </div>
 
 @push('scripts')
+
 <script>
+    function ejecutarScript() {
+        document.addEventListener('DOMContentLoaded', () => {
+            const deleteButtons = document.querySelectorAll('.btnEliminar');
+
+            deleteButtons.forEach((deleteButton) => {
+                deleteButton.addEventListener('click', () => {
+                    const formId = deleteButton.dataset.formId;
+                    const form = document.getElementById(formId);
+
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: 'Esta acción no se puede deshacer',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Sí, eliminar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Envía el formulario de manera convencional
+                            form.submit();
+                        } else {
+                            Swal.fire('Cancelado', 'La acción ha sido cancelada', 'info');
+                        }
+                    });
+                });
+            });
+        });
+    }
     // Escucha el envío del formulario y realiza la solicitud AJAX
     $('#unidadForm').on('submit', function(e) {
         e.preventDefault(); // Evita el envío del formulario por defecto
@@ -44,12 +75,42 @@
             success: function(response) {
                 // Actualiza el contenido del contenedor con la tabla de resultados
                 $('#resultadosContainer').html(response);
+
+                // Llama a la función para inicializar SweetAlert después de cargar los resultados
+                initSweetAlert();
             },
             error: function(error) {
                 console.log(error);
             }
         });
     });
+
+    // Función para inicializar SweetAlert en los botones de eliminación
+function initSweetAlert() {
+    const btnEliminarArray = document.querySelectorAll('.btnEliminar');
+
+    btnEliminarArray.forEach(btnEliminar => {
+        btnEliminar.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Esta acción no se puede deshacer',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminarlo!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    e.target.closest('form').submit();
+                }
+            });
+        });
+    });
+}
+
+
 </script>
 
 @endpush

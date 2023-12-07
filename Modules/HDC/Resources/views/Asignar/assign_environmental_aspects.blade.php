@@ -4,13 +4,15 @@
 @endpush
 
 @section('content')
+<h2 class="text-center">Asignar Aspectos Ambientales</h2>
+<br>
 <div class="">
     <div class="card card-green card-outline shadow col-12">
         <div class="card-header">
             <h3 class="card-title">{{ trans('hdc::assign_environmental_aspects.ct1') }}</h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('hdc.admin.updateEnvironmentalAspects') }}" method="post"> {{-- Cambio de ruta a 'updateEnvironmentalAspects' --}}
+            <form action="{{ route('hdc.admin.updateEnvironmentalAspects') }}" id="updateForm" method="post"> {{-- Cambio de ruta a 'updateEnvironmentalAspects' --}}
                 @csrf
                 <div class="row">
                     <div class="col-6">
@@ -35,17 +37,21 @@
                     <div class="col-6">
                         <h2>{{ trans('hdc::assign_environmental_aspects.title_checklist') }}</h2>
                         <div name="Environmetal_Aspect" class="checkbox" required="true">
-                            @foreach ($environmentalAspect as $key => $ea)
-                            <label for="Aspecto{{ $ea->id }}">
-                                <input type="checkbox" name="Environmental_Aspect[]" id="Aspecto{{ $ea->id }}"
-                                    value="{{ $ea->id }}">
-                                {{ $ea->name }}
-                            </label>
-                            @endforeach
+                            <ul style="list-style-type: none; padding: 0; margin: 0;">
+                                @foreach ($environmentalAspect as $key => $ea)
+                                <li>
+                                    <label for="Aspecto{{ $ea->id }}">
+                                        <input type="checkbox" name="Environmental_Aspect[]" id="Aspecto{{ $ea->id }}" value="{{ $ea->id }}" >
+                                        {{ $ea->name }}
+                                    </label>
+                                </li>
+                                @endforeach
+                            </ul>
                         </div>
+
                     </div>
                     <div class="col-md-12 text-center">
-                        <button type="submit" class="btn btn-success" background-color="green">{{
+                        <button type="submit" class="btn btn-success" background-color="green" id="submitButton">{{
                             trans('hdc::assign_environmental_aspects.btn1') }}</button>
                     </div>
                 </div><br>
@@ -54,11 +60,25 @@
     </div>
 </div>
 @push('scripts')
-    <script>
+<script>
+    $(document).ready(function() {
+        $('#updateForm').on('submit', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Guardado exitosamente',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        });
+    });
         $(document).ready(function() {
             var activitySelect = $('select[name="activity_id"]');
-                activitySelect.on('change', function() {
-                    var selectedActivityId = $(this).val();
+            activitySelect.on('change', function() {
+                // Limpiar los checkboxes antes de realizar la acción
+                $('input[name="Environmental_Aspect[]"]').prop('checked', false);
+
+
+                var selectedActivityId = $(this).val();
 
                 if (selectedActivityId) {
                     // Utiliza el nombre de la ruta para obtener la URL
@@ -66,15 +86,31 @@
                     url = url.replace(':id', selectedActivityId);
 
                     $.get(url, function(data) {
-                        $('input[name="Environmental_Aspect"]').prop('checked', false);
+                        // Marcar los checkboxes según la respuesta de la solicitud AJAX
                         data.forEach(function(aspectId) {
                             $('#Aspecto' + aspectId).prop('checked', true);
                         });
                     });
-                } else {
-                    $('input[name="Environmental_Aspect"]').prop('checked', false);
+                }
+                // No es necesario el else ya que ya limpiamos los checkboxes antes
+            });
+
+
+            // Agrega un evento 'submit' al formulario para validar antes de enviar
+            $('#updateForm').on('submit', function(event) {
+                var checkedCheckboxes = $('input[name="Environmental_Aspect[]"]:checked');
+
+                if (checkedCheckboxes.length === 0) {
+                    // Si no hay checkboxes marcados, muestra una alerta y evita enviar el formulario
+                    event.preventDefault();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Debes seleccionar al menos un aspecto ambiental.',
+                    });
                 }
             });
+
 
             $('#productUnitSelect').on('change', function() {
                 var selectedProductId = $(this).val(); // Obtener el ID de la unidad productiva seleccionada

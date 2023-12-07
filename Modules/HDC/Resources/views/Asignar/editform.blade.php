@@ -7,17 +7,6 @@
 
 
 @section('content')
-@if (session('register'))
-<script>
-    Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Actualizacion exitosa',
-        showConfirmButton: false,
-        timer: 1500
-    })
-</script>
-@endif
     <div class="">
         <div class="card card-green card-outline shadow col-12">
             <div class="card-header">
@@ -75,7 +64,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 text-center">
-                            <button type="submit" class="btn btn-success">
+                            <button type="submit" class="btn btn-success" id="submitBtn">
                                 {{ trans('hdc::assign_environmental_aspects.btn1') }}
                             </button>
                         </div>
@@ -86,16 +75,41 @@
     </div>
 
     @push('scripts')
-    @if (session('register'))
         <script>
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Actualizacion exitosa',
-                showConfirmButton: false,
-                timer: 1500
-            })
+            function showSuccessAlert() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Actualizacion exitosa',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+
+            @if (session('register'))
+                showSuccessAlert();
+            @endif
+
+            document.getElementById('updateForm').addEventListener('submit', function (event) {
+                showSuccessAlert();
+            });
+
+            document.getElementById('updateForm').addEventListener('submit', function (event) {
+                var checkedCheckboxes = $('input[name="Environmental_Aspect[]"]:checked');
+
+                if (checkedCheckboxes.length === 0) {
+                    // Si no hay checkboxes marcados, muestra una alerta y evita enviar el formulario
+                    event.preventDefault();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Debes seleccionar al menos un aspecto ambiental.',
+                    });
+                } else {
+                    // Si hay checkboxes marcados, muestra la alerta de éxito
+                    showSuccessAlert();
+                }
+            });
         </script>
-    @endif
-@endpush
+    @endpush
+
 @endsection

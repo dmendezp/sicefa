@@ -28,14 +28,14 @@
                                                         </ul>
                                                     </td>
                                                     <td>
-
-                                                        <form method="post" action="{{ route('hcd.admin.delete_environmental_aspects', ['id' => $resultado->id]) }}" class="formEliminar">
+                                                        <form method="post" action="{{ route('hcd.admin.delete_environmental_aspects', $resultado->id ) }}">
                                                             @csrf
-                                                            @method('delete')
-                                                            <button class="btn btn-danger " type="button" data-form-id="formEliminar{{ $loop->iteration }}">
+                                                            @method('DELETE')
+                                                            <button class="btn btn-danger btnEliminar">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </button>
                                                         </form>
+
                                                         <form
                                                             action="{{ route('cefa.hdc.edit_resultados', ['activity_id' => $resultado->id]) }}"
                                                             method="get">
@@ -43,8 +43,6 @@
                                                             <button type="submit" class="btn btn-primary"> <i
                                                                     class="fa-solid fa-pen-to-square"></i></button>
                                                         </form>
-
-
                                                     </td>
                                                 </tr>
                                             @endif
@@ -61,3 +59,4 @@
         </div>
     </div>
 </div>
+

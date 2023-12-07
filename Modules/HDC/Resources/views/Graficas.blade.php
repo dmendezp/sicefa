@@ -40,11 +40,11 @@
     <br>
 
     @push('scripts')
-   
+
     <script type="text/javascript">
         // Datos dinámicos para Highcharts
         var chartData = <?php echo json_encode($chartData); ?>;
-    
+
         Highcharts.chart('container1', {
             title: {
                 text: 'Huella de Carbono Mensual',
@@ -64,8 +64,12 @@
                 accessibility: {
                     description: ''
                 }
-            }, // Añadí la coma que faltaba aquí
-    
+            },
+            plotOptions: {
+                series: {
+                    connectNulls: true // Esto permite conectar líneas a través de valores nulos
+                }
+            },
             legend: {
                 layout: 'vertical',
                 align: 'right',
@@ -87,8 +91,9 @@
                 }]
             }
         });
+
     </script>
-    
+
 
         <script type="text/javascript">
             // Tu PHP data aquí
@@ -187,7 +192,7 @@
                     column: {
                         dataLabels: {
                             enabled: true,
-                            format: '<span style="color:black; text-decoration: none !important;">{point.y:.2f}</span>',
+                            format: '<span style="color:black; text-decoration: none !important;">{point.y:.5f}</span>', // Ajusta el número de decimales aquí
                         }
                     }
                 },
@@ -197,7 +202,7 @@
                             return '<span style="font-size:11px">' + this.point.name + '</span><br>' +
                                 '<span style="color:black">Sector</span>: ' + this.point.sector + '<br>' +
                                 '<span style="color:black">Carbon Footprint</span>: <b>' + Highcharts.numberFormat(
-                                    this.point.y, 2, '.', ',') + '</b>';
+                                    this.point.y, 5, '.', ',') + '</b>'; // Ajusta el número de decimales aquí
                         }
                     }
                 },

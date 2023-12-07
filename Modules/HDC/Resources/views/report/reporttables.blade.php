@@ -23,12 +23,12 @@
                             <tr>
                                 <td rowspan="{{ count($aspects) }}">{{ $sectorName }}</td>
                                 <td>{{ $aspects[0]['productive_unit_name'] }}</td>
-                                <td>{{ number_format($aspects[0]['carbon_footprint'], 2) }}</td>
+                                <td>{{ number_format($aspects[0]['carbon_footprint'], 5) }}</td>
                                 <td rowspan="{{ count($aspects) }}">
                                     @php
                                         // Suma los carbon_footprint de cada aspecto para el total del sector
                                         $totalCarbonBySector[$sectorName] = $aspects->sum('carbon_footprint');
-                                        echo number_format($totalCarbonBySector[$sectorName], 2);
+                                        echo number_format($totalCarbonBySector[$sectorName], 5);
                                     @endphp
                                 </td>
                             </tr>
@@ -38,7 +38,7 @@
                                 @if ($aspects[$i]['carbon_footprint'] > 0)
                                     <tr>
                                         <td>{{ $aspects[$i]['productive_unit_name'] }}</td>
-                                        <td>{{ number_format($aspects[$i]['carbon_footprint'], 2) }}</td>
+                                        <td>{{ number_format($aspects[$i]['carbon_footprint'], 5) }}</td>
                                     </tr>
                                 @endif
                             @endfor

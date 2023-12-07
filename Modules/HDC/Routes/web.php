@@ -65,23 +65,14 @@ Route::middleware(['lang'])->group(function () {
             Route::post('/guardar', 'store')->name('hdc.assign_environmental_aspects.store');
             Route::post('/admin/update-environmental-aspects', 'update')->name('hdc.admin.updateEnvironmentalAspects');
             /* Ruta CRUD Del Formulario De Registro*/
-          /*   Route::get('/actividad/{activity}/editar', 'edit')->name('cefa.hdc.edit'); */
+          
           Route::get('cefa/hdc/edit_resultados/{activity_id}', 'edit_resultados')->name('cefa.hdc.edit_resultados');
           Route::post('admin/update/enviromentalaspect', 'UpdateEnvironmentalAspects')->name('hdc.admin.update.EnvironmentalAspects');
 
             Route::delete('/admin/hdc/delete_environmental_aspects/{id}', 'eliminarAspectosAmbientales')->name('hcd.admin.delete_environmental_aspects');
 
         });
-        Route::controller(AssignAspectsController::class)->group(function(){
-            Route::get('/consultar/aspectoAmbiental', 'consul')->name('hdc.admin.consultar.aspectoAmbiental'); //Ruta para consultar el aspecto ambiental
-            Route::get('/add/aspects', 'addaspects')->name('hdc.admin.add.aspects');//ruta para el boton de agregar del crud
-            Route::post('/admin/Aspect/activities', 'AspectActivities')->name('hdc.admin.aspect.activities');
-            Route::post('/admin/Aspect', 'Aspect')->name('hdc.admin.aspects');
-            Route::post('/result/tabla/Aspects', 'resulttable')->name('cefa.hdc.resultado.tabla'); //Ruta del ajax para traer la tabla con los aspectos ambientales segun la actividad
-            Route::post('/guardar-aspectos/{actividad}', 'guardarAspectos')->name('cefa.hdc.guardar.aspectos');
 
-
-        });
 
         Route::controller(CarbonfootprintController::class)->group(function () {
             /* Rutas de Calcula tu Huella */
