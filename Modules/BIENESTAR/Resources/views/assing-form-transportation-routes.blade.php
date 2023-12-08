@@ -40,7 +40,7 @@
                     <div class="card-body">
 
                     @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.updateInline.assing_form_transportation_routes'))
-                    <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.updateInline.assing_form_transportation_routes') }}" method="POST">
+                    <form id="#update-benefit-status-form" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.updateInline.assing_form_transportation_routes') }}" method="POST">
                         @csrf
                         <table class="table table-bordered table-striped">
                             <thead>

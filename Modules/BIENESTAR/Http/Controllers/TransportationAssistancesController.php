@@ -9,12 +9,14 @@ use Modules\SICA\Entities\Person;
 use Illuminate\Support\Facades\DB;
 use Modules\BIENESTAR\Entities\AssignTransportRoute;
 use Modules\BIENESTAR\Entities\TransportationAssistance;
+use Modules\BIENESTAR\Entities\RouteTransportation;
 
 class TransportationAssistancesController extends Controller
 {
     public function index()
     {
-        return view('bienestar::transportation_assistance_list');
+        $rutas = RouteTransportation::get();
+        return view('bienestar::transportation_assistance_list', compact('rutas'));
     }
 
     public function search(Request $request)
