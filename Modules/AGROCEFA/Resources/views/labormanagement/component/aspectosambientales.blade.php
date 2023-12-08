@@ -1,9 +1,6 @@
-<div class="form-group row" id="quantityFieldsContainer">
-    <div class="col-sm-12" id="aspectoAmbientalContainer">
+<div class="form-group row" id="environmentalAspectsContainer">
+    <div class="col-sm-12">
         {{-- Aquí se mostrarán los campos de cantidad en forma de formulario --}}
-        <form action="{{ route('agrocefa.trainer.labormanagement.registerlabor') }}" method="post" id="cantidadForm">
-            @csrf
-            {{-- Tabla para mostrar aspectos ambientales y campos de cantidad --}}
             <table class="table">
                 <thead>
                     <tr>
@@ -15,8 +12,6 @@
                     {{-- Las filas se agregarán dinámicamente aquí --}}
                 </tbody>
             </table>
-            
-        </form>
     </div>
 </div>
 {{-- Fin aspectos ambientales --}}

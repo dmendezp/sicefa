@@ -209,7 +209,7 @@ class MovementController extends Controller
         }
 
         // Redirigir de nuevo a la vista con un mensaje de éxito
-        return redirect()->route('agrocefa.movements.notification')->with('success', 'Movimiento confirmado exitosamente');
+        return redirect()->back()->with('success', 'Movimiento confirmado exitosamente');
     }
 
     public function returnMovement(Request $request, $id)
@@ -752,7 +752,7 @@ class MovementController extends Controller
         $product_unit = $request->input('product_unit'); // Bodega que entrega los elementos
         $receivewarehouse = $request->input('receivewarehouse'); // Bodega que recibe los elementos
 
-        $responsibility = ProductiveUnit::with('person')->where('id', $this->selectedUnitId)->first();
+        $responsibility = ProductiveUnit::with('person')->where('id', $product_unit)->first();
 
         if ($responsibility) {
             $personid = $responsibility->person_id;
@@ -760,12 +760,12 @@ class MovementController extends Controller
             $email = $responsibility->person->misena_email;
         }
 
-
         $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $deliverywarehouse)->where('productive_unit_id', $this->selectedUnitId)->first();
         $productiveWarehousedeliveryId = $deliveryproductive_warehouse->id;
 
         $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $receivewarehouse)->where('productive_unit_id', $product_unit)->first();
         $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
+        
 
         // Obtén los datos de los campos de la tabla con llaves [ ]
         $productElementIds = $request->input('product-id');
@@ -825,7 +825,6 @@ class MovementController extends Controller
                         return redirect()->back()->withInput()->with('error', 'La cantidad solicitada del elemento ' . $elementName . ' es mayor que la cantidad disponible (' . $existingInventory->amount . ').');
                     }
             
-                    // Restar la cantidad solicitada del inventario existente
                     $existingInventory->save();
                     $existingInventoryId = $existingInventory->id;
                 } else {

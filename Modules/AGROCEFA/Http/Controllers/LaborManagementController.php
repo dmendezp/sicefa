@@ -31,6 +31,12 @@ use Modules\SICA\Entities\Consumable;
 use Modules\SICA\Entities\EmployeeType;
 use Modules\SICA\Entities\Tool;
 use Modules\AGROCEFA\Entities\Crop;
+use Modules\SICA\Entities\Production;
+use Modules\SICA\Entities\MovementType;
+use Modules\SICA\Entities\Movement;
+use Modules\SICA\Entities\MovementDetail;
+use Modules\SICA\Entities\WarehouseMovement;
+use Modules\SICA\Entities\MovementResponsibility;
 use Modules\AGROCEFA\Entities\Variety;
 use App\Models\User;
 
@@ -77,12 +83,7 @@ class LaborManagementController extends Controller
         // Llama a la función para obtener los aspectos ambientales
         $aspectosAmbientales = [];
 
-        try {
-            $aspectosAmbientales = $this->obtenerAspectosAmbientales($activity);
-        } catch (\Exception $e) {
-            // Maneja cualquier excepción que pueda ocurrir al obtener los aspectos ambientales
-            \Log::error('Error al obtener aspectos ambientales: ' . $e->getMessage());
-        }
+       
         // ---------------- Filtro para las Actividades de esa unidad -----------------------
 
         // Intenta encontrar la unidad productiva por su ID y verifica si se encuentra
@@ -183,6 +184,22 @@ class LaborManagementController extends Controller
                 ];
             });
         }
+
+        $productionsData = Element::with('kind_of_purchase')
+            ->whereHas('kind_of_purchase', function ($query) {
+                $query->where('name', ['Producción de centro']);
+            })
+            ->get();
+
+        $productionsOptions = [];
+
+        foreach ($productionsData as $element) {
+            $elementId = $element->id;
+            $elementName = $element->name;
+            $productionsOptions[$elementId] = $elementName;
+        }
+        
+
         // ---------------- Retorno a vista y funciones -----------------------
 
         return view('agrocefa::labormanagement.culturalwork', [
@@ -196,6 +213,7 @@ class LaborManagementController extends Controller
             'destinationOptions' => $destinationOptions,
             'warehouseData' => $warehouseData,
             'productunits' => $productunits,
+            'productionsOptions' => $productionsOptions,
             'aspectosAmbientales' => $aspectosAmbientales, // Asegúrate de incluir esto en el array
         ]);
     }
@@ -453,8 +471,38 @@ class LaborManagementController extends Controller
         }
     }
 
+    private function getNextVoucherNumber()
+    {
+        // Obtén el número de consecutive de tu tipo de movimiento
+        $consecutive = MovementType::where('name', 'Movimiento Interno')->value('consecutive');
+
+        // Obtén el último número de voucher registrado en la tabla 'movements'
+        $lastVoucherNumber = Movement::max('voucher_number');
+
+        // Si no hay registros previos, comienza desde el 'consecutive' y 1
+        if (is_null($lastVoucherNumber)) {
+            $nextVoucherNumber = $consecutive . '1';
+        } else {
+            // Extrae el número de voucher sin el 'consecutive'
+            $lastVoucherNumberWithoutConsecutive = substr($lastVoucherNumber, strlen($consecutive));
+
+            // Incrementa el número sin el 'consecutive' en uno
+            $nextVoucherNumberWithoutConsecutive = intval($lastVoucherNumberWithoutConsecutive) + 1;
+
+            // Combina el 'consecutive' con el nuevo número de voucher
+            $nextVoucherNumber = $consecutive . $nextVoucherNumberWithoutConsecutive;
+        }
+        return $nextVoucherNumber;
+    }
+
     public function registerlabor(Request $request)
     {
+
+        // Obtén el ID de la unidad productiva seleccionada de la sesión
+        $this->selectedUnitId = Session::get('selectedUnitId');
+
+        // Obtener para Tipo de Movimiento
+        $movementType = MovementType::select('id', 'consecutive')->where('name', '=', 'Movimiento Interno')->first();
 
         $ProductiveUnitWarehouses = Session::get('productiveunitwarehouseid');
         foreach ($ProductiveUnitWarehouses as $ProductiveUnitWarehouse) {
@@ -493,6 +541,33 @@ class LaborManagementController extends Controller
         $machineryIds = $request->input('machinery-id');
         $machineryWages = $request->input('machinery_wage');
         $machineryPrices = $request->input('machinery_price');
+
+        // Datos de Produccion
+        $unitreceive = $request->input('unit');
+        $receivewarehouse = $request->input('warehouse');
+        $deliverywarehouse = $request->input('deliverywarehouse');
+        $productionIds = $request->input('production-id');
+        $productionamount = $request->input('production_amount');
+        $productionexpiration = $request->input('production_expiration');
+        $productionlot = $request->input('production_lot');
+
+        $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $deliverywarehouse)->where('productive_unit_id', $this->selectedUnitId)->first();
+        $productiveWarehousedeliveryId = $deliveryproductive_warehouse->id;
+
+        $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $receivewarehouse)->where('productive_unit_id', $unitreceive)->first();
+        $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
+
+        $responsibilitys = ProductiveUnit::with('person')->where('id', $unitreceive)->first();
+
+        if ($responsibilitys) {
+            $personid = $responsibilitys->person_id;
+            $people = $responsibilitys->person->first_name;
+            
+        }
+
+        // Inicializa el precio total en 0
+        $totalPrice = 0;
+        
         // Inicia una transacción de base de datos
         DB::beginTransaction();
 
@@ -520,6 +595,125 @@ class LaborManagementController extends Controller
                 'crop_id' => $crop,
                 'labor_id' => $laborId,
             ]);
+
+            if (!empty($productionIds) && is_array($productionIds) && count(array_filter($productionIds)) > 0) {
+
+                //Registrar movimiento de produccion
+
+                $movementId = null; // Declara $movementId antes del bucle
+
+                // Generar el voucher como consecutivo simple sin ceros adicionales
+                $voucher = $this->getNextVoucherNumber();
+
+                // Registra un solo movimiento con el precio total calculado
+                $movement = new Movement([
+                    'registration_date' => $date,
+                    'movement_type_id' => $movementType->id,
+                    'voucher_number' => $voucher,
+                    'price' => $totalPrice,
+                    'observation' => $observation,
+                    'state' => 'Solicitado',
+                ]);
+
+                // Guarda el nuevo registro en la base de datos
+                $movement->save();
+                $movementId = $movement->id;
+
+
+                foreach ($productionIds as $index => $productionId) {
+                    // Accede a los datos de cada elemento de la tabla
+                    $productionamount = $productionamount[$index];
+                    $productionexpiration = $productionexpiration[$index];
+                    $productionlot = $productionlot[$index];
+
+                    // Registra la labor con el precio total calculado
+                    $production = new Production([
+                        'labor_id' => $laborId,
+                        'lot_number' => $productionlot,
+                        'element_id' => $productionId,
+                        'amount' => $productionamount,
+                        'expiration_date' => $productionexpiration,
+                        
+                    ]);
+
+                    // Guarda el nuevo registro en la base de datos
+                    $production->save();
+                    $productionsId = $production->id;
+                    
+                    $stock = 3;
+
+                    $price = Element::where('id', $productionId)->value('price');
+                    
+                    
+                    $newInventory = new Inventory([
+                        'person_id' => $responsibility,
+                        'productive_unit_warehouse_id' => $productiveWarehousedeliveryId,
+                        'element_id' => $productionId,
+                        'price' => $price,
+                        'amount' => $productionamount,
+                        'stock' => $stock,
+                        'lot_number' => $productionlot ?: null,
+                    ]);
+            
+                    $newInventory->save();
+            
+                    $InventoryId = $newInventory->id;
+
+                    // Calcula el precio total para este elemento y agrégalo al precio total general
+                    $totalPrice += ($productionamount * $price);
+                
+                    // Registrar detalle del movimiento para cada elemento
+                    $movementDetails = new MovementDetail([
+                        'movement_id' => $movementId, // Asociar al movimiento actual
+                        'inventory_id' => $InventoryId, // Asociar al inventario actual
+                        'amount' => $productionamount, // Cantidad del elemento actual
+                        'price' => $price, // Precio del elemento actual
+                    ]);
+                
+                    $movementDetails->save();
+                    
+                }
+
+                // Actualiza el precio total en el movimiento principal
+                $movement->price = $totalPrice;
+                $movement->save();
+
+                // Registrar las bodegas y rol del movimiento
+                $warehouse_movement_entrega = new WarehouseMovement([
+                    'productive_unit_warehouse_id' => $productiveWarehousedeliveryId,
+                    'movement_id' => $movementId, // Usar $movementId en lugar de end($movementIds)
+                    'role' => 'Entrega',
+                ]);
+
+                $warehouse_movement_recibe = new WarehouseMovement([
+                    'productive_unit_warehouse_id' => $productiveWarehousereceiveId,
+                    'movement_id' => $movementId, // Usar $movementId en lugar de end($movementIds)
+                    'role' => 'Recibe',
+                ]);
+
+                $warehouse_movement_entrega->save();
+                $warehouse_movement_recibe->save();
+
+                // Crear un array con los registros de responsabilidades
+                $responsibilitiesData = [
+                    [
+                        'person_id' => $responsibility,
+                        'movement_id' => $movementId, // Usar $movementId en lugar de end($movementIds)
+                        'role' => 'REGISTRO',
+                        'date' => $date,
+                    ],
+                    [
+                        'person_id' => $personid, // Usar la variable $personid
+                        'movement_id' => $movementId, // Usar $movementId en lugar de end($movementIds)
+                        'role' => 'RECIBE',
+                        'date' => $date,
+                    ],
+                ];
+
+                // Insertar los registros en la tabla movement_responsibilities
+                MovementResponsibility::insert($responsibilitiesData);
+            }
+            
 
             if (!empty($executorIds) && is_array($executorIds) && count(array_filter($executorIds)) > 0) {
                 foreach ($executorIds as $index => $executorId) {
@@ -670,30 +864,6 @@ class LaborManagementController extends Controller
             $labor->price = $pricemanual;
             $labor->save();
 
-
-/////////////////////////////////////////////////////////////////////////////////////
-            // Obtén los datos ambientales desde el formulario-GURDAR ASPECTO AMBIENTAL Y CANTIDAD
-            $environmentalAspectIds = $request->input('environmental_aspect_ids');
-            $environmentalAspectQuantities = $request->input('environmental_aspect_quantities');
-
-            // Guarda los aspectos ambientales en la tabla environmental_aspect_labors
-            if (!empty($environmentalAspectIds) && is_array($environmentalAspectIds) && count(array_filter($environmentalAspectIds)) > 0) {
-                foreach ($environmentalAspectIds as $index => $aspectId) {
-                    // Accede a los datos de cada elemento de la tabla
-                    $aspectQuantity = $environmentalAspectQuantities[$index];
-
-                    // Registra el aspecto ambiental asociado a la labor
-                    $environmentalAspectLabor = new EnvironmentalAspectLabor([
-                        'labor_id' => $laborId,
-                        'aspect_id' => $aspectId,
-                        'amount' => $aspectQuantity, // Ajusta aquí al nombre correcto ('amount')
-                    ]);
-
-                    // Guarda el nuevo registro en la base de datos
-                    $environmentalAspectLabor->save();
-                }
-            }
-
             // Si todo está correcto, realiza un commit de la transacción
             DB::commit();
 
@@ -704,8 +874,17 @@ class LaborManagementController extends Controller
         } catch (\Exception $e) {
             // En caso de error, realiza un rollback de la transacción y maneja el error
             DB::rollBack();
-
+        
             \Log::error('Error en el registro: ' . $e->getMessage());
+            \Log::error('Error en el registro: ' . $e->getTraceAsString());
+        
+            // También puedes imprimir información específica sobre el error
+            dd($e);
+        
+            // O puedes redirigir a una página de error con un mensaje específico
+            return redirect()
+                ->route('agrocefa.trainer.labormanagement.index')
+                ->with('error', 'Error en el registro: ' . $e->getMessage());
         }
     }
 

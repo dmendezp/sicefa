@@ -83,7 +83,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('passant/movements/entry', 'MovementController@formentrance')->name('agrocefa.passant.movements.entry.index');
         Route::get('trainer/movements/exit', 'MovementController@formexit')->name('agrocefa.trainer.movements.exit.index');
         Route::get('passant/movements/exit', 'MovementController@formexit')->name('agrocefa.passant.movements.exit.index');
-        Route::get('/movements/request', 'MovementController@requestentrance')->name('agrocefa.movements.notification');
+        Route::get('trainer/movements/request', 'MovementController@requestentrance')->name('agrocefa.trainer.movements.notification');
         Route::post('/movements/request/confirmation/{id}', 'MovementController@confirmation')->name('agrocefa.movements.confirmation');
         Route::post('/movements/request/returnmovement/{id}', 'MovementController@returnMovement')->name('agrocefa.movements.return');
         Route::post('trainer/movements/entry/store', 'MovementController@registerentrance')->name('agrocefa.trainer.movements.entry.store');
