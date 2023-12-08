@@ -143,24 +143,13 @@ return[
     'New Score' => 'Nueva Puntuación',
     'Save Score' => 'Guardar Puntuación',
 
-<<<<<<< HEAD
-
     //vita assistancefood
     'Food Attendance Record' => 'Registro de Asistencia de Alimentación ',
     'start date' => 'Fecha de Inicio',
     'end date' => 'Fecha de fin',
     'percentages' => 'Porcentajes',
     'show all' => 'Mostrar todos',
-    
-    
 
-
-
-
-
-
-
-=======
 //Alert Eliminar
     '¿Are You Sure?' => '¿Está seguro?',
     'This Action Is Irreversible' =>'Esta acción es irreversible',
@@ -173,7 +162,6 @@ return[
     'An error occurred while trying to edit.' => 'Se ha producido un error al intentar editar.',
     'An error occurred while trying to save records.' => 'Ha ocurrido un error al intentar guardar registros.',
     'Successful operation!' => 'Operación exitosa'
->>>>>>> b4f36394365dcebd937a75daee0f9eb320461157
     
 ]
 

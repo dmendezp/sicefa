@@ -7,12 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Modules\SICA\Entities\Person;
-use Modules\SICA\Entities\Apprentice;
-use Modules\SICA\Entities\Program;
-use Modules\SICA\Entities\Course;
-use Modules\BIENESTAR\Entities\Postulation;
 use Modules\BIENESTAR\Entities\PostulationBenefit;
-use Modules\BIENESTAR\Entities\Benefit;
 
 class CallConsultationController extends Controller
 
@@ -28,13 +23,8 @@ class CallConsultationController extends Controller
 
     public function search(Request $request)
     {
-        $documentNumber = $request->input('document_number');
-    
-        $person = Person::with('apprentices.course.program', 'apprentices.postulations.postulationBenefits.benefit', 'apprentices.postulations.convocation') // Cargar la relación de convocatoria
-            ->where('document_number', $documentNumber)
-            ->first();
-    
-        return view('bienestar::callconsultation', ['person' => $person]);
+        $documentNumber = json_decode($_POST['data']);
+        return view('bienestar::consult.consult-consultation-table', ['documentNumber' => $documentNumber]);
     }
     
      //

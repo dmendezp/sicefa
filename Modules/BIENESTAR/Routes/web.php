@@ -47,7 +47,7 @@ Route::middleware(['lang'])->group(function () {
         //Vista CRUD Buses(ADMINISTRADOR)
         Route::get('/admin/buses', 'BusesController@index')->name('bienestar.admin.transportation.crud.buses');
         Route::post('/admin/buses/store', 'BusesController@store')->name('bienestar.admin.save.buses');
-        Route::put('/admin/buses/update/{id} ', 'BusesController@update')->name('bienestar.admin.edit.buses');
+        Route::put('/admin/buses/update/{id}', 'BusesController@update')->name('bienestar.admin.edit.buses');
         Route::delete('/admin/buses/delete/{id}', 'BusesController@destroy')->name('bienestar.admin.delete.buses');
         //Vista CRUD Buses(LIDER BENEFICIO DE TRANSPORTE)
         Route::get('/transportation_benefits_leader/buses', 'BusesController@index')->name('bienestar.transportation_benefits_leader.transportation.crud.buses');
@@ -140,11 +140,7 @@ Route::middleware(['lang'])->group(function () {
        
         // Vista De Consulta(Publica)
         Route::get('/callconsultation', 'CallConsultationController@index')->name('cefa.bienestar.callconsultation');
-        Route::post('/busqueda', 'CallConsultationController@buscar')->name('cefa.bienestar.busqueda');
-        Route::post('/busqueda/document', 'CallConsultationController@search')->name('cefa.bienestar.search1');
-        Route::post('/search', 'CallConsultationController@searchByDocumentNumber')->name('cefa.bienestar.search.by.document');
-        Route::post('/procesar-formulario', 'CallConsultationController@procesarFormulario')->name('cefa.bienestar.procesar.formulario');
-        Route::get('/consulta/{documentNumber}', 'CallConsultationController@consultarBeneficios')->name('cefa.bienestar.consulta.resultados');
+        Route::post('/callconsultation/search-postulation', 'CallConsultationController@search')->name('cefa.bienestar.searchPostulation');
 
         // Vista de Postulaciones(Publica)
         Route::get('/postulations', 'PostulationsController@index') ->name('cefa.bienestar.postulations');

@@ -1,6 +1,5 @@
 @extends('bienestar::layouts.master')
 
-
 @section('content')
 <!-- Main content -->
 <div class="container-fluid">
@@ -99,7 +98,7 @@
             </div>
             <div class="modal-body">
                 @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.buses'))
-                {!! Form::open( ['route' => ['bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.buses', $bus->id], 'method' => 'PUT', 'role' => 'form']) !!}
+                {!! Form::open( ['route' => ['bienestar.'.getRoleRouteName(Route::currentRouteName()).'.edit.buses', $bus->id], 'method' => 'PUT', 'role' => 'form']) !!}
                 <div class="row p-4">
                 <div class="col-md-12">
             <div class="form-group">
