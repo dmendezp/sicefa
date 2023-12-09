@@ -19,15 +19,8 @@
     color: white;
   }
 
-  body{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 10px;
-  min-height: 100vh;
-  background: #ededed;
-}
-.container{
+
+.conttraduction-select{
   max-width: 690px;
   width: 100%;
   padding: 30px;
@@ -35,10 +28,7 @@
   border-radius: 7px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.01);
 }
-.wrapper{
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
+
 .wrapper .text-input{
   display: flex;
   border-bottom: 1px solid #ccc;
@@ -139,7 +129,7 @@
 }
 
 @media (max-width: 660px){
-  .container{
+  .conttraduction{
     padding: 20px;
   }
   .wrapper .text-input{
@@ -165,5 +155,14 @@
   .controls .exchange{
     font-size: 14px;
   }  
+  .translation-select {
+    color: #333;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    background: none;
+    padding-left: 5px;
+  }
+  
 
 }

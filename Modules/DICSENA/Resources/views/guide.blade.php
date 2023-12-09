@@ -52,7 +52,7 @@
             <form action="{{ route('cefa.dicsena.guide') }}" method="get">
                 <div class="form-group">
                     <label for="program_name">Selecciona un programa:</label>
-                    <select name="program_name" id="program_name" class="form-control">
+                    <select name="program_name" id="program_name" class="form-control program-filter" style="text-align: center; border: blue solid 1px;">
                         <option value="">------</option>
                         @foreach ($programs as $program)
                         <option value="{{ $program->name }}" {{ $selectedProgram == $program->name ? 'selected' : '' }}>
@@ -108,4 +108,5 @@
     </div>
 </div>
 </div>
+
 @endsection
