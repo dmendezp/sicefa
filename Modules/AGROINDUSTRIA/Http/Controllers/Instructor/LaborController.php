@@ -522,8 +522,6 @@ class LaborController extends Controller
                 $p->lot = $request->input('lot');
                 $p->save();
             }
-
-            $consumables = Consumable::where('labor_id', $l->id)->get();
             
             DB::commit();
 

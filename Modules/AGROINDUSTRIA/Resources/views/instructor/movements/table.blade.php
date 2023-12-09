@@ -90,7 +90,7 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group">
-                    <p>Quieres aprobar este movimiento?</p>
+                    <p>¿Quieres aprobar este movimiento?</p>
                 </div>                
         </div>
         <div class="modal-footer">

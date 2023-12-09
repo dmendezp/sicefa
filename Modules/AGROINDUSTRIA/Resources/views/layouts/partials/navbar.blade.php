@@ -21,12 +21,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('cefa.agroindustria.home.formulations.recipes')}}">{{trans('agroindustria::menu.Products')}}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('cefa.agroindustria.home.developments')}}">Desarrolladores</a>
+                </li>
+                
             @endif
             
-            @if(auth()->check() && checkRol('agroindustria.admin') & Route::is('*units.*'))          
-                <li class="nav-item">
-                    <a href="{{route('agroindustria.admin.remove')}}" class="nav-link">{{trans('agroindustria::menu.Desregistrations')}}</a>
-                </li>
+            @if(auth()->check() && checkRol('agroindustria.admin') & Route::is('*units.*'))                       
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('agroindustria.admin.units.activity', ['unit'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Activities')}}</a>
                 </li>
@@ -41,6 +42,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory')}}">{{trans('agroindustria::menu.Inventory')}}</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('agroindustria.admin.remove')}}" class="nav-link">{{trans('agroindustria::menu.Desregistrations')}}</a>
                 </li>
             @endif
 
@@ -75,6 +79,9 @@
                     <a class="nav-link" href="{{route('agroindustria.instructor.units.production')}}">Producción</a>
                 </li>
                 @endif
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.requests')}}">Solicitud de Insumos</a>
+                </li>
             @endif
             {{-- Menu storer --}}
             @if(auth()->check() && checkRol('agroindustria.almacenista'))  

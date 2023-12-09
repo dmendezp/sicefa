@@ -6,6 +6,7 @@ use Modules\AGROINDUSTRIA\Http\Controllers\instructor\UnitController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\LaborController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\ActivityController;
 use Modules\AGROINDUSTRIA\Http\Controllers\intern\RequestController;
+use Modules\AGROINDUSTRIA\Http\Controllers\instructor\InputRequestController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\ProductionController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\DeliverController;
 use Modules\AGROINDUSTRIA\Http\Controllers\Unit\BakeryController;
@@ -18,6 +19,7 @@ Route::middleware(['lang'])->group(function(){
 
     Route::prefix('agroindustria')->group(function() {
         Route::get('/index', 'AGROINDUSTRIAController@index')->name('cefa.agroindustria.home.index');
+        Route::get('/developments', 'AGROINDUSTRIAController@developments')->name('cefa.agroindustria.home.developments');
         Route::get('/cedula/{coordinatorId}', [RequestController::class, 'document_coordinator'])->name('cefa.agroindustria.cedula');
         Route::get('/formulation/recipes', 'AGROINDUSTRIAController@recipes')->name('cefa.agroindustria.home.formulations.recipes');
         
@@ -79,11 +81,13 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/units', 'AGROINDUSTRIAController@unidd')->name('agroindustria.instructor.units');
 
             //Solicitudes
-            Route::get('/requests', [RequestController::class, 'table'])->name('cefa.agroindustria.units.instructor.requests');
-            Route::get('/solicitud', [RequestController::class, 'solicitud'])->name('cefa.agroindustria.units.instructor.solicitud');
-            Route::get('/amount/{id}', [RequestController::class, 'amount'])->name('cefa.agroindustria.units.instructor.amount');
-            Route::post('/enviarsolicitud', [RequestController::class, 'create'])->name('cefa.agroindustria.units.instructor.enviarsolicitud');
-            Route::put('/requests/cancelled/{id}', [RequestController::class, 'cancel'])->name('cefa.agroindustria.units.instructor.requests.cancelled');
+            Route::get('/requests', [InputRequestController::class, 'table'])->name('cefa.agroindustria.units.instructor.requests');
+            Route::get('/solicitud', [InputRequestController::class, 'form'])->name('cefa.agroindustria.units.instructor.solicitud');
+            Route::get('/amount/{id}', [InputRequestController::class, 'amount'])->name('cefa.agroindustria.units.instructor.amount');
+            Route::post('/enviarsolicitud', [InputRequestController::class, 'create'])->name('cefa.agroindustria.units.instructor.enviarsolicitud');
+            Route::put('/request/pending/{id}', [InputRequestController::class, 'stateMovement'])->name('cefa.agroindustria.units.instructor.request.pending.state');
+            Route::get('/agroindustria/generar-excel-request/{movementId}', [InputRequestController::class, 'generateExcel'])->name('cefa.agroindustria.units.instructor.request.excel');
+            Route::get('/request/element/{name}', [InputRequestController::class, 'element'])->name('cefa.agroindustria.units.instructor.element.name');
 
             //Labor
             Route::get('/labor', [LaborController::class, 'index'])->name('agroindustria.instructor.units.labor');

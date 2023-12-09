@@ -407,6 +407,48 @@ window.onclick = function(event) {
      });
  </script>
  
+ {{-- Busca productos segun el numero de documento --}}
+<script>
+    $(document).ready(function() {
+        var baseUrl = '{{ route("cefa.agroindustria.units.instructor.element.name", ["name" => ":name"]) }}';
+          console.log(baseUrl);
+          $('.elementInventory-select').select2({
+            placeholder: 'Buscar productos',
+            minimumInputLength: 1, // Habilita la búsqueda en tiempo real
+            ajax: {
+              url: function(params) {
+                  // Reemplaza el marcador de posición con el término de búsqueda
+                  var searchUrl = baseUrl.replace(':name', params.term);
+
+                  return searchUrl; // Utiliza la URL actualizada con el término de búsqueda
+              },
+              dataType: 'json',
+              delay: 250, // Retardo antes de iniciar la búsqueda
+              processResults: function(data) {
+                  return {
+                      results: data.id.map(function(element) {
+                          return {
+                              id: element.id,
+                              text: element.name,
+                          };
+                      })
+                  };
+              },
+              cache: true
+            }
+          });
+
+          // Manejar la selección de una persona en el campo de búsqueda
+          $('.elementInventory-select').on('select2:select', function(e) {
+              var selectedElement = e.params.data;
+              console.log(selectedElement);
+              // Actualizar el contenido de la etiqueta con el nombre de la persona seleccionada
+              $(this).closest('.elements').find('input.element_id').val(selectedElement.id);
+              $(this).closest('.elements').find('input.element_name').val(selectedElement.text);
+          });
+        });
+ </script>
+
 
 <script>
     new DataTable('#inventory');

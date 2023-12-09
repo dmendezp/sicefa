@@ -62,6 +62,11 @@ class AGROINDUSTRIAController extends Controller
         }
     }
 
+    public function developments(){
+        $title = 'Desarrolladores';
+        return view('agroindustria::developments', compact('title'));
+    }
+
     public function manual()
     {
         // Ruta al archivo PDF

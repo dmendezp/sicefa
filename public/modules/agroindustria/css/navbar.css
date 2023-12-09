@@ -43,6 +43,11 @@
   right: 40px;
 }
 
+.dashboard_admin{
+  position: relative;
+  right: 40px;
+}
+
 .home{
   list-style: none;
 }
