@@ -17,6 +17,7 @@ return [
     'instructions' => 'Instrucciones',
     'assign_environmental_aspects' => 'Asignar Aspecto',
     'calculatefootprint' => 'Calcula Tu Huella',
+    'Graphics' => 'Graficas',
 
 
     // Indicador pagina Inicio

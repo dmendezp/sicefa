@@ -32,10 +32,6 @@ class CarbonfootprintController extends Controller
         ->orderBy('anio', 'desc')
         ->take(12)
         ->get();
-
-
-
-
         // Retorna una vista con los datos de la persona si se encuentra
         return view('hdc::Calc_Huella.table', ['environmeaspect' => $environmeaspect, 'environmeaspectgraph'=>$environmeaspectgraph]);
     }

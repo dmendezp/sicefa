@@ -1,5 +1,12 @@
 @extends('hdc::layouts.master')
 
+@push('breadcrumbs')
+    <li class="breadcrumb-item active"><a
+            href="{{ route('hdc.admin.carbonfootprint.persona' ) }}">{{ trans('hdc::calculatefootprint.Indicator_Calculate_Your_Footprint') }} </a>
+        /{{ trans('hdc::ConsumptionRegistry.indicator_form_results_update') }}</li>
+@endpush
+
+
 @section('content')
     <div class="col-md-12">
         <div class="card card-success card-outline shadow mt-2">
@@ -20,15 +27,13 @@
                                 <select id="mes" name="mes" class="form-control">
                                     <option value="" disabled>--- Seleccione el mes ---</option>
                                     @for ($i = 1; $i <= 12; $i++)
-                                        @php
-                                            $monthValue = strftime('%B', mktime(0, 0, 0, $i, 1, 2000));
-                                        @endphp
-                                        <option value="{{ $monthValue }}"
-                                                @if(old('mes', $fpf->mes) == $monthValue || old('mes', $fpf->mes) == $i) selected @endif>
-                                            {{ trans("hdc::ConsumptionRegistry.month$i") }}
+                                        <option value="{{ $i }}"
+                                            @if(old('mes', $fpf->mes) == $i) selected @endif>
+                                            {{ trans("hdc::ConsumptionRegistry.month{$i}") }}
                                         </option>
                                     @endfor
                                 </select>
+
                             </div>
 
                             <label for="anio" class="col-md-2 col-form-label text-md-right">Año</label>

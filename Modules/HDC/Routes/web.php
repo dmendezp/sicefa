@@ -57,19 +57,17 @@ Route::middleware(['lang'])->group(function () {
         });
         /* Ruta Para Asignar recursos */
         Route::controller(assign_environmental_aspectsController::class)->group(function () {
-            Route::get('/AsignarAspectosAmbientales', 'assign_environmental_aspects')->name('cefa.hdc.assign_environmental_aspects');
+            Route::get('/admin/AsignarAspectosAmbientales', 'assign_environmental_aspects')->name('hdc.admin.assign_environmental_aspects');
             Route::get('/admin/listado_aspectos', 'aspectlist')->name('hdc.admin.resultfromaspects');
-            Route::post('/mostrar-resultados', 'mostrarResultados')->name('cefa.hdc.mostrarResultados');
+            Route::post('/admin/mostrar-resultados', 'mostrarResultados')->name('hdc.admin.mostrarResultados');
             Route::get('/admin/get_activities', 'getactivities')->name('hdc.admin.getactivities');
-            Route::get('/get-environmental-aspects/{activityId}', 'getEnvironmentalAspects')->name('cefa.hdc.getEnvironmentalAspects');
-            Route::post('/guardar', 'store')->name('hdc.assign_environmental_aspects.store');
+            Route::get('/admin/get-environmental-aspects/{activityId}', 'getEnvironmentalAspects')->name('hdc.admin.getEnvironmentalAspects');
             Route::post('/admin/update-environmental-aspects', 'update')->name('hdc.admin.updateEnvironmentalAspects');
             /* Ruta CRUD Del Formulario De Registro*/
-          
-          Route::get('cefa/hdc/edit_resultados/{activity_id}', 'edit_resultados')->name('cefa.hdc.edit_resultados');
-          Route::post('admin/update/enviromentalaspect', 'UpdateEnvironmentalAspects')->name('hdc.admin.update.EnvironmentalAspects');
 
-            Route::delete('/admin/hdc/delete_environmental_aspects/{id}', 'eliminarAspectosAmbientales')->name('hcd.admin.delete_environmental_aspects');
+          Route::get('/admin/hdc/edit_resultados/{activity_id}', 'edit_resultados')->name('hdc.admin.edit_resultados');
+          Route::post('/admin/update/enviromentalaspect', 'UpdateEnvironmentalAspects')->name('hdc.admin.update.EnvironmentalAspects');
+          Route::delete('/admin/hdc/delete_environmental_aspects/{id}', 'eliminarAspectosAmbientales')->name('hcd.admin.delete_environmental_aspects');
 
         });
 
@@ -99,9 +97,11 @@ Route::middleware(['lang'])->group(function () {
             Route::get('/admin/grafica', 'grafica')->name('hdc.admin.grafica');
         });
 
-        Route::controller(GraficasController::class)->group(function () {
+        Route::controller(GraphicsController::class)->group(function () {
             /* Ruta de Graficas */
             Route::get('/Graficas', 'Graficas')->name('cefa.hdc.Graficas');
+            Route::get('/charge/graphics', 'Graficas')->name('hdc.charge.Graficas');
+            Route::get('/admin/graphics', 'Graficas')->name('hdc.admin.Graficas');
 
         });
 

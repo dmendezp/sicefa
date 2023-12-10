@@ -17,6 +17,7 @@ return [
     'instructions' => 'instructions',
     'assign_environmental_aspects' => 'Assign Environmental Aspects',
     'calculatefootprint' => 'Calculate Your Footprint',
+    'Graphics' => 'Graphics',
 
     // Indicador pagina Inicio
     'Indicator_Homepage' => 'Homepage',

@@ -1,8 +1,7 @@
 @extends('hdc::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active"><a
-            href=""></a>{{ trans('hdc::assign_environmental_aspects.Indicator_assign_environmental_aspects') }}</li>
+<li class="breadcrumb-item active"><a href="{{ route('hdc.admin.resultfromaspects') }}">{{ trans('hdc::assign_environmental_aspects.Consult_environmental_aspects')}}</a> / {{ trans('hdc::assign_environmental_aspects.Edit_environmental_aspects')}}</li>
 @endpush
 
 
@@ -84,14 +83,6 @@
                     timer: 1500
                 });
             }
-
-            @if (session('register'))
-                showSuccessAlert();
-            @endif
-
-            document.getElementById('updateForm').addEventListener('submit', function (event) {
-                showSuccessAlert();
-            });
 
             document.getElementById('updateForm').addEventListener('submit', function (event) {
                 var checkedCheckboxes = $('input[name="Environmental_Aspect[]"]:checked');

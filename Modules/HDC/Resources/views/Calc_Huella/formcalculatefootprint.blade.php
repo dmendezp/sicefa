@@ -1,7 +1,9 @@
 @extends('hdc::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('hdc::calculatefootprint.Indicator_Calculate_Your_Footprint') }} </li>
+    <li class="breadcrumb-item active"><a
+            href="{{ route('hdc.admin.carbonfootprint.persona' ) }}">{{ trans('hdc::calculatefootprint.Indicator_Calculate_Your_Footprint') }} </a>
+        /{{ trans('hdc::ConsumptionRegistry.indicator_form') }}</li>
 @endpush
 
 @section('content')

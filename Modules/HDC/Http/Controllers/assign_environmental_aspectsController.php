@@ -32,25 +32,6 @@ class assign_environmental_aspectsController extends Controller
     }
 
 
-
-    public function store(Request $request)
-    {
-
-        // Obtén la actividad seleccionada
-        $activity = Activity::find($request->activity_id);
-
-        // Obtén los IDs de los aspectos ambientales seleccionados
-        $selectedEnvironmentalAspects = $request->input('Environmental_Aspect', []);
-
-        // Recorre los aspectos ambientales seleccionados y crea una entrada en la tabla pivote
-        foreach ($selectedEnvironmentalAspects as $environmentalAspectId) {
-            $activity->environmental_aspects()->attach($environmentalAspectId);
-        }
-
-        return redirect(route('cefa.hdc.resultfromaspects'));
-    }
-
-
     public function mostrarResultados(Request $request)
     {
         $unidadProductivaId = $request->input('productive_unit_id');

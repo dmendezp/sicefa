@@ -1,6 +1,6 @@
 @extends('hdc::layouts.master')
 @push('breadcrumbs')
-<li class="breadcrumb-item active"><a href=""></a>{{ trans('hdc::assign_environmental_aspects.Indicator_assign_environmental_aspects')}}</li>
+<li class="breadcrumb-item active"><a href="{{ route('hdc.admin.resultfromaspects') }}">{{ trans('hdc::assign_environmental_aspects.Consult_environmental_aspects')}}</a> / {{ trans('hdc::assign_environmental_aspects.Indicator_manageresources')}}</li>
 @endpush
 
 @section('content')
@@ -82,7 +82,7 @@
 
                 if (selectedActivityId) {
                     // Utiliza el nombre de la ruta para obtener la URL
-                    var url = "{{ route('cefa.hdc.getEnvironmentalAspects', ':id') }}";
+                    var url = "{{ route('hdc.admin.getEnvironmentalAspects', ':id') }}";
                     url = url.replace(':id', selectedActivityId);
 
                     $.get(url, function(data) {

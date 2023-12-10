@@ -418,6 +418,71 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Ruta de los checkboxes asignar aspectos ambientales (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.getEnvironmentalAspects'], [ // Registro o actualización de permiso
+            'name' => 'Enviar los checkboxes de aspectos ambientales(Administrador)',
+            'description' => 'Enviar los checkboxes de aspectos ambientales',
+            'description_english' => 'Submit environmental checkboxes',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para
+
+        // Ruta del ajax para traer la vista con los aspectos ambientales (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.mostrarResultados'], [ // Registro o actualización de permiso
+            'name' => 'Tabla donde se muestran las actividades con sus aspectos ambientales(Administrador)',
+            'description' => 'Tabla donde se muestran las actividades con sus aspectos ambientales',
+            'description_english' => 'Table showing activities and their environmental aspects',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta para ingresar a la vista de asignar aspectos ambientales (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.assign_environmental_aspects'], [ // Registro o actualización de permiso
+            'name' => 'Vista de asignar los aspectos ambientales(Administrador)',
+            'description' => 'Vista de asignar los aspectos ambientales',
+            'description_english' => 'View of assigning environmental aspects',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta para ingresar a la vista de editar aspectos ambientales (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.edit_resultados'], [ // Registro o actualización de permiso
+            'name' => 'Vista de editar los aspectos ambientales(Administrador)',
+            'description' => 'Vista de editar los aspectos ambientales',
+            'description_english' => 'View to edit environmental aspects',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+         // Ruta del boton enviar del formulario Actualizar aspectos ambientales (Administrador)
+         $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.update.EnvironmentalAspects'], [ // Registro o actualización de permiso
+            'name' => 'Enviar los aspectos ambientales editados(Administrador)',
+            'description' => 'Enviar los aspectos ambientales editados',
+            'description_english' => 'Send the edited environmental aspects',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+         // Ruta sidebar graficas (Encargado)
+         $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.Graficas'], [ // Registro o actualización de permiso
+            'name' => 'vista grafica(Encargado)',
+            'description' => 'vista grafica',
+            'description_english' => 'graphic view',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta sidebar graficas (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.Graficas'], [ // Registro o actualización de permiso
+            'name' => 'Vista grafica(Administrador)',
+            'description' => 'vista grafica',
+            'description_english' => 'graphic view',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+
+
 
 
 

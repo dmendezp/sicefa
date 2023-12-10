@@ -71,16 +71,18 @@
                                                         <a href="{{ route('hdc.' . getRoleRouteName(Route::currentRouteName()) . '.carbonfootprint.edit_consumption', $aspect->id) }}"
                                                             class="btn btn-primary"><i
                                                                 class="fa-solid fa-pen-to-square"></i></a>
-                                                        <form
+
+                                                        <form class="delete-form"
                                                             action="{{ route('hdc.' . getRoleRouteName(Route::currentRouteName()) . '.carbonfootprint.eliminar', ['id' => $aspect->personenvironmentalaspects->first()->id]) }}"
                                                             method="POST" style="display: inline;">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger"
-                                                                onclick="return confirm('¿Estás seguro de que quieres eliminar este registro?')"><i
-                                                                    class="fas fa-trash-alt"></i></button>
+                                                            <button type="submit" class="btn btn-danger btnEliminar"
+                                                                type="button"><i class="fas fa-trash-alt"></i></button>
                                                         </form>
                                                     @endif
+
+
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -97,18 +99,47 @@
     </div>
     @push('scripts')
         <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const deleteForms = document.querySelectorAll('.delete-form');
+
+                deleteForms.forEach((deleteForm) => {
+                    deleteForm.addEventListener('submit', (event) => {
+                        event.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
+
+                        const formId = deleteForm.dataset.formId;
+                        const form = document.getElementById(formId);
+
+                        Swal.fire({
+                            title: '¿Estás seguro?',
+                            text: 'Esta acción no se puede deshacer',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Sí, eliminar',
+                            cancelButtonText: 'Cancelar'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Envía el formulario de manera convencional
+                                deleteForm.submit();
+                            } else {
+                                Swal.fire('Cancelado', 'La acción ha sido cancelada', 'info');
+                            }
+                        });
+                    });
+                });
+            });
 
             const datosMes = {!! json_encode(
                 $environmeaspectgraph->map(function ($entry) {
                     $month = trans("hdc::ConsumptionRegistry.month{$entry['mes']}");
                     $year = $entry['anio'];
                     return "$month $year";
-                })
+                }),
             ) !!};
             // Después de la línea que obtiene datosCarbonPrint
             let datosCarbonPrint = {!! json_encode($environmeaspectgraph->pluck('carbon_print')) !!};
             // Limpiar cualquier carácter no numérico y convertir a números
             datosCarbonPrint = datosCarbonPrint.map(value => parseFloat(value.replace(/[^0-9.]/g, '')));
+
 
             // Código de Highcharts
             Highcharts.chart('container', {

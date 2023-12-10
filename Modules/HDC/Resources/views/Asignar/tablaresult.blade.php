@@ -10,9 +10,11 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>Actividad</th>
-                                            <th>Aspectos Ambientales</th>
-                                            <th>Acciones</th>
+                                            <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Activities')}}</th>
+                                            <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Environmental_Aspect') }}
+                                            </th>
+                                            <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Action') }}
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -37,7 +39,7 @@
                                                         </form>
 
                                                         <form
-                                                            action="{{ route('cefa.hdc.edit_resultados', ['activity_id' => $resultado->id]) }}"
+                                                            action="{{ route('hdc.admin.edit_resultados', ['activity_id' => $resultado->id]) }}"
                                                             method="get">
                                                             @csrf
                                                             <button type="submit" class="btn btn-primary"> <i

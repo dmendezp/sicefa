@@ -100,6 +100,14 @@
                                   </p>
                               </a>
                           </li>
+                          <li class="nav-item">
+                            <a href="{{ route('hdc.admin.Graficas') }}" class="nav-link">
+                                <i class="nav-icon fa-solid fa-chart-column"></i>
+                                <p>
+                                    {{ trans('hdc::hdcgeneral.Graphics') }}
+                                </p>
+                            </a>
+                        </li>
                           @if (Auth::user()->havePermission('hdc.admin.resultfromaspects'))
                               <li class="nav-item">
                                   <a href="{{ route('hdc.admin.resultfromaspects') }}" class="nav-link">
@@ -144,28 +152,38 @@
                                   </p>
                               </a>
                           </li>
+                          <li class="nav-item">
+                            <a href="{{ route('hdc.charge.Graficas') }}" class="nav-link">
+                                <i class="nav-icon fa-solid fa-chart-column"></i>
+                                <p>
+                                    {{ trans('hdc::hdcgeneral.Graphics') }}
+                                </p>
+                            </a>
+                        </li>
                       @endif
 
                       <!-- Menú de opciones públicas -->
 
 
-
-                      <li class="nav-item">
-                          <a href="{{ route('cefa.hdc.Graficas') }}" class="nav-link">
-                              <i class="nav-icon fa-solid fa-chart-column"></i>
-                              <p>
-                                  Graficas
-                              </p>
-                          </a>
-                      </li>
-                      <li class="nav-item">
-                          <a href="{{ route('cefa.hdc.developers') }}" class="nav-link">
-                              <i class="fa-solid fa-people-group"></i>
-                              <p>
-                                  {{ trans('hdc::developers.developers') }}
-                              </p>
-                          </a>
-                      </li>
+                      {{-- Menú de opciones públicas --}}
+                      @if (Route::is('cefa.hdc.*'))
+                          <li class="nav-item">
+                              <a href="{{ route('cefa.hdc.Graficas') }}" class="nav-link">
+                                  <i class="nav-icon fa-solid fa-chart-column"></i>
+                                  <p>
+                                      {{ trans('hdc::hdcgeneral.Graphics') }}
+                                  </p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{ route('cefa.hdc.developers') }}" class="nav-link">
+                                  <i class="fa-solid fa-people-group"></i>
+                                  <p>
+                                      {{ trans('hdc::developers.developers') }}
+                                  </p>
+                              </a>
+                          </li>
+                      @endif
 
                   </ul>
               </nav>

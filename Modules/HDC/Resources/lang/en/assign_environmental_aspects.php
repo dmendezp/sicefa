@@ -3,6 +3,8 @@
 return [
     //indicador de pagina Asignar Aspectos Ambientales
     'Indicator_manageresources' => 'Assign Environmental Aspects',
+    'Consult_environmental_aspects' => 'Consult environmental aspects',
+    'Edit_environmental_aspects' => 'Edit environmental aspects',
 
     // Titulo card Asignar Aspectos Ambientales
     'ct1' => 'Assign Environmental Aspects',

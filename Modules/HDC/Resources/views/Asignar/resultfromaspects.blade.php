@@ -1,5 +1,9 @@
 @extends('hdc::layouts.master')
 
+@push('breadcrumbs')
+<li class="breadcrumb-item active">{{ trans('hdc::assign_environmental_aspects.Consult_environmental_aspects')}}</li>
+@endpush
+
 @section('content')
 <h2 class="text-center">Consultar Aspectos Ambientales</h2>
 <br>
@@ -8,7 +12,7 @@
         <div class="row justify-content-center">
             <div class="card card-success card-outline shadow col-md-5 mt-3">
                 <div class="card-header">
-                    <a href="{{ route('cefa.hdc.assign_environmental_aspects') }}"><button type="submit" class="btn btn-success"><i class="fas fa-add"></i></button></a>
+                    <a href="{{ route('hdc.admin.assign_environmental_aspects') }}"><button type="submit" class="btn btn-success"><i class="fas fa-add"></i></button></a>
                 </div>
                 <div class="card-body">
                     <form id="unidadForm">
@@ -69,7 +73,7 @@
 
         // Realiza una solicitud AJAX para obtener los resultados
         $.ajax({
-            url: "{{ route('cefa.hdc.mostrarResultados') }}",
+            url: "{{ route('hdc.admin.mostrarResultados') }}",
             type: "POST",
             data: $(this).serialize(),
             success: function(response) {

@@ -2,7 +2,9 @@
 
 return [
     //indicador de pagina Administrar Recursos
-    'Indicator_assign_environmental_aspects' => 'Asignar Aspectos Ambientales',
+    'Indicator_manageresources' => 'Asignar Aspectos Ambientales',
+    'Consult_environmental_aspects' => 'Consultar aspectos ambientales',
+    'Edit_environmental_aspects' => 'Editar aspectos ambientales',
 
     // Titulo card Aministrar Recursos
     'ct1' => 'Asignar Aspectos Ambientales',
