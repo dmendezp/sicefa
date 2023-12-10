@@ -26,20 +26,27 @@ class StaffSenaempresasTableSeeder extends Seeder
         $numStaffMembers = 10;
 
         for ($i = 0; $i < $numStaffMembers; $i++) {
-            $positionCompanyId = $positionCompanyIds[array_rand($positionCompanyIds)];
-            $apprenticeId = $apprenticeIds[array_rand($apprenticeIds)];
+            // Verificar si los arreglos no están vacíos antes de usar array_rand
+            if (!empty($positionCompanyIds)) {
+                $positionCompanyId = $positionCompanyIds[array_rand($positionCompanyIds)];
+            }
+
+            if (!empty($apprenticeIds)) {
+                $apprenticeId = $apprenticeIds[array_rand($apprenticeIds)];
+            }
+
             $randomImage = 'random_image_' . rand(1, 10) . '.jpg';
 
             // Verificar si ya existe un registro con las mismas condiciones
             foreach ($quarters as $quarter) {
                 StaffSenaempresa::updateOrCreate([
-                'position_company_id' => $positionCompanyId,
-                'apprentice_id' => $apprenticeId,
-                'quarter_id' => $quarter->id,
-            ], [
-                'image' => $randomImage,
-            ]);
-        }
+                    'position_company_id' => $positionCompanyId,
+                    'apprentice_id' => $apprenticeId,
+                    'quarter_id' => $quarter->id,
+                ], [
+                    'image' => $randomImage,
+                ]);
+            }
         }
     }
 }

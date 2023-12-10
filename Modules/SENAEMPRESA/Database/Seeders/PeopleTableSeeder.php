@@ -42,6 +42,7 @@ class PeopleTableSeeder extends Seeder
             'first_last_name' => 'MARIN',
             'second_last_name' => 'MONTEALEGRE',
             'eps_id' => $eps->id,
+            'population_group_id' => $population_group->id,
             'pension_entity_id' => $pension_entity->id,
             'avatar' => 'modules/senaempresa/images/Contacto/Marin.jpg'
 
@@ -53,6 +54,7 @@ class PeopleTableSeeder extends Seeder
             'first_last_name' => 'PENAGOS',
             'second_last_name' => 'NINCO',
             'eps_id' => $eps->id,
+            'population_group_id' => $population_group->id,
             'pension_entity_id' => $pension_entity->id,
             'avatar' => 'modules/senaempresa/images/Contacto/Penagos.jpg'
         ]);

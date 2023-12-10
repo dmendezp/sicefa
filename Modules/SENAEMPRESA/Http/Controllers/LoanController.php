@@ -218,7 +218,7 @@ class LoanController extends Controller
         $pdf->AddPage();
 
         $tableStyle = 'border-collapse: collapse; width: 100%; margin: auto; text-align: center;';
-        $cellStyle = 'border: 1px solid #000; text-align: center; padding: 0 auto 8px; width: 267px; height: 30px';
+        $cellStyle = 'border: 1px solid #000; text-align: center; padding: 0 auto 8px; width: 267px; height: 100%';
 
 
         // Agregar el logo en la parte izquierda superior
@@ -238,6 +238,7 @@ class LoanController extends Controller
 
         foreach ($inventories as $inventory) {
 
+            $html .= '<tr><td colspan="2" style="height: 10px;"></td></tr>';
             $html .= '<tr><td style="' . $cellStyle . '"><strong>ID:</strong></td>';
             $html .= '<td style="' . $cellStyle . '">' . $inventory->id . '</td></tr>';
             $html .= '<tr><td style="' . $cellStyle . '"><strong>Person ID:</strong></td>';

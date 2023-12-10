@@ -203,6 +203,8 @@ return [
 	'Attendance' => 'Asistencia',
 	'Consult Attendances' => 'Consultar Asistencias',
 
+    'No apprentices selected' => 'No hay aprendices seleccionados',
+
 
 
 

@@ -200,6 +200,8 @@ return [
     'Attendance' => 'Attendance',
     'Consult Attendances' => 'Consult Attendances',
 
+    'No apprentices selected' => 'No apprentices selected',
+
 
 
 
