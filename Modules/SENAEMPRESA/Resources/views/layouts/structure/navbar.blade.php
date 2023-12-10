@@ -38,6 +38,7 @@
                     </a>
                 </li>
             @endif
+
         @endauth
     </ul>
 
@@ -65,12 +66,25 @@
             </div>
 
         </li>
-
+        @if (Route::is('senaempresa.human_talent_leader.*') && (checkRol('senaempresa.human_talent_leader')))
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="{{ route('senaempresa.human_talent_leader.ruta_del_manual_de_usuario') }}" class="nav-link">
+                    <i class="fas fa-question-circle"></i>
+                </a>
+            </li>
+        @endif
         <li class="nav-item mx-1">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip"
                 data-bs-placement="bottom" data-bs-title="{{ trans('senaempresa::menu.Full Screen Mode') }}">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
+        <!-- Ítem de ayuda con enlace al manual de usuario -->
+
+
+
+
+
+
     </ul>
 </nav>

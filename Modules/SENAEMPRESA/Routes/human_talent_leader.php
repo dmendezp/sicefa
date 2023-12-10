@@ -14,12 +14,16 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
+
+
 Route::middleware(['lang'])->group(function () {
     //Route::middleware(['lang'])->group(function(){
     Route::prefix('senaempresa')->group(function () {
         //RUTAS COMO LIDER TALENTO HUMANO
         Route::prefix('human_talent_leader')->group(function () {
             Route::get('/', 'SENAEMPRESAController@human_talent_leader')->name('senaempresa.human_talent_leader.index');
+            Route::get('manual/', 'SENAEMPRESAController@manual')->name('senaempresa.human_talent_leader.ruta_del_manual_de_usuario');
 
         //RUTAS PARA EL REGISTRO, LA VISUALIZACIÓN, ELIMINACIÓN Y LA ACTUALIZACIÓN DEL PERSONAL DE SENAEMPRESA
         Route::prefix('staff')->group(function () {
@@ -51,6 +55,8 @@ Route::middleware(['lang'])->group(function () {
             Route::post('/search', 'AttendanceSenaempresaController@queryAttendance')->name('senaempresa.human_talent_leader.attendances.queryAttendance');
             Route::post('/getPersonData', 'AttendanceSenaempresaController@getPersonData')->name('senaempresa.human_talent_leader.attendances.getPersonData');
         });
+
+        
         });
     });
 });

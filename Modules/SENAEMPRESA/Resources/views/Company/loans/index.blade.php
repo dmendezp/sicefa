@@ -178,6 +178,11 @@
                                                             class="btn btn-primary btn-sm">{{ trans('senaempresa::menu.Return') }}</a>
                                                         <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.edit', ['id' => $loan->id]) }}"
                                                             class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+                                                        <a href="{{ route('senaempresa.human_talent_leader.ruta_del_manual_de_usuario') }}"
+                                                            class="nav-link">
+                                                            <i class="fas fa-question-circle"></i>
+                                                        </a>
+
                                                     </td>
                                                 @endif
                                             @elseif ($loan->state === 'Devuelto')

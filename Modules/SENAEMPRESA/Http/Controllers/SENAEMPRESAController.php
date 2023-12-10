@@ -30,6 +30,15 @@ class SENAEMPRESAController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
+    
+     public function manual()
+     {
+        $data = ['title' => trans('senaempresa::menu.manual')];
+        return view('senaempresa::Company.manual_usuario.manual_usuario', $data);
+    }
+
+    
+
     public function Developers()
     {
         $data = ['title' => trans('senaempresa::menu.Developers')];
