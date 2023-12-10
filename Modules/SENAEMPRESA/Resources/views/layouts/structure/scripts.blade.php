@@ -61,7 +61,11 @@
 
 <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
 
-<!-- Datatable postulados -->
+<!-- Add these scripts to include jsPDF and autoTable -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.8/jspdf.plugin.autotable.min.js"></script>
+
+<!-- Datatable general -->
 <script>
     $(document).ready(function() {
         $('#datatable').DataTable({
@@ -83,6 +87,17 @@
         }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
     });
 </script>
+<!-- Datatable del invetario -->
+<script>
+    $(document).ready(function() {
+        $('#inventory').DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": true,
+        }).container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
+    });
+</script>
+
 <!-- Alerta para guardar y editar -->
 @if (session('success'))
     <script>
@@ -112,3 +127,4 @@
 
 <script src="{{ asset('modules/senaempresa/js/modal.js') }}"></script>
 <script src="{{ asset('modules/senaempresa/js/fecha_alerta.js') }}"></script>
+

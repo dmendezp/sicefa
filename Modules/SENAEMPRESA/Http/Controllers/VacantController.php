@@ -347,6 +347,7 @@ class VacantController extends Controller
         $vacancies = Vacancy::where('senaempresa_id', $currentSenaempresa->id)
             ->where('state', 'Disponible')
             ->get();
+
         $courses = Course::where('status', 'Activo')->with('vacancy')->get();
         $courseofvacancy = CourseVacancy::all();
 

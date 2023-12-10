@@ -55,6 +55,9 @@ Route::middleware(['lang'])->group(function () {
                 Route::get('/edit/{id}', 'LoanController@edit')->name('senaempresa.admin.loans.edit');
                 Route::put('/{id}/updated', 'LoanController@updated')->name('senaempresa.admin.loans.updated');
                 Route::get('/return/{id}', 'LoanController@return')->name('senaempresa.admin.loans.return');
+
+                Route::get('inventory/', 'LoanController@inventory')->name('senaempresa.admin.loans.inventory');
+                Route::get('inventory/generatepdf', 'LoanController@generateInventoryPDF')->name('senaempresa.admin.loans.generate.inventory.pdf');
             });
 
 
