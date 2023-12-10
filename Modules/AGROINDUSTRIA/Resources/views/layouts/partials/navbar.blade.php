@@ -21,55 +21,38 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('cefa.agroindustria.home.formulations.recipes')}}">{{trans('agroindustria::menu.Products')}}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('cefa.agroindustria.home.developments')}}">Desarrolladores</a>
+                </li>
+                
             @endif
             
-            @if(auth()->check() && checkRol('agroindustria.admin'))  
+            @if(auth()->check() && checkRol('agroindustria.admin') & Route::is('*units.*'))                       
                 <li class="nav-item">
-                    <a href="{{route('cefa.agroindustria.admin.discharge')}}" class="nav-link">{{trans('agroindustria::menu.Desregistrations')}}</a>
+                    <a class="nav-link" href="{{route('agroindustria.admin.units.activity', ['unit'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Activities')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.production')}}">Producción</a>
+                    <a class="nav-link" href="{{route('agroindustria.admin.units.production')}}">Producción</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.movements')}}">{{trans('agroindustria::menu.Movements')}}</a>
+                    <a class="nav-link" href="{{route('agroindustria.admin.units.movements')}}">{{trans('agroindustria::menu.Movements')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.labor')}}">{{trans('agroindustria::menu.Task')}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.activity')}}">{{trans('agroindustria::menu.Activities')}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.formulations')}}">{{trans('agroindustria::formulations.Recipes')}}</a>
+                    <a class="nav-link" href="{{route('agroindustria.admin.units.labor')}}">{{trans('agroindustria::menu.Task')}}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory')}}">{{trans('agroindustria::menu.Inventory')}}</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('agroindustria.admin.remove')}}" class="nav-link">{{trans('agroindustria::menu.Desregistrations')}}</a>
                 </li>
             @endif
 
             @if(Route::is('*units.*'))
                 <!--Menú instructor-->
-                @if(Auth::user()->havePermission('agroindustria.instructor.production'))
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.production')}}">Producción</a>
-                </li>
-                @endif
-
-                @if(Auth::user()->havePermission('agroindustria.instructor.deliveries'))
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.movements')}}">{{trans('agroindustria::menu.Movements')}}</a>
-                </li>
-                @endif
-
-                @if(Auth::user()->havePermission('agroindustria.instructor.labor'))
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.labor')}}">{{trans('agroindustria::menu.Task')}}</a>
-                </li>
-                @endif
-
-                @if(Auth::user()->havePermission('agroindustria.instructor.activity'))
+                @if(Auth::user()->havePermission('agroindustria.instructor.units.activity'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.activity')}}">{{trans('agroindustria::menu.Activities')}}</a>
+                        <a class="nav-link" href="{{route('agroindustria.instructor.units.activity', ['unit'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Activities')}}</a>
                     </li>
                 @endif  
 
@@ -78,8 +61,29 @@
                         <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.formulations')}}">{{trans('agroindustria::formulations.Recipes')}}</a>
                     </li>
                 @endif
-               {{-- Menu storer --}}
+     
+                @if(Auth::user()->havePermission('agroindustria.instructor.units.labor'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('agroindustria.instructor.units.labor')}}">{{trans('agroindustria::menu.Task')}}</a>
+                </li>
+                @endif
+
+                @if(Auth::user()->havePermission('agroindustria.instructor.units.movements'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('agroindustria.instructor.units.movements')}}">{{trans('agroindustria::menu.Movements')}}</a>
+                </li>
+                @endif
+
+                @if(Auth::user()->havePermission('agroindustria.instructor.units.production'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('agroindustria.instructor.units.production')}}">Producción</a>
+                </li>
+                @endif
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.requests')}}">Solicitud de Insumos</a>
+                </li>
             @endif
+            {{-- Menu storer --}}
             @if(auth()->check() && checkRol('agroindustria.almacenista'))  
                 @if(Auth::user()->havePermission('agroindustria.storer.crud'))
                     <li class="nav-item">
@@ -101,7 +105,7 @@
      <div class="dashboard_units">  
          <ul class="dashboard">
              <li class="nav-item">
-                 <a class="nav-link" href="{{ route('cefa.agroindustria.instructor.units') }}">{{trans('agroindustria::menu.Units')}}</a>
+                 <a class="nav-link" href="{{ route('agroindustria.instructor.units') }}">{{trans('agroindustria::menu.Units')}}</a>
              </li>
          </ul>
          @endif
@@ -112,19 +116,21 @@
     <div class="dashboard_admin">  
         <ul class="dashboard">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('cefa.agroindustria.admin.dashboard') }}">{{trans('agroindustria::menu.Dashboard')}}</a>
+                <a class="nav-link" href="{{ route('agroindustria.admin.units') }}">{{trans('agroindustria::menu.Units')}}</a>
             </li>
         </ul>
     </div>
     @endif
     <!-- Traduccion -->
-    <div class="dropdown_lang">
-        <button class="dropbtn" onclick="toggleDropdown()"> {{ session('lang') }} <i class="fas fa-globe"></i></button>
-        <div id="myDropdown" class="dropdown-content">
-            <a href="{{ url('lang',['es']) }}">Español</a>
-            <a href="{{ url('lang',['en']) }}">English</a>
-        </div>
-    </div>
+    <li class="dropdown_lang" style="position: relative; right: 80px; list-style-type: none;">
+        <a class="nav-link scrollto" data-toggle="dropdown_lang" href="#">
+          {{ session('lang') }} <i class="fas fa-globe"></i>
+        </a>
+        <ul>
+          <li><a href="{{ url('lang',['es']) }}" class="dropdown-item scrollto">Español</a></li>
+          <li><a href="{{ url('lang',['en']) }}" class="dropdown-item scrollto">Ingles</a></li>
+        </ul>
+    </li>
     
     
     <!-- Perfil, login, volver a sicefa -->
@@ -148,6 +154,10 @@
                           <div class="login"><a href="{{ route('login') }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
                       </div>
                       <div class="col info float-right mt-2" id="icon_login" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Login') }}"><a href="{{ route('login') }}" class="d-block" ><i class="fas fa-sign-in-alt"></i></a></div>
+                      <a href="{{ route ('cefa.agroindustria.home.manual')}}" class="nav-link" id="question">
+                        <i class="fas fa-question-circle"></i>
+                        <span id="volver-sicefa">Manual de Usuario</span>
+                      </a>                    
                       @else
                       <div class="col info info-user">
                           <div class="nickname" data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">{{ Auth::user()->nickname }}</div>
@@ -159,6 +169,10 @@
                       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                        </form>
+                       <a href="{{ route ('cefa.agroindustria.home.manual')}}" class="nav-link" id="question">
+                            <i class="fas fa-question-circle"></i>
+                            <span id="volver-sicefa">Manual de Usuario</span>
+                        </a>   
                        @endguest
                        <a href="{{ route('cefa.welcome') }}" class="nav-link {{ ! Route::is('cefa.contact.maps') ?: 'active' }}">
                         <i class="fas fa-puzzle-piece" id="sicefa"></i>

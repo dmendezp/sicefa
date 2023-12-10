@@ -57,25 +57,25 @@
               <div class="elements">
                 <div class="form-group">
                   {!! Form::label('elementInventory' , trans('agroindustria::menu.Element')) !!}
-                  {!! Form::select('element[]', $elements, null, ['id' => 'elementInventory']) !!}
+                  {!! Form::select('element[]', $elements, null, ['class' => 'form-control', 'id' => 'elementInventory']) !!}
                   @if ($errors->has('element'))
                     <span class="text-danger">{{ $errors->first('element') }}</span>
                   @endif
                 </div>
                 <div class="form-group">
                   {!! Form::label('amount' , trans('agroindustria::menu.Amount')) !!}
-                  {!! Form::number('amount[]', null, ['id' => 'amount']) !!}
+                  {!! Form::number('amount[]', null, ['class' => 'form-control', 'id' => 'amount']) !!}
                   @error('amount')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>    
                 <div class="form-group">  
                   {!! Form::label('amountAvailable' , trans('agroindustria::menu.Quantity Available')) !!}
-                  {!! Form::number('available[]', null, ['id' => 'available', 'readonly' => 'readonly']) !!}
+                  {!! Form::number('available[]', null, ['class' => 'form-control', 'id' => 'available', 'readonly' => 'readonly']) !!}
                 </div>  
                 <div class="form-group">
                   {!! Form::label('price' , trans('agroindustria::menu.Price')) !!}
-                  {!! Form::number('price[]', null, ['id' => 'price', 'readonly'=> 'readonly']) !!}
+                  {!! Form::number('price[]', null, ['class' => 'form-control', 'id' => 'price', 'readonly'=> 'readonly']) !!}
                 </div>
                   <button type="button" class="remove-element">{{trans('agroindustria::menu.Delete')}}</button>
               </div>
@@ -108,7 +108,7 @@
   $(document).ready(function() {
     // Agregar un nuevo campo de producto
     $("#add-element").click(function() {
-        var newProduct = '<div class="elements"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::menu.Element")) !!} {!! Form::select("element[]", $elements, null, ["readonly" => "readonly", "class" => "elementInventory-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount[]", NULL, ["id" => "amount"]) !!}</div> <div class="form-group">{!! Form::label("amountAvailable" , trans("agroindustria::menu.Quantity Available")) !!} {!! Form::number("available[]", null, ["id" => "available", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("price" , trans("agroindustria::menu.Price")) !!} {!! Form::number("price[]", null, ["id" => "price", "readonly" => "readonly"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::menu.Delete")}}</button></div>';
+        var newProduct = '<div class="elements"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::menu.Element")) !!} {!! Form::select("element[]", $elements, null, ["readonly" => "readonly", "class" => "elementInventory-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount[]", NULL, ["class" => "form-control", "id" => "amount"]) !!}</div> <div class="form-group">{!! Form::label("amountAvailable" , trans("agroindustria::menu.Quantity Available")) !!} {!! Form::number("available[]", null, ["class" => "form-control", "id" => "available", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("price" , trans("agroindustria::menu.Price")) !!} {!! Form::number("price[]", null, ["class" => "form-control", "id" => "price", "readonly" => "readonly"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::menu.Delete")}}</button></div>';
 
         // Agregar el nuevo campo al DOM
         $("#products").append(newProduct);

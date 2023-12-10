@@ -38,6 +38,16 @@
   border-radius: 4px;
 }
 
+.dashboard_units{
+  position: relative;
+  right: 40px;
+}
+
+.dashboard_admin{
+  position: relative;
+  right: 40px;
+}
+
 .home{
   list-style: none;
 }
@@ -134,6 +144,13 @@
   width: 20px;
 }
 
+#question i{
+  position: relative;
+  left: 10px;
+  color: rgb(211, 197, 0);
+  width: 20px;
+}
+
 #sicefa{
   position: relative;
   left: 10px;
@@ -208,11 +225,71 @@
 }
 
 /* Estilo para el contenedor del menú desplegable */
-.dropdown_lang {
-  position: relative;
-  right: 40px;
-  display: inline-block;
+.navbar .dropdown_lang ul {
+  list-style-type: none;
+  display: block;
+  position: absolute;
+  left: 14px;
+  top: calc(100% + 30px);
+  margin: 0;
+  padding: 10px 0;
+  z-index: 99;
+  opacity: 0;
+  visibility: hidden;
+  background: #fff;
+  box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+  transition: 0.3s;
+  border-radius: 4px;
 }
+
+.navbar .dropdown_lang ul li {
+  min-width: 200px;
+}
+
+.navbar .dropdown_lang ul a {
+  padding: 10px 20px;
+  font-size: 14px;
+  text-transform: none;
+  font-weight: 500;
+  color: #0c3c53;
+}
+
+.navbar .dropdown_lang ul a i {
+  font-size: 12px;
+}
+
+.navbar .dropdown_lang ul a:hover, .navbar .dropdown_lang ul .active:hover, .navbar .dropdown_lang ul li:hover > a {
+  color: #47b2e4;
+}
+
+.navbar .dropdown_lang:hover > ul {
+  opacity: 1;
+  top: 100%;
+  visibility: visible;
+}
+
+.navbar .dropdown_lang .dropdown_lang ul {
+  top: 0;
+  left: calc(100% - 30px);
+  visibility: hidden;
+}
+
+.navbar .dropdown_lang .dropdown_lang:hover > ul {
+  opacity: 1;
+  top: 0;
+  left: 100%;
+  visibility: visible;
+}
+
+@media (max-width: 1366px) {
+  .navbar .dropdown_lang .dropdown_lang ul {
+    left: -90%;
+  }
+  .navbar .dropdown_lang .dropdown_lang:hover > ul {
+    left: -100%;
+  }
+}
+
 
 /* Estilo para el botón que activa el menú */
 .dropbtn {
@@ -220,7 +297,7 @@
   color: #333;
   border: none;
   cursor: pointer;
-  padding: 5px 10px;
+  padding: 5px;
   font-size: 16px;
 }
 
@@ -230,7 +307,7 @@
 }
 
 /* Estilo para el menú desplegable oculto por defecto */
-.dropdown-content {
+.dropdown_lang-content {
   display: none;
   position: absolute;
   background-color: #fff;
@@ -240,7 +317,7 @@
 }
 
 /* Estilo para los elementos del menú */
-.dropdown-content a {
+.dropdown_lang-content a {
   color: #333;
   text-decoration: none;
   padding: 12px 16px;
@@ -248,6 +325,6 @@
 }
 
 /* Estilo cuando se pasa el ratón por encima de un elemento */
-.dropdown-content a:hover {
+.dropdown_lang-content a:hover {
   background-color: #f2f2f2;
 }

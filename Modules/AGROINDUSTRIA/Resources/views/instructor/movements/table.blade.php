@@ -1,4 +1,4 @@
-<table id="deliveries" class="hover" style="width: 98%;">
+<table id="deliveries" class="table table-striped" style="width: 98%;">
     <thead>
         <tr>
             <th>{{trans('agroindustria::menu.Date Time')}}</th>
@@ -90,7 +90,7 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group">
-                    <p>Quieres aprobar este movimiento?</p>
+                    <p>¿Quieres aprobar este movimiento?</p>
                 </div>                
         </div>
         <div class="modal-footer">

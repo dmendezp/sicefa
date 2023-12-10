@@ -171,6 +171,7 @@ window.onclick = function(event) {
         $("#form-container-tools").hide();
         $("#form-container-consumables").hide();
         $("#form-container-equipments").hide();
+        $("#form-container-resources").hide();
 
         // Botón para abrir/cerrar el formulario
         $("#toggle-form").click(function() {
@@ -258,6 +259,28 @@ window.onclick = function(event) {
                 $(this).css("background-color", ""); // Vaciar el valor para restaurar el color original
             }
         });
+
+        // Botón para abrir/cerrar el formulario
+        $("#toggle-form-resources").click(function() {
+            // Alternar la visibilidad del formulario
+            $("#form-container-resources").toggle();
+
+            // Cambiar el texto del botón en función del estado del formulario
+            var buttonText = $("#form-container-resources").is(":visible")
+                ? "Cerrar formulario de recursos"
+                : "Recursos Ambientales";
+
+            // Actualizar el texto del botón
+            $(this).text(buttonText);
+
+            // Cambiar el color del botón a rojo cuando el formulario está abierto
+            if ($("#form-container-resources").is(":visible")) {
+                $(this).css("background-color", "red");
+            } else {
+                // Restaurar el color original cuando el formulario se cierra
+                $(this).css("background-color", ""); // Vaciar el valor para restaurar el color original
+            }
+        });
     });
 </script>
 
@@ -269,7 +292,7 @@ window.onclick = function(event) {
         // Detecta cambios en el primer campo de selección (Receiver)
         $('#activity-selected').on('change', function() {
             var selectedActivity = $(this).val();
-            var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.responsibilities', ['activityId' => ':activityId'])) !!}.replace(':activityId', selectedActivity.toString());
+            var url = {!! json_encode(route('cefa.agroindustria.instructor.labor.responsibilities', ['activityId' => ':activityId'])) !!}.replace(':activityId', selectedActivity.toString());
             // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
             console.log(url);
             $.ajax({
@@ -384,6 +407,48 @@ window.onclick = function(event) {
      });
  </script>
  
+ {{-- Busca productos segun el numero de documento --}}
+<script>
+    $(document).ready(function() {
+        var baseUrl = '{{ route("cefa.agroindustria.units.instructor.element.name", ["name" => ":name"]) }}';
+          console.log(baseUrl);
+          $('.elementInventory-select').select2({
+            placeholder: 'Buscar productos',
+            minimumInputLength: 1, // Habilita la búsqueda en tiempo real
+            ajax: {
+              url: function(params) {
+                  // Reemplaza el marcador de posición con el término de búsqueda
+                  var searchUrl = baseUrl.replace(':name', params.term);
+
+                  return searchUrl; // Utiliza la URL actualizada con el término de búsqueda
+              },
+              dataType: 'json',
+              delay: 250, // Retardo antes de iniciar la búsqueda
+              processResults: function(data) {
+                  return {
+                      results: data.id.map(function(element) {
+                          return {
+                              id: element.id,
+                              text: element.name,
+                          };
+                      })
+                  };
+              },
+              cache: true
+            }
+          });
+
+          // Manejar la selección de una persona en el campo de búsqueda
+          $('.elementInventory-select').on('select2:select', function(e) {
+              var selectedElement = e.params.data;
+              console.log(selectedElement);
+              // Actualizar el contenido de la etiqueta con el nombre de la persona seleccionada
+              $(this).closest('.elements').find('input.element_id').val(selectedElement.id);
+              $(this).closest('.elements').find('input.element_name').val(selectedElement.text);
+          });
+        });
+ </script>
+
 
 <script>
     new DataTable('#inventory');
@@ -393,16 +458,25 @@ window.onclick = function(event) {
     new DataTable('#request')
     new DataTable('#table-production')
     new DataTable('#request')
+    new DataTable('#deliveries')
     $(document).ready(function() {
-    $('#deliveries').DataTable({
-        "order": [[0, "desc"]], // Ordenar por la primera columna (Fecha de Solicitud) en orden descendente
-        "paging": true,
-        // Agrega otras opciones de configuración según tus necesidades
+        $('#deliveries').DataTable({
+            "order": [[0, "desc"]], // Ordenar por la primera columna (Fecha de Solicitud) en orden descendente
+            "paging": true,
+            // Agrega otras opciones de configuración según tus necesidades
+        });
     });
-});
 </script>
 
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+    on('click', '.navbar .dropdown_lang > a', function(e) {
+        if (select('#navbar').classList.contains('navbar-mobile')) {
+        e.preventDefault()
+        this.nextElementSibling.classList.toggle('dropdown_lang-active')
+        }
+    }, true)
+</script>
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/6364639265.js" crossorigin="anonymous"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>

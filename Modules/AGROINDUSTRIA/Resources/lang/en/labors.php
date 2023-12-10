@@ -23,8 +23,13 @@
         'selectRecipe' => 'Select a recipe',
         'selectDestination' => 'Select a destination',
 
+        //consumibles
+        'consumables' => 'Consumables',
+        'openConsumableForm' => 'Open consumable form',
+        'closeConsumableForm' => 'Close consumable form',
+
         //ejecutores
-        'openCollaboratorFormulatio' => 'Open collaborator formulatio',
+        'openCollaboratorFormulatio' => 'Open collaborator form',
         'closeCollaboratorsForm' => 'Close collaborators form',
         'collaborators' => 'Collaborators',
         'addCollaborators' => 'Add Collaborators',

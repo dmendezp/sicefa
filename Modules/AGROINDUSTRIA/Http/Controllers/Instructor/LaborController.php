@@ -2,6 +2,7 @@
 
 namespace Modules\AGROINDUSTRIA\Http\Controllers\instructor;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -29,6 +30,11 @@ use Modules\SICA\Entities\EmployeeType;
 use Modules\SICA\Entities\Tool;
 use Modules\SICA\Entities\Production;
 use Modules\SICA\Entities\Equipment;
+use Modules\SICA\Entities\EnvironmentalAspect;
+use Modules\SICA\Entities\EnvironmentalAspectLabor;
+use Modules\SICA\Entities\Resource;
+use App\Exports\AGROINDUSTRIA\ConsumableExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LaborController extends Controller
 {
@@ -344,157 +350,195 @@ class LaborController extends Controller
         return response()->json(['id' => $person]);
     }
 
-    public function register_labor(Request $request){
-        $rules = [
-            'activities' => 'required',
-            'person' => 'required',
-            'date_execution' => 'required',
-            'description' => 'required',
-            'destination' => 'required',
-            'observations' => 'required',
-            'employement_type' => 'required',
-            'hours' => 'required',
-        ];
-        $messages = [
-            'activities.required' => trans('agroindustria::labors.youMustSelectActivity'),
-            'person.required' => trans('agroindustria::labors.youMustSelectResponsible'),
-            'date_execution.required' => trans('agroindustria::labors.youMustEnterDate'),
-            'description.required' => trans('agroindustria::labors.youMustEnterDescription'),
-            'destination.required' => trans('agroindustria::labors.youMustSelectDestination'),
-            'observations.required' => trans('agroindustria::labors.youMustEnterRemark'),
-            'employement_type.required' => trans('agroindustria::labors.youMustSelectEmployeeType'),
-            'hours.required' => trans('agroindustria::labors.youMustEnterNumberHoursWorked'),
-        ];
-        $validatedData = $request->validate($rules, $messages);
-
+    public function environmental_aspect($activity_id){
+        $activity = Activity::find($activity_id);
+        $aspectosAmbientales = $activity->environmental_aspects;
         
-        $l = new Labor;
-        $l->activity_id = $validatedData['activities'];
-        $l->person_id = $validatedData['person'];
-        $l->planning_date = $request->input('date_plannig');
-        $l->execution_date = $validatedData['date_execution'];
-        $l->description = $validatedData['description'];
-        $l->price = $request->input('total_labor');
-        $l->status = 'Programado';
-        $l->observations = $validatedData['observations'];
-        $l->destination =  $validatedData['destination'];
-        $l->save();
+        $resource = $aspectosAmbientales->map(function ($a){
+            $id = $a->id;
+            $name = $a->name;
 
-        $consumables = $request->input('consumables');
-        $amount_consumables = $request->input('amount_consumables');
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        });
+        
+        return response()->json(['aspect' => $resource]);        
+    }
 
-        $element = Element::whereIn('id', $consumables)->pluck('measurement_unit_id');
-        foreach ($consumables as $key => $elementId) {
-            $requiredAmount = $amount_consumables[$key]; // Cantidad requerida para el elemento
-            $measurement_unit = MeasurementUnit::whereIn('id', $element)->pluck('conversion_factor');
-            $conversion = $requiredAmount*$measurement_unit[$key];
+    public function register_labor(Request $request){
+        try {
+            DB::beginTransaction();
+            $rules = [
+                'activities' => 'required',
+                'person' => 'required',
+                'date_execution' => 'required',
+                'description' => 'required',
+                'destination' => 'required',
+                'observations' => 'required',
+                'employement_type' => 'required',
+                'hours' => 'required',
+            ];
+            $messages = [
+                'activities.required' => trans('agroindustria::labors.youMustSelectActivity'),
+                'person.required' => trans('agroindustria::labors.youMustSelectResponsible'),
+                'date_execution.required' => trans('agroindustria::labors.youMustEnterDate'),
+                'description.required' => trans('agroindustria::labors.youMustEnterDescription'),
+                'destination.required' => trans('agroindustria::labors.youMustSelectDestination'),
+                'observations.required' => trans('agroindustria::labors.youMustEnterRemark'),
+                'employement_type.required' => trans('agroindustria::labors.youMustSelectEmployeeType'),
+                'hours.required' => trans('agroindustria::labors.youMustEnterNumberHoursWorked'),
+            ];
+            $validatedData = $request->validate($rules, $messages);
 
-            // Realiza una consulta para obtener los lotes correspondientes al elemento y ordénalos por lote
-            $selectedUnit = session('viewing_unit');
-            $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
-            $inventories = Inventory::where('element_id', $elementId)
-            ->where('productive_unit_warehouse_id', $productiveUnit)
-            ->orderBy('lot_number', 'ASC')
-            ->get();
-            // Inicializa la cantidad consumida en 0
-            $consumedAmount = 0;
-            foreach ($inventories as $inventory) {
-                // Obtén la cantidad disponible y el precio del inventario
-                $availableAmount = $inventory->amount;
-                $priceInventory = $inventory->price;
-                
-                // Calcula cuánto se puede consumir de este lote
-                $consumeFromThisLot = min($availableAmount, max(0, $conversion - $consumedAmount));
-                $intAmount = $consumeFromThisLot/$measurement_unit[$key];
-                $price = $intAmount*$priceInventory;
-                if ($consumeFromThisLot > 0) {
-                    // Registra el consumo para este lote
-                    $c = new Consumable;
-                    $c->labor_id = $l->id;
-                    $c->inventory_id = $inventory->id;
-                    $c->amount = $consumeFromThisLot;
-                    $c->price = $price;
-                    $c->save();
+            
+            $l = new Labor;
+            $l->activity_id = $validatedData['activities'];
+            $l->person_id = $validatedData['person'];
+            $l->planning_date = $request->input('date_plannig');
+            $l->execution_date = $validatedData['date_execution'];
+            $l->description = $validatedData['description'];
+            $l->price = $request->input('total_labor');
+            $l->status = 'Programado';
+            $l->observations = $validatedData['observations'];
+            $l->destination =  $validatedData['destination'];
+            $l->save();
+
+            $consumables = $request->input('consumables');
+            $amount_consumables = $request->input('amount_consumables');
+
+            $element = Element::whereIn('id', $consumables)->pluck('measurement_unit_id');
+            foreach ($consumables as $key => $elementId) {
+                $requiredAmount = $amount_consumables[$key]; // Cantidad requerida para el elemento
+                $measurement_unit = MeasurementUnit::whereIn('id', $element)->pluck('conversion_factor');
+                $conversion = $requiredAmount*$measurement_unit[$key];
+
+                // Realiza una consulta para obtener los lotes correspondientes al elemento y ordénalos por lote
+                $selectedUnit = session('viewing_unit');
+                $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
+                $inventories = Inventory::where('element_id', $elementId)
+                ->where('productive_unit_warehouse_id', $productiveUnit)
+                ->orderBy('lot_number', 'ASC')
+                ->get();
+                // Inicializa la cantidad consumida en 0
+                $consumedAmount = 0;
+                foreach ($inventories as $inventory) {
+                    // Obtén la cantidad disponible y el precio del inventario
+                    $availableAmount = $inventory->amount;
+                    $priceInventory = $inventory->price;
                     
-                    // Actualiza la cantidad consumida
-                    $consumedAmount += $consumeFromThisLot;
-                    // Si se ha consumido la cantidad requerida, sal del bucle
-                    if ($consumedAmount >= $conversion) {
-                        break;
+                    // Calcula cuánto se puede consumir de este lote
+                    $consumeFromThisLot = min($availableAmount, max(0, $conversion - $consumedAmount));
+                    $intAmount = $consumeFromThisLot/$measurement_unit[$key];
+                    $price = $intAmount*$priceInventory;
+                    if ($consumeFromThisLot > 0) {
+                        // Registra el consumo para este lote
+                        $c = new Consumable;
+                        $c->labor_id = $l->id;
+                        $c->inventory_id = $inventory->id;
+                        $c->amount = $consumeFromThisLot;
+                        $c->price = $price;
+                        $c->save();
+                        
+                        // Actualiza la cantidad consumida
+                        $consumedAmount += $consumeFromThisLot;
+                        // Si se ha consumido la cantidad requerida, sal del bucle
+                        if ($consumedAmount >= $conversion) {
+                            break;
+                        }
                     }
                 }
             }
-        }
 
-        $tools = $request->input('tools');
-        $amount_tools = $request->input('amount_tools');
-        $price_tools = $request->input('price_tools');
+            $tools = $request->input('tools');
+            $amount_tools = $request->input('amount_tools');
+            $price_tools = $request->input('price_tools');
 
-        foreach ($tools as $key => $tool){ 
-            $t = new Tool;
-            $t->labor_id = $l->id;
-            $t->inventory_id = $tool;
-            $t->amount = $amount_tools[$key];
-            $t->price = $price_tools[$key];
-            $t->save();
-        }
+            foreach ($tools as $key => $tool){ 
+                $t = new Tool;
+                $t->labor_id = $l->id;
+                $t->inventory_id = $tool;
+                $t->amount = $amount_tools[$key];
+                $t->price = $price_tools[$key];
+                $t->save();
+            }
 
-        $equipments = $request->input('equipments');
-        $amount_equipments = $request->input('amount_equipments');
-        $price_equipments = $request->input('price_equipments');
+            $equipments = $request->input('equipments');
+            $amount_equipments = $request->input('amount_equipments');
+            $price_equipments = $request->input('price_equipments');
 
-        foreach ($equipments as $key => $equipment){ 
-            $i = new Equipment;
-            $i->labor_id = $l->id;
-            $i->inventory_id = $equipment;
-            $i->amount = $amount_equipments[$key];
-            $i->price = $price_equipments[$key];
-            $i->save();
-        }
+            foreach ($equipments as $key => $equipment){ 
+                $i = new Equipment;
+                $i->labor_id = $l->id;
+                $i->inventory_id = $equipment;
+                $i->amount = $amount_equipments[$key];
+                $i->price = $price_equipments[$key];
+                $i->save();
+            }
 
-        $executors = $request->input('executors_id');
-        $employee_type = $validatedData['employement_type'];
-        $hours = $validatedData['hours'];
-        $price = $request->input('price');
+            $aspect = $request->input('environmental_aspect');
+            $amount_aspect = $request->input('amount_environmental_aspect');
+            $price_aspect = $request->input('price_environmental_aspect');
+
+            foreach ($aspect as $key => $a){
+                $environmental_aspect = new EnvironmentalAspectLabor;
+                $environmental_aspect->environmental_aspect_id = $a;
+                $environmental_aspect->labor_id = $l->id;
+                $environmental_aspect->amount = $amount_aspect[$key];
+                $environmental_aspect->price = $price_aspect[$key];
+                $environmental_aspect->save();
+            }
 
 
-        foreach ($executors as $key => $executor){   
-            $e = new Executor;
-            $e->labor_id = $l->id;
-            $e->person_id = $executor;
-            $e->employee_type_id = $employee_type[$key];
-            $e->amount = $hours[$key];
-            $e->price = $price[$key];
-            $e->save();
-        }
+            $executors = $request->input('executors_id');
+            $employee_type = $validatedData['employement_type'];
+            $hours = $validatedData['hours'];
+            $price = $request->input('price');
 
-        $recipeRequest = $request->input('recipe');
-        $recipe = Formulation::where('id', $recipeRequest)->get();
-        foreach($recipe as $r){
-            $element_id = $r->element_id;
-        }
 
-        if($validatedData['destination'] === 'Producción'){
-            $p = new Production;
-            $p->labor_id = $l->id;
-            $p->element_id = $element_id;
-            $p->amount = $request->input('amount_production');
-            $p->expiration_date = $request->input('date_experation');
-            $p->lot = $request->input('lot');
-            $p->save();
-        }
+            foreach ($executors as $key => $executor){   
+                $e = new Executor;
+                $e->labor_id = $l->id;
+                $e->person_id = $executor;
+                $e->employee_type_id = $employee_type[$key];
+                $e->amount = $hours[$key];
+                $e->price = $price[$key];
+                $e->save();
+            }
 
-        if($t->save()){
+            $recipeRequest = $request->input('recipe');
+            $recipe = Formulation::where('id', $recipeRequest)->get();
+            foreach($recipe as $r){
+                $element_id = $r->element_id;
+            }
+            
+            if($l->activity->activity_type->name == 'Producción'){
+                $p = new Production;
+                $p->labor_id = $l->id;
+                $p->element_id = $element_id;
+                $p->amount = $request->input('amount_production');
+                $p->expiration_date = $request->input('date_experation');
+                $p->lot = $request->input('lot');
+                $p->save();
+            }
+            
+            DB::commit();
+
             $icon = 'success';
             $message_line = trans('agroindustria::labors.laborSavedCorrectly');
-         }else{
+        } catch (\Exception $e) {
+            // Rollback de la transacción en caso de error
+            DB::rollBack();
+    
             $icon = 'error';
             $message_line = trans('agroindustria::labors.errorWhenSavingWork');
-         }
-         return redirect()->route('cefa.agroindustria.units.instructor.labor')->with([
-             'icon' => $icon,
-             'message_line' => $message_line,
-         ]); 
+        }
+        
+        return redirect()->route('agroindustria.instructor.units.labor')->with([
+           'icon' => $icon,
+           'message_line' => $message_line,
+        ]); 
     }
     
     public function cancelLabor($id){
@@ -524,30 +568,60 @@ class LaborController extends Controller
         }
 
         $laborProduction = Labor::where('id', $id)->where('destination', 'Producción')->get();
-        foreach ($laborProduction as $l) {
-            $activityId = $l->activity_id;
-            $personId = $l->person_id;
-            $destination = $l->destination;
-            $status = $l->status;
-        }
+        if($laborProduction->count() > 0){
+            foreach ($laborProduction as $l) {
+                $activityId = $l->activity_id;
+                $personId = $l->person_id;
+                $destination = $l->destination;
+                $status = $l->status;
+            }
+        
 
-        $activity = Activity::where('id', $activityId)->pluck('productive_unit_id');
-        $productive_unit_warehouse = ProductiveUnitWarehouse::where('productive_unit_id', $activity)->get();
-        foreach ($productive_unit_warehouse as $pu) {
-            $productive_unit_warehouse_id = $pu->id;
-        }
+            $activity = Activity::where('id', $activityId)->pluck('productive_unit_id');
+            $productive_unit_warehouse = ProductiveUnitWarehouse::where('productive_unit_id', $activity)->get();
+            foreach ($productive_unit_warehouse as $pu) {
+                $productive_unit_warehouse_id = $pu->id;
+            }
 
-        $n = new Inventory;
-        $n->person_id = $personId;
-        $n->productive_unit_warehouse_id = $productive_unit_warehouse_id;
-        $n->element_id = $element_id;
-        $n->destination = $destination;
-        $n->price = $price;
-        $n->amount = $amount;
-        $n->stock = 10;
-        $n->lot_number = $lote;
-        $n->expiration_date = $expiration_date;
-        $n->save();
+            $n = new Inventory;
+            $n->person_id = $personId;
+            $n->productive_unit_warehouse_id = $productive_unit_warehouse_id;
+            $n->element_id = $element_id;
+            $n->destination = $destination;
+            $n->price = $price;
+            $n->amount = $amount;
+            $n->stock = 10;
+            $n->lot_number = $lote;
+            $n->expiration_date = $expiration_date;
+            $n->save();
+        }else{
+            $laborFormation = Labor::where('id', $id)->where('destination', 'Formación')->get();
+            foreach ($laborFormation as $l) {
+                $activityId = $l->activity_id;
+                $personId = $l->person_id;
+                $destination = $l->destination;
+                $status = $l->status;
+            }
+        
+
+            $activity = Activity::where('id', $activityId)->pluck('productive_unit_id');
+            $productive_unit_warehouse = ProductiveUnitWarehouse::where('productive_unit_id', $activity)->get();
+            foreach ($productive_unit_warehouse as $pu) {
+                $productive_unit_warehouse_id = $pu->id;
+            }
+
+            $n = new Inventory;
+            $n->person_id = $personId;
+            $n->productive_unit_warehouse_id = $productive_unit_warehouse_id;
+            $n->element_id = $element_id;
+            $n->destination = $destination;
+            $n->price = $price;
+            $n->amount = $amount;
+            $n->stock = 10;
+            $n->lot_number = $lote;
+            $n->expiration_date = $expiration_date;
+            $n->save();
+        }
         
 
         $consumables = Consumable::where('labor_id', $id)->get();
