@@ -149,6 +149,9 @@ return[
 'New Score' => 'New Score',
 'Save Score' => 'Save Score',
 
+'Benefit' => 'Benefit',
+'Update Benefit' => 'Update Benefit',
+
     //vita assistancefood
     'Food Attendance Record' => 'Food Attendance Record',
     'start date' => 'start date',

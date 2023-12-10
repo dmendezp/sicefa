@@ -10,7 +10,6 @@
 <script src="{{ asset('../bienestarxd/js/script.js') }}"></script>
 <!-- fullCalendar 2.2.5 -->
 <script src="{{ asset('../modules/bienestar/AdminLTE-3.2.0/plugins/moment/moment.min.js') }}"></script>
-<script src="{{ asset('../modules/bienestar/AdminLTE-3.2.0/plugins/fullcalendar/main.js') }}"></script>
 <!-- SweatAlert-->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.js') }}"></script>

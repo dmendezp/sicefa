@@ -22,6 +22,15 @@
                     @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-benefits.postulation-management'))
                     <form id="update-benefit-status-form" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-benefits.postulation-management') }}" method="POST">
                         @csrf
+                        <!-- Formulario con el select -->
+                        <form id="filterForm">
+                            <label for="filter">Filtrar por estado:</label>
+                            <select id="filter" name="filter">
+                                <option value="beneficiario">Beneficiario</option>
+                                <option value="no_beneficiario">No Beneficiario</option>
+                                <option value="todos">Todos</option>
+                            </select>
+                        </form>
                         <table id="benefitsTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -134,23 +143,25 @@
                 <p><strong>{{ trans('bienestar::menu.Benefits')}}:</strong></p>
                 <ul>
                     @foreach($postulation->postulationBenefits as $postulationBenefit)
-                        <li>
-                            <form id="update-benefit-form_{{ $postulationBenefit->id }}" class="update-benefit-form" data-postulation-id="{{ $postulation->id }}" data-postulation-benefit-id="{{ $postulationBenefit->id }}">
-                                @csrf
-                                @method('PUT')
-                                <div class="form-group">
-                                    <label for="benefit_{{ $postulationBenefit->id }}">{{ trans('bienestar::menu.Benefit')}}:</label>
-                                    <select class="form-control" name="benefit" id="benefit_{{ $postulationBenefit->id }}">
-                                        @foreach($benefits as $benefit)
-                                            <option value="{{ $benefit->id }}" {{ $postulationBenefit->benefit->id == $benefit->id ? 'selected' : '' }}>
-                                                {{ $benefit->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <button type="button" class="btn btn-primary update-benefit-btn">{{ trans('bienestar::menu.Update Benefit')}}</button>
-                            </form>
-                        </li>
+                        @if($postulationBenefit->state == 'Beneficiario')
+                            <li>
+                                <form id="update-benefit-status-form{{ $postulationBenefit->id }}" class="update-benefit-form" data-postulation-id="{{ $postulation->id }}" data-postulation-benefit-id="{{ $postulationBenefit->id }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="form-group">
+                                        <label for="benefit_{{ $postulationBenefit->id }}">{{ trans('bienestar::menu.Benefit')}}:</label>
+                                        <select class="form-control" name="benefit" id="benefit_{{ $postulationBenefit->id }}">
+                                            @foreach($benefits as $benefit)
+                                                <option value="{{ $benefit->id }}" {{ $postulationBenefit->benefit->id == $benefit->id ? 'selected' : '' }}>
+                                                    {{ $benefit->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <button type="button" class="btn btn-primary update-benefit-btn">{{ trans('bienestar::menu.Update Benefit')}}</button>
+                                </form>
+                            </li>
+                        @endif
                     @endforeach
                 </ul>
 
@@ -409,7 +420,38 @@ guardarBtn.addEventListener('click', function () {
     });
 </script>
 
-    <!-- Fuera del cuerpo del modal, al final del archivo o en una sección de scripts -->
-<!-- Fuera del cuerpo del modal, al final del archivo o en una sección de scripts -->
+<script>
+    // Función para actualizar la tabla según el filtro seleccionado
+    function updateTable(filter) {
+        // Realiza una petición AJAX al servidor para obtener la nueva tabla
+        $.ajax({
+            url: '{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.view.postulation-management') }},
+            type: 'GET',
+            data: {
+                filter: filter
+            },
+            success: function (data) {
+                // Actualiza el contenido de la tabla con la respuesta del servidor
+                $('#benefitsTable').html(data);
+            },
+            error: function (error) {
+                console.error('Error al actualizar la tabla:', error);
+            }
+        });
+    }
 
+    // Manejador de eventos cuando se selecciona un filtro
+    $('select#filtro-postulaciones').change(function () {
+        var selectedFilter = $(this).val();
+
+        // Actualiza la tabla con el filtro seleccionado
+        updateTable(selectedFilter);
+    });
+
+    // Inicializa la tabla al cargar la página con el filtro predeterminado
+    $(document).ready(function () {
+        var defaultFilter = $('select#filtro-postulaciones').val();
+        updateTable(defaultFilter);
+    });
+</script>
 @endsection

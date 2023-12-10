@@ -18,54 +18,55 @@ use Illuminate\Http\JsonResponse;
 class PostulationBenefitController extends Controller
 {
     public function index(Request $request)
-{
-    $benefits = Benefit::all();
-    $postulations = Postulation::with(['apprentice', 'convocation'])->get();
-    $questions = Question::all();
-
-     // Obtén la convocatoria activa basada en la fecha actual
-     $currentDate = Carbon::now();
-     $convocation = Convocation::where('start_date', '<=', $currentDate)
-         ->where('end_date', '>=', $currentDate)
-         ->first();
- 
-     // Verifica si la convocatoria existe
-     if ($convocation) {
-         // Obtén las postulaciones de la convocatoria activa
-         $postulations = Postulation::with(['apprentice', 'convocation'])
-             ->where('convocation_id', $convocation->id)
-             ->get();
- 
-    // Obtén las postulaciones seleccionadas desde el formulario
-    $selectedPostulations = $request->input('selected-postulations', []);
-
-    // Obtén las postulaciones no seleccionadas
-    $allPostulations = Postulation::all();
-    $unselectedPostulations = $allPostulations->filter(function ($postulation) use ($selectedPostulations) {
-        return !in_array($postulation->id, $selectedPostulations);
-    });
-
-    // Obtén la convocatoria activa basada en la fecha actual
-    $currentDate = Carbon::now(); // Obtiene la fecha y hora actual
-    $convocation = Convocation::where('start_date', '<=', $currentDate)
-        ->where('end_date', '>=', $currentDate)
-        ->first();
-
-    $postulationBenefits = PostulationBenefit::all();
-
-    return view('bienestar::postulation-management', compact('postulations', 'benefits', 'questions', 'postulationBenefits', 'selectedPostulations', 'unselectedPostulations', 'convocation'));
-} else {
-    // Si no hay convocatoria activa, puedes manejarlo de la manera que prefieras
-    // Por ejemplo, puedes redirigir a una página de error o mostrar un mensaje
-    return view('error_page'); // Ajusta el nombre de la vista de error según sea necesario
-}
-}
-public function show($id) {
-    $postulation = Postulation::with('convocation', 'apprentice', 'typeOfBenefit', 'answers', 'postulationBenefits', 'socioEconomicSupportFiles')->findOrFail($id);
-    return view('bienestar::postulation-management.show', compact('postulation'));
-}
-
-
+    {
+        $benefits = Benefit::all();
+        $questions = Question::all();
+    
+        // Obtén la convocatoria activa basada en la fecha actual
+        $currentDate = Carbon::now();
+        $convocation = Convocation::where('start_date', '<=', $currentDate)
+            ->where('end_date', '>=', $currentDate)
+            ->first();
+    
+        // Verifica si la convocatoria existe
+        if ($convocation) {
+            // Obtén las postulaciones de la convocatoria activa
+            $postulations = Postulation::with(['apprentice', 'convocation'])
+                ->where('convocation_id', $convocation->id)
+                ->get();
+    
+            // Obtén las postulaciones seleccionadas desde el formulario
+            $selectedPostulations = $request->input('selected-postulations', []);
+    
+            // Obtén las postulaciones no seleccionadas
+            $allPostulations = Postulation::all();
+            $unselectedPostulations = $allPostulations->filter(function ($postulation) use ($selectedPostulations) {
+                return !in_array($postulation->id, $selectedPostulations);
+            });
+    
+            // Filtrar postulaciones según el estado seleccionado
+            $filter = $request->input('filter', 'todos'); // Valor predeterminado: 'todos'
+    
+            if ($filter === 'beneficiario') {
+                $postulations = $postulations->filter(function ($postulation) {
+                    return $postulation->postulationBenefits->where('state', 'Beneficiario')->isNotEmpty();
+                });
+            } elseif ($filter === 'no_beneficiario') {
+                $postulations = $postulations->filter(function ($postulation) {
+                    return $postulation->postulationBenefits->where('state', '!=', 'Beneficiario')->isEmpty();
+                });
+            }
+    
+            $postulationBenefits = PostulationBenefit::all();
+    
+            return view('bienestar::postulation-management', compact('postulations', 'benefits', 'questions', 'postulationBenefits', 'selectedPostulations', 'unselectedPostulations', 'convocation'));
+        } else {
+            // Si no hay convocatoria activa, puedes manejarlo de la manera que prefieras
+            // Por ejemplo, puedes redirigir a una página de error o mostrar un mensaje
+            return view('error_page'); // Ajusta el nombre de la vista de error según sea necesario
+        }
+    }
+    
 
     public function showModal($id)
 {
@@ -108,30 +109,38 @@ public function show($id) {
 
 
 
-public function updateState(Request $request)
-{
-    try {
-        $postulationId = $request->input('postulation_id');
+public function updateBenefit(Request $request, $id)
+    {
+        try {
+            // Buscar la postulación por ID
+            $postulation = Postulation::findOrFail($id);
 
-        // Buscar la postulación por ID 
-        $postulation = Postulation::findOrFail($postulationId);
+            // Validar el beneficio seleccionado
+            $request->validate([
+                'benefit' => 'required|exists:benefits,id',
+            ]);
 
-        // Validar y actualizar el estado
-        $request->validate([
-            'state' => 'required|in:Beneficiario,No Beneficiario,Postulado',
-        ]);
+            // Obtener el beneficio seleccionado
+            $benefitId = $request->input('benefit');
 
-        // Actualizar el estado de la postulación
-        $postulation->postulationBenefits->first()->state = $request->input('state');
-        $postulation->postulationBenefits->first()->save();
-
-        // Redirigir de vuelta a la página anterior con un mensaje de éxito
-        return redirect()->back()->with('success', 'Estado actualizado con éxito');
-    } catch (\Exception $e) {
-        // Capturar y manejar errores, puedes personalizar esto según tus necesidades
-        return redirect()->back()->with('error', 'Error al actualizar el estado: ' . $e->getMessage());
+            // Actualizar el beneficio de la postulación
+            $postulationBenefit = $postulation->postulationBenefits->where('state', 'Beneficiario')->first();
+            
+            if ($postulationBenefit) {
+                $postulationBenefit->benefit_id = $benefitId;
+                $postulationBenefit->save();
+                
+                // Redirigir de vuelta a la página anterior con un mensaje de éxito
+                return redirect()->back()->with('success', 'Beneficio actualizado con éxito');
+            } else {
+                // Manejar el caso en que no hay beneficio para actualizar
+                return redirect()->back()->with('error', 'No se encontró un beneficio para actualizar');
+            }
+        } catch (\Exception $e) {
+            // Capturar y manejar errores, puedes personalizar esto según tus necesidades
+            return redirect()->back()->with('error', 'Error al actualizar el beneficio: ' . $e->getMessage());
+        }
     }
-}
 
 public function updateBenefits(Request $request)
 {

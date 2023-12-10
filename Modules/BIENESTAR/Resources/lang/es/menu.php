@@ -142,6 +142,8 @@ return[
     'Total Score' => 'Puntaje Total',
     'New Score' => 'Nueva Puntuación',
     'Save Score' => 'Guardar Puntuación',
+    'Benefit' => 'Beneficio',
+    'Update Benefit' => 'Actualizar Beneficio',
 
     //vita assistancefood
     'Food Attendance Record' => 'Registro de Asistencia de Alimentación ',
