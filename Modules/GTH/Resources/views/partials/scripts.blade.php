@@ -1,7 +1,12 @@
+
+<!-- jQuery -->
+<script src="{{ asset('AdminLTE/plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('AdminLTE/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src='{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.all.js') }}'></script>
 
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
@@ -17,7 +22,6 @@
 <script src="{{ asset('AdminLTE/libs/DataTables-1.13.4/datatables.min.css') }}"></script>
 <script src="{{ asset('AdminLTE/libs/DataTables-1.13.4/datatables.min.js') }}"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
@@ -40,11 +44,59 @@
 <script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
-<!-- jQuery -->
-<script src="{{ asset('AdminLTE/plugins/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('AdminLTE/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+
 <!-- AdminLTE App -->
 <script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>
+
+<!-- Alerta para guardar y editar -->
+@if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Exito!',
+            text: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 4000 // Tiempo en milisegundos (2 segundos en este caso)
+        });
+    </script>
+@endif
+
+@if (session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '{{ session('error') }}',
+            showConfirmButton: false,
+            timer: 4000 // Tiempo en milisegundos (2 segundos en este caso)
+        });
+    </script>
+@endif
+
+<!-- Alerta para guardar y editar -->
+@if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Exito!',
+            text: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 4000 // Tiempo en milisegundos (2 segundos en este caso)
+        });
+    </script>
+@endif
+
+@if (session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '{{ session('error') }}',
+            showConfirmButton: false,
+            timer: 4000 // Tiempo en milisegundos (2 segundos en este caso)
+        });
+    </script>
+@endif
 
 <!-- Datatable postulados -->
 <script>

@@ -22,10 +22,32 @@
                             <thead class="bg-primary text-white">
                                 <tr>
                                     <th scope="col">Id</th>
+                                    <th scope="col">numero ducumento</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                @foreach ($employees as $employe)
+                                    <tr>
+                                        <td>{{ $employe->id }}</td>
+                                        <td>{{ $employe->document_number }}</td>
+                                        <td>{{ $employe->person->full_name }}</td>
+                                        <td>
+                                            <a href="" class="btn btn-warning editar-btn"
+                                                data-bs-toggle="modal" data-bs-target="#editarModal_{{ $employe->id }}"
+                                                data-employee-id="{{ $employe->id }}"
+                                                data-employee-documment="{{ $employe->document_number }}"
+                                                data-employee-full_name="{{ $employe->full_name}}"
+                                                data-employee-contract_number="{{ $employe->contract_number }}">
+                                                
+                                                Editar
+                                        </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
 
                         </table>
                     </div>
@@ -34,7 +56,9 @@
         </div>
     </div>
     @include('gth::employees.new_officials')
+    @include('gth::employees.edit_officials')
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Detecta cambios en el campo "Número de Documento"
         $('#document_number').on('change', function() {
@@ -42,7 +66,7 @@
 
             // Realiza una solicitud AJAX para obtener los datos de la persona
             $.ajax({
-                url: '{{ route('cefa.gth.getPersonDatas') }}', // Utiliza la ruta configurada en web.php
+                url: '{{ route('cefa.gth.getPersonDatas') }}',
                 method: 'GET',
                 data: {
                     document_number: numeroDocumento
@@ -50,6 +74,9 @@
                 success: function(data) {
                     // Rellena los campos con los datos de la persona
                     $('#full_name').val(data.full_name);
+
+                    // Llena el campo oculto 'person_id' con el ID de la persona
+                    $('#person_id').val(data.id);
                 },
                 error: function() {
                     // Maneja errores si es necesario
