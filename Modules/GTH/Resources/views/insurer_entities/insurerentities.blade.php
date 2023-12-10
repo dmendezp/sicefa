@@ -16,9 +16,8 @@
                         <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#crearModal">
                             {{ trans('gth::menu.Create Insurance Company') }}
                         </button>
-                        <table id="insurerentities" class="table table-striped table-bordered shadow-lg mt-4"
-                            style="width:100%">
-                            <thead class="bg-primary text-white">
+                        <table id="datatable" class="table table-striped table-bordered">
+                            <thead>
                                 <tr>
                                     <th scope="col">{{ trans('gth::menu.ID') }}</th>
                                     <th scope="col">{{ trans('gth::menu.Name') }}</th>
@@ -136,12 +135,6 @@
     @endforeach
 @endsection
 @section('js')
-
-
-    <script>
-        new DataTable('#insurerentities');
-    </script>
-
     <script>
         function confirmarCambios() {
             Swal.fire({

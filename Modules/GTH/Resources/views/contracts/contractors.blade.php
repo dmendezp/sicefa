@@ -92,11 +92,7 @@
                                 <input type="hidden" name="id"
                                     value="{{ $contract->id }}"><!-- Cambiado a $contract -->
 
-
-                        <!-- Sección 1: Detalles del Contrato -->
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="mb-1">
+                            <div class="mb-3">
                                 <div class="form-group">
                                     <label for="contract_number-{{ $contract->id }}" class="form-label">Número de
                                         Contrato:</label>
@@ -105,7 +101,7 @@
                                         value="{{ old('contract_number', $contract->contract_number) }}" required>
                                 </div>
                             </div>
-                            <div class="mb-1">
+                            <div class="mb-3">
                                 <div class="form-group">
                                     <label for="contract_year-{{ $contract->id }}" class="form-label">Año de
                                         Contrato:</label>
@@ -113,7 +109,7 @@
                                         name="contract_year" value="{{ old('contract_year', $contract->contract_year) }}"required>
                                 </div>
                             </div>
-                                <div class="mb-1">
+                                <div class="mb-3">
                                     <div class="form-group">
                                         <label for="contract_start_date-{{ $contract->id }}" class="form-label">Fecha de Inicio
                                             de Contrato:</label>
@@ -122,7 +118,7 @@
                                             value="{{ old('contract_start_date', $contract->contract_start_date) }}" required>
                                     </div>
                                 </div>
-                                <div class="mb-1">
+                                <div class="mb-3">
                                     <div class="form-group">
                                         <label for="contract_end_date-{{ $contract->id }}" class="form-label">Fecha de Fin de
                                             Contrato:</label>
@@ -131,9 +127,6 @@
                                             value="{{ old('contract_end_date', $contract->contract_end_date) }}" required>
                                     </div>
                                 </div>
-                        </div>
-                    </div>
-
                                 <div class="mb-3">
                                     <label for="contractor_type_id-{{ $contract->id }}" class="form-label">Tipo de
                                         Contrato:</label>
@@ -203,7 +196,7 @@
                                         value="{{ old('assigment_value', $contract->assigment_value) }}" required>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="md-3">
                                     <div class="form-group">
                                         <label for="insurer_entity_id">Entidad Aseguradora:</label>
                                         <select name="insurer_entity_id" id="insurer_entity_id"
@@ -258,7 +251,7 @@
                                         value="{{ old('policy_expiration_date', $contract->policy_expiration_date) }}"
                                         required>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="md-3">
                                     <div class="form-group">
                                         <label for="risk_type">Tipo de Riesgo:</label>
                                         <select name="risk_type" id="risk_type"
@@ -282,7 +275,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="md-3">
                                     <div class="form-group">
                                         <label for="state">Estado:</label>
                                         <select name="state" id="state"
