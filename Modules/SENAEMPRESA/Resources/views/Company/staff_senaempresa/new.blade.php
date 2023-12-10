@@ -12,20 +12,15 @@
                             action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.saved') }}"
                             method="POST" enctype="multipart/form-data">
                             @csrf
+
                             <div class="mb-3">
-                                <label for="position_company_id"
+                                <label for="position_company_name"
                                     class="form-label">{{ trans('senaempresa::menu.Position ID') }}</label>
-                                <select class="form-control" name="position_company_id" aria-label="Selecciona un Cargo"
-                                    required>
-                                    <option value="" selected>{{ trans('senaempresa::menu.Select a Position') }}
-                                    </option>
-                                    @foreach ($PositionCompany as $positionCompany)
-                                        <option value="{{ $positionCompany->id }}">
-                                            {{ $positionCompany->id }}
-                                            {{ $positionCompany->name }}
-                                    @endforeach
-                                </select>
+                                <input type="text" class="form-control" name="position_company_name"
+                                    value="{{ $selectedPosition }} - {{ $selectedPositionName }}" readonly>
                             </div>
+                            <input type="hidden" class="form-control" name="position_company_id"
+                                value="{{ $selectedPosition }}" readonly>
                             <div class="mb-3">
                                 <label for="apprentice_id"
                                     class="form-label">{{ trans('senaempresa::menu.Search Apprentice by Document or Name') }}</label>

@@ -35,11 +35,34 @@ class StaffSenaempresaController extends Controller
         $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
         $PositionCompany = PositionCompany::all();
         $quarters = Quarter::all();
-        $Apprentices = Apprentice::all();
-        $data = ['title' => trans('senaempresa::menu.Staff SenaEmpresa'), 'vacastaff_senaempresasncies' => $staff_senaempresas, 'PositionCompany' => $PositionCompany, 'Apprentices' => $Apprentices, 'quarters' => $quarters];
+        $Apprentices = Apprentice::whereHas('postulates', function ($query) {
+            $query->where('state', 'Seleccionado');
+        })->get();
+
+        $selectedPosition = null;
+        $selectedPositionName = null;
+
+        if (!empty($Apprentices)) {
+            $firstApprentice = $Apprentices->first();
+            $postulate = $firstApprentice->postulates->first();
+            $selectedPosition = $postulate->vacancy->position_company_id;
+            $selectedPositionName = $postulate->vacancy->positionCompany->name;
+        }
+
+        $data = [
+            'title' => trans('senaempresa::menu.Staff SenaEmpresa'),
+            'vacastaff_senaempresasncies' => $staff_senaempresas,
+            'PositionCompany' => $PositionCompany,
+            'Apprentices' => $Apprentices,
+            'quarters' => $quarters,
+            'selectedPosition' => $selectedPosition,
+            'selectedPositionName' => $selectedPositionName, // Nuevo campo para el nombre del cargo
+        ];
 
         return view('senaempresa::Company.staff_senaempresa.new', $data);
     }
+
+
 
     public function saved(Request $request)
     {
