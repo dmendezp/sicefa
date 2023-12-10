@@ -22,15 +22,6 @@
                     @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-benefits.postulation-management'))
                     <form id="update-benefit-status-form" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-benefits.postulation-management') }}" method="POST">
                         @csrf
-                        <!-- Formulario con el select -->
-                        <form id="filterForm">
-                            <label for="filter">Filtrar por estado:</label>
-                            <select id="filter" name="filter">
-                                <option value="beneficiario">Beneficiario</option>
-                                <option value="no_beneficiario">No Beneficiario</option>
-                                <option value="todos">Todos</option>
-                            </select>
-                        </form>
                         <table id="benefitsTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -145,12 +136,13 @@
                     @foreach($postulation->postulationBenefits as $postulationBenefit)
                         @if($postulationBenefit->state == 'Beneficiario')
                             <li>
-                                <form id="update-benefit-status-form{{ $postulationBenefit->id }}" class="update-benefit-form" data-postulation-id="{{ $postulation->id }}" data-postulation-benefit-id="{{ $postulationBenefit->id }}">
+                                @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-state-benefit.postulation-management'))
+                                <form id="update-benefit-status-form{{ $postulationBenefit->id }}" class="update-benefit-form" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-state-benefit.postulation-management', ['id' => $postulation->id]) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
                                         <label for="benefit_{{ $postulationBenefit->id }}">{{ trans('bienestar::menu.Benefit')}}:</label>
-                                        <select class="form-control" name="benefit" id="benefit_{{ $postulationBenefit->id }}">
+                                        <select class="form-control" name="benefit" id="benefit_{{ $postulationBenefit->id }}" onchange="this.form.submit()">
                                             @foreach($benefits as $benefit)
                                                 <option value="{{ $benefit->id }}" {{ $postulationBenefit->benefit->id == $benefit->id ? 'selected' : '' }}>
                                                     {{ $benefit->name }}
@@ -158,13 +150,14 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <button type="button" class="btn btn-primary update-benefit-btn">{{ trans('bienestar::menu.Update Benefit')}}</button>
+                                    <!-- No se necesita el botón de envío -->
                                 </form>
+                                @endif
                             </li>
                         @endif
                     @endforeach
                 </ul>
-
+                
                 <p><strong>{{ trans('bienestar::menu.Total Score')}}:</strong> <span id="total-score_{{ $postulation->id }}">{{ $postulation->total_score }}</span></p>
 
                 <div class="form-group">
@@ -389,69 +382,44 @@ guardarBtn.addEventListener('click', function () {
         });
     </script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Agregar un event listener para cada botón de actualización de beneficios
-        const updateBenefitButtons = document.querySelectorAll('.update-benefit-btn');
-        
-        updateBenefitButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                // Obtener los datos del formulario
-                const formId = this.closest('form').id;
-                const postulationId = this.closest('form').getAttribute('data-postulation-id');
-                const postulationBenefitId = this.closest('form').getAttribute('data-postulation-benefit-id');
-                const selectedBenefitId = document.getElementById(`benefit_${postulationBenefitId}`).value;
 
-                // Realizar una solicitud AJAX para actualizar el beneficio
-                axios.put(`{{ url('bienestar/your-route') }}/${postulationId}`, {
-                    postulationBenefitId: postulationBenefitId,
-                    selectedBenefitId: selectedBenefitId,
-                })
-                .then(response => {
-                    // Manejar la respuesta (puedes personalizar según tus necesidades)
-                    console.log(response.data);
-                })
-                .catch(error => {
-                    // Manejar errores (puedes personalizar según tus necesidades)
-                    console.error(error.response.data);
-                });
+<script>
+    $(document).ready(function () {
+        // Escucha el cambio en los select con la clase "form-control"
+        $('.form-control').on('change', function () {
+            // Obtén el formulario más cercano al select cambiado
+            var form = $(this).closest('form');
+    
+            // Obtén la URL de la acción del formulario
+            var url = form.attr('action');
+    
+            // Obtén los datos del formulario
+            var formData = form.serialize();
+    
+            // Envía la solicitud AJAX
+            $.ajax({
+                type: 'PUT',
+                url: url,
+                data: formData,
+                success: function (data) {
+                    // Maneja la respuesta exitosa aquí, por ejemplo, muestra un mensaje
+                    console.log('Beneficio actualizado con éxito');
+                    // Puedes agregar más lógica aquí según tus necesidades
+                },
+                error: function (error) {
+                    // Maneja errores aquí, por ejemplo, muestra un mensaje de error
+                    console.error('Error al actualizar el beneficio:', error.responseText);
+                    // Puedes agregar más lógica aquí según tus necesidades
+                }
             });
         });
     });
-</script>
+    </script>
+    
 
-<script>
-    // Función para actualizar la tabla según el filtro seleccionado
-    function updateTable(filter) {
-        // Realiza una petición AJAX al servidor para obtener la nueva tabla
-        $.ajax({
-            url: '{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.view.postulation-management') }},
-            type: 'GET',
-            data: {
-                filter: filter
-            },
-            success: function (data) {
-                // Actualiza el contenido de la tabla con la respuesta del servidor
-                $('#benefitsTable').html(data);
-            },
-            error: function (error) {
-                console.error('Error al actualizar la tabla:', error);
-            }
-        });
-    }
 
-    // Manejador de eventos cuando se selecciona un filtro
-    $('select#filtro-postulaciones').change(function () {
-        var selectedFilter = $(this).val();
 
-        // Actualiza la tabla con el filtro seleccionado
-        updateTable(selectedFilter);
-    });
+    <!-- Fuera del cuerpo del modal, al final del archivo o en una sección de scripts -->
+<!-- Fuera del cuerpo del modal, al final del archivo o en una sección de scripts -->
 
-    // Inicializa la tabla al cargar la página con el filtro predeterminado
-    $(document).ready(function () {
-        var defaultFilter = $('select#filtro-postulaciones').val();
-        updateTable(defaultFilter);
-    });
-</script>
 @endsection

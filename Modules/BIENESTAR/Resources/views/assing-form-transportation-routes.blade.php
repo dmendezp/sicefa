@@ -40,7 +40,7 @@
                     <div class="card-body">
 
                     @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.updateInline.assing_form_transportation_routes'))
-                    <form id="#update-benefit-status-form" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.updateInline.assing_form_transportation_routes') }}" method="POST">
+                    <form id="update-benefit-status-form" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.updateInline.assing_form_transportation_routes') }}" method="POST">
                         @csrf
                         <table class="table table-bordered table-striped">
                             <thead>
@@ -154,13 +154,6 @@
             const routeTransportationId = $radio.data('route-id');
             const postulationBenefitId = $radio.data('postulation-benefit-id');
 
-            console.log('Datos a enviar:', {
-                apprentice_id: apprenticeId,
-                route_transportation_id: routeTransportationId,
-                postulation_benefit_id: postulationBenefitId,
-                checked: isChecked,
-            });
-
             // Realizar la solicitud AJAX para actualizar o crear el registro
             $.ajax({
                 url: '{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.updateInline.assing_form_transportation_routes') }}',
@@ -175,12 +168,43 @@
                     checked: isChecked,
                 },
                 success: function(response) {
-                    console.log(response);
-                    // Después de realizar la asignación o desasignación, actualizar la tabla
-                    $('#routesTable').load(window.location.href + ' #routesTable');
+                    // Mostrar SweetAlert en función de la respuesta del servidor
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: "{{ trans('bienestar::menu.Success!') }}",
+                            text: response.success,
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function() {
+                            // Después de realizar la asignación o desasignación, actualizar la tabla
+                            $('#routesTable').load(window.location.href + ' #routesTable');
+                        });
+                    } else if (response.error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: response.error,
+                            showConfirmButton: true
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: "{{ trans('bienestar::menu.An error occurred while trying to save records.') }}",
+                            showConfirmButton: true
+                        });
+                    }
                 },
                 error: function(error) {
                     console.error(error);
+                    // Mostrar SweetAlert de error en caso de problemas
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: "{{ trans('bienestar::menu.An error occurred while trying to save records.') }}",
+                        showConfirmButton: true
+                    });
                 }
             });
         });

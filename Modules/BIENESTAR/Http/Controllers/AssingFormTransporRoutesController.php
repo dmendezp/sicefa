@@ -98,12 +98,15 @@ public function updateInline(Request $request)
 
         return response()->json([
             'success' => 'Registros actualizados con éxito.',
+            'message' => '¡Asignación de ruta actualizada correctamente!',
         ], 200);
     } catch (\Exception $e) {
-        return response()->json(['error' => 'Error al actualizar los registros: ' . $e->getMessage()], 500);
+        return response()->json([
+            'error' => 'Error al actualizar los registros: ' . $e->getMessage(),
+            'message' => 'Hubo un error al actualizar la asignación de la ruta.',
+        ], 500);
     }
 }
-
 
 
 }
