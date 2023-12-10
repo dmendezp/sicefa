@@ -2,6 +2,8 @@
 
 return [
 
+    'Back to SICEFA' => 'Volver a SICEFA',
+
 	//PositionCompany
 
 	'Status' => 'Estado',  // Loan,

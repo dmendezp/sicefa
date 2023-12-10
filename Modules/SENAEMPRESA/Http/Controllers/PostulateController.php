@@ -117,59 +117,59 @@ class PostulateController extends Controller
 
 
     public function postulates(Request $request)
-{
-    $selectedPositionId = $request->input('positionFilter');
-    $showAssignedScore = $request->input('showAssignedScore'); // Nuevo filtro
+    {
+        $selectedPositionId = $request->input('positionFilter');
+        $showAssignedScore = $request->input('showAssignedScore'); // Nuevo filtro
 
-    $PositionCompanies = PositionCompany::where('state', 'Activo')->get();
+        $PositionCompanies = PositionCompany::where('state', 'Activo')->get();
 
-    // Consulta para obtener los postulantes filtrados por cargo y puntaje asignado/sin asignar
-    $postulates = Postulate::with(['apprentice.person', 'vacancy'])
-        ->when($selectedPositionId, function ($query) use ($selectedPositionId) {
-            $query->whereHas('vacancy.positionCompany', function ($q) use ($selectedPositionId) {
-                $q->where('id', $selectedPositionId);
-            });
-        })
-        ->when($showAssignedScore, function ($query) use ($showAssignedScore) {
-            if ($showAssignedScore == 'assigned') {
-                $query->where('score_total', '>', 0);
-            } else {
-                $query->where('score_total', 0);
-            }
-        })
-        ->get();
+        // Consulta para obtener los postulantes filtrados por cargo y puntaje asignado/sin asignar
+        $postulates = Postulate::with(['apprentice.person', 'vacancy'])
+            ->when($selectedPositionId, function ($query) use ($selectedPositionId) {
+                $query->whereHas('vacancy.positionCompany', function ($q) use ($selectedPositionId) {
+                    $q->where('id', $selectedPositionId);
+                });
+            })
+            ->when($showAssignedScore, function ($query) use ($showAssignedScore) {
+                if ($showAssignedScore == 'assigned') {
+                    $query->where('score_total', '>', 0);
+                } else {
+                    $query->where('score_total', 0);
+                }
+            })
+            ->get();
 
-    $data = [
-        'title' => trans('senaempresa::menu.Postulated'),
-        'postulates' => $postulates,
-        'PositionCompanies' => $PositionCompanies,
-        'selectedPositionId' => $selectedPositionId,
-        'showAssignedScore' => $showAssignedScore, // Pasa el nuevo filtro a la vista
-    ];
+        $data = [
+            'title' => trans('senaempresa::menu.Postulated'),
+            'postulates' => $postulates,
+            'PositionCompanies' => $PositionCompanies,
+            'selectedPositionId' => $selectedPositionId,
+            'showAssignedScore' => $showAssignedScore, // Pasa el nuevo filtro a la vista
+        ];
 
-    return view('senaempresa::Company.postulate.index', $data);
-}
+        return view('senaempresa::Company.postulate.index', $data);
+    }
 
 
     public function assign_score($apprenticeId, $vacancyId)
-{
-    // Find the postulate by apprentice_id and vacancy_id
-    $postulate = Postulate::where('apprentice_id', $apprenticeId)
-        ->where('vacancy_id', $vacancyId)
-        ->first();
+    {
+        // Find the postulate by apprentice_id and vacancy_id
+        $postulate = Postulate::where('apprentice_id', $apprenticeId)
+            ->where('vacancy_id', $vacancyId)
+            ->first();
 
-    // Check if a postulate is found
-    if (!$postulate) {
-        return redirect()->back()->with('error', 'No se encontró un postulado con el ID proporcionado.');
+        // Check if a postulate is found
+        if (!$postulate) {
+            return redirect()->back()->with('error', 'No se encontró un postulado con el ID proporcionado.');
+        }
+
+        $data = [
+            'title' => 'Asignar Puntaje',
+            'postulate' => $postulate,
+        ];
+
+        return view('senaempresa::Company.postulate.assign_score', $data);
     }
-
-    $data = [
-        'title' => 'Asignar Puntaje',
-        'postulate' => $postulate,
-    ];
-
-    return view('senaempresa::Company.postulate.assign_score', $data);
-}
 
 
     public function score_assigned(Request $request)
@@ -218,48 +218,70 @@ class PostulateController extends Controller
         }
     }
     public function state($apprenticeId)
-{
-    $estados = ['Seleccionado', 'No Seleccionado'];
-    // Find the postulate by apprentice_id and vacancy_id
-    $postulate = Postulate::where('apprentice_id', $apprenticeId)
-        ->first();
+    {
+        $estados = ['Seleccionado', 'No Seleccionado'];
+        // Find the postulate by apprentice_id and vacancy_id
+        $postulate = Postulate::where('apprentice_id', $apprenticeId)
+            ->first();
 
-    // Check if a postulate is found
-    if (!$postulate) {
-        return redirect()->back()->with('error', 'No se encontró un postulado con el ID proporcionado.');
+        // Check if a postulate is found
+        if (!$postulate) {
+            return redirect()->back()->with('error', 'No se encontró un postulado con el ID proporcionado.');
+        }
+
+        $data = [
+            'title' => 'Actulizar Estado',
+            'postulate' => $postulate,
+            'estados' => $estados
+        ];
+
+        return view('senaempresa::Company.postulate.state', $data);
     }
 
-    $data = [
-        'title' => 'Actulizar Estado',
-        'postulate' => $postulate,
-        'estados' => $estados
-    ];
+    public function state_updated(Request $request)
+    {
+        $request->validate([
+            'state' => 'required|in:Seleccionado,No Seleccionado',
+            'postulate_id' => 'required|exists:postulates,id',
+        ]);
 
-    return view('senaempresa::Company.postulate.state', $data);
-}
+        $postulateId = $request->input('postulate_id');
+        $state = $request->input('state');
 
-public function state_updated(Request $request)
-{
-    $request->validate([
-        'state' => 'required|in:Seleccionado,No Seleccionado',
-        'postulate_id' => 'required|exists:postulates,id',
-    ]);
+        // Obtener el postulado actual
+        $currentPostulate = Postulate::find($postulateId);
 
-    $postulateId = $request->input('postulate_id');
-    $state = $request->input('state');
+        // Obtener la vacante asociada al postulado actual
+        $vacancyId = $currentPostulate->vacancy_id;
 
-    Postulate::where('id', $postulateId)->update(['state' => $state]);
+        // Actualizar el estado del postulado actual
+        $currentPostulate->update(['state' => $state]);
 
-    return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index')
-        ->with('success', 'Estado actualizado correctamente');
-}
+        // Si el estado es 'Seleccionado', actualizar los demás postulados del mismo aprendiz a 'No Seleccionado'
+        // y los postulados de otros aprendices para la misma vacante a 'No Seleccionado'
+        if ($state == 'Seleccionado') {
+            $apprenticeId = $currentPostulate->apprentice_id;
 
-public function seleccionados()
+            // Actualizar postulados del mismo aprendiz a 'No Seleccionado'
+            Postulate::where('apprentice_id', $apprenticeId)
+                ->where('id', '!=', $postulateId)
+                ->update(['state' => 'No Seleccionado']);
+
+            // Actualizar postulados de otros aprendices para la misma vacante a 'No Seleccionado'
+            Postulate::where('vacancy_id', $vacancyId)
+                ->where('apprentice_id', '!=', $apprenticeId)
+                ->update(['state' => 'No Seleccionado']);
+        }
+
+        return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index')
+            ->with('success', 'Estado actualizado correctamente');
+    }
+    
+    public function seleccionados()
     {
         $postulates  = postulate::with(['apprentice.person'])
-        ->get();
-        $data = ['title' => 'Seleccionados', 'postulates' => $postulates ];
+            ->get();
+        $data = ['title' => 'Seleccionados', 'postulates' => $postulates];
         return view('senaempresa::Company.Postulate.Application', $data);
     }
-
 }

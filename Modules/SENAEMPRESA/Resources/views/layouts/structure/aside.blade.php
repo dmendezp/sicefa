@@ -32,9 +32,9 @@
                     </div>
                 @else
                     <div class="col info info-user">
-                        <div data-toggle="tooltip" data-placement="top"
-                            title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">
-                            {{ Auth::user()->nickname }}</div>
+                        <div data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->person->full_name }}">
+                            {{ Auth::user()->nickname }}
+                        </div>
                         <div class="small"><em> {{ Auth::user()->roles[0]->name }}</em></div>
                     </div>
                     <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right"
@@ -58,7 +58,7 @@
                             class="nav-link {{ !Route::is('cefa.contact.maps') ?: 'active' }}">
                             <i class="nav-icon fas fa-puzzle-piece"></i>
                             <p>
-                                {{ trans('sica::menu.Back to') }} {{ env('APP_NAME') }}
+                                {{ trans('senaempresa::menu.Back to SICEFA') }}
                             </p>
                         </a>
                     </li>
@@ -179,17 +179,6 @@
                             </a>
                         </li>
                     @endif
-                    @if (Auth::user()->havePermission('senaempresa.admin.attendances.index'))
-                        <li class="nav-item">
-                            <a href="{{ route('senaempresa.admin.attendances.index') }}"
-                                class="nav-link {{ !Route::is('senaempresa.admin.attendances.index') ?: 'active' }}">
-                                <i class="fas fa-tasks"></i>
-                                <p>
-                                    {{ trans('senaempresa::menu.Attendance') }}
-                                </p>
-                            </a>
-                        </li>
-                    @endif
                     @if (Auth::user()->havePermission('senaempresa.admin.phases'))
                         <li
                             class="nav-item {{ Route::is('senaempresa.admin.phases.index', 'senaempresa.admin.phases.show_associates', 'senaempresa.admin.staff.index') ? 'menu-is-opening menu-open' : '' }}">
@@ -225,9 +214,20 @@
                                     <li class="nav-item">
                                         <a href="{{ route('senaempresa.admin.staff.index') }}"
                                             class="nav-link {{ !Route::is('senaempresa.admin.staff.index') ?: 'active' }}">
-                                            <i class="fas fa-users-cog"></i>
+                                            <i class="fas fa-id-card-alt"></i>
                                             <p>
                                                 {{ trans('senaempresa::menu.Staff') }}
+                                            </p>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if (Auth::user()->havePermission('senaempresa.admin.attendances.index'))
+                                    <li class="nav-item">
+                                        <a href="{{ route('senaempresa.admin.attendances.index') }}"
+                                            class="nav-link {{ !Route::is('senaempresa.admin.attendances.index') ?: 'active' }}">
+                                            <i class="fas fa-tasks"></i>
+                                            <p>
+                                                {{ trans('senaempresa::menu.Attendance') }}
                                             </p>
                                         </a>
                                     </li>
@@ -246,6 +246,15 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+                                @if (Auth::user()->havePermission('senaempresa.admin.positions.index'))
+                                    <li class="nav-item">
+                                        <a href="{{ route('senaempresa.admin.positions.index') }}"
+                                            class="nav-link {{ !Route::is('senaempresa.admin.positions.index') ?: 'active' }}">
+                                            <i class="fas fa-users-cog"></i>
+                                            <p>{{ trans('senaempresa::menu.Positions') }}</p>
+                                        </a>
+                                    </li>
+                                @endif
                                 @if (Auth::user()->havePermission('senaempresa.admin.vacancies.index'))
                                     <li class="nav-item">
                                         <a href="{{ route('senaempresa.admin.vacancies.index') }}"
@@ -267,15 +276,7 @@
                             </ul>
                         </li>
                     @endif
-                    @if (Auth::user()->havePermission('senaempresa.admin.positions.index'))
-                        <li class="nav-item">
-                            <a href="{{ route('senaempresa.admin.positions.index') }}"
-                                class="nav-link {{ !Route::is('senaempresa.admin.positions.index') ?: 'active' }}">
-                                <i class="fas fa-user-plus"></i>
-                                <p>{{ trans('senaempresa::menu.Positions') }}</p>
-                            </a>
-                        </li>
-                    @endif
+
                     @if (Auth::user()->havePermission('senaempresa.admin.postulates'))
                         <li
                             class="nav-item {{ !Route::is('senaempresa.admin.postulates.*') ?: 'menu-is-opening menu-open' }}">
@@ -317,9 +318,16 @@
                             </a>
                         </li>
                     @endif
+                    @if (Auth::user()->havePermission('senaempresa.admin.loans.inventory'))
+                        <li class="nav-item">
+                            <a href="{{ route('senaempresa.admin.loans.inventory') }}"
+                                class="nav-link {{ !Route::is('senaempresa.admin.loans.inventory') ?: 'active' }}">
+                                <i class="fas fa-boxes"></i>
+                                <p>Inventario</p>
+                            </a>
+                        </li>
+                    @endif
                 @endif
-
-
 
                 {{-- Menú de opciones para Lider talento humano Senaempresa --}}
                 @if (Route::is('senaempresa.human_talent_leader.*'))

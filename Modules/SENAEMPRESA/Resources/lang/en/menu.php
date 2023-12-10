@@ -1,6 +1,8 @@
 <?php
 
 return [
+
+    'Back to SICEFA' => 'Back to SICEFA',
     //PositionCompany
     'Name' => 'Name',  // SENAEMPRESA, Vacant,
     'General Description' => 'General Description',  // Vacant,
