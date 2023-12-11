@@ -2,6 +2,5 @@
 
 return [
     'Developers' => 'Desarrolladores',
-    'toolsusedfordevelopment' => 'herramientas utilizadas para el desarrollo',
-
+    'Tools used for development' => 'Herramientas utilizadas para el desarrollo',
 ];

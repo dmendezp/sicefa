@@ -14,11 +14,11 @@
     <table id="example1" style="text-align: center" class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>{{ trans('agrocefa::balance.activity') }}</th>
-                <th>{{ trans('agrocefa::balance.activitytype') }}</th>
-                <th>{{ trans('agrocefa::balance.executiondate') }}</th>
-                <th>{{ trans('agrocefa::balance.laborexpense') }}</th>
-                <th>{{ trans('agrocefa::balance.Productionprice') }}</th>
+                <th>{{ trans('agrocefa::produccion.activity') }}</th>
+                <th>{{ trans('agrocefa::produccion.activitytype') }}</th>
+                <th>{{ trans('agrocefa::produccion.executiondate') }}</th>
+                <th>{{ trans('agrocefa::produccion.laborexpense') }}</th>
+                <th>{{ trans('agrocefa::produccion.Productionprice') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -33,10 +33,10 @@
                             @if (!is_null($labor->totalProductionPrice) && $labor->totalProductionPrice > 0)
                                 {{ $labor->totalProductionPrice }}
                             @else
-                                {{ trans('agrocefa::balance.There_is_no_registered_production') }}
+                                {{ trans('agrocefa::produccion.There_is_no_registered_production') }}
                             @endif
                         @else
-                            {{ trans('agrocefa::balance.Does_not_have_production') }}
+                            {{ trans('agrocefa::produccion.Does_not_have_production') }}
                         @endif
                     </td>
                 </tr>
@@ -45,13 +45,13 @@
             <h2 style="text-align: center">Totales</h2>
             <tr style="text-align: left">
                 <td>
-                <td><strong>{{ trans('agrocefa::balance.Totalexpenses') }}:</strong></td>
+                <td><strong>{{ trans('agrocefa::produccion.Totalexpenses') }}:</strong></td>
                 </td>
                 <td><strong>{{ $totalExpenses }}</strong></td>
             </tr>
             <tr style="text-align: left">
                 <td>
-                <td><strong>{{ trans('agrocefa::balance.TotalProductions') }}:</strong></td>
+                <td><strong>{{ trans('agrocefa::produccion.TotalProductions') }}:</strong></td>
                 </td>
                 <td><strong>{{ $totalProductions }}</strong></td>
             </tr>

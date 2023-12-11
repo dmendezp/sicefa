@@ -146,7 +146,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/reports/production', 'Reports\ProductionController@index')->name('agrocefa.reports.production');
         Route::get('/reports/cropsbylot', 'Reports\ProductionController@getCropsByLot')->name('agrocefa.reports.cropsbylot');
         Route::post('/reports/production/filter', 'Reports\ProductionController@filterProduction')->name('agrocefa.reports.filterproduction');
-        Route::get('/reports/resultproduction', 'Reports\ProductionController@resultProduction')->name('agrocefa.reports.resultproduction');
+        Route::get('/reports/production/resultproduction', 'Reports\ProductionController@resultProduction')->name('agrocefa.reports.resultproduction');
         Route::get('/reports/productionpdf', 'Reports\ProductionController@productionPdf')->name('agrocefa.reports.productionpdf');
 
         //Balance
