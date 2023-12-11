@@ -259,10 +259,10 @@ class InputRequestController extends Controller
     
         if($wm->save()){
             $icon = 'success';
-            $message_line = trans('agroindustria::request.applicationCancelled');
+            $message_line = trans('agroindustria::request.registeredEntry');
         }else{
             $icon = 'error';
-            $message_line = trans('agroindustria::request.iCannotCancelRequest');
+            $message_line = trans('agroindustria::request.error');
         }
 
         return redirect()->route('cefa.agroindustria.units.instructor.requests')->with([

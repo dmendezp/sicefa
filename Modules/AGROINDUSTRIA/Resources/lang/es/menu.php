@@ -11,6 +11,9 @@ return [
     'Desregistrations' => 'Bajas',
     'Units' => 'Unidades',
     'Dashboard' => 'Tablero',
+    'developments' => 'Desarrolladores',
+    'production' => 'Producción',
+    'requests' => 'Solicitudes',
 
     //Botones
     'Add Product' => 'Agregar producto', 
@@ -121,7 +124,6 @@ return [
     'Edit'=>'Editar',
 
     //request
-    'requests' => 'Solicitudes',
 
 
 

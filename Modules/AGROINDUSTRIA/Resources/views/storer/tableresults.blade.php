@@ -1,3 +1,6 @@
+@extends('agroindustria::layouts.master')
+@section('content')
+
 @if ($inventories->count() > 0)
 
 <table id="inventory" class="table">
@@ -34,3 +37,4 @@
 @else
     <p>No hay registros</p>   
 @endif
+@endsection

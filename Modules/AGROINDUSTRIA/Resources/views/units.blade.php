@@ -20,6 +20,18 @@
                     </button>   
                 </a>      
                 @else
+                @if(auth()->check() && checkRol('agroindustria.almacenista'))
+                <a href="{{route('cefa.agroindustria.storer.units.inventory' , ['id'=> $unit->id])}}">
+                    <button class="card-client-button" id="boton_unit" data-unit-name="{{ $unit->name }}"  onclick="selectUnit('{{ $unit->id }}', '{{ $unit->name }}')">
+                        <div class="card-client-content">
+                            <h2 class="tittleU">{{ $unit->name }}</h2>
+                            <br>
+                            <i class="{{$unit->icon}}" style="color: #ffffff;"></i>
+                            <br><br>
+                        </div>
+                    </button>   
+                </a>  
+                @else    
                 <a href="{{route('agroindustria.admin.units.activity' , ['unit'=> $unit->id])}}">
                     <button class="card-client-button" id="boton_unit" data-unit-name="{{ $unit->name }}"  onclick="selectUnit('{{ $unit->id }}', '{{ $unit->name }}')">
                         <div class="card-client-content">
@@ -30,6 +42,7 @@
                         </div>
                     </button>   
                 </a>  
+                @endif
                 @endif
             </div>
         @endforeach            

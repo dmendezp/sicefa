@@ -10,6 +10,10 @@ return [
     'Desregistrations' => 'Desregistrations',
     'Units' => 'Units',
     'Dashboard' => 'Dashboard',
+    'developments' => 'Developments',
+    'production' => 'Production',
+    'requests' => 'Requests',
+
 
     //Botones
     'Add Product' => 'Add product',
@@ -102,7 +106,6 @@ return [
     'Edit'=>'Edit',
 
     //view requests 
-    'requests' => 'requests',
 
    
 

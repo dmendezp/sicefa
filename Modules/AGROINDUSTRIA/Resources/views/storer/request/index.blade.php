@@ -1,14 +1,16 @@
 @extends('agroindustria::layouts.master')
 @section('content')
 
-<div class="request" style="margin: 10px">
-    <table id="request" class="hover" style="width: 98%;">
+<div class="request" style="margin: 40px">
+    <h1>{{trans('agroindustria::request.requestInstructor')}}</h1>
+    <table id="request" class="hover" style="width: 100%;">
         <thead>
             <tr>
                 <th>{{trans('agroindustria::request.date')}}</th>
                 <th>{{trans('agroindustria::request.element')}}</th>
+                <th>{{trans('agroindustria::request.amount')}}</th>
                 <th>{{trans('agroindustria::request.applicant')}}</th>
-                <th></th>
+                <th>{{trans('agroindustria::request.actions')}}</th>
             </tr>
         </thead>
         <tbody>
@@ -18,6 +20,11 @@
                 <td> 
                     @foreach($r->consumables as $c)
                     {{$c->inventory->element->name}} <br>
+                    @endforeach
+                </td>
+                <td>
+                    @foreach ($r->consumables as $c)
+                        {{$c->amount / $c->inventory->element->measurement_unit->conversion_factor . ' (' . $c->inventory->element->measurement_unit->abbreviation . ')'}} <br>
                     @endforeach
                 </td>
                 <td>{{$r->person->first_name . ' ' . $r->person->first_last_name . ' ' . $r->person->second_last_name}}</td>

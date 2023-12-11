@@ -662,6 +662,19 @@ class ConsumableExport implements FromCollection, WithHeadings, Responsable, Wit
         ]);
 
         $sheet->setCellValue('F' . $newRow+1, '');
+
+        $sheet->getStyle('M' . $newRow+3)->applyFromArray([
+            'font' => [
+                'bold' => false,
+                'size' => 11,
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+            ],
+        ]);
+
+        $sheet->setCellValue('M' . $newRow+3, 'GIL-F-010 V.03');
     }
         
     public function drawings()

@@ -22,7 +22,7 @@
                     <a class="nav-link" href="{{route('cefa.agroindustria.home.formulations.recipes')}}">{{trans('agroindustria::menu.Products')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.home.developments')}}">Desarrolladores</a>
+                    <a class="nav-link" href="{{route('cefa.agroindustria.home.developments')}}">{{trans('agroindustria::menu.developments')}}</a>
                 </li>
                 
             @endif
@@ -32,7 +32,7 @@
                     <a class="nav-link" href="{{route('agroindustria.admin.units.activity', ['unit'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Activities')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('agroindustria.admin.units.production')}}">Producción</a>
+                    <a class="nav-link" href="{{route('agroindustria.admin.units.production')}}">{{trans('agroindustria::menu.production')}}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('agroindustria.admin.units.movements')}}">{{trans('agroindustria::menu.Movements')}}</a>
@@ -41,14 +41,17 @@
                     <a class="nav-link" href="{{route('agroindustria.admin.units.labor')}}">{{trans('agroindustria::menu.Task')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory')}}">{{trans('agroindustria::menu.Inventory')}}</a>
+                    <a class="nav-link" href="{{route('cefa.agroindustria.storer.units.inventory', ['id'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Inventory')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('agroindustria.admin.remove')}}" class="nav-link">{{trans('agroindustria::menu.Desregistrations')}}</a>
+                    <a href="{{route('cefa.agroindustria.admin.units.remove')}}" class="nav-link">{{trans('agroindustria::menu.Desregistrations')}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.requests')}}">Solicitud de Insumos</a>
                 </li>
             @endif
 
-            @if(Route::is('*units.*'))
+            @if(Route::is('*units.*') && auth()->check() && checkRol('agroindustria.instructor.vilmer') || auth()->check() && checkRol('agroindustria.instructor.chocolate'))
                 <!--Menú instructor-->
                 @if(Auth::user()->havePermission('agroindustria.instructor.units.activity'))
                     <li class="nav-item">
@@ -76,7 +79,7 @@
 
                 @if(Auth::user()->havePermission('agroindustria.instructor.units.production'))
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.production')}}">Producción</a>
+                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.production')}}">{{trans('agroindustria::menu.production')}}</a>
                 </li>
                 @endif
                 <li class="nav-item">
@@ -84,15 +87,15 @@
                 </li>
             @endif
             {{-- Menu storer --}}
-            @if(auth()->check() && checkRol('agroindustria.almacenista'))  
+            @if(auth()->check() && checkRol('agroindustria.almacenista') && Route::is('*units.*'))  
                 @if(Auth::user()->havePermission('agroindustria.storer.crud'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory')}}">{{trans('agroindustria::menu.Inventory')}}</a>
+                        <a class="nav-link" href="{{route('cefa.agroindustria.storer.units.inventory', ['id'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Inventory')}}</a>
                     </li>
                 @endif
                 @if(Auth::user()->havePermission('agroindustria.storer.view.request'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('cefa.agroindustria.storer.view.request')}}">Solicitudes</a>
+                        <a class="nav-link" href="{{route('cefa.agroindustria.storer.units.view.request')}}">{{trans('agroindustria::menu.requests')}}</a>
                     </li>
                 @endif
             @endif
@@ -108,8 +111,8 @@
                  <a class="nav-link" href="{{ route('agroindustria.instructor.units') }}">{{trans('agroindustria::menu.Units')}}</a>
              </li>
          </ul>
-         @endif
-     </div>
+        </div>
+    @endif
 
     <!-- Dashboard admin -->
     @if(auth()->check() && checkRol('agroindustria.admin'))  
@@ -117,6 +120,16 @@
         <ul class="dashboard">
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('agroindustria.admin.units') }}">{{trans('agroindustria::menu.Units')}}</a>
+            </li>
+        </ul>
+    </div>
+    @endif
+
+    @if(auth()->check() && checkRol('agroindustria.almacenista'))  
+    <div class="dashboard_admin">  
+        <ul class="dashboard">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('cefa.agroindustria.units') }}">{{trans('agroindustria::menu.Units')}}</a>
             </li>
         </ul>
     </div>

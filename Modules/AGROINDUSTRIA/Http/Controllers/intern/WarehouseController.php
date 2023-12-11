@@ -33,78 +33,39 @@ class WarehouseController extends Controller
         return view('agroindustria::storer.inventoryAlert', compact('inventoryAlert','title'));
         
     }
-
-
-
-
  
-  
+    // Mostrar el listado de inventario
+    public function inventory($id){
+        $title = 'Inventario';
+        session(['viewing_unit' => $id]);
+        $selectedUnit = ProductiveUnit::findOrFail($id);
+        session(['viewing_unit_name' => $selectedUnit->name]);
+
+        // Obtén los registros de productive_unit_warehouse que coinciden con la unidad productiva seleccionada
+        $ProductiveUnitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $id)->get();
+        $pwId = $ProductiveUnitWarehouses->first()->id;
+                        
+        // Obtener los registros de inventario que coinciden con las bodegas relacionadas
+        $inventories = Inventory::where('productive_unit_warehouse_id', $pwId)->with('element.category', 'element.measurement_unit')->get();
+        // Combinar la información del responsable y las bodegas en un solo arreglo
+        $data = [
+            'title' => $title,
+            'inventories' => $inventories,
+        ];
+        return view('agroindustria::storer.inventory', $data);
+    }
+
 
     public function obtenerelementos(Request $request)
     {
         try {
-            $productUnitId = $request->input('unit');
             
-            // Obtén los registros de productive_unit_warehouse que coinciden con la unidad productiva seleccionada
-            $ProductiveUnitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $productUnitId)->get();
-            
-            
-            // Obtener los registros de 'productive_unit_warehouses' que coinciden con la unidad productiva seleccionada
-            $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $productUnitId)->pluck('id');
-            
-            // Obtener los registros de inventario que coinciden con las bodegas relacionadas
-            $inventories = Inventory::whereIn('productive_unit_warehouse_id', $unitWarehouses)->get();
-            
-            // Combinar la información del responsable y las bodegas en un solo arreglo
-            return view('agroindustria::storer.tableresults',['inventories'=> $inventories]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error interno del servidor'], 500);
         }
     }
 
-    public function getInventoryByCategory(Request $request)
-    {
-        try {
-            $productUnitId = $request->input('unit');
-            $categoryId = $request->input('category'); // Nuevo: Obtener el ID de la categoría seleccionada
-
-            // Obtén los registros de productive_unit_warehouse que coinciden con la unidad productiva seleccionada
-            $ProductiveUnitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $productUnitId)->get();
-
-            // Obtener los registros de 'productive_unit_warehouses' que coinciden con la unidad productiva seleccionada
-            $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $productUnitId)->pluck('id');
-
-            // Obtener los registros de inventario que coinciden con las bodegas relacionadas y la categoría seleccionada
-            $inventories = Inventory::whereIn('productive_unit_warehouse_id', $unitWarehouses)
-                ->whereHas('element', function($query) use ($categoryId) {
-                    $query->where('category_id', $categoryId);
-                })
-                ->get();
-
-            // Combinar la información del responsable y las bodegas en un solo arreglo
-            return view('agroindustria::storer.tableresults',['inventories'=> $inventories]);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Error interno del servidor'], 500);
-        }
-    }
-
-    public function obtenerbodegas(Request $request)
-    {
-        try {
-            $productUnitId = $request->input('unit');
-            
-            // Obtén los registros de productive_unit_warehouse que coinciden con la unidad productiva seleccionada
-            $ProductiveUnitWarehouses = ProductiveUnitWarehouse::with('warehouse')->where('productive_unit_id', $productUnitId)->get();
-            
-            dd($ProductiveUnitWarehouses);
-            
-        
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Error interno del servidor'], 500);
-        }
-    }
-
-
+   
 
 
 
@@ -112,84 +73,6 @@ class WarehouseController extends Controller
 
   
     
-    //Funcion de crear.
-    public function create(Request $request){
-        $request->validate([
-            'element_id' => 'required|integer',
-            'description' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'amount' => 'required|integer',
-            'expiration_date' => 'required|date',
-        ]);
-
-        $inventory = new Inventory();
-        $inventory->element_id = $request->post('element_id');
-        $inventory->productive_unit_warehouse_id = $request->post('productive_unit_warehouse_id');
-        $inventory->person_id = $request->post('person_id');       
-        $inventory->price = $request->post('price');
-        $inventory->stock = $request->post('stock');
-        $inventory->amount = $request->post('amount');
-        $inventory->expiration_date = $request->post('expiration_date');
-        $inventory->description = $request->post('description');
-        $inventory->save();
-
-        if($inventory->save()){
-            $icon = 'success';
-                $message_line = 'Registro exitoso';
-        }else{
-            $icon = 'error';
-            $message_line = 'Error al registrar';
-        }
-
-        return redirect()->route('cefa.agroindustria.storer.inventory')->with([
-            'icon' => $icon,
-            'message_line' => $message_line,
-        ]); 
-
-
-        return redirect()->route('cefa.agroindustria.storer.inventory')->with("success" , "AGREGADO CON EXITO"); 
-    }  
-
-    public function edit($id){
-        $in = Inventory::findOrFail($id);
-        return redirect()->route('cefa.agroindustria.storer.inventory', compact('in')); 
-    }
-
-    public function show(Request $request){
-        $in = Inventory::findOrFail($request->input('id'));
-        $in->element_id = $request->input('new_element_id');
-        $in->productive_unit_warehouse_id = $request->input('new_productive_unit_warehouse_id');
-        $in->person_id = $request->input('new_person_id');
-        $in->description = $request->input('new_description');
-        $in->price = $request->input('new_price');
-        $in->stock = $request->input('new_stock');
-        $in->amount = $request->input('new_amount');
-        $in->expiration_date = $request->input('new_expiration_date');
-        $in->save();    
-
-        if($in->save()){
-            $icon = 'success';
-                $message_line = 'Edicion exitosa';
-        }else{
-            $icon = 'error';
-            $message_line = 'Erro al editar';
-        }
-
-        return redirect()->route('cefa.agroindustria.storer.inventory')->with([
-            'icon' => $icon,
-            'message_line' => $message_line,
-        ]); 
-
-    }
-
-    //Funcion Eliminar.
-    public function destroy($id){
-        $inventory = Inventory::findOrFail($id);
-        $inventory->delete();
-        
-        return redirect()->route('cefa.agroindustria.storer.inventory')->with("destroy", "ELIMINADO CON EXITO");
-    }
-
     public function discharge (){
         $title = "Bajas";
         $user = Auth::user();
