@@ -899,7 +899,7 @@ class LaborManagementController extends Controller
             // Después de realizar la operación de registro con éxito
             return redirect()
                 ->route('agrocefa.trainer.labormanagement.index')
-                ->with('success', 'El registro se ha completado con éxito.');
+                ->with('success', 'Labor Registrada');
         } catch (\Exception $e) {
             // En caso de error, realiza un rollback de la transacción y maneja el error
             DB::rollBack();
@@ -964,6 +964,7 @@ class LaborManagementController extends Controller
             'filteredWarehouses' => $filteredWarehouses
         ]);
     }
+
     public function obtenerAspectosAmbientales(Activity $activity)
     {
         $aspectosAmbientales = $activity->environmental_aspects()->pluck('environmental_aspects.name', 'environmental_aspects.id');

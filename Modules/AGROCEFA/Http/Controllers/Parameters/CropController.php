@@ -43,7 +43,7 @@ class CropController extends Controller
 
 
 
-        return redirect()->route($this->buildDynamicRoute())->with('success', 'Cultivo registrado exitosamente.');
+        return redirect()->route($this->buildDynamicRoute())->with('success', 'Cultivo registrado');
     }
 
 
@@ -72,7 +72,7 @@ class CropController extends Controller
         $crop->save();
 
         // Redirigir al usuario a la vista de edición con un mensaje de éxito
-        return redirect()->route($this->buildDynamicRoute())->with('success', 'Cultivo ha sido editado exitosamente.');
+        return redirect()->route($this->buildDynamicRoute())->with('success', 'Cultivo Actualizado');
     }
 
 
@@ -82,6 +82,6 @@ class CropController extends Controller
         $crop = Crop::findOrFail($id);
         $crop->delete();
 
-        return redirect()->route($this->buildDynamicRoute())->with('error', 'El Cultivo ha sido eliminada exitosamente.');
+        return redirect()->route($this->buildDynamicRoute())->with('error', 'Cultivo Eliminado');
     }
 }

@@ -57,15 +57,19 @@
                                                 data-bs-target="#editarRegistroModal_{{ $item->id }}"
                                                 data-inventory-id="{{ $item->id }}"><i
                                                     class='bx bx-edit icon'></i></button>
-                                            <button id="delete" class="btn btn-danger btn-sm btn-delete-activity"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#eliminarinventory_{{ $item->id }}"><i
-                                                    class='bx bx-trash icon'></i></button>
+                                            <button class="btn btn-danger btn-sm btn-inventory-crop" data-inventory-id="{{ $item->id }}">
+                                                <i class='bx bx-trash icon'></i>
+                                            </button>
                                         </div>
                                     </td>
                                 @endif
                             @endauth
                         </tr>
+                        {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.destroy', 'id' => $item->id], 'method' => 'POST', 'id' => 'delete-inventory-form-' . $item->id]) !!}
+                                    @csrf
+                                    @method('DELETE')
+                                    <!-- Otros campos ocultos necesarios... -->
+                                {!! Form::close() !!}
                     @endforeach
                 </tbody>
             </table>
@@ -76,3 +80,25 @@
     <br>
     <p>{{ trans('agrocefa::inventory.NoRecords') }}</p>
 @endif
+<script>
+    $('.btn-inventory-crop').on('click', function(event) {
+        var inventoryId = $(this).data('inventory-id');
+
+        // Mostrar SweetAlert para confirmar la eliminación
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma, enviar el formulario de eliminación
+                $('#delete-inventory-form-' + inventoryId).submit();
+            }
+        });
+    });
+
+</script>

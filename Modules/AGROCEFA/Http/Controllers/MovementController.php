@@ -227,7 +227,7 @@ class MovementController extends Controller
         }
 
         // Redirigir de nuevo a la vista con un mensaje de éxito
-        return redirect()->back()->with('success', 'Movimiento confirmado exitosamente');
+        return redirect()->back()->with('success', 'Movimiento Confirmado');
     }
 
     public function returnMovement(Request $request, $id)
@@ -251,7 +251,7 @@ class MovementController extends Controller
         $movement->save();
 
         // Redirigir de nuevo a la vista con un mensaje de éxito
-        return redirect()->back()->with('success', 'Movimiento devuelto exitosamente');
+        return redirect()->back()->with('success', 'Movimiento Devuelto');
     }
 
     
@@ -514,7 +514,7 @@ class MovementController extends Controller
                 DB::commit();
 
                 // Después de realizar la operación de registro con éxito
-                return redirect()->route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.entry.index')->with('success', 'El registro se ha completado con éxito.');
+                return redirect()->route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.entry.index')->with('success', 'Movimiento Registrado');
 
             } catch (\Exception $e) {
                 // En caso de error, realiza un rollback de la transacción y maneja el error
@@ -936,12 +936,12 @@ class MovementController extends Controller
             DB::commit();
 
             // Después de realizar la operación de registro con éxito
-            return redirect()->route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.exit.index')->with('success', 'El registro se ha completado con éxito.');
+            return redirect()->route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.exit.index')->with('success', 'Movimiento Registrado');
 
         } catch (\Exception $e) {
             // En caso de error, realiza un rollback de la transacción y maneja el error
             DB::rollBack();
-
+            return redirect()->route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.exit.index')->with('error', 'Error');
             \Log::error('Error en el registro: ' . $e->getMessage());
         }
     }

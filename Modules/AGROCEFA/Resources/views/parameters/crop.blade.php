@@ -53,10 +53,16 @@
                                         data-bs-target="#editCultivo_{{ $crop->id }}" data-bs-toggle="modal">
                                         <i class='bx bx-edit icon'></i>
                                     </button>
-                                    <button class="btn btn-danger btn-sm btn-delete-crop" data-bs-toggle="modal"
-                                        data-bs-target="#eliminarcultivo_{{ $crop->id }}"><i
-                                            class='bx bx-trash icon'></i></button>
+                                    <button class="btn btn-danger btn-sm btn-delete-crop" data-crop-id="{{ $crop->id }}">
+                                        <i class='bx bx-trash icon'></i>
+                                    </button>
                                 </td>
+
+                                {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.crop.destroy', 'id' => $crop->id], 'method' => 'POST', 'id' => 'delete-crop-form-' . $crop->id]) !!}
+                                    @csrf
+                                    @method('DELETE')
+                                    <!-- Otros campos ocultos necesarios... -->
+                                {!! Form::close() !!}
                             @endif
                         @endauth
                     </tr>
@@ -272,4 +278,36 @@
     var cropsData = [
         // ... Lista de objetos de cultivo con sus propiedades ...
     ];
+
+    $('.btn-delete-crop').on('click', function(event) {
+        var cropId = $(this).data('crop-id');
+
+        // Mostrar SweetAlert para confirmar la eliminación
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma, enviar el formulario de eliminación
+                $('#delete-crop-form-' + cropId).submit();
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $('#crearcrop').on('hidden.bs.modal', function() {
+            // Limpiar los campos del formulario
+            $('#crop_name').val('');
+            $('#seed_time').val('');
+            $('#density').val('');
+            $('#environment_id').val('');
+            $('#varietyt_id').val('');
+            $('#finish_date').val('');
+        });
+    });
 </script>

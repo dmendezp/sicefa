@@ -37,15 +37,18 @@
                                         <button class="btn btn-primary btn-sm btn-edit-specie" data-bs-toggle="modal"
                                             data-bs-target="#editarEspecieModal_{{ $a->id }}"
                                             data-specie-id="{{ $a->id }}"><i class='bx bx-edit icon'></i></button>
-                                        <button id="delete" class="btn btn-danger btn-sm btn-delete-activity"
-                                            data-bs-toggle="modal" data-bs-target="#eliminarspecie_{{ $a->id }}"><i
-                                                class='bx bx-trash icon'></i></button>
-
+                                        <button class="btn btn-danger btn-sm btn-delete-specie" data-specie-id="{{ $a->id }}">
+                                            <i class='bx bx-trash icon'></i>
+                                        </button>
                                     </div>
                                 </td>
                             @endif
                         @endauth
                     </tr>
+                    {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.specie.destroy', 'id' => $a->id], 'method' => 'DELETE', 'id' => 'delete-specie-form-' . $a->id]) !!}
+                    @csrf
+                    @method('DELETE')
+                    {!! Form::close() !!}
                 @endforeach
             </tbody>
         </table>
@@ -176,5 +179,25 @@
 
         // Actualizar la URL del formulario con el ID de la especie
         $('#editSpeciesForm_' + specieId).attr('action', formAction);
+    });
+
+    $('.btn-delete-specie').on('click', function(event) {
+        var specieId = $(this).data('specie-id');
+
+        // Mostrar SweetAlert para confirmar la eliminación
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'Esta acción no se puede deshacer.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma, enviar el formulario de eliminación
+                $('#delete-specie-form-' + specieId).submit();
+            }
+        });
     });
 </script>

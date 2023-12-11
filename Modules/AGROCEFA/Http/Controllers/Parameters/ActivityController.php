@@ -53,7 +53,7 @@ class ActivityController extends Controller
 
     $activity->save();
 
-    return redirect()->route($this->buildDynamicRoute())->with('success', 'Actividad registrada exitosamente.');
+    return redirect()->route($this->buildDynamicRoute())->with('success', 'Actividad Registrada.');
     }
 
     // Funcion Editar Actividad
@@ -87,6 +87,6 @@ class ActivityController extends Controller
     // Realizar la eliminación
     $activity->delete();
 
-    return redirect()->route($this->buildDynamicRoute())->with('error', 'La actividad ha sido eliminada exitosamente.');
+    return redirect()->route($this->buildDynamicRoute())->with('success', 'Actividad Eliminada');
     }
 }

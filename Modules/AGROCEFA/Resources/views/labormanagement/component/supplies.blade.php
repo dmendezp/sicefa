@@ -65,6 +65,28 @@
                 );
             }
 
+            // Manejador de eventos para eliminar productos con SweetAlert
+            suppliesTable.on('click', '.removeProduct', function () {
+                var currentRow = $(this).closest('tr');
+
+                // Mostrar SweetAlert para confirmar la eliminación
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: 'Esta acción no se puede deshacer.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sí, eliminar'
+                }).then(function (result) {
+                    if (result.isConfirmed) {
+                         // Elimina la fila y la siguiente fila de campos adicionales
+                        currentRow.next('.additional-fields').remove(); // Elimina los campos adicionales
+                        currentRow.remove(); // Elimina la fila del producto
+                    }
+                });
+            });
+
             // Manejador de eventos para el cambio en la categoría
             $('#suppliesTable').on('change', 'select[name="category-id[]"]', function() {
                 var selectedCategory = $(this).val();
@@ -190,16 +212,6 @@
                         true);
 
                 }
-            });
-
-            // Manejador de eventos para eliminar productos
-            suppliesTable.on('click', '.removeProduct', function() {
-                // Elimina la fila y la siguiente fila de campos adicionales
-                var currentRow = $(this).closest('tr');
-                currentRow.next('.additional-fields').remove(); // Elimina los campos adicionales
-                currentRow.remove(); // Elimina la fila del producto
-
-
             });
 
 

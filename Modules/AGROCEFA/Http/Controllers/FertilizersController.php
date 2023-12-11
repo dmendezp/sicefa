@@ -38,7 +38,7 @@ class FertilizersController extends Controller
         Fertilizer::create($validatedData);
 
         // Redirige de nuevo a la lista de fertilizantes con un mensaje de éxito
-        return redirect()->route('fertilizers.index')->with('success', 'Fertilizante creado con éxito');
+        return redirect()->route('fertilizers.index')->with('success', 'Fertilizante Registrado');
     }
 
     public function edit(Fertilizer $fertilizer)
@@ -64,7 +64,7 @@ class FertilizersController extends Controller
             $fertilizer->update($validatedData);
 
             // Redirige de nuevo a la lista de fertilizantes con un mensaje de éxito
-            return redirect()->route('fertilizers.index')->with('success', 'Fertilizante actualizado con éxito');
+            return redirect()->route('fertilizers.index')->with('success', 'Fertilizante Actualizado');
         } catch (\Exception $e) {
             // Maneja cualquier excepción que pueda ocurrir, por ejemplo, si los datos no son válidos o la actualización falla
             return redirect()->route('fertilizers.edit', $fertilizer->id)->with('error', 'Error al actualizar el fertilizante');
@@ -78,7 +78,7 @@ class FertilizersController extends Controller
             $fertilizer->delete();
 
             // Redirige de nuevo a la lista de fertilizantes con un mensaje de éxito
-            return redirect()->route('fertilizers.index')->with('success', 'Fertilizante eliminado con éxito');
+            return redirect()->route('fertilizers.index')->with('success', 'Fertilizante Eliminado');
         } catch (\Exception $e) {
             // Maneja cualquier excepción que pueda ocurrir, por ejemplo, si el fertilizante no se puede eliminar
             return redirect()->route('fertilizers.index')->with('error', 'Error al eliminar el fertilizante');

@@ -30,7 +30,7 @@ return [
     'Select_the_unit' => 'Seleccione la unidad',
 
     'Production' => 'Produccion',
-    'Suplies' => 'Job Management',
+    'Suplies' => 'Insumos',
     'ToolUsed' => 'Herramienta Utilizada',
     'Machinery' => 'Maquinaria',
     'HiredsStaff' => 'Personal Contratado',

@@ -40,13 +40,17 @@
                                     <button class="btn btn-primary btn-sm btn-edit-activity" data-bs-toggle="modal"
                                         data-bs-target="#editaractividad_{{ $activity->id }}"
                                         data-activity-id="{{ $activity->id }}"><i class='bx bx-edit icon'></i></button>
-                                    <button class="btn btn-danger btn-sm btn-delete-activity" data-bs-toggle="modal"
-                                        data-bs-target="#eliminaractividad_{{ $activity->id }}"><i
-                                            class='bx bx-trash icon'></i></button>
+                                    <button class="btn btn-danger btn-sm btn-delete-activity" data-activity-id="{{ $activity->id }}"><i class='bx bx-trash icon'></i></button>
                                 </td>
                             @endif
                         @endauth
                     </tr>
+                    <form id="delete-activity-form-{{ $activity->id }}"
+                        action="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.activity.destroy', ['id' => $activity->id]) }}"
+                        method="POST">
+                      @csrf
+                      @method('DELETE')
+                  </form>
                 @endforeach
             </tbody>
         </table>
@@ -136,31 +140,7 @@
         </div>
     </div>
 @endforeach
-{{-- Modal de Eliminar Actividad --}}
-@foreach ($activities as $activity)
-    <div class="modal fade" id="eliminaractividad_{{ $activity->id }}" tabindex="-1"
-        aria-labelledby="eliminaractividadLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="eliminaractividadLabel">Eliminar Actividad</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ¿Estás seguro de que deseas eliminar esta actividad?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.activity.destroy', 'id' => $activity->id], 'method' => 'POST']) !!}
-                    @csrf
-                    @method('DELETE')
-                    {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
-                    {!! Form::close() !!}
-                </div>
-            </div>
-        </div>
-    </div>
-@endforeach
+
 
 <script>
     $('.btn-edit-activity').on('click', function(event) {
@@ -189,4 +169,26 @@
     var activitiesData = [
         // ... Lista de objetos de actividad con sus propiedades ...
     ];
+</script>
+
+<script>
+    $('.btn-delete-activity').on('click', function(event) {
+        var activityId = $(this).data('activity-id');
+
+        // Mostrar SweetAlert para confirmar la eliminación
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma, enviar el formulario de eliminación
+                document.getElementById('delete-activity-form-' + activityId).submit();
+            }
+        });
+    });
 </script>

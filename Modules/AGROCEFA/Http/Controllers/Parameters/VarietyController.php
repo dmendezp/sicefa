@@ -36,7 +36,7 @@ class VarietyController extends Controller
             'specie_id' => $request->input('specie_id'),
         ]);
 
-        return redirect()->route($this->buildDynamicRoute())->with('success', 'Variedad creada exitosamente.');
+        return redirect()->route($this->buildDynamicRoute())->with('success', 'Variedad Registrada');
     }
 
 
@@ -54,7 +54,7 @@ class VarietyController extends Controller
             'specie_id' => $request->input('specie_id'),
         ]);
 
-        return redirect()->route($this->buildDynamicRoute())->with('success', 'Variedad actualizada exitosamente.');
+        return redirect()->route($this->buildDynamicRoute())->with('success', 'Variedad Actualizada');
     }
 
     public function delete($id)
@@ -62,6 +62,6 @@ class VarietyController extends Controller
         $variety = Variety::findOrFail($id);
         $variety->delete();
 
-        return redirect()->route($this->buildDynamicRoute())->with('error', 'Variedad eliminada exitosamente.');
+        return redirect()->route($this->buildDynamicRoute())->with('success', 'Variedad Eliminada');
     }
 }

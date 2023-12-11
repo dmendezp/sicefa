@@ -38,14 +38,17 @@
                                         <i class='bx bx-edit icon'></i>
                                     </button>
 
-                                    <button class="btn btn-danger btn-sm btn-delete-variedad" data-bs-toggle="modal"
-                                        data-bs-target="#eliminarvariedad_{{ $variety->id }}"><i
-                                            class='bx bx-trash icon'></i>
+                                    <button class="btn btn-danger btn-sm btn-variety-specie" data-variety-id="{{ $variety->id }}">
+                                        <i class='bx bx-trash icon'></i>
                                     </button>
                                 </td>
                             @endif
                         @endauth
                     </tr>
+                    {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.variety.destroy', 'id' => $variety->id], 'method' => 'DELETE', 'id' => 'delete-variety-form-' . $variety->id]) !!}
+                    @csrf
+                    @method('DELETE')
+                    {!! Form::close() !!}
                 @endforeach
             </tbody>
         </table>
@@ -162,5 +165,25 @@
 
         // Actualizar la URL del formulario con el ID de la variedad
         $('#editVarietyForm_' + varietyId).attr('action', formAction);
+    });
+
+    $('.btn-variety-specie').on('click', function(event) {
+        var varietyId = $(this).data('variety-id');
+
+        // Mostrar SweetAlert para confirmar la eliminación
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'Esta acción no se puede deshacer.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma, enviar el formulario de eliminación
+                $('#delete-variety-form-' + varietyId).submit();
+            }
+        });
     });
 </script>

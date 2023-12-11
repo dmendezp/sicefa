@@ -87,10 +87,24 @@
                     }
                 });
 
-                // Manejador de eventos para eliminar productos
-                toolTable.on('click', '.removeProduct', function() {
-                    $(this).closest('tr').remove();
+                // Manejador de eventos para eliminar productos con SweetAlert
+                toolTable.on('click', '.removeProduct', function () {
+                    var currentRow = $(this).closest('tr');
 
+                    // Mostrar SweetAlert para confirmar la eliminación
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: 'Esta acción no se puede deshacer.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Sí, eliminar'
+                    }).then(function (result) {
+                        if (result.isConfirmed) {
+                            currentRow.remove(); // Elimina la fila del producto
+                        }
+                    });
                 });
 
 

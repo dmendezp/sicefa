@@ -81,7 +81,7 @@ class AplicationMethodController extends Controller
         $agriculturalMethod->save();
 
         // Redirige a la página de parámetros con un mensaje de éxito
-        return redirect()->route($this->buildDynamicRoute())->with('success', 'Nuevo método de aplicación registrado correctamente.');
+        return redirect()->route($this->buildDynamicRoute())->with('success', 'Método de Aplicación Registrado');
     }
 
     public function editAgriculturalMethod(Request $request, $id)
@@ -110,7 +110,7 @@ class AplicationMethodController extends Controller
         $agriculturalMethod->save();
 
         // Redirige a la página de parámetros con un mensaje de éxito
-        return redirect()->route($this->buildDynamicRoute())->with('success', 'Método de aplicación actualizado correctamente.');
+        return redirect()->route($this->buildDynamicRoute())->with('success', 'Método de aplicación Actualizado');
     }
 
     public function deleteAplication($id)
@@ -123,7 +123,7 @@ class AplicationMethodController extends Controller
             $metodoAplicacion->delete();
 
             // Si la eliminación fue exitosa, redirige de vuelta con un mensaje de éxito
-            return redirect()->route($this->buildDynamicRoute())->with('success', 'Método de Aplicación eliminado exitosamente');
+            return redirect()->route($this->buildDynamicRoute())->with('success', 'Método de Aplicación Eliminado');
         } catch (\Exception $e) {
             // Si ocurre algún error, redirige de vuelta con un mensaje de error
             return redirect()->route($this->buildDynamicRoute())->with('error', 'Error al eliminar el Método de Aplicación');

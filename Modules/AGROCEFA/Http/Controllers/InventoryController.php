@@ -245,11 +245,11 @@ class InventoryController extends Controller
 
             return redirect()
                 ->route('agrocefa.inventory.inventory')
-                ->with('error', 'Registro eliminado.');
+                ->with('success', 'Registro eliminado.');
         } catch (\Exception $e) {
             return redirect()
                 ->route($this->buildDynamicRoute())
-                ->with('error', 'Error al eliminar la especie.');
+                ->with('error', 'Error');
         }
     }
 }

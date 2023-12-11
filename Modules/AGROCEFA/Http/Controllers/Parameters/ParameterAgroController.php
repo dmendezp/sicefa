@@ -78,7 +78,7 @@ class ParameterAgroController extends Controller
         // Intenta guardar el nuevo registro en la base de datos
         try {
             $specie->save();
-            return redirect()->route($this->buildDynamicRoute())->with('success', 'Registro exitoso.');
+            return redirect()->route($this->buildDynamicRoute())->with('success', 'Especie Registrada');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al crear la especie. Por favor, inténtalo de nuevo.');
         }
@@ -102,7 +102,7 @@ class ParameterAgroController extends Controller
         $specie->save();
 
         // Redireccionar a la vista de lista de especies o a otra página según sea necesario
-        return redirect()->route($this->buildDynamicRoute());/* ->with('success', 'Especie actualizada correctamente.') */;
+        return redirect()->route($this->buildDynamicRoute())->with('success', 'Especie Actualizada');
     }
 
     /* Funcion eliminar especie*/
@@ -112,7 +112,7 @@ class ParameterAgroController extends Controller
             $species = Specie::findOrFail($id);
             $species->delete();
 
-            return redirect()->route($this->buildDynamicRoute())->with('error', 'Registro eliminado.');
+            return redirect()->route($this->buildDynamicRoute())->with('error', 'Especie Eliminada');
         } catch (\Exception $e) {
             return redirect()->route($this->buildDynamicRoute())->with('error', 'Error al eliminar la especie.');
         }
@@ -137,7 +137,7 @@ class ParameterAgroController extends Controller
         // Intenta guardar el nuevo registro en la base de datos
         try {
             $varieties->save();
-            return redirect()->route($this->buildDynamicRoute());
+            return redirect()->route($this->buildDynamicRoute())->with('success', 'Variedad Registrada');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al crear la variedad. Por favor, inténtalo de nuevo.');
         }
@@ -161,7 +161,7 @@ class ParameterAgroController extends Controller
         $varieties->save();
 
         // Redireccionar a la vista de lista de especies o a otra página según sea necesario
-        return redirect()->route($this->buildDynamicRoute())/* ->with('success', 'Especie actualizada correctamente.') */;
+        return redirect()->route($this->buildDynamicRoute())->with('success', 'Especie Actualizada');
     }
     /* Funcion eliminar variedad*/
 
@@ -171,7 +171,7 @@ class ParameterAgroController extends Controller
             $varieties = Variety::findOrFail($id);
             $varieties->delete();
 
-            return redirect()->route($this->buildDynamicRoute())->with('success', 'variedad eliminada exitosamente.');
+            return redirect()->route($this->buildDynamicRoute())->with('success', 'Variedad Eliminada');
         } catch (\Exception $e) {
             return redirect()->route($this->buildDynamicRoute())->with('error', 'Error al eliminar la variedad');
         }

@@ -275,6 +275,28 @@
 
             }
 
+            // Manejador de eventos para eliminar productos con SweetAlert
+            productTable.on('click', '.removeProduct', function () {
+                var currentRow = $(this).closest('tr');
+
+                // Mostrar SweetAlert para confirmar la eliminación
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: 'Esta acción no se puede deshacer.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sí, eliminar'
+                }).then(function (result) {
+                    if (result.isConfirmed) {
+                        // Si el usuario confirma, eliminar la fila y actualizar los datos
+                        currentRow.remove();
+                        updateProductsData();
+                    }
+                });
+            });
+
             // Manejador de eventos para el cambio en la bodega
             $('#deliverywarehouse').on('change', function() {
                 var selectedWarehouseId = $(this).val(); // Obtener el ID de la bodega seleccionada
@@ -360,11 +382,6 @@
                 }
             });
 
-            // Manejador de eventos para eliminar productos
-            productTable.on('click', '.removeProduct', function() {
-                $(this).closest('tr').remove();
-                updateProductsData();
-            });
 
             // Manejador de eventos para cambiar la unidad de medida, la categoría, la cantidad y el precio al seleccionar un elemento
             productTable.on('change', 'select[name="product-id[]"]:last', function() {

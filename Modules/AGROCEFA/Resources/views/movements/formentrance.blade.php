@@ -2,52 +2,6 @@
 
 @section('content')
 
-@if (session('success'))
-    <script>
-        Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Registro Exitoso',
-        showConfirmButton: false,
-        timer: 1500,
-        customClass: {
-            popup: 'my-custom-popup-class', 
-        },
-        onOpen: () => {
-
-            const popup = document.querySelector('.my-custom-popup-class');
-            if (popup) {
-            popup.style.display = 'flex';
-            popup.style.alignItems = 'center';
-            popup.style.justifyContent = 'center';
-            }
-        },
-        });
-    </script>
-@endif
-@if (session('error'))
-        <script>
-            Swal.fire({
-                position: 'top-end',
-                icon: 'error',
-                title: '{{ session('error') }}',
-                showConfirmButton: false,
-                timer: 15000,
-                customClass: {
-                    popup: 'my-custom-popup-class', 
-                },
-                onOpen: () => {
-                    
-                    const popup = document.querySelector('.my-custom-popup-class');
-                    if (popup) {
-                        popup.style.display = 'flex';
-                        popup.style.alignItems = 'center';
-                        popup.style.justifyContent = 'center';
-                    }
-                },
-            });
-        </script>
-    @endif
 <h2>{{trans('agrocefa::movements.Entry_Form')}}</h2>
 
 <div class="container" style="margin-left: 5px">
@@ -148,6 +102,8 @@
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
     $(document).ready(function () {
         var productTable = $('#productTable tbody');
@@ -200,11 +156,6 @@
             }
         });
 
-        // Manejador de eventos para eliminar productos
-        productTable.on('click', '.removeProduct', function () {
-            $(this).closest('tr').remove();
-            updateProductsData();
-        });
 
         // Manejador de eventos para cambiar la unidad de medida, la categoría, la cantidad y el precio al seleccionar un elemento
         productTable.on('change', '.product-id', function () {
@@ -241,6 +192,28 @@
                     measurementUnitField.val('Error al obtener la unidad de medida');
                     categoryField.val('Error al obtener la categoría');
                     nameField.val('Error al obtener el nombre');
+                }
+            });
+        });
+
+        // Manejador de eventos para eliminar productos con SweetAlert
+        productTable.on('click', '.removeProduct', function () {
+            var currentRow = $(this).closest('tr');
+
+            // Mostrar SweetAlert para confirmar la eliminación
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Esta acción no se puede deshacer.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminar'
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    // Si el usuario confirma, eliminar la fila y actualizar los datos
+                    currentRow.remove();
+                    updateProductsData();
                 }
             });
         });
