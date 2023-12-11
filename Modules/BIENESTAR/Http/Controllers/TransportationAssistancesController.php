@@ -111,6 +111,6 @@ class TransportationAssistancesController extends Controller
                 'updated_at' => now(), // Use Laravel helper function for current timestamp
             ]);
         }  
-        return response()->json(['success' =>'Asistencia Guardado Correctamente!']);
+        return view('bienestar::route-attendance.transportation-assistance');
     }
 }

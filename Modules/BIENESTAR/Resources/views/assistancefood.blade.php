@@ -19,17 +19,17 @@
                             <option value="50">50%</option>
                         </select>
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-3">
-                            <label for="fecha_inicio">{{ trans('bienestar::menu.start date')}}</label>
-                            <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="fecha_fin">{{ trans('bienestar::menu.end date')}}</label>
-                            <input type="date" name="fecha_fin" id="fecha_fin" class="form-control">
-                        </div>
-                    </div>
+                    
+               <div class="form-row">
+               <div class="form-group col-md-3">
+               <label for="fecha_inicio">{{ trans('bienestar::menu.start date')}}</label>
+               <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control">
+               </div>
+              <div class="form-group col-md-3">
+              <label for="fecha_fin">{{ trans('bienestar::menu.end date')}}</label>
+              <input type="date" name="fecha_fin" id="fecha_fin" class="form-control">
+              </div>
+             </div>
                 </form>
 
                 <!-- Cuadro con la tabla -->
@@ -48,15 +48,15 @@
                         </thead>
                         <tbody>
                             @foreach ($AssistancesFoods as $AssistancesFood)
-                            <tr>
-                                <td>{{ $AssistancesFood->apprentice->person->first_name }} {{ $AssistancesFood->apprentice->person->first_last_name }} {{ $AssistancesFood->apprentice->person->second_last_name }}</td>
-                                <td>{{ $AssistancesFood->apprentice->person->document_number }}</td>
-                                <td>{{ $AssistancesFood->postulationBenefit->benefit->name }}</td>
-                                <td>{{ $AssistancesFood->apprentice->course->program->name }}</td>
-                                <td>{{ $AssistancesFood->apprentice->course->code }}</td>
-                                <td>{{ $AssistancesFood->porcentage }}</td>
-                                <td>{{ $AssistancesFood->date_time }}</td>
-                            </tr>
+                                <tr>
+                                    <td>{{ $AssistancesFood->apprentice->person->first_name }} {{ $AssistancesFood->apprentice->person->first_last_name }} {{ $AssistancesFood->apprentice->person->second_last_name }}</td>
+                                    <td>{{ $AssistancesFood->apprentice->person->document_number }}</td>
+                                    <td>{{ $AssistancesFood->postulationBenefit->benefit->name }}</td>
+                                    <td>{{ $AssistancesFood->apprentice->course->program->name }}</td>
+                                    <td>{{ $AssistancesFood->apprentice->course->code }}</td>
+                                    <td>{{ $AssistancesFood->porcentage }}</td>
+                                    <td>{{ $AssistancesFood->date_time }}</td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -64,65 +64,65 @@
             </div>
         </div>
     </div>
-</div>
+ </div>
+
+ <!-- Agrega el script JavaScript aquí -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <script>
+ $(document).ready(function() {
+    // Escuchar cambios en el elemento select y campos de fecha
+    $('#porcentaje, #fecha_inicio, #fecha_fin').change(function() {
+        var selectedPorcentaje = $('#porcentaje').val();
+        var selectedFechaInicio = $('#fecha_inicio').val();
+        var selectedFechaFin = $('#fecha_fin').val();
+
+        // Mostrar todos los registros cuando no se selecciona un porcentaje o rango de fechas específicos
+        if (selectedPorcentaje === "" && selectedFechaInicio === "" && selectedFechaFin === "") {
+            $('#datatable tbody tr').show();
+        } else {
+            // Ocultar todas las filas de la tabla
+            $('#datatable tbody tr').hide();
+
+            // Mostrar solo las filas que coinciden con el porcentaje y el rango de fechas seleccionados
+            $('#datatable tbody tr').each(function() {
+                var rowPorcentaje = $(this).find('td:nth-child(6)').text();
+                var rowFecha = $(this).find('td:nth-child(7)').text();
+
+                if ((selectedPorcentaje === "" || rowPorcentaje === selectedPorcentaje) &&
+                    ((selectedFechaInicio === "" && selectedFechaFin === "") ||
+                    (rowFecha >= selectedFechaInicio && rowFecha <= selectedFechaFin))) {
+                    $(this).show();
+                }
+            });
+        }
+    });
+ });
+  </script>
 
 <!-- Agrega el script JavaScript aquí -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        // Escuchar cambios en el elemento select y campos de fecha
-        $('#porcentaje, #fecha_inicio, #fecha_fin').change(function() {
-            var selectedPorcentaje = $('#porcentaje').val();
-            var selectedFechaInicio = $('#fecha_inicio').val();
-            var selectedFechaFin = $('#fecha_fin').val();
+$(document).ready(function() {
+    // Escuchar cambios en el elemento select
+    $('#porcentaje').change(function() {
+        var selectedPorcentaje = $(this).val();
 
-            // Mostrar todos los registros cuando no se selecciona un porcentaje o rango de fechas específicos
-            if (selectedPorcentaje === "" && selectedFechaInicio === "" && selectedFechaFin === "") {
-                $('#datatable tbody tr').show();
-            } else {
-                // Ocultar todas las filas de la tabla
-                $('#datatable tbody tr').hide();
+        // Mostrar todos los registros cuando no se selecciona un porcentaje específico
+        if (selectedPorcentaje === "") {
+            $('#datatable tbody tr').show();
+        } else {
+            // Ocultar todas las filas de la tabla
+            $('#datatable tbody tr').hide();
 
-                // Mostrar solo las filas que coinciden con el porcentaje y el rango de fechas seleccionados
-                $('#datatable tbody tr').each(function() {
-                    var rowPorcentaje = $(this).find('td:nth-child(6)').text();
-                    var rowFecha = $(this).find('td:nth-child(7)').text();
-
-                    if ((selectedPorcentaje === "" || rowPorcentaje === selectedPorcentaje) &&
-                        ((selectedFechaInicio === "" && selectedFechaFin === "") ||
-                            (rowFecha >= selectedFechaInicio && rowFecha <= selectedFechaFin))) {
-                        $(this).show();
-                    }
-                });
-            }
-        });
+            // Mostrar solo las filas que coinciden con el porcentaje seleccionado
+            $('#datatable tbody tr').each(function() {
+                if ($(this).find('td:nth-child(6)').text() === selectedPorcentaje) {
+                    $(this).show();
+                }
+            });
+        }
     });
-</script>
-
-<!-- Agrega el script JavaScript aquí -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        // Escuchar cambios en el elemento select
-        $('#porcentaje').change(function() {
-            var selectedPorcentaje = $(this).val();
-
-            // Mostrar todos los registros cuando no se selecciona un porcentaje específico
-            if (selectedPorcentaje === "") {
-                $('#datatable tbody tr').show();
-            } else {
-                // Ocultar todas las filas de la tabla
-                $('#datatable tbody tr').hide();
-
-                // Mostrar solo las filas que coinciden con el porcentaje seleccionado
-                $('#datatable tbody tr').each(function() {
-                    if ($(this).find('td:nth-child(6)').text() === selectedPorcentaje) {
-                        $(this).show();
-                    }
-                });
-            }
-        });
-    });
+});
 </script>
 
 

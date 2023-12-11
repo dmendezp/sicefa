@@ -1,42 +1,83 @@
+@php
+$role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
+@endphp
 @extends('bienestar::layouts.master')
 
 @section('content')
-    <!-- Main content -->
-    <div class="container">
-        <div class="container-fluid">
-            <h1 class="mb-4"> Asistencia de Alimentacion <i class="fas fa-food-alt"></i></h1>
-
-            <!-- Mostrar la información de la asistencia de alimentación -->
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Número de Documento</th>
-                        <th>Código de Curso</th>
-                        <th>Nombre del Programa</th>
-                        <th>Nombre del Beneficio</th>
-                        <th>Porcentaje del Beneficio</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($AssistancesFoods as $assistanceFood)
-                        <tr>
-                            <td>{{ $assistanceFood->apprentice->person->first_name }}</td>
-                            <td>{{ $assistanceFood->apprentice->person->first_last_name }}</td>
-                            <td>{{ $assistanceFood->apprentice->person->document_number }}</td>
-                            <td>{{ $assistanceFood->apprentice->course->code }}</td>
-                            <td>{{ $assistanceFood->apprentice->course->program->name }}</td>
-                            <td>{{ $assistanceFood->postulationBenefit->benefit->name }}</td>
-                            <td>{{ $assistanceFood->postulationBenefit->benefit->porcentaje }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+<!-- Main content -->
+<div class="container">
+    <div class="container-fluid">
+        <h1 class="mb-4"> Asistencia de Ruta de Transporte <i class="fas fa-bus-alt"></i></h1>
+        <div class="row justify-content-md-center pt-4">
+            <div class="card shadow col-md-8">
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <input type="number" name="search" class="form-control" placeholder="Ingrese su número el documento" id="assitance">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="submit" id="searchButtonassitance"><i class="fas fa-barcode"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-@endsection
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-9">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        @if(count($AssistancesFoods) > 0)
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Documento</th>                                    
+                                    <th>Aprendiz</th>
+                                    <th>Ficha</th>
+                                    <th>Nombre del Programa</th>
+                                    <th>Beneficio y Porcentaje</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($AssistancesFoods as $result)
+                                <tr>
+                                    <td>{{ $result->document_number }}</td>
+                                    <td>{{ $result->first_name }} {{ $result->first_last_name }} {{ $result->second_last_name }}</td>
+                                    <td>{{ $result->code }}</td>
+                                    <td>{{ $result->program_name }}</td>
+                                    <td>{{ $result->benefit_name }} - {{ $result->porcentege }}</td>
+                                    <td>{{ $result->date_time }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @else
+                        <p>No hay registros de asistencias el dia de hoy</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).on("change", "#assitance", function() {
+        performSearch();
+        location.reload();
+    });
 
-@section('script')
-    <!-- Puedes agregar scripts específicos aquí si es necesario -->
+    $(document).on("click", "#searchButtonassitance", function(event) {
+        event.preventDefault(); // Evitar el envío del formulario por defecto
+        performSearch();
+    });
+
+    function performSearch() {
+        var miObjeto = new Object();
+        miObjeto = $('#assitance').val();
+        var data = JSON.stringify(miObjeto);
+        console.log(miObjeto);
+        ajaxReplace('divAssitance', '/bienestar/{{ $role_name }}/food_assistance/search', data);
+        
+    }
+</script>
 @endsection

@@ -58,7 +58,7 @@
                                                     <span>Transporte</span>
                                                 @endif
                                                 @if ($feedBenefit == 1)
-                                                    <span>Alimentación</span>
+                                                    <span>Alimentacion</span>
                                                 @endif
                                                 @if ($transportationBenefit == 0 && $feedBenefit == 0)
                                                     {{ trans('bienestar::menu.Not available') }}

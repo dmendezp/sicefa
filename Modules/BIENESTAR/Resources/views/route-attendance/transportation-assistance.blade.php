@@ -31,7 +31,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                             <thead>
                                 <tr>
                                     <th>Documento</th>
-                                    <th>Nombre</th>
+                                    <th>Aprendiz</th>
                                     <th>Ruta</th>
                                     <th>Conductor</th>
                                     <th>Fecha</th>
