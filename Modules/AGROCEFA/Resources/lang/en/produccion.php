@@ -14,6 +14,9 @@ return [
     'select_lot' => 'Select Lot',
     'crop' => 'Crop',
     'select_crop' => 'Select Crop',
-    
+
+    'export' => 'export',
+    'reports_production' => 'reports production',
+
 ];
 

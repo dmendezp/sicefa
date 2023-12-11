@@ -29,8 +29,11 @@
                 </tbody>
             </table>
         </div>
-        
-        <a id="pdf" href="{{ route('agrocefa.reports.productionpdf') }}" class="btn btn-danger" target="_blank">{{ trans('agrocefa::balance.export') }} <i class="fa-solid fa-file-pdf"></i></a>        
+        {!! Form::open(['method' => 'post', 'url' => route('agrocefa.reports.productionpdf')]) !!}
+        {!! Form::hidden('id', '{{session("filterproductions")}}') !!}
+        <button type="submit" class="btn btn-danger" target="_blank">{{ trans('agrocefa::produccion.export') }} <i class="fa-solid fa-file-pdf"></i></button>
+        {!! Form::close() !!}
+        <br>        
     </div>
 
 @else

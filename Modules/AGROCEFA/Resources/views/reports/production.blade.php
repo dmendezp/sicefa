@@ -64,7 +64,7 @@
                         if (response.cropIds) {
                             var cropsSelect = $('#cropSelect');
                             cropsSelect.empty();
-                            cropsSelect.append(new Option('{{ trans('agrocefa::production.select_crop') }}', ''));
+                            cropsSelect.append(new Option('{{ trans('agrocefa::produccion.select_crop') }}', ''));
 
                             // Recorre los arreglos cropIds y cropNames y crea opciones
                             for (var i = 0; i < response.cropIds.length; i++) {
