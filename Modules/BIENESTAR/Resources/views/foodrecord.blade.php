@@ -16,8 +16,8 @@
                                 <th>{{ trans('bienestar::menu.Apprentice')}}</th>
                                 <th>{{ trans('bienestar::menu.Number Document')}}</th>
                                 <th>{{ trans('bienestar::menu.code')}}</th>
-                                <th>{{ trans('bienestar::menu.Program')}}</th>
-                                <th>{{ trans('bienestar::menu.Beneficiary')}} {{ trans('bienestar::menu.percentage')}}</th>
+                                <th>{{ trans('bienestar::menu.Beneficiary')}}</th> 
+                                <th>{{ trans('bienestar::menu.percentage')}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -27,7 +27,7 @@
                                 <td>{{ $assistance->document_number }}</td>
                                 <td>{{ $assistance->code }}</td>
                                 <td>{{ $assistance->name }}</td>
-                                <td>{{ $assistance->name }} {{ $assistance->porcentege }}</td>
+                                <td> {{ $assistance->porcentege }}</td>
                             </tr>
                             @endforeach
                         </tbody>
