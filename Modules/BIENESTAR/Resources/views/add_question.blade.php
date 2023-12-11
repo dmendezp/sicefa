@@ -53,14 +53,33 @@
         $('#agregarRespuesta').click(function() {
             respuestaCount++;
 
-            // Crear un nuevo campo de respuesta
-            var nuevaRespuesta = '<input type="text" name="respuestas[]" class="form-control"><br>';
+            // Crear un nuevo campo de respuesta con un ID único
+            var nuevaRespuesta = '<div id="respuestaContainer' + respuestaCount + '" class="input-group mb-3">' +
+                                    '<input id="respuestaInput' + respuestaCount + '" type="text" name="respuestas[]" class="form-control">' +
+                                    '<div class="input-group-append">' +
+                                        '<button class="btn btn-danger" type="button" onclick="borrarInput(' + respuestaCount + ')"><i class="fas fa-trash-alt"></i></button>' +
+                                    '</div>' +
+                                '</div>';
 
             // Agregar el nuevo campo de respuesta al contenedor de respuestas
             $('#respuestas').append(nuevaRespuesta);
         });
+
+        // Función para borrar el input y su contenedor
+        window.borrarInput = function(respuestaCount) {
+            // Obtener el contenedor del input mediante el ID único
+            var container = $('#respuestaContainer' + respuestaCount);
+
+            // Borrar el contenido del input
+            container.find('input').val('');
+
+            // Eliminar el contenedor completo
+            container.remove();
+        }
     });
 </script>
+
+
 
 @stop
 

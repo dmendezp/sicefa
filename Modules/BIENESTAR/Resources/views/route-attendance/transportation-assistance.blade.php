@@ -1,5 +1,5 @@
 @php
-    $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
+$role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
 @endphp
 @extends('bienestar::layouts.master')
 
@@ -21,7 +21,42 @@
             </div>
         </div>
     </div>
-    <div id="divAssitance">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        @if(count($resultados) > 0)
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Documento</th>
+                                    <th>Nombre</th>
+                                    <th>Ruta</th>
+                                    <th>Conductor</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($resultados as $rel)
+                                <tr>
+                                    <td>{{$rel->document_number}}</td>
+                                    <td>{{$rel->first_name}} {{$rel->first_last_name}} {{$rel->second_last_name}}</td>
+                                    <td>{{$rel->route_number}} - {{$rel->name_route}}</td>
+                                    <td>{{$rel->name}}</td>
+                                    <td>{{$rel->date_time}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @else
+                        <p>No hay registros de asistencias el dia de hoy</p>
+                        @endif
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script>
@@ -40,7 +75,7 @@
         var data = JSON.stringify(miObjeto);
         console.log(miObjeto);
         ajaxReplace('divAssitance', '/bienestar/{{ $role_name }}/transportation_asistance/search', data);
-        
+        location.reload();
     }
 </script>
 @endsection
