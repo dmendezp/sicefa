@@ -136,6 +136,99 @@ class MovementController extends Controller
             return view('agrocefa::movements.requestentrance', ['datas' => $datas, 'notification' => $movementsCount]);
         }
     }
+    public function viewmovementslist()
+    {
+        // Obtén el ID de la unidad productiva seleccionada de la sesión
+        $this->selectedUnitId = Session::get('selectedUnitId');
+
+        $selectedUnit = ProductiveUnit::find($this->selectedUnitId);
+
+        // Inicializa un array para almacenar la información de las bodegas
+        $warehouseData = [];
+
+        // Verifica si hay registros en la tabla productive_unit_warehouses para esta unidad
+        if ($selectedUnit) {
+            $warehouses = $selectedUnit->productive_unit_warehouses;
+
+            // Mapea las bodegas y agrega su información al array
+            $warehouseData = $warehouses->map(function ($warehouseRelation) {
+                $warehouse = $warehouseRelation->warehouse;
+                return [
+                    'id' => $warehouse->id,
+                    'name' => $warehouse->name,
+                ];
+            });
+        }
+
+        $warehousereceive = $warehouseData->first()['id'];
+
+        $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $warehousereceive)->where('productive_unit_id', $this->selectedUnitId)->first();
+        $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
+
+        Session::put('productiveunitwarehouseid',$productiveWarehousereceiveId);
+    
+
+        $warehousemovementid = WarehouseMovement::where('productive_unit_warehouse_id', $this->selectedUnitId)->get()->pluck('movement_id');
+        
+        $movements = Movement::whereIn('id', $warehousemovementid)->with('movement_type', 'movement_responsibilities.person', 'movement_details.inventory.element', 'warehouse_movements.productive_unit_warehouse.productive_unit', 'warehouse_movements.productive_unit_warehouse.warehouse')->get()->toArray();
+        $datas = [];
+
+        foreach ($movements as $movement) {
+            $id = $movement['id'];
+            $date = $movement['registration_date'];
+            $person_id = $movement['movement_responsibilities'][0]['person_id'];
+            $respnsibility = $movement['movement_responsibilities'][0]['person']['first_name'];
+            $productiveunit = $movement['warehouse_movements'][0]['productive_unit_warehouse']['productive_unit']['name'];
+            $warehouse = $movement['warehouse_movements'][0]['productive_unit_warehouse']['warehouse']['name'];
+            
+            // Verificar si hay elementos en movement_details
+            if (isset($movement['movement_details']) && is_array($movement['movement_details']) && count($movement['movement_details']) > 0) {
+                // Iterar a través de los elementos en movement_details
+                foreach ($movement['movement_details'] as $detail) {
+                    $inventory = $detail['inventory']['element']['name'];
+                    $destination = $detail['inventory']['destination'];
+                    $elementid = $detail['inventory']['element_id'];
+                    $inventoryId = $detail['inventory_id'];
+                    $amount = $detail['amount'];
+                    $price = $detail['price'];
+                    $state = $movement['state'];
+                    $lot = $detail['inventory']['lot_number'];
+
+                    // Agregar información al array asociativo
+                    $datas[] = [
+                        'id' => $id,
+                        'date' => $date,
+                        'respnsibility' => $respnsibility,
+                        'productiveunit' => $productiveunit,
+                        'warehouse' => $warehouse,
+                        'inventory' => $inventory,
+                        'amount' => $amount,
+                        'price' => $price,
+                        'state' => $state,
+                        'inventory_id' => $inventoryId,
+                        'element_id' => $elementid,
+                        'destination' => $destination,
+                        'person_id' => $person_id,
+                        'lot' => $lot,
+                        // Agrega aquí otros datos que necesites
+                    ];
+                }
+            } else {
+                // Si no hay elementos en movement_details, puedes agregar un valor predeterminado o manejarlo de otra manera según tu lógica.
+            }
+        }
+            $movementsCount = count($datas); // Contar la cantidad de movimientos
+
+        if ($movementsCount === 0) {
+            $movementsCount = 0;
+
+            // No hay movimientos pendientes, muestra la vista con una tabla vacía
+            return view('agrocefa::movements.movementlist', ['datas' => $datas]);
+        } else {
+            
+            return view('agrocefa::movements.movementlist', ['datas' => $datas]);
+        }
+    }
 
 
     public function confirmation(Request $request, $id)
@@ -251,7 +344,7 @@ class MovementController extends Controller
         $movement->save();
 
         // Redirigir de nuevo a la vista con un mensaje de éxito
-        return redirect()->back()->with('success', 'Movimiento Devuelto');
+        return redirect()->back()->with('error', 'Movimiento Devuelto');
     }
 
     

@@ -79,6 +79,8 @@ Route::middleware(['lang'])->group(function () {
 
         Route::get('trainer/movements', 'MovementController@viewmovements')->name('agrocefa.trainer.movements.index');
         Route::get('passant/movements', 'MovementController@viewmovements')->name('agrocefa.passant.movements.index');
+        Route::get('trainer/movements/list', 'MovementController@viewmovementslist')->name('agrocefa.trainer.movements.list');
+        Route::get('passant/movements/list', 'MovementController@viewmovementslist')->name('agrocefa.passant.movements.list');
         Route::get('trainer/movements/entry', 'MovementController@formentrance')->name('agrocefa.trainer.movements.entry.index');
         Route::get('passant/movements/entry', 'MovementController@formentrance')->name('agrocefa.passant.movements.entry.index');
         Route::get('trainer/movements/exit', 'MovementController@formexit')->name('agrocefa.trainer.movements.exit.index');

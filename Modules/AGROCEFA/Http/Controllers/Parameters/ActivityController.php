@@ -87,6 +87,6 @@ class ActivityController extends Controller
     // Realizar la eliminación
     $activity->delete();
 
-    return redirect()->route($this->buildDynamicRoute())->with('success', 'Actividad Eliminada');
+    return redirect()->route($this->buildDynamicRoute())->with('error', 'Actividad Eliminada');
     }
 }
