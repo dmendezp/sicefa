@@ -16,10 +16,7 @@ class ProductionController extends Controller
 {
     public function index(){
         $title = 'Producción';
-        $selectedUnit = session('viewing_unit');
-        $activity = Activity::where('productive_unit_id', $selectedUnit)->pluck('id');
-        $labor = Labor::whereIn('activity_id', $activity)->pluck('id');
-        $production = Production::whereIn('labor_id', $labor)->with('element')->get();
+        $production = Production::with('element')->get();
         
         $data = [
             'title' => $title,
@@ -28,4 +25,6 @@ class ProductionController extends Controller
 
         return view('agroindustria::instructor.productions.table', $data);
     }
+
+
 }

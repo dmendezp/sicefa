@@ -111,7 +111,7 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/agroindustria/generar-excel-consumables/{laborId}', [ExcelController::class, 'generateExcel'])->name('cefa.agroindustria.units.instructor.labor.excel');
 
             //Producción
-            Route::get('/production', [ProductionController::class, 'index'])->name('agroindustria.instructor.units.production');
+            Route::get('/production', [ProductionController::class, 'index'])->name('cefa.agroindustria.units.instructor.production');
 
             //Movimientos
             Route::get('/movements', [DeliverController::class, 'deliveries'])->name('agroindustria.instructor.units.movements');

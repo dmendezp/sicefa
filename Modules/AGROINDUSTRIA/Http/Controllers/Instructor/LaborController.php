@@ -116,7 +116,7 @@ class LaborController extends Controller
             ];
         })->prepend(['id' => null, 'name' => 'Seleccione una herramienta'])->pluck('name', 'id');
 
-        $elementEquipment = Element::where('category_id', 1)->pluck('id');
+        $elementEquipment = Element::where('category_id', 4)->pluck('id');
 
         $equipments = Inventory::where('productive_unit_warehouse_id', $productive_unit_warehouse)->whereIn('element_id', $elementEquipment)
         ->groupBy('element_id')

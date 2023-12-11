@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
+use Modules\AGROINDUSTRIA\Entities\Consumable;
+use Modules\AGROINDUSTRIA\Entities\Executor;
+use Modules\AGROINDUSTRIA\Entities\Tool;
+use Modules\SICA\Entities\Production;
+
 class Labor extends Model implements Auditable
 {
 

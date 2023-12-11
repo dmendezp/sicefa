@@ -76,7 +76,7 @@
 
                 @if(Auth::user()->havePermission('agroindustria.instructor.units.production'))
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('agroindustria.instructor.units.production')}}">Producción</a>
+                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.production')}}">Producción</a>
                 </li>
                 @endif
                 <li class="nav-item">
