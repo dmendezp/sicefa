@@ -8,16 +8,18 @@
                             <tr>
                                 <th>Documento</th>
                                 <th>Nombre</th>                                
-                                <th>Porcentaje</th>
+                                <th>Ruta</th>
+                                <th>Conductor</th>
                                 <th>Fecha</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ( $resultadoss as $rel )
+                            @foreach ( $resultados as $rel )
                             <tr>
                                 <td>{{$rel->document_number}}</td>
                                 <td>{{$rel->first_name}} {{$rel->first_last_name}} {{$rel->second_last_name}}</td>
-                                <td>{{$rel->porcentaje}}</td>
+                                <td>{{$rel->route_number}} - {{$rel->name_route}}</td>
+                                <td>{{$rel->name}}</td>
                                 <td>{{$rel->date_time}}</td>
                             </tr>
                             @endforeach

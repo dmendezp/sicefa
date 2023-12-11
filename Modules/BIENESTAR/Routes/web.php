@@ -91,18 +91,22 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/admin/postulation-management/{id}', 'PostulationBenefitController@show')->name('bienestar.admin.show.postulation-management');
         Route::put('/admin/postulation-management/{id}/update-score', 'PostulationBenefitController@updateScore')->name('bienestar.admin.update-score.postulation-management');
         Route::post('/admin/postulation-management/update-benefits', 'PostulationBenefitController@updateBenefits')->name('bienestar.admin.update-benefits.postulation-management');
-        Route::put('/update-benefit/{id}', 'PostulationBenefitController@updateBenefit')->name('cefa.bienestar.update-benefit');
+        Route::put('/admin/update-benefit/{id}', 'PostulationBenefitController@updateStateBenefit')->name('bienestar.admin.update-state-benefit.postulation-management');
 
         // Rutas para la vista postulation-management(LIDER BENEFICIO DE ALIMENTACION)
         Route::get('/food_benefits_leaders/postulation-management', 'PostulationBenefitController@index')->name('bienestar.food_benefits_leaders.view.postulation-management');
         Route::get('/food_benefits_leaders/postulation-management/{id}', 'PostulationBenefitController@show')->name('bienestar.food_benefits_leaders.show.postulation-management');
         Route::put('/food_benefits_leaders/postulation-management/{id}/update-score', 'PostulationBenefitController@updateScore')->name('bienestar.food_benefits_leaders.update-score.postulation-management');
         Route::post('/food_benefits_leaders/postulation-management/update-benefits', 'PostulationBenefitController@updateBenefits')->name('bienestar.food_benefits_leaders.update-benefits.postulation-management');
+        Route::put('/food_benefits_leaders/update-benefit/{id}', 'PostulationBenefitController@updateStateBenefit')->name('bienestar.food_benefits_leaders.update-state-benefit.postulation-management');
+
         // Rutas para la vista postulation-management(LIDER BENEFICIO DE TRANSPORTE)
         Route::get('/transportation_benefits_leader/postulation-management', 'PostulationBenefitController@index')->name('bienestar.transportation_benefits_leader.view.postulation-management');
         Route::get('/transportation_benefits_leader/postulation-management/{id}', 'PostulationBenefitController@show')->name('bienestar.transportation_benefits_leader.show.postulation-management');
         Route::put('/transportation_benefits_leader/postulation-management/{id}/update-score', 'PostulationBenefitController@updateScore')->name('bienestar.transportation_benefits_leader.update-score.postulation-management');
         Route::post('/transportation_benefits_leader/postulation-management/update-benefits', 'PostulationBenefitController@updateBenefits')->name('bienestar.transportation_benefits_leader.update-benefits.postulation-management');
+        Route::put('/transportation_benefits_leader/update-benefit/{id}', 'PostulationBenefitController@updateStateBenefit')->name('bienestar.transportation_benefits_leader.update-state-benefit.postulation-management');
+
 
         //Vistas Rutas de transporte(ADMINISTRADOR)
         Route::get('/admin/transportroutes', 'RoutesTransportationController@index')->name('bienestar.admin.transportation.crud.transportroutes');
@@ -204,7 +208,7 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/transportation_benefits_leader/transportation_asistance/search', 'TransportationAssistancesController@searchapprentice')->name('bienestar.transportation_benefits_leader.form.asistance_transport');
 
         //Vista transportation-assistance
-        Route::get('/admin/food_assistance', 'AssistancesFoodsController@indexassistances')->name('bienestar.admin.view.food_assistance');
-        Route::post('/admin/food_assistance/search', 'AssistancesFoodsController@searchapprentice')->name('bienestar.admin.form.food_assistance');
+        Route::get('/admin/food_assistance', 'AssistancesFoodsController@create')->name('bienestar.admin.view.food_assistance');
+        Route::post('/admin/food_assistance/search', 'AssistancesFoodsController@store')->name('bienestar.admin.form.food_assistance');
     });
 });

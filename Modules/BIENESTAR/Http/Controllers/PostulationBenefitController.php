@@ -67,17 +67,23 @@ public function show($id) {
 
 
 
-    public function showModal($id)
+public function showModal($id)
 {
-    $postulation = Postulation::with(['convocation', 'apprentice', 'answers' => function ($query) use ($id) {
-        $query->where('postulation_id', $id);
-    }])->findOrFail($id);
-    
+    $postulation = Postulation::with([
+        'convocation',
+        'apprentice',
+        'answers' => function ($query) use ($id) {
+            $query->where('postulation_id', $id);
+        },
+        'socioeconomicsupportfiles' // Cargar archivos socioeconómicos
+    ])->findOrFail($id);
+
     // Obtener todas las preguntas disponibles
     $questions = Question::all();
-    
+
     return view('bienestar::postulation-management.modal', compact('postulation', 'questions'));
 }
+    
 
 
     public function updateScore(Request $request, $id)
@@ -108,28 +114,47 @@ public function show($id) {
 
 
 
-public function updateState(Request $request)
+public function updateStateBenefit(Request $request, $id)
 {
     try {
-        $postulationId = $request->input('postulation_id');
+        // Buscar la postulación por ID
+        $postulation = Postulation::findOrFail($id);
 
-        // Buscar la postulación por ID 
-        $postulation = Postulation::findOrFail($postulationId);
-
-        // Validar y actualizar el estado
+        // Validar el beneficio seleccionado
         $request->validate([
-            'state' => 'required|in:Beneficiario,No Beneficiario,Postulado',
+            'benefit' => 'required|exists:benefits,id',
         ]);
 
-        // Actualizar el estado de la postulación
-        $postulation->postulationBenefits->first()->state = $request->input('state');
-        $postulation->postulationBenefits->first()->save();
+        // Obtener el beneficio seleccionado
+        $benefitId = $request->input('benefit');
 
-        // Redirigir de vuelta a la página anterior con un mensaje de éxito
-        return redirect()->back()->with('success', 'Estado actualizado con éxito');
+        // Verificar si la postulación ya tiene ese beneficio asignado
+        $existingBenefit = $postulation->postulationBenefits
+            ->where('state', 'Beneficiario')
+            ->where('benefit_id', $benefitId)
+            ->first();
+
+        if ($existingBenefit) {
+            // Si ya tiene el beneficio asignado, evita la actualización y muestra un mensaje de error
+            return redirect()->back()->with('error', 'Esta postulación ya tiene asignado ese beneficio.');
+        }
+
+        // Actualizar el beneficio de la postulación
+        $postulationBenefit = $postulation->postulationBenefits->where('state', 'Beneficiario')->first();
+
+        if ($postulationBenefit) {
+            $postulationBenefit->benefit_id = $benefitId;
+            $postulationBenefit->save();
+
+            // Redirigir de vuelta a la página anterior con un mensaje de éxito 
+            return redirect()->back()->with('success', 'Beneficio actualizado con éxito');
+        } else {
+            // Manejar el caso en que no hay beneficio para actualizar
+            return redirect()->back()->with('error', 'No se encontró un beneficio para actualizar');
+        }
     } catch (\Exception $e) {
         // Capturar y manejar errores, puedes personalizar esto según tus necesidades
-        return redirect()->back()->with('error', 'Error al actualizar el estado: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Error al actualizar el beneficio: ' . $e->getMessage());
     }
 }
 
