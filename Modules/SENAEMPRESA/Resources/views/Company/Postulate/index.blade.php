@@ -47,7 +47,11 @@
                                 <th>{{ trans('senaempresa::menu.Proposal') }}</th>
                                 <th>{{ trans('senaempresa::menu.Total score') }}</th>
                                 <th>Asignar Puntaje</th>
-                                <th>Actualizar Estado</th>
+                                @if ($score_total->isNotEmpty())
+                                    <th>
+                                        Actualizar Estado
+                                    </th>
+                                @endif
                         </thead>
                         <tbody>
                             @foreach ($postulates as $postulate)
@@ -75,7 +79,7 @@
                                         </td>
                                         <td>{{ $postulate->score_total }}</td>
 
-                                        @if ($postulate->state === 'Inscrito' && $postulate->score_total === 0)
+                                        @if ($postulate->score_total === 0)
                                             <td>
                                                 <a href="#" class="btn btn-primary btn-sm assign-button"
                                                     data-apprentice-id="{{ $postulate->apprentice->id }}"

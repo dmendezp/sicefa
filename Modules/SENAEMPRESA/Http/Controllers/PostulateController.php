@@ -123,6 +123,7 @@ class PostulateController extends Controller
 
         $PositionCompanies = PositionCompany::where('state', 'Activo')->get();
 
+        $score_total = DB::table('postulates')->select('id', 'score_total')->get();
         // Consulta para obtener los postulantes filtrados por cargo y puntaje asignado/sin asignar
         $postulates = Postulate::with(['apprentice.person', 'vacancy'])
             ->when($selectedPositionId, function ($query) use ($selectedPositionId) {
@@ -145,6 +146,7 @@ class PostulateController extends Controller
             'PositionCompanies' => $PositionCompanies,
             'selectedPositionId' => $selectedPositionId,
             'showAssignedScore' => $showAssignedScore, // Pasa el nuevo filtro a la vista
+            'score_total' => $score_total
         ];
 
         return view('senaempresa::Company.postulate.index', $data);
