@@ -18,6 +18,8 @@ Route::middleware(['lang'])->group(function () {
         Route::get('user', 'AGROCEFAController@vistauser')->name('agrocefa.user');
         Route::get('developers', 'desarrolladoresController@index')->name('cefa.agrocefa.developers.index');
         Route::get('usuario', 'usuarioController@index')->name('cefa.agrocefa.usuario.index');
+        Route::get('Manual', 'AGROCEFAController@Manual')->name('cefa.agrocefa.manual.index');
+
 
         // RUTAS DE PARAMETROS
         Route::get('trainer/parameters', 'Parameters\ParameterAgroController@parametersview')->name('agrocefa.trainer.parameters.index');
@@ -155,7 +157,10 @@ Route::middleware(['lang'])->group(function () {
         //Balance
         Route::get('trainer/reports/balance', 'Reports\BalanceController@index')->name('agrocefa.trainer.reports.balance.index');
         Route::get('passant/reports/balance', 'Reports\BalanceController@index')->name('agrocefa.passant.reports.balance.index');
+        Route::get('trainer/reports/balance/cropsbylot', 'Reports\BalanceController@getCropsByLot')->name('agrocefa.trainer.reports.balance.cropsbylot');
+        Route::get('passant/reports/balance/cropsbylot', 'Reports\BalanceController@getCropsByLot')->name('agrocefa.passant.reports.balance.cropsbylot');
         Route::post('/reports/balance/filter', 'Reports\BalanceController@filterbalance')->name('agrocefa.reports.filterbalance');
         Route::get('/reports/balance/balancepdf', 'Reports\BalanceController@balancepdf')->name('agrocefa.reports.balancepdf');
+
     });
 });

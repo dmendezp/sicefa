@@ -10,6 +10,8 @@ use Modules\SICA\Entities\EnvironmentProductiveUnit;
 use Modules\SICA\Entities\Labor;
 use Carbon\Carbon; // Asegúrate de importar la clase Carbon
 use Barryvdh\DomPDF\Facade\Pdf;
+use Modules\AGROCEFA\Entities\CropEnvironment;
+
 
 class BalanceController extends Controller
 {
@@ -43,6 +45,32 @@ class BalanceController extends Controller
             'totalExpenses' => $totalExpenses,
             'totalProductions' => $totalProductions,
         ]);
+    }
+
+    public function getCropsBylot(Request $request)
+    {
+        $unitId = $request->input('unit');
+
+        // Obtén los EnvironmentProductiveUnit relacionados con la unidad productiva seleccionada
+        $crops = CropEnvironment::where('environment_id', $unitId)->with('crop')->get();
+
+        // Inicializa arrays para almacenar los IDs y nombres de environment
+        $environmentIds = [];
+        $environmentNames = [];
+
+        // Itera a través de los elementos de la colección
+        foreach ($crops as $lot) {
+            // Accede a los atributos de la relación 'environment'
+            $environmentId = $lot->crop->id;
+            $environmentName = $lot->crop->name;
+
+            // Agrega los valores a los arrays
+            $cropIds[] = $environmentId;
+            $cropNames[] = $environmentName;
+        }
+
+
+        return response()->json(['cropIds' => $cropIds, 'cropNames' => $cropNames]);
     }
 
     public function filterbalance(Request $request)

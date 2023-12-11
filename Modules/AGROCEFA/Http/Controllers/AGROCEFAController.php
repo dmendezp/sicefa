@@ -3,6 +3,7 @@
 namespace Modules\AGROCEFA\Http\Controllers;
 
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -254,5 +255,19 @@ class AGROCEFAController extends Controller
     public function crop()
     {
         return view('agrocefa::crop');
+    }
+
+    public function Manual()
+    {
+        $rutaPdf = public_path('agrocefa\Manual de usuario - AGROCEFA.pdf');
+
+        $nombreArchivo = 'Manual de usuario - AGROCEFA.pdf';
+
+        $headers = [
+            'Content-Type' => 'application/pdf',
+        ];
+
+        return Response::download($rutaPdf, $nombreArchivo, $headers);
+
     }
 }

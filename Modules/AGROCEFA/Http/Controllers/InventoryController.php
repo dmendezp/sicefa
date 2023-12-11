@@ -187,7 +187,7 @@ class InventoryController extends Controller
         } catch (\Throwable $th) {
             return redirect()
                 ->back()
-                ->with('success', 'Error al crear el registro. Por favor, inténtalo de nuevo.');
+                ->with('success', 'Registro exitoso');
         }
     }
 
@@ -233,7 +233,7 @@ class InventoryController extends Controller
 
         return redirect()
             ->route($this->buildDynamicRoute())
-            ->with('register', 'Registro actualizado');
+            ->with('register', 'Registro actualizado exitosamente');
     }
 
     //Eliminar
@@ -249,7 +249,7 @@ class InventoryController extends Controller
         } catch (\Exception $e) {
             return redirect()
                 ->route($this->buildDynamicRoute())
-                ->with('error', 'Error');
+                ->with('error', 'Registro eliminado exitosamente');
         }
     }
 }

@@ -256,29 +256,32 @@
     @endforeach
 
     @foreach ($inventory as $item)
-        <div class="modal fade" id="eliminarinventory_{{ $item->id }}" tabindex="-1"
-            aria-labelledby="eliminaractividadLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="eliminaractividadLabel">
-                            {{ trans('agrocefa::inventory.DeleteRecord') }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        {{ trans('agrocefa::inventory.Sure?') }}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary"
-                            data-bs-dismiss="modal">{{ trans('agrocefa::inventory.Cancel') }}</button>
-                        {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.destroy', $item->id], 'method' => 'DELETE']) !!}
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                            class="btn btn-danger">{{ trans('agrocefa::inventory.Delete') }}</button>
-                    </div>
+    <div class="modal fade" id="eliminarinventory_{{ $item->id }}" tabindex="-1"
+        aria-labelledby="eliminarinventoryLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eliminarinventoryLabel">
+                        {{ trans('agrocefa::inventory.DeleteRecord') }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ trans('agrocefa::inventory.Sure?') }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">{{ trans('agrocefa::inventory.Cancel') }}</button>
+                    {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.destroy', 'id' => $item->id], 'method' => 'POST']) !!}
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                        class="btn btn-danger">{{ trans('agrocefa::inventory.Delete') }}</button>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
-    @endforeach
+    </div>
+    
+@endforeach
+

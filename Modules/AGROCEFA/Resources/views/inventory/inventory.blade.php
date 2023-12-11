@@ -1,41 +1,7 @@
 @extends('agrocefa::layouts.master')
 
 @section('content')
-    @if (session('register'))
-        <script>
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Actualizacion exitosa',
-                showConfirmButton: false,
-                timer: 1500
-            })
-        </script>
-    @endif
 
-    @if (session('success'))
-        <script>
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Registro Exitoso',
-                showConfirmButton: false,
-                timer: 1500
-            })
-        </script>
-    @endif
-
-    @if (session('error'))
-        <script>
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Registro Eliminado',
-                showConfirmButton: false,
-                timer: 1500
-            })
-        </script>
-    @endif
     <h1>{{ trans('agrocefa::inventory.Inventory') }}</h1>
     @auth
         @if (Auth::user()->havePermission('agrocefa.trainer.inventory.manage'))

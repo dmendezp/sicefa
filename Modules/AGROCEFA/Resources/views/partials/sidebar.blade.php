@@ -175,6 +175,14 @@
                             </li>
                         </ul>
                     </li>
+
+                    {{-- Manual --}}
+                    <li class="nav-link">
+                        <a href="{{ route('cefa.agrocefa.manual.index') }}">
+                            <i class="bx bx-info-circle icon"></i>
+                            <span class="text nav-text">MANUAL</span>
+                        </a>
+                    </li>
             </ul>
         </div>
 

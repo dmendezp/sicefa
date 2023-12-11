@@ -36,7 +36,9 @@
                                     <div class="button-group">
                                         <button class="btn btn-primary btn-sm btn-edit-specie" data-bs-toggle="modal"
                                             data-bs-target="#editarEspecieModal_{{ $a->id }}"
-                                            data-specie-id="{{ $a->id }}"><i class='bx bx-edit icon'></i></button>
+                                            data-specie-id="{{ $a->id }}"><i class='bx bx-edit icon'></i>
+                                        </button>
+                                        
                                         <button class="btn btn-danger btn-sm btn-delete-specie" data-specie-id="{{ $a->id }}">
                                             <i class='bx bx-trash icon'></i>
                                         </button>
