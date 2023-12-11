@@ -145,7 +145,7 @@
                                         <select class="form-control" name="benefit" id="benefit_{{ $postulationBenefit->id }}" onchange="this.form.submit()">
                                             @foreach($benefits as $benefit)
                                                 <option value="{{ $benefit->id }}" {{ $postulationBenefit->benefit->id == $benefit->id ? 'selected' : '' }}>
-                                                    {{ $benefit->name }}
+                                                    {{ $benefit->name }} - {{ $benefit->porcentege }}
                                                 </option>
                                             @endforeach
                                         </select>
