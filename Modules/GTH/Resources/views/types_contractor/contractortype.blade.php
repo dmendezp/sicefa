@@ -36,14 +36,15 @@
                                                     data-bs-target="#editarModal_{{ $contractor->id }}"
                                                     data-id="{{ $contractor->id }}"
                                                     data-nombre="{{ $contractor->name }}">{{ trans('gth::menu.Edit') }}</a>
-                                                <div style="width: 10px;"></div>
-                                                <form action="{{ route('cefa.gth.contractortypes.delete', $contractor->id) }}"
-                                                    method="POST" class="btnEliminar" class="d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger"
-                                                        data-id="{{ $contractor->id }}">{{ trans('gth::menu.Delete') }}</button>
-                                                </form>
+                                                    <div style="width: 10px;"></div>
+                                                    <div style="width: 10px;"></div>
+                                                    <form action="{{ route('cefa.gth.contractortypes.delete', $contractor->id) }}"
+                                                        method="POST" class="btnEliminar" class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger"
+                                                            data-id="{{ $contractor->id }}">Eliminar</button>
+                                                    </form>
                                             </div>
                                         </td>
                                     </tr>
@@ -135,43 +136,44 @@
             });
         }
     </script>
+<!-- SweetAlert CDN -->
 
-    <script>
-        'use strict';
-        // Selecciona todos los formularios con la clase "formEliminar"
-        var forms = document.querySelectorAll('.btnEliminar');
+<script>
+    'use strict';
+    // Selecciona todos los formularios con la clase "formEliminar"
+    var forms = document.querySelectorAll('.btnEliminar');
 
-        Array.prototype.slice.call(forms)
-            .forEach(function(form) {
-                form.addEventListener('submit', function(event) {
-                    event.preventDefault(); // Evita que el formulario se envíe de inmediato
+    Array.prototype.slice.call(forms)
+        .forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Evita que el formulario se envíe de inmediato
 
-                    console.log('Formulario enviado'); // Evita que el formulario se envíe de inmediato
+                console.log('Formulario enviado'); // Evita que el formulario se envíe de inmediato
 
-                    Swal.fire({
-                        title: '{{ trans('gth::menu.¿Are you sure you want to delete?') }}',
-                        text: '{{ trans('gth::menu.This process is irreversible.') }}',
-                        icon: '{{ trans('gth::menu.Warning') }}',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: '{{ trans('gth::menu.Yes, delete it') }}',
-                        cancelButtonText: '{{ trans('gth::menu.Cancel') }}',// Cambiar el texto del botón "Cancelar"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            this.submit();
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: 'Your work has been saved',
-                                showConfirmButton: false,
-                                timer: 1000
-                            })
-                        }
-                    });
+                Swal.fire({
+                    title: "¿Estas seguro que deseas eliminar?",
+                    text: "Este proceso es irrevesible.",
+                    icon: 'Advertencia',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: "Si, Elimínalo",
+                    cancelButtonText: "Cancelar" // Cambiar el texto del botón "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Your work has been saved',
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+                    }
                 });
             });
-    </script>
+        });
+</script>
 
     <script>
         'use strict';

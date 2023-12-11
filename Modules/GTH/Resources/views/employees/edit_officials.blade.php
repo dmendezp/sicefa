@@ -1,107 +1,90 @@
-@foreach ($employees as $employee)
-    <div class="modal fade" id="editarModal_{{ $employee->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+@foreach ($employees as $employe)
+    <div class="modal fade" id="editarModal_{{ $employe->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModolLabel">Editar Funcionario {{ $employee->id }}</h5>
+                    <h5 class="modal-title" id="exampleModolLabel">Editar Funcionario {{ $employe->id }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     @if (isset($employe))
                         <!--Cambio a $employee-->
                         <form id="editForm" method="POST"
-                            action="{{ route('cefa.gth.officials.update', ['id' => $employee->id]) }}">
+                            action="{{ route('cefa.gth.officials.update', ['id' => $employe->id]) }}">
                             @csrf
-                            @method('PATCH')
+                            @method('POST')
                             <input type="hidden" name="id"
                                 value="{{ $employe->id }}"><!-- Cambiado a $contract -->
 
                             <!-- Número de documento -->
                             <div class="card-header">
                                 <div class="row">
-                                        <div class="form-group">
-                                            <label for="document_number-{{ $employe->id }}" class="form-label">Número
-                                                de Documento</label>
-                                            <input type="number" class="form-control"
-                                                id="document_number-{{ $employe->id }}" name="document_number"
-                                                value="{{ old('document_number', $employe->person->document_number) }}"
-                                                required>
-                                        </div>
-                                    </div>
+                            <div class="form-group">
+                                <label for="document_number-{{$employe->id }}" class="form-label">Número de Documento</label>
+                                <input type="number" class="form-control"  id="document_number-{{ $employe->id }}" name="document_number"
+                                     value="{{old('document_number', $employe->person->document_number) }}" required>
                             </div>
-                            <div class="card-header">
-                                <div class="row">
-                                        <div class="form-group">
-                                            <label for="full_name-{{ $employe->id }}" class="form-label">Nombre</label>
-                                            <input type="text" class="form-control"
-                                                id="full_name_edit-{{ $employe->id }}" name="full_name_edit"
-                                                value="{{ old('full_name_edit', $employe->person->full_name) }}"
-                                                readonly>
-                                        </div>
-                                    </div>
+                                </div>
                             </div>
 
+                            <div class="card-header">
+                                <div class="row">
+                            <div class="form-group">
+                                <label for="full_name-{{$employe->id }}" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="full_name_edit-{{ $employe->id }}" name="full_name_edit"
+                                    value="{{old('full_name_edit', $employe->person->full_name) }}" required>
+                            </div>
+                                </div>
+                            </div>
                             <!-- Otros campos de entrada -->
                             <div class="card-header">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="contract_number-{{ $employe->id }}" class="form-label">Número
-                                                de contrato</label>
-                                            <input type="text" class="form-control"
-                                                id="contract_number-{{ $employe->id }}" name="contract_number"
-                                                value="{{ old('contract_number', $employe->contract_number) }}"
-                                                required>
-                                        </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="contract_number-{{$employe->id }}" class="form-label">Número de contrato</label>
+                                        <input type="text" class="form-control" id="contract_number-{{ $employe->id }}"
+                                            name="contract_number" value="{{ old('contract_number', $employe->contract_number) }}"
+                                            required>
                                     </div>
+                                </div>
 
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="contract_date-{{ $employe->id }}"class="form-label">Fecha de
-                                                contrato</label>
-                                            <input type="date" class="form-control"
-                                                id="contract_date-{{ $employe->id }}" name="contract_date"
-                                                value="{{ old('contract_date', $employe->contract_date) }}" required>
-                                        </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="contract_date-{{ $employe->id }}"class="form-label">Fecha de contrato</label>
+                                        <input type="date" class="form-control" id="contract_date-{{ $employe->id }}"
+                                            name="contract_date" value="{{ old('contract_date', $employe->contract_date) }}"
+                                            required>
                                     </div>
+                                </div>
 
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label
-                                                for="professional_card_number-{{ $employe->id }}"class="form-label">Número
-                                                de tarjeta profesional</label>
-                                            <input type="text" class="form-control"
-                                                id="professional_card_number-{{ $employe->id }}"
-                                                name="professional_card_number"
-                                                value="{{ old('professional_card_number', $employe->professional_card_number) }}"
-                                                required>
-                                        </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="professional_card_number-{{ $employe->id }}"class="form-label">Número de tarjeta profesional</label>
+                                        <input type="text" class="form-control" id="professional_card_number-{{ $employe->id }}"
+                                            name="professional_card_number" value="{{ old('professional_card_number', $employe->professional_card_number) }}"
+                                            required>
                                     </div>
+                                </div>
 
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label
-                                                for="professional_card_issue_date-{{ $employe->id }}"class="form-label">Fecha
-                                                de emisión de la tarjeta profesional</label>
-                                            <input type="date" class="form-control"
-                                                id="professional_card_issue_date-{{ $employe->id }}"
-                                                name="professional_card_issue_date"
-                                                value="{{ old('professional_card_issue_date', $employe->contract_date) }}"
-                                                required>
-                                        </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="professional_card_issue_date-{{$employe->id }}"class="form-label">Fecha emisión de tarjeta profesional</label>
+                                        <input type="date" class="form-control" id="professional_card_issue_date-{{$employe->id }}"
+                                            name="professional_card_issue_date" value="{{ old('professional_card_issue_date', $employe->contract_date) }}"
+                                            required>
                                     </div>
                                 </div>
                             </div>
+                            </div>
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="employee_type_id-{{ $employe->id }}"class="form-label">Tipo de
-                                                empleado</label>
+                                            <label for="employee_type_id-{{ $employe->id }}"class="form-label">Tipo de empleado</label>
                                             <select name="employee_type_id" id="employee_type_id"
-                                                class="form-control @error('employee_type_id') is-invalid @enderror"
-                                                required>
+                                            class="form-control @error('employee_type_id') is-invalid @enderror"
+                                            required>
                                                 <option value="">Seleccione tipo de empleado</option>
                                                 @foreach ($employeeTypes as $employeeType)
                                                     <option value="{{ $employeeType->id }}"
@@ -114,11 +97,9 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label
-                                                for="position_id-{{ $employe->id }}"class="form-label">Cargo</label>
-                                            <select name="position_id" id="position_id"
-                                                class="form-control @error('position_id') is-invalid @enderror"
-                                                required>
+                                            <label for="position_id-{{$employe->id }}"class="form-label">Cargo</label>
+                                            <select name="position_id" id="position_id" class="form-control @error('position_id') is-invalid @enderror"
+                                            required>
                                                 <option value="">Seleccione cargo</option>
                                                 @foreach ($positions as $position)
                                                     <option value="{{ $position->id }}"
@@ -132,28 +113,22 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="risk_type">Tipo de riesgo</label>
-                                            <select name="risk_type" id="risk_type"
-                                                class="form-control @error('risk_type') is-invalid @enderror" required>
+                                            <select name="risk_type" id="risk_type" class="form-control @error('risk_type') is-invalid @enderror" required>
                                                 <option value="">Seleccione tipo de riesgo</option>
                                                 <option value="I"
-                                                    {{ old('risk_type', $employe->risk_type) == 'I' ? 'selected' : '' }}>
-                                                    I
+                                                    {{ old('risk_type', $employe->risk_type) == 'I' ? 'selected' : '' }}>I
                                                 </option>
                                                 <option value="II"
-                                                    {{ old('risk_type', $employe->risk_type) == 'II' ? 'selected' : '' }}>
-                                                    II
+                                                    {{ old('risk_type', $employe->risk_type) == 'II' ? 'selected' : '' }}>II
                                                 </option>
                                                 <option value="III"
-                                                    {{ old('risk_type', $employe->risk_type) == 'III' ? 'selected' : '' }}>
-                                                    III
+                                                    {{ old('risk_type', $employe->risk_type) == 'III' ? 'selected' : '' }}>III
                                                 </option>
                                                 <option value="IV"
-                                                    {{ old('risk_type', $employe->risk_type) == 'IV' ? 'selected' : '' }}>
-                                                    IV
+                                                    {{ old('risk_type', $employe->risk_type) == 'IV' ? 'selected' : '' }}>IV
                                                 </option>
                                                 <option value="V"
-                                                    {{ old('risk_type', $employe->risk_type) == 'V' ? 'selected' : '' }}>
-                                                    V
+                                                    {{ old('risk_type', $employe->risk_type) == 'V' ? 'selected' : '' }}>V
                                                 </option>
                                             </select>
                                         </div>
@@ -161,8 +136,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="state">Estado:</label>
-                                            <select name="state" id="state"
-                                                class="form-control @error('state') is-invalid @enderror">
+                                            <select name="state" id="state" class="form-control @error('state') is-invalid @enderror">
                                                 <option value="activo"
                                                     {{ old('state', $employe->state) === 'activo' ? 'selected' : '' }}>
                                                     Activo
@@ -176,18 +150,19 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary"
-                                onclick="return confirmarCambios()">Guardar cambios</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-primary" onclick="return confirmarCambios()">Guardar cambios</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+                        </form>
+                    @endif
                 </div>
-                </form>
-@endif
-</div>
-</div>
-</div>
-</div>
+            </div>
+        </div>
+    </div>
 @endforeach
 @section('js')
+
     <script>
         function confirmarCambios() {
             Swal.fire({
@@ -281,48 +256,48 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('.editar-btn').click(function() {
-                var id = $(this).data('id');
-                var nombre = $(this).data('nombre');
+    $('.editar-btn').click(function() {
+        var id = $(this).data('id');
+        var nombre = $(this).data('nombre');
 
-                // Assuming you have a common modal and form structure
-                var modalId = '#editarModal_' + id;
-                var formId = '#editForm_' + id;
+        // Assuming you have a common modal and form structure
+        var modalId = '#editarModal_' + id;
+        var formId = '#editForm_' + id;
 
-                $('#editId').val(id);
+        $('#editId').val(id);
                 $('#editName').val(nombre);
+);
 
-                // Obtener la ruta de actualización del formulario de edición
-                var updateRoute = '{{ route('cefa.gth.officials.update', ['id' => ':id']) }}'.replace(
-                    ':id', id);
+        // Obtener la ruta de actualización del formulario de edición
+        var updateRoute = '{{ route('cefa.gth.officials.update', ['id' => ':id']) }}'.replace(':id', id);
 
-                // Asignar la ruta de actualización al formulario de edición
-                $('#editForm').attr('action', updateRoute);
+        // Asignar la ruta de actualización al formulario de edición
+        $('#editForm').attr('action', updateRoute);
             });
 
+        
+    // Assuming you have a common form structure
+    $('.editForm').submit(function(event) {
+        event.preventDefault();
 
-            // Assuming you have a common form structure
-            $('.editForm').submit(function(event) {
-                event.preventDefault();
+        var formData = $(this).serialize();
 
-                var formData = $(this).serialize();
+        $.ajax({
+            url: $(this).attr('action'), // Usar la ruta de acción del formulario
+            method: 'PATCH',
+            data: formData,
+            success: function(response) {
+                // Actualizar la página después de un breve retraso
+                setTimeout(function() {
+                    location.reload();
+                }, 1000); // Espera 1 segundo (1000 milisegundos) antes de recargar
 
-                $.ajax({
-                    url: $(this).attr('action'), // Usar la ruta de acción del formulario
-                    method: 'PATCH',
-                    data: formData,
-                    success: function(response) {
-                        // Actualizar la página después de un breve retraso
-                        setTimeout(function() {
-                            location.reload();
-                        }, 1000); // Espera 1 segundo (1000 milisegundos) antes de recargar
-
-                        // Cerrar el modal
-                        var modal = new bootstrap.Modal(document.getElementById('editarModal'));
-                        modal.hide();
-                    }
-                });
-            });
+                // Cerrar el modal
+                var modal = new bootstrap.Modal(document.getElementById('editarModal'));
+                modal.hide();
+            }
         });
+    });
+
     </script>
 @endpush

@@ -54,7 +54,7 @@ class OfficialController extends Controller
 
     public function store(Request $request)
     {
-        // Validar los datos del formulario      
+  // Validar los datos del formulario      
         $validatedData = $request->validate([
             'person_id' => 'required|string',
             'contract_number' => 'required|string',

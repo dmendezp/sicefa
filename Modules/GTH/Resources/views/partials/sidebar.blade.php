@@ -166,7 +166,6 @@
                         </li>
                     </ul>
                 </li>
-               
                 <li class="nav-item">
                     <a href="{{ route('cefa.gth.officials.view') }}"
                         class="nav-link {{ !Route::is('cefa.gth.officials.view') ?: 'active' }}">
@@ -176,8 +175,18 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('cefa.gth.brigader.view') }}"
+                        class="nav-link {{ !Route::is('cefa.gth.brigader.view') ?: 'active' }}">
+                        <i class="fa-solid fa-person-carry-box"></i>
+                        <p>
+                            Brigadista
+                        </p>
+                    </a>
+                </li>
                 @if (Auth::user()->havePermission('agrocefa.passant.reports'))
                 @endif
+               
         </nav>
         <!-- /.sidebar-menu -->
     </div>

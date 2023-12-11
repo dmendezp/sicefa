@@ -33,28 +33,29 @@
                                         <td>{{ $employe->id }}</td>
                                         <td>{{ $employe->person->document_number }}</td>
                                         <td>{{ $employe->person->full_name }}</td>
-                                        <form action="{{ route('cefa.gth.officials.delete', $employe->id) }}"
-                                            method="POST" class="btnEliminar" class="d-inline">
+                                        <form action="{{ route('cefa.gth.officials.delete', $employe->id) }}" method="DELETE"
+                                            class="btnEliminar" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <td>
-                                            <a href="" class="btn btn-warning editar-btn"
-                                                data-bs-toggle="modal" data-bs-target="#editarModal_{{ $employe->id }}"
-                                                data-employee-id="{{ $employe->id }}"
-                                                data-employee-documment="{{ $employe->document_number }}"
-                                                data-employee-full_name="{{ $employe->full_name}}"
-                                                data-employee-contract_number="{{ $employe->contract_number }}"
-                                                data-employe-contract_date="{{ $employe->contract_date}}"
-                                                data-employe-professional_card_number="{{ $employe->professional_card_number}}"
-                                                data-employe-professional_card_issue_date="{{ $employe->professional_card_issue_date}}"
-                                                data-employe-employee_type_id="{{ $employe->employee_type_id}}"
-                                                data-employe-position_id="{{ $employe->position_id}}"
-                                                data-employe-risk_type="{{ $employe->risk_type}}"
-                                                data-employe-state="{{ $employe->state}}"> Editar</a>
-                                        <button type="submit" class="btn btn-danger"
-                                                    data-id="{{ $employe->id  }}">Eliminar</button>
+                                                <a href="" class="btn btn-warning editar-btn" data-bs-toggle="modal"
+                                                    data-bs-target="#editarModal_{{ $employe->id }}"
+                                                    data-employe-id="{{ $employe->id }}"
+                                                    data-employe-documment="{{ $employe->document_number }}"
+                                                    data-employe-full_name="{{ $employe->full_name }}"
+                                                    data-employe-contract_number="{{ $employe->contract_number }}"
+                                                    data-employe-contract_date="{{ $employe->contract_date }}"
+                                                    data-employe-professional_card_number="{{ $employe->professional_card_number }}"
+                                                    data-employe-professional_card_issue_date="{{ $employe->professional_card_issue_date }}"
+                                                    data-employe-employee_type_id="{{ $employe->employee_type_id }}"
+                                                    data-employe-position_id="{{ $employe->position_id }}"
+                                                    data-employe-risk_type="{{ $employe->risk_type }}"
+                                                    data-employe-state="{{ $employe->state }}"> Editar</a>
+                                                <button type="submit" class="btn btn-danger"
+                                                    data-id="{{ $employe->id }}">Eliminar</button>
                                             </td>
                                         </form>
+
                                     </tr>
                                 @endforeach
 
