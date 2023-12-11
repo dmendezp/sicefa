@@ -5,7 +5,7 @@
         <div class="row justify-content-center mt-5">
             <div class="col-md-6">
                 <div class="card card-primary card-outline shadow">
-                    <div class="card-header">{{ trans('senaempresa::menu.Loans') }}</div>
+                    <div class="card-header">{{ $title }}</div>
                     <div class="card-body">
                         <form action="{{ route('company.loan.update', $loan->id) }}" method="POST"
                             enctype="multipart/form-data">

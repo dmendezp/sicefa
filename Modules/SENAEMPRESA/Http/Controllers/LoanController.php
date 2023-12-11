@@ -83,7 +83,7 @@ class LoanController extends Controller
             ->get();
 
         $data = [
-            'title' => 'Prestamos Registrados',
+            'title' => trans('senaempresa::menu.New Loan'),
             'loans' => $loans,
             'staff_senaempresas' => $staff_senaempresas,
             'inventories' => $inventories,
@@ -136,7 +136,7 @@ class LoanController extends Controller
         }
 
         $data = [
-            'title' => 'Edit Loan',
+            'title' => trans('senaempresa::menu.Edit Loan'),
             'loan' => $loan,
             'staff_senaempresas' => $staff_senaempresas,
             'inventories' => $inventories,
@@ -170,7 +170,7 @@ class LoanController extends Controller
             ->get();
 
         $data = [
-            'title' => 'Inventario',
+            'title' => trans('senaempresa::menu.Inventory'),
             'inventories' => $inventories,
         ];
 
