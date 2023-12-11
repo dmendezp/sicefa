@@ -16,8 +16,8 @@ class ProductionController extends Controller
 {
     public function index(){
         $title = 'Producción';
-        $production = Production::with('element')->get();
-        
+        $production = Production::with('element', 'labor')->get();
+    
         $data = [
             'title' => $title,
             'production' => $production
@@ -25,6 +25,4 @@ class ProductionController extends Controller
 
         return view('agroindustria::instructor.productions.table', $data);
     }
-
-
 }

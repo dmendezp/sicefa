@@ -21,25 +21,46 @@
                     <td>{{$p->lot}}</td>
                     <td>
                     <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detail{{$p->id}}">
                         Detalles
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Detalles de Produccion</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                            
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                
-                            </div>
+                        <div class="modal fade" id="detail{{$p->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-primary text-white">
+                                        <h5 class="modal-title" id="details">Detalles de Produccion</h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Gastos :</th>
+                                                    <td>{{ number_format($p->labor->price, 2, ',', '.') }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><hr></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Total Produccion :</th>
+                                                    <td>{{ number_format($p->amount * $p->element->price, 2, ',', '.') }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><hr></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Ganancias :</th>
+                                                    <td>{{ number_format($p->labor->price - $p->element->price, 2, ',', '.') }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         </div>
