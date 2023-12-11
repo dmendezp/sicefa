@@ -3,9 +3,11 @@
 return [
 
     // Formulario entrada y salida
-    'Report_Consumable' => 'Report Consumable',
-    'Start_Date' => 'Start Date :',
-    'End_Date' => 'End Date :',
+    'ConsumptionReport' => 'Consumption report',
+    'Lot' => 'Lot',
+    'Select_lot' => 'Select lot',
+    'Crop' => 'Cultivo',
+    'Select_crop' => 'Select crop',
     'Date_Labor' => 'Date of labor :',
     'Labor' => 'Labor :',
 

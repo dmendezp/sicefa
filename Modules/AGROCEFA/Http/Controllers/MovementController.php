@@ -174,12 +174,24 @@ class MovementController extends Controller
             ])->first();
             
             if ($inventory) {
+                // Obtener el factor de conversión
+                $measurement_unit = $inventory->element->measurement_unit->conversion_factor;
+                // Calcular la cantidad ajustada utilizando el factor de conversión
+                $adjustedAmount = $amount * $measurement_unit;
                 // Actualizar el inventario existente
-                $inventory->amount += $amount;
+                $inventory->amount += $adjustedAmount;
                 $inventory->price = $price; // Puedes actualizar el precio si es necesario
                 $inventory->save();
             } else {
+                $elememt = Element::where([
+                    'id' => $elementId,
+                ])->first();
                 
+                // Si el elemento no existe, crea un nuevo registro en 'inventories'
+                $measurement_unit = $elememt->measurement_unit->conversion_factor;
+                
+                // Calcular la cantidad ajustada utilizando el factor de conversión
+                $adjustedAmount = $amount * $measurement_unit;
                 // Crear un nuevo registro de inventario
                 $inventory = new Inventory([
                     'person_id' => $personid,
@@ -187,7 +199,7 @@ class MovementController extends Controller
                     'element_id' => $elementId,
                     'destination' => $destination,
                     'price' => $price,
-                    'amount' => $amount,
+                    'amount' => $adjustedAmount,
                     'stock' => 3,
                     'lot_number' => $lot,
                 ]);
@@ -201,8 +213,14 @@ class MovementController extends Controller
             ])->first();    
 
             if ($inventoryexist) {
+                // Si el elemento existe, actualiza el precio y la cantidad
+                // Obtener el factor de conversión
+                $measurement_unit = $inventoryexist->element->measurement_unit->conversion_factor;
+                // Calcular la cantidad ajustada utilizando el factor de conversión
+                $adjustedAmount = $amount * $measurement_unit;
+                // Actualizar el precio y la cantidad en la existencia existente
                 // Actualizar el inventario existente
-                $inventoryexist->amount -= $amount;
+                $inventoryexist->amount -= $adjustedAmount;
                 $inventoryexist->save();
             }
 
@@ -401,17 +419,32 @@ class MovementController extends Controller
                         'lot_number' => $lot,
                         
                     ])->first();
+                    
      
 
                     if ($existingInventory) {
+                        
                         // Si el elemento existe, actualiza el precio y la cantidad
+                        // Obtener el factor de conversión
+                        $measurement_unit = $existingInventory->element->measurement_unit->conversion_factor;
+                        // Calcular la cantidad ajustada utilizando el factor de conversión
+                        $adjustedAmount = $quantity * $measurement_unit;
+                        // Actualizar el precio y la cantidad en la existencia existente
+                        $existingInventory->amount += $adjustedAmount;
                         $existingInventory->price = $price;
-                        $existingInventory->amount += $quantity;
                         $existingInventory->save();
                         $existingInventoryId = $existingInventory->id;
                         
                     } else {
+                        $elememt = Element::where([
+                            'id' => $productElementId,
+                        ])->first();
+                        
                         // Si el elemento no existe, crea un nuevo registro en 'inventories'
+                        $measurement_unit = $elememt->measurement_unit->conversion_factor;
+                        
+                        // Calcular la cantidad ajustada utilizando el factor de conversión
+                        $adjustedAmount = $quantity * $measurement_unit;
 
                         $newInventory = new Inventory([
                             'person_id' => $user_id,
@@ -419,7 +452,7 @@ class MovementController extends Controller
                             'element_id' => $productElementId,
                             'destination' => $destination,
                             'price' => $price,
-                            'amount' => $quantity,
+                            'amount' => $adjustedAmount,
                             'stock' => $stock,
                             'lot_number' => $lot ?: null,
                         ]);
@@ -558,9 +591,10 @@ class MovementController extends Controller
             $dataelement = Inventory::where('element_id', $elementId)->first();
             
             if ($dataelement) {
+                $measurement_unit = $dataelement->element->measurement_unit->conversion_factor;
                 $destination = $dataelement->destination;
                 $price = $dataelement->price;
-                $amount = $dataelement->amount;
+                $amount = $dataelement->amount / $measurement_unit;
                 $lote = $dataelement->lot_number;
                 $stock = $dataelement->stock;
 

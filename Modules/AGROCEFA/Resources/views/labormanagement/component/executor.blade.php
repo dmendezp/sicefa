@@ -1,17 +1,18 @@
         <!-- Agregar un div para contener la información adicional -->
         <div id="formexecutor" style="display: none;">
+            <br>
             <div class="container" id="form">
                 <!-- Agregar la tabla dinámica -->
                 <div class="form-group">
-                    <h3 id="title">Personal contratado</h3>
+                    <h3 id="title">{{ trans('agrocefa::labor.HiredsStaff') }}</h3>
                     <table id="executorTable" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Persona</th>
-                                <th>Tipo de Empleado</th>
-                                <th>Horas trabajadas</th>
-                                <th>Precio Hora</th>
-                                <th>Precio Total</th>
+                                <th>{{ trans('agrocefa::labor.4T_Person') }}</th>
+                                <th>{{ trans('agrocefa::labor.4T_EmpoyeeType') }}</th>
+                                <th>{{ trans('agrocefa::labor.4T_Hours') }}</th>
+                                <th>{{ trans('agrocefa::labor.4T_Price') }}</th>
+                                <th>{{ trans('agrocefa::labor.4T_Total') }}</th>
                                 <!-- Agregar la columna de Destino -->
                                 <th>{{ trans('agrocefa::movements.1T_Actions') }}</th>
                             </tr>

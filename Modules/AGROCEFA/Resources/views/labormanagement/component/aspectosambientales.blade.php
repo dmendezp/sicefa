@@ -4,8 +4,8 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Aspecto Ambiental</th>
-                        <th>Ingrese cantidad</th>
+                        <th>{{ trans('agrocefa::labor.EnvironmentalAspect')}}</th>
+                        <th>{{ trans('agrocefa::labor.EnterQuantity')}}</th>
                     </tr>
                 </thead>
                 <tbody id="tablaAspectosAmbientales">

@@ -37,6 +37,7 @@ use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementDetail;
 use Modules\SICA\Entities\WarehouseMovement;
 use Modules\SICA\Entities\MovementResponsibility;
+use Modules\SICA\Entities\EnvironmentalAspectLabor;
 use Modules\AGROCEFA\Entities\Variety;
 use App\Models\User;
 
@@ -498,6 +499,8 @@ class LaborManagementController extends Controller
     public function registerlabor(Request $request)
     {
 
+        
+
         // Obtén el ID de la unidad productiva seleccionada de la sesión
         $this->selectedUnitId = Session::get('selectedUnitId');
 
@@ -542,6 +545,12 @@ class LaborManagementController extends Controller
         $machineryWages = $request->input('machinery_wage');
         $machineryPrices = $request->input('machinery_price');
 
+        // Datos Apecto ambiental
+        $aspectoambiental = $request->input('aspectQuantities');
+        
+       
+        
+
         // Datos de Produccion
         $unitreceive = $request->input('unit');
         $receivewarehouse = $request->input('warehouse');
@@ -551,19 +560,7 @@ class LaborManagementController extends Controller
         $productionexpiration = $request->input('production_expiration');
         $productionlot = $request->input('production_lot');
 
-        $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $deliverywarehouse)->where('productive_unit_id', $this->selectedUnitId)->first();
-        $productiveWarehousedeliveryId = $deliveryproductive_warehouse->id;
-
-        $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $receivewarehouse)->where('productive_unit_id', $unitreceive)->first();
-        $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
-
-        $responsibilitys = ProductiveUnit::with('person')->where('id', $unitreceive)->first();
-
-        if ($responsibilitys) {
-            $personid = $responsibilitys->person_id;
-            $people = $responsibilitys->person->first_name;
-            
-        }
+        
 
         // Inicializa el precio total en 0
         $totalPrice = 0;
@@ -596,7 +593,39 @@ class LaborManagementController extends Controller
                 'labor_id' => $laborId,
             ]);
 
+
+            if (!empty($aspectoambiental) && is_array($aspectoambiental) && count(array_filter($aspectoambiental)) > 0) {
+                foreach ($aspectoambiental as $id => $amount) {
+                    $price = 0;
+                    $environmentalaspect = new EnvironmentalAspectLabor([
+                        'environmental_aspect_id' => $id,
+                        'labor_id' => $laborId,
+                        'amount' => $amount,
+                        'price' => $price,
+                    ]);
+
+                    // Guarda el nuevo registro en la base de datos
+                    $environmentalaspect->save();
+                    $environmentalaspectId = $environmentalaspect->id;
+                }
+                
+            }
+
             if (!empty($productionIds) && is_array($productionIds) && count(array_filter($productionIds)) > 0) {
+
+                $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $deliverywarehouse)->where('productive_unit_id', $this->selectedUnitId)->first();
+                $productiveWarehousedeliveryId = $deliveryproductive_warehouse->id;
+
+                $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $receivewarehouse)->where('productive_unit_id', $unitreceive)->first();
+                $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
+
+                $responsibilitys = ProductiveUnit::with('person')->where('id', $unitreceive)->first();
+
+                if ($responsibilitys) {
+                    $personid = $responsibilitys->person_id;
+                    $people = $responsibilitys->person->first_name;
+                    
+                }
 
                 //Registrar movimiento de produccion
 

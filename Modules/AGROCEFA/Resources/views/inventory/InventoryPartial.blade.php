@@ -31,6 +31,7 @@
                 </thead>
                 <tbody>
                     @foreach ($inventory as $item)
+                    {{$measurement_unit = $item->element->measurement_unit->conversion_factor;}}
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->productive_unit_warehouse->warehouse->name }}</td>
@@ -39,7 +40,7 @@
                             <td>{{ $item->destination }}</td>
                             <td>{{ $item->description }}</td>
                             <td>{{ $item->price }}</td>
-                            <td>{{ $item->amount }}</td>
+                            <td>{{ $item->amount / $measurement_unit}}</td>
                             <td>{{ $item->stock }}</td>
                             <td>{{ $item->production_date }}</td>
                             <td>{{ $item->lot_number }}</td>

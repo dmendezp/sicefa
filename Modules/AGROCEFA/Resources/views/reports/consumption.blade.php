@@ -2,24 +2,24 @@
 
 @section('content')
     <div class="container">
-        <h3>Reporte Labores Culturales</h3>
+        <h3>{{ trans('agrocefa::reports.ConsumptionReport') }}</h3>
 
         <div class="form-group">
-            <label for="lot">Seleccione el Lote</label>
+            <label for="lot">{{ trans('agrocefa::reports.Lot') }}</label>
             <select name="lot" class="form-control" required id="lotSelect">
-                <option value="">Seleccione el Lote</option>
+                <option value="">{{ trans('agrocefa::reports.Select_lot') }}</option>
                 @foreach (array_combine($environmentIds, $environmentNames) as $id => $name)
                     <option value="{{ $id }}" {{ old('lot') == $id ? 'selected' : '' }}>
                         {{ $name }}</option>
                 @endforeach
             </select>
         </div>
-
+        <br>
         <div id="cropsSelectContainer" style="display: none;">
             <div class="form-group">
-                <label for="cropsSelect">Cultivos Asociados</label>
+                <label for="cropsSelect">{{ trans('agrocefa::reports.Crop') }}</label>
                 <select name="crops" class="form-control" id="cropsSelect">
-                    <option value="">Seleccione el cultivo</option>
+                    <option value="">{{ trans('agrocefa::reports.Select_crop') }}</option>
                 </select>
             </div>
         </div>

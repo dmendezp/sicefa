@@ -8,7 +8,7 @@
         <div id="notification" class="alert alert-danger" style="display: none;"></div>
         <div class="card">
             <div class="card-body">
-                {!! Form::open(['route' => 'agrocefa.reports.production', 'method' => 'POST']) !!}
+                {!! Form::open([ 'method' => 'POST']) !!}
                 @csrf
                 <div class="row">
                     <div class="col-md-6">

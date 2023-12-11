@@ -480,6 +480,7 @@
                             console.log(response);
 
                             var availableQuantity = response.amount;
+                            console.log(availableQuantity);
 
                             var quantityMessage = currentRow.find('.quantity-message');
 

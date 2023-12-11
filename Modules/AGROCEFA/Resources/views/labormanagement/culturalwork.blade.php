@@ -48,7 +48,7 @@
             </script>
         @endif
 
-        <h2>Registro Labor Cultural</h2>
+        <h2>{{trans('agrocefa::labor.Title')}}</h2>
 
         <div class="container" id="containermovements">
             <!-- Div para mostrar notificaciones -->
@@ -75,10 +75,10 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('lot', 'Lote') !!}
+                                {!! Form::label('lot',trans('agrocefa::labor.Lot')) !!}
                                 {!! Form::select(
                                     'lot',
-                                    ['' => 'Seleccione el Lote'] +
+                                    ['' => trans('agrocefa::labor.Select_lot') ] +
                                         collect($environmentData)->pluck('name', 'id')->toArray(),
                                     old('lot'),
                                     ['class' => 'form-control', 'required', 'id' => 'lotSelect'],
@@ -86,12 +86,12 @@
                             </div>
                             <br>
                             <div class="form-group">
-                                {!! Form::label('date', trans('agrocefa::movements.Date')) !!}
+                                {!! Form::label('date', trans('agrocefa::labor.Date')) !!}
                                 {!! Form::text('date', old('date', $date), ['class' => 'form-control', 'required', 'readonly' => 'readonly']) !!}
                             </div>
                             <br>
                             <div class="form-group">
-                                {!! Form::label('productive_unit', trans('agrocefa::movements.Productive_Unit')) !!}
+                                {!! Form::label('productive_unit', trans('agrocefa::labor.ProductiveUnit')) !!}
                                 {!! Form::text('productive_unit', Session::get('selectedUnitName'), [
                                     'class' => 'form-control',
                                     'readonly' => 'readonly',
@@ -99,14 +99,14 @@
                             </div>
                             <br>
                             <div class="form-group">
-                                {!! Form::label('observation', trans('agrocefa::movements.Observation')) !!}
+                                {!! Form::label('observation', trans('agrocefa::labor.Observation')) !!}
                                 {!! Form::textarea('observation', old('observation'), [
                                     'class' => 'form-control',
                                     'style' => 'max-height: 100px;',
                                 ]) !!}
                             </div>
                             <div class="form-group">
-                                {!! Form::label('destination', 'Destino') !!}
+                                {!! Form::label('destination', trans('agrocefa::labor.Destination')) !!}
                                 {!! Form::select('destination', $destinationOptions, old('destination'), [
                                     'class' => 'form-control',
                                     'required',
@@ -117,7 +117,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('crop', 'Cultivo') !!}
+                                {!! Form::label('crop', trans('agrocefa::labor.Crop')) !!}
                                 {!! Form::select('crop', [], old('crop'), [
                                     'class' => 'form-control',
                                     'required',
@@ -126,17 +126,17 @@
                             </div>
                             <br>
                             <div class="form-group">
-                                {!! Form::label('activity', 'Actividad') !!}
+                                {!! Form::label('activity', trans('agrocefa::labor.Activity')) !!}
                                 {!! Form::select(
                                     'activity',
-                                    ['' => 'Seleccione la Actividad'] + $activitysData->pluck('name', 'id')->toArray(),
+                                    ['' => trans('agrocefa::labor.Select_activity')] + $activitysData->pluck('name', 'id')->toArray(),
                                     old('activity'),
                                     ['class' => 'form-control', 'required', 'id' => 'activitySelect'],
                                 ) !!}
                             </div>
                             <br>
                             <div class="form-group">
-                                {!! Form::label('responsability', 'Responsable Labor') !!}
+                                {!! Form::label('responsability', trans('agrocefa::labor.Responsibility')) !!}
                                 {!! Form::select('responsability', [], old('responsability'), [
                                     'class' => 'form-control',
                                     'required',
@@ -166,7 +166,7 @@
                             <div class="col-12">
                                 <button type="button" id="buttonsupplie"
                                     class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
-                                    <span>Insumos</span>
+                                    <span>{{ trans('agrocefa::labor.Suplies')}}</span>
                                     <span id="arrowsupplies" class="fas fa-chevron-down ml-auto"></span>
                                 </button>
                             </div>
@@ -177,7 +177,7 @@
                             <div class="col-12">
                                 <button type="button" id="buttontool"
                                     class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
-                                    <span>Herramienta Utilizada</span>
+                                    <span>{{ trans('agrocefa::labor.ToolUsed')}}</span>
                                     <span id="arrowtool" class="fas fa-chevron-down ml-auto"></span>
                                 </button>
                             </div>
@@ -188,7 +188,7 @@
                             <div class="col-12">
                                 <button type="button" id="buttonmachinery"
                                     class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
-                                    <span>Maquinaria</span>
+                                    <span>{{ trans('agrocefa::labor.Machinery')}}</span>
                                     <span id="arrowmachinery" class="fas fa-chevron-down ml-auto"></span>
                                 </button>
                             </div>
@@ -199,22 +199,15 @@
                             <div class="col-12">
                                 <button type="button" id="buttonexecutor"
                                     class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
-                                    <span>Personal Contratado</span>
+                                    <span>{{ trans('agrocefa::labor.HiredsStaff')}}</span>
                                     <span id="arrowexecutor" class="fas fa-chevron-down ml-auto"></span>
                                 </button>
                             </div>
                             @include('agrocefa::labormanagement.component.executor')
                         </div>
                     </div>
-                    
-                    
                 <br>
-                
-                
-               
-               
-                
-                    {!! Form::submit(trans('agrocefa::movements.Btn_Register_Exit'), [
+                    {!! Form::submit(trans('agrocefa::labor.Btn_Register_Labor'), [
                         'class' => 'btn btn-primary',
                         'id' => 'registerButton',
                     ]) !!}
@@ -231,7 +224,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Detalles del Cultivo</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">{{ trans('agrocefa::labor.CropDetails')}}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">

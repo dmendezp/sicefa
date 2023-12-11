@@ -49,14 +49,14 @@
         <div class="container" id="form">
             <!-- Agregar la tabla dinámica -->
             <div class="form-group">
-                <h3 id="title">Produccion</h3>
+                <h3 id="title">{{ trans('agrocefa::labor.Production')}}</h3>
                 <table id="productionTable" class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Elemento</th>
-                            <th>Cantidad</th>
-                            <th>Fecha Expiracion</th>
-                            <th>Lote</th>
+                            <th>{{ trans('agrocefa::labor.5T_Element')}}</th>
+                            <th>{{ trans('agrocefa::labor.5T_Amount')}}</th>
+                            <th>{{ trans('agrocefa::labor.5T_Expiration')}}</th>
+                            <th>{{ trans('agrocefa::labor.5T_Lot')}}</th>
                             <!-- Agregar la columna de Destino -->
                             <th>{{ trans('agrocefa::movements.1T_Actions') }}</th>
                         </tr>

@@ -1,16 +1,17 @@
         <!-- Agregar un div para contener la información adicional -->
         <div id="formtool" style="display: none;">
+            <br>
             <div class="container" id="form">
                 <!-- Agregar la tabla dinámica -->
                 <div class="form-group">
-                    <h3 id="title">Herramientas</h3>
+                    <h3 id="title">{{ trans('agrocefa::labor.ToolUsed') }}</h3>
                     <table id="toolTable" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Herramienta</th>
-                                <th>Horas de uso</th>
-                                <th>Precio de gasto</th>
-                                <th>Precio Total</th>
+                                <th>{{ trans('agrocefa::labor.2T_Tool') }}</th>
+                                <th>{{ trans('agrocefa::labor.2T_Hours') }}</th>
+                                <th>{{ trans('agrocefa::labor.2T_Price') }}</th>
+                                <th>{{ trans('agrocefa::labor.2T_Total') }}</th>
                                 <!-- Agregar la columna de Destino -->
                                 <th>{{ trans('agrocefa::movements.1T_Actions') }}</th>
                             </tr>

@@ -1,17 +1,19 @@
     <!-- Agregar un div para contener la información adicional -->
+    
     <div id="formsupplies" style="display: none;">
+        <br>
         <div class="container" id="form">
             <!-- Agregar la tabla dinámica -->
             <div class="form-group">
-                <h3 id="title">Insumos</h3>
+                <h3 id="title">{{ trans('agrocefa::labor.Suplies')}}</h3>
                 <table id="suppliesTable" class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Categoria</th>
-                            <th>Insumos</th>
-                            <th>Dosis*HA: Lt-Kg</th>
-                            <th>Precio U.Elemento</th>
-                            <th>Precio Total</th>
+                            <th>{{ trans('agrocefa::labor.1T_Category') }}</th>
+                            <th>{{ trans('agrocefa::labor.1T_Suplies') }}</th>
+                            <th>{{ trans('agrocefa::labor.1T_Dose') }}</th>
+                            <th>{{ trans('agrocefa::labor.1T_Item_Unit_Price') }}</th>
+                            <th>{{ trans('agrocefa::labor.1T_Total') }}</th>
                             <!-- Agregar la columna de Destino -->
                             <th>{{ trans('agrocefa::movements.1T_Actions') }}</th>
                         </tr>
