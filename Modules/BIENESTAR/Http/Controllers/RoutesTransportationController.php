@@ -38,12 +38,11 @@ class RoutesTransportationController extends Controller
         // Crea una nueva instancia del modelo TransportRoute y asigna los valores
         $transportRoute = new RouteTransportation();
         $transportRoute->route_number = $request->input('route_number');
-        $transportRoute->stop_bus = $request->input('stop_bus');
         $transportRoute->name_route = $request->input('name_route');
-        $transportRoute->bus_id = $request->input('bus');
-        $transportRoute->quota = $request->input('bus_quota');
+        $transportRoute->stop_bus = $request->input('stop_bus');
         $transportRoute->arrival_time = $request->input('arrival_time');
         $transportRoute->departure_time = $request->input('departure_time');
+        $transportRoute->bus_id = $request->input('bus');
 
         // Guarda el registro en la base de datos
         $transportRoute->save();
