@@ -391,18 +391,24 @@ Centro de Formacion Agroindustrial la Angostura SENA.
 * **Brayan David Lizcano** - *Creacion y estructuracion de la vista de editar formulario * - *Avance 15%* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *Creacion e implementacion de visualizacion de datos a la vista postulations.blade.php e integracion de rutas a web.php* - *Avance %27* - *Dificultades-Ninguna* - *Acciones*
 * **Saira Guevara** - *Creacion e implementacion de la la vista convocations.blade e integracion de rutas a web.php* - *Avance 75%* - *Dificultades-Ninguna* - *Acciones*
+* **Santiago Valdes** - *Creacion e implementacion del boton de la vista de postulations_benefits* - *Avance 75%* - *Dificultades-Ninguna* - *Acciones*
+
 
 
 #### Meet 30-Ago-2023
 * **Brayan David Lizcano** - *Vista de insertar rutas y modificacion de la tabla routes transport* - *Avance 25%* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *Creacion e implementacion de visualizacion de datos a la vista postulations.blade.php e integracion de rutas a web.php* - *Avance %27* - *Dificultades-Ninguna* - *Acciones*
 * **Saira Guevara** - *Creacion e implementacion de la la vista convocations.blade e integracion de rutas a web.php* - *Avance 100%* - *Dificultades-Ninguna* - *Acciones*
+* **Santiago Valdes** - *Creacion e implementacion del boton de la vista de postulations_benefits* - *Avance 75%* - *Dificultades-Ninguna* - *Acciones*
+
 
 
 #### Meet 31-Ago-2023
 * **Brayan David Lizcano** - *Correccion de errores y buena impelemtacion de funcionalidad* - *Avance 30%* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *Implementacion de visualizacion de informacion de aprendices postulados* - *Avance %45* - *Dificultades-Ninguna* - *Acciones*
 * **Saira Guevara** - *Creacion e implementacion de la la vista convocations.blade e integracion de rutas a web.php* - *Avance 100%* - *Dificultades-Ninguna* - *Acciones*
+* **Santiago Valdes** - *Creacion e implementacion del boton de la vista de postulations_benefits* - *Avance 75%* - *Dificultades-Ninguna* - *Acciones*
+
 
 
 #### Meet 1-Sep-2023
@@ -420,7 +426,7 @@ Centro de Formacion Agroindustrial la Angostura SENA.
 * **Brayan David Lizcano** - *Vista de editar formulario y agregar pregunta * - *Avance 63%* - *Dificultades* - *Acciones*
 
 * **Juan David Rico** - *Implementacion de Funcionalidad para estados de postulacion* - *Avance %80* - *Dificultades-Ninguna* - *Acciones*
-* **Kevin Santiago Valdes** - *pivote de postulaciones y beneficios* - *Avance 50%* - * funcionalidad y conexion con la BD* - *Acciones*
+* **Kevin Santiago Valdes** - *pivote de postulaciones y beneficios* - *Avance 75%* - * funcionalidad y conexion con la BD* - *Acciones*
 * **Carlor Maurico Polanco** - *Formulario postulacion a los apoyos* - *Avance 20%* - *Funcionalidades en los botones* - *Acciones*
 * **Saira Xiomara Guevara** - *Gestion de convocatorias en el boton de guardar* - *Avance 80%* - *funcionalidad en el boton de guardar* - *Acciones*
 
@@ -428,7 +434,7 @@ Centro de Formacion Agroindustrial la Angostura SENA.
 #### Meet 4-Sep-2023
 * **Brayan David Lizcano** - *Vista de editar formulario y agregar pregunta * - *Avance 63%* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *pivote de postulaciones y beneficios boton de asignar beneficio* - *Avance %80* - *Conexion y actualizacion de datos en la BD* - *Acciones*
-* **Kevin Santiago Valdes** - *pivote de postulaciones y beneficios* - *Avance 50%* - * funcionalidad y conexion con la BD* - *Acciones*
+* **Kevin Santiago Valdes** - *pivote de postulaciones y beneficios* - *Avance 75%* - * funcionalidad y conexion con la BD* - *Acciones*
 * **Carlor Maurico Polanco** - *Formulario postulacion a los apoyos* - *Avance 20%* - *Funcionalidades en los botones* - *Acciones*
 * **Saira Xiomara Guevara** - *Gestion de convocatorias en el boton de guardar* - *Avance 80%* - *funcionalidad en el boton de guardar* - *Acciones*
 
@@ -436,7 +442,7 @@ Centro de Formacion Agroindustrial la Angostura SENA.
 #### Meet 5-Sep-2023
 * **Brayan David Lizcano** - *Vista de editar formulario y agregar pregunta * - *Avance 63%* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *pivote de postulaciones y beneficios boton de asignar beneficio* - *Avance %80* - *Conexion y actualizacion de datos en la BD* - *Acciones*
-* **Kevin Santiago Valdes** - *pivote de postulaciones y beneficios* - *Avance 50%* - * funcionalidad y conexion con la BD* - *Acciones*
+* **Kevin Santiago Valdes** - *pivote de postulaciones y beneficios* - *Avance 75%* - * funcionalidad y conexion con la BD* - *Acciones*
 * **Carlor Maurico Polanco** - *Formulario postulacion a los apoyos* - *Avance 20%* - *Funcionalidades en los botones* - *Acciones*
 * **Saira Xiomara Guevara** - *Gestion de convocatorias en el boton de guardar* - *Avance 80%* - *funcionalidad en el boton de guardar* - *Acciones*
 
@@ -445,98 +451,98 @@ Centro de Formacion Agroindustrial la Angostura SENA.
 #### Meet 19-Sep-2023
 * **Brayan David Lizcano** - *SenaSoft * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *SenaSoft* - *Avance* - ** - *Acciones*
-* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 35%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
+* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 85%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
 * **Carlor Maurico Polanco** - *Asignar la ruta de transporte a los aprendices* - *Avance 0%* - *Crear las migraciones para las tabla routes_transportations en la base de datosFuncionalidades en los botones* - *Acciones*
 * **Saira Xiomara Guevara** - *Ver Listado de Aprendices Registrados en el Apoyo de Alimentación* - *Avance 50%* - *Agregar los botones para descargar en formato Excel o PDF a un lado del search que permita descargar los datos que muestra la tabla* - *Acciones*
 
 #### Meet 20-Sep-2023
 * **Brayan David Lizcano** - *SenaSoft * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *SenaSoft* - *Avance* - ** - *Acciones*
-* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 35%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
+* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 85%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
 * **Carlor Maurico Polanco** - *Asignar la ruta de transporte a los aprendices* - *Avance 0%* - *Crear las migraciones para las tabla routes_transportations en la base de datosFuncionalidades en los botones* - *Acciones*
 * **Saira Xiomara Guevara** - *Ver Listado de Aprendices Registrados en el Apoyo de Alimentación* - *Avance 50%* - *Agregar los botones para descargar en formato Excel o PDF a un lado del search que permita descargar los datos que muestra la tabla* - *Acciones*
 
 #### Meet 21-Sep-2023
 * **Brayan David Lizcano** - *SenaSoft * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *SenaSoft* - *Avance* - ** - *Acciones*
-* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 35%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
+* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 85%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
 * **Carlor Maurico Polanco** - *Asignar la ruta de transporte a los aprendices* - *Avance 0%* - *Crear las migraciones para las tabla routes_transportations en la base de datosFuncionalidades en los botones* - *Acciones*
 * **Saira Xiomara Guevara** - *Ver Listado de Aprendices Registrados en el Apoyo de Alimentación* - *Avance 50%* - *Agregar los botones para descargar en formato Excel o PDF a un lado del search que permita descargar los datos que muestra la tabla* - *Acciones*
 
 #### Meet 22-Sep-2023
 * **Brayan David Lizcano** - *SenaSoft * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *SenaSoft* - *Avance* - ** - *Acciones*
-* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 35%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
+* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 85%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
 * **Carlor Maurico Polanco** - *Asignar la ruta de transporte a los aprendices* - *Avance 0%* - *Crear las migraciones para las tabla routes_transportations en la base de datosFuncionalidades en los botones* - *Acciones*
 * **Saira Xiomara Guevara** - *Ver Listado de Aprendices Registrados en el Apoyo de Alimentación* - *Avance 50%* - *Agregar los botones para descargar en formato Excel o PDF a un lado del search que permita descargar los datos que muestra la tabla* - *Acciones*
 
 #### Meet 23-Sep-2023
 * **Brayan David Lizcano** - *SenaSoft * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *SenaSoft* - *Avance* - ** - *Acciones*
-* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 35%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
+* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 85%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
 * **Carlor Maurico Polanco** - *Asignar la ruta de transporte a los aprendices* - *Avance 0%* - *Crear las migraciones para las tabla routes_transportations en la base de datosFuncionalidades en los botones* - *Acciones*
 * **Saira Xiomara Guevara** - *Ver Listado de Aprendices Registrados en el Apoyo de Alimentación* - *Avance 50%* - *Agregar los botones para descargar en formato Excel o PDF a un lado del search que permita descargar los datos que muestra la tabla* - *Acciones*
 
 #### Meet 24-Sep-2023
 * **Brayan David Lizcano** - *SenaSoft * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *SenaSoft* - *Avance* - ** - *Acciones*
-* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 35%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
+* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 85%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
 * **Carlor Maurico Polanco** - *Asignar la ruta de transporte a los aprendices* - *Avance 0%* - *Crear las migraciones para las tabla routes_transportations en la base de datosFuncionalidades en los botones* - *Acciones*
 * **Saira Xiomara Guevara** - *Ver Listado de Aprendices Registrados en el Apoyo de Alimentación* - *Avance 50%* - *Agregar los botones para descargar en formato Excel o PDF a un lado del search que permita descargar los datos que muestra la tabla* - *Acciones*
 
 #### Meet 25-Sep-2023
 * **Brayan David Lizcano** - *SenaSoft * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *SenaSoft* - *Avance* - ** - *Acciones*
-* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 35%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
+* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 85%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
 * **Carlor Maurico Polanco** - *Asignar la ruta de transporte a los aprendices* - *Avance 0%* - *Crear las migraciones para las tabla routes_transportations en la base de datosFuncionalidades en los botones* - *Acciones*
 * **Saira Xiomara Guevara** - *Ver Listado de Aprendices Registrados en el Apoyo de Alimentación* - *Avance 50%* - *Agregar los botones para descargar en formato Excel o PDF a un lado del search que permita descargar los datos que muestra la tabla* - *Acciones*
 
 #### Meet 26-Sep-2023
 * **Brayan David Lizcano** - *SenaSoft * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *SenaSoft* - *Avance* - ** - *Acciones*
-* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 35%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
+* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 85%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
 * **Carlor Maurico Polanco** - *Asignar la ruta de transporte a los aprendices* - *Avance 0%* - *Crear las migraciones para las tabla routes_transportations en la base de datosFuncionalidades en los botones* - *Acciones*
 * **Saira Xiomara Guevara** - *Ver Listado de Aprendices Registrados en el Apoyo de Alimentación* - *Avance 50%* - *Agregar los botones para descargar en formato Excel o PDF a un lado del search que permita descargar los datos que muestra la tabla* - *Acciones*
 
 #### Meet 27-Sep-2023
 * **Brayan David Lizcano** - *SenaSoft * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *SenaSoft* - *Avance* - ** - *Acciones*
-* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 35%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
+* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 85%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
 * **Carlor Maurico Polanco** - *Asignar la ruta de transporte a los aprendices* - *Avance 0%* - *Crear las migraciones para las tabla routes_transportations en la base de datosFuncionalidades en los botones* - *Acciones*
 * **Saira Xiomara Guevara** - *Ver Listado de Aprendices Registrados en el Apoyo de Alimentación* - *Avance 50%* - *Agregar los botones para descargar en formato Excel o PDF a un lado del search que permita descargar los datos que muestra la tabla* - *Acciones*
 
 #### Meet 28-Sep-2023
 * **Brayan David Lizcano** - *SenaSoft * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *SenaSoft* - *Avance* - ** - *Acciones*
-* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 35%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
+* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 85%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
 * **Carlor Maurico Polanco** - *Asignar la ruta de transporte a los aprendices* - *Avance 0%* - *Crear las migraciones para las tabla routes_transportations en la base de datosFuncionalidades en los botones* - *Acciones*
 * **Saira Xiomara Guevara** - *Ver Listado de Aprendices Registrados en el Apoyo de Alimentación* - *Avance 50%* - *Agregar los botones para descargar en formato Excel o PDF a un lado del search que permita descargar los datos que muestra la tabla* - *Acciones*
 
 #### Meet 29-Sep-2023
 * **Brayan David Lizcano** - *SenaSoft * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *SenaSoft* - *Avance* - ** - *Acciones*
-* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 35%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
+* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 85%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
 * **Carlor Maurico Polanco** - *Asignar la ruta de transporte a los aprendices* - *Avance 0%* - *Crear las migraciones para las tabla routes_transportations en la base de datosFuncionalidades en los botones* - *Acciones*
 * **Saira Xiomara Guevara** - *Ver Listado de Aprendices Registrados en el Apoyo de Alimentación* - *Avance 50%* - *Agregar los botones para descargar en formato Excel o PDF a un lado del search que permita descargar los datos que muestra la tabla* - *Acciones*
 
 #### Meet 30-Sep-2023
 * **Brayan David Lizcano** - *SenaSoft * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *SenaSoft* - *Avance* - ** - *Acciones*
-* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 35%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
+* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 85%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
 * **Carlor Maurico Polanco** - *Asignar la ruta de transporte a los aprendices* - *Avance 0%* - *Crear las migraciones para las tabla routes_transportations en la base de datosFuncionalidades en los botones* - *Acciones*
 * **Saira Xiomara Guevara** - *Ver Listado de Aprendices Registrados en el Apoyo de Alimentación* - *Avance 50%* - *Agregar los botones para descargar en formato Excel o PDF a un lado del search que permita descargar los datos que muestra la tabla* - *Acciones*
 
 #### Meet 01-Oct-2023
 * **Brayan David Lizcano** - *SenaSoft * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *SenaSoft* - *Avance* - ** - *Acciones*
-* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 35%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
+* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 85%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
 * **Carlor Maurico Polanco** - *Asignar la ruta de transporte a los aprendices* - *Avance 0%* - *Crear las migraciones para las tabla routes_transportations en la base de datosFuncionalidades en los botones* - *Acciones*
 * **Saira Xiomara Guevara** - *Ver Listado de Aprendices Registrados en el Apoyo de Alimentación* - *Avance 50%* - *Agregar los botones para descargar en formato Excel o PDF a un lado del search que permita descargar los datos que muestra la tabla* - *Acciones*
 
 #### Meet 02-oct-2023
 * **Brayan David Lizcano** - *SenaSoft * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *SenaSoft* - *Avance* - ** - *Acciones*
-* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 35%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
+* **Kevin Santiago Valdes** - *Aprendiz (Consultar Convocatorias)* - *Avance 85%* - * Implementar la lógica en el controlador para recibir el número de documento ingresado por el aprendiz.* - *Acciones*
 * **Carlor Maurico Polanco** - *Asignar la ruta de transporte a los aprendices* - *Avance 0%* - *Crear las migraciones para las tabla routes_transportations en la base de datosFuncionalidades en los botones* - *Acciones*
 * **Saira Xiomara Guevara** - *Ver Listado de Aprendices Registrados en el Apoyo de Alimentación* - *Avance 50%* - *Agregar los botones para descargar en formato Excel o PDF a un lado del search que permita descargar los datos que muestra la tabla* - *Acciones*
 
@@ -544,14 +550,14 @@ Centro de Formacion Agroindustrial la Angostura SENA.
 #### Meet 04-Oct-2023
 * **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *Restauracion en la gestion de los registros en BenefitsTypeofBenefits* - *Avance 100%* - *Dificultades* - *Implementacion para el manejo de los registros existentes dinamicos*
-* **Kevin Santiago Valdes** 
+* **Kevin Santiago Valdes**   *Ver Listado de Aprendices Registrados en el Apoyo de Transporte* - *Avance 68%* - *Agregar los botones para descargar en formato Excel o PDF que permita descargar los datos que muestra la tabla* - *Acciones*
 * **Carlor Maurico Polanco** 
 * **Saira Xiomara Guevara**  *Ver Listado de Aprendices Registrados en el Apoyo de Alimentación* - *Avance 65%* - *Agregar los botones para descargar en formato Excel o PDF a un lado del search que permita descargar los datos que muestra la tabla* - *Acciones*
 
 #### Meet 08-Oct-2023
 * **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *Gestion de Checkbox y gestion para tabla de rutas y aprendices* - *Avance 75%* - *Dificultades* - *Mostrar datos a travez de funciones en el controlador y buena funcioanlidad de checkbox para la gestion de postulaciones*
-* **Kevin Santiago Valdes** 
+* **Kevin Santiago Valdes** *Ver Listado de Aprendices Registrados en el Apoyo de Transporte* - *Avance 68%* - *Agregar los botones para descargar en formato Excel o PDF que permita descargar los datos que muestra la tabla* - *Acciones*
 * **Carlor Maurico Polanco** 
 * **Saira Xiomara Guevara**  *arreglos de conflictos con la vista de convocations y traduccion de la vista assitancefood  * - *Avance 65%* - ** - *Acciones*
 
@@ -559,7 +565,7 @@ Centro de Formacion Agroindustrial la Angostura SENA.
 #### Meet 12-Oct-2023
 * **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *Integracion de Funcionalidad para registro de postulaciones y Beneficios* - *Avance 100%* - *Dificultades* - *Buen funcionamiento para el registro en la gestion de postulaciones*
-* **Kevin Santiago Valdes** 
+* **Kevin Santiago Valdes** *Ver Listado de Aprendices Registrados mediante el nombre de la ruta* - *Avance 70%* - *Agregar los botones para descargar en formato Excel o PDF que permita descargar los datos que muestra la tabla* - *Acciones*
 * **Carlor Maurico Polanco** 
 * **Saira Xiomara Guevara** *arreglos de conflictos con la vista de convocations y traduccion de la vista assitancefood  * - *Avance 65%* - ** - *Acciones*
 
@@ -567,7 +573,7 @@ Centro de Formacion Agroindustrial la Angostura SENA.
 #### Meet 22-Oct-2023
 * **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *Modificaciones menores e implementacion de funcionalidad de cupos y registros* - *Avance 100%* - *Dificultades* - *Reestructuracion para buen funcionamiento y funcionalidad de cupos y registros en asignar rutas de transporte*
-* **Kevin Santiago Valdes** 
+* **Kevin Santiago Valdes** *Solucion de conflictos de la vista de asistencia de apoyo de transporte* - *Avance 70%* - *Agregar los botones para descargar en formato Excel o PDF que permita descargar los datos que muestra la tabla* - *Acciones*
 * **Carlor Maurico Polanco** 
 * **Saira Xiomara Guevara** *arreglos de conflictos con la vista de convocations y traduccion de la vista assitancefood  * - *Avance 65%* - ** - *Acciones*
 
@@ -575,41 +581,41 @@ Centro de Formacion Agroindustrial la Angostura SENA.
 #### Meet 23-Oct-2023
 * **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *Solucion de conflictos y mergin* - *Avance 100%* - *Dificultades* - *Solucion de conflictos encontrados a travez del codigo*
-* **Kevin Santiago Valdes** 
+* **Kevin Santiago Valdes** *Solucion de conflictos de la vista de asistencia de apoyo de transporte* - *Avance 70%* - *Agregar los botones para descargar en formato Excel o PDF que permita descargar los datos que muestra la tabla* - *Acciones*
 * **Carlor Maurico Polanco** 
 * **Saira Xiomara Guevara** *arreglos en web.php  * - *Avance 85%* - ** - *Acciones*
 
 #### Meet 08-Nov-2023
 * **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *Restructuracion de codigo* - *Avance 100%* - *Dificultades* - *Acciones*
-* **Kevin Santiago Valdes** 
+* **Kevin Santiago Valdes** *Agregacion de campos de fecha de inicio y de fin* - *Avance 70%* - *Agregar los botones para descargar en formato Excel o PDF que permita descargar los datos que muestra la tabla* - *Acciones*
 * **Carlor Maurico Polanco** 
 * **Saira Xiomara Guevara***mostrar el filtro de los porcentaje vista assitancefood  * - *Avance 65%* - ** - *Acciones* 
 
 #### Meet 20-Nov-2023
 * **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *Funcionamiento en la gestion de postulaciones* - *Avance 100%* - *Dificultades* - *Acciones*
-* **Kevin Santiago Valdes** 
+* **Kevin Santiago Valdes***Agregacion de campos de fecha de inicio y de fin* - *Avance 70%* - *Agregar los botones para descargar en formato Excel o PDF que permita descargar los datos que muestra la tabla* - *Acciones*
 * **Carlor Maurico Polanco** 
 * **Saira Xiomara Guevara** 
 
 #### Meet 22-Nov-2023
 * **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *Funcionamiento en la gestion de asignacion de rutas* - *Avance 100%* - *Dificultades* - *Acciones*
-* **Kevin Santiago Valdes** 
+* **Kevin Santiago Valdes***Agregacion de campos de fecha de inicio y de fin* - *Avance 70%* - *Agregar los botones para descargar en formato Excel o PDF que permita descargar los datos que muestra la tabla* - *Acciones*
 * **Carlor Maurico Polanco** 
 * **Saira Xiomara Guevara** *mostrar el filtro de los porcentajey fecha de hora vista assitancefood  * - *Avance 45%* - ** - *Acciones* 
 
 #### Meet 28-Nov-2023
 * **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *Funcionamiento en el formulario de asignacion de rutas* - *Avance 100%* - *Dificultades* - *Acciones*
-* **Kevin Santiago Valdes** 
+* **Kevin Santiago Valdes** *Agregacion de campos de fecha de inicio y de fin* - *Avance 70%* - *Agregar los botones para descargar en formato Excel o PDF que permita descargar los datos que muestra la tabla* - *Acciones*
 * **Carlor Maurico Polanco** 
 * **Saira Xiomara Guevara** *mostrar el filtro de los porcentajey fecha de hora vista assitancefood  * - *Avance 55%* - ** - *Acciones* 
 
 #### Meet 03-Dic-2023
 * **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *Gestion para el registro de Asistencia de Alimentacion* - *Avance 100%* - *Dificultades* - *Acciones*
-* **Kevin Santiago Valdes** 
+* **Kevin Santiago Valdes** *Funcionalidad de los campos de la fecha inicio y fecha fin* - *Avance 70%* - *Agregar los botones para descargar en formato Excel o PDF que permita descargar los datos que muestra la tabla* - *Acciones*
 * **Carlor Maurico Polanco** 
 * **Saira Xiomara Guevara** *mostrar el filtro de los porcentajey fecha de hora vista assitancefood  * - *Avance 75%* - ** - *Acciones* 

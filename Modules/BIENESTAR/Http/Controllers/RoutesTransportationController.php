@@ -47,8 +47,9 @@ class RoutesTransportationController extends Controller
         // Guarda el registro en la base de datos
         $transportRoute->save();
 
+
     // Puedes agregar un mensaje de éxito
-        return redirect()->route('bienestar.admin.transportation.crud.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
+        return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.transportation.crud.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
     }
 
     public function update(Request $request, $id)
@@ -81,7 +82,7 @@ class RoutesTransportationController extends Controller
         $transportRoute->save();
 
         // Puedes agregar un mensaje de éxito
-        return redirect()->route('bienestar.admin.transportation.crud.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
+        return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.transportation.crud.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
     }
 
     public function destroy($id)
