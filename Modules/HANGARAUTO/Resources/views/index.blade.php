@@ -1,15 +1,7 @@
 @extends('hangarauto::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans ('hangarauto::general.Indicator_Homepage') }}</li>
-@endpush
-
-@push('head')
-    <style>
-        .highcharts-xaxis-labels text {
-            fill: black !important;
-        }
-    </style>
+    <li class="breadcrumb-item active">{{ trans('hangarauto::general.Indicator_Homepage') }}</li>
 @endpush
 
 @section('content')

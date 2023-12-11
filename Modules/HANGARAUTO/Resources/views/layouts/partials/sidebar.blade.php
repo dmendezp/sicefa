@@ -72,6 +72,14 @@
                     data-accordion="false">
                     <!-- Menú de opciones públicas -->
                     <li class="nav-item">
+                        <a href="{{ route('cefa.solicitar.search') }}" class="nav-link">
+                            <i class="fas fa-check-square"></i>
+                            <p>
+                                Solicitar Vehiculo
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('cefa.hangarauto.developers') }}" class="nav-link">
                             <i class="fa-solid fa-people-group"></i>
                             <p>
