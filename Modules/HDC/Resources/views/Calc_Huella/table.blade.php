@@ -15,9 +15,9 @@
                             {{ Auth::user()->person->full_name }}</h3>
                     </div>
                     <div class="card-body">
-                        <div id="container" style="height: 400px;"></div>
-                        <a href="{{ route('hdc.' . getRoleRouteName(Route::currentRouteName()) . '.Carbonfootprint.form.calculates', Auth::user()->person->id) }}"
+                        <a href="{{ route('cefa.hdc.Carbonfootprint.form.calculates', Auth::user()->person->id) }}"
                             class="btn btn-success mb-2"><i class="fa-solid fa-plus"></i></a>
+                        <div id="container" style="height: 400px;"></div>
                         <div class="mtop16">
                             @if ($environmeaspect->isNotEmpty())
                                 <table id="example1" class="table table-bordered">
@@ -68,12 +68,12 @@
                                                 </td>
                                                 <td>
                                                     @if ($aspect->personenvironmentalaspects->isNotEmpty())
-                                                        <a href="{{ route('hdc.' . getRoleRouteName(Route::currentRouteName()) . '.carbonfootprint.edit_consumption', $aspect->id) }}"
+                                                        <a href="{{ route('cefa.hdc.carbonfootprint.edit_consumption', $aspect->id) }}"
                                                             class="btn btn-primary"><i
                                                                 class="fa-solid fa-pen-to-square"></i></a>
 
                                                         <form class="delete-form"
-                                                            action="{{ route('hdc.' . getRoleRouteName(Route::currentRouteName()) . '.carbonfootprint.eliminar', ['id' => $aspect->personenvironmentalaspects->first()->id]) }}"
+                                                            action="{{ route('cefa.hdc.carbonfootprint.eliminar', ['id' => $aspect->personenvironmentalaspects->first()->id]) }}"
                                                             method="POST" style="display: inline;">
                                                             @csrf
                                                             @method('DELETE')

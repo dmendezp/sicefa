@@ -2,7 +2,7 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item active"><a
-            href="{{ route('hdc.admin.carbonfootprint.persona' ) }}">{{ trans('hdc::calculatefootprint.Indicator_Calculate_Your_Footprint') }} </a>
+            href="{{ route('cefa.hdc.carbonfootprint.persona' ) }}">{{ trans('hdc::calculatefootprint.Indicator_Calculate_Your_Footprint') }} </a>
         /{{ trans('hdc::ConsumptionRegistry.indicator_form') }}</li>
 @endpush
 
@@ -27,7 +27,7 @@
             </div>
             <div class="container">
                 <div class="table-responsive">
-                    <form method="post" action="{{ route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.Carbonfootprint.save_consumption') }}">
+                    <form method="post" action="{{ route('cefa.hdc.Carbonfootprint.save_consumption') }}">
                         @csrf
                         <input type="hidden" name="person_id" value="{{ $person->id }}">
 

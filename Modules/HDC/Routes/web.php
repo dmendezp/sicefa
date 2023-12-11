@@ -74,27 +74,27 @@ Route::middleware(['lang'])->group(function () {
 
         Route::controller(CarbonfootprintController::class)->group(function () {
             /* Rutas de Calcula tu Huella */
-            Route::get('/admin/persona', 'persona')->name('hdc.admin.carbonfootprint.persona');
-            Route::get('/charge/persona', 'persona')->name('hdc.charge.carbonfootprint.persona');
+            Route::get('/persona', 'persona')->name('cefa.hdc.carbonfootprint.persona');
+            /* Route::get('/charge/persona', 'persona')->name('hdc.charge.carbonfootprint.persona'); */
             /* Rutas de Formulario de Calcula tu Huella */
-            Route::get('/admin/form/calculates/footprin/{person}', 'formcalculates')->name('hdc.admin.Carbonfootprint.form.calculates');
-            Route::get('/charge/form/calculates/footprin/{person}', 'formcalculates')->name('hdc.charge.Carbonfootprint.form.calculates');
+            Route::get('/form/calculates/footprin/{person}', 'formcalculates')->name('cefa.hdc.Carbonfootprint.form.calculates');
+            /* Route::get('/charge/form/calculates/footprin/{person}', 'formcalculates')->name('hdc.charge.Carbonfootprint.form.calculates'); */
             // Ruta para procesar el formulario (guardar los datos)
-            Route::post('/admin/form/calculates/footprint/save', 'saveConsumption')->name('hdc.admin.Carbonfootprint.save_consumption');
-            Route::post('/charge/form/calculates/footprint/save', 'saveConsumption')->name('hdc.charge.Carbonfootprint.save_consumption');
+            Route::post('/form/calculates/footprint/save', 'saveConsumption')->name('cefa.hdc.Carbonfootprint.save_consumption');
+          /*   Route::post('/charge/form/calculates/footprint/save', 'saveConsumption')->name('hdc.charge.Carbonfootprint.save_consumption'); */
 
 
             /* Rutas del CRUD */
-            Route::get('/admin/carbonfootprint/edit/{id}', 'editConsumption')->name('hdc.admin.carbonfootprint.edit_consumption');
-            Route::get('/charge/carbonfootprint/edit/{id}', 'editConsumption')->name('hdc.charge.carbonfootprint.edit_consumption');
-            Route::post('/admin/carbonfootprint/update_consumption/{id}', 'updateConsumption')->name('hdc.admin.carbonfootprint.update_consumption');
-            Route::post('/charge/carbonfootprint/update_consumption/{id}', 'updateConsumption')->name('hdc.charge.carbonfootprint.update_consumption');
-            Route::delete('/admin/carbonfootprint/eliminar/{id}', 'eliminarConsumo')->name('hdc.admin.carbonfootprint.eliminar');
-            Route::delete('/charge/carbonfootprint/eliminar/{id}', 'eliminarConsumo')->name('hdc.charge.carbonfootprint.eliminar');
-            Route::get('/carbonfootprint/edit/{id}', 'editConsumption')->name('carbonfootprint.edit_consumption');
-            Route::post('/carbonfootprint/update_consumption/{id}', 'updateConsumption')->name('carbonfootprint.update_consumption');
-            Route::delete('/carbonfootprint/eliminar/{id}', 'eliminarConsumo')->name('carbonfootprint.eliminar');
-            Route::get('/admin/grafica', 'grafica')->name('hdc.admin.grafica');
+            Route::get('/carbonfootprint/edit/{id}', 'editConsumption')->name('cefa.hdc.carbonfootprint.edit_consumption');
+            /* Route::get('/charge/carbonfootprint/edit/{id}', 'editConsumption')->name('hdc.charge.carbonfootprint.edit_consumption'); */
+            Route::post('/carbonfootprint/update_consumption/{id}', 'updateConsumption')->name('cefa.hdc.carbonfootprint.update_consumption');
+           /*  Route::post('/charge/carbonfootprint/update_consumption/{id}', 'updateConsumption')->name('hdc.charge.carbonfootprint.update_consumption'); */
+            Route::delete('/carbonfootprint/eliminar/{id}', 'eliminarConsumo')->name('cefa.hdc.carbonfootprint.eliminar');
+           /*  Route::delete('/charge/carbonfootprint/eliminar/{id}', 'eliminarConsumo')->name('hdc.charge.carbonfootprint.eliminar'); */
+            Route::get('/carbonfootprint/edit/{id}', 'editConsumption')->name('cefa.hdc.carbonfootprint.edit_consumption');
+            Route::post('/carbonfootprint/update_consumption/{id}', 'updateConsumption')->name('cefa.hdc.carbonfootprint.update_consumption');
+            Route::delete('/carbonfootprint/eliminar/{id}', 'eliminarConsumo')->name('cefa.hdc.carbonfootprint.eliminar');
+            Route::get('/grafica', 'grafica')->name('cefa.hdc.grafica');
         });
 
         Route::controller(GraphicsController::class)->group(function () {

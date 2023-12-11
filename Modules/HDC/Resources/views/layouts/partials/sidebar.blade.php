@@ -73,6 +73,16 @@
 
                       <!-- Menú de opciones para administrador -->
                       @if (Route::is('hdc.admin.*'))
+                      @if (Auth::user()->havePermission('hdc.admin.resultfromaspects'))
+                              <li class="nav-item">
+                                  <a href="{{ route('hdc.admin.resultfromaspects') }}" class="nav-link">
+                                      <i class="nav-icon fa-solid fa-folder-open"></i>
+                                      <p>
+                                          {{ trans('hdc::hdcgeneral.assign_environmental_aspects') }}
+                                      </p>
+                                  </a>
+                              </li>
+                          @endif
                           @if (Auth::user()->havePermission('hdc.admin.table'))
                               <li class="nav-item">
                                   <a href="{{ Route('hdc.admin.table') }}" class="nav-link">
@@ -83,15 +93,6 @@
                                   </a>
                               </li>
                           @endif
-
-                          <li class="nav-item">
-                              <a href="{{ route('hdc.admin.carbonfootprint.persona') }}" class="nav-link">
-                                  <i class="nav-icon fas fa-shoe-prints"></i>
-                                  <p>
-                                      {{ trans('hdc::hdcgeneral.calculatefootprint') }}
-                                  </p>
-                              </a>
-                          </li>
                           <li class="nav-item">
                               <a href="{{ route('hdc.admin.generate.report') }}" class="nav-link">
                                   <i class="nav-icon fa-solid fa-file-arrow-down"></i>
@@ -108,16 +109,7 @@
                                 </p>
                             </a>
                         </li>
-                          @if (Auth::user()->havePermission('hdc.admin.resultfromaspects'))
-                              <li class="nav-item">
-                                  <a href="{{ route('hdc.admin.resultfromaspects') }}" class="nav-link">
-                                      <i class="nav-icon fa-solid fa-folder-open"></i>
-                                      <p>
-                                          {{ trans('hdc::hdcgeneral.assign_environmental_aspects') }}
-                                      </p>
-                                  </a>
-                              </li>
-                          @endif
+
 
 
                       @endif
@@ -134,16 +126,7 @@
                                   </a>
                               </li>
                           @endif
-                          @if (Auth::user()->havePermission('hdc.charge.carbonfootprint.persona'))
-                              <li class="nav-item">
-                                  <a href="{{ route('hdc.charge.carbonfootprint.persona') }}" class="nav-link">
-                                      <i class="nav-icon fas fa-shoe-prints"></i>
-                                      <p>
-                                          {{ trans('hdc::hdcgeneral.calculatefootprint') }}
-                                      </p>
-                                  </a>
-                              </li>
-                          @endif
+
                           <li class="nav-item">
                               <a href="{{ route('hdc.charge.generate.report') }}" class="nav-link">
                                   <i class="nav-icon fa-solid fa-file-arrow-down"></i>
@@ -160,6 +143,7 @@
                                 </p>
                             </a>
                         </li>
+
                       @endif
 
                       <!-- Menú de opciones públicas -->
@@ -184,6 +168,19 @@
                               </a>
                           </li>
                       @endif
+@guest
+@else
+                      <hr class="sidebar-divider" style="border-color: white;">
+                      <li class="nav-item">
+                        <a href="{{ route('cefa.hdc.carbonfootprint.persona') }}" class="nav-link">
+                            <i class="nav-icon fas fa-shoe-prints"></i>
+                            <p>
+                                {{ trans('hdc::hdcgeneral.calculatefootprint') }}
+                            </p>
+                        </a>
+                    </li>
+@endguest
+
 
                   </ul>
               </nav>

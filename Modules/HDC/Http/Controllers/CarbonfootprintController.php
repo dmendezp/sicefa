@@ -17,24 +17,37 @@ class CarbonfootprintController extends Controller
 {
     public function persona()
     {
-        $personaid = Auth::user()->person->id;
+        // Verifica si el usuario está autenticado y tiene una relación 'person'
+        if (auth()->check() && auth()->user()->person) {
+            // Obtén el ID de la persona del usuario autenticado
+            $personaid = auth()->user()->person->id;
 
-        $environmeaspect = FamilyPersonFootprint::with('personenvironmentalaspects.environmental_aspect')
-        ->select('id', 'carbon_print', 'created_at', 'mes', 'anio')
-        ->where('person_id', $personaid)
-        ->orderBy('mes', 'desc')
-        ->orderBy('anio', 'desc')
-        ->get();
-        $environmeaspectgraph = FamilyPersonFootprint::with('personenvironmentalaspects.environmental_aspect')
-        ->select('id', 'carbon_print', 'created_at', 'mes', 'anio')
-        ->where('person_id', $personaid)
-        ->orderBy('mes', 'asc')
-        ->orderBy('anio', 'desc')
-        ->take(12)
-        ->get();
-        // Retorna una vista con los datos de la persona si se encuentra
-        return view('hdc::Calc_Huella.table', ['environmeaspect' => $environmeaspect, 'environmeaspectgraph'=>$environmeaspectgraph]);
+            // Continúa con la obtención de datos y la carga de la vista
+            $environmeaspect = FamilyPersonFootprint::with('personenvironmentalaspects.environmental_aspect')
+                ->select('id', 'carbon_print', 'created_at', 'mes', 'anio')
+                ->where('person_id', $personaid)
+                ->orderBy('mes', 'desc')
+                ->orderBy('anio', 'desc')
+                ->get();
+
+            $environmeaspectgraph = FamilyPersonFootprint::with('personenvironmentalaspects.environmental_aspect')
+                ->select('id', 'carbon_print', 'created_at', 'mes', 'anio')
+                ->where('person_id', $personaid)
+                ->orderBy('mes', 'asc')
+                ->orderBy('anio', 'desc')
+                ->take(12)
+                ->get();
+
+            // Retorna una vista con los datos de la persona si se encuentra
+            return view('hdc::Calc_Huella.table', ['environmeaspect' => $environmeaspect, 'environmeaspectgraph'=>$environmeaspectgraph]);
+        }
+
+
+        // Si no se cumple la condición, redirige a la vista deseada
+        return redirect()->route('cefa.hdc.index');
+
     }
+
 
     public function formcalculates(Person $person)
     {
@@ -105,7 +118,7 @@ class CarbonfootprintController extends Controller
 
     $personFootprint->update(['carbon_print' => $total]);
 
-    return redirect()->route('hdc.' . getRoleRouteName(Route::currentRouteName()) . '.carbonfootprint.persona');
+    return redirect()->route('cefa.hdc.carbonfootprint.persona');
 }
 
 
@@ -142,7 +155,7 @@ class CarbonfootprintController extends Controller
         }
 
         // Redirigir a la vista de edición con un mensaje de éxito
-        return redirect()->route('hdc.' . getRoleRouteName(Route::currentRouteName()) . '.carbonfootprint.persona', ['id' => $fpf->id])
+        return redirect()->route('cefa.hdc.carbonfootprint.persona', ['id' => $fpf->id])
             ->with('success', 'Consumo actualizado exitosamente');
     }
 
@@ -170,17 +183,9 @@ class CarbonfootprintController extends Controller
 
 
         // Puedes redirigir a la vista que necesites después de eliminar
-        return redirect()->route('hdc.' . getRoleRouteName(Route::currentRouteName()) . '.carbonfootprint.persona')->with('success', 'Registros eliminados correctamente');
+        return redirect()->route('cefa.hdc.carbonfootprint.persona')->with('success', 'Registros eliminados correctamente');
     }
 
-    public function grafica()
-    {
-        $resultados = FamilyPersonFootprint::get(['carbon_print', 'mes']);
 
-        // Agrega esta línea para verificar los resultados
-
-
-        return view('Calc_Huella.tabla', compact('resultados'));
-    }
 
 }
