@@ -1,10 +1,10 @@
-{{-- CRUD Parametro Variedad --}}
+{{-- CRUD Variety Parameter --}}
 <div class="card" style="width: 90%; margin-left: 40px">
     <div class="card-header">
-        {{ trans('agrocefa::parameters.Variety') }}
+        {{ trans('agrocefa::variety.variety') }}
         @auth
             @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
-                <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearvarieties"><i
+                <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#createVarieties"><i
                         class='bx bx-plus icon'></i></button>
             @endif
         @endauth
@@ -14,18 +14,17 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>{{ trans('agrocefa::parameters.1T_Name') }}</th>
-                    <th>{{ trans('agrocefa::parameters.Specie') }}</th>
+                    <th>{{ trans('agrocefa::variety.name') }}</th>
+                    <th>{{ trans('agrocefa::variety.specie') }}</th>
                     @auth
                         @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
-                            <th>{{ trans('agrocefa::parameters.1T_Actions') }}</th>
+                            <th>{{ trans('agrocefa::variety.Actions') }}</th>
                         @endif
                     @endauth
                 </tr>
             </thead>
             <tbody>
                 @foreach ($varieties as $variety)
-                    {{-- Cambia $varieties por $varieties --}}
                     <tr>
                         <td>{{ $variety->id }}</td>
                         <td>{{ $variety->name }}</td>
@@ -34,7 +33,7 @@
                             @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
                                 <td>
                                     <button class="btn btn-primary btn-sm btn-edit-variety"
-                                        data-bs-target="#editarVariedadModal_{{ $variety->id }}" data-bs-toggle="modal">
+                                        data-bs-target="#editVarietyModal_{{ $variety->id }}" data-bs-toggle="modal">
                                         <i class='bx bx-edit icon'></i>
                                     </button>
 
@@ -54,49 +53,51 @@
         </table>
     </div>
 </div>
-{{-- Modal Crear variedad --}}
+
+{{-- Create Variety Modal --}}
 @foreach ($species as $specie)
-    <div class="modal fade" id="crearvarieties" tabindex="-1" aria-labelledby="crearvarieties" aria-hidden="true">
+    <div class="modal fade" id="createVarieties" tabindex="-1" aria-labelledby="createVarieties" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="agregarVarietyModalLabel">{{ trans('agrocefa::parameters.Btn_Register_Activity') }}</h5>
+                    <h5 class="modal-title" id="addVarietyModalLabel">{{ trans('agrocefa::variety.create_varieties') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.variety.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <label for="name">{{ trans('agrocefa::parameters.1T_Name') }}</label>
+                            <label for="name">{{ trans('agrocefa::variety.name') }}</label>
                             <input type="text" name="name" id="name" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="specie_id">{{ trans('agrocefa::parameters.Specie') }}</label>
+                            <label for="specie_id">{{ trans('agrocefa::variety.specie') }}</label>
                             {!! Form::select('specie_id', $species->pluck('name', 'id'), null, ['class' => 'form-control']) !!}
                         </div>                        
                         <br>
-                        <button type="submit" class="btn btn-primary">{{ trans('agrocefa::parameters.Btn_Register_Activity') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ trans('agrocefa::variety.create_varieties') }}</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 @endforeach
-{{-- Modal de Eliminar variedad --}}
+
+{{-- Delete Variety Modal --}}
 @foreach ($varieties as $variety)
-    <div class="modal fade" id="eliminarvariedad_{{ $variety->id }}" tabindex="-1"
-        aria-labelledby="eliminarvariedadLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteVariety_{{ $variety->id }}" tabindex="-1"
+        aria-labelledby="deleteVarietyLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="eliminarvariedadLabel">{{ trans('agrocefa::variety.Delete Variety') }}</h5>
+                    <h5 class="modal-title" id="deleteVarietyLabel">{{ trans('agrocefa::variety.Delete Variety') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     {{ trans('agrocefa::variety.Delete Variety') }}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ trans('agrocefa::parameters.Cancel') }}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ trans('agrocefa::variety.Cancel') }}</button>
                     {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.variety.destroy', 'id' => $variety->id], 'method' => 'DELETE']) !!}
                     @csrf
                     @method('DELETE')
@@ -109,12 +110,12 @@
 @endforeach
 
 @foreach ($varieties as $v)
-    <div class="modal fade" id="editarVariedadModal_{{ $v->id }}" tabindex="-1"
-        aria-labelledby="editarVariedadModalLabel_{{ $v->id }}" aria-hidden="true">
+    <div class="modal fade" id="editVarietyModal_{{ $v->id }}" tabindex="-1"
+        aria-labelledby="editVarietyModalLabel_{{ $v->id }}" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editarVariedadModalLabel_{{ $v->id }}">{{ trans('agrocefa::parameters.Edit Variety') }}</h5>
+                    <h5 class="modal-title" id="editVarietyModalLabel_{{ $v->id }}">{{ trans('agrocefa::variety.Edit_Variety') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -126,16 +127,15 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        {!! Form::label("name_{$v->id}", trans('agrocefa::parameters.1T_Name')) !!}
+                        {!! Form::label("name_{$v->id}", trans('agrocefa::variety.name')) !!}
                         {!! Form::text('name', $v->name, ['id' => "name_{$v->id}", 'class' => 'form-control', 'required']) !!}
                     </div>
                     <div class="form-group">
-                        <label for="specie_id">{{ trans('agrocefa::parameters.Specie') }}</label>
+                        <label for="specie_id">{{ trans('agrocefa::variety.specie') }}</label>
                         {!! Form::select('specie_id', collect($species)->pluck('name', 'id'), null, ['class' => 'form-control']) !!}
                     </div>                    
-                    <!-- Agrega más campos según tus necesidades -->
                     <br>
-                    {!! Form::submit(trans('agrocefa::parameters.Update Variety'), ['class' => 'btn btn-primary']) !!}
+                    {!! Form::submit(trans('agrocefa::variety.Delete_Variety'), ['class' => 'btn btn-primary']) !!}
                     {!! Form::close() !!}
                 </div>
             </div>
@@ -145,43 +145,36 @@
 
 <script>
     $('.btn-edit-variety').on('click', function(event) {
-        var modalTarget = $(this).data('bs-target'); // Obtener el objetivo del modal desde el botón
-        var varietyId = modalTarget.split('_')[1]; // Extraer el ID de la variedad del ID del modal
+        var modalTarget = $(this).data('bs-target');
+        var varietyId = modalTarget.split('_')[1];
 
-        // Imprime el ID en la consola para verificar
-        console.log('Variedad ID:', varietyId);
+        console.log('Variety ID:', varietyId);
 
-        // Obtener los valores de los campos de edición
         var name = $('#name_' + varietyId).val();
         var specie = $('#specie_id_' + varietyId).val();
 
-        // Llenar los campos del formulario con los datos de la variedad
         $('#editVarietyForm_' + varietyId + ' #name').val(name);
         $('#editVarietyForm_' + varietyId + ' #specie_id').val(specie);
 
-        // Construir la URL del formulario con el ID de la variedad
         var formAction = '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.variety.update', ['id' => 'VARIETY_ID']) }}';
         formAction = formAction.replace('VARIETY_ID', varietyId);
 
-        // Actualizar la URL del formulario con el ID de la variedad
         $('#editVarietyForm_' + varietyId).attr('action', formAction);
     });
 
     $('.btn-variety-specie').on('click', function(event) {
         var varietyId = $(this).data('variety-id');
 
-        // Mostrar SweetAlert para confirmar la eliminación
         Swal.fire({
-            title: '¿Estás seguro?',
-            text: 'Esta acción no se puede deshacer.',
+            title: 'Are you sure?',
+            text: 'This action cannot be undone.',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Sí, eliminar'
+            confirmButtonText: 'Yes, delete'
         }).then((result) => {
             if (result.isConfirmed) {
-                // Si el usuario confirma, enviar el formulario de eliminación
                 $('#delete-variety-form-' + varietyId).submit();
             }
         });

@@ -1,19 +1,22 @@
 <?php
 
 return [
-    'production' => 'Production',
-    'labor' => 'Labor',
-    'element' => 'Element',
-    'quantity' => 'Quantity',
-    'expiration_date' => 'Expiration Date',
-    'total_production_price' => 'Total Production Price',
-    'no_labor_selected' => 'No labor activities found for the selected crop',
+    'Production' => 'Production',
+    'Labor' => 'Labor',
+    'Element' => 'Element',
+    'Quantity' => 'Quantity',
+    'Expiration_date' => 'Expiration Date',
+    'Total_production_price' => 'Total Production Price',
+    'No_labor_selected' => 'No labor activities found for the selected crop',
 
-    'report_title' => 'Production Report',
-    'environment' => 'Environment',
-    'select_lot' => 'Select Lot',
-    'crop' => 'Crop',
-    'select_crop' => 'Select Crop',
-    
+    'Report_title' => 'Production Report',
+    'Environment' => 'Environment',
+    'Select_lot' => 'Select Lot',
+    'Crop' => 'Crop',
+    'Select_crop' => 'Select Crop',
+
+    'Export' => 'Export',
+    'Reports_production' => 'Reports Production',
+
 ];
 

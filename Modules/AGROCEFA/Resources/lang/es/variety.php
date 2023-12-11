@@ -1,14 +1,15 @@
 <?php
+
 return [
     'variety' => 'variedad',
-    'createvarieties' => 'crear variedad',
+    'create_varieties' => 'crear variedades',
     'name' => 'nombre',
     'specie' => 'especie',
-    'Actions' => 'Actions',
-    'Add Variety' => 'Add Variety',
-    'Variety Name' => 'Variety Name',
-    'Register Variety' => 'Register Variety',
-    'Delete Variety' => 'Delete Variety',
-    'Are you sure you want to delete this Strain?' => 'Are you sure you want to delete this Strain?',
-    'Edit Variety' => 'Edit Variety',
+    'Actions' => 'Acciones',
+    'Add_Variety' => 'Agregar Variedad',
+    'Variety_Name' => 'Nombre de la Variedad',
+    'Register_Variety' => 'Registrar Variedad',
+    'Delete_Variety' => 'Eliminar Variedad',
+    'Are_you_sure_you_want_to_delete_this_Strain?' => '¿Estás seguro de que deseas eliminar esta Variedad?',
+    'Edit_Variety' => 'Editar Variedad',
 ];
