@@ -16,24 +16,57 @@ class TransportationAssistancesController extends Controller
     public function index()
     {
         $rutas = RouteTransportation::get();
-        return view('bienestar::transportation_assistance_list', compact('rutas'));
-    }
-
-    public function search(Request $request)
-    {
-        $documentNumber = $request->input('document_number');
-
-        $person = Person::with('apprentices.course.program', 'apprentices.postulations.postulationBenefits', 'apprentices.assigntransoportroutes.convocations') // Cargar la relación de convocatoria
-            ->where('document_number', $documentNumber)
-            ->first();
-
-        return view('bienestar::transportation_assistance_list', ['person' => $person]);
+        $results = TransportationAssistance::select(
+            'people.first_name',
+            'people.first_last_name',
+            'people.second_last_name',
+            'people.document_number',
+            'programs.name as program_name',
+            'courses.code',
+            'routes_transportations.route_number',
+            'routes_transportations.name_route',
+            'transportation_assistances.date_time'
+        )
+            ->join('assing_transport_routes', 'transportation_assistances.assing_transport_route_id', '=', 'assing_transport_routes.id')
+            ->join('routes_transportations', 'assing_transport_routes.route_transportation_id', '=', 'routes_transportations.id')
+            ->join('apprentices', 'transportation_assistances.apprentice_id', '=', 'apprentices.id')
+            ->join('people', 'apprentices.person_id', '=', 'people.id')
+            ->join('courses', 'apprentices.course_id', '=', 'courses.id')
+            ->join('programs', 'courses.program_id', '=', 'programs.id')
+            ->get();
+        return view('bienestar::transportation_assistance_list', compact('rutas', 'results'));
     }
 
     //Funciones de la vista route-assistance
     public function indexasistances()
     {
-        return view('bienestar::route-attendance.transportation-assistance');
+        $resultados = DB::table('transportation_assistances')
+        ->join('apprentices', 'transportation_assistances.apprentice_id', '=', 'apprentices.id')
+        ->join('people', 'apprentices.person_id', '=', 'people.id')
+        ->join('assing_transport_routes', 'transportation_assistances.assing_transport_route_id', '=', 'assing_transport_routes.id')
+        ->join('routes_transportations', 'assing_transport_routes.route_transportation_id', '=', 'routes_transportations.id')
+        ->join('bus_drivers', 'transportation_assistances.bus_driver_id', '=', 'bus_drivers.id')
+        ->join('buses', 'transportation_assistances.bus_id', '=', 'buses.id')
+        ->select(
+            'transportation_assistances.apprentice_id',
+            'people.document_number',
+            'people.first_name',
+            'people.first_last_name',
+            'people.second_last_name',
+            'transportation_assistances.assing_transport_route_id',
+            'routes_transportations.route_number',
+            'routes_transportations.name_route',
+            'transportation_assistances.bus_driver_id',
+            'bus_drivers.name',
+            'transportation_assistances.bus_id',
+            'buses.plate',
+            'transportation_assistances.date_time'
+        )
+        ->whereDate('transportation_assistances.date_time', now()->toDateString())
+        ->get();
+
+
+        return view('bienestar::route-attendance.transportation-assistance',compact('resultados'));
     }
 
     public function searchapprentice(Request $request)
@@ -77,34 +110,7 @@ class TransportationAssistancesController extends Controller
                 'created_at' => now(), // Use Laravel helper function for current timestamp
                 'updated_at' => now(), // Use Laravel helper function for current timestamp
             ]);
-        }
-
-        $resultados = DB::table('transportation_assistances')
-            ->join('apprentices', 'transportation_assistances.apprentice_id', '=', 'apprentices.id')
-            ->join('people', 'apprentices.person_id', '=', 'people.id')
-            ->join('assing_transport_routes', 'transportation_assistances.assing_transport_route_id', '=', 'assing_transport_routes.id')
-            ->join('routes_transportations', 'assing_transport_routes.route_transportation_id', '=', 'routes_transportations.id')
-            ->join('bus_drivers', 'transportation_assistances.bus_driver_id', '=', 'bus_drivers.id')
-            ->join('buses', 'transportation_assistances.bus_id', '=', 'buses.id')
-            ->select(
-                'transportation_assistances.apprentice_id',
-                'people.document_number',
-                'people.first_name',
-                'people.first_last_name',
-                'people.second_last_name',
-                'transportation_assistances.assing_transport_route_id',
-                'routes_transportations.route_number',
-                'routes_transportations.name_route',
-                'transportation_assistances.bus_driver_id',
-                'bus_drivers.name',
-                'transportation_assistances.bus_id',
-                'buses.plate',
-                'transportation_assistances.date_time'
-            )
-            ->whereDate('transportation_assistances.date_time', now()->toDateString())
-            ->get();
-
-
-        return view('bienestar::route-attendance.table', compact('resultados'));
+        }  
+        return view('bienestar::route-attendance.transportation-assistance');
     }
 }

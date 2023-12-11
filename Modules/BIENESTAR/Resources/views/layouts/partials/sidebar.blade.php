@@ -91,6 +91,13 @@
                 </a>
               </li>
               @endif
+              @if(Auth::user()->havePermission('bienestar.admin.view.food_assistance'))
+              <li class="nav-item">
+                <a href="{{ route('bienestar.admin.view.food_assistance') }}" class="nav-link {{ !Route::is('bienestar.admin.view.food_assistance') ?: 'sactive' }}">
+                  <p>{{ trans('bienestar::menu.Take Assistance')}}</p>
+                </a>
+              </li>
+              @endif
               @if(Auth::user()->havePermission('bienestar.admin.food.view.food_assistance_lists'))
               <li class="nav-item">
                 <a href="{{ route('bienestar.admin.food.view.food_assistance_lists') }}" class="nav-link {{ !Route::is('bienestar.admin.food.view.food_assistance_lists') ?: 'sactive' }}">

@@ -85,11 +85,11 @@ class BusesController extends Controller
     $buses->quota = $request->input('quota');
     $buses->bus_driver_id = $request->input('bus_driver_id');
     // Actualiza otros campos aquí
-
+    dd($request);
     if ($buses->save()) {
         return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.transportation.crud.buses')->with('message', 'Bus actualizado correctamente.');
     } else {
-        return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.transportation.crud.buses')->with('message', 'Se ha producido un error');
+        return response()->json(['mensaje' =>'Error deleting trainee'], 500);
     }
 }
 

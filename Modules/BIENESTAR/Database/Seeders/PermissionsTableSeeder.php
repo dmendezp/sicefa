@@ -1069,7 +1069,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
 
         // Ruta Fromulario Eliminar Preguntas y Respuestas de los Formularios(ADMINISTRADOR)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.delete.editform'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.delete.question.editform'], [ // Registro o actualización de permiso
             'name' => 'Eliminar Preguntas y Respuestas',
             'description' => 'Puede eliminar las preguntas y respuestas de los formularios',
             'description_english' => 'You can remove questions and answers from the forms',
@@ -1078,7 +1078,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Ruta Fromulario Eliminar Preguntas y Respuestas de los Formularios(LIDER BENEFICIO DE ALIMENTACION)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.delete.editform'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.delete.question.editform'], [ // Registro o actualización de permiso
             'name' => 'Eliminar Preguntas y Respuestas',
             'description' => 'Puede eliminar las preguntas y respuestas de los formularios',
             'description_english' => 'You can remove questions and answers from the forms',
@@ -1087,10 +1087,37 @@ class PermissionsTableSeeder extends Seeder
         $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
 
         // Ruta Fromulario Eliminar Preguntas y Respuestas de los Formularios(LIDER BENEFICIO DE TRANSPORTE)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.delete.editform'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.delete.question.editform'], [ // Registro o actualización de permiso
             'name' => 'Eliminar Preguntas y Respuestas',
             'description' => 'Puede eliminar las preguntas y respuestas de los formularios',
             'description_english' => 'You can remove questions and answers from the forms',
+            'app_id' => $app->id
+        ]);
+        $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rols
+
+        // Ruta Fromulario Eliminar Respuestas de la pregunta(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.delete.answer.editform'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar Preguntas y Respuestas',
+            'description' => 'Puede eliminar las preguntas y respuestas de los formularios',
+            'description_english' => 'You can delete the answers to the questions',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta Fromulario Eliminar Respuestas de la pregunta(LIDER BENEFICIO DE ALIMENTACION)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.delete.answer.editform'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar Preguntas y Respuestas',
+            'description' => 'Puede eliminar las preguntas y respuestas de los formularios',
+            'description_english' => 'You can delete the answers to the questions',
+            'app_id' => $app->id
+        ]);
+        $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta Fromulario Eliminar Respuestas de la pregunta(LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.delete.answer.editform'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar Preguntas y Respuestas',
+            'description' => 'Puede eliminar las respuestas de las preguntas',
+            'description_english' => 'You can delete the answers to the questions',
             'app_id' => $app->id
         ]);
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rols

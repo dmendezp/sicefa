@@ -334,27 +334,3 @@ document.querySelectorAll('.formEliminar[data-method="delete"]').forEach(functio
         });
     });
 </script>
-<!-- Alerta para guardar y editar -->
-@if (session('success'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Exito!',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 4000 // Tiempo en milisegundos (2 segundos en este caso)
-        });
-    </script>
-@endif
-
-@if (session('error'))
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: '{{ session('error') }}',
-            showConfirmButton: false,
-            timer: 4000 // Tiempo en milisegundos (2 segundos en este caso)
-        });
-    </script>
-@endif

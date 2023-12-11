@@ -52,6 +52,16 @@ class ConvocationsQuestionsController extends Controller
         // Enviamos una respuesta JSON con un mensaje de éxito
         return response()->json(['mensaje' => 'La pregunta y sus respuestas han sido eliminadas con éxito.'], 200);
     }
+
+    public function deleteAnswer($id)
+    {
+        $answer =  AnswersQuestion::findOrFail($id);
+        // Eliminamos la respuesta
+        $answer->delete();
+    
+        // Enviamos una respuesta JSON con un mensaje de éxito
+        return response()->json(['mensaje' => 'La respuestas han sido eliminadas con éxito.'], 200);
+    }
     
 
     public function add_answer(Request $request)

@@ -43,12 +43,13 @@ return[
     //vista transportroutes
     'Insert Routes'=>'Insertar Rutas',
     'Routing Number'=>'Numero de Ruta',
-    'Route Name'=>'Route Name',
+    'Route Name'=>'Nombre de Ruta',
+    'Drivers Name'=>'Nombre del Conductor',
     'Bus'=>'Bus',
     'Select a bus'=>'Seleccione un bus',
-    'Bus stop'=>'Bus stop',
-    'Arrival Time'=>'Arrival Time',
-    'Departure Time'=>'Departure Time',
+    'Bus stop'=>'Parada de Bus',
+    'Arrival Time'=>'Hora de Abordar',
+    'Departure Time'=>'Hora de Salida',
     'Plate'=>'Placa',
 
     //vista home buses
@@ -57,7 +58,7 @@ return[
     'Quotas'=>'Cupos',
     'Edit Bus'=>'Editar Bus',
     'Enter the plate'=>'Ingrese la Placa',
-    'plate'=>'placa',
+    'plate'=>'Placa',
 
     //vista drivers
     'Add Drivers'=>'Agregar Conductores',
@@ -103,9 +104,9 @@ return[
     'transport quotas'=>'cupos transporte',
     'time interval'=>'intervalo tiempo',
     'start date'=>'fecha inicio',
-    'end date'=>'fecha final',
-    'save'=>'guardar',
-    'Actions'=>'acciones',
+    'end date'=>'Fecha Final',
+    'save'=>'Guardar',
+    'Actions'=>'Acciones',
     'Edit convocations'=>'editar convocatorias',
     'quarter id'=>'trimestre',
 

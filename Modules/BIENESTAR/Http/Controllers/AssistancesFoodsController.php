@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\BIENESTAR\Http\Controllers;
+
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -25,16 +26,16 @@ class AssistancesFoodsController extends Controller
     public function index()
     {
         $AssistancesFoods = DB::table('postulations_benefits')
-        ->select('people.first_name', 'people.first_last_name', 'people.document_number', 'courses.code', 'programs.name', 'benefits.name', 'benefits.porcentege')
-        ->join('postulations', 'postulations_benefits.postulation_id', '=', 'postulations.id')
-        ->join('apprentices', 'postulations.apprentice_id', '=', 'apprentices.id')
-        ->join('people', 'apprentices.person_id', '=', 'people.id')
-        ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
-        ->join('courses', 'apprentices.course_id', '=', 'courses.id')
-        ->join('programs', 'courses.program_id', '=', 'programs.id')
-        ->where('postulations_benefits.state', '=', 'beneficiario')
-        ->where('benefits.name', '=', 'Alimentacion')
-        ->get();
+            ->select('people.first_name', 'people.first_last_name', 'people.document_number', 'courses.code', 'programs.name', 'benefits.name', 'benefits.porcentege')
+            ->join('postulations', 'postulations_benefits.postulation_id', '=', 'postulations.id')
+            ->join('apprentices', 'postulations.apprentice_id', '=', 'apprentices.id')
+            ->join('people', 'apprentices.person_id', '=', 'people.id')
+            ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
+            ->join('courses', 'apprentices.course_id', '=', 'courses.id')
+            ->join('programs', 'courses.program_id', '=', 'programs.id')
+            ->where('postulations_benefits.state', '=', 'beneficiario')
+            ->where('benefits.name', '=', 'Alimentacion')
+            ->get();
         $data = ['AssistancesFoods' => $AssistancesFoods];
         return view('bienestar::foodrecord', $data);
     }
@@ -46,27 +47,92 @@ class AssistancesFoodsController extends Controller
     public function assistancefoodrecord(Request $request)
     {
         $selectedPorcentaje = $request->input('porcentaje');
-    
+
         $AssistancesFoods = AssistanceFood::with(['postulationBenefit.benefit', 'apprentice.course.program'])
             ->when($selectedPorcentaje, function ($query) use ($selectedPorcentaje) {
                 return $query->where('porcentage', $selectedPorcentaje);
             })
             ->get();
-    
+
         $data = ['AssistancesFoods' => $AssistancesFoods, 'selectedPorcentaje' => $selectedPorcentaje];
         return view('bienestar::assistancefood', $data);
     }
     public function filtrarPorcentaje(Request $request)
     {
         $selectedPorcentaje = $request->input('porcentaje');
-    
+
         $AssistancesFoods = AssistanceFood::with(['postulationBenefit.benefit', 'apprentice.course.program'])
             ->where('porcentage', $selectedPorcentaje)
             ->get();
-    
+
         $data = ['AssistancesFoods' => $AssistancesFoods, 'selectedPorcentaje' => $selectedPorcentaje];
-    
+
         return view('bienestar::partial.assistancefood_table', $data);
     }
-    
+
+    public function food_assitances()
+    {
+
+        $AssistancesFoods = DB::table('assistances_foods')
+            ->select(
+                'people.document_number',
+                'people.first_name',
+                'people.first_last_name',
+                'people.second_last_name',
+                'courses.code',
+                'programs.name as program_name',
+                'benefits.name as benefit_name',
+                'benefits.porcentege',
+                'assistances_foods.date_time'
+            )
+            ->join('apprentices', 'assistances_foods.apprentice_id', '=', 'apprentices.id')
+            ->join('people', 'apprentices.person_id', '=', 'people.id')
+            ->join('courses', 'apprentices.course_id', '=', 'courses.id')
+            ->join('programs', 'courses.program_id', '=', 'programs.id')
+            ->join('postulations_benefits', 'assistances_foods.postulation_benefit_id', '=', 'postulations_benefits.id')
+            ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
+            ->whereDate('assistances_foods.date_time', '=', now()->toDateString()) // Filtrar por la fecha actual
+            ->get();
+
+
+        return view('bienestar::food-assistance', compact('AssistancesFoods'));
+    }
+
+    public function assistances(Request $request)
+    {
+
+        $documentNumber = json_decode($_POST['data']);
+
+        // Obtén el apprentice_id y postulation_benefit_id según los criterios
+        $queryResult = DB::table('postulations_benefits')
+            ->select(
+                'apprentices.id as apprentice_id',
+                'postulations_benefits.id as postulation_benefit_id',
+                'benefits.porcentege',
+                DB::raw('NOW() as date_time')
+            )
+            ->join('postulations', 'postulations_benefits.postulation_id', '=', 'postulations.id')
+            ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
+            ->join('apprentices', 'postulations.apprentice_id', '=', 'apprentices.id')
+            ->join('people', 'apprentices.person_id', '=', 'people.id')
+            ->where('people.document_number', $documentNumber)
+            ->where('postulations_benefits.state', 'Beneficiario')
+            ->where('benefits.name', 'Alimentacion')
+            ->first();
+            if ($queryResult) {
+                // Realiza la inserción en la tabla assistances_foods
+                DB::table('assistances_foods')->insert([
+                    'apprentice_id' => $queryResult->apprentice_id,
+                    'postulation_benefit_id' => $queryResult->postulation_benefit_id,
+                    'porcentage' => $queryResult->porcentege,
+                    'date_time' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+        
+                return redirect()->route('bienestar::food-assistance')->with('success', 'Asistencia Guardada Correctamente!');
+            } else {
+                return response()->json(['success' =>'Ha habido un error al guardar la Asistencia']);
+            }
+    }
 }

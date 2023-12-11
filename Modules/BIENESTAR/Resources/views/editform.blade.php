@@ -39,7 +39,7 @@
                                 <a class="btn btn-primary mr-2 editQuestion" data-question-id="{{ $question->id }}">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.editform', ['id' => $question->id]) }}" class="btn btn-danger formEliminar" data-method="delete">
+                                <a href="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.question.editform', ['id' => $question->id]) }}" class="btn btn-danger formEliminar" data-method="delete">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </div>
@@ -70,11 +70,9 @@
     </form>
     @endif
 </div>
-
-<!-- Modales (uno por cada pregunta) -->
 @foreach ($questions as $question)
-<div class="modal fade" id="editQuestionModal{{ $question->id }}" tabindex="-1" role="dialog" aria-labelledby="editQuestionModalLabel{{ $question->id }}" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="editQuestionModal{{ $question->id }}" tabindex="-1" aria-labelledby="editQuestionModalLabel{{ $question->id }}" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editQuestionModalLabel{{ $question->id }}">Editar Pregunta</h5>
@@ -84,7 +82,7 @@
             </div>
             <div class="modal-body">
                 @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.editform'))
-                <form id="editForm{{ $question->id }}" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.editform', ['id' => $question->id]) }}" method="POST" class="formEditar">
+                <form id="editForm{{ $question->id }}" name="editForm{{ $question->id }}" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.editform', ['id' => $question->id]) }}" method="POST" class="formEditar">
                     @csrf
                     <!-- Campos de edición aquí -->
                     <div class="form-group">
@@ -95,7 +93,14 @@
                         <label for="editedAnswer">{{ trans('bienestar::menu.Answer')}}</label>
                         @foreach ($answers as $answer)
                         @if ($answer->question_id == $question->id)
-                        <input type="text" class="form-control" id="editRespuesta{{ $answer->id }}" name="answer[{{ $answer->id }}]" value="{{ $answer->answer }}"><br>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="editRespuesta{{ $answer->id }}" name="answer[{{ $answer->id }}]" value="{{ $answer->answer }}"><br>
+                            <div class="input-group-append">
+                                <a href="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.answer.editform', ['id' => $answer->id]) }}" class="btn btn-danger formEliminar" data-method="delete">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </div>
                         @endif
                         @endforeach
                     </div>
@@ -128,8 +133,6 @@
 
         // Resto del código
     });
-</script>
-<script>
     $(document).ready(function() {
         // Manejador de evento para el envío del formulario
         $("#mainForm").submit(function(event) {
