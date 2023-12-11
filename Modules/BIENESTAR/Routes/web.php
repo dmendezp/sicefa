@@ -190,7 +190,7 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/transportation_benefits_leader/transportation_asistance/search', 'TransportationAssistancesController@searchapprentice')->name('bienestar.transportation_benefits_leader.form.asistance_transport');
 
         //Vista transportation-assistance
-        Route::get('/admin/food_assistance', 'AssistancesFoodsController@indexassistances')->name('bienestar.admin.view.food_assistance');
-        Route::post('/admin/food_assistance/search', 'AssistancesFoodsController@searchapprentice')->name('bienestar.admin.form.food_assistance');
+        Route::get('/admin/food_assistance', 'AssistancesFoodsController@create')->name('bienestar.admin.view.food_assistance');
+        Route::post('/admin/food_assistance/search', 'AssistancesFoodsController@store')->name('bienestar.admin.form.food_assistance');
     });
 });

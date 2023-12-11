@@ -157,6 +157,36 @@
                         @endif
                     @endforeach
                 </ul>
+                    <!-- Agregar sección para mostrar archivos socioeconómicos -->
+                    @if ($postulation->socioeconomicsupportfiles->isNotEmpty())
+                        <h4>Archivos Socioeconómicos:</h4>
+                        <div class="card-deck">
+                            @foreach ($postulation->socioeconomicsupportfiles as $file)
+                                <li class="card mb-3" style="max-width: 18rem;">
+                                    <div class="card-body">
+                                            @php
+                                                $extension = pathinfo($file->file_path, PATHINFO_EXTENSION);
+                                                $imageName = pathinfo($file->file_path, PATHINFO_FILENAME);
+                                                $filePath = asset('modules/bienestar/icons/' . $extension . '.svg');
+                                                $truncatedName = (strlen($imageName) > 20) ? substr($imageName, 0, 20) . '...' : $imageName;
+                                            @endphp
+
+                                            <p>
+                                                <img src="{{ $filePath }}" alt="{{ $extension }} icon" style="width: 40px; height: 40px;">
+                                                    <strong class="card-title">{{ $truncatedName }} ({{ $extension }})</strong>
+                                            </p>
+
+                                            <!-- Agregar el botón de descarga -->
+                                            <a href="{{ asset($file->file_path) }}" download class="btn btn-primary btn-sm">
+                                                Descargar
+                                            </a>
+                                        </div>
+                                </li>
+                            @endforeach
+                        </div>
+                    @else
+                        <p>No hay archivos socioeconómicos asociados a esta postulación.</p>
+                    @endif
                 
                 <p><strong>{{ trans('bienestar::menu.Total Score')}}:</strong> <span id="total-score_{{ $postulation->id }}">{{ $postulation->total_score }}</span></p>
 

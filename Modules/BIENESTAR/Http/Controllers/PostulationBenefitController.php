@@ -67,17 +67,23 @@ public function show($id) {
 
 
 
-    public function showModal($id)
+public function showModal($id)
 {
-    $postulation = Postulation::with(['convocation', 'apprentice', 'answers' => function ($query) use ($id) {
-        $query->where('postulation_id', $id);
-    }])->findOrFail($id);
-    
+    $postulation = Postulation::with([
+        'convocation',
+        'apprentice',
+        'answers' => function ($query) use ($id) {
+            $query->where('postulation_id', $id);
+        },
+        'socioeconomicsupportfiles' // Cargar archivos socioeconómicos
+    ])->findOrFail($id);
+
     // Obtener todas las preguntas disponibles
     $questions = Question::all();
-    
+
     return view('bienestar::postulation-management.modal', compact('postulation', 'questions'));
 }
+    
 
 
     public function updateScore(Request $request, $id)

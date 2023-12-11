@@ -22,7 +22,6 @@ class AssistanceFood extends Model implements Auditable
         'apprentice_id',
         'postulation_benefit_id',
         'porcentage',
-        'type_food',
         'date_time',
     ];
     
