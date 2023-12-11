@@ -7,6 +7,7 @@ return [
     'charge' => 'Encargado',
     'English' => 'Ingles',
     'Spanish' => 'Español',
+    'instruction_manual' => 'Manual',
 
     // Titulos Del Sidebar
     'carbonfootprint' => 'Huella De Carbono',

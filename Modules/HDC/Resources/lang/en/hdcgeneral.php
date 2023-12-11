@@ -7,6 +7,7 @@ return [
     'charge' => 'charge',
     'English' => 'English',
     'Spanish' => 'Spanish',
+    'instruction_manual' => 'Manual',
 
     // Titulos Del Sidebar
     'carbonfootprint' => 'Carbon Footprint',
