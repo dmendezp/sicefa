@@ -276,7 +276,7 @@ class PostulateController extends Controller
         return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index')
             ->with('success', 'Estado actualizado correctamente');
     }
-    
+
     public function seleccionados()
     {
         $postulates  = postulate::with(['apprentice.person'])
