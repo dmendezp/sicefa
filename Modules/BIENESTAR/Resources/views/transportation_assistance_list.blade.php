@@ -9,32 +9,33 @@
                 <!-- Formulario de filtro -->
                 <form method="GET" action="{{ route('bienestar.admin.route.food_assistance_lists.filter') }}">
                     @csrf
-                    <div class="form-group col-md-7">
-                        <label for="Ruta">{{ trans('Ruta')}}</label>
-                        <div class="col-md-7">
-                            <select name="name_route" id="name_route" class="form-control" required>
-                                <option value="" disabled selected>{{ trans('Selecciona una ruta')}}</option>
-                                @foreach($rutas as $r)
-                                <option value="{{$r->id}}">{{ $r->name_route}}</option>
-                                @endforeach
-                                <!-- Agrega más opciones según sea necesario -->
-                            </select>
-                            
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="Ruta">{{ trans('Ruta')}}</label>
+                            <div class="col-md-12"> <!-- Amplié a 12 columnas para que abarque toda la fila -->
+                                <select name="name_route" id="name_route" class="form-control" required>
+                                    <option value="" disabled selected>{{ trans('Selecciona una ruta')}}</option>
+                                    @foreach($rutas as $r)
+                                        <option value="{{$r->id}}">{{ $r->name_route}}</option>
+                                    @endforeach
+                                    <!-- Agrega más opciones según sea necesario -->
+                                </select>
+                            </div>
+                        </div>
+                    
+                        <div class="form-group col-md-4">
+                            <label for="fecha_inicio">{{ trans('bienestar::menu.start date')}}</label>
+                            <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control">
+                        </div>
+                    
+                        <div class="form-group col-md-4">
+                            <label for="fecha_fin">{{ trans('bienestar::menu.end date')}}</label>
+                            <input type="date" name="fecha_fin" id="fecha_fin" class="form-control">
                         </div>
                     </div>
                     
-                    </div>
                     
-               <div class="form-row">
-               <div class="form-group col-md-3">
-               <label for="fecha_inicio">{{ trans('bienestar::menu.start date')}}</label>
-               <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control">
-               </div>
-              <div class="form-group col-md-3">
-              <label for="fecha_fin">{{ trans('bienestar::menu.end date')}}</label>
-              <input type="date" name="fecha_fin" id="fecha_fin" class="form-control">
-              </div>
-             </div>
+                    
                 </form>
 
                 <!-- Cuadro con la tabla -->
@@ -45,14 +46,12 @@
                                 <th>{{ trans('bienestar::menu.Apprentice')}}</th>
                                 <th>{{ trans('bienestar::menu.Number Document')}}</th>
                                 <th>{{ trans('bienestar::menu.Program')}}</th>
-                                <th>{{ trans('bienestar::menu.code')}}</th>
-                                <th>{{ trans('bienestar::menu.percentage')}}</th>
+                                <th>Ruta</th>
                                 <th>{{ trans('bienestar::menu.time and date')}}</th>
                             </tr>
                         </thead>
                         <tbody>
                                 <tr>
-                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
