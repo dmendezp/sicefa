@@ -1,7 +1,7 @@
 @extends('agrocefa::layouts.master')
 
 @section('content')
-<h2>{{ trans('agrocefa::produccion.report_title') }}</h2>
+<h2>{{ trans('agrocefa::produccion.Report_title') }}</h2>
 
     <div class="container">
         <!-- Div para mostrar notificaciones -->
@@ -13,10 +13,10 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            {!! Form::label('lot', trans('agrocefa::produccion.environment')) !!}
+                            {!! Form::label('lot', trans('agrocefa::produccion.Environment')) !!}
                             {!! Form::select(
                                 'lot',
-                                ['' => trans('agrocefa::produccion.select_lot')] +
+                                ['' => trans('agrocefa::produccion.Select_lot')] +
                                     collect($environmentData)->pluck('name', 'id')->toArray(),
                                 old('lot'),
                                 ['class' => 'form-control', 'required', 'id' => 'lotSelect'],
@@ -26,8 +26,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            {!! Form::label('crop', trans('agrocefa::produccion.crop')) !!}
-                            {!! Form::select('crop', ['' => trans('agrocefa::produccion.select_crop')] + collect($cropsByLot)->pluck('name', 'id')->toArray(), isset($selectedCropId) ? $selectedCropId : null, ['class' => 'form-control', 'required', 'id' => 'cropSelect']) !!}
+                            {!! Form::label('crop', trans('agrocefa::produccion.Crop')) !!}
+                            {!! Form::select('crop', ['' => trans('agrocefa::produccion.Select_crop')] + collect($cropsByLot)->pluck('name', 'id')->toArray(), isset($selectedCropId) ? $selectedCropId : null, ['class' => 'form-control', 'required', 'id' => 'cropSelect']) !!}
                         </div>
                     </div>
                     <br>
@@ -64,7 +64,7 @@
                         if (response.cropIds) {
                             var cropsSelect = $('#cropSelect');
                             cropsSelect.empty();
-                            cropsSelect.append(new Option('{{ trans('agrocefa::production.select_crop') }}', ''));
+                            cropsSelect.append(new Option('{{ trans('agrocefa::produccion.Select_crop') }}', ''));
 
                             // Recorre los arreglos cropIds y cropNames y crea opciones
                             for (var i = 0; i < response.cropIds.length; i++) {

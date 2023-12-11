@@ -1,21 +1,20 @@
 @if (!empty($filterproductions) && count($filterproductions) > 0)
     <div class="card">
         <div class="card-header">
-            {{ __('agrocefa::produccion.production') }}
+            {{ __('agrocefa::produccion.Production') }}
         </div>
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
                 <!-- Encabezado de la tabla -->
-                <thead>
+                <thead id='cabecera'>
                     <tr>
-                        <th>{{ __('agrocefa::produccion.labor') }}</th>
-                        <th>{{ __('agrocefa::produccion.element') }}</th>
-                        <th>{{ __('agrocefa::produccion.quantity') }}</th>
-                        <th>{{ __('agrocefa::produccion.expiration_date') }}</th>
-                        <th>{{ __('agrocefa::produccion.total_production_price') }}</th>
+                        <th>{{ __('agrocefa::produccion.Labor') }}</th>
+                        <th>{{ __('agrocefa::produccion.Element') }}</th>
+                        <th>{{ __('agrocefa::produccion.Quantity') }}</th>
+                        <th>{{ __('agrocefa::produccion.Expiration_date') }}</th>
+                        <th>{{ __('agrocefa::produccion.Total_production_price') }}</th>
                     </tr>
                 </thead>
-                <!-- Cuerpo de la tabla -->
                 <tbody>
                     @foreach ($filterproductions as $production)
                     <tr>
@@ -25,17 +24,20 @@
                         <td>{{ $production->expiration_date }}</td>
                         <td>{{ session('totalProductions') }}</td>
                     </tr>
-                @endforeach
+                    @endforeach
                 </tbody>
             </table>
         </div>
-        
-        <a id="pdf" href="{{ route('agrocefa.reports.productionpdf') }}" class="btn btn-danger" target="_blank">{{ trans('agrocefa::balance.export') }} <i class="fa-solid fa-file-pdf"></i></a>        
+        {!! Form::open(['method' => 'post', 'url' => route('agrocefa.reports.productionpdf')]) !!}
+        {!! Form::hidden('id', '{{session("filterproductions")}}') !!}
+        <button type="submit" style="margin-left: 550px" class="btn btn-danger" target="_blank">{{ trans('agrocefa::produccion.Export') }} <i class="fa-solid fa-file-pdf"></i></button>
+        {!! Form::close() !!}
+        <br>        
     </div>
 
 @else
     <br>
-    <p>{{ __('agrocefa::produccion.no_labor_selected') }}</p>
+    <p>{{ __('agrocefa::produccion.No_labor_selected') }}</p>
 @endif
 
 <style>

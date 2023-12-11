@@ -97,22 +97,21 @@ class ProductionController extends Controller
             $filterproductions = $allProductions->filter(function ($production) {
                 return true;
             });
-
+            
             // Calcula los totales de gastos y producciones
             if (!empty($filterproductions) && count($filterproductions) > 0) {
                 foreach ($filterproductions as $production) {
                     // Asegúrate de que la relación 'element' esté cargada
                     if (!is_null($production->element)) {
                         $totalExpenses += $production->amount * $production->element->price;
-                        $totalProductions += $production->element->totalProductionPrice; // Modifica esta línea
                     }
                 }
             }
         }
 
         // Almacena los totales en variables de sesión (o como desees manejarlos)
-        session(['totalProductions' => $totalProductions]);
-
+        session(['totalProductions' => $totalExpenses]);
+        session(['filterproductions' => $filterproductions]);
         // Devuelve la vista con las producciones filtradas y los totales
         return view('agrocefa::reports.resultproduction', [
             'filterproductions' => $filterproductions,
@@ -124,19 +123,17 @@ class ProductionController extends Controller
 
     public function productionpdf(Request $request)
     {
+        $id = $request->input('id');
         // Verifica si existen datos filtrados en la variable de sesión
         if (session()->has('filterproductions')) {
             $filterproductions = session('filterproductions');
             $totalExpenses = session('totalExpenses');
-            $totalProductions = session('totalProductions');
 
             // Inicializa el objeto PDF
-            $pdf = PDF::loadView('agrocefa::reports.productions.productionpdf', [
+            $pdf = PDF::loadView('agrocefa::reports.productionpdf', [
                 'filterproductions' => $filterproductions,
                 'totalExpenses' => $totalExpenses,
-                'totalProductions' => $totalProductions,
             ]);
-
             // Personaliza opciones del PDF si es necesario
             $pdf->setOptions(['isHtml5ParserEnabled' => true, 'isPhpEnabled' => true]);
 

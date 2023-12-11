@@ -8,55 +8,78 @@
     <title>PDF PRODUCCION</title>
 </head>
 
+<style>
+        body {
+            font-family: 'Arial, sans-serif';
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: auto;
+            /* Centra la tabla */
+            margin-top: 20px;
+            /* Ajusta el margen superior de la tabla */
+        }
+
+        th,
+        td {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 12px;
+            /* Ajusta el espaciado interno de las celdas */
+        }
+
+        th {
+            background-color: rgb(135, 186, 206);
+            color: black;
+        }
+
+        #Total {
+            background-color: rgb(135, 186, 206);
+        }
+
+        .total-row {
+            font-weight: bold;
+            background-color: #f2f2f2;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+        }
+
+        img {
+            border-radius: 5px;
+        }
+    </style>
 <body>
-    <h1 style="text-align: center">Reporte produccion</h1>
     <br>
+    <h1>{{ __('agrocefa::produccion.Reports_production') }}</h1>
     <table id="example1" style="text-align: center" class="table table-bordered table-striped">
-        <thead>
+        <thead id='cabecera'>
             <tr>
-                <th>{{ trans('agrocefa::produccion.activity') }}</th>
-                <th>{{ trans('agrocefa::produccion.activitytype') }}</th>
-                <th>{{ trans('agrocefa::produccion.executiondate') }}</th>
-                <th>{{ trans('agrocefa::produccion.laborexpense') }}</th>
-                <th>{{ trans('agrocefa::produccion.Productionprice') }}</th>
+                <th>{{ __('agrocefa::produccion.Labor') }}</th>
+                <th>{{ __('agrocefa::produccion.Element') }}</th>
+                <th>{{ __('agrocefa::produccion.Quantity') }}</th>
+                <th>{{ __('agrocefa::produccion.Expiration_date') }}</th>
+                <th>{{ __('agrocefa::produccion.Total_production_price') }}</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($filteredLabors as $labor)
-                <tr>
-                    <td>{{ $labor->activity->name }}</td>
-                    <td>{{ $labor->activity->activity_type->name }}</td>
-                    <td>{{ $labor->execution_date }}</td>
-                    <td>{{ $labor->price }}</td>
-                    <td>
-                        @if ($labor->activity->activity_type->name === 'Producción')
-                            @if (!is_null($labor->totalProductionPrice) && $labor->totalProductionPrice > 0)
-                                {{ $labor->totalProductionPrice }}
-                            @else
-                                {{ trans('agrocefa::produccion.There_is_no_registered_production') }}
-                            @endif
-                        @else
-                            {{ trans('agrocefa::produccion.Does_not_have_production') }}
-                        @endif
-                    </td>
-                </tr>
+            @foreach ($filterproductions as $production)
+            <tr>
+                <td>{{ $production->labor->activity->name }}</td>
+                <td>{{ $production->element->name }}</td>
+                <td>{{ $production->amount }}</td>
+                <td>{{ $production->expiration_date }}</td>
+                <td>{{ session('totalProductions') }}</td>
+            </tr>
             @endforeach
-            <br>
-            <h2 style="text-align: center">Totales</h2>
-            <tr style="text-align: left">
-                <td>
-                <td><strong>{{ trans('agrocefa::produccion.Totalexpenses') }}:</strong></td>
-                </td>
-                <td><strong>{{ $totalExpenses }}</strong></td>
-            </tr>
-            <tr style="text-align: left">
-                <td>
-                <td><strong>{{ trans('agrocefa::produccion.TotalProductions') }}:</strong></td>
-                </td>
-                <td><strong>{{ $totalProductions }}</strong></td>
-            </tr>
         </tbody>
     </table>
+
+    <br>
 </body>
 
 </html>
