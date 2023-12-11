@@ -1,7 +1,7 @@
 @extends('agrocefa::layouts.master')
 
 @section('content')
-    <h2>reporte de produccion</h2>
+<h2>{{ trans('agrocefa::produccion.report_title') }}</h2>
 
     <div class="container">
         <!-- Div para mostrar notificaciones -->
@@ -13,10 +13,10 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            {!! Form::label('lot', trans('agrocefa::reports.environment')) !!}
+                            {!! Form::label('lot', trans('agrocefa::produccion.environment')) !!}
                             {!! Form::select(
                                 'lot',
-                                ['' => trans('agrocefa::balance.select_lot')] +
+                                ['' => trans('agrocefa::produccion.select_lot')] +
                                     collect($environmentData)->pluck('name', 'id')->toArray(),
                                 old('lot'),
                                 ['class' => 'form-control', 'required', 'id' => 'lotSelect'],
@@ -26,10 +26,10 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            {!! Form::label('crop', trans('agrocefa::production.crop')) !!}
-                            {!! Form::select('crop', ['' => 'Seleccione el cultivo'] + collect($cropsByLot)->pluck('name', 'id')->toArray(), $selectedCropId, ['class' => 'form-control', 'required', 'id' => 'cropSelect']) !!}
+                            {!! Form::label('crop', trans('agrocefa::produccion.crop')) !!}
+                            {!! Form::select('crop', ['' => trans('agrocefa::produccion.select_crop')] + collect($cropsByLot)->pluck('name', 'id')->toArray(), isset($selectedCropId) ? $selectedCropId : null, ['class' => 'form-control', 'required', 'id' => 'cropSelect']) !!}
                         </div>
-                    </div>                    
+                    </div>
                     <br>
                 </div>
 
@@ -44,11 +44,11 @@
         </div>
     </div>
 
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+
     <script>
-        // Manejador de eventos para el cambio en el campo "Actividad"
+        // Manejador de eventos para el cambio en el campo "lote"
         $('#lotSelect').on('change', function() {
             var selectedProductId = $(this).val();
 
@@ -64,7 +64,7 @@
                         if (response.cropIds) {
                             var cropsSelect = $('#cropSelect');
                             cropsSelect.empty();
-                            cropsSelect.append(new Option('Seleccione el cultivo', ''));
+                            cropsSelect.append(new Option('{{ trans('agrocefa::production.select_crop') }}', ''));
 
                             // Recorre los arreglos cropIds y cropNames y crea opciones
                             for (var i = 0; i < response.cropIds.length; i++) {
@@ -87,7 +87,6 @@
     </script>
 
     <script>
-        // Cuando cambia la selección de cultivo
         $('#cropSelect').change(function() {
             var selectedCropId = $(this).val();
 

@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Modules\SICA\Entities\Person;
 
-class UsersTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder   
 {
     /**
      * Run the database seeds.

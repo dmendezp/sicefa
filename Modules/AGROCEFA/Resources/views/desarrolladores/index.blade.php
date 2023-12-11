@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-JCHmOKJsZwJzoyY9vgZKLDjp/0sopofWt3IkL5uaz5PzU2Oyj8S+oUi7vQ34lX5wWcHhV1xVfQw28RfWb5NzZsQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        /* Estilos generales */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
