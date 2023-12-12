@@ -177,7 +177,7 @@ public function updateBenefits(Request $request)
         $notSelectedPostulations = array_diff($allPostulations->toArray(), $selectedPostulations);
 
         foreach ($selectedPostulations as $postulationId) {
-            $postulation = Postulation::findOrFail($postulationId);
+            $postulation = Postulation::findOrFail($postulationId); 
 
             // Verificar si existe un registro Beneficiario
             $benefitState = $postulation->postulationBenefits->where('state', 'Beneficiario')->first();
@@ -193,11 +193,19 @@ public function updateBenefits(Request $request)
             // Determinar a qué beneficios se está postulando la persona
             $benefitIds = [];
             if ($transportationBenefit == 1) {
-                $benefitIds[] = Benefit::where('name', 'Transporte')->first()->id;
+                $benefitIds[] = [
+                    'id' => Benefit::where('name', 'Transporte')->first()->id,
+                    'percentage' => 100, // Puedes ajustar el porcentaje según tus necesidades
+                ];
             }
             if ($feedBenefit == 1) {
-                $benefitIds[] = Benefit::where('name', 'Alimentacion')->first()->id;
+                $alimentacionBenefit = Benefit::where('name', 'Alimentacion')->first();
+                $benefitIds[] = [
+                    'id' => $alimentacionBenefit->id,
+                    'percentage' => $alimentacionBenefit->percentage, // Utiliza el porcentaje almacenado en la base de datos
+                ];
             }
+            
 
             foreach ($benefitIds as $benefitId) {
                 // Verificar si existen registros de beneficios para esta postulación
@@ -269,8 +277,11 @@ public function updateBenefits(Request $request)
 
         // Establecer como "No Beneficiario" las postulaciones que no están seleccionadas
         foreach ($notSelectedPostulations as $postulationId) {
-            $benefitIds = Benefit::whereIn('name', ['Alimentacion', 'Transporte'])->pluck('id');
-            foreach ($benefitIds as $benefitId) {
+            $benefitIds = Benefit::where(function ($query) {
+                $query->where('name', 'Alimentacion')
+                    ->where('porcentege', '50');
+            })->orWhere('name', 'Transporte')->pluck('id');
+                        foreach ($benefitIds as $benefitId) {
                 // Verificar si existe un registro Beneficiario
                 $benefitState = PostulationBenefit::where('postulation_id', $postulationId)
                     ->where('benefit_id', $benefitId)
