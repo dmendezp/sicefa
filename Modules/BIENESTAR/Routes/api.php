@@ -25,6 +25,5 @@ Route::post('/Api/logout', [AuthController::class, 'logout']);
 Route::get('/Api/transportation_asistance',[TransportationAssistancesController::class, 'AssistancesTransport']);
 Route::get('/Api/saveAttendance',[TransportationAssistancesController::class, 'SaveAttendance']);
 // Rutas relacionadas con el módulo BIENESTAR
-Route::get('/bienestar/assistancefoodrecord', [AssistancesFoodsController::class, 'assistancefoodrecord']);
-Route::get('/bienestar/food_assitances', [AssistancesFoodsController::class, 'food_assitances']);
-Route::post('/bienestar/assistances', [AssistancesFoodsController::class, 'assistances']);
+Route::get('/Api/FoodAssistances', [AssistancesFoodsController::class, 'FoodAssistances']);
+Route::get('/Api/RegisterAssistances', [AssistancesFoodsController::class, 'RegisterAssistances']);
