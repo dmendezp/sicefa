@@ -9,7 +9,8 @@
 @section('content')
     <div class="container">
         <h1 class="text-center"><strong><em><span>{{ $title }}</span></em></strong></h1>
-        @if (Auth::user()->havePermission('senaempresa.admin-pasante.loans.filter'))
+        @if (Route::is('senaempresa.admin.*') ||
+        (Route::is('senaempresa.human_talent_leader.*') && (Auth::user()->havePermission('senaempresa.admin-pasante.loans.filter'))))
             <div class="col-md-3">
                 <form action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index') }}"
                     method="GET">

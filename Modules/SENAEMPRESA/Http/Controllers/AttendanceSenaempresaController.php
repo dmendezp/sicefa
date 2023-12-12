@@ -93,6 +93,7 @@ class AttendanceSenaempresaController extends Controller
         return response()->json(['attendances' => $attendanceData]);
     }
 
+
     public function getPersonData(Request $request)
     {
         $documentNumber = $request->input('document_number');

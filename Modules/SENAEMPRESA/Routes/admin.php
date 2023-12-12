@@ -89,7 +89,7 @@ Route::middleware(['lang'])->group(function () {
                 Route::get('/state/{apprenticeId}', 'PostulateController@state')->name('senaempresa.admin.postulates.state');
                 Route::post('/state_updated', 'PostulateController@state_updated')->name('senaempresa.admin.postulates.state_updated');
 
-                Route::get('/selected/', 'PostulateController@seleccionados')->name('senaempresa.admin.postulates.selected');
+                Route::get('/selected', 'PostulateController@seleccionados')->name('senaempresa.admin.postulates.selected');
             });
 
             //RUTAS PARA EL REGISTRO, LA VISUALIZACIÓN, ELIMINACIÓN Y LA ACTUALIZACIÓN DE LOS CARGOS DE SENAEMPRESA

@@ -513,6 +513,16 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_psychologo[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista de esatdo del postulado (Aprendiz)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.postulates.state_apprentice'], [ // Registro o actualización de permiso
+            'name' => 'Vista de estado del postulado (Aprendiz)',
+            'description' => 'Vista del estado del postulado o aprendiz',
+            'description_english' => 'Status view of the applicant or apprentice',
+            'app_id' => $app->id
+        ]);
+        $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
+
+
         // Vista de asignar puntaje a los postulados (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.postulates.assign_score'], [ // Registro o actualización de permiso
             'name' => 'Vista de asignar puntaje (Administrador)',

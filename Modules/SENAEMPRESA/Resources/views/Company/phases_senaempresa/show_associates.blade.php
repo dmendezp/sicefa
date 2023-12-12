@@ -13,7 +13,6 @@
                             <div class="form-group">
                                 <label for="senaempresa_id">{{ trans('senaempresa::menu.Select a SenaEmpresa:') }}</label>
                                 <select class="form-control" name="senaempresa_id" id="senaempresa_id">
-                                    <option value="">{{ trans('senaempresa::menu.Select a SenaEmpresa:') }}</option>
                                     @foreach ($senaempresas as $senaempresa)
                                         <option value="{{ $senaempresa->id }}">{{ $senaempresa->name }}</option>
                                     @endforeach

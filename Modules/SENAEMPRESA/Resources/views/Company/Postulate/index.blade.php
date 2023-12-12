@@ -60,21 +60,20 @@
                                         <td>{{ $postulate->id }}</td>
                                         <td>{{ $postulate->apprentice->person->full_name }}</td>
                                         <td>{{ $postulate->vacancy->id }} {{ $postulate->vacancy->name }}</td>
-                                        <td>
-                                            <a href="{{ asset($postulate->cv) }}" class="btn btn-primary btn-sm" download>
-                                                <i class="fas fa-download fa-sm"></i> CV
+                                        <td style="text-align: center;">
+                                            <a href="{{ asset($postulate->cv) }}" download>
+                                                <i class="far fa-file-pdf" style="color: #fe3e3e; font-size: 30px; text-align: center;"></i>
+
                                             </a>
                                         </td>
-                                        <td>
-                                            <a href="{{ asset($postulate->personalities) }}" class="btn btn-primary btn-sm"
-                                                download>
-                                                <i class="fas fa-download fa-sm"></i> Personalidades
+                                        <td style="text-align: center;">
+                                            <a href="{{ asset($postulate->personalities) }}" download>
+                                                <i class="far fa-file-pdf" style="color: #483efe; font-size: 30px; text-align: center;"></i>
                                             </a>
                                         </td>
-                                        <td>
-                                            <a href="{{ asset($postulate->proposal) }}" class="btn btn-primary btn-sm"
-                                                download>
-                                                <i class="fas fa-download fa-sm"></i> Propuesta
+                                        <td style="text-align: center;">
+                                            <a href="{{ asset($postulate->proposal) }}" download>
+                                                <i class="far fa-file-pdf" style="color: #08c651; font-size: 30px; text-align: center;"></i>
                                             </a>
                                         </td>
                                         <td>{{ $postulate->score_total }}</td>
