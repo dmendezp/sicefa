@@ -88,7 +88,7 @@
                                                 @php
                                                     $lugarEncuentro = null;
                                                     $pregunta = $postulationBenefit->postulation->answers
-                                                        ->where('question.question', 'Municipio o Ciudad en la que vive')
+                                                        ->where('question.questions', 'Municipio o Ciudad en la que vive')
                                                         ->first();
                                                 
                                                     if ($pregunta) {
