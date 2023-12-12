@@ -523,7 +523,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rols
 
                 // Ruta Obtener Estado Check(ADMINISTRADOR)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.update-benefits.benefitstypeofbenefits'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.update-benefits.postulation-management'], [ // Registro o actualización de permiso
             'name' => 'Visusalizacion de la tabla de gestion de Postulaciones',
             'description' => 'Puede ver la tabla de gestion de postulaciones',
             'description_english' => 'You can view the application management table',
@@ -532,7 +532,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Ruta Obtener Estado Check(LIDER BENEFICIO DE ALIMENTACION)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.update-benefits.benefitstypeofbenefits'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.update-benefits.postulation-management'], [ // Registro o actualización de permiso
             'name' => 'Visusalizacion de la tabla de gestion de Postulaciones',
             'description' => 'Puede ver la tabla de gestion de postulaciones',
             'description_english' => 'You can view the application management table',
@@ -541,7 +541,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
 
         // Ruta Obtener Estado Check(LIDER BENEFICIO DE TRANSPORTE)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.update-benefits.benefitstypeofbenefits'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.update-benefits.postulation-management'], [ // Registro o actualización de permiso
             'name' => 'Visusalizacion de la tabla de gestion de Postulaciones',
             'description' => 'Puede ver la tabla de gestion de postulaciones',
             'description_english' => 'You can view the application management table',
