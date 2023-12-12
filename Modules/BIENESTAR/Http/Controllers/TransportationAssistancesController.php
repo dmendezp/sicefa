@@ -70,35 +70,42 @@ class TransportationAssistancesController extends Controller
     }
 
     public function searchapprentice(Request $request)
-    {
-        $documentNumber = json_decode($_POST['data']);
+{
+    $documentNumber = json_decode($_POST['data']);
 
-        // Realizar la consulta y obtener los datos
-        $data = DB::table('assing_transport_routes')
-            ->join('postulations_benefits', 'assing_transport_routes.postulation_benefit_id', '=', 'postulations_benefits.id')
-            ->join('postulations', 'postulations_benefits.postulation_id', '=', 'postulations.id')
-            ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
-            ->join('apprentices', 'postulations.apprentice_id', '=', 'apprentices.id')
-            ->join('people', 'apprentices.person_id', '=', 'people.id')
-            ->join('routes_transportations', 'assing_transport_routes.route_transportation_id', '=', 'routes_transportations.id')
-            ->join('buses', 'routes_transportations.bus_id', '=', 'buses.id')
-            ->join('bus_drivers', 'buses.bus_driver_id', '=', 'bus_drivers.id')
-            ->select(
-                'assing_transport_routes.id as assing_transport_route_id',
-                'apprentices.id as apprentice_id',
-                'postulations_benefits.id as postulation_benefit_id',
-                'buses.id as bus_id',
-                'bus_drivers.id as bus_driver_id',
-                'benefits.porcentege',
-                DB::raw('NOW() as date_time')
-            )
-            ->where('people.document_number', $documentNumber)
-            ->where('postulations_benefits.state', 'beneficiario')
-            ->where('benefits.name', 'Transporte')
-            ->get();
+    // Realizar la consulta y obtener los datos
+    $data = DB::table('assing_transport_routes')
+        ->join('postulations_benefits', 'assing_transport_routes.postulation_benefit_id', '=', 'postulations_benefits.id')
+        ->join('postulations', 'postulations_benefits.postulation_id', '=', 'postulations.id')
+        ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
+        ->join('apprentices', 'postulations.apprentice_id', '=', 'apprentices.id')
+        ->join('people', 'apprentices.person_id', '=', 'people.id')
+        ->join('routes_transportations', 'assing_transport_routes.route_transportation_id', '=', 'routes_transportations.id')
+        ->join('buses', 'routes_transportations.bus_id', '=', 'buses.id')
+        ->join('bus_drivers', 'buses.bus_driver_id', '=', 'bus_drivers.id')
+        ->select(
+            'assing_transport_routes.id as assing_transport_route_id',
+            'apprentices.id as apprentice_id',
+            'postulations_benefits.id as postulation_benefit_id',
+            'buses.id as bus_id',
+            'bus_drivers.id as bus_driver_id',
+            'benefits.porcentege',
+            DB::raw('NOW() as date_time')
+        )
+        ->where('people.document_number', $documentNumber)
+        ->where('postulations_benefits.state', 'beneficiario')
+        ->where('benefits.name', 'Transporte')
+        ->get();
 
-        // Guardar los datos en la tabla transportation_assistances
-        foreach ($data as $row) {
+    // Verificar duplicados antes de guardar los datos en la tabla transportation_assistances
+    foreach ($data as $row) {
+        $existingRecord = DB::table('transportation_assistances')
+            ->where('apprentice_id', $row->apprentice_id)
+            ->whereDate('date_time', now()->toDateString()) // Filtrar por la fecha actual
+            ->exists();
+
+        if (!$existingRecord) {
+            // Guardar los datos en la tabla transportation_assistances
             DB::table('transportation_assistances')->insert([
                 'assing_transport_route_id' => $row->assing_transport_route_id,
                 'apprentice_id' => $row->apprentice_id,
@@ -107,12 +114,14 @@ class TransportationAssistancesController extends Controller
                 'bus_driver_id' => $row->bus_driver_id,
                 'porcentenge' => $row->porcentege,
                 'date_time' => $row->date_time,
-                'created_at' => now(), // Use Laravel helper function for current timestamp
-                'updated_at' => now(), // Use Laravel helper function for current timestamp
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
-        return view('bienestar::route-attendance.transportation-assistance');
     }
+
+    return view('bienestar::route-attendance.transportation-assistance');
+}
 
     //API FUNCIONES
     public function AssistancesTransport()

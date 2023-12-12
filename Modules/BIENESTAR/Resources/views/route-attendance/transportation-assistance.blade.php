@@ -44,7 +44,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                                     <td>{{$rel->first_name}} {{$rel->first_last_name}} {{$rel->second_last_name}}</td>
                                     <td>{{$rel->route_number}} - {{$rel->name_route}}</td>
                                     <td>{{$rel->name}}</td>
-                                    <td>{{$rel->date_time}}</td>
+                                    <td>{{ date('Y-m-d', strtotime($rel->date_time)) }}</td>                        
                                 </tr>
                                 @endforeach
                             </tbody>

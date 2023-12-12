@@ -91,9 +91,9 @@
                 </a>
               </li>
               @endif
-              @if(Auth::user()->havePermission('bienestar.admin.view.food_assistance'))
+              @if(Auth::user()->havePermission('bienestar.admin.food.view.food_assistance'))
               <li class="nav-item">
-                <a href="{{ route('bienestar.admin.view.food_assistance') }}" class="nav-link {{ !Route::is('bienestar.admin.view.food_assistance') ?: 'sactive' }}">
+                <a href="{{ route('bienestar.admin.food.view.food_assistance') }}" class="nav-link {{ !Route::is('bienestar.admin.food.view.food_assistance') ?: 'sactive' }}">
                   <p>{{ trans('bienestar::menu.Take Assistance')}}</p>
                 </a>
               </li>
@@ -207,6 +207,13 @@
               <li class="nav-item">
                 <a href="{{ route('bienestar.food_benefits_leaders.food.crud.beneficiaries_food') }}" class="nav-link {{ !Route::is('bienestar.food_benefits_leaders.food.crud.beneficiaries_food') ?: 'sactive' }}">
                   <p>{{ trans('bienestar::menu.Food Beneficiaries')}}</p>
+                </a>
+              </li>
+              @endif
+              @if(Auth::user()->havePermission('bienestar.food_benefits_leaders.food.view.food_assistance'))
+              <li class="nav-item">
+                <a href="{{ route('bienestar.food_benefits_leaders.food.view.food_assistance') }}" class="nav-link {{ !Route::is('bienestar.food_benefits_leaders.food.view.food_assistance') ?: 'sactive' }}">
+                  <p>{{ trans('bienestar::menu.Take Assistance')}}</p>
                 </a>
               </li>
               @endif

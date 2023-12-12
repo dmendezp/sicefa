@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\BIENESTAR\Entities\RouteTransportation;
 use Modules\BIENESTAR\Entities\BusDriver;
 use Modules\BIENESTAR\Entities\Bus;
+use Illuminate\Support\Facades\Route;
 
 class RoutesTransportationController extends Controller
 

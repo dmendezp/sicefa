@@ -7,7 +7,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
 <!-- Main content -->
 <div class="container">
     <div class="container-fluid">
-        <h1 class="mb-4"> Asistencia de Ruta de Transporte <i class="fas fa-bus-alt"></i></h1>
+        <h1 class="mb-4"> Asistencia de Ruta de Alimentacion </h1>
         <div class="row justify-content-md-center pt-4">
             <div class="card shadow col-md-8">
                 <div class="card-body">
