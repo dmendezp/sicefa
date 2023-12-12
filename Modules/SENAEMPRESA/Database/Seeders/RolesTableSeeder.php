@@ -57,10 +57,12 @@ class RolesTableSeeder extends Seeder
         $user_jsm6580 = User::where('nickname', 'JSM6580')->first();
         $user_jmm6580 = User::where('nickname', 'JMM6580')->first();
         $user_dap6580 = User::where('nickname', 'DAP6580')->first();
+        $user_mayerlic = User::where('nickname', 'MayerliC')->first();
 
         // Asignacion de roles a usuarios
         $user_jsm6580->roles()->syncWithoutDetaching([$rol_admin->id]);
-        $user_jmm6580->roles()->syncWithoutDetaching([$rol_psicologo->id]);
-        $user_dap6580->roles()->syncWithoutDetaching([$rol_human_talent_leader->id]);
+        $user_jmm6580->roles()->syncWithoutDetaching([$rol_human_talent_leader->id]);
+        $user_dap6580->roles()->syncWithoutDetaching([$rol_psicologo->id]);
+        $user_mayerlic->roles()->syncWithoutDetaching([$rol_aprendiz->id]);
     }
 }
