@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Modules\BIENESTAR\Http\Controllers\AuthController;
+use Modules\BIENESTAR\Http\Controllers\TransportationAssistancesController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,3 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/bienestar', function (Request $request) {
     return $request->user();
 });
+Route::post('/Api/login', [AuthController::class, 'login']);
+Route::post('/Api/logout', [AuthController::class, 'logout']);
+Route::get('/Api/transportation_asistance',[TransportationAssistancesController::class, 'AssistancesTransport']);
+Route::get('/Api/saveAttendance',[TransportationAssistancesController::class, 'SaveAttendance']);
