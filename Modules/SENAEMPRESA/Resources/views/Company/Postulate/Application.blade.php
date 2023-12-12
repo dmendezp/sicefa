@@ -33,13 +33,13 @@
                                         <td>
                                             <a href="{{ asset($postulate->personalities) }}" class="btn btn-primary btn-sm"
                                                 download>
-                                                <i class="fas fa-download fa-sm"></i> Personalidades
+                                                <i class="fas fa-download fa-sm"></i> <th>{{ trans('senaempresa::menu.Personality') }}</th>
                                             </a>
                                         </td>
                                         <td>
                                             <a href="{{ asset($postulate->proposal) }}" class="btn btn-primary btn-sm"
                                                 download>
-                                                <i class="fas fa-download fa-sm"></i> Propuesta
+                                                <i class="fas fa-download fa-sm"></i> <th>{{ trans('senaempresa::menu.Proposal') }}</th>
                                             </a>
                                         </td>
                                         <td>{{ $postulate->score_total }}</td>

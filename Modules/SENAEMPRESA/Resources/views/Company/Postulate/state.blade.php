@@ -15,25 +15,25 @@
                             @csrf
                             <input type="hidden" name="postulate_id" value="{{ $postulate->id }}">
                             <div class="mb-3">
-                                <label for="postulate_info" class="form-label">ID Postulado</label>
+                                <label for="postulate_info" class="form-label">{{ trans('senaempresa::menu.Id postulate') }}</label>
                                 <input type="text" class="form-control" id="postulate_info" name="postulate_info"
                                     value="{{ $postulate->id }} - {{ $postulate->apprentice->person->full_name }}" readonly>
                             </div>
                             <input type="hidden" class="form-control" id="postulate_id" name="postulate_id"
                                 value="{{ $postulate->id }}" readonly>
                             <div class="form-group">
-                                <label for="state">Estado:</label>
+                                <label for="state">{{ trans('senaempresa::menu.State') }}</label>
                                 <select name="state" id="state" class="form-control">
-                                    <option value="">Actualizar Estado</option>
+                                    <option value="">{{ trans('senaempresa::menu.Update Status') }}</option>
                                     @foreach ($estados as $estado)
                                         <option value="{{ $estado }}">{{ $estado }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <button type="submit" class="btn btn-success">Asignar</button>
+                                <button type="submit" class="btn btn-success">{{ trans('senaempresa::menu.To assign') }}</button>
                                 <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index') }}"
-                                    class="btn btn-danger">Cancelar</a>
+                                    class="btn btn-danger">{{ trans('senaempresa::menu.Cancel') }}</a>
                             </div>
                         </form>
                     </div>

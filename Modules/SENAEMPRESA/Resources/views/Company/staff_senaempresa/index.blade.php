@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="card card-primary card-outline shadow">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3 class="card-title">{{ trans('senaempresa::menu.Quarter') }}</h3>
+                    <h3 class="card-title">{{ trans('senaempresa::menu.Staff') }}</h3>
                     <div class="ml-auto">
                         @if (Route::is('senaempresa.admin.*') &&
                                 Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.new'))
