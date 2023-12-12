@@ -200,7 +200,25 @@ return [
     'Attendance' => 'Attendance',
     'Consult Attendances' => 'Consult Attendances',
 
+    'No apprentices selected' => 'No apprentices selected',
 
+    'Person ID' => 'Person ID',
+    'Production unit - Warehouse_id' => 'Production unit - Warehouse_id',
+    'Element ID' => 'Element ID',
+    'Destination' => 'Destination',
+    'Price' => 'Price',
+    'Amount' => 'Amount',
+    'Stock' => 'Stock',
+    'Production date' => 'Production date',
+    'Lot number' => 'Lot number',
+    'Expiration_date' => 'Expiration_date',
+    'State' => 'State',
+    'Mark' => 'Mark',
+    'Inventory code' => 'Inventory code',
+    'Generate PDF' => 'Generate PDF',
+    'Inventory' => 'Inventory',
+    'New Loan' => 'New Loan',
+    'Edit Loan' => 'Edit Loan',
 
 
 

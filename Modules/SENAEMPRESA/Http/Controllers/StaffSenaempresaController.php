@@ -42,7 +42,9 @@ class StaffSenaempresaController extends Controller
         $selectedPosition = null;
         $selectedPositionName = null;
 
-        if (!empty($Apprentices)) {
+        if ($Apprentices->isEmpty()) {
+            return redirect()->back()->with('error', trans('senaempresa::menu.No apprentices selected')); // Set your custom error message here
+        } else {
             $firstApprentice = $Apprentices->first();
             $postulate = $firstApprentice->postulates->first();
             $selectedPosition = $postulate->vacancy->position_company_id;
@@ -61,6 +63,7 @@ class StaffSenaempresaController extends Controller
 
         return view('senaempresa::Company.staff_senaempresa.new', $data);
     }
+
 
 
 

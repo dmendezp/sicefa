@@ -5,7 +5,7 @@
         <div class="row justify-content-center mt-5">
             <div class="col-md-6">
                 <div class="card card-primary card-outline shadow">
-                    <div class="card-header">{{ trans('senaempresa::menu.Loans') }}</div>
+                    <div class="card-header">{{ $title }}</div>
                     <div class="card-body">
                         <form
                             action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.saved') }}"
@@ -49,7 +49,7 @@
                             </div>
                             <br>
                             <button type="submit"
-                                class="btn btn-success">{{ trans('senaempresa::menu.Provide') }}</button>
+                                class="btn btn-success">{{ trans('senaempresa::menu.New') }}</button>
                             <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index') }}"
                                 class="btn btn-danger btn-xl">{{ trans('senaempresa::menu.Cancel') }}</a>
 

@@ -47,25 +47,25 @@
                 <div class="card card-primary card-outline shadow">
                     <div class="card-body"><a
                             href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.generate.inventory.pdf') }}"
-                            class="btn btn-primary">Generate PDF</a>
+                            class="btn btn-primary">{{ trans('senaempresa::menu.Generate PDF') }}</a>
                         <table id="inventory" class="table table-sm table-striped">
                             <thead>
                                 <tr>
                                     <th>{{ trans('senaempresa::menu.Id') }}</th>
-                                    <th>Person ID</th>
-                                    <th>productive_unit_warehouse_id</th>
-                                    <th>element_id</th>
-                                    <th>destination</th>
-                                    <th>description</th>
-                                    <th>price</th>
-                                    <th>amount</th>
-                                    <th>stock</th>
-                                    <th>production_date</th>
-                                    <th>lot_number</th>
-                                    <th>expiration_date</th>
-                                    <th>state</th>
-                                    <th>mark</th>
-                                    <th>inventory_code</th>
+                                    <th>{{ trans('senaempresa::menu.Person ID') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Production unit - Warehouse_id') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Element ID') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Destination') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Description') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Price') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Amount') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Stock') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Production date') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Lot number') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Expiration_date') }}</th>
+                                    <th>{{ trans('senaempresa::menu.State') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Mark') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Inventory code') }}</th>
                                 </tr>
                             </thead>
                             <tbody>

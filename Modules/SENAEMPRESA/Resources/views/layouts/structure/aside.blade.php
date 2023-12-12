@@ -323,7 +323,7 @@
                             <a href="{{ route('senaempresa.admin.loans.inventory') }}"
                                 class="nav-link {{ !Route::is('senaempresa.admin.loans.inventory') ?: 'active' }}">
                                 <i class="fas fa-boxes"></i>
-                                <p>Inventario</p>
+                                <p>{{ trans('senaempresa::menu.Inventory') }}</p>
                             </a>
                         </li>
                     @endif

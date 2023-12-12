@@ -26,7 +26,8 @@
                         </svg>
                     </div>
                     <h2 class="card-name">Junior Stiven Medina Hernandez</h2>
-                    <p class="position">{{trans('senaempresa::menu.Apprentice - Tgo. Software Analysis & Development')}}</p>
+                    <p class="position">{{ trans('senaempresa::menu.Apprentice - Tgo. Software Analysis & Development') }}
+                    </p>
                     <div class="row mx-5 mb-5 mt-3 justify-content-center">
 
                         <div class="col-3 px-0 py-1">
@@ -58,7 +59,8 @@
                         </svg>
                     </div>
                     <h2 class="card-name">Jennifer Marin Montealegre</h2>
-                    <p class="position">{{trans('senaempresa::menu.Apprentice - Tgo. Software Analysis & Development')}}</p>
+                    <p class="position">{{ trans('senaempresa::menu.Apprentice - Tgo. Software Analysis & Development') }}
+                    </p>
                     <div class="row mx-5 mb-5 mt-3 justify-content-center">
                         <div class="col-3 px-0 py-1">
                             <div class="py-3 fab fa-facebook"></div>
@@ -89,7 +91,8 @@
                         </svg>
                     </div>
                     <h2 class="card-name">Diego Alejandro Penagos Ninco</h2>
-                    <p class="position">{{trans('senaempresa::menu.Apprentice - Tgo. Software Analysis & Development')}}</p>
+                    <p class="position">{{ trans('senaempresa::menu.Apprentice - Tgo. Software Analysis & Development') }}
+                    </p>
                     <div class="row mx-5 mb-5 mt-3 justify-content-center">
                         <div class="col-3 px-0 py-1">
                             <div class="py-3 fab fa-facebook"></div>
@@ -107,25 +110,140 @@
                 </div>
             </div>
         </div>
-        <!-- /.row -->
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-primary card-outline shadow">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            Créditos y reconocimientos
-                        </h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
+                    <div class="container">
+                        <h1 class="text-center">
+                            <strong><em><span>Créditos y reconocimientos</span></em></strong>
+                        </h1>
                         <div class="row">
-                            <ul>
-                                <li>Plantilla AdminLTE de <a href="https://adminlte.io" title="AdminLTE"
-                                        target="blank">adminlte.io/</a></li>
-                                <li>Iconos gratuitos de <a href="https://fontawesome.com/icons?d=gallery" title="Flaticon"
-                                        target="blank"> fontawesome.com</a></li>
-                            </ul>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="card text-center" style="height: 200px;">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="align-self-center">
+                                            <img src="{{ asset('modules/senaempresa/images/Contacto/laravel.webp') }}"
+                                                alt="Laravel-logo" class="img-fluid w-100" style="max-height: 100px;">
+                                        </div>
+                                        <div class="text-truncate" style="max-height: 40px;">
+                                            <h6>Laravel</h6>
+                                        </div>
+                                        <a class="btn btn-primary btn-block w-100" href="https://laravel.com/">Más
+                                            Info</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="card text-center" style="height: 200px;">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="align-self-center">
+                                            <img src="{{ asset('modules/senaempresa/images/Contacto/php.webp') }}"
+                                                alt="PHP-logo" class="img-fluid w-100" style="max-height: 100px;">
+                                        </div>
+                                        <div class="text-truncate" style="max-height: 40px;">
+                                            <h6>PHP</h6>
+                                        </div>
+                                        <a class="btn btn-primary btn-block w-100" href="https://www.php.net/">Más
+                                            Info</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="card text-center" style="height: 200px;">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="align-self-center">
+                                            <img src="{{ asset('modules/senaempresa/images/Contacto/datatables_logo.webp') }}"
+                                                alt="Datatables-logo" class="img-fluid w-100" style="max-height: 100px;">
+                                        </div>
+                                        <div class="text-truncate" style="max-height: 40px;">
+                                            <h6>Datatables</h6>
+                                        </div>
+                                        <a class="btn btn-primary btn-block w-100" href="https://datatables.net/">Más
+                                            Info</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="card text-center" style="height: 200px;">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="align-self-center">
+                                            <img src="{{ asset('modules/senaempresa/images/Contacto/adminlte3.webp') }}"
+                                                alt="Datatables-logo" class="img-fluid w-100" style="max-height: 100px;">
+                                        </div>
+                                        <div class="text-truncate" style="max-height: 40px;">
+                                            <h6>AdminLTE3</h6>
+                                        </div>
+                                        <a class="btn btn-primary btn-block w-100" href="https://datatables.net/">Más
+                                            Info</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-3">
+                                <div class="card text-center" style="height: 200px;">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="align-self-center">
+                                            <img src="{{ asset('modules/senaempresa/images/Contacto/fontawesome.webp') }}"
+                                                alt="Fontawesome-logo" style="width: 100px; height: 100px;">
+                                        </div>
+                                        <div class="text-truncate" style="max-height: 40px;">
+                                            <h6>FontAwesome</h6>
+                                        </div>
+                                        <a class="btn btn-primary btn-block w-100"
+                                            href="https://fontawesome.com/icons">Más
+                                            Info</a>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class="col-sm-6 col-md-3">
+                                <div class="card text-center" style="height: 200px;">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="align-self-center">
+                                            <img src="{{ asset('modules/senaempresa/images/Contacto/sweetalert2.webp') }}"
+                                                alt="Sweetalert2-logo" style="width: 100px; height: 100px;">
+                                        </div>
+                                        <div class="text-truncate" style="max-height: 40px;">
+                                            <h6>SweetAlert2</h6>
+                                        </div>
+                                        <a class="btn btn-primary btn-block w-100"
+                                            href="https://sweetalert2.github.io/">Más
+                                            Info</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-md-3">
+                                <div class="card text-center" style="height: 200px;">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="align-self-center">
+                                            <img src="{{ asset('modules/senaempresa/images/Contacto/bootstrap_logo.webp') }}"
+                                                alt="VSCode-logo" style="width: 100px; height: 100px;">
+                                        </div>
+                                        <div class="text-truncate" style="max-height: 40px;">
+                                            <h6>Bootstrap</h6>
+                                        </div>
+                                        <a class="btn btn-primary btn-block w-100" href="https://getbootstrap.com/">Más
+                                            Info</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="card text-center" style="height: 200px;">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="align-self-center">
+                                            <img src="{{ asset('modules/senaempresa/images/Contacto/github_logotipo.webp') }}"
+                                                alt="GitHub-logo" style="width: 100px; height: 100px;">
+                                        </div>
+                                        <div class="text-truncate" style="max-height: 40px;">
+                                            <h6>Git Hub</h6>
+                                        </div>
+                                        <a class="btn btn-primary btn-block w-100" href="https://github.com/">Más
+                                            Info</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- /.card-body -->
