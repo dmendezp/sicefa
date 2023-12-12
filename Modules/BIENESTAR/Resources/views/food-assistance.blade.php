@@ -80,4 +80,5 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
         
     }
 </script>
-@endsection
+
+@endsection 

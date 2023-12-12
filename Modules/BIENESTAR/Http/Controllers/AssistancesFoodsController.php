@@ -130,9 +130,9 @@ class AssistancesFoodsController extends Controller
                     'updated_at' => now(),
                 ]);
         
-                return redirect()->route('bienestar::food-assistance')->with('success', 'Asistencia Guardada Correctamente!');
+                return Response::json(['success' => 'Asistencia Guardada Correctamente!']);
             } else {
-                return response()->json(['success' =>'Ha habido un error al guardar la Asistencia']);
+                return Response::json(['error' => 'No se encontraron beneficios para el documento proporcionado'], 409);
             }
     }
 }
