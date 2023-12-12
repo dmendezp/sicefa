@@ -258,5 +258,24 @@ return [
     'Vacant' => 'Vacantes',
     'Apprentice - Tgo. Software Analysis & Development' => 'Aprendiz - Tgo. Analisis y desarollo de software',
     'More info' => 'Más información',
+    'Personality' => 'Personalidades',
+    'Score'=>'Puntaje',
+    'Id postulate'=>'ID Postulado',
+    'Score - curricolum'=>'Puntaje - Hoja de vida',
+    'Score - 16 personalities'=>'Puntaje - 16 Personalidades',
+    'Score - Proposal'=>'Puntaje - Propuesta',
+    'To assign'=>'Asignar',
+    'Filter by job title:'=>'Filtrar por cargo:',
+    'All charges'=>'Todos los cargos',
+    'Show Score:'=>'Mostrar Puntaje:',
+    'With Assigned Score'=>'Con Puntaje Asignado',
+    'No Score Assigned'=>'Sin Puntaje Asignado',
+    'Update Status'=>'Actualizar Estado',
+    'Score Assigned'=>'Puntaje Asignado',
+    'To update'=>'Actualizar',
+
+
+
+
 
 ];
