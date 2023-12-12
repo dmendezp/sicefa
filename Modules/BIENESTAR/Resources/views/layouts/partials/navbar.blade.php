@@ -21,7 +21,7 @@
             @endif
             @if(checkRol('bienestar.transportation_benefits_leader'))
                 <li class="nav-item d-none d-sm-inline-block mx-2">
-                    <a href="{{ route('bienestar.transportation_benefits_leader.dashboard') }}" class="nav-link @if(Route::is('bienestar.transportation_benefits_leader.*')) active @endif">{{ trans('bienestar::menu.Food Benefits Leader') }}</a>
+                    <a href="{{ route('bienestar.transportation_benefits_leader.dashboard') }}" class="nav-link @if(Route::is('bienestar.transportation_benefits_leader.*')) active @endif">{{ trans('bienestar::menu.Transportation Service Leader') }}</a>
                 </li>
             @endif
         @endauth

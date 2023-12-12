@@ -29,8 +29,8 @@
 
                 <div class="row mb-3">
                     <div class="col-md-12">
-                        @if (Auth::user()->havePermission('bienestar.admin.save.drivers'))
-                            <form action="{{ route('bienestar.admin.save.drivers') }}" method="POST" onsubmit="return validarFormulario()">
+                        @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.drivers'))
+                            <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.drivers') }}" method="POST" onsubmit="return validarFormulario()">
                                 @csrf
                                 <div class="form-row">
                                     <div class="col-md-3 mb-2">
@@ -78,7 +78,7 @@
                                     <td>
                                         <div class="d-flex">
                                             <button class="btn btn-info mr-2" data-toggle="modal" data-target="#modal-edit-{{ $busdriver->id }}"><i class="fas fa-edit"></i></button>
-                                            <form action="{{ route('bienestar.admin.delete.drivers', ['id' => $busdriver->id]) }}" method="POST" class="formEliminar">
+                                            <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.drivers', ['id' => $busdriver->id]) }}" method="POST" class="formEliminar">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
@@ -99,7 +99,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <!-- Formulario de edición para el conductor -->
-                                                <form action="{{ route('bienestar.admin.edit.drivers', ['id' => $busdriver->id]) }}" method="POST" onsubmit="return validarFormularioEditar('{{ $busdriver->id }}')">
+                                                <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.drivers', ['id' => $busdriver->id]) }}" method="POST" onsubmit="return validarFormularioEditar('{{ $busdriver->id }}')">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="form-group">
@@ -118,7 +118,6 @@
                                                         <span id="telefonoErrorEditar_{{ $busdriver->id }}" style="color: red;"></span>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('bienestar::menu.Close')}}</button>
                                                         <button type="submit" class="btn btn-primary">{{ trans('bienestar::menu.Save')}}</button>
                                                     </div>
                                                 </form>

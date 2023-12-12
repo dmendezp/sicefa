@@ -7,12 +7,12 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
 <!-- Main content -->
 <div class="container">
     <div class="container-fluid">
-        <h1 class="mb-4"> Asistencia de Ruta de Transporte <i class="fas fa-bus-alt"></i></h1>
+        <h1 class="mb-4">{{ trans('bienestar::menu.Transportation Route Assistance')}} <i class="fas fa-bus-alt"></i></h1>
         <div class="row justify-content-md-center pt-4">
             <div class="card shadow col-md-8">
                 <div class="card-body">
                     <div class="input-group mb-3">
-                        <input type="number" name="search" class="form-control" placeholder="Ingrese su número el documento" id="assitance">
+                        <input type="number" name="search" class="form-control" placeholder="{{ trans('bienestar::menu.Enter your document number')}}" id="assitance">
                         <div class="input-group-append">
                             <button class="btn btn-success" type="submit" id="searchButtonassitance"><i class="fas fa-barcode"></i></button>
                         </div>
@@ -22,7 +22,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
         </div>
     </div>
     <div class="row justify-content-center mt-4">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card shadow">
                 <div class="card-body">
                     <div class="table-responsive">
@@ -30,11 +30,11 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Documento</th>
-                                    <th>Aprendiz</th>
-                                    <th>Ruta</th>
-                                    <th>Conductor</th>
-                                    <th>Fecha</th>
+                                    <th>{{ trans('bienestar::menu.Document')}}</th>
+                                    <th>{{ trans('bienestar::menu.Apprentice')}}</th>
+                                    <th>{{ trans('bienestar::menu.Transportation Route')}}</th>
+                                    <th>{{ trans('bienestar::menu.Driver')}}</th>
+                                    <th>{{ trans('bienestar::menu.Date')}}</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -8,10 +8,10 @@
             <div class="card-body">
                 <!-- Formulario de filtro -->
                 <div class="form-group col-md-7">
-                    <label for="Ruta">{{ trans('Ruta')}}</label>
+                    <label for="Ruta">{{ trans('bienestar::menu.Transportation Route')}}</label>
                     <div class="col-md-7">
                         <select name="name_route" id="name_route" class="form-control" required>
-                            <option value="">{{ trans('bienestar::menu.show all')}}</option>
+                            <option value="">{{ trans('bienestar::menu.Show All')}}</option>
                             @foreach($rutas as $r)
                             <option value="{{$r->route_number}} {{ $r->name_route}}">{{ $r->name_route}}</option>
                             @endforeach
@@ -21,11 +21,11 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-3">
-                        <label for="fecha_inicio">{{ trans('bienestar::menu.start date')}}</label>
+                        <label for="fecha_inicio">{{ trans('bienestar::menu.Start Date')}}</label>
                         <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control">
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="fecha_fin">{{ trans('bienestar::menu.end date')}}</label>
+                        <label for="fecha_fin">{{ trans('bienestar::menu.End Date')}}</label>
                         <input type="date" name="fecha_fin" id="fecha_fin" class="form-control">
                     </div>
                 </div>
@@ -38,9 +38,9 @@
                             <th>{{ trans('bienestar::menu.Apprentice')}}</th>
                             <th>{{ trans('bienestar::menu.Number Document')}}</th>
                             <th>{{ trans('bienestar::menu.Program')}}</th>
-                            <th>{{ trans('bienestar::menu.code')}}</th>
+                            <th>{{ trans('bienestar::menu.Code')}}</th>
                             <th>Ruta de transporte</th>
-                            <th>{{ trans('bienestar::menu.time and date')}}</th>
+                            <th>{{ trans('bienestar::menu.Date Time')}}</th>
                         </tr>
                     </thead>
                     <tbody>

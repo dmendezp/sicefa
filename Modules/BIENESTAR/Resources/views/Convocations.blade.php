@@ -156,7 +156,7 @@
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                <label for="name">{{trans('bienestar::menu.title convocation')}}</label>
+                                <label for="name">{{trans('bienestar::menu.Title Convocation')}}</label>
                                 <input type="text" name="name" id="name" class="form-control"
                                 value="{{ old('name', $convocation->name) }}"required>
                             </div>

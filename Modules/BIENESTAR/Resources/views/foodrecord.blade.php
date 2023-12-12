@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <h1>{{ trans('bienestar::menu.List of affiliated trainees')}} <i class="fas fa-pizza-slice"></i></h1>
+    <h1>{{ trans('bienestar::menu.List of Affiliated Trainees')}} <i class="fas fa-pizza-slice"></i></h1>
     <div class="row justify-content-md-center pt-4">
         <div class="card shadow col-md-8">
             <div class="card-body">
@@ -15,9 +15,9 @@
                             <tr>
                                 <th>{{ trans('bienestar::menu.Apprentice')}}</th>
                                 <th>{{ trans('bienestar::menu.Number Document')}}</th>
-                                <th>{{ trans('bienestar::menu.code')}}</th>
+                                <th>{{ trans('bienestar::menu.Code')}}</th>
                                 <th>{{ trans('bienestar::menu.Beneficiary')}}</th> 
-                                <th>{{ trans('bienestar::menu.percentage')}}</th>
+                                <th>{{ trans('bienestar::menu.Percentage')}}</th>
                             </tr>
                         </thead>
                         <tbody>

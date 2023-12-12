@@ -5,6 +5,7 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\BIENESTAR\Entities\AssistanceFood;
 use Modules\BIENESTAR\Entities\PostulationBenefit;

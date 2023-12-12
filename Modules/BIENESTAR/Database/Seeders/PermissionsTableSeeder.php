@@ -713,7 +713,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Botones de la vista CRUD Rutas de Trasporte (LIDER BENEFICIO DE TRANSPORTE)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.buttons.transportroutes'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.buttons.transportroutes'], [ // Registro o actualización de permiso
             'name' => 'Botones Del CRUD Rutas de Trasporte',
             'description' => 'Restricion a los botones de las rutas de trasporte',
             'description_english' => 'RRestrictions on transportation route buttons',
