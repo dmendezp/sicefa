@@ -11,41 +11,41 @@
                             @csrf
 
                             <div class="form-group">
-                                <label for="course_id">{{ trans('senaempresa::menu.Select a course:') }}</label>
-                                <select class="form-control" name="course_id" id="course_id">
-                                    <option value="">{{ trans('senaempresa::menu.Select a course:') }}
-                                    </option>
-                                    @foreach ($courses as $course)
-                                        <option value="{{ $course->id }}">{{ $course->code }} {{ $course->program->name }}
-                                        </option>
+                                <label for="senaempresa_id">{{ trans('senaempresa::menu.Select a SenaEmpresa:') }}</label>
+                                <select class="form-control" name="senaempresa_id" id="senaempresa_id">
+                                    <option value="">{{ trans('senaempresa::menu.Select a SenaEmpresa:') }}</option>
+                                    @foreach ($senaempresas as $senaempresa)
+                                        <option value="{{ $senaempresa->id }}">{{ $senaempresa->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
 
-                            @foreach ($senaempresas as $senaempresa)
-                                <li>
-                                    @php
-                                        // Verificar si existe una relación sin deleted_at para este curso y vacante
-                                        $record = $courseofsenaempresa
-                                            ->where('course_id', $course->id) // Cambia $course por $course_id
-                                            ->where('senaempresa_id', $senaempresa->id)
-                                            ->whereNull('deleted_at')
-                                            ->first();
-                                        $isChecked = $record ? true : false;
-                                    @endphp
+                            <div class="form-group">
+                                <label>{{ trans('senaempresa::menu.Select a course:') }}</label>
+                                @foreach ($courses as $course)
+                                    <div>
+                                        @php
+                                            // Verificar si existe una relación sin deleted_at para este curso y senaempresa
+                                            $record = $courseofsenaempresa
+                                                ->where('course_id', $course->id)
+                                                ->where('senaempresa_id', $senaempresa->id)
+                                                ->whereNull('deleted_at')
+                                                ->first();
+                                            $isChecked = $record ? true : false;
+                                        @endphp
 
-                                    <label class="checkbox-container">
-                                        <input class="association-checkbox" type="checkbox"
-                                            data-senaempresa-id="{{ $senaempresa->id }}" value="1"
-                                            data-record-id="{{ $record ? $record->id : '' }}"
-                                            {{ $isChecked ? 'checked' : '' }}>
-                                        <span class="checkbox" for="checkbox"></span>
+                                        <label class="checkbox-container">
+                                            <input class="association-checkbox" type="checkbox"
+                                                data-course-id="{{ $course->id }}" value="1"
+                                                data-record-id="{{ $record ? $record->id : '' }}"
+                                                {{ $isChecked ? 'checked' : '' }}>
+                                            <span class="checkbox" for="checkbox"></span>
 
-                                        {{ $senaempresa->name }}
-                                    </label>
-                                </li>
-                            @endforeach
-
+                                            {{ $course->code }} {{ $course->program->name }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
 
                         </form>
                     </div>
@@ -62,32 +62,31 @@
             // Variable para almacenar el estado inicial de los checkboxes
             var initialCheckboxState = {};
 
-            // Obtén el curso seleccionado y las relaciones asociadas (vacantes)
-            $('#course_id').change(function() {
-                var courseId = $(this).val();
+            // Obtén el SenaEmpresa seleccionado y las relaciones asociadas (cursos)
+            $('#senaempresa_id').change(function() {
+                var senaempresaId = $(this).val();
 
                 // Realiza una llamada Ajax para obtener las asociaciones
                 $.ajax({
                     url: '{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.get_associations') }}',
                     method: 'GET',
                     data: {
-                        course_id: courseId
+                        senaempresa_id: senaempresaId
                     },
                     success: function(data) {
                         // Almacena el estado inicial de los checkboxes
                         $('.association-checkbox').each(function() {
-                            var senaempresaId = $(this).data('senaempresa-id');
-                            initialCheckboxState[senaempresaId] = $(this).prop(
-                                'checked');
+                            var courseId = $(this).data('course-id');
+                            initialCheckboxState[courseId] = $(this).prop('checked');
                         });
 
                         // Marca los checkboxes según las asociaciones obtenidas
                         $('.association-checkbox').each(function() {
-                            var senaempresaId = $(this).data('senaempresa-id');
-                            var isChecked = data.associations.includes(senaempresaId);
+                            var courseId = $(this).data('course-id');
+                            var isChecked = data.associations.includes(courseId);
 
                             // Marca el checkbox si está asociado y en su estado inicial estaba marcado
-                            if (isChecked && initialCheckboxState[senaempresaId]) {
+                            if (isChecked && initialCheckboxState[courseId]) {
                                 $(this).prop('checked', true);
                             } else {
                                 $(this).prop('checked', isChecked);
@@ -102,8 +101,8 @@
 
             // Maneja los cambios en los checkboxes
             $('.association-checkbox').change(function() {
-                var courseId = $('#course_id').val();
-                var senaempresaId = $(this).data('senaempresa-id');
+                var senaempresaId = $('#senaempresa_id').val();
+                var courseId = $(this).data('course-id');
                 var isChecked = $(this).prop('checked');
 
                 $.ajax({
@@ -111,8 +110,8 @@
                     method: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',
-                        course_id: courseId,
                         senaempresa_id: senaempresaId,
+                        course_id: courseId,
                         checked: isChecked
                     },
                     success: function(data) {
