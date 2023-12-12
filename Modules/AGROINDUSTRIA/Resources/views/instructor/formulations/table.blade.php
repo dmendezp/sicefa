@@ -1,7 +1,7 @@
 @extends('agroindustria::layouts.master')
 @section('content')
 
-<div class="table_formulation">
+<div class="container-sm">
     <table id="formulation" class="table table-striped" style="width: 100%">
         <thead>
             <tr>

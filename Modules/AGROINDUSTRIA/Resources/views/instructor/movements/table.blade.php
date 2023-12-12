@@ -51,20 +51,20 @@
                 <td>{{$movement->observation}}</td>
                 <td>
                     @foreach ($movement->movement_responsibilities as $responsibility)
-                        @if ($movement->state === 'Solicitado' & $responsibility->role === 'RECIBE')
+                        @if ($movement->state === 'Solicitado' && $responsibility->role === 'RECIBE')
                             @if ($responsibility->person_id === Auth::user()->person->id)
                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#aprobar{{$movement->id}}">
-                                {{trans('agroindustria::menu.Approve')}}
-                            </button>  
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#devolver{{$movement->id}}">
-                              {{trans('agroindustria::menu.Return')}}
+                              <i class="fas fa-thumbs-up"></i> {{trans('agroindustria::menu.Approve')}}
+                            </button>
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#devolver{{$movement->id}}">
+                              <i class="fas fa-undo-alt"></i> {{trans('agroindustria::menu.Return')}}
                             </button>
                             @endif
                             @else
-                              @if($movement->state === 'Solicitado' & $responsibility->role === 'ENTREGA')
+                              @if($movement->state === 'Solicitado' && $responsibility->role === 'ENTREGA')
                                 @if ($responsibility->person_id === Auth::user()->person->id)
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#anular{{$movement->id}}">
-                                  {{trans('agroindustria::menu.Cancel')}}
+                                  <i class="fas fa-ban"></i> {{trans('agroindustria::menu.Cancel')}}
                                 </button>                            
                                 @endif
                               @endif

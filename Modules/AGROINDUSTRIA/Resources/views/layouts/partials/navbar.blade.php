@@ -1,4 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-Dark" style="background-color:rgb(247, 244, 244); margin-bottom:20px">
+<nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color:rgb(247, 244, 244); margin-bottom:20px; display: flex; justify-content: space-between;  align-items: center;">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
     <a class="navbar-brand" id="title" href="{{ route('cefa.agroindustria.home.index') }}">
         @if (session('viewing_unit'))
             AGROINDUSTRIA - {{ session('viewing_unit_name') }}
@@ -6,13 +9,8 @@
             AGROINDUSTRIA
         @endif
     </a>
-    
-
-    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-        aria-expanded="false" aria-label="Toggle navigation"></button>
-
-    <div class="collapse navbar-collapse d-sm-flex" id="collapsibleNavId">
-        <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <!-- Acceso general -->
             @if(Route::is('*home.*'))
                 <li class="nav-item">

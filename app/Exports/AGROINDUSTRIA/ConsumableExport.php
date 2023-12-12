@@ -605,7 +605,7 @@ class ConsumableExport implements FromCollection, WithHeadings, Responsable, Wit
                 ],
             ]);
 
-            $sheet->setCellValue('H' . $currentRow, $consumable->inventory->element->measurement_unit->name);
+            $sheet->setCellValue('H' . $currentRow, $consumable->inventory->element->measurement_unit->abbreviation);
 
             $sheet->getStyle('I' . $currentRow)->applyFromArray([
                 'font' => [

@@ -1,6 +1,6 @@
 @extends('agroindustria::layouts.master')
 @section('content')
-<div class="container_create">
+<div class="container-sm">
     <div class="row">
         <div class="col-md-9">
         <div class="form-formulation">

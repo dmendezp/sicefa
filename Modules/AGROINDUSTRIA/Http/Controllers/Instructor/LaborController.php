@@ -107,7 +107,7 @@ class LaborController extends Controller
         ->select('element_id', \DB::raw('(SELECT MIN(id) FROM inventories AS subinventory WHERE subinventory.element_id = inventories.element_id AND subinventory.amount > 0) as id'))
         ->get();
         $tool = $tools->map(function ($t) {
-            $id = $t->element->id;
+            $id = $t->id;
             $name = $t->element->name;
 
             return [
@@ -123,7 +123,7 @@ class LaborController extends Controller
         ->select('element_id', \DB::raw('(SELECT MIN(id) FROM inventories AS subinventory WHERE subinventory.element_id = inventories.element_id AND subinventory.amount > 0) as id'))
         ->get();
         $equipment = $equipments->map(function ($eq) {
-            $id = $eq->element->id;
+            $id = $eq->id;
             $name = $eq->element->name;
 
             return [
@@ -141,7 +141,7 @@ class LaborController extends Controller
             ->get();
         
         $consumables = $inventoryConsumables->map(function ($c) {
-            $id = $c->element->id; // Obtén el id del lote más antiguo
+            $id = $c->id; // Obtén el id del lote más antiguo
             $name = $c->element->name . ' (' . $c->element->measurement_unit->abbreviation . ')';
 
             return [
@@ -368,29 +368,29 @@ class LaborController extends Controller
     }
 
     public function register_labor(Request $request){
+        $rules = [
+            'activities' => 'required',
+            'person' => 'required',
+            'date_execution' => 'required',
+            'description' => 'required',
+            'destination' => 'required',
+            'observations' => 'required',
+            'employement_type' => 'required',
+            'hours' => 'required',
+        ];
+        $messages = [
+            'activities.required' => trans('agroindustria::labors.youMustSelectActivity'),
+            'person.required' => trans('agroindustria::labors.youMustSelectResponsible'),
+            'date_execution.required' => trans('agroindustria::labors.youMustEnterDate'),
+            'description.required' => trans('agroindustria::labors.youMustEnterDescription'),
+            'destination.required' => trans('agroindustria::labors.youMustSelectDestination'),
+            'observations.required' => trans('agroindustria::labors.youMustEnterRemark'),
+            'employement_type.required' => trans('agroindustria::labors.youMustSelectEmployeeType'),
+            'hours.required' => trans('agroindustria::labors.youMustEnterNumberHoursWorked'),
+        ];
+        $validatedData = $request->validate($rules, $messages);
         try {
             DB::beginTransaction();
-            $rules = [
-                'activities' => 'required',
-                'person' => 'required',
-                'date_execution' => 'required',
-                'description' => 'required',
-                'destination' => 'required',
-                'observations' => 'required',
-                'employement_type' => 'required',
-                'hours' => 'required',
-            ];
-            $messages = [
-                'activities.required' => trans('agroindustria::labors.youMustSelectActivity'),
-                'person.required' => trans('agroindustria::labors.youMustSelectResponsible'),
-                'date_execution.required' => trans('agroindustria::labors.youMustEnterDate'),
-                'description.required' => trans('agroindustria::labors.youMustEnterDescription'),
-                'destination.required' => trans('agroindustria::labors.youMustSelectDestination'),
-                'observations.required' => trans('agroindustria::labors.youMustEnterRemark'),
-                'employement_type.required' => trans('agroindustria::labors.youMustSelectEmployeeType'),
-                'hours.required' => trans('agroindustria::labors.youMustEnterNumberHoursWorked'),
-            ];
-            $validatedData = $request->validate($rules, $messages);
 
             
             $l = new Labor;
@@ -513,7 +513,7 @@ class LaborController extends Controller
                 $element_id = $r->element_id;
             }
             
-            if($l->activity->activity_type->name == 'Producción'){
+            if($element_id){
                 $p = new Production;
                 $p->labor_id = $l->id;
                 $p->element_id = $element_id;
@@ -558,45 +558,17 @@ class LaborController extends Controller
         $labor->save();
     
         $production = Production::with('element')->where('labor_id', $id)->get();
-        
-        foreach ($production as $p) {
-            $element_id = $p->element_id;
-            $price = $p->element->price;
-            $amount = $p->amount;
-            $lote = $p->lot;
-            $expiration_date = $p->expiration_date;
-        }
 
-        $laborProduction = Labor::where('id', $id)->where('destination', 'Producción')->get();
-        if($laborProduction->count() > 0){
+        $laborProduction = Labor::where('id', $id)->get();
+        if($production->count() > 0){
+            foreach ($production as $p) {
+                $element_id = $p->element_id;
+                $price = $p->element->price;
+                $amount = $p->amount;
+                $lote = $p->lot;
+                $expiration_date = $p->expiration_date;
+            }
             foreach ($laborProduction as $l) {
-                $activityId = $l->activity_id;
-                $personId = $l->person_id;
-                $destination = $l->destination;
-                $status = $l->status;
-            }
-        
-
-            $activity = Activity::where('id', $activityId)->pluck('productive_unit_id');
-            $productive_unit_warehouse = ProductiveUnitWarehouse::where('productive_unit_id', $activity)->get();
-            foreach ($productive_unit_warehouse as $pu) {
-                $productive_unit_warehouse_id = $pu->id;
-            }
-
-            $n = new Inventory;
-            $n->person_id = $personId;
-            $n->productive_unit_warehouse_id = $productive_unit_warehouse_id;
-            $n->element_id = $element_id;
-            $n->destination = $destination;
-            $n->price = $price;
-            $n->amount = $amount;
-            $n->stock = 10;
-            $n->lot_number = $lote;
-            $n->expiration_date = $expiration_date;
-            $n->save();
-        }else{
-            $laborFormation = Labor::where('id', $id)->where('destination', 'Formación')->get();
-            foreach ($laborFormation as $l) {
                 $activityId = $l->activity_id;
                 $personId = $l->person_id;
                 $destination = $l->destination;

@@ -464,7 +464,7 @@ class DeliverController extends Controller
             $message_line = trans('agroindustria::menu.Movement Cancel Error');
         }
 
-        return redirect()->route('cefa.agroindustria.units.instructor.movements')->with([
+        return redirect()->route('agroindustria.instructor.units.movements')->with([
             'icon' => $icon,
             'message_line' => $message_line,
         ]);

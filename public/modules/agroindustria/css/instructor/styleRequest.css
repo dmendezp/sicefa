@@ -71,6 +71,25 @@ label{
     border: none;
 }
 
+/* Estilos para pantallas pequeñas */
+@media (max-width: 767px) {
+    .col-md-9 {
+        width: 100%;
+    }
+
+    .form-formulation {
+        padding: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .button_receipe {
+        text-align: center;
+    }
+}
+
 #products .product{
     margin-top: 10px;
 }

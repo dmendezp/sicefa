@@ -234,6 +234,30 @@ class FormulationController extends Controller
         $element = Element::pluck('name', 'id');
         $selectedUnit = session('viewing_unit');
         $unitName = ProductiveUnit::findOrFail($selectedUnit);
+
+        $consumables = Element::where('category_id', 1)->get();
+
+        $ingredient = $consumables->map(function ($e){
+            $id = $e->id;
+            $name = $e->name . ' ' . '(' . $e->measurement_unit->name . ')';
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione un Ingrediente'])->pluck('name', 'id');
+
+        $utencils = Element::where('category_id', 2)->get();
+
+        $utencil = $utencils->map(function ($e){
+            $id = $e->id;
+            $name = $e->name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione un Utencilio'])->pluck('name', 'id');
         
         $registros = Formulation::with('person', 'element', 'utensils.element', 'ingredients.element')->findOrFail($id);
         
@@ -243,6 +267,8 @@ class FormulationController extends Controller
             'productiveUnits' => $unitName,
             'registros' => $registros,
             'elements' => $element,
+            'ingredients' => $ingredient,
+            'utencils' => $utencil,
         ];
 
         return view('agroindustria::instructor.formulations.form', $this->dataAdd);  

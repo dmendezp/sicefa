@@ -605,7 +605,7 @@ class RequestExport implements FromCollection, WithHeadings, Responsable, WithSt
                 ],
             ]);
 
-            $sheet->setCellValue('H' . $currentRow, $supplie->inventory->element->measurement_unit->name);
+            $sheet->setCellValue('H' . $currentRow, $supplie->inventory->element->measurement_unit->abbreviation);
 
             $sheet->getStyle('I' . $currentRow)->applyFromArray([
                 'font' => [

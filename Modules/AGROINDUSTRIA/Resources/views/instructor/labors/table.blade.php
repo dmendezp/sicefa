@@ -46,12 +46,12 @@
                         <br>
                         @csrf
                         <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#realizar{{$l->id}}">Realizar</button>
+                        @endif
                         <form method="GET" action="{{ route('cefa.agroindustria.units.instructor.labor.excel', ['laborId' => $l->id]) }}">
                             @csrf
                             <br>
-                            <button type="submit" class="btn btn-success"><i class="fas fa-file-excel"></i> Solicitud de Bienes</button>
+                            <button type="submit" class="btn btn-info"><i class="fas fa-file-excel"></i> Solicitud de Bienes</button>
                         </form>
-                    @endif
                 </td>
             </tr>
             @endforeach
