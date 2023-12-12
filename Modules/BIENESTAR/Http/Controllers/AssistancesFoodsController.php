@@ -130,9 +130,78 @@ class AssistancesFoodsController extends Controller
                     'updated_at' => now(),
                 ]);
         
-                return redirect()->route('bienestar::food-assistance')->with('success', 'Asistencia Guardada Correctamente!');
+                return Response::json(['success' => 'Asistencia Guardada Correctamente!']);
             } else {
-                return response()->json(['success' =>'Ha habido un error al guardar la Asistencia']);
+                return Response::json(['error' => 'No se encontraron beneficios para el documento proporcionado'], 409);
             }
     }
+
+
+    //FUNCIONES API
+    public function FoodAssistances()
+{
+    $AssistancesFoods = DB::table('assistances_foods')
+        ->join('apprentices', 'assistances_foods.apprentice_id', '=', 'apprentices.id')
+        ->join('people', 'apprentices.person_id', '=', 'people.id')
+        ->join('courses', 'apprentices.course_id', '=', 'courses.id')
+        ->join('programs', 'courses.program_id', '=', 'programs.id')
+        ->join('postulations_benefits', 'assistances_foods.postulation_benefit_id', '=', 'postulations_benefits.id')
+        ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
+        ->select(
+            'people.document_number',
+            'people.first_name',
+            'people.first_last_name',
+            'people.second_last_name',
+            'courses.code',
+            'programs.name as program_name',
+            'benefits.name as benefit_name',
+            'benefits.porcentege',
+            'assistances_foods.date_time'
+        )
+        ->whereDate('assistances_foods.date_time', '=', now()->toDateString())
+        ->orderBy('assistances_foods.date_time', 'desc')
+        ->get();
+
+    return response()->json(['data' => $AssistancesFoods], 200);
+}
+
+public function RegisterAssistances(Request $request)
+{
+    $documentNumber = $request->input('data');
+
+    $SavetAttendance = DB::table('postulations_benefits')
+        ->join('postulations', 'postulations_benefits.postulation_id', '=', 'postulations.id')
+        ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
+        ->join('apprentices', 'postulations.apprentice_id', '=', 'apprentices.id')
+        ->join('people', 'apprentices.person_id', '=', 'people.id')
+        ->select(
+            'apprentices.id as apprentice_id',
+            'postulations_benefits.id as postulation_benefit_id',
+            'benefits.porcentege',
+            DB::raw('NOW() as date_time')
+        )
+        ->where('people.document_number', $documentNumber)
+        ->where('postulations_benefits.state', 'Beneficiario')
+        ->where('benefits.name', 'Alimentacion')
+        ->get();
+
+    foreach ($SavetAttendance as $row) {
+        DB::table('assistances_foods')->insert([
+            'apprentice_id' => $row->apprentice_id,
+            'postulation_benefit_id' => $row->postulation_benefit_id,
+            'porcentage' => $row->porcentege,
+            'date_time' => $row->date_time,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+    }
+
+    $response = [
+        'success' => true,
+        'message' => 'Número de documento enviado con éxito',
+    ];
+
+    return response()->json($response, 200);
+}
+
 }
