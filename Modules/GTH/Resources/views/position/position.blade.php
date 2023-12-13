@@ -16,11 +16,11 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-                        <h1 class="card-title">{{ trans('gth::menu.View of Position') }}</h1>
+                        <h1 class="card-title">{{ trans('gth::menu.View of Grades') }}</h1>
                     </div>
                     <div class="card-body">
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearModal">
-                            {{ trans('gth::menu.Management of Position') }}
+                            {{ trans('gth::menu.Create Grades') }}
                         </button>
                         <table id="position" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
                             <thead class="bg-primary text-white">
@@ -40,7 +40,7 @@
                                         <td>
 
                                             <div class="d-flex">
-                                                <a href="#" class="btn btn-success editar-btn" data-bs-toggle="modal"
+                                                <a href="#" class="btn btn-warning editar-btn" data-bs-toggle="modal"
                                                     data-bs-target="#editar{{ $positio->id }}"
                                                     data-id="{{ $positio->id }}" data-nenominación
                                                     Profesional="{{ $positio->nenominación_Profesional }}"

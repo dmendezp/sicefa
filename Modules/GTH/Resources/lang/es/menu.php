@@ -72,6 +72,22 @@ return [
 	'Contract Start Date:' => 'Fecha de Inicio de Contrato:',
 	'Contract End Date:' => 'Fecha de Fin de Contrato:',
 	'Type of Contract:' => 'Tipo de Contrato:',
+	'Type of Employee:' => 'Tipo de Empleado:',
+	'Working Hours:' => 'Horas de Trabajo:',
+	'Total Contract Value:' => 'Valor Total del Contrato:',
+	'Policy Issuance Date:' => 'Fecha Emisión de Póliza:',
+	'Policy Approval Date:' => 'Fecha Aprobación de Póliza:',
+	'Effective Date of Policy:' => 'Fecha Vigencia de Póliza:',
+	'Policy Expiration Date:' => 'Fecha Vencimiento de Póliza:',
+	'Policy Number:' => 'Número de Póliza:',
+	'Risk Type:' => 'Tipo de Riesgo:',
+	'Status:' => 'Estado:',
+	'SIIF code:' => 'Código SIIF:',
+	'Assignment Value:' => 'Valor de Asignación:',
+	'Insurance Company:' => 'Entidad Aseguradora:',
+	'Contract Object:' => 'Objeto del Contrato:',
+	'Contract Obligations:' => 'Obligaciones del Contrato:',
+	'Save Changes' => 'Guarda Cambios',
 
 	'The contract has been successfully updated.' => 'El Contrato ha actualizado exitosamente.',
 	'Error updating vacancy' => 'Error al actualizar vacante',
@@ -112,7 +128,7 @@ return [
 	'Contract End Date:' => 'Fecha Fin Contrato:',
 	'Type of Contract:' => 'Tipo de Contrato:',
 	'---Choose the Contract Type---' => '--- Elija el Tipo de Contrato ---',
-	'Contract Type:' => 'Tipo de Empleado:',
+	'Type of Employee:' => 'Tipo de Empleado:',
 	'--- Choose the Employee Type ---' => '--- Elija el Tipo de Empleado ---',
 	'Hours of Work:' => 'Horas de Trabajo:',
 	'Enter the working hours' => 'Digite las horas de trabajo',
@@ -262,8 +278,8 @@ return [
 
 
 	//Position
-	'View of Position' => 'vista de posición',
-	'Management of Position' => 'Gestión de Posición',
+	'View of Grades' => 'Vista de Grados',
+	'Create Grades' => 'Crear Grados',
 	'ID' => 'ID',
 	'Professional Title' => 'Denominación Profesional',
 	'Qualifications' => 'Calificaciones',
@@ -314,6 +330,13 @@ return [
 	'success' => 'éxito',
 	'Error' => 'Error',
 	'Error' => 'Error',
+	//fficials
+	'' => '',
+	'' => '',
+	'' => '',
+	'' => '',
+	'' => '',
+	'' => '',
 
 
 

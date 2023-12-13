@@ -144,7 +144,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="employee_type_id">{{ trans('gth::menu.Contract Type:') }}</label>
+                                        <label for="employee_type_id">{{ trans('gth::menu.Type of Employee:') }}</label>
                                         <select name="employee_type_id" id="employee_type_id"
                                             class="form-control @error('employee_type_id') is-invalid @enderror" required>
                                             <option value="">{{ trans('gth::menu.--- Choose the Employee Type ---') }}</option>

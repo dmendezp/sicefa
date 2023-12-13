@@ -37,6 +37,7 @@ return [
 	'Date' => 'Date',
 	'Status' => 'Status',
 	'Save Changes' => 'Save Changes',
+	
 
 	 //sidebar
 	 'GTH' => 'GTH',
@@ -68,6 +69,25 @@ return [
 	'Edit Contract' => 'Edit Contract',
 	'Contract Number' => 'Contract Number',
 	'Contract Year:' => 'Contract Year:',
+	'Contract Start Date:' => 'Contract Start Date:',
+	'Contract End Date:' => 'Contract End Date:',
+	'Type of Contract:' => 'Type of Contract::',
+	'Type of Employee:' => 'Type of Employee:',
+	'Hours of Work:' => 'Hours of Work:',
+	'Total Contract Value:' => 'Total Contract Value:',
+	'Policy Issuance Date:' => 'Policy Issuance Date:',
+	'Policy Approval Date:' => 'Policy Approval Date:',
+	'Policy Effective Date:' => 'Policy Effective Date:',
+	'Policy Expiration Date:' => 'Policy Expiration Date:',
+	'Policy Number:' => 'Policy Number:',
+	'Type of Risk:' => 'Type of Risk:',
+	'Status:' => 'Status:',
+	'SIIF code:' => 'SIIF code:',
+	'Assignment Value:' => 'Assignment Value:',
+	'Insurance Company:' => 'Insurance Company:',
+	'Contract Object:' => 'Contract Object:',
+	'Contract Obligations:' => 'Contract Obligations:',
+	'Save Changes' => 'Save Changes',
 
 	'The contract has been successfully updated.' => 'The contract has been successfully updated.',
 	'Error updating vacancy' => 'Error updating vacancy',
@@ -259,8 +279,8 @@ return [
 	'Save Changes' => 'Save Changes',
 
 	//Position
-	'View of Position' => 'View of Position',
-	'Management of Position' => 'Management of Position',
+	'View of Grades' => 'View of Grades',
+	'Create Grades' => 'Create Grades',
 	'ID' => 'ID',
 	'Professional Title' => 'Professional Title',
 	'Qualifications' => 'Qualifications',

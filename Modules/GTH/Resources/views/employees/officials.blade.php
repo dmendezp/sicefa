@@ -33,7 +33,7 @@
                                         <td>{{ $employe->id }}</td>
                                         <td>{{ $employe->person->document_number }}</td>
                                         <td>{{ $employe->person->full_name }}</td>
-                                        <form action="{{ route('cefa.gth.officials.delete', $employe->id) }}" method="DELETE"
+                                        <form action="{{ route('cefa.gth.officials.delete', $employe->id) }}" method="POST"
                                             class="btnEliminar" class="d-inline">
                                             @csrf
                                             @method('DELETE')
