@@ -1,3 +1,6 @@
+@php
+$role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
+@endphp
 @extends('bienestar::layouts.master')
 
 @section('content')
@@ -103,6 +106,14 @@
                         </div>
                         @endif
                         @endforeach
+                        <div class="form-group" id="respuestas">
+                            <div class="input-group">
+                                <input type="text" name="answer" id="answer" class="form-control" placeholder="Agregar Una Nueva respuesta">
+                                <div class="input-group-append">
+                                    <a class="btn btn-success formGuardar" id="saveAnswer" data-question-id="{{ $question->id }}">+</a>
+                                </div>
+                            </div><br>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" form="editForm{{$question->id}}" class="btn btn-success">{{ trans('bienestar::menu.Save')}}</button>
@@ -116,6 +127,23 @@
 @endforeach
 
 <script>
+    $(document).on("click", "#saveAnswer", function(event) {
+        event.preventDefault(); // Evitar el envío del formulario por defecto
+        var questionId = $(this).data('question-id');
+        performSearch(questionId);
+    });
+
+    function performSearch(questionId) {
+        var miObjeto = {
+            question_id: questionId,
+            respuesta: $('#answer').val()
+        };
+        var data = JSON.stringify(miObjeto);
+        console.log(miObjeto);
+
+        ajaxReplace('divApprentices', '/bienestar/{{ $role_name }}/editforms/addAnswer', data);
+    }
+
     $(document).ready(function() {
         // Abre el modal para editar una pregunta
         $(".editQuestion").on("click", function() {
@@ -132,6 +160,24 @@
         });
 
         // Resto del código
+    });
+    $(document).ready(function() {
+        var respuestaCount = 1;
+        // Manejar clic en el botón "Agregar Respuesta"
+        $('#agregarRespuesta').click(function() {
+            respuestaCount++;
+
+            // Crear un nuevo campo de respuesta con un ID único
+            var nuevaRespuesta = '<div id="respuestaContainer' + respuestaCount + '" class="input-group mb-3">' +
+                '<input id="respuestaInput' + respuestaCount + '" type="text" name="respuestas[]" class="form-control">' +
+                '<div class="input-group-append">' +
+                '<button class="btn btn-danger" type="button" onclick="borrarInput(' + respuestaCount + ')"><i class="fas fa-trash-alt"></i></button>' +
+                '</div>' +
+                '</div>';
+
+            // Agregar el nuevo campo de respuesta al contenedor de respuestas
+            $('#respuestas').append(nuevaRespuesta);
+        });
     });
     $(document).ready(function() {
         // Manejador de evento para el envío del formulario

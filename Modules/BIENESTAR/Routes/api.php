@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\BIENESTAR\Http\Controllers\AuthController;
 use Modules\BIENESTAR\Http\Controllers\TransportationAssistancesController;
 use Modules\BIENESTAR\Http\Controllers\AssistancesFoodsController;
+use Modules\BIENESTAR\Http\Controllers\CallConsultationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,4 @@ Route::get('/Api/saveAttendance',[TransportationAssistancesController::class, 'S
 // Rutas relacionadas con el módulo BIENESTAR
 Route::get('/Api/FoodAssistances', [AssistancesFoodsController::class, 'FoodAssistances']);
 Route::get('/Api/RegisterAssistances', [AssistancesFoodsController::class, 'RegisterAssistances']);
+Route::get('/Api/Consult_Benefits', [CallConsultationController::class, 'ConsultBenefit']);

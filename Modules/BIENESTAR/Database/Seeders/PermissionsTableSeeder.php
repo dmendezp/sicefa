@@ -1087,6 +1087,33 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
 
+         // Ruta Fromulario Agregar Respuestas a una pregunta de los Formularios(ADMINISTRADOR)//
+         $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.add.answer.editform'], [ // Registro o actualización de permiso
+            'name' => 'Agregar Respuestas a la pregunta',
+            'description' => 'Puede agregar respuestas a las preguntas de los formularios',
+            'description_english' => 'You can add answers to form questions',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+        
+         // Ruta Fromulario Agregar Respuestas a una pregunta de los Formularios(LIDER BENEFICIO DE ALIMENTACION)//
+         $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.add.answer.editform'], [ // Registro o actualización de permiso
+            'name' => 'Agregar Respuestas a la pregunta',
+            'description' => 'Puede agregar respuestas a las preguntas de los formularios',
+            'description_english' => 'You can add answers to form questions',
+            'app_id' => $app->id
+        ]);
+        $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta Fromulario Agregar Respuestas a una pregunta de los Formularios(LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.add.answer.editform'], [ // Registro o actualización de permiso
+            'name' => 'Agregar Respuestas a la pregunta',
+            'description' => 'Puede agregar respuestas a las preguntas de los formularios',
+            'description_english' => 'You can add answers to form questions',
+            'app_id' => $app->id
+        ]);
+        $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
+
         // Ruta Fromulario Eliminar Preguntas y Respuestas de los Formularios(ADMINISTRADOR)//
         $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.delete.question.editform'], [ // Registro o actualización de permiso
             'name' => 'Eliminar Preguntas y Respuestas',
@@ -1445,6 +1472,42 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Colsultar Listados Asistencia de Transporte',
             'description' => 'Puede consultar los listados asistencia de transporte',
             'description_english' => 'You can consult the transport assistance lists',
+            'app_id' => $app->id
+        ]);
+        $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
+
+        // Generar las Fallas de Asistencia de Transporte(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.attendance_report.transportation_assistance_lists.consult'], [ // Registro o actualización de permiso
+            'name' => 'Generar Reporte de Falla Asistencia de Transporte',
+            'description' => 'Puede generar las fallas de asistencia de transporte a los aprendices despues de la hora',
+            'description_english' => 'May generate failures to provide transportation assistance to trainees after hours.',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Generar las Fallas de Asistencia de Transporte(LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.attendance_report.transportation_assistance_lists.consult'], [ // Registro o actualización de permiso
+            'name' => 'Generar Falla Asistencia de Transporte',
+            'description' => 'Puede generar las fallas de asistencia de transporte a los aprendices despues de la hora',
+            'description_english' => 'May generate failures to provide transportation assistance to trainees after hours.',
+            'app_id' => $app->id
+        ]);
+        $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
+
+        // Generar Reporte de Fallas de Asistencia de Transporte(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.failure_reporting.transportation_assistance_lists.consult'], [ // Registro o actualización de permiso
+            'name' => 'Generar Reporte de Falla Asistencia de Transporte',
+            'description' => 'Puede enviar los listados de fallas de asistencia de transporte',
+            'description_english' => 'You can send the lists of transport assistance failures to',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Generar Reporte de Fallas de Asistencia de Transporte(LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.failure_reporting.transportation_assistance_lists.consult'], [ // Registro o actualización de permiso
+            'name' => 'Generar Reporte de Falla Asistencia de Transporte',
+            'description' => 'Puede enviar los listados de fallas de asistencia de transporte',
+            'description_english' => 'You can send the lists of transport assistance failures to',
             'app_id' => $app->id
         ]);
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol

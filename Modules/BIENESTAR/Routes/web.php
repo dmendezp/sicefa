@@ -52,7 +52,7 @@ Route::middleware(['lang'])->group(function () {
         //Vista CRUD Buses(LIDER BENEFICIO DE TRANSPORTE)
         Route::get('/transportation_benefits_leader/buses', 'BusesController@index')->name('bienestar.transportation_benefits_leader.transportation.crud.buses');
         Route::post('/transportation_benefits_leader/buses/store', 'BusesController@store')->name('bienestar.transportation_benefits_leader.save.buses');
-        Route::put('/transportation_benefits_leader/buses/update/{id} ', 'BusesController@update')->name('bienestar.transportation_benefits_leader.edit.buses');
+        Route::put('/transportation_benefits_leader/buses/update/{id}', 'BusesController@update')->name('bienestar.transportation_benefits_leader.edit.buses');
         Route::delete('/transportation_benefits_leader/buses/delete/{id}', 'BusesController@destroy')->name('bienestar.transportation_benefits_leader.delete.buses');
 
 
@@ -148,6 +148,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/admin/editforms', 'ConvocationsQuestionsController@editform')->name('bienestar.admin.convocations.crud.editform');
         Route::post('/admin/saveform', 'ConvocationsQuestionsController@saveform')->name('bienestar.admin.saveform.editform');
         Route::post('/admin/editforms/update/{id}', 'ConvocationsQuestionsController@updateQuestion')->name('bienestar.admin.edit.editform');
+        Route::post('/admin/editforms/addAnswer', 'ConvocationsQuestionsController@updateAnswer')->name('bienestar.admin.add.answer.editform');
         Route::delete('/admin/delete/question/{id}', 'ConvocationsQuestionsController@deleteQuestion')->name('bienestar.admin.delete.question.editform');
         Route::delete('/admin/delete/question/answer/{id}', 'ConvocationsQuestionsController@deleteAnswer')->name('bienestar.admin.delete.answer.editform');
         Route::get('/admin/addquestions', 'ConvocationsQuestionsController@add_question')->name('bienestar.admin.add_question.editform');
@@ -203,10 +204,14 @@ Route::middleware(['lang'])->group(function () {
         //vista de listado lista de asistencia de transporte(ADMINISTRADOR)
         route::get('/admin/transportation_assistance_list', 'TransportationAssistancesController@index')->name('bienestar.admin.transportation.view.transportation_assistance_lists');
         Route::post('/admin/search/filter', 'TransportationAssistancesController@search')->name('bienestar.admin.view.transportation_assistance_lists.consult');
+        Route::get('/admin/attendance_report', 'TransportationAssistancesController@Attendance_failures')->name('bienestar.admin.attendance_report.transportation_assistance_lists.consult');
+        Route::get('/admin/failure_reporting', 'TransportationAssistancesController@Failure_reporting')->name('bienestar.admin.failure_reporting.transportation_assistance_lists.consult');
         //vista de listado lista de asistencia de transporte(LIDER BENEFICIO DE TRANSPORTE)
         route::get('/transportation_benefits_leader/transportation_assistance_list', 'TransportationAssistancesController@index')->name('bienestar.transportation_benefits_leader.transportation.view.transportation_assistance_lists');
         Route::post('/transportation_benefits_leader/busqueda/documentos', 'TransportationAssistancesController@search')->name('bienestar.transportation_benefits_leader.view.transportation_assistance_lists.consult');
-
+        Route::get('/transportation_benefits_leader/attendance_report', 'TransportationAssistancesController@Attendance_failures')->name('bienestar.transportation_benefits_leader.attendance_report.transportation_assistance_lists.consult');
+        Route::get('/transportation_benefits_leader/failure_reporting', 'TransportationAssistancesController@Failure_reporting')->name('bienestar.transportation_benefits_leader.failure_reporting.transportation_assistance_lists.consult');
+        
         //Vista transportation-assistance
         Route::get('/admin/transportation_asistance', 'TransportationAssistancesController@indexasistances')->name('bienestar.admin.transportation.view.asistance_transport');
         Route::post('/admin/transportation_asistance/search', 'TransportationAssistancesController@searchapprentice')->name('bienestar.admin.form.asistance_transport');

@@ -22,11 +22,11 @@
 
                     <div class="form-row">
                         <div class="form-group col-md-3">
-                            <label for="fecha_inicio">{{ trans('bienestar::menu.start date')}}</label>
+                            <label for="fecha_inicio">{{ trans('bienestar::menu.Start Date')}}</label>
                             <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control">
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="fecha_fin">{{ trans('bienestar::menu.end date')}}</label>
+                            <label for="fecha_fin">{{ trans('bienestar::menu.End Date')}}</label>
                             <input type="date" name="fecha_fin" id="fecha_fin" class="form-control">
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                                 <th>{{ trans('bienestar::menu.Program')}}</th>
                                 <th>{{ trans('bienestar::menu.Code')}}</th>
                                 <th>{{ trans('bienestar::menu.Percentage')}}</th>
-                                <th>{{ trans('bienestar::menu.Time and Date')}}</th>
+                                <th>{{ trans('bienestar::menu.Date')}}</th>
                             </tr>
                         </thead>
                         <tbody>

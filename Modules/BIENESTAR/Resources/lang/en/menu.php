@@ -71,6 +71,7 @@ return [
     'Driver (Full Name)' => 'Driver (Full Name)',
     'Email' => 'Email',
     'Phone' => 'Phone',
+    'Edit Driver'=>'Edit Driver',
 
     //vista Editform
     'Edit Form' => 'Edit Form',
@@ -108,16 +109,16 @@ return [
     //vista Convocations
     'Convocations' => 'Convocations',
     'Title Convocation' => 'Title Convocation',
-    'description' => 'description',
-    'food quotas' => 'food quotas',
-    'transport quotas' => 'transport quotas',
-    'time interval' => 'time interval',
+    'Description' => 'Description',
+    'Food Qotas' => 'Food Quotas',
+    'Transport Quotas' => 'Transport Quotas',
+    'Time Interval' => 'Time Interval',
     'Start Date' => 'Start Date',
-    'end date' => 'end date',
-    'save' => 'save',
+    'End Date' => 'End Date',
+    'Save' => 'Save',
     'Actions' => 'Actions',
-    'Edit convocations' => 'Edit convocations',
-    'quarter id' => 'quarter id',
+    'Edit Convocations' => 'Edit Convocations',
+    'Quarter' => 'Quarter',
 
     //vita foodrecord
     'List of Affiliated Trainees' => 'List of Affiliated Trainees',
@@ -186,4 +187,5 @@ return [
 
     //assing-form-trnasporttion-route
     'Management and Assignment of Transportation Routes'=>'Management and Assignment of Transportation Routes',
+    'Failure Reporting'=>'Failure Reporting',
 ];

@@ -10,6 +10,7 @@ use Modules\BIENESTAR\Entities\ConvocationQuestion;
 use Modules\BIENESTAR\Entities\Question;
 use Modules\BIENESTAR\Entities\AnswersQuestion;
 use Modules\BIENESTAR\Entities\Convocation;
+use Illuminate\Support\Facades\Log;
 
 class ConvocationsQuestionsController extends Controller
 {
@@ -37,18 +38,18 @@ class ConvocationsQuestionsController extends Controller
     {
         // Primero, obtenemos la pregunta por su ID
         $question = Question::find($id);
-    
+
         // Si la pregunta no existe, enviamos una respuesta JSON con un mensaje de error
         if (!$question) {
             return response()->json(['mensaje' => 'La pregunta no existe.'], 400);
         }
-    
+
         // Eliminamos las respuestas asociadas a esta pregunta
         AnswersQuestion::where('question_id', $id)->delete();
-    
+
         // Eliminamos la pregunta
         $question->delete();
-    
+
         // Enviamos una respuesta JSON con un mensaje de éxito
         return response()->json(['mensaje' => 'La pregunta y sus respuestas han sido eliminadas con éxito.'], 200);
     }
@@ -58,11 +59,11 @@ class ConvocationsQuestionsController extends Controller
         $answer =  AnswersQuestion::findOrFail($id);
         // Eliminamos la respuesta
         $answer->delete();
-    
+
         // Enviamos una respuesta JSON con un mensaje de éxito
         return response()->json(['mensaje' => 'La respuestas han sido eliminadas con éxito.'], 200);
     }
-    
+
 
     public function add_answer(Request $request)
     {
@@ -115,8 +116,26 @@ class ConvocationsQuestionsController extends Controller
 
         // Redirige de nuevo con un mensaje de éxito
         return response()->json(['success' => 'Pregunta y respuestas actualizadas con éxito!']);
-        return redirect()->route('bienestar.'.getRoleRouteName(Route::currentRouteName()).'.convocations.crud.editform')->with('success', 'Pregunta y respuestas actualizadas con éxito.');
     }
+
+    public function updateAnswer(Request $request)
+{
+    // Obtener los datos JSON automáticamente decodificados
+    $data = $request->json()->all();
+    
+    // Acceder a los valores directamente
+    $questionId = $data['question_id'];
+    $respuesta = $data['respuesta'];
+
+    // Puedes usar los valores en tu lógica aquí
+
+    // Imprimir los valores
+    echo $questionId;
+    echo $respuesta;
+
+    // También puedes utilizar dd() para imprimir y detener la ejecución
+    return response()->json($questionId);
+}
 
 
 
@@ -147,10 +166,10 @@ class ConvocationsQuestionsController extends Controller
             }
 
             // Devolver una respuesta JSON exitosa
-            return redirect()->route('bienestar.'.getRoleRouteName(Route::currentRouteName()).'.convocations.crud.editform')->with('success', 'Se ha guardado con exito');
+            return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.convocations.crud.editform')->with('success', 'Se ha guardado con exito');
         } catch (\Exception $e) {
             // En caso de error, manejar el error y devolver una respuesta JSON con un mensaje de error
-            return redirect()->route('bienestar.'.getRoleRouteName(Route::currentRouteName()).'.convocations.crud.editform')->with('error', 'Error al guardar');
+            return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.convocations.crud.editform')->with('error', 'Error al guardar');
         }
     }
 }

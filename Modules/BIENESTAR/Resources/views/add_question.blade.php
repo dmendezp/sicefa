@@ -10,9 +10,9 @@
 <div class="container">
     <div class="card">
         <div class="card-body">
-            <form method="POST" action="{{ route('bienestar.admin.save.editform') }}" class="formGuardar">
+            <form method="POST" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.editform') }}" class="formGuardar">
                 @csrf
-                <a href="{{ route('bienestar.admin.convocations.crud.editform')}}" class="btn btn-secondary"><i class="far fa-arrow-alt-circle-left"></i></a>
+                <a href="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.convocations.crud.editform')}}" class="btn btn-secondary"><i class="far fa-arrow-alt-circle-left"></i></a>
                 <div class="form-group">
                     <label for="texto_pregunta">Pregunta</label>
                     <input type="text" name="text_question" class="form-control">

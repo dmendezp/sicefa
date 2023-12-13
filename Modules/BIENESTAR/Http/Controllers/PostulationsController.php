@@ -89,6 +89,7 @@ class PostulationsController extends Controller
 
         $questions = DB::table('questions')
             ->where('type_question_benefit', $data)
+            ->whereNull('deleted_at')  // Cambiar a deleted_at para el borrado suave
             ->get();
 
         $answers = DB::table('answers_questions')
@@ -99,15 +100,16 @@ class PostulationsController extends Controller
     }
 
     public function getallquestions(Request $request)
-    {
-        $questions = DB::table('questions')->get();
+{
+    $questions = DB::table('questions')->whereNull('deleted_at')->get();
 
-        $answers = DB::table('answers_questions')
-            ->whereIn('question_id', $questions->pluck('id'))
-            ->get();
+    $answers = DB::table('answers_questions')
+        ->whereIn('question_id', $questions->pluck('id'))
+        ->get();
 
-        return view('bienestar::question_postulation.allquestion', compact('questions', 'answers'));
-    }
+    return view('bienestar::question_postulation.allquestion', compact('questions', 'answers'));
+}
+
 
     public function savepostulation(Request $request)
     {
