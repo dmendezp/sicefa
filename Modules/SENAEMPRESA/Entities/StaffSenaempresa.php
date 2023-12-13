@@ -33,7 +33,8 @@ class StaffSenaempresa extends Model implements Auditable
         return $this->belongsTo(Inventory::class);
     }
     public function senaempresa()
-    { //Accede a senaempresa registrados
-        return $this->belongsToMany(senaempresa::class);
+    {
+        return $this->belongsTo(Senaempresa::class, 'senaempresa_id');
     }
+    
 }

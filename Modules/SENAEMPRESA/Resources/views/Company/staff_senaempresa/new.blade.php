@@ -43,13 +43,14 @@
                                 <input type="file" id="image" name="image" required>
                             </div>
                             <div class="mb-3">
-                                <label for="quarter_id"
-                                    class="form-label">{{ trans('senaempresa::menu.ID Quarter') }}</label>
-                                <select class="form-control" name="quarter_id" aria-label="Selecciona un Cargo" required>
-                                    <option value="" selected>Selecciona un trimestre</option>
-                                    @foreach ($quarters as $quarter)
-                                        <option value="{{ $quarter->id }}">
-                                            {{ $quarter->id }} {{ $quarter->name }}
+                                <label for="senaempresa_id"
+                                    class="form-label">{{ trans('senaempresa::menu.ID Senaempresa') }}</label>
+                                <select class="form-control" name="senaempresa_id" aria-label="Selecciona una Senaempresa"
+                                    required>
+                                    <option value="" selected>Selecciona una Senaempresa</option>
+                                    @foreach ($senaempresas as $senaempresa)
+                                        <option value="{{ $senaempresa->id }}">
+                                            {{ $senaempresa->id }} {{ $senaempresa->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -64,6 +65,7 @@
         </div>
     </div><br>
 @endsection
+
 
 
 <script>
