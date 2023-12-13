@@ -325,8 +325,11 @@ class VacantController extends Controller
 
     public function partner_course()
     {
-        $currentQuarter = Quarter::where('start_date', '<=', now())
-            ->where('end_date', '>=', now())
+        $currentDate = now();
+
+        // Find the current quarter
+        $currentQuarter = Quarter::where('start_date', '<=', $currentDate)
+            ->where('end_date', '>=', $currentDate)
             ->first();
 
         if (!$currentQuarter) {
@@ -343,12 +346,29 @@ class VacantController extends Controller
             return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', 'No hay una senaempresa asociada al trimestre actual.');
         }
 
+        // Find the next quarter
+        $nextQuarter = Quarter::where('start_date', '>', $currentDate)
+            ->orderBy('start_date', 'asc')
+            ->first();
+
+        // Retrieve the senaempresa associated with the next quarter
+        $nextSenaempresa = Senaempresa::where('quarter_id', $nextQuarter->id)->first();
+
+        // Combine the courses from the current and next senaempresas
+        $courses = $currentSenaempresa->courses->merge($nextSenaempresa->courses);
+
+        // Check if there are courses available
+        if ($courses->isEmpty()) {
+            // Handle the case where no courses are found
+            // You can show an alert or take other appropriate action here.
+            return redirect()->back()->with('error', 'Primero debe asociar cursos a la senaempresa actual o a la siguiente');
+        }
+
         // Retrieve the vacancies related to the current senaempresa
         $vacancies = Vacancy::where('senaempresa_id', $currentSenaempresa->id)
             ->where('state', 'Disponible')
             ->get();
 
-        $courses = $currentSenaempresa->courses;
         $courseofvacancy = CourseVacancy::all();
 
         $data = [
