@@ -222,6 +222,8 @@ return [
     'New Loan' => 'Nuevo Prestamo',
     'Edit Loan' => 'Editar Prestamo',
 
+    'All Rights Reserved.' => 'Todos los derechos reservados.',
+
 
 
 

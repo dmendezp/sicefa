@@ -25,7 +25,7 @@ Route::middleware(['lang'])->group(function () {
             //RUTAS PARA LA VISUALIZACIÓN Y LA ASIGNACIÓN DE PUNTAJE A LOS POSTULADOS A LAS VACANTES DE SENAEMPRESA
             Route::prefix('postulates')->group(function () {
                 Route::get('/', 'PostulateController@postulates')->name('senaempresa.psychologo.postulates.index');
-                Route::get('/assign_score/{apprenticeId}', 'PostulateController@assign_score')->name('senaempresa.psychologo.postulates.assign_score');
+                Route::get('/assign_score/{apprenticeId}/{vacancyId}', 'PostulateController@assign_score')->name('senaempresa.psychologo.postulates.assign_score');
                 Route::post('/score_assigned', 'PostulateController@score_assigned')->name('senaempresa.psychologo.postulates.score_assigned');
 
                 Route::get('/state/{apprenticeId}', 'PostulateController@state')->name('senaempresa.psychologo.postulates.state');

@@ -220,6 +220,8 @@ return [
     'New Loan' => 'New Loan',
     'Edit Loan' => 'Edit Loan',
 
+    'All Rights Reserved.' => 'All Rights Reserved.',
+
 
 
 
@@ -262,7 +264,7 @@ return [
     'Update Status'=>'Update Status',
     'Score Assigned'=>'Score Assigned',
     'To update'=>'To update',
-    
+
 
 
 

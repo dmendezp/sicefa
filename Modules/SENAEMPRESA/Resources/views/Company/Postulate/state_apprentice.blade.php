@@ -15,6 +15,7 @@
                                 <th>{{ trans('senaempresa::menu.Currículum') }}</th>
                                 <th>{{ trans('senaempresa::menu.16 personalities') }}</th>
                                 <th>{{ trans('senaempresa::menu.Proposal') }}</th>
+                                <th>{{ trans('senaempresa::menu.State') }}</th>
                                 <th>{{ trans('senaempresa::menu.Total score') }}</th>
                         </thead>
                         <tbody>
@@ -42,6 +43,7 @@
                                                     style="color: #08c651; font-size: 30px; text-align: center;"></i>
                                             </a>
                                         </td>
+                                        <td>{{ $postulation->state }}</td>
                                         <td>{{ $postulation->score_total }}</td>
                                     </tr>
                             @endforeach

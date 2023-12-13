@@ -63,25 +63,15 @@
 }
 
 .fa-facebook {
-    background-color: #4267b2;
+    background-color: #0055ff;
     opacity: 0.8;
+    border-radius: 10px;
 }
-
-.fa-twitter {
-    background-color: #1da1f2;
+.fa-github {
+    background-color: #000000;
     opacity: 0.8;
+    border-radius: 10px;
 }
-
-.fa-linkedin {
-    background-color: #0077b5;
-    opacity: 0.8;
-}
-
-.fa-pinterest {
-    background-color: #e60023;
-    opacity: 0.8;
-}
-
 svg {
     height: 200px;
     width: 240px;

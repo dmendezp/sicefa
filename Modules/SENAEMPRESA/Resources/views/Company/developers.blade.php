@@ -29,18 +29,15 @@
                     <p class="position">{{ trans('senaempresa::menu.Apprentice - Tgo. Software Analysis & Development') }}
                     </p>
                     <div class="row mx-5 mb-5 mt-3 justify-content-center">
-
                         <div class="col-3 px-0 py-1">
-                            <div class="py-3 fab fa-facebook"></div>
+                            <a href="https://www.facebook.com/stiven.medina.56614/?locale=es_LA">
+                                <div class="py-3 fab fa-facebook"></div>
+                            </a>
                         </div>
                         <div class="col-3 px-0 py-1">
-                            <div class="py-3 fab fa-twitter"></div>
-                        </div>
-                        <div class="col-3 px-0 py-1">
-                            <div class="py-3 fab fa-linkedin"></div>
-                        </div>
-                        <div class="col-3 px-0 py-1">
-                            <div class="py-3 fab fa-pinterest"></div>
+                            <a href="https://github.com/Junior6580">
+                                <div class="py-3 fab fa-github"></div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -63,18 +60,17 @@
                     </p>
                     <div class="row mx-5 mb-5 mt-3 justify-content-center">
                         <div class="col-3 px-0 py-1">
-                            <div class="py-3 fab fa-facebook"></div>
+                            <a href="https://www.facebook.com/jennyfer.marin.5473?locale=es_LA">
+                                <div class="py-3 fab fa-facebook"></div>
+                            </a>
                         </div>
                         <div class="col-3 px-0 py-1">
-                            <div class="py-3 fab fa-twitter"></div>
-                        </div>
-                        <div class="col-3 px-0 py-1">
-                            <div class="py-3 fab fa-linkedin"></div>
-                        </div>
-                        <div class="col-3 px-0 py-1">
-                            <div class="py-3 fab fa-pinterest"></div>
+                            <a href="https://github.com/Jennyferm05">
+                                <div class="py-3 fab fa-github"></div>
+                            </a>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="col-xl-3 col-md-6 col-12 mb-4">
@@ -95,16 +91,14 @@
                     </p>
                     <div class="row mx-5 mb-5 mt-3 justify-content-center">
                         <div class="col-3 px-0 py-1">
-                            <div class="py-3 fab fa-facebook"></div>
+                            <a href="https://www.facebook.com/profile.php?id=100008824414757&locale=es_LA">
+                                <div class="py-3 fab fa-facebook"></div>
+                            </a>
                         </div>
                         <div class="col-3 px-0 py-1">
-                            <div class="py-3 fab fa-twitter"></div>
-                        </div>
-                        <div class="col-3 px-0 py-1">
-                            <div class="py-3 fab fa-linkedin"></div>
-                        </div>
-                        <div class="col-3 px-0 py-1">
-                            <div class="py-3 fab fa-pinterest"></div>
+                            <a href="https://github.com/diego222709">
+                                <div class="py-3 fab fa-github"></div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -128,7 +122,7 @@
                                         <div class="text-truncate" style="max-height: 40px;">
                                             <h6>Laravel</h6>
                                         </div>
-                                        <a class="btn btn-primary btn-block w-100" href="https://laravel.com/">Más
+                                        <a class="btn  btn-block w-100" href="https://laravel.com/">Más
                                             Info</a>
                                     </div>
                                 </div>
@@ -143,7 +137,7 @@
                                         <div class="text-truncate" style="max-height: 40px;">
                                             <h6>PHP</h6>
                                         </div>
-                                        <a class="btn btn-primary btn-block w-100" href="https://www.php.net/">Más
+                                        <a class="btn btn-block w-100" href="https://www.php.net/">Más
                                             Info</a>
                                     </div>
                                 </div>
@@ -158,7 +152,7 @@
                                         <div class="text-truncate" style="max-height: 40px;">
                                             <h6>Datatables</h6>
                                         </div>
-                                        <a class="btn btn-primary btn-block w-100" href="https://datatables.net/">Más
+                                        <a class="btn btn-block w-100" href="https://datatables.net/">Más
                                             Info</a>
                                     </div>
                                 </div>
@@ -173,7 +167,7 @@
                                         <div class="text-truncate" style="max-height: 40px;">
                                             <h6>AdminLTE3</h6>
                                         </div>
-                                        <a class="btn btn-primary btn-block w-100" href="https://datatables.net/">Más
+                                        <a class="btn btn-block w-100" href="https://datatables.net/">Más
                                             Info</a>
                                     </div>
                                 </div>
@@ -190,8 +184,7 @@
                                         <div class="text-truncate" style="max-height: 40px;">
                                             <h6>FontAwesome</h6>
                                         </div>
-                                        <a class="btn btn-primary btn-block w-100"
-                                            href="https://fontawesome.com/icons">Más
+                                        <a class="btn btn-block w-100" href="https://fontawesome.com/icons">Más
                                             Info</a>
                                     </div>
                                 </div>
@@ -207,8 +200,7 @@
                                         <div class="text-truncate" style="max-height: 40px;">
                                             <h6>SweetAlert2</h6>
                                         </div>
-                                        <a class="btn btn-primary btn-block w-100"
-                                            href="https://sweetalert2.github.io/">Más
+                                        <a class="btn btn-block w-100" href="https://sweetalert2.github.io/">Más
                                             Info</a>
                                     </div>
                                 </div>
@@ -224,7 +216,7 @@
                                         <div class="text-truncate" style="max-height: 40px;">
                                             <h6>Bootstrap</h6>
                                         </div>
-                                        <a class="btn btn-primary btn-block w-100" href="https://getbootstrap.com/">Más
+                                        <a class="btn btn-block w-100" href="https://getbootstrap.com/">Más
                                             Info</a>
                                     </div>
                                 </div>
@@ -239,7 +231,7 @@
                                         <div class="text-truncate" style="max-height: 40px;">
                                             <h6>Git Hub</h6>
                                         </div>
-                                        <a class="btn btn-primary btn-block w-100" href="https://github.com/">Más
+                                        <a class="btn btn-block w-100" href="https://github.com/">Más
                                             Info</a>
                                     </div>
                                 </div>
