@@ -185,8 +185,6 @@
                         </p>
                     </a>
                 </li>
-                @if (Auth::user()->havePermission('agrocefa.passant.reports'))
-                @endif
 
         </nav>
         <!-- /.sidebar-menu -->
