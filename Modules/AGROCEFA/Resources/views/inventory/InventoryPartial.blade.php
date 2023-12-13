@@ -16,12 +16,7 @@
                         <th>{{ trans('agrocefa::inventory.Price') }}</th>
                         <th>{{ trans('agrocefa::inventory.Amount') }}</th>
                         <th>Stock</th>
-                        <th>{{ trans('agrocefa::inventory.Productiondate') }}</th>
-                        <th>{{ trans('agrocefa::inventory.lotnumber') }}</th>
-                        <th>{{ trans('agrocefa::inventory.expirationdate') }}</th>
                         <th>{{ trans('agrocefa::inventory.state') }}</th>
-                        <th>{{ trans('agrocefa::inventory.mark') }}</th>
-                        <th>{{ trans('agrocefa::inventory.inventorycode') }}</th>
                         @auth
                             @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.manage'))
                                 <th>{{ trans('agrocefa::inventory.Actions') }}</th>
@@ -42,12 +37,7 @@
                             <td>{{ $item->price }}</td>
                             <td>{{ $item->amount / $measurement_unit}}</td>
                             <td>{{ $item->stock }}</td>
-                            <td>{{ $item->production_date }}</td>
-                            <td>{{ $item->lot_number }}</td>
-                            <td>{{ $item->expiration_date }}</td>
                             <td>{{ $item->state }}</td>
-                            <td>{{ $item->mark }}</td>
-                            <td>{{ $item->inventory_code }}</td>
 
                             @auth
                                 @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.manage'))
