@@ -279,6 +279,16 @@ class PostulateController extends Controller
             ->with('success', 'Estado actualizado correctamente');
     }
 
+    public function postulations()
+{
+    $Apprentice = auth()->user()->person->apprentices()->first();// Obtener el usuario autenticado
+    $postulations = Postulate::where('apprentice_id', $Apprentice->id)->get();
+
+    $data = ['title' => 'Estado Aprendiz', 'postulations' => $postulations];
+        return view('senaempresa::Company.Postulate.state_apprentice', $data);
+    }
+
+
     public function seleccionados()
     {
         $postulates  = postulate::with(['apprentice.person'])

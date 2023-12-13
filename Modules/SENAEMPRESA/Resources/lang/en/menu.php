@@ -247,6 +247,23 @@ return [
     'Vacant'=>'Vacant',
     'Apprentice - Tgo. Software Analysis & Development'=>'Apprentice - Tgo. Software Analysis & Development',
     'More info'=>'More info',
+    'Personality' => 'Personality',
+    'Score'=>'Score',
+    'Score - curricolum'=>'Score - curricolum',
+    'Score - 16 personalities'=>'Score - 16 personalities',
+    'Score - Proposal'=>'Score - Proposal',
+    'To assign'=>'To assign',
+    'Filter by job title:'=>'Filter by job title:',
+    'All charges'=>'All charges',
+    'Show Score:'=>'Show Score:',
+    'With Assigned Score'=>'With Assigned Score',
+    'No Score Assigned'=>'No Score Assigned',
+    'Assign Score'=>'Assign Score',
+    'Update Status'=>'Update Status',
+    'Score Assigned'=>'Score Assigned',
+    'To update'=>'To update',
+    
+
 
 
 

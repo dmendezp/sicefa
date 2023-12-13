@@ -35,9 +35,13 @@
                         <button type="button" class="btn btn-success" id="query-attendance-button">
                             {{ trans('senaempresa::menu.Consult Attendances') }}
                         </button>
-                        <button type="button" class="btn btn-warning"
-                            id="show-hide-table-button">{{ trans('senaempresa::menu.Registered Attendance') }}</button>
-
+                        @if (Route::is('senaempresa.admin.*') ||
+                                (Route::is('senaempresa.human_talent_leader.*') &&
+                                    Auth::user()->havePermission(
+                                        'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.register')))
+                            <button type="button" class="btn btn-warning"
+                                id="show-hide-table-button">{{ trans('senaempresa::menu.Registered Attendance') }}</button>
+                        @endif
                         </form>
                     </div>
                 </div>
@@ -138,7 +142,9 @@
                         document_number: documentNumber
                     },
                     success: function(response) {
-                        if (response && response.attendances) {
+                        if (response && response.attendances && response.attendances.length >
+                            0) {
+                            // Display the DataTable if there are attendances
                             $('#attendance-query-results').show();
                             $('#attendance-query-table tbody').empty();
 
@@ -151,13 +157,21 @@
                                 $('#attendance-query-table tbody').append(row);
                             });
 
+                            // Initialize DataTable only if there are attendances
                             $('#attendance-query-table').DataTable();
                         } else {
-                            console.log('No attendances found or an error occurred.');
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'No hay asistecias registradas para este documento',
+                                showConfirmButton: false,
+                                timer: 3000 // Tiempo en milisegundos (2 segundos en este caso)
+                            });
                         }
                     },
                 });
             });
+
         });
 
 

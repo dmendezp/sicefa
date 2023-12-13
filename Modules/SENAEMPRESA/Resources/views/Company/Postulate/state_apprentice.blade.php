@@ -18,34 +18,32 @@
                                 <th>{{ trans('senaempresa::menu.Total score') }}</th>
                         </thead>
                         <tbody>
-                            @foreach ($postulates as $postulate)
-                                @if ($postulate->state === 'Seleccionado')
+                            @foreach($postulations as $postulation)
                                     <tr>
-                                        <td>{{ $postulate->id }}</td>
-                                        <td>{{ $postulate->apprentice->person->full_name }}</td>
-                                        <td>{{ $postulate->vacancy->id }} {{ $postulate->vacancy->name }}</td>
+                                        <td>{{ $postulation->id }}</td>
+                                        <td>{{ $postulation->apprentice->person->full_name }}</td>
+                                        <td>{{ $postulation->vacancy->id }} {{ $postulation->vacancy->name }}</td>
                                         <td style="text-align: center;">
-                                            <a href="{{ asset($postulate->cv) }}" download>
+                                            <a href="{{ asset($postulation->cv) }}" download>
                                                 <i class="far fa-file-pdf"
                                                     style="color: #fe3e3e; font-size: 30px; text-align: center;"></i>
 
                                             </a>
                                         </td>
                                         <td style="text-align: center;">
-                                            <a href="{{ asset($postulate->personalities) }}" download>
+                                            <a href="{{ asset($postulation->personalities) }}" download>
                                                 <i class="far fa-file-pdf"
                                                     style="color: #483efe; font-size: 30px; text-align: center;"></i>
                                             </a>
                                         </td>
                                         <td style="text-align: center;">
-                                            <a href="{{ asset($postulate->proposal) }}" download>
+                                            <a href="{{ asset($postulation->proposal) }}" download>
                                                 <i class="far fa-file-pdf"
                                                     style="color: #08c651; font-size: 30px; text-align: center;"></i>
                                             </a>
                                         </td>
-                                        <td>{{ $postulate->score_total }}</td>
+                                        <td>{{ $postulation->score_total }}</td>
                                     </tr>
-                                @endif
                             @endforeach
                         </tbody>
                     </table>

@@ -58,5 +58,17 @@ class PeopleTableSeeder extends Seeder
             'pension_entity_id' => $pension_entity->id,
             'avatar' => 'modules/senaempresa/images/Contacto/Penagos.jpg'
         ]);
+
+        // Consulta o registro de datos Diego Alejandro Penagos
+        Person::updateOrCreate(['document_number' => 1109840652], [ // Consultar o registrar Persona
+            'document_type' => 'Cédula de ciudadanía',
+            'first_name' => 'MAYERLI SHIRLEY',
+            'first_last_name' => 'CASTAÑEDA',
+            'second_last_name' => 'CONDE',
+            'eps_id' => $eps->id,
+            'population_group_id' => $population_group->id,
+            'pension_entity_id' => $pension_entity->id,
+            'avatar' => 'modules/senaempresa/images/Contacto'
+        ]);
     }
 }
