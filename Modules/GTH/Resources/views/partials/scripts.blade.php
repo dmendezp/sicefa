@@ -45,6 +45,7 @@
 <script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
 
+
 <!-- AdminLTE App -->
 <script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>
 

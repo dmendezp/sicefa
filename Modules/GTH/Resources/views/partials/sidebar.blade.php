@@ -75,7 +75,7 @@
                     </a>
                 </li>
                 <li
-                    class="nav-item {{ Route::is('cefa.gth.contractors.view', 'cefa.gth.contractreports.view', 'cefa.gth.contractortypes.view') ? 'menu-is-opening menu-open' : '' }}">
+                    class="nav-item {{ Route::is('cefa.gth.contractors.view', 'cefa.gth.contractreports.view', 'cefa.contractualcertificates.view') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link {{ !Route::is('contratos.*') ?: 'active' }}">
                         <i class="fas fa-file-signature"></i>
                         <p>{{ trans('gth::menu.Contracts') }}
@@ -102,7 +102,7 @@
                     </ul>
                 </li>
                 <li
-                    class="nav-item {{ Route::is('cefa.gth.contractors.view', 'cefa.gth.contractreports.view', 'cefa.gth.contractortypes.view') ? 'menu-is-opening menu-open' : '' }}">
+                    class="nav-item {{ Route::is('cefa.gth.insurerentities.view', 'cefa.gth.contractortypes.view', 'cefa.gth.employeetypes.view', 'cefa.gth.pensionentities.view', 'cefa.gth.position') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link {{ !Route::is('contratos.*') ?: 'active' }}">
                         <i class="fas fa-users-cog"></i>
                         <p>{{ trans('gth::menu.Configuration') }}
@@ -157,11 +157,9 @@
                         </li>
                     </ul>
                 </li>
-                @if (Auth::user()->havePermission('agrocefa.passant.reports'))
-                @endif
                 <li class="nav-item">
-                    <a href="{{ route('cefa.officials.view') }}"
-                        class="nav-link {{ !Route::is('cefa.officials.view') ?: 'active' }}">
+                    <a href="{{ route('cefa.gth.officials.view') }}"
+                        class="nav-link {{ !Route::is('cefa.gth.officials.view') ?: 'active' }}">
                         <i class="fas fa-street-view"></i>
                         <p>
                             {{ trans('gth::menu.Officials') }}
@@ -177,6 +175,18 @@
                         </p>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('cefa.gth.brigader.view') }}"
+                        class="nav-link {{ !Route::is('cefa.gth.brigader.view') ?: 'active' }}">
+                        <i class="fa-solid fa-person-carry-box"></i>
+                        <p>
+                            Brigadista
+                        </p>
+                    </a>
+                </li>
+                @if (Auth::user()->havePermission('agrocefa.passant.reports'))
+                @endif
 
         </nav>
         <!-- /.sidebar-menu -->

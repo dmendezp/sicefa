@@ -352,6 +352,7 @@
                                                 </div>
                                             </div>
                                                 </div>
+                                            
 
                                             <!-- Resto del formulario -->
                                             <button type="submit" class="btn btn-primary"
@@ -455,7 +456,7 @@
         <script>
             Swal.fire({
                 icon: {{ trans('gth::menu.Error!') }},
-                title: {{ trans('gth::menu.Error!') }} ',
+                title: {{ trans('gth::menu.Error!') }} ,
                 text: {{ session('error') }},
                 showConfirmButton: false,
                 timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)
