@@ -99,15 +99,6 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('cefa.contractualcertificates.view') }}"
-                                class="nav-link {{ !Route::is('cefa.contractualcertificates.view') ?: 'active' }}">
-                                <i class="fas fa-receipt"></i>
-                                <p>
-                                    {{ trans('gth::menu.Contract Certificate') }}
-                                </p>
-                            </a>
-                        </li>
                     </ul>
                 </li>
                 <li
@@ -176,6 +167,16 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('cefa.contractualcertificate.view') }}"
+                        class="nav-link {{ !Route::is('cefa.contractualcertificate.view') ?: 'active' }}">
+                        <i class="fas fa-receipt"></i>
+                        <p>
+                            {{ trans('gth::menu.Contract Certificate') }}
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('cefa.gth.brigader.view') }}"
                         class="nav-link {{ !Route::is('cefa.gth.brigader.view') ?: 'active' }}">
                         <i class="fa-solid fa-person-carry-box"></i>
@@ -186,7 +187,7 @@
                 </li>
                 @if (Auth::user()->havePermission('agrocefa.passant.reports'))
                 @endif
-               
+
         </nav>
         <!-- /.sidebar-menu -->
     </div>

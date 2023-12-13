@@ -85,13 +85,10 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/official', 'OfficialController@viewofficials')->name('cefa.gth.officials.view');
         Route::get('/obtener_datos', 'OfficialController@getPersonDatas')->name('cefa.gth.getPersonDatas');
         Route::post('/employees', 'OfficialController@store')->name('cefa.gth.store');
-        Route::post('/official/edit/{id}', 'OfficialController@edit_official')->name('cefa.gth.officials.update');
-        Route::delete('/gth/officials/{id}/delete', 'OfficialController@deleteofficials')->name('cefa.gth.officials.delete');
-        
-        //brigader
-        Route::get('/brigade', 'BrigadeController@viewbrigader')->name('cefa.gth.brigader.view');
-        Route::get('/sistencia', 'BrigadeController@viewAsistencia')->name ('cefa.gth.brigade.asistencia');
-        Route::get('/reporte', 'BrigadeController@generateReport')->name('cefa.brigade.reporte');
-        
+        Route::put('/official/edit/{id}', 'OfficialController@edit_official')->name('cefa.gth.officials.update');
+
+        //contractual certificate
+        Route::get('/contractualcertificate', 'ContractualCertificateController@viewcontractualcertificate')->name('cefa.contractualcertificate.view');
+        Route::post('/contractualcertificate/search', 'ContractualCertificateController@search')->name('cefa.contractualcertificate.search');
     });
 });
