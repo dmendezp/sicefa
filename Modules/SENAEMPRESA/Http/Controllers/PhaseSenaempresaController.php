@@ -179,6 +179,12 @@ class PhaseSenaempresaController extends Controller
             ->orderBy('start_date', 'asc')
             ->first();
 
+        if (!$currentQuarter || !$nextQuarter) {
+            // Handle the case where either currentQuarter or nextQuarter is null
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.index')
+                ->with('error', 'No hay un trimestre actual o siguiente');
+        }
+
         $currentQuarterSenaempresa = DB::table('senaempresas')
             ->join('quarters', 'senaempresas.quarter_id', '=', 'quarters.id')
             ->where('quarters.id', $currentQuarter->id)
@@ -203,7 +209,8 @@ class PhaseSenaempresaController extends Controller
             $senaempresas = $currentQuarterSenaempresa;
         } else {
             // No SenaEmpresa for the current or next quarter, show alert
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.index')->with('error', 'No hay una senaempresa relacionada con el trimestre actual o siguiente');
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.index')
+                ->with('error', 'No hay una senaempresa relacionada con el trimestre actual o siguiente');
         }
 
         $courses = Course::where('status', 'Activo')->with('senaempresa')->get();
