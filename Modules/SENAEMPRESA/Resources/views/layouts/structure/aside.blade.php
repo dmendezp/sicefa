@@ -444,17 +444,17 @@
                             </a>
                         </li>
                     @endif
-                    @if (Auth::user()->havePermission('senaempresa.admin.postulates.state_apprentice'))
-                    <li class="nav-item">
-                        <a href="{{ route('senaempresa.admin.postulates.state_apprentice') }}"
-                            class="nav-link {{ !Route::is('senaempresa.admin.postulates.state_apprentice') ?: 'active' }}">
-                            <i class="fas fa-tasks"></i>
-                            <p>
-                                Postulaciones
-                            </p>
-                        </a>
-                    </li>
-                @endif
+                    @if (Auth::user()->havePermission('senaempresa.apprentice.postulates.state_apprentice'))
+                        <li class="nav-item">
+                            <a href="{{ route('senaempresa.apprentice.postulates.state_apprentice') }}"
+                                class="nav-link {{ !Route::is('senaempresa.apprentice.postulates.state_apprentice') ?: 'active' }}">
+                                <i class="far fa-address-card"></i>
+                                <p>
+                                    Postulaciones
+                                </p>
+                            </a>
+                        </li>
+                    @endif
                 @endif
             </ul>
         </nav>

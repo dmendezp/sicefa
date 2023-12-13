@@ -9,7 +9,8 @@
                     action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index') }}">
                     <label for="positionFilter">{{ trans('senaempresa::menu.Filter by job title:') }}</label>
                     <select class="form-control" id="positionFilter" name="positionFilter" onchange="this.form.submit()">
-                        <option value="" {{ !$selectedPositionId ? 'selected' : '' }}>{{ trans('senaempresa::menu.All charges') }}</option>
+                        <option value="" {{ !$selectedPositionId ? 'selected' : '' }}>
+                            {{ trans('senaempresa::menu.All charges') }}</option>
                         @foreach ($PositionCompanies as $PositionCompany)
                             <option value="{{ $PositionCompany->id }}"
                                 {{ $selectedPositionId == $PositionCompany->id ? 'selected' : '' }}>
@@ -18,17 +19,23 @@
                         @endforeach
                     </select>
             </div>
-            <div class="col">
-                <label for="showAssignedScore">{{ trans('senaempresa::menu.Show Score:') }}</label>
-                <select class="form-control" id="showAssignedScore" name="showAssignedScore" onchange="this.form.submit()">
-                    <option value=""> {{ trans('senaempresa::menu.All') }}</option>
-                    <option value="assigned" {{ $showAssignedScore == 'assigned' ? 'selected' : '' }}> {{ trans('senaempresa::menu.With Assigned Score') }}
-                    </option>
-                    <option value="unassigned" {{ $showAssignedScore == 'unassigned' ? 'selected' : '' }}> {{ trans('senaempresa::menu.No Score Assigned') }}
-                    </option>
-                </select>
-                </form>
-            </div>
+            @if (Route::is('senaempresa.admin.*') &&
+                    Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.cv'))
+                <div class="col">
+                    <label for="showAssignedScore">{{ trans('senaempresa::menu.Show Score:') }}</label>
+                    <select class="form-control" id="showAssignedScore" name="showAssignedScore"
+                        onchange="this.form.submit()">
+                        <option value=""> {{ trans('senaempresa::menu.All') }}</option>
+                        <option value="assigned" {{ $showAssignedScore == 'assigned' ? 'selected' : '' }}>
+                            {{ trans('senaempresa::menu.With Assigned Score') }}
+                        </option>
+                        <option value="unassigned" {{ $showAssignedScore == 'unassigned' ? 'selected' : '' }}>
+                            {{ trans('senaempresa::menu.No Score Assigned') }}
+                        </option>
+                    </select>
+                    </form>
+                </div>
+            @endif
         </div>
         <br>
         <div class="col-md-12">
@@ -40,15 +47,26 @@
                                 <th>{{ trans('senaempresa::menu.Id') }}</th>
                                 <th>{{ trans('senaempresa::menu.Apprentice Id') }}</th>
                                 <th>{{ trans('senaempresa::menu.Vacancy ID') }}</th>
-                                <th>{{ trans('senaempresa::menu.Currículum') }}</th>
-                                <th>{{ trans('senaempresa::menu.16 personalities') }}</th>
-                                <th>{{ trans('senaempresa::menu.Proposal') }}</th>
+                                @if (Route::is('senaempresa.admin.*') &&
+                                        Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.cv'))
+                                    <th>{{ trans('senaempresa::menu.Currículum') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Proposal') }}</th>
+                                @endif
+                                @if (Route::is('senaempresa.psychologo.*') &&
+                                        Auth::user()->havePermission(
+                                            'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.personalities'))
+                                    <th>{{ trans('senaempresa::menu.16 personalities') }}</th>
+                                @endif
                                 <th>{{ trans('senaempresa::menu.Total score') }}</th>
                                 <th>{{ trans('senaempresa::menu.Assign Score') }}</th>
-                                @if ($score_total->isNotEmpty())
-                                    <th>
-                                         {{ trans('senaempresa::menu.Update Status') }}
-                                    </th>
+                                @if (Route::is('senaempresa.admin.*') &&
+                                        Auth::user()->havePermission(
+                                            'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.state'))
+                                    @if ($score_total->isNotEmpty())
+                                        <th>
+                                            {{ trans('senaempresa::menu.Update Status') }}
+                                        </th>
+                                    @endif
                                 @endif
                         </thead>
                         <tbody>
@@ -57,32 +75,60 @@
                                     <tr>
                                         <td>{{ $postulate->id }}</td>
                                         <td>{{ $postulate->apprentice->person->full_name }}</td>
-                                        <td>{{ $postulate->vacancy->id }} {{ $postulate->vacancy->name }}</td>
-                                        <td style="text-align: center;">
-                                            <a href="{{ asset($postulate->cv) }}" download>
-                                                <i class="far fa-file-pdf" style="color: #fe3e3e; font-size: 30px; text-align: center;"></i>
+                                        <td>{{ $postulate->vacancy->name }}</td>
+                                        @if (checkRol('senaempresa.admin'))
+                                            <td style="text-align: center;">
+                                                <a href="{{ asset($postulate->cv) }}" download>
+                                                    <i class="far fa-file-pdf"
+                                                        style="color: #fe3e3e; font-size: 30px; text-align: center;"></i>
 
-                                            </a>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <a href="{{ asset($postulate->personalities) }}" download>
-                                                <i class="far fa-file-pdf" style="color: #483efe; font-size: 30px; text-align: center;"></i>
-                                            </a>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <a href="{{ asset($postulate->proposal) }}" download>
-                                                <i class="far fa-file-pdf" style="color: #08c651; font-size: 30px; text-align: center;"></i>
-                                            </a>
-                                        </td>
+                                                </a>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <a href="{{ asset($postulate->proposal) }}" download>
+                                                    <i class="far fa-file-pdf"
+                                                        style="color: #08c651; font-size: 30px; text-align: center;"></i>
+                                                </a>
+                                            </td>
+                                        @endif
+                                        @if (Route::is('senaempresa.psychologo.*') &&
+                                                Auth::user()->havePermission(
+                                                    'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.personalities'))
+                                            <td style="text-align: center;">
+                                                <a href="{{ asset($postulate->personalities) }}" download>
+                                                    <i class="far fa-file-pdf"
+                                                        style="color: #483efe; font-size: 30px; text-align: center;"></i>
+                                                </a>
+                                            </td>
+                                        @endif
                                         <td>{{ $postulate->score_total }}</td>
 
                                         @if ($postulate->score_total === 0)
                                             <td>
-                                                <a href="#" class="btn btn-primary btn-sm assign-button"
-                                                    data-apprentice-id="{{ $postulate->apprentice->id }}"
-                                                    data-vacancy-id="{{ $postulate->vacancy->id }}">
-                                                    {{ trans('senaempresa::menu.To assign') }}
-                                                </a>
+                                                @if (Route::is('senaempresa.psychologo.*') &&
+                                                        Auth::user()->havePermission(
+                                                            'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.personalities'))
+                                                    @if ($postulate->file_senaempresa->personalities_score > 0)
+                                                        <p> {{ trans('senaempresa::menu.Score Assigned') }}</p>
+                                                    @else
+                                                        <a href="#" class="btn btn-primary btn-sm assign-button"
+                                                            data-apprentice-id="{{ $postulate->apprentice->id }}"
+                                                            data-vacancy-id="{{ $postulate->vacancy->id }}">
+                                                            {{ trans('senaempresa::menu.To assign') }}
+                                                        </a>
+                                                    @endif
+                                                @elseif (Route::is('senaempresa.admin.*') &&
+                                                        Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.cv'))
+                                                    @if ($postulate->file_senaempresa->cv_score > 0 && $postulate->file_senaempresa->proposal_score > 0)
+                                                        <p> {{ trans('senaempresa::menu.Score Assigned') }}</p>
+                                                    @else
+                                                        <a href="#" class="btn btn-primary btn-sm assign-button"
+                                                            data-apprentice-id="{{ $postulate->apprentice->id }}"
+                                                            data-vacancy-id="{{ $postulate->vacancy->id }}">
+                                                            {{ trans('senaempresa::menu.To assign') }}
+                                                        </a>
+                                                    @endif
+                                                @endif
                                             </td>
                                             <td>
                                             </td>
@@ -90,13 +136,17 @@
                                             <td>
                                                 <p> {{ trans('senaempresa::menu.Score Assigned') }}</p>
                                             </td>
-                                            <td>
-                                                <a href="#" class="btn btn-warning btn-sm state-button"
-                                                    data-apprentice-id="{{ $postulate->apprentice->id }}"
-                                                    data-vacancy-id="{{ $postulate->vacancy->id }}">
-                                                    {{ trans('senaempresa::menu.To update') }}
-                                                </a>
-                                            </td>
+                                            @if (Route::is('senaempresa.admin.*') &&
+                                                    Auth::user()->havePermission(
+                                                        'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.state'))
+                                                <td>
+                                                    <a href="#" class="btn btn-warning btn-sm state-button"
+                                                        data-apprentice-id="{{ $postulate->apprentice->id }}"
+                                                        data-vacancy-id="{{ $postulate->vacancy->id }}">
+                                                        {{ trans('senaempresa::menu.To update') }}
+                                                    </a>
+                                                </td>
+                                            @endif
                                         @endif
                                     </tr>
                                 @endif

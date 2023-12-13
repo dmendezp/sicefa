@@ -29,4 +29,9 @@ class postulate extends Model implements Auditable
     { //Accede a los vacantes disponibles
         return $this->belongsTo(Vacancy::class);
     }
+
+    public function file_senaempresa()
+    {
+        return $this->hasOne(FileSenaempresa::class);
+    }
 }

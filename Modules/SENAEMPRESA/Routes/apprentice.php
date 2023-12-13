@@ -41,28 +41,18 @@ Route::middleware(['lang'])->group(function () {
                 Route::post('/registered', 'PostulateController@registered')->name('senaempresa.apprentice.vacancies.registered');
             });
 
-             //RUTAS PARA LA VISUALIZACIÓN DE LAS ASISTENCIAS DEL PERSONAL DE SENAEMPRESA
-        Route::prefix('attendances')->group(function () {
-            Route::get('/new', 'AttendanceSenaempresaController@new')->name('senaempresa.apprentice.attendances.index');
+            //RUTAS PARA LA VISUALIZACIÓN DE LAS ASISTENCIAS DEL PERSONAL DE SENAEMPRESA
+            Route::prefix('attendances')->group(function () {
+                Route::get('/new', 'AttendanceSenaempresaController@new')->name('senaempresa.apprentice.attendances.index');
 
-            // Ruta para mostrar la lista de asistencias
-            Route::post('/search', 'AttendanceSenaempresaController@queryAttendance')->name('senaempresa.apprentice.attendances.queryAttendance');
-            Route::post('/getPersonData', 'AttendanceSenaempresaController@getPersonData')->name('senaempresa.apprentice.attendances.getPersonData');
-        });
-         //RUTAS PARA LA VISUALIZACIÓN Y LA ASIGNACIÓN DE PUNTAJE A LOS POSTULADOS A LAS VACANTES DE SENAEMPRESA
-         Route::prefix('postulates')->group(function () {
-            Route::get('/', 'PostulateController@postulates')->name('senaempresa.admin.postulates.index');
-            Route::get('/assign_score/{apprenticeId}/{vacancyId}', 'PostulateController@assign_score')->name('senaempresa.admin.postulates.assign_score');
-            Route::post('/score_assigned', 'PostulateController@score_assigned')->name('senaempresa.admin.postulates.score_assigned');
-
-            Route::get('/state/{apprenticeId}', 'PostulateController@state')->name('senaempresa.admin.postulates.state');
-            Route::post('/state_updated', 'PostulateController@state_updated')->name('senaempresa.admin.postulates.state_updated');
-
-            Route::get('/selected', 'PostulateController@seleccionados')->name('senaempresa.admin.postulates.selected');
-
-            Route::get('/state_apprentice', 'PostulateController@postulations')->name('senaempresa.admin.postulates.state_apprentice');
-        });
-
+                // Ruta para mostrar la lista de asistencias
+                Route::post('/search', 'AttendanceSenaempresaController@queryAttendance')->name('senaempresa.apprentice.attendances.queryAttendance');
+                Route::post('/getPersonData', 'AttendanceSenaempresaController@getPersonData')->name('senaempresa.apprentice.attendances.getPersonData');
+            });
+            //RUTAS PARA LA VISUALIZACIÓN Y LA ASIGNACIÓN DE PUNTAJE A LOS POSTULADOS A LAS VACANTES DE SENAEMPRESA
+            Route::prefix('postulates')->group(function () {
+                Route::get('/state_apprentice', 'PostulateController@postulations')->name('senaempresa.apprentice.postulates.state_apprentice');
+            });
         });
     });
 });

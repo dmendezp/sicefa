@@ -120,22 +120,16 @@
                                             data-bs-target="#myModal" data-vacancy='@json($vacancy)'>
                                             <i class="fas fa-eye" style="color: #000000;"></i>
                                         </a>
-                                        @if ($currentSenaempresaId && $vacancy->senaempresa_id == $currentSenaempresaId)
-                                            @if (Route::is('senaempresa.admin.*') ||
-                                                    (Route::is('senaempresa.apprentice.*') &&
-                                                        Auth::user()->havePermission(
-                                                            'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.inscription') &&
-                                                        // Verificar si el aprendiz logueado tiene el curso asociado a la vacante
-                                                        Auth::user()->person->apprentices()->where('course_id', $vacancy->course_id)->exists()))
-                                                <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.inscription', ['vacancy_id' => $vacancy->id]) }}"
-                                                    title="Inscripción">
-                                                    <i class="fas fa-user-plus" style="color: #000000;"></i>
-                                                </a>
+                                        @if (Auth::check())
+                                            @if (Auth::user()->roles[0]->name === 'Aprendiz Senaempresa' || Route::is('senaempresa.apprentice.*'))
+                                                @if (Auth::user()->person->apprentices()->where('course_id', $vacancy->course_id)->exists())
+                                                    <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.inscription', ['vacancy_id' => $vacancy->id]) }}"
+                                                        title="Inscripción">
+                                                        <i class="fas fa-user-plus" style="color: #000000;"></i>
+                                                    </a>
+                                                @endif
                                             @endif
                                         @endif
-
-
-
                                     </td>
                                     @if (Route::is('senaempresa.admin.*') &&
                                             Auth::user()->havePermission(

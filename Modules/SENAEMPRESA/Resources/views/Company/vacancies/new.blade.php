@@ -34,11 +34,17 @@
                                     placeholder="{{ trans('senaempresa::menu.Requirements') }}" required>
                             </div>
                             <div class="mb-3">
-                                <label for="current_senaempresa_id" class="form-label">Senaempresa ID</label>
-                                <input type="hidden" class="form-control" id="senaempresa_id" name="senaempresa_id"
-                                    value="{{ $currentSenaempresaId }}" readonly>
-                                <input type="text" class="form-control" id="current_senaempresa_name"
-                                    name="current_senaempresa_name" value="{{ $currentSenaempresaName }}" readonly>
+                                <label for="senaempresa_id"
+                                    class="form-label">{{ trans('senaempresa::menu.Senaempresa') }}</label>
+                                <select class="form-control" name="senaempresa_id" required>
+                                    <option value="" selected>{{ trans('senaempresa::menu.Select a Senaempresa') }}
+                                    </option>
+                                    @foreach ($senaempresas as $senaempresa)
+                                        <option value="{{ $senaempresa->id }}">
+                                            {{ $senaempresa->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="position_company_id"
@@ -48,8 +54,7 @@
                                     <option value="" selected>
                                         {{ trans('senaempresa::menu.Select a position') }}</option>
                                     @foreach ($PositionCompany as $positionCompany)
-                                        <option value="{{ $positionCompany->id }}">
-                                            {{ $positionCompany->id }} {{ $positionCompany->name }}
+                                        <option value="{{ $positionCompany->id }}">{{ $positionCompany->name }}
                                         </option>
                                     @endforeach
                                 </select>
