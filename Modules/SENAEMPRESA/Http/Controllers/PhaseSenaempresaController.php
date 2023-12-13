@@ -125,42 +125,66 @@ class PhaseSenaempresaController extends Controller
             $senaempresaId = $request->input('senaempresa_id');
             $isChecked = $request->input('checked') === 'true';
 
+            $association = CourseSenaempresa::where('course_id', $courseId)
+                ->where('senaempresa_id', $senaempresaId)
+                ->first();
+
             if ($isChecked) {
-                // Si el checkbox está marcado, crea una nueva relación
-                CourseSenaempresa::create([
-                    'course_id' => $courseId,
-                    'senaempresa_id' => $senaempresaId,
-                ]);
-
-                $message = 'Relación creada correctamente.';
+                // If the checkbox is checked, create a new association
+                if (!$association) {
+                    CourseSenaempresa::create([
+                        'course_id' => $courseId,
+                        'senaempresa_id' => $senaempresaId,
+                    ]);
+                } else {
+                    // If the association exists but was deleted, restore it
+                    $association->restore();
+                }
+                $message = 'Association created successfully.';
             } else {
-                // Si el checkbox no está marcado, elimina la relación existente si existe
-                CourseSenaempresa::where('course_id', $courseId)
-                    ->where('senaempresa_id', $senaempresaId)
-                    ->delete();
-
-                // Marca todas las relaciones existentes como eliminadas
-                CourseSenaempresa::where('course_id', $courseId)
-                    ->whereNull('deleted_at')
-                    ->update(['deleted_at' => now()]);
-
-                $message = 'Relación eliminada correctamente.';
+                // If the checkbox is unchecked, delete the association if it exists
+                if ($association) {
+                    $association->delete();
+                }
+                $message = 'Association deleted successfully.';
             }
 
             return response()->json(['success' => $message], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Ocurrió un error. Detalles: ' . $e->getMessage()], 500);
+            return response()->json(['error' => 'An error occurred. Details: ' . $e->getMessage()], 500);
         }
+    }
+
+    public function get_associations(Request $request)
+    {
+        $senaempresaId = $request->query('senaempresa_id');
+
+        $associations = CourseSenaempresa::where('senaempresa_id', $senaempresaId)
+            ->whereNull('deleted_at')
+            ->pluck('course_id')
+            ->toArray();
+
+        return response()->json(['associations' => $associations], 200);
     }
 
     public function show_associates()
     {
         $currentDate = now();
 
+        $currentQuarter = Quarter::where('start_date', '<=', $currentDate)
+            ->where('end_date', '>=', $currentDate)
+            ->first();
+
+        $nextQuarter = Quarter::where('start_date', '>', $currentDate)
+            ->orderBy('start_date', 'asc')
+            ->first();
+
         $senaempresas = DB::table('senaempresas')
             ->join('quarters', 'senaempresas.quarter_id', '=', 'quarters.id')
-            ->where('quarters.start_date', '<=', $currentDate)
-            ->where('quarters.end_date', '>=', $currentDate)
+            ->where(function ($query) use ($currentQuarter, $nextQuarter) {
+                $query->where('quarters.id', $currentQuarter->id)
+                    ->orWhere('quarters.id', $nextQuarter->id);
+            })
             ->select('senaempresas.*')
             ->get();
 
@@ -175,18 +199,5 @@ class PhaseSenaempresaController extends Controller
         ];
 
         return view('senaempresa::Company.phases_senaempresa.show_associates', $data);
-    }
-
-    public function get_associations(Request $request)
-    {
-        $courseId = $request->query('course_id');
-        $course = Course::findOrFail($courseId);
-
-        // Obtén todas las relaciones, incluidas las marcadas como eliminadas
-        $associations = CourseSenaempresa::where('course_id', $courseId)
-            ->pluck('senaempresa_id')
-            ->toArray();
-
-        return response()->json(['associations' => $associations], 200);
     }
 }
