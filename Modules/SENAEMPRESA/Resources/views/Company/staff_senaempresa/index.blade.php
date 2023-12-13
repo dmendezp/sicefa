@@ -17,16 +17,16 @@
                 <div class="card-body">
                     @php
                         $groupedCandidates = $staff_senaempresas->groupBy(function ($staf) {
-                            // Obtener el trimestre a partir de quarter_id
-                            return $staf->quarter_id;
+                            // Agrupar por senaempresa_id en lugar de quarter_id
+                            return $staf->senaempresa_id;
                         });
                     @endphp
 
-                    @foreach ($groupedCandidates as $quarter => $staff)
+                    @foreach ($groupedCandidates as $senaempresaId => $staff)
                         <div class="time-label">
                             <h1 class="title">
-                                <span class="letter-wrapper"> {{ trans('senaempresa::menu.Quarter') }} </span>
-                                <span class="letter-wrapper">{{ $quarter }}</span>
+                                <span class="letter-wrapper"> {{ trans('senaempresa::menu.Senaempresa') }} </span>
+                                <span class="letter-wrapper">{{ $senaempresaId }}</span>
                             </h1>
                         </div>
                         <div class="row">

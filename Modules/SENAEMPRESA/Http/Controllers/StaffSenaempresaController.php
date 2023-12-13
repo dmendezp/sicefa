@@ -12,7 +12,8 @@ use Modules\SENAEMPRESA\Entities\StaffSenaempresa;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
 use Modules\SICA\Entities\Apprentice;
 use Illuminate\Support\Facades\File;
-use Modules\SICA\Entities\Quarter;
+use Modules\SENAEMPRESA\Entities\Senaempresa;
+
 
 
 
@@ -25,45 +26,48 @@ class StaffSenaempresaController extends Controller
     public function staff()
     {
         $PositionCompany = PositionCompany::all();
-        $staff = StaffSenaempresa::with('Quarter')->get();
-        $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->orderBy('quarter_id')->get();
-        $data = ['title' => trans('senaempresa::menu.Staff'), 'staff_senaempresas' => $staff_senaempresas, 'PositionCompany' => $PositionCompany, 'staff' => $staff];
+        // Actualiza la consulta para ordenar por senaempresa_id
+        $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->orderBy('senaempresa_id')->get();
+        $data = ['title' => trans('senaempresa::menu.Staff'), 'staff_senaempresas' => $staff_senaempresas, 'PositionCompany' => $PositionCompany];
         return view('senaempresa::Company.staff_senaempresa.index', $data);
     }
+
     public function new()
     {
         $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
         $PositionCompany = PositionCompany::all();
-        $quarters = Quarter::all();
+        // Eliminada la consulta a la tabla Quarter
         $Apprentices = Apprentice::whereHas('postulates', function ($query) {
             $query->where('state', 'Seleccionado');
         })->get();
-
+    
         $selectedPosition = null;
         $selectedPositionName = null;
-
+    
         if ($Apprentices->isEmpty()) {
-            return redirect()->back()->with('error', trans('senaempresa::menu.No apprentices selected')); // Set your custom error message here
+            return redirect()->back()->with('error', trans('senaempresa::menu.No apprentices selected'));
         } else {
             $firstApprentice = $Apprentices->first();
             $postulate = $firstApprentice->postulates->first();
             $selectedPosition = $postulate->vacancy->position_company_id;
             $selectedPositionName = $postulate->vacancy->positionCompany->name;
         }
-
+    
+        // Cambiado 'quarters' por 'Senaempresa'
         $data = [
             'title' => trans('senaempresa::menu.Staff SenaEmpresa'),
             'vacastaff_senaempresasncies' => $staff_senaempresas,
             'PositionCompany' => $PositionCompany,
             'Apprentices' => $Apprentices,
-            'quarters' => $quarters,
+            // Cambiado 'quarters' por 'senaempresa'
+            'senaempresa' => Senaempresa::all(),
             'selectedPosition' => $selectedPosition,
-            'selectedPositionName' => $selectedPositionName, // Nuevo campo para el nombre del cargo
+            'selectedPositionName' => $selectedPositionName,
         ];
-
+    
         return view('senaempresa::Company.staff_senaempresa.new', $data);
     }
-
+    
 
 
 
@@ -80,7 +84,7 @@ class StaffSenaempresaController extends Controller
         $staffSenaempresa = new StaffSenaempresa();
         $staffSenaempresa->position_company_id = $request->input('position_company_id');
         $staffSenaempresa->apprentice_id = $request->input('apprentice_id');
-        $staffSenaempresa->quarter_id = $request->input('quarter_id');
+        $staffSenaempresa->senaempresa_id = $request->input('senaempresa_id'); // Cambiado a senaempresa_id
         $staffSenaempresa->image = 'modules/senaempresa/images/staff/' . $name_image;
 
         // Guarda la instancia en la base de datos
@@ -95,7 +99,6 @@ class StaffSenaempresaController extends Controller
 
     public function edit($id)
     {
-
         $staffSenaempresa = StaffSenaempresa::findOrFail($id);
         $PositionCompany = PositionCompany::all();
         $apprentices = Apprentice::all();
@@ -105,9 +108,11 @@ class StaffSenaempresaController extends Controller
 
         return view('senaempresa::Company.staff_senaempresa.edit', $data);
     }
+
     public function updated(Request $request, $id)
     {
         $staffSenaempresa = StaffSenaempresa::find($id);
+
         if ($request->hasFile('image')) {
             // Elimina la imagen existente si existe
             if (File::exists(public_path($staffSenaempresa->image))) {
@@ -122,9 +127,10 @@ class StaffSenaempresaController extends Controller
 
             $staffSenaempresa->image = 'modules/senaempresa/images/staff/' . $name_image;
         }
+
         $staffSenaempresa->position_company_id = $request->input('position_company_id');
         $staffSenaempresa->apprentice_id = $request->input('apprentice_id');
-        $staffSenaempresa->quarter_id = $request->input('quarter_id');
+        $staffSenaempresa->senaempresa_id = $request->input('senaempresa_id'); // Cambiado a senaempresa_id
         $staffSenaempresa->save();
 
         return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.index')->with('success', trans('senaempresa::menu.Registration successfully updated.'));

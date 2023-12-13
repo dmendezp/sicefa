@@ -23,7 +23,7 @@ class StaffSenaempresasTableSeeder extends Seeder
         $quarters = Quarter::orderBy('start_date')->orderBy('end_date')->get();
 
         // Define la cantidad de registros que deseas crear
-        $numStaffMembers = 10;
+        $numStaffMembers = 0;
 
         for ($i = 0; $i < $numStaffMembers; $i++) {
             // Verificar si los arreglos no están vacíos antes de usar array_rand
