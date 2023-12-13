@@ -168,36 +168,54 @@ class PhaseSenaempresaController extends Controller
     }
 
     public function show_associates()
-    {
-        $currentDate = now();
+{
+    $currentDate = now();
 
-        $currentQuarter = Quarter::where('start_date', '<=', $currentDate)
-            ->where('end_date', '>=', $currentDate)
-            ->first();
+    $currentQuarter = Quarter::where('start_date', '<=', $currentDate)
+        ->where('end_date', '>=', $currentDate)
+        ->first();
 
-        $nextQuarter = Quarter::where('start_date', '>', $currentDate)
-            ->orderBy('start_date', 'asc')
-            ->first();
+    $nextQuarter = Quarter::where('start_date', '>', $currentDate)
+        ->orderBy('start_date', 'asc')
+        ->first();
 
-        $senaempresas = DB::table('senaempresas')
+    $currentQuarterSenaempresa = DB::table('senaempresas')
+        ->join('quarters', 'senaempresas.quarter_id', '=', 'quarters.id')
+        ->where('quarters.id', $currentQuarter->id)
+        ->select('senaempresas.*')
+        ->get();
+
+    if ($currentQuarterSenaempresa->isEmpty()) {
+        // No SenaEmpresa for the current quarter, check for the next quarter
+        $nextQuarterSenaempresa = DB::table('senaempresas')
             ->join('quarters', 'senaempresas.quarter_id', '=', 'quarters.id')
-            ->where(function ($query) use ($currentQuarter, $nextQuarter) {
-                $query->where('quarters.id', $currentQuarter->id)
-                    ->orWhere('quarters.id', $nextQuarter->id);
-            })
+            ->where('quarters.id', $nextQuarter->id)
             ->select('senaempresas.*')
             ->get();
 
-        $courses = Course::where('status', 'Activo')->with('senaempresa')->get();
-        $courseofsenaempresa = CourseSenaempresa::all();
+        if ($nextQuarterSenaempresa->isEmpty()) {
+            // No SenaEmpresa for the next quarter either, show alert
+            return view('senaempresa::Company.phases_senaempresa.show_alert');
+        }
 
-        $data = [
-            'title' => trans('senaempresa::menu.Assign Course to SenaEmpresa'),
-            'courses' => $courses,
-            'senaempresas' => $senaempresas,
-            'courseofsenaempresa' => $courseofsenaempresa,
-        ];
-
-        return view('senaempresa::Company.phases_senaempresa.show_associates', $data);
+        // SenaEmpresa found for the next quarter, display it
+        $senaempresas = $nextQuarterSenaempresa;
+    } else {
+        // SenaEmpresa found for the current quarter, display it
+        $senaempresas = $currentQuarterSenaempresa;
     }
+
+    $courses = Course::where('status', 'Activo')->with('senaempresa')->get();
+    $courseofsenaempresa = CourseSenaempresa::all();
+
+    $data = [
+        'title' => trans('senaempresa::menu.Assign Course to SenaEmpresa'),
+        'courses' => $courses,
+        'senaempresas' => $senaempresas,
+        'courseofsenaempresa' => $courseofsenaempresa,
+    ];
+
+    return view('senaempresa::Company.phases_senaempresa.show_associates', $data);
+}
+
 }

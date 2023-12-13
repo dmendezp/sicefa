@@ -17,6 +17,7 @@ use Modules\SENAEMPRESA\Entities\PositionCompany;
 use Illuminate\Support\Str;
 use Modules\SICA\Entities\Quarter;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class VacantController extends Controller
 {
@@ -46,7 +47,15 @@ class VacantController extends Controller
 
             if ($currentSenaempresa) {
                 $currentSenaempresaId = $currentSenaempresa->id;
+            } else {
+                // Handle the case where no senaempresa is associated with the current quarter
+                // You can redirect back with an error message or take other appropriate action.
+                return redirect()->back()->with('error', 'No hay una Senaempresa asociada al trimestre actual.');
             }
+        } else {
+            // Handle the case where no current quarter is found
+            // You can redirect back with an error message or take other appropriate action.
+            return redirect()->back()->with('error', 'No hay un trimestre actual.');
         }
 
         $currentDateTime = now(); // Esto incluirá la fecha y la hora actual
@@ -126,46 +135,65 @@ class VacantController extends Controller
 
     public function new(Request $request)
     {
-        // Obtén solo los cargos activos
-        $activePositions = PositionCompany::where('state', 'activo')->get();
+        // Get the current date
+        $currentDate = now();
 
-        // Obtén el trimestre actual en base a la fecha actual
-        $currentDate = Carbon::now();
+        // Find the current quarter
         $currentQuarter = Quarter::where('start_date', '<=', $currentDate)
             ->where('end_date', '>=', $currentDate)
             ->first();
 
         if (!$currentQuarter) {
-            // Manejar el caso en que no se encuentre un trimestre actual
-            // Puedes lanzar una excepción o tomar otra acción apropiada aquí.
+            // Handle the case where no current quarter is found
+            // You can throw an exception or take other appropriate action here.
         }
 
-        // Obtén la empresa asociada al trimestre actual
-        $currentSenaempresa = Senaempresa::where('quarter_id', $currentQuarter->id)->first();
+        // Find the next quarter
+        $nextQuarter = Quarter::where('start_date', '>', $currentDate)
+            ->orderBy('start_date', 'asc')
+            ->first();
 
-        if (!$currentSenaempresa) {
-            // Manejar el caso en que no se encuentre una empresa asociada al trimestre actual
-            // Redirige a la ruta de vacantes o toma otra acción apropiada aquí.
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', 'No hay una senaempresa asociada al trimestre actual.');
+        // Check if there is a next quarter
+        if (!$nextQuarter) {
+            // If there is no next quarter, use the current quarter
+            $nextQuarter = $currentQuarter;
+            // Optionally, you can redirect back with a warning message
+            // return redirect()->back()->with('warning', 'No hay un trimestre siguiente.');
         }
 
-        // Obtén el nombre de la empresa
-        $currentSenaempresaName = $currentSenaempresa->name;
+        // Retrieve the senaempresas for the current or next quarter
+        $senaempresas = DB::table('senaempresas')
+            ->join('quarters', 'senaempresas.quarter_id', '=', 'quarters.id')
+            ->where('quarters.id', $nextQuarter->id)
+            ->select('senaempresas.*')
+            ->get();
+
+        // If no senaempresas are found for the next quarter, use the current quarter
+        if ($senaempresas->isEmpty()) {
+            // Retrieve senaempresas for the current quarter
+            $senaempresas = Senaempresa::where('quarter_id', $currentQuarter->id)->get();
+
+            // Optionally, you can redirect back with a warning message
+            // return redirect()->back()->with('warning', 'No hay senaempresas asociadas con el trimestre siguiente.');
+        }
+
+        // Obtén solo los cargos activos
+        $PositionCompany = PositionCompany::where('state', 'activo')->get();
 
         $vacancies = Vacancy::get();
+
         $data = [
             'title' => trans('senaempresa::menu.New vacancy'),
-            'vacancies' => $vacancies,
-            'PositionCompany' => $activePositions,
-            'currentQuarterId' => $currentQuarter->id,
-            'currentSenaempresaId' => $currentSenaempresa->id,
-            'currentSenaempresaName' => $currentSenaempresaName,
-            // Pasar el nombre de la empresa a la vista
+            'senaempresas' => $senaempresas,
+            'PositionCompany' => $PositionCompany,
+            'vacancies' => $vacancies
         ];
-
 
         return view('senaempresa::Company.vacancies.new', $data);
     }
+
+
+
 
     public function saved(Request $request)
     {
@@ -204,15 +232,62 @@ class VacantController extends Controller
 
     public function edit($id)
     {
+        // Get the current date
+        $currentDate = now();
+
+        // Find the current quarter
+        $currentQuarter = Quarter::where('start_date', '<=', $currentDate)
+            ->where('end_date', '>=', $currentDate)
+            ->first();
+
+        if (!$currentQuarter) {
+            // Handle the case where no current quarter is found
+            // You can throw an exception or take other appropriate action here.
+        }
+
+        // Find the next quarter
+        $nextQuarter = Quarter::where('start_date', '>', $currentDate)
+            ->orderBy('start_date', 'asc')
+            ->first();
+
+        // Check if there is a next quarter
+        if (!$nextQuarter) {
+            // If there is no next quarter, use the current quarter
+            $nextQuarter = $currentQuarter;
+            // Optionally, you can redirect back with a warning message
+            // return redirect()->back()->with('warning', 'No hay un trimestre siguiente.');
+        }
+
+        // Retrieve the senaempresas for the current or next quarter
+        $senaempresas = DB::table('senaempresas')
+            ->join('quarters', 'senaempresas.quarter_id', '=', 'quarters.id')
+            ->where('quarters.id', $nextQuarter->id)
+            ->select('senaempresas.*')
+            ->get();
+
+        // If no senaempresas are found for the next quarter, use the current quarter
+        if ($senaempresas->isEmpty()) {
+            // Retrieve senaempresas for the current quarter
+            $senaempresas = Senaempresa::where('quarter_id', $currentQuarter->id)->get();
+
+            // Optionally, you can redirect back with a warning message
+            // return redirect()->back()->with('warning', 'No hay senaempresas asociadas con el trimestre siguiente.');
+        }
+
         $vacancy = Vacancy::findOrFail($id);
 
-        $activePositions = PositionCompany::where('state', 'activo')->get();
+        $PositionCompany = PositionCompany::where('state', 'activo')->get();
 
-        $data = ['title' => trans('senaempresa::menu.Edit vacancy'), 'vacancy' => $vacancy, 'positionCompany' => $activePositions];
-
+        $data = [
+            'title' => trans('senaempresa::menu.Edit vacancy'),
+            'vacancy' => $vacancy,
+            'PositionCompany' => $PositionCompany,
+            'senaempresas' => $senaempresas
+        ];
 
         return view('senaempresa::Company.vacancies.edit', $data);
     }
+
 
 
     public function updated(Request $request, $id)
@@ -241,6 +316,7 @@ class VacantController extends Controller
         $vacancy->name = $request->input('name');
         $vacancy->description_general = $request->input('description_general');
         $vacancy->requirement = $request->input('requirement');
+        $vacancy->senaempresa_id = $request->input('senaempresa_id');
         $vacancy->position_company_id = $request->input('position_company_id');
         $vacancy->start_datetime = $request->input('start_datetime');
         $vacancy->end_datetime = $request->input('end_datetime');
@@ -272,6 +348,42 @@ class VacantController extends Controller
 
 
     //Asociar cursos a vacantes
+    public function associated_course(Request $request)
+    {
+        try {
+            $courseId = $request->input('course_id');
+            $vacancyId = $request->input('vacancy_id');
+            $isChecked = $request->input('checked') === 'true';
+
+            $association = CourseVacancy::where('course_id', $courseId)
+                ->where('vacancy_id', $vacancyId)
+                ->first();
+
+            if ($isChecked) {
+                // If the checkbox is checked, create a new association
+                if (!$association) {
+                    CourseVacancy::create([
+                        'course_id' => $courseId,
+                        'vacancy_id' => $vacancyId,
+                    ]);
+                } else {
+                    // If the association exists but was deleted, restore it
+                    $association->restore();
+                }
+                $message = 'Association created successfully.';
+            } else {
+                // If the checkbox is unchecked, delete the association if it exists
+                if ($association) {
+                    $association->delete();
+                }
+                $message = 'Association deleted successfully.';
+            }
+
+            return response()->json(['success' => $message], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred. Details: ' . $e->getMessage()], 500);
+        }
+    }
     public function show_associates(Request $request)
     {
         try {
@@ -279,35 +391,35 @@ class VacantController extends Controller
             $vacancyId = $request->input('vacancy_id');
             $isChecked = $request->input('checked') === 'true';
 
+            $association = CourseVacancy::where('course_id', $courseId)
+                ->where('vacancy_id', $vacancyId)
+                ->first();
+
             if ($isChecked) {
-                // Si el checkbox está marcado, crea una nueva relación
-                CourseVacancy::create([
-                    'course_id' => $courseId,
-                    'vacancy_id' => $vacancyId,
-                ]);
-
-                $message = 'Relación creada correctamente.';
+                // If the checkbox is checked, create a new association
+                if (!$association) {
+                    CourseVacancy::create([
+                        'course_id' => $courseId,
+                        'vacancy_id' => $vacancyId,
+                    ]);
+                } else {
+                    // If the association exists but was deleted, restore it
+                    $association->restore();
+                }
+                $message = 'Association created successfully.';
             } else {
-                // Si el checkbox no está marcado, elimina la relación existente si existe
-                CourseVacancy::where('course_id', $courseId)
-                    ->where('vacancy_id', $vacancyId)
-                    ->delete();
-
-                // Marca todas las relaciones existentes como eliminadas
-                CourseVacancy::where('course_id', $courseId)
-                    ->whereNull('deleted_at')
-                    ->update(['deleted_at' => now()]);
-
-                $message = 'Relación eliminada correctamente.';
+                // If the checkbox is unchecked, delete the association if it exists
+                if ($association) {
+                    $association->delete();
+                }
+                $message = 'Association deleted successfully.';
             }
 
             return response()->json(['success' => $message], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Ocurrió un error. Detalles: ' . $e->getMessage()], 500);
+            return response()->json(['error' => 'An error occurred. Details: ' . $e->getMessage()], 500);
         }
     }
-
-
 
     public function getAssociations(Request $request)
     {
@@ -322,7 +434,6 @@ class VacantController extends Controller
         return response()->json(['associations' => $associations], 200);
     }
 
-
     public function partner_course()
     {
         $currentDate = now();
@@ -335,6 +446,8 @@ class VacantController extends Controller
         if (!$currentQuarter) {
             // Handle the case where no current quarter is found
             // You can throw an exception or take other appropriate action here.
+            // For now, I'm redirecting with an error message.
+            return redirect()->back()->with('error', 'No hay un trimestre actual.');
         }
 
         // Retrieve the senaempresa associated with the current quarter
@@ -351,33 +464,55 @@ class VacantController extends Controller
             ->orderBy('start_date', 'asc')
             ->first();
 
-        // Retrieve the senaempresa associated with the next quarter
-        $nextSenaempresa = Senaempresa::where('quarter_id', $nextQuarter->id)->first();
+        // Check if $nextQuarter is not null before proceeding
+        if ($nextQuarter) {
+            // Retrieve the senaempresa associated with the next quarter
+            $nextSenaempresa = Senaempresa::where('quarter_id', $nextQuarter->id)->first();
 
-        // Combine the courses from the current and next senaempresas
-        $courses = $currentSenaempresa->courses->merge($nextSenaempresa->courses);
+            // Combine the courses from the current and next senaempresas
+            $courses = $currentSenaempresa->courses->merge($nextSenaempresa->courses);
 
-        // Check if there are courses available
-        if ($courses->isEmpty()) {
-            // Handle the case where no courses are found
-            // You can show an alert or take other appropriate action here.
-            return redirect()->back()->with('error', 'Primero debe asociar cursos a la senaempresa actual o a la siguiente');
+            // Check if there are courses available
+            if ($courses->isEmpty()) {
+                // Handle the case where no courses are found
+                // You can show an alert or take other appropriate action here.
+                return redirect()->back()->with('error', 'Primero debe asociar cursos a la senaempresa actual o a la siguiente');
+            }
+
+            // Retrieve the vacancies related to the current senaempresa
+            $vacancies = Vacancy::where('senaempresa_id', $currentSenaempresa->id)
+                ->where('state', 'Disponible')
+                ->get();
+
+            $courseofvacancy = CourseVacancy::all();
+
+            $data = [
+                'title' => trans('senaempresa::menu.Assign Courses to Vacancies'),
+                'courses' => $courses,
+                'vacancies' => $vacancies,
+                'courseofvacancy' => $courseofvacancy,
+            ];
+
+            return view('senaempresa::Company.vacancies.partner_course', $data);
+        } else {
+            // If there is no next quarter, display information for the current quarter
+            $courses = $currentSenaempresa->courses;
+
+            // Retrieve the vacancies related to the current senaempresa
+            $vacancies = Vacancy::where('senaempresa_id', $currentSenaempresa->id)
+                ->where('state', 'Disponible')
+                ->get();
+
+            $courseofvacancy = CourseVacancy::all();
+
+            $data = [
+                'title' => trans('senaempresa::menu.Assign Courses to Vacancies'),
+                'courses' => $courses,
+                'vacancies' => $vacancies,
+                'courseofvacancy' => $courseofvacancy,
+            ];
+
+            return view('senaempresa::Company.vacancies.partner_course', $data);
         }
-
-        // Retrieve the vacancies related to the current senaempresa
-        $vacancies = Vacancy::where('senaempresa_id', $currentSenaempresa->id)
-            ->where('state', 'Disponible')
-            ->get();
-
-        $courseofvacancy = CourseVacancy::all();
-
-        $data = [
-            'title' => trans('senaempresa::menu.Assign Courses to Vacancies'),
-            'courses' => $courses,
-            'vacancies' => $vacancies,
-            'courseofvacancy' => $courseofvacancy,
-        ];
-
-        return view('senaempresa::Company.vacancies.partner_course', $data);
     }
 }

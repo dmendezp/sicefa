@@ -27,7 +27,7 @@ class SENAEMPRESADatabaseSeeder extends Seeder
         $this->call(StaffSenaempresasTableSeeder::class); // Ejecutar Seeder de personal
         $this->call(QuartersTableSeeder::class); // Ejecutar Seeder de trimestres
         $this->call(SenaempresasTableSeeder::class); // Ejecutar Seeder de senaempresa estrategias
-        $this->call(VacanciesTableSeeder::class); // Ejecutar Seeder de vacantes
+        $this->call(VacanciesTableSeeder::class); // Ejecutar Seeder de vacantesz
         DB::commit(); // Finalizar transacción
     }
 }

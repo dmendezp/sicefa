@@ -86,10 +86,21 @@
                         checked: isChecked
                     },
                     success: function(data) {
-                        // Handle success
+                        // Muestra una alerta al usuario
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Éxito',
+                            text: data.success,
+                        });
                     },
                     error: function(error) {
-                        // Handle errors
+                        // Muestra una alerta de error al usuario
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Ocurrió un error al procesar la solicitud.',
+                        });
+                        $(this).prop('checked', !isChecked);
                     }
                 });
             });

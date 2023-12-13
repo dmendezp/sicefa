@@ -44,13 +44,27 @@
                                     value="{{ $vacancy->requirement }}">
                             </div>
                             <div class="mb-3">
+                                <label for="senaempresa_id"
+                                    class="form-label">{{ trans('senaempresa::menu.Senaempresa') }}</label>
+                                <select class="form-control" name="senaempresa_id" required>
+                                    @foreach ($senaempresas as $senaempresa)
+                                        <option value="{{ $senaempresa->id }}">
+                                            @if ($senaempresa->id === $vacancy->senaempresa_id)
+                                                selected
+                                            @endif
+                                            {{ $senaempresa->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
                                 <label for="position_company_id"
                                     class="form-label">{{ trans('senaempresa::menu.Id Position') }}</label>
                                 <select class="form-control" name="position_company_id" id="position_company_id">
-                                    @foreach ($positionCompany as $position)
+                                    @foreach ($PositionCompany as $position)
                                         <option value="{{ $position->id }}"
-                                            @if ($position->id === $vacancy->position_company_id) selected @endif>
-                                            {{ $position->id }} {{ $position->name }}</option>
+                                            @if ($position->id === $vacancy->position_company_id) selected @endif>{{ $position->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
