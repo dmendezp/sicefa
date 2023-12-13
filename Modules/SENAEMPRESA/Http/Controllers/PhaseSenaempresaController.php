@@ -179,39 +179,30 @@ class PhaseSenaempresaController extends Controller
             ->orderBy('start_date', 'asc')
             ->first();
 
-        if (!$currentQuarter || !$nextQuarter) {
-            // Handle the case where either currentQuarter or nextQuarter is null
+        if (!$currentQuarter && !$nextQuarter) {
+            // No SenaEmpresa for the current or next quarter, show alert
             return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.index')
-                ->with('error', 'No hay un trimestre actual o siguiente');
+                ->with('error', 'No hay una SenaEmpresa relacionada con el trimestre actual o siguiente');
         }
 
-        $currentQuarterSenaempresa = DB::table('senaempresas')
+        $currentQuarterSenaempresa = $currentQuarter
+            ? DB::table('senaempresas')
             ->join('quarters', 'senaempresas.quarter_id', '=', 'quarters.id')
             ->where('quarters.id', $currentQuarter->id)
             ->select('senaempresas.*')
-            ->get();
+            ->get()
+            : collect(); // If no current quarter, create an empty collection
 
-        $nextQuarterSenaempresa = DB::table('senaempresas')
+        $nextQuarterSenaempresa = $nextQuarter
+            ? DB::table('senaempresas')
             ->join('quarters', 'senaempresas.quarter_id', '=', 'quarters.id')
             ->where('quarters.id', $nextQuarter->id)
             ->select('senaempresas.*')
-            ->get();
+            ->get()
+            : collect(); // If no next quarter, create an empty collection
 
-        // Check if SenaEmpresas exist for both the current and next quarters
-        if (!$currentQuarterSenaempresa->isEmpty() && !$nextQuarterSenaempresa->isEmpty()) {
-            // Merge SenaEmpresas for both quarters
-            $senaempresas = $currentQuarterSenaempresa->merge($nextQuarterSenaempresa);
-        } elseif ($currentQuarterSenaempresa->isEmpty() && !$nextQuarterSenaempresa->isEmpty()) {
-            // No SenaEmpresa for the current quarter, but there is for the next quarter
-            $senaempresas = $nextQuarterSenaempresa;
-        } elseif (!$currentQuarterSenaempresa->isEmpty()) {
-            // SenaEmpresa found for the current quarter, but not for the next quarter
-            $senaempresas = $currentQuarterSenaempresa;
-        } else {
-            // No SenaEmpresa for the current or next quarter, show alert
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.index')
-                ->with('error', 'No hay una senaempresa relacionada con el trimestre actual o siguiente');
-        }
+        // Merge SenaEmpresas for both the current and next quarters
+        $senaempresas = $currentQuarterSenaempresa->merge($nextQuarterSenaempresa);
 
         $courses = Course::where('status', 'Activo')->with('senaempresa')->get();
         $courseofsenaempresa = CourseSenaempresa::all();
