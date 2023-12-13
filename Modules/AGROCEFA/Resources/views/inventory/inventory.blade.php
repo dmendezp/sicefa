@@ -6,9 +6,6 @@
     @auth
         @if (Auth::user()->havePermission('agrocefa.trainer.inventory.manage'))
             <div id="espacio" class="btn-group" role="group" aria-label="Botones">
-                <button id="register" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#crearegistro">
-                    {{ trans('agrocefa::inventory.RecordInventory') }}
-                </button>
 
                 <button id="categorys" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearcategoria">
                     {{ trans('agrocefa::inventory.AddCategory') }}
@@ -201,12 +198,7 @@
             var price = $('#price_' + InventoryId).val();
             var amount = $('#amount_' + InventoryId).val();
             var stock = $('#stock_' + InventoryId).val();
-            var production_date = $('#production_date_' + InventoryId).val();
-            var lot_number = $('#lot_number_' + InventoryId).val();
-            var expiration_date = $('#expiration_date_' + InventoryId).val();
             var state = $('#state_' + InventoryId).val();
-            var mark = $('#mark_' + InventoryId).val();
-            var inventory_code = $('#inventory_code_' + InventoryId).val();
 
 
             // Llenar los campos del formulario con los datos de la especie
@@ -218,12 +210,7 @@
             $('#editInventoryForm_' + InventoryId + ' #price').val(price);
             $('#editInventoryForm_' + InventoryId + ' #amount').val(amount);
             $('#editInventoryForm_' + InventoryId + ' #stock').val(stock);
-            $('#editInventoryForm_' + InventoryId + ' #production_date').val(production_date);
-            $('#editInventoryForm_' + InventoryId + ' #lot_number').val(lot_number);
-            $('#editInventoryForm_' + InventoryId + ' #expiration_date').val(expiration_date);
             $('#editInventoryForm_' + InventoryId + ' #state').val(state);
-            $('#editInventoryForm_' + InventoryId + ' #mark').val(mark);
-            $('#editInventoryForm_' + InventoryId + ' #inventory_code').val(inventory_code);
 
 
             // Construir la URL del formulario con el ID de la especie

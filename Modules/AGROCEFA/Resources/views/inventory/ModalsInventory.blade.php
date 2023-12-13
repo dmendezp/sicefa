@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-group">
                             <label for="description">{{ trans('agrocefa::inventory.Description') }}:</label>
-                            <input type="text" name="description" id="description" class="form-control" required>
+                            <input type="text" name="description" id="description" class="form-control">
                         </div>
                         {{-- Columna 1 --}}
                         <div class="row"> {{-- Extructura principal --}}
@@ -59,27 +59,10 @@
                                     <label for="price">{{ trans('agrocefa::inventory.Price') }}:</label>
                                     <input type="number" name="price" id="price" class="form-control" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="amount">{{ trans('agrocefa::inventory.Amount') }}:</label>
-                                    <input type="number" name="amount" id="amount" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="stock">Stock:</label>
-                                    <input type="number" name="stock" id="stock" class="form-control" required>
-                                </div>
+                                
                             </div>
                             {{-- Columna 2 --}}
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="expiration_date">{{ trans('agrocefa::inventory.expirationdate') }}:</label>
-                                    <input type="date" name="expiration_date" id="expiration_date"
-                                        class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="lot_number">{{ trans('agrocefa::inventory.lotnumber') }}:</label>
-                                    <input type="number" name="lot_number" id="lot_number" class="form-control"
-                                        required>
-                                </div>
                                 <div class="form-group">
                                     <label for="state">{{ trans('agrocefa::inventory.state') }}:</label>
                                     <select name="state" id="state" class="form-control" required>
@@ -89,13 +72,12 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="mark">{{ trans('agrocefa::inventory.mark') }}:</label>
-                                    <input type="text" name="mark" id="mark" class="form-control" required>
+                                    <label for="amount">{{ trans('agrocefa::inventory.Amount') }}:</label>
+                                    <input type="number" name="amount" id="amount" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inventory_code">{{ trans('agrocefa::inventory.inventorycode') }}:</label>
-                                    <input type="number" name="inventory_code" id="inventory_code"
-                                        class="form-control" required>
+                                    <label for="stock">Stock:</label>
+                                    <input type="number" name="stock" id="stock" class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -158,17 +140,12 @@
                             </div>
                             <div class="form-group">
                                 <label
-                                    for="destination_{{ $item->id }}">{{ trans('agrocefa::inventory.Destination') }}:</label>
-                                <select name="destination" id="destination" class="form-control" required>
-                                    <option value="Producción" @if ($item->destination == 'Producción') selected @endif>
-                                        Producción
-                                    </option>
-                                    <option value="Formación" @if ($item->destination == 'Formación') selected @endif>
-                                        Formación
-                                    </option>
-                                    <!-- Agrega más opciones según tus valores enum -->
-                                </select>
+                                    for="description_{{ $item->id }}">{{ trans('agrocefa::inventory.Description') }}:</label>
+                                <input type="text" name="description"
+                                    id="description_{{ $item->id }}" class="form-control"
+                                    value="{{ $item->description }}">
                             </div>
+                            
                             {{-- Columna 1 --}}
                             <div class="row"> {{-- Extructura principal --}}
                                 <div class="col-md-6">
@@ -180,10 +157,16 @@
                                     </div>
                                     <div class="form-group">
                                         <label
-                                            for="description_{{ $item->id }}">{{ trans('agrocefa::inventory.Description') }}:</label>
-                                        <input type="text" name="description"
-                                            id="description_{{ $item->id }}" class="form-control"
-                                            value="{{ $item->description }}" required>
+                                            for="destination_{{ $item->id }}">{{ trans('agrocefa::inventory.Destination') }}:</label>
+                                        <select name="destination" id="destination" class="form-control" required>
+                                            <option value="Producción" @if ($item->destination == 'Producción') selected @endif>
+                                                Producción
+                                            </option>
+                                            <option value="Formación" @if ($item->destination == 'Formación') selected @endif>
+                                                Formación
+                                            </option>
+                                            <!-- Agrega más opciones según tus valores enum -->
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label
@@ -191,31 +174,9 @@
                                         <input type="number" name="price" id="price_{{ $item->id }}"
                                             class="form-control" required value="{{ $item->price }}">
                                     </div>
-                                    <div class="form-group">
-                                        <label
-                                            for="amount_{{ $item->id }}">{{ trans('agrocefa::inventory.Amount') }}:</label>
-                                        <input type="number" name="amount" id="amount_{{ $item->id }}"
-                                            class="form-control" value="{{ $item->amount }}" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="stock_{{ $item->id }}">Stock:</label>
-                                        <input type="number" name="stock" id="stock_{{ $item->id }}"
-                                            class="form-control" value="{{ $item->stock }}" required>
-                                    </div>
                                 </div>
                                 {{-- Columna 2 --}}
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="expiration_date_{{ $item->id }}">{{ trans('agrocefa::inventory.expirationdate') }}:</label>
-                                        <input type="date" name="expiration_date"
-                                            id="expiration_date_{{ $item->id }}" class="form-control"
-                                            value="{{ $item->expiration_date }}" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="lot_number_{{ $item->id }}">{{ trans('agrocefa::inventory.lotnumber') }}:</label>
-                                        <input type="number" name="lot_number" id="lot_number_{{ $item->id }}"
-                                            class="form-control" value="{{ $item->lot_number }}" required>
-                                    </div>
                                     <div class="form-group">
                                         <label for="state_{{ $item->id }}">{{ trans('agrocefa::inventory.state') }}:</label>
                                         <select name="state" id="state" class="form-control" required>
@@ -231,15 +192,15 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="mark_{{ $item->id }}">{{ trans('agrocefa::inventory.mark') }}:</label>
-                                        <input type="text" name="mark" id="mark_{{ $item->id }}"
-                                            class="form-control" value="{{ $item->mark }}" required>
+                                        <label
+                                            for="amount_{{ $item->id }}">{{ trans('agrocefa::inventory.Amount') }}:</label>
+                                        <input type="number" name="amount" id="amount_{{ $item->id }}"
+                                            class="form-control" value="{{ $item->amount }}" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inventory_code_{{ $item->id }}">{{ trans('agrocefa::inventory.inventorycode') }}:</label>
-                                        <input type="number" name="inventory_code"
-                                            id="inventory_code_{{ $item->id }}" class="form-control"
-                                            value="{{ $item->inventory_code }}" required>
+                                        <label for="stock_{{ $item->id }}">Stock:</label>
+                                        <input type="number" name="stock" id="stock_{{ $item->id }}"
+                                            class="form-control" value="{{ $item->stock }}" required>
                                     </div>
                                 </div>
                             </div>
