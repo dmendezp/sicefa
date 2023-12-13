@@ -177,87 +177,86 @@ public function updateBenefits(Request $request)
         $notSelectedPostulations = array_diff($allPostulations->toArray(), $selectedPostulations);
 
         foreach ($selectedPostulations as $postulationId) {
-            $postulation = Postulation::findOrFail($postulationId); 
-
+            $postulation = Postulation::findOrFail($postulationId);
+        
             // Verificar si existe un registro Beneficiario
             $benefitState = $postulation->postulationBenefits->where('state', 'Beneficiario')->first();
             if ($benefitState) {
                 // No permitir actualizaciones si hay un registro Beneficiario
                 continue;
             }
-
+        
             // Obtener los valores de transportation_benefit y feed_benefit
             $transportationBenefit = $postulation->transportation_benefit;
             $feedBenefit = $postulation->feed_benefit;
-
+        
             // Determinar a qué beneficios se está postulando la persona
             $benefitIds = [];
             if ($transportationBenefit == 1) {
                 $benefitIds[] = [
                     'id' => Benefit::where('name', 'Transporte')->first()->id,
-                    'percentage' => 100, // Puedes ajustar el porcentaje según tus necesidades
+                    'percentage' => 100,
                 ];
             }
             if ($feedBenefit == 1) {
                 $alimentacionBenefit = Benefit::where('name', 'Alimentacion')->first();
                 $benefitIds[] = [
                     'id' => $alimentacionBenefit->id,
-                    'percentage' => $alimentacionBenefit->percentage, // Utiliza el porcentaje almacenado en la base de datos
+                    'percentage' => $alimentacionBenefit->percentage,
                 ];
             }
-            
-
+        
             foreach ($benefitIds as $benefitId) {
                 // Verificar si existen registros de beneficios para esta postulación
                 $postulationBenefit = PostulationBenefit::where('postulation_id', $postulationId)
-                    ->where('benefit_id', $benefitId)
+                    ->where('benefit_id', $benefitId['id'])
                     ->first();
-
+        
                 if (!$postulationBenefit) {
                     // Crear el registro solo si no existe un registro Beneficiario
                     PostulationBenefit::updateOrCreate(
-                        ['postulation_id' => $postulationId, 'benefit_id' => $benefitId],
+                        ['postulation_id' => $postulationId, 'benefit_id' => $benefitId['id']],
                         ['state' => 'No Beneficiario', 'message' => 'No hay cuotas disponibles y no adquiere Beneficio']
                     );
-
+        
                     // Verificar cuotas disponibles y actualizar según sea necesario
-                    $availableQuotas = ($benefitId === Benefit::where('name', 'Transporte')->first()->id) ? $transportQuotas : $foodQuotas;
-
+                    $availableQuotas = ($benefitId['id'] === Benefit::where('name', 'Transporte')->first()->id) ? $transportQuotas : $foodQuotas;
+        
                     if ($availableQuotas > 0) {
                         $state = 'Beneficiario';
                         $message = 'Felicidades, has sido aceptado para recibir el beneficio solicitado';
-
+        
                         $postulationBenefit->update([
                             'state' => $state,
                             'message' => $message,
                         ]);
-
+        
                         // Reducir la cantidad de cuotas disponibles solo si el estado es "Beneficiario"
                         if ($state === 'Beneficiario') {
-                            if ($benefitId === Benefit::where('name', 'Transporte')->first()->id) {
-                                $transportQuotas--;
+                            if ($benefitId['id'] === Benefit::where('name', 'Transporte')->first()->id) {
+                                $transportQuotas--;  // Reducción de cuotas de transporte
                             } else {
-                                $foodQuotas--;
+                                $foodQuotas--;  // Reducción de cuotas de alimentación
                             }
                         }
                     }
                 } else {
                     // Si ya existe un registro, actualizar el estado y el mensaje si es necesario
                     if ($postulationBenefit->state !== 'Beneficiario') {
-                        $availableQuotas = ($benefitId === Benefit::where('name', 'Transporte')->first()->id) ? $transportQuotas : $foodQuotas;
-
+                        $availableQuotas = ($benefitId['id'] === Benefit::where('name', 'Transporte')->first()->id) ? $transportQuotas : $foodQuotas;
+        
                         if ($availableQuotas > 0) {
                             $state = 'Beneficiario';
                             $message = 'Felicidades, has sido aceptado para recibir el beneficio solicitado';
-
+        
                             $postulationBenefit->update([
                                 'state' => $state,
                                 'message' => $message,
                             ]);
-
+        
                             // Reducir la cantidad de cuotas disponibles solo si el estado es "Beneficiario"
                             if ($state === 'Beneficiario') {
-                                if ($benefitId === Benefit::where('name', 'Transporte')->first()->id) {
+                                if ($benefitId['id'] === Benefit::where('name', 'Transporte')->first()->id) {
                                     $transportQuotas--;
                                 } else {
                                     $foodQuotas--;
@@ -275,28 +274,42 @@ public function updateBenefits(Request $request)
             }
         }
 
-        // Establecer como "No Beneficiario" las postulaciones que no están seleccionadas
+      
         foreach ($notSelectedPostulations as $postulationId) {
             $benefitIds = Benefit::where(function ($query) {
                 $query->where('name', 'Alimentacion')
                     ->where('porcentege', '50');
             })->orWhere('name', 'Transporte')->pluck('id');
-                        foreach ($benefitIds as $benefitId) {
-                // Verificar si existe un registro Beneficiario
+                        foreach ($benefitIds as $benefitId) {                // Verificar si existe un registro Beneficiario
                 $benefitState = PostulationBenefit::where('postulation_id', $postulationId)
                     ->where('benefit_id', $benefitId)
                     ->where('state', 'Beneficiario')
                     ->first();
-
+        
                 if (!$benefitState) {
-                    // Crear el registro solo si no existe un registro Beneficiario
-                    PostulationBenefit::updateOrCreate(
-                        ['postulation_id' => $postulationId, 'benefit_id' => $benefitId],
-                        ['state' => 'No Beneficiario', 'message' => 'No hay cuotas disponibles y no adquiere Beneficio']
-                    );
+                    // Verificar si existen registros en estado diferente a "Beneficiario"
+                    $nonBeneficiaryState = PostulationBenefit::where('postulation_id', $postulationId)
+                        ->where('benefit_id', $benefitId)
+                        ->where('state', '<>', 'Beneficiario')
+                        ->exists();
+        
+                    if ($nonBeneficiaryState) {
+                        // Actualizar el registro existente si no es "Beneficiario"
+                        PostulationBenefit::updateOrCreate(
+                            ['postulation_id' => $postulationId, 'benefit_id' => $benefitId],
+                            ['state' => 'No Beneficiario', 'message' => 'No has sido aceptado para ser Beneficiario']
+                        );
+                    } else {
+                        // Crear el registro si no existe un registro Beneficiario o No Beneficiario
+                        PostulationBenefit::updateOrCreate(
+                            ['postulation_id' => $postulationId, 'benefit_id' => $benefitId],
+                            ['state' => 'Postulado', 'message' => 'Actualmente Postulado al Beneficio']
+                        );
+                    }
                 }
             }
         }
+        
 
         // Actualizar las cuotas en la convocatoria en la base de datos
         $convocation->food_quotas = $foodQuotas;

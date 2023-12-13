@@ -30,7 +30,6 @@
                                     <th>{{ trans('bienestar::menu.Apprentice Name')}}</th>
                                     <th>{{ trans('bienestar::menu.Convocation')}}</th>
                                     <th>{{ trans('bienestar::menu.Benefit to which you are applying')}}</th>
-                                    <th>{{ trans('bienestar::menu.Application Status')}}</th>
                                     <th>{{ trans('bienestar::menu.Application Score')}}</th>
                                     <th>{{ trans('bienestar::menu.Actions')}}</th>
                                 </tr>
@@ -53,28 +52,21 @@
                                             </td>
                                             <td>{{ $postulation->apprentice->person->full_name }}</td>
                                             <td>{{ $postulation->convocation->name }} - {{ $postulation->convocation->description }}</td>
-                                            <td>
-                                                @if ($transportationBenefit == 1)
-                                                    <span>Transporte</span>
-                                                @endif
-                                                @if ($feedBenefit == 1)
-                                                    <span>Alimentacion</span>
-                                                @endif
-                                                @if ($transportationBenefit == 0 && $feedBenefit == 0)
+                                            <td style="width: 250px;">
+                                                @if (($transportationBenefit == 1 || $feedBenefit == 1) && count($postulation->postulationBenefits) > 0)
+                                                    @php $benefitsText = ''; @endphp
+                                                    @foreach($postulation->postulationBenefits as $postulationBenefit)
+                                                        @if (($postulationBenefit->benefit->name == 'Transporte' && $transportationBenefit == 1) ||
+                                                            ($postulationBenefit->benefit->name == 'Alimentacion' && $feedBenefit == 1))
+                                                            @php $benefitsText .= $postulationBenefit->benefit->name . ' - ' . $postulationBenefit->state . '<br>'; @endphp
+                                                        @endif
+                                                    @endforeach
+                                                    <span>{!! rtrim($benefitsText, '<br>') !!}</span>
+                                                @elseif ($transportationBenefit == 0 && $feedBenefit == 0)
                                                     {{ trans('bienestar::menu.Not available') }}
                                                 @endif
                                             </td>
-                                            <td>
-                                                @foreach($postulation->postulationBenefits as $postulationBenefit)
-                                                    @if (($postulationBenefit->benefit->name == 'Transporte' && $transportationBenefit == 1) ||
-                                                        ($postulationBenefit->benefit->name == 'Alimentacion' && $feedBenefit == 1))
-                                                        <span>{{ $postulationBenefit->state }}</span><br>
-                                                    @endif
-                                                @endforeach
-                                                @if ($transportationBenefit == 0 && $feedBenefit == 0)
-                                                    {{ trans('bienestar::menu.Not available') }}
-                                                @endif
-                                            </td>
+                                            
                                             <td>{{ $postulation->total_score }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal_{{ $postulation->id }}">
