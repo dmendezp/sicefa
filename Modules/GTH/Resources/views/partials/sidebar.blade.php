@@ -99,15 +99,6 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('cefa.contractualcertificates.view') }}"
-                                class="nav-link {{ !Route::is('cefa.contractualcertificates.view') ?: 'active' }}">
-                                <i class="fas fa-receipt"></i>
-                                <p>
-                                    {{ trans('gth::menu.Contract Certificate') }}
-                                </p>
-                            </a>
-                        </li>
                     </ul>
                 </li>
                 <li
@@ -177,7 +168,16 @@
                         </p>
                     </a>
                 </li>
-               
+                <li class="nav-item">
+                    <a href="{{ route('cefa.contractualcertificate.view') }}"
+                        class="nav-link {{ !Route::is('cefa.contractualcertificate.view') ?: 'active' }}">
+                        <i class="fas fa-receipt"></i>
+                        <p>
+                            {{ trans('gth::menu.Contract Certificate') }}
+                        </p>
+                    </a>
+                </li>
+
         </nav>
         <!-- /.sidebar-menu -->
     </div>

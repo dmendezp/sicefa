@@ -87,5 +87,8 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/employees', 'OfficialController@store')->name('cefa.gth.store');
         Route::put('/official/edit/{id}', 'OfficialController@edit_official')->name('cefa.gth.officials.update');
 
+        //contractual certificate
+        Route::get('/contractualcertificate', 'ContractualCertificateController@viewcontractualcertificate')->name('cefa.contractualcertificate.view');
+        Route::post('/contractualcertificate/search', 'ContractualCertificateController@search')->name('cefa.contractualcertificate.search');
     });
 });
