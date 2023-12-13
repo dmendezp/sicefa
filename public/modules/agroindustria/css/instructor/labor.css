@@ -63,10 +63,6 @@
     color: white; /* Cambia el color del texto para que sea legible */
 }
 
-.executors{
-    display: none;
-}
-
 #title_executor{
     margin-top: 5px;
 }
@@ -76,7 +72,7 @@
 }
 
 #add-executor{
-    width: 970px;
+    width: 930px;
     padding: 5px 0px 5px 0px;
     border: none;
     border-radius: 4px;
@@ -85,7 +81,7 @@
 }
 
 #add-tools{
-    width: 970px;
+    width: 930px;
     padding: 5px 0px 5px 0px;
     border: none;
     border-radius: 4px;
@@ -94,7 +90,7 @@
 }
 
 #add-equipments{
-    width: 970px;
+    width: 930px;
     padding: 5px 0px 5px 0px;
     border: none;
     border-radius: 4px;
@@ -103,7 +99,7 @@
 }
 
 #add-consumables{
-    width: 970px;
+    width: 930px;
     padding: 5px 0px 5px 0px;
     border: none;
     border-radius: 4px;
@@ -112,7 +108,7 @@
 }
 
 #add-resources{
-    width: 970px;
+    width: 930px;
     padding: 5px 0px 5px 0px;
     border: none;
     border-radius: 4px;
@@ -201,6 +197,27 @@
 .form-group-consumables{
     display: inline-block;
     width: 200px;
-    margin-right: 20px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.form-group-tools{
+    display: inline-block;
+    width: 200px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.form-group-collaborators{
+    display: inline-block;
+    width: 200px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.form-group-equipments{
+    display: inline-block;
+    width: 200px;
+    margin-right: 10px;
     margin-bottom: 20px;
 }

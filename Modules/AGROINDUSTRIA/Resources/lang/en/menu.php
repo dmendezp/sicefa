@@ -51,6 +51,8 @@ return [
     'Products' => 'Products',
     'Element' => 'Element',
     'Amount' => 'Amount',
+    'productiveSend' => 'Productive U. Send',
+    'productiveReceives' => 'Productive U. Receives',
     'Quantity Available' => 'Quantity Available',
     'Price' => 'Price',
     'Select a product' => 'Select a product',

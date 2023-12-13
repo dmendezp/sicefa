@@ -51,6 +51,8 @@ return [
     'Products' => 'Productos',
     'Element' => 'Elemento',
     'Amount' => 'Cantidad',
+    'productiveSend' => 'U.Productiva Envia',
+    'productiveReceives' => 'U.Productiva Recibe',
     'Quantity Available' => 'Cantidad Disponible',
     'Price' => 'Precio',
     'Select a product' => 'Seleccione un producto',

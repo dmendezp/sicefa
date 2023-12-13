@@ -29,17 +29,25 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('agroindustria.admin.units.activity', ['unit'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Activities')}}</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('agroindustria.admin.units.production')}}">{{trans('agroindustria::menu.production')}}</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Reportes
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li >
+                            <a class="dropdown-item" href="{{route('agroindustria.admin.units.production')}}">{{trans('agroindustria::menu.production')}}</a>
+                        </li>
+                        <li >
+                            <a class="dropdown-item" href="{{route('cefa.agroindustria.storer.units.inventory', ['id'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Inventory')}}</a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('agroindustria.admin.units.movements')}}">{{trans('agroindustria::menu.Movements')}}</a>
-                </li>
+                
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('agroindustria.admin.units.labor')}}">{{trans('agroindustria::menu.Task')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.storer.units.inventory', ['id'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Inventory')}}</a>
+                    <a class="nav-link" href="{{route('agroindustria.admin.units.movements')}}">{{trans('agroindustria::menu.Movements')}}</a>
                 </li>
                 <li class="nav-item">
                     <a href="{{route('cefa.agroindustria.admin.units.remove')}}" class="nav-link">{{trans('agroindustria::menu.Desregistrations')}}</a>
@@ -104,7 +112,7 @@
      <!-- Dashboard unidades -->
      @if(auth()->check() && checkRol('agroindustria.instructor.vilmer') || auth()->check() && checkRol('agroindustria.instructor.chocolate'))  
      <div class="dashboard_units">  
-         <ul class="dashboard">
+         <ul class="navbar-nav">
              <li class="nav-item">
                  <a class="nav-link" href="{{ route('agroindustria.instructor.units') }}">{{trans('agroindustria::menu.Units')}}</a>
              </li>
@@ -115,7 +123,7 @@
     <!-- Dashboard admin -->
     @if(auth()->check() && checkRol('agroindustria.admin'))  
     <div class="dashboard_admin">  
-        <ul class="dashboard">
+        <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('agroindustria.admin.units') }}">{{trans('agroindustria::menu.Units')}}</a>
             </li>
@@ -125,7 +133,7 @@
 
     @if(auth()->check() && checkRol('agroindustria.almacenista'))  
     <div class="dashboard_admin">  
-        <ul class="dashboard">
+        <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('cefa.agroindustria.units') }}">{{trans('agroindustria::menu.Units')}}</a>
             </li>
