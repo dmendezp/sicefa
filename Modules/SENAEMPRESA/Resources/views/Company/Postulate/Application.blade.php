@@ -23,7 +23,7 @@
                                     <tr>
                                         <td>{{ $postulate->id }}</td>
                                         <td>{{ $postulate->apprentice->person->full_name }}</td>
-                                        <td>{{ $postulate->vacancy->id }} {{ $postulate->vacancy->name }}</td>
+                                        <td>{{ $postulate->vacancy->name }}</td>
                                         <td style="text-align: center;">
                                             <a href="{{ asset($postulate->cv) }}" download>
                                                 <i class="far fa-file-pdf"

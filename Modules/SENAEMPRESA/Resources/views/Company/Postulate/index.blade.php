@@ -76,7 +76,8 @@
                                         <td>{{ $postulate->id }}</td>
                                         <td>{{ $postulate->apprentice->person->full_name }}</td>
                                         <td>{{ $postulate->vacancy->name }}</td>
-                                        @if (checkRol('senaempresa.admin'))
+                                        @if (Route::is('senaempresa.admin.*') &&
+                                                Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.cv'))
                                             <td style="text-align: center;">
                                                 <a href="{{ asset($postulate->cv) }}" download>
                                                     <i class="far fa-file-pdf"
@@ -102,43 +103,44 @@
                                             </td>
                                         @endif
                                         <td>{{ $postulate->score_total }}</td>
-
                                         @if ($postulate->score_total === 0)
                                             <td>
                                                 @if (Route::is('senaempresa.psychologo.*') &&
                                                         Auth::user()->havePermission(
                                                             'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.personalities'))
-                                                    @if ($postulate->file_senaempresa->personalities_score > 0)
-                                                        <p> {{ trans('senaempresa::menu.Score Assigned') }}</p>
-                                                    @else
+                                                    @if (!$postulate->file_senaempresa || $postulate->file_senaempresa->personalities_score === null)
                                                         <a href="#" class="btn btn-primary btn-sm assign-button"
                                                             data-apprentice-id="{{ $postulate->apprentice->id }}"
                                                             data-vacancy-id="{{ $postulate->vacancy->id }}">
                                                             {{ trans('senaempresa::menu.To assign') }}
                                                         </a>
+                                                    @else
+                                                        <p> {{ trans('senaempresa::menu.Score Assigned') }}</p>
                                                     @endif
                                                 @elseif (Route::is('senaempresa.admin.*') &&
                                                         Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.cv'))
-                                                    @if ($postulate->file_senaempresa->cv_score > 0 && $postulate->file_senaempresa->proposal_score > 0)
-                                                        <p> {{ trans('senaempresa::menu.Score Assigned') }}</p>
-                                                    @else
+                                                    @if (
+                                                        !$postulate->file_senaempresa ||
+                                                            ($postulate->file_senaempresa->cv_score === null && $postulate->file_senaempresa->proposal_score === null))
                                                         <a href="#" class="btn btn-primary btn-sm assign-button"
                                                             data-apprentice-id="{{ $postulate->apprentice->id }}"
                                                             data-vacancy-id="{{ $postulate->vacancy->id }}">
                                                             {{ trans('senaempresa::menu.To assign') }}
                                                         </a>
+                                                    @else
+                                                        <p> {{ trans('senaempresa::menu.Score Assigned') }}</p>
                                                     @endif
                                                 @endif
-                                            </td>
-                                            <td>
                                             </td>
                                         @else
                                             <td>
                                                 <p> {{ trans('senaempresa::menu.Score Assigned') }}</p>
                                             </td>
-                                            @if (Route::is('senaempresa.admin.*') &&
-                                                    Auth::user()->havePermission(
-                                                        'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.state'))
+                                            @if (
+                                                $postulate->score_total > 0 &&
+                                                    (Route::is('senaempresa.admin.*') &&
+                                                        Auth::user()->havePermission(
+                                                            'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.state')))
                                                 <td>
                                                     <a href="#" class="btn btn-warning btn-sm state-button"
                                                         data-apprentice-id="{{ $postulate->apprentice->id }}"

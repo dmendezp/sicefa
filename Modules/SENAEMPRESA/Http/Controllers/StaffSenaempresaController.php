@@ -13,9 +13,8 @@ use Modules\SENAEMPRESA\Entities\PositionCompany;
 use Modules\SENAEMPRESA\Entities\SenaEmpresa;
 use Modules\SICA\Entities\Apprentice;
 use Illuminate\Support\Facades\File;
-
-
-
+use Modules\SICA\Entities\Quarter;
+use Illuminate\Support\Facades\DB;
 
 
 class StaffSenaempresaController extends Controller
@@ -26,25 +25,83 @@ class StaffSenaempresaController extends Controller
      */
     public function staff()
     {
+        // Get the current date
+        $currentDate = now();
+
+        // Find the current quarter
+        $currentQuarter = Quarter::where('start_date', '<=', $currentDate)
+            ->where('end_date', '>=', $currentDate)
+            ->first();
+
+        // Find the next quarter
+        $nextQuarter = Quarter::where('start_date', '>', $currentDate)
+            ->orderBy('start_date', 'asc')
+            ->first();
+
         $PositionCompany = PositionCompany::all();
-        $staff = StaffSenaempresa::with('Quarter')->get();
+        $staff = StaffSenaempresa::with('senaempresa')->get();
         $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->orderBy('senaempresa_id')->get();
-        $data = ['title' => trans('senaempresa::menu.Staff'), 'staff_senaempresas' => $staff_senaempresas, 'PositionCompany' => $PositionCompany, 'staff' => $staff];
+
+        $data = [
+            'title' => trans('senaempresa::menu.Staff'),
+            'staff_senaempresas' => $staff_senaempresas,
+            'PositionCompany' => $PositionCompany,
+            'staff' => $staff,
+            'currentQuarterId' => $currentQuarter ? $currentQuarter->id : null,
+            'nextQuarterId' => $nextQuarter ? $nextQuarter->id : null,
+        ];
+
         return view('senaempresa::Company.staff_senaempresa.index', $data);
     }
     public function new()
     {
+        // Get the current date
+        $currentDate = now();
+
+        // Find the current quarter
+        $currentQuarter = Quarter::where('start_date', '<=', $currentDate)
+            ->where('end_date', '>=', $currentDate)
+            ->first();
+
+        if (!$currentQuarter) {
+            // Handle the case where no current quarter is found
+            // You can throw an exception or take other appropriate action here.
+        }
+
+        // Find the next quarter
+        $nextQuarter = Quarter::where('start_date', '>', $currentDate)
+            ->orderBy('start_date', 'asc')
+            ->first();
+
+        // Check if there is a next quarter
+        if (!$nextQuarter) {
+            // If there is no next quarter, use the current quarter
+            $nextQuarter = $currentQuarter;
+        }
+
+        // Retrieve senaempresas for the current quarter
+        $currentSenaempresas = Senaempresa::where('quarter_id', $currentQuarter->id)->get();
+
+        // Retrieve senaempresas for the next quarter
+        $nextSenaempresas = Senaempresa::where('quarter_id', $nextQuarter->id)->get();
+
+        // Merge senaempresas for both quarters
+        $senaempresas = $currentSenaempresas->merge($nextSenaempresas);
+
+        // Check if senaempresas is empty for both quarters
+        if ($senaempresas->isEmpty()) {
+            return redirect()->back()->with('error', 'No se han encontrado senaempresas para el trimestre actual o el siguiente');
+        }
+
         $staffSenaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
         $positionCompany = PositionCompany::all();
-        $senaempresas = Senaempresa::all(); // Asumiendo que Senaempresa es el nombre correcto del modelo
-        $apprenticess = Apprentice::whereHas('postulates', function ($query) {
+        $apprentices = Apprentice::whereHas('postulates', function ($query) {
             $query->where('state', 'Seleccionado');
         })->get();
-    
-        $apprenticess = Apprentice::all();
+
         $selectedPosition = null;
         $selectedPositionName = null;
-    
+
         if ($apprentices->isEmpty()) {
             return redirect()->back()->with('error', trans('senaempresa::menu.No apprentices selected'));
         } else {
@@ -53,22 +110,19 @@ class StaffSenaempresaController extends Controller
             $selectedPosition = $postulate->vacancy->position_company_id;
             $selectedPositionName = $postulate->vacancy->positionCompany->name;
         }
-    
+
         $data = [
             'title' => trans('senaempresa::menu.Staff SenaEmpresa'),
             'vacastaff_senaempresasncies' => $staffSenaempresas,
             'PositionCompany' => $positionCompany,
             'Apprentices' => $apprentices,
-            'senaempresas' => $senaempresas, // Nombre de la variable actualizado
+            'senaempresas' => $senaempresas,
             'selectedPosition' => $selectedPosition,
             'selectedPositionName' => $selectedPositionName,
         ];
-    
+
         return view('senaempresa::Company.staff_senaempresa.new', $data);
     }
-    
-
-
 
     public function saved(Request $request)
     {
@@ -83,7 +137,7 @@ class StaffSenaempresaController extends Controller
         $staffSenaempresa = new StaffSenaempresa();
         $staffSenaempresa->position_company_id = $request->input('position_company_id');
         $staffSenaempresa->apprentice_id = $request->input('apprentice_id');
-        $staffSenaempresa->quarter_id = $request->input('quarter_id');
+        $staffSenaempresa->senaempresa_id = $request->input('senaempresa_id');
         $staffSenaempresa->image = 'modules/senaempresa/images/staff/' . $name_image;
 
         // Guarda la instancia en la base de datos
@@ -98,13 +152,48 @@ class StaffSenaempresaController extends Controller
 
     public function edit($id)
     {
+        // Get the current date
+        $currentDate = now();
 
+        // Find the current quarter
+        $currentQuarter = Quarter::where('start_date', '<=', $currentDate)
+            ->where('end_date', '>=', $currentDate)
+            ->first();
+
+        if (!$currentQuarter) {
+            // Handle the case where no current quarter is found
+            // You can throw an exception or take other appropriate action here.
+        }
+
+        // Find the next quarter
+        $nextQuarter = Quarter::where('start_date', '>', $currentDate)
+            ->orderBy('start_date', 'asc')
+            ->first();
+
+        // Check if there is a next quarter
+        if (!$nextQuarter) {
+            // If there is no next quarter, use the current quarter
+            $nextQuarter = $currentQuarter;
+        }
+
+        // Retrieve senaempresas for the current quarter
+        $currentSenaempresas = Senaempresa::where('quarter_id', $currentQuarter->id)->get();
+
+        // Retrieve senaempresas for the next quarter
+        $nextSenaempresas = Senaempresa::where('quarter_id', $nextQuarter->id)->get();
+
+        // Merge senaempresas for both quarters
+        $senaempresas = $currentSenaempresas->merge($nextSenaempresas);
+
+        // Check if senaempresas is empty for both quarters
+        if ($senaempresas->isEmpty()) {
+            return redirect()->back()->with('error', 'No se han encontrado senaempresas para el trimestre actual o el siguiente');
+        }
         $staffSenaempresa = StaffSenaempresa::findOrFail($id);
         $PositionCompany = PositionCompany::all();
         $apprentices = Apprentice::all();
-        $quarters = Quarter::all();
 
-        $data = ['title' => trans('senaempresa::menu.Edit Personal'), 'staffSenaempresa' => $staffSenaempresa, 'PositionCompany' => $PositionCompany, 'apprentices' => $apprentices, 'quarters' => $quarters];
+        $data = ['title' => trans('senaempresa::menu.Edit Personal'), 'staffSenaempresa' => $staffSenaempresa, 'PositionCompany' => $PositionCompany, 'apprentices' => $apprentices, 'senaempresas' => $senaempresas];
 
         return view('senaempresa::Company.staff_senaempresa.edit', $data);
     }
@@ -127,7 +216,7 @@ class StaffSenaempresaController extends Controller
         }
         $staffSenaempresa->position_company_id = $request->input('position_company_id');
         $staffSenaempresa->apprentice_id = $request->input('apprentice_id');
-        $staffSenaempresa->quarter_id = $request->input('quarter_id');
+        $staffSenaempresa->senaempresa_id = $request->input('senaempresa_id');
         $staffSenaempresa->save();
 
         return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.index')->with('success', trans('senaempresa::menu.Registration successfully updated.'));

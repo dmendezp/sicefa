@@ -59,20 +59,17 @@
                                 @endif
                             </div>
                             <div class="mb-3">
-                                <label for="quarter_id"
-                                    class="form-label">{{ trans('senaempresa::menu.ID Quarter') }}</label>
-                                <select class="form-control" name="quarter_id" aria-label="Selecciona un Cargo" required>
-                                    <option value="" selected>Selecciona un trimestre</option>
-                                    @foreach ($quarters as $quarter)
+                                <label for="senaempresa_id"
+                                    class="form-label">{{ trans('senaempresa::menu.ID Senaempresa') }}</label>
+                                <select class="form-control" name="senaempresa_id" required>
+                                    @foreach ($senaempresas as $senaempresa)
                                         <option
-                                            value="{{ $quarter->id }}"{{ $quarter->id == $staffSenaempresa->quarter_id ? 'selected' : '' }}>
-
-                                            {{ $quarter->id }} {{ $quarter->name }}
+                                            value="{{ $senaempresa->id }}"{{ $senaempresa->id == $staffSenaempresa->senaempresa_id ? 'selected' : '' }}>
+                                            {{ $senaempresa->name }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
-
                             <button type="submit" class="btn btn-success">{{ trans('senaempresa::menu.Update') }}</button>
                             <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.index') }}"
                                 class="btn btn-danger btn-xl">{{ trans('senaempresa::menu.Cancel') }}</a>

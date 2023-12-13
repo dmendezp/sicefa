@@ -32,7 +32,8 @@
                             <input type="hidden" class="form-control" id="vacancy_id" name="vacancy_id"
                                 value="{{ $postulate->vacancy_id }}" readonly>
 
-                            @if (checkRol('senaempresa.admin'))
+                            @if (Route::is('senaempresa.admin.*') &&
+                                    Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.cv'))
                                 <div class="mb-3">
                                     <label for="cv_score"
                                         class="form-label">{{ trans('senaempresa::menu.Score - curricolum') }}</label><br>
@@ -46,7 +47,9 @@
                                         value="0" required>
                                 </div>
                             @endif
-                            @if (checkRol('senaempresa.psychologo'))
+                            @if (Route::is('senaempresa.psychologo.*') &&
+                                    Auth::user()->havePermission(
+                                        'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.personalities'))
                                 <div class="mb-3">
                                     <label for="personalities_score" class="form-label">
                                         {{ trans('senaempresa::menu.Score - 16 personalities') }}</label><br>

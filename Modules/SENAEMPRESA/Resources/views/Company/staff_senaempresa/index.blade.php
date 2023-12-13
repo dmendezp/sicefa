@@ -25,7 +25,7 @@
                     @foreach ($groupedCandidates as $senaempresaId => $staff)
                         <div class="time-label">
                             <h1 class="title">
-                                <span class="letter-wrapper"> {{ trans('senaempresa::menu.Senaempresa') }} </span>
+                                <span class="letter-wrapper"> SenaEmpresa </span>
                                 <span class="letter-wrapper">{{ $senaempresaId }}</span>
                             </h1>
                         </div>
@@ -52,23 +52,27 @@
                                                     style="margin-top: 10px; font-weight: bold;">
                                                     {{ $staf->position }}
                                                 </p>
-                                                @if (Route::is('senaempresa.admin.*') &&
+                                                @if (in_array($staf->senaempresa_id, [$currentQuarterId, $nextQuarterId]) &&
+                                                        Route::is('senaempresa.admin.*') &&
                                                         Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.delete'))
-                                                    <div class="card-buttons" style="margin-top: 10px;">
-                                                        <form class="formPersonal"
-                                                            action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.delete', $staf->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <div class="btn-group">
-                                                                <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.edit', ['id' => $staf->id]) }}"
-                                                                    class="btn btn-info"><i class="fas fa-edit"></i></a>
-                                                                <button type="submit" class="btn btn-danger"><i
-                                                                        class="fas fa-trash-alt"></i></button>
-                                                            </div>
-                                                        </form>
+                                                    @if (Route::is('senaempresa.admin.*') &&
+                                                            Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.delete'))
+                                                        <div class="card-buttons" style="margin-top: 10px;">
+                                                            <form class="formPersonal"
+                                                                action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.delete', $staf->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <div class="btn-group">
+                                                                    <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.edit', ['id' => $staf->id]) }}"
+                                                                        class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                                                    <button type="submit" class="btn btn-danger"><i
+                                                                            class="fas fa-trash-alt"></i></button>
+                                                                </div>
+                                                            </form>
 
-                                                    </div>
+                                                        </div>
+                                                    @endif
                                                 @endif
                                             </div>
                                         </div>

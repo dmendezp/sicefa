@@ -43,8 +43,7 @@
                                 <input type="file" id="image" name="image" required>
                             </div>
                             <div class="mb-3">
-                                <label for="senaempresa_id"
-                                    class="form-label">{{ trans('senaempresa::menu.ID Senaempresa') }}</label>
+                                <label for="senaempresa_id" class="form-label">SenaEmpresa Id</label>
                                 <select class="form-control" name="senaempresa_id" aria-label="Selecciona una Senaempresa"
                                     required>
                                     <option value="" selected>Selecciona una Senaempresa</option>

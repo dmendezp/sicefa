@@ -10,7 +10,8 @@
     <div class="container">
         <h1 class="text-center"><strong><em><span>{{ $title }}</span></em></strong></h1>
         @if (Route::is('senaempresa.admin.*') ||
-        (Route::is('senaempresa.human_talent_leader.*') && (Auth::user()->havePermission('senaempresa.admin-pasante.loans.filter'))))
+                (Route::is('senaempresa.human_talent_leader.*') &&
+                    Auth::user()->havePermission('senaempresa.admin-pasante.loans.filter')))
             <div class="col-md-3">
                 <form action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index') }}"
                     method="GET">
@@ -65,7 +66,6 @@
                                                 <td>
                                                     @foreach ($staff_senaempresas as $staff_senaempresa)
                                                         @if ($staff_senaempresa->id == $loan->staff_senaempresa_id)
-                                                            {{ $loan->staff_senaempresa_id }}
                                                             {{ $staff_senaempresa->Apprentice->Person->full_name }}
                                                         @endif
                                                     @endforeach
@@ -73,7 +73,7 @@
                                                 <td>
                                                     @foreach ($inventories as $inventory)
                                                         @if ($inventory->id == $loan->inventory_id)
-                                                            {{ $loan->inventory_id }} {{ $inventory->Element->name }}
+                                                            {{ $inventory->Element->name }}
                                                         @endif
                                                     @endforeach
                                                 </td>
@@ -121,7 +121,6 @@
                                             <td>
                                                 @foreach ($staff_senaempresas as $staff_senaempresa)
                                                     @if ($staff_senaempresa->id == $loan->staff_senaempresa_id)
-                                                        {{ $loan->staff_senaempresa_id }}
                                                         {{ $staff_senaempresa->Apprentice->Person->full_name }}
                                                     @endif
                                                 @endforeach
@@ -129,7 +128,7 @@
                                             <td>
                                                 @foreach ($inventories as $inventory)
                                                     @if ($inventory->id == $loan->inventory_id)
-                                                        {{ $loan->inventory_id }} {{ $inventory->Element->name }}
+                                                        {{ $inventory->Element->name }}
                                                     @endif
                                                 @endforeach
                                             </td>
