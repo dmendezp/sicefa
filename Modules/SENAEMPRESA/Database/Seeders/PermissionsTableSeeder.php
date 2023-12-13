@@ -514,7 +514,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_psychologo[] = $permission->id; // Almacenar permiso para rol
 
         // Vista de esatdo del postulado (Aprendiz)
-        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.postulates.state_apprentice'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.apprentice.postulates.state_apprentice'], [ // Registro o actualización de permiso
             'name' => 'Vista de estado del postulado (Aprendiz)',
             'description' => 'Vista del estado del postulado o aprendiz',
             'description_english' => 'Status view of the applicant or apprentice',
@@ -550,6 +550,15 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Asignar puntaje a hoja de vida y propuesta de los postulados (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.postulates.cv'], [ // Registro o actualización de permiso
+            'name' => ' Asignar puntaje a la hoja de vida y a la propuesta(Administrador)',
+            'description' => 'Puede asignar puntaje a hoja de vida y propuesta de los postulados',
+            'description_english' => 'You can assign scores to the postulates resume and proposal.',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
         // Vista de asignar puntaje a los postulados (Psicologo)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.psychologo.postulates.score_assigned'], [ // Registro o actualización de permiso
             'name' => 'Vista postulados (Psicologo)',
@@ -567,6 +576,15 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista de asignar puntaje a las personalidades de postulados (Psicologo)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.psychologo.postulates.personalities'], [ // Registro o actualización de permiso
+            'name' => 'Asignar puntaje a las personalidades (Psicologo)',
+            'description' => 'Puede asignar puntaje a las personalidades de los postulados',
+            'description_english' => 'You can assign points to the personalities of the postulates',
+            'app_id' => $app->id
+        ]);
+        $permissions_psychologo[] = $permission->id; // Almacenar permiso para rol
 
         // Actualizar estado a los postulados (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.postulates.state_updated'], [ // Registro o actualización de permiso

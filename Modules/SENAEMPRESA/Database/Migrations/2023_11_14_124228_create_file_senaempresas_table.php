@@ -17,9 +17,9 @@ class CreateFileSenaempresasTable extends Migration
             $table->id();
             $table->foreignId('postulate_id')->constrained()->onDelete('cascade');
             $table->foreignId('vacancy_id')->constrained()->onDelete('cascade');
-            $table->unsignedInteger('cv_score');
-            $table->unsignedInteger('personalities_score');
-            $table->unsignedInteger('proposal_score');
+            $table->unsignedInteger('cv_score')->nullable();
+            $table->unsignedInteger('personalities_score')->nullable();
+            $table->unsignedInteger('proposal_score')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

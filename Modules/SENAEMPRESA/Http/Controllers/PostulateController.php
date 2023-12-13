@@ -176,15 +176,6 @@ class PostulateController extends Controller
 
     public function score_assigned(Request $request)
     {
-        // Validar el formulario si es necesario
-        $request->validate([
-            'postulate_id' => 'required',
-            'vacancy_id' => 'required',
-            'cv_score' => 'required|integer',
-            'personalities_score' => 'required|integer',
-            'proposal_score' => 'required|integer',
-        ]);
-
         $postulateId = $request->input('postulate_id');
         $vacancyId = Postulate::where('id', $postulateId)->value('vacancy_id');
 
@@ -194,8 +185,43 @@ class PostulateController extends Controller
             ->first();
 
         if ($existingFileSenaempresa) {
+            // Verificar si los campos cv_score y proposal_score son nulos y actualizar si es necesario
+            if ($existingFileSenaempresa->cv_score === null) {
+                $existingFileSenaempresa->cv_score = $request->input('cv_score');
+            }
+
+            if ($existingFileSenaempresa->proposal_score === null) {
+                $existingFileSenaempresa->proposal_score = $request->input('proposal_score');
+            }
+
+            if ($existingFileSenaempresa->personalities_score === null) {
+                $existingFileSenaempresa->personalities_score = $request->input('personalities_score');
+            }
+
+            // Guardar los cambios
+            $existingFileSenaempresa->save();
+
+            // Check if all scores are set
+            if (
+                $existingFileSenaempresa->cv_score !== null &&
+                $existingFileSenaempresa->personalities_score !== null &&
+                $existingFileSenaempresa->proposal_score !== null
+            ) {
+                // Calcular el puntaje total
+                $totalScore = (
+                    $existingFileSenaempresa->cv_score +
+                    $existingFileSenaempresa->personalities_score +
+                    $existingFileSenaempresa->proposal_score
+                );
+
+                // Actualizar el puntaje total en la tabla 'postulates' para el mismo postulate_id y vacancy_id
+                Postulate::where('id', $postulateId)
+                    ->where('vacancy_id', $vacancyId)
+                    ->update(['score_total' => $totalScore]);
+            }
+
             return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index')
-                ->with('error', 'Ya se asignó puntaje para este postulado y vacante.');
+                ->with('success', 'Puntaje actualizado correctamente');
         }
 
         $filesenaempresa = new FileSenaempresa();
@@ -204,21 +230,28 @@ class PostulateController extends Controller
         $filesenaempresa->cv_score = $request->input('cv_score');
         $filesenaempresa->personalities_score = $request->input('personalities_score');
         $filesenaempresa->proposal_score = $request->input('proposal_score');
-        $filesenaempresa->vacancy_id = $vacancyId;
 
         if ($filesenaempresa->save()) {
-            // Calcular el puntaje total
-            $totalScore = $filesenaempresa->cv_score + $filesenaempresa->personalities_score + $filesenaempresa->proposal_score;
+            // Verificar si existen puntajes para los tres criterios
+            $cvScore = $filesenaempresa->cv_score;
+            $personalitiesScore = $filesenaempresa->personalities_score;
+            $proposalScore = $filesenaempresa->proposal_score;
 
-            // Actualizar el puntaje total en la tabla 'postulates' para el mismo postulate_id y vacancy_id
-            Postulate::where('id', $postulateId)
-                ->where('vacancy_id', $vacancyId)
-                ->update(['score_total' => $totalScore]);
+            if ($cvScore !== null && $personalitiesScore !== null && $proposalScore !== null) {
+                // Calcular el puntaje total
+                $totalScore = $cvScore + $personalitiesScore + $proposalScore;
+
+                // Actualizar el puntaje total en la tabla 'postulates' para el mismo postulate_id y vacancy_id
+                Postulate::where('id', $postulateId)
+                    ->where('vacancy_id', $vacancyId)
+                    ->update(['score_total' => $totalScore]);
+            }
 
             return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index')
                 ->with('success', 'Puntaje asignado correctamente');
         }
     }
+
     public function state($apprenticeId)
     {
         $estados = ['Seleccionado', 'No Seleccionado'];
@@ -280,11 +313,11 @@ class PostulateController extends Controller
     }
 
     public function postulations()
-{
-    $Apprentice = auth()->user()->person->apprentices()->first();// Obtener el usuario autenticado
-    $postulations = Postulate::where('apprentice_id', $Apprentice->id)->get();
+    {
+        $Apprentice = auth()->user()->person->apprentices()->first(); // Obtener el usuario autenticado
+        $postulations = Postulate::where('apprentice_id', $Apprentice->id)->get();
 
-    $data = ['title' => 'Estado Aprendiz', 'postulations' => $postulations];
+        $data = ['title' => 'Estado Aprendiz', 'postulations' => $postulations];
         return view('senaempresa::Company.Postulate.state_apprentice', $data);
     }
 
