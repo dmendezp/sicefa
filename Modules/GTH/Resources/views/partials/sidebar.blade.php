@@ -99,6 +99,15 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('cefa.contractualcertificate.view') }}"
+                                class="nav-link {{ !Route::is('cefa.contractualcertificate.view') ?: 'active' }}">
+                                <i class="fas fa-receipt"></i>
+                                <p>
+                                    {{ trans('gth::menu.Contract Certificate') }}
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li
@@ -163,15 +172,6 @@
                         <i class="fas fa-street-view"></i>
                         <p>
                             {{ trans('gth::menu.Officials') }}
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('cefa.contractualcertificate.view') }}"
-                        class="nav-link {{ !Route::is('cefa.contractualcertificate.view') ?: 'active' }}">
-                        <i class="fas fa-receipt"></i>
-                        <p>
-                            {{ trans('gth::menu.Contract Certificate') }}
                         </p>
                     </a>
                 </li>
