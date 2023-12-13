@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Modules\SENAEMPRESA\Entities\StaffSenaempresa;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
+use Modules\SENAEMPRESA\Entities\SenaEmpresa;
 use Modules\SICA\Entities\Apprentice;
 use Illuminate\Support\Facades\File;
+
 
 
 
@@ -26,7 +28,7 @@ class StaffSenaempresaController extends Controller
     {
         $PositionCompany = PositionCompany::all();
         $staff = StaffSenaempresa::with('Quarter')->get();
-        $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->orderBy('quarter_id')->get();
+        $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->orderBy('senaempresa_id')->get();
         $data = ['title' => trans('senaempresa::menu.Staff'), 'staff_senaempresas' => $staff_senaempresas, 'PositionCompany' => $PositionCompany, 'staff' => $staff];
         return view('senaempresa::Company.staff_senaempresa.index', $data);
     }
@@ -35,10 +37,11 @@ class StaffSenaempresaController extends Controller
         $staffSenaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
         $positionCompany = PositionCompany::all();
         $senaempresas = Senaempresa::all(); // Asumiendo que Senaempresa es el nombre correcto del modelo
-        $apprentices = Apprentice::whereHas('postulates', function ($query) {
+        $apprenticess = Apprentice::whereHas('postulates', function ($query) {
             $query->where('state', 'Seleccionado');
         })->get();
     
+        $apprenticess = Apprentice::all();
         $selectedPosition = null;
         $selectedPositionName = null;
     
