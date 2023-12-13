@@ -1,11 +1,13 @@
 <body style="background-color: #e4e9f7 ">
-    <div class="navbar">
+    <div class="navbar" style="justify-content: initial">
         @if (Auth::check())
             <ul>
-                <li style="margin-left: 40px; margin-right: 50px">
+                <li style="margin-left: 20px; margin-right: 30px">
                     <a href="#" id="an">
                         @if (!empty(Session::get('selectedUnitName')))
-                            AGROCEFA-{{ Session::get('selectedUnitName') }}
+                            <a href="#" id="an">
+                                AGROCEFA-{{ Session::get('selectedUnitName') }}
+                            </a>
                         @else
                             AGROCEFA
                         @endif
@@ -25,12 +27,12 @@
                         </li>
                     @endif
                 @endauth
-                <li style="margin-right: 170px"><a href="{{ route('cefa.agrocefa.index') }}"
+                <li style="margin-right: 90px"><a href="{{ route('cefa.agrocefa.index') }}"
                         id="an">{{ trans('agrocefa::universal.Home') }}</a></li>
                 <li style="margin-right: 40px"><a href="{{ url('lang', ['en']) }}" id="an"
                         class="dropdown-item"><img src="{{ asset('agrocefa/images/general/en.png') }}" alt=""
                             style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.English') }}</a></li>
-                <li style="margin-right: 100px"><a href="{{ url('lang', ['es']) }}" id="an"
+                <li style="margin-right: 80px"><a href="{{ url('lang', ['es']) }}" id="an"
                         class="dropdown-item"><img src="{{ asset('agrocefa/images/general/es.png') }}" alt=""
                             style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.Spanish') }}</a></li>
                 @if (checkRol('agrocefa.trainer'))
@@ -41,6 +43,31 @@
                             <span class="notification-badge">{{ Session::get('notification') }}</span>
                         @endif
                     </a>
+                </li>
+                <li>
+                    <div class="profile" style="margin-left: 20px; margin-right: 20px;">
+                        <div class="user-info">
+                            <div class="profile-img-container">
+                                @auth
+                                    @if (isset(Auth::user()->person->avatar))
+                                        <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}"
+                                            class="profile-img img-circle elevation-2" alt="User Image">
+                                    @else
+                                        <img src="{{ asset('agrocefa/images/general/user.png') }}"
+                                            class="profile-img img-circle elevation-2" alt="User Image">
+                                    @endif
+                                @endauth
+                            </div>
+                            <div class="profile-text" style="text-align: center;">
+                                @auth
+                                    <a href="#" class="profile-link" data-toggle="tooltip" data-placement="top"
+                                        title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">
+                                        {{ Auth::user()->nickname }}
+                                    </a>
+                                    <em class="profile-role">{{ Session::get('selectedRole') }}</em>
+                                @endauth
+                            </div>
+                        </div>
                 </li>
                 @endif
 
@@ -56,32 +83,11 @@
                 <li style="margin-right: 40px"><a href="{{ url('lang', ['es']) }}" id="an"
                         class="dropdown-item"><img src="{{ asset('agrocefa/images/general/es.png') }}" alt=""
                             style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.Spanish') }}</a></li>
+                
 
             </ul>
         @endif
-        <div class="profile" style="margin-left: 20px; margin-right: 20px;">
-            <div class="user-info">
-                <div class="profile-img-container">
-                    @auth
-                        @if (isset(Auth::user()->person->avatar))
-                            <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}"
-                                class="profile-img img-circle elevation-2" alt="User Image">
-                        @else
-                            <img src="{{ asset('agrocefa/images/general/user.png') }}"
-                                class="profile-img img-circle elevation-2" alt="User Image">
-                        @endif
-                    @endauth
-                </div>
-                <div class="profile-text" style="text-align: center;">
-                    @auth
-                        <a href="#" class="profile-link" data-toggle="tooltip" data-placement="top"
-                            title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">
-                            {{ Auth::user()->nickname }}
-                        </a>
-                        <em class="profile-role">{{ Session::get('selectedRole') }}</em>
-                    @endauth
-                </div>
-            </div>
+        
             @auth
                 <a href="{{ route('logout') }}" id="logout" title="Salir" class="logout-icon"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -97,3 +103,62 @@
 
     @yield('selectproductive')
 </body>
+<style>
+    body {
+        background-color: #e4e9f7;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        
+        
+    }
+
+    .navbar ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    .navbar li {
+        margin-right: 20px;
+    }
+
+    .profile {
+        display: flex;
+        align-items: center;
+    }
+
+    .profile-img-container {
+        margin-right: 10px;
+    }
+
+    /* Agregar estilos para dispositivos pequeños */
+    @media screen and (max-width: 968px) {
+        .navbar {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .navbar ul {
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .navbar li {
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+
+        .profile {
+            margin-top: 10px;
+        }
+    }
+</style>

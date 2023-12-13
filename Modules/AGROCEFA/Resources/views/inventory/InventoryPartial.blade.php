@@ -31,7 +31,10 @@
                 </thead>
                 <tbody>
                     @foreach ($inventory as $item)
-                    {{$measurement_unit = $item->element->measurement_unit->conversion_factor;}}
+                    @php
+                    $measurement_unit = $item->element->measurement_unit->conversion_factor;
+                    @endphp
+                    
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->productive_unit_warehouse->warehouse->name }}</td>

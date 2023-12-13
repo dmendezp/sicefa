@@ -19,7 +19,7 @@ return [
     'Warehouse_That_Receives' => 'Bodega Recibe',
     'Elements' => 'Elementos',
     'Observation' => 'Observacion',
-    
+    'MovementHistory' => 'Historial Movimientos',
 
     //Tabla dinamica
     '1T_Name_Of_The_Element' => 'Nombre del Producto',
@@ -31,6 +31,15 @@ return [
     '1T_Category' => 'Categoria',
     '1T_Destination' => 'Destino',
     '1T_Actions' => 'Acciones',
+
+    '2T_Date' => 'Fecha',
+    '2T_Responsibility' => 'Responsable',
+    '2T_ProductUnit' => 'Unidad Productiva',
+    '2T_Warehouse' => 'Bodega',
+    '2T_Elements' => 'Elementos',
+    '2T_Amount' => 'Cantidad',
+    '2T_Price' => 'Precio',
+    '2T_State' => 'Estado',
     
     'Placeholder_Element' => 'Seleccione el elemento',
     'Placeholder_Amount' => 'Cantidad',

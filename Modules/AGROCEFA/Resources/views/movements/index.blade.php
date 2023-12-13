@@ -77,7 +77,7 @@
                 </svg>
                 
                   </div>
-                  <p>Historial Movimientos</p>
+                  <p>{{ trans('agrocefa::movements.MovementHistory')}}</p>
                 </a>
         </div>
         <div class="col-md-6" style="width: 200px">

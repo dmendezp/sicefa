@@ -21,6 +21,8 @@ return [
     'Warehouse_That_Receives' => 'Warehouse That Receives',
     'Elements' => 'Elements',
     'Observation' => 'Observation',
+    'MovementHistory' => 'Movement History',
+    
 
     //Tabla dinamica
     '1T_Name_Of_The_Element' => 'Name Of The Element',
@@ -32,6 +34,15 @@ return [
     '1T_Category' => 'Category',
     '1T_Destination' => 'Destination',
     '1T_Actions' => 'Actions',
+
+    '2T_Date' => 'Date',
+    '2T_Responsibility' => 'Responsibility',
+    '2T_ProductUnit' => 'Product Unit',
+    '2T_Warehouse' => 'Warehouse',
+    '2T_Elements' => 'Elements',
+    '2T_Amount' => 'Amount',
+    '2T_Price' => 'Price',
+    '2T_State' => 'State',
     
     'Placeholder_Element' => 'Select The Element',
     'Placeholder_Amount' => 'Amount',

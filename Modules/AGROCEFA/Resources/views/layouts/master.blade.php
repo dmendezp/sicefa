@@ -81,3 +81,20 @@
 </body>
 
 </html>
+<script>
+    /* Estilos predeterminados para pantallas más grandes */
+.home {
+    display: flex;
+    background-color: #e4e9f7;
+}
+
+/* Estilos para pantallas más pequeñas */
+@media only screen and (max-width: 768px) {
+    .home {
+        /* Ajusta los estilos para pantallas más pequeñas */
+    }
+}
+
+/* Añade más consultas de medios según sea necesario */
+
+</script>

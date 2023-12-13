@@ -7,6 +7,7 @@ return [
     'Parameters' => 'Parameters',
     'Title' => 'Registro Laboral Cultural',
     'Date' => 'Fecha',
+    'Labors' => 'Labores',
 
     'Job Management' => 'Gestión de Labores',
     'ProductiveUnit' => 'Unidad Productiva',

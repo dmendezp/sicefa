@@ -7,6 +7,7 @@ return [
     'Parameters' => 'Parameters',
     'Title' => 'Cultural Labor Registry',
     'Date' => 'Date',
+    'Labors' => 'Labors',
 
     'Job Management' => 'Job Management',
     'ProductiveUnit' => 'Productive Unit',

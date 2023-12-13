@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container" id="containermovements">
-    <h2>Historial de Movimientos</h2>
+    <h2>{{ trans('agrocefa::movements.MovementHistory')}}</h2>
     @if (count($datas) > 0)
     <div class="container my-5">
         <div class="row">
@@ -13,14 +13,14 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Fecha</th>
-                                <th>Responsable</th>
-                                <th>Unidad Productiva</th>
-                                <th>Bodega</th>
-                                <th>Elementos</th>
-                                <th>Cantidad</th>
-                                <th>Precio</th>
-                                <th>Estado</th>
+                                <th>{{ trans('agrocefa::movements.2T_Date')}}</th>
+                                <th>{{ trans('agrocefa::movements.2T_Responsibility')}}</th>
+                                <th>{{ trans('agrocefa::movements.2T_ProductUnit')}}</th>
+                                <th>{{ trans('agrocefa::movements.2T_Warehouse')}}</th>
+                                <th>{{ trans('agrocefa::movements.2T_Elements')}}</th>
+                                <th>{{ trans('agrocefa::movements.2T_Amount')}}</th>
+                                <th>{{ trans('agrocefa::movements.2T_Price')}}</th>
+                                <th>{{ trans('agrocefa::movements.2T_State')}}</th>
                                 
                             </tr>
                         </thead>

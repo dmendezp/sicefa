@@ -38,6 +38,8 @@ class AGROCEFAController extends Controller
         // Limpiar la variable 'selectedRole'
         Session::forget('selectedRole');
 
+        $unitIds = [];
+
         // Verifica si el usuario está autenticado
         if (Auth::check()) {
             // Obtiene el usuario autenticado
@@ -60,7 +62,29 @@ class AGROCEFAController extends Controller
                 }
             }
 
-            $productiveUnits = ProductiveUnit::whereIn('id', $unitIds)->get();
+            // Variable para verificar el acceso completo
+            $hasFullAccess = false;
+
+            // Recorre la colección de roles
+            foreach ($productive_units_role as $role) {
+                // Verifica si el rol tiene el atributo 'full_access'
+                if ($role->full_access === 'Si' ) {
+                   
+                    $hasFullAccess = true;
+                    break; // Rompe el bucle si se encuentra un rol con acceso completo
+                }
+
+            }
+            
+            if($hasFullAccess === true )
+            {
+                $productiveUnits = ProductiveUnit::get();
+            }
+            else {
+                $productiveUnits = ProductiveUnit::whereIn('id', $unitIds)->get();
+            }
+
+            
 
             return view('agrocefa::homeproductive_units', [
                 'units' => $productiveUnits,
