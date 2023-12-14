@@ -19,8 +19,7 @@
 <script src="{{ asset('AdminLTE/plugins/bootstrap/js/bootstrap.js.map') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/bootstrap/js/bootstrap.min.js.map') }}"></script>
-<script src="{{ asset('AdminLTE/libs/DataTables-1.13.4/datatables.min.css') }}"></script>
-<script src="{{ asset('AdminLTE/libs/DataTables-1.13.4/datatables.min.js') }}"></script>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

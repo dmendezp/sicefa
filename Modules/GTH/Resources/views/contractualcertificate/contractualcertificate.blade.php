@@ -1,43 +1,55 @@
 @extends('gth::layouts.master')
 
 @section('content')
-    <form action="{{ route('cefa.contractualcertificate.view') }}" method="get">
-        <label for="person_id">Número de Documento:</label>
-        <input type="text" name="person_id" id="person_id" required>
-        <button type="submit">Buscar</button>
+<div class="card">
+    <div class="card-header">
+        <h1>Contrato Contactual</h1>
+    </div>
+    <div class="card-body">
+    <form method="POST" action="">
+        @csrf
+
+        <!-- Información de la Persona -->
+        <h2>Digitar Documento</h2>
+
+        <!-- Número de Documento -->
+        <div class="form-group">
+            <label for="document_number">{{ trans('gth::menu.ID number:') }}</label>
+            <input type="number" name="document_number" id="document_number"
+                class="form-control" value="{{ old('document_number') }}"
+                required>
+        </div>
     </form>
+    </div>
+</div>
 
-    @if(isset($contractors))
-        <ul>
-            @foreach($contractors as $contractor)
-                <li>
-                    {{ $contractor->contract_number }} -
-                    <a href="{{ route('cefa.contractualcertificate.download', $contractor->id) }}">Descargar Certificado</a>
-                </li>
-            @endforeach
-        </ul>
-    @endif
+<div id="resultcontractual">
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Captura el evento submit del formulario con AJAX
-            document.getElementById('searchForm').addEventListener('submit', function (event) {
-                event.preventDefault();
+</div>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    $('#document_number').change(function() {
+        var document = $(this).val();
 
-                // Realiza la petición AJAX
-                let formData = new FormData(this);
-
-                fetch('{{ route('cefa.contractualcertificate.search') }}', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Muestra los resultados en el contenedor designado
-                    document.getElementById('searchResults').innerHTML = data.html;
-                })
-                .catch(error => console.error('Error:', error));
-            });
+        // Realizar una solicitud AJAX para obtener los resultados de labores filtrados por cultivo
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('cefa.contractualcertificate.search') }}",
+            data: {
+                _token: "{{ csrf_token() }}",
+                document: document
+            },
+            success: function(data) {
+                // Actualizar el contenedor con los resultados de labores filtrados
+                $('#resultcontractual').html(data);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
         });
-    </script>
+    });
+});
+</script>
+
 @endsection
