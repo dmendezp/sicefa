@@ -33,24 +33,24 @@ class RoutesTransportationController extends Controller
             'stop_bus' => 'required|string',
             'arrival_time' => 'required',
             'departure_time' => 'required',
-            
+
         ]);
 
         // Crea una nueva instancia del modelo TransportRoute y asigna los valores
         $transportRoute = new RouteTransportation();
         $transportRoute->route_number = $request->input('route_number');
-        $transportRoute->name_route = $request->input('name_route');
         $transportRoute->stop_bus = $request->input('stop_bus');
+        $transportRoute->name_route = $request->input('name_route');
+        $transportRoute->bus_id = $request->input('bus');
+        $transportRoute->quota = $request->input('bus_quota');
         $transportRoute->arrival_time = $request->input('arrival_time');
         $transportRoute->departure_time = $request->input('departure_time');
-        $transportRoute->bus_id = $request->input('bus');
 
         // Guarda el registro en la base de datos
         $transportRoute->save();
 
-
-    // Puedes agregar un mensaje de éxito
-        return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.transportation.crud.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
+        // Puedes agregar un mensaje de éxito
+        return redirect()->route('bienestar.admin.transportation.crud.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
     }
 
     public function update(Request $request, $id)
@@ -68,8 +68,8 @@ class RoutesTransportationController extends Controller
 
         // Busca el registro existente por su ID
         $transportRoute = RouteTransportation::findOrFail($id);
-        
-        
+
+
         // Actualiza los campos del registro con los datos del formulario
         $transportRoute->route_number = $request->input('new_route_number');
         $transportRoute->stop_bus = $request->input('new_stop_bus');
@@ -92,14 +92,49 @@ class RoutesTransportationController extends Controller
             $beneficio = RouteTransportation::findOrFail($id);
             $beneficio->delete();
 
-            return response()->json(['mensaje' =>'Vacancy eliminated with success']);
+            return response()->json(['mensaje' => 'Vacancy eliminated with success']);
         } catch (\Exception $e) {
-            return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
+            return response()->json(['mensaje' => 'Error when deleting the vacancy'], 500);
         }
-        
     }
 
 
-    
+    //FUNCIONES API
+    public function BusDriverRoute()
+    {
+        $names = BusDriver::select('id', 'name')->get();
+        $routes = RouteTransportation::select('id', 'name_route')->get();
+        $results = [$names, $routes];
+        return response()->json(['data' => $results], 200);
+    }
+
+    public function UpdateBusDriverRouteTransportation(Request $request)
+{
+    $idBusDriver = $request->input('id_bus_driver');
+    $idTransportRoute = $request->input('id_transport_route');
+
+    if ($idTransportRoute) {
+        // Obtener el modelo Bus asociado a la ruta
+        $route = RouteTransportation::find($idTransportRoute);
+
+        if ($route) {
+            $bus = $route->bus;
+
+            if ($bus) {
+                // Actualizar el bus_driver_id en el modelo Bus
+                $bus->bus_driver_id = $idBusDriver;
+                $bus->save();
+                
+                return response()->json(['message' => 'Actualización exitosa']);
+            } else {
+                return response()->json(['message' => 'Bus no encontrado para la ruta'], 404);
+            }
+        } else {
+            return response()->json(['message' => 'Ruta de transporte no encontrada'], 404);
+        }
+    } else {
+        return response()->json(['message' => 'Falta el parámetro id_transport_route'], 400);
+    }
+}
 
 }

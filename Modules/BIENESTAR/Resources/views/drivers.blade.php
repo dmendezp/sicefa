@@ -34,7 +34,7 @@
                                 @csrf
                                 <div class="form-row">
                                     <div class="col-md-3 mb-2">
-                                        <input type="text" placeholder="{{ trans('bienestar::menu.Driver (Full Name)')}}" class="form-control namedriver" name="namedriver" required oninput="validarNombre(this)">
+                                        <input type="text" id="bus_Driver" placeholder="{{ trans('bienestar::menu.Driver (Full Name)')}}" class="form-control namedriver" name="namedriver" required oninput="validarNombre(this)">
                                         <span class="nombreError" style="color: red;"></span>
                                     </div>
 
@@ -201,24 +201,6 @@
         mostrarAlerta(document.querySelector('.guardarExitoso'));
 
         return !nombreInput.validationMessage && !emailInput.validationMessage && !telefonoInput.validationMessage;
-    }
-
-    function validarNombreEditar(id) {
-        var nombreInput = document.getElementById("nameEditar_" + id);
-        var nombre = nombreInput.value.trim();
-        var errorDiv = document.getElementById("nombreErrorEditar_" + id);
-
-        if (conductoresExistentes.includes(nombre)) {
-            nombreInput.setCustomValidity("El conductor ya existe.");
-            errorDiv.textContent = "El conductor ya existe.";
-            mostrarAlerta(document.querySelector('.nombreRepetido'));
-        } else if (!/^[A-Za-z\s]+$/.test(nombre)) {
-            nombreInput.setCustomValidity("El nombre solo debe contener letras y espacios.");
-            errorDiv.textContent = "El nombre solo debe contener letras y espacios.";
-        } else {
-            nombreInput.setCustomValidity("");
-            errorDiv.textContent = "";
-        }
     }
 
     function validarEmailEditar(id) {

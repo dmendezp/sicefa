@@ -96,9 +96,8 @@
                                         <button class="btn btn-primary editButton mr-2" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#editModal{{$transport->id}}"><i class="fas fa-edit"></i></button>
                                         @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.transportroutes'))
                                         <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.transportroutes', ['id' => $transport->id]) }}" method="POST" class="formEliminar">
-                                            @csrf
-                                            @method("DELETE")
-                                            <!-- Botón para abrir el modal de eliminación -->
+                                        @csrf
+                                            @method("DELETE")<!-- Botón para abrir el modal de eliminación -->
                                             <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
                                         </form>
                                         @endif
@@ -123,7 +122,7 @@
         <div class="modal-content">
             <!-- Contenido del modal de edición aquí -->
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">{{ trans('bienestar::menu.Edit Route')}}</h5>
+                <h5 class="modal-title" id="editModalLabel">{{ trans('bienestar::menu.Edit Benefit')}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -131,12 +130,12 @@
             <div class="modal-body">
                 <!-- Formulario de edición con validación -->
                 @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.transportroutes'))
-                <form id="editForm-{{ $transport->id }}" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.transportroutes', ['id' => $transport->id]) }}" method="post" role="formedit" onsubmit="return validateForm{{ $transport->id }}()"  class="formEditar">
+                <form id="editForm-{{ $transport->id }}" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.transportroutes', ['id' => $transport->id]) }}" method="post" role="formedit" onsubmit="return validateForm{{ $transport->id }}()">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
                         <input type="hidden" name="id_transport" value="{{$transport->id}}">
-                        <label for="route_number{{ $transport->id }}">{{ trans('bienestar::menu.Routing Number')}}:</label>
+                        <label for="route_number{{ $transport->id }}">Número De Ruta:</label>
                         <select name="new_route_number" id="route_number{{ $transport->id }}" class="form-control" required>
                             <option value="">Selecciona un número de ruta</option>
                             @for ($i = 1; $i <= 8; $i++) <option value="{{ $i }}" @if ($i==$transport->route_number) selected @endif>{{ $i }}</option>
@@ -144,11 +143,11 @@
                         </select>
                     </div>                    
                     <div class="form-group">
-                        <label for="name_route{{ $transport->id }}">{{ trans('bienestar::menu.Route Name')}}:</label>
+                        <label for="name_route{{ $transport->id }}">Nombre De La Ruta:</label>
                         <input type="text" name="new_name_route" id="name_route{{ $transport->id }}" class="form-control" placeholder="Nombre Ruta" required value="{{ $transport->name_route }}">
                     </div>
                     <div class="form-group">
-                        <label for="bus{{ $transport->id }}">{{ trans('bienestar::menu.Plate')}}:</label>
+                        <label for="bus{{ $transport->id }}">Bus:</label>
                         <select name="new_bus" id="bus{{ $transport->id }}" class="form-control" required onchange="updateDriverName{{ $transport->id }}()">
                             <option value="">Selecciona un bus</option>
                             @foreach ( $buses as $b )
@@ -157,24 +156,24 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="bus_driver{{ $transport->id }}">{{ trans('bienestar::menu.Drivers Name')}}:</label>
+                        <label for="bus_driver{{ $transport->id }}">Nombre del Conductor:</label>
                         <input id="bus_driver{{ $transport->id }}" name="new_driver_name" type="text" class="form-control" placeholder="Nombre del Conductor" readonly="readonly" value="{{ $transport->bus->bus_driver->name }}">
                     </div>
                     <input type="hidden" id="bus_quota{{ $transport->id }}" name="new_bus_quota" class="form-control" value="{{ $transport->bus->quota}}" readonly="readonly">
                     <div class="form-group">
-                        <label for="stop_bus{{ $transport->id }}">{{ trans('bienestar::menu.Bus stop')}}:</label>
+                        <label for="stop_bus{{ $transport->id }}">Parada:</label>
                         <input id="stop_bus{{ $transport->id }}" name="new_stop_bus" type="text" class="form-control" placeholder="Ej: Juncal" value="{{ $transport->stop_bus }}">
                     </div>
                     <div class="form-group">
-                        <label for="arrival_time{{ $transport->id }}">{{ trans('bienestar::menu.Arrival Time')}}:</label>
+                        <label for="arrival_time{{ $transport->id }}">Hora Llegada:</label>
                         <input type="time" name="new_arrival_time" id="arrival_time{{ $transport->id }}" class="form-control" required value="{{ $transport->arrival_time }}">
                     </div>
                     <div class="form-group">
-                        <label for="departure_time{{ $transport->id }}">{{ trans('bienestar::menu.Departure Time')}}:</label>
+                        <label for="departure_time{{ $transport->id }}">Hora Salida:</label>
                         <input type="time" name="new_departure_time" id="departure_time{{ $transport->id }}" class="form-control" required value="{{ $transport->departure_time }}">
                     </div>
 
-                    <button type="submit" class="btn btn-success">{{ trans('bienestar::menu.Save')}}</button>
+                    <button type="submit" class="btn btn-success">Guardar</button>
                 </form>
                 @endif
 

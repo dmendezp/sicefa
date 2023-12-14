@@ -111,7 +111,7 @@ class CallConsultationController extends Controller
         FROM RankedBenefits
         WHERE rn = 1
     ", [$documentNumber]);
-    return response()->json($result);
+    return response()->json(['data' => $result], 200);
     }
 
 }

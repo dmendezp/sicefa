@@ -52,7 +52,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                             </tbody>
                         </table>
                         @else
-                        <p>{{ trnas('bienestar::menu.No attendance records have been made today.')}}</p>
+                        <p>{{ trans('bienestar::menu.No attendance records have been made today.')}}</p>
                         @endif
                     </div>
                 </div>

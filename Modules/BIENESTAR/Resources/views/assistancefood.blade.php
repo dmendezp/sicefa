@@ -13,7 +13,7 @@
                     <div class="form-group col-md-6">
                         <label for="porcentaje">{{ trans('bienestar::menu.percentages')}}</label>
                         <select name="porcentaje" id="porcentaje" class="form-control">
-                            <option value="">{{ trans('bienestar::menu.show all')}}</option>
+                            <option value="">{{ trans('bienestar::menu.Show All')}}</option>
                             <option value="100">100%</option>
                             <option value="75">75%</option>
                             <option value="50">50%</option>
