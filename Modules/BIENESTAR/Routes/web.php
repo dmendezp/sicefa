@@ -92,6 +92,8 @@ Route::middleware(['lang'])->group(function () {
         Route::put('/admin/postulation-management/{id}/update-score', 'PostulationBenefitController@updateScore')->name('bienestar.admin.update-score.postulation-management');
         Route::post('/admin/postulation-management/update-benefits', 'PostulationBenefitController@updateBenefits')->name('bienestar.admin.update-benefits.postulation-management');
         Route::put('/admin/update-benefit/{id}', 'PostulationBenefitController@updateStateBenefit')->name('bienestar.admin.update-state-benefit.postulation-management');
+        Route::put('/admin/postulation-management/{id}/remove-benefit/{benefitId}', 'PostulationBenefitController@removeBenefit')->name('bienestar.admin.remove-benefit.postulation-management');
+        Route::put('/admin/postulation-management/{id}/edit-benefit-detail', 'PostulationBenefitController@editBenefitDetail')->name('bienestar.admin.edit-benefit-detail.postulation-management');
 
         // Rutas para la vista postulation-management(LIDER BENEFICIO DE ALIMENTACION)
         Route::get('/food_benefits_leaders/postulation-management', 'PostulationBenefitController@index')->name('bienestar.food_benefits_leaders.view.postulation-management');
@@ -99,6 +101,7 @@ Route::middleware(['lang'])->group(function () {
         Route::put('/food_benefits_leaders/postulation-management/{id}/update-score', 'PostulationBenefitController@updateScore')->name('bienestar.food_benefits_leaders.update-score.postulation-management');
         Route::post('/food_benefits_leaders/postulation-management/update-benefits', 'PostulationBenefitController@updateBenefits')->name('bienestar.food_benefits_leaders.update-benefits.postulation-management');
         Route::put('/food_benefits_leaders/update-benefit/{id}', 'PostulationBenefitController@updateStateBenefit')->name('bienestar.food_benefits_leaders.update-state-benefit.postulation-management');
+
 
         // Rutas para la vista postulation-management(LIDER BENEFICIO DE TRANSPORTE)
         Route::get('/transportation_benefits_leader/postulation-management', 'PostulationBenefitController@index')->name('bienestar.transportation_benefits_leader.view.postulation-management');

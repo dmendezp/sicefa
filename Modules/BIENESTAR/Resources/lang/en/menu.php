@@ -151,6 +151,7 @@ return[
 
 'Benefit' => 'Benefit',
 'Update Benefit' => 'Update Benefit',
+'Remove Benefit' => 'Remove Benefit',
 
     //vita assistancefood
     'Food Attendance Record' => 'Food Attendance Record',

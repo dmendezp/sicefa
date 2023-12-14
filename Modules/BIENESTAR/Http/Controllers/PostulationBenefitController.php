@@ -105,10 +105,10 @@ public function showModal($id)
         $postulation->save();
 
         // Redirigir de vuelta a la página anterior con un mensaje de éxito (puede personalizar esto)
-        return redirect()->back()->with('success', 'Puntuación actualizada con éxito');
+        return response()->json(['success' =>'Beneficio eliminado Correctamente'], 200);
     } catch (\Exception $e) {
         // Capturar y manejar errores, puedes personalizar esto según tus necesidades
-        return redirect()->back()->with('error', 'Error al actualizar la puntuación: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Error al actualizar el beneficio');
     }
 }
 
@@ -337,6 +337,77 @@ public function updateBenefits(Request $request)
     }
 }
 
+
+public function removeBenefit(Request $request, $id, $benefitId)
+{
+    try {
+        // Buscar la postulación por ID
+        $postulation = Postulation::findOrFail($id);
+
+        // Validar si la postulación está en el estado correcto para desasignar el beneficio
+        if ($postulation->state !== 'Beneficiario') {
+            return redirect()->back()->with('error', 'La postulación no está en el estado correcto para desasignar el beneficio.');
+        }
+
+        // Buscar el beneficio a desasignar
+        $postulationBenefit = $postulation->postulationBenefits
+            ->where('state', 'Beneficiario')
+            ->where('id', $benefitId)
+            ->first();
+
+        // Imprimir información en la consola
+        error_log("Postulation ID: $id, Benefit ID: $benefitId");
+        error_log("Postulation state: " . $postulation->state);
+
+        if ($postulationBenefit) {
+            // Imprimir información en la consola
+            error_log("Found PostulationBenefit ID: " . $postulationBenefit->id);
+            
+            // Desasignar el beneficio
+            $postulationBenefit->update([
+                'state' => 'No Beneficiario',
+                'message' => 'Se le ha cancelado el beneficio',
+            ]);
+
+            // Puedes hacer aquí otras actualizaciones según sea necesario
+
+            return redirect()->back()->with('success', 'Beneficio desasignado con éxito');
+        } else {
+            // Imprimir información en la consola
+            error_log("PostulationBenefit not found for ID: $benefitId");
+            return redirect()->back()->with('error', 'No se encontró un beneficio para desasignar');
+        }
+    } catch (\Exception $e) {
+        // Imprimir información en la consola
+        error_log("Error: " . $e->getMessage());
+        return redirect()->back()->with('error', 'Error al desasignar el beneficio: ' . $e->getMessage());
+    }
+}
+
+
+public function editBenefitDetail(Request $request, $id)
+{
+    try {
+        // Encuentra la postulación por su ID
+        $postulation = Postulation::findOrFail($id);
+
+        // Actualiza el campo 'message' con el nuevo valor
+        $postulation->update([
+            'message' => $request->input('edited_message'),
+        ]);
+
+        // Resto del código si es necesario
+
+        // Devuelve una respuesta de éxito
+        return response()->json(['message' => 'La actualización fue exitosa'], 200);
+    } catch (\Exception $e) {
+        // Registra detalles del error
+        \Log::error($e->getMessage());
+        
+        // Devuelve una respuesta de error
+        return response()->json(['error' => 'Hubo un error interno en el servidor'], 500);
+    }
+}
 
 
 

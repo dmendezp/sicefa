@@ -27,3 +27,6 @@ Route::get('/Api/saveAttendance',[TransportationAssistancesController::class, 'S
 // Rutas relacionadas con el módulo BIENESTAR
 Route::get('/Api/FoodAssistances', [AssistancesFoodsController::class, 'FoodAssistances']);
 Route::get('/Api/RegisterAssistances', [AssistancesFoodsController::class, 'RegisterAssistances']);
+////////////
+Route::get('/Api/all_assistances', [AssistancesFoodsController::class, 'getAllAssistances']);
+Route::post('/Api/filter_by_percentage', [AssistancesFoodsController::class, 'filterAssistancesByPercentage']);

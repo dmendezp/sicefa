@@ -204,4 +204,48 @@ public function RegisterAssistances(Request $request)
     return response()->json($response, 200);
 }
 
+
+ // Nueva función para obtener todas las asistencias alimenticias en formato JSON
+ // Nueva función para obtener todas las asistencias alimenticias en formato JSON
+ public function getAllAssistances()
+ {
+    $assistances = DB::table('assistances_foods')
+    ->join('apprentices', 'assistances_foods.apprentice_id', '=', 'apprentices.id')
+    ->join('people', 'apprentices.person_id', '=', 'people.id')
+    ->join('courses', 'apprentices.course_id', '=', 'courses.id')
+    ->join('programs', 'courses.program_id', '=', 'programs.id')
+    ->join('postulations_benefits', 'assistances_foods.postulation_benefit_id', '=', 'postulations_benefits.id')
+    ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
+    ->select(
+        'people.document_number',
+        'people.first_name',
+        'people.first_last_name',
+        'people.second_last_name',
+        'courses.code',
+        'programs.name as program_name',
+        'benefits.name as benefit_name',
+        'assistances_foods.porcentage',
+        'assistances_foods.date_time'
+    )
+    ->whereDate('assistances_foods.date_time', '=', now()->toDateString())
+    ->orderBy('assistances_foods.date_time', 'desc')
+    ->get();
+
+return response()->json(['data' => $assistances], 200);
+ }
+
+ // Nueva función para filtrar asistencias por porcentaje en formato JSON
+ public function filterAssistancesByPercentage(Request $request)
+ {
+     $selectedPorcentaje = $request->input('porcentaje');
+
+     $assistances = AssistanceFood::with(['postulationBenefit.benefit', 'apprentice.course.program'])
+         ->when($selectedPorcentaje, function ($query) use ($selectedPorcentaje) {
+             return $query->where('porcentage', $selectedPorcentaje);
+         })
+         ->orderBy('date_time', 'desc')
+         ->get();
+
+     return response()->json(['data' => $assistances, 'selectedPorcentaje' => $selectedPorcentaje], 200);
+ }
 }
