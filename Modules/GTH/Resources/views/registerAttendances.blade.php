@@ -29,8 +29,9 @@
         @endif
 </script>
 @section('content')
-    <h1>Vista Registro de Asistencia</h1>
+
     @section('content')
+    <h1>Vista Registro de Asistencia</h1>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6">

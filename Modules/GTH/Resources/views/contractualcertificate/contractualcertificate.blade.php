@@ -3,7 +3,7 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h1>Contrato Contactual</h1>
+        <h1>Certificado Contactual</h1>
     </div>
     <div class="card-body">
     <form method="POST" action="">
