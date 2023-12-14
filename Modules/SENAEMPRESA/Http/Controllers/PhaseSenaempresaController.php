@@ -36,10 +36,17 @@ class PhaseSenaempresaController extends Controller
         // Verificar si ya existe un registro con el mismo nombre
         $existingSena = Senaempresa::where('name', $request->input('name'))->first();
 
-
+        // Obtener el ID del trimestre desde la solicitud
+        $quarterId = $request->input('quarter_id');
 
         if ($existingSena) {
-            // Si existe una fase con el mismo nombre, verifica si está eliminada
+            // Si existe una fase con el mismo nombre, verifica si está asociada al mismo trimestre
+            if ($existingSena->quarter_id == $quarterId) {
+                // Si está asociada al mismo trimestre, muestra una alerta o toma la acción necesaria
+                return redirect()->back()->with('error', trans('senaempresa::menu.SenaEmpresa already exists in the same quarter'));
+            }
+
+            // Si la fase existe pero en un trimestre diferente, verifica si está eliminada
             if ($existingSena->trashed()) {
                 // Restaura la fase eliminada suavemente
                 $existingSena->restore();
@@ -49,19 +56,18 @@ class PhaseSenaempresaController extends Controller
                 return redirect()->back()->with('error', trans('senaempresa::menu.SenaEmpresa already exists in the database'));
             }
         } else {
-
             // El registro no existe, crea uno nuevo
             $sena = new Senaempresa();
             $sena->name = $request->input('name');
             $sena->description = $request->input('description');
-            $sena->quarter_id = $request->input('quarter_id');
-
+            $sena->quarter_id = $quarterId;
 
             if ($sena->save()) {
                 return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.index')->with('success', trans('senaempresa::menu.SenaEmpresa successfully created'));
             }
         }
     }
+
 
 
     public function edit($id)

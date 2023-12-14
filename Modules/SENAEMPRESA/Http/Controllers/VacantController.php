@@ -453,12 +453,6 @@ class VacantController extends Controller
         // Retrieve the senaempresa associated with the current quarter
         $currentSenaempresa = Senaempresa::where('quarter_id', $currentQuarter->id)->first();
 
-        if (!$currentSenaempresa) {
-            // Handle the case where no senaempresa is associated with the current quarter
-            // You can redirect to the vacancies route or take other appropriate action here.
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', 'No hay una senaempresa asociada al trimestre actual.');
-        }
-
         // Find the next quarter
         $nextQuarter = Quarter::where('start_date', '>', $currentDate)
             ->orderBy('start_date', 'asc')
@@ -472,28 +466,24 @@ class VacantController extends Controller
             // Combine the courses from the current and next senaempresas
             $courses = $currentSenaempresa->courses->merge($nextSenaempresa->courses);
 
-            // Check if there are courses available
-            if ($courses->isEmpty()) {
-                // Handle the case where no courses are found
-                // You can show an alert or take other appropriate action here.
-                return redirect()->back()->with('error', 'Primero debe asociar cursos a la senaempresa actual o a la siguiente');
-            }
-
             // Retrieve the vacancies related to the current senaempresa
-            $vacancies = Vacancy::where('senaempresa_id', $currentSenaempresa->id)
+            $currentVacancies = Vacancy::where('senaempresa_id', $currentSenaempresa->id)
                 ->where('state', 'Disponible')
                 ->get();
 
-            $courseofvacancy = CourseVacancy::all();
+            // Retrieve the vacancies related to the next senaempresa
+            $nextVacancies = Vacancy::where('senaempresa_id', $nextSenaempresa->id)
+                ->where('state', 'Disponible')
+                ->get();
 
-            $data = [
-                'title' => trans('senaempresa::menu.Assign Courses to Vacancies'),
-                'courses' => $courses,
-                'vacancies' => $vacancies,
-                'courseofvacancy' => $courseofvacancy,
-            ];
+            // Merge the vacancies for both the current and next senaempresas
+            $vacancies = $currentVacancies->merge($nextVacancies);
 
-            return view('senaempresa::Company.vacancies.partner_course', $data);
+            if ($courses->isEmpty() && $vacancies->isEmpty()) {
+                // Handle the case where no courses and vacancies are found
+                // You can show an alert or take other appropriate action here.
+                return redirect()->back()->with('error', 'Primero debe asociar cursos y vacantes a la senaempresa actual o a la siguiente');
+            }
         } else {
             // If there is no next quarter, display information for the current quarter
             $courses = $currentSenaempresa->courses;
@@ -503,16 +493,22 @@ class VacantController extends Controller
                 ->where('state', 'Disponible')
                 ->get();
 
-            $courseofvacancy = CourseVacancy::all();
-
-            $data = [
-                'title' => trans('senaempresa::menu.Assign Courses to Vacancies'),
-                'courses' => $courses,
-                'vacancies' => $vacancies,
-                'courseofvacancy' => $courseofvacancy,
-            ];
-
-            return view('senaempresa::Company.vacancies.partner_course', $data);
+            if ($courses->isEmpty() && $vacancies->isEmpty()) {
+                // Handle the case where no courses and vacancies are found
+                // You can show an alert or take other appropriate action here.
+                return redirect()->back()->with('error', 'Primero debe asociar cursos y vacantes a la senaempresa actual');
+            }
         }
+
+        $courseofvacancy = CourseVacancy::all();
+
+        $data = [
+            'title' => trans('senaempresa::menu.Assign Courses to Vacancies'),
+            'courses' => $courses,
+            'vacancies' => $vacancies,
+            'courseofvacancy' => $courseofvacancy,
+        ];
+
+        return view('senaempresa::Company.vacancies.partner_course', $data);
     }
 }
