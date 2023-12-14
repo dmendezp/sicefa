@@ -604,6 +604,15 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista descargar reporte de seleccionados (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.postulates.selected.generatepdf'], [ // Registro o actualización de permiso
+            'name' => 'Vista descargar reporte de seleccionados (Administrador)',
+            'description' => 'Puede descargar reporte de seleccionados de senaempresa',
+            'description_english' => 'You can download senaempresa report of selected companies.',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
 
         // Vista de cargos (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.positions.index'], [ // Registro o actualización de permiso

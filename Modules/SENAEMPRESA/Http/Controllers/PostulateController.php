@@ -13,6 +13,7 @@ use Modules\SENAEMPRESA\Entities\FileSenaempresa;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
 use Modules\SENAEMPRESA\Entities\Postulate;
 use Modules\SENAEMPRESA\Entities\Vacancy;
+use TCPDF;
 
 class PostulateController extends Controller
 {
@@ -338,5 +339,71 @@ class PostulateController extends Controller
             ->get();
         $data = ['title' => 'Seleccionados', 'postulates' => $postulates];
         return view('senaempresa::Company.Postulate.Application', $data);
+    }
+
+    public function generateseleccionadosPDF(Request $request)
+    {
+        $postulates = Postulate::with(['apprentice.person'])
+            ->where('state', '=', 'Seleccionado')
+            ->get();
+
+        // Create a new instance of TCPDF
+        $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+
+        // Set the title of the document with the current date and time in 12-hour format
+        $title = 'Reporte de Seleccionados - ' . date('Y-m-d h:i:s A');
+        $pdf->SetTitle($title);
+
+        // Define the font and size for the PDF content
+        $pdf->SetFont('helvetica', '', 10);
+
+        // Add a new page
+        $pdf->AddPage();
+
+        // Define styles for the table
+        $tableStyle = 'border-collapse: collapse; width: 100%; margin: auto; text-align: center;';
+        $cellStyle = 'border: 1px solid #000; text-align: center; padding: 0 auto 8px;';
+
+        // Add the logo to the top left
+        $logoPath = public_path('AdminLTE/dist/img/logo P SENA.png');
+        $pdf->Image($logoPath, 176, 10, 22, '', 'PNG');
+
+        // Set the header content centered
+        $pdf->SetY(15);
+        $header = 'Centro de Formación Agroindustrial "La Angostura" | Campoalegre - Huila';
+        $pdf->Cell(0, 0, $header, 0, 1, 'C');
+
+        // Set the content of the PDF
+        $html = '<h4 style="text-align: center;">SENAEMPRESA</h4>';
+        $html .= '<h3 style="text-align: center;">' . $title . '</h3>';
+        $html .= '<table style="' . $tableStyle . '">';
+        $html .= '<thead><tr>
+                <th style="' . $cellStyle . '">ID</th>
+                <th style="' . $cellStyle . '">Apprentice</th>
+                <th style="' . $cellStyle . '">Número de documento</th>
+                <th style="' . $cellStyle . '">Correo</th>
+                <th style="' . $cellStyle . '">Telefono</th>
+                <th style="' . $cellStyle . '">Cargo</th>
+            </tr></thead>';
+        $html .= '<tbody>';
+
+        foreach ($postulates as $postulate) {
+            $html .= '<tr>
+                    <td style="' . $cellStyle . '">' . $postulate->id . '</td>
+                    <td style="' . $cellStyle . '">' . $postulate->apprentice->person->full_name . '</td>
+                    <td style="' . $cellStyle . '">' . $postulate->apprentice->person->document_number . '</td>
+                    <td style="' . $cellStyle . '">' . $postulate->apprentice->person->personal_email . '</td>
+                    <td style="' . $cellStyle . '">' . $postulate->apprentice->person->telephone1 . '</td>
+                    <td style="' . $cellStyle . '">' . $postulate->vacancy->positionCompany->name . '</td>
+                </tr>';
+        }
+
+        $html .= '</tbody>';
+        $html .= '</table>';
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, 'C');
+
+        // Generate the PDF and return it for download with the date in the filename
+        $filename = 'reporte_seleccionados' . date('Ymd') . '.pdf';
+        $pdf->Output($filename, 'I');
     }
 }

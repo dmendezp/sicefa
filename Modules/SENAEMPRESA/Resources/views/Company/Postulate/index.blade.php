@@ -19,6 +19,23 @@
                         @endforeach
                     </select>
             </div>
+            @if (Route::is('senaempresa.admin.*') &&
+                    Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.cv'))
+                <div class="col">
+                    <label for="showAssignedScore">{{ trans('senaempresa::menu.Show Score:') }}</label>
+                    <select class="form-control" id="showAssignedScore" name="showAssignedScore"
+                        onchange="this.form.submit()">
+                        <option value=""> {{ trans('senaempresa::menu.All') }}</option>
+                        <option value="assigned" {{ $showAssignedScore == 'assigned' ? 'selected' : '' }}>
+                            {{ trans('senaempresa::menu.With Assigned Score') }}
+                        </option>
+                        <option value="unassigned" {{ $showAssignedScore == 'unassigned' ? 'selected' : '' }}>
+                            {{ trans('senaempresa::menu.No Score Assigned') }}
+                        </option>
+                    </select>
+                </div>
+            @endif
+            </form>
         </div>
         <br>
         <div class="col-md-12">
