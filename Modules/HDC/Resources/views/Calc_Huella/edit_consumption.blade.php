@@ -40,7 +40,7 @@
                             <div class="col-md-3">
                                 <select id="anio" name="anio" class="form-control">
                                     <option value="" disabled>--- Seleccione el año ---</option>
-                                    @for ($i = (date('Y') - 10); $i <= (date('Y') + 10); $i++)
+                                    @for ($i = (date('Y') - 1); $i <= (date('Y') + 1); $i++)
                                         <option value="{{ $i }}" @if(old('anio', $fpf->anio) == $i) selected @endif>{{ $i }}</option>
                                     @endfor
                                 </select>

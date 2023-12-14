@@ -52,7 +52,7 @@
                             <div class="col-md-3">
                                 <select id="anio" name="anio" class="form-control">
                                     <option value="" disabled selected>--- Seleccione el año ---</option>
-                                    @for ($i = (date('Y') - 10); $i <= (date('Y') + 10); $i++)
+                                    @for ($i = (date('Y') - 1); $i <= (date('Y') + 1); $i++)
                                         <option value="{{ $i }}">{{ $i }}</option>
                                     @endfor
                                 </select>

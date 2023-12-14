@@ -67,22 +67,20 @@
                                                     @php $total = 0; @endphp {{-- Reiniciar el total para la próxima iteración --}}
                                                 </td>
                                                 <td>
-                                                    @if ($aspect->personenvironmentalaspects->isNotEmpty())
-                                                        <a href="{{ route('cefa.hdc.carbonfootprint.edit_consumption', $aspect->id) }}"
-                                                            class="btn btn-primary"><i
-                                                                class="fa-solid fa-pen-to-square"></i></a>
+                                                    @if (\Carbon\Carbon::parse($aspect->anio . '-' . $aspect->mes)->year >= date('Y'))
+                                                        @if ($aspect->personenvironmentalaspects->isNotEmpty())
+                                                            <a href="{{ route('cefa.hdc.carbonfootprint.edit_consumption', $aspect->id) }}"
+                                                                class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
 
-                                                        <form class="delete-form"
-                                                            action="{{ route('cefa.hdc.carbonfootprint.eliminar', ['id' => $aspect->personenvironmentalaspects->first()->id]) }}"
-                                                            method="POST" style="display: inline;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger btnEliminar"
-                                                                type="button"><i class="fas fa-trash-alt"></i></button>
-                                                        </form>
+                                                            <form class="delete-form"
+                                                                action="{{ route('cefa.hdc.carbonfootprint.eliminar', ['id' => $aspect->personenvironmentalaspects->first()->id]) }}"
+                                                                method="POST" style="display: inline;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger btnEliminar" type="button"><i class="fas fa-trash-alt"></i></button>
+                                                            </form>
+                                                        @endif
                                                     @endif
-
-
                                                 </td>
                                             </tr>
                                         @endforeach
