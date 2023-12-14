@@ -60,6 +60,9 @@
             margin-left: 600px;
         }
 
+        .container{
+            height: 450px;
+        }
 
     </style>
 </head>
@@ -135,9 +138,11 @@
         <img src="{{ $image }}" alt="Sena Logo" width="70px" height="70px" />
         <br>
         <br>
+        <div class="container">
         <p>
             {{ $contract->contract_obligations}}
         </p>
+        </div>
     </div>
     <br>
     <footer class="footer2">

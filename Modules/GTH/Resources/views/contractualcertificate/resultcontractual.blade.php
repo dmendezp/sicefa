@@ -8,20 +8,22 @@
                         <table id="contractor" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
                             <thead class="bg-primary text-white">
                                 <tr>
-                                    <th scope="col">{{ trans('gth::menu.ID') }}</th>
-                                    <th scope="col">{{ trans('gth::menu.Document type') }}</th>
+                                    <th scope="col">Numero Contrato</th>
                                     <th scope="col">{{ trans('gth::menu.ID number') }}</th>
                                     <th scope="col">{{ trans('gth::menu.Full name') }}</th>
+                                    <th scope="col">Fecha inicio</th>
+                                    <th scope="col">Fecha fin</th>
                                     <th scope="col">Accion</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($contractors as $contract)
                                     <tr>
-                                        <td>{{ $contract->person->id }}</td>
-                                        <td>{{ $contract->person->document_type }}</td>
+                                        <td>{{ $contract->contract_number }}</td>
                                         <td>{{ $contract->person->document_number }}</td>
                                         <td>{{ $contract->person->full_name }}</td>
+                                        <td>{{ $contract->contract_start_date }}</td>
+                                        <td>{{ $contract->contract_end_date }}</td>
                                         <td>
                                             <a id="pdf" href="{{ route('cefa.contractualcertificate.pdf', ['id' => $contract->id]) }}" class="btn btn-danger" target="_blank">
                                                 Exportar PDF<i class="fa-solid fa-file-pdf"></i>
