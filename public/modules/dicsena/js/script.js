@@ -3,7 +3,7 @@ toText = document.querySelector(".to-text"),
 exchageIcon = document.querySelector(".exchange"),
 selectTag = document.querySelectorAll("select"),
 icons = document.querySelectorAll(".row i");
-translateBtn = document.querySelector("button"),
+translateBtn = document.querySelector(".buttontranslate"),
 
 selectTag.forEach((tag, id) => {
     for (let country_code in countries) {

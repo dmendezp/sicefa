@@ -16,16 +16,20 @@ class GlossController extends Controller
      */
     public function index(Request $request)
     {
-        $programs = Program::orderBy('name', 'ASC')->get();
-        $selectedProgramId = $request->input('program_id');
+        $programs = Program::orderBy('name', 'asc')->get(); // Ordenar programas por nombre en orden alfabético
+        $selectedProgram = $request->input('program_name');
 
-        if ($selectedProgramId) {
-            $glossaries = Glossary::where('program_id', $selectedProgramId)->get();
+        if ($selectedProgram) {
+            $glossaries = Glossary::query();
+            $glossaries->whereHas('program', function ($query) use ($selectedProgram) {
+                $query->where('name', 'like', "%$selectedProgram");
+            });
+            $glossaries = $glossaries->orderBy('created_at', 'asc')->get(); // Ordenar guías por fecha de creación en orden ascendente
         } else {
             $glossaries = collect([]);
         }
 
-        return view('dicsena::gloss', compact('programs', 'glossaries', 'selectedProgramId'));
+        return view('dicsena::gloss', compact('programs', 'glossaries', 'selectedProgram'));
     }
 
     /**

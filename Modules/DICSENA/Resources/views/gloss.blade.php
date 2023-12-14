@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav d-flex flex-row justify-content-start">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
                         <i class="fas fa-globe"></i> DICSENA
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -23,13 +23,13 @@
 
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cefa.dicsena.home.index') }}">Traductor</a>
+                    <a class="nav-link" href="{{ route('cefa.dicsena.home.index') }}" style="color: white;">Traductor</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cefa.dicsena.guide')}}">Guia</a>
+                    <a class="nav-link" href="{{ route('cefa.dicsena.guide')}}" style="color: white;">Guia</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cefa.dicsena.gloss')}}">Glosario</a>
+                    <a class="nav-link" href="{{ route('cefa.dicsena.gloss')}}" style="color: white;">Glosario</a>
                 </li>
             </ul>
 
@@ -37,7 +37,7 @@
                 @if(Auth::user())
                 @if(Auth::user()->havePermission('dicsena.instructor.menu'))
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('dicsena.instructor.menu') }}">Panel</a>
+                    <a class="nav-link" href="{{ route('dicsena.instructor.menu') }}" style="color: white;">Panel</a>
                 </li>
                 @endif
                 @endif
@@ -45,27 +45,31 @@
         </div>
     </div>
 </nav>
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6">
+<div class="container mt-4 d-flex justify-content-center">
+    <div class="row justify-content-center">
+        <div class="col-md-6 ">
             <form action="{{ route('cefa.dicsena.gloss') }}" method="get">
                 <div class="form-group">
-                    <label for="program_id">Selecciona un programa:</label>
-                    <select name="program_id" id="program_id" class="form-control">
+                    <label for="program_name" style="text-align: center;">Selecciona un programa:</label>
+                    <select name="program_name" id="program_name" class="form-control program-filter" style="border: blue solid 1px;">
                         <option value="">------</option>
                         @foreach ($programs as $program)
-                        <option value="{{ $program->id }}" @if($selectedProgramId==$program->id) selected @endif>
+                        <option value="{{ $program->name }}" {{ $selectedProgram == $program->name ? 'selected' : '' }}>
                             {{ $program->name }}
                         </option>
                         @endforeach
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Filtrar</button>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Filtrar</button>
+                </div>
             </form>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-container">
             @if($glossaries->isNotEmpty())
             <table class="table table-striped">
                 <thead>
@@ -94,14 +98,15 @@
     </div>
 </div>
 <style>
-    .form-group {
+    p {
         text-align: center;
     }
 
-    button.btn-primary {
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
+    .table-container {
+        margin-left: 50px;
+        /* Ajusta el valor según tus necesidades */
+        margin-right: 50px;
+        /* Ajusta el valor según tus necesidades */
     }
 </style>
 @endsection
