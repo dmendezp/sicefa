@@ -97,5 +97,8 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/contractualcertificate', 'ContractualCertificateController@viewcontractualcertificate')->name('cefa.contractualcertificate.view');
         Route::post('/contractualcertificate/search', 'ContractualCertificateController@search')->name('cefa.contractualcertificate.search');
         Route::get('/contractualcertificate/pdf/{id}', 'ContractualCertificateController@pdf')->name('cefa.contractualcertificate.pdf');
+
+        //User manual
+        Route::get('/usermanual', 'UserManualController@viewusermanual')->name('cefa.usermanual.view');
     });
 });

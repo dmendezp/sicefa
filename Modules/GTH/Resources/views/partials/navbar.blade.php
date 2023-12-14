@@ -23,6 +23,11 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('cefa.usermanual.view')}}" role="button">
+                <i class="fas fa-question-circle"></i>
+            </a>
+        </li>
         <!-- languaje Dropdown Menu-->
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
