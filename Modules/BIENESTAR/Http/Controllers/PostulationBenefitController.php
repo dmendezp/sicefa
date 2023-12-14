@@ -371,7 +371,7 @@ public function removeBenefit(Request $request, $id, $benefitId)
 
             // Puedes hacer aquí otras actualizaciones según sea necesario
 
-            return redirect()->back()->with('success', 'Beneficio desasignado con éxito');
+            return response()->json(['message' => 'Beneficio Actualizado con exito'], 200);
         } else {
             // Imprimir información en la consola
             error_log("PostulationBenefit not found for ID: $benefitId");

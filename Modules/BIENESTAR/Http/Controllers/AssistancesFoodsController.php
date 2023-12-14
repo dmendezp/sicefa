@@ -155,7 +155,7 @@ class AssistancesFoodsController extends Controller
             'courses.code',
             'programs.name as program_name',
             'benefits.name as benefit_name',
-            'benefits.porcentege',
+            'assistances_foods.porcentage',
             'assistances_foods.date_time'
         )
         ->whereDate('assistances_foods.date_time', '=', now()->toDateString())
