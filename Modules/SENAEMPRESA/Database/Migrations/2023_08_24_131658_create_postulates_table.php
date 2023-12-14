@@ -25,6 +25,7 @@ class CreatePostulatesTable extends Migration
             $table->binary('cv');
             $table->binary('personalities');
             $table->binary('proposal');
+            $table->binary('employment_certificate');
             $table->unsignedInteger('score_total')->nullable();
             $table->timestamps();
             $table->softDeletes();

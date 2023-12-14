@@ -25,6 +25,8 @@ class SENAEMPRESADatabaseSeeder extends Seeder
         $this->call(PermissionsTableSeeder::class); // Ejecutar Seeder de permisos para roles
         $this->call(QuartersTableSeeder::class); // Ejecutar Seeder de permisos para roles
         $this->call(SenaempresasTableSeeder::class); // Ejecutar Seeder de permisos para roles
+        $this->call(PositionCompaniesTableSeeder::class); // Ejecutar Seeder de permisos para roles
+        $this->call(VacanciesTableSeeder::class); // Ejecutar Seeder de permisos para roles
 
         DB::commit(); // Finalizar transacción
     }

@@ -19,23 +19,6 @@
                         @endforeach
                     </select>
             </div>
-            @if (Route::is('senaempresa.admin.*') &&
-                    Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.cv'))
-                <div class="col">
-                    <label for="showAssignedScore">{{ trans('senaempresa::menu.Show Score:') }}</label>
-                    <select class="form-control" id="showAssignedScore" name="showAssignedScore"
-                        onchange="this.form.submit()">
-                        <option value=""> {{ trans('senaempresa::menu.All') }}</option>
-                        <option value="assigned" {{ $showAssignedScore == 'assigned' ? 'selected' : '' }}>
-                            {{ trans('senaempresa::menu.With Assigned Score') }}
-                        </option>
-                        <option value="unassigned" {{ $showAssignedScore == 'unassigned' ? 'selected' : '' }}>
-                            {{ trans('senaempresa::menu.No Score Assigned') }}
-                        </option>
-                    </select>
-                    </form>
-                </div>
-            @endif
         </div>
         <br>
         <div class="col-md-12">
@@ -51,6 +34,7 @@
                                         Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.cv'))
                                     <th>{{ trans('senaempresa::menu.Currículum') }}</th>
                                     <th>{{ trans('senaempresa::menu.Proposal') }}</th>
+                                    <th>Certificado agencia de empleo</th>
                                 @endif
                                 @if (Route::is('senaempresa.psychologo.*') &&
                                         Auth::user()->havePermission(
@@ -62,7 +46,7 @@
                                 @if (Route::is('senaempresa.admin.*') &&
                                         Auth::user()->havePermission(
                                             'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.state'))
-                                    @if ($score_total->isNotEmpty())
+                                    @if ($score_total->isEmpty())
                                         <th>
                                             {{ trans('senaempresa::menu.Update Status') }}
                                         </th>
@@ -89,6 +73,13 @@
                                                 <a href="{{ asset($postulate->proposal) }}" download>
                                                     <i class="far fa-file-pdf"
                                                         style="color: #08c651; font-size: 30px; text-align: center;"></i>
+                                                </a>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <a href="{{ asset($postulate->employment_certificate) }}" download>
+                                                    <i class="far fa-file-pdf"
+                                                        style="color: #FC7430; font-size: 30px; text-align: center;"></i>
+
                                                 </a>
                                             </td>
                                         @endif

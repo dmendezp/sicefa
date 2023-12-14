@@ -15,6 +15,7 @@
                                 <th>{{ trans('senaempresa::menu.Currículum') }}</th>
                                 <th>{{ trans('senaempresa::menu.16 personalities') }}</th>
                                 <th>{{ trans('senaempresa::menu.Proposal') }}</th>
+                                <th>Certificado agencia de empleo</th>
                                 <th>{{ trans('senaempresa::menu.Total score') }}</th>
                         </thead>
                         <tbody>
@@ -41,6 +42,13 @@
                                             <a href="{{ asset($postulate->proposal) }}" download>
                                                 <i class="far fa-file-pdf"
                                                     style="color: #08c651; font-size: 30px; text-align: center;"></i>
+                                            </a>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <a href="{{ asset($postulate->employment_certificate) }}" download>
+                                                <i class="far fa-file-pdf"
+                                                    style="color: #FC7430; font-size: 30px; text-align: center;"></i>
+
                                             </a>
                                         </td>
                                         <td>{{ $postulate->score_total }}</td>

@@ -108,6 +108,16 @@ class PostulateController extends Controller
                 return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Proposal file must be in PDF format.'));
             }
         }
+
+        if ($employment_certificateFile = $request->file('employment_certificate')) {
+            if ($employment_certificateFile->getClientOriginalExtension() === 'pdf') {
+                $employment_certificateFileeName = Str::slug($ApprenticeId) . 'employment_certificate_' . time() . '.pdf';
+                $employment_certificateFile->move(public_path('modules/senaempresa/files/employment_certificate/'), $employment_certificateFileeName);
+                $postulate->employment_certificate = 'modules/senaempresa/files/employment_certificate/' . $employment_certificateFileeName;
+            } else {
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', 'El archivo del certificado debe estar en formato PDF.');
+            }
+        }
         if ($postulate->save())
             $data = [
                 'ApprenticeId' => $ApprenticeId,
