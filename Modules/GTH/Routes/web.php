@@ -100,5 +100,9 @@ Route::middleware(['lang'])->group(function () {
 
         //User manual
         Route::get('/usermanual', 'UserManualController@viewusermanual')->name('cefa.usermanual.view');
+
+        //Register Attendance
+        Route::get('/registerattendance', 'RegisterAttendanceController@viewregisterattendance')->name('cefa.registerattendance.view');
     });
 });
+
