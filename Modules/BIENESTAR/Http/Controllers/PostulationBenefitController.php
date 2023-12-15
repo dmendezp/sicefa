@@ -124,41 +124,50 @@ public function updateStateBenefit(Request $request, $id)
         // Buscar la postulación por ID
         $postulation = Postulation::findOrFail($id);
 
-        // Validar el beneficio seleccionado
+        // Validar los beneficios seleccionados
         $request->validate([
-            'benefit' => 'required|exists:benefits,id',
+            'transport_benefit' => 'required|exists:benefits,id',
+            'food_benefit' => 'required|exists:benefits,id',
         ]);
 
-        // Obtener el beneficio seleccionado
-        $benefitId = $request->input('benefit');
+        // Obtener los beneficios seleccionados
+        $transportBenefitId = $request->input('transport_benefit');
+        $foodBenefitId = $request->input('food_benefit');
 
-        // Verificar si la postulación ya tiene ese beneficio asignado
-        $existingBenefit = $postulation->postulationBenefits
-            ->where('state', 'Beneficiario')
-            ->where('benefit_id', $benefitId)
-            ->first();
+        // Verificar si ya existe un beneficio de transporte y alimentación
+        $existingTransportBenefit = $postulation->postulationBenefits()
+            ->where('benefit_id', $transportBenefitId)
+            ->whereHas('benefit', function ($query) {
+                $query->where('name', 'Transporte');
+            })->first();
 
-        if ($existingBenefit) {
-            // Si ya tiene el beneficio asignado, evita la actualización y muestra un mensaje de error
-            return redirect()->back()->with('error', 'Esta postulación ya tiene asignado ese beneficio.');
+        $existingFoodBenefit = $postulation->postulationBenefits()
+            ->where('benefit_id', $foodBenefitId)
+            ->whereHas('benefit', function ($query) {
+                $query->where('name', 'Alimentacion');
+            })->first();
+
+        // Actualizar o crear el beneficio de transporte si no existe
+        if (!$existingTransportBenefit) {
+            $transportBenefit = PostulationBenefit::updateOrCreate(
+                ['postulation_id' => $postulation->id, 'benefit_id' => $transportBenefitId],
+                ['state' => 'Beneficiario', 'message' => 'Felicidades, has sido aceptado para recibir el beneficio de transporte']
+            );
         }
 
-        // Actualizar el beneficio de la postulación
-        $postulationBenefit = $postulation->postulationBenefits->where('state', 'Beneficiario')->first();
-
-        if ($postulationBenefit) {
-            $postulationBenefit->benefit_id = $benefitId;
-            $postulationBenefit->save();
-
-            // Redirigir de vuelta a la página anterior con un mensaje de éxito 
-            return redirect()->back()->with('success', 'Beneficio actualizado con éxito');
-        } else {
-            // Manejar el caso en que no hay beneficio para actualizar
-            return redirect()->back()->with('error', 'No se encontró un beneficio para actualizar');
+        // Actualizar o crear el beneficio de alimentación si no existe
+        if (!$existingFoodBenefit) {
+            $foodBenefit = PostulationBenefit::updateOrCreate(
+                ['postulation_id' => $postulation->id, 'benefit_id' => $foodBenefitId],
+                ['state' => 'Beneficiario', 'message' => 'Felicidades, has sido aceptado para recibir el beneficio de alimentación']
+            );
         }
+
+        // Puedes ajustar el mensaje según tu lógica
+        return redirect()->back()->with('success', 'Beneficios actualizados o creados con éxito');
     } catch (\Exception $e) {
         // Capturar y manejar errores, puedes personalizar esto según tus necesidades
-        return redirect()->back()->with('error', 'Error al actualizar el beneficio: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Error al actualizar o crear los beneficios: ' . $e->getMessage());
     }
 }
 
@@ -189,51 +198,6 @@ public function updateBenefits(Request $request)
 
 
 
-public function removeBenefit(Request $request, $id, $benefitId)
-{
-    try {
-        // Buscar la postulación por ID
-        $postulation = Postulation::findOrFail($id);
-
-        // Validar si la postulación está en el estado correcto para desasignar el beneficio
-        if ($postulation->state !== 'Beneficiario') {
-            return redirect()->back()->with('error', 'La postulación no está en el estado correcto para desasignar el beneficio.');
-        }
-
-        // Buscar el beneficio a desasignar
-        $postulationBenefit = $postulation->postulationBenefits
-            ->where('state', 'Beneficiario')
-            ->where('id', $benefitId)
-            ->first();
-
-        // Imprimir información en la consola
-        error_log("Postulation ID: $id, Benefit ID: $benefitId");
-        error_log("Postulation state: " . $postulation->state);
-
-        if ($postulationBenefit) {
-            // Imprimir información en la consola
-            error_log("Found PostulationBenefit ID: " . $postulationBenefit->id);
-            
-            // Desasignar el beneficio
-            $postulationBenefit->update([
-                'state' => 'No Beneficiario',
-                'message' => 'Se le ha cancelado el beneficio',
-            ]);
-
-            // Puedes hacer aquí otras actualizaciones según sea necesario
-
-            return response()->json(['message' => 'Beneficio Actualizado con exito'], 200);
-        } else {
-            // Imprimir información en la consola
-            error_log("PostulationBenefit not found for ID: $benefitId");
-            return redirect()->back()->with('error', 'No se encontró un beneficio para desasignar');
-        }
-    } catch (\Exception $e) {
-        // Imprimir información en la consola
-        error_log("Error: " . $e->getMessage());
-        return redirect()->back()->with('error', 'Error al desasignar el beneficio: ' . $e->getMessage());
-    }
-}
 
 
 public function editBenefitDetail(Request $request, $id)

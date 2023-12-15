@@ -91,7 +91,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/admin/postulation-management/{id}', 'PostulationBenefitController@show')->name('bienestar.admin.show.postulation-management');
         Route::put('/admin/postulation-management/{id}/update-score', 'PostulationBenefitController@updateScore')->name('bienestar.admin.update-score.postulation-management');
         Route::post('/admin/postulation-management/update-benefits', 'PostulationBenefitController@updateBenefits')->name('bienestar.admin.update-benefits.postulation-management');
-        Route::put('/admin/update-benefit/{id}', 'PostulationBenefitController@updateStateBenefit')->name('bienestar.admin.update-state-benefit.postulation-management');
+        Route::post('/admin/update-benefit/{id}', 'PostulationBenefitController@updateStateBenefit')->name('bienestar.admin.update-state-benefit.postulation-management');
         Route::put('/admin/postulation-management/{id}/remove-benefit/{benefitId}', 'PostulationBenefitController@removeBenefit')->name('bienestar.admin.remove-benefit.postulation-management');
         Route::put('/admin/postulation-management/{id}/edit-benefit-detail', 'PostulationBenefitController@editBenefitDetail')->name('bienestar.admin.edit-benefit-detail.postulation-management');
 
