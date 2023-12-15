@@ -250,7 +250,7 @@ document.querySelectorAll('.formEliminar[data-method="delete"]').forEach(functio
                         if (response.data.success) {
                             showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 1500);
                         } else {
-                            showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}",3000);
+                            showSweetAlert('error', 'Error',response.data.error,3000);
                         }
                     }
                 })

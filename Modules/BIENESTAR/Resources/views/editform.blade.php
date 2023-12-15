@@ -107,20 +107,22 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                         @endif
                         @endforeach
                     </div>
-                    <div class="modal-footer">
+                    <div class="form-group">
                         <button type="submit" form="editForm{{$question->id}}" class="btn btn-success">{{ trans('bienestar::menu.Save')}}</button>
                     </div>
                 </form>
-                <div class="form-group" id="respuestas">
-                    <div class="input-group">
-                        <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.add.answer.editform')}}" method="POST">
+                <div class="form-group">
+                    <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.add.answer.editform')}}" method="POST" class="formGuardar">
+                        @csrf
+                        <div class="input-group">
                             <input type="text" name="answer" id="answer" class="form-control" placeholder="Agregar Una Nueva respuesta">
                             <input type="hidden" name="id_question" id="id_question" value="{{ $question->id }}">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-success" id="saveAnswer">+</button>
                             </div>
-                        </form>
-                    </div><br>
+                        </div>
+                    </form>
+                    <br>
                 </div>
                 @endif
             </div>
@@ -177,8 +179,20 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
             // Obtiene el valor seleccionado del select
             var convocationValue = $("#id_convocation").val();
 
+            // Crea un array para almacenar los IDs de las preguntas seleccionadas
+            var selectedQuestionIds = [];
+            selectedCheckboxes.each(function() {
+                selectedQuestionIds.push($(this).attr('id').replace('pregunta', ''));
+            });
+
             // Verifica si al menos un checkbox está seleccionado y hay una convocatoria seleccionada
             if (selectedCheckboxes.length > 0 && convocationValue) {
+                // Agrega los IDs de las preguntas al campo del formulario
+                $("<input />").attr("type", "hidden")
+                    .attr("name", "selected_questions")
+                    .attr("value", selectedQuestionIds.join(','))
+                    .appendTo("#mainForm");
+
                 // Si se cumplen ambas condiciones, muestra el SweetAlert y envía el formulario principal
                 showSweetAlert('success', 'Formulario Válido', 'Enviar formulario principal', 1500);
                 this.submit();

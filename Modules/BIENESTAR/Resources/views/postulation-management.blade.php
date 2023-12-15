@@ -45,11 +45,29 @@
                                         <tr data-id="{{ $postulation->id }}">
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
-                                                <label class="container_management">
-                                                    <input type="checkbox" class="benefit-checkbox_management" name="selected_postulations[]" value="{{ $postulation->id }}" onchange="guardarSeleccion(this)">
-                                                    <div class="checkmark_management"></div>
-                                                </label>
+                                                @foreach($benefits as $benefit)
+                                                    @php
+                                                        $postulationBenefit = $postulation->postulationBenefits
+                                                            ->where('benefit_id', $benefit->id)
+                                                            ->where('state', 'Beneficiario')
+                                                            ->first();
+                                                        $isChecked = $postulationBenefit ? true : false;
+                                                    @endphp
+                                            
+                                                    <label class="container_management">
+                                                        <input type="checkbox" class="benefit-checkbox_management" 
+                                                               name="selected_postulations[{{ $postulation->id }}][]" 
+                                                               value="{{ $benefit->id }}" 
+                                                               data-postulation-id="{{ $postulation->id }}" 
+                                                               data-benefit-id="{{ $benefit->id }}" 
+                                                               {{ $isChecked ? 'checked' : '' }}>
+                                                        {{ $benefit->name }}
+                                                        <div class="checkmark_management"></div>
+                                                    </label>
+                                                @endforeach
                                             </td>
+                                            
+                                            
                                             <td>{{ $postulation->apprentice->person->full_name }}</td>
                                             <td>{{ $postulation->convocation->name }} - {{ $postulation->convocation->description }}</td>
                                             <td style="width: 250px;">
@@ -79,7 +97,6 @@
                             </tbody>
                         </table>
                         
-                        <button type="submit" id="guardarBtn" class="btn btn-success btn-block">{{ trans('bienestar::menu.Save Records')}}</button>
                     </form>
                     @endif
                 </div>
@@ -240,183 +257,76 @@
 
 @section('scripts')
 <script>
-    // Define las cuotas iniciales
-    const initialFoodQuotas = {{ $convocation->food_quotas }};
-    const initialTransportQuotas = {{ $convocation->transport_quotas }};
+    $(document).ready(function () {
+        const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const selectAllButton = document.getElementById('select-all-button');
-        const selectAllCheckbox = document.getElementById('select-all-checkbox');
-        const checkboxes = document.querySelectorAll('.benefit-checkbox');
-        const foodQuotasDisplay = document.getElementById('food-quotas');
-        const transportQuotasDisplay = document.getElementById('transport-quotas');
-        const guardarBtn = document.getElementById('guardarBtn');
-        const foodQuotasLimit = initialFoodQuotas;
-        const transportQuotasLimit = initialTransportQuotas;
+        $('.benefit-checkbox_management').on('change', function () {
+            const $checkbox = $(this);
+            const postulationId = $checkbox.data('postulation-id');
+            const benefitId = $checkbox.data('benefit-id');
+            const isChecked = $checkbox.is(':checked');
 
-        // Inicializa las cuotas disponibles y límites
-        let foodQuotas = initialFoodQuotas;
-        let transportQuotas = initialTransportQuotas;
-        let foodQuotasSelected = 0;
-        let transportQuotasSelected = 0;
+            console.log('Postulation ID:', postulationId);
+            console.log('Benefit ID:', benefitId);
+            console.log('Is Checked:', isChecked);
 
-        function updateQuotasDisplay() {
-            foodQuotasDisplay.textContent = foodQuotas;
-            transportQuotasDisplay.textContent = transportQuotas;
-        }
+            // Realizar la solicitud AJAX para actualizar o crear el registro
+            $.ajax({
+                url: '{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-benefits.postulation-management') }}',
+                method: 'PUT',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                data: {
+                    postulation_id: postulationId,
+                    benefit_id: benefitId,
+                    checked: isChecked,
+                },
+                success: function(response) {
+                    console.log('AJAX Success Response:', response);
 
-        function isQuotaAvailable(checkbox) {
-            const benefitType = checkbox.getAttribute('data-benefit-type');
-            if (benefitType === 'food') {
-                return foodQuotas > 0;
-            } else if (benefitType === 'transport') {
-                return transportQuotas > 0;
-            }
-            return false;
-        }
-
-        function updateCheckboxState(checkbox) {
-            const available = isQuotaAvailable(checkbox);
-            checkbox.disabled = !available;
-
-            if (!available) {
-                checkbox.checked = false;
-            }
-        }
-
-        function calculateSelectedQuotas() {
-            let foodSelected = 0;
-            let transportSelected = 0;
-
-            checkboxes.forEach(function (checkbox) {
-                if (checkbox.checked) {
-                    const benefitType = checkbox.getAttribute('data-benefit-type');
-                    if (benefitType === 'food') {
-                        foodSelected++;
-                    } else if (benefitType === 'transport') {
-                        transportSelected++;
+                    // Mostrar SweetAlert en función de la respuesta del servidor
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: "{{ trans('bienestar::menu.Success!') }}",
+                            text: response.success,
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function() {
+                            // Después de realizar la acción, puedes realizar alguna actualización necesaria
+                            // Por ejemplo, recargar la página o actualizar solo la sección necesaria
+                        });
+                    } else if (response.error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: response.error,
+                            showConfirmButton: true
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: "{{ trans('bienestar::menu.An error occurred while trying to save records.') }}",
+                            showConfirmButton: true
+                        });
                     }
+                },
+                error: function(error) {
+                    console.error('AJAX Error:', error);
+                    // Mostrar SweetAlert de error en caso de problemas
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: "{{ trans('bienestar::menu.An error occurred while trying to save records.') }}",
+                        showConfirmButton: true
+                    });
                 }
-            });
-
-            return { foodSelected, transportSelected };
-        }
-
-        function updateQuotasBasedOnSelection() {
-            const selectedQuotas = calculateSelectedQuotas();
-
-            // Actualiza las cuotas disponibles en base a la selección actual
-            foodQuotas = initialFoodQuotas - selectedQuotas.foodSelected;
-            transportQuotas = initialTransportQuotas - selectedQuotas.transportSelected;
-
-            // Actualiza el contador de cuotas seleccionadas
-            foodQuotasSelected = selectedQuotas.foodSelected;
-            transportQuotasSelected = selectedQuotas.transportSelected;
-
-            // Si las cuotas se agotan, deshabilita los checkboxes restantes
-            checkboxes.forEach(function (checkbox) {
-                if (!isQuotaAvailable(checkbox)) {
-                    checkbox.disabled = true;
-                }
-            });
-        }
-
-        function showWarningMessage(message) {
-            const warningMessageDiv = document.getElementById('warning-message');
-            warningMessageDiv.innerHTML = message;
-        }
-
-        updateQuotasDisplay();
-
-        selectAllButton.addEventListener('click', function () {
-            checkboxes.forEach(function (checkbox) {
-                if (!isQuotaAvailable(checkbox)) {
-                    return;
-                }
-
-                checkbox.checked = true;
-                updateCheckboxState(checkbox);
-            });
-
-            updateQuotasBasedOnSelection();
-            updateQuotasDisplay();
-        });
-
-        selectAllCheckbox.addEventListener('change', function () {
-            checkboxes.forEach(function (checkbox) {
-                if (isQuotaAvailable(checkbox)) {
-                    checkbox.checked = selectAllCheckbox.checked;
-                    updateCheckboxState(checkbox);
-                }
-            });
-
-            updateQuotasBasedOnSelection();
-            updateQuotasDisplay();
-        });
-
-        checkboxes.forEach(function (checkbox) {
-            checkbox.addEventListener('change', function () {
-                if (!isQuotaAvailable(checkbox)) {
-                    checkbox.checked = false;
-                    showWarningMessage("Se ha superado el límite de cuotas seleccionadas");
-                    return;
-                }
-
-                updateCheckboxState(checkbox);
-                showWarningMessage(""); // Borra el mensaje de advertencia
-
-                selectAllCheckbox.checked = [...checkboxes].every(cb => cb.checked);
-
-                updateQuotasBasedOnSelection();
-                updateQuotasDisplay();
             });
         });
-
-        function showWarningMessage(message) {
-    const warningMessageDiv = document.getElementById('warning-message');
-    warningMessageDiv.innerHTML = message;
-}
-
-// ...
-
-guardarBtn.addEventListener('click', function () {
-    if (foodQuotasSelected > foodQuotasLimit || transportQuotasSelected > transportQuotasLimit) {
-        showWarningMessage("Se ha superado el límite de cuotas seleccionadas");
-
-        // Prepara los datos para enviar como JSON
-        const warningData = {
-            message: "Se ha superado el límite de cuotas seleccionadas",
-            type: "warning"
-        };
-
-        // Realiza una solicitud AJAX para enviar los datos al controlador
-
-        axios.post('{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-benefits.postulation-management') }}', warningData)
-            .then(function (response) {
-                // Verifica la respuesta del controlador y realiza acciones adicionales si es necesario
-                if (response.data.warning) {
-                    // Manejar la advertencia
-                } else if (response.data.success) {
-                    // Manejar el éxito
-                }
-            })
-            .catch(function (error) {
-                // Manejar errores en la solicitud AJAX
-            });
-
-        return;
-    }
-
-
-    // Realiza la llamada AJAX al controlador para guardar los registros
-    // Aquí puedes implementar tu lógica para enviar los datos al servidor
-    // Por ejemplo, utilizando fetch o axios.
-
-    // Una vez se hayan guardado los registros con éxito, puedes redirigir o mostrar un mensaje.
-});
     });
 </script>
-
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {

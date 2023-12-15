@@ -10,6 +10,7 @@ use Modules\BIENESTAR\Entities\ConvocationQuestion;
 use Modules\BIENESTAR\Entities\Question;
 use Modules\BIENESTAR\Entities\AnswersQuestion;
 use Modules\BIENESTAR\Entities\Convocation;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Log;
 
 class ConvocationsQuestionsController extends Controller
@@ -118,16 +119,26 @@ class ConvocationsQuestionsController extends Controller
     }
 
     public function updateAnswer(Request $request)
-    {
-        $answer = $request->input('answer');
-        $id_question = $request->input('id_question');
-        $respuesta = new AnswersQuestion();
-        $respuesta->answer = $answer;
-        $respuesta->question_id = $id_question; // Asignar la pregunta_id
-        $respuesta->save();
-        // También puedes utilizar dd() para imprimir y detener la ejecución
-        return response()->json(['success' => 'Pregunta y respuestas actualizadas con éxito!']);
+{
+    $answer = $request->input('answer');
+    $id_question = $request->input('id_question');
+
+    // Verifica si existe un registro igual
+    $existingAnswer = AnswersQuestion::where('answer', $answer)->where('question_id', $id_question)->first();
+
+    // Si existe un registro igual y no ha sido eliminado suavemente, responde con un mensaje de error
+    if ($existingAnswer) {
+        return response()->json(['error' => 'Ya existe un registro igual']);
     }
+
+    // Si no existe un registro igual, crea uno nuevo
+    $respuesta = new AnswersQuestion();
+    $respuesta->answer = $answer;
+    $respuesta->question_id = $id_question;
+    $respuesta->save();
+
+    return response()->json(['success' => 'Registro creado con éxito']);
+}
 
 
 
@@ -140,13 +151,13 @@ class ConvocationsQuestionsController extends Controller
         // Validar los datos del formulario
         $request->validate([
             'convocatoria_id' => 'required|exists:convocations,id',
-            'selected_question_ids' => 'required|string',
+            'selected_questions' => 'required|string',
         ]);
 
         try {
             // Obtener el ID de la convocatoria y los IDs de las preguntas seleccionadas
             $convocatoriaId = $request->input('convocatoria_id');
-            $selectedQuestionIds = explode(',', $request->input('selected_question_ids'));
+            $selectedQuestionIds = explode(',', $request->input('selected_questions'));
 
             // Recorre los IDs de las preguntas seleccionadas y guárdalos en la base de datos
             foreach ($selectedQuestionIds as $questionId) {

@@ -35,3 +35,4 @@ Route::get('/Api/SaveRouteTransport', [RoutesTransportationController::class, 'B
 ////////////
 Route::get('/Api/all_assistances', [AssistancesFoodsController::class, 'getAllAssistances']);
 Route::post('/Api/filter_by_percentage', [AssistancesFoodsController::class, 'filterAssistancesByPercentage']);
+Route::get('/Api/filter_by_percentage/{porcentaje}', [AssistancesFoodsController::class, 'filterAssistancesByPercentage']);
