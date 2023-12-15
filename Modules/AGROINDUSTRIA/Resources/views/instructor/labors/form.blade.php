@@ -103,7 +103,7 @@
                                             <div id="form-consumables">
                                                 <h3>{{trans('agroindustria::labors.consumables')}}</h3>
                                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
-                                                <button type="button" id="add-consumables">Añadir consumibles</button>
+                                                <button type="button" class="btn btn-primary" id="add-consumables"><i class="fa-solid fa-plus"></i></button>
                                                 <div class="consumable">
                                                     <div class="form-group-consumables">
                                                         {!! Form::label('consumables', 'Consumibles') !!}
@@ -141,7 +141,7 @@
                                             <div id="form-tools">
                                                 <h3 id="title_tools">Herramientas</h3>
                                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
-                                                <button type="button" id="add-tools">Añadir herramientas</button>
+                                                <button type="button" class="btn btn-primary" id="add-tools"><i class="fa-solid fa-plus"></i></button>
                                                 <div class="tools">
                                                     <div class="form-group-tools">
                                                         {!! Form::label('tools', 'Herramientas') !!}
@@ -179,7 +179,7 @@
                                             <div id="form-executors">
                                                 <h3 id="title_executor">{{ trans('agroindustria::labors.collaborators') }}</h3>
                                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
-                                                <button type="button" id="add-executor">{{ trans('agroindustria::labors.addCollaborators') }}</button>
+                                                <button type="button" class="btn btn-primary" id="add-executor"><i class="fa-solid fa-plus"></i></button>
                                                 <div class="collaborators">
                                                     <div class="form-group-collaborators">
                                                         {!! Form::label('personSearch', trans('agroindustria::labors.searchPerson')) !!}
@@ -218,7 +218,7 @@
                                             <div id="form-equipments">
                                                 <h3 id="equipments">Equipos</h3>
                                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
-                                                <button type="button" id="add-equipments">Añadir Equipos</button>
+                                                <button type="button" class="btn btn-primary" id="add-equipments"><i class="fa-solid fa-plus"></i></button>
                                                 <div class="equipment">
                                                     <div class="form-group-equipments">
                                                         {!! Form::label('inventories', 'Equipos') !!}
@@ -244,7 +244,7 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div class="accordion-item">
+                                <div class="accordion-item" style="background-color: red;">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
                                             Recursos Ambientales
@@ -256,7 +256,7 @@
                                             <div id="form-resources">
                                                 <h3 id="resources">Recursos Ambientales</h3>
                                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
-                                                <button type="button" id="add-resources">Registrar Recursos</button>
+                                                <button type="button" class="btn btn-primary" id="add-resources"><i class="fa-solid fa-plus"></i></button>
                                                 <div class="resource">
                                                     <div class="form-group">
                                                         {!! Form::label('environmental_aspect', 'Aspecto Ambientas') !!}

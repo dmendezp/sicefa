@@ -72,47 +72,47 @@
 }
 
 #add-executor{
-    width: 930px;
+    position: relative;
+    width: 73px;
     padding: 5px 0px 5px 0px;
     border: none;
     border-radius: 4px;
-    background-color: green;
     color: white;
 }
 
 #add-tools{
-    width: 930px;
+    position: relative;
+    width: 73px;
     padding: 5px 0px 5px 0px;
     border: none;
     border-radius: 4px;
-    background-color: green;
     color: white;
 }
 
 #add-equipments{
-    width: 930px;
+    position: relative;
+    width: 73px;
     padding: 5px 0px 5px 0px;
     border: none;
     border-radius: 4px;
-    background-color: green;
     color: white;
 }
 
 #add-consumables{
-    width: 930px;
+    position: relative;
+    width: 73px;
     padding: 5px 0px 5px 0px;
     border: none;
     border-radius: 4px;
-    background-color: green;
     color: white;
 }
 
 #add-resources{
-    width: 930px;
+    position: relative;
+    width: 73px;
     padding: 5px 0px 5px 0px;
     border: none;
     border-radius: 4px;
-    background-color: green;
     color: white;
 }
 

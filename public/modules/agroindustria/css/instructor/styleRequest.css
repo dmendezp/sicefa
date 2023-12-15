@@ -1,12 +1,5 @@
-.container_create{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-}
-.container{
+.container_create,
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,43 +8,43 @@
     padding: 20px;
 }
 
-.form{
+.form {
     width: 1000px;
+    max-width: 155%; /* Hacemos que el formulario sea responsive */
     border: 1px solid rgb(0, 0, 0);
     border-radius: 4px;
 }
 
-.form-body{
+.form-body {
     padding: 10px;
 }
 
-.form-header{
+.form-header {
     background-color: rgb(247, 244, 244);
     border-bottom: 1px solid rgb(0, 0, 0);
     font-weight: bold;
     padding-left: 4px;
 }
 
-label{
+label {
     font-weight: bold;
 }
 
-#products{
+#products {
     margin-top: 10px;
     margin-left: 30px;
 }
 
 .available-quantity {
     position: absolute;
-    margin-top: 5px; 
-    color: #666; 
-    font-size: 14px; 
+    margin-top: 5px;
+    color: #666;
+    font-size: 14px;
 }
 
-
-#add-product{
-    padding: 10px 0px 10px 0px;
-    width: 94.4%;
+#add-product {
+    padding: 10px 0;
+    width: 100%; /* Hacemos que el botón sea responsive */
     color: white;
     font-weight: bold;
     border: none;
@@ -59,10 +52,10 @@ label{
     border-radius: 4px;
 }
 
-.remove-product{
+.remove-product {
     position: relative;
     left: 5%;
-    padding: 10px 10px 10px 10px;
+    padding: 10px;
     color: white;
     font-weight: bold;
     margin-top: 20px;
@@ -77,6 +70,10 @@ label{
         width: 100%;
     }
 
+    .form {
+        width: 100%; /* Ajustamos el formulario al ancho completo */
+    }
+
     .form-formulation {
         padding: 10px;
     }
@@ -88,69 +85,16 @@ label{
     .button_receipe {
         text-align: center;
     }
+
+    #add-product {
+        width: 100%; /* Ajuste para ocupar el ancho completo */
+        margin: 10px 0; /* Ajustamos el margen para pantallas más pequeñas */
+    }
+    .remove-product {
+        margin-top: 10px;
+    }
 }
 
-#products .product{
+#products .product {
     margin-top: 10px;
 }
-
-/* Id generales*/
-#readonly-bg-gray {
-    background-color: #f0f0f0; /* Cambia este valor al color de fondo que desees */
-}
-
-/* Id que se usan es scripts y no se pueden cambiar*/
-#document_number_coordinator{
-    background-color: #f0f0f0; /* Cambia este valor al color de fondo que desees */   
-}
-
-#receivePerson{
-    background-color: #f0f0f0; /* Cambia este valor al color de fondo que desees */   
-}
-
-#available{
-    background-color: #f0f0f0; /* Cambia este valor al color de fondo que desees */   
-}
-
-#price{
-    background-color: #f0f0f0; /* Cambia este valor al color de fondo que desees */   
-}
-
-#amount{
-    width: 200px;
-}
-
-#lote{
-    background-color: #f0f0f0;
-    width: 200px;   
-}
-
-#fVto{
-    background-color: #f0f0f0;
-    width: 200px;  
-}
-
-#center_button{
-    text-align: center;
-}
-
-.button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.enviar{
-    margin-top: 10px;
-    background-color: #fa9cb2;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 10px;
-    width: 30%;
-}
-
-.enviar:hover{
-    background-color: #ffbbcb;
-}
-
