@@ -2,6 +2,7 @@
 
 namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -20,48 +21,31 @@ class PostulationBenefitController extends Controller
 // Modifica tu función index en el controlador
 public function index(Request $request)
 {
+    $postulation = Postulation::select(
+        'people.first_name',
+        'people.first_last_name',
+        'people.second_last_name',
+        'postulations.transportation_benefit',
+        'postulations.feed_benefit',
+        'postulations.id',
+        'postulations.total_score'
+    )
+        ->join('convocations', 'postulations.convocation_id', '=', 'convocations.id')
+        ->join('apprentices', 'postulations.apprentice_id', '=', 'apprentices.id')
+        ->join('people', 'apprentices.person_id', '=', 'people.id')
+        ->whereRaw('CURDATE() BETWEEN convocations.start_date AND convocations.end_date')
+        ->orderBy('postulations.created_at', 'desc') 
+        ->get();
+
     $benefits = Benefit::all();
-    $postulations = Postulation::with(['apprentice', 'convocation'])->get();
-    $questions = Question::all();
+    $curdate = now();
+    $convocations = Convocation::where('start_date','<=',$curdate)
+        ->where('end_date','>=',$curdate)
+        ->get();
 
-    // Obtén la convocatoria activa basada en la fecha actual
-    $currentDate = Carbon::now();
-    $convocation = Convocation::where('start_date', '<=', $currentDate)
-        ->where('end_date', '>=', $currentDate)
-        ->first();
+    $answers = Answer::all();
 
-    // Verifica si la convocatoria existe
-    if ($convocation) {
-        // Obtén las postulaciones de la convocatoria activa
-        $postulations = Postulation::with(['apprentice', 'convocation'])
-            ->where('convocation_id', $convocation->id)
-            ->get();
-
-        // Obtén las postulaciones seleccionadas desde el formulario
-        $selectedPostulations = $request->input('selected_postulations', []);
-
-        // Obtén las postulaciones no seleccionadas
-        $allPostulations = Postulation::all();
-        $unselectedPostulations = $allPostulations->filter(function ($postulation) use ($selectedPostulations) {
-            return !in_array($postulation->id, $selectedPostulations);
-        });
-
-        // Obtén la convocatoria activa basada en la fecha actual
-        $currentDate = Carbon::now(); // Obtiene la fecha y hora actual
-        $convocation = Convocation::where('start_date', '<=', $currentDate)
-            ->where('end_date', '>=', $currentDate)
-            ->first();
-
-       
-
-        $postulationBenefits = PostulationBenefit::all();
-
-        return view('bienestar::postulation-management', compact('postulations', 'benefits', 'questions', 'postulationBenefits', 'selectedPostulations', 'unselectedPostulations', 'convocation'));
-    } else {
-        // Si no hay convocatoria activa, puedes manejarlo de la manera que prefieras
-        // Por ejemplo, puedes redirigir a una página de error o mostrar un mensaje
-        return view('error_page'); // Ajusta el nombre de la vista de error según sea necesario
-    }
+    return view('bienestar::postulation-management', compact('postulation','benefits','convocations','answers'));
 }
 
 public function show($id) {
