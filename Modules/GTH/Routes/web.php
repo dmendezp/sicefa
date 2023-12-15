@@ -18,9 +18,7 @@ Route::middleware(['lang'])->group(function () {
     Route::prefix('gth')->group(function () {
 
         Route::get('/index', 'GTHController@index')->name('cefa.index.view');
-        Route::get('/attendance', 'GTHController@viewattendance')->name('cefa.attendance.view');
         Route::get('/attendanceregister', 'GTHController@viewregisterattendance')->name('cefa.reattendance.view');
-        Route::get('/contractualcertificate', 'GTHController@viewcontractualcertificate')->name('cefa.contractualcertificates.view');
 
         // Type_employee
         Route::get('/employeetypes', 'EmployeeTypController@viewemployeetypes')->name('cefa.gth.employeetypes.view'); //nombres de la vista
@@ -52,15 +50,6 @@ Route::middleware(['lang'])->group(function () {
         Route::delete('/gth/pensionentities/{id}/delete', 'PensionEntitiesController@deletePensionEntities')->name('cefa.gth.pensionentities.delete');
         Route::patch('/gth/pensionentities/update{id}', 'PensionEntitiesController@updatepensionentities')->name('cefa.gth.pensionentities.update');
         Route::get('gth/pensionentities/{id}', 'PensionEntitiesController@showPensionEntities')->name('cefa.gth.pensionentities.show');
-
-        // Biometric_report
-        Route::get('/biometricreports', 'BiometricReportController@viewBiometricReports')->name('cefa.gth.biometricreports.view');
-        Route::get('datatable/users', 'BiometricReportController@user')->name('datatable.user');
-        Route::post('/biometricreports/create/{id}', 'BiometricReportController@postcreateBiometricReport')->name('cefa.gth.biometricreports.create');
-        Route::put('/gth/biometricreports/update{id}', 'BiometricReportController@updateBiometricReport')->name('cefa.gth.biometricreports.update');
-        Route::get('/gth/biometricreports/{id}/showpersondetails', 'BiometricReportController@showPersonDetails')->name('cefa.gth.biometricreports.showpersondetails');
-        Route::patch('/gth/biometricreports/{id}', 'BiometricReportController@showcontractortypes')->name('cefa.gth.contractortypes.show');
-
 
         //Contract_report
         Route::get('/contractreports', 'ContractReportController@viewcontractreports')->name('cefa.gth.contractreports.view');
@@ -100,6 +89,13 @@ Route::middleware(['lang'])->group(function () {
 
         //User manual
         Route::get('/usermanual', 'UserManualController@viewusermanual')->name('cefa.usermanual.view');
+
+        // Attendance
+        Route::get('/attendance', 'AttendanceController@viewattendance')->name('cefa.attendance.view');
+        Route::post('/attendance/search', 'AttendanceController@search')->name('cefa.attendance.search');
+
+        // Attendance Report
+        Route::get('/attendancereport', 'AttendanceReportController@viewattendancereport')->name('cefa.attendancereport.view');
 
         //Register Attendance
         Route::get('/registerattendance', 'RegisterAttendanceController@viewregisterattendance')->name('cefa.registerattendance.view');

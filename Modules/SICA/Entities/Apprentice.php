@@ -9,6 +9,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Course;
 use Modules\SENAEMPRESA\Entities\Asistencia;
+use Modules\SIGAC\Entities\Attendance;
 
 class Apprentice extends Model implements Auditable
 {
@@ -44,8 +45,8 @@ class Apprentice extends Model implements Auditable
     }
 
     // RELACIONES
-    public function asistencias(){
-        return $this->belongsToMany(Asistencia::class)->withTimestamps()->withPivot('asistencia');
+    public function attendances(){
+        return $this->hasMany(Attendance::class);
     }
     public function course(){ // Accede al curso formativo al que pertenece
         return $this->belongsTo(Course::class);

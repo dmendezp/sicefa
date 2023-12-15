@@ -10,6 +10,7 @@ use Modules\EVS\Entities\Jury;
 use Modules\EVS\Entities\Authorized;
 use App\Models\User;
 use Modules\SICA\Entities\Event;
+use Modules\SIGAC\Entities\Attendance;
 
 class Person extends Model implements Auditable
 {
@@ -95,6 +96,9 @@ class Person extends Model implements Auditable
     // RELACIONES
     public function apprentices(){ // Accede a todos aprendices que han sido asociados con esta persona
         return $this->hasMany(Apprentice::class);
+    }
+    public function attendances(){ // Accede a todos aprendices que han sido asociados con esta persona
+        return $this->hasMany(Attendance::class);
     }
     public function authorizeds(){ // Accede a todas los registros de las personas que han sido autorizados para votar
         return $this->hasMany(Authorized::class);

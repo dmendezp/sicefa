@@ -9,8 +9,8 @@
             <div class="col-md-12">
                 <div class="card card-success card-outline shadow">
                     <div class="card-body text-center">
-                        <h1 class="display-4 hero_title">Titulo del Manual</h1>
-                        <p class="lead hero_paragraph">Subtitulo del Manual</p>
+                        <h1 class="display-4 hero_title">Manual de Usuario de la Gestión de Talento Humano</h1>
+                        <p class="lead hero_paragraph">Gestión de Talento Humano</p>
                     </div>
                 </div>
             </div>

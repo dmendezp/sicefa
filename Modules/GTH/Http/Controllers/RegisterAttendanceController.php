@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Modules\SICA\Entities\Apprentice;
+use Modules\SICA\Entities\Person;
 use Modules\SIGAC\Entities\Attendance;
 
 class RegisterAttendanceController extends Controller
@@ -16,19 +17,15 @@ class RegisterAttendanceController extends Controller
         $documentNumber = $request->input('document_number');
         $date = Carbon::now()->toDateString();
 
-        $person = Apprentice::whereHas('person', function ($query) use ($documentNumber){
-            $query->where('document_number', $documentNumber);
-        })->first();
+        $person = Person::where('document_number', $documentNumber)->pluck('id');
 
-        $apprenticeid = $person->id;
-
-        $attendance = Attendance::where('apprentice_id', $apprenticeid)->where('date',$date)->get();
+        $attendance = Attendance::where('apprentice_id', $person)->where('date',$date)->get();
 
         if ($attendance->isEmpty()) {
             $attendancenew = new Attendance;
 
             $attendancenew->date = $date;
-            $attendancenew->apprentice_id = $apprenticeid;
+            $attendancenew->person_id = $person;
             $attendancenew->state = 'Si';
             $attendancenew->save();
 

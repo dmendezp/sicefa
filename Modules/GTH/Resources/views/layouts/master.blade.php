@@ -14,7 +14,7 @@
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
 
-        @if (in_array(request()->path(), ['gth/attendance', 'gth/attendanceregister', 'gth/biometricreports']))
+        @if (in_array(request()->path(), ['gth/attendance', 'gth/attendanceregister', 'gth/attendancereport']))
             @include('gth::partials.asistenciasidebar')
         @else
             @include('gth::partials.sidebar')

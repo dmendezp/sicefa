@@ -75,10 +75,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('cefa.gth.biometricreports.view') }}"
-                        class="nav-link {{ !Route::is('cefa.gth.biometricreports.view') ?: 'active' }}">
+                    <a href="{{ route('cefa.attendancereport.view') }}"
+                        class="nav-link {{ !Route::is('cefa.gth.attendancereport.view') ?: 'active' }}">
                         <i class="fas fa-home"></i>
-                        <p> Reporte Biometrico</p>
+                        <p> Reporte de Asistencia </p>
                     </a>
                 </li>
 

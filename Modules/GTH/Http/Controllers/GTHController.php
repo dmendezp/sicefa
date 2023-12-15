@@ -5,6 +5,8 @@ namespace Modules\GTH\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\Course;
+use Carbon\Carbon;
 
 class GTHController extends Controller
 {
@@ -17,10 +19,7 @@ class GTHController extends Controller
         return view('gth::index');
     }
 
-    public function viewattendance()
-    {
-        return view('gth::attendances');
-    }
+
 
     public function viewregisterattendance()
     {
