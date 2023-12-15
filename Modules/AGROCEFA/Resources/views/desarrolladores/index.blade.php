@@ -27,7 +27,7 @@
         }
         /* Estilos para las tarjetas */
         .developer-card {
-            background-color: #ecd8d800;
+            background-color: #07000000;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0);
             max-width: calc(25% - 20px);
             margin: 20px;
@@ -38,14 +38,14 @@
         }
 
         /* Agregamos el efecto de escala en hover */
-        .developer-card:hover {
+            .developer-card:hover {
             transform: scale(1.05); /* Escalar la tarjeta en un 5% más grande en hover */
         }
 
         .developer-card img {
-            width: 279px; /* Ancho fijo para las imágenes */
-            height: 350px; /* Altura fija para todas las imágenes */
-            border-radius: 25%; /* Forma de semi círculo */
+            width: 251.9px; 
+            height: 400px;      
+            border-radius: 15.9%; 
             margin-bottom: 4%;
         }
 
@@ -54,10 +54,6 @@
             margin-top: 10px;
         }
 
-        p {
-            font-size: 16px;
-            margin-top: 10px;
-        }
 
         /* Botón de herramientas */
         .glitch-button {
@@ -65,15 +61,12 @@
             font-size: 20px;
             border: none;
             border-radius: 5px;
-            color: rgb(6, 6, 6);
-            background-color: transparent;
+            color: #fffafa; /* Letras en negro */
+            background: linear-gradient(to right, #004916, #009688); /* Degradado similar al del pie de página */
             position: relative;
             overflow: hidden;
-        }
-        .glitch-button {
             margin-top: 40px;
             margin-bottom: 50px; /* Ajusta el margen inferior según sea necesario */
-         /* ... Otros estilos del botón ... */
         }
 
         .glitch-button::after {
@@ -97,24 +90,35 @@
             animation: glitch_4011 1s;
             text-shadow: 10px 10px 10px black;
             animation-timing-function: steps(2, end);
-            text-shadow: -3px -3px 0px #070707df, 3px 3px 0px #000000;
+            text-shadow: -3px -3px 0px black, 3px 3px 0px black;
             background-color: transparent;
-            border: 3px solid rgba(6, 8, 8, 0.037);
+            border: 3px solid rgb(0, 0, 0);
         }
 
         .glitch-button:hover {
-            text-shadow: -1px -1px 0px #000000f1, 1px 1px 0px #000000;
-            background-color: transparent;
+            text-shadow: -1px -1px 0px black, 1px 1px 0px ;
+            background: linear-gradient(to right, #004916, #009688); /* Degradado similar al del pie de página */
             border: 1px solid rgba(0, 0, 0, 0.922);
             box-shadow: 0px 10px 10px -10px rgb(0, 0, 0);
         }
 
-        /* Estilos para ocultar la lista de herramientas al principio */
+        /* Estilos para la tabla y los iconos */
         .hidden {
             display: none;
         }
-        .button-class {
-            margin-top: 10px; /* Ajusta la cantidad de espacio que desees */
+
+        .tools-table {
+            display: table;
+            width: 100%;
+        }
+
+        .icon-row {
+            display: table-row;
+        }
+
+        .icono-grande {
+            font-size: 10em; /* Ajusta el tamaño de los iconos  */
+            margin: 10px;   
         }
 
         /* Estilo para la imagen de abajo */
@@ -129,8 +133,8 @@
 
         /* Estilo para los iconos */
         .icono-grande {
-            font-size: 100px; /* Cambia el tamaño según tus preferencias */
-            margin: 20px; /* Espacio entre los iconos */
+            font-size: 100px; 
+            margin: 20px; 
         }
 
     </style>
@@ -162,17 +166,24 @@
         </div>
     </div>
 
-    <button class="btn glitch-button" onclick="showTools()">{{ trans('agrocefa::desarrolladores.Tools used for development')}}</button>
+    <button class="btn glitch-button" onclick="showTools()" style="margin-bottom: 10px;">{{ trans('agrocefa::desarrolladores.Tools used for development')}}</button>
+    <br>
+    <br>
+    
     <div class="hidden">
         <div class="tools-table">
-            <i class="fab fa-html5 icono-grande" title="HTML"></i>
-            <i class="fab fa-js icono-grande" title="JavaScript"></i>
-            <i class="fab fa-php icono-grande" title="PHP"></i>
-            <i class="fab fa-laravel icono-grande" title="Laravel"></i>
-            <i class="fab fa-bootstrap icono-grande" title="Bootstrap"></i>
-            <i class="fab fa-css3 icono-grande" title="CSS"></i>
-            <i class="fab fa-git icono-grande" title="Git"></i>
-            <i class="fas fa-comment-alt icono-grande" title="Chat GPT"></i>
+            <div class="icon-row">
+                <i class="fab fa-html5 icono-grande" title="HTML"></i>
+                <i class="fab fa-js icono-grande" title="JavaScript"></i>
+                <i class="fab fa-php icono-grande" title="PHP"></i>
+                <i class="fab fa-laravel icono-grande" title="Laravel"></i>
+            </div>
+            <div class="icon-row">
+                <i class="fab fa-bootstrap icono-grande" title="Bootstrap"></i>
+                <i class="fab fa-css3 icono-grande" title="CSS"></i>
+                <i class="fab fa-git icono-grande" title="Git"></i>
+                <i class="fas fa-comment-alt icono-grande" title="Chat GPT"></i>
+            </div>
         </div>
     </div>
     
