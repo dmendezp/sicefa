@@ -18,6 +18,8 @@
                     <th>{{trans('agroindustria::menu.Name')}}</th>
                     <th>{{trans('agroindustria::menu.Category')}}</th>
                     <th>{{trans('agroindustria::menu.Amount stock')}}</th>
+                    <th>Fecha expiración</th>
+                    <th>Lote</th>
                     <th>{{trans('agroindustria::menu.Description')}}</th>
                 </tr>
             </thead>
@@ -27,7 +29,9 @@
                     <td>{{$inventory->id}}</td>
                     <td>{{$inventory->element->name}}</td>
                     <td>{{$inventory->element->category->name}}</td>
-                    <td>{{$inventory->amount}}</td>
+                    <td>{{$inventory->amount / $inventory->element->measurement_unit->conversion_factor}}</td>
+                    <td>{{$inventory->expiration_date}}</td>
+                    <td>{{$inventory->lot_number}}</td>
                     <td>{{$inventory->description}}</td>
                     </tr>
                 @endforeach

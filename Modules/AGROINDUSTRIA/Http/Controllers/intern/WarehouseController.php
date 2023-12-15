@@ -28,11 +28,31 @@ class WarehouseController extends Controller
 
     //Funcion de listar insumos pronto a agotarse.
     public function inventoryAlert(){
-        $title = ('inventoryAlert');
-        $inventoryAlert = Inventory::where('amount', '<=', 10)->with('element')->get();
-        return view('agroindustria::storer.inventoryAlert', compact('inventoryAlert','title'));
+        $title = 'inventoryAlert';
         
+        // Obtén la ID de la categoría "consumibles" 
+        $consumiblesCategoryId = Category::where('name', 'Consumibles')->value('id');
+        $element = Element::where('category_id', $consumiblesCategoryId)->pluck('id');
+        
+
+        // Filtra los elementos del inventario para la categoría de consumibles
+        $selectedUnit = session('viewing_unit');
+        $ProductiveUnitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->get();
+        $pwId = $ProductiveUnitWarehouses->first()->id;
+        $inventory = Inventory::whereIn('element_id', $element)->where('productive_unit_warehouse_id', $pwId)->get();
+        foreach ($inventory as $i) {
+            $inventory_id = $i->id;
+            $amount = $i->amount / $i->element->measurement_unit->conversion_factor;
+            $inventoryAlert = Inventory::where('stock', '>', $amount)->whereIn('element_id', $element)->get();
+        }
+        $data = [
+            'title' => $title,
+            'inventoryAlert' => $inventoryAlert
+        ];
+
+        return view('agroindustria::storer.inventoryAlert',$data);
     }
+    
  
     // Mostrar el listado de inventario
     public function inventory($id){
@@ -310,7 +330,7 @@ class WarehouseController extends Controller
             $message_line = trans('agroindustria::menu.Check out error');
         }
 
-        return redirect()->route('cefa.agroindustria.admin.discharge')->with([
+        return redirect()->route('cefa.agroindustria.admin.units.remove')->with([
             'icon' => $icon,
             'message_line' => $message_line,
         ]);

@@ -142,6 +142,8 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/update/{id}', [WarehouseController::class ,'edit'])->name('cefa.agroindustria.storer.update'); 
             Route::get('/list', [WarehouseController::class ,'inventoryAlert'])->name('cefa.agroindustria.storer.inventory.list');   
             Route::get('/request', [RequestController::class, 'index'])->name('cefa.agroindustria.storer.units.view.request');
+            Route::get('/inventoryA', [WarehouseController::class ,'inventoryAlert'])->name('cefa.agroindutria.storer.inventoryAlert'); 
+
         });       
     });
 });

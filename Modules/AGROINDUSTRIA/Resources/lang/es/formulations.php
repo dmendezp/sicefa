@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'Recipes' => 'Recetas',
+    'Recipes' => 'Formulaciones',
     'Owner' => 'Propietario',
     'Product Name' => 'Nombre del Producto',
     'Select a product to prepare' => 'Seleccione un producto para preparar',
