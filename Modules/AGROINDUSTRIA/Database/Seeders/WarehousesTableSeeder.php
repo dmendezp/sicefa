@@ -143,6 +143,7 @@ class WarehousesTableSeeder extends Seeder
             'warehouse_id' => $warehouse->id
         ]);
         
+        $rol_super_admin = Role::where('slug', 'superadmin')->first(); // Rol SuperAdministrador
         $rol_admin = Role::where('slug', 'agroindustria.admin')->first(); // Rol Administrador
         $rol_instructor_vilmer = Role::where('slug', 'agroindustria.instructor.vilmer')->first(); // Rol Coordinado Académico
         $rol_instructor_chocolate = Role::where('slug', 'agroindustria.instructor.chocolate')->first(); // Rol Coordinado Académico
@@ -151,6 +152,7 @@ class WarehousesTableSeeder extends Seeder
         
 
         // Asignación de Unidades Productivas para los ROLES de la aplicación AGROINDUSTRIA (Sincronización de las relaciones sin eliminar las relaciones existentes)
+        $rol_super_admin->productive_units()-> syncWithoutDetaching($productive_unit_admin);
         $rol_admin->productive_units()-> syncWithoutDetaching($productive_unit_admin);
         $rol_instructor_vilmer->productive_units()->syncWithoutDetaching($productive_unit_vilmer);
         $rol_instructor_chocolate->productive_units()->syncWithoutDetaching($productive_unit_chocolate);

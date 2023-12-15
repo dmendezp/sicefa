@@ -46,15 +46,15 @@
                     </div>
                     <div class="form-group">
                         {!! Form::label('amount' , trans('agroindustria::menu.Amount')) !!}
-                        {!! Form::number('amount[]', null, ['id' => 'amount']) !!}
+                        {!! Form::number('amount[]', null, ['id' => 'amount', 'class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
                         {!! Form::label('lote' , trans('agroindustria::menu.Lote')) !!}
-                        {!! Form::text('lote[]', null, ['id' => 'lote', 'readonly'=> 'readonly']) !!}
+                        {!! Form::text('lote[]', null, ['class' => 'form-control', 'id' => 'lote', 'readonly'=> 'readonly']) !!}
                     </div>
                     <div class="form-group">
                         {!! Form::label('fVto' , trans('agroindustria::menu.Expiration Date')) !!}
-                        {!! Form::text('fVto[]', null, ['id' => 'fVto', 'readonly'=> 'readonly']) !!}
+                        {!! Form::text('fVto[]', null, ['class' => 'form-control', 'id' => 'fVto', 'readonly'=> 'readonly']) !!}
                         {!! Form::hidden('price[]', null, ['id' => 'price']) !!}
                     </div>
                         <button type="button" class="remove-element">{{trans('agroindustria::menu.Delete')}}</button>
@@ -86,7 +86,7 @@ $(document).ready(function() {
    
     // Agregar un nuevo campo de producto
     $("#add-product").click(function() {
-        var newProduct = '<div class="elements_discharge"><div class="form-group">{!! Form::label("elementDischarge" , trans("agroindustria::menu.Element")) !!}{!! Form::select("element[]", [], null, ["placeholder" => "Seleccione un elemento", "class" => "elementDischarge-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount[]", null, ["id" => "amount"]) !!}</div> <div class="form-group">{!! Form::label("lote" , trans("agroindustria::menu.Lote")) !!} {!! Form::text("lote[]", null, ["id" => "lote", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("fVto" , trans("agroindustria::menu.Expiration Date")) !!} {!! Form::text("fVto[]", null, ["id" => "fVto", "readonly" => "readonly"]) !!}{!! Form::hidden("price[]", null, ["id" => "price"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::menu.Delete")}}</button></div>';
+        var newProduct = '<div class="elements_discharge"><div class="form-group">{!! Form::label("elementDischarge" , trans("agroindustria::menu.Element")) !!}{!! Form::select("element[]", [], null, ["placeholder" => "Seleccione un elemento", "class" => "elementDischarge-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount[]", null, ["class" => "form-control", "id" => "amount"]) !!}</div> <div class="form-group">{!! Form::label("lote" , trans("agroindustria::menu.Lote")) !!} {!! Form::text("lote[]", null, ["class" => "form-control", "id" => "lote", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("fVto" , trans("agroindustria::menu.Expiration Date")) !!} {!! Form::text("fVto[]", null, ["class" => "form-control", "id" => "fVto", "readonly" => "readonly"]) !!}{!! Form::hidden("price[]", null, ["id" => "price"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::menu.Delete")}}</button></div>';
         
         // Agregar el nuevo campo al DOM
         $("#elements").append(newProduct);

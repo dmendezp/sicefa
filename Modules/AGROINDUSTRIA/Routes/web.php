@@ -134,7 +134,7 @@ Route::middleware(['lang'])->group(function(){
 
         //storer
         Route::prefix('storer')->group(function (){
-            Route::get('/units', 'AGROINDUSTRIAController@unidd')->name('cefa.agroindustria.units'); 
+            Route::get('/units', 'AGROINDUSTRIAController@unidd')->name('cefa.agroindustria.storer.units'); 
             Route::post('/create', [WarehouseController::class ,'create'])->name('cefa.agroindustria.storer.create'); 
             Route::post('/edit', [WarehouseController::class ,'show'])->name('cefa.agroindustria.storer.show'); 
             Route::get('/inventory/{id}', [WarehouseController::class ,'inventory'])->name('cefa.agroindustria.storer.units.inventory');

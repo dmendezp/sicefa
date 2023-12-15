@@ -8,7 +8,7 @@
       <div class="row">
         @foreach ($units as $unit)
             <div class="col">
-                @if(Auth::user()->havePermission('agroindustria.instructor.units.activity'))
+                @if(Route::is('*instructor.*') && Auth::user()->havePermission('agroindustria.instructor.units.activity'))
                 <a href="{{route('agroindustria.instructor.units.activity' , ['unit'=> $unit->id])}}">
                     <button class="card-client-button" id="boton_unit" data-unit-name="{{ $unit->name }}"  onclick="selectUnit('{{ $unit->id }}', '{{ $unit->name }}')">
                         <div class="card-client-content">
@@ -20,7 +20,7 @@
                     </button>   
                 </a>      
                 @else
-                @if(auth()->check() && checkRol('agroindustria.almacenista'))
+                @if(Route::is('*storer.*') && auth()->check() && checkRol('agroindustria.almacenista'))
                 <a href="{{route('cefa.agroindustria.storer.units.inventory' , ['id'=> $unit->id])}}">
                     <button class="card-client-button" id="boton_unit" data-unit-name="{{ $unit->name }}"  onclick="selectUnit('{{ $unit->id }}', '{{ $unit->name }}')">
                         <div class="card-client-content">
@@ -31,7 +31,8 @@
                         </div>
                     </button>   
                 </a>  
-                @else    
+                @else  
+                @if(Route::is('*admin.*') && Auth::user()->havePermission('agroindustria.admin.units.activity'))
                 <a href="{{route('agroindustria.admin.units.activity' , ['unit'=> $unit->id])}}">
                     <button class="card-client-button" id="boton_unit" data-unit-name="{{ $unit->name }}"  onclick="selectUnit('{{ $unit->id }}', '{{ $unit->name }}')">
                         <div class="card-client-content">
@@ -41,7 +42,8 @@
                             <br><br>
                         </div>
                     </button>   
-                </a>  
+                </a> 
+                @endif      
                 @endif
                 @endif
             </div>
