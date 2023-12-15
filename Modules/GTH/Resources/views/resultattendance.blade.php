@@ -9,18 +9,19 @@
                             <tr>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Documento</th>
-                                <th scope="col">Asistencia</th>
+                                <th scope="col">Hora de Entrada</th>
+                                <th scope="col">Hora de Salida</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($attendances as $attendance)
-                            <tr>
-                                <td>{{ optional($attendance['person'])->full_name ?? 'No' }}</td>
-                                <td>{{ optional($attendance['person'])->document_number ?? 'No' }}</td>
-                                <td>{{ optional($attendance['attendance'])->state ?? 'No' }}</td>
-                            </tr>
-                        @endforeach
-
+                                <tr>
+                                    <td>{{ optional($attendance['person'])->full_name ?? 'No' }}</td>
+                                    <td>{{ optional($attendance['person'])->document_number ?? 'No' }}</td>
+                                    <td>{{ optional($attendance['attendance'])->entry_time ?? 'No' }}</td>
+                                    <td>{{ optional($attendance['attendance'])->exit_time ?? 'No' }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

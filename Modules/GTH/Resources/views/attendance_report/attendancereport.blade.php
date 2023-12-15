@@ -20,21 +20,23 @@
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Número de Documento</th>
                                         <th scope="col">Tipo de Empleado</th>
-                                        <th scope="col">Estado</th>
+                                        <th scope="col">Hora de Entrada</th>
+                                        <th scope="col">Hora de Salida</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($attendances as $attendance)
-                                    <tr>
-                                        <td>{{ $attendance->date }}</td>
-                                        <td>{{ $attendance->person->full_name }}</td>
-                                        <td>{{ $attendance->person->document_number }}</td>
-                                        <td>
-                                            {{-- Accede al nombre del tipo de empleado a través de las relaciones --}}
-                                            {{ optional(optional($attendance->person)->employees->first())->employee_type->name ?? 'Aprendiz' }}
-                                        </td>
-                                        <td>{{ $attendance->state }}</td>
-                                    </tr>
+                                        <tr>
+                                            <td>{{ $attendance->date }}</td>
+                                            <td>{{ $attendance->person->full_name }}</td>
+                                            <td>{{ $attendance->person->document_number }}</td>
+                                            <td>
+                                                {{-- Accede al nombre del tipo de empleado a través de las relaciones --}}
+                                                {{ optional(optional($attendance->person)->employees->first())->employee_type->name ?? 'Aprendiz' }}
+                                            </td>
+                                            <td>{{ $attendance->entry_time ?? 'No' }}</td>
+                                            <td>{{ $attendance->exit_time ?? 'No' }}</td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
