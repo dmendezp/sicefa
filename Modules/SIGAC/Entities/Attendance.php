@@ -16,7 +16,8 @@ class Attendance extends Model implements Auditable
     protected $fillable = [// Atributos modificables (asignación masiva)
         'date',
         'person_id',
-        'state',
+        'entry_time',
+        'exit_time',
     ];
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 

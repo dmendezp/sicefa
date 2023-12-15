@@ -17,7 +17,8 @@ class CreateAttendancesTable extends Migration
             $table->id();
             $table->date('date');
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
-            $table->enum('state',['Si','No'])->default('No');
+            $table->time('entry_time')->nullable();
+            $table->time('exit_time')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
