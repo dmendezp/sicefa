@@ -88,27 +88,40 @@ class PostulationsController extends Controller
         $data = json_decode($_POST['data']);
 
         $questions = DB::table('questions')
-            ->where('type_question_benefit', $data)
-            ->whereNull('deleted_at')  // Cambiar a deleted_at para el borrado suave
+            ->select('questions.id as question_id', 'questions.question')
+            ->join('convocations_questions', 'questions.id', '=', 'convocations_questions.questions_id')
+            ->join('convocations', 'convocations_questions.convocation_id', '=', 'convocations.id')
+            ->where('questions.type_question_benefit', $data)
+            ->whereDate('convocations.start_date', '<=', now())
+            ->whereDate('convocations.end_date', '>=', now())
             ->get();
 
+        // Obtén las respuestas por separado
         $answers = DB::table('answers_questions')
-            ->whereIn('question_id', $questions->pluck('id'))
+            ->select('question_id', 'answer')
             ->get();
 
-        return view('bienestar::question_postulation.question', compact('questions', 'answers'));
+        $groupedQuestions = ['questions' => $questions, 'answers' => $answers];
+
+        return view('bienestar::question_postulation.question', $groupedQuestions);
     }
 
     public function getallquestions(Request $request)
-{
-    $questions = DB::table('questions')->whereNull('deleted_at')->get();
-
-    $answers = DB::table('answers_questions')
-        ->whereIn('question_id', $questions->pluck('id'))
+    {
+        $questions = DB::table('questions')
+        ->select('questions.id as question_id', 'questions.question')
+        ->join('convocations_questions', 'questions.id', '=', 'convocations_questions.questions_id')
+        ->join('convocations', 'convocations_questions.convocation_id', '=', 'convocations.id')
+        ->whereDate('convocations.start_date', '<=', now())
+        ->whereDate('convocations.end_date', '>=', now())
         ->get();
 
-    return view('bienestar::question_postulation.allquestion', compact('questions', 'answers'));
-}
+        $answers = DB::table('answers_questions')
+            ->select('question_id', 'answer')
+            ->get();
+
+        return view('bienestar::question_postulation.allquestion', compact('questions', 'answers'));
+    }
 
 
     public function savepostulation(Request $request)

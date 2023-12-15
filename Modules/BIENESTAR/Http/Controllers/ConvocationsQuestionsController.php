@@ -104,7 +104,6 @@ class ConvocationsQuestionsController extends Controller
         ]);
 
         $respuestas = $request->input('answer', []);
-
         if (!empty($respuestas)) {
             foreach ($respuestas as $respuestaId => $respuestaText) {
                 $respuesta = AnswersQuestion::findOrFail($respuestaId); // Encuentra la respuesta por su ID
@@ -119,23 +118,16 @@ class ConvocationsQuestionsController extends Controller
     }
 
     public function updateAnswer(Request $request)
-{
-    // Obtener los datos JSON automáticamente decodificados
-    $data = $request->json()->all();
-    
-    // Acceder a los valores directamente
-    $questionId = $data['question_id'];
-    $respuesta = $data['respuesta'];
-
-    // Puedes usar los valores en tu lógica aquí
-
-    // Imprimir los valores
-    echo $questionId;
-    echo $respuesta;
-
-    // También puedes utilizar dd() para imprimir y detener la ejecución
-    return response()->json($questionId);
-}
+    {
+        $answer = $request->input('answer');
+        $id_question = $request->input('id_question');
+        $respuesta = new AnswersQuestion();
+        $respuesta->answer = $answer;
+        $respuesta->question_id = $id_question; // Asignar la pregunta_id
+        $respuesta->save();
+        // También puedes utilizar dd() para imprimir y detener la ejecución
+        return response()->json(['success' => 'Pregunta y respuestas actualizadas con éxito!']);
+    }
 
 
 
@@ -166,10 +158,10 @@ class ConvocationsQuestionsController extends Controller
             }
 
             // Devolver una respuesta JSON exitosa
-            return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.convocations.crud.editform')->with('success', 'Se ha guardado con exito');
+            return response()->json(['success' => 'Se guardado con exitosamente!']);
         } catch (\Exception $e) {
             // En caso de error, manejar el error y devolver una respuesta JSON con un mensaje de error
-            return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.convocations.crud.editform')->with('error', 'Error al guardar');
+            return response()->json(['error' => 'Error al guardar, intentelo de nuevo.'], 422);
         }
     }
 }

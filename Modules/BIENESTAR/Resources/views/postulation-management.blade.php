@@ -125,29 +125,41 @@
                 </ul>
                 <p><strong>{{ trans('bienestar::menu.Benefits')}}:</strong></p>
                 <ul>
-                    @foreach($postulation->postulationBenefits as $postulationBenefit)
+                    @forelse($postulation->postulationBenefits as $postulationBenefit)
                         @if($postulationBenefit->state == 'Beneficiario')
                             <li>
                                 @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-state-benefit.postulation-management'))
-                                <form id="update-benefit-status-form{{ $postulationBenefit->id }}" class="update-benefit-form" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-state-benefit.postulation-management', ['id' => $postulation->id]) }}" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="form-group">
-                                        <label for="benefit_{{ $postulationBenefit->id }}">{{ trans('bienestar::menu.Benefit')}}:</label>
-                                        <select class="form-control" name="benefit" id="benefit_{{ $postulationBenefit->id }}" onchange="this.form.submit()">
-                                            @foreach($benefits as $benefit)
-                                                <option value="{{ $benefit->id }}" {{ $postulationBenefit->benefit->id == $benefit->id ? 'selected' : '' }}>
-                                                    {{ $benefit->name }} - {{ $benefit->porcentege }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <!-- No se necesita el botón de envío -->
-                                </form>
+                                    <form id="update-benefit-status-formm{{ $postulationBenefit->id }}" class="update-benefit-form" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-state-benefit.postulation-management', ['id' => $postulation->id]) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="form-group">
+                                            <label for="benefit_{{ $postulationBenefit->id }}">{{ trans('bienestar::menu.Benefit')}}:</label>
+                                            <select class="form-control" name="benefit" id="benefit_{{ $postulationBenefit->id }}" onchange="this.form.submit()">
+                                                @foreach($benefits as $benefit)
+                                                    <option value="{{ $benefit->id }}" {{ $postulationBenefit->benefit->id == $benefit->id ? 'selected' : '' }}>
+                                                        {{ $benefit->name }} - {{ $benefit->porcentege }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </form>
+
+                                    <!-- Agregar botón de desasignación -->
+                                    @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.remove-benefit.postulation-management'))
+
+                                    <form id="update-benefit-status-form{{ $postulationBenefit->id }}" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.remove-benefit.postulation-management', ['id' => $postulation->id, 'benefitId' => $postulationBenefit->id]) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-danger" onclick="console.log(this.form.action);">{{ trans('bienestar::menu.Remove Benefit')}}</button>
+                                    </form>
+                                    
+                                    @endif
                                 @endif
                             </li>
                         @endif
-                    @endforeach
+                    @empty
+                        <li>{{ trans('bienestar::menu.No Beneficiary Benefits')}}</li>
+                    @endforelse
                 </ul>
                     <!-- Agregar sección para mostrar archivos socioeconómicos -->
                     @if ($postulation->socioeconomicsupportfiles->isNotEmpty())
@@ -193,6 +205,29 @@
                         </div>
                         <button type="submit" class="btn btn-primary">{{ trans('bienestar::menu.Save Score')}}</button>                  
                     </form>
+                    @endif
+                </div>
+                <!-- Nueva sección para detalles del beneficio No Beneficiario -->
+                    @if($noBeneficiaryBenefit = $postulation->postulationBenefits->where('state', 'No Beneficiario')->first())
+                    <h4>Detalles del Beneficio No Beneficiario</h4>
+                    @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit-benefit-detail.postulation-management'))
+                    <form id="update-benefit-status-form" {{ $postulationBenefit->id }}action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit-benefit-detail.postulation-management', ['id' => $postulation->id]) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        
+                        <div class="form-group">
+                            <label for="benefit_name">{{ trans('bienestar::menu.Benefit')}}</label>
+                            <input type="text" class="form-control" id="benefit_name" value="{{ $noBeneficiaryBenefit->benefit->name }}" readonly>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="message_edit">{{ trans('bienestar::menu.Message')}}</label>
+                            <textarea class="form-control" id="message_edit" name="edited_message">{{ $noBeneficiaryBenefit->message }}</textarea>
+                        </div>
+                    
+                        <button type="submit" class="btn btn-primary">{{ trans('bienestar::menu.Save Changes')}}</button>
+                    </form>
+                    @endif
                     @endif
                 </div>
             </div>
@@ -438,7 +473,6 @@ guardarBtn.addEventListener('click', function () {
     });
     </script>
     
-
 
 
     <!-- Fuera del cuerpo del modal, al final del archivo o en una sección de scripts -->

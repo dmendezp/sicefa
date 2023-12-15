@@ -582,11 +582,48 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista  Postulations Management(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.remove-benefit.postulation-management'], [ // Registro o actualización de permiso
+            'name' => 'Desasignar o quitar beneficio a una postulacion',
+            'description' => 'Puede Quitar beneficio a la postulacion que este viendo detalles',
+            'description_english' => 'You can remove benefit from the application you are viewing details',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista  Postulations Management(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.remove-benefit.postulation-management'], [ // Registro o actualización de permiso
+            'name' => 'Desasignar o quitar beneficio a una postulacion',
+            'description' => 'Puede Quitar beneficio a la postulacion que este viendo detalles',
+            'description_english' => 'You can remove benefit from the application you are viewing details',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista  Postulations Management(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.remove-benefit.postulation-management'], [ // Registro o actualización de permiso
+            'name' => 'Desasignar o quitar beneficio a una postulacion',
+            'description' => 'Puede Quitar beneficio a la postulacion que este viendo detalles',
+            'description_english' => 'You can remove benefit from the application you are viewing details',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+
 
         // Vista  Postulations Management(ADMINISTRADOR)//
         $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.view.postulation-management'], [ // Registro o actualización de permiso
             'name' => 'CRUD vista gestion de postulaciones',
             'description' => 'Puede ver la vista de gestion de postulaciones',
+            'description_english' => 'You can edit the benefits to the beneficiary applications.',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+         // Vista  Postulations Management(ADMINISTRADOR)//
+         $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.edit-benefit-detail.postulation-management'], [ // Registro o actualización de permiso
+            'name' => 'Permite la gestion de mensajes a No Beneficiarios',
+            'description' => 'Puede ver establecer mensaje a los No Beneficiarios',
             'description_english' => 'You can edit the benefits to the beneficiary applications.',
             'app_id' => $app->id
         ]);

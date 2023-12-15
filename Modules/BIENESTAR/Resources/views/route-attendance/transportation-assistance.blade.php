@@ -75,7 +75,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
         var data = JSON.stringify(miObjeto);
         console.log(miObjeto);
         ajaxReplace('divAssitance', '/bienestar/{{ $role_name }}/transportation_asistance/search', data);
-        location.reload();
+
     }
 </script>
 @endsection

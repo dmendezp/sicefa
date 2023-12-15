@@ -9,7 +9,7 @@
             <!-- /.card-header -->
             <div class="card-body">
                 @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.transportroutes'))
-                <form action="{{ route('bienestar.' . getRoleRouteName (Route::currentRouteName()) . '.save.transportroutes')}}" method="POST" role="form">
+                <form action="{{ route('bienestar.' . getRoleRouteName (Route::currentRouteName()) . '.save.transportroutes')}}" method="POST" role="form" class="formGuardar">
                     @csrf
                     <div class="row p-4">
                         <div class="col-md-3">
@@ -130,7 +130,7 @@
             <div class="modal-body">
                 <!-- Formulario de edición con validación -->
                 @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.transportroutes'))
-                <form id="editForm-{{ $transport->id }}" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.transportroutes', ['id' => $transport->id]) }}" method="post" role="formedit" onsubmit="return validateForm{{ $transport->id }}()">
+                <form id="editForm-{{ $transport->id }}" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.transportroutes', ['id' => $transport->id]) }}" class="formEditar" method="post" role="formedit" onsubmit="return validateForm{{ $transport->id }}()">
                     @csrf
                     @method('PUT')
                     <div class="form-group">

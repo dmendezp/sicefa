@@ -1,6 +1,7 @@
 @extends('bienestar::layouts.master')
 @section('content')
 <div class="container">
+    @if(count($convocations) > 0)
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -42,7 +43,19 @@
         </div>
     </div>
     <div id="divApprentices"></div>
+    @else
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="text-center">No hay Convocatorias Disponibles</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 </div>
+
 <script>
     // Definir la función handleSearchResponse primero
     function handleSearchResponse(response) {
@@ -69,7 +82,7 @@
         var data = JSON.stringify(miObjeto);
         console.log(miObjeto);
 
-        ajaxReplace('divApprentices', '/bienestar/postulations/search', data)            
+        ajaxReplace('divApprentices', '/bienestar/postulations/search', data)
     }
 </script>
 @endsection

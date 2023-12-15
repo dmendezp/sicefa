@@ -53,10 +53,10 @@ return [
     'Arrival Time' => 'Arrival Time',
     'Departure Time' => 'Departure Time',
     'Plate' => 'Plate',
-    'Edit Route'=>'Edit Route',
-    'Transportation Route Assistance'=>'Transportation Route Assistance',
-    'Transportation Route'=>'Transportation Route',
-    'Municipality of Residence'=>'Municipality of Residence',
+    'Edit Route' => 'Edit Route',
+    'Transportation Route Assistance' => 'Transportation Route Assistance',
+    'Transportation Route' => 'Transportation Route',
+    'Municipality of Residence' => 'Municipality of Residence',
 
     //vista home buses
     'Buses' => 'Buses',
@@ -71,7 +71,7 @@ return [
     'Driver (Full Name)' => 'Driver (Full Name)',
     'Email' => 'Email',
     'Phone' => 'Phone',
-    'Edit Driver'=>'Edit Driver',
+    'Edit Driver' => 'Edit Driver',
 
     //vista Editform
     'Edit Form' => 'Edit Form',
@@ -156,6 +156,10 @@ return [
 
     'Benefit' => 'Benefit',
     'Update Benefit' => 'Update Benefit',
+    'Benefit' => 'Benefit',
+    'Update Benefit' => 'Update Benefit',
+    'Remove Benefit' => 'Remove Benefit',
+    'No Beneficiary Benefits' => 'No Beneficiary Benefits',
 
     //vita assistancefood
     'Food Attendance Record' => 'Food Attendance Record',
@@ -165,12 +169,12 @@ return [
     'Show All' => 'Show All',
 
     //Vitas food-record
-    'Food Assistance'=>'Food Assistance',
-    'Document'=>'Document',
-    'Profit and Percentage'=>'Profit and Percentage',
-    'Date'=>'Date',
-    'No attendance records have been made today.'=>'No attendance records have been made today.',
-    'Enter your document number'=>'Enter your document number',
+    'Food Assistance' => 'Food Assistance',
+    'Document' => 'Document',
+    'Profit and Percentage' => 'Profit and Percentage',
+    'Date' => 'Date',
+    'No attendance records have been made today.' => 'No attendance records have been made today.',
+    'Enter your document number' => 'Enter your document number',
 
     //Alert Eliminar
     '¿Are You Sure?' => '¿Are You Sure?',
@@ -186,6 +190,6 @@ return [
     'Successful operation!' => 'Successful operation!',
 
     //assing-form-trnasporttion-route
-    'Management and Assignment of Transportation Routes'=>'Management and Assignment of Transportation Routes',
-    'Failure Reporting'=>'Failure Reporting',
+    'Management and Assignment of Transportation Routes' => 'Management and Assignment of Transportation Routes',
+    'Failure Reporting' => 'Failure Reporting',
 ];

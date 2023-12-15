@@ -6,8 +6,6 @@
 <script src="{{ asset('../modules/bienestar/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('../modules/bienestar/AdminLTE-3.2.0/dist/js/adminlte.min.js') }}"></script>
-<!-- js general -->
-<script src="{{ asset('../bienestarxd/js/script.js') }}"></script>
 <!-- fullCalendar 2.2.5 -->
 <script src="{{ asset('../modules/bienestar/AdminLTE-3.2.0/plugins/moment/moment.min.js') }}"></script>
 <!-- SweatAlert-->
@@ -40,21 +38,6 @@
     $(document).ready(function() {
         // Configura el DataTable en el elemento con el id 'miDataTable'
         $('#benefitsTable').DataTable();
-    });
-</script>
-<script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            timeZone: 'UTC',
-            initialView: 'dayGridMonth',
-            events: 'https://fullcalendar.io/api/demo-feeds/events.json',
-            editable: true,
-            selectable: true
-        });
-
-        calendar.render();
     });
 </script>
 <script>
@@ -271,20 +254,6 @@ document.querySelectorAll('.formEliminar[data-method="delete"]').forEach(functio
                         }
                     }
                 })
-                .catch(function(error) {
-                    if (error.response && error.response.status === 422) {
-                        // Si el código de estado es 422, muestra el SweetAlert de error con el mensaje del servidor
-                        if (error.response.data && error.response.data.error) {
-                            showSweetAlert('error', 'Error', error.response.data.error, 3500);
-                        } else {
-                            // Muestra el SweetAlert de error genérico para el código de estado 422
-                            showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}");
-                        }
-                    } else {
-                        // Muestra el SweetAlert de error genérico para otros errores
-                        showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}");
-                    }
-                });
         });
     });
 </script>

@@ -23,6 +23,7 @@ class CreateTransportationAssistancesTable extends Migration
             $table->unsignedBigInteger('bus_driver_id');
             $table->string('porcentenge');
             $table->datetime('date_time');
+            $table->string('assistance_status');
             $table->timestamps();
             $table->foreign('assing_transport_route_id')->references('id')->on('assing_transport_routes');
             $table->foreign('apprentice_id')->references('id')->on('apprentices');

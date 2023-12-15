@@ -98,12 +98,12 @@
                                 <td>{{ $convocation->food_quotas }}</td>
                                 <td>{{ $convocation->transport_quotas }}</td>
                                 <td>{{ $convocation->start_date }}</td>
-                                <td>{{ $convocation->end_date }}</td>
-                                @foreach ($quarters as $quarter)
-                                @if ($quarter->id === $convocation->quarter_id)
-                                <td>{{ $quarter->name }}</td>
-                                @break
-                                @endif
+                                <td>{{ $convocation->end_date}}</td>
+                                @foreach ($quarters as $quarter)                                
+                                    @if ($quarter->id === $convocation->quarter_id)
+                                        <td>{{ $quarter->name }}</td>
+                                        @break
+                                    @endif
                                 @endforeach<td>
                                     <!-- Botón para editar -->
                                     <div class="btn-group">

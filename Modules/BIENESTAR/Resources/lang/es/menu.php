@@ -151,6 +151,9 @@ return [
     'Save Score' => 'Guardar Puntuación',
     'Benefit' => 'Beneficio',
     'Update Benefit' => 'Actualizar Beneficio',
+    'Remove Benefit' => 'Remover Beneficio',
+    'No Beneficiary Benefits'=>'Sin Beneficios',
+
 
     //vita assistancefood
     'Food Attendance Record' => 'Registro de Asistencia de Alimentación ',

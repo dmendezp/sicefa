@@ -58,9 +58,9 @@ class BusesController extends Controller
 
         if ($buses->save()) {
             // Redirige con un mensaje de éxito
-            return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.transportation.crud.buses')->with('success', 'Bus creado correctamente.');
+            return response()->json(['success' => 'Bus creado correctamente.']);
         } else {
-            return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.transportation.crud.buses')->with('errror', 'Se Ha Producido Un Error.');
+            return response()->json(['error' => 'Se Ha Producido Un Error.'], 422);
         }
     }
 
@@ -81,9 +81,9 @@ class BusesController extends Controller
         $buses->save();
 
         if ($buses->save()) {
-            return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.transportation.crud.buses')->with('message', 'Bus actualizado correctamente.');
+            return response()->json(['success' => 'Bus actualizado correctamente.']);
         } else {
-            return response()->json(['mensaje' => 'Error al actualizar el autobús'], 500);
+            return response()->json(['mensaje' => 'error al actualizar el autobús'], 422);
         }
     }
 

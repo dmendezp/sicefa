@@ -11,7 +11,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
         <h1 class="mb-4">{{ trans('bienestar::menu.Edit Form')}} <i class="fas fa-clipboard-list"></i></h1>
         <div class="card">
             <div class="card-body">
-                <select class="form-control" id="id_convocatoria" name="convocatoria_id">
+                <select class="form-control" id="id_convocation" name="convocatoria_id">
                     <option value="">{{ trans('bienestar::menu.Choose a call for proposals')}}</option>
                     @foreach ($convocations as $con)
                     <option value="{{ $con->id }}">{{ $con->name }}</option>
@@ -106,19 +106,22 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                         </div>
                         @endif
                         @endforeach
-                        <div class="form-group" id="respuestas">
-                            <div class="input-group">
-                                <input type="text" name="answer" id="answer" class="form-control" placeholder="Agregar Una Nueva respuesta">
-                                <div class="input-group-append">
-                                    <a class="btn btn-success formGuardar" id="saveAnswer" data-question-id="{{ $question->id }}">+</a>
-                                </div>
-                            </div><br>
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" form="editForm{{$question->id}}" class="btn btn-success">{{ trans('bienestar::menu.Save')}}</button>
                     </div>
                 </form>
+                <div class="form-group" id="respuestas">
+                    <div class="input-group">
+                        <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.add.answer.editform')}}" method="POST">
+                            <input type="text" name="answer" id="answer" class="form-control" placeholder="Agregar Una Nueva respuesta">
+                            <input type="hidden" name="id_question" id="id_question" value="{{ $question->id }}">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-success" id="saveAnswer">+</button>
+                            </div>
+                        </form>
+                    </div><br>
+                </div>
                 @endif
             </div>
         </div>
@@ -127,23 +130,6 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
 @endforeach
 
 <script>
-    $(document).on("click", "#saveAnswer", function(event) {
-        event.preventDefault(); // Evitar el envío del formulario por defecto
-        var questionId = $(this).data('question-id');
-        performSearch(questionId);
-    });
-
-    function performSearch(questionId) {
-        var miObjeto = {
-            question_id: questionId,
-            respuesta: $('#answer').val()
-        };
-        var data = JSON.stringify(miObjeto);
-        console.log(miObjeto);
-
-        ajaxReplace('divApprentices', '/bienestar/{{ $role_name }}/editforms/addAnswer', data);
-    }
-
     $(document).ready(function() {
         // Abre el modal para editar una pregunta
         $(".editQuestion").on("click", function() {
@@ -180,7 +166,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
         });
     });
     $(document).ready(function() {
-        // Manejador de evento para el envío del formulario
+        // Manejador de evento para el envío del formulario principal
         $("#mainForm").submit(function(event) {
             // Evita que el formulario se envíe automáticamente
             event.preventDefault();
@@ -188,29 +174,43 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
             // Obtiene todos los checkboxes seleccionados
             var selectedCheckboxes = $("input[name='selected_questions[]']:checked");
 
-            // Verifica si al menos un checkbox está seleccionado
-            if (selectedCheckboxes.length === 0) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Debe Seleccionar una pregunta',
-                    showConfirmButton: false,
-                    timer: 2500
-                })
-                return;
+            // Obtiene el valor seleccionado del select
+            var convocationValue = $("#id_convocation").val();
+
+            // Verifica si al menos un checkbox está seleccionado y hay una convocatoria seleccionada
+            if (selectedCheckboxes.length > 0 && convocationValue) {
+                // Si se cumplen ambas condiciones, muestra el SweetAlert y envía el formulario principal
+                showSweetAlert('success', 'Formulario Válido', 'Enviar formulario principal', 1500);
+                this.submit();
+            } else {
+                // Muestra mensajes de error si alguna de las condiciones no se cumple
+                if (selectedCheckboxes.length === 0) {
+                    showSweetAlert('error', 'Error', 'Debe seleccionar al menos una pregunta', 3000);
+                }
+                if (!convocationValue) {
+                    showSweetAlert('error', 'Error', 'Debe seleccionar una convocatoria', 3000);
+                }
             }
+        });
 
-            // Prepara un arreglo para almacenar los IDs de las preguntas seleccionadas
-            var selectedQuestionIds = [];
-            selectedCheckboxes.each(function() {
-                selectedQuestionIds.push($(this).attr("id").replace("pregunta", ""));
+        // Configura el evento para el formulario de guardar
+        document.querySelectorAll('.formGuardar').forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Evitar que el formulario se envíe de inmediato
+                var createForm = this;
+
+                // Realizar una solicitud AJAX para enviar el formulario de creación
+                axios.post(createForm.action, new FormData(createForm))
+                    .then(function(response) {
+                        if (response.status === 200) {
+                            if (response.data.success) {
+                                showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 1500);
+                            } else {
+                                showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}", 3000);
+                            }
+                        }
+                    });
             });
-
-            // Agrega los IDs de las preguntas seleccionadas como un campo oculto en el formulario
-            $("#mainForm").append('<input type="hidden" name="selected_question_ids" value="' + selectedQuestionIds.join(",") + '">');
-
-            // Ahora, puedes enviar el formulario con los IDs de las preguntas seleccionadas
-            this.submit();
         });
     });
 </script>

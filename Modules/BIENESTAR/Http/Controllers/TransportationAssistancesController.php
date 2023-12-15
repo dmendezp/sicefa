@@ -85,6 +85,10 @@ class TransportationAssistancesController extends Controller
             ->join('routes_transportations', 'assing_transport_routes.route_transportation_id', '=', 'routes_transportations.id')
             ->join('buses', 'routes_transportations.bus_id', '=', 'buses.id')
             ->join('bus_drivers', 'buses.bus_driver_id', '=', 'bus_drivers.id')
+            ->join('convocations', 'postulations.convocation_id', '=', 'convocations.id')
+            ->join('quarters', 'convocations.quarter_id', '=', 'quarters.id')
+            
+
             ->select(
                 'assing_transport_routes.id as assing_transport_route_id',
                 'apprentices.id as apprentice_id',
@@ -97,8 +101,9 @@ class TransportationAssistancesController extends Controller
             ->where('people.document_number', $documentNumber)
             ->where('postulations_benefits.state', 'beneficiario')
             ->where('benefits.name', 'Transporte')
+            ->whereDate('quarters.start_date', '<=', now())
+            ->whereDate('quarters.end_date', '>=', now())
             ->get();
-
         // Verificar duplicados antes de guardar los datos en la tabla transportation_assistances
         foreach ($data as $row) {
             $existingRecord = DB::table('transportation_assistances')
