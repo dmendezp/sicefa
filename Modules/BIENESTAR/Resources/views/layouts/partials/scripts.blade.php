@@ -6,8 +6,6 @@
 <script src="{{ asset('../modules/bienestar/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('../modules/bienestar/AdminLTE-3.2.0/dist/js/adminlte.min.js') }}"></script>
-<!-- js general -->
-<script src="{{ asset('../bienestarxd/js/script.js') }}"></script>
 <!-- fullCalendar 2.2.5 -->
 <script src="{{ asset('../modules/bienestar/AdminLTE-3.2.0/plugins/moment/moment.min.js') }}"></script>
 <!-- SweatAlert-->
@@ -40,21 +38,6 @@
     $(document).ready(function() {
         // Configura el DataTable en el elemento con el id 'miDataTable'
         $('#benefitsTable').DataTable();
-    });
-</script>
-<script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            timeZone: 'UTC',
-            initialView: 'dayGridMonth',
-            events: 'https://fullcalendar.io/api/demo-feeds/events.json',
-            editable: true,
-            selectable: true
-        });
-
-        calendar.render();
     });
 </script>
 <script>

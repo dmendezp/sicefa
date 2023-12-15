@@ -29,4 +29,4 @@ Route::get('/Api/FoodAssistances', [AssistancesFoodsController::class, 'FoodAssi
 Route::get('/Api/RegisterAssistances', [AssistancesFoodsController::class, 'RegisterAssistances']);
 ////////////
 Route::get('/Api/all_assistances', [AssistancesFoodsController::class, 'getAllAssistances']);
-Route::post('/Api/filter_by_percentage', [AssistancesFoodsController::class, 'filterAssistancesByPercentage']);
+Route::get('/Api/filter_by_percentage/{porcentaje}', [AssistancesFoodsController::class, 'filterAssistancesByPercentage']);
