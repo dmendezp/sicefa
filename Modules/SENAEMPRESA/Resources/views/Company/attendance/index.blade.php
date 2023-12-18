@@ -89,8 +89,26 @@
                         <tbody>
                             @foreach ($attendances as $attendance)
                                 <tr>
-                                    <td>{{ $attendance->staffSenaempresa->apprentice->person->full_name }}</td>
-                                    <td>{{ $attendance->staffSenaempresa->apprentice->person->document_number }}</td>
+                                    <td>
+                                        @if (
+                                            $attendance->staffSenaempresa &&
+                                                $attendance->staffSenaempresa->apprentice &&
+                                                $attendance->staffSenaempresa->apprentice->person)
+                                            {{ $attendance->staffSenaempresa->apprentice->person->full_name }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if (
+                                            $attendance->staffSenaempresa &&
+                                                $attendance->staffSenaempresa->apprentice &&
+                                                $attendance->staffSenaempresa->apprentice->person)
+                                            {{ $attendance->staffSenaempresa->apprentice->person->document_number }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
                                     <td>{{ $attendance->start_datetime }}</td>
                                     <td>{{ $attendance->end_datetime }}</td>
                                 </tr>

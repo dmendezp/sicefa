@@ -18,7 +18,7 @@
                                     class="form-label">{{ trans('senaempresa::menu.Position ID') }}</label>
 
                                 <select class="form-control" name="position_company_id" aria-label="Selecciona un Cargo"
-                                    id="apprentice-select" required>
+                                    id="position-company-select" required>
                                     <option value="">Seleccione un cargo</option>
                                     @foreach ($PositionCompany as $position)
                                         <option value="{{ $position->id }}"
@@ -71,8 +71,6 @@
         </div>
     </div><br>
 @endsection
-
-
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
