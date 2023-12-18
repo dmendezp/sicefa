@@ -2,7 +2,7 @@
 @section('content')
 
 <h1 class="title_labor">Inventario de {{ session('viewing_unit_name') }}</h1>
-<a href="{{route('cefa.agroindutria.storer.inventoryAlert')}}"  style="margin-left: 120px; margin-bottom: 20px; ">
+<a href="{{route('cefa.agroindutria.storer.units.inventoryAlert')}}"  style="margin-left: 120px; margin-bottom: 20px; ">
     <button class="btn btn-warning" style="width: 45px; height: 35px;">
         <i class="fas fa-eye" style="color: #ffffff;"></i>
     </button>
@@ -23,7 +23,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($inventoryAlert as $i)         
+            @foreach ($inventories as $i)         
             <tr>
                 <td>{{$i->element->name}}</td>
                 <td>{{$i->element->category->name}}</td>

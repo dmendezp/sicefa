@@ -26,6 +26,47 @@ use Validator, Str;
 class WarehouseController extends Controller
 {
 
+    public function expirationdate()
+    {
+        $title = 'expirationdate';
+    
+        // Obtén la ID de la categoría "consumibles" 
+        $consumiblesCategoryId = Category::where('name', 'Consumibles')->value('id');
+        $element = Element::where('category_id', $consumiblesCategoryId)->pluck('id');
+    
+        // Filtra los elementos del inventario para la categoría de consumibles
+        $selectedUnit = session('viewing_unit');
+        $ProductiveUnitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->get();
+        $pwId = $ProductiveUnitWarehouses->first()->id;
+    
+        // Obtén los elementos y sus fechas de vencimiento
+        $elementsAndExpiryDates = Inventory::whereIn('element_id', $element)
+            ->where('productive_unit_warehouse_id', $pwId)
+            ->pluck('expiration_date', 'element_id');
+    
+        // Obtén la información detallada de los elementos
+        $elementsInfo = Element::whereIn('id', $element)->get();
+    
+        // Combina la información de fechas de vencimiento con la información detallada de los elementos
+        $data = [];
+        foreach ($elementsAndExpiryDates as $elementId => $expiryDate) {
+            $elementInfo = $elementsInfo->where('id', $elementId)->first();
+            $data[] = [
+                'element_name' => $elementInfo->name,
+                'expiration_date' => $expiryDate,
+            ];
+        }
+    
+        $data = [
+            'title' => $title,
+            'expirationdate' => $data,
+        ];
+        dd($data);
+    
+        return view('agroindustria::storer.expirationdate', $data);
+    }
+    
+
     //Funcion de listar insumos pronto a agotarse.
     public function inventoryAlert(){
         $title = 'inventoryAlert';

@@ -131,7 +131,7 @@
     @endif
 
     @if(auth()->check() && (checkRol('agroindustria.almacenista')))  
-    <div class="dashboard_admin">  
+    <div class="dashboard_storer">  
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('cefa.agroindustria.storer.units') }}">U.Almacenista</a>

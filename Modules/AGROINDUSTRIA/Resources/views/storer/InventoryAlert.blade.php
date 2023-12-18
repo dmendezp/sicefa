@@ -29,7 +29,7 @@
                     <td>{{$inventory->id}}</td>
                     <td>{{$inventory->element->name}}</td>
                     <td>{{$inventory->element->category->name}}</td>
-                    <td>{{$inventory->amount / $inventory->element->measurement_unit->conversion_factor}}</td>
+                    <td>{{$inventory->amount / $inventory->element->measurement_unit->conversion_factor}} ({{$inventory->element->measurement_unit->abbreviation}} )</td>
                     <td>{{$inventory->expiration_date}}</td>
                     <td>{{$inventory->lot_number}}</td>
                     <td>{{$inventory->description}}</td>

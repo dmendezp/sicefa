@@ -24,6 +24,10 @@
   color: black; /* Cambia el color del texto también para que siga siendo legible */
 }
 
+.dashboard_storer{
+  position: relative;
+  right: 85px;
+}
 
 .dashboard_units{
   position: relative;
