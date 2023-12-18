@@ -31,7 +31,7 @@
                                         <option
                                             value="{{ $quarter->id }}"{{ $quarter->id == $company->quarter_id ? 'selected' : '' }}>
 
-                                            {{ $quarter->id }} {{ $quarter->name }}
+                                            {{ $quarter->name }}
                                         </option>
                                     @endforeach
                                 </select>

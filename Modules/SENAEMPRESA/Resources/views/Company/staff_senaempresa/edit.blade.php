@@ -23,7 +23,6 @@
                                     @foreach ($PositionCompany as $positionCompany)
                                         <option value="{{ $positionCompany->id }}"
                                             {{ $positionCompany->id == $staffSenaempresa->position_company_id ? 'selected' : '' }}>
-                                            {{ $positionCompany->id }}
                                             {{ $positionCompany->name }}
                                         </option>
                                     @endforeach
@@ -32,9 +31,12 @@
                             <div class="mb-3">
                                 <label for="apprentice_id"
                                     class="form-label">{{ trans('senaempresa::menu.Apprentice Id') }}</label>
-                                <select class="form-control" name="apprentice_id" aria-label="Selecciona un Aprendiz">
-                                    <option value="" selected>{{ trans('senaempresa::menu.Select an Apprentice') }}
-                                    </option>
+                                <input type="text" class="form-control" id="search-input" name="search-input"
+                                    placeholder="{{ trans('senaempresa::menu.Search by Document or Name') }}">
+                                <select class="form-control" name="apprentice_id" aria-label="Selecciona un Aprendiz"
+                                    id="apprentice-select" multiple="multiple" required>
+                                    <label for="apprentice_id"
+                                        class="form-label">{{ trans('senaempresa::menu.Search Apprentice by Document or Name') }}</label>
                                     @foreach ($apprentices as $apprentice)
                                         <option value="{{ $apprentice->id }}"
                                             {{ $apprentice->id == $staffSenaempresa->apprentice_id ? 'selected' : '' }}>
@@ -79,5 +81,21 @@
             </div>
         </div>
     </div><br>
-    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.getElementById("search-input");
+            const apprenticeSelect = document.getElementById("apprentice-select");
+
+            searchInput.addEventListener("input", function() {
+                const searchText = this.value.trim().toLowerCase();
+
+                for (let option of apprenticeSelect.options) {
+                    const optionText = option.text.toLowerCase();
+                    const isMatch = optionText.includes(searchText);
+                    option.hidden = !isMatch;
+                }
+            });
+        });
+    </script>
 @endsection

@@ -28,7 +28,7 @@
                                     <option value="" selected>Selecciona un trimestre</option>
                                     @foreach ($quarters as $quarter)
                                         <option value="{{ $quarter->id }}">
-                                            {{ $quarter->id }} {{ $quarter->name }}
+                                            {{ $quarter->name }}
                                         </option>
                                     @endforeach
                                 </select>

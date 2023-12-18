@@ -95,20 +95,19 @@ class StaffSenaempresaController extends Controller
 
         $staffSenaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
         $positionCompany = PositionCompany::all();
-        $apprentices = Apprentice::whereHas('postulates', function ($query) {
-            $query->where('state', 'Seleccionado');
-        })->get();
+        // Obtener todos los aprendices
+        $apprentices = Apprentice::get();
 
-        $selectedPosition = null;
-        $selectedPositionName = null;
+
+        
 
         if ($apprentices->isEmpty()) {
             return redirect()->back()->with('error', trans('senaempresa::menu.No apprentices selected'));
         } else {
             $firstApprentice = $apprentices->first();
             $postulate = $firstApprentice->postulates->first();
-            $selectedPosition = $postulate->vacancy->position_company_id;
-            $selectedPositionName = $postulate->vacancy->positionCompany->name;
+            $this->selectedPosition = $postulate ? $postulate->vacancy->position_company_id : null;
+            $selectedPositionName = $postulate ? $postulate->vacancy->positionCompany->name : null;
         }
 
         $data = [
@@ -117,7 +116,7 @@ class StaffSenaempresaController extends Controller
             'PositionCompany' => $positionCompany,
             'Apprentices' => $apprentices,
             'senaempresas' => $senaempresas,
-            'selectedPosition' => $selectedPosition,
+            'selectedPosition' => $this->selectedPosition,
             'selectedPositionName' => $selectedPositionName,
         ];
 

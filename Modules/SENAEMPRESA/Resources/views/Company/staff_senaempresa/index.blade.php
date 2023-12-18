@@ -19,6 +19,9 @@
                         $groupedCandidates = $staff_senaempresas->groupBy(function ($staf) {
                             // Agrupar por senaempresa_id en lugar de quarter_id
                             return $staf->senaempresa_id;
+
+                            // Ordenar los registros por fecha en orden descendente
+                            $sortedStaff = $staff_senaempresas->sortByDesc('created_at');
                         });
                     @endphp
 
@@ -87,12 +90,11 @@
         </div>
     @endsection
 
-
-    <!--scripts utilizados para procesos-->
     @section('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script>
             'use strict';
-            // Selecciona todos los formularios con la clase "formEliminar"
+            // Selecciona todos los formularios con la clase "formPersonal"
             var forms = document.querySelectorAll('.formPersonal');
 
             Array.prototype.slice.call(forms)
@@ -117,7 +119,7 @@
                                         // Manejar la respuesta JSON del servidor
                                         if (response.data && response.data.mensaje) {
                                             Swal.fire({
-                                                title: {{ trans('senaempresa::menu.Staff eliminated!') }},
+                                                title: "{{ trans('senaempresa::menu.Staff eliminated!') }}",
                                                 text: response.data.mensaje,
                                                 icon: 'success'
                                             }).then(() => {

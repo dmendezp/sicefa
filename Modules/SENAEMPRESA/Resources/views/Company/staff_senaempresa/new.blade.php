@@ -14,13 +14,20 @@
                             @csrf
 
                             <div class="mb-3">
-                                <label for="position_company_name"
+                                <label for="position_company_id"
                                     class="form-label">{{ trans('senaempresa::menu.Position ID') }}</label>
-                                <input type="text" class="form-control" name="position_company_name"
-                                    value="{{ $selectedPosition }} - {{ $selectedPositionName }}" readonly>
+
+                                <select class="form-control" name="position_company_id" aria-label="Selecciona un Cargo"
+                                    id="apprentice-select" required>
+                                    <option value="">Seleccione un cargo</option>
+                                    @foreach ($PositionCompany as $position)
+                                        <option value="{{ $position->id }}"
+                                            {{ $position->id == $selectedPosition ? 'selected' : '' }}>
+                                            {{ $position->name }} <!-- Mostrar solo el nombre del cargo -->
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <input type="hidden" class="form-control" name="position_company_id"
-                                value="{{ $selectedPosition }}" readonly>
                             <div class="mb-3">
                                 <label for="apprentice_id"
                                     class="form-label">{{ trans('senaempresa::menu.Search Apprentice by Document or Name') }}</label>
@@ -49,7 +56,7 @@
                                     <option value="" selected>Selecciona una Senaempresa</option>
                                     @foreach ($senaempresas as $senaempresa)
                                         <option value="{{ $senaempresa->id }}">
-                                            {{ $senaempresa->id }} {{ $senaempresa->name }}
+                                            {{ $senaempresa->name }}
                                         </option>
                                     @endforeach
                                 </select>
