@@ -5,7 +5,6 @@ namespace Modules\GTH\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\Person;
 use Modules\SIGAC\Entities\Attendance;
 
@@ -33,9 +32,15 @@ class RegisterAttendanceController extends Controller
             $attendanceNew->exit_time = null; // Inicializa el tiempo de salida como nulo
             $attendanceNew->save();
 
-            return redirect()->back()->with('success', 'Asistencia Tomada');
+            return redirect()->back()->with('success', 'Entrada registrada correctamente');
+        } elseif ($attendance->entry_time && !$attendance->exit_time) {
+            // Verificar si ya se registró la entrada pero no la salida
+            $attendance->exit_time = Carbon::now(); // Agrega el tiempo de salida
+            $attendance->save();
+
+            return redirect()->back()->with('success', 'Salida registrada correctamente');
         } else {
-            return redirect()->back()->with('error', 'Ya tiene asistencia');
+            return redirect()->back()->with('error', 'Ya tiene asistencia completa');
         }
     }
 }
