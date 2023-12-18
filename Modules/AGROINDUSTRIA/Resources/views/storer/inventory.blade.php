@@ -2,11 +2,22 @@
 @section('content')
 
 <h1 class="title_labor">Inventario de {{ session('viewing_unit_name') }}</h1>
+@if(auth()->check() && (checkRol('agroindustria.instructor.vilmer') || checkRol('agroindustria.instructor.chocolate') || checkRol('agroindustria.instructor.cerveceria') || checkRol('superadmin')))
+
+<a href="{{route('cefa.agroindutria.instructor.units.inventoryAlert')}}"  style="margin-left: 120px; margin-bottom: 20px; ">
+    <button class="btn btn-warning" style="width: 45px; height: 35px;">
+        <i class="fas fa-eye" style="color: #ffffff;"></i>
+    </button>
+</a>
+@else
+@if(auth()->check() && (checkRol('agroindustria.almacenista')))
 <a href="{{route('cefa.agroindutria.storer.units.inventoryAlert')}}"  style="margin-left: 120px; margin-bottom: 20px; ">
     <button class="btn btn-warning" style="width: 45px; height: 35px;">
         <i class="fas fa-eye" style="color: #ffffff;"></i>
     </button>
 </a>
+@endif
+@endif
 
 <div class="table-labors">
     <table id="inventory" class="table table-striped" style="width: 98%; margin-left: 40px;">

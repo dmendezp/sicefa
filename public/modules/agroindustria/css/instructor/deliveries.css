@@ -20,7 +20,8 @@
 }
 
 .salida{
-    background-color: #fa9cb2;
+    position: relative;
+    left: 450px;
     color: white;
     font-weight: bold;
     border: none;
@@ -38,7 +39,6 @@
     color: white;
     font-weight: bold;
     border: none;
-    background-color: green;
     border-radius: 4px;
 }
 

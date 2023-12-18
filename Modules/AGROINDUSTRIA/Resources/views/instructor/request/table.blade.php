@@ -12,7 +12,7 @@
                 <th>Estado</th>
                 <th>
                     @if(auth()->check() && checkRol('agroindustria.instructor.vilmer') || auth()->check() && checkRol('agroindustria.instructor.chocolate'))  
-                    <a href="{{route('cefa.agroindustria.units.instructor.solicitud')}}">
+                    <a href="{{route('cefa.agroindustria.instructor.units.solicitud')}}">
                         <button class="btn btn-success float-end mb-2">
                             <i class="fa-solid fa-plus"></i>
                         </button>
@@ -41,7 +41,7 @@
                     <td>
                         <form method="GET" action="{{ route('cefa.agroindustria.units.instructor.request.excel', ['movementId' => $m->id]) }}">
                             @csrf
-                            <button type="submit" class="btn btn-info" style="margin-bottom: 10px"><i class="fas fa-file-excel"></i> Solicitud de Bienes</button>
+                            <button type="submit" class="btn btn-info" style="margin-bottom: 10px"><i class="fas fa-file-excel"></i> Formato de Solicitud</button>
                         </form>
                         @if(auth()->check() && checkRol('agroindustria.admin') && $m->state == 'Solicitado') 
                             <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#approbed{{$m->id}}">Aprobar</button>

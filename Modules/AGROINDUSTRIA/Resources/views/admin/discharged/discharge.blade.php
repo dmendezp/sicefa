@@ -14,7 +14,7 @@
             </div>
             <div class="col-md-6">
                 {!! Form::label('productive_unit', 'Unidad Productiva') !!}
-                {!! Form::select('productive_unit', $productiveUnit, old('productive_unit'), ['class' => 'form-control', 'id' => 'productive_unit']) !!}
+                {!! Form::select('productive_unit', $unitName, old('productive_unit'), ['class' => 'form-control', 'id' => 'productive_unit']) !!}
             </div>
             <div class="col-md-6">
                 {!! Form::label('inChage', trans('agroindustria::menu.Responsible')) !!}  
@@ -22,7 +22,7 @@
             </div>
             <div class="col-md-6">
                 {!! Form::label('warehouse', 'Bodegas') !!}
-                {!! Form::select('warehouse', [], old('warehouse'), ['placeholder' => trans('agroindustria::menu.Select a winery'), 'class' => 'form-control', 'id' => 'warehouse']) !!}
+                {!! Form::select('warehouse', $warehouse, old('warehouse'), ['placeholder' => trans('agroindustria::menu.Select a winery'), 'class' => 'form-control', 'id' => 'warehouse']) !!}
             </div>
             <div class="col-md-12">
                 {!! Form::label('observation', trans('agroindustria::menu.Observations')) !!}
@@ -212,7 +212,7 @@ $(document).ready(function() {
         }
     });
     // Detecta cambios en el primer campo de selección (Receiver)
-    $('#productive_unit').on('change', function() {
+    $('#productive_unit').on( function() {
         var selectedProductiveUnit = $(this).val();
         var url = {!! json_encode(route('cefa.agroindustria.admin.discharge.warehouse', ['id' => ':id'])) !!}.replace(':id', selectedProductiveUnit.toString());
 

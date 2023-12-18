@@ -85,11 +85,12 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6" id="total-labor">
                             {!! Form::label('total_labor', 'Total') !!}
                             {!! Form::number('total_labor', null, ['class' => 'form-control', 'id' => 'total_labor', 'readonly' => 'readonly']) !!}
                         </div>
-                        <div class="col-md-12">
+                        <br>
+                        <div class="col-md-12" style="margin-top: 10px">
                             <div class="accordion" id="accordionPanelsStayOpenExample">
                                 <div class="accordion-item">
                                   <h2 class="accordion-header">
@@ -194,10 +195,16 @@
                                                         {!! Form::label('employement_type', trans('agroindustria::labors.employeeType')) !!}
                                                         {!! Form::select('employement_type[]', $employee, null, ['class'=>'form-control employement_type', 'style' => 'width: 200px']) !!}
                                                         {!! Form::hidden('price[]', null, ['class' => 'price']) !!}
+                                                        @error('employement_type')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                     <div class="form-group-collaborators">  
                                                         {!! Form::label('hours', trans('agroindustria::labors.hoursWorked')) !!}
                                                         {!! Form::number('hours[]', null, ['class'=>'form-control hours']) !!}
+                                                        @error('hours')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
                                                     </div>            
                                                     <button type="button" class="remove-executor">{{trans('agroindustria::menu.Delete')}}</button>
                                                 </div>
@@ -244,7 +251,7 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div class="accordion-item" style="background-color: red;">
+                                <div class="accordion-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
                                             Recursos Ambientales
@@ -279,7 +286,7 @@
                                 </div>
                               </div>                            
                         </div>               
-                        <div class="button_receipe">{!! Form::submit(trans('agroindustria::formulations.Save'),['class' => 'save_receipe', 'name' => 'enviar']) !!}</div>
+                        <div class="button_receipe">{!! Form::submit(trans('agroindustria::formulations.Save'),['class' => 'save_receipe btn btn-success', 'name' => 'enviar']) !!}</div>
                     </div>
                     {!! Form:: close() !!}     
                 </div>

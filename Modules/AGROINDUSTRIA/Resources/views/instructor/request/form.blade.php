@@ -2,7 +2,7 @@
 @section('content')
 <div class="movements">
     <div class="form">
-      <div class="form-header">{{trans('agroindustria::menu.Exit from Cellar')}}</div>
+      <div class="form-header">Solicitud de Insumos</div>
       <div class="form-body">
         {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.enviarsolicitud')]) !!}
         <div class="row">
@@ -37,7 +37,7 @@
             <div id="products">
                 <h3>{{trans('agroindustria::menu.Products')}}</h3>
                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
-                <button type="button" id="add-element">{{trans('agroindustria::menu.Add Product')}}</button>
+                <button type="button" class="btn btn-primary" id="add-element"><i class="fa-solid fa-plus"></i> {{trans('agroindustria::menu.Add Product')}}</button>
                 <div class="elements">
                   <div class="form-group">
                     {!! Form::label('elementInventory' , 'Buscar productos') !!}
@@ -66,7 +66,7 @@
         </div>
         </div>
         <div class="button">
-          {!! Form::submit(trans('agroindustria::menu.Check Out'),['class' => 'salida', 'name' => 'salida']) !!}
+          {!! Form::submit('Guardar',['class' => 'salida btn btn-success', 'name' => 'salida']) !!}
         </div>
         {!! Form:: close() !!}
       </div>

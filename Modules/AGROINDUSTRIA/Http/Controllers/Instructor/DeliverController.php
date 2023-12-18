@@ -30,6 +30,52 @@ use Validator, Str;
 class DeliverController extends Controller
 {
 
+    public function table(){
+        $title = 'Entregas';
+        $selectedUnit = session('viewing_unit');
+
+        $user = Auth::user();
+        if ($user->person) {
+            $idPersona = $user->person->id;
+        }
+
+        //Bodega que entrega
+        $warehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->get();
+        foreach ($warehouses as $row){
+            $id = $row->id;
+        }
+
+        $movements = Movement::with(['movement_details.inventory.element', 'movement_responsibilities.person', 'movement_type', 'warehouse_movements'])
+        ->whereHas('movement_responsibilities', function ($query) use ($idPersona) {
+            $query->where('person_id', $idPersona)
+                  ->where('role', 'ENTREGA');
+        })->whereHas('warehouse_movements', function ($query) use ($id) {
+            $query->where('productive_unit_warehouse_id', $id)
+                  ->where('role', 'ENTREGA');
+        })->orderByRaw("
+        CASE
+            WHEN state = 'Solicitado' THEN 1
+            ELSE 2
+        END")->get();
+
+        // Cuenta los movimientos con estado "solicitado"
+        $pendingMovementsCount = Movement::whereHas('warehouse_movements', function ($query) use ($id) {
+            $query->where('productive_unit_warehouse_id', $id)
+                  ->where('role', 'RECIBE');
+        })->whereHas('movement_responsibilities', function ($r) use ($idPersona){
+            $r->where('person_id', $idPersona)
+            ->where('role', 'RECIBE');
+        })->where('state', 'Solicitado')->count();
+
+        $data = [
+            'title' => $title,
+            'movements' => $movements,
+            'pedingMovements' => $pendingMovementsCount,
+        ];
+
+        return view('agroindustria::instructor.movements.table', $data);
+    }
+
     public function deliveries()
     {
         $title = 'Entregas';
@@ -90,29 +136,7 @@ class DeliverController extends Controller
 
         //Consulta los movimientos del responsable con el rol de ENTREGA
         $idMovements = Movement::pluck('id');
-        $movements = Movement::with(['movement_details.inventory.element', 'movement_responsibilities.person', 'movement_type', 'warehouse_movements'])
-        ->whereHas('movement_responsibilities', function ($query) use ($idPersona) {
-            $query->where('person_id', $idPersona)
-                  ->where('role', 'ENTREGA');
-        })->whereHas('warehouse_movements', function ($query) use ($id) {
-            $query->where('productive_unit_warehouse_id', $id)
-                  ->where('role', 'ENTREGA');
-        })->orderByRaw("
-        CASE
-            WHEN state = 'Solicitado' THEN 1
-            ELSE 2
-        END")->get();
-
-        // Cuenta los movimientos con estado "solicitado"
-        $pendingMovementsCount = Movement::whereHas('warehouse_movements', function ($query) use ($id) {
-            $query->where('productive_unit_warehouse_id', $id)
-                  ->where('role', 'RECIBE');
-        })->whereHas('movement_responsibilities', function ($r) use ($idPersona){
-            $r->where('person_id', $idPersona)
-            ->where('role', 'RECIBE');
-        })->where('state', 'Solicitado')->count();
-
-
+      
         $data = [
             'title' => $title,
             'unitName' => $unitName,
@@ -120,8 +144,6 @@ class DeliverController extends Controller
             'warehouseDeliver' => $warehouseDeliver,
             'elements' => $elements,
             'receiveUnit' => $receiveUnit,
-            'movements' => $movements,
-            'pedingMovements' => $pendingMovementsCount,
         ];
 
         return view('agroindustria::instructor.movements.deliveries', $data);
@@ -242,12 +264,10 @@ class DeliverController extends Controller
             foreach ($amounts as $key => $amount) {
                 if (empty($amount) || $amount <= 0) {
                     return back()
-                        ->withInput()
                         ->with('icon', 'error')
                         ->with('message_line', trans('agroindustria::menu.You must enter an amount'));
                 } elseif ($amount > $available[$key]) {
                     return back()
-                        ->withInput()
                         ->with('icon', 'error')
                         ->with('message_line', trans('agroindustria::menu.Quantity entered is greater than inventory quantity'));
                 } else {
@@ -259,13 +279,11 @@ class DeliverController extends Controller
                         $detail->inventory_id = $inventories[$key];
                     } else {
                         return back()
-                            ->withInput()
                             ->with('icon', 'error')
                             ->with('message_line', trans('agroindustria::menu.You must select an item'));
                     }
                     if($amount<=0){
                         return back()
-                        ->withInput()
                         ->with('icon', 'error')
                         ->with('message_line', trans('agroindustria::menu.You must enter an amount'));
                     }
@@ -376,12 +394,22 @@ class DeliverController extends Controller
         $dataReceive = MovementResponsibility::with('person')
         ->whereIn('movement_id', $idMovement)
         ->where('role', 'RECIBE')
-        ->get();        
+        ->get();  
+        
+        // Cuenta los movimientos con estado "solicitado"
+        $pendingMovementsCount = Movement::whereHas('warehouse_movements', function ($query) use ($id) {
+            $query->where('productive_unit_warehouse_id', $id)
+                  ->where('role', 'RECIBE');
+        })->whereHas('movement_responsibilities', function ($r) use ($idPersona){
+            $r->where('person_id', $idPersona)
+            ->where('role', 'RECIBE');
+        })->where('state', 'Solicitado')->count();
 
         $data = [
             'title' => $title,
             'movements' => $movements,
             'dataReceive' => $dataReceive,
+            'pedingMovements' => $pendingMovementsCount,
         ];
         return view('agroindustria::instructor.movements.pending', $data);
     }
@@ -436,7 +464,7 @@ class DeliverController extends Controller
             $message_line = trans('agroindustria::menu.Error when editing movement status');
         }
 
-        return redirect()->route('cefa.agroindustria.units.instructor.movements.pending')->with(['icon' => $icon, 'message_line' => $message_line]);
+        return redirect()->route('cefa.agroindustria.instructor.units.movements.pending')->with(['icon' => $icon, 'message_line' => $message_line]);
     }
 
 
@@ -464,7 +492,7 @@ class DeliverController extends Controller
             $message_line = trans('agroindustria::menu.Movement Cancel Error');
         }
 
-        return redirect()->route('agroindustria.instructor.units.movements')->with([
+        return redirect()->route('agroindustria.instructor.units.movements.table')->with([
             'icon' => $icon,
             'message_line' => $message_line,
         ]);
@@ -494,7 +522,7 @@ class DeliverController extends Controller
             $message_line = trans('agroindustria::menu.Error when returning the movement');
         }
 
-        return redirect()->route('cefa.agroindustria.units.instructor.movements.pending')->with([
+        return redirect()->route('cefa.agroindustria.instructor.units.movements.pending')->with([
             'icon' => $icon,
             'message_line' => $message_line,
         ]);

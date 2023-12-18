@@ -134,7 +134,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_instructor[] = $permission->id;
 
         //Formulario para registrar la labor (Instructor)
-        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.labor.units.form'], [
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.form'], [
             'name' => 'Formulario para registrar la labor',
             'description' => 'Puede abrir el formulario para registrar todos los elementos y personal involucrado en la labor (Instructor)',
             'description_english' => 'You can open the form to register all the elements and personnel involved in the work',
@@ -164,10 +164,20 @@ class PermissionsTableSeeder extends Seeder
         $permission_storer[] = $permission->id;  
 
         //Vista de Movimientos (Instructor)
-        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.movements'], [
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.movements.table'], [
             'name' => 'Abrir vista de movimientos',
             'description' => 'Puede ver la vista de movimientos (Instructor)',
             'description_english' => 'You can see the movement view',
+            'app_id' => $app->id
+        ]);
+
+        $permission_instructor[] = $permission->id;  
+
+         //Formulario de Movimientos (Instructor)
+         $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.movements.form'], [
+            'name' => 'Abrir formulario de movimientos',
+            'description' => 'Puede ver el formulario de movimientos (Instructor)',
+            'description_english' => 'You can see the movement form',
             'app_id' => $app->id
         ]);
 

@@ -389,6 +389,7 @@ class LaborController extends Controller
             'hours.required' => trans('agroindustria::labors.youMustEnterNumberHoursWorked'),
         ];
         $validatedData = $request->validate($rules, $messages);
+
         try {
             DB::beginTransaction();
 
@@ -405,15 +406,16 @@ class LaborController extends Controller
             $l->destination =  $validatedData['destination'];
             $l->save();
 
+            
             $consumables = $request->input('consumables');
             $amount_consumables = $request->input('amount_consumables');
-
+            
             $element = Element::whereIn('id', $consumables)->pluck('measurement_unit_id');
             foreach ($consumables as $key => $elementId) {
                 $requiredAmount = $amount_consumables[$key]; // Cantidad requerida para el elemento
                 $measurement_unit = MeasurementUnit::whereIn('id', $element)->pluck('conversion_factor');
                 $conversion = $requiredAmount*$measurement_unit[$key];
-
+                
                 // Realiza una consulta para obtener los lotes correspondientes al elemento y ordénalos por lote
                 $selectedUnit = session('viewing_unit');
                 $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
@@ -421,6 +423,7 @@ class LaborController extends Controller
                 ->where('productive_unit_warehouse_id', $productiveUnit)
                 ->orderBy('lot_number', 'ASC')
                 ->get();
+                
                 // Inicializa la cantidad consumida en 0
                 $consumedAmount = 0;
                 foreach ($inventories as $inventory) {
@@ -455,26 +458,32 @@ class LaborController extends Controller
             $amount_tools = $request->input('amount_tools');
             $price_tools = $request->input('price_tools');
 
+            
             foreach ($tools as $key => $tool){ 
-                $t = new Tool;
-                $t->labor_id = $l->id;
-                $t->inventory_id = $tool;
-                $t->amount = $amount_tools[$key];
-                $t->price = $price_tools[$key];
-                $t->save();
+                if($tool != null){
+                    $t = new Tool;
+                    $t->labor_id = $l->id;
+                    $t->inventory_id = $tool;
+                    $t->amount = $amount_tools[$key];
+                    $t->price = $price_tools[$key];
+                    $t->save();
+                }
             }
+            
 
             $equipments = $request->input('equipments');
             $amount_equipments = $request->input('amount_equipments');
             $price_equipments = $request->input('price_equipments');
 
             foreach ($equipments as $key => $equipment){ 
-                $i = new Equipment;
-                $i->labor_id = $l->id;
-                $i->inventory_id = $equipment;
-                $i->amount = $amount_equipments[$key];
-                $i->price = $price_equipments[$key];
-                $i->save();
+                if($equipment != null){
+                    $i = new Equipment;
+                    $i->labor_id = $l->id;
+                    $i->inventory_id = $equipment;
+                    $i->amount = $amount_equipments[$key];
+                    $i->price = $price_equipments[$key];
+                    $i->save();
+                }
             }
 
             $aspect = $request->input('environmental_aspect');
@@ -482,12 +491,14 @@ class LaborController extends Controller
             $price_aspect = $request->input('price_environmental_aspect');
 
             foreach ($aspect as $key => $a){
-                $environmental_aspect = new EnvironmentalAspectLabor;
-                $environmental_aspect->environmental_aspect_id = $a;
-                $environmental_aspect->labor_id = $l->id;
-                $environmental_aspect->amount = $amount_aspect[$key];
-                $environmental_aspect->price = $price_aspect[$key];
-                $environmental_aspect->save();
+                if($a != null){
+                    $environmental_aspect = new EnvironmentalAspectLabor;
+                    $environmental_aspect->environmental_aspect_id = $a;
+                    $environmental_aspect->labor_id = $l->id;
+                    $environmental_aspect->amount = $amount_aspect[$key];
+                    $environmental_aspect->price = $price_aspect[$key];
+                    $environmental_aspect->save();
+                }
             }
 
 
@@ -508,12 +519,12 @@ class LaborController extends Controller
             }
 
             $recipeRequest = $request->input('recipe');
-            $recipe = Formulation::where('id', $recipeRequest)->get();
-            foreach($recipe as $r){
-                $element_id = $r->element_id;
-            }
-            
-            if($element_id){
+            if($recipeRequest){
+                $recipe = Formulation::where('id', $recipeRequest)->get();
+                foreach($recipe as $r){
+                    
+                    $element_id = $r->element_id;
+                }
                 $p = new Production;
                 $p->labor_id = $l->id;
                 $p->element_id = $element_id;
@@ -527,18 +538,23 @@ class LaborController extends Controller
 
             $icon = 'success';
             $message_line = trans('agroindustria::labors.laborSavedCorrectly');
+
+            return redirect()->route('agroindustria.instructor.units.labor')->with([
+                'icon' => $icon,
+                'message_line' => $message_line,
+            ]); 
         } catch (\Exception $e) {
+            dd($e);
             // Rollback de la transacción en caso de error
             DB::rollBack();
     
             $icon = 'error';
             $message_line = trans('agroindustria::labors.errorWhenSavingWork');
-        }
-        
-        return redirect()->route('agroindustria.instructor.units.labor')->with([
-           'icon' => $icon,
-           'message_line' => $message_line,
-        ]); 
+            return redirect()->back()->withErrors($validatedData)->withInput()->with([
+                'icon' => $icon,
+                'message_line' => $message_line,
+            ]);
+        }  
     }
     
     public function cancelLabor($id){
@@ -722,6 +738,35 @@ class LaborController extends Controller
         return redirect()->back()->with([
             'icon' => 'success',
             'message_line' => trans('agroindustria::labors.workPerformedCorrectly'),
+        ]);
+    }
+
+    public function rechazarSolicitud(Request $request, $id){
+
+        $rules=[
+            'observation' => 'required',
+        ];
+        $messages = [
+            'observation.required' => trans('agroindustria::menu.Required field'),
+        ];
+
+        $validatedData = $request->validate($rules, $messages);
+        $labor = Labor::find($id);
+        if ($labor) {
+            $labor->observations = $validatedData['observation'];
+            $labor->save();
+        }
+        if($labor->save()){
+            $icon = 'success';
+            $message_line = 'Solicitud rechazada';
+        }else{
+            $icon = 'error';
+            $message_line = 'Error al rechazar la solicitud';
+        }
+
+        return redirect()->route('cefa.agroindustria.storer.units.view.request')->with([
+            'icon' => $icon,
+            'message_line' => $message_line,
         ]);
     }
 }

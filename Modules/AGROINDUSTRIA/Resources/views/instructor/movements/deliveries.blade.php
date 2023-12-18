@@ -3,7 +3,7 @@
 
 <div class="movements">
   <div class="form">
-    <div class="form-header">{{trans('agroindustria::menu.Exit from Cellar')}} <a id="pedingMovements" href="{{route('cefa.agroindustria.units.instructor.movements.pending')}}">{{trans(('agroindustria::menu.Pending'))}}  ({{ $pedingMovements }})</a></div>
+    <div class="form-header">{{trans('agroindustria::menu.Exit from Cellar')}}</div>
     <div class="form-body">
       {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.movements.out')]) !!}
       <div class="row">
@@ -53,7 +53,7 @@
           <div id="products">
               <h3>{{trans('agroindustria::menu.Products')}}</h3>
               <!-- Aquí se agregarán los campos de producto dinámicamente -->
-              <button type="button" id="add-element">{{trans('agroindustria::menu.Add Product')}}</button>
+              <button type="button" class="btn btn-primary" id="add-element"><i class="fa-solid fa-plus"></i> {{trans('agroindustria::menu.Add Product')}}</button>
               <div class="elements">
                 <div class="form-group">
                   {!! Form::label('elementInventory' , trans('agroindustria::menu.Element')) !!}
@@ -83,16 +83,11 @@
       </div>
       </div>
       <div class="button">
-        {!! Form::submit(trans('agroindustria::menu.Check Out'),['class' => 'salida', 'name' => 'salida']) !!}
+        {!! Form::submit(trans('agroindustria::menu.Check Out'),['class' => 'salida btn btn-success', 'name' => 'salida']) !!}
       </div>
       {!! Form:: close() !!}
     </div>
   </div>
-</div>
-
-<h3 id="movimientos">{{trans('agroindustria::menu.Movements')}}</h3>
-<div class="table-deliveries">
-  @include('agroindustria::instructor.movements.table')
 </div>
 
 @section('script')

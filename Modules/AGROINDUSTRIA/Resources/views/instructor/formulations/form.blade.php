@@ -58,7 +58,7 @@
                             <div id="ingredients">
                                 <h3>{{trans('agroindustria::formulations.Ingredients')}}</h3>
                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
-                                <button type="button" id="add-ingredients-formulation">{{trans('agroindustria::menu.Add Product')}}</button>
+                                <button type="button" class="btn btn-primary" id="add-ingredients-formulation"><i class="fa-solid fa-plus"></i> {{trans('agroindustria::menu.Add Product')}}</button>
                                 <div class="ingredient">
                                     <div class="form-group">
                                         @if (isset($registros) && $registros)                   
@@ -96,7 +96,7 @@
                             <div id="utencils">
                                 <h3>{{trans('agroindustria::formulations.Utencils')}}</h3>
                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
-                                <button type="button" id="add-utencils-formulation">{{trans('agroindustria::menu.Add Product')}}</button>
+                                <button type="button" class="btn btn-primary" id="add-utencils-formulation"><i class="fa-solid fa-plus"></i> {{trans('agroindustria::menu.Add Product')}}</button>
                                 <div class="utencil">
                                     <div class="form-group">
                                         @if (isset($registros) && $registros)                   
@@ -130,7 +130,7 @@
                                 </div>
                             </div>
                         </div>   
-                        <div class="button_receipe">{!! Form::submit(trans('agroindustria::formulations.Save'),['class' => 'save_receipe', 'name' => 'enviar']) !!}</div>
+                        <div class="button_receipe">{!! Form::submit(trans('agroindustria::formulations.Save'),['class' => 'save_receipe btn btn-success', 'name' => 'enviar']) !!}</div>
                 </div>
             </div>
         </div>
@@ -148,7 +148,7 @@
     
         // Agregar un nuevo campo de producto
         $("#add-ingredients-formulation").click(function() {
-            var newProduct = '<div class="ingredient"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::menu.Element")) !!} {!! Form::select("element_ingredients[]", $ingredients, null, ["placeholder" => trans("agroindustria::formulations.Select an ingredient"), "class" => "ingredient-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount_ingredients[]", NULL, ["class"=>"form-control", "id" => "amount"]) !!}</div> <button type="button" class="remove-ingredient">{{trans("agroindustria::menu.Delete")}}</button></div>';
+            var newProduct = '<div class="ingredient"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::menu.Element")) !!} {!! Form::select("element_ingredients[]", $ingredients, null, ["class" => "ingredient-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount_ingredients[]", NULL, ["class"=>"form-control", "id" => "amount"]) !!}</div> <button type="button" class="remove-ingredient">{{trans("agroindustria::menu.Delete")}}</button></div>';
     
             // Agregar el nuevo campo al DOM
             $("#ingredients").append(newProduct);
@@ -172,7 +172,7 @@
     
         // Agregar un nuevo campo de producto
         $("#add-utencils-formulation").click(function() {
-            var newProduct = '<div class="utencil"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::menu.Element")) !!} {!! Form::select("element_utencils[]", $utencils, null, ["placeholder" =>  trans("agroindustria::formulations.Select an instrument"), "class" => "utencil-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount_utencils[]", NULL, ["class"=>"form-control", "id" => "amount"]) !!}</div> <button type="button" class="remove-utencils">{{trans("agroindustria::menu.Delete")}}</button></div>';
+            var newProduct = '<div class="utencil"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::menu.Element")) !!} {!! Form::select("element_utencils[]", $utencils, null, ["class" => "utencil-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount_utencils[]", NULL, ["class"=>"form-control", "id" => "amount"]) !!}</div> <button type="button" class="remove-utencils">{{trans("agroindustria::menu.Delete")}}</button></div>';
     
             // Agregar el nuevo campo al DOM
             $("#utencils").append(newProduct);

@@ -195,11 +195,13 @@ window.onclick = function(event) {
                         type: 'GET',
                         success: function(typeResponse) {
                             if (typeResponse.type.length > 0) {
+                                $('#total-labor').removeClass('col-md-6').addClass('col-md-12');
                                 $('#recipe-field').show();
                                 $('#date-expiration-field').show();
                                 $('#lot-field').show();
                                 $('#amount-production-field').show();
                             } else {
+                                $('#total-labor').removeClass('col-md-12').addClass('col-md-6');
                                 $('#recipe-field').hide();
                                 $('#date-expiration-field').hide();
                                 $('#lot-field').hide();

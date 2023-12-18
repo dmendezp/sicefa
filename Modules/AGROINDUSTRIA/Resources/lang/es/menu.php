@@ -22,6 +22,7 @@ return [
     'Register deregistration' => 'Registrar baja',
     'Approve' => 'Aprobar',
     'Return' => 'Devolver',
+    'yesCancel' => 'Sí, cancelar',
     'Cancel' => 'Cancelar',
 
     //Solicitudes

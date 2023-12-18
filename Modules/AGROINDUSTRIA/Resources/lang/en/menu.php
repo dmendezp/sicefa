@@ -22,6 +22,7 @@ return [
     'Register deregistration' => 'Register deregistration',
     'Approve' => 'Approve',
     'Return' => 'Return',
+    'yesCancel' => 'Yes, cancel',
     'Cancel' => 'Cancel',
 
     //Solicitudes

@@ -26,7 +26,7 @@ use Validator, Str;
 class WarehouseController extends Controller
 {
 
-    public function expirationdate()
+    /*public function expirationdate()
     {
         $title = 'expirationdate';
     
@@ -64,28 +64,39 @@ class WarehouseController extends Controller
         dd($data);
     
         return view('agroindustria::storer.expirationdate', $data);
-    }
+    }*/
     
 
     //Funcion de listar insumos pronto a agotarse.
     public function inventoryAlert(){
         $title = 'inventoryAlert';
-        
+        $selectedUnit = session('viewing_unit');
+
         // Obtén la ID de la categoría "consumibles" 
         $consumiblesCategoryId = Category::where('name', 'Consumibles')->value('id');
         $element = Element::where('category_id', $consumiblesCategoryId)->pluck('id');
         
 
         // Filtra los elementos del inventario para la categoría de consumibles
-        $selectedUnit = session('viewing_unit');
+        
         $ProductiveUnitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->get();
         $pwId = $ProductiveUnitWarehouses->first()->id;
-        $inventory = Inventory::whereIn('element_id', $element)->where('productive_unit_warehouse_id', $pwId)->get();
+        $inventory = Inventory::whereIn('element_id', $element)
+        ->where('productive_unit_warehouse_id', $pwId)
+        ->get();
+
+        $inventoryAlert = [];
+
         foreach ($inventory as $i) {
             $inventory_id = $i->id;
             $amount = $i->amount / $i->element->measurement_unit->conversion_factor;
-            $inventoryAlert = Inventory::where('stock', '>', $amount)->whereIn('element_id', $element)->get();
+
+            // Realiza la comparación y agrega a $inventoryAlert si es mayor que el stock
+            if ($i->stock > $amount) {
+                $inventoryAlert[] = $i;
+            }
         }
+
         $data = [
             'title' => $title,
             'inventoryAlert' => $inventoryAlert
@@ -125,18 +136,14 @@ class WarehouseController extends Controller
             return response()->json(['error' => 'Error interno del servidor'], 500);
         }
     }
-
-   
-
-
-
- 
-
-  
     
     public function discharge (){
         $title = "Bajas";
         $user = Auth::user();
+        $selectedUnit = session('viewing_unit');
+        $unitName = ProductiveUnit::where('id', $selectedUnit)->pluck('name', 'id');
+        $puw = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('warehouse_id');
+        $warehouse = Warehouse::where('id', $puw)->pluck('name', 'id');
         if ($user->person) {
             $idPersona = $user->person->id;
             $name = $user->person->first_name . ' ' . $user->person->first_last_name . ' ' . $user->person->second_last_name;
@@ -168,6 +175,8 @@ class WarehouseController extends Controller
         $data = [
             'title' => $title,
             'name' => $name,
+            'unitName' => $unitName,
+            'warehouse' => $warehouse,
             'productiveUnit' => $productiveUnit,
             //'productiveUnitWarehouse' => $idProductiveUnitWarehouse,
             'movements' => $movements

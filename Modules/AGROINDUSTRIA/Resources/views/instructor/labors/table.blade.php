@@ -19,8 +19,8 @@
                             </button>
                         </a>
                     @else
-                        @if (Auth::user()->havePermission('agroindustria.instructor.labor.units.form'))
-                            <a href="{{route('agroindustria.instructor.labor.units.form')}}">
+                        @if (Auth::user()->havePermission('agroindustria.instructor.units.form'))
+                            <a href="{{route('agroindustria.instructor.units.form')}}">
                                 <button class="btn btn-success float-end mb-2">
                                     <i class="fa-solid fa-plus"></i>
                                 </button>
@@ -60,7 +60,7 @@
 </div>
 <!-- Modal enviar a punto de venta -->
 @foreach ($labors as $l)
-@if ($l->destination == 'Producción')
+@if ($l->activity->activity_type->id == 1)
     
 <div class="modal fade" id="realizar{{$l->id}}" tabindex="-1" aria-labelledby="realizarLabel" aria-hidden="true">
     <div class="modal-dialog">

@@ -86,11 +86,14 @@ class AGROINDUSTRIAController extends Controller
 
     public function recipes()
     {
-        $utensils = Utensil::all();
-        $ingredients = Ingredient::all();
-        $formulations = Formulation::all();
         $title = 'Recetas';
-        return view('agroindustria::instructor.formulations.recipes', compact('title','formulations','ingredients','utensils'));  
+        $formulations = Formulation::with('utensils.element.measurement_unit', 'ingredients.element.measurement_unit')->get();
+
+        $data = [
+            'title' => $title,
+            'formulations' => $formulations
+        ];
+        return view('agroindustria::instructor.formulations.recipes', $data);  
     }
     public function navbarUnit()
     {
