@@ -183,7 +183,7 @@ class AGROCEFAController extends Controller
             ->get()
             ->toArray();
         $datas = [];
-
+        
         foreach ($movements as $movement) {
             $id = $movement['id'];
             $date = $movement['registration_date'];
@@ -195,35 +195,36 @@ class AGROCEFAController extends Controller
             // Verificar si hay elementos en movement_details
             if (isset($movement['movement_details']) && is_array($movement['movement_details']) && count($movement['movement_details']) > 0) {
                 // Iterar a través de los elementos en movement_details
-                foreach ($movement['movement_details'] as $detail) {
-                    $inventory = $detail['inventory']['element']['name'];
-                    $destination = $detail['inventory']['destination'];
-                    $elementid = $detail['inventory']['element_id'];
-                    $inventoryId = $detail['inventory_id'];
-                    $amount = $detail['amount'];
-                    $price = $detail['price'];
-                    $state = $movement['state'];
-                    $lot = $detail['inventory']['lot_number'];
-
-                    // Agregar información al array asociativo
-                    $datas[] = [
-                        'id' => $id,
-                        'date' => $date,
-                        'respnsibility' => $respnsibility,
-                        'productiveunit' => $productiveunit,
-                        'warehouse' => $warehouse,
-                        'inventory' => $inventory,
-                        'amount' => $amount,
-                        'price' => $price,
-                        'state' => $state,
-                        'inventory_id' => $inventoryId,
-                        'element_id' => $elementid,
-                        'destination' => $destination,
-                        'person_id' => $person_id,
-                        'lot' => $lot,
-                        // Agrega aquí otros datos que necesites
-                    ];
+                    foreach ($movement['movement_details'] as $detail) {
+                        $inventory = $detail['inventory']['element']['name'];
+                        $destination = $detail['inventory']['destination'];
+                        $elementid = $detail['inventory']['element_id'];
+                        $inventoryId = $detail['inventory_id'];
+                        $amount = $detail['amount'];
+                        $price = $detail['price'];
+                        $state = $movement['state'];
+                        $lot = $detail['inventory']['lot_number'];
+    
+                        // Agregar información al array asociativo
+                        $datas[] = [
+                            'id' => $id,
+                            'date' => $date,
+                            'respnsibility' => $respnsibility,
+                            'productiveunit' => $productiveunit,
+                            'warehouse' => $warehouse,
+                            'inventory' => $inventory,
+                            'amount' => $amount,
+                            'price' => $price,
+                            'state' => $state,
+                            'inventory_id' => $inventoryId,
+                            'element_id' => $elementid,
+                            'destination' => $destination,
+                            'person_id' => $person_id,
+                            'lot' => $lot,
+                            // Agrega aquí otros datos que necesites
+                        ];
                 }
+                
             }
         }
 

@@ -79,6 +79,8 @@ class MovementController extends Controller
         $movements = Movement::whereIn('id', $warehousemovementid)->where('state','=','Solicitado')->with('movement_type', 'movement_responsibilities.person', 'movement_details.inventory.element', 'warehouse_movements.productive_unit_warehouse.productive_unit', 'warehouse_movements.productive_unit_warehouse.warehouse')->get()->toArray();
         $datas = [];
 
+        
+
         foreach ($movements as $movement) {
             $id = $movement['id'];
             $date = $movement['registration_date'];

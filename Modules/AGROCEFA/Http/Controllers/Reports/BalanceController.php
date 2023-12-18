@@ -80,14 +80,14 @@ class BalanceController extends Controller
 
         // Inicializa la variable para los resultados filtrados
         $filteredLabors = null;
-
+        
         // Verifica si se ha seleccionado un cultivo
         if ($selectedCropId) {
             // Realiza una consulta para obtener todas las labores relacionadas con el cultivo seleccionado
             $allLabors = Labor::whereHas('crops', function ($query) use ($selectedCropId) {
                 $query->where('crop_id', $selectedCropId);
             })->get();
-
+            
             // Filtra las labores por fechas
             $filteredLabors = $allLabors->filter(function ($labor) {
                 $executionDate = $labor->execution_date;
@@ -108,6 +108,7 @@ class BalanceController extends Controller
 
                     $labor->totalProductionPrice = $totalProductionPrice;
                 }
+               
 
                 // Verifica si hay fecha final, si no, usa la fecha actual
                 $finishDate = $finishDate ?? now(); // now() obtiene la fecha y hora actual

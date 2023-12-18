@@ -556,9 +556,9 @@ class LaborManagementController extends Controller
         $receivewarehouse = $request->input('warehouse');
         $deliverywarehouse = $request->input('deliverywarehouse');
         $productionIds = $request->input('production-id');
-        $productionamount = $request->input('production_amount');
-        $productionexpiration = $request->input('production_expiration');
-        $productionlot = $request->input('production_lot');
+        $productionamounts = $request->input('production_amount');
+        $productionexpirations = $request->input('production_expiration');
+        $productionlots = $request->input('production_lot');
 
         
 
@@ -651,10 +651,10 @@ class LaborManagementController extends Controller
 
                 foreach ($productionIds as $index => $productionId) {
                     // Accede a los datos de cada elemento de la tabla
-                    $productionamount = $productionamount[$index];
-                    $productionexpiration = $productionexpiration[$index];
-                    $productionlot = $productionlot[$index];
-
+                    $productionamount = $productionamounts[$index];
+                    $productionexpiration = $productionexpirations[$index];
+                    $productionlot = $productionlots[$index];
+                    
                     // Registra la labor con el precio total calculado
                     $production = new Production([
                         'labor_id' => $laborId,
@@ -755,7 +755,7 @@ class LaborManagementController extends Controller
                     $executor = new Executor([
                         'labor_id' => $laborId,
                         'person_id' => $executorId,
-                        'employement_type_id' => $executorEmployment,
+                        'employee_type_id' => $executorEmployment,
                         'amount' => $executorQuantityhours,
                         'price' => $executorPrice,
                     ]);
@@ -867,16 +867,11 @@ class LaborManagementController extends Controller
                     $machineryWage = $machineryWages[$index];
                     $machineryPrice = $machineryPrices[$index];
 
-                    // Buscar si el elemento ya existe en 'inventories' de la unidad que entrega
-                    $existingInventory = Inventory::where([
-                        'productive_unit_warehouse_id' => $ProductiveUnitWarehousesId,
-                        'element_id' => $machineryId,
-                    ])->first();
-
+                    
                     // Registra la labor con el precio total calculado
                     $machinery = new Equipment([
                         'labor_id' => $laborId,
-                        'inventory_id' => $existingInventory->id,
+                        'inventory_id' => $machineryId,
                         'amount' => $machineryWage,
                         'price' => $machineryPrice,
                     ]);
