@@ -98,6 +98,8 @@
     });
 </script>
 
+
+
 <!-- Alerta para guardar y editar -->
 @if (session('success'))
     <script>

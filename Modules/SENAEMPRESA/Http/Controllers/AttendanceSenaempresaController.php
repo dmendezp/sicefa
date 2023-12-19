@@ -12,6 +12,8 @@ use Modules\SENAEMPRESA\Entities\Senaempresa;
 use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\Person;
 use Illuminate\Support\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Log;
 
 
 class AttendanceSenaempresaController extends Controller
@@ -46,6 +48,49 @@ class AttendanceSenaempresaController extends Controller
         } else {
             return response()->json(['staff' => null]);
         }
+    }
+
+    public function loadAttendancesBySenaempresa(Request $request)
+    {
+        $senaempresaId = $request->input('senaempresa_id');
+
+        $attendances = AttendanceSenaempresa::with('staffSenaempresa.apprentice.person')
+            ->whereHas('staffSenaempresa', function ($query) use ($senaempresaId) {
+                $query->where('senaempresa_id', $senaempresaId);
+            })
+            ->get();
+
+        $attendanceData = [];
+
+        foreach ($attendances as $attendance) {
+            $attendanceData[] = [
+                'name' => $attendance->staffSenaempresa->apprentice->person->full_name,
+                'document_number' => $attendance->staffSenaempresa->apprentice->person->document_number,
+                'start_datetime' => $attendance->start_datetime,
+                'end_datetime' => $attendance->end_datetime,
+                'duration' => $attendance->duration,
+            ];
+        }
+
+        return response()->json(['attendances' => $attendanceData]);
+    }
+
+    public function loadReportBySenaempresa(Request $request)
+    {
+        $senaempresaId = $request->input('senaempresa_id');
+
+        $reportData = StaffSenaempresa::with('apprentice.person')
+            ->where('senaempresa_id', $senaempresaId)
+            ->get()
+            ->map(function ($staff) {
+                return [
+                    'name' => $staff->apprentice->person->full_name,
+                    'document_number' => $staff->apprentice->person->document_number,
+                    'duration_total' => $staff->duration_total,
+                ];
+            });
+
+        return response()->json(['reportData' => $reportData]);
     }
 
 

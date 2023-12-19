@@ -110,7 +110,8 @@ Route::middleware(['lang'])->group(function () {
                 Route::post('/register', 'AttendanceSenaempresaController@register')->name('senaempresa.admin.attendances.register');
                 Route::get('/load-senaempresas', 'AttendanceSenaempresaController@loadSenaempresas')->name('senaempresa.admin.senaempresa.loadSenaempresas');
                 Route::post('/load-staff-by-senaempresa', 'AttendanceSenaempresaController@loadStaffBySenaempresa')->name('senaempresa.admin.attendances.loadStaffBySenaempresa');
-
+                Route::post('/loadAttendancesBySenaempresa', 'AttendanceSenaempresaController@loadAttendancesBySenaempresa')->name('cefa.senaempresa.admin.attendances.loadAttendancesBySenaempresa');
+                Route::post('/loadReportBySenaempresa', 'AttendanceSenaempresaController@loadReportBySenaempresa')->name('cefa.senaempresa.admin.attendances.loadReportBySenaempresa');
 
 
                 // Ruta para mostrar la lista de asistencias

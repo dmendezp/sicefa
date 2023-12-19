@@ -51,6 +51,7 @@
                                         'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.register')))
                             <button type="button" class="btn btn-warning"
                                 id="show-hide-table-button">{{ trans('senaempresa::menu.Registered Attendance') }}</button>
+                            <button type="button" class="btn btn-danger" id="report-hide-table-button">Reporte</button>
                         @endif
                         </form>
                     </div>
@@ -87,6 +88,8 @@
         <div class="col-md-12">
             <div class="card card-primary card-outline shadow">
                 <div class="card-body">
+                    <div class="excel">
+                    </div>
                     <table id="attendance-table" class="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -94,6 +97,7 @@
                                 <th>{{ trans('senaempresa::menu.Document') }}</th>
                                 <th>{{ trans('senaempresa::menu.Date and Time of Entry') }}</th>
                                 <th>{{ trans('senaempresa::menu.Date and time of departure') }}</th>
+                                <th>Duración</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -121,6 +125,7 @@
                                     </td>
                                     <td>{{ $attendance->start_datetime }}</td>
                                     <td>{{ $attendance->end_datetime }}</td>
+                                    <td>{{ $attendance->duration }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -129,11 +134,89 @@
             </div>
         </div>
     </div>
+    <div class="container" id="reporte-table-container" style="display: none;">
+        <h1 class="text-center">
+            <strong><em><span>Reporte</span></em></strong>
+        </h1>
+        <div class="col-md-12">
+            <div class="card card-primary card-outline shadow">
+                <div class="card-body">
+                    <div class="excel">
+                    </div>
+                    <table id="reporte-table" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>{{ trans('senaempresa::menu.Name') }}</th>
+                                <th>{{ trans('senaempresa::menu.Document') }}</th>
+                                <th>Duración Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($attendances as $attendance)
+                                <tr>
+                                    <td>
+                                        @if (
+                                            $attendance->staffSenaempresa &&
+                                                $attendance->staffSenaempresa->apprentice &&
+                                                $attendance->staffSenaempresa->apprentice->person)
+                                            {{ $attendance->staffSenaempresa->apprentice->person->full_name }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if (
+                                            $attendance->staffSenaempresa &&
+                                                $attendance->staffSenaempresa->apprentice &&
+                                                $attendance->staffSenaempresa->apprentice->person)
+                                            {{ $attendance->staffSenaempresa->apprentice->person->document_number }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                    <td>{{ $attendance->duration }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#attendance-table').DataTable({});
+            var attendanceTable = $('#attendance-table').DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": [{
+                    extend: 'excel',
+                    text: 'Exportar a Excel',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3,
+                            4
+                        ] // Ajusta los índices de columna según tu estructura
+                    }
+                }]
+            });
+            attendanceTable.buttons().container().appendTo('#attendance-table-container .excel');
+
+            // Inicializar DataTable para la tabla "reporte-table"
+            var reporteTable = $('#reporte-table').DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": [{
+                    extend: 'excel',
+                    text: 'Exportar a Excel',
+                    exportOptions: {
+                        columns: [0, 1, 2] // Ajusta los índices de columna según tu estructura
+                    }
+                }]
+            });
+            reporteTable.buttons().container().appendTo('#reporte-table-container .excel');
+
 
             $('#senaempresa-select').on('change', function() {
                 var selectedSenaempresaId = $(this).val();
@@ -264,19 +347,128 @@
                 });
             });
 
-            // Agregar un evento clic al botón "Asistencias Registradas"
             $('#show-hide-table-button').on('click', function() {
-                // Obtener el contenedor de la tabla
-                var tableContainer = $('#attendance-table-container');
+                // Get the selected Senaempresa ID
+                var selectedSenaempresaId = $('#senaempresa-select').val();
 
-                // Toggle (mostrar/ocultar) la tabla
-                tableContainer.toggle();
+                // Check if a Senaempresa is selected
+                if (selectedSenaempresaId) {
+                    // Make an AJAX request to fetch attendances for the selected Senaempresa
+                    $.ajax({
+                        url: '{{ route('cefa.senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.loadAttendancesBySenaempresa') }}',
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            senaempresa_id: selectedSenaempresaId
+                        },
+                        success: function(response) {
+                            // Check if the response contains attendances
+                            if (response && response.attendances && response.attendances
+                                .length > 0) {
+                                // Display the DataTable if there are attendances
+                                $('#attendance-table-container').show();
+                                $('#attendance-table tbody').empty();
 
-                // Si la tabla se muestra, inicializa el DataTable
-                if (tableContainer.is(':visible')) {
-                    $('#attendance-table').DataTable().draw();
+                                $.each(response.attendances, function(index, attendance) {
+                                    var row = $('<tr>');
+                                    row.append($('<td>').text(attendance.name));
+                                    row.append($('<td>').text(attendance
+                                        .document_number));
+                                    row.append($('<td>').text(attendance
+                                        .start_datetime));
+                                    row.append($('<td>').text(attendance.end_datetime));
+                                    row.append($('<td>').text(attendance.duration));
+                                    $('#attendance-table tbody').append(row);
+                                });
+
+                                // Initialize DataTable only if there are attendances
+                                $('#attendance-table').DataTable();
+                            } else {
+                                // Show a message if there are no attendances
+                                Swal.fire({
+                                    icon: 'info',
+                                    title: 'Info',
+                                    text: 'No hay asistencias registradas para la Senaempresa seleccionada',
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error en la solicitud AJAX: " + error);
+                        }
+                    });
+                } else {
+                    // Show a message if no Senaempresa is selected
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Advertencia',
+                        text: 'Por favor, selecciona una Senaempresa antes de consultar las asistencias.',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
                 }
             });
+
+            $('#report-hide-table-button').on('click', function() {
+                // Get the selected Senaempresa ID
+                var selectedSenaempresaId = $('#senaempresa-select').val();
+
+                // Check if a Senaempresa is selected
+                if (selectedSenaempresaId) {
+                    // Make an AJAX request to fetch report data for the selected Senaempresa
+                    $.ajax({
+                        url: '{{ route('cefa.senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.loadReportBySenaempresa') }}',
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            senaempresa_id: selectedSenaempresaId
+                        },
+                        success: function(response) {
+                            // Check if the response contains report data
+                            if (response && response.reportData && response.reportData.length >
+                                0) {
+                                // Display the DataTable if there is report data
+                                $('#reporte-table-container').show();
+                                $('#reporte-table tbody').empty();
+
+                                $.each(response.reportData, function(index, report) {
+                                    var row = $('<tr>');
+                                    row.append($('<td>').text(report.name));
+                                    row.append($('<td>').text(report.document_number));
+                                    row.append($('<td>').text(report.duration_total));
+                                    $('#reporte-table tbody').append(row);
+                                });
+
+                                // Initialize DataTable only if there is report data
+                                $('#reporte-table').DataTable();
+                            } else {
+                                // Show a message if there is no report data
+                                Swal.fire({
+                                    icon: 'info',
+                                    title: 'Info',
+                                    text: 'No hay datos de reporte para la Senaempresa seleccionada',
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error en la solicitud AJAX: " + error);
+                        }
+                    });
+                } else {
+                    // Show a message if no Senaempresa is selected
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Advertencia',
+                        text: 'Por favor, selecciona una Senaempresa antes de consultar el reporte.',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                }
+            });
+
         });
     </script>
 @endsection
