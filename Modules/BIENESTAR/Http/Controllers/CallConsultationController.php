@@ -75,16 +75,12 @@ class CallConsultationController extends Controller
         $result = DB::select("
         WITH RankedBenefits AS (
             SELECT 
-                people.document_number, 
                 people.first_name, 
                 people.first_last_name, 
                 people.second_last_name,
-                courses.code, 
                 programs.name, 
                 postulations_benefits.state, 
                 benefits.name AS benefit_name,
-                benefits.porcentege,
-                postulations_benefits.message, 
                 convocations.id,
                 ROW_NUMBER() OVER (PARTITION BY benefits.name ORDER BY postulations.created_at DESC, postulations_benefits.created_at DESC) AS rn
             FROM 

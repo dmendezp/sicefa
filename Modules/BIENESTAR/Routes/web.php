@@ -90,7 +90,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/admin/postulation-management', 'PostulationBenefitController@index')->name('bienestar.admin.view.postulation-management');
         Route::get('/admin/postulation-management/{id}', 'PostulationBenefitController@show')->name('bienestar.admin.show.postulation-management');
         Route::post('/admin/postulation-management/update-benefits', 'PostulationBenefitController@updateStateBenefit')->name('bienestar.admin.update-benefits.postulation-management');
-        Route::get('/admin/postulation-management/get_benefit/{postulationId}', 'PostulationBenefitController@get_benefit')->name('bienestar.admin.remove-benefit.postulation-management');
+        Route::get('/admin/postulation-management/remove_benefit/{postulationId}', 'PostulationBenefitController@remove_benefit')->name('bienestar.admin.remove-benefit.postulation-management');
 
         // Rutas para la vista postulation-management(LIDER BENEFICIO DE ALIMENTACION)
         Route::get('/food_benefits_leaders/postulation-management', 'PostulationBenefitController@index')->name('bienestar.food_benefits_leaders.view.postulation-management');

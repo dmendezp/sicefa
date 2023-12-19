@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Person;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 use Modules\BIENESTAR\Entities\AssignTransportRoute;
 use Modules\BIENESTAR\Entities\TransportationAssistance;
 use Modules\BIENESTAR\Entities\RouteTransportation;
@@ -87,7 +88,7 @@ class TransportationAssistancesController extends Controller
             ->join('bus_drivers', 'buses.bus_driver_id', '=', 'bus_drivers.id')
             ->join('convocations', 'postulations.convocation_id', '=', 'convocations.id')
             ->join('quarters', 'convocations.quarter_id', '=', 'quarters.id')
-            
+
 
             ->select(
                 'assing_transport_routes.id as assing_transport_route_id',
@@ -128,92 +129,7 @@ class TransportationAssistancesController extends Controller
             }
         }
 
-        return view('bienestar::route-attendance.transportation-assistance');
-    }
-
-    //API FUNCIONES
-    public function AssistancesTransport()
-    {
-        $results = DB::table('transportation_assistances')
-            ->join('apprentices', 'transportation_assistances.apprentice_id', '=', 'apprentices.id')
-            ->join('people', 'apprentices.person_id', '=', 'people.id')
-            ->join('assing_transport_routes', 'transportation_assistances.assing_transport_route_id', '=', 'assing_transport_routes.id')
-            ->join('routes_transportations', 'assing_transport_routes.route_transportation_id', '=', 'routes_transportations.id')
-            ->join('bus_drivers', 'transportation_assistances.bus_driver_id', '=', 'bus_drivers.id')
-            ->join('buses', 'transportation_assistances.bus_id', '=', 'buses.id')
-            ->select(
-                'transportation_assistances.apprentice_id',
-                'people.document_number',
-                'people.first_name',
-                'people.first_last_name',
-                'people.second_last_name',
-                'transportation_assistances.assing_transport_route_id',
-                'routes_transportations.route_number',
-                'routes_transportations.name_route',
-                'transportation_assistances.bus_driver_id',
-                'bus_drivers.name',
-                'transportation_assistances.bus_id',
-                'buses.plate',
-                'transportation_assistances.date_time'
-            )
-            ->whereDate('transportation_assistances.date_time', now()->toDateString())
-            ->orderBy('transportation_assistances.date_time', 'desc') // Ordena por fecha de forma descendente
-            ->get();
-
-
-        return response()->json(['data' => $results], 200);
-    }
-
-    public function SaveAttendance(Request $request)
-    {
-        $documentNumber = $request->input('data');
-
-        // Realizar la consulta y obtener los datos
-        $Savettendance = DB::table('assing_transport_routes')
-            ->join('postulations_benefits', 'assing_transport_routes.postulation_benefit_id', '=', 'postulations_benefits.id')
-            ->join('postulations', 'postulations_benefits.postulation_id', '=', 'postulations.id')
-            ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
-            ->join('apprentices', 'postulations.apprentice_id', '=', 'apprentices.id')
-            ->join('people', 'apprentices.person_id', '=', 'people.id')
-            ->join('routes_transportations', 'assing_transport_routes.route_transportation_id', '=', 'routes_transportations.id')
-            ->join('buses', 'routes_transportations.bus_id', '=', 'buses.id')
-            ->join('bus_drivers', 'buses.bus_driver_id', '=', 'bus_drivers.id')
-            ->select(
-                'assing_transport_routes.id as assing_transport_route_id',
-                'apprentices.id as apprentice_id',
-                'postulations_benefits.id as postulation_benefit_id',
-                'buses.id as bus_id',
-                'bus_drivers.id as bus_driver_id',
-                'benefits.porcentege',
-                DB::raw('NOW() as date_time')
-            )
-            ->where('people.document_number', $documentNumber)
-            ->where('postulations_benefits.state', 'beneficiario')
-            ->where('benefits.name', 'Transporte')
-            ->get();
-
-        // Guardar los datos en la tabla transportation_assistances
-        foreach ($Savettendance as $row) {
-            DB::table('transportation_assistances')->insert([
-                'assing_transport_route_id' => $row->assing_transport_route_id,
-                'apprentice_id' => $row->apprentice_id,
-                'postulation_benefit_id' => $row->postulation_benefit_id,
-                'bus_id' => $row->bus_id,
-                'bus_driver_id' => $row->bus_driver_id,
-                'porcentenge' => $row->porcentege,
-                'date_time' => $row->date_time,
-                'assistance_status' => 'Presente',
-                'created_at' => now(), // Use Laravel helper function for current timestamp
-                'updated_at' => now(), // Use Laravel helper function for current timestamp
-            ]);
-        }
-        $response = [
-            'success' => true,
-            'message' => 'Número de documento enviado con éxito',
-        ];
-
-        // Retornar la respuesta como JSON
-        return response()->json($response, 200);
+        return response()->json(['success' => 'Registro de asistencia guardado con exitosamente!']);
     }
 
 
@@ -284,5 +200,136 @@ class TransportationAssistancesController extends Controller
             ->get();
 
         return view('bienestar::route-attendance.failure_reporting', ['resultados' => $resultados]);
+    }
+
+    //API FUNCIONES
+    public function AssistancesTransport()
+    {
+        $results = DB::table('transportation_assistances')
+            ->join('apprentices', 'transportation_assistances.apprentice_id', '=', 'apprentices.id')
+            ->join('people', 'apprentices.person_id', '=', 'people.id')
+            ->join('assing_transport_routes', 'transportation_assistances.assing_transport_route_id', '=', 'assing_transport_routes.id')
+            ->join('routes_transportations', 'assing_transport_routes.route_transportation_id', '=', 'routes_transportations.id')
+            ->join('bus_drivers', 'transportation_assistances.bus_driver_id', '=', 'bus_drivers.id')
+            ->join('buses', 'transportation_assistances.bus_id', '=', 'buses.id')
+            ->select(
+                'transportation_assistances.apprentice_id',
+                'people.document_number',
+                'people.first_name',
+                'people.first_last_name',
+                'people.second_last_name',
+                'transportation_assistances.assing_transport_route_id',
+                'routes_transportations.route_number',
+                'routes_transportations.name_route',
+                'transportation_assistances.bus_driver_id',
+                'bus_drivers.name',
+                'transportation_assistances.bus_id',
+                'buses.plate',
+                'transportation_assistances.date_time'
+            )
+            ->whereDate('transportation_assistances.date_time', now()->toDateString())
+            ->orderBy('transportation_assistances.date_time', 'desc') // Ordena por fecha de forma descendente
+            ->get();
+
+
+        return response()->json(['data' => $results], 200);
+    }
+
+    public function SaveAttendance(Request $request)
+    {
+        $documentNumber = $request->input('data');
+
+        try {
+            // Verificar duplicados antes de realizar la consulta
+            $existingRecord = DB::table('transportation_assistances')
+                ->join('apprentices', 'transportation_assistances.apprentice_id', '=', 'apprentices.id')
+                ->join('people', 'apprentices.person_id', '=', 'people.id')
+                ->where('people.document_number', $documentNumber)
+                ->whereDate('date_time', now()->toDateString()) // Filtrar por la fecha actual
+                ->exists();
+
+            if ($existingRecord) {
+                // Si ya existe un registro para este documento hoy, retorna un JSON con un mensaje de error
+                $response = [
+                    'success' => false,
+                    'message' => 'Ya existe un registro con ese número de documento para hoy.',
+                ];
+                return response()->json($response, 400);
+            }
+
+            // Realizar la consulta y obtener los datos
+            $Savettendance = DB::table('assing_transport_routes')
+                ->join('postulations_benefits', 'assing_transport_routes.postulation_benefit_id', '=', 'postulations_benefits.id')
+                ->join('postulations', 'postulations_benefits.postulation_id', '=', 'postulations.id')
+                ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
+                ->join('apprentices', 'postulations.apprentice_id', '=', 'apprentices.id')
+                ->join('people', 'apprentices.person_id', '=', 'people.id')
+                ->join('routes_transportations', 'assing_transport_routes.route_transportation_id', '=', 'routes_transportations.id')
+                ->join('buses', 'routes_transportations.bus_id', '=', 'buses.id')
+                ->join('bus_drivers', 'buses.bus_driver_id', '=', 'bus_drivers.id')
+                ->select(
+                    'assing_transport_routes.id as assing_transport_route_id',
+                    'apprentices.id as apprentice_id',
+                    'postulations_benefits.id as postulation_benefit_id',
+                    'buses.id as bus_id',
+                    'bus_drivers.id as bus_driver_id',
+                    'benefits.porcentege',
+                    DB::raw('NOW() as date_time')
+                )
+                ->where('people.document_number', $documentNumber)
+                ->where('postulations_benefits.state', 'beneficiario')
+                ->where('benefits.name', 'Transporte')
+                ->get();
+
+            // Guardar los datos en la tabla transportation_assistances
+            foreach ($Savettendance as $row) {
+                // Verificar duplicados antes de guardar los datos en la tabla transportation_assistances
+                $existingRecord = DB::table('transportation_assistances')
+                    ->where('apprentice_id', $row->apprentice_id)
+                    ->whereDate('date_time', now()->toDateString()) // Filtrar por la fecha actual
+                    ->exists();
+
+                if (!$existingRecord) {
+                    // Guardar los datos en la tabla transportation_assistances con 'Presente' en assistance_status
+                    DB::table('transportation_assistances')->insert([
+                        'assing_transport_route_id' => $row->assing_transport_route_id,
+                        'apprentice_id' => $row->apprentice_id,
+                        'postulation_benefit_id' => $row->postulation_benefit_id,
+                        'bus_id' => $row->bus_id,
+                        'bus_driver_id' => $row->bus_driver_id,
+                        'porcentenge' => $row->porcentege,
+                        'date_time' => $row->date_time,
+                        'assistance_status' => 'Presente',
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
+            }
+
+            $response = [
+                'success' => true,
+                'message' => 'Número de documento enviado con éxito',
+            ];
+
+            // Retornar la respuesta como JSON
+            return response()->json($response, 200);
+        } catch (QueryException $e) {
+            // Error de base de datos
+            $errorCode = $e->errorInfo[1];
+
+            if ($errorCode == 1062) { // Código de error específico para violación de clave única
+                $response = [
+                    'success' => false,
+                    'message' => 'Ya existe un registro con ese número de documento.',
+                ];
+            } else {
+                $response = [
+                    'success' => false,
+                    'message' => 'Error en la base de datos.',
+                ];
+            }
+
+            return response()->json($response, 400);
+        }
     }
 }

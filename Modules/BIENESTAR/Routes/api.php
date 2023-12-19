@@ -31,7 +31,7 @@ Route::get('/Api/FoodAssistances', [AssistancesFoodsController::class, 'FoodAssi
 Route::get('/Api/RegisterAssistances', [AssistancesFoodsController::class, 'RegisterAssistances']);
 Route::get('/Api/Consult_Benefits', [CallConsultationController::class, 'ConsultBenefit']);
 Route::get('/Api/Consult_Bus_Drivers', [RoutesTransportationController::class, 'BusDriverRoute']);
-Route::get('/Api/SaveRouteTransport', [RoutesTransportationController::class, 'BusDriverRoute']);
+Route::get('/Api/SaveRouteTransport', [RoutesTransportationController::class, 'UpdateBusDriverRouteTransportation']);
 ////////////
 Route::get('/Api/all_assistances', [AssistancesFoodsController::class, 'getAllAssistances']);
 Route::post('/Api/filter_by_percentage', [AssistancesFoodsController::class, 'filterAssistancesByPercentage']);

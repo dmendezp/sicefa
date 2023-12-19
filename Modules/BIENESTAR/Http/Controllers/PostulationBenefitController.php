@@ -4,6 +4,7 @@ namespace Modules\BIENESTAR\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -72,6 +73,7 @@ class PostulationBenefitController extends Controller
     {
         // Obtén los datos del formulario
         $postulationId = $request->input('postulation_id');
+        $postulationsbentfitsId = $request->input('postulationsbentfits_id');
         $benefitIdTransport = $request->input('benefit_id_transport');
         $benefitIdFood = $request->input('benefit_id_food');
         $score = $request->input('score');
@@ -79,16 +81,15 @@ class PostulationBenefitController extends Controller
 
         // Actualiza o crea en la tabla postulations_benefits para el beneficio de transporte
         if (!empty($benefitIdTransport)) {
-            try {
-                $postulationBenefitTransport = PostulationBenefit::where('postulation_id', $postulationId)
-                    ->where('benefit_id', $benefitIdTransport)
-                    ->firstOrFail();
+            $postulationBenefitTransport = PostulationBenefit::find($postulationsbentfitsId);
 
+            if ($postulationBenefitTransport) {
                 // Si encontró el registro, actualiza los datos
+                $postulationBenefitTransport->benefit_id = $benefitIdTransport;
                 $postulationBenefitTransport->state = 'Beneficiario';
                 $postulationBenefitTransport->message = $message;
                 $postulationBenefitTransport->save();
-            } catch (ModelNotFoundException $e) {
+            } else {
                 // Si no encontró el registro, crea uno nuevo
                 $postulationBenefitTransport = new PostulationBenefit();
                 $postulationBenefitTransport->postulation_id = $postulationId;
@@ -101,16 +102,15 @@ class PostulationBenefitController extends Controller
 
         // Repite el proceso para el beneficio de alimentación
         if (!empty($benefitIdFood)) {
-            try {
-                $postulationBenefitFood = PostulationBenefit::where('postulation_id', $postulationId)
-                    ->where('benefit_id', $benefitIdFood)
-                    ->firstOrFail();
+            $postulationBenefitFood = PostulationBenefit::find($postulationsbentfitsId);
 
+            if ($postulationBenefitFood) {
                 // Si encontró el registro, actualiza los datos
+                $postulationBenefitFood->benefit_id = $benefitIdFood;
                 $postulationBenefitFood->state = 'Beneficiario';
                 $postulationBenefitFood->message = $message;
                 $postulationBenefitFood->save();
-            } catch (ModelNotFoundException $e) {
+            } else {
                 // Si no encontró el registro, crea uno nuevo
                 $postulationBenefitFood = new PostulationBenefit();
                 $postulationBenefitFood->postulation_id = $postulationId;
@@ -124,6 +124,15 @@ class PostulationBenefitController extends Controller
         // Actualiza el score en la tabla postulations
         Postulation::where('id', $postulationId)->update(['total_score' => $score]);
 
-        return response()->json(['success' => 'Se ha asignado el leneficio con éxito']);
+        return response()->json(['success' => 'Se ha asignado el beneficio con éxito']);
+    }
+
+    public function remove_benefit(Request $request, $id)
+    {
+        $postulation_benefit = PostulationBenefit::find($id);
+        $postulation_benefit->state = 'No Beneficiario';
+        $postulation_benefit->save();
+
+        return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.view.postulation-management');
     }
 }

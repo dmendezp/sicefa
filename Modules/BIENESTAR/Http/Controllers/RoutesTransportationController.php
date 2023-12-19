@@ -9,6 +9,7 @@ use Modules\BIENESTAR\Entities\RouteTransportation;
 use Modules\BIENESTAR\Entities\BusDriver;
 use Modules\BIENESTAR\Entities\Bus;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 class RoutesTransportationController extends Controller
 
@@ -103,7 +104,7 @@ class RoutesTransportationController extends Controller
     public function BusDriverRoute()
     {
         $names = BusDriver::select('id', 'name')->get();
-        $routes = RouteTransportation::select('id', 'name_route')->get();
+        $routes = RouteTransportation::select('bus_id', 'name_route')->get();
         $results = [$names, $routes];
         return response()->json(['data' => $results], 200);
     }
@@ -113,29 +114,18 @@ class RoutesTransportationController extends Controller
     $idBusDriver = $request->input('id_bus_driver');
     $idTransportRoute = $request->input('id_transport_route');
 
-    if ($idTransportRoute) {
-        // Obtener el modelo Bus asociado a la ruta
-        $route = RouteTransportation::find($idTransportRoute);
+    DB::update('UPDATE buses SET bus_driver_id = :newBusDriverId WHERE id = :busId', [
+        'newBusDriverId' => $idBusDriver,
+        'busId' => $idTransportRoute,
+    ]); 
+    
+    $response = [
+        'success' => true,
+        'message' => 'Número de documento enviado con éxito',
+    ];
 
-        if ($route) {
-            $bus = $route->bus_driver_id;
-
-            if ($bus) {
-                // Actualizar el bus_driver_id en el modelo Bus
-                $bus = new Bus;
-                $bus->bus_driver_id = $idBusDriver;
-                $bus->save();
-                
-                return response()->json(['message' => 'Actualización exitosa']);
-            } else {
-                return response()->json(['message' => 'Bus no encontrado para la ruta'], 404);
-            }
-        } else {
-            return response()->json(['message' => 'Ruta de transporte no encontrada'], 404);
-        }
-    } else {
-        return response()->json(['message' => 'Falta el parámetro id_transport_route'], 400);
-    }
+    // Retornar la respuesta como JSON
+    return response()->json($response, 200);
 }
 
 }

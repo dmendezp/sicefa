@@ -71,12 +71,25 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
     });
 
     function performSearch() {
-        var miObjeto = new Object();
-        miObjeto = $('#assitance').val();
-        var data = JSON.stringify(miObjeto);
-        console.log(miObjeto);
-        ajaxReplace('divAssitance', '/bienestar/{{ $role_name }}/transportation_asistance/search', data);
+    var miObjeto = new Object();
+    miObjeto = $('#assitance').val();
+    var data = JSON.stringify(miObjeto);
+    console.log(miObjeto);
 
-    }
+    // Realizar la búsqueda mediante AJAX
+    ajaxReplace('divAssitance', '/bienestar/{{ $role_name }}/transportation_asistance/search', data)
+        .then(function(response) {
+            if (response.status === 200) {
+                if (response.data.success) {
+                    // Mostrar SweetAlert con el mensaje de éxito
+                    showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 1500);
+                } else {
+                    // Mostrar SweetAlert con un mensaje de error general
+                    showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}", 3000);
+                }
+            }
+        });
+}
+
 </script>
 @endsection

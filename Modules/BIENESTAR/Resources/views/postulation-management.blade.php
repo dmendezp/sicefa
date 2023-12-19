@@ -57,53 +57,32 @@ $role_name = getRoleRouteName(Route::currentRouteName());
                                         </td>
                                         <td>
                                             @if ($postulation->transportation_benefit == 1)
-                                            <select class="form-control" name="benefit_id_transport_{{ $postulation->id }}" id="benefit_id_transport_{{ $postulation->id }}" required>
+                                            <select class="form-control" name="benefit_id_transport" id="benefit_id_transport_{{ $postulation->id }}" required>
                                                 <option value="">Seleccione el beneficio</option>
                                                 @foreach ($benefits as $benefit)
-                                                @php
-                                                $selectedTransport = '';
-                                                foreach ($postulationsbentfits as $postulationBenefit) {
-                                                if ($benefit->name == 'Transporte' && $postulation->id == $postulationBenefit->postulation_id && $benefit->id == $postulationBenefit->benefit_id) {
-                                                $selectedTransport = 'selected';
-                                                break;
-                                                }
-                                                }
-                                                @endphp
                                                 @if ($benefit->name == 'Transporte')
-                                                <option value="{{ $benefit->id }}" {{ $selectedTransport }}>{{ $benefit->name }} {{ $benefit->porcentege }}</option>
+                                                <option value="{{ $benefit->id }}">{{ $benefit->name }} {{ $benefit->porcentege }}</option>
                                                 @endif
                                                 @endforeach
                                             </select>
                                             @endif
-
-
                                             <br>
                                             @if ($postulation->feed_benefit == 1)
-                                            <select class="form-control" name="benefit_id_food_{{ $postulation->id }}" id="benefit_id_food_{{ $postulation->id }}" required>
+                                            <select class="form-control" name="benefit_id_food" id="benefit_id_food_{{ $postulation->id }}" required>
                                                 <option value="">Seleccione el beneficio</option>
                                                 @foreach ($benefits as $benefit)
-                                                @php
-                                                $selected = '';
-                                                foreach ($postulationsbentfits as $postulationBenefit) {
-                                                if ($postulation->id == $postulationBenefit->postulation_id && $benefit->id == $postulationBenefit->benefit_id) {
-                                                $selected = 'selected';
-                                                break;
-                                                }
-                                                }
-                                                @endphp
                                                 @if ($benefit->name == 'Alimentacion')
-                                                <option value="{{ $benefit->id }}" {{ $selected }}>{{ $benefit->name }} {{ $benefit->porcentege }}</option>
+                                                <option value="{{ $benefit->id }}">{{ $benefit->name }} {{ $benefit->porcentege }}</option>
                                                 @endif
                                                 @endforeach
                                             </select>
                                             @endif
-
-
                                         </td>
                                         <td>
                                             <div class="d-flex flex-column">
                                                 @foreach ($postulationsbentfits as $pb)
                                                 @if ($postulation->id == $pb->postulation_id)
+                                                <input type="hidden" name="postulationsbentfits_id" value="{{ $pb->id}}">
                                                 <div>
                                                     {{ $pb->state }}
                                                     @foreach ($benefits as $benefit)
@@ -169,6 +148,17 @@ $role_name = getRoleRouteName(Route::currentRouteName());
                                                                 <label for="message">Puntaje</label>
                                                                 <input type="number" class="form-control" name="score" id="score" value="{{ $postulation->total_score }}" required>
                                                             </div>
+                                                            @foreach ($postulationsbentfits as $pb)
+                                                            <div class="form-group">
+                                                                @if ($postulation->id == $pb->postulation_id)
+                                                                <input type="hidden" name="postulationsbentfits_id" value="{{ $pb->id }}">
+                                                                <a href="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.remove-benefit.postulation-management', ['postulationId' => $pb->postulation_id]) }}" class="btn btn-danger formEliminar">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                                </a>
+                                                                @endif
+                                                            </div>
+                                                            @endforeach
+
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
