@@ -157,6 +157,7 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/list', [WarehouseController::class ,'inventoryAlert'])->name('cefa.agroindustria.storer.inventory.list');   
             Route::get('/request', [RequestController::class, 'index'])->name('cefa.agroindustria.storer.units.view.request');
             Route::get('/inventoryA', [WarehouseController::class ,'inventoryAlert'])->name('cefa.agroindutria.storer.units.inventoryAlert'); 
+            Route::get('/Inventoryexp', [WarehouseController::class ,'expirationdate'])->name('cefa.agroindutria.storer.units.inventoryAlertexp'); 
 
             Route::put('/request/cancelled/{id}', [LaborController::class, 'rechazarSolicitud'])->name('cefa.agroindustria.storer.units.request.cancelled');
         });       

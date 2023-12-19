@@ -26,7 +26,7 @@ use Validator, Str;
 class WarehouseController extends Controller
 {
 
-    /*public function expirationdate()
+    public function expirationdate()
     {
         $title = 'expirationdate';
     
@@ -39,32 +39,44 @@ class WarehouseController extends Controller
         $ProductiveUnitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->get();
         $pwId = $ProductiveUnitWarehouses->first()->id;
     
-        // Obtén los elementos y sus fechas de vencimiento
+        // Obtén los elementos y sus fechas de vencimiento con información adicional
         $elementsAndExpiryDates = Inventory::whereIn('element_id', $element)
             ->where('productive_unit_warehouse_id', $pwId)
-            ->pluck('expiration_date', 'element_id');
+            ->with(['element.category', 'element.measurement_unit'])
+            ->get();
     
-        // Obtén la información detallada de los elementos
-        $elementsInfo = Element::whereIn('id', $element)->get();
-    
-        // Combina la información de fechas de vencimiento con la información detallada de los elementos
+        // Combina la información de fechas de vencimiento con la información detallada de los elementos y asigna el estado
         $data = [];
-        foreach ($elementsAndExpiryDates as $elementId => $expiryDate) {
-            $elementInfo = $elementsInfo->where('id', $elementId)->first();
-            $data[] = [
-                'element_name' => $elementInfo->name,
-                'expiration_date' => $expiryDate,
-            ];
+        foreach ($elementsAndExpiryDates as $inventory) {
+            $expirationDate = $inventory->expiration_date;
+    
+            // Comparar la fecha de expiración con la fecha actual
+            if (now()->greaterThanOrEqualTo($expirationDate) || now()->addDays(60)->greaterThanOrEqualTo($expirationDate)) {
+                $state = now()->greaterThanOrEqualTo($expirationDate) ? 'Caducado.' : 'Pronto a caducar.';
+                
+                $data[] = [
+                    'element_id' => $inventory->element->id,
+                    'element_name' => $inventory->element->name,
+                    'category' => $inventory->element->category->name,
+                    'measurement_unit' => $inventory->element->measurement_unit->name,
+                    'amount' => $inventory->amount,
+                    'expiration_date' => $expirationDate,
+                    'lot_number' => $inventory->lot_number,
+                    'description' => $inventory->description,
+                    'state' => $state,
+                ];
+            }
         }
     
         $data = [
             'title' => $title,
             'expirationdate' => $data,
         ];
-        dd($data);
     
-        return view('agroindustria::storer.expirationdate', $data);
-    }*/
+        return view('agroindustria::storer.inventoryexp', $data);
+    }
+    
+    
     
 
     //Funcion de listar insumos pronto a agotarse.

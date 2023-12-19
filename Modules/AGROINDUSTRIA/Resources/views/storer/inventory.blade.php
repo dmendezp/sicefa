@@ -10,13 +10,24 @@
     </button>
 </a>
 @else
+
+
 @if(auth()->check() && (checkRol('agroindustria.almacenista')))
 <a href="{{route('cefa.agroindutria.storer.units.inventoryAlert')}}"  style="margin-left: 120px; margin-bottom: 20px; ">
-    <button class="btn btn-warning" style="width: 45px; height: 35px;">
-        <i class="fas fa-eye" style="color: #ffffff;"></i>
+    <button class="btn btn-success" >
+        <i class="fas fa-eye" style="color: #ffffff;">ㅤINSUMOS PRONTO A AGOTARSEN</i>
     </button>
 </a>
 @endif
+
+@if(auth()->check() && (checkRol('agroindustria.almacenista')))
+<a href="{{route('cefa.agroindutria.storer.units.inventoryAlertexp')}}"  style="margin-left: 120px; margin-bottom: 20px; ">
+    <button class="btn btn-info" >
+        <i class="fas fa-eye" style="color: #ffffff;">ㅤINSUMOS PRONTOS A CADUCAR</i>
+    </button>
+</a>
+@endif
+<hr>
 @endif
 
 <div class="table-labors">

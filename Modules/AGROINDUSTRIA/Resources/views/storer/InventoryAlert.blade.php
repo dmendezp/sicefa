@@ -47,35 +47,3 @@
 
 
 
-
-{{-- @extends('agroindustria::layouts.master')
-@section('content')
-<table>
-    <div class="container">
-        <div class="card">
-                <table id="example" class="table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nombre</th>
-                            <th>Descripcion</th>
-                            <th>Cantidad</th>
-                          
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($inventoryAlert as $inventory)
-                            <tr>
-                                <td>{{$inventory->id}}</td>
-                                <td>{{$inventory->element->name}}</td>
-                                <td>{{$inventory->description}}</td>
-                                <td>{{$inventory->amount}}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-        </div>
-    </div>
-</table>
-
-@endsection --}}
