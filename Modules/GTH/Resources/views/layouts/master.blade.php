@@ -13,7 +13,11 @@
 
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
-        @if (in_array(request()->path(), ['gth/attendanceregister','gth/attendanceregister']))
+        @if (Auth::user()->havePermission('gth.registerattendance.attendancecourse.index'))
+            @include('gth::partials.asistenciasidebar')
+        @elseif (Auth::user()->havePermission('gth.brigadista.attendancereport.index'))
+            @include('gth::partials.asistenciasidebar')
+        @elseif (in_array(request()->path(), ['gth/attendanceregister','gth/attendanceregister']))
             @include('gth::partials.asistenciasidebar')
         @elseif (in_array(request()->path(), ['gth/attendancereport']))
             @include('gth::partials.asistenciasidebar')

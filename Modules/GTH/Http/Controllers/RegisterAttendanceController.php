@@ -10,7 +10,7 @@ use Modules\SIGAC\Entities\Attendance;
 
 class RegisterAttendanceController extends Controller
 {
-    public function viewregisterattendance(Request $request)
+    public function registerattendance(Request $request)
     {
         $documentNumber = $request->input('document_number');
         $date = Carbon::now()->toDateString();

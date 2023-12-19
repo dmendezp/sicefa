@@ -55,6 +55,70 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_registerattendance[] = $permission->id; // Almacenar permiso para rol
 
+        $permission = Permission::updateOrCreate(['slug' => 'gth.admin.employeetypes.index'], [
+            'name' => 'Tipo de Empleados',
+            'description' => 'Tendra el acceso a los Tipos de Empleados',
+            'description_english' => 'You will have access to the Types of Employees',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'gth.admin.contractortypes.index'], [
+            'name' => 'Tipo de Contratos',
+            'description' => 'Tendra el acceso a los Tipos de Contratos',
+            'description_english' => 'You will have access to the Types of Contracts',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'gth.admin.insurerentities.index'], [
+            'name' => 'Entidad Aseguradora',
+            'description' => 'Tendra el acceso a Entidad Aseguradora',
+            'description_english' => 'You will have access to Insure Entities',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'gth.admin.pensionentities.index'], [
+            'name' => 'Entidad de Pensiones',
+            'description' => 'Tendra el acceso a Entidad Pension',
+            'description_english' => 'You will have access to Insure Pension',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'gth.admin.contractreports.index'], [
+            'name' => 'Reporte de Contratos',
+            'description' => 'Tendra el acceso a Reporte de Contrato',
+            'description_english' => 'You will have access to Report Contract',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'gth.admin.contractors.index'], [
+            'name' => 'Contratos',
+            'description' => 'Tendra el acceso a Contrato',
+            'description_english' => 'You will have access to Contract',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'gth.admin.position.index'], [
+            'name' => 'Posicion',
+            'description' => 'Tendra el acceso a Posicion',
+            'description_english' => 'You will have access to Position',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'gth.admin.officials.index'], [
+            'name' => 'Funcionarios',
+            'description' => 'Tendra el acceso a Posicion',
+            'description_english' => 'You will have access to Position',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
 
 
         // Consulta de ROLES

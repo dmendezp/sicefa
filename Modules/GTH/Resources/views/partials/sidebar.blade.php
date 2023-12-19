@@ -74,6 +74,7 @@
                         <p> {{ trans('gth::menu.Home') }}</p>
                     </a>
                 </li>
+
                 <li
                     class="nav-item {{ Route::is('gth.admin.contractors.index', 'gth.admin.contractreports.index', 'cefa.contractualcertificates.view') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link {{ !Route::is('contratos.*') ?: 'active' }}">
@@ -83,6 +84,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @if (Auth::user()->havePermission('gth.admin.contractreports.index'))
                         <li class="nav-item">
                             <a href="{{ route('gth.admin.contractreports.index') }}"
                                 class="nav-link {{ !Route::is('gth.admin.contractreports.index') ?: 'active' }}">
@@ -90,6 +92,9 @@
                                 <p> {{ trans('gth::menu.Employment Contract') }}</p>
                             </a>
                         </li>
+                        @endif
+
+                        @if (Auth::user()->havePermission('gth.admin.contractors.index'))
                         <li class="nav-item">
                             <a href="{{ route('gth.admin.contractors.index') }}"
                                 class="nav-link {{ !Route::is('gth.admin.contractors.index') ?: 'active' }}">
@@ -99,6 +104,8 @@
                                 </p>
                             </a>
                         </li>
+                        @endif
+
                         <li class="nav-item">
                             <a href="{{ route('cefa.contractualcertificate.view') }}"
                                 class="nav-link {{ !Route::is('cefa.contractualcertificate.view') ?: 'active' }}">
@@ -110,6 +117,7 @@
                         </li>
                     </ul>
                 </li>
+
                 <li
                     class="nav-item {{ Route::is('gth.admin.insurerentities.index', 'gth.admin.contractortypes.index', 'gth.admin.employeetypes.index', 'gth.admin.pensionentities.index', 'gth.admin.position.index') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link {{ !Route::is('contratos.*') ?: 'active' }}">
@@ -119,6 +127,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @if (Auth::user()->havePermission('gth.admin.insurerentities.index'))
                         <li class="nav-item">
                             <a href="{{ route('gth.admin.insurerentities.index') }}"
                                 class="nav-link {{ !Route::is('gth.admin.insurerentities.index') ?: 'active' }}">
@@ -128,6 +137,9 @@
                                 </p>
                             </a>
                         </li>
+                        @endif
+
+                        @if (Auth::user()->havePermission('gth.admin.contractortypes.index'))
                         <li class="nav-item">
                             <a href="{{ route('gth.admin.contractortypes.index') }}"
                                 class="nav-link {{ !Route::is('gth.admin.contractortypes.index') ?: 'active' }}">
@@ -137,6 +149,9 @@
                                 </p>
                             </a>
                         </li>
+                        @endif
+
+                        @if (Auth::user()->havePermission('gth.admin.employeetypes.index'))
                         <li class="nav-item">
                             <a href="{{ route('gth.admin.employeetypes.index') }}"
                                 class="nav-link {{ !Route::is('gth.admin.employeetypes.index') ?: 'active' }}">
@@ -146,6 +161,9 @@
                                 </p>
                             </a>
                         </li>
+                        @endif
+
+                        @if (Auth::user()->havePermission('gth.admin.pensionentities.index'))
                         <li class="nav-item">
                             <a href="{{ route('gth.admin.pensionentities.index') }}"
                                 class="nav-link {{ !Route::is('gth.admin.pensionentities.index') ?: 'active' }}">
@@ -155,6 +173,9 @@
                                 </p>
                             </a>
                         </li>
+                        @endif
+
+                        @if (Auth::user()->havePermission('gth.admin.position.index'))
                         <li class="nav-item">
                             <a href="{{ route('gth.admin.position.index') }}"
                                 class="nav-link {{ !Route::is('gth.admin.position.index') ?: 'active' }}">
@@ -164,8 +185,11 @@
                                 </p>
                             </a>
                         </li>
+                        @endif
                     </ul>
                 </li>
+
+                @if (Auth::user()->havePermission('gth.admin.officials.index'))
                 <li class="nav-item">
                     <a href="{{ route('gth.admin.officials.index') }}"
                         class="nav-link {{ !Route::is('gth.admin.officials.index') ?: 'active' }}">
@@ -175,16 +199,7 @@
                         </p>
                     </a>
                 </li>
-
-                <li class="nav-item">
-                    <a href="{{ route('gth.admin.brigader.index') }}"
-                        class="nav-link {{ !Route::is('gth.admin.brigader.index') ?: 'active' }}">
-                        <i class="fa-solid fa-person-carry-box"></i>
-                        <p>
-                            Brigadista
-                        </p>
-                    </a>
-                </li>
+                @endif
 
         </nav>
         <!-- /.sidebar-menu -->

@@ -98,7 +98,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/attendancereport', 'AttendanceReportController@viewattendancereport')->name('gth.brigadista.attendancereport.index');
 
         //Register Attendance
-        Route::get('/registerattendance', 'RegisterAttendanceController@viewregisterattendance')->name('gth.registerattendance.registerattendance.index');
+        Route::get('/registerattendance', 'RegisterAttendanceController@registerattendance')->name('cefa.registerattendance.store');
     });
 });
 
