@@ -29,27 +29,30 @@
                             </div>
                             <input type="hidden" class="form-control" id="vacancy_id" name="vacancy_id"
                                 value="{{ $vacancy->id }}" readonly>
-                            <div class="mb-3">
-                                <label for="cv"
-                                    class="form-label">{{ trans('senaempresa::menu.Currículum') }}</label><br>
-                                <input type="file" id="cv" name="cv" accept=".pdf" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="personalities"
-                                    class="form-label">{{ trans('senaempresa::menu.16 personalities') }}</label><br>
-                                <input type="file" id="personalities" name="personalities" accept=".pdf" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="proposal"
-                                    class="form-label">{{ trans('senaempresa::menu.Proposal') }}</label><br>
-                                <input type="file" id="proposal" name="proposal" accept=".pdf" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="employment_certificate" class="form-label">Certificado agencia publica de empleo
-                                </label><br>
-                                <input type="file" id="employment_certificate" name="employment_certificate"
-                                    accept=".pdf" required>
-                            </div>
+                            @if ($existingPostulatesCount == 0)
+                                <div class="mb-3">
+                                    <label for="cv"
+                                        class="form-label">{{ trans('senaempresa::menu.Currículum') }}</label><br>
+                                    <input type="file" id="cv" name="cv" accept=".pdf" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="personalities"
+                                        class="form-label">{{ trans('senaempresa::menu.16 personalities') }}</label><br>
+                                    <input type="file" id="personalities" name="personalities" accept=".pdf" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="proposal"
+                                        class="form-label">{{ trans('senaempresa::menu.Proposal') }}</label><br>
+                                    <input type="file" id="proposal" name="proposal" accept=".pdf" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="employment_certificate" class="form-label">Certificado agencia publica de
+                                        empleo
+                                    </label><br>
+                                    <input type="file" id="employment_certificate" name="employment_certificate"
+                                        accept=".pdf" required>
+                                </div>
+                            @endif
 
                             <button type="submit"
                                 class="btn btn-success">{{ trans('senaempresa::menu.Register') }}</button>
