@@ -4,7 +4,7 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModolLabel">Editar Funcionario {{ $employe->id }}</h5>
+                    <h5 class="modal-title" id="exampleModolLabel">{{ trans('gth::menu.Edit Official') }} {{ $employe->id }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -21,7 +21,7 @@
                             <div class="card-header">
                                 <div class="row">
                             <div class="form-group">
-                                <label for="document_number-{{$employe->id }}" class="form-label">Número de Documento</label>
+                                <label for="document_number-{{$employe->id }}" class="form-label">{{ trans('gth::menu.ID number') }}</label>
                                 <input type="number" class="form-control"  id="document_number-{{ $employe->id }}" name="document_number"
                                      value="{{old('document_number', $employe->person->document_number) }}" required>
                             </div>
@@ -31,7 +31,7 @@
                             <div class="card-header">
                                 <div class="row">
                             <div class="form-group">
-                                <label for="full_name-{{$employe->id }}" class="form-label">Nombre</label>
+                                <label for="full_name-{{$employe->id }}" class="form-label">{{ trans('gth::menu.Name') }}</label>
                                 <input type="text" class="form-control" id="full_name_edit-{{ $employe->id }}" name="full_name_edit"
                                     value="{{old('full_name_edit', $employe->person->full_name) }}" required>
                             </div>
@@ -42,7 +42,7 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="contract_number-{{$employe->id }}" class="form-label">Número de contrato</label>
+                                        <label for="contract_number-{{$employe->id }}" class="form-label">{{ trans('gth::menu.Contract Number:') }}</label>
                                         <input type="text" class="form-control" id="contract_number-{{ $employe->id }}"
                                             name="contract_number" value="{{ old('contract_number', $employe->contract_number) }}"
                                             required>
@@ -51,7 +51,7 @@
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="contract_date-{{ $employe->id }}"class="form-label">Fecha de contrato</label>
+                                        <label for="contract_date-{{ $employe->id }}"class="form-label">{{ trans('gth::menu.Contract date:') }}</label>
                                         <input type="date" class="form-control" id="contract_date-{{ $employe->id }}"
                                             name="contract_date" value="{{ old('contract_date', $employe->contract_date) }}"
                                             required>
@@ -60,7 +60,7 @@
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="professional_card_number-{{ $employe->id }}"class="form-label">Número de tarjeta profesional</label>
+                                        <label for="professional_card_number-{{ $employe->id }}"class="form-label">{{ trans('gth::menu.Professional card number') }}</label>
                                         <input type="text" class="form-control" id="professional_card_number-{{ $employe->id }}"
                                             name="professional_card_number" value="{{ old('professional_card_number', $employe->professional_card_number) }}"
                                             required>
@@ -69,7 +69,7 @@
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="professional_card_issue_date-{{$employe->id }}"class="form-label">Fecha emisión de tarjeta profesional</label>
+                                        <label for="professional_card_issue_date-{{$employe->id }}"class="form-label">{{ trans('gth::menu.Date of issue of professional card') }}</label>
                                         <input type="date" class="form-control" id="professional_card_issue_date-{{$employe->id }}"
                                             name="professional_card_issue_date" value="{{ old('professional_card_issue_date', $employe->contract_date) }}"
                                             required>
@@ -81,11 +81,11 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="employee_type_id-{{ $employe->id }}"class="form-label">Tipo de empleado</label>
+                                            <label for="employee_type_id-{{ $employe->id }}"class="form-label">{{ trans('gth::menu.Employee Type') }}</label>
                                             <select name="employee_type_id" id="employee_type_id"
                                             class="form-control @error('employee_type_id') is-invalid @enderror"
                                             required>
-                                                <option value="">Seleccione tipo de empleado</option>
+                                                <option value="">{{ trans('gth::menu.Select employee type') }}<</option>
                                                 @foreach ($employeeTypes as $employeeType)
                                                     <option value="{{ $employeeType->id }}"
                                                         {{ $employeeType->id == $employe->employee_type_id ? 'selected' : '' }}>
@@ -97,10 +97,10 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="position_id-{{$employe->id }}"class="form-label">Cargo</label>
+                                            <label for="position_id-{{$employe->id }}"class="form-label">{{ trans('gth::menu.Position') }}</label>
                                             <select name="position_id" id="position_id" class="form-control @error('position_id') is-invalid @enderror"
                                             required>
-                                                <option value="">Seleccione cargo</option>
+                                                <option value="">{{ trans('gth::menu.Select position') }}</option>
                                                 @foreach ($positions as $position)
                                                     <option value="{{ $position->id }}"
                                                         {{ $position->id == $employe->position_id ? 'selected' : '' }}>
@@ -112,9 +112,9 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="risk_type">Tipo de riesgo</label>
+                                            <label for="risk_type">{{ trans('gth::menu.Type of risk') }}</label>
                                             <select name="risk_type" id="risk_type" class="form-control @error('risk_type') is-invalid @enderror" required>
-                                                <option value="">Seleccione tipo de riesgo</option>
+                                                <option value="">{{ trans('gth::menu.Select type of risk') }}</option>
                                                 <option value="I"
                                                     {{ old('risk_type', $employe->risk_type) == 'I' ? 'selected' : '' }}>I
                                                 </option>
@@ -135,7 +135,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="state">Estado:</label>
+                                            <label for="state">{{ trans('gth::menu.State:') }}</label>
                                             <select name="state" id="state" class="form-control @error('state') is-invalid @enderror">
                                                 <option value="activo"
                                                     {{ old('state', $employe->state) === 'activo' ? 'selected' : '' }}>
@@ -150,9 +150,9 @@
                                     </div>
                                 </div>
                             </div>
-                                        <button type="submit" class="btn btn-primary" onclick="return confirmarCambios()">Guardar cambios</button>
+                                        <button type="submit" class="btn btn-primary" onclick="return confirmarCambios()">{{ trans('gth::menu.Save Changes') }}</button>
                                         <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Cerrar</button>
+                                            data-bs-dismiss="modal">{{ trans('gth::menu.Close') }}</button>
                                     </div>
                         </form>
                     @endif

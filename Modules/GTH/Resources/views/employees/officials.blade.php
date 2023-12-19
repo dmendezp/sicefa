@@ -10,21 +10,21 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-                        <h1 class="card-title">Funcionarios </h1>
+                        <h1 class="card-title">{{ trans('gth::menu.Officials') }}</h1>
                     </div>
                     <div class="card-body">
                         <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal"
                             data-bs-target="#crearModal">
-                            Crear Tipo de Funcionarios
+                            {{ trans('gth::menu.Create Type of Officials') }}
                         </button>
                         <table id="employeetype" class="table table-striped table-bordered shadow-lg mt-4"
                             style="width:100%">
                             <thead class="bg-primary text-white">
                                 <tr>
-                                    <th scope="col">Id</th>
-                                    <th scope="col">numero ducumento</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Acciones</th>
+                                    <th scope="col">{{ trans('gth::menu.ID') }}</th>
+                                    <th scope="col">{{ trans('gth::menu.ID number') }}</th>
+                                    <th scope="col">{{ trans('gth::menu.Name') }}</th>
+                                    <th scope="col">{{ trans('gth::menu.actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,9 +50,9 @@
                                                     data-employe-employee_type_id="{{ $employe->employee_type_id }}"
                                                     data-employe-position_id="{{ $employe->position_id }}"
                                                     data-employe-risk_type="{{ $employe->risk_type }}"
-                                                    data-employe-state="{{ $employe->state }}"> Editar</a>
+                                                    data-employe-state="{{ $employe->state }}"> {{ trans('gth::menu.Edit') }}</a>
                                                 <button type="submit" class="btn btn-danger"
-                                                    data-id="{{ $employe->id }}">Eliminar</button>
+                                                    data-id="{{ $employe->id }}">{{ trans('gth::menu.Delete') }}</button>
                                             </td>
                                         </form>
 

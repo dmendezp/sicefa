@@ -72,7 +72,7 @@
                     <a href="{{route('gth.registerattendance.attendancecourse.index')}}"
                         class="nav-link {{ !Route::is('gth.registerattendance.registerattendance.index') ?: 'active' }}">
                         <i class="fas fa-user-plus"></i>
-                        <p> Asistencia Curso</p>
+                        <p> {{ trans('gth::menu.Course attendance') }}</p>
                     </a>
                 </li>
                 @endif
@@ -81,7 +81,7 @@
                             <a href="{{ route('gth.brigadista.attendancereport.index') }}"
                                 class="nav-link {{ !Route::is('cefa.gth.attendancereport.view') ?: 'active' }}">
                                 <i class="fas fa-home"></i>
-                                <p> Reporte de Asistencia </p>
+                                <p> {{ trans('gth::menu.Attendance report') }} </p>
                             </a>
                         </li>
                     @endif
