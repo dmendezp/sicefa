@@ -52,13 +52,13 @@
                             <tr>
                                 <th>{{ trans('senaempresa::menu.Id') }}</th>
                                 <th>{{ trans('senaempresa::menu.Apprentice Id') }}</th>
-                                <th>Cargo</th>
+                                <th>{{ trans('senaempresa::menu.Positon Id') }}</th>
                                 <th>{{ trans('senaempresa::menu.Currículum') }}</th>
                                 <th>{{ trans('senaempresa::menu.16 personalities') }}</th>
                                 <th>{{ trans('senaempresa::menu.Proposal') }}</th>
-                                <th>Certificado agencia de empleo</th>
+                                <th>{{ trans('senaempresa::menu.Public employment agency certificate employment') }}</th>
                                 <th>{{ trans('senaempresa::menu.Total score') }}</th>
-                                <th>Acciones</th>
+                                <th>{{ trans('senaempresa::menu.Actions') }}</th>
                         </thead>
                         <tbody>
                             @foreach ($postulates as $postulate)
@@ -97,7 +97,7 @@
                                         <td>
                                             <button class="btn btn-info" data-toggle="modal"
                                                 data-target="#detailsModal{{ $postulate->id }}">
-                                                Ver Detalles
+                                                {{ trans('senaempresa::menu.Details') }}
                                             </button>
                                         </td>
                                     </tr>
@@ -116,17 +116,17 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="detailsModalLabel">Detalles del Postulado</h5>
+                    <h5 class="modal-title" id="detailsModalLabel">{{ trans('senaempresa::menu.Postulate Details') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p><strong>Postulado:</strong> {{ $postulate->apprentice->person->full_name }}</p>
-                    <p><strong>Documento:</strong> {{ $postulate->apprentice->person->document_number }}</p>
-                    <p><strong>Correo:</strong> {{ $postulate->apprentice->person->personal_email }}</p>
-                    <p><strong>Teléfono:</strong> {{ $postulate->apprentice->person->telephone1 }}</p>
-                    <p><strong>Cargo:</strong> {{ $postulate->vacancy->positionCompany->name }}</p>
+                    <p><strong>{{ trans('senaempresa::menu.Postulate') }}:</strong> {{ $postulate->apprentice->person->full_name }}</p>
+                    <p><strong>{{ trans('senaempresa::menu.Document') }}:</strong> {{ $postulate->apprentice->person->document_number }}</p>
+                    <p><strong>{{ trans('senaempresa::menu.Email') }}:</strong> {{ $postulate->apprentice->person->personal_email }}</p>
+                    <p><strong>{{ trans('senaempresa::menu.Telephone') }}:</strong> {{ $postulate->apprentice->person->telephone1 }}</p>
+                    <p><strong>{{ trans('senaempresa::menu.Positon Id') }}:</strong> {{ $postulate->vacancy->positionCompany->name }}</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

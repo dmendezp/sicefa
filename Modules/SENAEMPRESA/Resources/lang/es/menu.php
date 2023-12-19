@@ -223,8 +223,29 @@ return [
     'Edit Loan' => 'Editar Prestamo',
 
     'All Rights Reserved.' => 'Todos los derechos reservados.',
-
-
+    'Select a Phase'=> 'Selecciona una Fase (Senaempresa)',
+    'Report'=> 'Reporte',
+    'Register ' => 'Registrar',
+    'Attendance for this day has already been recorded with a check-in and check-out time.'=> 'La asistencia para este día ya se ha registrado con una hora de entrada y salida.',
+    'Time of departure successfully recorded.'=> 'Hora de salida registrada exitosamente.',
+    'Attendance successfully registered.'=> 'Asistencia registrada exitosamente.',
+    'There are no attendances registered for this document'=> 'No hay asistencias registradas para este documento',
+    'There are no assistances registered for the selected Senaempresa'=> 'No hay asistencias registradas para la Senaempresa seleccionada',
+    'Please select a Senaempresa before consulting the assistances.'=> 'Seleccione una Senaempresa antes de consultar las asistencias.',
+    'There is no reporting data for the selected Senaempresa'=> 'No hay datos de reporte para la Senaempresa seleccionada',
+    'Please select a Senaempresa before consulting the report.'=> 'Por favor, selecciona una Senaempresa antes de consultar el reporte.',
+    'Warning'=> 'Advertencia',
+    'Public employment agency certificate employment' => 'Certificado agencia publica de empleo',
+    'Select a quarter'=> 'Selecciona un trimestre',
+    'An error occurred while processing the request.'=> 'Ocurrió un error al procesar la solicitud.',
+    'Association created successfully.'=> 'Asociación creada con éxito.',
+    'Association deleted successfully.'=> 'Asociación eliminada con éxito.',
+    'No SenaEmpresa related to the current or next quarter'=> 'No hay una SenaEmpresa relacionada con el trimestre actual o siguiente',
+    'Positon Id'=> 'Cargo Id',
+    'Actions'=> 'Acciones',
+    'Postulate Details'=> 'Detalles del Postulado',
+    'Postulate'=> 'Postulado',
+    'Email'=> 'Correo',
 
 
 

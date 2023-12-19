@@ -46,8 +46,7 @@
                                     <input type="file" id="proposal" name="proposal" accept=".pdf" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="employment_certificate" class="form-label">Certificado agencia publica de
-                                        empleo
+                                    <label for="employment_certificate" class="form-label">{{ trans('senaempresa::menu.Public employment agency certificate employment') }}
                                     </label><br>
                                     <input type="file" id="employment_certificate" name="employment_certificate"
                                         accept=".pdf" required>
@@ -56,10 +55,8 @@
 
                             <button type="submit"
                                 class="btn btn-success">{{ trans('senaempresa::menu.Register') }}</button>
-                            <a
-                                href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index') }}">
-                                {!! Form::button('Cancelar', ['class' => 'btn btn-danger', 'name' => 'cancelar']) !!}
-                            </a>
+                                <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index') }}"
+                                class="btn btn-danger btn-xl">{{ trans('senaempresa::menu.Cancel') }}</a>
                         </form>
                     </div>
                 </div>

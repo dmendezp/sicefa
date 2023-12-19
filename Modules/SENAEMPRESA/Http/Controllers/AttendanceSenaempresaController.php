@@ -113,7 +113,7 @@ class AttendanceSenaempresaController extends Controller
             // Ya existe un registro de asistencia para esta persona en el mismo día
             if ($existingAttendance->end_datetime) {
                 // Si ya tiene una fecha y hora de salida registrada, muestra una alerta
-                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('error', 'La asistencia para este día ya ha sido registrada con una hora de entrada y de salida.');
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('error', trans('Attendance for this day has already been recorded with a check-in and check-out time.'));
             } else {
                 // Actualiza la fecha y hora de salida
                 // Actualiza la fecha y hora de salida
@@ -134,7 +134,7 @@ class AttendanceSenaempresaController extends Controller
                 $staffSenaempresa->save();
 
                 // Redirige a la lista de asistencias o muestra un mensaje de éxito
-                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('success', 'Hora de salida registrada exitosamente.');
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('success', trans('Time of departure successfully recorded.'));
             }
         } else {
             // No existe un registro de asistencia existente, crea uno nuevo
@@ -153,10 +153,10 @@ class AttendanceSenaempresaController extends Controller
                 $attendance->save();
 
                 // Redirige a la lista de asistencias o muestra un mensaje de éxito
-                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('success', 'Asistencia registrada exitosamente.');
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('success', trans('Attendance successfully registered.'));
             } else {
                 // Maneja el caso en el que $staffsenaempresaid no es válido, por ejemplo, mostrando un mensaje de error
-                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('error', 'No se pudo registrar la asistencia porque el aprendiz no esta en el personal');
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('error', trans('Attendance could not be recorded because the trainee is not on staff.'));
             }
         }
     }

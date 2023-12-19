@@ -17,9 +17,9 @@
                                 @csrf
                         @endif
                         <div class="mb-3">
-                            <label for="senaempresa_id" class="form-label">Selecciona una Fase (Senaempresa)</label>
+                            <label for="senaempresa_id" class="form-label">{{ trans('senaempresa::menu.Select a Phase') }}</label>
                             <select class="form-control" name="senaempresa_id" id="senaempresa-select" required>
-                                <option value="" selected>Selecciona una Fase</option>
+                                <option value="" selected>{{ trans('senaempresa::menu.Select a Phase') }}</option>
                                 @foreach ($senaempresas as $senaempresa)
                                     <option value="{{ $senaempresa->id }}">{{ $senaempresa->name }}</option>
                                 @endforeach
@@ -40,7 +40,7 @@
                                     Auth::user()->havePermission(
                                         'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.register')))
                             <button type="submit"
-                                class="btn btn-primary">{{ trans('senaempresa::menu.Register attendance') }}</button>
+                                class="btn btn-primary">{{ trans('senaempresa::menu.Register ') }}</button>
                         @endif
                         <button type="button" class="btn btn-success" id="query-attendance-button">
                             {{ trans('senaempresa::menu.Consult Attendances') }}
@@ -51,7 +51,7 @@
                                         'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.register')))
                             <button type="button" class="btn btn-warning"
                                 id="show-hide-table-button">{{ trans('senaempresa::menu.Registered Attendance') }}</button>
-                            <button type="button" class="btn btn-danger" id="report-hide-table-button">Reporte</button>
+                            <button type="button" class="btn btn-danger" id="report-hide-table-button">{{ trans('senaempresa::menu.Report') }}</button>
                         @endif
                         </form>
                     </div>
@@ -338,7 +338,7 @@
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Error',
-                                text: 'No hay asistencias registradas para este documento',
+                                text: '{{ trans('senaempresa::menu.There are no attendances registered for this document') }}',
                                 showConfirmButton: false,
                                 timer: 3000 // Tiempo en milisegundos (2 segundos en este caso)
                             });
@@ -355,7 +355,7 @@
                 if (selectedSenaempresaId) {
                     // Make an AJAX request to fetch attendances for the selected Senaempresa
                     $.ajax({
-                        url: '{{ route('cefa.senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.loadAttendancesBySenaempresa') }}',
+                        url: '{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.loadAttendancesBySenaempresa') }}',
                         method: 'POST',
                         data: {
                             _token: '{{ csrf_token() }}',
@@ -388,7 +388,7 @@
                                 Swal.fire({
                                     icon: 'info',
                                     title: 'Info',
-                                    text: 'No hay asistencias registradas para la Senaempresa seleccionada',
+                                    text: '{{ trans('senaempresa::menu.There are no attendances registered for this document') }}',
                                     showConfirmButton: false,
                                     timer: 3000
                                 });
@@ -402,8 +402,8 @@
                     // Show a message if no Senaempresa is selected
                     Swal.fire({
                         icon: 'warning',
-                        title: 'Advertencia',
-                        text: 'Por favor, selecciona una Senaempresa antes de consultar las asistencias.',
+                        title: '{{ trans('senaempresa::menu.Warning') }}',
+                        text: '{{ trans('senaempresa::menu.Please select a Senaempresa before consulting the assistances.') }}',
                         showConfirmButton: false,
                         timer: 3000
                     });
@@ -418,7 +418,7 @@
                 if (selectedSenaempresaId) {
                     // Make an AJAX request to fetch report data for the selected Senaempresa
                     $.ajax({
-                        url: '{{ route('cefa.senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.loadReportBySenaempresa') }}',
+                        url: '{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.loadReportBySenaempresa') }}',
                         method: 'POST',
                         data: {
                             _token: '{{ csrf_token() }}',
@@ -447,7 +447,7 @@
                                 Swal.fire({
                                     icon: 'info',
                                     title: 'Info',
-                                    text: 'No hay datos de reporte para la Senaempresa seleccionada',
+                                    text: '{{ trans('senaempresa::menu.There is no reporting data for the selected Senaempresa') }}',
                                     showConfirmButton: false,
                                     timer: 3000
                                 });
@@ -461,8 +461,8 @@
                     // Show a message if no Senaempresa is selected
                     Swal.fire({
                         icon: 'warning',
-                        title: 'Advertencia',
-                        text: 'Por favor, selecciona una Senaempresa antes de consultar el reporte.',
+                        title: '{{ trans('senaempresa::menu.Warning') }}',
+                        text: '{{ trans('senaempresa::menu.Please select a Senaempresa before consulting the report.') }}',
                         showConfirmButton: false,
                         timer: 3000
                     });

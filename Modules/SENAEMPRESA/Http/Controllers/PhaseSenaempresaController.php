@@ -146,13 +146,13 @@ class PhaseSenaempresaController extends Controller
                     // If the association exists but was deleted, restore it
                     $association->restore();
                 }
-                $message = 'Association created successfully.';
+                $message = trans('senaempresa::menu.Association created successfully.');
             } else {
                 // If the checkbox is unchecked, delete the association if it exists
                 if ($association) {
                     $association->delete();
                 }
-                $message = 'Association deleted successfully.';
+                $message = trans('senaempresa::menu.Association created successfully.');
             }
 
             return response()->json(['success' => $message], 200);
@@ -188,7 +188,7 @@ class PhaseSenaempresaController extends Controller
         if (!$currentQuarter && !$nextQuarter) {
             // No SenaEmpresa for the current or next quarter, show alert
             return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.index')
-                ->with('error', 'No hay una SenaEmpresa relacionada con el trimestre actual o siguiente');
+                ->with('error', trans('senaempresa::menu.No SenaEmpresa related to the current or next quarter'));
         }
 
         $currentQuarterSenaempresa = $currentQuarter

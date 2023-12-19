@@ -51,7 +51,7 @@
                                         Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.cv'))
                                     <th>{{ trans('senaempresa::menu.Currículum') }}</th>
                                     <th>{{ trans('senaempresa::menu.Proposal') }}</th>
-                                    <th>Certificado agencia de empleo</th>
+                                    <th>{{ trans('senaempresa::menu.Public employment agency certificate employment') }}</th>
                                 @endif
                                 @if (Route::is('senaempresa.psychologo.*') &&
                                         Auth::user()->havePermission(

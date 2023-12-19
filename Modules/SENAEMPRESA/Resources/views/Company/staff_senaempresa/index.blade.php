@@ -90,12 +90,10 @@
         </div>
         </div>
     @endsection
-
     @section('scripts')
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script>
             'use strict';
-            // Selecciona todos los formularios con la clase "formPersonal"
+            // Selecciona todos los formularios con la clase "formEliminar"
             var forms = document.querySelectorAll('.formPersonal');
 
             Array.prototype.slice.call(forms)
@@ -110,8 +108,8 @@
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: "{{ trans('senaempresa::menu.Yes, remove it') }}",
-                            cancelButtonText: "{{ trans('senaempresa::menu.Cancel') }}",
+                            confirmButtonText: "{{ trans('senaempresa::menu.Yes, delete it') }}",
+                            cancelButtonText: "{{ trans('senaempresa::menu.Cancel') }}" // Cambiar el texto del botón "Cancelar"
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 // Enviar el formulario usando AJAX
@@ -120,7 +118,7 @@
                                         // Manejar la respuesta JSON del servidor
                                         if (response.data && response.data.mensaje) {
                                             Swal.fire({
-                                                title: "{{ trans('senaempresa::menu.Staff eliminated!') }}",
+                                                title: '{{ trans('senaempresa::menu.Staff eliminated!') }}',
                                                 text: response.data.mensaje,
                                                 icon: 'success'
                                             }).then(() => {

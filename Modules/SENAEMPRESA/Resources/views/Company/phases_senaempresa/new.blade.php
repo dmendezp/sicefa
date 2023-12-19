@@ -25,7 +25,7 @@
                                 <label for="quarter_id"
                                     class="form-label">{{ trans('senaempresa::menu.ID Quarter') }}</label>
                                 <select class="form-control" name="quarter_id" aria-label="Selecciona un Cargo" required>
-                                    <option value="" selected>Selecciona un trimestre</option>
+                                    <option value="" selected>{{ trans('senaempresa::menu.Select a quarter') }}</option>
                                     @foreach ($quarters as $quarter)
                                         <option value="{{ $quarter->id }}">
                                             {{ $quarter->name }}

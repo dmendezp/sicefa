@@ -731,8 +731,44 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
 
+        // Consultar asistencia por senaempresa (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.attendances.loadAttendancesBySenaempresa'], [ // Registro o actualización de permiso
+            'name' => 'Consultar asistencia por senaempresa (Administrador)',
+            'description' => 'Consultar asistencia del personal por senaempresa',
+            'description_english' => 'Consult staff attendance by senaempresa',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar asistencia por senaempresa (Lider Talento Humano)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.attendances.loadAttendancesBySenaempresa'], [ // Registro o actualización de permiso
+            'name' => 'Consultar asistencia por senaempresa (Lider Talento Humano)',
+            'description' => 'Consultar asistencia del personal por senaempresa',
+            'description_english' => 'Consult staff attendance by senaempresa',
+            'app_id' => $app->id
+        ]);
+        $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar reporte de personal por senaempresa (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.attendances.loadReportBySenaempresa'], [ // Registro o actualización de permiso
+            'name' => 'Consultar asistencia por senaempresa (Administrador)',
+            'description' => 'Consultar reporte del personal por senaempresa',
+            'description_english' => 'Consult staff report by senaempresa',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar reporte de personal por senaempresa (Lider Talento Humano)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.attendances.loadReportBySenaempresa'], [ // Registro o actualización de permiso
+            'name' => 'Consultar asistencia por senaempresa (Lider Talento Humano)',
+            'description' => 'Consultar reporte del personal por senaempresa',
+            'description_english' => 'Consult staff report by senaempresa',
+            'app_id' => $app->id
+        ]);
+        $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
+
         // Consultar personal por numero de documento (Administrador)
-        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.attendances.getPersonData'], [
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.attendances.loadStaffBySenaempresa'], [
             'name' => 'Consultar personal senaempresa Administrador',
             'description' => 'Consultar personal de senaempresa por documento',
             'description_english' => 'Consult senaempresa personnel by document',
@@ -742,7 +778,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol admin
 
         // Consultar personal por numero de documento (Lider Talento Humano)
-        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.attendances.getPersonData'], [
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.attendances.loadStaffBySenaempresa'], [
             'name' => 'Consultar personal senaempresa (Lider Talento Humano)',
             'description' => 'Consultar personal de senaempresa por documento',
             'description_english' => 'Consult senaempresa personnel by document',
