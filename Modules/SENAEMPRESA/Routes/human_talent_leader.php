@@ -50,13 +50,15 @@ Route::middleware(['lang'])->group(function () {
         Route::prefix('attendances')->group(function () {
             Route::get('/new', 'AttendanceSenaempresaController@new')->name('senaempresa.human_talent_leader.attendances.index');
             Route::post('/register', 'AttendanceSenaempresaController@register')->name('senaempresa.human_talent_leader.attendances.register');
+            Route::post('/load-staff-by-senaempresa', 'AttendanceSenaempresaController@loadStaffBySenaempresa')->name('senaempresa.human_talent_leader.attendances.loadStaffBySenaempresa');
+            Route::post('/loadAttendancesBySenaempresa', 'AttendanceSenaempresaController@loadAttendancesBySenaempresa')->name('senaempresa.human_talent_leader.attendances.loadAttendancesBySenaempresa');
+            Route::post('/loadReportBySenaempresa', 'AttendanceSenaempresaController@loadReportBySenaempresa')->name('senaempresa.human_talent_leader.attendances.loadReportBySenaempresa');
 
             // Ruta para mostrar la lista de asistencias
             Route::post('/search', 'AttendanceSenaempresaController@queryAttendance')->name('senaempresa.human_talent_leader.attendances.queryAttendance');
-            Route::post('/getPersonData', 'AttendanceSenaempresaController@getPersonData')->name('senaempresa.human_talent_leader.attendances.getPersonData');
         });
 
-        
+
         });
     });
 });

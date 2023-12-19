@@ -20,6 +20,6 @@ class AttendanceSenaempresa extends Model implements Auditable
     }
     public function staffSenaempresa()
     {
-        return $this->belongsTo(StaffSenaempresa::class, 'staff_senaempresa_id');
+        return $this->belongsTo(StaffSenaempresa::class);
     }
 }

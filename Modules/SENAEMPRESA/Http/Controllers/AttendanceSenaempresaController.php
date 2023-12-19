@@ -11,6 +11,9 @@ use Modules\SENAEMPRESA\Entities\StaffSenaempresa;
 use Modules\SENAEMPRESA\Entities\Senaempresa;
 use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\Person;
+use Illuminate\Support\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Log;
 
 
 class AttendanceSenaempresaController extends Controller
@@ -19,35 +22,78 @@ class AttendanceSenaempresaController extends Controller
     {
         $attendances = AttendanceSenaempresa::with('staffSenaempresa.apprentice.person')->get();
         $senaempresas = Senaempresa::all();
-        return view('senaempresa::Company.attendance.index', ['attendances' => $attendances, 'senaempresas' => $senaempresas,  'title' => trans('senaempresa::menu.Attendance')]);
+        return view('senaempresa::Company.attendance.index', ['attendances' => $attendances, 'senaempresas' => $senaempresas, 'title' => trans('senaempresa::menu.Attendance')]);
     }
 
     public function loadStaffBySenaempresa(Request $request)
     {
         $senaempresaId = $request->input('senaempresa_id');
         $documentNumber = $request->input('document_number');
-    
+
         $staff = StaffSenaempresa::where('senaempresa_id', $senaempresaId)
             ->whereHas('apprentice.person', function ($query) use ($documentNumber) {
                 $query->where('document_number', $documentNumber);
             })
             ->first();
-    
+
         if ($staff) {
             $response = [
                 'staff' => [
-                    'id' => $staff->id,
+                    'id' => $staff->apprentice->person->id,
                     'name' => $staff->apprentice->person->full_name,
                 ],
             ];
-    
+
             return response()->json($response);
         } else {
             return response()->json(['staff' => null]);
         }
     }
-    
-    
+
+    public function loadAttendancesBySenaempresa(Request $request)
+    {
+        $senaempresaId = $request->input('senaempresa_id');
+
+        $attendances = AttendanceSenaempresa::with('staffSenaempresa.apprentice.person')
+            ->whereHas('staffSenaempresa', function ($query) use ($senaempresaId) {
+                $query->where('senaempresa_id', $senaempresaId);
+            })
+            ->get();
+
+        $attendanceData = [];
+
+        foreach ($attendances as $attendance) {
+            $attendanceData[] = [
+                'name' => $attendance->staffSenaempresa->apprentice->person->full_name,
+                'document_number' => $attendance->staffSenaempresa->apprentice->person->document_number,
+                'start_datetime' => $attendance->start_datetime,
+                'end_datetime' => $attendance->end_datetime,
+                'duration' => $attendance->duration,
+            ];
+        }
+
+        return response()->json(['attendances' => $attendanceData]);
+    }
+
+    public function loadReportBySenaempresa(Request $request)
+    {
+        $senaempresaId = $request->input('senaempresa_id');
+
+        $reportData = StaffSenaempresa::with('apprentice.person')
+            ->where('senaempresa_id', $senaempresaId)
+            ->get()
+            ->map(function ($staff) {
+                return [
+                    'name' => $staff->apprentice->person->full_name,
+                    'document_number' => $staff->apprentice->person->document_number,
+                    'duration_total' => $staff->duration_total,
+                ];
+            });
+
+        return response()->json(['reportData' => $reportData]);
+    }
+
+
 
 
     public function register(Request $request)
@@ -67,13 +113,28 @@ class AttendanceSenaempresaController extends Controller
             // Ya existe un registro de asistencia para esta persona en el mismo día
             if ($existingAttendance->end_datetime) {
                 // Si ya tiene una fecha y hora de salida registrada, muestra una alerta
-                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('error', 'La asistencia para este día ya ha sido registrada con una hora de entrada y de salida.');
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('error', trans('Attendance for this day has already been recorded with a check-in and check-out time.'));
             } else {
                 // Actualiza la fecha y hora de salida
+                // Actualiza la fecha y hora de salida
                 $existingAttendance->end_datetime = now();
+
+                // Calcula la duración y almacénala en el formato HH:MM:SS
+                $startDatetime = Carbon::parse($existingAttendance->start_datetime);
+                $endDatetime = Carbon::parse($existingAttendance->end_datetime);
+                $duration = $startDatetime->diff($endDatetime);
+                $durationFormatted = $duration->format('%H:%I:%S');
+
+                $existingAttendance->duration = $durationFormatted;
                 $existingAttendance->save();
+
+                // Actualiza la duración total en la tabla staff_senaempresas
+                $staffSenaempresa = $existingAttendance->staffSenaempresa;
+                $staffSenaempresa->duration_total = $this->sumDurations($staffSenaempresa->duration_total, $durationFormatted);
+                $staffSenaempresa->save();
+
                 // Redirige a la lista de asistencias o muestra un mensaje de éxito
-                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('success', 'Hora de salida registrada exitosamente.');
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('success', trans('Time of departure successfully recorded.'));
             }
         } else {
             // No existe un registro de asistencia existente, crea uno nuevo
@@ -92,10 +153,10 @@ class AttendanceSenaempresaController extends Controller
                 $attendance->save();
 
                 // Redirige a la lista de asistencias o muestra un mensaje de éxito
-                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('success', 'Asistencia registrada exitosamente.');
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('success', trans('Attendance successfully registered.'));
             } else {
                 // Maneja el caso en el que $staffsenaempresaid no es válido, por ejemplo, mostrando un mensaje de error
-                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('error', 'No se pudo registrar la asistencia porque el aprendiz no esta en el personal');
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('error', trans('Attendance could not be recorded because the trainee is not on staff.'));
             }
         }
     }
@@ -124,31 +185,12 @@ class AttendanceSenaempresaController extends Controller
         return response()->json(['attendances' => $attendanceData]);
     }
 
-
-    public function getPersonData(Request $request)
+    private function sumDurations($duration1, $duration2)
     {
-        $documentNumber = $request->input('document_number');
+        $start = Carbon::createFromFormat('H:i:s', '00:00:00');
+        $sum = $start->addHours(intval(substr($duration1, 0, 2)))->addMinutes(intval(substr($duration1, 3, 2)))->addSeconds(intval(substr($duration1, 6, 2)));
+        $sum = $sum->addHours(intval(substr($duration2, 0, 2)))->addMinutes(intval(substr($duration2, 3, 2)))->addSeconds(intval(substr($duration2, 6, 2)));
 
-        // Realiza una consulta para obtener los datos de la persona con el número de documento
-        $personData = Person::where('document_number', $documentNumber)->first();
-
-        // Verifica si la persona está registrada en StaffSenaempresa
-        $isRegisteredInStaff = false;
-        if ($personData) {
-            $personId = $personData->id;
-            $apprentice = Apprentice::where('person_id', $personId)->first();
-            if ($apprentice) {
-                $isRegisteredInStaff = StaffSenaempresa::where('apprentice_id', $apprentice->id)->exists();
-            }
-        }
-
-        if ($personData && $isRegisteredInStaff) {
-            // Si se encontró una persona registrada en StaffSenaempresa, devuelve los datos junto con el indicador
-            return response()->json([
-                'id' => $personData->id,
-                'full_name' => $personData->full_name,
-                'is_registered' => $isRegisteredInStaff, // Indicador de registro en StaffSenaempresa
-            ]);
-        }
+        return $sum->format('H:i:s');
     }
 }

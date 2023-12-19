@@ -9,6 +9,8 @@ use Modules\SICA\Entities\Inventory;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SENAEMPRESA\Entities\SenaEmpresa;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\SENAEMPRESA\Entities\PositionCompany;
+use Modules\SENAEMPRESA\Entities\AttendanceSenaempresa;
 
 
 class StaffSenaempresa extends Model implements Auditable
@@ -35,6 +37,14 @@ class StaffSenaempresa extends Model implements Auditable
     public function senaempresa()
     {
         return $this->belongsTo(SenaEmpresa::class, 'senaempresa_id');
+    }
+    public function positionCompany()
+    { // Accede a la información del inventario
+        return $this->belongsTo(PositionCompany::class);
+    }
+    public function attendances()
+    {
+        return $this->hasMany(AttendanceSenaempresa::class);
     }
 
 }

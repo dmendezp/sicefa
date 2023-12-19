@@ -41,7 +41,7 @@
         <div class="col-md-12">
             <div class="card card-primary card-outline shadow">
                 <div class="card-body">
-                    <table id="datatable" class="table table-striped table-bordered">
+                    <table id="inventory" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>{{ trans('senaempresa::menu.Id') }}</th>
@@ -51,7 +51,7 @@
                                         Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.cv'))
                                     <th>{{ trans('senaempresa::menu.Currículum') }}</th>
                                     <th>{{ trans('senaempresa::menu.Proposal') }}</th>
-                                    <th>Certificado agencia de empleo</th>
+                                    <th>{{ trans('senaempresa::menu.Public employment agency certificate employment') }}</th>
                                 @endif
                                 @if (Route::is('senaempresa.psychologo.*') &&
                                         Auth::user()->havePermission(
@@ -83,7 +83,6 @@
                                                 <a href="{{ asset($postulate->cv) }}" download>
                                                     <i class="far fa-file-pdf"
                                                         style="color: #fe3e3e; font-size: 30px; text-align: center;"></i>
-
                                                 </a>
                                             </td>
                                             <td style="text-align: center;">
@@ -96,7 +95,6 @@
                                                 <a href="{{ asset($postulate->employment_certificate) }}" download>
                                                     <i class="far fa-file-pdf"
                                                         style="color: #FC7430; font-size: 30px; text-align: center;"></i>
-
                                                 </a>
                                             </td>
                                         @endif

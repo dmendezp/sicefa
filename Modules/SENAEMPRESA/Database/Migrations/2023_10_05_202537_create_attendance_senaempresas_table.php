@@ -18,7 +18,7 @@ class CreateAttendanceSenaempresasTable extends Migration
             $table->foreignId('staff_senaempresa_id')->constrained()->onDelete('cascade');
             $table->dateTime('start_datetime');
             $table->dateTime('end_datetime')->nullable();
-
+            $table->time('duration')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

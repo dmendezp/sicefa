@@ -98,7 +98,7 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: 'Ocurrió un error al procesar la solicitud.',
+                            text: '{{ trans('senaempresa::menu.An error occurred while processing the request.') }}',
                         });
                         $(this).prop('checked', !isChecked);
                     }

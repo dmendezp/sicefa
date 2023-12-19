@@ -19,6 +19,7 @@ class CreateStaffSenaempresasTable extends Migration
             $table->foreignId('apprentice_id')->constrained()->onDelete('cascade');
             $table->foreignId('senaempresa_id')->constrained()->onDelete('cascade');
             $table->string('image');
+            $table->time('duration_total')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

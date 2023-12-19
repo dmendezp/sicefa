@@ -99,14 +99,14 @@ class StaffSenaempresaController extends Controller
         $apprentices = Apprentice::get();
 
 
-        
+
 
         if ($apprentices->isEmpty()) {
             return redirect()->back()->with('error', trans('senaempresa::menu.No apprentices selected'));
         } else {
             $firstApprentice = $apprentices->first();
             $postulate = $firstApprentice->postulates->first();
-            $this->selectedPosition = $postulate ? $postulate->vacancy->position_company_id : null;
+            $selectedPosition = $postulate ? $postulate->vacancy->position_company_id : null;
             $selectedPositionName = $postulate ? $postulate->vacancy->positionCompany->name : null;
         }
 
@@ -116,7 +116,7 @@ class StaffSenaempresaController extends Controller
             'PositionCompany' => $positionCompany,
             'Apprentices' => $apprentices,
             'senaempresas' => $senaempresas,
-            'selectedPosition' => $this->selectedPosition,
+            'selectedPosition' => $selectedPosition,
             'selectedPositionName' => $selectedPositionName,
         ];
 
@@ -138,6 +138,7 @@ class StaffSenaempresaController extends Controller
         $staffSenaempresa->apprentice_id = $request->input('apprentice_id');
         $staffSenaempresa->senaempresa_id = $request->input('senaempresa_id');
         $staffSenaempresa->image = 'modules/senaempresa/images/staff/' . $name_image;
+        $staffSenaempresa->duration_total = '00:00:00';
 
         // Guarda la instancia en la base de datos
         if ($staffSenaempresa->save()) {

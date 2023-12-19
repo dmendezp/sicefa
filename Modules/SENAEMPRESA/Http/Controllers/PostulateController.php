@@ -27,104 +27,120 @@ class PostulateController extends Controller
         return response()->json($vacancy);
     }
     public function inscription(Request $request, $vacancy_id)
-    {
-        $Apprentice = auth()->user()->person->apprentices()->first();
+{
+    $Apprentice = auth()->user()->person->apprentices()->first();
 
-        if (!$Apprentice) {
-            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.You don’t have an associate apprentice.'));
-        }
-
-        $ApprenticeId = $Apprentice->id;
-        $vacancy = Vacancy::find($vacancy_id);
-        $Postulates = Postulate::with('Apprentice.Person')->get();
-        $data = [
-            'title' =>  trans('senaempresa::menu.Registration'),
-            'Postulates' => $Postulates,
-            'ApprenticeId' => $ApprenticeId,
-            'vacancy' => $vacancy,
-        ];
-
-        return view('senaempresa::Company.Inscription.inscription', $data);
+    if (!$Apprentice) {
+        return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.You don’t have an associate apprentice.'));
     }
 
-    public function registered(Request $request)
-    {
-        $Apprentice = auth()->user()->person->apprentices()->first();
+    $ApprenticeId = $Apprentice->id;
+    $vacancy = Vacancy::find($vacancy_id);
+    $Postulates = Postulate::with('Apprentice.Person')->get();
+    $existingPostulatesCount = Postulate::where('apprentice_id', $ApprenticeId)->count(); // Añadido aquí
 
-        if (!$Apprentice) {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.You don’t have an associate apprentice.'));
-        }
+    $data = [
+        'title' =>  trans('senaempresa::menu.Registration'),
+        'Postulates' => $Postulates,
+        'ApprenticeId' => $ApprenticeId,
+        'vacancy' => $vacancy,
+        'existingPostulatesCount' => $existingPostulatesCount, // Añadido aquí
+    ];
 
-        $ApprenticeId = $Apprentice->id;
+    return view('senaempresa::Company.Inscription.inscription', $data);
+}
 
-        $existingPostulatesCount = Postulate::where('apprentice_id', $ApprenticeId)->count();
 
-        if ($existingPostulatesCount >= 2) {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.You cannot make more than two entries.'));
-        }
+public function registered(Request $request)
+{
+    $Apprentice = auth()->user()->person->apprentices()->first();
 
-        $existingPostulate = Postulate::where('apprentice_id', $ApprenticeId)
-            ->where('vacancy_id', $request->input('vacancy_id'))
-            ->first();
-
-        if ($existingPostulate) {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.You’ve already applied for this position.'));
-        }
-
-        $postulate = new Postulate();
-        $postulate->apprentice_id = $ApprenticeId;
-        $postulate->vacancy_id = $request->input('vacancy_id');
-        $postulate->state = 'Inscrito';
-        $postulate->score_total = 0; // Initialize score_total to 0
-
-        // Validar el archivo CV como PDF
-        if ($cvFile = $request->file('cv')) {
-            if ($cvFile->getClientOriginalExtension() === 'pdf') {
-                $cvFileName = Str::slug($ApprenticeId) . 'cv_' . time() . '.pdf';
-                $cvFile->move(public_path('modules/senaempresa/files/cv/'), $cvFileName);
-                $postulate->cv = 'modules/senaempresa/files/cv/' . $cvFileName;
-            } else {
-                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.CV file must be in PDF format.'));
-            }
-        }
-
-        // Validar el archivo de personalidades como PDF
-        if ($personalitiesFile = $request->file('personalities')) {
-            if ($personalitiesFile->getClientOriginalExtension() === 'pdf') {
-                $personalitiesFileName = Str::slug($ApprenticeId) . 'personalities_' . time() . '.pdf';
-                $personalitiesFile->move(public_path('modules/senaempresa/files/personalities/'), $personalitiesFileName);
-                $postulate->personalities = 'modules/senaempresa/files/personalities/' . $personalitiesFileName;
-            } else {
-                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Personalities file must be in PDF format.'));
-            }
-        }
-
-        // Validar el archivo de propuesta como PDF
-        if ($proposalFile = $request->file('proposal')) {
-            if ($proposalFile->getClientOriginalExtension() === 'pdf') {
-                $proposalFileName = Str::slug($ApprenticeId) . 'proposal_' . time() . '.pdf';
-                $proposalFile->move(public_path('modules/senaempresa/files/proposal/'), $proposalFileName);
-                $postulate->proposal = 'modules/senaempresa/files/proposal/' . $proposalFileName;
-            } else {
-                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Proposal file must be in PDF format.'));
-            }
-        }
-
-        if ($employment_certificateFile = $request->file('employment_certificate')) {
-            if ($employment_certificateFile->getClientOriginalExtension() === 'pdf') {
-                $employment_certificateFileeName = Str::slug($ApprenticeId) . 'employment_certificate_' . time() . '.pdf';
-                $employment_certificateFile->move(public_path('modules/senaempresa/files/employment_certificate/'), $employment_certificateFileeName);
-                $postulate->employment_certificate = 'modules/senaempresa/files/employment_certificate/' . $employment_certificateFileeName;
-            } else {
-                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', 'El archivo del certificado debe estar en formato PDF.');
-            }
-        }
-        if ($postulate->save())
-            $data = [
-                'ApprenticeId' => $ApprenticeId,
-            ];
-        return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index', $data)->with('success', trans('senaempresa::menu.Registration made with success!'));
+    if (!$Apprentice) {
+        return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.You don’t have an associate apprentice.'));
     }
+
+    $ApprenticeId = $Apprentice->id;
+
+    $existingPostulatesCount = Postulate::where('apprentice_id', $ApprenticeId)->count();
+
+    if ($existingPostulatesCount >= 2) {
+        return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.You cannot make more than two entries.'));
+    }
+
+    $existingPostulate = Postulate::where('apprentice_id', $ApprenticeId)
+        ->where('vacancy_id', $request->input('vacancy_id'))
+        ->first();
+
+    if ($existingPostulate) {
+        return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.You’ve already applied for this position.'));
+    }
+
+    $postulate = new Postulate();
+    $postulate->apprentice_id = $ApprenticeId;
+    $postulate->vacancy_id = $request->input('vacancy_id');
+    $postulate->state = 'Inscrito';
+    $postulate->score_total = 0; // Initialize score_total to 0
+
+    // Validar el archivo CV como PDF
+    if ($cvFile = $request->file('cv')) {
+        if ($cvFile->getClientOriginalExtension() === 'pdf') {
+            $cvFileName = Str::slug($ApprenticeId) . 'cv_' . time() . '.pdf';
+            $cvFile->move(public_path('modules/senaempresa/files/cv/'), $cvFileName);
+            $postulate->cv = 'modules/senaempresa/files/cv/' . $cvFileName;
+        } else {
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.CV file must be in PDF format.'));
+        }
+    }
+
+    // Validar el archivo de personalidades como PDF
+    if ($personalitiesFile = $request->file('personalities')) {
+        if ($personalitiesFile->getClientOriginalExtension() === 'pdf') {
+            $personalitiesFileName = Str::slug($ApprenticeId) . 'personalities_' . time() . '.pdf';
+            $personalitiesFile->move(public_path('modules/senaempresa/files/personalities/'), $personalitiesFileName);
+            $postulate->personalities = 'modules/senaempresa/files/personalities/' . $personalitiesFileName;
+        } else {
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Personalities file must be in PDF format.'));
+        }
+    }
+
+    // Validar el archivo de propuesta como PDF
+    if ($proposalFile = $request->file('proposal')) {
+        if ($proposalFile->getClientOriginalExtension() === 'pdf') {
+            $proposalFileName = Str::slug($ApprenticeId) . 'proposal_' . time() . '.pdf';
+            $proposalFile->move(public_path('modules/senaempresa/files/proposal/'), $proposalFileName);
+            $postulate->proposal = 'modules/senaempresa/files/proposal/' . $proposalFileName;
+        } else {
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Proposal file must be in PDF format.'));
+        }
+    }
+
+    if ($employment_certificateFile = $request->file('employment_certificate')) {
+        if ($employment_certificateFile->getClientOriginalExtension() === 'pdf') {
+            $employment_certificateFileeName = Str::slug($ApprenticeId) . 'employment_certificate_' . time() . '.pdf';
+            $employment_certificateFile->move(public_path('modules/senaempresa/files/employment_certificate/'), $employment_certificateFileeName);
+            $postulate->employment_certificate = 'modules/senaempresa/files/employment_certificate/' . $employment_certificateFileeName;
+        } else {
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', 'El archivo del certificado debe estar en formato PDF.');
+        }
+    }
+
+    // Verificar si ya existe un registro en 'filesenaempresa' para el mismo aprendiz y vacante
+    $existingFileSenaempresa = Postulate::where('apprentice_id', $ApprenticeId)->first();
+
+    if ($existingFileSenaempresa) {
+        // Usar los archivos existentes para la nueva inscripción
+        $postulate->cv = $existingFileSenaempresa->cv;
+        $postulate->personalities = $existingFileSenaempresa->personalities;
+        $postulate->proposal = $existingFileSenaempresa->proposal;
+        $postulate->employment_certificate = $existingFileSenaempresa->employment_certificate;
+    }
+
+    if ($postulate->save()) {
+        return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('success', trans('senaempresa::menu.Successfully registered.'));
+    } else {
+        return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Error registering.'));
+    }
+}
 
 
     public function postulates(Request $request)
