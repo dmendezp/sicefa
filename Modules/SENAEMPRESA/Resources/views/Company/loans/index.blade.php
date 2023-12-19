@@ -153,7 +153,7 @@
                                                         (Route::is('senaempresa.human_talent_leader.*') &&
                                                             Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.edit')))
                                                     <td>
-                                                        <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.edit', ['id' => $loan->id]) }}"
+                                                        <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.return', ['id' => $loan->id]) }}"
                                                             class="btn btn-primary btn-sm">{{ trans('senaempresa::menu.Return') }}</a>
                                                         <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.edit', ['id' => $loan->id]) }}"
                                                             class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>

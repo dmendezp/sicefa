@@ -15,36 +15,48 @@ use Modules\SICA\Entities\ProductiveUnitWarehouse;
 class InventoriesTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Ejecuta la inserción de datos en la base de datos.
      *
      * @return void
      */
     public function run()
     {
-        // Fetch the first person from the collection
+        // Obtiene la primera persona de la colección
         $person = Person::first();
 
-        // Fetch the first productive_unit_warehouse from the collection
+        // Obtiene la primera unidad productiva de almacén de la colección
         $productive_unit_warehouse = ProductiveUnitWarehouse::first();
 
-        // Check if $person and $productive_unit_warehouse are not null
+        // Verifica que $person y $productive_unit_warehouse no sean nulos
         if (!$person || !$productive_unit_warehouse) {
-            // Handle the case where either $person or $productive_unit_warehouse is null
-            // You may log an error, throw an exception, or take appropriate action
+            // Maneja el caso en el que $person o $productive_unit_warehouse sea nulo
+            // Puedes registrar un error, lanzar una excepción o tomar la acción adecuada
             return;
         }
 
-        // Crea una categoría
-        $category = Category::create([
+        // Crea una categoría si no existe una con el mismo nombre
+        $category = Category::firstOrNew([
             'name' => 'SENAEMPRESA_EPP',
-            'kind_of_property' => 'Devolutivo', // Ajusta según tus necesidades
         ]);
 
-        // Crea un tipo de compra
-        $kindOfPurchase = KindOfPurchase::create([
+        // Verifica si la categoría ya existe
+        if (!$category->exists) {
+            $category->fill([
+                'kind_of_property' => 'Devolutivo', // Ajusta según tus necesidades
+            ])->save();
+        }
+
+        // Crea un tipo de compra si no existe uno con el mismo nombre
+        $kindOfPurchase = KindOfPurchase::firstOrNew([
             'name' => 'Tipo de Compra Ejemplo',
-            'description' => 'Descripción del tipo de compra',
         ]);
+
+        // Verifica si kindOfPurchase ya existe
+        if (!$kindOfPurchase->exists) {
+            $kindOfPurchase->fill([
+                'description' => 'Descripción del tipo de compra',
+            ])->save();
+        }
 
         // Crea una unidad de medida
         $measurementUnit = MeasurementUnit::create([
@@ -67,10 +79,10 @@ class InventoriesTableSeeder extends Seeder
             'slug' => 'elemento-inventario',
         ]);
 
-        // Check if $element is not null
+        // Verifica si $element no es nulo
         if (!$element) {
-            // Handle the case where $element is null
-            // You may log an error, throw an exception, or take appropriate action
+            // Maneja el caso en el que $element sea nulo
+            // Puedes registrar un error, lanzar una excepción o tomar la acción adecuada
             return;
         }
 
