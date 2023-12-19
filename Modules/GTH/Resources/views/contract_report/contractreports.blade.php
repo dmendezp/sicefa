@@ -1,4 +1,4 @@
-@extends('gth::layouts.master')
+    @extends('gth::layouts.master')
 
 @section('content')
     <div class="container">
