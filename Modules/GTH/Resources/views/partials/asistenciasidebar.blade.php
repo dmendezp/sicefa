@@ -67,20 +67,25 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
+                @if (Auth::user()->havePermission('gth.registerattendance.attendancecourse.index'))
                 <li class="nav-item">
-                    <a href="{{ route('cefa.reattendance.view') }}"
-                        class="nav-link {{ !Route::is('cefa.reattendance.view') ?: 'active' }}">
+                    <a href="{{route('gth.registerattendance.attendancecourse.index')}}"
+                        class="nav-link {{ !Route::is('gth.registerattendance.registerattendance.index') ?: 'active' }}">
                         <i class="fas fa-user-plus"></i>
-                        <p> Asistencia</p>
+                        <p> Asistencia Curso</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('cefa.attendancereport.view') }}"
-                        class="nav-link {{ !Route::is('cefa.gth.attendancereport.view') ?: 'active' }}">
-                        <i class="fas fa-home"></i>
-                        <p> Reporte de Asistencia </p>
-                    </a>
-                </li>
+                @endif
+                @if (Auth::user()->havePermission('gth.brigadista.attendancereport.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('gth.brigadista.attendancereport.index') }}"
+                                class="nav-link {{ !Route::is('cefa.gth.attendancereport.view') ?: 'active' }}">
+                                <i class="fas fa-home"></i>
+                                <p> Reporte de Asistencia </p>
+                            </a>
+                        </li>
+                    @endif
+
 
             </ul>
         </nav>

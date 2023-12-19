@@ -38,7 +38,7 @@
                     <div class="card card-primary card-outline shadow">
                         <div class="card-header">Registro de Asistencia</div>
                         <div class="card-body">
-                            <form action="{{ route('cefa.registerattendance.view')}}" method="GET">
+                            <form action="{{ route('gth.registerattendance.registerattendance.index')}}" method="GET">
                             <div class="mb-3">
                                 <label for="document_number"
                                     class="form-label">Numero Documento</label>

@@ -75,7 +75,7 @@
                     </a>
                 </li>
                 <li
-                    class="nav-item {{ Route::is('cefa.gth.contractors.view', 'cefa.gth.contractreports.view', 'cefa.contractualcertificates.view') ? 'menu-is-opening menu-open' : '' }}">
+                    class="nav-item {{ Route::is('gth.admin.contractors.index', 'gth.admin.contractreports.index', 'cefa.contractualcertificates.view') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link {{ !Route::is('contratos.*') ?: 'active' }}">
                         <i class="fas fa-file-signature"></i>
                         <p>{{ trans('gth::menu.Contracts') }}
@@ -84,15 +84,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('cefa.gth.contractreports.view') }}"
-                                class="nav-link {{ !Route::is('cefa.gth.contractreports.view') ?: 'active' }}">
+                            <a href="{{ route('gth.admin.contractreports.index') }}"
+                                class="nav-link {{ !Route::is('gth.admin.contractreports.index') ?: 'active' }}">
                                 <i class="fas fa-file-alt"></i>
                                 <p> {{ trans('gth::menu.Employment Contract') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('cefa.gth.contractors.view') }}"
-                                class="nav-link {{ !Route::is('cefa.gth.contractors.view') ?: 'active' }}">
+                            <a href="{{ route('gth.admin.contractors.index') }}"
+                                class="nav-link {{ !Route::is('gth.admin.contractors.index') ?: 'active' }}">
                                 <i class="fas fa-file-contract"></i>
                                 <p>
                                     {{ trans('gth::menu.Contract Report') }}
@@ -111,7 +111,7 @@
                     </ul>
                 </li>
                 <li
-                    class="nav-item {{ Route::is('cefa.gth.insurerentities.view', 'cefa.gth.contractortypes.view', 'cefa.gth.employeetypes.view', 'cefa.gth.pensionentities.view', 'cefa.gth.position') ? 'menu-is-opening menu-open' : '' }}">
+                    class="nav-item {{ Route::is('gth.admin.insurerentities.index', 'gth.admin.contractortypes.index', 'gth.admin.employeetypes.index', 'gth.admin.pensionentities.index', 'gth.admin.position.index') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link {{ !Route::is('contratos.*') ?: 'active' }}">
                         <i class="fas fa-users-cog"></i>
                         <p>{{ trans('gth::menu.Configuration') }}
@@ -120,8 +120,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('cefa.gth.insurerentities.view') }}"
-                                class="nav-link {{ !Route::is('cefa.gth.insurerentities.view') ?: 'active' }}">
+                            <a href="{{ route('gth.admin.insurerentities.index') }}"
+                                class="nav-link {{ !Route::is('gth.admin.insurerentities.index') ?: 'active' }}">
                                 <i class="fas fa-newspaper"></i>
                                 <p>
                                     {{ trans('gth::menu.Insurance Company') }}
@@ -129,8 +129,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('cefa.gth.contractortypes.view') }}"
-                                class="nav-link {{ !Route::is('cefa.gth.contractortypes.view') ?: 'active' }}">
+                            <a href="{{ route('gth.admin.contractortypes.index') }}"
+                                class="nav-link {{ !Route::is('gth.admin.contractortypes.index') ?: 'active' }}">
                                 <i class="far fa-clipboard"></i>
                                 <p>
                                     {{ trans('gth::menu.Type of Contract') }}
@@ -138,8 +138,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('cefa.gth.employeetypes.view') }}"
-                                class="nav-link {{ !Route::is('cefa.gth.employeetypes.view') ?: 'active' }}">
+                            <a href="{{ route('gth.admin.employeetypes.index') }}"
+                                class="nav-link {{ !Route::is('gth.admin.employeetypes.index') ?: 'active' }}">
                                 <i class="fas fa-puzzle-piece"></i>
                                 <p>
                                     {{ trans('gth::menu.Type of Employee') }}
@@ -147,8 +147,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('cefa.gth.pensionentities.view') }}"
-                                class="nav-link {{ !Route::is('cefa.gth.pensionentities.view') ?: 'active' }}">
+                            <a href="{{ route('gth.admin.pensionentities.index') }}"
+                                class="nav-link {{ !Route::is('gth.admin.pensionentities.index') ?: 'active' }}">
                                 <i class="fas fa-user-edit"></i>
                                 <p>
                                     {{ trans('gth::menu.Pension') }}
@@ -156,8 +156,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('cefa.gth.position') }}"
-                                class="nav-link {{ !Route::is('cefa.gth.position') ?: 'active' }}">
+                            <a href="{{ route('gth.admin.position.index') }}"
+                                class="nav-link {{ !Route::is('gth.admin.position.index') ?: 'active' }}">
                                 <i class="fas fa-envelope-open-text"></i>
                                 <p>
                                     {{ trans('gth::menu.Grades') }}
@@ -167,8 +167,8 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('cefa.gth.officials.view') }}"
-                        class="nav-link {{ !Route::is('cefa.gth.officials.view') ?: 'active' }}">
+                    <a href="{{ route('gth.admin.officials.index') }}"
+                        class="nav-link {{ !Route::is('gth.admin.officials.index') ?: 'active' }}">
                         <i class="fas fa-street-view"></i>
                         <p>
                             {{ trans('gth::menu.Officials') }}
@@ -177,8 +177,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('cefa.gth.brigader.view') }}"
-                        class="nav-link {{ !Route::is('cefa.gth.brigader.view') ?: 'active' }}">
+                    <a href="{{ route('gth.admin.brigader.index') }}"
+                        class="nav-link {{ !Route::is('gth.admin.brigader.index') ?: 'active' }}">
                         <i class="fa-solid fa-person-carry-box"></i>
                         <p>
                             Brigadista

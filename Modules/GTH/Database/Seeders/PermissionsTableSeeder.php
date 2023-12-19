@@ -20,6 +20,7 @@ class PermissionsTableSeeder extends Seeder
         // crear listas para almacenar los permisos de cada rol
         $permissions_admin = [];
         $permissions_brigadista = [];
+        $permissions_registerattendance = [];
 
 
         // Consultar aplicación SICA para registrar los roles
@@ -29,20 +30,41 @@ class PermissionsTableSeeder extends Seeder
         // ---------- Registro o actualización de permiso ---------
 
         // Gestionar Asistencia
-        $permission = Permission::updateOrCreate(['slug' => 'gth.attendance.index'], [
-            'name' => 'Gestionar los Asistencia',
+        $permission = Permission::updateOrCreate(['slug' => 'gth.registerattendance.registerattendance.index'], [
+            'name' => 'Registrar los Asistencia',
+            'description' => 'Tendra el acceso a gestionar las asistencias',
+            'description_english' => 'You will have access to manage the attendance',
+            'app_id' => $app->id
+        ]);
+        $permissions_registerattendance[] = $permission->id; // Almacenar permiso para rol
+
+
+        $permission = Permission::updateOrCreate(['slug' => 'gth.brigadista.attendancereport.index'], [
+            'name' => 'Reporte',
             'description' => 'Tendra el acceso a gestionar las asistencias',
             'description_english' => 'You will have access to manage the attendance',
             'app_id' => $app->id
         ]);
         $permissions_brigadista[] = $permission->id; // Almacenar permiso para rol
 
+        $permission = Permission::updateOrCreate(['slug' => 'gth.registerattendance.attendancecourse.index'], [
+            'name' => 'Asistencia por Curso',
+            'description' => 'Tendra el acceso a gestionar las asistencias',
+            'description_english' => 'You will have access to manage the attendance',
+            'app_id' => $app->id
+        ]);
+        $permissions_registerattendance[] = $permission->id; // Almacenar permiso para rol
+
 
 
         // Consulta de ROLES
         $rol_brigadista = Role::where('slug', 'gth.brigadista')->first();
+        $rol_admin = Role::where('slug', 'gth.admin')->first();
+        $rol_registerattendance = Role::where('slug', 'gth.registerattendance')->first();
 
         // Asignación de permisos para roles
         $rol_brigadista->permissions()->syncWithoutDetaching($permissions_brigadista);
+        $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
+        $rol_registerattendance->permissions()->syncWithoutDetaching($permissions_registerattendance);
     }
 }

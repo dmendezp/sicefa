@@ -85,7 +85,7 @@ class ContractReportController extends Controller
 
         $contracts->save();
 
-        return redirect()->route('cefa.gth.contractreports.view'); // Muestra el formulario de registro
+        return redirect()->route('gth.admin.contractreports.index'); // Muestra el formulario de registro
     }
 
     public function store(Request $request)
@@ -129,7 +129,7 @@ class ContractReportController extends Controller
             $contractor->save();
 
             // Redirecciona a la vista adecuada con un mensaje de éxito
-            return redirect()->route('cefa.gth.contractreports.view')->with('success', 'Contrato guardado exitosamente');
+            return redirect()->route('gth.admin.contractreports.index')->with('success', 'Contrato guardado exitosamente');
         } catch (\Exception $e) {
             // Manejar errores, puedes redirigir a una página de error o mostrar un mensaje de error
 return redirect()->route('cefa.contractors.view')->with('success', 'Contrato guardado exitosamente');

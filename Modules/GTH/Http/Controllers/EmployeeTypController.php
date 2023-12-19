@@ -26,7 +26,7 @@ class EmployeeTypController extends Controller
         $employeeType->name = $request->input('name');
         $employeeType->save();
 
-        return redirect()->route('cefa.gth.employeetypes.view');
+        return redirect()->route('gth.admin.employeetypes.index');
     }
 
 
@@ -46,7 +46,7 @@ class EmployeeTypController extends Controller
         $employeeType->save();
 
         // Redirigir a donde quieras después de la actualización
-        return redirect()->route('cefa.gth.employeetypes.view')->with('success', 'Tipo de Empleado actualizado exitosamente.');
+        return redirect()->route('gth.admin.employeetypes.index')->with('success', 'Tipo de Empleado actualizado exitosamente.');
     }
 
     public function showEmployeeType($id)
@@ -62,9 +62,9 @@ class EmployeeTypController extends Controller
             $employeeType = EmployeeType::findOrFail($id);
             $employeeType->delete();
 
-            return redirect()->route('cefa.gth.employeetypes.view')->with('success', 'Tipo de empleado eliminado correctamente.');
+            return redirect()->route('gth.admin.employeetypes.index')->with('success', 'Tipo de empleado eliminado correctamente.');
         } catch (\Exception $e) {
-            return redirect()->route('cefa.gth.employeetypes.view')->with('error', 'No se pudo eliminar el tipo de contratista.');
+            return redirect()->route('gth.admin.employeetypes.index')->with('error', 'No se pudo eliminar el tipo de contratista.');
         }
     }
 

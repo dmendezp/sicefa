@@ -28,7 +28,7 @@ class PositionsController extends Controller
         $positions->grade = $request->input('grade');
         $positions->save();
 
-        return redirect()->route('cefa.gth.position');
+        return redirect()->route('gth.admin.position.index');
     }
 
 
@@ -44,7 +44,7 @@ class PositionsController extends Controller
         $positions->save();
 
         // Redirigir a donde quieras después de la actualización
-        return redirect()->route('cefa.gth.position')->with('success',trans('gth::menu.Position successfully updated.'));
+        return redirect()->route('gth.admin.position.index')->with('success',trans('gth::menu.Position successfully updated.'));
     }
 
     public function showPositions($id)
@@ -60,9 +60,9 @@ class PositionsController extends Controller
             $positions = position::findOrFail($id);
             $positions->delete();
 
-            return redirect()->route('cefa.gth.position')->with('success', trans('gth::menu.Position successfully updated.'));
+            return redirect()->route('gth.admin.position.index')->with('success', trans('gth::menu.Position successfully updated.'));
         } catch (\Exception $e) {
-            return redirect()->route('cefa.gth.position')->with('error', trans('gth::menu.The Position could not be deleted.'));
+            return redirect()->route('gth.admin.position.index')->with('error', trans('gth::menu.The Position could not be deleted.'));
         }
     }
 }

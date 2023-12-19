@@ -30,6 +30,14 @@ class RolesTableSeeder extends Seeder
             'full_access' => 'no',
             'app_id' => $app->id
         ]);
+        // Registrar o actualizar rol de administrador en GTH
+        $rolregisterattendance = Role::updateOrCreate(['slug' => 'gth.registerattendance'], [
+            'name' => 'Registro Asistencia',
+            'description' => 'Rol de registro asistencia GTH',
+            'description_english' => 'Role of GTH Register Attendance',
+            'full_access' => 'no',
+            'app_id' => $app->id
+        ]);
 
         // Registrar o actualizar rol de Brigadista en GTH
         $rolbrigadista = Role::updateOrCreate(['slug' => 'gth.brigadista'], [
@@ -48,7 +56,8 @@ class RolesTableSeeder extends Seeder
 
         // Asignacion de roles a usuarios
         $useradministrador->roles()->syncWithoutDetaching([$roladministrador->id]);
-        $userbrigadista->roles()->syncWithoutDetaching([$roladministrador->id]);
+        $userbrigadista->roles()->syncWithoutDetaching([$rolbrigadista->id]);
+        $useradministrador->roles()->syncWithoutDetaching([$rolregisterattendance->id]);
 
 
     }
