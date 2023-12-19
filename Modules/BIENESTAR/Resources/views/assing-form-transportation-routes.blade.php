@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <h1>Gestion y Asignacion de rutas de Transporte <i class="fas fa-bus" style="color: #000000;"></i></h1>
+    <h1>{{ trans('bienestar::menu.Management and Assignment of Transportation Routes')}} <i class="fas fa-bus" style="color: #000000;"></i></h1>
 
     <div class="row justify-content-md-center pt-4">
         <!-- Aquí comienza la tabla de rutas -->
@@ -15,8 +15,8 @@
                 <table id="routesTable" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>Número de Ruta</th>
-                            <th>Número de Cupos</th>
+                            <th>{{ trans('bienestar::menu.Routing Number')}}</th>
+                            <th>{{ trans('bienestar::menu.Quotas')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,12 +46,12 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Beneficio</th>
-                                    <th>Convocatoria</th>
-                                    <th>Nombre del Postulado</th>
-                                    <th>Número de Documento</th>
-                                    <th>Lugar de Encuentro</th>
-                                    <th>Rutas</th>
+                                    <th>{{ trans('bienestar::menu.Benefits')}}</th>
+                                    <th>{{ trans('bienestar::menu.Convocation')}}</th>
+                                    <th>{{ trans('bienestar::menu.Apprentice')}}</th>
+                                    <th>{{ trans('bienestar::menu.Number Document')}}</th>
+                                    <th>{{ trans('bienestar::menu.Municipality of Residence')}}</th>
+                                    <th>{{ trans('bienestar::menu.Transportation Route')}}</th>
                                 </tr>
                             </thead>
                             <tbody>

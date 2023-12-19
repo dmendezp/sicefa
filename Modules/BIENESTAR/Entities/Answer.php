@@ -40,7 +40,7 @@ class Answer extends Model implements Auditable
     
     
     public function question(){// Accede a todas las preguntas que pertenecen a esta respuesta
-        return $this->belongsTo(Question::class, 'questions_id');
+        return $this->belongsTo(Question::class, 'question_id');
     }
 
     

@@ -1,6 +1,7 @@
 @extends('bienestar::layouts.master')
 @section('content')
 <div class="container">
+    @if(count($convocations) > 0)
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -14,9 +15,9 @@
                             <h1 class="text-center">{{ $co->name }}</h1>
                             <p>{{ $co->description }}</p>
                         </div>
-                        <h5>Fecha de inicio:</h5>
+                        <h5>{{ trans('bienestar::menu.Start Date')}}:</h5>
                         <p> {{ $co->start_date }}</p>
-                        <h5>Fecha final:</h5>
+                        <h5>{{ trans('bienestar::menu.End Date')}}:</h5>
                         <p> {{ $co->end_date }}</p>
                         @endforeach
                     </div>
@@ -28,7 +29,7 @@
     <div class="row justify-content-center mt-4">
         <div class="col-md-8">
             <div class="card shadow">
-                <h1 class="text-center">Número de Documento</h1>
+                <h1 class="text-center">{{ trans('bienestar::menu.Number Document')}}</h1>
                 <div class="card-body">
                     <!-- Agrega el formulario de búsqueda -->
                     <div class="input-group mb-3">
@@ -42,7 +43,19 @@
         </div>
     </div>
     <div id="divApprentices"></div>
+    @else
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="text-center">No hay Convocatorias Disponibles</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 </div>
+
 <script>
     // Definir la función handleSearchResponse primero
     function handleSearchResponse(response) {
@@ -69,7 +82,7 @@
         var data = JSON.stringify(miObjeto);
         console.log(miObjeto);
 
-        ajaxReplace('divApprentices', '/bienestar/postulations/search', data)            
+        ajaxReplace('divApprentices', '/bienestar/postulations/search', data)
     }
 </script>
 @endsection

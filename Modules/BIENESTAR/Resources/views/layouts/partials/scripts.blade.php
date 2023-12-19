@@ -35,10 +35,35 @@
 @section('script')
 <!-- Configuración del DataTable -->
 <script>
-    $(document).ready(function() {
-        // Configura el DataTable en el elemento con el id 'miDataTable'
-        $('#benefitsTable').DataTable();
+   $(document).ready(function() {
+    // Configura el DataTable en el elemento con el id 'benefitsTable'
+    $('#benefitsTable').DataTable({
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]], // Define las opciones de longitud del menú
+        "pagingType": "simple", // Tipo de paginación simple con solo Siguiente y Anterior
+        "responsive": true, // Hace que la tabla sea responsive
+        "order": [[0, 'asc']], // Ordena por la primera columna en orden ascendente por defecto
+        "language": {
+            "lengthMenu": 'Mostrar <select class="custom-select custom-select-sm form-control form-control-sm">' +
+                '<option value="10">10</option>' +
+                '<option value="25">25</option>' +
+                '<option value="50">50</option>' +
+                '<option value="-1">Todos</option>' +
+                '</select> registros por página',
+            "zeroRecords": "No se encontraron registros",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+            "search": "Buscar:",
+            "paginate": {
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+        }
     });
+});
+
+
+
 </script>
 <script>
     'use strict'; //Boton de eliminar
@@ -250,24 +275,10 @@ document.querySelectorAll('.formEliminar[data-method="delete"]').forEach(functio
                         if (response.data.success) {
                             showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 1500);
                         } else {
-                            showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}",3000);
+                            showSweetAlert('error', 'Error',response.data.error,3000);
                         }
                     }
                 })
-                .catch(function(error) {
-                    if (error.response && error.response.status === 422) {
-                        // Si el código de estado es 422, muestra el SweetAlert de error con el mensaje del servidor
-                        if (error.response.data && error.response.data.error) {
-                            showSweetAlert('error', 'Error', error.response.data.error, 3500);
-                        } else {
-                            // Muestra el SweetAlert de error genérico para el código de estado 422
-                            showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}");
-                        }
-                    } else {
-                        // Muestra el SweetAlert de error genérico para otros errores
-                        showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}");
-                    }
-                });
         });
     });
 </script>

@@ -29,12 +29,12 @@
 
                 <div class="row mb-3">
                     <div class="col-md-12">
-                        @if (Auth::user()->havePermission('bienestar.admin.save.drivers'))
-                            <form action="{{ route('bienestar.admin.save.drivers') }}" method="POST" onsubmit="return validarFormulario()">
+                        @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.drivers'))
+                            <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.drivers') }}" method="POST" onsubmit="return validarFormulario()">
                                 @csrf
                                 <div class="form-row">
                                     <div class="col-md-3 mb-2">
-                                        <input type="text" placeholder="{{ trans('bienestar::menu.Driver (Full Name)')}}" class="form-control namedriver" name="namedriver" required oninput="validarNombre(this)">
+                                        <input type="text" id="bus_Driver" placeholder="{{ trans('bienestar::menu.Driver (Full Name)')}}" class="form-control namedriver" name="namedriver" required oninput="validarNombre(this)">
                                         <span class="nombreError" style="color: red;"></span>
                                     </div>
 
@@ -78,7 +78,7 @@
                                     <td>
                                         <div class="d-flex">
                                             <button class="btn btn-info mr-2" data-toggle="modal" data-target="#modal-edit-{{ $busdriver->id }}"><i class="fas fa-edit"></i></button>
-                                            <form action="{{ route('bienestar.admin.delete.drivers', ['id' => $busdriver->id]) }}" method="POST" class="formEliminar">
+                                            <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.drivers', ['id' => $busdriver->id]) }}" method="POST" class="formEliminar">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
@@ -92,14 +92,14 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Editar Conductor</h4>
+                                                <h4 class="modal-title">{{ trans('bienestar::menu.Edit Driver')}}</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
                                                 <!-- Formulario de edición para el conductor -->
-                                                <form action="{{ route('bienestar.admin.edit.drivers', ['id' => $busdriver->id]) }}" method="POST" onsubmit="return validarFormularioEditar('{{ $busdriver->id }}')">
+                                                <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.drivers', ['id' => $busdriver->id]) }}" method="POST" onsubmit="return validarFormularioEditar('{{ $busdriver->id }}')">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="form-group">
@@ -118,7 +118,6 @@
                                                         <span id="telefonoErrorEditar_{{ $busdriver->id }}" style="color: red;"></span>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('bienestar::menu.Close')}}</button>
                                                         <button type="submit" class="btn btn-primary">{{ trans('bienestar::menu.Save')}}</button>
                                                     </div>
                                                 </form>
@@ -202,24 +201,6 @@
         mostrarAlerta(document.querySelector('.guardarExitoso'));
 
         return !nombreInput.validationMessage && !emailInput.validationMessage && !telefonoInput.validationMessage;
-    }
-
-    function validarNombreEditar(id) {
-        var nombreInput = document.getElementById("nameEditar_" + id);
-        var nombre = nombreInput.value.trim();
-        var errorDiv = document.getElementById("nombreErrorEditar_" + id);
-
-        if (conductoresExistentes.includes(nombre)) {
-            nombreInput.setCustomValidity("El conductor ya existe.");
-            errorDiv.textContent = "El conductor ya existe.";
-            mostrarAlerta(document.querySelector('.nombreRepetido'));
-        } else if (!/^[A-Za-z\s]+$/.test(nombre)) {
-            nombreInput.setCustomValidity("El nombre solo debe contener letras y espacios.");
-            errorDiv.textContent = "El nombre solo debe contener letras y espacios.";
-        } else {
-            nombreInput.setCustomValidity("");
-            errorDiv.textContent = "";
-        }
     }
 
     function validarEmailEditar(id) {

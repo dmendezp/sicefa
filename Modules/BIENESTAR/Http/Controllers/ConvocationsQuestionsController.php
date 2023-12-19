@@ -10,6 +10,8 @@ use Modules\BIENESTAR\Entities\ConvocationQuestion;
 use Modules\BIENESTAR\Entities\Question;
 use Modules\BIENESTAR\Entities\AnswersQuestion;
 use Modules\BIENESTAR\Entities\Convocation;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Log;
 
 class ConvocationsQuestionsController extends Controller
 {
@@ -37,18 +39,18 @@ class ConvocationsQuestionsController extends Controller
     {
         // Primero, obtenemos la pregunta por su ID
         $question = Question::find($id);
-    
+
         // Si la pregunta no existe, enviamos una respuesta JSON con un mensaje de error
         if (!$question) {
             return response()->json(['mensaje' => 'La pregunta no existe.'], 400);
         }
-    
+
         // Eliminamos las respuestas asociadas a esta pregunta
         AnswersQuestion::where('question_id', $id)->delete();
-    
+
         // Eliminamos la pregunta
         $question->delete();
-    
+
         // Enviamos una respuesta JSON con un mensaje de éxito
         return response()->json(['mensaje' => 'La pregunta y sus respuestas han sido eliminadas con éxito.'], 200);
     }
@@ -58,11 +60,11 @@ class ConvocationsQuestionsController extends Controller
         $answer =  AnswersQuestion::findOrFail($id);
         // Eliminamos la respuesta
         $answer->delete();
-    
+
         // Enviamos una respuesta JSON con un mensaje de éxito
         return response()->json(['mensaje' => 'La respuestas han sido eliminadas con éxito.'], 200);
     }
-    
+
 
     public function add_answer(Request $request)
     {
@@ -103,7 +105,6 @@ class ConvocationsQuestionsController extends Controller
         ]);
 
         $respuestas = $request->input('answer', []);
-
         if (!empty($respuestas)) {
             foreach ($respuestas as $respuestaId => $respuestaText) {
                 $respuesta = AnswersQuestion::findOrFail($respuestaId); // Encuentra la respuesta por su ID
@@ -115,9 +116,46 @@ class ConvocationsQuestionsController extends Controller
 
         // Redirige de nuevo con un mensaje de éxito
         return response()->json(['success' => 'Pregunta y respuestas actualizadas con éxito!']);
-        return redirect()->route('bienestar.'.getRoleRouteName(Route::currentRouteName()).'.convocations.crud.editform')->with('success', 'Pregunta y respuestas actualizadas con éxito.');
     }
 
+    public function updateAnswer(Request $request)
+    {
+        $answer = $request->input('answer');
+        $id_question = $request->input('id_question');
+
+        // Verifica si existe un registro igual
+        $existingAnswer = AnswersQuestion::where('answer', $answer)->where('question_id', $id_question)->first();
+
+        // Si existe un registro igual y no ha sido eliminado suavemente, responde con un mensaje de error
+        if ($existingAnswer) {
+            return response()->json(['error' => 'Ya existe un registro igual']);
+        }
+
+        // Si no existe un registro igual, crea uno nuevo
+        $respuesta = new AnswersQuestion();
+        $respuesta->answer = $answer;
+        $respuesta->question_id = $id_question;
+        $respuesta->save();
+
+        return response()->json(['success' => 'Se ha agredado la respuesta con éxito!']);
+    }
+
+    public function showForm(Request $request)
+    {
+       
+        $selectedConvocationId = $request->input('selectedConvocationId');
+        
+        // Obtener las preguntas relacionadas con la convocatoria seleccionada
+        $relatedQuestions = [];
+        if ($selectedConvocationId) {
+            $relatedQuestions = (array) ConvocationQuestion::where('convocation_id', $selectedConvocationId)
+                ->pluck('questions_id')
+                ->toArray();
+        } 
+
+        // Devolver la información en formato JSON
+        return response()->json(['relatedQuestions' => $relatedQuestions]);
+    }
 
 
 
@@ -129,28 +167,22 @@ class ConvocationsQuestionsController extends Controller
         // Validar los datos del formulario
         $request->validate([
             'convocatoria_id' => 'required|exists:convocations,id',
-            'selected_question_ids' => 'required|string',
+            'selected_questions' => 'required|string',
         ]);
+        $convocatoriaId = $request->input('convocatoria_id');
+        $selectedQuestionIds = explode(',', $request->input('selected_questions'));
 
-        try {
-            // Obtener el ID de la convocatoria y los IDs de las preguntas seleccionadas
-            $convocatoriaId = $request->input('convocatoria_id');
-            $selectedQuestionIds = explode(',', $request->input('selected_question_ids'));
-
-            // Recorre los IDs de las preguntas seleccionadas y guárdalos en la base de datos
-            foreach ($selectedQuestionIds as $questionId) {
-                // Aquí puedes guardar $convocatoriaId y $questionId en tu base de datos
-                $pregunta = new ConvocationQuestion();
-                $pregunta->convocation_id = $convocatoriaId;
-                $pregunta->questions_id = $questionId;
-                $pregunta->save();
-            }
-
-            // Devolver una respuesta JSON exitosa
-            return redirect()->route('bienestar.'.getRoleRouteName(Route::currentRouteName()).'.convocations.crud.editform')->with('success', 'Se ha guardado con exito');
-        } catch (\Exception $e) {
-            // En caso de error, manejar el error y devolver una respuesta JSON con un mensaje de error
-            return redirect()->route('bienestar.'.getRoleRouteName(Route::currentRouteName()).'.convocations.crud.editform')->with('error', 'Error al guardar');
+        // Recorre los IDs de las preguntas seleccionadas y guárdalos en la base de datos
+        foreach ($selectedQuestionIds as $questionId) {
+            // Verifica si ya existe la relación, si no existe, la crea
+            ConvocationQuestion::firstOrCreate([
+                'convocation_id' => $convocatoriaId,
+                'questions_id' => $questionId,
+            ]);
         }
+
+
+        // Devolver una respuesta JSON exitosa
+        return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.convocations.crud.editform');
     }
 }

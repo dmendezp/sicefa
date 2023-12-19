@@ -13,8 +13,6 @@
                             <th>Programa</th>
                             <th>Estado</th>
                             <th>Beneficio</th>
-                            <th>Porcentaje</th>
-                            <th>Mensaje</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,8 +26,6 @@
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->state }}</td>
                             <td>{{ $item->benefit_name }}</td>
-                            <td>{{ $item->porcentege }}</td>
-                            <td>{{ $item->message }}</td>
                         </tr>
                         @endforeach
                     </tbody>

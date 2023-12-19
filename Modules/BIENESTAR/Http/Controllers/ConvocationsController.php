@@ -28,9 +28,6 @@ class ConvocationsController extends Controller
     {
         // Obtenemos Listado Convocatoria
        $convocations=Convocation::all(); 
-       //obtenemos el listado de buses
-       $convocations = Convocation::with('quarters')->get();
-       $quarters = Quarter::pluck('name','id','start_date','end_date');
        $quarters= Quarter::all(); 
        return view('bienestar::convocations',['convocations'=>$convocations,'quarters'=>$quarters]);
     }

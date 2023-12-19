@@ -9,7 +9,7 @@
             <!-- /.card-header -->
             <div class="card-body">
             @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.buses'))
-            {!! Form::open(['route' => 'bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.buses', 'method' => 'POST', 'role' => 'form' ])
+            {!! Form::open(['route' => 'bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.buses', 'method' => 'POST', 'role' => 'form', 'class' => 'formGuardar'])
                 !!}
                 <div class="row p-4">
                    <div class="col-md-3">
@@ -98,11 +98,11 @@
             </div>
             <div class="modal-body">
                 @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.buses'))
-                {!! Form::open( ['route' => ['bienestar.'.getRoleRouteName(Route::currentRouteName()).'.edit.buses', $bus->id], 'method' => 'PUT', 'role' => 'form']) !!}
+                {!! Form::open( ['route' => ['bienestar.'.getRoleRouteName(Route::currentRouteName()).'.edit.buses', $bus->id], 'method' => 'PUT', 'role' => 'form','class' => 'formEditar']) !!}
                 <div class="row p-4">
                 <div class="col-md-12">
             <div class="form-group">
-                <label for="plate">{{ trans('bienestar::menu.plate')}}:</label>
+                <label for="plate">{{ trans('bienestar::menu.Plate')}}:</label>
                 <input type="text" name="plate" id="plate" class="form-control" placeholder="Ingrese La Placa" required maxlength="6" oninput="this.value = this.value.toUpperCase(); validatePlate(this);"value="{{ $bus->plate }}">
                 <span id="plate-error" class="text-danger"></span>
             </div>
@@ -122,7 +122,7 @@
         </div>
         <div class="col-md-12">
             <div class="btns">
-                {!! Form::submit('Actualizar', ['class' => 'btn btn-success']) !!}
+            {!! Form::submit(__('bienestar::menu.Save'),['class'=>'btn btn-success']) !!}
             </div>
         </div>
     </div>

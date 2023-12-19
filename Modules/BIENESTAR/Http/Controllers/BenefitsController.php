@@ -36,8 +36,8 @@ class BenefitsController extends Controller
         $existingBenefit = Benefit::where('name', $name)->where('porcentege', $porcentege)->first();
 
         // Verifica si ya existe un beneficio con el mismo nombre y porcentaje
-        if ($existingBenefit) {           
-            return response()->json(['error' => 'Ya existe un beneficio con el mismo nombre y porcentaje.'],422);
+        if ($existingBenefit) {
+            return response()->json(['error' => 'Ya existe un beneficio con el mismo nombre y porcentaje.'], 422);
         }
 
         // Si la validación pasa y no existe un beneficio con el mismo nombre y porcentaje, crea el registro en la base de datos
@@ -52,8 +52,19 @@ class BenefitsController extends Controller
 
     public function update(Request $request, $id)
     {
-        $role_name = getRoleRouteName(Route::currentRouteName());
+        // Encontrar el beneficio existente
         $benefit = Benefit::find($id);
+
+        // Validar si ya existe otro beneficio con el mismo nombre y porcentaje
+        $existingBenefit = Benefit::where('name', $request->input('name'))
+            ->where('porcentege', $request->input('porcentege'))
+            ->where('id', '!=', $id)
+            ->first();
+
+        if ($existingBenefit) {
+            // Ya existe un beneficio con el mismo nombre y porcentaje
+            return response()->json(['error' => 'Ya existe un beneficio con el mismo nombre y porcentaje.'], 422);
+        }
 
         // Actualizar los datos
         $benefit->name = $request->input('name');
@@ -64,16 +75,17 @@ class BenefitsController extends Controller
         return response()->json(['success' => 'Beneficio actualizado con éxito']);
     }
 
+
+
     public function destroy($id)
     {
         try {
             $beneficio = Benefit::findOrFail($id);
             $beneficio->delete();
 
-            return response()->json(['mensaje' =>'Beneficio eliminado Correctamente']);
+            return response()->json(['mensaje' => 'Beneficio eliminado Correctamente']);
         } catch (\Exception $e) {
-            return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
+            return response()->json(['mensaje' => 'Error when deleting the vacancy'], 500);
         }
-        
     }
 }

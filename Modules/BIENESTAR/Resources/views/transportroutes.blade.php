@@ -9,7 +9,7 @@
             <!-- /.card-header -->
             <div class="card-body">
                 @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.transportroutes'))
-                <form action="{{ route('bienestar.' . getRoleRouteName (Route::currentRouteName()) . '.save.transportroutes')}}" method="POST" role="form">
+                <form action="{{ route('bienestar.' . getRoleRouteName (Route::currentRouteName()) . '.save.transportroutes')}}" method="POST" role="form" class="formGuardar">
                     @csrf
                     <div class="row p-4">
                         <div class="col-md-3">
@@ -96,9 +96,8 @@
                                         <button class="btn btn-primary editButton mr-2" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#editModal{{$transport->id}}"><i class="fas fa-edit"></i></button>
                                         @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.transportroutes'))
                                         <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.transportroutes', ['id' => $transport->id]) }}" method="POST" class="formEliminar">
-                                            @csrf
-                                            @method("DELETE")
-                                            <!-- Botón para abrir el modal de eliminación -->
+                                        @csrf
+                                            @method("DELETE")<!-- Botón para abrir el modal de eliminación -->
                                             <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
                                         </form>
                                         @endif
@@ -131,7 +130,7 @@
             <div class="modal-body">
                 <!-- Formulario de edición con validación -->
                 @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.transportroutes'))
-                <form id="editForm-{{ $transport->id }}" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.transportroutes', ['id' => $transport->id]) }}" method="post" role="formedit" onsubmit="return validateForm{{ $transport->id }}()"  class="formEditar">
+                <form id="editForm-{{ $transport->id }}" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.transportroutes', ['id' => $transport->id]) }}" class="formEditar" method="post" role="formedit" onsubmit="return validateForm{{ $transport->id }}()">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
