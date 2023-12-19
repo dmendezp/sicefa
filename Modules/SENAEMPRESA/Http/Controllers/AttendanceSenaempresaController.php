@@ -8,16 +8,47 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Route;
 use Modules\SENAEMPRESA\Entities\AttendanceSenaempresa;
 use Modules\SENAEMPRESA\Entities\StaffSenaempresa;
+use Modules\SENAEMPRESA\Entities\Senaempresa;
 use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\Person;
+
 
 class AttendanceSenaempresaController extends Controller
 {
     public function new()
     {
         $attendances = AttendanceSenaempresa::with('staffSenaempresa.apprentice.person')->get();
-        return view('senaempresa::Company.attendance.index', ['attendances' => $attendances, 'title' => trans('senaempresa::menu.Attendance')]);
+        $senaempresas = Senaempresa::all();
+        return view('senaempresa::Company.attendance.index', ['attendances' => $attendances, 'senaempresas' => $senaempresas,  'title' => trans('senaempresa::menu.Attendance')]);
     }
+
+    public function loadStaffBySenaempresa(Request $request)
+    {
+        $senaempresaId = $request->input('senaempresa_id');
+        $documentNumber = $request->input('document_number');
+    
+        $staff = StaffSenaempresa::where('senaempresa_id', $senaempresaId)
+            ->whereHas('apprentice.person', function ($query) use ($documentNumber) {
+                $query->where('document_number', $documentNumber);
+            })
+            ->first();
+    
+        if ($staff) {
+            $response = [
+                'staff' => [
+                    'id' => $staff->id,
+                    'name' => $staff->apprentice->person->full_name,
+                ],
+            ];
+    
+            return response()->json($response);
+        } else {
+            return response()->json(['staff' => null]);
+        }
+    }
+    
+    
+
 
     public function register(Request $request)
     {

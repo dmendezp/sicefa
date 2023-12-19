@@ -1,4 +1,5 @@
 @extends('senaempresa::layouts.master')
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -16,6 +17,15 @@
                                 @csrf
                         @endif
                         <div class="mb-3">
+                            <label for="senaempresa_id" class="form-label">Selecciona una Fase (Senaempresa)</label>
+                            <select class="form-control" name="senaempresa_id" id="senaempresa-select" required>
+                                <option value="" selected>Selecciona una Fase</option>
+                                @foreach ($senaempresas as $senaempresa)
+                                    <option value="{{ $senaempresa->id }}">{{ $senaempresa->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label for="document_number"
                                 class="form-label">{{ trans('senaempresa::menu.document number:') }}</label>
                             <input type="text" name="document_number" class="form-control" required>
@@ -25,6 +35,9 @@
                             <input type="text" name="person_name" class="form-control" readonly>
                         </div>
                         <input type="hidden" name="person_id" id="person_id" value="">
+                        <div id="staff-container" style="display: none;">
+                            <!-- Aquí se mostrará el personal asociado a la fase -->
+                        </div>
                         @if (Route::is('senaempresa.admin.*') ||
                                 (Route::is('senaempresa.human_talent_leader.*') &&
                                     Auth::user()->havePermission(
@@ -125,28 +138,92 @@
         $(document).ready(function() {
             $('#attendance-table').DataTable({});
 
+            $('#senaempresa-select').on('change', function() {
+                var selectedSenaempresaId = $(this).val();
+
+                if (selectedSenaempresaId) {
+                    // Realizar una solicitud AJAX para obtener el personal de la fase seleccionada
+                    $.ajax({
+                        url: '{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.loadStaffBySenaempresa') }}',
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            senaempresa_id: selectedSenaempresaId
+                        },
+                        success: function(response) {
+                            // Llenar el input de personal con la respuesta
+                            var staffInput = $('input[name="person_name"]');
+                            var personIdInput = $('input[name="person_id"]');
+
+                            if (response && response.staff && response.staff.name) {
+                                staffInput.val(response.staff.name);
+                                personIdInput.val(response.staff.id);
+                            } else {
+                                staffInput.val('N/A');
+                                personIdInput.val('');
+                            }
+
+                            // Mostrar el contenedor de personal
+                            $('#staff-container').show();
+                        }
+                    });
+                } else {
+                    // Ocultar el contenedor de personal si no se ha seleccionado ninguna fase
+                    $('#staff-container').hide();
+                }
+            });
+
             $('input[name="document_number"]').on('input', function() {
                 var documentNumber = $(this).val();
+                var selectedSenaempresaId = $('#senaempresa-select').val();
 
                 $.ajax({
-                    url: '{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.getPersonData') }}',
+                    url: '{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.loadStaffBySenaempresa') }}',
                     method: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',
+                        senaempresa_id: selectedSenaempresaId,
                         document_number: documentNumber
                     },
                     success: function(response) {
-                        if (response && response.is_registered) {
-                            var personId = response.id;
-                            var name = response.full_name;
+                        // Log de información
+                        console.log(response); // Agrega este log para verificar la respuesta
+                        console.log("Senaempresa ID: " + selectedSenaempresaId);
+                        console.log("Staff: " + JSON.stringify(response.staff));
 
-                            $('input[name="person_name"]').val(name);
-                            console.log("ID de la persona: " + personId);
-                            console.log("NAME de la persona: " + name);
-                            $('input[name="person_id"]').val(personId);
+                        // Verifica si la respuesta contiene la información esperada
+                        if (response && response.staff && response.staff.name) {
+                            console.log("Nombre de la persona: " + response.staff.name);
+                            console.log("ID de la persona: " + response.staff.id);
+
+                            // Resto del código...
+                            var staffInput = $('input[name="person_name"]');
+                            var personIdInput = $('input[name="person_id"]');
+
+                            staffInput.val(response.staff.name);
+                            personIdInput.val(response.staff.id);
+
+                            // Mostrar el contenedor de personal
+                            $('#staff-container').show();
+                        } else {
+                            console.log("La respuesta no contiene la información esperada");
+
+                            // Si no hay personal asociado, establece los valores en N/A y oculta el contenedor
+                            var staffInput = $('input[name="person_name"]');
+                            var personIdInput = $('input[name="person_id"]');
+
+                            staffInput.val('N/A');
+                            personIdInput.val('');
+
+                            $('#staff-container').hide();
                         }
                     },
+                    // Manejo de errores (puedes agregar esto si lo necesitas)
+                    error: function(xhr, status, error) {
+                        console.error("Error en la solicitud AJAX: " + error);
+                    }
                 });
+
             });
 
             $('#query-attendance-button').on('click', function() {
@@ -181,7 +258,7 @@
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Error',
-                                text: 'No hay asistecias registradas para este documento',
+                                text: 'No hay asistencias registradas para este documento',
                                 showConfirmButton: false,
                                 timer: 3000 // Tiempo en milisegundos (2 segundos en este caso)
                             });
@@ -189,12 +266,6 @@
                     },
                 });
             });
-
-        });
-
-
-        $(document).ready(function() {
-            $('#attendance-table').DataTable();
 
             // Agregar un evento clic al botón "Asistencias Registradas"
             $('#show-hide-table-button').on('click', function() {
