@@ -169,6 +169,51 @@ public function RegisterAssistances(Request $request)
 {
     $documentNumber = $request->input('data');
 
+    // Verificar si ya hay asistencias registradas para el día actual
+    $existingAssistances = DB::table('assistances_foods')
+        ->where('date_time', '>=', now()->startOfDay())
+        ->where('date_time', '<=', now()->endOfDay())
+        ->whereExists(function ($query) use ($documentNumber) {
+            $query->select(DB::raw(1))
+                ->from('apprentices')
+                ->join('people', 'apprentices.person_id', '=', 'people.id')
+                ->join('postulations', 'apprentices.id', '=', 'postulations.apprentice_id')
+                ->join('postulations_benefits', 'postulations.id', '=', 'postulations_benefits.postulation_id')
+                ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
+                ->where('people.document_number', $documentNumber)
+                ->where('postulations_benefits.state', 'Beneficiario')
+                ->where('benefits.name', 'Alimentacion')
+                ->whereRaw('assistances_foods.apprentice_id = apprentices.id');
+        })
+        ->count();
+
+    if ($existingAssistances > 0) {
+        // Ya hay asistencias registradas para el día actual
+        $response = [
+            'success' => false,
+            'message' => 'Ya hay asistencias registradas para hoy.',
+        ];
+
+        return response()->json($response, 400);
+    }
+
+    // Validar si la hora actual está dentro del rango permitido
+    $currentTime = now();
+    $allowedStartTime = now()->setTime(11, 30, 0);
+    $allowedEndTime = now()->setTime(14, 30, 0);
+
+    if ($currentTime < $allowedStartTime || $currentTime > $allowedEndTime) {
+        // La hora actual no está dentro del rango permitido
+        $response = [
+            'success' => false,
+            'message' => 'No está dentro del rango de hora para tomar asistencia.',
+        ];
+
+        return response()->json($response, 400);
+    }
+    // Continuar con el registro de asistencias si no hay registros previos
+
+    // Obtener las postulaciones y realizar el registro
     $SavetAttendance = DB::table('postulations_benefits')
         ->join('postulations', 'postulations_benefits.postulation_id', '=', 'postulations.id')
         ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
@@ -204,7 +249,6 @@ public function RegisterAssistances(Request $request)
     return response()->json($response, 200);
 }
 
-
  // Nueva función para obtener todas las asistencias alimenticias en formato JSON
  // Nueva función para obtener todas las asistencias alimenticias en formato JSON
  public function getAllAssistances()
@@ -227,7 +271,6 @@ public function RegisterAssistances(Request $request)
         'assistances_foods.porcentage',
         'assistances_foods.date_time'
     )
-    ->whereDate('assistances_foods.date_time', '=', now()->toDateString())
     ->orderBy('assistances_foods.date_time', 'desc')
     ->get();
 
@@ -255,14 +298,12 @@ return response()->json(['data' => $assistances], 200);
         'assistances_foods.porcentage',
         'assistances_foods.date_time'
     )
-    ->whereDate('assistances_foods.date_time', '=', now()->toDateString())
     ->whereNotNull('people.document_number')
     ->whereNotNull('people.first_name')
     ->whereNotNull('courses.code')
 
 
          ->where('assistances_foods.porcentage', $porcentaje)
-         ->orderBy('assistances_foods.date_time', 'desc')
          ->get();
  
      return response()->json(['data' => $assistances], 200);
