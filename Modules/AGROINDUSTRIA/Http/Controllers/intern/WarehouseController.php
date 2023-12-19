@@ -28,7 +28,7 @@ class WarehouseController extends Controller
 
     public function expirationdate()
     {
-        $title = 'expirationdate';
+        $title = 'Prontos a Caducar';
     
         // Obtén la ID de la categoría "consumibles" 
         $consumiblesCategoryId = Category::where('name', 'Consumibles')->value('id');
@@ -46,7 +46,7 @@ class WarehouseController extends Controller
             ->get();
     
         // Combina la información de fechas de vencimiento con la información detallada de los elementos y asigna el estado
-        $data = [];
+        $dataInventory = [];
         foreach ($elementsAndExpiryDates as $inventory) {
             $expirationDate = $inventory->expiration_date;
     
@@ -54,12 +54,12 @@ class WarehouseController extends Controller
             if (now()->greaterThanOrEqualTo($expirationDate) || now()->addDays(60)->greaterThanOrEqualTo($expirationDate)) {
                 $state = now()->greaterThanOrEqualTo($expirationDate) ? 'Caducado.' : 'Pronto a caducar.';
                 
-                $data[] = [
+                $dataInventory[] = [
                     'element_id' => $inventory->element->id,
                     'element_name' => $inventory->element->name,
                     'category' => $inventory->element->category->name,
                     'measurement_unit' => $inventory->element->measurement_unit->name,
-                    'amount' => $inventory->amount,
+                    'amount' => $inventory->amount / $inventory->element->measurement_unit->conversion_factor,
                     'expiration_date' => $expirationDate,
                     'lot_number' => $inventory->lot_number,
                     'description' => $inventory->description,
@@ -70,7 +70,7 @@ class WarehouseController extends Controller
     
         $data = [
             'title' => $title,
-            'expirationdate' => $data,
+            'expirationdate' => $dataInventory,
         ];
     
         return view('agroindustria::storer.inventoryexp', $data);
