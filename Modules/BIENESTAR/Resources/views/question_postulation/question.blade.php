@@ -9,7 +9,7 @@
                                 <h4>{{ $question->question }}</h4>
                             </label>
                             <input type="hidden" class="form-control" id="question" name="question[]" value="{{ $question->question_id }}" readonly>
-                            <select class="form-control" id="answer" name="answer[]">
+                            <select class="form-control" id="answer" name="answer[]" required>
                                 <option value="">Selecciona una respuesta</option>
                                 @foreach ($answers as $answer)
                                     @if ($answer->question_id == $question->question_id)
@@ -30,7 +30,7 @@
             <div class="card-body">
                 <p>Suba el formato Registro Socio Economico</p>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="socioeconomicFile" name="socioeconomicFile" accept=".doc, .docx" onchange="updateFileName()">
+                    <input type="file" class="custom-file-input" id="socioeconomicFile" name="socioeconomicFile" accept=".doc, .docx" onchange="updateFileName()" required>
                     <label class="custom-file-label" for="socioeconomicFile">Seleccionar archivo</label>
                 </div>
             </div>

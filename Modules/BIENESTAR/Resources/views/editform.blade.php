@@ -67,7 +67,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                     </div>
                 </div>
                 @endforeach
-                <button type="submit" form="mainForm" class="btn btn-success">{{ trans('bienestar::menu.Save')}}</button>
+                <button type="button" id="mainFormButton" class="btn btn-success">{{ trans('bienestar::menu.Save')}}</button>
             </div>
         </div>
     </form>
@@ -167,6 +167,9 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
             $('#respuestas').append(nuevaRespuesta);
         });
     });
+    $("#mainFormButton").click(function() {
+        $("#mainForm").submit();
+    });
     $(document).ready(function() {
         // Manejador de evento para el envío del formulario principal
         $("#mainForm").submit(function(event) {
@@ -194,7 +197,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                     .appendTo("#mainForm");
 
                 // Si se cumplen ambas condiciones, muestra el SweetAlert y envía el formulario principal
-                showSweetAlert('success', 'Formulario Válido', 'Enviar formulario principal', 1500);
+                showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", "{{ trans('bienestar::menu.It was successfully saved and published!') }}", 1500);
                 this.submit();
             } else {
                 // Muestra mensajes de error si alguna de las condiciones no se cumple
@@ -226,6 +229,52 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                     });
             });
         });
+    });
+    $(document).ready(function() {
+        // Manejar cambio en el select
+        $("#id_convocation").change(function() {
+            var selectedConvocationId = $(this).val();
+            performSearch(selectedConvocationId);
+        });
+
+        // Función para realizar la búsqueda y actualizar el formulario
+        function performSearch(selectedConvocationId) {
+            // Realizar una solicitud AJAX para obtener las preguntas relacionadas
+            $.ajax({
+                type: 'GET',
+                url: '/bienestar/{{ $role_name }}/editforms/marked_questions',
+                data: {
+                    selectedConvocationId: selectedConvocationId
+                },
+                dataType: 'json',
+                success: function(relatedQuestions) {
+                    updateForm(relatedQuestions);
+                },
+                error: function(error) {
+                    console.error('Error en la solicitud AJAX:', error);
+                }
+            });
+        }
+
+        // Función para actualizar dinámicamente las opciones del formulario
+        function updateForm(response) {
+            console.log(response); // Imprime los datos en la consola
+
+            if (response && response.relatedQuestions && Array.isArray(response.relatedQuestions)) {
+                var relatedQuestions = response.relatedQuestions;
+
+                // Limpiar las opciones existentes
+                $("input[name='selected_questions[]']").prop('checked', false);
+
+                // Marcar las preguntas relacionadas con la convocatoria seleccionada
+                relatedQuestions.forEach(function(questionId) {
+                    $("#pregunta" + questionId).prop('checked', true);
+                });
+            } else {
+                console.error('La estructura de los datos devueltos es incorrecta.');
+            }
+        }
+
     });
 </script>
 @endsection

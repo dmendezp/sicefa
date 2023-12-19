@@ -153,6 +153,7 @@ return [
     'Update Benefit' => 'Actualizar Beneficio',
     'Remove Benefit' => 'Remover Beneficio',
     'No Beneficiary Benefits'=>'Sin Beneficios',
+    'State and profit'=>'Estado y Beneficio',
 
 
     //vita assistancefood
@@ -186,4 +187,5 @@ return [
     //assing-form-trnasporttion-route
     'Management and Assignment of Transportation Routes'=>'Gestion y Asignacion de rutas de Transporte',
     'Failure Reporting'=>'Reporte de Fallas',
+    'It was successfully saved and published!'=>'Se guardado y publicado exitosamente!',
 ];

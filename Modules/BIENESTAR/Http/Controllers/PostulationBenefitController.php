@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\BIENESTAR\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Support\Renderable;
@@ -9,7 +10,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Routing\Controller;
 use Modules\BIENESTAR\Entities\Postulation;
 use Modules\BIENESTAR\Entities\Convocation;
-use Modules\SICA\Entities\Apprentice;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Modules\BIENESTAR\Entities\Question;
 use Modules\BIENESTAR\Entities\Benefit;
 use Modules\BIENESTAR\Entities\PostulationBenefit;
@@ -18,197 +19,111 @@ use Illuminate\Http\JsonResponse;
 
 class PostulationBenefitController extends Controller
 {
-// Modifica tu función index en el controlador
-public function index(Request $request)
-{
-    $postulation = Postulation::select(
-        'people.first_name',
-        'people.first_last_name',
-        'people.second_last_name',
-        'postulations.transportation_benefit',
-        'postulations.feed_benefit',
-        'postulations.id',
-        'postulations.total_score'
-    )
-        ->join('convocations', 'postulations.convocation_id', '=', 'convocations.id')
-        ->join('apprentices', 'postulations.apprentice_id', '=', 'apprentices.id')
-        ->join('people', 'apprentices.person_id', '=', 'people.id')
-        ->whereRaw('CURDATE() BETWEEN convocations.start_date AND convocations.end_date')
-        ->orderBy('postulations.created_at', 'desc') 
-        ->get();
+    // Modifica tu función index en el controlador
+    public function index(Request $request)
+    {
+        $postulation = Postulation::select(
+            'people.first_name',
+            'people.first_last_name',
+            'people.second_last_name',
+            'postulations.transportation_benefit',
+            'postulations.feed_benefit',
+            'postulations.id',
+            'postulations.total_score'
+        )
+            ->join('convocations', 'postulations.convocation_id', '=', 'convocations.id')
+            ->join('apprentices', 'postulations.apprentice_id', '=', 'apprentices.id')
+            ->join('people', 'apprentices.person_id', '=', 'people.id')
+            ->whereRaw('CURDATE() BETWEEN convocations.start_date AND convocations.end_date')
+            ->orderBy('postulations.created_at', 'desc')
+            ->get();
 
-    $benefits = Benefit::all();
-    $curdate = now();
-    $convocations = Convocation::where('start_date','<=',$curdate)
-        ->where('end_date','>=',$curdate)
-        ->get();
+        $benefits = Benefit::all();
+        $curdate = now();
+        $convocations = Convocation::where('start_date', '<=', $curdate)
+            ->where('end_date', '>=', $curdate)
+            ->get();
 
-    $answers = Answer::all();
+        $answers = Answer::with('question')->get();
 
-    return view('bienestar::postulation-management', compact('postulation','benefits','convocations','answers'));
-}
+        $postulationsbentfits = PostulationBenefit::all();
 
-public function show($id) {
-    $postulation = Postulation::with('convocation', 'apprentice', 'typeOfBenefit', 'answers', 'postulationBenefits', 'socioEconomicSupportFiles')->findOrFail($id);
-    return view('bienestar::postulation-management.show', compact('postulation'));
-}
-
-
-
-public function showModal($id)
-{
-    $postulation = Postulation::with([
-        'convocation',
-        'apprentice',
-        'answers' => function ($query) use ($id) {
-            $query->where('postulation_id', $id);
-        },
-        'socioeconomicsupportfiles' // Cargar archivos socioeconómicos
-    ])->findOrFail($id);
-
-    // Obtener todas las preguntas disponibles
-    $questions = Question::all();
-
-    return view('bienestar::postulation-management.modal', compact('postulation', 'questions'));
-}
-    
-
-
-    public function updateScore(Request $request, $id)
-{
-    try {
-        // Buscar la postulación por ID
-        $postulation = Postulation::findOrFail($id);
-        
-        // Validar el valor del nuevo puntaje (puede agregar más validaciones según sus necesidades)
-        $request->validate([
-            'new-score' => 'required|integer', // Validar que sea un número entero
-        ]);
-
-        // Obtener el nuevo puntaje del formulario
-        $newScore = $request->input('new-score');
-
-        // Actualizar el puntaje de la postulación
-        $postulation->total_score = $newScore;
-        $postulation->save();
-
-        // Redirigir de vuelta a la página anterior con un mensaje de éxito (puede personalizar esto)
-        return response()->json(['success' =>'Beneficio eliminado Correctamente'], 200);
-    } catch (\Exception $e) {
-        // Capturar y manejar errores, puedes personalizar esto según tus necesidades
-        return redirect()->back()->with('error', 'Error al actualizar el beneficio');
+        return view('bienestar::postulation-management', compact('postulation', 'benefits', 'convocations', 'answers', 'postulationsbentfits'));
     }
-}
 
+    public function get_benefit($postulationId)
+    {
+        $beneficios = DB::table('postulations_benefits')
+            ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
+            ->select('benefits.name', 'benefits.porcentege')
+            ->where('postulations_benefits.postulation_id', $postulationId)
+            ->get();
 
-
-public function updateStateBenefit(Request $request, $id)
-{
-    try {
-        // Buscar la postulación por ID
-        $postulation = Postulation::findOrFail($id);
-
-        // Validar los beneficios seleccionados
-        $request->validate([
-            'transport_benefit' => 'required|exists:benefits,id',
-            'food_benefit' => 'required|exists:benefits,id',
-        ]);
-
-        // Obtener los beneficios seleccionados
-        $transportBenefitId = $request->input('transport_benefit');
-        $foodBenefitId = $request->input('food_benefit');
-
-        // Verificar si ya existe un beneficio de transporte y alimentación
-        $existingTransportBenefit = $postulation->postulationBenefits()
-            ->where('benefit_id', $transportBenefitId)
-            ->whereHas('benefit', function ($query) {
-                $query->where('name', 'Transporte');
-            })->first();
-
-        $existingFoodBenefit = $postulation->postulationBenefits()
-            ->where('benefit_id', $foodBenefitId)
-            ->whereHas('benefit', function ($query) {
-                $query->where('name', 'Alimentacion');
-            })->first();
-
-        // Actualizar o crear el beneficio de transporte si no existe
-        if (!$existingTransportBenefit) {
-            $transportBenefit = PostulationBenefit::updateOrCreate(
-                ['postulation_id' => $postulation->id, 'benefit_id' => $transportBenefitId],
-                ['state' => 'Beneficiario', 'message' => 'Felicidades, has sido aceptado para recibir el beneficio de transporte']
-            );
-        }
-
-        // Actualizar o crear el beneficio de alimentación si no existe
-        if (!$existingFoodBenefit) {
-            $foodBenefit = PostulationBenefit::updateOrCreate(
-                ['postulation_id' => $postulation->id, 'benefit_id' => $foodBenefitId],
-                ['state' => 'Beneficiario', 'message' => 'Felicidades, has sido aceptado para recibir el beneficio de alimentación']
-            );
-        }
-
-        // Puedes ajustar el mensaje según tu lógica
-        return redirect()->back()->with('success', 'Beneficios actualizados o creados con éxito');
-    } catch (\Exception $e) {
-        // Capturar y manejar errores, puedes personalizar esto según tus necesidades
-        return redirect()->back()->with('error', 'Error al actualizar o crear los beneficios: ' . $e->getMessage());
+        return response()->json($beneficios);
     }
-}
 
-public function updateBenefits(Request $request)
-{
-    try {
+    public function show($id)
+    {
+        $postulation = Postulation::with('convocation', 'apprentice', 'typeOfBenefit', 'answers', 'postulationBenefits', 'socioEconomicSupportFiles')->findOrFail($id);
+        return view('bienestar::postulation-management.show', compact('postulation'));
+    }
+
+    public function updateStateBenefit(Request $request)
+    {
+        // Obtén los datos del formulario
         $postulationId = $request->input('postulation_id');
-        $benefitId = $request->input('benefit_id');
-        $isChecked = $request->input('checked');
+        $benefitIdTransport = $request->input('benefit_id_transport');
+        $benefitIdFood = $request->input('benefit_id_food');
+        $score = $request->input('score');
+        $message = $request->input('message');
 
-        // Tu lógica de validación y procesamiento aquí
-        // Puedes utilizar el modelo PostulationBenefit para actualizar o crear registros
+        // Actualiza o crea en la tabla postulations_benefits para el beneficio de transporte
+        if (!empty($benefitIdTransport)) {
+            try {
+                $postulationBenefitTransport = PostulationBenefit::where('postulation_id', $postulationId)
+                    ->where('benefit_id', $benefitIdTransport)
+                    ->firstOrFail();
 
-        // Ejemplo: Actualizar o crear el registro en la base de datos
-        $postulationBenefit = PostulationBenefit::updateOrCreate(
-            ['postulation_id' => $postulationId, 'benefit_id' => $benefitId],
-            ['state' => $isChecked ? 'Beneficiario' : 'No Beneficiario']
-        );
+                // Si encontró el registro, actualiza los datos
+                $postulationBenefitTransport->state = 'Beneficiario';
+                $postulationBenefitTransport->message = $message;
+                $postulationBenefitTransport->save();
+            } catch (ModelNotFoundException $e) {
+                // Si no encontró el registro, crea uno nuevo
+                $postulationBenefitTransport = new PostulationBenefit();
+                $postulationBenefitTransport->postulation_id = $postulationId;
+                $postulationBenefitTransport->benefit_id = $benefitIdTransport;
+                $postulationBenefitTransport->state = 'Beneficiario';
+                $postulationBenefitTransport->message = $message;
+                $postulationBenefitTransport->save();
+            }
+        }
 
-        return response()->json([
-            'success' => 'Beneficio actualizado con éxito.',
-        ], 200);
-    } catch (\Exception $e) {
-        // Manejar errores si es necesario
-        return response()->json(['error' => 'Error al actualizar el beneficio: ' . $e->getMessage()], 500);
+        // Repite el proceso para el beneficio de alimentación
+        if (!empty($benefitIdFood)) {
+            try {
+                $postulationBenefitFood = PostulationBenefit::where('postulation_id', $postulationId)
+                    ->where('benefit_id', $benefitIdFood)
+                    ->firstOrFail();
+
+                // Si encontró el registro, actualiza los datos
+                $postulationBenefitFood->state = 'Beneficiario';
+                $postulationBenefitFood->message = $message;
+                $postulationBenefitFood->save();
+            } catch (ModelNotFoundException $e) {
+                // Si no encontró el registro, crea uno nuevo
+                $postulationBenefitFood = new PostulationBenefit();
+                $postulationBenefitFood->postulation_id = $postulationId;
+                $postulationBenefitFood->benefit_id = $benefitIdFood;
+                $postulationBenefitFood->state = 'Beneficiario';
+                $postulationBenefitFood->message = $message;
+                $postulationBenefitFood->save();
+            }
+        }
+
+        // Actualiza el score en la tabla postulations
+        Postulation::where('id', $postulationId)->update(['total_score' => $score]);
+
+        return response()->json(['success' => 'Se ha asignado el leneficio con éxito']);
     }
-}
-
-
-
-
-
-public function editBenefitDetail(Request $request, $id)
-{
-    try {
-        // Encuentra la postulación por su ID
-        $postulation = Postulation::findOrFail($id);
-
-        // Actualiza el campo 'message' con el nuevo valor
-        $postulation->update([
-            'message' => $request->input('edited_message'),
-        ]);
-
-        // Resto del código si es necesario
-
-        // Devuelve una respuesta de éxito
-        return response()->json(['message' => 'La actualización fue exitosa'], 200);
-    } catch (\Exception $e) {
-        // Registra detalles del error
-        \Log::error($e->getMessage());
-        
-        // Devuelve una respuesta de error
-        return response()->json(['error' => 'Hubo un error interno en el servidor'], 500);
-    }
-}
-
-
-
-
 }

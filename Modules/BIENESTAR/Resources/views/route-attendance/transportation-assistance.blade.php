@@ -67,6 +67,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
     $(document).on("click", "#searchButtonassitance", function(event) {
         event.preventDefault(); // Evitar el envío del formulario por defecto
         performSearch();
+        location.reload();
     });
 
     function performSearch() {

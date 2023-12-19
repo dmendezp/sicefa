@@ -118,10 +118,11 @@ class RoutesTransportationController extends Controller
         $route = RouteTransportation::find($idTransportRoute);
 
         if ($route) {
-            $bus = $route->bus;
+            $bus = $route->bus_driver_id;
 
             if ($bus) {
                 // Actualizar el bus_driver_id en el modelo Bus
+                $bus = new Bus;
                 $bus->bus_driver_id = $idBusDriver;
                 $bus->save();
                 

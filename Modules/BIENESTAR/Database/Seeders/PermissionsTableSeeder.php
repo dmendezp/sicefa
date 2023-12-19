@@ -522,7 +522,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rols
 
-                // Ruta Obtener Estado Check(ADMINISTRADOR)//
+        // Ruta Obtener Estado Check(ADMINISTRADOR)//
         $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.update-benefits.postulation-management'], [ // Registro o actualización de permiso
             'name' => 'Visusalizacion de la tabla de gestion de Postulaciones',
             'description' => 'Puede ver la tabla de gestion de postulaciones',
@@ -620,8 +620,8 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
-         // Vista  Postulations Management(ADMINISTRADOR)//
-         $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.edit-benefit-detail.postulation-management'], [ // Registro o actualización de permiso
+        // Vista  Postulations Management(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.edit-benefit-detail.postulation-management'], [ // Registro o actualización de permiso
             'name' => 'Permite la gestion de mensajes a No Beneficiarios',
             'description' => 'Puede ver establecer mensaje a los No Beneficiarios',
             'description_english' => 'You can edit the benefits to the beneficiary applications.',
@@ -638,8 +638,8 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
 
-         // Vista  Postulations Management(LIDER BENEFICIO DE TRANSPORTE)//
-         $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.view.postulation-management'], [ // Registro o actualización de permiso
+        // Vista  Postulations Management(LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.view.postulation-management'], [ // Registro o actualización de permiso
             'name' => 'CRUD vista gestion de postulaciones',
             'description' => 'Puede ver la vista de gestion de postulaciones',
             'description_english' => 'You can view the postulations management view',
@@ -1124,17 +1124,17 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
 
-         // Ruta Fromulario Agregar Respuestas a una pregunta de los Formularios(ADMINISTRADOR)//
-         $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.add.answer.editform'], [ // Registro o actualización de permiso
+        // Ruta Fromulario Agregar Respuestas a una pregunta de los Formularios(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.add.answer.editform'], [ // Registro o actualización de permiso
             'name' => 'Agregar Respuestas a la pregunta',
             'description' => 'Puede agregar respuestas a las preguntas de los formularios',
             'description_english' => 'You can add answers to form questions',
             'app_id' => $app->id
         ]);
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
-        
-         // Ruta Fromulario Agregar Respuestas a una pregunta de los Formularios(LIDER BENEFICIO DE ALIMENTACION)//
-         $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.add.answer.editform'], [ // Registro o actualización de permiso
+
+        // Ruta Fromulario Agregar Respuestas a una pregunta de los Formularios(LIDER BENEFICIO DE ALIMENTACION)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.add.answer.editform'], [ // Registro o actualización de permiso
             'name' => 'Agregar Respuestas a la pregunta',
             'description' => 'Puede agregar respuestas a las preguntas de los formularios',
             'description_english' => 'You can add answers to form questions',
@@ -1228,6 +1228,33 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Botones Del CRUD de los Formularios',
             'description' => 'Restricion a los botones del formularios',
             'description_english' => 'Restriction on form buttons',
+            'app_id' => $app->id
+        ]);
+        $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
+
+        // Consulta para consultar la pregunta y la convocatoria (ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.convocations.marked_questions.editform'], [ // Registro o actualización de permiso
+            'name' => 'Marcar Preguntas en el Formulario',
+            'description' => 'Consultar las preguntas relacionadas con la convocatoria y marcarlas en la vista',
+            'description_english' => 'Consult the questions related to the call and mark them in the view',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Consulta para consultar la pregunta y la convocatoria (LIDER BENEFICIO DE ALIMENTACION)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.convocations.marked_questions.editform'], [ // Registro o actualización de permiso
+            'name' => 'Marcar Preguntas en el Formulario',
+            'description' => 'Consultar las preguntas relacionadas con la convocatoria y marcarlas en la vista',
+            'description_english' => 'Consult the questions related to the call and mark them in the view',
+            'app_id' => $app->id
+        ]);
+        $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
+
+        // Consulta para consultar la pregunta y la convocatoria (LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.convocations.marked_questions.editform'], [ // Registro o actualización de permiso
+            'name' => 'Marcar Preguntas en el Formulario',
+            'description' => 'Consultar las preguntas relacionadas con la convocatoria y marcarlas en la vista',
+            'description_english' => 'Consult the questions related to the call and mark them in the view',
             'app_id' => $app->id
         ]);
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
@@ -1409,8 +1436,8 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
 
-         // Formualrio para Asignar Ruta Transporte(ADMINISTRADOR)//
-         $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.updateInline.assing_form_transportation_routes'], [ // Registro o actualización de permiso
+        // Formualrio para Asignar Ruta Transporte(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.updateInline.assing_form_transportation_routes'], [ // Registro o actualización de permiso
             'name' => 'Formulario Para Asignar Rutas de Transporte',
             'description' => 'Puede Realizar cambios en los registros usando el formulario',
             'description_english' => 'You can make changes to records using the form',
@@ -1548,7 +1575,7 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
-       
+
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'bienestar.admin')->first(); // Rol Administrador
         $rol_transportation_benefits_leader = Role::where('slug', 'bienestar.transportation_benefits_leader')->first(); // Rol Lider Beneficio Transporte

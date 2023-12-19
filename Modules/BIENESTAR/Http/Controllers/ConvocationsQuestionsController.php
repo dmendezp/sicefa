@@ -119,27 +119,43 @@ class ConvocationsQuestionsController extends Controller
     }
 
     public function updateAnswer(Request $request)
-{
-    $answer = $request->input('answer');
-    $id_question = $request->input('id_question');
+    {
+        $answer = $request->input('answer');
+        $id_question = $request->input('id_question');
 
-    // Verifica si existe un registro igual
-    $existingAnswer = AnswersQuestion::where('answer', $answer)->where('question_id', $id_question)->first();
+        // Verifica si existe un registro igual
+        $existingAnswer = AnswersQuestion::where('answer', $answer)->where('question_id', $id_question)->first();
 
-    // Si existe un registro igual y no ha sido eliminado suavemente, responde con un mensaje de error
-    if ($existingAnswer) {
-        return response()->json(['error' => 'Ya existe un registro igual']);
+        // Si existe un registro igual y no ha sido eliminado suavemente, responde con un mensaje de error
+        if ($existingAnswer) {
+            return response()->json(['error' => 'Ya existe un registro igual']);
+        }
+
+        // Si no existe un registro igual, crea uno nuevo
+        $respuesta = new AnswersQuestion();
+        $respuesta->answer = $answer;
+        $respuesta->question_id = $id_question;
+        $respuesta->save();
+
+        return response()->json(['success' => 'Se ha agredado la respuesta con éxito!']);
     }
 
-    // Si no existe un registro igual, crea uno nuevo
-    $respuesta = new AnswersQuestion();
-    $respuesta->answer = $answer;
-    $respuesta->question_id = $id_question;
-    $respuesta->save();
+    public function showForm(Request $request)
+    {
+       
+        $selectedConvocationId = $request->input('selectedConvocationId');
+        
+        // Obtener las preguntas relacionadas con la convocatoria seleccionada
+        $relatedQuestions = [];
+        if ($selectedConvocationId) {
+            $relatedQuestions = (array) ConvocationQuestion::where('convocation_id', $selectedConvocationId)
+                ->pluck('questions_id')
+                ->toArray();
+        } 
 
-    return response()->json(['success' => 'Registro creado con éxito']);
-}
-
+        // Devolver la información en formato JSON
+        return response()->json(['relatedQuestions' => $relatedQuestions]);
+    }
 
 
 
@@ -153,26 +169,20 @@ class ConvocationsQuestionsController extends Controller
             'convocatoria_id' => 'required|exists:convocations,id',
             'selected_questions' => 'required|string',
         ]);
+        $convocatoriaId = $request->input('convocatoria_id');
+        $selectedQuestionIds = explode(',', $request->input('selected_questions'));
 
-        try {
-            // Obtener el ID de la convocatoria y los IDs de las preguntas seleccionadas
-            $convocatoriaId = $request->input('convocatoria_id');
-            $selectedQuestionIds = explode(',', $request->input('selected_questions'));
-
-            // Recorre los IDs de las preguntas seleccionadas y guárdalos en la base de datos
-            foreach ($selectedQuestionIds as $questionId) {
-                // Aquí puedes guardar $convocatoriaId y $questionId en tu base de datos
-                $pregunta = new ConvocationQuestion();
-                $pregunta->convocation_id = $convocatoriaId;
-                $pregunta->questions_id = $questionId;
-                $pregunta->save();
-            }
-
-            // Devolver una respuesta JSON exitosa
-            return response()->json(['success' => 'Se guardado con exitosamente!']);
-        } catch (\Exception $e) {
-            // En caso de error, manejar el error y devolver una respuesta JSON con un mensaje de error
-            return response()->json(['error' => 'Error al guardar, intentelo de nuevo.'], 422);
+        // Recorre los IDs de las preguntas seleccionadas y guárdalos en la base de datos
+        foreach ($selectedQuestionIds as $questionId) {
+            // Verifica si ya existe la relación, si no existe, la crea
+            ConvocationQuestion::firstOrCreate([
+                'convocation_id' => $convocatoriaId,
+                'questions_id' => $questionId,
+            ]);
         }
+
+
+        // Devolver una respuesta JSON exitosa
+        return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.convocations.crud.editform');
     }
 }

@@ -153,6 +153,7 @@ return [
     'Total Score' => 'Total Score',
     'New Score' => 'New Score',
     'Save Score' => 'Save Score',
+    'State and profit' =>'State and profit',
 
     'Benefit' => 'Benefit',
     'Update Benefit' => 'Update Benefit',
@@ -192,4 +193,5 @@ return [
     //assing-form-trnasporttion-route
     'Management and Assignment of Transportation Routes' => 'Management and Assignment of Transportation Routes',
     'Failure Reporting' => 'Failure Reporting',
+    'It was successfully saved and published!'=>'It was successfully saved and published!',
 ];
