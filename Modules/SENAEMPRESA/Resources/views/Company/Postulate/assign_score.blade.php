@@ -32,31 +32,35 @@
                             <input type="hidden" class="form-control" id="vacancy_id" name="vacancy_id"
                                 value="{{ $postulate->vacancy_id }}" readonly>
 
-                            @if (Route::is('senaempresa.admin.*') &&
-                                    Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.cv'))
+                                @if (Route::is('senaempresa.admin.*') &&
+                                Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.cv'))
                                 <div class="mb-3">
-                                    <label for="cv_score"
-                                        class="form-label">{{ trans('senaempresa::menu.Score - curricolum') }}</label><br>
-                                    <input type="number" class="form-control" id="cv_score" name="cv_score" value="0"
-                                        required>
+                                    <label for="cv_score" class="form-label">{{ trans('senaempresa::menu.Score - curricolum') }}</label><br>
+                                    <input type="number" class="form-control" id="cv_score" name="cv_score" value="0" required max="100">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="proposal_score" class="form-label">
-                                        {{ trans('senaempresa::menu.Score - Proposal') }} </label><br>
-                                    <input type="number" class="form-control" id="proposal_score" name="proposal_score"
-                                        value="0" required>
+                                    <label for="proposal_score" class="form-label">{{ trans('senaempresa::menu.Score - Proposal') }}</label><br>
+                                    <input type="number" class="form-control" id="proposal_score" name="proposal_score" value="0" required max="100">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="interview_admin" class="form-label">Puntaje entrevista</label><br>
+                                    <input type="number" class="form-control" id="interview_admin" name="interview_admin" value="0" required max="100">
                                 </div>
                             @endif
+
                             @if (Route::is('senaempresa.psychologo.*') &&
-                                    Auth::user()->havePermission(
-                                        'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.personalities'))
+                                Auth::user()->havePermission(
+                                    'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.personalities'))
                                 <div class="mb-3">
-                                    <label for="personalities_score" class="form-label">
-                                        {{ trans('senaempresa::menu.Score - 16 personalities') }}</label><br>
-                                    <input type="number" class="form-control" id="personalities_score"
-                                        name="personalities_score" value="0" required>
+                                    <label for="personalities_score" class="form-label">{{ trans('senaempresa::menu.Score - 16 personalities') }}</label><br>
+                                    <input type="number" class="form-control" id="personalities_score" name="personalities_score" value="0" required max="100">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="interview_psychologo" class="form-label">Puntaje entrevista</label><br>
+                                    <input type="number" class="form-control" id="interview_psychologo" name="interview_psychologo" value="0" required max="100">
                                 </div>
                             @endif
+
                             <div class="mb-3">
                                 <button type="submit"
                                     class="btn btn-success">{{ trans('senaempresa::menu.To assign') }}</button>

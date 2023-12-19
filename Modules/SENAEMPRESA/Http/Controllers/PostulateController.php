@@ -27,120 +27,120 @@ class PostulateController extends Controller
         return response()->json($vacancy);
     }
     public function inscription(Request $request, $vacancy_id)
-{
-    $Apprentice = auth()->user()->person->apprentices()->first();
+    {
+        $Apprentice = auth()->user()->person->apprentices()->first();
 
-    if (!$Apprentice) {
-        return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.You don’t have an associate apprentice.'));
+        if (!$Apprentice) {
+            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.You don’t have an associate apprentice.'));
+        }
+
+        $ApprenticeId = $Apprentice->id;
+        $vacancy = Vacancy::find($vacancy_id);
+        $Postulates = Postulate::with('Apprentice.Person')->get();
+        $existingPostulatesCount = Postulate::where('apprentice_id', $ApprenticeId)->count(); // Añadido aquí
+
+        $data = [
+            'title' => trans('senaempresa::menu.Registration'),
+            'Postulates' => $Postulates,
+            'ApprenticeId' => $ApprenticeId,
+            'vacancy' => $vacancy,
+            'existingPostulatesCount' => $existingPostulatesCount, // Añadido aquí
+        ];
+
+        return view('senaempresa::Company.Inscription.inscription', $data);
     }
 
-    $ApprenticeId = $Apprentice->id;
-    $vacancy = Vacancy::find($vacancy_id);
-    $Postulates = Postulate::with('Apprentice.Person')->get();
-    $existingPostulatesCount = Postulate::where('apprentice_id', $ApprenticeId)->count(); // Añadido aquí
 
-    $data = [
-        'title' =>  trans('senaempresa::menu.Registration'),
-        'Postulates' => $Postulates,
-        'ApprenticeId' => $ApprenticeId,
-        'vacancy' => $vacancy,
-        'existingPostulatesCount' => $existingPostulatesCount, // Añadido aquí
-    ];
+    public function registered(Request $request)
+    {
+        $Apprentice = auth()->user()->person->apprentices()->first();
 
-    return view('senaempresa::Company.Inscription.inscription', $data);
-}
+        if (!$Apprentice) {
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.You don’t have an associate apprentice.'));
+        }
 
+        $ApprenticeId = $Apprentice->id;
 
-public function registered(Request $request)
-{
-    $Apprentice = auth()->user()->person->apprentices()->first();
+        $existingPostulatesCount = Postulate::where('apprentice_id', $ApprenticeId)->count();
 
-    if (!$Apprentice) {
-        return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.You don’t have an associate apprentice.'));
-    }
+        if ($existingPostulatesCount >= 2) {
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.You cannot make more than two entries.'));
+        }
 
-    $ApprenticeId = $Apprentice->id;
+        $existingPostulate = Postulate::where('apprentice_id', $ApprenticeId)
+            ->where('vacancy_id', $request->input('vacancy_id'))
+            ->first();
 
-    $existingPostulatesCount = Postulate::where('apprentice_id', $ApprenticeId)->count();
+        if ($existingPostulate) {
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.You’ve already applied for this position.'));
+        }
 
-    if ($existingPostulatesCount >= 2) {
-        return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.You cannot make more than two entries.'));
-    }
+        $postulate = new Postulate();
+        $postulate->apprentice_id = $ApprenticeId;
+        $postulate->vacancy_id = $request->input('vacancy_id');
+        $postulate->state = 'Inscrito';
+        $postulate->score_total = 0; // Initialize score_total to 0
 
-    $existingPostulate = Postulate::where('apprentice_id', $ApprenticeId)
-        ->where('vacancy_id', $request->input('vacancy_id'))
-        ->first();
+        // Validar el archivo CV como PDF
+        if ($cvFile = $request->file('cv')) {
+            if ($cvFile->getClientOriginalExtension() === 'pdf') {
+                $cvFileName = Str::slug($ApprenticeId) . 'cv_' . time() . '.pdf';
+                $cvFile->move(public_path('modules/senaempresa/files/cv/'), $cvFileName);
+                $postulate->cv = 'modules/senaempresa/files/cv/' . $cvFileName;
+            } else {
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.CV file must be in PDF format.'));
+            }
+        }
 
-    if ($existingPostulate) {
-        return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.You’ve already applied for this position.'));
-    }
+        // Validar el archivo de personalidades como PDF
+        if ($personalitiesFile = $request->file('personalities')) {
+            if ($personalitiesFile->getClientOriginalExtension() === 'pdf') {
+                $personalitiesFileName = Str::slug($ApprenticeId) . 'personalities_' . time() . '.pdf';
+                $personalitiesFile->move(public_path('modules/senaempresa/files/personalities/'), $personalitiesFileName);
+                $postulate->personalities = 'modules/senaempresa/files/personalities/' . $personalitiesFileName;
+            } else {
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Personalities file must be in PDF format.'));
+            }
+        }
 
-    $postulate = new Postulate();
-    $postulate->apprentice_id = $ApprenticeId;
-    $postulate->vacancy_id = $request->input('vacancy_id');
-    $postulate->state = 'Inscrito';
-    $postulate->score_total = 0; // Initialize score_total to 0
+        // Validar el archivo de propuesta como PDF
+        if ($proposalFile = $request->file('proposal')) {
+            if ($proposalFile->getClientOriginalExtension() === 'pdf') {
+                $proposalFileName = Str::slug($ApprenticeId) . 'proposal_' . time() . '.pdf';
+                $proposalFile->move(public_path('modules/senaempresa/files/proposal/'), $proposalFileName);
+                $postulate->proposal = 'modules/senaempresa/files/proposal/' . $proposalFileName;
+            } else {
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Proposal file must be in PDF format.'));
+            }
+        }
 
-    // Validar el archivo CV como PDF
-    if ($cvFile = $request->file('cv')) {
-        if ($cvFile->getClientOriginalExtension() === 'pdf') {
-            $cvFileName = Str::slug($ApprenticeId) . 'cv_' . time() . '.pdf';
-            $cvFile->move(public_path('modules/senaempresa/files/cv/'), $cvFileName);
-            $postulate->cv = 'modules/senaempresa/files/cv/' . $cvFileName;
+        if ($employment_certificateFile = $request->file('employment_certificate')) {
+            if ($employment_certificateFile->getClientOriginalExtension() === 'pdf') {
+                $employment_certificateFileeName = Str::slug($ApprenticeId) . 'employment_certificate_' . time() . '.pdf';
+                $employment_certificateFile->move(public_path('modules/senaempresa/files/employment_certificate/'), $employment_certificateFileeName);
+                $postulate->employment_certificate = 'modules/senaempresa/files/employment_certificate/' . $employment_certificateFileeName;
+            } else {
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', 'El archivo del certificado debe estar en formato PDF.');
+            }
+        }
+
+        // Verificar si ya existe un registro en 'filesenaempresa' para el mismo aprendiz y vacante
+        $existingFileSenaempresa = Postulate::where('apprentice_id', $ApprenticeId)->first();
+
+        if ($existingFileSenaempresa) {
+            // Usar los archivos existentes para la nueva inscripción
+            $postulate->cv = $existingFileSenaempresa->cv;
+            $postulate->personalities = $existingFileSenaempresa->personalities;
+            $postulate->proposal = $existingFileSenaempresa->proposal;
+            $postulate->employment_certificate = $existingFileSenaempresa->employment_certificate;
+        }
+
+        if ($postulate->save()) {
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('success', trans('senaempresa::menu.Successfully registered.'));
         } else {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.CV file must be in PDF format.'));
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Error registering.'));
         }
     }
-
-    // Validar el archivo de personalidades como PDF
-    if ($personalitiesFile = $request->file('personalities')) {
-        if ($personalitiesFile->getClientOriginalExtension() === 'pdf') {
-            $personalitiesFileName = Str::slug($ApprenticeId) . 'personalities_' . time() . '.pdf';
-            $personalitiesFile->move(public_path('modules/senaempresa/files/personalities/'), $personalitiesFileName);
-            $postulate->personalities = 'modules/senaempresa/files/personalities/' . $personalitiesFileName;
-        } else {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Personalities file must be in PDF format.'));
-        }
-    }
-
-    // Validar el archivo de propuesta como PDF
-    if ($proposalFile = $request->file('proposal')) {
-        if ($proposalFile->getClientOriginalExtension() === 'pdf') {
-            $proposalFileName = Str::slug($ApprenticeId) . 'proposal_' . time() . '.pdf';
-            $proposalFile->move(public_path('modules/senaempresa/files/proposal/'), $proposalFileName);
-            $postulate->proposal = 'modules/senaempresa/files/proposal/' . $proposalFileName;
-        } else {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Proposal file must be in PDF format.'));
-        }
-    }
-
-    if ($employment_certificateFile = $request->file('employment_certificate')) {
-        if ($employment_certificateFile->getClientOriginalExtension() === 'pdf') {
-            $employment_certificateFileeName = Str::slug($ApprenticeId) . 'employment_certificate_' . time() . '.pdf';
-            $employment_certificateFile->move(public_path('modules/senaempresa/files/employment_certificate/'), $employment_certificateFileeName);
-            $postulate->employment_certificate = 'modules/senaempresa/files/employment_certificate/' . $employment_certificateFileeName;
-        } else {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', 'El archivo del certificado debe estar en formato PDF.');
-        }
-    }
-
-    // Verificar si ya existe un registro en 'filesenaempresa' para el mismo aprendiz y vacante
-    $existingFileSenaempresa = Postulate::where('apprentice_id', $ApprenticeId)->first();
-
-    if ($existingFileSenaempresa) {
-        // Usar los archivos existentes para la nueva inscripción
-        $postulate->cv = $existingFileSenaempresa->cv;
-        $postulate->personalities = $existingFileSenaempresa->personalities;
-        $postulate->proposal = $existingFileSenaempresa->proposal;
-        $postulate->employment_certificate = $existingFileSenaempresa->employment_certificate;
-    }
-
-    if ($postulate->save()) {
-        return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('success', trans('senaempresa::menu.Successfully registered.'));
-    } else {
-        return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Error registering.'));
-    }
-}
 
 
     public function postulates(Request $request)
@@ -225,19 +225,32 @@ public function registered(Request $request)
                 $existingFileSenaempresa->personalities_score = $request->input('personalities_score');
             }
 
+            // Verificar si los campos interview_admin e interview_psychologo son nulos y actualizar si es necesario
+            if ($existingFileSenaempresa->interview_admin === null) {
+                $existingFileSenaempresa->interview_admin = $request->input('interview_admin');
+            }
+
+            if ($existingFileSenaempresa->interview_psychologo === null) {
+                $existingFileSenaempresa->interview_psychologo = $request->input('interview_psychologo');
+            }
+
             // Guardar los cambios
             $existingFileSenaempresa->save();
 
-            // Check if all scores are set
+            // Verificar si todos los puntajes están establecidos
             if (
                 $existingFileSenaempresa->cv_score !== null &&
                 $existingFileSenaempresa->personalities_score !== null &&
+                $existingFileSenaempresa->interview_admin !== null &&
+                $existingFileSenaempresa->interview_psychologo !== null &&
                 $existingFileSenaempresa->proposal_score !== null
             ) {
                 // Calcular el puntaje total
                 $totalScore = (
                     $existingFileSenaempresa->cv_score +
                     $existingFileSenaempresa->personalities_score +
+                    $existingFileSenaempresa->interview_admin +
+                    $existingFileSenaempresa->interview_psychologo +
                     $existingFileSenaempresa->proposal_score
                 );
 
@@ -256,17 +269,33 @@ public function registered(Request $request)
         $filesenaempresa->vacancy_id = $vacancyId;
         $filesenaempresa->cv_score = $request->input('cv_score');
         $filesenaempresa->personalities_score = $request->input('personalities_score');
+        $filesenaempresa->interview_admin = $request->input('interview_admin');
+        $filesenaempresa->interview_psychologo = $request->input('interview_psychologo');
         $filesenaempresa->proposal_score = $request->input('proposal_score');
 
         if ($filesenaempresa->save()) {
-            // Verificar si existen puntajes para los tres criterios
+            // Verificar si existen puntajes para los cinco criterios
             $cvScore = $filesenaempresa->cv_score;
             $personalitiesScore = $filesenaempresa->personalities_score;
+            $interviewAdminScore = $filesenaempresa->interview_admin;
+            $interviewPsychologoScore = $filesenaempresa->interview_psychologo;
             $proposalScore = $filesenaempresa->proposal_score;
 
-            if ($cvScore !== null && $personalitiesScore !== null && $proposalScore !== null) {
+            if (
+                $cvScore !== null &&
+                $personalitiesScore !== null &&
+                $interviewAdminScore !== null &&
+                $interviewPsychologoScore !== null &&
+                $proposalScore !== null
+            ) {
                 // Calcular el puntaje total
-                $totalScore = $cvScore + $personalitiesScore + $proposalScore;
+                $totalScore = (
+                    $cvScore +
+                    $personalitiesScore +
+                    $interviewAdminScore +
+                    $interviewPsychologoScore +
+                    $proposalScore
+                );
 
                 // Actualizar el puntaje total en la tabla 'postulates' para el mismo postulate_id y vacancy_id
                 Postulate::where('id', $postulateId)
@@ -278,6 +307,8 @@ public function registered(Request $request)
                 ->with('success', 'Puntaje asignado correctamente');
         }
     }
+
+
 
     public function state($apprenticeId)
     {
@@ -351,7 +382,7 @@ public function registered(Request $request)
 
     public function seleccionados()
     {
-        $postulates  = postulate::with(['apprentice.person'])
+        $postulates = postulate::with(['apprentice.person'])
             ->get();
         $data = ['title' => 'Seleccionados', 'postulates' => $postulates];
         return view('senaempresa::Company.Postulate.Application', $data);
