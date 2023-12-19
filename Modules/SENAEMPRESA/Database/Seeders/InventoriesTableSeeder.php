@@ -21,8 +21,18 @@ class InventoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        $person = Person::first(); // Fetch the first person from the collection
-        $productive_unit_warehouse = ProductiveUnitWarehouse::first(); // Fetch the first productive_unit_warehouse from the collection
+        // Fetch the first person from the collection
+        $person = Person::first();
+
+        // Fetch the first productive_unit_warehouse from the collection
+        $productive_unit_warehouse = ProductiveUnitWarehouse::first();
+
+        // Check if $person and $productive_unit_warehouse are not null
+        if (!$person || !$productive_unit_warehouse) {
+            // Handle the case where either $person or $productive_unit_warehouse is null
+            // You may log an error, throw an exception, or take appropriate action
+            return;
+        }
 
         // Crea una categoría
         $category = Category::create([
@@ -56,6 +66,13 @@ class InventoriesTableSeeder extends Seeder
             'image' => 'ruta/a/la/imagen.jpg', // Ajusta según tus necesidades
             'slug' => 'elemento-inventario',
         ]);
+
+        // Check if $element is not null
+        if (!$element) {
+            // Handle the case where $element is null
+            // You may log an error, throw an exception, or take appropriate action
+            return;
+        }
 
         Inventory::create([
             'person_id' => $person->id,

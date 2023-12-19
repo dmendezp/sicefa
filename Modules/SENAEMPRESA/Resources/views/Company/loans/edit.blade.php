@@ -7,25 +7,14 @@
                 <div class="card card-primary card-outline shadow">
                     <div class="card-header">{{ $title }}</div>
                     <div class="card-body">
-                        <form action="{{ route('company.loan.update', $loan->id) }}" method="POST"
+                        <form action="{{ route('senaempresa.admin.loans.updated', ['id' => $loan->id]) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
-                            <div class="mb-3">
-                                <label for="staff_senaempresa_id"
-                                    class="form-label">{{ trans('senaempresa::menu.People ID') }}</label>
-                                <select class="form-control" name="staff_senaempresa_id"
-                                    aria-label="Selecciona Personal ID">
-                                    @foreach ($staff_senaempresas as $staff_senaempresa)
-                                        <option value="{{ $staff_senaempresa->id }}"
-                                            {{ $loan->staff_senaempresa_id == $staff_senaempresa->id ? 'selected' : '' }}>
-                                            {{ $staff_senaempresa->id }}
-                                            {{ $staff_senaempresa->Apprentice->Person->full_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            {{-- Campo Apprentice --}}
+                            <input type="hidden" name="apprentice_id" value="{{ $loan->apprentice_id }}">
+
                             <div class="mb-3">
                                 <label for="inventory_id"
                                     class="form-label">{{ trans('senaempresa::menu.Inventory ID') }}</label>
@@ -42,20 +31,14 @@
                             <div class="mb-3">
                                 <label for="start_datetime"
                                     class="form-label">{{ trans('senaempresa::menu.Start date and time') }}</label>
-                                <input type="datetime-local" class="form-control" id="start_datetime" name="start_datetime"
-                                    placeholder="Fecha Inicio"
-                                    value="{{ date('Y-m-d\TH:i', strtotime($loan->start_datetime)) }}" disabled>
+                                <input type="text" class="form-control" id="start_datetime" name="start_datetime"
+                                    value="{{ $loan->start_datetime }}" readonly>
                             </div>
-                            <div class="mb-3">
-                                <label for="end_datetime"
-                                    class="form-label">{{ trans('senaempresa::menu.End date and time') }}</label>
-                                <input type="datetime-local" class="form-control" id="end_datetime" name="end_datetime"
-                                    placeholder="Fecha Inicio"
-                                    value="{{ date('Y-m-d\TH:i', strtotime($loan->end_datetime)) }}" disabled>
-                            </div><br>
+
+                            <br>
                             <button type="submit"
                                 class="btn btn-success">{{ trans('senaempresa::menu.Save Changes') }}</button>
-                            <a href="{{ route('company.loan.prestamos') }}"
+                            <a href="{{ route('senaempresa.admin.loans.index') }}"
                                 class="btn btn-danger btn-xl">{{ trans('senaempresa::menu.Cancel') }}</a>
                         </form>
                     </div>

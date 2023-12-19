@@ -12,19 +12,23 @@
                             method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                                <label for="staff_senaempresa_id"
-                                    class="form-label">{{ trans('senaempresa::menu.People ID') }}</label>
-                                <select class="form-control" name="staff_senaempresa_id" aria-label="Selecciona Personal ID"
-                                    required>
-                                    <option value="" selected>{{ trans('senaempresa::menu.Select Personal ID') }}
-                                    </option>
-                                    @foreach ($staff_senaempresas as $staff_senaempresa)
-                                        <option value="{{ $staff_senaempresa->id }}">
-                                            {{ $staff_senaempresa->id }}
-                                            {{ $staff_senaempresa->Apprentice->Person->full_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                <label for="apprentice_id"
+                                    class="form-label">{{ trans('senaempresa::menu.Apprentice') }}</label>
+                                <div class="mb-3">
+                                    <label for="apprentice_id"
+                                        class="form-label">{{ trans('senaempresa::menu.Search Apprentice by Document or Name') }}</label>
+                                    <input type="text" class="form-control" id="search-input" name="search-input"
+                                        placeholder="Ingresar número o nombre">
+                                    <select class="form-control" name="apprentice_id" aria-label="Selecciona Apprentice"
+                                        id="apprentice-select" multiple="multiple" required>
+                                        @foreach ($apprentices as $apprentice)
+                                            <option value="{{ $apprentice->id }}">
+                                                {{ $apprentice->Person->document_number }}
+                                                {{ $apprentice->Person->full_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="inventory_id"
@@ -48,8 +52,7 @@
                                     placeholder="Fecha Inicio" required readonly>
                             </div>
                             <br>
-                            <button type="submit"
-                                class="btn btn-success">{{ trans('senaempresa::menu.New') }}</button>
+                            <button type="submit" class="btn btn-success">{{ trans('senaempresa::menu.New') }}</button>
                             <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index') }}"
                                 class="btn btn-danger btn-xl">{{ trans('senaempresa::menu.Cancel') }}</a>
 
@@ -60,9 +63,28 @@
         </div>
     </div>
 @endsection
+
 @section('scripts')
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.getElementById("search-input");
+            const apprenticeSelect = document.getElementById("apprentice-select");
+
+            searchInput.addEventListener("input", function() {
+                const searchText = this.value.trim().toLowerCase();
+
+                for (let option of apprenticeSelect.options) {
+                    const apprenticeId = option.value;
+                    const apprenticeText = option.text.toLowerCase();
+                    const isMatch = apprenticeText.includes(searchText);
+                    option.hidden = !isMatch;
+
+                    if (isMatch) {
+                        apprenticeSelect.value = apprenticeId;
+                    }
+                }
+            });
+
             // Obtén el elemento del campo de fecha y hora de inicio
             const startDatetimeInput = document.getElementById("start_datetime");
 

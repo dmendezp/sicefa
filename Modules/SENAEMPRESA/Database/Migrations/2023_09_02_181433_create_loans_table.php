@@ -15,7 +15,7 @@ class CreateLoansTable extends Migration
     {
         Schema::create('loans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('staff_senaempresa_id')->constrained()->onDelete('cascade');
+            $table->foreignId('apprentice_id')->constrained()->onDelete('cascade');
             $table->foreignId('inventory_id')->constrained()->onDelete('cascade');
             $table->dateTime('start_datetime');
             $table->dateTime('end_datetime')->nullable();

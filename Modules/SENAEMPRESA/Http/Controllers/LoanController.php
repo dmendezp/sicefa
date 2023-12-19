@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\SENAEMPRESA\Entities\Loan;
 use Illuminate\Routing\Controller;
-use Modules\SENAEMPRESA\Entities\StaffSenaempresa;
+use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\Inventory;
 use TCPDF;
 
@@ -23,7 +23,7 @@ class LoanController extends Controller
             return $query->where('state', $loanState);
         })->get();
 
-        $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
+        $apprentices = Apprentice::with('Person')->get();
         $inventories = Inventory::with('Element')
             ->where('state', 'Disponible')
             ->get();
@@ -31,7 +31,7 @@ class LoanController extends Controller
         $data = [
             'title' => trans('senaempresa::menu.Registered Loans'),
             'loans' => $loans,
-            'staff_senaempresas' => $staff_senaempresas,
+            'apprentices' => $apprentices,
             'inventories' => $inventories,
         ];
 
@@ -67,12 +67,10 @@ class LoanController extends Controller
         }
     }
 
-
-
     public function new()
     {
         $loans = Loan::get();
-        $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
+        $apprentices = Apprentice::with('Person')->get();
 
         // Filtra los inventarios con estado "Disponible" y que tengan elementos de categoría "SENAEMPRESA_EPP"
         $inventories = Inventory::with(['Element.Category'])
@@ -85,7 +83,7 @@ class LoanController extends Controller
         $data = [
             'title' => trans('senaempresa::menu.New Loan'),
             'loans' => $loans,
-            'staff_senaempresas' => $staff_senaempresas,
+            'apprentices' => $apprentices,
             'inventories' => $inventories,
         ];
 
@@ -99,7 +97,7 @@ class LoanController extends Controller
         // Verificar si el inventario existe y la cantidad es suficiente
         if ($inventory && $inventory->amount >= 1) {
             $loan = new Loan();
-            $loan->staff_senaempresa_id = $request->input('staff_senaempresa_id');
+            $loan->apprentice_id = $request->input('apprentice_id');
             $loan->inventory_id = $request->input('inventory_id');
             $loan->start_datetime = $request->input('start_datetime');
             $loan->state = 'Prestado';
@@ -123,7 +121,7 @@ class LoanController extends Controller
     public function edit($id)
     {
         $loan = Loan::find($id);
-        $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
+        $apprentices = Apprentice::with('Person')->get();
         $inventories = Inventory::with(['Element.Category'])
             ->where('state', 'Disponible')
             ->whereHas('Element.Category', function ($query) {
@@ -138,12 +136,13 @@ class LoanController extends Controller
         $data = [
             'title' => trans('senaempresa::menu.Edit Loan'),
             'loan' => $loan,
-            'staff_senaempresas' => $staff_senaempresas,
+            'apprentices' => $apprentices,
             'inventories' => $inventories,
         ];
 
         return view('senaempresa::Company.loans.edit', $data);
     }
+
     public function updated(Request $request, $id)
     {
         $loan = Loan::find($id);
@@ -151,7 +150,7 @@ class LoanController extends Controller
         if (!$loan) {
             return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index')->with('error', trans('senaempresa::menu.Loan not found.'));
         }
-        $loan->staff_senaempresa_id = $request->input('staff_senaempresa_id');
+        $loan->apprentice_id = $request->input('apprentice_id');
         $loan->inventory_id = $request->input('inventory_id');
         $loan->start_datetime = $request->input('start_datetime');
         $loan->end_datetime = $request->input('end_datetime');
@@ -176,6 +175,7 @@ class LoanController extends Controller
 
         return view('senaempresa::Company.loans.inventory', $data);
     }
+
 
     public function updateInventoryState(Request $request)
     {

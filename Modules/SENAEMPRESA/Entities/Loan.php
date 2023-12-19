@@ -13,7 +13,7 @@ class Loan extends Model implements Auditable
         SoftDeletes, // Borrado suave
         HasFactory;
 
-    protected $fillable = ['staff_senaempresa_id', 'inventory_id', 'start_datetime', 'end_datetime', 'state'];
+    protected $fillable = ['apprentice_id', 'inventory_id', 'start_datetime', 'end_datetime', 'state'];
 
 
     protected static function newFactory()
