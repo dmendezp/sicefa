@@ -26,28 +26,28 @@ class AttendanceSenaempresaController extends Controller
     {
         $senaempresaId = $request->input('senaempresa_id');
         $documentNumber = $request->input('document_number');
-    
+
         $staff = StaffSenaempresa::where('senaempresa_id', $senaempresaId)
             ->whereHas('apprentice.person', function ($query) use ($documentNumber) {
                 $query->where('document_number', $documentNumber);
             })
             ->first();
-    
+
         if ($staff) {
             $response = [
                 'staff' => [
-                    'id' => $staff->id,
+                    'id' => $staff->apprentice->person->id,
                     'name' => $staff->apprentice->person->full_name,
                 ],
             ];
-    
+
             return response()->json($response);
         } else {
             return response()->json(['staff' => null]);
         }
     }
-    
-    
+
+
 
 
     public function register(Request $request)
@@ -122,33 +122,5 @@ class AttendanceSenaempresaController extends Controller
         }
 
         return response()->json(['attendances' => $attendanceData]);
-    }
-
-
-    public function getPersonData(Request $request)
-    {
-        $documentNumber = $request->input('document_number');
-
-        // Realiza una consulta para obtener los datos de la persona con el número de documento
-        $personData = Person::where('document_number', $documentNumber)->first();
-
-        // Verifica si la persona está registrada en StaffSenaempresa
-        $isRegisteredInStaff = false;
-        if ($personData) {
-            $personId = $personData->id;
-            $apprentice = Apprentice::where('person_id', $personId)->first();
-            if ($apprentice) {
-                $isRegisteredInStaff = StaffSenaempresa::where('apprentice_id', $apprentice->id)->exists();
-            }
-        }
-
-        if ($personData && $isRegisteredInStaff) {
-            // Si se encontró una persona registrada en StaffSenaempresa, devuelve los datos junto con el indicador
-            return response()->json([
-                'id' => $personData->id,
-                'full_name' => $personData->full_name,
-                'is_registered' => $isRegisteredInStaff, // Indicador de registro en StaffSenaempresa
-            ]);
-        }
     }
 }
