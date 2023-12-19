@@ -34,7 +34,7 @@
                             <label for="person_name">{{ trans('senaempresa::menu.Name of individual:') }}</label>
                             <input type="text" name="person_name" class="form-control" readonly>
                         </div>
-                        <input type="text" name="person_id" id="person_id" value="">
+                        <input type="hidden" name="person_id" id="person_id" value="">
                         @if (Route::is('senaempresa.admin.*') ||
                                 (Route::is('senaempresa.human_talent_leader.*') &&
                                     Auth::user()->havePermission(

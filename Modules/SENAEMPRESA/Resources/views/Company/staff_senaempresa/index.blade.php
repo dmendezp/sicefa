@@ -38,7 +38,8 @@
                                     <div class="candidate-card" style="max-width: 600px; margin: 0 10px 20px 0;">
                                         <div class="card text-center">
                                             <img src="{{ asset($staf->image) }}" alt="{{ $staf->image }}"
-                                                class="card-img-top" style="max-width: 100%; border-radius: 10px;">
+                                                class="card-img-top"
+                                                style="height: 200px; width: 200px; object-fit: cover; border-radius: 10px;">
                                             <div class="card-body"
                                                 style="display: flex; flex-direction: column; align-items: center;">
                                                 <h6 class="card-subtitle mb-2 text-muted">

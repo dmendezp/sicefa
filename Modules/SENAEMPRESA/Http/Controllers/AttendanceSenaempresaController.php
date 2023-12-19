@@ -11,6 +11,7 @@ use Modules\SENAEMPRESA\Entities\StaffSenaempresa;
 use Modules\SENAEMPRESA\Entities\Senaempresa;
 use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\Person;
+use Illuminate\Support\Carbon;
 
 
 class AttendanceSenaempresaController extends Controller
@@ -19,7 +20,7 @@ class AttendanceSenaempresaController extends Controller
     {
         $attendances = AttendanceSenaempresa::with('staffSenaempresa.apprentice.person')->get();
         $senaempresas = Senaempresa::all();
-        return view('senaempresa::Company.attendance.index', ['attendances' => $attendances, 'senaempresas' => $senaempresas,  'title' => trans('senaempresa::menu.Attendance')]);
+        return view('senaempresa::Company.attendance.index', ['attendances' => $attendances, 'senaempresas' => $senaempresas, 'title' => trans('senaempresa::menu.Attendance')]);
     }
 
     public function loadStaffBySenaempresa(Request $request)
@@ -70,8 +71,23 @@ class AttendanceSenaempresaController extends Controller
                 return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('error', 'La asistencia para este día ya ha sido registrada con una hora de entrada y de salida.');
             } else {
                 // Actualiza la fecha y hora de salida
+                // Actualiza la fecha y hora de salida
                 $existingAttendance->end_datetime = now();
+
+                // Calcula la duración y almacénala en el formato HH:MM:SS
+                $startDatetime = Carbon::parse($existingAttendance->start_datetime);
+                $endDatetime = Carbon::parse($existingAttendance->end_datetime);
+                $duration = $startDatetime->diff($endDatetime);
+                $durationFormatted = $duration->format('%H:%I:%S');
+
+                $existingAttendance->duration = $durationFormatted;
                 $existingAttendance->save();
+
+                // Actualiza la duración total en la tabla staff_senaempresas
+                $staffSenaempresa = $existingAttendance->staffSenaempresa;
+                $staffSenaempresa->duration_total = $this->sumDurations($staffSenaempresa->duration_total, $durationFormatted);
+                $staffSenaempresa->save();
+
                 // Redirige a la lista de asistencias o muestra un mensaje de éxito
                 return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('success', 'Hora de salida registrada exitosamente.');
             }
@@ -122,5 +138,14 @@ class AttendanceSenaempresaController extends Controller
         }
 
         return response()->json(['attendances' => $attendanceData]);
+    }
+
+    private function sumDurations($duration1, $duration2)
+    {
+        $start = Carbon::createFromFormat('H:i:s', '00:00:00');
+        $sum = $start->addHours(intval(substr($duration1, 0, 2)))->addMinutes(intval(substr($duration1, 3, 2)))->addSeconds(intval(substr($duration1, 6, 2)));
+        $sum = $sum->addHours(intval(substr($duration2, 0, 2)))->addMinutes(intval(substr($duration2, 3, 2)))->addSeconds(intval(substr($duration2, 6, 2)));
+
+        return $sum->format('H:i:s');
     }
 }
