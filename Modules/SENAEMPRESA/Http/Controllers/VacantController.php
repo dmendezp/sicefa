@@ -38,26 +38,6 @@ class VacantController extends Controller
         $selectedSenaempresaId = null;
         $courses = Course::where('status', 'Activo')->with('vacancy')->get();
 
-        $currentQuarter = Quarter::where('start_date', '<=', now())
-            ->where('end_date', '>=', now())
-            ->first();
-
-        if ($currentQuarter) {
-            $currentSenaempresa = Senaempresa::where('quarter_id', $currentQuarter->id)->first();
-
-            if ($currentSenaempresa) {
-                $currentSenaempresaId = $currentSenaempresa->id;
-            } else {
-                // Handle the case where no senaempresa is associated with the current quarter
-                // You can redirect back with an error message or take other appropriate action.
-                return redirect()->back()->with('error', 'No hay una Senaempresa asociada al trimestre actual.');
-            }
-        } else {
-            // Handle the case where no current quarter is found
-            // You can redirect back with an error message or take other appropriate action.
-            return redirect()->back()->with('error', 'No hay un trimestre actual.');
-        }
-
         $currentDateTime = now(); // Esto incluirá la fecha y la hora actual
 
         foreach ($vacancies as $vacancy) {
@@ -78,14 +58,32 @@ class VacantController extends Controller
 
             if ($user->roles[0]->name === 'Aprendiz Senaempresa' || (Route::is('senaempresa.apprentice.*'))) {
                 // Obtén el curso del aprendiz logueado
-                $Apprentice = auth()->user()->person->apprentices()->first();
-                $course = $Apprentice->course;
-                $vacancies = DB::table('course_vacancy')
-                    ->join('vacancies', 'course_vacancy.vacancy_id', '=', 'vacancies.id')
-                    ->where('course_vacancy.course_id', '=', $course->id)
-                    ->where('vacancies.state', '=', 'Disponible')
-                    ->where('vacancies.senaempresa_id', '=', $currentSenaempresaId)
-                    ->get();
+                $apprentice = auth()->user()->person->apprentices()->first();
+                $course = $apprentice->course;
+
+                // Obtén la `senaempresa` asociada al próximo trimestre
+                $nextQuarter = Quarter::where('start_date', '>', now())->orderBy('start_date', 'asc')->first();
+
+                if ($nextQuarter) {
+                    $nextSenaempresa = Senaempresa::where('quarter_id', $nextQuarter->id)->first();
+
+                    if ($nextSenaempresa) {
+                        $vacancies = DB::table('course_vacancy')
+                            ->join('vacancies', 'course_vacancy.vacancy_id', '=', 'vacancies.id')
+                            ->where('course_vacancy.course_id', '=', $course->id)
+                            ->where('vacancies.state', '=', 'Disponible')
+                            ->where('vacancies.senaempresa_id', '=', $nextSenaempresa->id)
+                            ->get();
+                    } else {
+                        // Handle the case where no `senaempresa` is associated with the next quarter
+                        // You can redirect back with an error message or take other appropriate action.
+                        return redirect()->back()->with('error', 'No hay una Senaempresa asociada al próximo trimestre.');
+                    }
+                } else {
+                    // Handle the case where no next quarter is found
+                    // You can redirect back with an error message or take other appropriate action.
+                    return redirect()->back()->with('error', 'No hay un próximo trimestre.');
+                }
             } else {
                 // Obtén el ID de la senaempresa seleccionado del formulario si está presente
                 if ($request->has('senaempresaFilter')) {
@@ -127,7 +125,6 @@ class VacantController extends Controller
             'PositionCompany' => $PositionCompany,
             'selectedSenaempresaId' => $selectedSenaempresaId,
             'senaempresas' => $senaempresas,
-            'currentSenaempresaId' => $currentSenaempresaId,
         ];
 
         return view('senaempresa::Company.vacancies.index', $data);
