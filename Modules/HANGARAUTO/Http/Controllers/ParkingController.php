@@ -6,24 +6,20 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class HANGARAUTOController extends Controller
+class ParkingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    // Vista inicio
     public function index()
     {
-        return view('hangarauto::index');
+        $vehicles = Vehicle::orderBy('id','asc')->get();
+        $data = ['vehicles' => $vehicles ];
+        return view('hangarauto::index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
+    // Vista De Administrador
+    public function administrator()
     {
-        return view('hangarauto::create');
+        return view('hangarauto::admin.dashboard');
     }
 
     /**

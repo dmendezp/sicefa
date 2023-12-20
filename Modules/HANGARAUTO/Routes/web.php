@@ -17,8 +17,8 @@ Route::middleware(['lang'])->group(function () {
     Route::prefix('hangarauto')->group(function () {
 
         // Ruta Para Abrir Vista Index
-        Route::controller(HANGARAUTOController::class)->group(function(){
-            Route::get('/index', 'index')->name('cefa.hangarauto.index');
+        Route::controller(ParkingController::class)->group(function(){
+            Route::get('/index', 'index')->name('cefa.Parking.index');
         });
 
         // Ruta Para Vista Desarrolladores
