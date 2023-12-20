@@ -91,6 +91,7 @@
                                 <th>{{ trans('senaempresa::menu.Id Position') }}</th>
                                 <th>{{ trans('senaempresa::menu.Status') }}</th>
                                 <th class="text-center">{{ trans('senaempresa::menu.Details') }}</th>
+                                <th>SENAEmpresa</th>
                                 @if (Route::is('senaempresa.admin.*') &&
                                         Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.new'))
                                     <th style="width: 100px;"><a
@@ -131,6 +132,7 @@
                                             @endif
                                         @endif
                                     </td>
+                                    <td>{{ $vacancy->senaempresa_id }}</td>
                                     @if (Route::is('senaempresa.admin.*') &&
                                             Auth::user()->havePermission(
                                                 'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.delete'))
