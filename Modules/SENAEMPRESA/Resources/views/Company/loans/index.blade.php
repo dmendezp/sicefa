@@ -35,142 +35,144 @@
             <div class="col-md-12">
                 <div class="card card-primary card-outline shadow">
                     <div class="card-body">
-                        <table id="datatable" class="table table-sm table-striped">
-                            <thead>
-                                <tr>
-                                    <th>{{ trans('senaempresa::menu.Id') }}</th>
-                                    <th>{{ trans('senaempresa::menu.People ID') }}</th>
-                                    <th>{{ trans('senaempresa::menu.Inventory ID') }}</th>
-                                    <th>{{ trans('senaempresa::menu.Start date and time') }}</th>
-                                    <th>{{ trans('senaempresa::menu.End date and time') }}</th>
-                                    <th>{{ trans('senaempresa::menu.Status') }}</th>
-                                    @if (Route::is('senaempresa.admin.*') ||
-                                            (Route::is('senaempresa.passant.*') &&
-                                                Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.new')))
-                                        <th>
-                                            <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.new') }}"
-                                                class="btn btn-success btn-sm">
-                                                <i class="fas fa-user-plus"></i>
-                                            </a>
-                                        </th>
-                                    @endif
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($loans as $loan)
-                                    @if (Auth::check() && Auth::user()->roles[0]->slug === 'senaempresa.apprentice')
+                        @if (Route::is('senaempresa.apprentice.*'))
+                            <table id="inventory" class="table table-striped table-bordered">
+                            @elseif (Route::is('senaempresa.admin.*'))
+                                <table id="datatable" class="table table-striped table-bordered">
+                        @endif
+                        <thead>
+                            <tr>
+                                <th>{{ trans('senaempresa::menu.Id') }}</th>
+                                <th>{{ trans('senaempresa::menu.People ID') }}</th>
+                                <th>{{ trans('senaempresa::menu.Inventory ID') }}</th>
+                                <th>{{ trans('senaempresa::menu.Start date and time') }}</th>
+                                <th>{{ trans('senaempresa::menu.End date and time') }}</th>
+                                <th>{{ trans('senaempresa::menu.Status') }}</th>
+                                @if (Route::is('senaempresa.admin.*') ||
+                                        (Route::is('senaempresa.passant.*') &&
+                                            Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.new')))
+                                    <th>
+                                        <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.new') }}"
+                                            class="btn btn-success btn-sm">
+                                            <i class="fas fa-user-plus"></i>
+                                        </a>
+                                    </th>
+                                @endif
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($loans as $loan)
+                                @if (Auth::check() && Auth::user()->roles[0]->slug === 'senaempresa.apprentice')
+                                    <tr>
+                                        <td>{{ $loan->id }}</td>
+                                        <td>
+                                            @foreach ($apprentices as $apprentice)
+                                                @if ($apprentice->id == $loan->apprentice_id)
+                                                    {{ $apprentice->Person->full_name }}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach ($inventories as $inventory)
+                                                @if ($inventory->id == $loan->inventory_id)
+                                                    {{ $inventory->Element->name }}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $loan->start_datetime }}</td>
+                                        <td>
+                                            @php
+                                                $endDatetime = \Carbon\Carbon::parse($loan->end_datetime);
+                                                $startDatetime = \Carbon\Carbon::parse($loan->start_datetime);
+                                            @endphp
+
+                                            @if (
+                                                $loan->state === 'Devuelto' &&
+                                                    ($endDatetime->toDateString() !== $startDatetime->toDateString() ||
+                                                        ($endDatetime->hour >= 16 && $endDatetime->minute > 0)))
+                                                <span class="text-danger">{{ $loan->end_datetime }}</span>
+                                            @else
+                                                {{ $loan->end_datetime }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (
+                                                $loan->state === 'Devuelto' &&
+                                                    ($endDatetime->toDateString() !== $startDatetime->toDateString() ||
+                                                        ($endDatetime->hour >= 16 && $endDatetime->minute > 0)))
+                                                <span class="text-danger">{{ $loan->state }}</span>
+                                            @else
+                                                {{ $loan->state }}
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @elseif (Auth::user()->havePermission('senaempresa.admin-human_talent_leader.loans.filter'))
+                                    <tr>
+                                        <td>{{ $loan->id }}</td>
+                                        <td>
+                                            @foreach ($apprentices as $apprentice)
+                                                @if ($apprentice->id == $loan->apprentice_id)
+                                                    {{ $apprentice->Person->full_name }}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach ($inventories as $inventory)
+                                                @if ($inventory->id == $loan->inventory_id)
+                                                    {{ $inventory->Element->name }}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $loan->start_datetime }}</td>
+                                        <td>
+                                            @php
+                                                $endDatetime = \Carbon\Carbon::parse($loan->end_datetime);
+                                                $startDatetime = \Carbon\Carbon::parse($loan->start_datetime);
+                                            @endphp
+
+                                            @if (
+                                                $loan->state === 'Devuelto' &&
+                                                    ($endDatetime->toDateString() !== $startDatetime->toDateString() ||
+                                                        ($endDatetime->hour >= 16 && $endDatetime->minute > 0)))
+                                                <span class="text-danger">{{ $loan->end_datetime }}</span>
+                                            @else
+                                                {{ $loan->end_datetime }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (
+                                                $loan->state === 'Devuelto' &&
+                                                    ($endDatetime->toDateString() !== $startDatetime->toDateString() ||
+                                                        ($endDatetime->hour >= 16 && $endDatetime->minute > 0)))
+                                                <span class="text-danger">{{ $loan->state }}</span>
+                                            @else
+                                                {{ $loan->state }}
+                                            @endif
+                                        </td>
+
                                         @if ($loan->state === 'Prestado')
-                                            <tr>
-                                                <td>{{ $loan->id }}</td>
+                                            @if (Route::is('senaempresa.admin.*') ||
+                                                    (Route::is('senaempresa.human_talent_leader.*') &&
+                                                        Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.edit')))
                                                 <td>
-                                                    @foreach ($apprentices as $apprentice)
-                                                        @if ($apprentice->id == $loan->apprentice_id)
-                                                            {{ $apprentice->Person->full_name }}
-                                                        @endif
-                                                    @endforeach
-                                                </td>
-                                                <td>
-                                                    @foreach ($inventories as $inventory)
-                                                        @if ($inventory->id == $loan->inventory_id)
-                                                            {{ $inventory->Element->name }}
-                                                        @endif
-                                                    @endforeach
-                                                </td>
-                                                <td>{{ $loan->start_datetime }}</td>
-                                                <td>
-                                                    @php
-                                                        $endDatetime = \Carbon\Carbon::parse($loan->end_datetime);
-                                                        $startDatetime = \Carbon\Carbon::parse($loan->start_datetime);
-                                                    @endphp
-
-                                                    @if (
-                                                        $loan->state === 'Devuelto' &&
-                                                            ($endDatetime->toDateString() !== $startDatetime->toDateString() ||
-                                                                ($endDatetime->hour >= 16 && $endDatetime->minute > 0)))
-                                                        <span class="text-danger">{{ $loan->end_datetime }}</span>
-                                                    @else
-                                                        {{ $loan->end_datetime }}
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if (
-                                                        $loan->state === 'Devuelto' &&
-                                                            ($endDatetime->toDateString() !== $startDatetime->toDateString() ||
-                                                                ($endDatetime->hour >= 16 && $endDatetime->minute > 0)))
-                                                        <span class="text-danger">{{ $loan->state }}</span>
-                                                    @else
-                                                        {{ $loan->state }}
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    @elseif (Auth::user()->havePermission('senaempresa.admin-human_talent_leader.loans.filter'))
-                                        <tr>
-                                            <td>{{ $loan->id }}</td>
-                                            <td>
-                                                @foreach ($apprentices as $apprentice)
-                                                    @if ($apprentice->id == $loan->apprentice_id)
-                                                        {{ $apprentice->Person->full_name }}
-                                                    @endif
-                                                @endforeach
-                                            </td>
-                                            <td>
-                                                @foreach ($inventories as $inventory)
-                                                    @if ($inventory->id == $loan->inventory_id)
-                                                        {{ $inventory->Element->name }}
-                                                    @endif
-                                                @endforeach
-                                            </td>
-                                            <td>{{ $loan->start_datetime }}</td>
-                                            <td>
-                                                @php
-                                                    $endDatetime = \Carbon\Carbon::parse($loan->end_datetime);
-                                                    $startDatetime = \Carbon\Carbon::parse($loan->start_datetime);
-                                                @endphp
-
-                                                @if (
-                                                    $loan->state === 'Devuelto' &&
-                                                        ($endDatetime->toDateString() !== $startDatetime->toDateString() ||
-                                                            ($endDatetime->hour >= 16 && $endDatetime->minute > 0)))
-                                                    <span class="text-danger">{{ $loan->end_datetime }}</span>
-                                                @else
-                                                    {{ $loan->end_datetime }}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if (
-                                                    $loan->state === 'Devuelto' &&
-                                                        ($endDatetime->toDateString() !== $startDatetime->toDateString() ||
-                                                            ($endDatetime->hour >= 16 && $endDatetime->minute > 0)))
-                                                    <span class="text-danger">{{ $loan->state }}</span>
-                                                @else
-                                                    {{ $loan->state }}
-                                                @endif
-                                            </td>
-
-                                            @if ($loan->state === 'Prestado')
-                                                @if (Route::is('senaempresa.admin.*') ||
-                                                        (Route::is('senaempresa.human_talent_leader.*') &&
-                                                            Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.edit')))
-                                                    <td>
-                                                        <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.return', ['id' => $loan->id]) }}"
-                                                            class="btn btn-primary btn-sm">{{ trans('senaempresa::menu.Return') }}</a>
-                                                        <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.edit', ['id' => $loan->id]) }}"
-                                                            class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
-                                                        <a href="{{ route('senaempresa.human_talent_leader.ruta_del_manual_de_usuario') }}"
-                                                            class="nav-link">
-                                                            <i class="fas fa-question-circle"></i>
-                                                        </a>
-                                                    </td>
-                                                @endif
-                                            @elseif ($loan->state === 'Devuelto')
-                                                <td>
+                                                    <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.return', ['id' => $loan->id]) }}"
+                                                        class="btn btn-primary btn-sm">{{ trans('senaempresa::menu.Return') }}</a>
+                                                    <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.edit', ['id' => $loan->id]) }}"
+                                                        class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+                                                    <a href="{{ route('senaempresa.human_talent_leader.ruta_del_manual_de_usuario') }}"
+                                                        class="nav-link">
+                                                        <i class="fas fa-question-circle"></i>
+                                                    </a>
                                                 </td>
                                             @endif
-                                        </tr>
-                                    @endif
-                                @endforeach
-                            </tbody>
+                                        @elseif ($loan->state === 'Devuelto')
+                                            <td>
+                                            </td>
+                                        @endif
+                                    </tr>
+                                @endif
+                            @endforeach
+                        </tbody>
                         </table>
                     </div>
                 </div>

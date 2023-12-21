@@ -9,6 +9,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Course;
 use Modules\SENAEMPRESA\Entities\Asistencia;
+use Modules\SENAEMPRESA\Entities\Loan;
 use Modules\SENAEMPRESA\Entities\Postulate;
 
 class Apprentice extends Model implements Auditable
@@ -64,6 +65,11 @@ class Apprentice extends Model implements Auditable
     public function postulates()
     { // Accede a los datos de los postulados a las vacantes de senaempresa
         return $this->hasMany(Postulate::class);
+    }
+
+    public function loans()
+    { // Accede a los datos de los prestamos
+        return $this->hasMany(Loan::class);
     }
 
     // Configuración de factory para la generación de datos de pruebas

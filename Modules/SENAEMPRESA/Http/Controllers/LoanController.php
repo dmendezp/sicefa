@@ -16,27 +16,38 @@ use TCPDF;
 class LoanController extends Controller
 {
     public function loans(Request $request)
-    {
-        $loanState = $request->input('loan_state');
+{
+    $loanState = $request->input('loan_state');
+    $user = Auth::user();
 
+    if ($user->roles[0]->name === 'Aprendiz Senaempresa' || Route::is('senaempresa.apprentice.*')) {
+        // If the user is an apprentice, retrieve only their loans
+        $apprentice = $user->person->apprentices()->first();
+        $loans = $apprentice ? $apprentice->loans()->when($loanState, function ($query) use ($loanState) {
+            return $query->where('state', $loanState);
+        })->get() : collect(); // Use collect() to create an empty collection if apprentice is not found
+    } else {
+        // If the user is not an apprentice, retrieve all loans
         $loans = Loan::when($loanState, function ($query) use ($loanState) {
             return $query->where('state', $loanState);
         })->get();
-
-        $apprentices = Apprentice::with('Person')->get();
-        $inventories = Inventory::with('Element')
-            ->where('state', 'Disponible')
-            ->get();
-
-        $data = [
-            'title' => trans('senaempresa::menu.Registered Loans'),
-            'loans' => $loans,
-            'apprentices' => $apprentices,
-            'inventories' => $inventories,
-        ];
-
-        return view('senaempresa::Company.loans.index', $data);
     }
+
+    $apprentices = Apprentice::with('Person')->get();
+    $inventories = Inventory::with('Element')
+        ->where('state', 'Disponible')
+        ->get();
+
+    $data = [
+        'title' => trans('senaempresa::menu.Registered Loans'),
+        'loans' => $loans,
+        'apprentices' => $apprentices,
+        'inventories' => $inventories,
+    ];
+
+    return view('senaempresa::Company.loans.index', $data);
+}
+
 
     public function return($id)
     {

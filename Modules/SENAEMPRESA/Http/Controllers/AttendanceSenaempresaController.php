@@ -8,21 +8,30 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Route;
 use Modules\SENAEMPRESA\Entities\AttendanceSenaempresa;
 use Modules\SENAEMPRESA\Entities\StaffSenaempresa;
-use Modules\SENAEMPRESA\Entities\Senaempresa;
 use Modules\SICA\Entities\Apprentice;
-use Modules\SICA\Entities\Person;
 use Illuminate\Support\Carbon;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Modules\SENAEMPRESA\Entities\Senaempresa;
 
 
 class AttendanceSenaempresaController extends Controller
 {
     public function new()
     {
+        // Assuming you have authentication in place, retrieve the currently authenticated user
+        $apprentice = auth()->user()->person->apprentices()->first();
+
+        // Retrieve attendance records for the authenticated apprentice
+        $attendances_apprentice = AttendanceSenaempresa::with('staffSenaempresa.apprentice.person')
+            ->whereHas('staffSenaempresa', function ($query) use ($apprentice) {
+                $query->where('apprentice_id', $apprentice->id);
+            })
+            ->get();
         $attendances = AttendanceSenaempresa::with('staffSenaempresa.apprentice.person')->get();
         $senaempresas = Senaempresa::all();
-        return view('senaempresa::Company.attendance.index', ['attendances' => $attendances, 'senaempresas' => $senaempresas, 'title' => trans('senaempresa::menu.Attendance')]);
+
+        return view('senaempresa::Company.attendance.index', ['attendances' => $attendances, 'attendances_apprentice' => $attendances_apprentice, 'senaempresas' => $senaempresas, 'title' => trans('senaempresa::menu.Attendance')]);
+
     }
 
     public function loadStaffBySenaempresa(Request $request)

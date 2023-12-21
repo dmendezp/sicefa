@@ -17,7 +17,8 @@ use Modules\SENAEMPRESA\Entities\PositionCompany;
 use Illuminate\Support\Str;
 use Modules\SICA\Entities\Quarter;
 use Illuminate\Support\Facades\Auth;
-use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Console\Scheduling\Schedule;
+
 
 class VacantController extends Controller
 {
@@ -30,6 +31,7 @@ class VacantController extends Controller
         $vacancy = Vacancy::find($id);
         return response()->json($vacancy);
     }
+
     public function vacancies(Request $request)
     {
 
@@ -38,9 +40,10 @@ class VacantController extends Controller
         $selectedSenaempresaId = null;
         $courses = Course::where('status', 'Activo')->with('vacancy')->get();
 
-        $currentDateTime = now(); // Esto incluirá la fecha y la hora actual
+        $vacancies_state = Vacancy::all();
+        $currentDateTime = now();
 
-        foreach ($vacancies as $vacancy) {
+        foreach ($vacancies_state as $vacancy) {
             // Comparar la fecha y hora de finalización con la fecha y hora actual
             $endDatetime = Carbon::parse($vacancy->end_datetime);
 
