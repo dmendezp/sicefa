@@ -1,7 +1,7 @@
 <div class="sidebar-color">
     <aside class="main-sidebar sidebar-dark-blue elevation-4">
         <!-- Bran Logo: Aqui se realiza el ajuste del logo y titulo que esta en el sidebar-->
-        <a href="{{ route('cefa.hangarauto.index') }}" class="brand-link text-decoration-none">
+        <a href="{{ route('cefa.parking.index') }}" class="brand-link text-decoration-none">
             <img src="{{ asset('modules/HANGARAUTO/img/autologo.png') }}" class="brand-image" alt="HANGARAUTO-Logo">{{-- Icono de huella de carbono --}}
             <span class="brand-text font-weight-bold">{{ trans('hangarauto::general.AutoHangar') }}</span>
         </a>
@@ -72,7 +72,7 @@
                     data-accordion="false">
                     <!-- Menú de opciones públicas -->
                     <li class="nav-item">
-                        <a href="{{ route('cefa.solicitar.search') }}" class="nav-link">
+                        <a href="{{ route('cefa.parking.solicitar') }}" class="nav-link">
                             <i class="fas fa-check-square"></i>
                             <p>
                                 Solicitar Vehiculo

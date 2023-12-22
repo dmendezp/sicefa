@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="{{ route('cefa.hangarauto.index') }}"
+                                <li class="breadcrumb-item"><a href="{{ route('cefa.parking.index') }}"
                                         class="text-decoration-none">HANGARAUTO</a></li>
                                 @stack('breadcrumbs')
                             </ol>

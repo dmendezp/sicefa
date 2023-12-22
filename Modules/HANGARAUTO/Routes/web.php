@@ -18,7 +18,7 @@ Route::middleware(['lang'])->group(function () {
 
         // Ruta Para Abrir Vista Index
         Route::controller(ParkingController::class)->group(function(){
-            Route::get('/index', 'index')->name('cefa.Parking.index');
+            Route::get('/index', 'ParkingController@index')->name('cefa.parking.index');
         });
 
         // Ruta Para Vista Desarrolladores
@@ -27,10 +27,11 @@ Route::middleware(['lang'])->group(function () {
         });
 
         // Rutas Para Hacer Solicitudes
-        Route::controller(SolicitudController::class)->group(function(){
-            Route::get('/Inicio/solicitar', 'getSolicitarAdd')->name('hangarauto.solicitar');
-            // Ruta Buscar Persona
-            Route::get('/Inicio/solicitar/search', 'postSolicitarSearch')->name('cefa.solicitar.search');
-        });
+        Route::get('/index/solicitar', 'ParkingController@getSolicitarAdd')->name('cefa.parking.solicitar');
+        Route::post('/index/solicitar', 'ParkingController@postSolicitarAdd')->name('cefa.parking.guardar');
+        // Rutas Buscar Persona
+        Route::post('/index/solicitar/search', 'ParkingController@postSolicitarSearch')->name('cefa.parking.solicitar.search');
+        // Rutas Municipios
+        Route::post('/index/solicitar/municipios/search', 'ParkingController@postMunicipiosSearch')->name('cefa.parking.solicitar.municipios.search');
     });
 });

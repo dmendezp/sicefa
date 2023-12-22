@@ -6,7 +6,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('cefa.hangarauto.index') }}"class="nav-link">{{ trans('hangarauto::general.Home') }}</a>
+            <a href="{{ route('cefa.parking.index') }}"class="nav-link">{{ trans('hangarauto::general.Home') }}</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link ">{{ trans('hangarauto::general.Administrator')}}</a>
