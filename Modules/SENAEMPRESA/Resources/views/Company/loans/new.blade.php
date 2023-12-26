@@ -12,8 +12,6 @@
                             method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                                <label for="apprentice_id"
-                                    class="form-label">{{ trans('senaempresa::menu.Apprentice') }}</label>
                                 <div class="mb-3">
                                     <label for="apprentice_id"
                                         class="form-label">{{ trans('senaempresa::menu.Search Apprentice by Document or Name') }}</label>

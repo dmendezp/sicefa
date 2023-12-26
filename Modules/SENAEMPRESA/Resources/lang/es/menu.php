@@ -37,7 +37,7 @@ return [
 
     'Loans' => 'Prestamos',  // Aside,
     'Save Changes' => 'Guardar Cambios',  // SENAEMPRESA, Vacant,
-    'Select Element' => 'Seleccione Inventario',
+    'Select Element' => 'Seleccione Elemento',
     'Start date and time' => 'Fecha y Hora de Inicio',
     'End date and time' => 'Fecha y hora de finalización',
     'Provide' => 'Prestar',
