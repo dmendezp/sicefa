@@ -10,7 +10,7 @@
                     <table id="datatable" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>Id</th>
+                                <th style="width: 15px;">#</th>
                                 <th>{{ trans('senaempresa::menu.Name') }}</th>
                                 <th>{{ trans('senaempresa::menu.Description') }}</th>
                                 <th>{{ trans('senaempresa::menu.Quarter') }}</th>

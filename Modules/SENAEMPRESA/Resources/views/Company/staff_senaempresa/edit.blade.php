@@ -30,7 +30,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="apprentice_id"
-                                    class="form-label">{{ trans('senaempresa::menu.Apprentice Id') }}</label>
+                                    class="form-label">{{ trans('senaempresa::menu.Apprentice') }}</label>
                                 <input type="text" class="form-control" id="search-input" name="search-input"
                                     placeholder="{{ trans('senaempresa::menu.Search by Document or Name') }}">
                                 <select class="form-control" name="apprentice_id" aria-label="Selecciona un Aprendiz"
@@ -62,7 +62,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="senaempresa_id"
-                                    class="form-label">{{ trans('senaempresa::menu.ID Senaempresa') }}</label>
+                                    class="form-label">SENAEmpresa</label>
                                 <select class="form-control" name="senaempresa_id" required>
                                     @foreach ($senaempresas as $senaempresa)
                                         <option

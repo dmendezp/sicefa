@@ -16,9 +16,9 @@
                             <input type="hidden" name="postulate_id" value="{{ $postulate->id }}">
                             <div class="mb-3">
                                 <label for="postulate_info"
-                                    class="form-label">{{ trans('senaempresa::menu.Id postulate') }}</label>
+                                    class="form-label">{{ trans('senaempresa::menu.Postulate') }}</label>
                                 <input type="text" class="form-control" id="postulate_info" name="postulate_info"
-                                    value="{{ $postulate->id }} - {{ $postulate->apprentice->person->full_name }}" readonly>
+                                    value="{{ $postulate->apprentice->person->full_name }}" readonly>
                             </div>
                             <input type="hidden" class="form-control" id="postulate_id" name="postulate_info"
                                 value="{{ $postulate->id }}" readonly>
@@ -27,7 +27,7 @@
                                 <label for="vacancy_info"
                                     class="form-label">{{ trans('senaempresa::menu.Vacancy') }}</label>
                                 <input type="text" class="form-control" id="vacancy_info" name="vacancy_info"
-                                    value="{{ $postulate->vacancy_id }} - {{ $postulate->vacancy->name }}" readonly>
+                                    value="{{ $postulate->vacancy->name }}" readonly>
                             </div>
                             <input type="hidden" class="form-control" id="vacancy_id" name="vacancy_id"
                                 value="{{ $postulate->vacancy_id }}" readonly>

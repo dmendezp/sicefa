@@ -50,9 +50,9 @@
                     <table id="inventory" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>{{ trans('senaempresa::menu.Id') }}</th>
-                                <th>{{ trans('senaempresa::menu.Apprentice Id') }}</th>
-                                <th>{{ trans('senaempresa::menu.Positon Id') }}</th>
+                                <th>#</th>
+                                <th>{{ trans('senaempresa::menu.Apprentice') }}</th>
+                                <th>{{ trans('senaempresa::menu.Position') }}</th>
                                 <th>{{ trans('senaempresa::menu.Currículum') }}</th>
                                 <th>{{ trans('senaempresa::menu.16 personalities') }}</th>
                                 <th>{{ trans('senaempresa::menu.Proposal') }}</th>

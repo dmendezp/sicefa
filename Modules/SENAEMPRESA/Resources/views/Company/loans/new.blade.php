@@ -32,10 +32,10 @@
                             </div>
                             <div class="mb-3">
                                 <label for="inventory_id"
-                                    class="form-label">{{ trans('senaempresa::menu.Inventory ID') }}</label>
-                                <select class="form-control" name="inventory_id" aria-label="Selecciona Inventario ID"
+                                    class="form-label">{{ trans('senaempresa::menu.Element') }}</label>
+                                <select class="form-control" name="inventory_id" aria-label="{{ trans('senaempresa::menu.Select Element') }}"
                                     required>
-                                    <option value="" selected>{{ trans('senaempresa::menu.Select Inventory ID') }}
+                                    <option value="" selected>{{ trans('senaempresa::menu.Select Element') }}
                                     </option>
                                     @foreach ($inventories as $inventory)
                                         <option value="{{ $inventory->id }}">

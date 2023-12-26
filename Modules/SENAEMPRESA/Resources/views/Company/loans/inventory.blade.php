@@ -51,41 +51,34 @@
                         <table id="inventory" class="table table-sm table-striped">
                             <thead>
                                 <tr>
-                                    <th>{{ trans('senaempresa::menu.Id') }}</th>
-                                    <th>{{ trans('senaempresa::menu.Person ID') }}</th>
-                                    <th>{{ trans('senaempresa::menu.Production unit - Warehouse_id') }}</th>
-                                    <th>{{ trans('senaempresa::menu.Element ID') }}</th>
+                                    <th>#</th>
+                                    <th>{{ trans('senaempresa::menu.Responsible') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Element') }}</th>
                                     <th>{{ trans('senaempresa::menu.Destination') }}</th>
-                                    <th>{{ trans('senaempresa::menu.Description') }}</th>
                                     <th>{{ trans('senaempresa::menu.Price') }}</th>
                                     <th>{{ trans('senaempresa::menu.Amount') }}</th>
                                     <th>{{ trans('senaempresa::menu.Stock') }}</th>
-                                    <th>{{ trans('senaempresa::menu.Production date') }}</th>
-                                    <th>{{ trans('senaempresa::menu.Lot number') }}</th>
-                                    <th>{{ trans('senaempresa::menu.Expiration_date') }}</th>
                                     <th>{{ trans('senaempresa::menu.State') }}</th>
-                                    <th>{{ trans('senaempresa::menu.Mark') }}</th>
-                                    <th>{{ trans('senaempresa::menu.Inventory code') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($inventories as $inventory)
                                     <tr>
                                         <td>{{ $inventory->id }}</td>
-                                        <td>{{ $inventory->person_id }}</td>
-                                        <td>{{ $inventory->productive_unit_warehouse_id }}</td>
+                                        <td>{{ $inventory->person->full_name }}</td>
                                         <td>{{ $inventory->element->name }}</td>
                                         <td>{{ $inventory->destination }}</td>
-                                        <td>{{ $inventory->description }}</td>
                                         <td>{{ $inventory->price }}</td>
                                         <td>{{ $inventory->amount }}</td>
                                         <td>{{ $inventory->stock }}</td>
-                                        <td>{{ $inventory->production_date }}</td>
-                                        <td>{{ $inventory->lot_number }}</td>
-                                        <td>{{ $inventory->expiration_date }}</td>
                                         <td>{{ $inventory->state }}</td>
-                                        <td>{{ $inventory->mark }}</td>
-                                        <td>{{ $inventory->inventory_code }}</td>
+                                        <td>
+                                            <button class="btn btn-info" data-toggle="modal"
+                                                data-target="#detailsModal{{ $inventory->id }}">
+                                                {{ trans('senaempresa::menu.Details') }}
+                                            </button>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -95,4 +88,32 @@
             </div>
         </div>
     </div>
+    @foreach ($inventories as $inventory)
+    <!-- Modal for details -->
+    <div class="modal fade" id="detailsModal{{ $inventory->id }}" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailsModalLabel">{{ trans('senaempresa::menu.Inventory Details') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>{{ trans('senaempresa::menu.Production unit') }}:</strong> {{ $inventory->productive_unit_warehouse->productive_unit->name }}</p>
+                    <p><strong>{{ trans('senaempresa::menu.Warehouse') }}:</strong> {{ $inventory->productive_unit_warehouse->warehouse->name }}</p>
+                    <p><strong>{{ trans('senaempresa::menu.Description') }}:</strong> {{ $inventory->description }}</p>
+                    <p><strong>{{ trans('senaempresa::menu.Production date') }}:</strong> {{ $inventory->production_date }}</p>
+                    <p><strong>{{ trans('senaempresa::menu.Lot number') }}:</strong> {{ $inventory->lot_number }}</p>
+                    <p><strong>{{ trans('senaempresa::menu.Expiration_date') }}:</strong> {{ $inventory->expiration_date }}</p>
+                    <p><strong>{{ trans('senaempresa::menu.Mark') }}:</strong> {{ $inventory->mark }}</p>
+                    <p><strong>{{ trans('senaempresa::menu.Inventory code') }}:</strong> {{ $inventory->inventory_code }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
 @endsection

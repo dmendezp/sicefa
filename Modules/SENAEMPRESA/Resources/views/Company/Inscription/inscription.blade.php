@@ -23,7 +23,7 @@
 
                             <div class="mb-3">
                                 <label for="vacancy_info"
-                                    class="form-label">{{ trans('senaempresa::menu.Vacancy ID') }}</label>
+                                    class="form-label">{{ trans('senaempresa::menu.Vacancy') }}</label>
                                 <input type="text" class="form-control" id="vacancy_info" name="vacancy_info"
                                     value="{{ $vacancy->id }} - {{ $vacancy->name }}" readonly>
                             </div>

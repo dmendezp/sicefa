@@ -59,7 +59,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="position_company_id"
-                                    class="form-label">{{ trans('senaempresa::menu.Id Position') }}</label>
+                                    class="form-label">{{ trans('senaempresa::menu.Position') }}</label>
                                 <select class="form-control" name="position_company_id" id="position_company_id">
                                     @foreach ($PositionCompany as $position)
                                         <option value="{{ $position->id }}"

@@ -42,9 +42,9 @@
                         @endif
                         <thead>
                             <tr>
-                                <th>{{ trans('senaempresa::menu.Id') }}</th>
-                                <th>{{ trans('senaempresa::menu.People ID') }}</th>
-                                <th>{{ trans('senaempresa::menu.Inventory ID') }}</th>
+                                <th style="width: 15px;">#</th>
+                                <th>{{ trans('senaempresa::menu.Apprentice') }}</th>
+                                <th>{{ trans('senaempresa::menu.Element') }}</th>
                                 <th>{{ trans('senaempresa::menu.Start date and time') }}</th>
                                 <th>{{ trans('senaempresa::menu.End date and time') }}</th>
                                 <th>{{ trans('senaempresa::menu.Status') }}</th>
@@ -156,12 +156,9 @@
                                                         Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.edit')))
                                                 <td>
                                                     <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.return', ['id' => $loan->id]) }}"
-                                                        class="btn btn-primary btn-sm">{{ trans('senaempresa::menu.Return') }}</a>
+                                                        class="btn btn-warning btn-sm">{{ trans('senaempresa::menu.Return') }}</a>
                                                     <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.edit', ['id' => $loan->id]) }}"
                                                         class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
-                                                    <a href="{{ route('senaempresa.human_talent_leader.ruta_del_manual_de_usuario') }}"
-                                                        class="nav-link">
-                                                        <i class="fas fa-question-circle"></i>
                                                     </a>
                                                 </td>
                                             @endif

@@ -15,9 +15,9 @@
                             @csrf
                             <input type="hidden" name="postulate_id" value="{{ $postulate->id }}">
                             <div class="mb-3">
-                                <label for="postulate_info" class="form-label">{{ trans('senaempresa::menu.Id postulate') }}</label>
+                                <label for="postulate_info" class="form-label">{{ trans('senaempresa::menu.Postulate') }}</label>
                                 <input type="text" class="form-control" id="postulate_info" name="postulate_info"
-                                    value="{{ $postulate->id }} - {{ $postulate->apprentice->person->full_name }}" readonly>
+                                    value="{{ $postulate->apprentice->person->full_name }}" readonly>
                             </div>
                             <input type="hidden" class="form-control" id="postulate_id" name="postulate_id"
                                 value="{{ $postulate->id }}" readonly>

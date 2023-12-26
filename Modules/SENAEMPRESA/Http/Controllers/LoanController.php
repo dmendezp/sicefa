@@ -219,7 +219,7 @@ class LoanController extends Controller
         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
 
         // Establecer el título del documento con la fecha y hora actual en formato 12 horas
-        $title = 'Reporte de Inventario - ' . date('Y-m-d h:i:s A');
+        $title = trans('senaempresa::menu.Inventory Report').' - '. date('Y-m-d h:i:s A');
         $pdf->SetTitle($title);
 
         // Definir la fuente y el tamaño para el contenido del PDF
@@ -229,7 +229,7 @@ class LoanController extends Controller
         $pdf->AddPage();
 
         $tableStyle = 'border-collapse: collapse; width: 100%; margin: auto; text-align: center;';
-        $cellStyle = 'border: 1px solid #000; text-align: center; padding: 0 auto 8px; width: 267px; height: 100%';
+        $cellStyle = 'border: 1px solid #000; text-align: center; padding: 0 auto 8px; width: 267px; height: 14px; ';
 
 
         // Agregar el logo en la parte izquierda superior
@@ -252,34 +252,37 @@ class LoanController extends Controller
             $html .= '<tr><td colspan="2" style="height: 10px;"></td></tr>';
             $html .= '<tr><td style="' . $cellStyle . '"><strong>ID:</strong></td>';
             $html .= '<td style="' . $cellStyle . '">' . $inventory->id . '</td></tr>';
-            $html .= '<tr><td style="' . $cellStyle . '"><strong>Person ID:</strong></td>';
-            $html .= '<td style="' . $cellStyle . '">' . $inventory->person_id . '</td></tr>';
-            $html .= '<tr><td style="' . $cellStyle . '"><strong>Product Unit Warehouse ID:</strong></td>';
-            $html .= '<td style="' . $cellStyle . '">' . $inventory->productive_unit_warehouse_id . '</td></tr>';
-            $html .= '<tr><td style="' . $cellStyle . '"><strong>Element Name:</strong></td>';
+            $html .= '<tr><td style="' . $cellStyle . '"><strong>'.trans('senaempresa::menu.Responsible').':</strong></td>';
+            $html .= '<td style="' . $cellStyle . '">' . $inventory->person->full_name . '</td></tr>';
+            $html .= '<tr><td style="' . $cellStyle . '"><strong>'.trans('senaempresa::menu.Production unit').':</strong></td>';
+            $html .= '<td style="' . $cellStyle . '">' . $inventory->productive_unit_warehouse->productive_unit->name . '</td></tr>';
+            $html .= '<tr><td style="' . $cellStyle . '"><strong>'.trans('senaempresa::menu.Warehouse').':</strong></td>';
+            $html .= '<td style="' . $cellStyle . '">' . $inventory->productive_unit_warehouse->warehouse->name . '</td></tr>';
+            $html .= '<tr><td style="' . $cellStyle . '"><strong>'.trans('senaempresa::menu.Element').':</strong></td>';
             $html .= '<td style="' . $cellStyle . '">' . $inventory->element->name . '</td></tr>';
-            $html .= '<tr><td style="' . $cellStyle . '"><strong>Destination:</strong></td>';
+            $html .= '<tr><td style="' . $cellStyle . '"><strong>'.trans('senaempresa::menu.Destination').':</strong></td>';
             $html .= '<td style="' . $cellStyle . '">' . $inventory->destination . '</td></tr>';
-            $html .= '<tr><td style="' . $cellStyle . '"><strong>Description:</strong></td>';
+            $html .= '<tr><td style="' . $cellStyle . '"><strong>'.trans('senaempresa::menu.Description').':</strong></td>';
             $html .= '<td style="' . $cellStyle . '">' . $inventory->description . '</td></tr>';
-            $html .= '<tr><td style="' . $cellStyle . '"><strong>Price:</strong></td>';
+            $html .= '<tr><td style="' . $cellStyle . '"><strong>'.trans('senaempresa::menu.Price').':</strong></td>';
             $html .= '<td style="' . $cellStyle . '">' . $inventory->price . '</td></tr>';
-            $html .= '<tr><td style="' . $cellStyle . '"><strong>Amount:</strong></td>';
+            $html .= '<tr><td style="' . $cellStyle . '"><strong>'.trans('senaempresa::menu.Amount').':</strong></td>';
             $html .= '<td style="' . $cellStyle . '">' . $inventory->amount . '</td></tr>';
-            $html .= '<tr><td style="' . $cellStyle . '"><strong>Stock:</strong></td>';
+            $html .= '<tr><td style="' . $cellStyle . '"><strong>'.trans('senaempresa::menu.Stock').':</strong></td>';
             $html .= '<td style="' . $cellStyle . '">' . $inventory->stock . '</td></tr>';
-            $html .= '<tr><td style="' . $cellStyle . '"><strong>Production Date:</strong></td>';
+            $html .= '<tr><td style="' . $cellStyle . '"><strong>'.trans('senaempresa::menu.Production date').':</strong></td>';
             $html .= '<td style="' . $cellStyle . '">' . $inventory->production_date . '</td></tr>';
-            $html .= '<tr><td style="' . $cellStyle . '"><strong>Lot Number:</strong></td>';
+            $html .= '<tr><td style="' . $cellStyle . '"><strong>'.trans('senaempresa::menu.Lot number').':</strong></td>';
             $html .= '<td style="' . $cellStyle . '">' . $inventory->lot_number . '</td></tr>';
-            $html .= '<tr><td style="' . $cellStyle . '"><strong>Expiration:</strong></td>';
+            $html .= '<tr><td style="' . $cellStyle . '"><strong>'.trans('senaempresa::menu.Expiration_date').':</strong></td>';
             $html .= '<td style="' . $cellStyle . '">' . $inventory->expiration_date . '</td></tr>';
-            $html .= '<tr><td style="' . $cellStyle . '"><strong>State:</strong></td>';
+            $html .= '<tr><td style="' . $cellStyle . '"><strong>'.trans('senaempresa::menu.State').':</strong></td>';
             $html .= '<td style="' . $cellStyle . '">' . $inventory->state . '</td></tr>';
-            $html .= '<tr><td style="' . $cellStyle . '"><strong>Mark:</strong></td>';
+            $html .= '<tr><td style="' . $cellStyle . '"><strong>'.trans('senaempresa::menu.Mark').':</strong></td>';
             $html .= '<td style="' . $cellStyle . '">' . $inventory->mark . '</td></tr>';
-            $html .= '<tr><td style="' . $cellStyle . '"><strong>Inventory Code:</strong></td>';
+            $html .= '<tr><td style="' . $cellStyle . '"><strong>'.trans('senaempresa::menu.Inventory code').':</strong></td>';
             $html .= '<td style="' . $cellStyle . '">' . $inventory->inventory_code . '</td></tr>';
+            $html .= '<br>';
         }
 
         $html .= '</tbody>';
@@ -289,7 +292,7 @@ class LoanController extends Controller
 
 
         // Generar el PDF y devolverlo para su descarga con la fecha en el nombre del archivo
-        $filename = 'reporte_inventario_senaempresa' . date('Ymd') . '.pdf';
+        $filename = trans('senaempresa::menu.SENAEmpresa_inventory_report'). date('Ymd') . '.pdf';
         $pdf->Output($filename, 'I');
     }
 }

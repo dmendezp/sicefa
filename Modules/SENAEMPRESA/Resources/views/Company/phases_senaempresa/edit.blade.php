@@ -24,9 +24,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="quarter_id"
-                                    class="form-label">{{ trans('senaempresa::menu.ID Quarter') }}</label>
+                                    class="form-label">{{ trans('senaempresa::menu.Quarter') }}</label>
                                 <select class="form-control" name="quarter_id" aria-label="Selecciona un Cargo" required>
-                                    <option value="" selected>{{ trans('senaempresa::menu.Select a quarter') }}</option>
                                     @foreach ($quarters as $quarter)
                                         <option
                                             value="{{ $quarter->id }}"{{ $quarter->id == $company->quarter_id ? 'selected' : '' }}>

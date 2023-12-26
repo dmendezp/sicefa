@@ -17,8 +17,8 @@
 
                             <div class="mb-3">
                                 <label for="inventory_id"
-                                    class="form-label">{{ trans('senaempresa::menu.Inventory ID') }}</label>
-                                <select class="form-control" name="inventory_id" aria-label="Selecciona Inventario ID">
+                                    class="form-label">{{ trans('senaempresa::menu.Element') }}</label>
+                                <select class="form-control" name="inventory_id" aria-label="{{ trans('senaempresa::menu.Select Element') }}">
                                     @foreach ($inventories as $inventory)
                                         <option value="{{ $inventory->id }}"
                                             {{ $loan->inventory_id == $inventory->id ? 'selected' : '' }}>

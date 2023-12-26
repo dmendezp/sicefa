@@ -48,7 +48,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="position_company_id"
-                                    class="form-label">{{ trans('senaempresa::menu.Id Position') }}</label>
+                                    class="form-label">{{ trans('senaempresa::menu.Position') }}</label>
                                 <select class="form-control" name="position_company_id"
                                     aria-label="{{ trans('senaempresa::menu.Select a position') }}" required>
                                     <option value="" selected>

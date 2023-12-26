@@ -89,7 +89,7 @@
                     @endif
                     <thead>
                         <tr>
-                            <th>{{ trans('senaempresa::menu.Id') }}</th>
+                            <th style="width: 15px;">#</th>
                             <th>{{ trans('senaempresa::menu.Name') }}</th>
                             <th>{{ trans('senaempresa::menu.Presentation') }}</th>
                             <th>{{ trans('senaempresa::menu.Id Position') }}</th>

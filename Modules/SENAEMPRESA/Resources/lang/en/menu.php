@@ -34,10 +34,7 @@ return [
     //Loan
 
     'Loans' => 'Loans',  // Aside,
-    'People ID' => 'People ID',
-    'Select Personal ID' => 'Select Personal ID',
-    'Inventory ID' => 'Inventory ID',
-    'Select Inventory ID' => 'Select Inventory ID',
+    'Select Element' => 'Select Element',
     'Start date and time' => 'Start date and time',
     'End date and time' => 'End date and time',
     'Save Changes' => 'Save Changes',  // SENAEMPRESA, Vacant,
@@ -66,10 +63,8 @@ return [
     'Select a SenaEmpresa:' => 'Select a SenaEmpresa:',
     'Assign Course to SenaEmpresa' => 'Assign Course to SenaEmpresa',
     'Course ID' => 'Course ID',  // Vacant,
-    'SenaEmpresa ID' => 'SenaEmpresa ID',
     'No associated courses were found.' => 'No associated courses were found.',  // Vacant,
     'Association deleted!' => 'Association deleted!',  // Vacant
-    'ID Quarter' => 'ID Quarter',
     'SenaEmpresa already exists!' => 'SenaEmpresa already exists!',
     'Quarter' => 'Quarter',
     'SenaEmpresa deleted!' => 'SenaEmpresa deleted!',
@@ -91,10 +86,8 @@ return [
     'Error deleting the association' => 'Error deleting the association',  // Vacant,
 
     // staff_senaempresa
-
-    'Position ID' => 'Position ID',
     'Select a Position' => 'Select a Position',
-    'Apprentice Id' => 'Apprentice Id',  //Postulate
+    'Apprentice' => 'Apprentice',  // Inscription
     'Select an Apprentice' => 'Select an Apprentice',
     'self-image' => 'self-image',
     'Current image' => 'Current image',
@@ -102,7 +95,6 @@ return [
     'Update' => 'Update',
     'Search Apprentice by Document or Name' => 'Search Apprentice by Document or Name',
     'Position' => 'Position',
-    'Apprentice' => 'Apprentice',  // Inscription
     'Yes, remove it' => 'Yes, remove it',
     'Staff' => 'Staff',  // Aside,
     'Staff SenaEmpresa' => 'Staff SenaEmpresa',
@@ -202,9 +194,10 @@ return [
 
     'No apprentices selected' => 'No apprentices selected',
 
-    'Person ID' => 'Person ID',
-    'Production unit - Warehouse_id' => 'Production unit - Warehouse_id',
-    'Element ID' => 'Element ID',
+    'Responsible' => 'Responsible',
+    'Production unit' => 'Production unit',
+    'Warehouse' => 'Warehouse',
+    'Element' => 'Element',
     'Destination' => 'Destination',
     'Price' => 'Price',
     'Amount' => 'Amount',
@@ -219,6 +212,9 @@ return [
     'Inventory' => 'Inventory',
     'New Loan' => 'New Loan',
     'Edit Loan' => 'Edit Loan',
+    'Inventory Report'=> 'Inventory Report',
+    'Inventory Details' => 'Inventory Details',
+    'SENAEmpresa_inventory_report'=> 'SENAEmpresa_inventory_report',
 
     'All Rights Reserved.' => 'All Rights Reserved.',
     'Select a Phase'=> 'Select a Phase (Senaempresa)',

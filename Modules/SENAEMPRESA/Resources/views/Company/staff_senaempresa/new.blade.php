@@ -15,7 +15,7 @@
 
                             <div class="mb-3">
                                 <label for="position_company_id"
-                                    class="form-label">{{ trans('senaempresa::menu.Position ID') }}</label>
+                                    class="form-label">{{ trans('senaempresa::menu.Position') }}</label>
 
                                 <select class="form-control" name="position_company_id" aria-label="Selecciona un Cargo"
                                     id="position-company-select" required>
@@ -23,7 +23,7 @@
                                     @foreach ($PositionCompany as $position)
                                         <option value="{{ $position->id }}"
                                             {{ $position->id == $selectedPosition ? 'selected' : '' }}>
-                                            {{ $position->name }} <!-- Mostrar solo el nombre del cargo -->
+                                            {{ $position->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -50,7 +50,7 @@
                                 <input type="file" id="image" name="image" required>
                             </div>
                             <div class="mb-3">
-                                <label for="senaempresa_id" class="form-label">SenaEmpresa Id</label>
+                                <label for="senaempresa_id" class="form-label">SENAEmpresa</label>
                                 <select class="form-control" name="senaempresa_id" aria-label="Selecciona una Senaempresa"
                                     required>
                                     <option value="" selected>Selecciona una Senaempresa</option>

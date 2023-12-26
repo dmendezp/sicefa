@@ -425,8 +425,8 @@ class PostulateController extends Controller
         $html .= '<h3 style="text-align: center;">' . $title . '</h3>';
         $html .= '<table style="' . $tableStyle . '">';
         $html .= '<thead><tr>
-                <th style="' . $cellStyle . '">ID</th>
-                <th style="' . $cellStyle . '">Apprentice</th>
+                <th style="border: 1px solid #000; text-align: center; padding: 0 auto 8px; width: 20px;">#</th>
+                <th style="' . $cellStyle . '">Aprendiz</th>
                 <th style="' . $cellStyle . '">Número de documento</th>
                 <th style="' . $cellStyle . '">Correo</th>
                 <th style="' . $cellStyle . '">Telefono</th>

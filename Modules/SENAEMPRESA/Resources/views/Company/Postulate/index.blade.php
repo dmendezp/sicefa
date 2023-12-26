@@ -44,14 +44,15 @@
                     <table id="inventory" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>{{ trans('senaempresa::menu.Id') }}</th>
-                                <th>{{ trans('senaempresa::menu.Apprentice Id') }}</th>
-                                <th>{{ trans('senaempresa::menu.Vacancy ID') }}</th>
+                                <th style="width: 15px;">#</th>
+                                <th>{{ trans('senaempresa::menu.Apprentice') }}</th>
+                                <th>{{ trans('senaempresa::menu.Vacancy') }}</th>
                                 @if (Route::is('senaempresa.admin.*') &&
                                         Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.cv'))
                                     <th>{{ trans('senaempresa::menu.Currículum') }}</th>
                                     <th>{{ trans('senaempresa::menu.Proposal') }}</th>
-                                    <th>{{ trans('senaempresa::menu.Public employment agency certificate employment') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Public employment agency certificate employment') }}
+                                    </th>
                                 @endif
                                 @if (Route::is('senaempresa.psychologo.*') &&
                                         Auth::user()->havePermission(
@@ -63,11 +64,9 @@
                                 @if (Route::is('senaempresa.admin.*') &&
                                         Auth::user()->havePermission(
                                             'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.state'))
-                                    @if ($score_total->isEmpty())
-                                        <th>
-                                            {{ trans('senaempresa::menu.Update Status') }}
-                                        </th>
-                                    @endif
+                                    <th>
+                                        {{ trans('senaempresa::menu.Update Status') }}
+                                    </th>
                                 @endif
                         </thead>
                         <tbody>
@@ -153,6 +152,14 @@
                                                         data-vacancy-id="{{ $postulate->vacancy->id }}">
                                                         {{ trans('senaempresa::menu.To update') }}
                                                     </a>
+                                                </td>
+                                            @elseif (
+                                                $postulate->score_total < 0 &&
+                                                    (Route::is('senaempresa.admin.*') &&
+                                                        Auth::user()->havePermission(
+                                                            'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.state')))
+                                                <td>
+                                                    <p></p>
                                                 </td>
                                             @endif
                                         @endif

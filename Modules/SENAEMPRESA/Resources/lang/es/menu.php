@@ -37,11 +37,8 @@ return [
 
     'Loans' => 'Prestamos',  // Aside,
     'Save Changes' => 'Guardar Cambios',  // SENAEMPRESA, Vacant,
-    'People ID' => 'Personal ID',
-    'Select Personal ID' => 'Selecciona ID personal',
-    'Select Inventory ID' => 'Seleccione ID de inventario',
+    'Select Element' => 'Seleccione Inventario',
     'Start date and time' => 'Fecha y Hora de Inicio',
-    'Inventory ID' => 'ID Inventario',
     'End date and time' => 'Fecha y hora de finalización',
     'Provide' => 'Prestar',
     'Return' => 'Devolver',
@@ -93,11 +90,9 @@ return [
     'Select a Position' => 'Selecciona un Cargo',
     'Position' => 'Cargo',
     'self-image' => 'Imagen Personal',
-    'Apprentice' => 'Aprendiz',
     'Yes, remove it' => 'Sí, eliminarlo',
     'Staff eliminated!' => 'Personal eliminado!',
-    'Position ID' => 'Cargo Id',
-    'Apprentice Id' => 'Id Aprendiz',  //Postulate
+    'Apprentice' => 'Aprendiz',
     'Select an Apprentice' => 'Selecciona un Aprendiz',
     'Current image' => 'Imagen Actual',
     'There’s no registered image.' => 'No hay imagen registrada.',
@@ -140,7 +135,7 @@ return [
     'Course assigned to the vacancy successfully.' => 'Curso asignado a la vacante exitosamente.',
     'Select a vacancy:' => 'Seleccione una vacante:',
     'Assign Course to Vacant' => 'Asignar Curso a Vacante',
-    'Vacant ID' => 'Vacante ID',
+    'Vacancy' => 'Vacante',
     'Details' => 'Detalles',
     'All Senaempresas' => 'Todos los Senaempresas',
     'Filter by senaempresa' => 'Filtrar por Senaempresa',
@@ -174,7 +169,6 @@ return [
 
     //Postulate
 
-    'Vacancy ID' => 'Vacante Id',
     'Currículum' => 'Hoja de Vida',  //Inscription
     '16 personalities' => '16 Personalidades',  //Inscription
     'Proposal' => 'Propuesta',  //Inscription
@@ -204,9 +198,10 @@ return [
     'Consult Attendances' => 'Consultar Asistencias',
 
     'No apprentices selected' => 'No hay aprendices seleccionados',
-    'Person ID' => 'Person ID',
-    'Production unit - Warehouse_id' => 'Unidad de producción - Almacén_id',
-    'Element ID' => 'Elemento ID',
+    'Responsible' => 'Responsable',
+    'Production unit' => 'Unidad de producción',
+    'Warehouse' => 'Almacén',
+    'Element' => 'Elemento',
     'Destination' => 'Destino',
     'Price' => 'Precio',
     'Amount' => 'Cantidad',
@@ -221,6 +216,9 @@ return [
     'Inventory' => 'Inventario',
     'New Loan' => 'Nuevo Prestamo',
     'Edit Loan' => 'Editar Prestamo',
+    'Inventory Report'=> 'Reporte de Inventario',
+    'Inventory Details'=> 'Inventario Detalles',
+    'SENAEmpresa_inventory_report'=> 'SENAEmpresa_inventario_informe',
 
     'All Rights Reserved.' => 'Todos los derechos reservados.',
     'Select a Phase'=> 'Selecciona una Fase (Senaempresa)',
@@ -241,7 +239,7 @@ return [
     'Association created successfully.'=> 'Asociación creada con éxito.',
     'Association deleted successfully.'=> 'Asociación eliminada con éxito.',
     'No SenaEmpresa related to the current or next quarter'=> 'No hay una SenaEmpresa relacionada con el trimestre actual o siguiente',
-    'Positon Id'=> 'Cargo Id',
+    'Positon'=> 'Cargo Id',
     'Actions'=> 'Acciones',
     'Postulate Details'=> 'Detalles del Postulado',
     'Postulate'=> 'Postulado',
@@ -283,7 +281,6 @@ return [
     'More info' => 'Más información',
     'Personality' => 'Personalidades',
     'Score'=>'Puntaje',
-    'Id postulate'=>'ID Postulado',
     'Score - curricolum'=>'Puntaje - Hoja de vida',
     'Score - 16 personalities'=>'Puntaje - 16 Personalidades',
     'Score - Proposal'=>'Puntaje - Propuesta',
