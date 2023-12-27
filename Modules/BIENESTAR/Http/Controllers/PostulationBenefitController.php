@@ -73,27 +73,31 @@ class PostulationBenefitController extends Controller
     {
         // Obtén los datos del formulario
         $postulationId = $request->input('postulation_id');
+        $postulationBenefitUpdateTrans = $request->input('benefit_id_transport');
+        $postulationBenefitUpdateAlim = $request->input('benefit_id_food');
         $postulationsbentfitsId = $request->input('postulationsbentfits_id');
-        $benefitIdTransport = $request->input('benefit_id_transport');
-        $benefitIdFood = $request->input('benefit_id_food');
+        $benefitIdTransport = $request->input('postulationbenefitstransportID');
+        $benefitIdFood = $request->input('postulationbenefitsalimentacionID');
         $score = $request->input('score');
+        $messageT = $request->input('messageT');
+        $messageA = $request->input('messageA');
         $message = $request->input('message');
 
         // Actualiza o crea en la tabla postulations_benefits para el beneficio de transporte
-        if (!empty($benefitIdTransport)) {
-            $postulationBenefitTransport = PostulationBenefit::find($postulationsbentfitsId);
+        if (!empty($benefitIdTransport)|| is_null($benefitIdTransport)) {
+            $postulationBenefitTransport = PostulationBenefit::find($benefitIdTransport);
 
             if ($postulationBenefitTransport) {
                 // Si encontró el registro, actualiza los datos
-                $postulationBenefitTransport->benefit_id = $benefitIdTransport;
+                $postulationBenefitTransport->benefit_id = $postulationBenefitUpdateTrans;
                 $postulationBenefitTransport->state = 'Beneficiario';
-                $postulationBenefitTransport->message = $message;
+                $postulationBenefitTransport->message = $messageT;
                 $postulationBenefitTransport->save();
             } else {
                 // Si no encontró el registro, crea uno nuevo
                 $postulationBenefitTransport = new PostulationBenefit();
                 $postulationBenefitTransport->postulation_id = $postulationId;
-                $postulationBenefitTransport->benefit_id = $benefitIdTransport;
+                $postulationBenefitTransport->benefit_id = $postulationBenefitUpdateTrans;
                 $postulationBenefitTransport->state = 'Beneficiario';
                 $postulationBenefitTransport->message = $message;
                 $postulationBenefitTransport->save();
@@ -101,20 +105,20 @@ class PostulationBenefitController extends Controller
         }
 
         // Repite el proceso para el beneficio de alimentación
-        if (!empty($benefitIdFood)) {
-            $postulationBenefitFood = PostulationBenefit::find($postulationsbentfitsId);
+        if (!empty($benefitIdFood)|| is_null($benefitIdFood)) {
+            $postulationBenefitFood = PostulationBenefit::find($benefitIdFood);
 
             if ($postulationBenefitFood) {
                 // Si encontró el registro, actualiza los datos
-                $postulationBenefitFood->benefit_id = $benefitIdFood;
+                $postulationBenefitFood->benefit_id = $postulationBenefitUpdateAlim;
                 $postulationBenefitFood->state = 'Beneficiario';
-                $postulationBenefitFood->message = $message;
+                $postulationBenefitFood->message = $messageA;
                 $postulationBenefitFood->save();
             } else {
                 // Si no encontró el registro, crea uno nuevo
                 $postulationBenefitFood = new PostulationBenefit();
                 $postulationBenefitFood->postulation_id = $postulationId;
-                $postulationBenefitFood->benefit_id = $benefitIdFood;
+                $postulationBenefitFood->benefit_id = $postulationBenefitUpdateAlim;
                 $postulationBenefitFood->state = 'Beneficiario';
                 $postulationBenefitFood->message = $message;
                 $postulationBenefitFood->save();

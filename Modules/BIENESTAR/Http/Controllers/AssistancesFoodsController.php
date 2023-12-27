@@ -181,6 +181,66 @@ class AssistancesFoodsController extends Controller
     {
         $documentNumber = $request->input('data');
 
+    // Verificar si ya hay asistencias registradas para el día actual
+    $existingAssistances = DB::table('assistances_foods')
+        ->where('date_time', '>=', now()->startOfDay())
+        ->where('date_time', '<=', now()->endOfDay())
+        ->whereExists(function ($query) use ($documentNumber) {
+            $query->select(DB::raw(1))
+                ->from('apprentices')
+                ->join('people', 'apprentices.person_id', '=', 'people.id')
+                ->join('postulations', 'apprentices.id', '=', 'postulations.apprentice_id')
+                ->join('postulations_benefits', 'postulations.id', '=', 'postulations_benefits.postulation_id')
+                ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
+                ->where('people.document_number', $documentNumber)
+                ->where('postulations_benefits.state', 'Beneficiario')
+                ->where('benefits.name', 'Alimentacion')
+                ->whereRaw('assistances_foods.apprentice_id = apprentices.id');
+        })
+        ->count();
+
+    if ($existingAssistances > 0) {
+        // Ya hay asistencias registradas para el día actual
+        $response = [
+            'success' => false,
+            'message' => 'Ya hay asistencias registradas para hoy.',
+        ];
+
+        return response()->json($response, 400);
+    }
+
+    // Validar si la hora actual está dentro del rango permitido
+    $currentTime = now();
+    $allowedStartTime = now()->setTime(11, 30, 0);
+    $allowedEndTime = now()->setTime(14, 30, 0);
+
+    if ($currentTime < $allowedStartTime || $currentTime > $allowedEndTime) {
+        // La hora actual no está dentro del rango permitido
+        $response = [
+            'success' => false,
+            'message' => 'No está dentro del rango de hora para tomar asistencia.',
+        ];
+
+        return response()->json($response, 400);
+    }
+    // Continuar con el registro de asistencias si no hay registros previos
+
+    // Obtener las postulaciones y realizar el registro
+    $SavetAttendance = DB::table('postulations_benefits')
+        ->join('postulations', 'postulations_benefits.postulation_id', '=', 'postulations.id')
+        ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
+        ->join('apprentices', 'postulations.apprentice_id', '=', 'apprentices.id')
+        ->join('people', 'apprentices.person_id', '=', 'people.id')
+        ->select(
+            'apprentices.id as apprentice_id',
+            'postulations_benefits.id as postulation_benefit_id',
+            'benefits.porcentege',
+            DB::raw('NOW() as date_time')
+        )
+        ->where('people.document_number', $documentNumber)
+        ->where('postulations_benefits.state', 'Beneficiario')
+        ->where('benefits.name', 'Alimentacion')
+        ->get();
         $SavetAttendance = DB::table('postulations_benefits')
             ->join('postulations', 'postulations_benefits.postulation_id', '=', 'postulations.id')
             ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
@@ -213,70 +273,70 @@ class AssistancesFoodsController extends Controller
             'message' => 'Número de documento enviado con éxito',
         ];
 
-        return response()->json($response, 200);
-    }
-
-
-    // Nueva función para obtener todas las asistencias alimenticias en formato JSON
-    // Nueva función para obtener todas las asistencias alimenticias en formato JSON
-    public function getAllAssistances()
-    {
-        $assistances = DB::table('assistances_foods')
-            ->join('apprentices', 'assistances_foods.apprentice_id', '=', 'apprentices.id')
-            ->join('people', 'apprentices.person_id', '=', 'people.id')
-            ->join('courses', 'apprentices.course_id', '=', 'courses.id')
-            ->join('programs', 'courses.program_id', '=', 'programs.id')
-            ->join('postulations_benefits', 'assistances_foods.postulation_benefit_id', '=', 'postulations_benefits.id')
-            ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
-            ->select(
-                'people.document_number',
-                'people.first_name',
-                'people.first_last_name',
-                'people.second_last_name',
-                'courses.code',
-                'programs.name as program_name',
-                'benefits.name as benefit_name',
-                'assistances_foods.porcentage',
-                'assistances_foods.date_time'
-            )
-            ->whereDate('assistances_foods.date_time', '=', now()->toDateString())
-            ->orderBy('assistances_foods.date_time', 'desc')
-            ->get();
-
-        return response()->json(['data' => $assistances], 200);
-    }
-
-    // Nueva función para filtrar asistencias por porcentaje en formato JSON
-    public function filterAssistancesByPercentage($porcentaje)
-    {
-        $assistances = DB::table('assistances_foods')
-            ->join('apprentices', 'assistances_foods.apprentice_id', '=', 'apprentices.id')
-            ->join('people', 'apprentices.person_id', '=', 'people.id')
-            ->join('courses', 'apprentices.course_id', '=', 'courses.id')
-            ->join('programs', 'courses.program_id', '=', 'programs.id')
-            ->join('postulations_benefits', 'assistances_foods.postulation_benefit_id', '=', 'postulations_benefits.id')
-            ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
-            ->select(
-                'people.document_number',
-                'people.first_name',
-                'people.first_last_name',
-                'people.second_last_name',
-                'courses.code',
-                'programs.name as program_name',
-                'benefits.name as benefit_name',
-                'assistances_foods.porcentage',
-                'assistances_foods.date_time'
-            )
-            ->whereDate('assistances_foods.date_time', '=', now()->toDateString())
-            ->whereNotNull('people.document_number')
-            ->whereNotNull('people.first_name')
-            ->whereNotNull('courses.code')
-
-
-            ->where('assistances_foods.porcentage', $porcentaje)
-            ->orderBy('assistances_foods.date_time', 'desc')
-            ->get();
-
-        return response()->json(['data' => $assistances], 200);
-    }
+    return response()->json($response, 200);
 }
+
+
+ // Nueva función para obtener todas las asistencias alimenticias en formato JSON
+ // Nueva función para obtener todas las asistencias alimenticias en formato JSON
+ public function getAllAssistances()
+ {
+    $assistances = DB::table('assistances_foods')
+    ->join('apprentices', 'assistances_foods.apprentice_id', '=', 'apprentices.id')
+    ->join('people', 'apprentices.person_id', '=', 'people.id')
+    ->join('courses', 'apprentices.course_id', '=', 'courses.id')
+    ->join('programs', 'courses.program_id', '=', 'programs.id')
+    ->join('postulations_benefits', 'assistances_foods.postulation_benefit_id', '=', 'postulations_benefits.id')
+    ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
+    ->select(
+        'people.document_number',
+        'people.first_name',
+        'people.first_last_name',
+        'people.second_last_name',
+        'courses.code',
+        'programs.name as program_name',
+        'benefits.name as benefit_name',
+        'assistances_foods.porcentage',
+        'assistances_foods.date_time'
+    )
+    ->whereDate('assistances_foods.date_time', '=', now()->toDateString())
+    ->orderBy('assistances_foods.date_time', 'desc')
+    ->get();
+
+        return response()->json(['data' => $assistances], 200);
+    }
+
+ // Nueva función para filtrar asistencias por porcentaje en formato JSON
+ public function filterAssistancesByPercentage($porcentaje)
+ {
+    $assistances = DB::table('assistances_foods')
+    ->join('apprentices', 'assistances_foods.apprentice_id', '=', 'apprentices.id')
+    ->join('people', 'apprentices.person_id', '=', 'people.id')
+    ->join('courses', 'apprentices.course_id', '=', 'courses.id')
+    ->join('programs', 'courses.program_id', '=', 'programs.id')
+    ->join('postulations_benefits', 'assistances_foods.postulation_benefit_id', '=', 'postulations_benefits.id')
+    ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
+    ->select(
+        'people.document_number',
+        'people.first_name',
+        'people.first_last_name',
+        'people.second_last_name',
+        'courses.code',
+        'programs.name as program_name',
+        'benefits.name as benefit_name',
+        'assistances_foods.porcentage',
+        'assistances_foods.date_time'
+    )
+    ->whereDate('assistances_foods.date_time', '=', now()->toDateString())
+    ->whereNotNull('people.document_number')
+    ->whereNotNull('people.first_name')
+    ->whereNotNull('courses.code')
+
+
+         ->where('assistances_foods.porcentage', $porcentaje)
+         ->orderBy('assistances_foods.date_time', 'desc')
+         ->get();
+ 
+     return response()->json(['data' => $assistances], 200);
+ }
+ }
