@@ -44,7 +44,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                                     <td>{{$rel->first_name}} {{$rel->first_last_name}} {{$rel->second_last_name}}</td>
                                     <td>{{$rel->route_number}} - {{$rel->name_route}}</td>
                                     <td>{{$rel->name}}</td>
-                                    <td>{{ date('Y-m-d', strtotime($rel->date_time)) }}</td>                        
+                                    <td>{{ date('Y-m-d', strtotime($rel->date_time)) }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -67,29 +67,46 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
     $(document).on("click", "#searchButtonassitance", function(event) {
         event.preventDefault(); // Evitar el envío del formulario por defecto
         performSearch();
-        location.reload();
     });
 
     function performSearch() {
-    var miObjeto = new Object();
-    miObjeto = $('#assitance').val();
-    var data = JSON.stringify(miObjeto);
-    console.log(miObjeto);
+        var documentNumber = $('#assitance').val();
 
-    // Realizar la búsqueda mediante AJAX
-    ajaxReplace('divAssitance', '/bienestar/{{ $role_name }}/transportation_asistance/search', data)
-        .then(function(response) {
-            if (response.status === 200) {
-                if (response.data.success) {
-                    // Mostrar SweetAlert con el mensaje de éxito
+        // Realizar la búsqueda mediante AJAX
+        axios.post('/bienestar/{{ $role_name }}/transportation_asistance/search', {
+                documentNumber: documentNumber
+            })
+            .then(function(response) {
+                if (response.status === 200 && response.data.success) {
+                    // Mostrar el SweetAlert de éxito
                     showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 1500);
+                } else if (response.status === 409 && response.data.error) {
+                    // Mostrar el SweetAlert de conflicto
+                    showSweetAlert('error', 'Error', response.data.error, 1500);
+                } else if (response.status === 200 && response.data.warning) {
+                    // Mostrar el SweetAlert de advertencia si hay un mensaje de advertencia
+                    showSweetAlert('warning', 'Advertencia', response.data.warning, 2000);
                 } else {
-                    // Mostrar SweetAlert con un mensaje de error general
-                    showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}", 3000);
+                    // Mostrar el SweetAlert de error en caso de problemas inesperados
+                    showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to save records.') }}");
                 }
-            }
-        });
-}
+            })
+            .catch(function(error) {
+                // Mostrar SweetAlert con un mensaje de error general
+                showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}", 3000);
+                console.error('Error en la solicitud AJAX:', error);
+            });
+    }
 
+    function showSweetAlert(icon, title, text, timer) {
+        Swal.fire({
+            icon: icon,
+            title: title,
+            text: text,
+            showConfirmButton: false,
+            timer: timer
+        });
+    }
 </script>
+
 @endsection

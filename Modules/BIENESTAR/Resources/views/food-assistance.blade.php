@@ -30,7 +30,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>{{ trans('bienestar::menu.Number Document')}}</th>                                    
+                                    <th>{{ trans('bienestar::menu.Number Document')}}</th>
                                     <th>{{ trans('bienestar::menu.Apprentice')}}</th>
                                     <th>{{ trans('bienestar::menu.Code')}}</th>
                                     <th>{{ trans('bienestar::menu.Program')}}</th>
@@ -46,7 +46,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                                     <td>{{ $result->code }}</td>
                                     <td>{{ $result->program_name }}</td>
                                     <td>{{ $result->benefit_name }} - {{ $result->porcentege }}</td>
-                                    <td>{{ ($result->date_time) }}</td>  
+                                    <td>{{ ($result->date_time) }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -72,12 +72,56 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
     });
 
     function performSearch() {
-        var miObjeto = new Object();
-        miObjeto = $('#assitance').val();
-        var data = JSON.stringify(miObjeto);
-        console.log(miObjeto);
-        ajaxReplace('divAssitance', '/bienestar/{{ $role_name }}/food_assistance/search', data);
-        
+        var documentNumber = $('#assitance').val();
+
+        // Realizar la búsqueda mediante AJAX
+        axios.post('/bienestar/{{ $role_name }}/food_assistance/search', {
+                documentNumber: documentNumber
+            })
+            .then(function(response) {
+                if (response.data.success) {
+                    // Mostrar el SweetAlert de éxito
+                    showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 2000);
+                    // Opcional: Actualizar dinámicamente la interfaz de usuario según sea necesario
+                } else if (response.data.error) {
+                    // Mostrar el SweetAlert de error
+                    showSweetAlert('error', 'Error', response.data.error, 3000);
+                } else if (response.data.warning) {
+                    // Mostrar el SweetAlert de advertencia
+                    showSweetAlert('warning', 'Advertencia', response.data.warning, 2000);
+                } else {
+                    // Mostrar el SweetAlert de error en caso de problemas inesperados
+                    showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to save records.') }}");
+                }
+            })
+            .catch(function(error) {
+                // Mostrar SweetAlert con un mensaje de error general
+                showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}", 3000);
+                console.error('Error en la solicitud AJAX:', error);
+            });
+    }
+
+    function showSweetAlert(icon, title, text, timer) {
+        Swal.fire({
+            icon: icon,
+            title: title,
+            text: text,
+            showConfirmButton: false,
+            timer: timer
+        }).then(function() {
+            // Opcional: Recargar la página después del SweetAlert si es necesario
+            location.reload();
+        });
+    }
+
+    function showSweetAlert(icon, title, text, timer) {
+        Swal.fire({
+            icon: icon,
+            title: title,
+            text: text,
+            showConfirmButton: false,
+            timer: timer
+        });
     }
 </script>
 
