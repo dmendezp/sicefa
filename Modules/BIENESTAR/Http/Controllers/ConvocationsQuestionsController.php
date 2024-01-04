@@ -185,4 +185,27 @@ class ConvocationsQuestionsController extends Controller
         // Devolver una respuesta JSON exitosa
         return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.convocations.crud.editform');
     }
+
+    public function deleteQuestionCall(Request $request){
+        
+        $questionId = $request->input('questionId');
+        $convocationId = $request->input('convocationId');
+        
+        // Verifica si ya existe la relación
+        $existingRelation = ConvocationQuestion::where('questions_id', $questionId)
+            ->where('convocation_id', $convocationId)
+            ->first();
+        
+        if ($existingRelation) {
+            // Si la relación existe, la elimina
+            $existingRelation->delete();
+
+            return response()->json(['success' => 'Se ha eliminada la pregunta con éxito de la convocatoria!']);
+        } else {
+            // Si la relación no existe, puedes manejarlo según tus necesidades
+            return response()->json(['error' => 'La relación no existe']);
+        }
+        
+
+    }
 }

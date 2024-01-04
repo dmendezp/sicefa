@@ -113,8 +113,8 @@ return [
     'end date' => 'Fecha Final',
     'save' => 'Guardar',
     'Actions' => 'Acciones',
-    'Edit convocations' => 'editar convocatorias',
-    'Quarter' => 'trimestre',
+    'Edit convocations' => 'Editar Convocatorias',
+    'Quarter' => 'Trimestre',
 
     //vita  foodrecord
     'List of Affiliated Trainees' => 'Lista de Aprendices Afiliados',
@@ -151,6 +151,7 @@ return [
     'Save Score' => 'Guardar Puntuación',
     'Benefit' => 'Beneficio',
     'Update Benefit' => 'Actualizar Beneficio',
+    'Update'=>'Actuializar',
     'Remove Benefit' => 'Remover Beneficio',
     'No Beneficiary Benefits'=>'Sin Beneficios',
     'State and profit'=>'Estado y Beneficio',

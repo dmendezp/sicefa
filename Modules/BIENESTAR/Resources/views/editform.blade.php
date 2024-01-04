@@ -33,7 +33,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                         <div class="d-flex align-items-center justify-content-between">
                             <div>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="selected_questions[]" id="pregunta{{ $question->id }}">
+                                    <input type="checkbox" class="form-check-input" name="selected_questions[]" id="pregunta{{ $question->id }}" data-question-id="{{ $question->id }}">
                                     <label class="form-check-label" for="pregunta{{ $question->id }}">{{ trans('bienestar::menu.Select Question')}}</label>
                                 </div>
                             </div>
@@ -276,5 +276,45 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
         }
 
     });
+    // Obtén el elemento del checkbox
+    $("input[name='selected_questions[]']").change(function() {
+        var questionId = $(this).data('question-id');
+        var selectedConvocationId = $("#id_convocation").val();
+
+        if ($(this).is(':checked')) {
+            console.log('El checkbox con ID ' + questionId + ' está marcado');
+        } else {
+            console.log('El checkbox con ID ' + questionId + ' El ID DE LA CONVOCATORIA'+ selectedConvocationId + ' NO está marcado');
+            deleteQuestionCall(questionId, selectedConvocationId);
+            // Aquí puedes realizar acciones adicionales cuando el checkbox no está marcado
+        }
+    });
+
+    function deleteQuestionCall(questionId, convocationId) {
+        axios.post('/bienestar/{{ $role_name }}/delete_question_call', {
+            questionId: questionId,
+            convocationId: convocationId
+        }).then(function(response) {
+                if (response.status === 200 && response.data.success) {
+                    // Mostrar el SweetAlert de éxito
+                    showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 1500);
+                } else if (response.status === 409 && response.data.error) {
+                    // Mostrar el SweetAlert de conflicto
+                    showSweetAlert('error', 'Error', response.data.error, 1500);
+                } else if (response.status === 200 && response.data.warning) {
+                    // Mostrar el SweetAlert de advertencia si hay un mensaje de advertencia
+                    showSweetAlert('warning', 'Advertencia', response.data.warning, 2000);
+                } else {
+                    // Mostrar el SweetAlert de error en caso de problemas inesperados
+                    showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to save records.') }}");
+                }
+            })
+            .catch(function(error) {
+                // Mostrar SweetAlert con un mensaje de error general
+                showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}", 3000);
+                console.error('Error en la solicitud AJAX:', error);
+            });
+        // Añade .then y .catch según sea necesario para manejar la respuesta o cualquier error
+    }
 </script>
 @endsection

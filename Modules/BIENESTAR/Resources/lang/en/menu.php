@@ -154,6 +154,7 @@ return [
     'New Score' => 'New Score',
     'Save Score' => 'Save Score',
     'State and profit' =>'State and profit',
+    'Update'=>'Update',
 
     'Benefit' => 'Benefit',
     'Update Benefit' => 'Update Benefit',

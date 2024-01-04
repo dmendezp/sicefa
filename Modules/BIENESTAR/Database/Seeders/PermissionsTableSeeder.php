@@ -1070,6 +1070,35 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
 
+        
+        // Ruta Eliminar Preunta de la convocatoria(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.delete_question_call.editform'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar Preunta de la Convocatoria',
+            'description' => 'Puede eliminar las preguntas que estan relacionadas con la convocatoria',
+            'description_english' => 'You can save the questions and answers of the forms',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta Eliminar Preunta de la convocatoria(LIDER BENEFICIO DE ALIMENTACION)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.delete_question_call.editform'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar Preunta de la Convocatoria',
+            'description' => 'Puede eliminar las preguntas que estan relacionadas con la convocatoria',
+            'description_english' => 'You can save the questions and answers of the forms',
+            'app_id' => $app->id
+        ]);
+        $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta Eliminar Preunta de la convocatoria(LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.delete_question_call.editform'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar Preunta de la Convocatoria',
+            'description' => 'Puede eliminar las preguntas que estan relacionadas con la convocatoria',
+            'description_english' => 'You can save the questions and answers of the forms',
+            'app_id' => $app->id
+        ]);
+        $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
+
+
         // Ruta Guardar Fromulario y Convocatoria(ADMINISTRADOR)//
         $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.saveform.editform'], [ // Registro o actualización de permiso
             'name' => 'Guardar Preguntas y Respuestas',

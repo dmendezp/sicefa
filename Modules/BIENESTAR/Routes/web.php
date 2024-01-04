@@ -95,17 +95,14 @@ Route::middleware(['lang'])->group(function () {
         // Rutas para la vista postulation-management(LIDER BENEFICIO DE ALIMENTACION)
         Route::get('/food_benefits_leaders/postulation-management', 'PostulationBenefitController@index')->name('bienestar.food_benefits_leaders.view.postulation-management');
         Route::get('/food_benefits_leaders/postulation-management/{id}', 'PostulationBenefitController@show')->name('bienestar.food_benefits_leaders.show.postulation-management');
-        Route::put('/food_benefits_leaders/postulation-management/{id}/update-score', 'PostulationBenefitController@updateScore')->name('bienestar.food_benefits_leaders.update-score.postulation-management');
-        Route::post('/food_benefits_leaders/postulation-management/update-benefits', 'PostulationBenefitController@updateBenefits')->name('bienestar.food_benefits_leaders.update-benefits.postulation-management');
-        Route::put('/food_benefits_leaders/update-benefit/{id}', 'PostulationBenefitController@updateStateBenefit')->name('bienestar.food_benefits_leaders.update-state-benefit.postulation-management');
-
+        Route::post('/food_benefits_leaders/postulation-management/update-benefits', 'PostulationBenefitController@updateStateBenefit')->name('bienestar.food_benefits_leaders.update-benefits.postulation-management');
+        Route::get('/food_benefits_leaders/postulation-management/remove_benefit/{postulationId}', 'PostulationBenefitController@remove_benefit')->name('bienestar.food_benefits_leaders.remove-benefit.postulation-management');
 
         // Rutas para la vista postulation-management(LIDER BENEFICIO DE TRANSPORTE)
         Route::get('/transportation_benefits_leader/postulation-management', 'PostulationBenefitController@index')->name('bienestar.transportation_benefits_leader.view.postulation-management');
         Route::get('/transportation_benefits_leader/postulation-management/{id}', 'PostulationBenefitController@show')->name('bienestar.transportation_benefits_leader.show.postulation-management');
-        Route::put('/transportation_benefits_leader/postulation-management/{id}/update-score', 'PostulationBenefitController@updateScore')->name('bienestar.transportation_benefits_leader.update-score.postulation-management');
-        Route::post('/transportation_benefits_leader/postulation-management/update-benefits', 'PostulationBenefitController@updateBenefits')->name('bienestar.transportation_benefits_leader.update-benefits.postulation-management');
-        Route::put('/transportation_benefits_leader/update-benefit/{id}', 'PostulationBenefitController@updateStateBenefit')->name('bienestar.transportation_benefits_leader.update-state-benefit.postulation-management');
+        Route::post('/transportation_benefits_leader/postulation-management/update-benefits', 'PostulationBenefitController@updateStateBenefit')->name('bienestar.transportation_benefits_leader.update-benefits.postulation-management');
+        Route::get('/transportation_benefits_leader/postulation-management/remove_benefit/{postulationId}', 'PostulationBenefitController@remove_benefit')->name('bienestar.transportation_benefits_leader.remove-benefit.postulation-management');
 
 
         //Vistas Rutas de transporte(ADMINISTRADOR)
@@ -150,6 +147,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/admin/editforms', 'ConvocationsQuestionsController@editform')->name('bienestar.admin.convocations.crud.editform');
         Route::get('/admin/editforms/marked_questions', 'ConvocationsQuestionsController@showForm')->name('bienestar.admin.convocations.marked_questions.editform');
         Route::post('/admin/saveform', 'ConvocationsQuestionsController@saveform')->name('bienestar.admin.saveform.editform');
+        Route::post('/admin/delete_question_call', 'ConvocationsQuestionsController@deleteQuestionCall')->name('bienestar.admin.delete_question_call.editform');
         Route::post('/admin/editforms/update/{id}', 'ConvocationsQuestionsController@updateQuestion')->name('bienestar.admin.edit.editform');
         Route::post('/admin/editforms/addAnswer', 'ConvocationsQuestionsController@updateAnswer')->name('bienestar.admin.add.answer.editform');
         Route::delete('/admin/delete/question/{id}', 'ConvocationsQuestionsController@deleteQuestion')->name('bienestar.admin.delete.question.editform');
@@ -160,6 +158,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/food_benefits_leaders/editforms', 'ConvocationsQuestionsController@editform')->name('bienestar.food_benefits_leaders.convocations.crud.editform');
         Route::get('/food_benefits_leaders/editforms/marked_questions', 'ConvocationsQuestionsController@showForm')->name('bienestar.food_benefits_leaders.convocations.marked_questions.editform');
         Route::post('/food_benefits_leaders/saveform', 'ConvocationsQuestionsController@saveform')->name('bienestar.food_benefits_leaders.saveform.editform');
+        Route::post('/food_benefits_leaders/delete_question_call', 'ConvocationsQuestionsController@deleteQuestionCall')->name('bienestar.food_benefits_leaders.delete_question_call.editform');
         Route::post('/food_benefits_leaders/editforms/update/{id}', 'ConvocationsQuestionsController@updateQuestion')->name('bienestar.food_benefits_leaders.edit.editform');
         Route::delete('/food_benefits_leaders/delete/question/{id}', 'ConvocationsQuestionsController@deleteQuestion')->name('bienestar.food_benefits_leaders.delete.question.editform');
         Route::delete('/food_benefits_leaders/delete/question/answer/{id}', 'ConvocationsQuestionsController@deleteAnswer')->name('bienestar.food_benefits_leaders.delete.answer.editform');
@@ -169,6 +168,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/transportation_benefits_leader/editforms', 'ConvocationsQuestionsController@editform')->name('bienestar.transportation_benefits_leader.convocations.crud.editform');
         Route::get('/food_benefits_leaders/editforms/marked_questions', 'ConvocationsQuestionsController@showForm')->name('bienestar.transportation_benefits_leader.convocations.marked_questions.editform');
         Route::post('/transportation_benefits_leader/saveform', 'ConvocationsQuestionsController@saveform')->name('bienestar.transportation_benefits_leader.saveform.editform');
+        Route::post('/transportation_benefits_leader/delete_question_call', 'ConvocationsQuestionsController@deleteQuestionCall')->name('bienestar.transportation_benefits_leader.delete_question_call.editform');
         Route::post('/transportation_benefits_leader/editforms/update/{id}', 'ConvocationsQuestionsController@updateQuestion')->name('bienestar.transportation_benefits_leader.edit.editform');
         Route::delete('/transportation_benefits_leader/delete/question/{id}', 'ConvocationsQuestionsController@deleteQuestion')->name('bienestar.transportation_benefits_leader.delete.question.editform');
         Route::delete('/transportation_benefits_leader/delete/question/answer/{id}', 'ConvocationsQuestionsController@deleteAnswer')->name('bienestar.transportation_benefits_leader.delete.answer.editform');
