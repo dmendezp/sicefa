@@ -155,6 +155,13 @@ return [
     'Save Score' => 'Save Score',
     'State and profit' =>'State and profit',
     'Update'=>'Update',
+    'Details of the Application'=>'Details of the Application',
+    'Application Questions'=>'Application Questions',
+    'Transportation - Message'=>'Transportation - Message',
+    'Food - Message'=>'Food - Message',
+    'Enter message for benefit'=>'Enter message for benefit',
+    'Score'=>'Score',
+    'Remove Benefit'=>'Remove Benefit',
 
     'Benefit' => 'Benefit',
     'Update Benefit' => 'Update Benefit',

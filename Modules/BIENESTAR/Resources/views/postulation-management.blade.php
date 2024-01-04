@@ -114,7 +114,7 @@ $role_name = getRoleRouteName(Route::currentRouteName());
                                         <td style="align-items: center">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <button type="button" class="btn btn-primary mx-2" data-toggle="modal" data-target="#myModal{{ $postulation->id }}">
-                                                    Detalles
+                                                    {{ trans('bienestar::menu.View Details') }}
                                                 </button>
 
                                                 @php
@@ -132,8 +132,7 @@ $role_name = getRoleRouteName(Route::currentRouteName());
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h4 class="modal-title" id="myModalLabel">Detalles de la
-                                                                Postulación</h4>
+                                                            <h4 class="modal-title" id="myModalLabel">{{ trans('bienestar::menu.Details of the Application') }}</h4>
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
@@ -146,7 +145,7 @@ $role_name = getRoleRouteName(Route::currentRouteName());
                                                             </p>
 
                                                             <!-- Preguntas y respuestas relacionadas -->
-                                                            <h5>Preguntas de la Postulación</h5>
+                                                            <h5>{{ trans('bienestar::menu.Application Questions') }}</h5>
                                                             @foreach ($answers as $answer)
                                                             @if ($answer->postulation_id == $postulation->id)
                                                             <div class="form-group">
@@ -162,32 +161,32 @@ $role_name = getRoleRouteName(Route::currentRouteName());
                                                                 @endphp
 
                                                                 @if ($transporteSelected && $alimentacionSelected)
-                                                                <label for="message">Transporte - Mensaje</label>
+                                                                <label for="message">{{ trans('bienestar::menu.Transportation - Message') }}</label>
                                                                 <textarea class="form-control" id="exampleFormControlTextarea1" name="messageT" rows="3" id="message" placeholder="Ingrese mensaje para Transporte" required>{{ $postulation->postulationBenefits->where('benefit.name', 'Transporte')->first()->message }}</textarea>
                                                                 <input type="hidden" name="postulationbenefitstransportID" value="{{ $postulation->postulationBenefits->where('benefit.name', 'Transporte')->first()->id }}">
 
-                                                                <label for="message">Alimentacion - Mensaje</label>
+                                                                <label for="message">{{ trans('bienestar::menu.Food - Message') }}</label>
                                                                 <textarea class="form-control" id="exampleFormControlTextarea2" name="messageA" rows="3" id="message2" placeholder="Ingrese mensaje para Alimentacion" required>{{ $postulation->postulationBenefits->where('benefit.name', 'Alimentacion')->first()->message }}</textarea>
                                                                 <input type="hidden" name="postulationbenefitsalimentacionID" value="{{ $postulation->postulationBenefits->where('benefit.name', 'Alimentacion')->first()->id }}">
 
                                                                 @elseif ($transporteSelected)
-                                                                <label for="message">Transporte - Mensaje</label>
+                                                                <label for="message">{{ trans('bienestar::menu.Transportation - Message') }}</label>
                                                                 <textarea class="form-control" id="exampleFormControlTextarea1" name="messageT" rows="3" id="message" placeholder="Ingrese mensaje para Transporte" required>{{ $postulation->postulationBenefits->where('benefit.name', 'Transporte')->first()->message }}</textarea>
                                                                 <input type="hidden" name="postulationbenefitstransportID" value="{{ $postulation->postulationBenefits->where('benefit.name', 'Transporte')->first()->id }}">
 
                                                                 @elseif ($alimentacionSelected)
-                                                                <label for="message">Alimentacion - Mensaje</label>
+                                                                <label for="message">{{ trans('bienestar::menu.Food - Message') }}</label>
                                                                 <textarea class="form-control" id="exampleFormControlTextarea2" name="messageA" rows="3" id="message2" placeholder="Ingrese mensaje para Alimentacion" required>{{ $postulation->postulationBenefits->where('benefit.name', 'Alimentacion')->first()->message }}</textarea>
                                                                 <input type="hidden" name="postulationbenefitsalimentacionID" value="{{ $postulation->postulationBenefits->where('benefit.name', 'Alimentacion')->first()->id }}">
 
                                                                 @else
-                                                                <label for="message">Ingrese mensaje para beneficio</label>
+                                                                <label for="message">{{ trans('bienestar::menu.Enter message for benefit') }}</label>
                                                                 <textarea class="form-control" id="exampleFormControlTextarea1" name="message" id="message" rows="3" placeholder="Ingrese mensaje para beneficio" required></textarea>
                                                                 @endif
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label for="message">Puntaje</label>
+                                                                <label for="message">{{ trans('bienestar::menu.Score') }}</label>
                                                                 <input type="number" class="form-control" name="score" id="score" value="{{ $postulation->total_score }}" required>
                                                             </div>
                                                             @foreach ($postulationsbentfits as $pb)
@@ -196,7 +195,7 @@ $role_name = getRoleRouteName(Route::currentRouteName());
                                                                 <input type="hidden" name="postulationsbentfits_id" value="{{ $pb->id }}">
                                                                 <a href="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.remove-benefit.postulation-management', [$pb->id]) }}" class="btn btn-danger formEliminar">
                                                                     <i class="fas fa-trash-alt"></i>
-                                                                    <p>Quitar Beneficio @foreach ($benefits as $benefit)
+                                                                    <p>{{ trans('bienestar::menu.Remove Benefit') }} @foreach ($benefits as $benefit)
                                                                         @if ($benefit->id == $pb->benefit_id)
                                                                         {{ $benefit->name }}
                                                                         {{ $benefit->porcentege }}%

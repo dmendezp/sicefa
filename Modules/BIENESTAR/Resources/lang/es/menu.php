@@ -155,6 +155,15 @@ return [
     'Remove Benefit' => 'Remover Beneficio',
     'No Beneficiary Benefits'=>'Sin Beneficios',
     'State and profit'=>'Estado y Beneficio',
+    'Details of the Application'=>'Detalles de la Postulacion',
+    'Application Questions'=>'Preguntas sobre la Postulacion',
+    'Transportation - Message'=>'Transporte - Mensaje',
+    'Food - Message'=>'Alimentacion - Mensaje',
+    'Enter message for benefit'=>'Introducir mensaje para el Beneficio',
+    'Score'=>'Puntaje',
+    'Remove Benefit'=>'Quitar Beneficio',
+
+
 
 
     //vita assistancefood
