@@ -140,7 +140,7 @@ $role_name = getRoleRouteName(Route::currentRouteName());
                                                         </div>
                                                         <div class="modal-body">
                                                             <p>
-                                                            <h5>Nombre:</h5> {{ $postulation->first_name }}
+                                                            <h5>{{ trans('bienestar::menu.Apprentice Name') }}:</h5> {{ $postulation->first_name }}
                                                             {{ $postulation->first_last_name }}
                                                             {{ $postulation->second_last_name }}
                                                             </p>
@@ -210,7 +210,7 @@ $role_name = getRoleRouteName(Route::currentRouteName());
 
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('bienestar::menu.Close')}}</button>
                                                         </div>
                                                     </div>
                                                 </div>
