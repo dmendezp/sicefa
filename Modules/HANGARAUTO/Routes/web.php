@@ -35,6 +35,13 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/index/solicitar/municipios/search', 'ParkingController@postMunicipiosSearch')->name('cefa.parking.solicitar.municipios.search');
 
         // Rutas Para Agregar Registros De Tecnomecanica
-        
+        Route::get('/tecnomecanica/add', 'RevisionesController@getTecnomecanicaAdd')->name('cefa.parking.tecnomecanica.add');
+        Route::post('/tecnomecanica/add', 'RevisionesController@postTecnomecanicaAdd')->name('cefa.parking.tecnomecanica.add');
+        Route::get('/tecnomecanica/delete/{id}', 'RevisionesController@getTecnomecanicaDelete')->name('cefa.parking.tecnomecanica.delete');
+
+        // Rutas Para Agregar Registros De Soat
+        Route::get('/SOAT/add', 'RevisionesController@getSoatAdd')->name('cefa.parking.soat.add');
+        Route::post('/SOAT/add', 'RevisionesController@postSoatAdd')->name('cefa.parking.soat.add');
+        Route::get('/SOAT/Delete/{id}', 'RevisionesController@getSoatDelete')->name('cefa.parking.soat.delete');
     });
 });
