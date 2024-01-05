@@ -33,5 +33,8 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/index/solicitar/search', 'ParkingController@postSolicitarSearch')->name('cefa.parking.solicitar.search');
         // Rutas Municipios
         Route::post('/index/solicitar/municipios/search', 'ParkingController@postMunicipiosSearch')->name('cefa.parking.solicitar.municipios.search');
+
+        // Rutas Para Agregar Registros De Tecnomecanica
+        
     });
 });

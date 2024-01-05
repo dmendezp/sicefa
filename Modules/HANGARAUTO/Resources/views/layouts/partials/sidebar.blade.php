@@ -75,7 +75,7 @@
                         <a href="{{ route('cefa.parking.solicitar') }}" class="nav-link">
                             <i class="fas fa-check-square"></i>
                             <p>
-                                Solicitar Vehiculo
+                                {{trans('hangarauto::solicitar.Request_Vehicle')}}
                             </p>
                         </a>
                     </li>

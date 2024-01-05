@@ -42,8 +42,8 @@
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">
-                                <i class="far fa-keyboard"></i>
-                                {{ Form::input('dataTime-local', 'start_date', null, ['id' => 'game-date-time-text', 'class' => 'form-control']) }}
+                                <i class="fa-solid fa-calendar-days"></i>
+                                {{ Form::date('dataTime-local', 'start_date', null, ['id' => 'game-date-time-text', 'class' => 'form-control']) }}
                             </span>
                         </div>
                     </div>
@@ -52,8 +52,8 @@
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">
-                                <i class="far fa-keyboard"></i>
-                                {{ Form::input('dateTime-local', 'end_date', null, ['id' => 'game-date-time-text', 'class' => 'form-control']) }}
+                                <i class="fa-solid fa-calendar-days"></i>
+                                {{ Form::date('dateTime-local', 'end_date', null, ['id' => 'game-date-time-text', 'class' => 'form-control']) }}
                             </span>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">
-                                <i class="far fa-select"></i>
+                                <i class="fa-solid fa-angle-down"></i>
                             </span>
                         </div>
                         {!! Form::select('department',$department, null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --', 'id' => 'department']) !!}
@@ -72,7 +72,7 @@
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">
-                                    <i class="far fa-keyboard"></i>
+                                    <i class="fa-solid fa-angle-down"></i>
                                 </span>
                             </div>
                             {!! Form::select('municipality',[], null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --', 'id' => 'municipality']) !!}

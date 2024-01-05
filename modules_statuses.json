@@ -9,5 +9,6 @@
     "PTVENTA": true,
     "SIGAC": true,
     "CAFETO": true,
-    "HANGARAUTO": true
+    "HANGARAUTO": true,
+    "CreateDriversTable": true
 }

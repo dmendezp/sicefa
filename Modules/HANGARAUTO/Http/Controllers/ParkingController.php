@@ -76,4 +76,31 @@ class ParkingController extends Controller
         endif;
             return view('hangarauto::index');
     }
+
+    // Bucar Solicitud
+    public function getSolicitarSearch(Request $request){
+        $department = Department::where('country_id')->pluck('name','id');
+        $data = ['department' => $department];
+        return view('hangarauto::solcitar', $data);
+    }
+
+    // Obtener Solicitud
+    public function postSolicitarSearch(Request $request){
+        $rules = [
+            'search' => 'required'
+        ];
+        $messages = [
+            'search.required' => 'El Campo Consulta Es Requerido'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()):
+            return redirect('hangarauto::solicitar')->withErrors('message','Se Ha Producido Un Error')->with('typealert','danger')->withInput();
+            else:
+                $people = Person::where('document', $request->input('search'))->first();
+                $department = Department::where('country_id')->pluck('name','id');
+                $data = ['people' => $people, 'department' => $department];
+                return view('hangarauto::solicitar',$data);
+        endif;
+    }
 }
