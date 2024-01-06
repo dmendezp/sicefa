@@ -8,22 +8,47 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{ route('cefa.parking.index') }}"class="nav-link">{{ trans('hangarauto::general.Home') }}</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link ">{{ trans('hangarauto::general.Administrator')}}</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link ">{{ trans('hangarauto::general.Charge')}}</a>
-        </li>
+        @auth
+            @if(Auth::user()->havePermission('parking.admin.index'))
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{ route('parking.admin.index') }}" 
+                        class="nav-link ">{{ trans('hangarauto::general.Administrator')}}</a>
+                </li>
+            @endif
+
+            @if(checkRol('parking.charge'))
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{ route('parking.charge.index') }}" class="nav-link ">{{ trans('hangarauto::general.Charge')}}</a>
+                </li>
+            @endif
+        @endauth
+        
+        
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+        @if (Route::is('parking.admin.*'))
+            @if($Auth::user()->havePermission('parking.admin.instruction.manual'))
+                <li class="nav-item">
+                    <a href="{{ route('parking.admin.intruction.manual') }}" class="nav-link"
+                    title="{{ trans('hangarauto::general.instruction.manual') }}">
+                        <i class="nav-icon fa-solid fa-book"></i>
+                    </a>
+                </li>
+            @endif
+        @endif
+        @if(Route::is('parking.charge.*'))
+            @if (Auth::user()->havePermission('parking.charge.instruction.manual'))
+                <li class="nav-item">
+                    <a href="{{ route('parking.charge.intruction.manual') }}" class="nav-link"
+                    title="{{ trans('hangarauto::general.instruction.manual') }}">
+                        <i class="nav-icon fa-solid fa-book"></i>
+                    </a>
+                </li>
+            @endif
+        @endif
 
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fa-solid fa-book"></i>
-            </a>
-        </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="nav-icon fa-solid fa-globe"></i>

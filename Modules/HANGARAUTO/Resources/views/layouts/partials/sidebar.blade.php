@@ -70,6 +70,14 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
+                                        <li class="nav-item">
+                        <a href="{{ route('cefa.parking.vehicles') }}" class="nav-link">
+                            <i class="fas fa-bus"></i>
+                            <p>
+                                {{trans('hangarauto::vehiculos.Vehicles')}}
+                            </p>
+                        </a>
+                    </li>
                     <!-- Menú de opciones públicas -->
                     <li class="nav-item">
                         <a href="{{ route('cefa.parking.solicitar') }}" class="nav-link">

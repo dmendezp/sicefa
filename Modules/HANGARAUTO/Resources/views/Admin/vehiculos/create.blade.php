@@ -43,6 +43,7 @@
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                     {!! Form::submit('Guardar', ['class' => 'btn btn-succes']) !!}
                 </div>
+                {!! Form::close() !!}
             </div>
         </div>
     </div>

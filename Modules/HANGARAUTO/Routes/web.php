@@ -43,5 +43,10 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/SOAT/add', 'RevisionesController@getSoatAdd')->name('cefa.parking.soat.add');
         Route::post('/SOAT/add', 'RevisionesController@postSoatAdd')->name('cefa.parking.soat.add');
         Route::get('/SOAT/Delete/{id}', 'RevisionesController@getSoatDelete')->name('cefa.parking.soat.delete');
+
+        // Ruta Para Vista De Vehiculos
+        Route::get('/administrador/vehiculos', 'VehiculosController@Vehicles')->name('cefa.parking.vehicles');
+        Route::post('/administrador/vehiculos/crear', 'VehiculosController@postVehiclesAdd')->name('parking.admin.vehicles.create');
+        Route::get('/administrador/vehiculos/crear', 'VehiculosController@getVehiclesAdd')->name('parking.admin.vehicles.create');
     });
 });
