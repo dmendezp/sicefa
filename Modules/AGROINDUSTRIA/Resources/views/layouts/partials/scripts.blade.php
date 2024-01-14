@@ -227,7 +227,8 @@ window.onclick = function(event) {
          // Detecta cambios en el primer campo de selección (Receiver)
          $('.employement_type').on('change', function() {
             var selectedEmployement = $(this).val();
-
+            var parentElement = $(this).closest('.collaborators');
+            var priceEmployement = parentElement.find('.quantity');
             var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.price', ['id' => ':id'])) !!}.replace(':id', selectedEmployement.toString());
 
             // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
@@ -238,6 +239,7 @@ window.onclick = function(event) {
                     // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
                     var price = response.price;
                     $('.price').val(price);
+                    priceEmployement.text('Precio: ' + price);
                 },
                 error: function(error) {
                     console.log(error);

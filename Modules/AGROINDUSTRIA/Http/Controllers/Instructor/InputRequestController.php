@@ -265,7 +265,7 @@ class InputRequestController extends Controller
             $message_line = trans('agroindustria::request.error');
         }
 
-        return redirect()->route('cefa.agroindustria.units.instructor.requests')->with([
+        return redirect()->route('cefa.agroindustria.instructor.units.requests')->with([
             'icon' => $icon,
             'message_line' => $message_line
         ]);

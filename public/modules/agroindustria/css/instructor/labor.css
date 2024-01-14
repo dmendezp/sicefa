@@ -187,6 +187,26 @@
     margin-top: 60px;
 }
 
+.price-executor{
+    position: absolute;
+    color: #666; 
+    font-size: 14px; 
+    margin-top: 54px;
+}
+
+.quantity-equipment{
+    position: absolute;
+    color: #666; 
+    font-size: 14px; 
+    margin-top: 59px;
+}
+
+.total-executor{
+    position: absolute;
+    color: #666; 
+    font-size: 14px; 
+    margin-top: 60px;
+}
 .price_unit{
     position: absolute;
     color: #666; 
@@ -220,4 +240,10 @@
     width: 200px;
     margin-right: 10px;
     margin-bottom: 20px;
+}
+
+.disabled-button {
+    background-color: #CCCCCC; /* Color más claro cuando está deshabilitado */
+    cursor: not-allowed; /* Cambiar el cursor a "no permitido" */
+    /* Otros estilos de diseño según tus preferencias */
 }

@@ -107,7 +107,7 @@ class LaborController extends Controller
         ->select('element_id', \DB::raw('(SELECT MIN(id) FROM inventories AS subinventory WHERE subinventory.element_id = inventories.element_id AND subinventory.amount > 0) as id'))
         ->get();
         $tool = $tools->map(function ($t) {
-            $id = $t->id;
+            $id = $t->element->id;
             $name = $t->element->name;
 
             return [
@@ -123,7 +123,7 @@ class LaborController extends Controller
         ->select('element_id', \DB::raw('(SELECT MIN(id) FROM inventories AS subinventory WHERE subinventory.element_id = inventories.element_id AND subinventory.amount > 0) as id'))
         ->get();
         $equipment = $equipments->map(function ($eq) {
-            $id = $eq->id;
+            $id = $eq->element->id;
             $name = $eq->element->name;
 
             return [
@@ -141,7 +141,7 @@ class LaborController extends Controller
             ->get();
         
         $consumables = $inventoryConsumables->map(function ($c) {
-            $id = $c->id; // Obtén el id del lote más antiguo
+            $id = $c->element->id; // Obtén el id del lote más antiguo
             $name = $c->element->name . ' (' . $c->element->measurement_unit->abbreviation . ')';
 
             return [
@@ -225,6 +225,7 @@ class LaborController extends Controller
         $elements = Inventory::with('element.measurement_unit')->where('productive_unit_warehouse_id', $productiveUnit)->where('element_id', $consumables)->groupBy('element_id')->select('element_id', \DB::raw('SUM(amount) as totalAmount'), \DB::raw('GROUP_CONCAT(price) as prices'))->get();
         $amountPrice = $elements->map(function ($e){
             $measurement_unit = $e->element->measurement_unit->conversion_factor;
+           
             $conversion = $e->totalAmount/$measurement_unit;
             $amount = $conversion;
             $price = $e->prices;
@@ -235,14 +236,13 @@ class LaborController extends Controller
             ];
         });
 
-
         return response()->json(['elements' => $amountPrice]);
     }
 
     public function amounteq($equipments){
         $selectedUnit = session('viewing_unit');
         $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
-        $elements = Inventory::with('element.measurement_unit')->where('productive_unit_warehouse_id', $productiveUnit)->where('element_id', $equipments)->groupBy('element_id')->select('element_id', \DB::raw('SUM(amount) as totalAmount'), \DB::raw('GROUP_CONCAT(price) as prices'))->get();
+        $elements = Inventory::with('element.measurement_unit')->where('element_id', $equipments)->where('productive_unit_warehouse_id', $productiveUnit)->groupBy('element_id')->select('element_id', \DB::raw('SUM(amount) as totalAmount'), \DB::raw('GROUP_CONCAT(price) as prices'))->get();
         $amountPrice = $elements->map(function ($e){
             $amount = $e->totalAmount;
             $price = $e->prices;
@@ -356,7 +356,7 @@ class LaborController extends Controller
         
         $resource = $aspectosAmbientales->map(function ($a){
             $id = $a->id;
-            $name = $a->name;
+            $name = $a->name . ' (' . $a->measurement_unit->abbreviation .')' ;
 
             return [
                 'id' => $id,
@@ -458,31 +458,96 @@ class LaborController extends Controller
             $amount_tools = $request->input('amount_tools');
             $price_tools = $request->input('price_tools');
 
-            
+            $elementTool = Element::whereIn('id', $tools)->pluck('measurement_unit_id');
             foreach ($tools as $key => $tool){ 
                 if($tool != null){
-                    $t = new Tool;
-                    $t->labor_id = $l->id;
-                    $t->inventory_id = $tool;
-                    $t->amount = $amount_tools[$key];
-                    $t->price = $price_tools[$key];
-                    $t->save();
+                    $requiredAmount = $amount_tools[$key]; // Cantidad requerida para el elemento
+                    $measurement_unit = MeasurementUnit::whereIn('id', $elementTool)->pluck('conversion_factor');
+                    $conversion = $requiredAmount*$measurement_unit[$key];
+
+                    $selectedUnit = session('viewing_unit');
+                    $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
+                    $inventories = Inventory::where('element_id', $tool)
+                    ->where('productive_unit_warehouse_id', $productiveUnit)
+                    ->get();
+
+                    // Inicializa la cantidad consumida en 0
+                    $consumedAmount = 0;
+
+                    foreach ($inventories as $inventory) {
+                        // Obtén la cantidad disponible y el precio del inventario
+                        $availableAmount = $inventory->amount;
+                        $priceInventory = $inventory->price;
+                            
+                        // Calcula cuánto se puede consumir de este lote
+                        $consumeFromThisLot = min($availableAmount, max(0, $conversion - $consumedAmount));
+                        $intAmount = $consumeFromThisLot/$measurement_unit[$key];
+                        $price = $intAmount*$priceInventory;
+                        if ($consumeFromThisLot > 0) {
+                            // Registra el consumo para este lote
+                            $t = new Tool;
+                            $t->labor_id = $l->id;
+                            $t->inventory_id = $inventory->id;
+                            $t->amount = $consumeFromThisLot;
+                            $t->price = $price;
+                            $t->save();
+                        
+                            // Actualiza la cantidad consumida
+                            $consumedAmount += $consumeFromThisLot;
+                            // Si se ha consumido la cantidad requerida, sal del bucle
+                            if ($consumedAmount >= $conversion) {
+                                break;
+                            }
+                        }
+                    }
                 }
             }
             
-
             $equipments = $request->input('equipments');
             $amount_equipments = $request->input('amount_equipments');
             $price_equipments = $request->input('price_equipments');
 
+            $elementEquipment = Element::whereIn('id', $equipments)->pluck('measurement_unit_id');
             foreach ($equipments as $key => $equipment){ 
                 if($equipment != null){
-                    $i = new Equipment;
-                    $i->labor_id = $l->id;
-                    $i->inventory_id = $equipment;
-                    $i->amount = $amount_equipments[$key];
-                    $i->price = $price_equipments[$key];
-                    $i->save();
+                    $requiredAmount = $amount_equipments[$key]; // Cantidad requerida para el elemento
+                    $measurement_unit = MeasurementUnit::whereIn('id', $elementEquipment)->pluck('conversion_factor');
+                    $conversion = $requiredAmount*$measurement_unit[$key];
+
+                    $selectedUnit = session('viewing_unit');
+                    $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
+                    $inventories = Inventory::where('element_id', $equipment)
+                    ->where('productive_unit_warehouse_id', $productiveUnit)
+                    ->get();
+
+                    // Inicializa la cantidad consumida en 0
+                    $consumedAmount = 0;
+                    foreach ($inventories as $inventory) {
+                        // Obtén la cantidad disponible y el precio del inventario
+                        $availableAmount = $inventory->amount;
+                        $priceInventory = $inventory->price;
+                            
+                        // Calcula cuánto se puede consumir de este lote
+                        $consumeFromThisLot = min($availableAmount, max(0, $conversion - $consumedAmount));
+                        $intAmount = $consumeFromThisLot/$measurement_unit[$key];
+                        $price = $intAmount*$priceInventory;
+                        if ($consumeFromThisLot > 0) {
+                            // Registra el consumo para este lote
+                            $i = new Equipment;
+                            $i->labor_id = $l->id;
+                            $i->inventory_id = $inventory->id;
+                            $i->amount = $consumeFromThisLot;
+                            $i->price = $price;
+                            $i->save();
+                        
+                            // Actualiza la cantidad consumida
+                            $consumedAmount += $consumeFromThisLot;
+                            // Si se ha consumido la cantidad requerida, sal del bucle
+                            if ($consumedAmount >= $conversion) {
+                                break;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -521,8 +586,7 @@ class LaborController extends Controller
             $recipeRequest = $request->input('recipe');
             if($recipeRequest){
                 $recipe = Formulation::where('id', $recipeRequest)->get();
-                foreach($recipe as $r){
-                    
+                foreach($recipe as $r){ 
                     $element_id = $r->element_id;
                 }
                 $p = new Production;

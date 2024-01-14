@@ -15,7 +15,7 @@
 .form-group {
     display: inline-block;
     width: 200px; /* Ancho deseado para cada campo y etiqueta */
-    margin-right: 20px; /* Espacio entre campos */
+    margin-right: 10px; /* Espacio entre campos */
     margin-bottom: 10px; /* Espacio entre grupos de campos */
 }
 

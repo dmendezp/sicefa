@@ -50,7 +50,7 @@
                         <form method="GET" action="{{ route('cefa.agroindustria.units.instructor.labor.excel', ['laborId' => $l->id]) }}">
                             @csrf
                             <br>
-                            <button type="submit" class="btn btn-info"><i class="fas fa-file-excel"></i> Solicitud de Bienes</button>
+                            <button type="submit" class="btn btn-info"><i class="fas fa-file-excel"></i> Formato de Solicitud</button>
                         </form>
                 </td>
             </tr>

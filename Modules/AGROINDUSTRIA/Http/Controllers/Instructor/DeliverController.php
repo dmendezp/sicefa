@@ -343,16 +343,17 @@ class DeliverController extends Controller
             DB::commit();
 
             // Redirige a la página de éxito
-            return redirect()->route('agroindustria.instructor.units.movements')->with([
+            return redirect()->route('agroindustria.instructor.units.movements.table')->with([
                 'icon' => 'success',
                 'message_line' => trans('agroindustria::menu.Successful check out'),
             ]);
         } catch (\Exception $e) {
+            dd($e);
             // Si ocurre algún error durante la transacción, se revierten todas las operaciones
             DB::rollBack();
 
             // Redirige de vuelta con un mensaje de error
-            return redirect()->route('agroindustria.instructor.units.movements')->with([
+            return redirect()->route('agroindustria.instructor.units.movements.table')->with([
                 'icon' => 'error',
                 'message_line' => trans('agroindustria::menu.Check out error'),
             ]);

@@ -123,7 +123,7 @@
                                                         {!! Form::label('price_consumable_total', 'Total') !!}
                                                         {!! Form::number('price_unit_consumable_total', null, ['class'=>'form-control', 'id' => 'price_unit_consumable_total', 'readonly' => 'readonly']) !!}
                                                     </div>
-                                                    {!! Form::button('Eliminar', ['class'=>'remove-consumables']) !!}                                
+                                                    {!! Form::button(trans('agroindustria::menu.Delete'), ['class'=>'remove-consumables']) !!}                                
                                                 </div>                           
                                             </div>
                                         </div>
@@ -192,16 +192,19 @@
                                                         {!! Form::text('executor', null, ['class'=>'form-control collaborator_executors', 'readonly' => 'readonly']) !!}
                                                     </div>   
                                                     <div class="form-group-collaborators">
+                                                        <span class="price-executor"></span>
                                                         {!! Form::label('employement_type', trans('agroindustria::labors.employeeType')) !!}
                                                         {!! Form::select('employement_type[]', $employee, null, ['class'=>'form-control employement_type', 'style' => 'width: 200px']) !!}
-                                                        {!! Form::hidden('price[]', null, ['class' => 'price']) !!}
+                                                        {!! Form::hidden('price[]', null, ['id' => 'price']) !!}
                                                         @error('employement_type')
                                                             <span class="text-danger">{{ $message }}</span>
-                                                        @enderror
+                                                            @enderror
                                                     </div>
                                                     <div class="form-group-collaborators">  
+                                                        <span class="total-executor"></span>
                                                         {!! Form::label('hours', trans('agroindustria::labors.hoursWorked')) !!}
-                                                        {!! Form::number('hours[]', null, ['class'=>'form-control hours']) !!}
+                                                        {!! Form::number('hours[]', null, ['class'=>'form-control hours', 'id' => 'hours']) !!}
+                                                        {!! Form::hidden('total-executor[]', null, ['id' => 'total-executor']) !!}
                                                         @error('hours')
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
@@ -275,7 +278,7 @@
                                                     </div>   
                                                     <div class="form-group">  
                                                         {!! Form::label('price_environmental_aspect', 'Precio') !!}
-                                                        {!! Form::number('price_environmental_aspect[]', '0', ['class'=>'form-control', 'id' => 'price_environmental_aspect', 'readonly' => 'readonly']) !!}
+                                                        {!! Form::number('price_environmental_aspect[]', null, ['class'=>'form-control', 'id' => 'price_environmental_aspect']) !!}
                                                     </div>           
                                                     <button type="button" class="remove-resources">{{trans('agroindustria::menu.Delete')}}</button>
                                                 </div>
@@ -304,7 +307,7 @@
         $('.element-select').select2();
 
         $("#add-consumables").click(function () {
-            var newConsumable = '<div class="consumable"><div class="form-group-consumables">{!! Form::label("consumables", "Consumibles") !!}{!! Form::select("consumables[]", $consumables, null, ["class" => "element-select"]) !!}</div><div class="form-group-consumables"><span class="quantity"></span>{!! Form::label("amount_consumables", "Cantidad") !!}{!! Form::number("amount_consumables[]", null, ["class" => "form-control", "id" => "amount_consumables"]) !!}</div><div class="form-group-consumables">{!! Form::label("price_consumable", "Valor unitario") !!}{!! Form::number("price_unit_consumable", null, ["class"=>"form-control", "id" => "price_unit_consumable", "readonly" => "readonly"]) !!}</div><div class="form-group-consumables">{!! Form::label("price_consumable_total", "Total") !!}{!! Form::number("price_unit_consumable_total", null, ["class"=>"form-control", "id" => "price_unit_consumable_total", "readonly" => "readonly"]) !!}</div>{!! Form::button("Eliminar", ["class"=>"remove-consumables"]) !!}</div>';
+            var newConsumable = '<div class="consumable"><div class="form-group">{!! Form::label("consumables", "Consumibles") !!}{!! Form::select("consumables[]", $consumables, null, ["class" => "element-select"]) !!}</div><div class="form-group" style="margin-left: 5px; margin-right: 16px;"><span class="quantity"></span>{!! Form::label("amount_consumables", "Cantidad") !!}{!! Form::number("amount_consumables[]", null, ["class" => "form-control", "id" => "amount_consumables"]) !!}</div><div class="form-group">{!! Form::label("price_consumable", "Valor unitario") !!}{!! Form::number("price_unit_consumable", null, ["class"=>"form-control", "id" => "price_unit_consumable", "readonly" => "readonly"]) !!}</div><div class="form-group" style="margin-left: 3px">{!! Form::label("price_consumable_total", "Total") !!}{!! Form::number("price_unit_consumable_total", null, ["class"=>"form-control", "id" => "price_unit_consumable_total", "readonly" => "readonly"]) !!}</div>{!! Form::button(trans("agroindustria::menu.Delete"), ["class"=>"remove-consumables", "style" => "margin-left: 6px"]) !!}</div>';
 
             // Agregar el nuevo campo al DOM
             $("#form-consumables").append(newConsumable);
@@ -323,7 +326,7 @@
         });
 
         function updateConsumables() {
-            var amount = $('#amount_production').val(); // Obtener la cantidad actual en tiempo real
+            var amount = $('#amount_production').val(); // Obtener la cantidad actual
             var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.consumables', ['id' => ':id'])) !!}.replace(':id', $('#recipe-select').val().toString());
 
             // Realiza una solicitud AJAX para obtener los ingredientes de la receta
@@ -351,25 +354,25 @@
                         totalPriceConsumables += totalPrice;
                         
                         var newConsumableField = '<div class="consumable recipe-product">' +
-                            '<div class="form-group-consumables">' +
+                            '<div class="form-group">' +
                             '<label for="consumables">Buscar Consumibles</label>' +
                             '<input type="hidden" name="consumables[]" class="form-control" id="element-select-' + counter + '" value="' + consumable.id + '" style="width: 200px;" readonly>' +
                             '</div>' +
-                            '<div class="form-group-consumables">' +
+                            '<div class="form-group">' +
                             '<label for="consumables">Consumibles</label>' +
                             '<input type="text" name="name_consumable" class="form-control" id="element_name-' + counter + '" value="' + consumable.name + '" readonly>' +
                             '</div>' +
-                            '<div class="form-group-consumables">' +
+                            '<div class="form-group">' +
                             '<span class="quantity">Cantidad disponible: ' + consumable.amount + '</span>' +
                             '<label for="amount_consumables">Cantidad</label>' +
                             '<input type="number" name="amount_consumables[]" id="amount_consumables_formulation" class="form-control" value="' + totalAmount + '" readonly>' +
                             '</div>' +
-                            '<div class="form-group-consumables">' +
+                            '<div class="form-group">' +
                             '<span class="price_unit">Valor unitario: ' + consumable.price + '</span>' +
                             '<label for="amount_consumables">Total</label>' +
                             '<input type="number" name="total_price_consumable" id="total_price_consumable" class="form-control" value="' + totalPrice + '" readonly>' +
                             '</div>' +
-                            '<button type="button" class="remove-consumables">{{trans("agroindustria::request.delete")}}</button>'
+                            '<button type="button" class="remove-consumables">{{trans('agroindustria::menu.Delete')}}</button>'
                             '</div>';
 
                         $consumableContainer.append(newConsumableField);
@@ -435,15 +438,15 @@
         $('.employement_type').select2();
 
         $("#add-executor").click(function() {
-            var newCollaborator = '<div class="collaborators"><div class="form-group">{!! Form::label("personSearch", trans("agroindustria::labors.searchPerson")) !!}{!! Form::text("search", null, ["id"=>"personSearch-select"]) !!}</div> <div class="form-group"> {!! Form::label("collaborator", trans("agroindustria::labors.collaborators")) !!}{!! Form::hidden("executors_id[]", null, ["id" => "executors_id"]) !!}{!! Form::text("executor", null, ["class"=>"form-control", "id" => "collaborator_executors", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("employement_type", trans("agroindustria::labors.employeeType")) !!}{!! Form::select("employement_type[]", $employee, null, ["class"=>"form-control", "id" => "employement_type", "style" => "width: 200px"]) !!}{!! Form::hidden("price[]", null, ["id" => "price"]) !!}</div> <div class="form-group">{!! Form::label("hours", trans("agroindustria::labors.hoursWorked")) !!}{!! Form::number("hours[]", null, ["class"=>"form-control hours"]) !!}</div> <button type="button" class="remove-executor">{{trans("agroindustria::menu.Delete")}}</button></div>';
+            var newCollaborator = '<div class="collaborators"><div class="form-group">{!! Form::label("personSearch", trans("agroindustria::labors.searchPerson")) !!}{!! Form::text("search", null, ["class"=>"personSearch-select"]) !!}</div> <div class="form-group"> {!! Form::label("collaborator", trans("agroindustria::labors.collaborators")) !!}{!! Form::hidden("executors_id[]", null, ["id" => "executors_id"]) !!}{!! Form::text("executor", null, ["class"=>"form-control", "id" => "collaborator_executors", "readonly" => "readonly"]) !!}</div> <div class="form-group"><span class="price-executor"></span>{!! Form::label("employement_type", trans("agroindustria::labors.employeeType")) !!}{!! Form::select("employement_type[]", $employee, null, ["class"=>"form-control employement_type", "style" => "width: 200px"]) !!}{!! Form::hidden("price[]", null, ["id" => "price"]) !!}</div> <div class="form-group"><span class="total-executor"></span>{!! Form::label("hours", trans("agroindustria::labors.hoursWorked")) !!}{!! Form::number("hours[]", null, ["class"=>"form-control hours", "id" => "hours"]) !!} {!! Form::hidden("total-executor[]", null, ["id" => "total-executor"]) !!}</div> <button type="button" class="remove-executor">{{trans("agroindustria::menu.Delete")}}</button></div>';
     
             // Agregar el nuevo campo al DOM
             $("#form-executors").append(newCollaborator);
     
-            $('#employement_type:last').select2();
+            $('.employement_type:last').select2();
        
             var baseUrl = '{{ route("cefa.agroindustria.units.instructor.labor.executors", ["document_number" => ":document_number"]) }}';
-            $('#personSearch-select:last').select2({
+            $('.personSearch-select:last').select2({
                 placeholder: '{{trans("agroindustria::labors.searchPerson")}}',
                 minimumInputLength: 1, // Habilita la búsqueda en tiempo real
                 ajax: {
@@ -470,16 +473,24 @@
             });
 
             // Manejar la selección de una persona en el campo de búsqueda
-            $('#personSearch-select:last').on('select2:select', function(e) {
+            $('.personSearch-select:last').on('select2:select', function(e) {
                 var selectedPerson = e.params.data;
                 // Actualizar el contenido de la etiqueta con el nombre de la persona seleccionada
                 $(this).closest('.collaborators').find('input#executors_id').val(selectedPerson.id);
                 $(this).closest('.collaborators').find('input#collaborator_executors').val(selectedPerson.text);
             });
-            // Detecta cambios en el primer campo de selección (Receiver)
-            $('#employement_type').on('change', function() {
-                var selectedEmployement = $(this).val();
-                var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.price', ['id' => ':id'])) !!}.replace(':id', selectedEmployement.toString());
+            
+        });
+        
+        // Detecta cambios en el primer campo de selección (Receiver)
+        $('#form-executors').on('change', '.employement_type', function() {
+            var selectedEmployement = $(this).val();
+            var parentElement = $(this).closest('.collaborators');
+            var priceEmployementField = parentElement.find('input#price');
+            var priceEmployement = parentElement.find('.price-executor');
+            var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.price', ['id' => ':id'])) !!}.replace(':id', selectedEmployement.toString());
+           
+            if(selectedEmployement){
                 // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
                 $.ajax({
                     url: url,
@@ -487,14 +498,95 @@
                     success: function(response) {
                         // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
                         var price = response.price;
-                        $('#price').val(price);
+                        priceEmployementField.val(price);
+                        priceEmployement.text('Precio: ' + price);
+                        updateTotalPrice();
                     },
                     error: function(error) {
                         console.log(error);
                     }
                 });
-            });
+            }else{
+                priceEmployementField.data('price', 0);
+                updateTotalPrice(); // Actualizar el precio total cuando no se selecciona una herramienta
+                updateTotalLaborPrice();
+            }
         });
+        $('#form-executors').on('input', 'input#hours', function() {
+            updateTotalPrice(); // Actualizar el precio total cuando se modifica la cantidad
+            updateTotalLaborPrice();
+        });
+
+        function updateTotalLaborPrice() {
+            var totalPriceEquipments = 0;
+            var totalPriceTools = 0;
+            var totalPriceConsumables = 0;
+            var totalPriceRecipes = 0;
+            var totalExecutor = 0;
+            var totalResource = 0;
+
+            $('#form-equipments .equipment').each(function() {
+                var totalField = $(this).find('input#price_equipment');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalPriceEquipments += totalPrice;
+            });
+
+            $('#form-tools .tools').each(function() {
+                var totalField = $(this).find('input#price_tool');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalPriceTools += totalPrice;
+            });
+
+            $('#form-executors .collaborators').each(function() {
+                var totalField = $(this).find('input#total-executor');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalExecutor += totalPrice;
+            });
+
+            // Calcular el total de productos de receta fuera del bucle
+            $('.recipe-product').each(function() {
+                var totalRecipeField = $(this).find('input#total_price_consumable');
+                var totalRecipePrice = parseFloat(totalRecipeField.val()) || 0;
+                totalPriceRecipes += totalRecipePrice;
+            });
+
+            $('#form-container-resources .resource').each(function() {
+                var totalField = $(this).find('input#price_environmental_aspect');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalResource += totalPrice;
+                console.log('Recurso: ' + totalResource);
+            });
+
+
+            $('.consumable').each(function() {
+                var totalField = $(this).find('input#price_unit_consumable_total');
+                var totalPrice = parseFloat(totalField.val()) || 0;
+
+                totalPriceConsumables += totalPrice;
+            });
+            
+
+            var total = totalPriceEquipments + totalPriceTools + totalPriceRecipes + totalPriceConsumables + totalExecutor + totalResource;
+
+            $('input[name="total_labor"]').val(total);
+        }
+
+        function updateTotalPrice() {
+            var totalPrice = 0;
+            $('.collaborators').each(function() {
+                var priceEmployement = $(this).find('.total-executor');
+                var priceField = $(this).find('input#price');
+                var price = parseInt(priceField.val()) || 0;
+                var amountField = $(this).find('input#hours');
+                var amount = parseInt(amountField.val()) || 0;
+                var totalField = $(this).find('input#total-executor');
+                var totalPrice = price * amount;
+                priceEmployement.text('Total: ' + totalPrice);
+                totalField.val(totalPrice);
+                
+            });
+        }
+
         // Eliminar un campo de colaborador
         $("#form-executors").on("click", ".remove-executor", function() {
             $(this).closest('.collaborators').remove();
@@ -509,7 +601,7 @@
        $('.tool_select').select2();
 
        $("#add-tools").click(function() {
-           var newTool = '<div class="tools"><div class="form-group">{!! Form::label("tools", "Herramientas") !!}{!! Form::select("tools[]", $tool, null, ["class" => "tool_select", "style" => "width: 200px"]) !!}</div><div class="form-group">{!! Form::label("amount", "Cantidad") !!}{!! Form::number("amount_tools[]", null, ["class"=>"form-control", "id" => "amount_tools"]) !!}</div><div class="form-group">{!! Form::label("price", "Valor Unitario") !!}{!! Form::number("price_unit_tool", null, ["class"=>"form-control", "id" => "price_unit_tool", "readonly" => "readonly"]) !!}</div><div class="form-group">{!! Form::label("price", "Total") !!}{!! Form::number("price_tools[]", null, ["class"=>"form-control", "id" => "price_tool", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-tools">{{trans("agroindustria::menu.Delete")}}</button></div>';
+           var newTool = '<div class="tools"><div class="form-group">{!! Form::label("tools", "Herramientas") !!}{!! Form::select("tools[]", $tool, null, ["class" => "tool_select", "style" => "width: 200px"]) !!}</div><div class="form-group" style="margin-left: 5px; margin-right: 16px;"><span class="quantity"></span>{!! Form::label("amount", "Cantidad") !!}{!! Form::number("amount_tools[]", null, ["class"=>"form-control", "id" => "amount_tools"]) !!}</div><div class="form-group">{!! Form::label("price", "Valor Unitario") !!}{!! Form::number("price_unit_tool", null, ["class"=>"form-control", "id" => "price_unit_tool", "readonly" => "readonly"]) !!}</div><div class="form-group" style="margin-left: 3px">{!! Form::label("price", "Total") !!}{!! Form::number("price_tools[]", null, ["class"=>"form-control", "id" => "price_tool", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-tools" style="margin-left: 6px">{{trans("agroindustria::menu.Delete")}}</button></div>';
            
            // Agregar el nuevo campo al DOM
            $("#form-tools").append(newTool);
@@ -518,8 +610,8 @@
 
        });
 
-       
-       $('#form-tools').on('change', '.tool_select', function() {
+       var isAnyProductExceeding = false;
+       $('#form-tools').on('change', 'select[name^="tools"]', function() {
             var selectedTool = $(this).val();
             var parentElement = $(this).closest('.tools');
             var priceField = parentElement.find('input#price_unit_tool');
@@ -533,15 +625,23 @@
                     url: url,
                     type: 'GET',
                     success: function(response) {
-                        console.log(response);
                         if(response.data.length > 0){
                             var data = response.data[0];
-                            var quantity = parseFloat(data.amount);
+                            console.log(data);
                             var price = parseFloat(data.price);
-                        
-                            quantityField.text('Cantidad Disponible: ' + quantity);
+                            maxQuantity = parseFloat(data.amount);
+
                             priceField.val(price);
                             updateTotalPrice(); // Actualizar el precio total cuando se selecciona la herramienta
+                            updateSaveButtonState(quantityField, 0, maxQuantity);
+                            $('#form-tools').off('input', 'input#amount_tools').on('input', 'input#amount_tools', function() {
+                                var amountInput = $(this);
+                                var amount = amountInput.val();
+                                updateSaveButtonState(quantityField, amount, maxQuantity)
+                                updateTotalPrice(); // Actualizar el precio total cuando se modifica la cantidad
+                                updateTotalLaborPrice();
+                            });
+                            
                         }else{
                             quantityField.text('');
                         }
@@ -557,16 +657,37 @@
             }
         });
 
-        $('#form-tools').on('input', 'input#amount_tools', function() {
-            updateTotalPrice(); // Actualizar el precio total cuando se modifica la cantidad
-            updateTotalLaborPrice();
-        });
+        function updateSaveButtonState(quantityField, amount, maxQuantity) {
+            var saveButton = $('.save_receipe');
+            console.log(maxQuantity);
+
+            if (amount > maxQuantity) {
+                quantityField.text('La cantidad ingresada es mayor que la disponible.').css('color', 'red');
+                saveButton.prop('disabled', true);
+                saveButton.addClass('disabled-button');
+                isAnyProductExceeding = true;
+                console.log('Deshabilitado');
+            } else {
+                quantityField.text('Cantidad Disponible: ' + maxQuantity).css('color', '#666');
+                isAnyProductExceeding = false;
+                console.log(isAnyProductExceeding);
+                if (!isAnyProductExceeding) {
+                    saveButton.prop('disabled', false);
+                    saveButton.removeClass('disabled-button');
+                } else {
+                    saveButton.prop('disabled', true);
+                    saveButton.addClass('disabled-button');
+                }
+            }
+        }
 
         function updateTotalLaborPrice() {
             var totalPriceEquipments = 0;
             var totalPriceTools = 0;
             var totalPriceConsumables = 0;
             var totalPriceRecipes = 0;
+            var totalExecutor = 0;
+            var totalResource = 0;
 
             $('#form-equipments .equipment').each(function() {
                 var totalField = $(this).find('input#price_equipment');
@@ -580,12 +701,26 @@
                 totalPriceTools += totalPrice;
             });
 
+            $('#form-executors .collaborators').each(function() {
+                var totalField = $(this).find('input#total-executor');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalExecutor += totalPrice;
+            });
+
             // Calcular el total de productos de receta fuera del bucle
             $('.recipe-product').each(function() {
                 var totalRecipeField = $(this).find('input#total_price_consumable');
                 var totalRecipePrice = parseFloat(totalRecipeField.val()) || 0;
                 totalPriceRecipes += totalRecipePrice;
             });
+
+            $('#form-container-resources .resource').each(function() {
+                var totalField = $(this).find('input#price_environmental_aspect');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalResource += totalPrice;
+                console.log('Recurso: ' + totalResource);
+            });
+
 
             $('.consumable').each(function() {
                 var totalField = $(this).find('input#price_unit_consumable_total');
@@ -594,7 +729,7 @@
                 totalPriceConsumables += totalPrice;
             });
 
-            var total = totalPriceEquipments + totalPriceTools + totalPriceRecipes + totalPriceConsumables;
+            var total = totalPriceEquipments + totalPriceTools + totalPriceRecipes + totalPriceConsumables + totalExecutor + totalResource;
 
             $('input[name="total_labor"]').val(total);
         }
@@ -622,13 +757,13 @@
 
 <script>
     $(document).ready(function() {
+        var isAnyProductExceeding = false;
+
         $("#form-consumables").on("change", "select[name^='consumables']", function() {
             var selectedElement = $(this).val();
             var parentProduct = $(this).closest('.consumable');
             var availablePriceUnit = parentProduct.find('input#price_unit_consumable');
             var availableQuantity = parentProduct.find('.quantity');
-
-            // Realizar una solicitud AJAX para obtener la cantidad disponible
             if (selectedElement) {
                 $.ajax({
                     url: {!! json_encode(route('cefa.agroindustria.units.instructor.labor.consumables.amount', ['consumables' => ':consumables'])) !!}.replace(':consumables', selectedElement.toString()),
@@ -637,10 +772,20 @@
                         if (response.elements.length > 0) {
                             var element = response.elements[0];
                             var price = parseFloat(element.price);
-                            var quantity = parseFloat(element.amount);
-                            availableQuantity.text('Cantidad Disponible: ' + quantity);
+                            maxQuantity = parseFloat(element.amount);
+
                             availablePriceUnit.val(price);
                             updateTotalPrice();
+                            updateSaveButtonState(availableQuantity, 0, maxQuantity);
+
+                            $('#form-consumables').off('input', 'input#amount_consumables').on('input', 'input#amount_consumables', function() {
+                                var amountInput = $(this);
+                                var amount = amountInput.val();
+                                updateSaveButtonState(availableQuantity, amount, maxQuantity);
+                                updateTotalPrice();
+                                updateTotalLaborPrice();
+                            });
+
                         } else {
                             availableQuantity.text(''); // Limpia el texto si no se encuentra la cantidad disponible
                         }
@@ -651,6 +796,7 @@
                         availablePrice.val('');
                     }
                 });
+                
             } else {
                 availableQuantity.text('');
                 availablePriceField.data('price', 0);
@@ -658,16 +804,37 @@
             }
         });
 
-        $('#form-consumables').on('input', 'input#amount_consumables', function() {
-            updateTotalPrice();
-            updateTotalLaborPrice();
-        });
+        function updateSaveButtonState(availableQuantity, amount, maxQuantity) {
+            var saveButton = $('.save_receipe');
+            console.log(maxQuantity);
 
+            if (amount > maxQuantity) {
+                availableQuantity.text('La cantidad ingresada es mayor que la disponible.').css('color', 'red');
+                saveButton.prop('disabled', true);
+                saveButton.addClass('disabled-button');
+                isAnyProductExceeding = true;
+                console.log('Deshabilitado');
+            } else {
+                availableQuantity.text('Cantidad Disponible: ' + maxQuantity).css('color', '#666');
+                isAnyProductExceeding = false;
+                console.log(isAnyProductExceeding);
+                if (!isAnyProductExceeding) {
+                    saveButton.prop('disabled', false);
+                    saveButton.removeClass('disabled-button');
+                } else {
+                    saveButton.prop('disabled', true);
+                    saveButton.addClass('disabled-button');
+                }
+            }
+        }
+        
         function updateTotalLaborPrice() {
             var totalPriceEquipments = 0;
             var totalPriceTools = 0;
             var totalPriceConsumables = 0;
             var totalPriceRecipes = 0;
+            var totalExecutor = 0;
+            var totalResource = 0;
 
             $('#form-equipments .equipment').each(function() {
                 var totalField = $(this).find('input#price_equipment');
@@ -681,12 +848,26 @@
                 totalPriceTools += totalPrice;
             });
 
+            $('#form-executors .collaborators').each(function() {
+                var totalField = $(this).find('input#total-executor');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalExecutor += totalPrice;
+            });
+
             // Calcular el total de productos de receta fuera del bucle
             $('.recipe-product').each(function() {
                 var totalRecipeField = $(this).find('input#total_price_consumable');
                 var totalRecipePrice = parseFloat(totalRecipeField.val()) || 0;
                 totalPriceRecipes += totalRecipePrice;
             });
+
+            $('#form-container-resources .resource').each(function() {
+                var totalField = $(this).find('input#price_environmental_aspect');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalResource += totalPrice;
+                console.log('Recurso: ' + totalResource);
+            });
+
 
             $('.consumable').each(function() {
                 var totalField = $(this).find('input#price_unit_consumable_total');
@@ -695,7 +876,7 @@
                 totalPriceConsumables += totalPrice;
             });
 
-            var total = totalPriceEquipments + totalPriceTools + totalPriceRecipes + totalPriceConsumables;
+            var total = totalPriceEquipments + totalPriceTools + totalPriceRecipes + totalPriceConsumables + totalExecutor + totalResource;
 
             $('input[name="total_labor"]').val(total);
         }
@@ -718,11 +899,14 @@
 
 <script>
     $(document).ready(function() {
+        $('.inventory_select').select2();
         $("#add-equipments").click(function() {
-           var newEquipment = '<div class="equipment"><div class="form-group">{!! Form::label("inventories", "Equipos") !!}{!! Form::select("equipments[]", $equipment, null, ["class" => "inventory_select", "style" => "width: 200px"]) !!}</div><div class="form-group"><span class="quantity-equipment"></span>{!! Form::label("amount", "Cantidad") !!}{!! Form::number("amount_equipments[]", null, ["class"=>"form-control", "id" => "amount_equipments"]) !!}</div><div class="form-group">{!! Form::label("price", "Valor Unitario") !!}{!! Form::number("price_unit_equipment", null, ["class"=>"form-control", "id" => "price_unit_equipment", "readonly" => "readonly"]) !!}</div><div class="form-group">{!! Form::label("price", "Total") !!}{!! Form::number("price_equipments[]", null, ["class"=>"form-control", "id" => "price_equipment", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-equipments">{{trans("agroindustria::menu.Delete")}}</button></div>';
+           var newEquipment = '<div class="equipment"><div class="form-group">{!! Form::label("inventories", "Equipos") !!}{!! Form::select("equipments[]", $equipment, null, ["class" => "inventory_select", "style" => "width: 200px"]) !!}</div><div class="form-group" style="margin-left: 5px; margin-right: 16px;"><span class="quantity-equipment"></span>{!! Form::label("amount", "Cantidad") !!}{!! Form::number("amount_equipments[]", null, ["class"=>"form-control", "id" => "amount_equipments"]) !!}</div><div class="form-group">{!! Form::label("price", "Valor Unitario") !!}{!! Form::number("price_unit_equipment", null, ["class"=>"form-control", "id" => "price_unit_equipment", "readonly" => "readonly"]) !!}</div><div class="form-group" style="margin-left: 3px">{!! Form::label("price", "Total") !!}{!! Form::number("price_equipments[]", null, ["class"=>"form-control", "id" => "price_equipment", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-equipments" style="margin-left: 6px">{{trans("agroindustria::menu.Delete")}}</button></div>';
            
            // Agregar el nuevo campo al DOM
            $("#form-equipments").append(newEquipment);
+
+           $('.inventory_select:last').select2();
        });
 
        $('#form-equipments').on('change', '.inventory_select', function() {
@@ -733,19 +917,27 @@
             if (selectedEquipment) {
                 // Realiza una solicitud AJAX para obtener el precio de la herramienta seleccionada
                 var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.equipments.amounteq', ['equipments' => ':equipments'])) !!}.replace(':equipments', selectedEquipment.toString());
+                console.log('Ruta: ' + url);
                 $.ajax({
                     url: url,
                     type: 'GET',
                     success: function(response) {
                         if(response.elements.length > 0){
                             var data = response.elements[0];
-                            var quantity = parseFloat(data.amount);
                             var price = parseFloat(data.price);
+                            maxQuantity = parseFloat(data.amount);
 
-                            quantityField.text('Cantidad Disponible: ' + quantity);
                             priceField.val(price);
                             updateTotalPrice(); // Actualizar el precio total cuando se selecciona la herramienta
-                            updateTotalLaborPrice();
+                            updateSaveButtonState(quantityField, 0, maxQuantity);
+
+                            $('#form-equipments').off('input', 'input#amount_equipments').on('input', 'input#amount_equipments', function() {
+                                var amountInput = $(this);
+                                var amount = amountInput.val();
+                                updateSaveButtonState(quantityField, amount, maxQuantity);
+                                updateTotalPrice(); // Actualizar el precio total cuando se modifica la cantidad
+                                updateTotalLaborPrice();
+                            });
                         }else{
                             quantityField.text('');
                         }
@@ -763,17 +955,37 @@
             }
         });
 
+        function updateSaveButtonState(quantityField, amount, maxQuantity) {
+            var saveButton = $('.save_receipe');
+            console.log(maxQuantity);
 
-        $('#form-equipments').on('input', 'input#amount_equipments', function() {
-            updateTotalPrice(); // Actualizar el precio total cuando se modifica la cantidad
-            updateTotalLaborPrice();
-        });
+            if (amount > maxQuantity) {
+                quantityField.text('La cantidad ingresada es mayor que la disponible.').css('color', 'red');
+                saveButton.prop('disabled', true);
+                saveButton.addClass('disabled-button');
+                isAnyProductExceeding = true;
+                console.log('Deshabilitado');
+            } else {
+                quantityField.text('Cantidad Disponible: ' + maxQuantity).css('color', '#666');
+                isAnyProductExceeding = false;
+                console.log(isAnyProductExceeding);
+                if (!isAnyProductExceeding) {
+                    saveButton.prop('disabled', false);
+                    saveButton.removeClass('disabled-button');
+                } else {
+                    saveButton.prop('disabled', true);
+                    saveButton.addClass('disabled-button');
+                }
+            }
+        }
 
         function updateTotalLaborPrice() {
             var totalPriceEquipments = 0;
             var totalPriceTools = 0;
             var totalPriceConsumables = 0;
             var totalPriceRecipes = 0;
+            var totalExecutor = 0;
+            var totalResource = 0;
 
             $('#form-equipments .equipment').each(function() {
                 var totalField = $(this).find('input#price_equipment');
@@ -787,6 +999,12 @@
                 totalPriceTools += totalPrice;
             });
 
+            $('#form-executors .collaborators').each(function() {
+                var totalField = $(this).find('input#total-executor');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalExecutor += totalPrice;
+            });
+
             // Calcular el total de productos de receta fuera del bucle
             $('.recipe-product').each(function() {
                 var totalRecipeField = $(this).find('input#total_price_consumable');
@@ -794,6 +1012,13 @@
                 totalPriceRecipes += totalRecipePrice;
             });
 
+            $('#form-container-resources .resource').each(function() {
+                var totalField = $(this).find('input#price_environmental_aspect');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalResource += totalPrice;
+            });
+
+            
             $('.consumable').each(function() {
                 var totalField = $(this).find('input#price_unit_consumable_total');
                 var totalPrice = parseFloat(totalField.val()) || 0;
@@ -801,7 +1026,7 @@
                 totalPriceConsumables += totalPrice;
             });
 
-            var total = totalPriceEquipments + totalPriceTools + totalPriceRecipes + totalPriceConsumables;
+            var total = totalPriceEquipments + totalPriceTools + totalPriceRecipes + totalPriceConsumables + totalExecutor + totalResource;
 
             $('input[name="total_labor"]').val(total);
         }
@@ -832,6 +1057,8 @@
         $('.environmental_aspect_select').select2();
 
         $("#add-resources").click(function () {
+            var selectedActivity = $('#activity-selected').val();
+
             var newResource = '<div class="resource">' +
                 '<div class="form-group">' +
                 '{!! Form::label("environmental_aspect", "Aspecto Ambiental") !!}' +
@@ -843,7 +1070,7 @@
                 '</div>' +
                 '<div class="form-group">' +
                 '{!! Form::label("price_environmental_aspect", "Precio") !!}' +
-                '{!! Form::number("price_environmental_aspect[]", "0", ["class"=>"form-control", "readonly" => "readonly"]) !!}' +
+                '{!! Form::number("price_environmental_aspect[]", null, ["class"=>"form-control", "id" => "price_environmental_aspect"]) !!}' +
                 '</div>' +
                 '<button type="button" class="remove-resources">{{trans("agroindustria::menu.Delete")}}</button>' +
                 '</div>';
@@ -854,10 +1081,29 @@
             // Inicializar Select2 para el nuevo campo
             $('.environmental_aspect_select').select2();
 
-            environmental();
+            var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.resource', ['activity_id' => ':activity_id'])) !!}.replace(':activity_id', selectedActivity.toString());
+            console.log(url);
+
+            // Realizar una solicitud AJAX para obtener los aspectos ambientales
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (response) {
+                    var options = '<option value="">' + 'Seleccione un aspecto ambiental' + '</option>';
+                    $.each(response.aspect, function (index, aspect) {
+                        options += '<option value="' + aspect.id + '">' + aspect.name + '</option>';
+                    });
+                    // Actualizar las opciones del campo de aspecto ambiental actual
+                    $('.environmental_aspect_select').last().html(options);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
         });
 
-        function environmental(){
+        function environmental() {
+            // Asignar evento change una vez
             $('#activity-selected').on('change', function () {
                 var selectedActivity = $(this).val();
                 // Actualizar todas las opciones para cada elemento .environmental_aspect_select
@@ -882,9 +1128,67 @@
                     });
                 });
             });
-             // Ejecutar la función al cargar el documento
-             $('#activity-selected').trigger('change');
-        }    
+
+            // Ejecutar la función al cargar el documento
+            $('#activity-selected').trigger('change');
+        } 
+
+        $('#form-container-resources').on('input', 'input#price_environmental_aspect', function() {
+            updateTotalLaborPrice();
+        });
+        
+        function updateTotalLaborPrice() {
+            var totalPriceEquipments = 0;
+            var totalPriceTools = 0;
+            var totalPriceConsumables = 0;
+            var totalPriceRecipes = 0;
+            var totalExecutor = 0;
+            var totalResource = 0;
+
+            $('#form-equipments .equipment').each(function() {
+                var totalField = $(this).find('input#price_equipment');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalPriceEquipments += totalPrice;
+            });
+
+            $('#form-tools .tools').each(function() {
+                var totalField = $(this).find('input#price_tool');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalPriceTools += totalPrice;
+            });
+
+            $('#form-executors .collaborators').each(function() {
+                var totalField = $(this).find('input#total-executor');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalExecutor += totalPrice;
+            });
+
+            // Calcular el total de productos de receta fuera del bucle
+            $('.recipe-product').each(function() {
+                var totalRecipeField = $(this).find('input#total_price_consumable');
+                var totalRecipePrice = parseFloat(totalRecipeField.val()) || 0;
+                totalPriceRecipes += totalRecipePrice;
+            });
+
+            $('#form-container-resources .resource').each(function() {
+                var totalField = $(this).find('input#price_environmental_aspect');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalResource += totalPrice;
+                console.log('Recurso: ' + totalResource);
+            });
+
+            $('.consumable').each(function() {
+                var totalField = $(this).find('input#price_unit_consumable_total');
+                var totalPrice = parseFloat(totalField.val()) || 0;
+
+                totalPriceConsumables += totalPrice;
+            });
+
+            var total = totalPriceEquipments + totalPriceTools + totalPriceRecipes + totalPriceConsumables + totalExecutor + totalResource;
+
+            $('input[name="total_labor"]').val(total);
+        }
+
 
         // Llamar a environmental al cargar el documento
         environmental();
@@ -894,33 +1198,5 @@
             $(this).closest('.resource').remove();
         });
     });
-</script>
-
-
-<script>
-    function updateTotalLaborPrice() {
-        
-        var totalPriceEquipments = 0;
-        $('.equipment').each(function() {
-            var totalField = $(this).find('input#price_equipment');
-            var totalPrice = parseFloat(totalField.val()) || 0;
-            console.log('Equipos: ' + totalPrice);
-            totalPriceEquipments += totalPrice;
-        });
-        var totalPriceExecutors = 0;
-        $('.collaborators').each(function() {
-            var totalField = $(this).find('input#price');
-            var totalPrice = parseFloat(totalField.val()) || 0;
-            console.log('Ejecutores: ' + totalPrice);
-            totalPriceExecutors += totalPrice;
-        });
-       
-        // Calcular el total general
-        var totalLaborPrice = totalPriceEquipments + totalPriceExecutors + totalPriceTools;
-        console.log('Total: ' + totalLaborPrice);
-        // Actualizar el campo "Total de la Labor"
-        $('#total_labor').val(totalLaborPrice);
-    }
-
 </script>
 @endsection
