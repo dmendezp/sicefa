@@ -65,20 +65,56 @@
                       @endforeach
                   </td>
                   <td>
-                      @foreach ($movement->movement_details as $detail)
-                          {{$detail->inventory->element->name}}<br>
-                      @endforeach
+                    @php
+                        $elementQuantities = []; // Array para almacenar la cantidad total por elemento
+                        $elementQuantitiesAbbreviations = [];
+                    @endphp
+                
+                    @foreach ($movement->movement_details as $detail)
+                        @php
+                            $elementName = $detail->inventory->element->name;
+                            $elementQuantity = $detail->amount / $detail->inventory->element->measurement_unit->conversion_factor;;
+                            $elementAbbreviation = $detail->inventory->element->measurement_unit->abbreviation;
+
+                            // Sumar la cantidad al elemento correspondiente en el array
+                            $elementQuantities[$elementName] = isset($elementQuantities[$elementName])
+                                ? $elementQuantities[$elementName] + $elementQuantity
+                                : $elementQuantity;
+                            
+                            $elementQuantitiesAbbreviations[$elementName] = $elementAbbreviation;
+                        @endphp
+                    @endforeach
+                
+                    @foreach ($elementQuantities as $elementName => $totalQuantity)
+                        {{$elementName}}<br>
+                    @endforeach
                   </td>
                   <td>
-                      @foreach ($movement->movement_details as $detail)
-                          {{$detail->amount}}<br>
-                      @endforeach
+                    @foreach ($elementQuantities as $elementName => $totalQuantity)
+                      {{$totalQuantity}} {{ $elementQuantitiesAbbreviations[$elementName] }}<br>
+                    @endforeach
                   </td>
                   <td>
-                      @foreach ($movement->movement_details as $detail)
-                          {{$detail->price}}<br>
-                      @endforeach
-                  </td>
+                    @php
+                        $elementPrices = []; // Array para almacenar el precio total por elemento
+                    @endphp
+                
+                    @foreach ($movement->movement_details as $detail)
+                        @php
+                            $elementName = $detail->inventory->element->name;
+                            $elementPrice = $detail->price;
+                
+                            // Sumar el precio al elemento correspondiente en el array
+                            $elementPrices[$elementName] = isset($elementPrices[$elementName])
+                                ? $elementPrices[$elementName] + $elementPrice
+                                : $elementPrice;
+                        @endphp
+                    @endforeach
+                
+                    @foreach ($elementPrices as $elementName => $totalPrice)
+                        {{$totalPrice}}<br>
+                    @endforeach
+                </td>
                   <td>{{$movement->price}}</td>
                   <td>{{$movement->state}}</td>
                   <td>{{$movement->observation}}</td>

@@ -8,19 +8,6 @@
       {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.movements.out')]) !!}
       <div class="row">
         <div class="col-md-6">
-          {!! Form::hidden('productiveUnitWarehouse', $productiveUnitWarehouse, ['id' => 'productiveUnitWarehouse']) !!}
-          {!! Form::label('fecha', trans('agroindustria::menu.Date Time')) !!}
-          {!! Form::datetime('date', now()->format('Y-m-d\TH:i:s'), ['class' => 'form-control', 'id' => 'readonly-bg-gray', 'readonly' => 'readonly']) !!}
-        </div>
-        <div class="col-md-6">
-          {!! Form::label('receive', trans('agroindustria::menu.Receiver')) !!}
-          {!! Form::text('receive', null,  ['class' => 'form-control', 'readonly' => 'readonly', 'id' => 'receivePerson']) !!}
-          {!! Form::hidden('receive_id', null, ['id' => 'receive']) !!}
-          @error('receive')
-          <span class="text-danger">{{ $message }}</span>
-          @enderror
-        </div>
-        <div class="col-md-6">
           {!! Form::label('productive_unit', 'Unidad Productiva que entrega') !!}
           {!! Form::text('productive_unit', $unitName->name, ['class' => 'form-control', 'id' => 'readonly-bg-gray', 'readonly' => 'readonly']) !!}
         </div>
@@ -45,6 +32,20 @@
           <span class="text-danger">{{ $message }}</span>
           @enderror
         </div>
+        <div class="col-md-6">
+          {!! Form::hidden('productiveUnitWarehouse', $productiveUnitWarehouse, ['id' => 'productiveUnitWarehouse']) !!}
+          {!! Form::label('fecha', trans('agroindustria::menu.Date Time')) !!}
+          {!! Form::datetime('date', now()->format('Y-m-d\TH:i:s'), ['class' => 'form-control', 'id' => 'readonly-bg-gray', 'readonly' => 'readonly']) !!}
+        </div>
+        <div class="col-md-6">
+          {!! Form::label('receive', trans('agroindustria::menu.Receiver')) !!}
+          {!! Form::text('receive', null,  ['class' => 'form-control', 'readonly' => 'readonly', 'id' => 'receivePerson']) !!}
+          {!! Form::hidden('receive_id', null, ['id' => 'receive']) !!}
+          @error('receive')
+          <span class="text-danger">{{ $message }}</span>
+          @enderror
+        </div>
+        
         <div class="col-md-12">
           {!! Form::label('observation', trans('agroindustria::menu.Observations')) !!}
           {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'id' => 'textarea'] ) !!}
@@ -64,7 +65,7 @@
                 </div>
                 <div class="form-group">
                   {!! Form::label('amount' , trans('agroindustria::menu.Amount')) !!}
-                  {!! Form::number('amount[]', null, ['class' => 'form-control', 'id' => 'amount']) !!}
+                  {!! Form::number('amount[]', null, ['class' => 'form-control', 'id' => 'amount', 'step' => '0.01']) !!}
                   @error('amount')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -136,7 +137,7 @@
                         response.id.forEach(function(value) {
                             var amount = parseFloat(value.amount); // Acceder al amount
                             var price = parseFloat(value.price);   // Acceder al price
-                            
+                            console.log('Cantidad: ' + amount);
                             priceField.val(price);
                             availableField.val(amount);
                         });

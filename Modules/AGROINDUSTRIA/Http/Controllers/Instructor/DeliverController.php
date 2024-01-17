@@ -17,6 +17,7 @@ use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\WarehouseMovement;
+use Modules\SICA\Entities\MeasurementUnit;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -181,10 +182,28 @@ class DeliverController extends Controller
         if (!is_array($id)) {
             $id = [$id];
         }
+
+        $selectedUnit = session('viewing_unit');
+
+        $warehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->get();
+        foreach ($warehouses as $row){
+            $pwId = $row->id;
+        }
     
-        $inventory = Inventory::whereIn('element_id', $id)->get(['amount', 'price']);
-    
-        return response()->json(['id' => $inventory]);
+        $inventory = Inventory::with('element.measurement_unit')->where('element_id', $id)->where('productive_unit_warehouse_id', $pwId)->groupBy('element_id')->select('element_id', \DB::raw('SUM(amount) as totalAmount'), \DB::raw('GROUP_CONCAT(price) as prices'))->get();
+        $amountPrice = $inventory->map(function ($e){
+            $measurement_unit = $e->element->measurement_unit->conversion_factor;
+           
+            $conversion = $e->totalAmount/$measurement_unit;
+            $amount = $conversion;
+            $price = $e->prices;
+            
+            return [
+                'amount' => $amount,
+                'price' => $price
+            ];
+        });
+        return response()->json(['id' => $amountPrice]);
     }
     
     public function createMoveOut(Request $request){     
@@ -219,82 +238,74 @@ class DeliverController extends Controller
             $movementType = MovementType::find(2);
 
             //Trae la cantidad ingresada y el precio del inventario
+            $selectedElementId = $validatedData['element'];
             $amounts = $validatedData['amount'];
             $prices = $request->input('price');
             $available = $request->input('available');
             $totalPrice = 0;
 
-            //Multiplicacion entre la cantidad ingresada y el precio
-            foreach ($amounts as $key => $amount){   
-                if($amount > $available[$key]){
-                    return back()->with('icon', 'error')
-                    ->with('message_line', trans('agroindustria::menu.Quantity entered is greater than inventory quantity'));
-                }else{   
-                    $a = $amount;
-                    $p = $prices[$key];
-
-                    $priceMovement = $a*$p;
-                    $totalPrice += $priceMovement;   
-                }   
-            }
+            $element = Element::whereIn('id', $selectedElementId)->pluck('measurement_unit_id');
 
             //Registra el movimiento
             $mo = new Movement;
             $mo->registration_date = $request->input('date');
             $mo->movement_type_id = $movementType->id;
             $mo->voucher_number = $movementType->consecutive;
-            $mo->price = $totalPrice;
+            $mo->price = 0;
             $mo->observation = $request->input('observation');
             $mo->state = 'Solicitado';
-
             $mo->save();
-            
-            //Consulta el elemento seleccionado
-            $selectedElementId = $validatedData['element'];
-
 
             $puw = json_decode($request->input('productiveUnitWarehouse'));
             
-            // Encontrar el inventario correspondiente a ese elemento
-            $inventories = Inventory::whereIn('element_id', $selectedElementId)
-            ->where('productive_unit_warehouse_id', $puw)
-            ->pluck('id');
-        
+
             //Registra Detalles del Movimiento
-            foreach ($amounts as $key => $amount) {
-                if (empty($amount) || $amount <= 0) {
-                    return back()
-                        ->with('icon', 'error')
-                        ->with('message_line', trans('agroindustria::menu.You must enter an amount'));
-                } elseif ($amount > $available[$key]) {
-                    return back()
-                        ->with('icon', 'error')
-                        ->with('message_line', trans('agroindustria::menu.Quantity entered is greater than inventory quantity'));
-                } else {
-                    $detail = new MovementDetail;
-                    $detail->movement_id = $mo->id;
-            
-                    // Verificar si $inventories[$key] existe antes de asignarlo
-                    if (isset($inventories[$key])) {
-                        $detail->inventory_id = $inventories[$key];
-                    } else {
-                        return back()
-                            ->with('icon', 'error')
-                            ->with('message_line', trans('agroindustria::menu.You must select an item'));
+            $totalPrice = 0;
+            foreach ($selectedElementId as $key => $e) {
+                $requiredAmount = $amounts[$key]; // Cantidad requerida para el elemento
+                $measurement_unit = MeasurementUnit::whereIn('id', $element)->pluck('conversion_factor');
+                $conversion = $requiredAmount*$measurement_unit[$key];
+                
+                // Realiza una consulta para obtener los lotes correspondientes al elemento y ordénalos por lote
+                $selectedUnit = session('viewing_unit');
+                $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
+                $inventories = Inventory::where('element_id', $e)
+                ->where('productive_unit_warehouse_id', $productiveUnit)
+                ->get();
+
+                $consumedAmount = 0;
+                $elementTotalPrice = 0;
+                foreach ($inventories as $inventory) {
+                    // Obtén la cantidad disponible y el precio del inventario
+                    $availableAmount = $inventory->amount;
+                    $priceInventory = $inventory->price;
+                    
+                    // Calcula cuánto se puede consumir de este lote
+                    $consumeFromThisLot = min($availableAmount, max(0, $conversion - $consumedAmount));
+                    $intAmount = $consumeFromThisLot/$measurement_unit[$key];
+                    $price = $intAmount*$priceInventory;
+                    if ($consumeFromThisLot > 0) {
+                        // Registra el consumo para este lote
+                        $detail = new MovementDetail;
+                        $detail->movement_id = $mo->id;
+                        $detail->inventory_id = $inventory->id;
+                        $detail->amount = $consumeFromThisLot;
+                        $detail->price = $price;
+                        $detail->save();
+
+                        $elementTotalPrice += $price;
+                        // Actualiza la cantidad consumida
+                        $consumedAmount += $consumeFromThisLot;
+                        // Si se ha consumido la cantidad requerida, sal del bucle
+                        if ($consumedAmount >= $conversion) {
+                            break;
+                        }
                     }
-                    if($amount<=0){
-                        return back()
-                        ->with('icon', 'error')
-                        ->with('message_line', trans('agroindustria::menu.You must enter an amount'));
-                    }
-            
-                    $detail->amount = $amount;
-                    $detail->price = $prices[$key];
-                    $mo->movement_details()->save($detail);
                 }
+                $totalPrice += $elementTotalPrice;
             }
-            
-            
+            $mo->price = $totalPrice;
+            $mo->save();
 
             //Registra Responsable del Movimiento
             $mr = new MovementResponsibility;
