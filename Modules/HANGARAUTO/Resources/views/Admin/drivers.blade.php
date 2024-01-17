@@ -1,6 +1,6 @@
 @extends('hangarauto::layout.adminhome')
 @push('breadcrumbs')
-    <li class="breadcrumb-item active"><a href=""></a>{{ trans('hangarauto::') }}</li>
+    <li class="breadcrumb-item active"><a href=""></a>{{ trans('hangarauto::drivers.Drivers') }}</li>
 @endpush
 
 @section('css')

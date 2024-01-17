@@ -70,7 +70,15 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
-                                        <li class="nav-item">
+                    <li class="nav-item">
+                        <a href="{{ route('cefa.parking.drivers')}}" class="nav-link">
+                            <i class="fa-regular fa-id-card"></i>
+                            <p>
+                                {{trans('hangarauto::drivers.Drivers')}}
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('cefa.parking.vehicles') }}" class="nav-link">
                             <i class="fas fa-bus"></i>
                             <p>

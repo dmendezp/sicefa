@@ -46,7 +46,16 @@ Route::middleware(['lang'])->group(function () {
 
         // Ruta Para Vista De Vehiculos
         Route::get('/administrador/vehiculos', 'VehiculosController@Vehicles')->name('cefa.parking.vehicles');
+        // Rutas Para Agregar Un Vehiculo
         Route::post('/administrador/vehiculos/crear', 'VehiculosController@postVehiclesAdd')->name('parking.admin.vehicles.create');
         Route::get('/administrador/vehiculos/crear', 'VehiculosController@getVehiclesAdd')->name('parking.admin.vehicles.create');
+        // Rutas Para Editar Informacion De Un Vehiculo
+        Route::get('/administrator/vehiculos/edit/{id}', 'VehiculosController@getViajesEdit')->name('parking.amdin.vehicles.edit');
+        Route::post('/administrator/vehiculos/edit/{id}', 'VehiculosController@postViajesEdit')->name('parking.admin.vechicles.edit');
+        // Ruta Para Eliminar Un Vehiculo
+        Route::get('/administrator/vehiculos/delete/{id}', 'VehiculosController@getVehiclesDelete')->name('parking.admin.vehicles.delete');
+
+        // Rutas Para Vista Conductores
+        Route::get('/administrator/conductores', 'DriversController@conductores')->name('cefa.parking.drivers');
     });
 });
