@@ -87,7 +87,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('cefa.parking.tecnomecanica') }}" class="nav-link">
                             <i class="fa-solid fa-screwdriver"></i>
                             <p>
                                 {{trans('hangarauto::Tecno.Tecnomecanic')}}
@@ -95,7 +95,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('cefa.parking.soat') }}" class="nav-link">
                             <i class="fas fa-file-signature"></i>
                             <p>
                                 {{trans('hangarauto::soat.Soat')}}

@@ -28,7 +28,7 @@ class RevisionesController extends Controller
     // Retorne A La Vista Soat
     public function getSoatAdd()
     {
-        return view('cefa.parking.admin.soat');
+        return view('cefa.parking.soat');
     }
 
     
@@ -84,7 +84,11 @@ class RevisionesController extends Controller
     }
 
     // Agregar Tecnomecanica
-    public function getTecnomecanicAdd(Request $request)
+    public function getTecnomecanicaAdd(){
+        return view('cefa.parking.tecnomecanica');
+    }
+
+    public function postTecnomecanicAdd(Request $request)
     {
         $rules = [
             'vehicle_name_id' => 'required',
@@ -120,7 +124,7 @@ class RevisionesController extends Controller
     {
         $Tecnomecanic = Tecnomecanic::find($id);
         if($Tecnomecanic->delete()):
-            return redirect(route('cefa.parkingtecnomecanica'))->with('messages', 'Registro Eliminado Con Exito')->with('typealert','success');
+            return redirect(route('cefa.parking.tecnomecanica'))->with('messages', 'Registro Eliminado Con Exito')->with('typealert','success');
         endif;
     }
 }
