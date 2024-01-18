@@ -45,8 +45,11 @@ class InventoryController extends Controller
         // Obtener los registros de 'productive_unit_warehouses' que coinciden con la unidad productiva seleccionada
         $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->pluck('id');
 
+        //Declaracion de estado
+        $state = 'Disponible';
+
         // Obtener los registros de inventario que coinciden con las bodegas relacionadas
-        $inventory = Inventory::whereIn('productive_unit_warehouse_id', $unitWarehouses)->get();
+        $inventory = Inventory::where('state', $state)->whereIn('productive_unit_warehouse_id', $unitWarehouses)->get();
 
         $productiveUnitName = ProductiveUnit::where('id', $selectedUnitId)->value('name');
 

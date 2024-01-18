@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\AGROCEFA\Database\Seeders;
+namespace Modules\AGROINDUSTRIA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +16,7 @@ use Modules\SICA\Entities\Municipality;
 use Modules\SICA\Entities\Country;
 use Modules\SICA\Entities\MovementType;
 
-class WarehouseEntranceTableSeeder extends Seeder
+class ProductiveUnitWarehouseEntranceTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -27,13 +27,13 @@ class WarehouseEntranceTableSeeder extends Seeder
     {
 
         // Consultar la app para realizar la creacion de roles
-        $app = App::where('name','AGROCEFA')->first();
+        $app = App::where('name','AGROINDUSTRIA')->first();
 
-        $person = Person::where('document_number','13706')->first();
+        $person = Person::where('document_number','1083874040')->first();
 
         $sector = Sector::updateOrCreate([ 
-            'name' => 'Agricola',
-            'description' => 'Sector agricola del cefa',
+            'name' => 'Agroindustrial',
+            'description' => 'Sector agroindustrial del cefa',
         ]);
 
         $country = Country::updateOrCreate([ 
@@ -64,16 +64,28 @@ class WarehouseEntranceTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
-        $productiveentrance = ProductiveUnit::where('name', 'Almacen')->first();
+        $warehousecreate = Warehouse::updateOrCreate([ 
+            'name' => 'Agroindustria',
+            'description' => 'Bodega de Agroindustria',
+            'app_id' => $app->id
+        ]);
+
+        $productiveentrance = ProductiveUnit::updateOrCreate([ 
+            'name' => 'Almacen',
+            'description' => 'Unidad para realizar movimientos de entrada',
+            'person_id' => $person->id,
+            'sector_id' => $sector->id,
+            'farm_id' => $farm->id
+        ]);
 
         $productive_unit_warehouse = ProductiveUnitWarehouse::updateOrCreate([
             'productive_unit_id' => $productiveentrance->id,
             'warehouse_id' => $warehouseentrance->id
         ]);
 
-        $movementype = MovementType::updateOrCreate([
+        $movementType = MovementType::updateOrCreate([
             'name' => 'Movimiento Entrada',
-            'consecutive' => 0
+            'consecutive' => '0'
         ]);
     }
 }

@@ -24,6 +24,7 @@ class AGROCEFADatabaseSeeder extends Seeder
         $this->call(PermissionsTableSeeder::class);
         $this->call(WarehouseEntranceTableSeeder::class);
         $this->call(ProductiveUnitTableSeeder::class);
+        $this->call(InventoryTableSeeder::class);
         
         
 

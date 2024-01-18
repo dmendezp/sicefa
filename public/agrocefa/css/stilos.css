@@ -477,16 +477,3 @@ li a i {
     height: 10px;
     /* Agrega estilos de imagen, como bordes, sombras, etc. */
 }
-
-.user-details {
-    /* Agrega estilos para la sección de detalles del usuario */
-}
-
-.user-name {
-    font-weight: bold;
-    /* Otros estilos de texto */
-}
-
-.user-role {
-    /* Estilos adicionales para el rol */
-}
