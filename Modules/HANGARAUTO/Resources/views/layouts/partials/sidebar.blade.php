@@ -66,7 +66,7 @@
                 </ul>
             </div>
 
-            <!-- Sidebar Menu -->
+            <!-- Sidebar Menu Administrador-->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
@@ -83,6 +83,30 @@
                             <i class="fas fa-bus"></i>
                             <p>
                                 {{trans('hangarauto::vehiculos.Vehicles')}}
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fa-solid fa-screwdriver"></i>
+                            <p>
+                                {{trans('hangarauto::Tecno.Tecnomecanic')}}
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-file-signature"></i>
+                            <p>
+                                {{trans('hangarauto::soat.Soat')}}
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fa-solid fa-gas-pump"></i>
+                            <p>
+                                {{trans('hangarauto::comsuption.fuelcomsuption')}}
                             </p>
                         </a>
                     </li>

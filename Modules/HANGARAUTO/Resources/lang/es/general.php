@@ -22,7 +22,7 @@ return [
     // Titulo ¿De Que Se Trata Hangar Auto?
     'title2' => '¿De Que Se Trata Hangar Auto?',
     // Titulo ¿Cual Es Su Objetivo?
-    'title3' => 'Cuál Es El Objectivo De Hangar Auto?',
+    'title3' => 'Cuál Es El Objetivo De Hangar Auto?',
 
     // Texto ¿De Que Se Trata Hangar Auto?
     'text1' => 'Facilitar el sistema de préstamos de vehículos del CEFA, mediante un sistema que permita enviar una solicitud de préstamo al coordinador, donde este le asignará en base a la fecha escogida un conductor y un vehículo que le permita al usuario movilizarse. Mediante un correo se le informará al instructor si fue posible programar un vehículo para la fecha que el solicitante asignó en el formulario. ',
