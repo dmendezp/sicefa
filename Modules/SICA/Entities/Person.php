@@ -12,6 +12,7 @@ use App\Models\User;
 use Modules\SICA\Entities\Event;
 use Modules\AGROINDUSTRIA\Entities\Formulation;
 use Modules\AGROINDUSTRIA\Entities\RequestExternal;
+use Modules\AGROCEFA\Entities\Executor;
 
 class Person extends Model implements Auditable
 {
@@ -122,6 +123,9 @@ class Person extends Model implements Auditable
     public function events(){ // Accede a todos los eventos que ha asistido esta persona (PIVOTE)
         return $this->belongsToMany(Event::class, 'event_attendances')->withTimestamps();
     }
+    public function executors(){
+        return $this->hasMany(Executor::class,);
+    }
     public function farms(){ // Accede a todas las granjas que lidera esta persona
         return $this->hasMany(Farm::class);
     }
@@ -158,6 +162,7 @@ class Person extends Model implements Auditable
     public function users(){ // Accede a todos los usuarios registrados con esta persona
         return $this->hasMany(User::class);
     }
+    
 
 
     // Configuración de factory para la generación de datos de pruebas

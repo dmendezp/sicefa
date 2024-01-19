@@ -5,6 +5,10 @@ namespace Modules\SICA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use Modules\AGROCEFA\Entities\AgriculturalLabor;
+use Modules\AGROCEFA\Entities\Crop;
+
+
 
 use Modules\AGROINDUSTRIA\Entities\Consumable;
 use Modules\AGROINDUSTRIA\Entities\Executor;
@@ -26,6 +30,7 @@ class Labor extends Model implements Auditable
         'description',
         'price',
         'status',
+        'price',
         'observations',
         'destination'
     ];
@@ -41,8 +46,14 @@ class Labor extends Model implements Auditable
     public function activity(){ // Accede a la información de la actividad al que pertenece
         return $this->belongsTo(Activity::class);
     }
-    public function consumables(){ // Accede a todos los consumibles que pertenecen a esta labor
+    public function agricultural_labors(){ // Accede a todos los registros de recursos de labor que pertenecen a esta labor
+        return $this->hasMany(AgriculturalLabor::class);
+    }
+    public function consumables(){ // Accede a todos los equipos que pertenecen a esta labor
         return $this->hasMany(Consumable::class);
+    }
+    public function crops(){
+        return $this->belongsToMany(Crop::class,'crop_labors');//Relacion de muchos a muchos entre labors y crops
     }
     public function environmental_aspect_labors(){ // Accede a todos los registros de la asociación entre aspectos ambientales y labores que pertenecen a esta labor
         return $this->hasMany(EnvironmentalAspectLabor::class);
@@ -62,5 +73,8 @@ class Labor extends Model implements Auditable
     public function tools(){ // Accede a todas las herramientas que pertenecen a esta labor
         return $this->hasMany(Tool::class);
     }
+
+
+    
 
 }
