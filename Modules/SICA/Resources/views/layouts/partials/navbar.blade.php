@@ -23,6 +23,13 @@
                     </a>
                 </li>
             @endif
+            @if (checkRol('sica.academic_coordinator'))
+                <li class="nav-item d-none d-sm-inline-block mr-1 {{ !Route::is('*.academic_coordinator.*') ?: 'active' }}">
+                    <a href="{{ route('sica.academic_coordinator.dashboard') }}" class="nav-link">
+                        {{ trans('sica::menu.academic_coordinator') }}
+                    </a>
+                </li>
+            @endif
         @endguest
     </ul>
     <!-- Right navbar links -->

@@ -4,6 +4,7 @@ namespace Modules\SICA\Http\Controllers\people;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Route;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\EPS;
 use Modules\SICA\Entities\PensionEntity;
@@ -21,6 +22,7 @@ class PeopleController extends Controller
 
     /* Buscar datos personales por número de documento */
     public function personal_data_search(Request $request){
+        $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
         $rules = [
             'search' => 'required'
         ];
@@ -29,16 +31,16 @@ class PeopleController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if($validator->fails()):
-            return redirect(route('sica.admin.people.personal_data.index'))->withErrors($validator)->with('message', 'Se ha producido un error.')->with('typealert', 'danger')->withInput();
+            return redirect(route('sica.'.$role_name.'.people.personal_data.index'))->withErrors($validator)->with('message', 'Se ha producido un error.')->with('typealert', 'danger')->withInput();
         else:
         $doc =$request->input('search');
         $person = Person::where('document_number',$doc)->with('users')->first();
         switch ($person) {
             case '':
-                return redirect(route('sica.admin.people.personal_data.create', $doc));
+                return redirect(route('sica.'.$role_name.'.people.personal_data.create', $doc));
                 break;
             default:
-            return redirect(route('sica.admin.people.personal_data.edit', $person));
+            return redirect(route('sica.'.$role_name.'.people.personal_data.edit', $person));
                 break;
         }
         endif;
@@ -56,6 +58,7 @@ class PeopleController extends Controller
 
     /* Registrar datos personales */
     public function personal_data_store(Request $request){
+        $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
         $rules = [
             'document_number' => 'required|unique:people',
             'document_type' => 'required',
@@ -68,12 +71,12 @@ class PeopleController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails()):
-            return redirect(route('sica.admin.people.personal_data.create', $request->input('document_number')))->withErrors($validator)->with('message', 'Se ha producido un error.')->with('typealert', 'danger')->withInput();
+            return redirect(route('sica.'.$role_name.'.people.personal_data.create', $request->input('document_number')))->withErrors($validator)->with('message', 'Se ha producido un error.')->with('typealert', 'danger')->withInput();
         else:
             if(Person::create($request->all())){
-                return redirect(route('sica.admin.people.personal_data.index'))->with('message', 'Persona registrada exitosamente.')->with('typealert', 'success');
+                return redirect(route('sica.'.$role_name.'.people.personal_data.index'))->with('message', 'Persona registrada exitosamente.')->with('typealert', 'success');
             } else {
-                return redirect(route('sica.admin.people.personal_data.index'))->with('message', 'Ocurrió un error en el registro de la persona.')->with('typealert', 'error');
+                return redirect(route('sica.'.$role_name.'.people.personal_data.index'))->with('message', 'Ocurrió un error en el registro de la persona.')->with('typealert', 'error');
             }
         endif;
     }
@@ -91,6 +94,7 @@ class PeopleController extends Controller
 
     /* Actualizar datos personales */
     public function personal_data_update(Request $request, Person $person){
+        $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
         $rules = [
             'document_number' => 'required|unique:people,document_number,'.$person->id,
             'document_type' => 'required',
@@ -102,10 +106,10 @@ class PeopleController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails()):
-            return redirect(route('sica.admin.people.personal_data.edit', $person))->withErrors($validator)->with('message', 'Se ha producido un error.')->with('typealert', 'danger')->withInput();
+            return redirect(route('sica.'.$role_name.'.people.personal_data.edit', $person))->withErrors($validator)->with('message', 'Se ha producido un error.')->with('typealert', 'danger')->withInput();
         else:
             if($person->update($request->all())){
-                return redirect(route('sica.admin.people.personal_data.index'))->with('message', 'Datos personales actualizado exitosamente.')->with('typealert', 'success');
+                return redirect(route('sica.'.$role_name.'.people.personal_data.index'))->with('message', 'Datos personales actualizado exitosamente.')->with('typealert', 'success');
             }
         endif;
     }

@@ -1,3 +1,7 @@
+@php
+    $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
+@endphp
+
 @extends('sica::layouts.master')
 
 @section('content')
@@ -12,9 +16,9 @@
                         <div class="row">
                             <div class="col-md-4 pr-3 pb-3">
                                 @isset($holiday)
-                                    <form action="{{ route('sica.admin.academy.holidays.store', $holiday) }}" method="post">
+                                    <form action="{{ route('sica.'.$role_name.'.academy.holidays.update', $holiday) }}" method="post">
                                 @else
-                                    <form action="{{ route('sica.admin.academy.holidays.store') }}" method="post">
+                                    <form action="{{ route('sica.'.$role_name.'.academy.holidays.store') }}" method="post">
                                 @endisset
                                     @csrf
                                     <div class="form-group">
@@ -27,11 +31,17 @@
                                     </div>
                                     <div class="text-center">
                                         @isset ($holiday)
-                                            <a href="{{ route('sica.admin.academy.holidays.index') }}" class="btn btn-secondary">Cancelar</a>
-                                            <button type="submit" class="btn btn-success">Actualizar</button>
+                                            @if(Auth::user()->havePermission('sica.'.$role_name.'.academy.holidays.index'))
+                                                <a href="{{ route('sica.'.$role_name.'.academy.holidays.index') }}" class="btn btn-secondary">Cancelar</a>
+                                            @endif
+                                            @if(Auth::user()->havePermission('sica.'.$role_name.'.academy.holidays.update'))
+                                                <button type="submit" class="btn btn-success">Actualizar</button>
+                                            @endif
                                         @else
                                             <button type="reset" class="btn btn-secondary">Cancelar</button>
-                                            <button type="submit" class="btn btn-primary">Registrar</button>
+                                            @if(Auth::user()->havePermission('sica.'.$role_name.'.academy.holidays.store'))
+                                                <button type="submit" class="btn btn-primary">Registrar</button>
+                                            @endif
                                         @endisset
                                     </div>
                                 </form>
@@ -54,16 +64,20 @@
                                                     <td class="text-center">{{ $h->date }}</td>
                                                     <td>{{ $h->issue }}</td>
                                                     <td class="text-center">
-                                                        <a href="{{ route('sica.admin.academy.holidays.edit', $h) }}" class="mr-1" data-toggle='tooltip' data-placement="top" title="Actualizar día festivo">
-                                                            <i class="fas fa-edit text-success"></i>
-                                                        </a>
-                                                        <a href="#" onclick="event.preventDefault(); if(confirm('¿Estás seguro de que deseas eliminar el día festivo {{ $h->date }} con asunto: {{ $h->issue }}?')) { document.getElementById('delete-form-holiday{{ $h->id }}').submit(); }" data-toggle='tooltip' data-placement="top" title="Eliminar día festivo">
-                                                            <i class="fas fa-trash-alt text-danger"></i>
-                                                        </a>
-                                                        <form id="delete-form-holiday{{ $h->id }}" action="{{ route('sica.admin.academy.holidays.destroy', $h) }}" method="POST" style="display: none;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                        </form>
+                                                        @if(Auth::user()->havePermission('sica.'.$role_name.'.academy.holidays.edit'))
+                                                            <a href="{{ route('sica.'.$role_name.'.academy.holidays.edit', $h) }}" class="mr-1" data-toggle='tooltip' data-placement="top" title="Actualizar día festivo">
+                                                                <i class="fas fa-edit text-success"></i>
+                                                            </a>
+                                                        @endif
+                                                        @if(Auth::user()->havePermission('sica.'.$role_name.'.academy.holidays.destroy'))
+                                                            <a href="#" onclick="event.preventDefault(); if(confirm('¿Estás seguro de que deseas eliminar el día festivo {{ $h->date }} con asunto: {{ $h->issue }}?')) { document.getElementById('delete-form-holiday{{ $h->id }}').submit(); }" data-toggle='tooltip' data-placement="top" title="Eliminar día festivo">
+                                                                <i class="fas fa-trash-alt text-danger"></i>
+                                                            </a>
+                                                            <form id="delete-form-holiday{{ $h->id }}" action="{{ route('sica.'.$role_name.'.academy.holidays.destroy', $h) }}" method="POST" style="display: none;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                            </form>
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -82,7 +96,11 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('#holidays_table').DataTable({});
+            $('#holidays_table').DataTable({
+                columnDefs: [
+                    { orderable: false, targets: 3 }
+                ]
+            });
         });
     </script>
 @endsection
