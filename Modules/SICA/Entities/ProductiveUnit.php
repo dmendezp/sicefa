@@ -68,10 +68,5 @@ class ProductiveUnit extends Model implements Auditable
     }
     public function species(){ // Accede a la informacion de la especie a la que pertenece
         return $this->hasMany(Specie::class);
-
     }
-    public function sector(){ // Accede a la información del sector al que pertenece
-        return $this->belongsTo(Sector::class);
-    }
-
 }

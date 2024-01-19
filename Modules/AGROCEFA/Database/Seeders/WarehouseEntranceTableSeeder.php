@@ -36,6 +36,16 @@ class WarehouseEntranceTableSeeder extends Seeder
             'description' => 'Sector agricola del cefa',
         ]);
 
+        $farm = Farm::where('name','Cefa')->first();
+
+        $productiveunitnew = ProductiveUnit::updateOrCreate([ 
+            'name' => 'Almacen',
+            'description' => 'Almacen para movimientos de entrada',
+            'person_id' => '5',
+            'sector_id' => $sector->id,
+            'farm_id' => $farm->id
+            ]);
+
         $country = Country::updateOrCreate([ 
             'name' => 'Colombia'
         ]);
