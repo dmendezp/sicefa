@@ -11,9 +11,11 @@ use Modules\EVS\Entities\Authorized;
 use App\Models\User;
 use Modules\HDC\Entities\FamilyPersonFootprint;
 use Modules\SICA\Entities\Event;
+use Modules\SIGAC\Entities\Attendance;
 use Modules\AGROINDUSTRIA\Entities\Formulation;
 use Modules\AGROINDUSTRIA\Entities\RequestExternal;
 use Modules\AGROCEFA\Entities\Executor;
+
 
 class Person extends Model implements Auditable
 {
@@ -102,6 +104,9 @@ class Person extends Model implements Auditable
     }
     public function apprentices(){ // Accede a todos aprendices que han sido asociados con esta persona
         return $this->hasMany(Apprentice::class);
+    }
+    public function attendances(){ // Accede a todos aprendices que han sido asociados con esta persona
+        return $this->hasMany(Attendance::class);
     }
     public function authorizeds(){ // Accede a todas los registros de las personas que han sido autorizados para votar
         return $this->hasMany(Authorized::class);
