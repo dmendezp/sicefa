@@ -9,6 +9,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Modules\EVS\Entities\Jury;
 use Modules\EVS\Entities\Authorized;
 use App\Models\User;
+use Modules\HDC\Entities\FamilyPersonFootprint;
 use Modules\SICA\Entities\Event;
 use Modules\AGROINDUSTRIA\Entities\Formulation;
 use Modules\AGROINDUSTRIA\Entities\RequestExternal;
@@ -128,6 +129,9 @@ class Person extends Model implements Auditable
     }
     public function farms(){ // Accede a todas las granjas que lidera esta persona
         return $this->hasMany(Farm::class);
+    }
+    public function familypersonfootprints(){ // Accede a todas las familias que consumen este recuerso
+        return $this->hasMany(FamilyPersonFootprint::class);
     }
     public function formulations(){ // Accede a todos los registros de formulaciones que tiene esta persona.
         return $this->hasMany(Formulation::class);
