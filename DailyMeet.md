@@ -13,28 +13,78 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 <!-- Mira **Deployment** para conocer como desplegar el proyecto. -->
 
 
-## CEFAMAPS 📌
+## AGROINDUSTRIA 🧁
 
 ### Sprint 1 🔄
-#### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar*
-* **Integrante 2** - *Actividades a realizar*
+#### Sprint Planning 22-Agt-2023
+* **Jennifer Marin Montealegre** - *CRUD de formulacion o recetas*
+* **David Juliam Cadena Barrera** - *Monitoreo de las bodegas con sus insumos.*
+* **Juan Diego Bonilla Aroca** - *CRUD de actividad*
+* **Julian Javier Ramirez Diaz** - *Solicitud de insumos a Centro*
+
 ...
-#### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 29-Ago-2023
+* **Jennifer Marin Montealegre** - *Rutas controladores vistas para formulacion* - *44%* - *Conflictos entre archivos* - *Solucionar conflictos y hacer diseño de las vistas*
+
+* **David Juliam Cadena Barrera** - *Rutas controladores vistas para formulacion* - *21 %* - *No contaba con mi equipo de computo* - *Continuar con el desarrollo de la tarea.*
+
+**Juan Diego Bonilla Aroca** - *Tarea Completada* - *98%* - *Ninguna* - *Ninguna*
+
+**Julian Javier Ramirez Diaz** - *Rutas controladores vistas para solicitud* - *44%* - *Ninguna* - *Ninguna*
+
 ---
-#### Meet 31-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 31-Agosto-2023
+* **Jennifer Marin Montealegre** - *Formulario para registro de formulacion* - *78%* - *Nunguna* - *Ninguna*
+
+* **David Juliam Cadena Barrera** - *Formulario de registro de nuevo insumo y de edicion* - *50%* - *Ninguna* - *Ninguna.*
+
+**Juan Diego Bonilla Aroca** - *vista de entregas* - *98%* - *Ninguna* - *Ninguna*
+
+**Julian Javier Ramirez Diaz** - *Rutas controladores vistas para solicitud* - *44%* - *Ninguna* - *Ninguna*
+
+### Sprint 2 🔄
+#### Sprint Planning 29-Agt-2023
+* **Jennifer Marin Montealegre** - *Visualización de Insumos utilizados en el desarrollo de productos.*
+* **David Juliam Cadena Barrera** - *Dar de baja a insumos de Bodega.*
+* **Juan Diego Bonilla Aroca** - *Registro de entrega de productos a punto de venta.*
+* **Julian Javier Ramirez Diaz** - *Registro de entrega de productos a punto de venta.*
+#### Meet 31-Agosto-20223
+* **Jennifer Marin Montealegre** - *No inciado* - *0%* - *Ninguna* - *Ninguna*
+
+* **David Juliam Cadena Barrera** - *No inciado* - *0%* - *Ninguna* - *Ninguna*
+
+**Juan Diego Bonilla Aroca** - *vista de entregas* - *44%* - *Ninguna* - *Ninguna*
+
+**Julian Javier Ramirez Diaz** - *No inciado* - *0%* - *Ninguna* - *Ninguna*
+
+
+#### Meet 31-Agosto-20223
+* **Jennifer Marin Montealegre** - *No inciado* - *0%* - *Nunguna* - *Ninguna*
+
+* **David Juliam Cadena Barrera** - *No inciado* - *0%* - *Nunguna* - *Ninguna*
+
+**Juan Diego Bonilla Aroca** - *vista de entregas* - *44%* - *Ninguna* - *Ninguna*
+
+**Julian Javier Ramirez Diaz** - *No inciado* - *0%* - *Nunguna* - *Ninguna*
+
+
+
+#### Meet 06-Sep-2023
+* **IDavid Juliam Cadena Barrera** - *Funcion de mostrar elementos de inventario en datatable, se agrega formulario de agregar alemento a inventario.* - *64 %* - *Consultas entre tablas relacionadas* - *documentacion larabel.*
+
+**Juan Diego Bonilla Aroca** - *Avance en crud de dormulaciones y recetas* - *54%* - *Ninguna* - *Ninguna*
+
+**Julian Javier Ramirez Diaz** - *Implementacion de movimientos internos.* - *90%* - *Ninguna* - *Ninguna*
+
 ---
-#### Meet 02-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 08-Sep-2023
+* **IDavid Juliam Cadena Barrera** - *Desarrollo de datatable.* - *74 %* - *Ninguna* - *Ninguna*
+
+**Juan Diego Bonilla Aroca** - *Crud formulaciones y recetas* - *65%* - *Ninguna* - *Ninguna*
+
+**Julian Javier Ramirez Diaz** - *Implementacion de movimientos internos.* - *100%* - *Ninguna* - *Ninguna*
+
 ---
-#### Meet 04-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 07-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*

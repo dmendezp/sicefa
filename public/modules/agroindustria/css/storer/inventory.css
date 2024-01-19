@@ -1,0 +1,24 @@
+#edit{
+    width: 60px;/* ancho */
+    height: 30px;/* altura */
+}
+
+#delete{
+    width: 60px;/* ancho */
+    height: 30px;/* altura */
+}
+
+#saveformadd{
+    width: 60px;/* ancho */
+    height: 30px;/* altura */
+}
+
+
+.card-datatable{
+    width: 1200px;/* ancho */
+    height: 800px;/* altura */
+   border-radius: 5px;
+   border-color: black;
+}
+
+
