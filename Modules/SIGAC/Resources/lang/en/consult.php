@@ -1,26 +1,20 @@
 <?php
 
 return [
-    //Breadcrumb
-    'Attendance'              => 'Attendance',
-    'Consultation'            => 'Consult',
-    'Attendance Consultation' => 'Attendance Consultation',
+    // Breadcrumbs
+	'Breadcrumb_Active_Attendance' => 'Attendance',
+	'Breadcrumb_Consult_Excuses'   => 'Consult Excuses',
 
-    //CardForm
-    'CardLabel1'              => 'Technologist',
-    'CardSelect1'             => 'Choose a technologist',
-    'CardLabel2'              => 'Apprentice is name',
-    'CardSelect2'             => 'Choose a apprentice',
-    'CardLabel3'              => 'Course',
-    'CardSelect3'             => 'Choose a course',
-    'CardLabel4'              => 'Code',
-    'CardSelect4'             => 'Choose the code',
-    'CardLabel5'              => 'Start date',
-    'CardLabel6'              => 'End date',
+    // Card Form Consult
+    'Card_Title_Technologist'    => 'Technologist',
+    'Card_Title_Apprentice'      => 'Apprentice is name',
+    'Card_Title_Start_Date'      => 'Start date',
+    'Card_Title_End_Date'        => 'End date',
+    'Card_Select'                => 'Select...',
     
-    //CardCalendar
-    'AprenticeAttendance'    => 'Aprentice Attendance:',
+    // Card Calendar
+    'Title_Aprentice_Attendance' => 'Aprentice Attendance:',
 
-    //Buttons
-    'Consult' => 'Consult',
+    // Buttons
+    'Btn_Consult' => 'Consult',
 ];

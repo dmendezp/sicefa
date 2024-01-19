@@ -5,6 +5,7 @@ namespace Modules\SICA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use Modules\AGROINDUSTRIA\Entities\Supply;
 
 class MeasurementUnit extends Model implements Auditable
 {
@@ -43,6 +44,9 @@ class MeasurementUnit extends Model implements Auditable
     }
     public function environmental_aspects(){ // Accede a todos los aspectos ambientales que pertenecen a esta unidad de medida
         return $this->hasMany(EnvironmentalAspect::class);
+    }
+    public function supplies(){ // Accede a todos los registros de recursos que pertenecen a esta unidad de medida
+        return $this->hasMany(Supply::class);
     }
 
 }

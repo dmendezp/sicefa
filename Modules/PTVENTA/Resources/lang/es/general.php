@@ -10,6 +10,7 @@ return [
     'Spanish'          => 'Español',
     'Full Screen Mode' => 'Modo Pantalla Completa',
     'Log In'           => 'Iniciar Sesión',
+    'Apps'             => 'Aplicaciones',
 
     //Siderbar
     'Sales Point'      => 'Punto de Venta',
@@ -25,6 +26,10 @@ return [
     'Configuration'    => 'Configuración',
     'Developers'       => 'Desarrolladores',
     'About us'         => 'Acerca de',
+
+    // ControlSidebar
+    'Browse'           => 'Navega!',
+    'Clic'             => 'Si quieres ir a otra app solo haz clic.',
 
     //Footer
     'All Rights Reserved.' => 'Todos los derechos reservados.',

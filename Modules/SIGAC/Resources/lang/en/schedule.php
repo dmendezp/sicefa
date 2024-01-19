@@ -1,8 +1,9 @@
 <?php
 
 return [
-    //Breadcrumb
-    'Schedule'              => 'Schedule',
-    'Schedule Instructor'   => 'Schedule Instructor',
-
+    // Breadcrumbs
+	'Breadcrumb_Active_Schedule'     => 'Schedule',
+	'Breadcrumb_Schedule_Apprentice' => 'Apprentice',
+	'Breadcrumb_Schedule_Instructor' => 'Instructor',
+	'Breadcrumb_Schedule_Titled'     => 'Titled',
 ];

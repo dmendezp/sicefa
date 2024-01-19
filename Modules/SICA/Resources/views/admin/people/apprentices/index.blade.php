@@ -1,3 +1,7 @@
+@php
+    $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
+@endphp
+
 @extends('sica::layouts.master')
 
 @section('stylesheet')
@@ -36,7 +40,9 @@
                                     {!! Form::button('Busqueda avanzada', ['class' => 'btn btn-link btn-xs']) !!}
                                 </div> --}}
                                 <div class="col-md-2">
-                                    <a class="btn btn-outline-secondary" href="{{ route('sica.admin.people.apprentices.load.create') }}">Cargar Archivo</a>
+                                    @if (Auth::user()->havePermission('sica.'.$role_name.'.people.apprentices.load.create'))
+                                        <a class="btn btn-outline-secondary" href="{{ route('sica.'.$role_name.'.people.apprentices.load.create') }}">Cargar Archivo</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -59,7 +65,7 @@
             var miObjeto = new Object();
             miObjeto.course_id = $('#course_id').val();
             var myString = JSON.stringify(miObjeto);
-            ajaxReplace('divApprentices', '/sica/admin/people/apprentices/search', myString);
+            ajaxReplace('divApprentices', '/sica/{{ $role_name }}/people/apprentices/search', myString);
         });
     </script>
 @endsection

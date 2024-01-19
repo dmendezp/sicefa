@@ -1,0 +1,131 @@
+.container_create{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form{
+    width: 1000px;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 4px;
+}
+
+.form-body{
+    padding: 10px;
+}
+
+.form-header{
+    background-color: rgb(247, 244, 244);
+    border-bottom: 1px solid rgb(0, 0, 0);
+    font-weight: bold;
+    padding-left: 4px;
+}
+
+label{
+    font-weight: bold;
+}
+
+#products{
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+.available-quantity {
+    position: absolute;
+    margin-top: 5px; 
+    color: #666; 
+    font-size: 14px; 
+}
+
+
+#add-product{
+    padding: 10px 0px 10px 0px;
+    width: 94.4%;
+    color: white;
+    font-weight: bold;
+    border: none;
+    background-color: green;
+    border-radius: 4px;
+}
+
+.remove-product{
+    position: relative;
+    left: 5%;
+    padding: 10px 10px 10px 10px;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: red;
+    border-radius: 4px;
+    border: none;
+}
+
+#products .product{
+    margin-top: 10px;
+}
+
+/* Id generales*/
+#readonly-bg-gray {
+    background-color: #f0f0f0; /* Cambia este valor al color de fondo que desees */
+}
+
+/* Id que se usan es scripts y no se pueden cambiar*/
+#document_number_coordinator{
+    background-color: #f0f0f0; /* Cambia este valor al color de fondo que desees */   
+}
+
+#receivePerson{
+    background-color: #f0f0f0; /* Cambia este valor al color de fondo que desees */   
+}
+
+#available{
+    background-color: #f0f0f0; /* Cambia este valor al color de fondo que desees */   
+}
+
+#price{
+    background-color: #f0f0f0; /* Cambia este valor al color de fondo que desees */   
+}
+
+#lote{
+    background-color: #f0f0f0; /* Cambia este valor al color de fondo que desees */   
+}
+
+#fVto{
+    background-color: #f0f0f0; /* Cambia este valor al color de fondo que desees */     
+}
+
+#center_button{
+    text-align: center;
+}
+
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.enviar{
+    margin-top: 10px;
+    background-color: #fa9cb2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    width: 30%;
+}
+
+.enviar:hover{
+    background-color: #ffbbcb;
+}
+
