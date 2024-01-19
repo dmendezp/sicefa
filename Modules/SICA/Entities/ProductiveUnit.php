@@ -49,6 +49,9 @@ class ProductiveUnit extends Model implements Auditable
     public function farm(){ // Accede a la información de la finca al que pertenece
         return $this->belongsTo(Farm::class);
     }
+    public function formulations(){ // Accede a todos los registros de las formulaciones que pertenecen a esta unidad productiva
+        return $this->hasMany(Formulation::class);
+    }
     public function person(){ // Accede a la información de la persona lider de esta unidad productiva
         return $this->belongsTo(Person::class);
     }
