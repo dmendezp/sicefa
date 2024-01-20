@@ -38,8 +38,8 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
-        // Registrar o actualizar rol de COORDINADOR
-        $role_coordinator = Role::updateOrCreate(['slug' => 'sica.coordinator'], [
+        // Registrar o actualizar rol de COORDINADOR ACADÉMICO
+        $role_coordinator = Role::updateOrCreate(['slug' => 'sica.academic_coordinator'], [
             'name' => 'Coordinador Académico',
             'description' => 'Rol Coordinador Académico de la aplicación SICA',
             'description_english' => 'Role Academic Coordinator of the SICA application',

@@ -3,6 +3,7 @@
 return [
 	'Home' => 'Inicio',
 	'Administrator' => 'Administrador',
+	'academic_coordinator' => 'Coordinador académico',
 	'Attendance' => 'Asistencia',
 	'Contact' => 'Contacto',
 	'Notifications' => 'Notificaciones',
@@ -12,6 +13,9 @@ return [
 	'mins' => 'min',
 	'days' => 'dias',
 	'Welcome' => 'Bienvenido',
+	'admin_dashboard' => 'Panel de administración',
+	'academic_coordinator_dashboard' => 'Panel de coordinación académica',
+	'attendance_dashboard' => 'Panel de asistencias',
 	'Dashboard' => 'Panel de control',
 	'People' => 'Personas',
 	'Personal data' => 'Datos Personales',

@@ -21,40 +21,39 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="full_name">Nombre</label>
+                        <label for="full_name">{{ trans('gth::menu.Name') }}</label>
                         <input type="text" name="full_name" id="full_name" class="form-control" readonly>
                     </div>
                     <input type="hidden" name="person_id" id="person_id" value="">
 
                     <div class="form-group">
-                        <label for="contract_number">Número de contrato</label>
+                        <label for="contract_number">{{ trans('gth::menu.Contract Number:') }}</label>
                         <input type="text" class="form-control" id="contract_number" name="contract_number"
-                            placeholder="Ingrese el número de contrato">
+                            placeholder={{ trans('gth::menu.Enter the contract number') }}>
                     </div>
 
                     <div class="form-group">
-                        <label for="contract_date">Fecha de contrato</label>
+                        <label for="contract_date">{{ trans('gth::menu.Contract date:') }}</label>
                         <input type="date" class="form-control" id="contract_date" name="contract_date"
-                            placeholder="Ingrese la fecha de contrato">
+                            placeholder= {{ trans('gth::menu.Enter the contract date') }}>
                     </div>
 
                     <div class="form-group">
-                        <label for="professional_card_number">Número de tarjeta profesional</label>
+                        <label for="professional_card_number">{{ trans('gth::menu.Professional card number') }}</label>
                         <input type="text" class="form-control" id="professional_card_number"
-                            name="professional_card_number" placeholder="Ingrese el número de tarjeta profesional">
+                            name="professional_card_number" placeholder="{{ trans('gth::menu.Enter your professional card number') }}">
                     </div>
                     <div class="form-group">
-                        <label for="professional_card_issue_date">Fecha de emisión de la tarjeta
-                            profesional</label>
+                        <label for="professional_card_issue_date">{{ trans('gth::menu.Date of issue of professional card') }}</label>
                         <input type="date" class="form-control" id="professional_card_issue_date"
                             name="professional_card_issue_date"
-                            placeholder="Ingrese la fecha de emisión de la tarjeta profesional">
+                            placeholder={{ trans('gth::menu.Enter the date of issuance of the professional card') }}>
                     </div>
 
                     <div class="form-group">
-                        <label for="employee_type_id">Tipo de empleado</label>
+                        <label for="employee_type_id">{{ trans('gth::menu.Employee Type') }}</label>
                         <select class="form-control" id="employee_type_id" name="employee_type_id">
-                            <option value="">Seleccione tipo de empleado</option>
+                            <option value="">{{ trans('gth::menu.Select employee type') }}</option>
                             @foreach ($employeeTypes as $employeeType)
                                 <option value="{{ $employeeType->id }}">{{ $employeeType->name }}</option>
                             @endforeach
@@ -62,9 +61,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="position_id">Cargo</label>
+                        <label for="position_id">{{ trans('gth::menu.Position') }}</label>
                         <select class="form-control" id="position_id" name="position_id">
-                            <option value="">Seleccione cargo</option>
+                            <option value="">{{ trans('gth::menu.Select position') }}</option>
                             @foreach ($positions as $position)
                                 <option value="{{ $position->id }}">
                                     {{ $position->id }}-{{ $position->professional_denomination }}</option>
@@ -73,9 +72,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="risk_type">Tipo de riesgo</label>
+                        <label for="risk_type">{{ trans('gth::menu.Type of risk') }}</label>
                         <select class="form-control" id="risk_type" name="risk_type">
-                            <option value="">Seleccione tipo de riesgo</option>
+                            <option value="">{{ trans('gth::menu.Select type of risk') }}</option>
                             <option value="I">I</option>
                             <option value="II">II</option>
                             <option value="III">III</option>
@@ -85,16 +84,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="state">Estado</label>
+                        <label for="state">{{ trans('gth::menu.State') }}</label>
                         <select class="form-control" id="state" name="state">
-                            <option value="">Seleccione el Estado</option>
+                            <option value="">{{ trans('gth::menu.Select State') }}</option>
                             <option value="activo">Activo</option>
                             <option value="inactivo">Inactivo</option>
                         </select>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Registrar empleado</button> 
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">{{ trans('gth::menu.Register employee') }}</button> 
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ trans('gth::menu.Close') }}</button>
                     </div>
                 </form>
 

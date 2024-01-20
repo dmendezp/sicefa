@@ -19,7 +19,7 @@
        @endif
         @if (Auth::user()->havePermission('gth.brigadista.attendancereport.index'))
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{route('gth.brigadista.attendancereport.index')}}" class="nav-link ">Brigadista
+            <a href="{{route('gth.brigadista.attendancereport.index')}}" class="nav-link ">{{ trans('gth::menu.brigadista') }}
             </a>
         </li>
        @endif

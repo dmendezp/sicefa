@@ -3,6 +3,14 @@
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Modules\SICA\Entities\Sector;
+use Modules\SICA\Entities\App;
+
+/* Obetner las aplicaicones disponibles en SICEFA */
+function getApps(){
+	return App::orderBy('name')->get();
+}
+
 
 // Obtener las opciones en un arreglo de una columna enum de una tabla
 function getEnumValues($table, $column){
@@ -47,6 +55,10 @@ function revertPriceFormat($value){
     return str_replace(',', '.', $temp);
 }
 
+// Consultar sectores ordenadas alfabeticamente ascendente por el nombre
+function getSectorsOrderedByName(){
+    return Sector::orderBy('name','ASC')->get();
+}
 /* Obtner el rol a partir del nombre de la ruta */
 function getRoleRouteName($route_name) {
     $firstDotPosition = strpos($route_name, '.');
@@ -58,6 +70,7 @@ function getRoleRouteName($route_name) {
     }
     return null;
 }
+
 
 function getAppsArray(){
 	$a = [
