@@ -92,7 +92,7 @@ Route::middleware(['lang'])->group(function () {
 
         // Attendance
         Route::get('/attendance', 'AttendanceController@viewattendance')->name('gth.registerattendance.attendancecourse.index');
-        Route::post('/attendance/search', 'AttendanceController@search')->name('cefa.attendance.search');
+        Route::post('/attendance/search', 'AttendanceController@search')->name('gth.attendance.search');
 
         // Attendance Report
         Route::get('/attendancereport', 'AttendanceReportController@viewattendancereport')->name('gth.brigadista.attendancereport.index');
