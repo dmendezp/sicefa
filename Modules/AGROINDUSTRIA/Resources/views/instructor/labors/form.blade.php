@@ -58,8 +58,9 @@
                             @enderror   
                         </div>  
                         <div class="col-md-6">
-                            {!! Form::label('person', trans('agroindustria::labors.responsible')) !!}
-                            {!! Form::select('person', [], null, ['class'=>'form-control', 'id' => 'responsible', 'placeholder' => trans("agroindustria::labors.selectResponsiblePerson")]) !!}
+                            {!! Form::label('personName', trans('agroindustria::labors.responsible')) !!}
+                            {!! Form::text('personName', null, ['class'=>'form-control', 'id' => 'responsible', 'readonly' => 'readonly']) !!}
+                            {!! Form::hidden('person', null, ['id' => 'responsibleId']) !!}
                             @error('person')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror   
@@ -133,14 +134,14 @@
                                 <div class="accordion-item">
                                   <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                                        Registro de herramientas
+                                        Registro de utencilios
                                     </button>
                                   </h2>
                                   <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
                                     <div class="accordion-body">
                                         <div class="tools" id="form-container-tools">
                                             <div id="form-tools">
-                                                <h3 id="title_tools">Herramientas</h3>
+                                                <h3 id="title_tools">Utencilios</h3>
                                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
                                                 <button type="button" class="btn btn-primary" id="add-tools"><i class="fa-solid fa-plus"></i></button>
                                                 <div class="tools">

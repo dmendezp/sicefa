@@ -174,19 +174,19 @@ window.onclick = function(event) {
         $('#activity-selected').on('change', function() {
             var selectedActivity = $(this).val();
             var url = {!! json_encode(route('cefa.agroindustria.instructor.labor.responsibilities', ['activityId' => ':activityId'])) !!}.replace(':activityId', selectedActivity.toString());
+            console.log('url: '+ url);
             // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
             console.log(url);
             $.ajax({
                 url: url,
                 type: 'GET',
                 success: function(response) {
-                    var options = '<option value="">' + '{{ trans("agroindustria::labors.selectResponsiblePerson") }}' + '</option>';
-                    $.each(response.id, function(index, warehouse) {
-                        options += '<option value="' + warehouse.id + '">' + warehouse.name + '</option>';
-                    });
-
+                    var personId = response.id[0].id;
+                    var personName = response.id[0].name;
+                    
                     // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
-                    $('#responsible').html(options);
+                    $('#responsible').val(personName);
+                    $('#responsibleId').val(personId);
 
                     // Añade aquí el código para consultar el tipo de actividad
                     var activityType = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.type', ['type' => ':type'])) !!}.replace(':type', selectedActivity.toString());
@@ -336,7 +336,6 @@ window.onclick = function(event) {
 
 
 <script>
-    new DataTable('#inventory');
     new DataTable('#discharge')
     new DataTable('#formulation')
     new DataTable('#labors')

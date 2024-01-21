@@ -1,79 +1,50 @@
 @extends('agroindustria::layouts.master')
 @section('content')
-<div class="discharge">
-    <div class="form">
-      <div class="form-header">{{trans('agroindustria::menu.Registration of deregistrations')}}</div>
-      <div class="form-body">
-        {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.admin.discharge.create')]) !!}
-        <div class="row">
-            <div class="col-md-6">
-                {{--{!! Form::hidden('productiveUnitWarehouse', $productiveUnitWarehouse, ['id' => 'productiveUnitWarehouse']) !!}--}}
-                {{--{!! Form::hidden('warehouseId', $warehouseId, ['id' => 'warehouseId']) !!}--}}
-                {!! Form::label('date', trans('agroindustria::menu.Date Time')) !!}
-                {!! Form::datetime('date', now()->format('Y-m-d\TH:i:s'), ['class' => 'form-control', 'id' => 'readonly-bg-gray', 'readonly' => 'readonly']) !!}
-            </div>
-            <div class="col-md-6">
-                {!! Form::label('productive_unit', 'Unidad Productiva') !!}
-                {!! Form::select('productive_unit', $unitName, old('productive_unit'), ['class' => 'form-control', 'id' => 'productive_unit']) !!}
-            </div>
-            <div class="col-md-6">
-                {!! Form::label('inChage', trans('agroindustria::menu.Responsible')) !!}  
-                {!! Form::text('inChage', $name, ['class' => 'form-control', 'id' => 'readonly-bg-gray', 'readonly' => 'readonly']) !!}
-            </div>
-            <div class="col-md-6">
-                {!! Form::label('warehouse', 'Bodegas') !!}
-                {!! Form::select('warehouse', $warehouse, old('warehouse'), ['placeholder' => trans('agroindustria::menu.Select a winery'), 'class' => 'form-control', 'id' => 'warehouse']) !!}
-            </div>
-            <div class="col-md-12">
-                {!! Form::label('observation', trans('agroindustria::menu.Observations')) !!}
-                {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'id' => 'textarea'] ) !!}
-                @error('observation')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-            <div class="col-md-12">
-                <div id="elements">
-                <h3>{{trans('agroindustria::menu.Products')}}</h3>
-                <!-- Aquí se agregarán los campos de producto dinámicamente -->
-                <button type="button" id="add-product" id="center_button">Agregar Producto</button>
-                <div class="elements_discharge">
-                    <div class="form-group">
-                        {!! Form::label('elementInventory' , trans('agroindustria::menu.Element')) !!}
-                        {!! Form::select('element[]', [], null, ['placeholder' => 'Seleccione un elemento', 'id' => 'elementDischarge']) !!}
-                        @if ($errors->has('element'))
-                          <span class="text-danger">{{ $errors->first('element') }}</span>
-                        @endif
-                    </div>
-                    <div class="form-group">
-                        {!! Form::label('amount' , trans('agroindustria::menu.Amount')) !!}
-                        {!! Form::number('amount[]', null, ['id' => 'amount', 'class' => 'form-control']) !!}
-                    </div>
-                    <div class="form-group">
-                        {!! Form::label('lote' , trans('agroindustria::menu.Lote')) !!}
-                        {!! Form::text('lote[]', null, ['class' => 'form-control', 'id' => 'lote', 'readonly'=> 'readonly']) !!}
-                    </div>
-                    <div class="form-group">
-                        {!! Form::label('fVto' , trans('agroindustria::menu.Expiration Date')) !!}
-                        {!! Form::text('fVto[]', null, ['class' => 'form-control', 'id' => 'fVto', 'readonly'=> 'readonly']) !!}
-                        {!! Form::hidden('price[]', null, ['id' => 'price']) !!}
-                    </div>
-                        <button type="button" class="remove-element">{{trans('agroindustria::menu.Delete')}}</button>
-                    </div>
-                </div>                           
-            </div>
-        </div>
-        <div class="button_discharge">
-            {!! Form::submit(trans('agroindustria::menu.Register deregistration'),['class' => 'baja', 'name' => 'baja']) !!}
-        </div>
-        </div>
-    </div>
-</div>
-{!! Form:: close() !!}
-
-
 <h3 id="bajas">{{trans('agroindustria::menu.Deregistrations')}}</h3>
 <div class="table_discharge">
-    @include('agroindustria::admin.discharged.table')
+    <table id="discharge" class="table table-striped" style="width: 100%;">
+        <thead>
+            <tr>
+                <th>{{trans('agroindustria::menu.Date Time')}}</th>
+                <th>{{trans('agroindustria::menu.Responsible')}}</th>
+                <th>{{trans('agroindustria::menu.Element')}}</th>
+                <th>{{trans('agroindustria::menu.Amount')}}</th>
+                <th>{{trans('agroindustria::menu.Price')}}</th>
+                <th>{{trans('agroindustria::menu.Total Movement')}}</th>
+                <th>{{trans('agroindustria::menu.Observations')}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($movements as $movement)
+                <tr>
+                    <td>{{$movement->registration_date}}</td>
+                    <td>
+                        {{$movement->movement_responsibilities->first()->person->first_name . ' ' .
+                        $movement->movement_responsibilities->first()->person->first_last_name . ' ' .
+                        $movement->movement_responsibilities->first()->person->second_last_name}}
+                    </td>
+                    <td>
+                        @foreach ($movement->movement_details as $detail)
+                            {{$detail->inventory->element->name}}<br>
+                        @endforeach
+                    </td>
+                    <td>
+                        @foreach ($movement->movement_details as $detail)
+                            {{$detail->amount}}<br>
+                        @endforeach
+                    </td>
+                    <td>
+                        @foreach ($movement->movement_details as $detail)
+                            {{$detail->price}}<br>
+                        @endforeach
+                    </td>
+                    <td>{{$movement->price}}</td>
+                    <td>{{$movement->observation}}</td>
+                </tr>
+            @endforeach
+        </tbody>
+        
+    </table>
 </div>
 
 @section('script')
@@ -86,7 +57,7 @@ $(document).ready(function() {
    
     // Agregar un nuevo campo de producto
     $("#add-product").click(function() {
-        var newProduct = '<div class="elements_discharge"><div class="form-group">{!! Form::label("elementDischarge" , trans("agroindustria::menu.Element")) !!}{!! Form::select("element[]", [], null, ["placeholder" => "Seleccione un elemento", "class" => "elementDischarge-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount[]", null, ["class" => "form-control", "id" => "amount"]) !!}</div> <div class="form-group">{!! Form::label("lote" , trans("agroindustria::menu.Lote")) !!} {!! Form::text("lote[]", null, ["class" => "form-control", "id" => "lote", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("fVto" , trans("agroindustria::menu.Expiration Date")) !!} {!! Form::text("fVto[]", null, ["class" => "form-control", "id" => "fVto", "readonly" => "readonly"]) !!}{!! Form::hidden("price[]", null, ["id" => "price"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::menu.Delete")}}</button></div>';
+        var newProduct = '<div class="elements_discharge"><div class="form-group">{!! Form::label("elementDischarge" , trans("agroindustria::menu.Element")) !!}{!! Form::select("element[]", [], null, ["placeholder" => "Seleccione un elemento", "class" => "elementDischarge-select"]) !!}</div> <div class="form-group"><span class="quantity"></span>{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount[]", null, ["class" => "form-control", "id" => "amount", "style" => "width: 160px"]) !!}</div> <div class="form-group">{!! Form::label("amount" , "Valor unitario") !!}{!! Form::number("price[]", null, ["id" => "price", "readonly" => "readonly", "class" => "form-control", "style" => "width: 160px"]) !!}</div><div class="form-group">{!! Form::label("lote" , trans("agroindustria::menu.Lote")) !!} {!! Form::text("lote[]", null, ["class" => "form-control", "id" => "lote", "readonly" => "readonly", "style" => "width: 160px"]) !!}</div> <div class="form-group">{!! Form::label("fVto" , trans("agroindustria::menu.Expiration Date")) !!} {!! Form::text("fVto[]", null, ["class" => "form-control", "id" => "fVto", "readonly" => "readonly", "style" => "width: 160px"]) !!}{!! Form::hidden("price[]", null, ["id" => "price"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::menu.Delete")}}</button></div>';
         
         // Agregar el nuevo campo al DOM
         $("#elements").append(newProduct);
@@ -126,25 +97,38 @@ $(document).ready(function() {
         var loteField = parentElement.find('input#lote');
         var priceField = parentElement.find('input#price');
         var fVtoField = parentElement.find('input#fVto');
+        var quantityField = parentElement.find('.quantity');
 
+        
 
         // Realizar una petición AJAX para obtener la cantidad disponible
         if (elementoSeleccionado) {
+            var url = {!! json_encode(route('cefa.agroindustria.admin.discharge.elementData', ['productiveUnitId' => ':productiveUnitId', 'warehouseId' => ':warehouseId', 'elementId' => ':elementId'])) !!}.replace(':productiveUnitId', productiveUnit.toString()).replace(':warehouseId', warehouse.toString()).replace(':elementId', elementoSeleccionado.toString());
+            console.log('url: ' + url);
             $.ajax({
                 url: {!! json_encode(route('cefa.agroindustria.admin.discharge.elementData', ['productiveUnitId' => ':productiveUnitId', 'warehouseId' => ':warehouseId', 'elementId' => ':elementId'])) !!}.replace(':productiveUnitId', productiveUnit.toString()).replace(':warehouseId', warehouse.toString()).replace(':elementId', elementoSeleccionado.toString()),
                 method: 'GET',
                 success: function(response) {
+                    console.log(response);
                     if (Array.isArray(response.id)) {
                         // Si recibes un arreglo de IDs, puedes recorrerlos aquí
                         response.id.forEach(function(value) {
                             var lote = parseFloat(value.lote);  
                             var price = parseFloat(value.price);
                             var fVto = new Date(value.fVto);
+                            maxQuantity = parseFloat(value.amount);
                             var options = { day: 'numeric', month: 'numeric',  year: 'numeric'};
                             var formattedFVto = fVto.toLocaleDateString(undefined, options);
                             loteField.val(lote);
                             priceField.val(price);
                             fVtoField.val(formattedFVto);
+
+                            updateSaveButtonState(quantityField, 0, maxQuantity);
+                            $('#elements').off('input', 'input#amount').on('input', 'input#amount', function() {
+                                var amountInput = $(this);
+                                var amount = amountInput.val();
+                                updateSaveButtonState(quantityField, amount, maxQuantity);
+                            });
                         });
                     } else {
                         // Manejar el caso en que el valor no sea un número válido
@@ -173,6 +157,7 @@ $(document).ready(function() {
         var loteField = parentElement.find('input#lote');
         var priceField = parentElement.find('input#price');
         var fVtofield = parentElement.find('input#fVto');
+        var quantityField = parentElement.find('.quantity');
 
         var url = {!! json_encode(route('cefa.agroindustria.admin.discharge.elementData', ['productiveUnitId' => ':productiveUnitId', 'warehouseId' => ':warehouseId', 'elementId' => ':elementId'])) !!}.replace(':productiveUnitId', productiveUnit.toString()).replace(':warehouseId', warehouse.toString()).replace(':elementId', elementoSeleccionado.toString());
         console.log(url);
@@ -189,11 +174,20 @@ $(document).ready(function() {
                             var lote = parseFloat(value.lote);
                             var price = parseFloat(value.price);  
                             var fVto = new Date(value.fVto);
+                            maxQuantity = parseFloat(value.amount);
                             var options = { day: 'numeric', month: 'numeric',  year: 'numeric'};
                             var formattedFVto = fVto.toLocaleDateString(undefined, options);
+
                             loteField.val(lote);
                             priceField.val(price);
                             fVtofield.val(formattedFVto);
+                            
+                            updateSaveButtonState(quantityField, 0, maxQuantity);
+                            $('#elements').off('input', 'input#amount').on('input', 'input#amount', function() {
+                                var amountInput = $(this);
+                                var amount = amountInput.val();
+                                updateSaveButtonState(quantityField, amount, maxQuantity);
+                            });
                         });
                     } else {
                         // Manejar el caso en que el valor no sea un número válido
@@ -211,6 +205,30 @@ $(document).ready(function() {
             fVtofield.val('');
         }
     });
+
+    function updateSaveButtonState(quantityField, amount, maxQuantity) {
+            var saveButton = $('.baja');
+            console.log(maxQuantity);
+
+            if (amount > maxQuantity) {
+                quantityField.text('La cantidad ingresada es mayor que la disponible.').css('color', 'red');
+                saveButton.prop('disabled', true);
+                saveButton.addClass('disabled-button');
+                isAnyProductExceeding = true;
+                console.log('Deshabilitado');
+            } else {
+                quantityField.text('Cantidad Disponible: ' + maxQuantity).css('color', '#666');
+                isAnyProductExceeding = false;
+                console.log(isAnyProductExceeding);
+                if (!isAnyProductExceeding) {
+                    saveButton.prop('disabled', false);
+                    saveButton.removeClass('disabled-button');
+                } else {
+                    saveButton.prop('disabled', true);
+                    saveButton.addClass('disabled-button');
+                }
+            }
+        }
     // Detecta cambios en el primer campo de selección (Receiver)
     $('#productive_unit').on( function() {
         var selectedProductiveUnit = $(this).val();

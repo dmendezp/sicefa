@@ -13,6 +13,7 @@ use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Role;
 use Modules\SICA\Entities\Responsibility;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
+use Modules\SICA\Entities\Category;
 use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\MeasurementUnit;
@@ -22,8 +23,6 @@ use Modules\SICA\Entities\MovementResponsibility;
 use Modules\SICA\Entities\MovementType;
 use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\WarehouseMovement;
-use Modules\AGROINDUSTRIA\Entities\Formulation;
-use Modules\AGROINDUSTRIA\Entities\Ingredient;
 use Modules\SICA\Entities\Executor;
 use Modules\SICA\Entities\Consumable;
 use Modules\SICA\Entities\EmployeeType;
@@ -33,6 +32,8 @@ use Modules\SICA\Entities\Equipment;
 use Modules\SICA\Entities\EnvironmentalAspect;
 use Modules\SICA\Entities\EnvironmentalAspectLabor;
 use Modules\SICA\Entities\Resource;
+use Modules\AGROINDUSTRIA\Entities\Formulation;
+use Modules\AGROINDUSTRIA\Entities\Ingredient;
 use App\Exports\AGROINDUSTRIA\ConsumableExport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -43,7 +44,6 @@ class LaborController extends Controller
     {
         $title = 'Labor';
         $selectedUnit = session('viewing_unit');
-        $unitName = ProductiveUnit::findOrFail($selectedUnit);
         $activities = Activity::where('productive_unit_id', $selectedUnit)->pluck('id');
 
         $labors = Labor::whereIn('activity_id', $activities)->get();
@@ -58,7 +58,6 @@ class LaborController extends Controller
     public function form(){
         $title = 'Registrar Labor';
         $selectedUnit = session('viewing_unit');
-        $unitName = ProductiveUnit::findOrFail($selectedUnit);
 
         $activities = Activity::where('productive_unit_id', $selectedUnit)->get();
 
@@ -100,7 +99,9 @@ class LaborController extends Controller
         })->prepend(['id' => null, 'name' => trans('agroindustria::labors.selectEmployeeType')])->pluck('name', 'id');
 
         $productive_unit_warehouse = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
-        $elements = Element::where('category_id', 2)->pluck('id');
+        
+        $utensils = Category::where('name', 'Utensilios')->pluck('id');
+        $elements = Element::whereIn('category_id', $utensils)->pluck('id');
 
         $tools = Inventory::where('productive_unit_warehouse_id', $productive_unit_warehouse)->whereIn('element_id', $elements)
         ->groupBy('element_id')
@@ -116,7 +117,8 @@ class LaborController extends Controller
             ];
         })->prepend(['id' => null, 'name' => 'Seleccione una herramienta'])->pluck('name', 'id');
 
-        $elementEquipment = Element::where('category_id', 4)->pluck('id');
+        $categoryEquipments = Category::where('name', 'Equipos')->pluck('id');
+        $elementEquipment = Element::whereIn('category_id', $categoryEquipments)->pluck('id');
 
         $equipments = Inventory::where('productive_unit_warehouse_id', $productive_unit_warehouse)->whereIn('element_id', $elementEquipment)
         ->groupBy('element_id')
@@ -134,7 +136,11 @@ class LaborController extends Controller
 
         $selectedUnit = session('viewing_unit');
         $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
-        $elementConsumable = Element::where('category_id', 1)->pluck('id');
+        $groceries = Category::where('name', 'Abarrotes')->pluck('id');
+        $additives = Category::where('name', 'Aditivos')->pluck('id');
+        $packaging = Category::where('name', 'Empaques')->pluck('id');
+        $hygiene = Category::where('name', 'Higiene')->pluck('id');
+        $elementConsumable = Element::whereIn('category_id', $groceries)->orWhereIn('category_id', $additives)->orWhereIn('category_id', $packaging)->orWhereIn('category_id', $hygiene)->pluck('id');
         $inventoryConsumables = Inventory::with('element.measurement_unit')->where('productive_unit_warehouse_id', $productiveUnit)->whereIn('element_id', $elementConsumable)
             ->groupBy('element_id')
             ->select('element_id', \DB::raw('(SELECT MIN(id) FROM inventories AS subinventory WHERE subinventory.element_id = inventories.element_id AND subinventory.amount > 0) as id'))
@@ -150,7 +156,6 @@ class LaborController extends Controller
             ];
         })->prepend(['id' => null, 'name' => 'Seleccione un insumo'])->pluck('name', 'id');
 
-        
         $data = [
             'title' => $title,
             'activity' => $activity,

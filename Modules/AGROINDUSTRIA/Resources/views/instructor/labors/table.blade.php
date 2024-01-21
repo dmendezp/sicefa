@@ -12,8 +12,8 @@
                 <th>{{trans('agroindustria::labors.state')}}</th>
                 <th>{{trans('agroindustria::labors.destination')}}</th>
                 <th>
-                    @if (Auth::user()->havePermission('agroindustria.admin.labor.units.form'))
-                        <a href="{{route('agroindustria.admin.labor.units.form')}}">
+                    @if (Auth::user()->havePermission('agroindustria.admin.units.labor.form'))
+                        <a href="{{route('agroindustria.admin.units.labor.form')}}">
                             <button class="btn btn-success float-end mb-2">
                                 <i class="fa-solid fa-plus"></i>
                             </button>

@@ -43,13 +43,12 @@ label {
 }
 
 #add-product {
-    padding: 10px 0;
-    width: 100%; /* Hacemos que el botón sea responsive */
-    color: white;
-    font-weight: bold;
+    position: relative;
+    width: 73px;
+    padding: 5px 0px 5px 0px;
     border: none;
-    background-color: green;
     border-radius: 4px;
+    color: white;
 }
 
 .remove-product {

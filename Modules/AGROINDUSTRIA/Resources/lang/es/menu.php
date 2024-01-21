@@ -81,7 +81,7 @@ return [
     'Total Movement' => 'Total del Movimiento',
     'Unit of Measurement' => 'Unidad de Medida',
     'Lote' => 'Lote',
-    'Expiration Date' => 'Fecha de vencimiento',
+    'Expiration Date' => 'F.vencimiento',
     'Deregistrations' => 'Bajas',
 
     //Lista De Productos
