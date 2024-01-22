@@ -10,6 +10,7 @@ use Modules\BIENESTAR\Entities\BusDrivers;
 use Modules\BIENESTAR\Entities\Buses;
 
 class RoutesTransportationsController extends Controller
+
 {
      
     public function index()
@@ -47,7 +48,7 @@ public function store(Request $request)
     $transportRoute->save();
 
     // Puedes agregar un mensaje de éxito
-    return redirect()->route('bienestar.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
+    return redirect()->route('cefa.bienestar.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
 }
 
     

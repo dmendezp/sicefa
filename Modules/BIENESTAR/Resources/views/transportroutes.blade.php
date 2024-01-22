@@ -9,7 +9,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="{{ route('bienestar.transportroutes.store') }}" method="POST" role="form">
+                <form action="{{ route('cefa.bienestar.transportroutes.store') }}" method="POST" role="form">
                     @csrf
                     <div class="row p-4">
                         <div class="col-md-3">
@@ -89,7 +89,106 @@
                                 <td>{{ $transport->departure_time}}</td>
                                 <td>{{ $transport->bus->plate}}</td>
                                 <td>
-                                    <button class="btn btn-primary editButton" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-primary editButton" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#editModal">
+    <i class="fas fa-edit"></i> 
+</button>
+
+<!-- Modal de edición -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editar Transporte</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario de edición con validación -->
+                <form id="editForm" onsubmit="return validateForm()">
+                    <div class="form-group">
+                        <label for="route_number">Número De Ruta:</label>
+                        <select name="route_number" id="route_number" class="form-control" required>
+                            <option value="">Selecciona un número de ruta</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name_route">Nombre De La Ruta:</label>
+                        <input type="text" name="name_route" id="name_route" class="form-control" placeholder="Nombre Ruta" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bus">Bus:</label>
+                        <select name="bus" id="bus" class="form-control" required onchange="updateDriverName()">
+                            <option value="">Selecciona un bus</option>
+                            <!-- Aquí puedes agregar opciones dinámicamente con tu backend -->
+                            <option value="1" data-bus-driver="Conductor 1">Bus 1</option>
+                            <option value="2" data-bus-driver="Conductor 2">Bus 2</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bus_driver">Nombre del Conductor:</label>
+                        <input id="bus_driver" name="driver_name" type="text" class="form-control" placeholder="Nombre del Conductor" readonly="readonly">
+                    </div>
+                    <div class="form-group">
+                        <label for="stop_bus">Parada:</label>
+                        <input id="stop_bus" name="stop_bus" type="text" class="form-control" placeholder="Ej: Juncal">
+                    </div>
+                    <div class="form-group">
+                        <label for="arrival_time">Hora Llegada:</label>
+                        <input type="time" name="arrival_time" id="arrival_time" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="departure_time">Hora Salida:</label>
+                        <input type="time" name="departure_time" id="departure_time" class="form-control" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Función para validar el formulario
+    function validateForm() {
+        var routeNumber = document.getElementById("route_number").value;
+        var nameRoute = document.getElementById("name_route").value;
+
+        if (routeNumber === "" || nameRoute === "") {
+            alert("Por favor, completa todos los campos.");
+            return false;
+        }
+
+        // Puedes agregar más validaciones aquí si es necesario
+
+        // Si la validación es exitosa, cierra el modal
+        $('#editModal').modal('hide');
+        return true;
+    }
+
+    // Función para actualizar el campo "Nombre del Conductor" al seleccionar un bus
+    function updateDriverName() {
+        var selectedBus = document.getElementById("bus");
+        var selectedOption = selectedBus.options[selectedBus.selectedIndex];
+        var driverName = selectedOption.getAttribute("data-bus-driver");
+
+        var busDriverField = document.getElementById("bus_driver");
+        busDriverField.value = driverName;
+    }
+</script>
+
+</body>
+</html>
+                                    
                                     <!-- Botón para abrir el modal de eliminación -->
                                     <button class="btn btn-danger deleteButton" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#deleteModal{{ $transport->id }}"><i class="fas fa-trash-alt"></i></button>                               
                                 </td>
@@ -109,68 +208,68 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Editar Transporte</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ url('bienestar/transportroutes/update/id') }}" method="POST" role="form">
-                    @method('PUT')
-                    @csrf
-                    <div class="row p-4">
-                        <div class="col-md-12">
-                            <label for="route_number">Numero Ruta</label>
-                            <div class="form-group">
-                                <select name="route_number" id="route_number_select" class="form-control" required></select>
+                    <h4 class="modal-title">Editar Transporte</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url('bienestar/transportroutes/update/id') }}" method="POST" role="form">
+                        @method('PUT')
+                        @csrf
+                        <div class="row p-4">
+                            <div class="col-md-12">
+                                <label for="route_number">Numero Ruta</label>
+                                <div class="form-group">
+                                    <select name="route_number" id="route_number_select" class="form-control" required></select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="name_route">Nombre Ruta</label>
+                                <div class="form-group">
+                                    <input type="text" name="name_route" class="form-control" placeholder="Ingrese Nombre Ruta" required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="bus">Bus</label>
+                                <div class="form-group">
+                                    <select name="bus" id="bus_select" class="form-control" required></select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="stop_bus">Parada Bus</label>
+                                    <input type="text" name="stop_bus" class="form-control" placeholder="Parada Bus" required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="bus_driver">Conductor</label>
+                                <div class="form-group">
+                                    <input type="text" name="bus_driver" id="bus_driver_select" class="form-control" placeholder="Nombre del conductor">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="arrival_time">Hora LLegada</label>
+                                    <input type="time" name="arrival_time" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="departure_time">Hora Salida</label>
+                                    <input type="time" name="departure_time" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="btns">
+                                    <button type="submit" class="btn btn-success">Actualizar</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <label for="name_route">Nombre Ruta</label>
-                            <div class="form-group">
-                                <input type="text" name="name_route" class="form-control" placeholder="Ingrese Nombre Ruta" required>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <label for="bus">Bus</label>
-                            <div class="form-group">
-                                <select name="bus" id="bus_select" class="form-control" required></select>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="stop_bus">Parada Bus</label>
-                                <input type="text" name="stop_bus" class="form-control" placeholder="Parada Bus" required>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <label for="bus_driver">Conductor</label>
-                            <div class="form-group">
-                                <input type="text" name="bus_driver" id="bus_driver_select" class="form-control" placeholder="Nombre del conductor">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="arrival_time">Hora LLegada</label>
-                                <input type="time" name="arrival_time" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="departure_time">Hora Salida</label>
-                                <input type="time" name="departure_time" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="btns">
-                                <button type="submit" class="btn btn-success">Actualizar</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 </div>
 
 <script>

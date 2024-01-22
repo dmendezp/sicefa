@@ -67,9 +67,9 @@ Route::middleware(['lang'])->group(function () {
 
 
         //Vistas Rutas de transporte
-        Route::get('/transportroutes', 'RoutesTransportationsController@index')->name('bienestar.transportroutes');
-        Route::post('/transportroutes/add', 'RoutesTransportationsController@transportroutesAdd')->name('bienestar.transportroutes.add');
-        Route::post('/transportroutes/store', 'RoutesTransportationsController@store')->name('bienestar.transportroutes.store');
+        Route::get('/transportroutes', 'RoutesTransportationsController@index')->name('cefa.bienestar.transportroutes');
+        Route::post('/transportroutes/add', 'RoutesTransportationsController@transportroutesAdd')->name('cefa.bienestar.transportroutes.add');
+        Route::post('/transportroutes/store', 'RoutesTransportationsController@store')->name('cefa.bienestar.transportroutes.store');
 
 
         // vista de conductores
