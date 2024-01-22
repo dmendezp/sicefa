@@ -1,3 +1,4 @@
+
 @php
 $role_name = getRoleRouteName(Route::currentRouteName());
 @endphp

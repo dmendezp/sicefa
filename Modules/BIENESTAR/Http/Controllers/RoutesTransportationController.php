@@ -65,6 +65,8 @@ class RoutesTransportationController extends Controller
             'new_stop_bus' => 'required|string',
             'new_arrival_time' => 'required',
             'new_departure_time' => 'required',
+
+            
         ]);
 
         // Busca el registro existente por su ID
