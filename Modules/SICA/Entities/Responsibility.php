@@ -28,9 +28,6 @@ class Responsibility extends Model implements Auditable
     public function activity(){ // Accede a la información de la actividad al que pertenece
         return $this->belongsTo(Activity::class);
     }
-    public function executors(){ // Accede a todos los registros de ejecutores que pertenecen a esta responsabilidad
-        return $this->hasMany(Executor::class);
-    }
     public function role(){ // Accede a la información del rol al que pertenece
         return $this->belongsTo(Role::class);
     }

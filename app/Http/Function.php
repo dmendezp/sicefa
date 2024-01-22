@@ -3,7 +3,14 @@
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Modules\SICA\Entities\App;
 
+/* Obetner las aplicaicones disponibles en SICEFA */
+function getApps(){
+	return App::orderBy('name')->get();
+}
+
+// Obtener las opciones en un arreglo de una columna enum de una tabla
 function getEnumValues($table, $column){
 	$type = DB::select(DB::raw("SHOW COLUMNS FROM $table WHERE Field = '$column'"))[0]->Type;
 	preg_match('/^enum\((.*)\)$/', $type, $matches);
@@ -15,12 +22,47 @@ function getEnumValues($table, $column){
 	return $enum;
 }
 
-function checkRol($slug){ // Verficar si tiene acceso a los distintos roles de la aplicación
-    if(Auth::user()->roles[0]->slug==$slug OR Auth::user()->roles[0]->slug=='superadmin'){
-        return true;
-    }else{
+// Verficar si tiene acceso a los distintos roles de la aplicación
+function checkRol($slug){
+    $user = Auth::user();
+    if (count($user->roles) > 0) {
+        foreach ($user->roles as $role){
+            if($role->slug==$slug OR $role->slug=='superadmin'){
+                return true;
+            }
+        }
+        return false;
+    } else {
         return false;
     }
+}
+
+// Eliminar ceros y decimales innecesarios (1234.00 => 1234)
+function clearZerosDecimal($value) {
+    return strpos($value,',')!==false ? rtrim(rtrim($value,'0'),',') : $value;
+}
+
+// Agregar formato de precios a un número (1234.34 => $ 1.234,34)
+function priceFormat($value){
+    return '$' . clearZerosDecimal(number_format($value,2,',','.'));
+}
+
+/* Eliminar el formato de precio. ($1.500,23 => 1500.23) */
+function revertPriceFormat($value){
+    $temp = str_replace([' ','.','$'], '', $value);
+    return str_replace(',', '.', $temp);
+}
+
+/* Obtner el rol a partir del nombre de la ruta */
+function getRoleRouteName($route_name) {
+    $firstDotPosition = strpos($route_name, '.');
+    if ($firstDotPosition !== false) {
+        $secondDotPosition = strpos($route_name, '.', $firstDotPosition + 1);
+        if ($secondDotPosition !== false) {
+            return substr($route_name, $firstDotPosition + 1, $secondDotPosition - $firstDotPosition - 1);
+        }
+    }
+    return null;
 }
 
 function getAppsArray(){

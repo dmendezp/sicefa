@@ -5,75 +5,64 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\BIENESTAR\Entities\AssignTransportRoute;
+use Modules\SICA\Entities\Apprentice;
+use Modules\BIENESTAR\Entities\RouteTransportation;
+
+
 
 class AssingTransportRoutesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-    public function index()
+    public function mostrarAsignaciones(Request $request)
     {
-        return view('bienestar::index');
+        $nombreRutaSeleccionada = $request->input('ruta');
+
+        // Obtener todas las rutas de transporte
+        $rutas = RouteTransportation::all();
+
+        // Si se ha seleccionado una ruta, filtrar las asignaciones por esa ruta
+        if ($nombreRutaSeleccionada) {
+            $asignaciones = AssignTransportRoute::whereHas('routes_trasportation', function ($query) use ($nombreRutaSeleccionada) {
+                $query->where('name_route', $nombreRutaSeleccionada);
+            })->get();
+        } else {
+            // Si no se ha seleccionado ninguna ruta, mostrar todas las asignaciones
+            $asignaciones = AssignTransportRoute::all();
+        }
+
+        return view('bienestar::assign-transportation-routes', [
+            'asignaciones' => $asignaciones,
+            'rutas' => $rutas,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('bienestar::create');
+public function showAssignmentForm($apprenticeId)
+{
+    // Obtener los detalles del aprendiz en función de $apprenticeId
+    $apprentizData = Apprentice::with('person')->find($apprenticeId);
+
+    // Verificar si se encontró el aprendiz
+    if (!$apprentizData) {
+        // Puedes manejar la situación si no se encuentra el aprendiz
+        // Por ejemplo, redirigiendo o mostrando un mensaje de error
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    // Construir el nombre completo del aprendiz
+    $fullName = $apprentizData->person->first_name . ' ' . $apprentizData->person->first_last_name . ' ' . $apprentizData->person->second_last_name;
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('bienestar::show');
-    }
+    // Pasar los datos del aprendiz y el nombre completo a la vista
+    return view('bienestar.assign-transportation-routes', ['apprentizData' => $apprentizData, 'fullName' => $fullName]);
+}
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('bienestar::edit');
-    }
+public function obtenerRegistrosFiltrados(Request $request)
+{
+    $rutaSeleccionada = $request->input('ruta');
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    $registrosFiltrados = AssignTransportRoute::whereHas('routes_trasportation', function ($query) use ($rutaSeleccionada) {
+        $query->where('name_route', $rutaSeleccionada);
+    })->get();
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    return view('bienestar::partials.tabla-registros', ['registros' => $registrosFiltrados]);
+}
+
 }

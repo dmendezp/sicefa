@@ -10,11 +10,11 @@ use Modules\SICA\Entities\Event;
 class AttendanceController extends Controller
 {
 
-    public function events_attendance()
-    {
-        $events = Event::where('state','available')->pluck('name','id');
+    /* Formulario de registro de asistencia a eventos */
+    public function index(){
+        $events = Event::where('state','Disponible')->pluck('name','id');
         $data = ['title'=>trans('sica::menu.Events attendance'),'events'=>$events];
-        return view('sica::admin.people.attendance.home',$data);
+        return view('sica::admin.people.attendance.index', $data);
     }
 
 }

@@ -4,20 +4,22 @@ namespace Modules\BIENESTAR\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Controller;
-use Modules\BIENESTAR\Entities\Benefits;
+use Modules\BIENESTAR\Entities\Benefit;
 
 
 class BenefitsController extends Controller
 {
     public function benefitsView()
     {
-        $benefits = Benefits::all();
+        $benefits = Benefit::all();
         return view('bienestar::benefits-View', ['benefits' => $benefits]);
     }
 
     public function BenefitsViewAdd(Request $request)
     {
+        $role_name = getRoleRouteName(Route::currentRouteName());
         // Define las reglas de validación para los campos name y porcentaje
         $rules = [
             'name' => 'required|string', // Asegura que el campo sea una cadena de texto
@@ -31,27 +33,38 @@ class BenefitsController extends Controller
         $porcentege = $request->input('porcentege');
 
         // Busca un beneficio con el mismo nombre y porcentaje en la base de datos
-        $existingBenefit = Benefits::where('name', $name)->where('porcentege', $porcentege)->first();
+        $existingBenefit = Benefit::where('name', $name)->where('porcentege', $porcentege)->first();
 
         // Verifica si ya existe un beneficio con el mismo nombre y porcentaje
         if ($existingBenefit) {
-            return redirect()->route('cefa.bienestar.benefits')->with('error', 'Ya existe un beneficio con el mismo nombre y porcentaje.');
+            return response()->json(['error' => 'Ya existe un beneficio con el mismo nombre y porcentaje.'], 422);
         }
 
         // Si la validación pasa y no existe un beneficio con el mismo nombre y porcentaje, crea el registro en la base de datos
-        Benefits::create([
+        Benefit::create([
             'name' => $name,
             'porcentege' => $porcentege,
         ]);
 
-        return redirect()->route('cefa.bienestar.benefits')->with('success', 'Beneficio agregado correctamente');
+        return response()->json(['success' => 'Beneficio agregado con exitosamente!']);
     }
 
 
     public function update(Request $request, $id)
     {
+        // Encontrar el beneficio existente
+        $benefit = Benefit::find($id);
 
-        $benefit = Benefits::find($id);
+        // Validar si ya existe otro beneficio con el mismo nombre y porcentaje
+        $existingBenefit = Benefit::where('name', $request->input('name'))
+            ->where('porcentege', $request->input('porcentege'))
+            ->where('id', '!=', $id)
+            ->first();
+
+        if ($existingBenefit) {
+            // Ya existe un beneficio con el mismo nombre y porcentaje
+            return response()->json(['error' => 'Ya existe un beneficio con el mismo nombre y porcentaje.'], 422);
+        }
 
         // Actualizar los datos
         $benefit->name = $request->input('name');
@@ -59,19 +72,20 @@ class BenefitsController extends Controller
         $benefit->save();
 
         // Redirigir o devolver una respuesta según tus necesidades
-        return redirect()->route('cefa.bienestar.benefits')->with('success', 'Beneficio actualizado con éxito');
+        return response()->json(['success' => 'Beneficio actualizado con éxito']);
     }
+
+
 
     public function destroy($id)
     {
         try {
-            $beneficio = Benefits::findOrFail($id);
+            $beneficio = Benefit::findOrFail($id);
             $beneficio->delete();
 
-            return response()->json(['mensaje' =>'Vacancy eliminated with success']);
+            return response()->json(['mensaje' => 'Beneficio eliminado Correctamente']);
         } catch (\Exception $e) {
-            return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
+            return response()->json(['mensaje' => 'Error when deleting the vacancy'], 500);
         }
-        
     }
 }

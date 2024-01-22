@@ -6,13 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
-use Modules\SICA\Entities\EPS;
-use Modules\SICA\Entities\PopulationGroup;
-use Modules\SICA\Entities\Apprentice;
 use Modules\EVS\Entities\Jury;
 use Modules\EVS\Entities\Authorized;
 use App\Models\User;
-use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Event;
 
 class Person extends Model implements Auditable
@@ -45,7 +41,9 @@ class Person extends Model implements Auditable
         'misena_email',
         'sena_email',
         'avatar',
-        'population_group_id'
+        'biometric_code',
+        'population_group_id',
+        'pension_entity_id'
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
@@ -69,6 +67,18 @@ class Person extends Model implements Auditable
     public function getFullNameAttribute(){ // Obtener el nombre completo de la persona first_name + first_last_name + second_last_name (ACCESOR)
         return $this->first_name.' '.$this->first_last_name.' '.$this->second_last_name;
     }
+    public function getIdentificationTypeNumberAttribute(){ // Obtener de manera abreviada del tipo y número de identificación
+        // Arreglo de mapeo entre tipos de documentos y sus abreviaturas
+        $document_type_abbreviations = [
+            'Cédula de ciudadanía' => 'CC',
+            'Tarjeta de identidad' => 'TI',
+            'Cédula de extranjería' => 'CE',
+            'Pasaporte' => 'PP',
+            'Documento nacional de identidad' => 'DNI',
+            'Registro civil' => 'RC'
+        ];
+        return $document_type_abbreviations[$this->attributes['document_type']].'-'.$this->attributes['document_number'];
+    }
     public function setAddressAttribute($value){ // Convierte el primer carácter en mayúscula del dato address (MUTADOR)
         $this->attributes['address'] = ucfirst($value);
     }
@@ -89,8 +99,14 @@ class Person extends Model implements Auditable
     public function authorizeds(){ // Accede a todas los registros de las personas que han sido autorizados para votar
         return $this->hasMany(Authorized::class);
     }
+    public function cash_counts(){ // Accede a todas las sesiones de caja asociados a esta persona
+        return $this->hasMany(CashCount::class);
+    }
     public function contractors(){ // Accede a todos los registros de contratistas que le pertenecen a esta persona
         return $this->hasMany(Contractor::class);
+    }
+    public function supervisor_contractors(){ // Accede a todos los registros de supervisores de contratación que le pertenecen a esta persona
+        return $this->hasMany(Contractor::class, 'supervisor_id');
     }
     public function employees(){ // Accede a todos los registros de empleados que pertenecen a esta persona
         return $this->hasMany(Employee::class);
@@ -101,9 +117,6 @@ class Person extends Model implements Auditable
     public function events(){ // Accede a todos los eventos que ha asistido esta persona (PIVOTE)
         return $this->belongsToMany(Event::class, 'event_attendances')->withTimestamps();
     }
-    public function executors(){ // Accede a todos los registros de ejecutores que pertenecen a esta persona
-        return $this->hasMany(Executor::class);
-    }
     public function farms(){ // Accede a todas las granjas que lidera esta persona
         return $this->hasMany(Farm::class);
     }
@@ -113,11 +126,17 @@ class Person extends Model implements Auditable
     public function juries(){ // Accede a todos los jurados que están registrados con esta persona
         return $this->hasMany(Jury::class);
     }
+    public function labors(){ // Accede a todas las labores que han sido asignados a esta persona
+        return $this->hasMany(Labor::class);
+    }
     public function movement_responsibilities(){ // Accede a todos los registros de responsables de movimiento que ha sido participe esta persona
         return $this->hasMany(MovementResponsibility::class);
     }
     public function municipality_events(){ // Accede a todos los registros de eventos en municipios que le pertenecen a esta persona
         return $this->hasMany(MunicipalityEvent::class);
+    }
+    public function pension_entity(){ // Accede a la entidad de pensiones al que pertenece
+        return $this->belongsTo(PensionEntity::class);
     }
     public function population_group(){ // Accede al grupo poblacional que pertenece
         return $this->belongsTo(PopulationGroup::class);

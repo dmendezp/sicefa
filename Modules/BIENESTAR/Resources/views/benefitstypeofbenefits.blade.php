@@ -5,212 +5,127 @@
     <div class="row justify-content-md-center pt-4">
         <div class="card card-green card-outline shadow col-md-8">
             <div class="card-header">
-                <h3 class="card-title">{{ __('Gestión de Tipos de Beneficios') }}</h3>
+                <h3 class="card-title">{{ trans('bienestar::menu.Configure Benefits') }}</h3>
             </div>
             <div class="card-body">
-                {!! Form::open(['route' => 'bienestar.benefitstypeofbenefits.store', 'method' => 'POST', 'role' => 'form', 'id' => 'guardarTipoBeneficio']) !!}
-                <div class="row p-3">
-                    <div class="col-md-4">
-                        {!! Form::label('benefit_id', 'Seleccionar Tipo de Beneficio:') !!}
-                        <select id="benefit_id" name="benefit_id" class="form-control" required>
-                            @foreach($benefits as $benefit)
-                                <option value="{{ $benefit->id }}">{{ $benefit->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="col-md-4">
-                        {!! Form::label('type_of_benefit_id', 'Seleccionar Tipo de Beneficiario:') !!}
-                        <select id="type_of_benefit_id" name="type_of_benefit_id" class="form-control" required>
-                            @foreach($typeofbenefits as $typeofbenefit)
-                                <option value="{{ $typeofbenefit->id }}">{{ $typeofbenefit->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="col-md-2 align-self-end">
-                        <div class="btns mt-3">
-                            {!! Form::submit('Guardar',['class'=>'btn btn-success', 'style'=>'background-color: #00FF22; color: black;']) !!}
-                        </div>
-                    </div>
-                </div>
-                {!! Form::close() !!}
-                <!-- Error si el campo de beneficio es obligatorio -->
-                <div class="text-danger" id="benefit-error" style="display: none;">
-                    El campo "Seleccionar Tipo de Beneficio" es obligatorio.
-                </div>
-                <!-- Error si el campo de tipo de beneficiario es obligatorio -->
-                <div class="text-danger" id="type_of_benefit-error" style="display: none;">
-                    El campo "Seleccionar Tipo de Beneficiario" es obligatorio.
-                </div>
-
                 <div class="mtop16">
-                    <h2>Listado de Tipos de Beneficios</h2>
-                    <table id="typesOfBenefitsTable" class="table table-bordered table-striped">
+                    @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.updateInline.benefitstypeofbenefits'))
+                    <table id="benefitsTable" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Tipo de Beneficio</th>
-                                <th>Tipo de Beneficiario</th>
-                                <th>Acciones</th>
+                                <th>Beneficiarios</th>
+                                <th>Beneficios</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($benefitstypeofbenefits as $type)
-                            <tr>
-                                <td>{{ $type->id }}</td>
-                                <td>{{ $type->benefits->name }}</td>
-                                <td>{{ $type->typeOfBenefits->name }}</td>
-                                <td style="display: flex; justify-content: center;">
-                                    <button class="btn btn-primary edit-button" data-id="{{ $type->id }}" data-toggle="modal" data-target="#editModal_{{ $type->id }}">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-danger delete-button" data-id="{{ $type->id }}" data-toggle="modal" data-target="#deleteModal_{{ $type->id }}">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            @foreach($typeOfBenefits as $typeOfBenefit)
+                                <tr>
+                                    <td>{{ $typeOfBenefit->name }}</td>
+                                    <td>
+                                        <ul>
+                                            @foreach($benefits as $benefit)
+                                                <li>
+                                                    @php
+                                                        // Verificar si existe un registro sin deleted_at para este beneficio y beneficiario
+                                                        $record = $benefitstypeofbenefits->where('benefit_id', $benefit->id)
+                                                            ->where('type_of_benefit_id', $typeOfBenefit->id)
+                                                            ->whereNull('deleted_at')
+                                                            ->first();
+                                                        $isChecked = $record ? true : false;
+                                                    @endphp
+                                                    
+                                                    <label class="checkbox-container">
+                                                        <input id="checkbox" class="hidden" type="checkbox" name="benefit_{{ $benefit->id }}_{{ $typeOfBenefit->id }}" value="1" data-record-id="{{ $record ? $record->id : '' }}" {{ $isChecked ? 'checked' : '' }}>
+                                                        <span class="checkbox" for="checkbox"></span>
+                                                        
+                                                        {{ $benefit->name }}
+                                                    
+                                                        
+                                                    </label>
+                                              
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
-
-    @foreach($benefitstypeofbenefits as $type)
-        <!-- Modal de edición -->
-        <div class="modal fade" id="editModal_{{ $type->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel_{{ $type->id }}" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel_{{ $type->id }}">Editar Registro</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('bienestar.benefitstypeofbenefits.update', $type->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <div class="form-group row">
-                                <label for="edit_benefit" class="col-md-4 col-form-label text-md-right">Editar Tipo de Beneficio:</label>
-                                <div class="col-md-6">
-                                    <select id="edit_benefit" name="benefit_id" class="form-control" required>
-                                        @foreach($benefits as $benefit)
-                                            <option value="{{ $benefit->id }}" {{ $type->benefit_id == $benefit->id ? 'selected' : '' }}>{{ $benefit->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="edit_type" class="col-md-4 col-form-label text-md-right">Editar Tipo de Beneficiario:</label>
-                                <div class="col-md-6">
-                                    <select id="edit_type" name="type_of_benefit_id" class="form-control" required>
-                                        @foreach($typeofbenefits as $typeofbenefit)
-                                            <option value="{{ $typeofbenefit->id }}" {{ $type->type_of_benefit_id == $typeofbenefit->id ? 'selected' : '' }}>{{ $typeofbenefit->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal de eliminación -->
-        <div class="modal fade" id="deleteModal_{{ $type->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel_{{ $type->id }}" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel_{{ $type->id }}">Confirmar Eliminación</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        ¿Estás seguro de que deseas eliminar este registro?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <form action="{{ route('benefitstypeofbenefits.destroy', $type->id) }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
 </div>
+@endsection
 
+
+
+@section('script')
 <script>
     $(document).ready(function() {
-        $('#typesOfBenefitsTable').DataTable();
+        // Obtener el token CSRF desde la etiqueta meta en tu vista Blade
+        const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-        // Configurar el evento para el formulario de guardar
-        $('#guardarTipoBeneficio').submit(function(e) {
-            // Validar que el campo de beneficio y tipo de beneficiario no estén vacíos
-            var benefitSelect = $('#benefit_id');
-            var typeOfBeneficiarySelect = $('#type_of_benefit_id');
-            var benefitError = $('#benefit-error');
-            var typeOfBeneficiaryError = $('#type_of_benefit-error');
+        // Realizar una solicitud AJAX para obtener el estado actual de los registros
+        $.ajax({
+            url: '{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.getCurrentState.benefitstypeofbenefits') }}',
+            method: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            success: function(response) {
+                // Recorrer la respuesta y marcar o desmarcar los checkboxes según el estado
+                $.each(response, function(index, item) {
+                    const checkboxName = `benefit_${item.benefit_id}_${item.type_of_benefit_id}`;
+                    const $checkbox = $(`input[name="${checkboxName}"]`);
 
-            if (benefitSelect.val() === '') {
-                benefitError.show();
-                e.preventDefault();
-            } else {
-                benefitError.hide();
+                    if (item.deleted_at) {
+                        $checkbox.prop('checked', false);
+                    } else {
+                        $checkbox.prop('checked', true);
+                    }
+                });
+            },
+            error: function(error) {
+                console.error(error);
             }
+        });
 
-            if (typeOfBeneficiarySelect.val() === '') {
-                typeOfBeneficiaryError.show();
-                e.preventDefault();
-            } else {
-                typeOfBeneficiaryError.hide();
-            }
+        $('input[type="checkbox"]').on('change', function() {
+            console.log("Capturando evento");
+            const checkboxName = $(this).attr('name');
+            const [_, benefitId, typeId] = checkboxName.split('_');
+            const isChecked = $(this).is(':checked');
+            //const recordId = $(this).data('record-id'); // Obtener el ID del registro
 
-            e.preventDefault();
-            
-            // Realizar la petición AJAX para almacenar el tipo de beneficio
+            console.log("Beneficio("+benefitId+"), Tipo("+typeId+"), checkeado("+isChecked+")");
             $.ajax({
-                url: $(this).attr('action'),
-                method: $(this).attr('method'),
-                data: $(this).serialize(),
+                url: '{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.updateInline.benefitstypeofbenefits') }}',
+                method: 'PUT',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                data: {
+                    benefit_id: benefitId,
+                    type_of_benefit_id: typeId,
+                    checked: isChecked,
+                    //record_id: recordId // Pasar el ID del registro
+                },
                 success: function(response) {
-                    // Actualizar la tabla con los nuevos datos
-                    $('#typesOfBenefitsTable tbody').append(response);
+                    console.log(response);
+
                     
-                    // Limpiar los campos del formulario
-                    $('#benefit_id').val('');
-                    $('#type_of_benefit_id').val('');
                 },
                 error: function(error) {
-                    console.log(error);
+                    console.error(error);
                 }
             });
-        });
-
-        // Evento de clic para el botón de editar
-        $('.edit-button').click(function() {
-            const id = $(this).data('id');
-            $('#editModal_' + id).modal('show');
-        });
-
-        // Evento de clic para el botón de eliminar
-        $('.delete-button').click(function() {
-            const id = $(this).data('id');
-            $('#deleteModal_' + id).modal('show');
         });
     });
 </script>
 
-@endsection
 
+
+
+@endsection

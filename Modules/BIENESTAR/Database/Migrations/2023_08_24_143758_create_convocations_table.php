@@ -18,11 +18,15 @@ class CreateConvocationsTable extends Migration
         Schema::create('convocations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('description');
+            $table->string('food_quotas');
+            $table->string('transport_quotas');
             $table->date('start_date'); 
             $table->date('end_date');   
-            $table->dateTime('time_interval');
+            $table->unsignedBigInteger('quarter_id');
             $table->SoftDeletes();
             $table->timestamps();
+            $table->foreign('quarter_id')->references('id')->on('quarters');
         });
     }
 

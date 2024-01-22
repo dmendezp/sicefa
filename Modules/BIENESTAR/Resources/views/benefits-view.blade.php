@@ -1,16 +1,19 @@
+@php
+    $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
+@endphp
 @extends('bienestar::layouts.master')
 
 @section('content')
 <!-- Main content -->
 <div class="container-fluid">
+    <h1 class="mb-4">{{ trans('bienestar::menu.Benefits')}}
+        <i class="fas fa-handshake"></i>
+    </h1>
     <div class="row justify-content-md-center pt-4">
-        <div class="card card-green card-outline shadow col-md-8">
-            <div class="card-header">
-                <h3 class="card-title">{{ trans('bienestar::menu.Benefits')}}</h3>
-            </div>
-            <!-- /.card-header -->
+        <div class="card shadow col-md-8">
             <div class="card-body">
-                <form action="{{ route('cefa.bienestar.benefits.add')}}" method="post" onsubmit="return validarFormulario()">
+                @if (Auth::user()->havePermission('bienestar.'.$role_name.'.save.benefits'))
+                <form action="{{ route('bienestar.'.$role_name.'.save.benefits')}}" method="post" onsubmit="return validarFormulario()" class="formGuardar">
                     @csrf
                     <div class="row align-items-center p-4">
                         <div class="col-md-3">
@@ -20,7 +23,6 @@
                         <div class="col-md-3">
                             <label for="number1">{{ trans('bienestar::menu.Porcentege')}}</label>
                             <input type="number" class="form-control" id="porcentaje" min="0" max="100" placeholder="Ej: 75" name="porcentege" required>
-                            <div id="quota-error" style="color: red;"></div>
                         </div>
                         <div class="col-md-2 align-self-end">
                             <div class="btns mt-3">
@@ -29,6 +31,7 @@
                         </div>
                     </div>
                 </form>
+                @endif
                 <div class="mtop16">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
@@ -46,6 +49,7 @@
                                 <td>{{ $benefit->name }}</td>
                                 <td>{{ $benefit->porcentege }}</td>
                                 <td>
+                                    @if (Auth::user()->havePermission('bienestar.admin.buttons.benefits'))
                                     <div class="d-flex">
                                         <!-- Botones de acciones CRUD (Editar, Eliminar, etc.) -->
                                         <button class="btn btn-primary editButton mr-2" data-id="{{ $benefit->id }}" data-name="{{ $benefit->name }}" data-porcentege="{{ $benefit->porcentege }}" data-toggle="modal" data-target="#editModal-{{ $benefit->id }}"><i class="fas fa-edit"></i></button>
@@ -56,61 +60,59 @@
                                                 <div class="modal-content">
                                                     <!-- Contenido del modal de edición aquí -->
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="editModalLabel">Editar Beneficio</h5>
+                                                        <h5 class="modal-title" id="editModalLabel">{{ trans('bienestar::menu.Edit Benefit')}}</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form id="editForm-{{ $benefit->id }}" action="{{ route('cefa.bienestar.benefits.update', ['id' => $benefit->id]) }}" method="post">
+                                                        @if (Auth::user()->havePermission('bienestar.'.$role_name.'.edit.benefits'))
+                                                        <form id="editForm-{{ $benefit->id }}" action="{{ route('bienestar.'.$role_name.'.edit.benefits', ['id' => $benefit->id]) }}" method="post" class="formEditar">
                                                             @csrf
                                                             @method('PUT')
                                                             <!-- Campos de edición aquí -->
                                                             <input type="hidden" name="id" value="{{ $benefit->id }}">
                                                             <div class="form-group">
-                                                                <label for="editName-{{ $benefit->id }}">Nombre</label>
+                                                                <label for="editName-{{ $benefit->id }}">{{ trans('bienestar::menu.Name')}}</label>
                                                                 <input type="text" class="form-control" id="editName-{{ $benefit->id }}" name="name" required pattern="[A-Za-z ]+">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="editPorcentaje-{{ $benefit->id }}">Porcentaje</label>
+                                                                <label for="editPorcentaje-{{ $benefit->id }}">{{ trans('bienestar::menu.Porcentege')}}</label>
                                                                 <input type="number" class="form-control" id="editPorcentaje-{{ $benefit->id }}" min="0" max="100" name="porcentege">
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                                <button type="submit" form="editForm-{{ $benefit->id }}" class="btn btn-primary">Guardar Cambios</button>
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('bienestar::menu.Close')}}</button>
+                                                                <button type="submit" form="editForm-{{ $benefit->id }}" class="btn btn-primary">{{ trans('bienestar::menu.Save')}}</button>
                                                             </div>
                                                             <!-- Botón para guardar cambios -->
                                                         </form>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.benefits'))
+                                        <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.benefits', ['id' => $benefit->id]) }}" method="POST" class="formEliminar">
+                                            @csrf
+                                            @method("DELETE")
+                                            <!-- Botón para abrir el modal de eliminación -->
+                                            <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
+                                        @endif
                                     </div>
-                                    <form action="{{ route('cefa.bienestar.benefits.delete', ['id' => $benefit->id]) }}" method="POST" class="formEliminar">
-                                        @csrf
-                                        @method("DELETE")
-                                        <!-- Botón para abrir el modal de eliminación -->
-                                        <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
-                                    </form>
+                                    @endif
                                 </td>
-
-
-
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-                </td>
-                </tr>
-                @endforeach
-                </tbody>
-                </table>
             </div>
         </div>
         <!-- /.card-body -->
     </div>
     <!-- /.card -->
 </div>
-</div>
-
-
 
 <script>
     $(document).ready(function() {
@@ -125,15 +127,21 @@
         });
 
         // Configura el evento input para el campo "Nombre"
-        $('name').on('input', function() {
+        // Configura el evento input para el campo "Nombre"
+        $('#name').on('input', function() {
             var name = $(this).val();
 
             // Verifica que el campo "Nombre" solo contenga letras
             if (!/^[A-Za-z]+$/.test(name)) {
-                swal("Alerta!", "El campo Nombre solo puede contener letras!");
-                $(this).val(''); // Borra cualquier carácter no válido
+                Swal.fire({
+                    title: 'Alerta',
+                    text: 'El campo Nombre solo debe contener letras',
+                    icon: 'warning',
+                    confirmButtonText: 'Ok'
+                }); // Borra cualquier carácter no válido
             }
         });
+
 
         // Configura el evento input para el campo "Porcentaje"
         $('#porcentaje').on('input', function() {
@@ -141,7 +149,7 @@
 
             if (porcentaje < 0 || porcentaje > 100) {
                 alert('El campo Porcentaje debe ser un número entre 0 y 100');
-                $(this).val(''); // Borra cualquier número fuera de rango
+                // Borra cualquier número fuera de rango
             }
 
             // Limita la longitud del campo a 3 caracteres
@@ -149,6 +157,7 @@
                 $(this).val(porcentaje.slice(0, 3));
             }
         });
+
 
     });
 
@@ -199,50 +208,5 @@
         return true; // Envía el formulario si todo está correcto
     }
 </script>
-<script>
-    'use strict';
-    // Selecciona todos los formularios con la clase "formEliminar"
-    var forms = document.querySelectorAll('.formEliminar');
 
-    Array.prototype.slice.call(forms)
-        .forEach(function(form) {
-            form.addEventListener('submit', function(event) {
-                event.preventDefault(); // Evita que el formulario se envíe de inmediato
-
-                Swal.fire({
-                    title: "Are you sure?'",
-                    text: "It is an irreversible process.",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: "Yes, delete it'",
-                    cancelButtonText: "Cancel" // Cambiar el texto del botón "Cancelar"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Enviar el formulario usando AJAX
-                        axios.post(form.action, new FormData(form))
-                            .then(function(response) {
-                                // Manejar la respuesta JSON del servidor
-                                if (response.data && response.data.mensaje) {
-                                    Swal.fire({
-                                        title: 'Vacancy deleted!',
-                                        text: response.data.mensaje,
-                                        icon: 'success'
-                                    }).then(() => {
-                                        // Recargar la página u otra acción según sea necesario
-                                        location
-                                            .reload(); // Recargar la página después de eliminar
-                                    });
-                                }
-                            })
-                            .catch(function(error) {
-                                // Manejar errores si es necesario
-                                console.error(error);
-                            });
-                    }
-                });
-            });
-        });
-</script>
 @endsection

@@ -19,7 +19,6 @@ class CreateAssistancesFoodsTable extends Migration
             $table->unsignedBigInteger('apprentice_id');
             $table->unsignedBigInteger('postulation_benefit_id');
             $table->string('porcentage');
-            $table->string('type_food');
             $table->datetime('date_time');
             $table->timestamps();
             $table->foreign('apprentice_id')->references('id')->on('apprentices');

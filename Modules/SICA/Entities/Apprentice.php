@@ -9,6 +9,8 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Course;
 use Modules\SENAEMPRESA\Entities\Asistencia;
+use Modules\BIENESTAR\Entities\Postulation;
+use Modules\BIENESTAR\Entities\AssignTransportRoute;
 
 class Apprentice extends Model implements Auditable
 {
@@ -54,6 +56,12 @@ class Apprentice extends Model implements Auditable
         return $this->belongsTo(Person::class);
     }
 
+    public function postulations(){// Accede a los datos del aprendiz al que pertenece
+        return $this->hasMany(Postulation::class);
+    }
+    public function assigntransoportroutes(){
+        return $this->hasMany(AssignTransportRoute::class);
+    }
 
     // Configuración de factory para la generación de datos de pruebas
     protected static function newFactory()

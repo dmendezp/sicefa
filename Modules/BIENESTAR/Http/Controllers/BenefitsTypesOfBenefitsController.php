@@ -5,10 +5,11 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\BIENESTAR\Entities\BenefitsTypesOfBenefits;
-use Modules\BIENESTAR\Entities\TypesOfBenefits;
-use Modules\BIENESTAR\Entities\Benefits;
-
+use Modules\BIENESTAR\Entities\BenefitTypeOfBenefit;
+use Modules\BIENESTAR\Entities\TypeOfBenefit;
+use Modules\BIENESTAR\Entities\Benefit;
+use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 
 class BenefitsTypesOfBenefitsController extends Controller
 {
@@ -18,58 +19,53 @@ class BenefitsTypesOfBenefitsController extends Controller
      */
     public function benefitstypeofbenefits()
     {
-        $benefitstypeofbenefits = BenefitsTypesOfBenefits::all();
-        $benefits = Benefits::all();
-        $typeofbenefits = TypesOfBenefits::all();
+        $benefitstypeofbenefits = BenefitTypeOfBenefit::all();
+        $benefits = Benefit::all();
+        $typeOfBenefits = TypeOfBenefit::all();
 
-        return view('bienestar::benefitstypeofbenefits', compact('benefitstypeofbenefits', 'benefits', 'typeofbenefits'));
+        return view('bienestar::benefitstypeofbenefits', compact('benefitstypeofbenefits', 'benefits', 'typeOfBenefits'));
     }
 
-    public function store(Request $request)
+  
+
+    
+    public function updateInline(Request $request)
     {
-        // Validar los datos del formulario
-        $request->validate([
-            'benefit_id' => 'required|exists:benefits,id',
-            'type_of_benefit_id' => 'required|exists:types_of_benefits,id',
-        ]);
-
-        // Crear un nuevo registro en la tabla pivot
-        BenefitsTypesOfBenefits::create([
-            'benefit_id' => $request->benefit_id,
-            'type_of_benefit_id' => $request->type_of_benefit_id,
-        ]);
-
-        return redirect()->route('bienestar.benefitstypeofbenefits')->with('success', 'Registro creado correctamente.');
-    }
-
-    public function update(Request $request, $id)
-    {
-        // Validar los datos del formulario
-        $request->validate([
-            'benefit_id' => 'required|exists:benefits,id',
-            'type_of_benefit_id' => 'required|exists:types_of_benefits,id',
-        ]);
-
-        // Buscar el registro por su ID
-        $type = BenefitsTypesOfBenefits::find($id);
-
-        if (!$type) {
-            return redirect()->route('bienestar.benefitstypeofbenefits')->with('error', 'Registro no encontrado.');
+        $benefitId = $request->input('benefit_id');
+        $typeId = $request->input('type_of_benefit_id');
+        $isChecked = $request->input('checked');
+        //$recordId = $request->input('record_id'); 
+        
+        
+        // Consultar registro 
+        $record = BenefitTypeOfBenefit::withTrashed()
+                    ->where('benefit_id', $benefitId)
+                    ->where('type_of_benefit_id', $typeId)
+                    ->first();
+        
+        // Validar si existe
+        if($record){
+            if($isChecked == 'true'){
+                if($record->trashed()){
+                    $record->restore();
+                }
+            }else{
+                $record->delete();
+            }
+        }else{
+            // Realizar registro
+            BenefitTypeOfBenefit::create([
+                'benefit_id' => $benefitId,
+                'type_of_benefit_id' => $typeId,
+            ]);
         }
 
-        // Actualizar los valores
-        $type->benefit_id = $request->benefit_id;
-        $type->type_of_benefit_id = $request->type_of_benefit_id;
-        $type->save();
 
-        return redirect()->route('bienestar.benefitstypeofbenefits')->with('success', 'Registro actualizado correctamente.');
+    
+    
+        // Responder con una confirmación y el ID del registro (puede ser nulo si no se crea/elimina ningún registro)
+        return response()->json(['success' => 'Actualización en línea exitosa.', 'record' => $record], 200);   
     }
+    
 
-    public function destroy($id)
-    {
-        // Encuentra y elimina el registro por su ID
-        BenefitsTypesOfBenefits::destroy($id);
-
-        return redirect()->route('bienestar.benefitstypeofbenefits')->with('success', 'Registro eliminado correctamente.');
-    }
 }

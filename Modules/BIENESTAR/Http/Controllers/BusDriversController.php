@@ -4,13 +4,14 @@ namespace Modules\BIENESTAR\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\BIENESTAR\Entities\BusDrivers;
+use Modules\BIENESTAR\Entities\BusDriver;
+use Illuminate\Support\Facades\Route;
 
 class BusDriversController extends Controller
 {
     public function drivers()
     {   
-        $busdrivers = BusDrivers::all();
+        $busdrivers = BusDriver::all();
         return view('bienestar::drivers', ['busdrivers' => $busdrivers]);
     }
 
@@ -22,13 +23,13 @@ class BusDriversController extends Controller
             'phone' => 'required|numeric|digits:10',
         ]);
 
-        BusDrivers::create([
+        BusDriver::create([
             'name' => $request->input('namedriver'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
         ]);
 
-        return redirect()->route('bienestar.drivers')->with('success', 'Conductor agregado exitosamente.');
+        return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.transportation.crud.drivers')->with('success', 'Conductor agregado exitosamente.');
     }
 
     public function driversUp(Request $request, $id)
@@ -39,10 +40,10 @@ class BusDriversController extends Controller
             'phone' => 'required|numeric|digits:10',
         ]);
 
-        $busdriver = BusDrivers::find($id);
+        $busdriver = BusDriver::find($id);
 
         if (!$busdriver) {
-            return redirect()->route('bienestar.drivers')->with('error', 'El conductor no existe.');
+            return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.transportation.crud.drivers')->with('error', 'El conductor no existe.');
         }
 
         $busdriver->name = $request->input('name');
@@ -50,19 +51,19 @@ class BusDriversController extends Controller
         $busdriver->phone = $request->input('phone');
         $busdriver->save();
 
-        return redirect()->route('bienestar.drivers')->with('success', 'Conductor actualizado con éxito');
+        return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.transportation.crud.drivers')->with('success', 'Conductor actualizado con éxito');
     }
 
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
-        $busdriver = BusDrivers::find($id);
-
-        if (!$busdriver) {
-            return redirect()->route('bienestar.drivers')->with('error', 'El conductor no existe.');
-        }
-
+        
+    try {
+        $busdriver = BusDriver::find($id);
         $busdriver->delete();
 
-        return redirect()->route('bienestar.drivers')->with('success', 'Conductor eliminado con éxito');
+        return response()->json(['mensaje' =>'Vacancy eliminated with success']);
+    } catch (\Exception $e) {
+        return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
     }
+ }
 }

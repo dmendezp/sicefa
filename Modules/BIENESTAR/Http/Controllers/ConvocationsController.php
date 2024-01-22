@@ -5,7 +5,9 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\BIENESTAR\Entities\Convocations;
+use Modules\BIENESTAR\Entities\Convocation;
+use Modules\SICA\Entities\Quarter;
+use Illuminate\Support\Facades\Route;
 
 
 class ConvocationsController extends Controller
@@ -14,6 +16,7 @@ class ConvocationsController extends Controller
     {
         // Mostrar el formulario para crear una nueva convocatoria
         return view('bienestar::convocatoria');
+        
     }
     
     
@@ -24,8 +27,9 @@ class ConvocationsController extends Controller
     public function index()
     {
         // Obtenemos Listado Convocatoria
-       $convocations=Convocations::all();
-       return view('bienestar::Convocations',['Convocations'=>$convocations]);   
+       $convocations=Convocation::all(); 
+       $quarters= Quarter::all(); 
+       return view('bienestar::convocations',['convocations'=>$convocations,'quarters'=>$quarters]);
     }
 
     
@@ -37,20 +41,22 @@ class ConvocationsController extends Controller
      */
     public function store(Request $request)
     {
+        
         // Define las reglas de validación
-
-
-        $convocations = new Convocations;
+        $convocations = new Convocation;
         $convocations->name = $request->input('title');
+        $convocations->description = $request->input('description');
+        $convocations->food_quotas = $request->input('food_quotas');
+        $convocations->transport_quotas = $request->input('transport_quotas');
         $convocations->start_date= $request->input('start_date');
         $convocations->end_date= $request->input('end_date');
-        $convocations->time_interval= $request->input('time_interval');
+        $convocations->quarter_id= $request->input('quarter_id');
         $convocations->save();
         
         if($convocations->save()){
-            return redirect()->route('bienestar.Convocations')->with('message', 'Convocatoria registrada Correctamente')->with('typealert', 'success');
+            return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.convocations.crud.convocations')->with('success', 'Convocatoria registrada Correctamente');
         }else{
-            return redirect()->route('bienestar.Convocations')->with('message', 'Se Ha Producido Un Error')->with('typealert', 'danger');
+            return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.convocations.crud.convocations')->with('error', 'Se Ha Producido Un Error');
         }
     }
 
@@ -72,18 +78,19 @@ class ConvocationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-      
-        $convocations = Convocations::findOrFail($id);
-        $convocations->title = $request->input('title');
+        $convocations = Convocation::findOrFail($id);
+        $convocations->name = $request->input('name');
         $convocations->description = $request->input('description');
+        $convocations->food_quotas = $request->input('food_quotas');
+        $convocations->transport_quotas = $request->input('transport_quotas');
         $convocations->start_date = $request->input('start_date');
         $convocations->end_date = $request->input('end_date');
-        $convocations->transport_quotas = $request->input('transport_quotas');
-        $convocations->food_quotas = $request->input('food_quotas');
+        $convocations->quarter_id= $request->input('quarter_id');
+         
         if($convocations->save()){
-            return redirect()->route('bienestar.Convocations')->with('message', 'Registro Actualizado Correctamente')->with('typealert', 'success');
+            return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.convocations.crud.convocations')->with('success', 'Registro Actualizado Correctamente');
         }
-        return redirect()->route('bienestar.Convocations')->with('message', 'Se Ha Producido Un Error')->with('typealert', 'danger');
+        return redirect()->route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.convocations.crud.convocations')->with('errror', 'Se Ha Producido Un Error');
     }
 
     /**
@@ -93,6 +100,14 @@ class ConvocationsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $convocations = Convocation::findOrFail($id);
+            $convocations->delete();
+            return response()->json(['mensaje' => 'eliminado with success']);      
+          }  catch (\Exception $e) {
+              return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
+          }  
     }
+
+
 }

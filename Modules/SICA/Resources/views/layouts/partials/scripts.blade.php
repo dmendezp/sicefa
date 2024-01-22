@@ -13,7 +13,7 @@
 <script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.js') }}"></script>
 <script src="{{ asset('js/generalscripts.js') }}"></script>
-<script src="{{ asset('sica/js/scripts.js') }}"></script>
+<script src="{{ asset('modules/sica/js/scripts.js') }}"></script>
 
 <script src="{{ asset('AdminLTE/plugins/fullcalendar/lib/main.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/fullcalendar/lib/locales-all.js') }}"></script>
@@ -21,9 +21,10 @@
 <script src="{{ asset('AdminLTE/plugins/select2/js/select2.full.min.js') }}"></script>
 
 {{-- Sweatalert and toast --}}
+<script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/toastr/toastr.min.js') }}"></script>
 
-<script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
+<script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script> 
 
 <!-- Highcharts -->
 <script src="{{ asset('Highcharts/code/highcharts.js') }}"></script>
@@ -37,7 +38,12 @@
 	$(function () {
   		$('[data-toggle="tooltip"]').tooltip()
 	})
-</script>
 
-<!-- sweetalert2 -->
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    // Configuración mostrar un alert sencillo en la esquina superior derecha
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
+</script>

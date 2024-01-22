@@ -5,8 +5,9 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\BIENESTAR\Entities\BusDrivers;
-use Modules\BIENESTAR\Entities\Buses;
+use Modules\BIENESTAR\Entities\BusDriver;
+use Modules\BIENESTAR\Entities\Bus;
+use Illuminate\Support\Facades\Route;
 
 class BusesController extends Controller
 {
@@ -14,13 +15,13 @@ class BusesController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    
+
     public function index()
     {
         //obtenemos el listado de buses
-        $buses = Buses::with('bus_driver')->get();
-        $busDrivers = BusDrivers::pluck('name','id');
-        return view('bienestar::buses.home',['buses'=>$buses,'busDrivers'=>$busDrivers]);
+        $buses = Bus::with('bus_driver')->get();
+        $busDrivers = BusDriver::pluck('name', 'id');
+        return view('bienestar::buses.home', ['buses' => $buses, 'busDrivers' => $busDrivers]);
     }
 
     /**
@@ -30,22 +31,39 @@ class BusesController extends Controller
      */
     public function store(Request $request)
     {
+        // Primero, realiza la validación
         $request->validate([
-            'plate' => 'required|regex:/^[A-Za-z]{1,5}\d{1,3}$/',
+            'plate' => [
+                'required',
+                'regex:/^[A-Za-z]{1,5}\d{1,3}$/',
+                function ($attribute, $value, $fail) {
+                    // Verifica si existe un registro con la misma placa
+                    $existingBus = Bus::where('plate', $value)->first();
+
+                    if ($existingBus) {
+                        $fail("Ya existe un bus con esta placa en la base de datos.");
+                    }
+                },
+            ],
             'quota' => 'required|numeric',
-            'bus_driver' => 'required|exists:bus_drivers,id', // Asegura que bus_driver exista en la tabla bus_drivers
+            'bus_driver' => 'required|exists:bus_drivers,id',
         ]);
 
-        $buses = new Buses;
+
+        // Create and save a new bus
+        $buses = new Bus;
         $buses->plate = $request->input('plate');
         $buses->quota = $request->input('quota');
         $buses->bus_driver_id = $request->input('bus_driver');
-        if($buses->save()){
-            return redirect()->route('bienestar.buses')->with('message', 'Bus creado correctamente.')->with('typealert', 'success');
-        }
 
-        return redirect()->route('bienestar.buses')->with('message', 'Se ha producido un error')->with('typealert', 'danger');
+        if ($buses->save()) {
+            // Redirige con un mensaje de éxito
+            return response()->json(['success' => 'Bus creado correctamente.']);
+        } else {
+            return response()->json(['error' => 'Se Ha Producido Un Error.'], 422);
+        }
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -55,22 +73,21 @@ class BusesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'plate' => 'required|string|max:255',
-            'quota' => 'required|numeric',
-            'bus_driver' => 'required|exists:bus_drivers,id', // Asegura que bus_driver exista en la tabla bus_drivers
-        ]);
-        
-        $buses = Buses::findOrFail($id);
+
+        $buses = Bus::findOrFail($id);
         $buses->plate = $request->input('plate');
         $buses->quota = $request->input('quota');
-        $buses->bus_driver_id = $request->input('bus_driver');
-        if($buses->save()){
-            return redirect()->route('bienestar.buses')->with('message', 'Bus actualizado correctamente.')->with('typealert', 'success');
-        }
+        $buses->bus_driver_id = $request->input('bus_driver'); // Corrige el nombre del campo
+        $buses->save();
 
-        return redirect()->route('bienestar.buses')->with('message', 'Se ha producido un error')->with('typealert', 'danger');
+        if ($buses->save()) {
+            return response()->json(['success' => 'Bus actualizado correctamente.']);
+        } else {
+            return response()->json(['mensaje' => 'error al actualizar el autobús'], 422);
+        }
     }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -79,9 +96,12 @@ class BusesController extends Controller
      */
     public function destroy($id)
     {
-        $bus = Buses::findOrFail($id);
-        if($bus->delete()):
-            return back()->with('message', 'Bus eliminado')->with('typealert', 'danger');
-        endif;
+        try {
+            $bus = Bus::findOrFail($id);
+            $bus->delete();
+            return response()->json(['mensaje' => 'eliminado con éxito']);
+        } catch (\Exception $e) {
+            return response()->json(['mensaje' => 'Error deleting trainee'], 500);
+        }
     }
 }
