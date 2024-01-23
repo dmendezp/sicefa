@@ -352,7 +352,7 @@
 
                         var totalPrice = totalAmount * consumable.price;
 
-                        totalPriceConsumables += totalPrice;
+                        totalPriceConsumables += totalPrice;                
                         
                         var newConsumableField = '<div class="consumable recipe-product">' +
                             '<div class="form-group">' +
@@ -364,7 +364,7 @@
                             '<input type="text" name="name_consumable" class="form-control" id="element_name-' + counter + '" value="' + consumable.name + '" readonly>' +
                             '</div>' +
                             '<div class="form-group">' +
-                            '<span class="quantity">Cantidad disponible: ' + consumable.amount + '</span>' +
+                            '<span class="quantity">Cantidad Disponible: ' + consumable.amount + '</span>' +
                             '<label for="amount_consumables">Cantidad</label>' +
                             '<input type="number" name="amount_consumables[]" id="amount_consumables_formulation" class="form-control" value="' + totalAmount + '" readonly>' +
                             '</div>' +
@@ -376,8 +376,41 @@
                             '<button type="button" class="remove-consumables">{{trans('agroindustria::menu.Delete')}}</button>'
                             '</div>';
 
+                            maxQuantity = consumable.amount;
+
+                            function updateSaveButtonState(totalAmount, maxQuantity) {
+                                var saveButton = $('.save_receipe');
+
+                                if (totalAmount > maxQuantity) {
+                                    saveButton.prop('disabled', true);
+                                    saveButton.addClass('disabled-button');
+                                    isAnyProductExceeding = true;
+                                    console.log('Deshabilitado');
+                                } else {
+                                    isAnyProductExceeding = false;
+                                    console.log('Habilitado');
+                                    if (!isAnyProductExceeding) {
+                                        saveButton.prop('disabled', false);
+                                        saveButton.removeClass('disabled-button');
+                                    } else {
+                                        saveButton.prop('disabled', true);
+                                        saveButton.addClass('disabled-button');
+                                    }
+                                }
+                            }
+
                         $consumableContainer.append(newConsumableField);
 
+                       
+                        if (totalAmount > maxQuantity) {
+                            // Actualizar el contenido del span después de agregarlo al DOM
+                            $consumableContainer.find('.quantity').text('Cantidad no disponible').css('color', 'red');
+                            updateSaveButtonState(totalAmount, maxQuantity);
+                        } else {
+                            $consumableContainer.find('.quantity').text('Cantidad Disponible: ' + maxQuantity).css('color', '#666');
+                            updateSaveButtonState(totalAmount, maxQuantity);
+                        }
+                       
                         // Actualizar el campo "Total de la Labor"
                         $('input[name="total_labor"]').val(totalPriceConsumables);
                         
@@ -422,6 +455,8 @@
                 }
             });
         }
+
+
 
         // Llamar a updateConsumables al cargar la página
         updateConsumables();

@@ -60,7 +60,7 @@
 </div>
 <!-- Modal enviar a punto de venta -->
 @foreach ($labors as $l)
-@if ($l->activity->activity_type->id == 1)
+@if ($l->activity->activity_type->id == 1 && $l->destination == 'Producción')
     
 <div class="modal fade" id="realizar{{$l->id}}" tabindex="-1" aria-labelledby="realizarLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -112,7 +112,7 @@
             </div>         
         </div>
         <div class="modal-footer">
-            {!! Form::submit('Enviar',['class' => 'btn btn-success', 'name' => 'anular']) !!}
+            {!! Form::submit('Sí, terminar',['class' => 'btn btn-success', 'name' => 'anular']) !!}
             {!! Form:: close() !!}
         </div>
       </div>

@@ -2,6 +2,7 @@
 
 namespace Modules\AGROINDUSTRIA\Http\Controllers\instructor;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -98,7 +99,8 @@ class LaborController extends Controller
             ];
         })->prepend(['id' => null, 'name' => trans('agroindustria::labors.selectEmployeeType')])->pluck('name', 'id');
 
-        $productive_unit_warehouse = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
+        $warehouse = Warehouse::where('name', 'Agroindustria')->pluck('id');
+        $productive_unit_warehouse = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->whereIn('warehouse_id', $warehouse)->pluck('id');
         
         $utensils = Category::where('name', 'Utensilios')->pluck('id');
         $elements = Element::whereIn('category_id', $utensils)->pluck('id');
@@ -134,14 +136,12 @@ class LaborController extends Controller
             ];
         })->prepend(['id' => null, 'name' => 'Seleccione una herramienta'])->pluck('name', 'id');
 
-        $selectedUnit = session('viewing_unit');
-        $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
         $groceries = Category::where('name', 'Abarrotes')->pluck('id');
         $additives = Category::where('name', 'Aditivos')->pluck('id');
         $packaging = Category::where('name', 'Empaques')->pluck('id');
         $hygiene = Category::where('name', 'Higiene')->pluck('id');
         $elementConsumable = Element::whereIn('category_id', $groceries)->orWhereIn('category_id', $additives)->orWhereIn('category_id', $packaging)->orWhereIn('category_id', $hygiene)->pluck('id');
-        $inventoryConsumables = Inventory::with('element.measurement_unit')->where('productive_unit_warehouse_id', $productiveUnit)->whereIn('element_id', $elementConsumable)
+        $inventoryConsumables = Inventory::with('element.measurement_unit')->where('productive_unit_warehouse_id', $productive_unit_warehouse)->whereIn('element_id', $elementConsumable)
             ->groupBy('element_id')
             ->select('element_id', \DB::raw('(SELECT MIN(id) FROM inventories AS subinventory WHERE subinventory.element_id = inventories.element_id AND subinventory.amount > 0) as id'))
             ->get();
@@ -208,7 +208,8 @@ class LaborController extends Controller
 
     public function price_tools($id){
         $selectedUnit = session('viewing_unit');
-        $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
+        $warehouse = Warehouse::where('name', 'Agroindustria')->pluck('id');
+        $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->whereIn('warehouse_id', $warehouse)->pluck('id');
         $tools = Inventory::where('element_id', $id)->where('productive_unit_warehouse_id', $productiveUnit)->groupBy('element_id')->select('element_id', \DB::raw('SUM(amount) as totalAmount'), \DB::raw('GROUP_CONCAT(price) as prices'))->get();
 
         $data = $tools->map(function ($t){
@@ -226,7 +227,8 @@ class LaborController extends Controller
 
     public function amount($consumables){
         $selectedUnit = session('viewing_unit');
-        $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
+        $warehouse = Warehouse::where('name', 'Agroindustria')->pluck('id');
+        $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->whereIn('warehouse_id', $warehouse)->pluck('id');
         $elements = Inventory::with('element.measurement_unit')->where('productive_unit_warehouse_id', $productiveUnit)->where('element_id', $consumables)->groupBy('element_id')->select('element_id', \DB::raw('SUM(amount) as totalAmount'), \DB::raw('GROUP_CONCAT(price) as prices'))->get();
         $amountPrice = $elements->map(function ($e){
             $measurement_unit = $e->element->measurement_unit->conversion_factor;
@@ -246,7 +248,8 @@ class LaborController extends Controller
 
     public function amounteq($equipments){
         $selectedUnit = session('viewing_unit');
-        $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
+        $warehouse = Warehouse::where('name', 'Agroindustria')->pluck('id');
+        $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->whereIn('warehouse_id', $warehouse)->pluck('id');
         $elements = Inventory::with('element.measurement_unit')->where('element_id', $equipments)->where('productive_unit_warehouse_id', $productiveUnit)->groupBy('element_id')->select('element_id', \DB::raw('SUM(amount) as totalAmount'), \DB::raw('GROUP_CONCAT(price) as prices'))->get();
         $amountPrice = $elements->map(function ($e){
             $amount = $e->totalAmount;
@@ -290,7 +293,8 @@ class LaborController extends Controller
         }
 
         $selectedUnit = session('viewing_unit');
-        $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
+        $warehouse = Warehouse::where('name', 'Agroindustria')->pluck('id');
+        $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->whereIn('warehouse_id', $warehouse)->pluck('id');
         $ingredients = Ingredient::where('formulation_id', $firstFormulationId)->pluck('element_id');
         $amountIngredients = Ingredient::where('formulation_id', $firstFormulationId)->get();
 
@@ -423,7 +427,8 @@ class LaborController extends Controller
                 
                 // Realiza una consulta para obtener los lotes correspondientes al elemento y ordénalos por lote
                 $selectedUnit = session('viewing_unit');
-                $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
+                $warehouse = Warehouse::where('name', 'Agroindustria')->pluck('id');
+                $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->whereIn('warehouse_id', $warehouse)->pluck('id');
                 $inventories = Inventory::where('element_id', $elementId)
                 ->where('productive_unit_warehouse_id', $productiveUnit)
                 ->orderBy('lot_number', 'ASC')
@@ -471,7 +476,8 @@ class LaborController extends Controller
                     $conversion = $requiredAmount*$measurement_unit[$key];
 
                     $selectedUnit = session('viewing_unit');
-                    $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
+                    $warehouse = Warehouse::where('name', 'Agroindustria')->pluck('id');
+                    $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->whereIn('warehouse_id', $warehouse)->pluck('id');
                     $inventories = Inventory::where('element_id', $tool)
                     ->where('productive_unit_warehouse_id', $productiveUnit)
                     ->get();
@@ -520,7 +526,8 @@ class LaborController extends Controller
                     $conversion = $requiredAmount*$measurement_unit[$key];
 
                     $selectedUnit = session('viewing_unit');
-                    $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
+                    $warehouse = Warehouse::where('name', 'Agroindustria')->pluck('id');
+                    $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->whereIn('warehouse_id', $warehouse)->pluck('id');
                     $inventories = Inventory::where('element_id', $equipment)
                     ->where('productive_unit_warehouse_id', $productiveUnit)
                     ->get();
@@ -608,10 +615,21 @@ class LaborController extends Controller
             $icon = 'success';
             $message_line = trans('agroindustria::labors.laborSavedCorrectly');
 
-            return redirect()->route('agroindustria.instructor.units.labor')->with([
-                'icon' => $icon,
-                'message_line' => $message_line,
-            ]); 
+            if(Auth::check()){
+                $user = Auth::user();
+                if($user->roles->contains('slug', 'agroindustria.instructor')){
+                    return redirect()->route('agroindustria.instructor.units.labor')->with([
+                        'icon' => $icon,
+                        'message_line' => $message_line,
+                    ]); 
+                }else{
+                    return redirect()->route('agroindustria.admin.units.labor')->with([
+                        'icon' => $icon,
+                        'message_line' => $message_line,
+                    ]); 
+                }
+            }
+            
         } catch (\Exception $e) {
             dd($e);
             // Rollback de la transacción en caso de error
