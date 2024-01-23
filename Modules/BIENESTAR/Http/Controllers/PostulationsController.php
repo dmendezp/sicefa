@@ -48,6 +48,7 @@ class PostulationsController extends Controller
             ->where('people.document_number', $documentNumber)
             ->whereDate('convocations.start_date', '<=', now())
             ->whereDate('convocations.end_date', '>=', now())
+            ->whereNull('postulations.deleted_at')
             ->first();
 
         if ($existingPostulation) {
@@ -125,41 +126,43 @@ class PostulationsController extends Controller
 
 
     public function savepostulation(Request $request)
-    {
-        // Crear una nueva postulación
-        $postulation = new Postulation();
-        $postulation->apprentice_id = $request->input('apprentice_id');
-        $postulation->convocation_id = $request->input('convocation_id');
-        $postulation->feed_benefit = $request->input('food') ?? 0;
-        $postulation->transportation_benefit = $request->input('transport') ?? 0;
-        $postulation->save();
+{
+    // Crear una nueva postulación
+    $postulation = new Postulation();
+    $postulation->apprentice_id = $request->input('apprentice_id');
+    $postulation->convocation_id = $request->input('convocation_id');
+    $postulation->feed_benefit = $request->input('food') ?? 0;
+    $postulation->transportation_benefit = $request->input('transport') ?? 0;
+    $postulation->save();
 
-        // Obtener las respuestas del formulario
-        $answers = $request->input('answer', []);
-        $questionIds = $request->input('question', []);
+    // Obtener las respuestas del formulario
+    $answers = $request->input('answer', []);
+    $questionIds = $request->input('question', []);
 
-        // Recorrer las respuestas y guardarlas relacionadas con la postulación
-        foreach ($answers as $index => $answerValue) {
-            if (!empty($answerValue) && isset($questionIds[$index])) {
-                $respuesta = new Answer();
-                $respuesta->answer = $answerValue; // Guardar el valor de la respuesta
-                $respuesta->postulation_id = $postulation->id;
-                $respuesta->question_id = $questionIds[$index]; // Guardar el ID de la pregunta
-                $respuesta->save();
-            }
-
-            $file = $request->file('socioeconomicFile');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->storeAs('socioeconomico', $fileName, 'public');
-
-            // Guardar el archivo en la tabla SocioEconomicSupportFile
-            $supportFile = new SocioEconomicSupportFile();
-            $supportFile->file_path = $filePath;
-            $supportFile->postulation_id = $postulation->id;
-            $supportFile->save();
-
-            // Redireccionar a la vista de edición o a donde desees después de guardar
-            return redirect()->route('cefa.bienestar.postulations')->with('success', 'Postulación guardada exitosamente.');
+    // Recorrer las respuestas y guardarlas relacionadas con la postulación
+    foreach ($answers as $index => $answerValue) {
+        if (!empty($answerValue) && isset($questionIds[$index])) {
+            $respuesta = new Answer();
+            $respuesta->answer = $answerValue; // Guardar el valor de la respuesta
+            $respuesta->postulation_id = $postulation->id;
+            $respuesta->question_id = $questionIds[$index]; // Guardar el ID de la pregunta
+            $respuesta->save();
         }
     }
+
+    // Procesar el archivo socioeconómico
+    $file = $request->file('socioeconomicFile');
+    $fileName = time() . '_' . $file->getClientOriginalName();
+    $filePath = $file->storeAs('socioeconomico', $fileName, 'public');
+
+    // Guardar el archivo en la tabla SocioEconomicSupportFile
+    $supportFile = new SocioEconomicSupportFile();
+    $supportFile->file_path = $filePath;
+    $supportFile->postulation_id = $postulation->id;
+    $supportFile->save();
+
+    // Redireccionar a la vista de edición o a donde desees después de guardar
+    return response()->json(['success' => 'Postulación exitosa!']);
+}
+
 }

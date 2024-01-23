@@ -63,7 +63,6 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
 <script>
     $(document).on("change", "#assitance", function() {
         performSearch();
-        location.reload();
     });
 
     $(document).on("click", "#searchButtonassitance", function(event) {
@@ -81,14 +80,14 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
             .then(function(response) {
                 if (response.data.success) {
                     // Mostrar el SweetAlert de éxito
-                    showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 5000);
+                    showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 2000);
                     // Opcional: Actualizar dinámicamente la interfaz de usuario según sea necesario
                 } else if (response.data.error) {
                     // Mostrar el SweetAlert de error
-                    showSweetAlert('error', 'Error', response.data.error, 5000);
+                    showSweetAlert('error', 'Error', response.data.error, 2500);
                 } else if (response.data.warning) {
                     // Mostrar el SweetAlert de advertencia
-                    showSweetAlert('warning', 'Advertencia', response.data.warning, 5000);
+                    showSweetAlert('warning', 'Advertencia', response.data.warning, 2500);
                 } else {
                     // Mostrar el SweetAlert de error en caso de problemas inesperados
                     showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to save records.') }}");

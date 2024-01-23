@@ -203,11 +203,11 @@ $role_name = getRoleRouteName(Route::currentRouteName());
                                                                                         <img src="{{ $filePath }}" alt="{{ $extension }} icon" style="width: 40px; height: 40px;">
                                                                                             <strong class="card-title">{{ $truncatedName }} ({{ $extension }})</strong>
                                                                                     </p>
-
+                                                                                    
                                                                                     <!-- Agregar el botón de descarga -->
                                                                                     <a href="{{ asset($file->file_path) }}" download class="btn btn-primary btn-sm">
                                                                                         Descargar
-                                                                                    </a>
+                                                                                    </a>                                                                                                                                                                                                                                                     
                                                                                 </div>
                                                                         </li>
                                                                     @endforeach
@@ -215,6 +215,7 @@ $role_name = getRoleRouteName(Route::currentRouteName());
                                                             @else
                                                                 <p>No hay archivos socioeconómicos asociados a esta postulación.</p>
                                                             @endif
+                                                            <div id="previewContainer"></div>
                                                             <div class="form-group">
                                                                 <label for="message">{{ trans('bienestar::menu.Score') }}</label>
                                                                 <input type="number" class="form-control" name="score" id="score" value="{{ $postulation->total_score }}" required>
