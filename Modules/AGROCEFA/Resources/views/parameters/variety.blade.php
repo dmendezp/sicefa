@@ -13,7 +13,7 @@
         <table class="table table-sm table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>#</th>
                     <th>{{ trans('agrocefa::variety.name') }}</th>
                     <th>{{ trans('agrocefa::variety.specie') }}</th>
                     @auth

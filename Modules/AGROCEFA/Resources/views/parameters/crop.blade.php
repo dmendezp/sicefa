@@ -14,7 +14,7 @@
         <table class="table table-sm table-bordered table-striped" style="width: 90%">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>#</th>
                     <th>{{ trans('agrocefa::cultivo.Name') }}</th>
                     <th>{{ trans('agrocefa::cultivo.Sown area') }}</th>
                     <th>{{ trans('agrocefa::cultivo.Seedtime') }}</th>

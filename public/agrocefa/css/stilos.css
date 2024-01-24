@@ -375,9 +375,9 @@ body.dark .switch::before{
 }
 
 .sidebar.close ~ .home{
-    left: 120px;
+    left: 100px;
     max-height: 500%;
-    width: calc(100% - 78px);
+    width: calc(80% - 0px);
 }
 body.dark .home .text{
     color: var(--text-color);

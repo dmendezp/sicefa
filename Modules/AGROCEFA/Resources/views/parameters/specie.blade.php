@@ -14,7 +14,7 @@
         <table class="table table-sm table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>#</th>
                     <th>{{ trans('agrocefa::specie.Name') }}</th>
                     <th>{{ trans('agrocefa::specie.lifecycle') }}</th>
                     @auth

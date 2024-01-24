@@ -105,7 +105,7 @@ html, body{
 }
 .banner{
 	position: relative;
-	width: 100%;
+	width: 115%;
 	height: calc(100vh - 50px);
 	background-color: #F5F5F5;
 	background-size: cover;
@@ -113,6 +113,9 @@ html, body{
 	transition: all .1s ease-out;
 	background-image: url('banner-1.jpg');
 	animation: banner 28s infinite linear;
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .banner-content{
 	margin: 0;

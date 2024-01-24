@@ -47,12 +47,6 @@ body{
     margin-right: 10px;
 }
 
-.banner{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .banner_title h2{
     color: #fff;
     font-size: 60px;
