@@ -1,4 +1,4 @@
-@extends('hangarauto::layout.adminhome')
+@extends('hangarauto::layouts.master')
 @push('breadcrumbs')
     <li class="breadcrumb-item active"><a href=""></a>{{ trans('hangarauto::drivers.Drivers') }}</li>
 @endpush
@@ -14,11 +14,11 @@
         <div class="row">
             <div class="col pt-4">
                 <div class="card-header bg-warning">
-                    Registro De Conductores Del CEFA
+                    <h5>Registro De Conductores Del CEFA</h5>
                 </div><br>
                 <a href="{{ route('parking.admin.create') }}">
                     <button type="button" class="btn btn-primary">Agregar Conductor</button>
-                </a>
+                </a><br><br>
                 <div class="card">
                     <div class="card-body">
                         <table id="travels" class="table table-striped table-bordered" style="width: 100%">

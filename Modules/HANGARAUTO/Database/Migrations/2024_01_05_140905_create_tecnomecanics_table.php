@@ -20,7 +20,7 @@ class CreateTecnomecanicsTable extends Migration
             $table->string('arrived');
             $table->string('newdate');
             $table->timestamps();
-            $table->softDeletes;
+            $table->softDeletes();
         });
     }
 

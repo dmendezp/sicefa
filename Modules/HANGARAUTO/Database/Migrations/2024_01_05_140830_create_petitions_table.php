@@ -19,10 +19,10 @@ class CreatePetitionsTable extends Migration
             $table->dateTime('end_date', 0);
             $table->foreignId('munincipality_id')->constrained('municipalities')->nullable()->change();
             $table->string('reason');
-            $table->number('numstudents');
+            $table->string('numstudents');
             $table->foreignId('asigned_vehicle_id')->constrained('vehicles')->nullable()->change();
             $table->timestamps();
-            $table->softDeletes;
+            $table->softDeletes();
         });
     }
 

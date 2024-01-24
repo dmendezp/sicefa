@@ -1,7 +1,7 @@
-@extends('hangarauto::layout.adminhome')
+@extends('hangarauto::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('hangarauto::') }}</li>
+    <li class="breadcrumb-item active">{{ trans('hangarauto::Tecno.Tecnomecanic') }}</li>
 @endpush
 
 @section('css')
@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col pt-4">
                 <div class="card-header bg-warning">
-                    Registros De Estado Y Fecha De Actualización De La Tecnomecanica
+                    <h5>{{trans('hangarauto::Tecno.Title1') }}</h5>
                 </div><br>
                 @include('hangarauto::admin.revisiones.tecnomecanica.create')
                 <div class="card">

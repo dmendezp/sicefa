@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-use Modules\HANGARAUTO\Entities\Drivers;
+use Modules\HANGARAUTO\Entities\Driver;
 use Modules\SICA\Entities\Person;
 use Validator, Str;
 

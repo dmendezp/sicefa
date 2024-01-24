@@ -1,7 +1,7 @@
-@extends('hangarauto::layout.adminhome')
+@extends('hangarauto::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('hangarauto::') }}</li>
+    <li class="breadcrumb-item active">{{ trans('hangarauto::Soat.Soat') }}</li>
 @endpush
 
 @section('css')
@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col pt-4">
                 <div class="card-header bg-warning">
-                    Registros De Estado Y Fecha De Cambio Del SOAT
+                    <h5>{{trans('hangarauto::Soat.Title1')}}</h5>
                 </div><br>
                 @include('hangarauto::admin.revisiones.SOAT.create')
                 <div class="card">

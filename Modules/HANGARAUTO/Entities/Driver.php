@@ -11,7 +11,7 @@ class Driver extends Model {
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
 
-    public function vehicles(){
+    public function Vehicles(){
         return $this->hasMany('Modules\HANGARAUTO\Entities\Vehicles');
     }
 

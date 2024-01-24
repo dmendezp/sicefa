@@ -1,10 +1,10 @@
 <!-- Button tigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDriver">
     <i class="fas fa-plus"></i>
-</button>
+</button><br><br>
 
 <!-- Modal -->
-<div class="modal fade" id="#addDriver" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="addDriver" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -41,7 +41,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    {!! Form::submit('Guardar', ['class' => 'btn btn-succes']) !!}
+                    {!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
                 </div>
                 {!! Form::close() !!}
             </div>

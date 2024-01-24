@@ -1,7 +1,7 @@
 <!--- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDriver">
     <i class="fas fa-plus"></i>
-</button>
+</button><br><br>
 
 <!-- Modal -->
 <div class="modal fade" id="addDriver" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -12,7 +12,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['url' => route('parking.admin.tecnomecanica.add'), 'files' => true]) !!}
+                {!! Form::open(['url' => route('cefa.parking.tecnomecanica.add'), 'files' => true]) !!}
                 {{ csrf_field() }}
 
                 <div class="mb-3">

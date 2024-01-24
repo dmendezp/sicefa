@@ -1,7 +1,7 @@
-@extends('hangarauto::layout.adminhome')
+@extends('hangarauto::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('hangarauto::') }}</li>
+    <li class="breadcrumb-item active">{{ trans('hangarauto::Vehicles.Vehicles') }}</li>
 @endpush
 
 @section('content')
@@ -62,6 +62,7 @@
                 <div class="mt-4 text-center mb-4">
                     {!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
                 </div>
+                {!! Form::close() !!}
             </div>
         </div>
     </div>

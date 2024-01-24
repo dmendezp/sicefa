@@ -16,9 +16,9 @@ class CreateFuelConsumptionTable extends Migration
         Schema::create('fuel_consumption', function (Blueprint $table) {
             $table->id();
             $table->foreignId('vehicle_name_id')->constrained('Vehicles');
-            $table->enum('Gasolina','Diesel');
+            $table->enum('referece', ['Gasolina','Diesel']);
             $table->date('date');
-            $table->enum('Litros','Galones');
+            $table->enum('reference', ['Litros','Galones']);
             $table->integer('price');
             $table->string('km/h');
             $table->foreignId('person_id');
