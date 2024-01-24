@@ -1,3 +1,7 @@
+@php
+    $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
+@endphp
+
 @extends('sica::layouts.master')
 
 @section('content')
@@ -10,7 +14,7 @@
                     </div>
                     <div class="card-body">
                         <div class="form_search" id="form_search">
-                            {!! Form::open(['url' => route('sica.'.getRoleRouteName(Route::currentRouteName()).'.people.basic_data.search'), 'method' => 'get', 'class' => 'submit']) !!}
+                            {!! Form::open(['url' => route('sica.'.$role_name.'.people.basic_data.search'), 'method' => 'get']) !!}
                                 <div class="row">
                                     <div class="col-md-3">
                                         {!! Form::select('event_id', $events, null, ['class' => 'form-control', 'required']) !!}
@@ -19,7 +23,9 @@
                                         {!! Form::number('document', null, ['class' => 'form-control', 'placeholder' => 'Documento', 'required']) !!}
                                     </div>
                                     <div class="col-md-3">
-                                        {!! Form::submit('Buscar', ['class' => 'btn btn-primary submit']) !!}
+                                        @if (Auth::user()->havePermission('sica.'.$role_name.'.people.basic_data.search'))
+                                            {!! Form::submit('Buscar', ['class' => 'btn btn-primary submit']) !!}
+                                        @endif
                                     </div>
                                 </div>
                             {!! Form::close() !!}

@@ -13,8 +13,3 @@ yarn-error.log
 /.idea
 /.vscode
 /Modules/SIGAC
-/Modules/PTVENTA
-_ide_helper_models.php
-_ide_helper.php
-/config/ide-helper.php
-composer.lock

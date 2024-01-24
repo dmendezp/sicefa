@@ -36,6 +36,16 @@ class WarehouseEntranceTableSeeder extends Seeder
             'description' => 'Sector agricola del cefa',
         ]);
 
+        $farm = Farm::where('name','Cefa')->first();
+
+        $productiveunitnew = ProductiveUnit::updateOrCreate([ 
+            'name' => 'Almacen',
+            'description' => 'Almacen para movimientos de entrada',
+            'person_id' => '5',
+            'sector_id' => $sector->id,
+            'farm_id' => $farm->id
+            ]);
+
         $country = Country::updateOrCreate([ 
             'name' => 'Colombia'
         ]);
@@ -64,13 +74,7 @@ class WarehouseEntranceTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
-        $productiveentrance = ProductiveUnit::updateOrCreate([ 
-            'name' => 'Almacen',
-            'description' => 'Unidad para realizar movimientos de entrada',
-            'person_id' => $person->id,
-            'sector_id' => $sector->id,
-            'farm_id' => $farm->id
-        ]);
+        $productiveentrance = ProductiveUnit::where('name', 'Almacen')->first();
 
         $productive_unit_warehouse = ProductiveUnitWarehouse::updateOrCreate([
             'productive_unit_id' => $productiveentrance->id,

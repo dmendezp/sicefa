@@ -38,5 +38,4 @@ class EmployeeType extends Model implements Auditable
         return $this->hasMany(Executor::class);
     }
 
-
 }

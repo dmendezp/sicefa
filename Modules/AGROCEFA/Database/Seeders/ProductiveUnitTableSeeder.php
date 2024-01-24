@@ -49,6 +49,14 @@ class ProductiveUnitTableSeeder extends Seeder
            'farm_id' => $farm->id
        ]);
 
+       $productiveunitnew = ProductiveUnit::updateOrCreate([ 
+        'name' => 'Almacen',
+        'description' => 'Almacen para movimientos de entrada',
+        'person_id' => '5',
+        'sector_id' => $sector->id,
+        'farm_id' => $farm->id
+        ]);
+
        $productive_unit_warehouse = ProductiveUnitWarehouse::updateOrCreate([
            'productive_unit_id' => $productiveunit->id,
            'warehouse_id' => $warehouse->id

@@ -1,0 +1,253 @@
+.navbar-nav li a {
+    color: black; 
+    text-decoration: none; 
+}
+  
+.navbar-nav li a.selected {
+    background-color: #97a6b4; 
+    color: #ffd1dc;
+    border-radius: 4px;
+}
+
+.navbar-nav li a:hover {
+  background-color: #97a6b4; /* Color de fondo cuando se pasa el cursor por encima */
+  border-radius: 4px;
+  color: black; /* Cambia el color del texto también para que siga siendo legible */
+}
+
+.dashboard{
+  list-style: none;
+}
+.dashboard li a {
+  color: black; 
+  text-decoration: none; 
+  position: relative;
+  top: 8px;
+  right: 50px;
+}
+
+.dashboard li a:hover {
+  background-color: #97a6b4; /* Color de fondo cuando se pasa el cursor por encima */
+  border-radius: 4px;
+  color: black; /* Cambia el color del texto también para que siga siendo legible */
+}
+
+.dashboard li a.selected {
+  background-color: #97a6b4; 
+  color: #ffd1dc;
+  border-radius: 4px;
+}
+
+.home{
+  list-style: none;
+}
+.home li a {
+  color: black; 
+  text-decoration: none; 
+  position: relative;
+  top: 8px;
+  right: 50px;
+}
+
+.home li a:hover {
+  background-color: #97a6b4; /* Color de fondo cuando se pasa el cursor por encima */
+  border-radius: 4px;
+  color: black; /* Cambia el color del texto también para que siga siendo legible */
+}
+
+.home li a.selected {
+  background-color: #97a6b4; 
+  color: #ffd1dc;
+  border-radius: 4px;
+}
+
+.navbar-brand{
+    padding: 4px;
+}
+
+.salir p{
+    font-size: 10px;
+}
+
+.user-panel{
+  position: relative;
+  right: 50px;
+}
+
+#title{
+  position: relative;
+  left: 10px;
+  font-weight: bold;
+  color: #f8b6c1;
+}
+
+#userDropdown{
+  position: relative;
+  left: 20px;
+  text-decoration: none;
+  color: rgb(248, 182, 193);
+}
+
+#menu{
+  right: 0;
+  left: auto;
+  width: 200px;
+  background-color: #f7f4f4;
+}
+
+.img_login img{
+  position: relative;
+  left: 10px;
+  width: 40px;
+  border-radius: 10px;
+}
+
+.welcome{
+  position: relative;
+  left: 10px;
+  font-weight: bold;
+  color: rgb(248, 182, 193);
+  font-size: 20px;
+}
+
+.login a{
+  position: relative;
+  left: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+#icon_login i{
+  position: relative;
+  left: 10px;
+  color: rgb(248, 182, 193);
+}
+
+#logout a{
+  width: 20px;
+}
+
+#logout i{
+  position: relative;
+  left: 10px;
+  color: rgb(248, 182, 193);
+  width: 20px;
+}
+
+#sicefa{
+  position: relative;
+  left: 10px;
+  color: #ff5e1f;
+  font-size: 20px;
+}
+
+#volver-sicefa{
+  position: relative;
+  left: 15px;
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+}
+
+
+.image_logout img{
+  position: relative;
+  left: 10px;
+  width: 80px;
+}
+
+.nickname{
+  position: relative;
+  left: 10px;
+  font-weight: bold;
+  color: rgb(248, 182, 193);
+  font-size: 20px;
+}
+
+.small{
+  position: relative;
+  left: 10px;
+  font-size: 20px;
+}
+
+  /* Estilos para el menú desplegable */
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    list-style: none;
+    min-width: auto;
+  }
+  
+  .dropdown-item {
+    margin-bottom: 5px;
+  }
+  
+  /* Estilos para mostrar el menú desplegable cuando se hace clic en el botón */
+  .show {
+    display: block;
+  }
+.dropdown-menu {
+  position: relative;
+  right: 30px;
+}
+
+#menu_lang{
+  position: relative;
+  top: 150px;
+  right: 30px;
+}
+
+#item_lang{
+  position: relative;
+  right: 20px;
+}
+
+/* Estilo para el contenedor del menú desplegable */
+.dropdown_lang {
+  position: relative;
+  right: 40px;
+  display: inline-block;
+}
+
+/* Estilo para el botón que activa el menú */
+.dropbtn {
+  background-color: transparent;
+  color: #333;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+/* Estilo para el icono */
+.dropbtn i {
+  margin-left: 5px;
+}
+
+/* Estilo para el menú desplegable oculto por defecto */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Estilo para los elementos del menú */
+.dropdown-content a {
+  color: #333;
+  text-decoration: none;
+  padding: 12px 16px;
+  display: block;
+}
+
+/* Estilo cuando se pasa el ratón por encima de un elemento */
+.dropdown-content a:hover {
+  background-color: #f2f2f2;
+}

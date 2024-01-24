@@ -10,6 +10,11 @@ use Modules\AGROCEFA\Entities\Crop;
 
 
 
+use Modules\AGROINDUSTRIA\Entities\Consumable;
+use Modules\AGROINDUSTRIA\Entities\Executor;
+use Modules\AGROINDUSTRIA\Entities\Tool;
+use Modules\AGROINDUSTRIA\Entities\Production;
+
 class Labor extends Model implements Auditable
 {
 
@@ -23,6 +28,7 @@ class Labor extends Model implements Auditable
         'execution_date',
         'price',
         'description',
+        'price',
         'status',
         'price',
         'observations',

@@ -1,3 +1,7 @@
+@php
+    $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
+@endphp
+
 @extends('sica::layouts.master')
 
 @section('content')
@@ -10,7 +14,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body box-profile">
-                        <form action="{{ route('sica.'.getRoleRouteName(Route::currentRouteName()).'.people.basic_data.store') }}" method="post" id="submit">
+                        <form action="{{ route('sica.'.$role_name.'.people.basic_data.store') }}" method="post" id="submit">
                             @csrf
                             <input type="hidden" name="event_id" value="{{ $event }}">
                             <div class="row">
@@ -97,7 +101,9 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Registrar</button>
+                                @if (Auth::user()->havePermission('sica.'.$role_name.'.people.basic_data.store'))
+                                    <button type="submit" class="btn btn-primary">Registrar</button>
+                                @endif
                             </div>
                         </form>
                     </div>

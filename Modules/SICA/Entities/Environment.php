@@ -43,6 +43,9 @@ class Environment extends Model implements Auditable
     }
 
     // RELACIONES
+    public function academic_programmings(){ // Accede a todos los registros de programaciones academicas asociadas a este ambiente de formación
+        return $this->hasMany(AcademicProgramming::class);
+    }
     public function class_environment(){ // Accede a la información de la clase de ambiente de formación al que pertenece
         return $this->belongsTo(ClassEnvironment::class);
     }

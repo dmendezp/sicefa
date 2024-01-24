@@ -27,6 +27,7 @@ class ElementsTableSeeder extends Seeder
         $category = Category::updateOrCreate(['name' => 'Lácteos'],['kind_of_property' => 'Bodega']); // Registrar o registrar Categoría
         $kind_of_purchase = KindOfPurchase::updateOrCreate(['name' => 'Producción de centro'],['description' => 'Elementos de consumo que provienen de producción de centro']); // Actualizar o registrar Tipo de compra
         $measurement_unit = MeasurementUnit::updateOrCreate(['name' => 'Unidad'],[ // Actualizar o crear Unidad de medida
+            'abbreviation' => 'Ud',
             'minimum_unit_measure' => 'Unidad',
             'conversion_factor' => 1
         ]);
