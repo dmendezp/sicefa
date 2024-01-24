@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\AGROCEFA\Http\Controllers\AGROCEFAController;
 use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\Apprentice;
@@ -51,6 +52,14 @@ class LaborManagementController extends Controller
 
     public function culturalwork()
     {
+
+        // Instancia del controlador AGROCEFA
+        $agrocefaController = new AGROCEFAController();
+        // Llamar la funcion para actualizar las notificaciones de Movimientos
+        $result = $agrocefaController->notificationmovement();
+        // Llamar la funcion para actualizar las notificaciones de stock
+        $result = $agrocefaController->notificationstock();
+
         // Fecha actual
         $date = Carbon::now();
 

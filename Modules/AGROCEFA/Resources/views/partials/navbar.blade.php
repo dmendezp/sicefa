@@ -44,6 +44,14 @@
                         @endif
                     </a>
                 </li>
+                <li><a href="{{ route('agrocefa.trainer.inventory.stock')}}" id="an"
+                        title="Ver Elementos por Agotarse">
+                        <i class='bx bx-error-circle' ></i>
+                        @if (Session::has('notificationstock') && Session::get('notificationstock') > 0)
+                            <span class="notification-badge">{{ Session::get('notificationstock') }}</span>
+                        @endif
+                    </a>
+                </li>
                 <li>
                     <div class="profile" style="margin-left: 20px; margin-right: 20px;">
                         <div class="user-info">

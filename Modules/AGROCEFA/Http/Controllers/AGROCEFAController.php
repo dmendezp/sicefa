@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\SICA\Entities\ProductiveUnit;
@@ -17,6 +18,7 @@ use Modules\SICA\Entities\WarehouseMovement;
 use Modules\SICA\Entities\MovementResponsibility;
 use Modules\SICA\Entities\MovementDetail;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
+use Modules\SICA\Entities\Inventory;
 class AGROCEFAController extends Controller
 {
     /**
@@ -140,7 +142,33 @@ class AGROCEFAController extends Controller
         Session::put('selectedRole', $roleName);
 
 
+        // Consulta de stock minimo
+        $this->notificationmovement();
 
+        // Consulta de stock minimo
+        $this->notificationstock();
+
+        $this->selectedUnitId = Session::get('selectedUnitId');
+
+        $selectedUnit = ProductiveUnit::find($this->selectedUnitId);
+
+        // Obtener el nombre de la unidad a través del modelo ProductiveUnit
+        $selectedUnitName = ProductiveUnit::where('id', $this->selectedUnitId)->value('name');
+        // Retornar la vista deseada
+        return view('agrocefa::home', [
+            'selectedUnitName' => $selectedUnitName,
+        ]);
+
+        // Redirige a la vista de inicio con el ID de unidad seleccionado
+        return redirect()->route('cefa.agrocefa.home');
+    }
+
+    public function movements()
+    {
+        return view('agrocefa::movements');
+    }
+    public function notificationmovement()
+    {
         $this->selectedUnitId = Session::get('selectedUnitId');
 
         $selectedUnit = ProductiveUnit::find($this->selectedUnitId);
@@ -232,19 +260,56 @@ class AGROCEFAController extends Controller
         $movementsCount = count($datas);
 
         Session::put('notification', $movementsCount);
-        // Retornar la vista deseada
-        return view('agrocefa::home', [
-            'selectedUnitName' => $selectedUnitName,
-            'notification' => $movementsCount,
-        ]);
-
-        // Redirige a la vista de inicio con el ID de unidad seleccionado
-        return redirect()->route('cefa.agrocefa.home');
     }
-
-    public function movements()
+    public function notificationstock()
     {
-        return view('agrocefa::movements');
+        $this->selectedUnitId = Session::get('selectedUnitId');
+        // Notificacion de bajas
+        $selectedUnit = ProductiveUnit::find($this->selectedUnitId);
+
+        // Inicializa un array para almacenar la información de las bodegas
+        $warehouseData = [];
+
+        // Verifica si hay registros en la tabla productive_unit_warehouses para esta unidad
+        if ($selectedUnit) {
+            $productiveInventory = $selectedUnit->productive_unit_warehouses->pluck('id')->toArray();
+        }
+
+        $datenow = Carbon::now();
+                
+        // Consulta principal en la tabla de inventarios
+        $inventories = Inventory::whereIn('productive_unit_warehouse_id', $productiveInventory)
+            ->where(function ($query) {
+                // Aplicar el filtro por categoría y ajustar la cantidad según el factor de conversión si es necesario
+                $query->whereHas('element', function ($subquery) {
+                    $subquery->selectRaw('stock / measurement_units.conversion_factor as measurement_unit_adjusted_stock')
+                        ->join('measurement_units', 'elements.measurement_unit_id', '=', 'measurement_units.id')
+                        ->whereRaw('stock > amount / measurement_units.conversion_factor')
+                        ->whereNull('elements.deleted_at');
+                });
+            })
+            ->where('state', '=', 'Disponible')
+            ->where('amount','>','0')
+            ->get()
+            ->toArray();
+
+        $datas = [];
+
+
+        foreach ($inventories as $inventor) {
+            $id = $inventor['id'];
+
+            // Agregar información al array asociativo
+            $datas[] = [
+                'id' => $id,
+            ];
+        }
+
+        // Contar el número de registros después de obtener los datos
+        $stockCount = count($datas);
+
+
+        Session::put('notificationstock', $stockCount);
     }
 
     public function insumos()

@@ -2,11 +2,13 @@
 
 namespace Modules\AGROCEFA\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\ProductiveUnit;
@@ -16,7 +18,13 @@ use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\Category;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\MeasurementUnit;
+use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\kindOfPurchase;
+use Modules\SICA\Entities\MovementType;
+use Modules\SICA\Entities\MovementDetail;
+use Modules\SICA\Entities\WarehouseMovement;
+use Modules\SICA\Entities\MovementResponsibility;
+use Modules\AGROCEFA\Http\Controllers\AGROCEFAController;
 
 
 
@@ -30,6 +38,13 @@ class InventoryController extends Controller
 
     public function inventory(Request $request)
     {
+        // Instancia del controlador AGROCEFA
+        $agrocefaController = new AGROCEFAController();
+        // Llamar la funcion para actualizar las notificaciones de Movimientos
+        $result = $agrocefaController->notificationmovement();
+        // Llamar la funcion para actualizar las notificaciones de stock
+        $result = $agrocefaController->notificationstock();
+
         // Obtener el ID de la unidad productiva seleccionada (asumiendo que lo tienes en sesión)
         $selectedUnitId = Session::get('selectedUnitId');
 
@@ -46,9 +61,53 @@ class InventoryController extends Controller
         $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->pluck('id');
 
         // Obtener los registros de inventario que coinciden con las bodegas relacionadas
-        $inventory = Inventory::whereIn('productive_unit_warehouse_id', $unitWarehouses)->get();
+        $inventory = Inventory::whereIn('productive_unit_warehouse_id', $unitWarehouses)->where('state','=','Disponible')->get();
 
         $productiveUnitName = ProductiveUnit::where('id', $selectedUnitId)->value('name');
+
+        // Notificacion de bajas
+        $selectedUnit = ProductiveUnit::find($selectedUnitId);
+
+        // Obtener el nombre de la unidad a través del modelo ProductiveUnit
+        $selectedUnitName = ProductiveUnit::where('id', $selectedUnitId)->value('name');
+
+        // Inicializa un array para almacenar la información de las bodegas
+        $warehouseData = [];
+
+        // Verifica si hay registros en la tabla productive_unit_warehouses para esta unidad
+        if ($selectedUnit) {
+            $warehouses = $selectedUnit->productive_unit_warehouses;
+            foreach ($warehouses as $warehouse) {
+                $productiveInventory = $warehouse['id'];
+            }
+        }
+
+        $datenow = Carbon::now();
+
+        $inventories = Inventory::where('productive_unit_warehouse_id','=', $productiveInventory)
+            ->where('expiration_date','<', $datenow)
+            ->where('state','=','Disponible')
+            ->where('amount','>','0')
+            ->get()
+            ->toArray();
+
+        $datas = [];
+        
+        foreach ($inventories as $inventor) {
+            $id = $inventor['id'];
+
+    
+            // Agregar información al array asociativo
+            $datas[] = [
+                'id' => $id,
+            ];
+            
+        }
+
+        // Contar el número de registros después de obtener los datos
+        $lowCount = count($datas);
+
+        Session::put('notificationlow', $lowCount);
 
         return view('agrocefa::inventory.inventory', [
             'inventory' => $inventory,
@@ -59,6 +118,73 @@ class InventoryController extends Controller
             'measurementUnits' => $measurementUnits,
             'purchaseTypes' => $purchaseTypes,
             'selectedUnitId' => $selectedUnitId,
+            'notificationlow' => $lowCount,
+        ]);
+    }
+    public function stockview(Request $request)
+    {
+        // Obtener el ID de la unidad productiva seleccionada (asumiendo que lo tienes en sesión)
+        $selectedUnitId = Session::get('selectedUnitId');
+
+        // Notificacion de bajas
+        $selectedUnit = ProductiveUnit::find($selectedUnitId);
+
+        // Inicializa un array para almacenar la información de las bodegas
+        $warehouseData = [];
+
+        // Verifica si hay registros en la tabla productive_unit_warehouses para esta unidad
+        if ($selectedUnit) {
+            $productiveInventory = $selectedUnit->productive_unit_warehouses->pluck('id')->toArray();
+        }
+
+        $datenow = Carbon::now();
+                
+        // Consulta principal en la tabla de inventarios
+        $inventories = Inventory::whereIn('productive_unit_warehouse_id', $productiveInventory)
+            ->where(function ($query) {
+                // Aplicar el filtro por categoría y ajustar la cantidad según el factor de conversión si es necesario
+                $query->whereHas('element', function ($subquery) {
+                    $subquery->selectRaw('stock / measurement_units.conversion_factor as measurement_unit_adjusted_stock')
+                        ->join('measurement_units', 'elements.measurement_unit_id', '=', 'measurement_units.id')
+                        ->whereRaw('stock > amount / measurement_units.conversion_factor')
+                        ->whereNull('elements.deleted_at');
+                });
+            })
+            ->where('state', '=', 'Disponible')
+            ->where('amount','>','0')
+            ->get();
+
+       
+        
+
+        return view('agrocefa::inventory.stockminimo', [
+            'inventory' => $inventories,
+        ]);
+    }
+    public function lowentrance(Request $request)
+    {
+        // Obtener el ID de la unidad productiva seleccionada (asumiendo que lo tienes en sesión)
+        $selectedUnitId = Session::get('selectedUnitId');
+
+        // Obtén los registros de productive_unit_warehouse que coinciden con la unidad productiva seleccionada
+        $ProductiveUnitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->get();
+
+        // Obtener los registros de 'productive_unit_warehouses' que coinciden con la unidad productiva seleccionada
+        $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->pluck('id');
+
+        $datenow = Carbon::now();
+
+        // Obtener los registros de inventario que coinciden con las bodegas relacionadas
+        $inventory = Inventory::whereIn('productive_unit_warehouse_id', $unitWarehouses)
+        ->where('expiration_date','<', $datenow)
+        ->where('state','=','Disponible')
+        ->where('amount','>','0')
+        ->get();
+       
+
+
+        return view('agrocefa::inventory.low', [
+            'inventory' => $inventory,
         ]);
     }
 
@@ -67,7 +193,7 @@ class InventoryController extends Controller
         // Obtener los datos del formulario de solicitud AJAX
         $selectedCategoryId = $request->input('category');
 
-        // Obtener el ID de la unidad productiva seleccionada (asumiendo que lo tienes en sesión)
+       
         $selectedUnitId = Session::get('selectedUnitId');
 
         // Inicializar la consulta de inventario
@@ -96,6 +222,202 @@ class InventoryController extends Controller
             'inventory' => $inventory,
         ]);
     }
+
+    private function getNextVoucherNumber()
+    {
+        // Obtén el número de consecutive de tu tipo de movimiento
+        $consecutive = MovementType::where('name', 'Movimiento Interno')->value('consecutive');
+
+        // Obtén el último número de voucher registrado en la tabla 'movements'
+        $lastVoucherNumber = Movement::max('voucher_number');
+
+        // Si no hay registros previos, comienza desde el 'consecutive' y 1
+        if (is_null($lastVoucherNumber)) {
+            $nextVoucherNumber = $consecutive . '1';
+        } else {
+            // Extrae el número de voucher sin el 'consecutive'
+            $lastVoucherNumberWithoutConsecutive = substr($lastVoucherNumber, strlen($consecutive));
+
+            // Incrementa el número sin el 'consecutive' en uno
+            $nextVoucherNumberWithoutConsecutive = intval($lastVoucherNumberWithoutConsecutive) + 1;
+
+            // Combina el 'consecutive' con el nuevo número de voucher
+            $nextVoucherNumber = $consecutive . $nextVoucherNumberWithoutConsecutive;
+        }
+        return $nextVoucherNumber;
+    }
+
+    public function movementlow(Request $request, $id)
+    {
+
+        // Obtener el ID de la unidad productiva seleccionada (asumiendo que lo tienes en sesión)
+        $selectedUnitId = Session::get('selectedUnitId');
+
+        // Obtener para Tipo de Movimiento
+        $movementType = MovementType::select('id', 'consecutive')->where('name', '=', 'Baja')->first();
+
+        $datenow = Carbon::now();
+
+        $user = Auth::user();
+            if ($user->person) {
+                $people = $user->person->id;
+            }
+
+        $observation = $request->input('observation');
+        
+
+        $elements = Inventory::with('element','productive_unit_warehouse.warehouse')->where('id',$id)->get();
+
+
+        // Inicializa un arreglo para almacenar los datos de los productos
+        $productsData = [];
+
+        // Inicializa el precio total en 0
+        $totalPrice = 0;
+
+            // Inicia una transacción de base de datos
+            DB::beginTransaction();
+
+            try {
+                $movementId = null;
+
+                
+                // Generar el voucher como consecutivo simple sin ceros adicionales
+                $voucher = $this->getNextVoucherNumber();
+                
+                // Registra un solo movimiento con el precio total calculado
+                $movement = new Movement([
+                    'registration_date' => $datenow,
+                    'movement_type_id' => $movementType->id,
+                    'voucher_number' => $voucher,
+                    'price' => $totalPrice,
+                    'observation' => $observation,
+                    'state' => 'Aprobado',
+                    ]);
+        
+                $movement->save();
+                $movementId = $movement->id;
+                
+                // Procesar cada elemento
+                foreach ($elements as $item) {
+
+                    $productiveWarehousereceiveId = $item->productive_unit_warehouse->id;
+                    $warehouseentrance = $item->productive_unit_warehouse->warehouse_id;
+                    $productElementId = $item->element_id;
+                    $amount = $item->amount;
+                    $convertion = $item->element->measurement_unit->conversion_factor;
+                    $lot = $item->lot_number;
+                    $price = $item->price;
+
+
+                    // Buscar si el elemento ya existe en 'inventories' de la unidad que entrega
+                    $existingInventory = Inventory::where([
+                        'productive_unit_warehouse_id' => $productiveWarehousereceiveId,
+                        'element_id' => $productElementId,
+                        'lot_number' => $lot,
+                        
+                    ])->first();
+                    
+                    
+                    $existingInventory->amount -= $amount;
+                    $existingInventory->save();
+                    $existingInventoryId = $existingInventory->id;
+                        
+                    $amountconvertion = $amount / $convertion;
+                     // Calcula el precio total para este elemento y agrégalo al precio total general
+                    $totalPrice += ($amountconvertion * $price);
+                    
+                    
+                    // Registrar detalle del movimiento para cada elemento
+                    $movement_details = new MovementDetail([
+                        'movement_id' => $movementId, // Asociar al movimiento actual
+                        'inventory_id' => $existingInventoryId, // Asociar al inventario actual
+                        'amount' => $amount, // Cantidad del elemento actual
+                        'price' => $price, // Precio del elemento actual
+                    ]);
+
+                    $movement_details->save();
+                }
+
+
+                // Actualiza el precio total en el movimiento principal
+                $movement->price = $totalPrice;
+                $movement->save();
+                
+
+                // Registrar las bodegas y rol del movimiento
+                $warehouse_movement_entrega = new WarehouseMovement([
+                    'productive_unit_warehouse_id' => $productiveWarehousereceiveId,
+                    'movement_id' => $movementId,
+                    'role' => 'Entrega', 
+                ]);
+
+                $warehouse_movement_entrega->save();
+
+                // Registrar el responsable del movimiento
+                $movement_responsabilities = new MovementResponsibility([
+                    'person_id' => $people, // Usar la variable $person_id
+                    'movement_id' => $movementId,
+                    'role' => 'REGISTRO',
+                    'date' => $datenow,
+                ]);
+
+                $movement_responsabilities->save();
+
+                // Registra datos en otras tablas utilizando $inventoryIds y otros valores (si es necesario)
+
+                // Si todo está correcto, realiza un commit de la transacción
+                DB::commit();
+
+                // Después de realizar la operación de registro con éxito
+                return redirect()->route('agrocefa.trainer.inventory.low')->with('success', 'Baja Registrada');
+
+            } catch (\Exception $e) {
+                // En caso de error, realiza un rollback de la transacción y maneja el error
+                DB::rollBack();
+
+                \Log::error('Error en el registro: ' . $e->getMessage());
+            }
+
+    }
+
+    public function showWarehouseFilterStock(Request $request)
+    {
+        // Obtener los datos del formulario de solicitud AJAX
+        $filtre = $request->input('filtre');
+        // Obtener el ID de la unidad productiva seleccionada (asumiendo que lo tienes en sesión)
+        $selectedUnitId = Session::get('selectedUnitId');
+
+        // Inicializar la consulta de inventario
+        $query = Inventory::query();
+
+        // Obtener los registros de 'productive_unit_warehouses' que coinciden con la unidad productiva seleccionada
+        $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->pluck('id');
+
+        // Aplicar filtro por unidad productiva
+        $query->whereIn('productive_unit_warehouse_id', $unitWarehouses);
+
+        if ($filtre === 'Stock') {
+            // Si se seleccionó una categoría, aplicar el filtro por categoría y ajustar la cantidad según el factor de conversión
+            $query->whereHas('element', function ($subquery) {
+                $subquery->selectRaw('stock / measurement_units.conversion_factor as measurement_unit_adjusted_stock')
+                        ->join('measurement_units', 'elements.measurement_unit_id', '=', 'measurement_units.id')
+                        ->whereRaw('stock > amount / measurement_units.conversion_factor')
+                        ->whereNull('elements.deleted_at');
+            });
+        }
+
+        // Obtener los registros de inventario aplicando todos los filtros
+        $inventory = $query->get();
+
+        // Devolver solo la vista parcial en lugar de la vista completa
+        return view('agrocefa::inventory.inventoryPartial', [
+            'inventory' => $inventory,
+        ]);
+    }
+
+
+
 
     public function addCategory(Request $request)
     {

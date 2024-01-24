@@ -1,4 +1,4 @@
-<footer style="background: linear-gradient(to right, #004916, #009688);" class="text-white text-center text-lg-start">
+<footer style="background: linear-gradient(to right, #004916, #009688); width: 115%;" class="text-white text-center text-lg-start">
     <!-- Grid container -->
     <div class="container p-4">
         <!--Grid row-->

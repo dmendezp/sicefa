@@ -14,7 +14,7 @@
         <table class="table table-sm table-bordered table-striped" style="font-size: 0.9rem;">
             <thead>
                 <tr>
-                    <th class="col-1">ID</th>
+                    <th class="col-1">#</th>
                     <th class="col-1">{{ trans('agrocefa::parameters.1T_Name') }}</th>
                     <th class="col-1">{{ trans('agrocefa::parameters.1T_Type') }}</th>
                     <th class="col-2">{{ trans('agrocefa::parameters.1T_Description') }}</th>

@@ -57,7 +57,15 @@
                     @endforeach
                 </select>
             </div>
-
+        </form>
+        <br>
+        <form id="filterForm" method="POST" action="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.showWarehouseFilterStock') }}">
+            @csrf
+            <label for="filtre">Seleccionar filtro:</label>
+            <select name="filtre" id="filtre" class="form-control">
+                <option value="">Ninguno</option>
+                <option value="Stock">Stock Minimo</option>
+            </select>
         </form>
         <br>
         <div id="filteredResults">
@@ -182,6 +190,29 @@
         });
     </script>
 
+    <script>
+        // Cuando cambia la selección de categoría
+        $('#filtre').change(function() {
+            var selectedfiltre = $(this).val();
+
+            // Realizar una solicitud AJAX para obtener los resultados filtrados
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.showWarehouseFilterStock') }}",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    filtre: selectedfiltre
+                },
+                success: function(data) {
+                    // Actualizar el contenedor con los resultados filtrados
+                    $('#filteredResults').html(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    </script>
     {{-- Script para editar --}}
     <script>
         $('.btn-edit-inventory').on('click', function(event) {
