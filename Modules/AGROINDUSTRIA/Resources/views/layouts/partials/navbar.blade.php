@@ -38,7 +38,7 @@
                     <a class="nav-link" href="{{route('agroindustria.admin.units.labor')}}">{{trans('agroindustria::menu.Task')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('agroindustria.admin.units.movements')}}">{{trans('agroindustria::menu.Movements')}}</a>
+                    <a class="nav-link" href="{{route('agroindustria.admin.units.movements.table')}}">{{trans('agroindustria::menu.Movements')}}</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

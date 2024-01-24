@@ -75,14 +75,35 @@ class PermissionsTableSeeder extends Seeder
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
         //Vista de Movimientos (Administrador)
-        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.units.movements'], [
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.units.movements.table'], [
             'name' => 'Abrir vista de movimientos',
             'description' => 'Puede ver la vista de movimientos (Administrador)',
             'description_english' => 'You can see the movement view',
             'app_id' => $app->id
         ]);
 
-        $permission_admin[] = $permission->id;  
+        $permission_admin[] = $permission->id;
+
+        
+        //Formulario de Movimientos (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.units.movements.form'], [
+            'name' => 'Abrir formulario de movimientos',
+            'description' => 'Puede ver el formulario de movimientos (Administrador)',
+            'description_english' => 'You can see the movement form',
+            'app_id' => $app->id
+        ]);
+        
+        $permission_admin[] = $permission->id;
+        
+        //Vista de Movimientos Pendientes (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.units.movements.pending'], [
+            'name' => 'Abrir vista de movimientos pendientes',
+            'description' => 'Puede ver la vista de movimientos pendientes (Administrador)',
+            'description_english' => 'You can see the pending movement view',
+            'app_id' => $app->id
+        ]);
+
+        $permission_admin[] = $permission->id;
 
         //Ver de produccion (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.units.production'], [
@@ -173,8 +194,8 @@ class PermissionsTableSeeder extends Seeder
 
         $permission_instructor[] = $permission->id;  
 
-         //Formulario de Movimientos (Instructor)
-         $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.movements.form'], [
+        //Formulario de Movimientos (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.movements.form'], [
             'name' => 'Abrir formulario de movimientos',
             'description' => 'Puede ver el formulario de movimientos (Instructor)',
             'description_english' => 'You can see the movement form',
@@ -182,6 +203,16 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         $permission_instructor[] = $permission->id;  
+
+        //Vista de Movimientos Pendientes (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.movements.pending'], [
+            'name' => 'Abrir vista de movimientos pendientes',
+            'description' => 'Puede ver la vista de movimientos pendientes (Instructor)',
+            'description_english' => 'You can see the pending movement view',
+            'app_id' => $app->id
+        ]);
+
+        $permission_instructor[] = $permission->id;
 
         //Crear formulacion
         $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.formulation'], [

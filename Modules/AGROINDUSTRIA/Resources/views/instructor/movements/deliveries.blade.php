@@ -46,13 +46,7 @@
           <span class="text-danger">{{ $message }}</span>
           @enderror
         </div>
-        <div class="col-md-12">
-          {!! Form::label('PRECIO') !!}
-          {!! Form::textarea('Price', old('observation'), ['class' => 'form-control', 'id' => 'textarea']) !!}
-        </div>
-        
-        
-        <div class="col-md-12">
+        <div class="col-md-6">
           {!! Form::label('observation', trans('agroindustria::menu.Observations')) !!}
           {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'id' => 'textarea'] ) !!}
         </div>
@@ -74,19 +68,20 @@
                   @endif
                 </div>
                 <div class="form-group">
+                  <span class="quantity"></span>
                   {!! Form::label('amount' , trans('agroindustria::menu.Amount')) !!}
                   {!! Form::number('amount[]', null, ['class' => 'form-control amount', 'id' => 'amount', 'step' => '0.01']) !!}
                   @error('amount')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
-                </div>    
-                <div class="form-group">  
-                  {!! Form::label('amountAvailable' , trans('agroindustria::menu.Quantity Available')) !!}
-                  {!! Form::number('available[]', null, ['class' => 'form-control', 'id' => 'available', 'readonly' => 'readonly']) !!}
-                </div>  
+                </div>
                 <div class="form-group">
                   {!! Form::label('price' , trans('agroindustria::menu.Price')) !!}
                   {!! Form::number('price[]', null, ['class' => 'form-control', 'id' => 'price', 'readonly'=> 'readonly']) !!}
+                </div>
+                <div class="form-group-equipments">  
+                  {!! Form::label('subtotal', 'Total') !!}
+                  {!! Form::number('subtotal', null, ['class'=>'form-control', 'id' => 'subtotal', 'readonly' => 'readonly']) !!}
                 </div>
                   <button type="button" class="remove-element">{{trans('agroindustria::menu.Delete')}}</button>
               </div>
@@ -114,7 +109,7 @@
   $(document).ready(function() {
     // Agregar un nuevo campo de producto
     $("#add-element").click(function() {
-        var newProduct = '<div class="elements"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::menu.Element")) !!} {!! Form::select("element[]", $elements, null, ["readonly" => "readonly", "class" => "elementInventory-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount[]", NULL, ["class" => "form-control amount", "id" => "amount"]) !!}</div> <div class="form-group">{!! Form::label("amountAvailable" , trans("agroindustria::menu.Quantity Available")) !!} {!! Form::number("available[]", null, ["class" => "form-control", "id" => "available", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("price" , trans("agroindustria::menu.Price")) !!} {!! Form::number("price[]", null, ["class" => "form-control", "id" => "price", "readonly" => "readonly"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::menu.Delete")}}</button></div>';
+        var newProduct = '<div class="elements"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::menu.Element")) !!} {!! Form::select("element[]", $elements, null, ["readonly" => "readonly", "class" => "elementInventory-select"]) !!}</div> <div class="form-group"><span class="quantity"></span>{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount[]", NULL, ["class" => "form-control amount", "id" => "amount"]) !!}</div>  <div class="form-group">{!! Form::label("price" , trans("agroindustria::menu.Price")) !!} {!! Form::number("price[]", null, ["class" => "form-control", "id" => "price", "readonly" => "readonly"]) !!}</div><div class="form-group-equipments">{!! Form::label("subtotal", "Total") !!}{!! Form::number("subtotal", null, ["class"=>"form-control", "id" => "subtotal", "readonly" => "readonly"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::menu.Delete")}}</button></div>';
 
         // Agregar el nuevo campo al DOM
         $("#products").append(newProduct);
@@ -131,10 +126,11 @@
 
    
     // Escuchar el evento change en el elemento con ID 'products' (delegado)
+    var isAnyProductExceeding = false;
     $("#products").on("change", ".elementInventory-select", function() {
         var elementoSeleccionado = $(this).val();
         var parentElement = $(this).closest('.elements');
-        var availableField = parentElement.find('input#available');
+        var availableField = parentElement.find('.quantity');
         var priceField = parentElement.find('input#price');
 
         // Realizar una petición AJAX para obtener la cantidad disponible
@@ -146,11 +142,18 @@
                     if (Array.isArray(response.id)) {
                         // Si recibes un arreglo de IDs, puedes recorrerlos aquí
                         response.id.forEach(function(value) {
-                            var amount = parseFloat(value.amount); // Acceder al amount
                             var price = parseFloat(value.price);   // Acceder al price
-                            console.log('Cantidad: ' + amount);
                             priceField.val(price);
-                            availableField.val(amount);
+                            maxQuantity = parseFloat(value.amount); // Acceder al amount
+
+                            updateSaveButtonState(availableField, 0, maxQuantity);
+
+                            $('#products').off('input', 'input#amount').on('input', 'input#amount', function() {
+                                var amountInput = $(this);
+                                var amount = amountInput.val();
+                                updateSaveButtonState(availableField, amount, maxQuantity)
+
+                            });
                         });
                     } else {
                         // Manejar el caso en que el valor no sea un número válido
@@ -163,37 +166,73 @@
             });
         } else {
             // Si se selecciona la opción predeterminada, dejar el campo de cantidad disponible en blanco
-            availableField.val('');
+            availableField.text('');
             priceField.val('');
         }
-    });
-3
+    }); 
     
+    function updateSaveButtonState(availableField, amount, maxQuantity) {
+            var saveButton = $('.salida');
+            console.log(maxQuantity);
+
+            if (amount > maxQuantity) {
+              availableField.text('La cantidad ingresada es mayor que la disponible.').css('color', 'red');
+                saveButton.prop('disabled', true);
+                saveButton.addClass('disabled-button');
+                isAnyProductExceeding = true;
+                console.log('Deshabilitado');
+            } else {
+              availableField.text('Cantidad Disponible: ' + maxQuantity).css('color', '#666');
+                isAnyProductExceeding = false;
+                console.log(isAnyProductExceeding);
+                if (!isAnyProductExceeding) {
+                    saveButton.prop('disabled', false);
+                    saveButton.removeClass('disabled-button');
+                } else {
+                    saveButton.prop('disabled', true);
+                    saveButton.addClass('disabled-button');
+                }
+            }
+        }
+
 });
 </script>
+
 <script>
   $(document).ready(function() {
       // Escuchar el evento change en el campo 'cantidad'
-      $("#products").on("change", ".amount, .price", function() {
-          updateTotalMovement();
+      $("#products").on("input", "#amount", function() {
+        updateTotalPrice();
+        updateTotalMovement();
       });
+
+      function updateTotalPrice() {
+            var totalPrice = 0;
+            $('.elements').each(function() {
+                var priceField = $(this).find('input#price');
+                var price = parseInt(priceField.val()) || 0;
+                var amountField = $(this).find('input#amount');
+                var amount = parseInt(amountField.val()) || 0;
+                var totalField = $(this).find('input#subtotal');
+                var totalPrice = price * amount;
+                totalField.val(totalPrice);
+            });
+        }
+      function updateTotalMovement() {
+            var totalPriceEquipments = 0;
+
+            $('#products .elements').each(function() {
+                var totalField = $(this).find('input#subtotal');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalPriceEquipments += totalPrice;
+            });
+
+            var total = totalPriceEquipments;
+
+            $('input[name="total_movement"]').val(total);
+        }
   
       // Función para actualizar la suma total
-      function updateTotalMovement() {
-          var totalMovement = 0;
-  
-          $(".elements").each(function() {
-              var amount = parseFloat($(this).find(".amount").val()) || 0;
-              var price = parseFloat($(this).find("#price").val()) || 0;
-  
-              // Calcular el precio total para este elemento
-              var total = amount * price;
-              totalMovement += total;
-          });
-  
-          // Actualizar el valor del campo 'total_movement'
-          $("#total_movement").val(totalMovement.toFixed(0)); // Redondear a 2 decimales si es necesario
-      }
   });
   </script>
   

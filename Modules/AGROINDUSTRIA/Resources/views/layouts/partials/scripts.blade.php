@@ -98,7 +98,9 @@ window.onclick = function(event) {
     $(document).ready(function () {
         $('#elementInventory').change(function () {
             var elementoSeleccionado = $(this).val();
-            
+            var parentElement = $(this).closest('.elements');
+            var availableField = parentElement.find('.quantity');
+
             // Realiza una petición AJAX para obtener la cantidad
             if (elementoSeleccionado) {
                 $.ajax({
@@ -108,12 +110,21 @@ window.onclick = function(event) {
                     if (Array.isArray(response.id)) {
                         // Si recibes un arreglo de IDs, puedes recorrerlos aquí
                         response.id.forEach(function (value) {
-                            var amount = parseFloat(value.amount); // Acceder al amount
                             var price = parseFloat(value.price);   // Acceder al price
+                            maxQuantity = parseFloat(value.amount); // Acceder al amount
                             
                             // Establecer los valores en los campos correspondientes
-                            $('#available').val(amount);
                             $('#price').val(price);
+
+
+                            updateSaveButtonState(availableField, 0, maxQuantity);
+
+                            $('#products').off('input', 'input#amount').on('input', 'input#amount', function() {
+                                var amountInput = $(this);
+                                var amount = amountInput.val();
+                                updateSaveButtonState(availableField, amount, maxQuantity)
+
+                            });
                         });
                     } else {
                         // Manejar el caso en que el valor no sea un número válido
@@ -126,10 +137,35 @@ window.onclick = function(event) {
                 });
             } else {
                 // Si se selecciona la opción predeterminada, deja el campo de "Cédula" en blanco
-                $('#available').val('');
+                $('.quantity').text('');
                 $('#price').val('');
             }
         });
+
+        function updateSaveButtonState(availableField, amount, maxQuantity) {
+            var saveButton = $('.salida');
+            console.log(maxQuantity);
+
+            if (amount > maxQuantity) {
+              availableField.text('La cantidad ingresada es mayor que la disponible.').css('color', 'red');
+                saveButton.prop('disabled', true);
+                saveButton.addClass('disabled-button');
+                isAnyProductExceeding = true;
+                console.log('Deshabilitado');
+            } else {
+              availableField.text('Cantidad Disponible: ' + maxQuantity).css('color', '#666');
+                isAnyProductExceeding = false;
+                console.log(isAnyProductExceeding);
+                if (!isAnyProductExceeding) {
+                    saveButton.prop('disabled', false);
+                    saveButton.removeClass('disabled-button');
+                } else {
+                    saveButton.prop('disabled', true);
+                    saveButton.addClass('disabled-button');
+                }
+            }
+        }
+
     });
 </script>
 

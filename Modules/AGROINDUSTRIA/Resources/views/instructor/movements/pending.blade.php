@@ -17,16 +17,37 @@
               <th>{{trans('agroindustria::menu.State')}}</th>
               <th>{{trans('agroindustria::menu.Observations')}}</th>
               <th>
-                <a href="{{route('agroindustria.instructor.units.movements.form')}}">
+                @if (Auth::user()->havePermission('agroindustria.admin.units.movements.form')) 
+                <a href="{{route('agroindustria.admin.units.movements.form')}}">
                   <button class="btn btn-success float-end mb-2">
                       <i class="fa-solid fa-plus"></i>
                   </button>
                 </a>
-                <a href="{{route('cefa.agroindustria.instructor.units.movements.pending')}}">
+                @else
+                  @if (Auth::user()->havePermission('agroindustria.instructor.units.movements.form'))                
+                  <a href="{{route('agroindustria.instructor.units.movements.form')}}">
+                    <button class="btn btn-warning float-end mb-2">
+                      <i class="fas fa-bell"> {{ $pedingMovements }}</i>
+                    </button>
+                  </a>
+                  @endif
+                @endif
+                
+                @if (Auth::user()->havePermission('agroindustria.instructor.units.movements.pending'))                
+                <a href="{{route('agroindustria.instructor.units.movements.pending')}}">
                   <button class="btn btn-warning float-end mb-2">
                     <i class="fas fa-bell"> {{ $pedingMovements }}</i>
                   </button>
                 </a>
+                @else
+                  @if (Auth::user()->havePermission('agroindustria.admin.units.movements.pending'))                
+                  <a href="{{route('agroindustria.admin.units.movements.pending')}}">
+                    <button class="btn btn-warning float-end mb-2">
+                      <i class="fas fa-bell"> {{ $pedingMovements }}</i>
+                    </button>
+                  </a>
+                  @endif
+                @endif
               </th>
           </tr>
       </thead>

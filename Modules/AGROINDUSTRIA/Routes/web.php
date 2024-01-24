@@ -68,8 +68,9 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/production', [ProductionController::class, 'index'])->name('agroindustria.admin.units.production');
 
             //Movimientos
-            Route::get('/movements', [DeliverController::class, 'deliveries'])->name('agroindustria.admin.units.movements');
-            Route::get('/movements/pending', [DeliverController::class, 'pending'])->name('cefa.agroindustria.units.instructor.movements.pending');
+            Route::get('/movements/table', [DeliverController::class, 'table'])->name('agroindustria.admin.units.movements.table');
+            Route::get('/movements/form', [DeliverController::class, 'deliveries'])->name('agroindustria.admin.units.movements.form');
+            Route::get('/movements/pending', [DeliverController::class, 'pending'])->name('agroindustria.admin.units.movements.pending');
             Route::put('/movements/pending/{id}', [DeliverController::class, 'stateMovement'])->name('cefa.agroindustria.units.instructor.movements.pending.state');
             Route::put('/movements/cancelled/{id}', [DeliverController::class, 'anularMovimiento'])->name('cefa.agroindustria.units.instructor.movements.cancelled');
             Route::put('/movements/return/{id}', [DeliverController::class, 'devolverMovimiento'])->name('cefa.agroindustria.units.instructor.movements.return');
@@ -129,7 +130,7 @@ Route::middleware(['lang'])->group(function(){
             //Movimientos
             Route::get('/movements/table', [DeliverController::class, 'table'])->name('agroindustria.instructor.units.movements.table');
             Route::get('/movements/form', [DeliverController::class, 'deliveries'])->name('agroindustria.instructor.units.movements.form');
-            Route::get('/movements/pending', [DeliverController::class, 'pending'])->name('cefa.agroindustria.instructor.units.movements.pending');
+            Route::get('/movements/pending', [DeliverController::class, 'pending'])->name('agroindustria.instructor.units.movements.pending');
             Route::put('/movements/pending/{id}', [DeliverController::class, 'stateMovement'])->name('cefa.agroindustria.units.instructor.movements.pending.state');
             Route::put('/movements/cancelled/{id}', [DeliverController::class, 'anularMovimiento'])->name('cefa.agroindustria.units.instructor.movements.cancelled');
             Route::put('/movements/return/{id}', [DeliverController::class, 'devolverMovimiento'])->name('cefa.agroindustria.units.instructor.movements.return');

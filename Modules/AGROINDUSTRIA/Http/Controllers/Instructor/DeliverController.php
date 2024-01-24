@@ -241,7 +241,6 @@ class DeliverController extends Controller
             $selectedElementId = $validatedData['element'];
             $amounts = $validatedData['amount'];
             $prices = $request->input('price');
-            $available = $request->input('available');
             $totalPrice = 0;
 
             $element = Element::whereIn('id', $selectedElementId)->pluck('measurement_unit_id');
@@ -268,7 +267,8 @@ class DeliverController extends Controller
                 
                 // Realiza una consulta para obtener los lotes correspondientes al elemento y ordénalos por lote
                 $selectedUnit = session('viewing_unit');
-                $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
+                $warehouse = Warehouse::where('name', 'Agroindustria')->pluck('id');
+                $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->whereIn('warehouse_id', $warehouse)->pluck('id');
                 $inventories = Inventory::where('element_id', $e)
                 ->where('productive_unit_warehouse_id', $productiveUnit)
                 ->get();
@@ -353,11 +353,22 @@ class DeliverController extends Controller
 
             DB::commit();
 
-            // Redirige a la página de éxito
-            return redirect()->route('agroindustria.instructor.units.movements.table')->with([
-                'icon' => 'success',
-                'message_line' => trans('agroindustria::menu.Successful check out'),
-            ]);
+            
+            if(Auth::check()){
+                $user = Auth::user();
+                if($user->roles->contains('slug', 'agroindustria.instructor')){
+                    // Redirige a la página de éxito
+                    return redirect()->route('agroindustria.instructor.units.movements.table')->with([
+                        'icon' => 'success',
+                        'message_line' => trans('agroindustria::menu.Successful check out'),
+                    ]);
+                }else{
+                    return redirect()->route('agroindustria.admin.units.movements.table')->with([
+                        'icon' => 'success',
+                        'message_line' => trans('agroindustria::menu.Successful check out'),
+                    ]); 
+                }
+            }
         } catch (\Exception $e) {
             dd($e);
             // Si ocurre algún error durante la transacción, se revierten todas las operaciones
@@ -452,7 +463,7 @@ class DeliverController extends Controller
                     $receiverInventory->element_id = $detail->inventory->element_id;
                     $receiverInventory->destination = $detail->inventory->destination;
                     $receiverInventory->description = $detail->inventory->description;
-                    $receiverInventory->price = $detail->price;
+                    $receiverInventory->price = $detail->inventory->price;
                     $receiverInventory->amount = $detail->amount; // Aquí usamos la cantidad del detalle
                     $receiverInventory->stock = $detail->inventory->stock;
                     $receiverInventory->production_date = $detail->inventory->production_date;
@@ -476,7 +487,21 @@ class DeliverController extends Controller
             $message_line = trans('agroindustria::menu.Error when editing movement status');
         }
 
-        return redirect()->route('cefa.agroindustria.instructor.units.movements.pending')->with(['icon' => $icon, 'message_line' => $message_line]);
+        if(Auth::check()){
+            $user = Auth::user();
+            if($user->roles->contains('slug', 'agroindustria.instructor')){
+                // Redirige a la página de éxito
+                return redirect()->route('agroindustria.instructor.units.movements.pending')->with([
+                    'icon' => $icon,
+                    'message_line' => $message_line,
+                ]);
+            }else{
+                return redirect()->route('agroindustria.admin.units.movements.pending')->with([
+                    'icon' => $icon,
+                    'message_line' => $message_line,
+                ]); 
+            }
+        }
     }
 
 
@@ -504,10 +529,21 @@ class DeliverController extends Controller
             $message_line = trans('agroindustria::menu.Movement Cancel Error');
         }
 
-        return redirect()->route('agroindustria.instructor.units.movements.table')->with([
-            'icon' => $icon,
-            'message_line' => $message_line,
-        ]);
+        if(Auth::check()){
+            $user = Auth::user();
+            if($user->roles->contains('slug', 'agroindustria.instructor')){
+                // Redirige a la página de éxito
+                return redirect()->route('agroindustria.instructor.units.movements.table')->with([
+                    'icon' => $icon,
+                    'message_line' => $message_line,
+                ]);
+            }else{
+                return redirect()->route('agroindustria.admin.units.movements.table')->with([
+                    'icon' => $icon,
+                    'message_line' => $message_line,
+                ]); 
+            }
+        }
     }
 
     public function devolverMovimiento(Request $request, $id){
@@ -534,9 +570,19 @@ class DeliverController extends Controller
             $message_line = trans('agroindustria::menu.Error when returning the movement');
         }
 
-        return redirect()->route('cefa.agroindustria.instructor.units.movements.pending')->with([
-            'icon' => $icon,
-            'message_line' => $message_line,
-        ]);
-    }
+        if(Auth::check()){
+            $user = Auth::user();
+            if($user->roles->contains('slug', 'agroindustria.instructor')){
+                // Redirige a la página de éxito
+                return redirect()->route('agroindustria.instructor.units.movements.pending')->with([
+                    'icon' => $icon,
+                    'message_line' => $message_line,
+                ]);
+            }else{
+                return redirect()->route('agroindustria.admin.units.movements.pending')->with([
+                    'icon' => $icon,
+                    'message_line' => $message_line,
+                ]); 
+            }
+        }    }
 }
