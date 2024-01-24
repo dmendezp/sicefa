@@ -48,6 +48,7 @@ class PostulationsController extends Controller
             ->where('people.document_number', $documentNumber)
             ->whereDate('convocations.start_date', '<=', now())
             ->whereDate('convocations.end_date', '>=', now())
+            ->whereNull('postulations.deleted_at')
             ->first();
 
         if ($existingPostulation) {
@@ -147,19 +148,23 @@ class PostulationsController extends Controller
                 $respuesta->question_id = $questionIds[$index]; // Guardar el ID de la pregunta
                 $respuesta->save();
             }
-
-            $file = $request->file('socioeconomicFile');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->storeAs('socioeconomico', $fileName, 'public');
-
-            // Guardar el archivo en la tabla SocioEconomicSupportFile
-            $supportFile = new SocioEconomicSupportFile();
-            $supportFile->file_path = $filePath;
-            $supportFile->postulation_id = $postulation->id;
-            $supportFile->save();
-
-            // Redireccionar a la vista de edición o a donde desees después de guardar
-            return redirect()->route('cefa.bienestar.postulations')->with('success', 'Postulación guardada exitosamente.');
         }
+
+        $file = $request->file('socioeconomicFile');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $filePath = 'modules/bienestar/socioeconomico/' . $fileName; // Ruta dentro de la carpeta public
+
+        // Mover el archivo a la carpeta public
+        $file->move(public_path('modules/bienestar/socioeconomico'), $fileName);
+
+        // Guardar el archivo en la tabla SocioEconomicSupportFile
+        $supportFile = new SocioEconomicSupportFile();
+        $supportFile->file_path = $filePath;
+        $supportFile->postulation_id = $postulation->id;
+        $supportFile->save();
+
+        // Redireccionar a la vista de edición o a donde desees después de guardar
+        return response()->json(['success' => 'Postulación exitosa!']);
     }
+
 }

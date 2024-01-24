@@ -8,8 +8,8 @@
                             <label for="question">
                                 <h4>{{ $question->question }}</h4>
                             </label>
-                            <input type="hidden" class="form-control" id="question" name="question[]" value="{{ $question->question_id }}" readonly>
-                            <select class="form-control" id="answer" name="answer[]" required>
+                            <input type="hidden" class="form-control" name="question[{{ $question->question_id }}]" value="{{ $question->question_id }}" readonly>
+                            <select class="form-control" name="answer[{{ $question->question_id }}]" required>
                                 <option value="">Selecciona una respuesta</option>
                                 @foreach ($answers as $answer)
                                     @if ($answer->question_id == $question->question_id)

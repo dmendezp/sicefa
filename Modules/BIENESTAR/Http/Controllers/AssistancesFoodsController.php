@@ -100,8 +100,29 @@ class AssistancesFoodsController extends Controller
     }
 
     public function assistances(Request $request)
-    {
-        $documentNumber = $request->input('documentNumber');
+{
+    $documentNumber = $request->input('documentNumber');
+
+    try {
+        // Verificar si ya existe un registro para el aprendiz en la fecha actual
+        $existingRecord = DB::table('assistances_foods')
+            ->join('postulations_benefits', 'assistances_foods.postulation_benefit_id', '=', 'postulations_benefits.id')
+            ->join('postulations', 'postulations_benefits.postulation_id', '=', 'postulations.id')
+            ->join('apprentices', 'postulations.apprentice_id', '=', 'apprentices.id')
+            ->join('people', 'apprentices.person_id', '=', 'people.id')
+            ->join('convocations', 'postulations.convocation_id', '=', 'convocations.id')
+            ->join('quarters', 'convocations.quarter_id', '=', 'quarters.id')
+            ->where('people.document_number', $documentNumber)
+            ->whereDate('assistances_foods.date_time', now()->toDateString())
+            ->whereDate('quarters.start_date', '<=', now())
+            ->whereDate('quarters.end_date', '>=', now())
+            ->whereDate('convocations.start_date', '<=', now())
+            ->whereDate('convocations.end_date', '>=', now())
+            ->exists();
+
+        if ($existingRecord) {
+            return response()->json(['error' => 'El aprendiz ya tomó la asistencia hoy o no está en el trimestre o convocatoria actual!']);
+        }
 
         // Obtén el apprentice_id y postulation_benefit_id según los criterios
         $queryResult = DB::table('postulations_benefits')
@@ -115,22 +136,18 @@ class AssistancesFoodsController extends Controller
             ->join('benefits', 'postulations_benefits.benefit_id', '=', 'benefits.id')
             ->join('apprentices', 'postulations.apprentice_id', '=', 'apprentices.id')
             ->join('people', 'apprentices.person_id', '=', 'people.id')
+            ->join('convocations', 'postulations.convocation_id', '=', 'convocations.id')
+            ->join('quarters', 'convocations.quarter_id', '=', 'quarters.id')
             ->where('people.document_number', $documentNumber)
             ->where('postulations_benefits.state', 'Beneficiario')
             ->where('benefits.name', 'Alimentacion')
+            ->whereDate('quarters.start_date', '<=', now())
+            ->whereDate('quarters.end_date', '>=', now())
+            ->whereDate('convocations.start_date', '<=', now())
+            ->whereDate('convocations.end_date', '>=', now())
             ->first();
 
         if ($queryResult) {
-            // Verificar si ya existe un registro para el aprendiz en la fecha actual
-            $existingRecord = DB::table('assistances_foods')
-                ->where('apprentice_id', $queryResult->apprentice_id)
-                ->whereDate('date_time', now()->toDateString())
-                ->exists();
-
-            if ($existingRecord) {
-                return response()->json(['error' => 'El aprendiz ya tomó la asistencia hoy!']);
-            }
-
             // Realiza la inserción en la tabla assistances_foods
             DB::table('assistances_foods')->insert([
                 'apprentice_id' => $queryResult->apprentice_id,
@@ -143,9 +160,13 @@ class AssistancesFoodsController extends Controller
 
             return response()->json(['success' => 'Asistencia Guardada Correctamente!']);
         } else {
-            return response()->json(['error' => 'Error al procesar la solicitud.']);
+            return response()->json(['error' => 'El aprendiz no está en el trimestre o convocatoria actual.']);
         }
+    } catch (QueryException $e) {
+        return response()->json(['error' => 'Error al procesar la solicitud.']);
     }
+}
+
 
 
 

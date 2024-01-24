@@ -103,7 +103,7 @@ class ConvocationsController extends Controller
         try{
             $convocations = Convocation::findOrFail($id);
             $convocations->delete();
-            return response()->json(['mensaje' => 'eliminado with success']);      
+            return response()->json(['mensaje' => 'Eliminate with success']);      
           }  catch (\Exception $e) {
               return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
           }  
