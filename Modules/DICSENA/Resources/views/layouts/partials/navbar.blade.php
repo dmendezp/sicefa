@@ -12,8 +12,6 @@
                         <i class="fas fa-globe"></i> DICSENA
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a href="{{ url('lang', ['es']) }}" class="dropdown-item">Español</a>
-                        <a href="{{ url('lang', ['en']) }}" class="dropdown-item">English</a>
                         <a href="{{ route('cefa.welcome') }}" class="dropdown-item">Volver a SICEFA</a>
                     </div>
                 </li>

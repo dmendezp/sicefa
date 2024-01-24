@@ -6,7 +6,6 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Http;
-use Salmanbe\Deepl\Deepl;
 
 class DICSENAController extends Controller
 {
@@ -18,7 +17,10 @@ class DICSENAController extends Controller
     {
         return view('dicsena::index');
     }
-
+    public function aprendiz()
+    {
+        return view('dicsena::aprendiz');
+    }
     /**
      * Show the form for creating a new resource.
      * @return Renderable
@@ -77,13 +79,5 @@ class DICSENAController extends Controller
     public function destroy($id)
     {
         //
-    }
-    public function translate(Request $request)
-    {
-        $deepl = new Deepl();
-
-        $translation = $deepl->get($request->text, $request->target_lang, $request->source_lang);
-
-        return response()->json($translation);
     }
 }

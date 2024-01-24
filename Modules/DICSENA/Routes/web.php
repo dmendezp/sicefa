@@ -11,6 +11,7 @@ Route::middleware(['lang'])->group(function () {
     Route::prefix('dicsena')->group(function () {
         Route::get('/', 'DICSENAController@index');
         Route::get('/index', [HomeController::class, 'index'])->name('cefa.dicsena.home.index');
+        Route::get('/aprendiz', [HomeController::class, 'aprendiz'])->name('cefa.dicsena.aprendiz');
         Route::get('/translate', [HomeController::class, 'translate'])->name('translate');
         Route::get('/guide', 'GuideController@index')->name('cefa.dicsena.guide');
         Route::get('/gloss', 'GlossController@index')->name('cefa.dicsena.gloss');
@@ -23,9 +24,10 @@ Route::middleware(['lang'])->group(function () {
         Route::delete('/glossary/destroy/{glossary}', 'GlossaryController@destroy')->name('dicsena.instructor.destroy');
         Route::put('/glossary/update/{glossary}', 'GlossaryController@update')->name('dicsena.instructor.glossary.update');
         //routes crudguide
-
+        Route::get('/dicsena/aprendiz', 'DicsenaController@aprendiz')->name('cefa.dicsena.aprendiz');
         Route::get('/gloss/manual', 'GlossController@manual')->name('cefa.dicsena.manual');
-
+        Route::get('/gloss/manuall', 'GlossController@manuall')->name('cefa.dicsena.manuall');
+        Route::get('guidepost/download/{id}', 'GuideController@download')->name('cefa.dicsena.download');
         Route::get('/guidepost', 'GuidepostController@index')->name('dicsena.instructor.guidepost.index');
         Route::get('/guidepost/create', 'GuidepostController@create')->name('dicsena.instructor.guidepost.create');
         Route::post('/guidepost/store', 'GuidepostController@store')->name('dicsena.instructor.guidepost.store');

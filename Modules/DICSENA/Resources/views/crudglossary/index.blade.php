@@ -36,7 +36,7 @@
                 <td>
                     <div class="d-flex">
                         <a href="{{ route('dicsena.instructor.glossary.edit', $glossary->id) }}" class="btn btn-sm btn-primary mr-2">
-                            <i class="fas fa-edit"></i>
+                            <i id="lol" class="fas fa-edit"></i>
                         </a>
                         <div style="width: 10px;"></div>
                         <form action="{{ route('dicsena.instructor.destroy', $glossary->id) }}" method="POST" style="display: inline;">

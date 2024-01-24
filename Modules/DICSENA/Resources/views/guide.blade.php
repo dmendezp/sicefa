@@ -14,8 +14,7 @@
                         <i class="fas fa-globe"></i> DICSENA
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a href="{{ url('lang', ['es']) }}" class="dropdown-item">Español</a>
-                        <a href="{{ url('lang', ['en']) }}" class="dropdown-item">English</a>
+
                         <a href="{{ route('cefa.welcome') }}" class="dropdown-item">Volver a SICEFA</a>
                     </div>
                 </li>
@@ -32,6 +31,11 @@
                     <a class="nav-link" href="{{ route('cefa.dicsena.gloss')}}" style="color: white;">Glosario</a>
                 </li>
             </ul>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('cefa.dicsena.aprendiz') }}" data-toggle="tooltip" data-placement="top" data-title="¿Necesitas ayuda en el uso?" data-color="#ffffff" style="color: white;">
+                    <i class="fas fa-book-open"></i> Ayuda
+                </a>
+            </li>
 
             <ul class="navbar-nav ml-auto">
                 @if(Auth::user())
@@ -91,11 +95,11 @@
                         <td>{{ $guidepost->description }}</td>
                         <td>{{ $guidepost->program->name }}</td>
                         <td>
-                            <a href="{{ asset('guideposts_file/' . $guidepost->url) }}" target="_blank" title="{{ $guidepost->url }}">
+                            <a href="{{ asset('storage/guideposts_file/' . $guidepost->url) }}" target="_blank" title="{{ $guidepost->url }}">
                                 <i class="fa fa-eye"></i>
                             </a>
                             &nbsp; | &nbsp;
-                            <a href="{{ asset('storage/guideposts_file/' . $guidepost->url) }}" download title="{{ $guidepost->url }}">
+                            <a href="{{ route('cefa.dicsena.download', $guidepost->id) }}" title="{{ $guidepost->url }}">
                                 <i class="fa fa-download"></i>
                             </a>
                         </td>
@@ -111,6 +115,19 @@
 </div>
 
 <style>
+    .container button {
+        width: 100%;
+        padding: 14px;
+        outline: none;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        margin-top: 20px;
+        font-size: 17px;
+        border-radius: 5px;
+        background: #1c80bb;
+    }
+
     p {
         text-align: center;
     }

@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Person;
 use Modules\DICSENA\Entities\Guidepost;
-use Illuminate\Support\Facades\Storege;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class GuidepostController extends Controller
 {
@@ -48,7 +49,8 @@ class GuidepostController extends Controller
 
         $file = $request->file('url');
         $fileName = $file->getClientOriginalName();
-        $file->storeAs('public/guidepost_file', $fileName);
+        $file->storeAs('guidepost_file', $fileName, 'public');
+
 
         $guidepost = Guidepost::create([
             'title' => $validatedData['title'],
@@ -67,9 +69,18 @@ class GuidepostController extends Controller
      */
     public function show($id)
     {
-        return view('dicsena::crudguide.show');
-    }
+        $guidepost = Guidepost::findOrFail($id);
+        $filePath = 'guidepost_file/' . $guidepost->url;
 
+        // Asegúrate de que el archivo exista
+        if (Storage::exists($filePath)) {
+            // Utiliza el método download de Storage para descargar el archivo
+            return Storage::download($filePath);
+        } else {
+            // Manejar el caso donde el archivo no existe
+            return response()->json(['error' => 'El archivo no existe'], 404);
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      * @param int $id
