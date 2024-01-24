@@ -10,6 +10,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\AGROCEFA\Http\Controllers\AGROCEFAController;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\Warehouse;
@@ -43,7 +44,14 @@ class MovementController extends Controller
     }
 
     public function requestentrance()
-    {
+    {   
+        // Instancio del controlador AGROCEFA
+        $agrocefaController = new AGROCEFAController();
+        // Llamar la funcion para actualizar las notificaciones de Movimientos
+        $result = $agrocefaController->notificationmovement();
+        // Llamar la funcion para actualizar las notificaciones de stock
+        $result = $agrocefaController->notificationstock();
+
         // Obtén el ID de la unidad productiva seleccionada de la sesión
         $this->selectedUnitId = Session::get('selectedUnitId');
 
@@ -140,6 +148,12 @@ class MovementController extends Controller
     }
     public function viewmovementslist()
     {
+        // Instancio del controlador AGROCEFA
+        $agrocefaController = new AGROCEFAController();
+        // Llamar la funcion para actualizar las notificaciones de Movimientos
+        $result = $agrocefaController->notificationmovement();
+        // Llamar la funcion para actualizar las notificaciones de stock
+        $result = $agrocefaController->notificationstock();
         // Obtén el ID de la unidad productiva seleccionada de la sesión
         $this->selectedUnitId = Session::get('selectedUnitId');
 
@@ -352,6 +366,13 @@ class MovementController extends Controller
     
     public function formentrance()
     {
+
+        // Instancio del controlador AGROCEFA
+        $agrocefaController = new AGROCEFAController();
+        // Llamar la funcion para actualizar las notificaciones de Movimientos
+        $result = $agrocefaController->notificationmovement();
+        // Llamar la funcion para actualizar las notificaciones de stock
+        $result = $agrocefaController->notificationstock();
         // Fecha actual
         $date = Carbon::now();
 
@@ -367,7 +388,6 @@ class MovementController extends Controller
                 $people = [$user->person->id => $user->person->first_name];
             }
             // ---------------- Filtro para Bodega de Entrega -----------------------
-
             $wer = 'Almacen';
 
             // Realiza una consulta para obtener las unidades productivas relacionadas con 'Almacen' y sus IDs en la tabla pivote
@@ -393,8 +413,6 @@ class MovementController extends Controller
             
 
             // ---------------- Filtro para Bodega de Recibe -----------------------
-
-
             // Intenta encontrar la unidad productiva por su ID y verifica si se encuentra
             $selectedUnit = ProductiveUnit::find($this->selectedUnitId);
 
@@ -794,6 +812,14 @@ class MovementController extends Controller
 
     public function formexit()
     {
+
+        // Instancio del controlador AGROCEFA
+        $agrocefaController = new AGROCEFAController();
+        // Llamar la funcion para actualizar las notificaciones de Movimientos
+        $result = $agrocefaController->notificationmovement();
+        // Llamar la funcion para actualizar las notificaciones de stock
+        $result = $agrocefaController->notificationstock();
+
         // Fecha actual
         $date = Carbon::now();
 

@@ -66,6 +66,11 @@ Route::middleware(['lang'])->group(function () {
         Route::get('passant/inventory', 'InventoryController@inventory')->name('agrocefa.passant.inventory.index');
         Route::post('trainer/inventory/showWarehouseFilter', 'InventoryController@showWarehouseFilter')->name('agrocefa.trainer.inventory.showWarehouseFilter');
         Route::post('passant/inventory/showWarehouseFilter', 'InventoryController@showWarehouseFilter')->name('agrocefa.passant.inventory.showWarehouseFilter');
+        Route::post('trainer/inventory/showWarehouseFilterStock', 'InventoryController@showWarehouseFilterStock')->name('agrocefa.trainer.inventory.showWarehouseFilterStock');
+        Route::post('passant/inventory/showWarehouseFilterStock', 'InventoryController@showWarehouseFilterStock')->name('agrocefa.passant.inventory.showWarehouseFilterStock');
+        Route::get('trainer/inventory/low', 'InventoryController@lowentrance')->name('agrocefa.trainer.inventory.low');
+        Route::get('trainer/inventory/stock', 'InventoryController@stockview')->name('agrocefa.trainer.inventory.stock');
+        Route::post('inventory/movementlow/{id}', 'InventoryController@movementlow')->name('agrocefa.inventory.movementlow');
         Route::post('trainer/inventory/store', 'InventoryController@store')->name('agrocefa.trainer.inventory.store');
         Route::post('passant/inventory/store', 'InventoryController@store')->name('agrocefa.passant.inventory.store');
         Route::post('trainer/inventory/category/store', 'InventoryController@addCategory')->name('agrocefa.trainer.inventory.category.store');

@@ -3,6 +3,13 @@
     <div class="card">
         <div class="card-header">
             {{ trans('agrocefa::inventory.Records') }}
+            <button class="btn btn-warning float-end" onclick="redirectTlow()">
+                Bajas
+                <i class='bx bx-down-arrow-alt icon'></i>
+                @if (Session::has('notificationlow') && Session::get('notificationlow') > 0)
+                    <span class="notification-badge">{{ Session::get('notificationlow') }}</span>
+                @endif
+            </button>
         </div>
         <div class="card-body">
             <table class="table table-sm table-bordered table-striped" style="font-size: 0.9rem;">
@@ -108,4 +115,9 @@
         });
     });
 
+    function redirectTlow() {
+        // Redirigir a la otra vista
+        window.location.href = "{{ route('agrocefa.trainer.inventory.low') }}";
+    }
 </script>
+
