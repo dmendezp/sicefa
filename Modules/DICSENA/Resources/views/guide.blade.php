@@ -95,13 +95,14 @@
                         <td>{{ $guidepost->description }}</td>
                         <td>{{ $guidepost->program->name }}</td>
                         <td>
-                            <a href="{{ asset('storage/guideposts_file/' . $guidepost->url) }}" target="_blank" title="{{ $guidepost->url }}">
+                            <a href="{{ url('guidepost_file/' . $guidepost->url) }}" target="_blank" title="{{ $guidepost->url }}">
                                 <i class="fa fa-eye"></i>
                             </a>
                             &nbsp; | &nbsp;
-                            <a href="{{ route('cefa.dicsena.download', $guidepost->id) }}" title="{{ $guidepost->url }}">
+                            <a href="{{ url('guidepost_file/' . $guidepost->url) }}" download="{{ $guidepost->title }}" title="{{ $guidepost->url }}">
                                 <i class="fa fa-download"></i>
                             </a>
+
                         </td>
                     </tr>
                     @endforeach

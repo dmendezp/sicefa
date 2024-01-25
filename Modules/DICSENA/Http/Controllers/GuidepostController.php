@@ -5,39 +5,25 @@ namespace Modules\DICSENA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Modules\SICA\Entities\Program;
-use Modules\SICA\Entities\Person;
 use Modules\DICSENA\Entities\Guidepost;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
 
 class GuidepostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
     public function index()
     {
         $guideposts = Guidepost::all();
         return view('dicsena::crudguide.index', compact('guideposts'));
     }
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
+
     public function create()
     {
         $programs = Program::orderBy('name', 'ASC')->get();
         return view('dicsena::crudguide.create', compact('programs'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -49,8 +35,7 @@ class GuidepostController extends Controller
 
         $file = $request->file('url');
         $fileName = $file->getClientOriginalName();
-        $file->storeAs('guidepost_file', $fileName, 'public');
-
+        $file->move(public_path('guidepost_file'), $fileName);
 
         $guidepost = Guidepost::create([
             'title' => $validatedData['title'],
@@ -62,30 +47,18 @@ class GuidepostController extends Controller
         return redirect()->route('dicsena.instructor.guidepost.index')->with('success', 'Guidepost created successfully');
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function show($id)
     {
         $guidepost = Guidepost::findOrFail($id);
         $filePath = 'guidepost_file/' . $guidepost->url;
 
-        // Asegúrate de que el archivo exista
-        if (Storage::exists($filePath)) {
-            // Utiliza el método download de Storage para descargar el archivo
-            return Storage::download($filePath);
+        if (File::exists(public_path($filePath))) {
+            return response()->file(public_path($filePath));
         } else {
-            // Manejar el caso donde el archivo no existe
             return response()->json(['error' => 'El archivo no existe'], 404);
         }
     }
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
+
     public function edit($id)
     {
         $guidepost = Guidepost::findOrFail($id);
@@ -93,12 +66,6 @@ class GuidepostController extends Controller
         return view('dicsena::crudguide.edit', compact('guidepost', 'programs'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
@@ -112,7 +79,7 @@ class GuidepostController extends Controller
         if ($request->hasFile('url')) {
             $file = $request->file('url');
             $fileName = $file->getClientOriginalName();
-            $file->storeAs('guideposts_file', $fileName);
+            $file->storeAs('guidepost_file', $fileName, 'public');
             $guidepost->url = $fileName;
         }
 
@@ -124,11 +91,6 @@ class GuidepostController extends Controller
         return redirect()->route('dicsena.instructor.guidepost.index')->with('success', 'Guidepost updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
     public function destroy($id)
     {
         $guidepost = Guidepost::findOrFail($id);

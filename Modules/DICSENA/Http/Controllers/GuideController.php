@@ -2,26 +2,19 @@
 
 namespace Modules\DICSENA\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Program;
 use Modules\DICSENA\Entities\Guidepost;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Response; // Asegúrate de tener esta importación
+use Illuminate\Support\Facades\Response;
 
 class GuideController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
     public function index(Request $request)
     {
         $vista = "vista-2";
         $programs = Program::orderBy('name', 'asc')->get();
-
         $selectedProgram = $request->input('program_name');
 
         if ($selectedProgram) {
@@ -37,45 +30,33 @@ class GuideController extends Controller
         return view('dicsena::guide', compact('guideposts', 'programs', 'selectedProgram', 'vista'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('dicsena::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
     public function store(Request $request)
     {
-        // Lógica de almacenamiento
+        $validatedData = $request->validate([
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'url' => 'required|file|mimes:pdf',
+            'program_id' => 'required|exists:programs,id',
+        ]);
+
+        $file = $request->file('url');
+        $fileName = $file->getClientOriginalName();
+        $file->move(public_path('guidepost_file'), $fileName);
+
+        $guidepost = Guidepost::create([
+            'title' => $validatedData['title'],
+            'description' => $validatedData['description'],
+            'url' => $fileName,
+            'program_id' => $validatedData['program_id'],
+        ]);
+
+        return redirect()->route('dicsena.instructor.guidepost.index')->with('success', 'Guidepost created successfully');
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('dicsena::edit');
-    }
     public function download($id)
     {
         $guidepost = Guidepost::findOrFail($id);
-        $filePath = storage_path('app/public/guideposts_file/' . $guidepost->url);
+        $filePath = public_path('guidepost_file/' . $guidepost->url);
 
         if (File::exists($filePath)) {
             $headers = [
@@ -84,26 +65,14 @@ class GuideController extends Controller
 
             return response()->download($filePath, $guidepost->url, $headers);
         } else {
-            // Manejar el caso donde el archivo no existe
             return response()->json(['error' => 'El archivo no existe'], 404);
         }
     }
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
     public function update(Request $request, $id)
     {
         // Lógica de actualización
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
     public function destroy($id)
     {
         // Lógica de eliminación
