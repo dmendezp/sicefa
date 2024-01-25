@@ -2,7 +2,7 @@
     <div class="navbar" style="justify-content: initial">
         @if (Auth::check())
             <ul>
-                <li style="margin-left: 20px; margin-right: 30px">
+                <li style="margin-left: 10px; margin-right: 20px; width: 280px">
                     <a href="#" id="an">
                         @if (!empty(Session::get('selectedUnitName')))
                             <a href="#" id="an">
@@ -27,16 +27,16 @@
                         </li>
                     @endif
                 @endauth
-                <li style="margin-right: 90px"><a href="{{ route('cefa.agrocefa.index') }}"
+                <li style="margin-right: 60px"><a href="{{ route('cefa.agrocefa.index') }}"
                         id="an">{{ trans('agrocefa::universal.Home') }}</a></li>
                 <li style="margin-right: 40px"><a href="{{ url('lang', ['en']) }}" id="an"
                         class="dropdown-item"><img src="{{ asset('agrocefa/images/general/en.png') }}" alt=""
                             style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.English') }}</a></li>
-                <li style="margin-right: 80px"><a href="{{ url('lang', ['es']) }}" id="an"
+                <li style="margin-right: 60px"><a href="{{ url('lang', ['es']) }}" id="an"
                         class="dropdown-item"><img src="{{ asset('agrocefa/images/general/es.png') }}" alt=""
                             style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.Spanish') }}</a></li>
                 @if (checkRol('agrocefa.trainer'))
-                <li><a href="{{ route('agrocefa.trainer.movements.notification')}}" id="an"
+                <li style="width: 70px"><a href="{{ route('agrocefa.trainer.movements.notification')}}" id="an"
                         title="Ver Movimientos Pendientes">
                         <i class="fa-regular fa-bell fa-flip"></i>
                         @if (Session::has('notification') && Session::get('notification') > 0)
@@ -79,31 +79,32 @@
                 </li>
                 @endif
 
-            </ul>
-        @else
-            <ul>
-                <li style="margin-left: 40px;margin-right: 200px"><a href="#" id="an">AGROCEFA</a></li>
-                <li style="margin-right: 400px"><a href="{{ route('cefa.agrocefa.index') }}"
-                        id="an">{{ trans('agrocefa::universal.Home') }}</a></li>
-                <li style="margin-right: 40px"><a href="{{ url('lang', ['en']) }}" id="an"
-                        class="dropdown-item"><img src="{{ asset('agrocefa/images/general/en.png') }}" alt=""
-                            style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.English') }}</a></li>
-                <li style="margin-right: 40px"><a href="{{ url('lang', ['es']) }}" id="an"
-                        class="dropdown-item"><img src="{{ asset('agrocefa/images/general/es.png') }}" alt=""
-                            style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.Spanish') }}</a></li>
-                
+            
+            @else
+                <ul>
+                    <li style="margin-left: 40px;margin-right: 200px"><a href="#" id="an">AGROCEFA</a></li>
+                    <li style="margin-right: 400px"><a href="{{ route('cefa.agrocefa.index') }}"
+                            id="an">{{ trans('agrocefa::universal.Home') }}</a></li>
+                    <li style="margin-right: 40px"><a href="{{ url('lang', ['en']) }}" id="an"
+                            class="dropdown-item"><img src="{{ asset('agrocefa/images/general/en.png') }}" alt=""
+                                style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.English') }}</a></li>
+                    <li style="margin-right: 40px"><a href="{{ url('lang', ['es']) }}" id="an"
+                            class="dropdown-item"><img src="{{ asset('agrocefa/images/general/es.png') }}" alt=""
+                                style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.Spanish') }}</a></li>
+                    
 
             </ul>
-        @endif
+            @endif
         
             @auth
-                <a href="{{ route('logout') }}" id="logout" title="Salir" class="logout-icon"
+                <a style="margin-left: 0px" href="{{ route('logout') }}" id="logout" title="Salir" class="logout-icon"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fas fa-sign-out-alt"></i>
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
+            </ul>
             @endauth
         </div>
     </div>

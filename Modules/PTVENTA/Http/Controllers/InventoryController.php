@@ -554,13 +554,13 @@ class InventoryController extends Controller
             $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 130px;">' . $firstRecord->category->name . '</td>';
             $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 150px;">' . $firstRecord->name . '</td>';
             $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 110px;">' . $firstRecord->measurement_unit->name . '</td>';
-            $html .= '<td style="border: 1px solid #dddddd; text-align: right; padding: 8px; width: 120px;">'.'$' . number_format($firstRecord->price, 2, '.', ',') . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: right; padding: 8px; width: 120px;">'.'$' . number_format($firstRecord->price, 0, '.', ',') . '</td>';
             $html .= '</tr>';
             foreach ($group->slice(1) as $record) {
                 $html .= '<tr>';
                 $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . $record->name . '</td>';
                 $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . $record->measurement_unit->name . '</td>';
-                $html .= '<td style="border: 1px solid #dddddd; text-align: right; padding: 8px;">' .'$'. number_format($firstRecord->price, 2, '.', ',') . '</td>';
+                $html .= '<td style="border: 1px solid #dddddd; text-align: right; padding: 8px;">' .'$'. number_format($firstRecord->price, 0, '.', ',') . '</td>';
                 $html .= '</tr>';
             }
         }

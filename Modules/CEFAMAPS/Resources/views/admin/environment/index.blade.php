@@ -49,7 +49,9 @@
                                                         width="100" height="100"></td>
                                                 <td>{{ $env->description }}</td>
                                                 <td>{{ $env->farm->name }}</td>
-                                                <td>{{ $env->productive_unit->name }}</td>
+                                                @foreach ($env->environment_productive_units as $pro)
+                                                <td>{{ $pro->productive_unit->name }}</td>
+                                                @endforeach
                                                 <td>{{ $env->status }}</td>
                                                 <!-- Inicio del modal pra las coordenadas -->
                                                 <td>
