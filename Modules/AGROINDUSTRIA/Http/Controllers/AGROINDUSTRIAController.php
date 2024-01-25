@@ -21,19 +21,6 @@ class AGROINDUSTRIAController extends Controller
 {
     public function index()
     {
-        if(Auth::check()){
-            $user = Auth::user();
-            if($user->roles->contains('slug', 'agroindustria.almacenista')){
-                $title = 'Solicitudes';
-                $requests = Labor::with('consumables.inventory.element', 'person')->where('status', 'Programado')->get();
-
-                $data = [
-                    'title' => $title,
-                    'requests' => $requests
-                ];
-                return view('agroindustria::storer.request.index', $data);
-            }
-        }
         $title = 'Inicio';
         return view('agroindustria::index', compact('title'));
     }

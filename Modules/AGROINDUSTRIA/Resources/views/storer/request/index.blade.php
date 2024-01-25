@@ -20,19 +20,39 @@
                 <td>{{$r->planning_date}}</td>
                 <td>{{$r->activity->productive_unit->name}}</td>
                 <td> 
-                    @foreach($r->consumables as $c)
-                    {{$c->inventory->element->name}} <br>
+                    @php
+                        $elementQuantities = []; // Array para almacenar la cantidad total por elemento
+                        $elementQuantitiesAbbreviations = [];
+                    @endphp
+                
+                    @foreach ($r->consumables as $c)
+                        @php
+                            $elementName = $c->inventory->element->name;
+                            $elementQuantity = $c->amount / $c->inventory->element->measurement_unit->conversion_factor;;
+                            $elementAbbreviation = $c->inventory->element->measurement_unit->abbreviation;
+
+                            // Sumar la cantidad al elemento correspondiente en el array
+                            $elementQuantities[$elementName] = isset($elementQuantities[$elementName])
+                                ? $elementQuantities[$elementName] + $elementQuantity
+                                : $elementQuantity;
+                            
+                            $elementQuantitiesAbbreviations[$elementName] = $elementAbbreviation;
+                        @endphp
+                    @endforeach
+                
+                    @foreach ($elementQuantities as $elementName => $totalQuantity)
+                        {{$elementName}}<br>
                     @endforeach
                 </td>
                 <td>
-                    @foreach ($r->consumables as $c)
-                        {{$c->amount / $c->inventory->element->measurement_unit->conversion_factor . ' (' . $c->inventory->element->measurement_unit->abbreviation . ')'}} <br>
-                    @endforeach
+                    @foreach ($elementQuantities as $elementName => $totalQuantity)
+                    {{$totalQuantity}} {{ $elementQuantitiesAbbreviations[$elementName] }}<br>
+                  @endforeach
                 </td>
                 <td>{{$r->person->first_name . ' ' . $r->person->first_last_name . ' ' . $r->person->second_last_name}}</td>
                 <td>
                     <button class="btn btn-success approve-btn" data-request-id="{{$r->id}}">{{trans('agroindustria::request.approve')}}</button>
-                    <button type="submit" class="btn btn-danger cancel-btn" data-bs-toggle="modal" data-bs-target="#cancelar{{$r->id}}">Rechazar</button>
+                    <button type="button" class="btn btn-danger cancel-btn" data-bs-toggle="modal" data-bs-target="#cancelar{{$r->id}}" data-reject-id="{{$r->id}}">Rechazar</button>
                 </td>
             </tr>
             @endforeach
@@ -63,7 +83,7 @@
             </div>         
         </div>
         <div class="modal-footer">
-            {!! Form::submit('Si, rechazar',['class' => 'btn btn-success', 'name' => 'anular']) !!}
+            {!! Form::submit('Si, rechazar',['class' => 'btn btn-success confirm-cancel', 'name' => 'anular', 'id' => 'btnRechazar_'.$r->id, 'data-reject-id' => $r->id]) !!}
           {!! Form:: close() !!}
         </div>
       </div>
@@ -105,11 +125,12 @@
             row.style.color = 'white';
             row.style.fontWeight = 'bold';
             button.style.display = 'none';
-            
+
             const cancelButton = row.querySelector('.cancel-btn');
             if (cancelButton) {
                 cancelButton.style.display = 'none';
             }
+
         }
 
         button.addEventListener('click', function () {
@@ -139,11 +160,62 @@
                         'success'
                     );
 
-                    // Aquí puedes agregar lógica adicional, como enviar una solicitud al servidor para marcar la aprobación en la base de datos.
+                    const cancelButton = row.querySelector('.cancel-btn');
+                    if (cancelButton) {
+                        cancelButton.style.display = 'none';
+                    }
                 }
+                
             });
         });
     });
+
+    const cancelButton = document.querySelectorAll('.cancel-btn');
+
+    cancelButton.forEach(button => {
+        const requestId = button.getAttribute('data-reject-id');
+        const row = button.closest('tr');
+        const modalForm = document.querySelector(`#cancelar${requestId} form`);
+        const btnRechazar = document.getElementById(`btnRechazar_${requestId}`);
+
+        // Verificar si la solicitud ya ha sido cancelada (si hay un valor en localStorage)
+        const isCancel = localStorage.getItem(`request_${requestId}_cancelled`);
+        console.log(isCancel);
+        if (isCancel) {
+            row.style.backgroundColor = 'red';
+            // Cambiar el estilo de la letra al aprobar la solicitud
+            row.style.color = 'white';
+            row.style.fontWeight = 'bold';
+            button.style.display = 'none';
+            //localStorage.removeItem(`request_${requestId}_cancelled`);
+
+            const approveButton = row.querySelector('.approve-btn');
+            if (approveButton) {
+                approveButton.style.display = 'none';
+            }
+        }
+
+        
+
+        // Manejar el evento de clic en el botón de rechazo
+        btnRechazar.addEventListener('click', function () {
+            // Verificar nuevamente si la solicitud ya ha sido cancelada antes de enviar el formulario
+            const isCancel = localStorage.getItem(`request_${requestId}_cancelled`);
+            if (!isCancel) {
+                event.preventDefault();
+
+                // Almacenar la cancelación en localStorage después de verificar
+                localStorage.setItem(`request_${requestId}_cancelled`, 'true');
+
+                // Cambiar el color de la fila al rechazar la solicitud
+                row.style.backgroundColor = 'red';
+
+                // Ahora puedes enviar el formulario si es necesario
+                modalForm.submit();
+            }
+        });
+    });
+
 });
 </script>
 @endsection

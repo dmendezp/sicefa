@@ -8,7 +8,7 @@
 @section('content')
 <center>
     <div class="card" style="width: 1100px">
-        <table class="table table-striped-columns">
+        <table id="inventoryAlert" class="table table-striped" style="width: 98%;">
             <br>    
             <center><h4>Insumos pronto a agotarse</h4></center>
             <br>
@@ -39,7 +39,7 @@
             </tbody>
           </table>
     </div>
-   
+</center>
 @endsection
 
 

@@ -80,7 +80,9 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                @if(auth()->check() && (checkRol('agroindustria.admin')))  
                 <td></td>
+                @endif
             </tr>
         </tbody>
     </table>      
