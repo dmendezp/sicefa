@@ -43,7 +43,7 @@
                                     <input type="number" class="form-control" id="proposal_score" name="proposal_score" value="0" required max="100">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="interview_admin" class="form-label">Puntaje entrevista</label><br>
+                                    <label for="interview_admin" class="form-label">{{ trans('senaempresa::menu.Interview score') }}</label><br>
                                     <input type="number" class="form-control" id="interview_admin" name="interview_admin" value="0" required max="100">
                                 </div>
                             @endif
@@ -56,7 +56,7 @@
                                     <input type="number" class="form-control" id="personalities_score" name="personalities_score" value="0" required max="100">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="interview_psychologo" class="form-label">Puntaje entrevista</label><br>
+                                    <label for="interview_psychologo" class="form-label">{{ trans('senaempresa::menu.Interview score') }}</label><br>
                                     <input type="number" class="form-control" id="interview_psychologo" name="interview_psychologo" value="0" required max="100">
                                 </div>
                             @endif

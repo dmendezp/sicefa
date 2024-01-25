@@ -22,7 +22,7 @@
                                         x="-25" width="150" height="100" />
                                 </pattern>
                             </defs>
-                            <polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#img1)" />
+                            <circle cx="50" cy="50" r="49" fill="url(#img1)" />
                         </svg>
                     </div>
                     <h2 class="card-name">Junior Stiven Medina Hernandez</h2>
@@ -52,7 +52,7 @@
                                         width="150" height="100" />
                                 </pattern>
                             </defs>
-                            <polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#img2)" />
+                            <circle cx="50" cy="50" r="49" fill="url(#img2)" />
                         </svg>
                     </div>
                     <h2 class="card-name">Jennifer Marin Montealegre</h2>
@@ -83,7 +83,7 @@
                                         x="-25" width="150" height="100" />
                                 </pattern>
                             </defs>
-                            <polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#img3)" />
+                            <circle cx="50" cy="50" r="49"  fill="url(#img3)" />
                         </svg>
                     </div>
                     <h2 class="card-name">Diego Alejandro Penagos Ninco</h2>

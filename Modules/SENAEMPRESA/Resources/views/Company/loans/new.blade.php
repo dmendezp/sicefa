@@ -63,41 +63,38 @@
 @endsection
 
 @section('scripts')
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const searchInput = document.getElementById("search-input");
-            const apprenticeSelect = document.getElementById("apprentice-select");
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.32/moment-timezone-with-data.min.js"></script>
 
-            searchInput.addEventListener("input", function() {
-                const searchText = this.value.trim().toLowerCase();
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchInput = document.getElementById("search-input");
+        const apprenticeSelect = document.getElementById("apprentice-select");
+        const startDatetimeInput = document.getElementById("start_datetime");
 
-                for (let option of apprenticeSelect.options) {
-                    const apprenticeId = option.value;
-                    const apprenticeText = option.text.toLowerCase();
-                    const isMatch = apprenticeText.includes(searchText);
-                    option.hidden = !isMatch;
+        searchInput.addEventListener("input", function() {
+            const searchText = this.value.trim().toLowerCase();
 
-                    if (isMatch) {
-                        apprenticeSelect.value = apprenticeId;
-                    }
+            for (let option of apprenticeSelect.options) {
+                const apprenticeId = option.value;
+                const apprenticeText = option.text.toLowerCase();
+                const isMatch = apprenticeText.includes(searchText);
+                option.hidden = !isMatch;
+
+                if (isMatch) {
+                    apprenticeSelect.value = apprenticeId;
                 }
-            });
-
-            // Obtén el elemento del campo de fecha y hora de inicio
-            const startDatetimeInput = document.getElementById("start_datetime");
-
-            // Obtén la fecha y hora actual en formato de 12 horas
-            const now = new Date();
-            const hours = now.getHours() % 12 || 12; // Formato de 12 horas
-            const minutes = now.getMinutes();
-            const ampm = now.getHours() < 12 ? "AM" : "PM";
-
-            // Formatea la fecha y hora actual en un formato adecuado para el campo
-            const formattedDatetime =
-                `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}T${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
-
-            // Establece el valor del campo de fecha y hora de inicio con la fecha y hora actual
-            startDatetimeInput.value = formattedDatetime;
+            }
         });
-    </script>
+
+        // Obtén la fecha y hora actual en la zona horaria de Colombia
+        const now = moment().tz("America/Bogota");
+
+        // Formatea la fecha y hora actual en un formato adecuado para el campo
+        const formattedDatetime = now.format("YYYY-MM-DDTHH:mm");
+
+        // Establece el valor del campo de fecha y hora de inicio con la fecha y hora actual en la zona horaria de Colombia
+        startDatetimeInput.value = formattedDatetime;
+    });
+</script>
 @endsection

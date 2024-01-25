@@ -107,6 +107,7 @@ return [
 
     // Vacant
 
+    'Select Vacancies' => 'Seleccionar Vacantes',
     'Vacancies' => 'Vacantes',  // Aside
     'Courses' => 'Cursos',
     'Presentation' => 'Presentación',
@@ -293,6 +294,7 @@ return [
     'Update Status'=>'Actualizar Estado',
     'Score Assigned'=>'Puntaje Asignado',
     'To update'=>'Actualizar',
+    'Interview score' => 'Puntaje entrevista',
 
 
 

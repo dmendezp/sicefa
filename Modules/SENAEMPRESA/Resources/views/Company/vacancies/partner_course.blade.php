@@ -24,7 +24,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Seleccionar Vacantes</label>
+                                <label>{{ trans('senaempresa::menu.Select Vacancies') }}</label>
                                 @foreach ($vacancies as $vacancy)
                                     <div>
                                         <label class="checkbox-container">

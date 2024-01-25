@@ -107,6 +107,7 @@ return [
 
     // Vacant
 
+    'Select Vacancies' => 'Select Vacancies',
     'Select a vacancy:' => 'Select a vacancy:',
     'Assign Course to Vacant' => 'Assign Course to Vacant',
     'Vacant ID' => 'Vacant ID',
@@ -283,6 +284,7 @@ return [
     'Update Status'=>'Update Status',
     'Score Assigned'=>'Score Assigned',
     'To update'=>'To update',
+    'Interview score' => 'Interview score',
 
 
 

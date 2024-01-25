@@ -16,6 +16,22 @@
                             <input type="hidden" name="apprentice_id" value="{{ $loan->apprentice_id }}">
 
                             <div class="mb-3">
+                                <div class="mb-3">
+                                    <label for="apprentice_id"
+                                        class="form-label">{{ trans('senaempresa::menu.Search Apprentice by Document or Name') }}</label>
+                                    <input type="text" class="form-control" id="search-input" name="search-input"
+                                        placeholder="Ingresar número o nombre">
+                                        <select class="form-control" name="apprentice_id" aria-label="Selecciona Apprentice" id="apprentice-select" multiple="multiple" required>
+                                            @foreach ($apprentices as $apprentice)
+                                                <option value="{{ $apprentice->id }}" @if ($apprentice->id == $loan->apprentice_id) selected @endif>
+                                                    {{ $apprentice->Person->document_number }} {{ $apprentice->Person->full_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="inventory_id"
                                     class="form-label">{{ trans('senaempresa::menu.Element') }}</label>
                                 <select class="form-control" name="inventory_id" aria-label="{{ trans('senaempresa::menu.Select Element') }}">
@@ -46,4 +62,29 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchInput = document.getElementById("search-input");
+        const apprenticeSelect = document.getElementById("apprentice-select");
+        const startDatetimeInput = document.getElementById("start_datetime");
+
+        searchInput.addEventListener("input", function() {
+            const searchText = this.value.trim().toLowerCase();
+
+            for (let option of apprenticeSelect.options) {
+                const apprenticeId = option.value;
+                const apprenticeText = option.text.toLowerCase();
+                const isMatch = apprenticeText.includes(searchText);
+                option.hidden = !isMatch;
+
+                if (isMatch) {
+                    apprenticeSelect.value = apprenticeId;
+                }
+            }
+        });
+    });
+</script>
 @endsection
