@@ -21,6 +21,7 @@ use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\Element;
 use App\Exports\AGROINDUSTRIA\RequestExport;
+use App\Exports\AGROINDUSTRIA\RequestUnifiedExport;
 use Carbon\Carbon;
 
 class InputRequestController extends Controller
@@ -43,9 +44,6 @@ class InputRequestController extends Controller
             $movements = Movement::with(['movement_details.inventory.element', 'movement_responsibilities.person', 'movement_type', 'warehouse_movements'])
             ->whereHas('movement_type', function ($query){
                 $query->where('name', 'Movimiento Entrada');
-            })->whereHas('warehouse_movements', function ($query) use ($productiveUnitWarehouseId) {
-                $query->where('productive_unit_warehouse_id', $productiveUnitWarehouseId)
-                    ->where('role', 'RECIBE');
             })->get();            
         }else{
             $movements = Movement::with(['movement_details.inventory.element', 'movement_responsibilities.person', 'movement_type', 'warehouse_movements'])
@@ -82,7 +80,7 @@ class InputRequestController extends Controller
         $warehouseDeliver = Warehouse::where('name', 'Externa')->get();
 
         $productiveUnitWarehouseReceive = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('warehouse_id');
-        $warehouseReceive = Warehouse::where('id', $productiveUnitWarehouseReceive)->get();
+        $warehouseReceive = Warehouse::whereIn('id', $productiveUnitWarehouseReceive)->get();
 
         $elements = Element::with('measurement_unit')->get();
         $element = $elements->map(function ($e){
@@ -291,6 +289,36 @@ class InputRequestController extends Controller
         $excelFileName = 'PPMI_F06 SOLICITUD DE MATERIALES ALMACEN.xlsx';
 
         $excel = new RequestExport($supplies, $personName, $document_number, $planning_date);
+
+        // Descarga el archivo Excel
+        return $excel->download($excelFileName);
+    }
+
+    public function generateExcelUnified(){
+        // Obtén los datos de consumables asociados al labor
+
+        $movement_type = MovementType::where('name', 'Movimiento Entrada')->pluck('id');
+
+        $movementsPending = Movement::where('state', 'Solicitado')->where('movement_type_id', $movement_type)->pluck('id');
+
+        $supplies = MovementDetail::whereIn('movement_id', $movementsPending)->with('inventory.element.measurement_unit')->get();
+        
+        $groupedSupplies = $supplies->groupBy('inventory_id')->map(function ($group) {
+            return [
+                'element_name' => $group->first()->inventory->element->name,
+                'measurement_unit' => $group->first()->inventory->element->measurement_unit->abbreviation,
+                'total_quantity' => $group->sum('amount') / $group->first()->inventory->element->measurement_unit->conversion_factor,
+                'code_sena' => $group->first()->inventory->inventory_code,
+            ];
+        });
+        $currentDate = Carbon::now();
+
+        // Obtener solo la fecha en formato 'Y-m-d'
+        $planning_date = $currentDate->toDateString();
+        // Genera y descarga el archivo Excel
+        $excelFileName = 'PPMI_F06 SOLICITUD DE MATERIALES ALMACEN.xlsx';
+
+        $excel = new RequestUnifiedExport($groupedSupplies, $planning_date);
 
         // Descarga el archivo Excel
         return $excel->download($excelFileName);

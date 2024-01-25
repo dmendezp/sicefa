@@ -1,9 +1,10 @@
 <?php
+
 namespace App\Exports\AGROINDUSTRIA;
 
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -12,20 +13,16 @@ use Maatwebsite\Excel\Concerns\WithDrawings;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 
-class RequestExport implements FromCollection, WithHeadings, Responsable, WithStyles, WithDrawings
+class RequestUnifiedExport implements FromCollection, WithHeadings, Responsable, WithStyles, WithDrawings
 {
     use Exportable;
 
-    protected $supplies;
-    protected $personName;
-    protected $document_number;
+    protected $groupedSupplies;
     protected $planning_date;
 
-    public function __construct(Collection $supplies, $personName, $document_number, $planning_date)
+    public function __construct(Collection $groupedSupplies, $planning_date)
     {
-        $this->supplies = $supplies;
-        $this->personName = $personName;
-        $this->document_number = $document_number;
+        $this->groupedSupplies = $groupedSupplies;
         $this->planning_date = $planning_date;
     }
 
@@ -404,7 +401,7 @@ class RequestExport implements FromCollection, WithHeadings, Responsable, WithSt
             ],
         ]);
 
-        $sheet->setCellValue('H14', $this->personName);
+        $sheet->setCellValue('H14', '');
 
         $sheet->getStyle('L14')->applyFromArray([
             'font' => [
@@ -433,7 +430,7 @@ class RequestExport implements FromCollection, WithHeadings, Responsable, WithSt
             ],
         ]);
 
-        $sheet->setCellValue('M14', $this->document_number);
+        $sheet->setCellValue('M14', '');
 
         $sheet->getStyle('B15')->applyFromArray([
             'font' => [
@@ -545,7 +542,7 @@ class RequestExport implements FromCollection, WithHeadings, Responsable, WithSt
         $consumablesStartRow = 17;
 
         $itemNumber = 1;
-        foreach ($this->supplies as $supplie) {
+        foreach ($this->groupedSupplies as $supplie) {
             $sheet->getStyle('B'. $consumablesStartRow + $itemNumber)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THIN);
 
             $sheet->getStyle('B' . $consumablesStartRow + $itemNumber)->applyFromArray([
@@ -593,7 +590,7 @@ class RequestExport implements FromCollection, WithHeadings, Responsable, WithSt
                 ],
             ]);
 
-            $sheet->setCellValue('C' . $currentRow, $supplie->inventory->inventory_code);
+            $sheet->setCellValue('C' . $currentRow, $supplie['code_sena']);
 
             $sheet->getStyle('E' . $currentRow)->applyFromArray([
                 'font' => [
@@ -605,7 +602,7 @@ class RequestExport implements FromCollection, WithHeadings, Responsable, WithSt
                 ],
             ]);
 
-            $sheet->setCellValue('E' . $currentRow, $supplie->inventory->element->name);
+            $sheet->setCellValue('E' . $currentRow, $supplie['element_name']);
 
             $sheet->getStyle('H' . $currentRow)->applyFromArray([
                 'font' => [
@@ -617,7 +614,7 @@ class RequestExport implements FromCollection, WithHeadings, Responsable, WithSt
                 ],
             ]);
 
-            $sheet->setCellValue('H' . $currentRow, $supplie->inventory->element->measurement_unit->abbreviation);
+            $sheet->setCellValue('H' . $currentRow, $supplie['measurement_unit']);
 
             $sheet->getStyle('I' . $currentRow)->applyFromArray([
                 'font' => [
@@ -629,7 +626,7 @@ class RequestExport implements FromCollection, WithHeadings, Responsable, WithSt
                 ],
             ]);
 
-            $sheet->setCellValue('I' . $currentRow, $supplie->amount / $supplie->inventory->element->measurement_unit->conversion_factor);
+            $sheet->setCellValue('I' . $currentRow, $supplie['total_quantity']);
 
             // Incrementa el número de ítem
             $itemNumber++;
@@ -704,3 +701,4 @@ class RequestExport implements FromCollection, WithHeadings, Responsable, WithSt
         return $drawing;
     }
 }
+

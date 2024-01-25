@@ -41,6 +41,7 @@ Route::middleware(['lang'])->group(function(){
             Route::post('/enviarsolicitud', [InputRequestController::class, 'create'])->name('cefa.agroindustria.units.instructor.enviarsolicitud');
             Route::put('/request/pending/{id}', [InputRequestController::class, 'stateMovement'])->name('cefa.agroindustria.units.instructor.request.pending.state');
             Route::get('/agroindustria/generar-excel-request/{movementId}', [InputRequestController::class, 'generateExcel'])->name('cefa.agroindustria.units.instructor.request.excel');
+            Route::get('/agroindustria/generar-excel-request-unified', [InputRequestController::class, 'generateExcelUnified'])->name('cefa.agroindustria.units.instructor.request.excel.unified');
             Route::get('/request/element/{name}', [InputRequestController::class, 'element'])->name('cefa.agroindustria.units.instructor.element.name');
 
            //Labor
@@ -97,6 +98,7 @@ Route::middleware(['lang'])->group(function(){
             //Solicitudes
             Route::get('/requests', [InputRequestController::class, 'table'])->name('cefa.agroindustria.instructor.units.requests');
             Route::get('/solicitud', [InputRequestController::class, 'form'])->name('cefa.agroindustria.instructor.units.solicitud');
+            
             Route::get('/amount/{id}', [InputRequestController::class, 'amount'])->name('cefa.agroindustria.units.instructor.amount');
             Route::post('/enviarsolicitud', [InputRequestController::class, 'create'])->name('cefa.agroindustria.units.instructor.enviarsolicitud');
             Route::put('/request/pending/{id}', [InputRequestController::class, 'stateMovement'])->name('cefa.agroindustria.units.instructor.request.pending.state');

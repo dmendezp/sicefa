@@ -18,7 +18,11 @@
                         </button>
                     </a>
                     @else
-                    Acciones
+                    <a href="{{route('cefa.agroindustria.units.instructor.request.excel.unified')}}">
+                        <button class="btn btn-success float-end mb-2">
+                            <i class="fas fa-file-excel"></i> Formato de Solicitud Unificado
+                        </button>
+                    </a>
                     @endif
                 </th>
             </tr>
