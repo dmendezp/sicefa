@@ -117,16 +117,29 @@ class TransportationAssistancesController extends Controller
             ->where('benefits.name', 'Transporte')
             ->whereDate('quarters.start_date', '<=', now())
             ->whereDate('quarters.end_date', '>=', now())
+<<<<<<< HEAD
+=======
+            ->whereDate('convocations.start_date', '<=', now())
+            ->whereDate('convocations.end_date', '>=', now())
+>>>>>>> f1d7589b6142fd5b8c155f085c148f1870dc310c
             ->get();
 
         // Verificar duplicados antes de guardar los datos en la tabla transportation_assistances
         foreach ($data as $row) {
+<<<<<<< HEAD
             $existingRecord = DB::table('assistances_foods')
+=======
+            $existingRecords = DB::table('assistances_foods')
+>>>>>>> f1d7589b6142fd5b8c155f085c148f1870dc310c
                 ->where('apprentice_id', $row->apprentice_id)
                 ->whereDate('date_time', now()->toDateString()) // Filtrar por la fecha actual
                 ->exists();
 
+<<<<<<< HEAD
             if (!$existingRecord) {
+=======
+            if (!$existingRecords) {
+>>>>>>> f1d7589b6142fd5b8c155f085c148f1870dc310c
                 // Guardar los datos en la tabla transportation_assistances con 'Presente' en assistance_status
                 DB::table('transportation_assistances')->insert([
                     'assing_transport_route_id' => $row->assing_transport_route_id,

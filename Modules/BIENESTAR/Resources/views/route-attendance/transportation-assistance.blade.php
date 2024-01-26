@@ -106,6 +106,9 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
             text: text,
             showConfirmButton: false,
             timer: timer
+        }).then(function() {
+            // Recargar la página después del SweetAlert
+            location.reload();
         });
     }
 </script>

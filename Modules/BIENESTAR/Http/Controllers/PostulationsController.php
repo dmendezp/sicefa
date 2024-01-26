@@ -139,6 +139,7 @@ class PostulationsController extends Controller
     $answers = $request->input('answer', []);
     $questionIds = $request->input('question', []);
 
+<<<<<<< HEAD
     // Recorrer las respuestas y guardarlas relacionadas con la postulación
     foreach ($answers as $index => $answerValue) {
         if (!empty($answerValue) && isset($questionIds[$index])) {
@@ -147,9 +148,37 @@ class PostulationsController extends Controller
             $respuesta->postulation_id = $postulation->id;
             $respuesta->question_id = $questionIds[$index]; // Guardar el ID de la pregunta
             $respuesta->save();
+=======
+        // Recorrer las respuestas y guardarlas relacionadas con la postulación
+        foreach ($answers as $index => $answerValue) {
+            if (!empty($answerValue) && isset($questionIds[$index])) {
+                $respuesta = new Answer();
+                $respuesta->answer = $answerValue; // Guardar el valor de la respuesta
+                $respuesta->postulation_id = $postulation->id;
+                $respuesta->question_id = $questionIds[$index]; // Guardar el ID de la pregunta
+                $respuesta->save();
+            }
+>>>>>>> f1d7589b6142fd5b8c155f085c148f1870dc310c
         }
+
+        $file = $request->file('socioeconomicFile');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $filePath = 'modules/bienestar/socioeconomico/' . $fileName; // Ruta dentro de la carpeta public
+
+        // Mover el archivo a la carpeta public
+        $file->move(public_path('modules/bienestar/socioeconomico'), $fileName);
+
+        // Guardar el archivo en la tabla SocioEconomicSupportFile
+        $supportFile = new SocioEconomicSupportFile();
+        $supportFile->file_path = $filePath;
+        $supportFile->postulation_id = $postulation->id;
+        $supportFile->save();
+
+        // Redireccionar a la vista de edición o a donde desees después de guardar
+        return response()->json(['success' => 'Postulación exitosa!']);
     }
 
+<<<<<<< HEAD
     // Procesar el archivo socioeconómico
     $file = $request->file('socioeconomicFile');
     $fileName = time() . '_' . $file->getClientOriginalName();
@@ -165,4 +194,6 @@ class PostulationsController extends Controller
     return response()->json(['success' => 'Postulación exitosa!']);
 }
 
+=======
+>>>>>>> f1d7589b6142fd5b8c155f085c148f1870dc310c
 }
