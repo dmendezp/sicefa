@@ -278,10 +278,10 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            @if (Auth::user()->havePermission('sica.admin.units.areas'))
+                            @if (Auth::user()->havePermission('sica.admin.units.areas.index'))
                                 <li class="nav-item">
-                                    <a href="{{ route('sica.admin.units.areas') }}"
-                                        class="nav-link {{ !Route::is('sica.admin.units.areas*') ?: 'active' }}">
+                                    <a href="{{ route('sica.admin.units.areas.index') }}"
+                                        class="nav-link {{ !Route::is('sica.admin.units.areas.index*') ?: 'active' }}">
                                         <i class="fas fa-sign"></i>
                                         <p>{{ trans('sica::menu.Areas') }}</p>
                                     </a>

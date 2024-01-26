@@ -30,7 +30,7 @@
                                             <th>{{ trans('cefamaps::environment.1T_Productive_Units') }}</th>
                                             <th>{{ trans('cefamaps::environment.1T_Status') }}</th>
                                             <th>{{ trans('cefamaps::environment.1T_Environment_Type') }}</th>
-                                            <th>{{ trans('cefamaps::environment.1T_Environment_Class') }}</th>
+                                            <th >{{ trans('cefamaps::environment.1T_Environment_Class') }}</th>
                                             <th>{{ trans('cefamaps::environment.1T_Environment_Page') }}</th>
                                             <th>
                                                 <a href="{{ route('cefamaps.admin.config.environment.add') }}"
@@ -42,19 +42,23 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($environ as $env)
-                                            <tr>
+                                            @php
+                                                $productiveUnitNames = [];
+                                            @endphp
+                                            @foreach ($env->environment_productive_units as $pro)
+                                                @php
+                                                    $productiveUnitNames[] = $pro->productive_unit->name;
+                                                @endphp
+                                            @endforeach
                                                 <td>{{ $env->id }}</td>
                                                 <td>{{ $env->name }}</td>
-                                                <td><img src="{{ asset('modules/cefamaps/images/uploads/' . $env->picture) }}"
-                                                        width="100" height="100"></td>
+                                                <td><img src="{{ asset('modules/cefamaps/images/uploads/' . $env->picture) }}" width="100" height="100"></td>
                                                 <td>{{ $env->description }}</td>
                                                 <td>{{ $env->farm->name }}</td>
-                                                @foreach ($env->environment_productive_units as $pro)
-                                                <td>{{ $pro->productive_unit->name }}</td>
-                                                @endforeach
+                                                <td>{{ implode('|',$productiveUnitNames) }}</td>
                                                 <td>{{ $env->status }}</td>
                                                 <!-- Inicio del modal pra las coordenadas -->
-                                                <td>
+                                                <td class="col-1">
                                                     <button type="button" class="btn btn-info" data-toggle="modal"
                                                         data-target="#modal-info-{{ $env->id }}">{{ $env->type_environment }}</button>
                                                     <div class="modal fade" id="modal-info-{{ $env->id }}">
@@ -153,7 +157,6 @@
                                                     </a>
                                                 </td>
                                                 <!-- Fin para Editar y Eliminar -->
-                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>

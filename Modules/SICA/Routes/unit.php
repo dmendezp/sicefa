@@ -26,13 +26,20 @@ Route::middleware(['lang'])->group(function(){
         // --------------  Rutas de Actividades ---------------------------------
         Route::get('/admin/units/activities', [UnitController::class, 'activities_index'])->name('sica.admin.units.activities.index'); // Listado de actividades disponibles (Administrador)
         Route::get('/admin/units/activities/create', [UnitController::class, 'activities_create'])->name('sica.admin.units.activities.create'); // Formulario de registro de actividad (Administrador)
-        Route::post('/admin/units/activities/store', [UnitController::class, 'activities_store'])->name('sica.admin.units.activities.store'); // Registrar actividad (Administrador)
+        Route::post('/admin/units/activities/store', [UnitController::class, 'activities_store'])->name('sica.admin.units.activities.store'); // activitiesRegistrar actividad (Administrador)
         Route::get('/admin/units/activities/edit/{activity}', [UnitController::class, 'activities_edit'])->name('sica.admin.units.activities.edit'); // Consultar actividad para su actualización (Administrador)
         Route::post('/admin/units/activities/update/{activity}', [UnitController::class, 'activities_update'])->name('sica.admin.units.activities.update'); // Actualizar actividad (Administrador)
         Route::delete('/admin/units/activities/destroy/{activity}', [UnitController::class, 'activities_destroy'])->name('sica.admin.units.activities.destroy'); // Eliminar actividad (Administrador)
 
 
-        Route::get('/admin/units/areas', [UnitController::class, 'areas'])->name('sica.admin.units.areas');
+        Route::get('/admin/units/areas', [UnitController::class, 'areas_index'])->name('sica.admin.units.areas.index');// Listado de Areas disponibles (Administrador)
+        Route::get('/admin/units/areas/create', [UnitController::class, 'areas_create'])->name('sica.admin.units.areas.create'); // Formulario de registro de Area (Administrador)
+        Route::post('/admin/units/areas/store', [UnitController::class, 'areas_store'])->name('sica.admin.units.areas.store'); // Registrar Area (Administrador)
+        Route::get('/admin/units/areas/edit/{id}', [UnitController::class, 'areas_edit'])->name('sica.admin.units.areas.edit'); // Consultar Area para su actualización (Administrador)
+        Route::post('/admin/units/areas/update/', [UnitController::class, 'areas_update'])->name('sica.admin.units.areas.update'); // Actualizar Area (Administrador)
+        Route::get('/admin/units/areas/delete/{id}', [UnitController::class, 'areas_delete'])->name('sica.admin.units.areas.delete'); // Formulario de eliminacion del area (Administrador)
+        Route::post('/admin/units/areas/destroy/', [UnitController::class, 'areas_destroy'])->name('sica.admin.units.areas.destroy'); // Eliminar Area (Administrador)
+
         Route::get('/admin/units/consumption', [UnitController::class, 'consumption'])->name('sica.admin.units.consumption');
         Route::get('/admin/units/production', [UnitController::class, 'production'])->name('sica.admin.units.production');
 

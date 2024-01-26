@@ -287,14 +287,79 @@ class UnitController extends Controller
         return redirect(route('sica.admin.units.activities.index'))->with($message);
     }
 
-	public function areas(){
-        $areas = array();
+    /* Listado de areas disponibles */
+	public function areas_index(){
+        $areas = Sector::get();
         $data = ['title'=>trans('sica::menu.Areas'),'areas'=>$areas];
         return view('sica::admin.units.areas.home',$data);
     }
 
+    /* Formulario de registro de Area */
+    public function areas_create(){
+        $data = ['title'=>'Areas - Registro'];
+        return view('sica::admin.units.areas.create', $data);
+    }
+
+    /* Registrar Area */
+    public function areas_store(Request $request){
+        $area = new Sector();
+        $area->name = e($request->input('name'));
+        $area->description = e($request->input('description'));
+        if($area->save()){
+            $icon = 'success';
+            $message_area = trans('sica::menu.Area successfully added');
+        }else{
+            $icon = 'error';
+            $message_area = trans('sica::menu.Could not add Area');
+        }
+        return back()->with(['icon'=>$icon, 'message_area'=>$message_area]);
+    }
+
+    /* Consultar Area para su actualización */
+    public function areas_edit($id){
+        $area = Sector::find($id);
+        $data = ['title'=>'Areas - Actualización', 'area'=>$area];
+        return view('sica::admin.units.areas.edit', $data);
+    }
+
+    /* Actualizar Area */
+    public function areas_update(Request $request){
+        $area = Sector::find($request->input('id'));
+        $area->name = e($request->input('name'));
+        $area->description = e($request->input('description'));
+       
+        if($area->save()){
+            $icon = 'success';
+            $message_area = trans('sica::menu.Area successfully updated');
+        }else{
+            $icon = 'error';
+            $message_area = trans('sica::menu.Failed to update Area');
+        }
+        return redirect()->back()->with(['icon'=>$icon, 'message_area'=>$message_area]);
+    }
+
+     /* Formulario de eliminación del area */
+     public function areas_delete($id){
+        $area = Sector::find($id);
+        $data = [ 'title' => 'Eliminar area', 'area' => $area];
+        return view('sica::admin.units.areas.delete', $data);
+    }
+
+     /* Eliminar Area */
+     public function areas_destroy(Request $request){
+        $area = Sector::findOrFail($request->input('id'));
+        if($area->delete()){
+            $icon = 'success';
+            $message_area = trans('sica::menu.Area successfully removed');
+        }else{
+            $icon = 'error';
+            $message_area = trans('sica::menu.Could not delete Area');
+        }
+        return redirect()->back()->with(['icon'=>$icon, 'message_area'=>$message_area]);
+    }
+
 	public function consumption(){
-        $consumption = array();
+        $consumption = array(); 
         $data = ['title'=>trans('sica::menu.Consumption'),'consumption'=>$consumption];
         return view('sica::admin.units.consumption.home',$data);
     }

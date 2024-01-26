@@ -64,6 +64,7 @@ return [
 
 	/* Generales de tablas */
 	'Name' => 'Name',
+	'Description' => 'Description',
 	'Actions' => 'Actions',
 
 	/* Lineas */
@@ -109,6 +110,19 @@ return [
 	'Failed to update formation program' => 'Failed to update formation program',
 	'Formation program successfully removed' => 'Formation program successfully removed',
 	'Could not delete formation program' => 'Could not delete formation program',
+
+	/* Areas */
+	'Areas' => 'Areas',
+	'Area Registration' => 'Area Registration',
+	'Add Area' => 'Add Area',
+	'Update Area' => 'Update Area',
+	'Do you want to delete the following area?' => 'Do you want to delete the following area?',
+	'Area successfully added' => 'Area successfully added',
+	'Could not add Area' => 'Could not add Area',
+	'Area successfully updated' => 'Area successfully updated',
+	'Failed to update Area' => 'Failed to update Area',
+	'Area successfully removed' => 'Area successfully removed',
+	'Could not delete Area' => 'Could not delete Area',
 
 	/* Titulaciones */
 	'Courses' => 'Courses',
