@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-md-6">
                             {!! Form::label('date_execution', trans('agroindustria::labors.executionDate')) !!}
-                            {!! Form::date('date_execution', null, ['class' => 'form-control']) !!}
+                            {!! Form::input('datetime-local', 'date_execution', null, ['class' => 'form-control']) !!}
                             @error('date_execution')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror   
@@ -308,7 +308,7 @@
         $('.element-select').select2();
 
         $("#add-consumables").click(function () {
-            var newConsumable = '<div class="consumable"><div class="form-group">{!! Form::label("consumables", "Consumibles") !!}{!! Form::select("consumables[]", $consumables, null, ["class" => "element-select"]) !!}</div><div class="form-group" style="margin-left: 5px; margin-right: 16px;"><span class="quantity"></span>{!! Form::label("amount_consumables", "Cantidad") !!}{!! Form::number("amount_consumables[]", null, ["class" => "form-control", "id" => "amount_consumables"]) !!}</div><div class="form-group">{!! Form::label("price_consumable", "Valor unitario") !!}{!! Form::number("price_unit_consumable", null, ["class"=>"form-control", "id" => "price_unit_consumable", "readonly" => "readonly"]) !!}</div><div class="form-group" style="margin-left: 3px">{!! Form::label("price_consumable_total", "Total") !!}{!! Form::number("price_unit_consumable_total", null, ["class"=>"form-control", "id" => "price_unit_consumable_total", "readonly" => "readonly"]) !!}</div>{!! Form::button(trans("agroindustria::menu.Delete"), ["class"=>"remove-consumables", "style" => "margin-left: 6px"]) !!}</div>';
+            var newConsumable = '<div class="consumable"><div class="form-group">{!! Form::label("consumables", "Consumibles") !!}{!! Form::select("consumables[]", $consumables, null, ["class" => "element-select"]) !!}</div><div class="form-group" style="margin-left: 5px; margin-right: 16px;"><span class="quantity"></span>{!! Form::label("amount_consumables", "Cantidad") !!}{!! Form::number("amount_consumables[]", null, ["class" => "form-control", "id" => "amount_consumables", "step" => "0.01"]) !!}</div><div class="form-group">{!! Form::label("price_consumable", "Valor unitario") !!}{!! Form::number("price_unit_consumable", null, ["class"=>"form-control", "id" => "price_unit_consumable", "readonly" => "readonly"]) !!}</div><div class="form-group" style="margin-left: 3px">{!! Form::label("price_consumable_total", "Total") !!}{!! Form::number("price_unit_consumable_total", null, ["class"=>"form-control", "id" => "price_unit_consumable_total", "readonly" => "readonly"]) !!}</div>{!! Form::button(trans("agroindustria::menu.Delete"), ["class"=>"remove-consumables", "style" => "margin-left: 6px"]) !!}</div>';
 
             // Agregar el nuevo campo al DOM
             $("#form-consumables").append(newConsumable);

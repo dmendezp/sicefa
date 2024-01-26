@@ -77,10 +77,10 @@ class LaborController extends Controller
             'Producción' => 'Producción'
         ];
 
-        $formulations = Formulation::where('productive_unit_id', $selectedUnit)->get();
-        $recipe = $formulations->map(function ($f){
+        $elementProduct = Element::where('category_id', 3)->get();
+        $recipe = $elementProduct->map(function ($f){
             $id = $f->id;
-            $name = $f->element->name;
+            $name = $f->name;
 
             return [
                 'id' => $id,
@@ -287,7 +287,7 @@ class LaborController extends Controller
     }
 
     public function consumables($id){
-        $formulations = Formulation::where('id', $id)->get();
+        $formulations = Formulation::where('element_id', $id)->get();
         if ($formulations->isNotEmpty()) {
             $firstFormulationId = $formulations->first()->id;
         }
@@ -296,10 +296,11 @@ class LaborController extends Controller
         $warehouse = Warehouse::where('name', 'Agroindustria')->pluck('id');
         $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->whereIn('warehouse_id', $warehouse)->pluck('id');
         $ingredients = Ingredient::where('formulation_id', $firstFormulationId)->pluck('element_id');
+        
         $amountIngredients = Ingredient::where('formulation_id', $firstFormulationId)->get();
 
         $amountIngredient = $amountIngredients->map(function ($i) {
-            $amounts = $i->amount;
+            $amounts = $i->amount / $i->element->measurement_unit->conversion_factor;
 
             return [
                 'amountIngredient' => $amounts
@@ -314,7 +315,7 @@ class LaborController extends Controller
         ->groupBy('element_id')
         ->get();
 
-            $formulation = $formulations->map(function ($f){
+        $formulation = $formulations->map(function ($f){
             $amountFormulation = $f->amount;
 
             return [
@@ -423,7 +424,10 @@ class LaborController extends Controller
             foreach ($consumables as $key => $elementId) {
                 $requiredAmount = $amount_consumables[$key]; // Cantidad requerida para el elemento
                 $measurement_unit = MeasurementUnit::whereIn('id', $element)->pluck('conversion_factor');
-                $conversion = $requiredAmount*$measurement_unit[$key];
+
+                foreach ($measurement_unit as $key => $c) {
+                    $conversion = $requiredAmount*$c;
+                }
                 
                 // Realiza una consulta para obtener los lotes correspondientes al elemento y ordénalos por lote
                 $selectedUnit = session('viewing_unit');
@@ -596,14 +600,11 @@ class LaborController extends Controller
             }
 
             $recipeRequest = $request->input('recipe');
+
             if($recipeRequest){
-                $recipe = Formulation::where('id', $recipeRequest)->get();
-                foreach($recipe as $r){ 
-                    $element_id = $r->element_id;
-                }
                 $p = new Production;
                 $p->labor_id = $l->id;
-                $p->element_id = $element_id;
+                $p->element_id = $recipeRequest;
                 $p->amount = $request->input('amount_production');
                 $p->expiration_date = $request->input('date_experation');
                 $p->lot = $request->input('lot');
@@ -617,7 +618,7 @@ class LaborController extends Controller
 
             if(Auth::check()){
                 $user = Auth::user();
-                if($user->roles->contains('slug', 'agroindustria.instructor')){
+                if($user->roles->contains('slug', 'agroindustria.instructor.vilmer') || $user->roles->contains('slug', 'agroindustria.instructor.chocolate') || $user->roles->contains('slug', 'agroindustria.instructor.cerveceria')){
                     return redirect()->route('agroindustria.instructor.units.labor')->with([
                         'icon' => $icon,
                         'message_line' => $message_line,

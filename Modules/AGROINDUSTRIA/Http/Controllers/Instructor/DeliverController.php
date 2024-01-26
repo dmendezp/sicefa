@@ -400,6 +400,7 @@ class DeliverController extends Controller
         }
 
         $movements = Movement::with(['movement_details.inventory.element', 'movement_responsibilities.person', 'movement_type', 'warehouse_movements'])
+        ->where('movement_type_id', 2)
         ->whereHas('movement_responsibilities', function ($query) use ($idPersona) {
             $query->where('person_id', $idPersona)
                   ->where('role', 'RECIBE');
@@ -426,7 +427,8 @@ class DeliverController extends Controller
         })->whereHas('movement_responsibilities', function ($r) use ($idPersona){
             $r->where('person_id', $idPersona)
             ->where('role', 'RECIBE');
-        })->where('state', 'Solicitado')->count();
+        })->where('state', 'Solicitado')
+        ->where('movement_type_id', 2)->count();
 
         $data = [
             'title' => $title,

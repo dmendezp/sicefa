@@ -8,6 +8,7 @@
         <thead>
             <tr>
                 <th>{{trans('agroindustria::labors.activity')}}</th>
+                <th>Producto</th>
                 <th>{{trans('agroindustria::labors.executionDate')}}</th>
                 <th>{{trans('agroindustria::labors.state')}}</th>
                 <th>{{trans('agroindustria::labors.destination')}}</th>
@@ -34,6 +35,11 @@
             @foreach ($labors as $l)             
             <tr>
                 <td>{{$l->activity->name}}</td>
+                @if ($l->productions->isNotEmpty())
+                <td>{{$l->productions->first()->element->name}}</td>
+                @else
+                    <td>No hay producción</td>
+                @endif
                 <td>{{$l->execution_date}}</td>
                 <td>{{$l->status}}</td>
                 <td>{{$l->destination}}</td>

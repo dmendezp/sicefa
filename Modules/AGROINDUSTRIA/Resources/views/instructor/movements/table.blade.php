@@ -3,7 +3,7 @@
 
 <h3 id="movimientos">{{trans('agroindustria::menu.Movements')}}</h3>
 
-
+<div class="movement-table" style="margin-left: 10px">
   <table id="deliveries" class="table table-striped" style="width: 98%;">
       <thead>
           <tr>
@@ -28,8 +28,8 @@
                 @else
                   @if (Auth::user()->havePermission('agroindustria.instructor.units.movements.form'))                
                   <a href="{{route('agroindustria.instructor.units.movements.form')}}">
-                    <button class="btn btn-warning float-end mb-2">
-                      <i class="fas fa-bell"> {{ $pedingMovements }}</i>
+                    <button class="btn btn-success float-end mb-2">
+                      <i class="fa-solid fa-plus"></i>
                     </button>
                   </a>
                   @endif
@@ -165,8 +165,8 @@
               </tr>
           @endforeach
       </tbody>
-      
   </table>
+</div>
   <!-- Modal Aprobar-->
   @foreach ($movements as $movement)
   <div class="modal fade" id="aprobar{{$movement->id}}" tabindex="-1" aria-labelledby="aprobarLabel" aria-hidden="true">

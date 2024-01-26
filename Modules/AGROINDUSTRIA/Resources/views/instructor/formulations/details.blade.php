@@ -21,7 +21,7 @@
             <strong>Ingredientes:</strong> 
             <ul>
                 @foreach($formulation->ingredients as $ingredient)
-                <li>{{$ingredient->element->name .' ' . $ingredient->amount . '' .  $ingredient->element->measurement_unit->abbreviation}}</li>
+                <li>{{$ingredient->element->name .' ' . $ingredient->amount / $ingredient->element->measurement_unit->conversion_factor. '' .  $ingredient->element->measurement_unit->abbreviation}}</li>
                 @endforeach
             </ul>
         </li>

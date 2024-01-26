@@ -7,6 +7,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\ProductiveUnit;
+use Modules\SICA\Entities\Category;
+use Modules\SICA\Entities\MeasurementUnit;
 use Modules\SICA\Entities\Element;
 use Modules\AGROINDUSTRIA\Entities\Formulation;
 use Modules\AGROINDUSTRIA\Entities\Ingredient;
@@ -19,8 +21,6 @@ use Validator, Str;
 class FormulationController extends Controller
 {
     private $dataAdd;
-
-    
 
     public function index()
     {
@@ -57,7 +57,7 @@ class FormulationController extends Controller
     }
 
     public function form(){
-        $title = 'Formulacion';
+        $title = 'Formulación';
         
         $user = Auth::user();
         if($user){
@@ -77,7 +77,9 @@ class FormulationController extends Controller
             ];
         })->prepend(['id' => null, 'name' => 'Seleccione un Producto'])->pluck('name', 'id');
         
-        $consumables = Element::where('category_id', 1)->get();
+        $categoryGroceries = Category::where('name', 'Abarrotes')->pluck('id');
+        $additives = Category::where('name', 'Aditivos')->pluck('id');
+        $consumables = Element::whereIn('category_id', $categoryGroceries)->orWhereIn('category_id', $additives)->get();
 
         $ingredient = $consumables->map(function ($e){
             $id = $e->id;
@@ -89,7 +91,8 @@ class FormulationController extends Controller
             ];
         })->prepend(['id' => null, 'name' => 'Seleccione un Ingrediente'])->pluck('name', 'id');
 
-        $utencils = Element::where('category_id', 2)->get();
+        $categoryUtencils = Category::where('name', 'Utensilios')->pluck('id');
+        $utencils = Element::where('category_id', $categoryUtencils)->get();
 
         $utencil = $utencils->map(function ($e){
             $id = $e->id;
@@ -166,13 +169,19 @@ class FormulationController extends Controller
             $amountUtencils = $request->input('amount_utencils');
 
             // Recorrer los datos de productos y guardarlos en Supply
+            $measurement_unit = Element::whereIn('id', $nameIngredients)->pluck('measurement_unit_id');
             foreach ($nameIngredients as $key => $ingredient) {
+                $amount = $amountIngredients[$key];
+                $conversion_factor = MeasurementUnit::whereIn('id', $measurement_unit)->pluck('conversion_factor');
+                
+                foreach ($conversion_factor as $key => $c) {
+                    $amountConversion = $amount * $c;
+                }
                 $i = new Ingredient;
                 $i->element_id = $ingredient;
                 $i->formulation_id = $f->id;
-                $i->amount = $amountIngredients[$key];
+                $i->amount = $amountConversion;
                 $i->save();
-                
                 
             }
 
@@ -208,11 +217,13 @@ class FormulationController extends Controller
             $name = $user->person->first_name . ' ' . $user->person->first_last_name . ' ' . $user->person->second_last_name;
         }
         
-        $element = Element::pluck('name', 'id');
+        $element = Element::where('category_id', 3)->pluck('name', 'id');
         $selectedUnit = session('viewing_unit');
         $unitName = ProductiveUnit::findOrFail($selectedUnit);
 
-        $consumables = Element::where('category_id', 1)->get();
+        $categoryGroceries = Category::where('name', 'Abarrotes')->pluck('id');
+        $additives = Category::where('name', 'Aditivos')->pluck('id');
+        $consumables = Element::where('category_id', $categoryGroceries)->orWhereIn('category_id', $additives)->get();
 
         $ingredient = $consumables->map(function ($e){
             $id = $e->id;
@@ -224,7 +235,8 @@ class FormulationController extends Controller
             ];
         })->prepend(['id' => null, 'name' => 'Seleccione un Ingrediente'])->pluck('name', 'id');
 
-        $utencils = Element::where('category_id', 2)->get();
+        $categoryUtencils = Category::where('name', 'Utensilios')->pluck('id');
+        $utencils = Element::where('category_id', $categoryUtencils)->get();
 
         $utencil = $utencils->map(function ($e){
             $id = $e->id;

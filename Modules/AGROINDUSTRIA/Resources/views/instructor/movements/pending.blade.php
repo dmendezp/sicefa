@@ -26,8 +26,8 @@
                 @else
                   @if (Auth::user()->havePermission('agroindustria.instructor.units.movements.form'))                
                   <a href="{{route('agroindustria.instructor.units.movements.form')}}">
-                    <button class="btn btn-warning float-end mb-2">
-                      <i class="fas fa-bell"> {{ $pedingMovements }}</i>
+                    <button class="btn btn-success float-end mb-2">
+                      <i class="fa-solid fa-plus"></i>
                     </button>
                   </a>
                   @endif

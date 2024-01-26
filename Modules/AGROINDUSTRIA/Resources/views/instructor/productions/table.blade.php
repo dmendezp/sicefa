@@ -52,7 +52,7 @@
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Ganancias :</th>
-                                                    <td>{{ number_format($p->labor->price - $p->element->price, 2, ',', '.') }}</td>
+                                                    <td>{{ number_format($p->element->price * $p->amount - $p->labor->price, 2, ',', '.') }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
