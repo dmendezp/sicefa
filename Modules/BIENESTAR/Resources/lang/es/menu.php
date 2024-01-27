@@ -174,7 +174,7 @@ return [
     'Show All' => 'Mostrar todos',
 
     //Vista food-record
-    'Food Assistance' => 'Asistencia de Aliementacion',
+    'Food Assistance' => 'Asistencia de Alimentacion',
     'Document' => 'Documento',
     'Profit and Percentage' => 'Beneficio y Porcentaje',
     'Date' => 'Fecha',
