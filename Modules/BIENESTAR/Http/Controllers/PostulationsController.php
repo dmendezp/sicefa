@@ -123,7 +123,6 @@ class PostulationsController extends Controller
 
         return view('bienestar::question_postulation.allquestion', compact('questions', 'answers'));
     }
-
     public function savepostulation(Request $request)
     {
         // Validar si ya existe una postulación con el mismo documento
@@ -157,7 +156,6 @@ class PostulationsController extends Controller
                 $respuesta->question_id = $questionIds[$index]; // Guardar el ID de la pregunta
                 $respuesta->save();
             }
->>>>>>> f1d7589b6142fd5b8c155f085c148f1870dc310c
         }
     
         $file = $request->file('socioeconomicFile');
