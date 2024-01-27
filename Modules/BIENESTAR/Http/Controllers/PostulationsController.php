@@ -124,9 +124,18 @@ class PostulationsController extends Controller
         return view('bienestar::question_postulation.allquestion', compact('questions', 'answers'));
     }
 
-
     public function savepostulation(Request $request)
     {
+        // Validar si ya existe una postulación con el mismo documento
+        $existingPostulation = Postulation::where('apprentice_id', $request->input('apprentice_id'))
+                                           ->where('convocation_id', $request->input('convocation_id'))
+                                           ->first();
+    
+        if ($existingPostulation) {
+            // Ya existe una postulación con el mismo documento, puedes manejar esto según tus necesidades
+            return response()->json(['error' => 'Ya existe una postulación con este documento.']);
+        }
+    
         // Crear una nueva postulación
         $postulation = new Postulation();
         $postulation->apprentice_id = $request->input('apprentice_id');
@@ -134,11 +143,11 @@ class PostulationsController extends Controller
         $postulation->feed_benefit = $request->input('food') ?? 0;
         $postulation->transportation_benefit = $request->input('transport') ?? 0;
         $postulation->save();
-
+    
         // Obtener las respuestas del formulario
         $answers = $request->input('answer', []);
         $questionIds = $request->input('question', []);
-
+    
         // Recorrer las respuestas y guardarlas relacionadas con la postulación
         foreach ($answers as $index => $answerValue) {
             if (!empty($answerValue) && isset($questionIds[$index])) {
@@ -149,22 +158,21 @@ class PostulationsController extends Controller
                 $respuesta->save();
             }
         }
-
+    
         $file = $request->file('socioeconomicFile');
         $fileName = time() . '_' . $file->getClientOriginalName();
         $filePath = 'modules/bienestar/socioeconomico/' . $fileName; // Ruta dentro de la carpeta public
-
+    
         // Mover el archivo a la carpeta public
         $file->move(public_path('modules/bienestar/socioeconomico'), $fileName);
-
+    
         // Guardar el archivo en la tabla SocioEconomicSupportFile
         $supportFile = new SocioEconomicSupportFile();
         $supportFile->file_path = $filePath;
         $supportFile->postulation_id = $postulation->id;
         $supportFile->save();
-
+    
         // Redireccionar a la vista de edición o a donde desees después de guardar
         return response()->json(['success' => 'Postulación exitosa!']);
     }
-
-}
+}    
