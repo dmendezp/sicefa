@@ -157,6 +157,7 @@ class PostulationsController extends Controller
                 $respuesta->question_id = $questionIds[$index]; // Guardar el ID de la pregunta
                 $respuesta->save();
             }
+>>>>>>> f1d7589b6142fd5b8c155f085c148f1870dc310c
         }
     
         $file = $request->file('socioeconomicFile');
