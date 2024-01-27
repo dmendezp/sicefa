@@ -136,7 +136,6 @@ class TransportationAssistancesController extends Controller
                         'bus_driver_id' => $row->bus_driver_id,
                         'porcentenge' => $row->porcentege,
                         'date_time' => $row->date_time,
-                        'assistance_status' => 'Presente',
                         'created_at' => now(),
                         'updated_at' => now(),
                     ]);
