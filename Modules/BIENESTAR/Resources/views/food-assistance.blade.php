@@ -80,16 +80,6 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
             .then(function(response) {
                 if (response.status === 200 && response.data.success) {
                     // Mostrar el SweetAlert de éxito
-<<<<<<< HEAD
-                    showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 2000);
-                    // Opcional: Actualizar dinámicamente la interfaz de usuario según sea necesario
-                } else if (response.data.error) {
-                    // Mostrar el SweetAlert de error
-                    showSweetAlert('error', 'Error', response.data.error, 2500);
-                } else if (response.data.warning) {
-                    // Mostrar el SweetAlert de advertencia
-                    showSweetAlert('warning', 'Advertencia', response.data.warning, 2500);
-=======
                     showSweetAlertt('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 1500);
                 } else if (response.status === 409 && response.data.error) {
                     // Mostrar el SweetAlert de conflicto
@@ -97,7 +87,6 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                 } else if (response.status === 200 && response.data.warning) {
                     // Mostrar el SweetAlert de advertencia si hay un mensaje de advertencia
                     showSweetAlertt('warning', 'Advertencia', response.data.warning, 2000);
->>>>>>> f1d7589b6142fd5b8c155f085c148f1870dc310c
                 } else {
                     // Mostrar el SweetAlert de error en caso de problemas inesperados
                     showSweetAlertt('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to save records.') }}");

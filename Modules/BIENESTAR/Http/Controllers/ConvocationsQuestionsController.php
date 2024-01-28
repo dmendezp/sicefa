@@ -74,26 +74,27 @@ class ConvocationsQuestionsController extends Controller
 
 
     public function add_answer(Request $request)
-    {
-        // Crear una nueva pregunta
-        $pregunta = new Question();
-        $pregunta->question = $request->input('text_question');
-        $pregunta->type_question_benefit = $request->input('question_category');
-        $pregunta->save();
+{
+    // Crear una nueva pregunta
+    $pregunta = new Question();
+    $pregunta->question = $request->input('text_question');
+    $pregunta->type_question_benefit = $request->input('question_category');
+    $pregunta->save();
 
-        // Guardar las respuestas relacionadas con la pregunta
-        foreach ($request->input('respuestas') as $respuestaText) {
-            if (!empty($respuestaText)) {
-                $respuesta = new AnswersQuestion();
-                $respuesta->answer = $respuestaText;
-                $respuesta->question_id = $pregunta->id; // Asignar la pregunta_id
-                $respuesta->save();
-            }
+    // Guardar las respuestas relacionadas con la pregunta
+    foreach ($request->input('respuestas') as $respuestaText) {
+        if (!empty($respuestaText)) {
+            $respuesta = new AnswersQuestion();
+            $respuesta->answer = $respuestaText;
+            $respuesta->question_id = $pregunta->id; // Asignar la pregunta_id
+            $respuesta->save();
         }
-
-        // Redireccionar a la vista de edición o a donde desees después de guardar
-        return response()->json(['success' => 'Pregunta y respuestas guardadas exitosamente!']);
     }
+
+    // Redireccionar a la vista de edición o a donde desees después de guardar
+    return response()->json(['success' => 'Pregunta y respuestas guardadas exitosamente!']);
+}
+
 
     public function updateQuestion(Request $request, $id)
     {
@@ -129,23 +130,32 @@ class ConvocationsQuestionsController extends Controller
     {
         $answer = $request->input('answer');
         $id_question = $request->input('id_question');
-
-        // Verifica si existe un registro igual
-        $existingAnswer = AnswersQuestion::where('answer', $answer)->where('question_id', $id_question)->first();
-
-        // Si existe un registro igual y no ha sido eliminado suavemente, responde con un mensaje de error
+    
+        // Verifica si existe un registro igual, incluyendo los eliminados suavemente
+        $existingAnswer = AnswersQuestion::withTrashed()
+            ->where('answer', $answer)
+            ->where('question_id', $id_question)
+            ->first();
+    
+        // Si existe un registro igual (incluso si ha sido eliminado suavemente), restaura el registro y permite la creación del nuevo
         if ($existingAnswer) {
-            return response()->json(['error' => 'Ya existe un registro igual']);
+            // Restaurar el registro eliminado suavemente (opcional)
+            $existingAnswer->restore();
+    
+            // Puedes personalizar la respuesta según tus necesidades, en este caso, redirigir a una vista de edición
+            return response()->json(['success' => 'Se ha agregado la respuesta con éxito!']);
         }
-
-        // Si no existe un registro igual, crea uno nuevo
+    
+        // Si no existe un registro igual (incluso si ha sido eliminado suavemente), crea uno nuevo
         $respuesta = new AnswersQuestion();
         $respuesta->answer = $answer;
         $respuesta->question_id = $id_question;
         $respuesta->save();
-
-        return response()->json(['success' => 'Se ha agredado la respuesta con éxito!']);
+    
+        return response()->json(['success' => 'Se ha agregado la respuesta con éxito!']);
     }
+    
+
 
     public function showForm(Request $request)
     {

@@ -88,6 +88,7 @@ class PostulationsController extends Controller
     {
         $data = json_decode($_POST['data']);
 
+        // Obtén las preguntas excluyendo las eliminadas suavemente
         $questions = DB::table('questions')
             ->select('questions.id as question_id', 'questions.question')
             ->join('convocations_questions', 'questions.id', '=', 'convocations_questions.questions_id')
@@ -95,10 +96,12 @@ class PostulationsController extends Controller
             ->where('questions.type_question_benefit', $data)
             ->whereDate('convocations.start_date', '<=', now())
             ->whereDate('convocations.end_date', '>=', now())
+            ->whereNull('questions.deleted_at') // Excluye preguntas eliminadas suavemente
             ->get();
 
-        // Obtén las respuestas por separado
+        // Obtén las respuestas excluyendo las eliminadas suavemente
         $answers = DB::table('answers_questions')
+            ->whereNull('deleted_at')  // Filtra las respuestas no eliminadas
             ->select('question_id', 'answer')
             ->get();
 
@@ -109,32 +112,37 @@ class PostulationsController extends Controller
 
     public function getallquestions(Request $request)
     {
+        // Obtén las preguntas excluyendo las eliminadas suavemente
         $questions = DB::table('questions')
-        ->select('questions.id as question_id', 'questions.question')
-        ->join('convocations_questions', 'questions.id', '=', 'convocations_questions.questions_id')
-        ->join('convocations', 'convocations_questions.convocation_id', '=', 'convocations.id')
-        ->whereDate('convocations.start_date', '<=', now())
-        ->whereDate('convocations.end_date', '>=', now())
-        ->get();
-
+            ->select('questions.id as question_id', 'questions.question')
+            ->join('convocations_questions', 'questions.id', '=', 'convocations_questions.questions_id')
+            ->join('convocations', 'convocations_questions.convocation_id', '=', 'convocations.id')
+            ->whereDate('convocations.start_date', '<=', now())
+            ->whereDate('convocations.end_date', '>=', now())
+            ->whereNull('questions.deleted_at') // Excluye preguntas eliminadas suavemente
+            ->get();
+    
+        // Obtén las respuestas excluyendo las eliminadas suavemente
         $answers = DB::table('answers_questions')
+            ->whereNull('deleted_at')  // Filtra las respuestas no eliminadas
             ->select('question_id', 'answer')
             ->get();
-
+    
         return view('bienestar::question_postulation.allquestion', compact('questions', 'answers'));
     }
+    
     public function savepostulation(Request $request)
     {
         // Validar si ya existe una postulación con el mismo documento
         $existingPostulation = Postulation::where('apprentice_id', $request->input('apprentice_id'))
-                                           ->where('convocation_id', $request->input('convocation_id'))
-                                           ->first();
-    
+            ->where('convocation_id', $request->input('convocation_id'))
+            ->first();
+
         if ($existingPostulation) {
             // Ya existe una postulación con el mismo documento, puedes manejar esto según tus necesidades
             return response()->json(['error' => 'Ya existe una postulación con este documento.']);
         }
-    
+
         // Crear una nueva postulación
         $postulation = new Postulation();
         $postulation->apprentice_id = $request->input('apprentice_id');
@@ -142,11 +150,11 @@ class PostulationsController extends Controller
         $postulation->feed_benefit = $request->input('food') ?? 0;
         $postulation->transportation_benefit = $request->input('transport') ?? 0;
         $postulation->save();
-    
+
         // Obtener las respuestas del formulario
         $answers = $request->input('answer', []);
         $questionIds = $request->input('question', []);
-    
+
         // Recorrer las respuestas y guardarlas relacionadas con la postulación
         foreach ($answers as $index => $answerValue) {
             if (!empty($answerValue) && isset($questionIds[$index])) {
@@ -157,21 +165,21 @@ class PostulationsController extends Controller
                 $respuesta->save();
             }
         }
-    
+
         $file = $request->file('socioeconomicFile');
         $fileName = time() . '_' . $file->getClientOriginalName();
         $filePath = 'modules/bienestar/socioeconomico/' . $fileName; // Ruta dentro de la carpeta public
-    
+
         // Mover el archivo a la carpeta public
         $file->move(public_path('modules/bienestar/socioeconomico'), $fileName);
-    
+
         // Guardar el archivo en la tabla SocioEconomicSupportFile
         $supportFile = new SocioEconomicSupportFile();
         $supportFile->file_path = $filePath;
         $supportFile->postulation_id = $postulation->id;
         $supportFile->save();
-    
+
         // Redireccionar a la vista de edición o a donde desees después de guardar
         return response()->json(['success' => 'Postulación exitosa!']);
     }
-}    
+}

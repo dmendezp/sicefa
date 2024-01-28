@@ -112,13 +112,13 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                     </div>
                 </form>
                 <div class="form-group">
-                    <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.add.answer.editform')}}" method="POST" class="formGuardar">
+                    <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.add.answer.editform')}}" method="POST" class="formGuardar" id="answerForm">
                         @csrf
                         <div class="input-group">
                             <input type="text" name="answer" id="answer" class="form-control" placeholder="Agregar Una Nueva respuesta">
                             <input type="hidden" name="id_question" id="id_question" value="{{ $question->id }}">
                             <div class="input-group-append">
-                                <button type="submit" class="btn btn-success" id="saveAnswer">+</button>
+                                <button type="button" class="btn btn-success" id="saveAnswer" onclick="disableSubmit()">+</button>
                             </div>
                         </div>
                     </form>
@@ -315,6 +315,40 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                 console.error('Error en la solicitud AJAX:', error);
             });
         // Añade .then y .catch según sea necesario para manejar la respuesta o cualquier error
+    }
+     function disableSubmit() {
+        // Deshabilitar el botón para evitar envíos múltiples
+        document.getElementById("saveAnswer").disabled = true;
+
+        // Obtener el formulario
+        var form = document.getElementById("answerForm");
+
+        // Realizar la solicitud fetch
+        fetch(form.action, {
+            method: form.method,
+            body: new FormData(form)
+        })
+        .then(response => response.json())
+        .then(function(response) {
+            if (response.success) {
+                // Mostrar el SweetAlert de éxito
+                showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.success, 1500);
+            } else if (response.error) {
+                // Mostrar el SweetAlert de conflicto
+                showSweetAlert('error', 'Error', response.error, 1500);
+            } else if (response.warning) {
+                // Mostrar el SweetAlert de advertencia si hay un mensaje de advertencia
+                showSweetAlert('warning', 'Advertencia', response.warning, 2000);
+            } else {
+                // Mostrar el SweetAlert de error en caso de problemas inesperados
+                showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to save records.') }}");
+            }
+        })
+        .catch(function(error) {
+            // Mostrar SweetAlert con un mensaje de error general
+            showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}", 3000);
+            console.error('Error en la solicitud fetch:', error);
+        });
     }
 </script>
 @endsection

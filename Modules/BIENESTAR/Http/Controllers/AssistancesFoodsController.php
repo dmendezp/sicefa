@@ -47,15 +47,31 @@ class AssistancesFoodsController extends Controller
 
     public function assistancefoodrecord(Request $request)
     {
-        $selectedPorcentaje = $request->input('porcentaje');
+        
+        $AssistancesFoods = AssistanceFood::select(
+            'people.first_name',
+            'people.first_last_name',
+            'people.second_last_name',
+            'people.document_number',
+            'postulations_benefits.state',
+            'programs.name AS program_name',
+            'courses.code',
+            'assistances_foods.porcentage',
+            'assistances_foods.date_time'
+        )
+        ->join('apprentices', 'assistances_foods.apprentice_id', '=', 'apprentices.id')
+        ->join('people', 'apprentices.person_id', '=', 'people.id')
+        ->join('courses', 'apprentices.course_id', '=', 'courses.id')
+        ->join('programs', 'courses.program_id', '=', 'programs.id')
+        ->join('postulations_benefits', 'assistances_foods.postulation_benefit_id', '=', 'postulations_benefits.id')
+        ->join('postulations', 'postulations_benefits.postulation_id', '=', 'postulations.id')
+        ->join('convocations', 'postulations.convocation_id', '=', 'convocations.id')
+        ->join('quarters', 'convocations.quarter_id', '=', 'quarters.id')
+        ->whereDate('quarters.start_date', '<=', now())
+        ->whereDate('quarters.end_date', '>=', now())
+        ->get();
 
-        $AssistancesFoods = AssistanceFood::with(['postulationBenefit.benefit', 'apprentice.course.program'])
-            ->when($selectedPorcentaje, function ($query) use ($selectedPorcentaje) {
-                return $query->where('porcentage', $selectedPorcentaje);
-            })
-            ->get();
-
-        $data = ['AssistancesFoods' => $AssistancesFoods, 'selectedPorcentaje' => $selectedPorcentaje];
+        $data = ['AssistancesFoods' => $AssistancesFoods];
         return view('bienestar::assistancefood', $data);
     }
     public function filtrarPorcentaje(Request $request)

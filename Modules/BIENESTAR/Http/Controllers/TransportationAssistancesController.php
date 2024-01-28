@@ -18,23 +18,30 @@ class TransportationAssistancesController extends Controller
     public function index()
     {
         $rutas = RouteTransportation::get();
-        $results = TransportationAssistance::select(
-            'people.first_name',
-            'people.first_last_name',
-            'people.second_last_name',
-            'people.document_number',
-            'programs.name as program_name',
-            'courses.code',
-            'routes_transportations.route_number',
-            'routes_transportations.name_route',
-            'transportation_assistances.date_time'
-        )
+        $results = DB::table('transportation_assistances')
+            ->select(
+                'people.first_name',
+                'people.first_last_name',
+                'people.second_last_name',
+                'people.document_number',
+                'programs.name as program_name',
+                'courses.code',
+                'routes_transportations.route_number',
+                'routes_transportations.name_route',
+                'transportation_assistances.date_time'
+            )
             ->join('assing_transport_routes', 'transportation_assistances.assing_transport_route_id', '=', 'assing_transport_routes.id')
             ->join('routes_transportations', 'assing_transport_routes.route_transportation_id', '=', 'routes_transportations.id')
             ->join('apprentices', 'transportation_assistances.apprentice_id', '=', 'apprentices.id')
             ->join('people', 'apprentices.person_id', '=', 'people.id')
             ->join('courses', 'apprentices.course_id', '=', 'courses.id')
             ->join('programs', 'courses.program_id', '=', 'programs.id')
+            ->join('postulations_benefits', 'transportation_assistances.postulation_benefit_id', '=', 'postulations_benefits.id')
+            ->join('postulations', 'postulations_benefits.postulation_id', '=', 'postulations.id')
+            ->join('convocations', 'postulations.convocation_id', '=', 'convocations.id')
+            ->join('quarters', 'convocations.quarter_id', '=', 'quarters.id')
+            ->whereDate('quarters.start_date', '<=', now())
+            ->whereDate('quarters.end_date', '>=', now())
             ->get();
 
         return view('bienestar::transportation_assistance_list', compact('rutas', 'results'));

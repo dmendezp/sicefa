@@ -47,17 +47,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($AssistancesFoods as $AssistancesFood)
-                            <tr>
-                                <td>{{ $AssistancesFood->apprentice->person->first_name }} {{ $AssistancesFood->apprentice->person->first_last_name }} {{ $AssistancesFood->apprentice->person->second_last_name }}</td>
-                                <td>{{ $AssistancesFood->apprentice->person->document_number }}</td>
-                                <td>{{ $AssistancesFood->postulationBenefit->benefit->name }}</td>
-                                <td>{{ $AssistancesFood->apprentice->course->program->name }}</td>
-                                <td>{{ $AssistancesFood->apprentice->course->code }}</td>
-                                <td>{{ $AssistancesFood->porcentage }}</td>
-                                <td>{{ $AssistancesFood->date_time }}</td>
-                            </tr>
-                            @endforeach
+                             @foreach ($AssistancesFoods as $AssistanceFood)
+                    <tr>
+                        <td>{{ $AssistanceFood->first_name }} {{ $AssistanceFood->first_last_name }} {{ $AssistanceFood->second_last_name }}</td>
+                        <td>{{ $AssistanceFood->document_number }}</td>
+                        <td>{{ $AssistanceFood->state }}</td>
+                        <td>{{ $AssistanceFood->program_name }}</td>
+                        <td>{{ $AssistanceFood->code }}</td>
+                        <td>{{ $AssistanceFood->porcentage }}</td>
+                        <td>{{ $AssistanceFood->date_time }}</td>
+                    </tr>
+                @endforeach
                         </tbody>
                     </table>
                 </div>
