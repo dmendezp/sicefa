@@ -21,6 +21,7 @@ Route::middleware(['lang'])->group(function () {
         //RUTAS COMO APRENDIZ
         Route::prefix('psychologo')->group(function () {
             Route::get('/', 'SENAEMPRESAController@psychologo')->name('senaempresa.psychologo.index');
+            Route::get('manual/', 'SENAEMPRESAController@manual_psychologo')->name('senaempresa.psychologo.manual_psychologo');
 
             //RUTAS PARA LA VISUALIZACIÓN Y LA ASIGNACIÓN DE PUNTAJE A LOS POSTULADOS A LAS VACANTES DE SENAEMPRESA
             Route::prefix('postulates')->group(function () {

@@ -106,6 +106,11 @@ class SENAEMPRESAController extends Controller
         ];
         return view('senaempresa::Company.psychologo', $data);
     }
+    public function manual_psychologo()
+    {
+       $data = ['title' => trans('senaempresa::menu.manual')];
+       return view('senaempresa::Company.manual.manual_psychologo', $data);
+   }
     public function Apprentice()
     {
         $vacanciesCount = DB::table('vacancies')

@@ -80,6 +80,13 @@
                 </a>
             </li>
         @endif
+        @if (Route::is('senaempresa.psychologo.*') && (checkRol('senaempresa.psychologo')))
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="{{ route('senaempresa.psychologo.manual_psychologo') }}" class="nav-link @if (Route::is('senaempresa.psychologo.manual_psychologo')) active @endif">
+                    <i class="fas fa-book"></i>
+                </a>
+            </li>
+        @endif
         <li class="nav-item mx-1">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip"
                 data-bs-placement="bottom" data-bs-title="{{ trans('senaempresa::menu.Full Screen Mode') }}">

@@ -44,7 +44,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
 
-        // Vista Lider de psicologo senaempresa
+        // Vista de psicologo senaempresa
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.psychologo.index'], [ // Registro o actualización de permiso
             'name' => 'Vista Psicologo Senaempresa',
             'description' => 'Puede ver vista psicologo senaempresa',
@@ -850,6 +850,15 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
+
+        // manual de usuario (Psicologo)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.psychologo.manual_psychologo'], [ // Registro o actualización de permiso
+            'name' => 'Manual de usuario (Psicologo)',
+            'description' => 'Puede ver manual de usuario del Psicologo',
+            'description_english' => 'You can view the user manual for the Psicologo',
+            'app_id' => $app->id
+        ]);
+        $permissions_psychologo[] = $permission->id; // Almacenar permiso para rol
 
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'senaempresa.admin')->first(); // Rol Administrador Senaempresa
