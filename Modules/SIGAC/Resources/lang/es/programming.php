@@ -4,14 +4,15 @@ return [
     // Breadcrumbs
 	'Breadcrumb_Active_Programming' => 'Programación de horarios',
 	'Breadcrumb_Active_Events'      => 'Programación de eventos',
-    
+
+
     // Card programming
     'Select_Programming'  => 'Selecciona para quien es la programación',
     'Select_Technologist' => 'Selecciona el tecnólogo',
     'Select_Schedule'     => 'Selecciona el tipo de horario',
     'Drag_Programming'    => 'Arrastra la programación al calendario',
     'Select'              => 'Selecciona...',
-    
+
     // Card Events
     'Select_Instructor'   => 'Selecciona el instructor',
     'Select_Environment'  => 'Selecciona el ambiente',

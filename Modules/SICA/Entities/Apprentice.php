@@ -44,7 +44,13 @@ class Apprentice extends Model implements Auditable
         return $this->attributes['guardian'] = mb_strtoupper($value);
     }
 
+
     // RELACIONES
+
+    public function program()
+{
+    return $this->belongsTo(Program::class);
+}
     public function academic_programmings(){ // Accede a las asistencias académicas asignadas a este aprendiz
         return $this->belongsToMany(AcademicProgramming::class)->withTimestamps()->withPivot('attendance_type');
     }
@@ -58,8 +64,7 @@ class Apprentice extends Model implements Auditable
         return $this->belongsTo(Person::class);
     }
 
-
-    // Configuración de factory para la generación de datos de pruebas
+   // Configuración de factory para la generación de datos de pruebas
     protected static function newFactory()
     {
         return \Modules\SICA\Database\factories\ApprenticeFactory::new();

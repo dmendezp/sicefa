@@ -220,6 +220,18 @@
                                 </a>
                             </li>
                         @endif
+
+
+
+                        @if (Auth::user()->havePermission('sigac.instructor.points.points.index'))
+                        <li class="nav-item">
+                                <a href="{{ route('sigac.instructor.points.points.index') }}" class="nav-link"
+                                    {{ !Route::is('sigac.instructor.points.points.*') ?: 'active' }}>
+                                    <i class="nav-icon fa-solid fa-user-plus"></i>
+                                    <p>{{ trans('sigac::general.PointsApprentice') }}</p>
+                                </a>
+                            </li>
+                        @endif
                     @endif
 
                     <!-- Menú de opciones para Bienestar -->
@@ -267,6 +279,14 @@
                                 @endif
                             </ul>
                         </li>
+                        @if (Auth::user()->havePermission('sigac.apprentice.apprentice'))
+                        <li class="nav-item">
+                            <a href="{{ route('sigac.apprentice.index') }}" class="nav-link">
+                                <i class="nav-icon fa-solid fa-star"></i>
+                                <p>{{ trans('sigac::general.apprentice') }}</p>
+                            </a>
+                        </li>
+                        @endif
                         @if (Auth::user()->havePermission('sigac.apprentice.excuses.send'))
                             <li class="nav-item">
                                 <a href="{{ route('sigac.apprentice.excuses.send') }}"

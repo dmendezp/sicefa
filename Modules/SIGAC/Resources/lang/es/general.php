@@ -46,6 +46,13 @@ return [
     'TitleControl'         => 'Navega!',
     'DescriptionControl'   => 'Si quieres ir a otra app solo haz clic.',
 
+    // Points
+    'PointsApprentice' => 'Puntos del Aprendiz',
+	'Breadcrumb_Active_PointsApprentice'  => 'Puntos del Aprendiz',
+    'PointsApprentice' => 'Puntos del Aprendiz',
+    'AssignPoints' => 'Assign Points',
+    'generalpointsApprentice'=>  'Puntos generales del aprendiz',
+
     // Footer
     'All Rights Reserved.' => 'Todos los derechos reservados.',
 

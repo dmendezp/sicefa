@@ -55,6 +55,7 @@
     <!-- REQUIRED SCRIPTS -->
     @include('sigac::layouts.partials.scripts')
     @stack('scripts')
+    @section('js') @show
 
 </body>
 

@@ -46,6 +46,15 @@ return [
     'TitleControl'         => 'Browse!',
     'DescriptionControl'   => 'If you want to go to another app just click.',
 
+   // Points
+   'PointsApprentices' => 'Puntos para Aprendiz',
+   'Breadcrumb_Active_PointsApprentice'  => 'Apprentice Points',
+   'PointsApprentice' => 'Apprentice Points',
+   'AssignPoints' => 'Assign Points',
+   'generalpointsApprentice'=>  'general pointsApprentice',
+    'PointsApprentices' => 'Apprentice Points',
+
+
     // Footer
     'All Rights Reserved.' => 'All Rights Reserved.',
 
