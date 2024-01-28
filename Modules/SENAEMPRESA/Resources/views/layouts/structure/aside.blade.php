@@ -14,8 +14,8 @@
             <div class="row col-md-12">
                 <div class="image mt-2 mb-2">
                     @if (isset(Auth::user()->person->avatar))
-                        <img src="{{ asset(Auth::user()->person->avatar) }}" class="img-circle elevation-2"
-                            alt="User Image">
+                    <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}"
+                    class="img-circle elevation-2" alt="User Image">
                     @else
                         <img src="{{ asset('modules/sica/images/blanco.png') }}" class="img-circle elevation-2"
                             alt="User Image">

@@ -30,15 +30,6 @@ class SENAEMPRESAController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    
-     public function manual()
-     {
-        $data = ['title' => trans('senaempresa::menu.manual')];
-        return view('senaempresa::Company.manual_usuario.manual_usuario', $data);
-    }
-
-    
-
     public function Developers()
     {
         $data = ['title' => trans('senaempresa::menu.Developers')];
@@ -76,6 +67,12 @@ class SENAEMPRESAController extends Controller
         ];
         return view('senaempresa::Company.admin', $data);
     }
+
+    public function manual_admin()
+    {
+       $data = ['title' => trans('senaempresa::menu.manual')];
+       return view('senaempresa::Company.manual.manual_admin', $data);
+   }
     public function human_talent_leader()
     {
         $registeredStaffCount = DB::table('staff_senaempresas')
@@ -92,6 +89,12 @@ class SENAEMPRESAController extends Controller
         ];
         return view('senaempresa::Company.human_talent_leader', $data);
     }
+
+    public function manual_human_talent_leader()
+    {
+       $data = ['title' => trans('senaempresa::menu.manual')];
+       return view('senaempresa::Company.manual.manual_human_talent_leader', $data);
+   }
     public function psychologo()
     {
         $postulatesCount = DB::table('postulates')
@@ -116,5 +119,5 @@ class SENAEMPRESAController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    
+
 }

@@ -66,10 +66,17 @@
             </div>
 
         </li>
+        @if (Route::is('senaempresa.admin.*') && (checkRol('senaempresa.admin')))
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="{{ route('senaempresa.admin.manual_admin') }}" class="nav-link @if (Route::is('senaempresa.admin.manual_admin')) active @endif">
+                    <i class="fas fa-book"></i>
+                </a>
+            </li>
+        @endif
         @if (Route::is('senaempresa.human_talent_leader.*') && (checkRol('senaempresa.human_talent_leader')))
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="{{ route('senaempresa.human_talent_leader.ruta_del_manual_de_usuario') }}" class="nav-link">
-                    <i class="fas fa-question-circle"></i>
+                <a href="{{ route('senaempresa.human_talent_leader.manual_human_talent_leader') }}" class="nav-link @if (Route::is('senaempresa.human_talent_leader.manual_human_talent_leader')) active @endif">
+                    <i class="fas fa-book"></i>
                 </a>
             </li>
         @endif

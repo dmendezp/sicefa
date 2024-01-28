@@ -19,6 +19,7 @@ Route::middleware(['lang'])->group(function () {
         //RUTAS COMO ADMINISTRADOR
         Route::prefix('admin')->group(function () {
             Route::get('/', 'SENAEMPRESAController@Admin')->name('senaempresa.admin.index');
+            Route::get('manual/', 'SENAEMPRESAController@manual_admin')->name('senaempresa.admin.manual_admin');
 
             //RUTAS PARA EL REGISTRO, LA VISUALIZACIÓN, ELIMINACIÓN Y LA ACTUALIZACIÓN DE LAS FASES DE SENAEMPRESA
             Route::prefix('phases')->group(function () {

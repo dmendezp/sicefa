@@ -23,7 +23,7 @@ Route::middleware(['lang'])->group(function () {
         //RUTAS COMO LIDER TALENTO HUMANO
         Route::prefix('human_talent_leader')->group(function () {
             Route::get('/', 'SENAEMPRESAController@human_talent_leader')->name('senaempresa.human_talent_leader.index');
-            Route::get('manual/', 'SENAEMPRESAController@manual')->name('senaempresa.human_talent_leader.ruta_del_manual_de_usuario');
+            Route::get('manual/', 'SENAEMPRESAController@manual_human_talent_leader')->name('senaempresa.human_talent_leader.manual_human_talent_leader');
 
         //RUTAS PARA EL REGISTRO, LA VISUALIZACIÓN, ELIMINACIÓN Y LA ACTUALIZACIÓN DEL PERSONAL DE SENAEMPRESA
         Route::prefix('staff')->group(function () {
