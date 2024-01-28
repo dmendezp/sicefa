@@ -63,7 +63,6 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
 <script>
     $(document).on("change", "#assitance", function() {
         performSearch();
-        location.reload();
     });
 
     $(document).on("click", "#searchButtonassitance", function(event) {
@@ -79,26 +78,49 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                 documentNumber: documentNumber
             })
             .then(function(response) {
-                if (response.data.success) {
+                if (response.status === 200 && response.data.success) {
                     // Mostrar el SweetAlert de éxito
-                    showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 5000);
+<<<<<<< HEAD
+                    showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 2000);
                     // Opcional: Actualizar dinámicamente la interfaz de usuario según sea necesario
                 } else if (response.data.error) {
                     // Mostrar el SweetAlert de error
-                    showSweetAlert('error', 'Error', response.data.error, 5000);
+                    showSweetAlert('error', 'Error', response.data.error, 2500);
                 } else if (response.data.warning) {
                     // Mostrar el SweetAlert de advertencia
-                    showSweetAlert('warning', 'Advertencia', response.data.warning, 5000);
+                    showSweetAlert('warning', 'Advertencia', response.data.warning, 2500);
+=======
+                    showSweetAlertt('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 1500);
+                } else if (response.status === 409 && response.data.error) {
+                    // Mostrar el SweetAlert de conflicto
+                    showSweetAlertt('error', 'Error', response.data.error, 1500);
+                } else if (response.status === 200 && response.data.warning) {
+                    // Mostrar el SweetAlert de advertencia si hay un mensaje de advertencia
+                    showSweetAlertt('warning', 'Advertencia', response.data.warning, 2000);
+>>>>>>> f1d7589b6142fd5b8c155f085c148f1870dc310c
                 } else {
                     // Mostrar el SweetAlert de error en caso de problemas inesperados
-                    showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to save records.') }}");
+                    showSweetAlertt('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to save records.') }}");
                 }
             })
             .catch(function(error) {
                 // Mostrar SweetAlert con un mensaje de error general
-                showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}", 5000);
+                showSweetAlertt('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}", 3000);
                 console.error('Error en la solicitud AJAX:', error);
             });
+    }
+
+    function showSweetAlertt(icon, title, text, timer) {
+        Swal.fire({
+            icon: icon,
+            title: title,
+            text: text,
+            showConfirmButton: false,
+            timer: timer
+        }).then(function() {
+            // Recargar la página después del SweetAlert
+            location.reload();
+        });
     }
 
 </script>

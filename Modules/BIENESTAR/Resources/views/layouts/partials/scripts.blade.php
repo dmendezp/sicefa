@@ -32,6 +32,7 @@
 <script src="{{ asset('js/generalscripts.js')}}"></script>
 <!-- Page specific script -->
 
+
 @section('script')
 <!-- Configuración del DataTable -->
 <script>

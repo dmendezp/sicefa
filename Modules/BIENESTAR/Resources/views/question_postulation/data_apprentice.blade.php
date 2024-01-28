@@ -141,4 +141,37 @@
         }
     
     });
+     //Script para la alerta de la accion de guardar un formulario
+    // Define una función reutilizable para mostrar los SweetAlerts
+    function showSweetAlert(icon, title, text, timer) {
+        Swal.fire({
+            icon: icon,
+            title: title,
+            text: text,
+            showConfirmButton: false,
+            timer: timer
+        }).then(function() {
+            // Recargar la página después del SweetAlert
+            location.reload();
+        });
+    }
+    // Configura el evento para el formulario de guardar
+    document.querySelectorAll('.formGuardar').forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Evitar que el formulario se envíe de inmediato
+            var createForm = this;
+
+            // Realizar una solicitud AJAX para enviar el formulario de creación
+            axios.post(createForm.action, new FormData(createForm))
+                .then(function(response) {
+                    if (response.status === 200) {
+                        if (response.data.success) {
+                            showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 1500);
+                        } else {
+                            showSweetAlert('error', 'Error',response.data.error,3000);
+                        }
+                    }
+                })
+        });
+    });
 </script>

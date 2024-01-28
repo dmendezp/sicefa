@@ -163,9 +163,6 @@ return [
     'Score'=>'Puntaje',
     'Remove Benefit'=>'Quitar Beneficio',
 
-
-
-
     //vita assistancefood
     'Food Attendance Record' => 'Registro de Asistencia de Alimentación ',
     'Start Date' => 'Fecha de Inicio',
@@ -174,7 +171,7 @@ return [
     'Show All' => 'Mostrar todos',
 
     //Vista food-record
-    'Food Assistance' => 'Asistencia de Aliementacion',
+    'Food Assistance' => 'Asistencia de Alimentacion',
     'Document' => 'Documento',
     'Profit and Percentage' => 'Beneficio y Porcentaje',
     'Date' => 'Fecha',

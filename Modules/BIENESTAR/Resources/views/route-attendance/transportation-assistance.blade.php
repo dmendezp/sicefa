@@ -77,15 +77,16 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                 documentNumber: documentNumber
             })
             .then(function(response) {
-                if (response.status === 200 && response.data.success) {
+                if (response.data.success) {
                     // Mostrar el SweetAlert de éxito
-                    showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 1500);
-                } else if (response.status === 409 && response.data.error) {
-                    // Mostrar el SweetAlert de conflicto
-                    showSweetAlert('error', 'Error', response.data.error, 1500);
-                } else if (response.status === 200 && response.data.warning) {
-                    // Mostrar el SweetAlert de advertencia si hay un mensaje de advertencia
-                    showSweetAlert('warning', 'Advertencia', response.data.warning, 2000);
+                    showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 2000);
+                    // Opcional: Actualizar dinámicamente la interfaz de usuario según sea necesario
+                } else if (response.data.error) {
+                    // Mostrar el SweetAlert de error
+                    showSweetAlert('error', 'Error', response.data.error, 2500);
+                } else if (response.data.warning) {
+                    // Mostrar el SweetAlert de advertencia
+                    showSweetAlert('warning', 'Advertencia', response.data.warning, 2500);
                 } else {
                     // Mostrar el SweetAlert de error en caso de problemas inesperados
                     showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to save records.') }}");
@@ -93,7 +94,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
             })
             .catch(function(error) {
                 // Mostrar SweetAlert con un mensaje de error general
-                showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}", 3000);
+                showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to save records.') }}", 3000);
                 console.error('Error en la solicitud AJAX:', error);
             });
     }
@@ -105,6 +106,9 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
             text: text,
             showConfirmButton: false,
             timer: timer
+        }).then(function() {
+            // Recargar la página después del SweetAlert
+            location.reload();
         });
     }
 </script>

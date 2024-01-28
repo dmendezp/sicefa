@@ -12,6 +12,7 @@ use Modules\BIENESTAR\Entities\AnswersQuestion;
 use Modules\BIENESTAR\Entities\Convocation;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class ConvocationsQuestionsController extends Controller
 {
@@ -29,10 +30,16 @@ class ConvocationsQuestionsController extends Controller
     public function editform()
     {
         $convocations = Convocation::all();
+         // Filtrar las convocatorias basándonos en la fecha actual
+    $currentDate = Carbon::now();
+
+    $filteredConvocations = $convocations->filter(function ($convocation) use ($currentDate) {
+        return $currentDate->between($convocation->start_date, $convocation->end_date);
+    });
         $questions = Question::all();
         $answers = AnswersQuestion::all();
 
-        return view('bienestar::editform', ['questions' => $questions, 'answers' => $answers, 'convocations' => $convocations]);
+        return view('bienestar::editform', ['questions' => $questions, 'answers' => $answers, 'convocations' => $filteredConvocations]);
     }
 
     public function deleteQuestion($id)

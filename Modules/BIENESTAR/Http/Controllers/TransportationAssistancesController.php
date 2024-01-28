@@ -352,8 +352,7 @@ class TransportationAssistancesController extends Controller
             return response()->json($response, 200);
         } catch (QueryException $e) {
             // Error de base de datos
-            $errorCode = $e->errorInfo[1];
-
+            $errorCode = $e->errorInfo[1] ?? null; // Use the null coalescing operator to handle undefined property
             if ($errorCode == 1062) { // Código de error específico para violación de clave única
                 $response = [
                     'success' => false,
@@ -365,8 +364,8 @@ class TransportationAssistancesController extends Controller
                     'message' => 'Error en la base de datos.',
                 ];
             }
-
+    
             return response()->json($response, 400);
         }
     }
-}
+} 
