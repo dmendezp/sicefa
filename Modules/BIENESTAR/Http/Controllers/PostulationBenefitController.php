@@ -17,12 +17,29 @@ use Modules\BIENESTAR\Entities\Benefit;
 use Modules\BIENESTAR\Entities\PostulationBenefit;
 use Modules\BIENESTAR\Entities\Answer;
 use Illuminate\Http\JsonResponse;
+use Modules\SICA\Entities\Quarter;
+
 
 class PostulationBenefitController extends Controller
 {
     // Modifica tu función index en el controlador
     public function index(Request $request)
     {
+        // Obtener el trimestre actual
+        $currentQuarter = Quarter::whereDate('start_date', '<=', now())
+                                ->whereDate('end_date', '>=', now())
+                                ->first();
+    
+        // Inicializar una colección vacía de convocatorias
+        $convocations = collect();
+    
+        if ($currentQuarter) {
+            // Si se encuentra un trimestre actual, obtener las convocatorias dentro del trimestre actual
+            $convocations = Convocation::where('quarter_id', $currentQuarter->id)
+                                        ->get();
+        }
+    
+        // Obtener las postulaciones asociadas con estas convocatorias
         $postulation = Postulation::select(
             'people.first_name',
             'people.first_last_name',
@@ -35,22 +52,19 @@ class PostulationBenefitController extends Controller
             ->join('convocations', 'postulations.convocation_id', '=', 'convocations.id')
             ->join('apprentices', 'postulations.apprentice_id', '=', 'apprentices.id')
             ->join('people', 'apprentices.person_id', '=', 'people.id')
-            ->whereRaw('CURDATE() BETWEEN convocations.start_date AND convocations.end_date')
+            ->whereIn('convocations.id', $convocations->pluck('id'))
             ->orderBy('postulations.created_at', 'desc')
             ->get();
-
+    
+        // Obtener los beneficios y las respuestas
         $benefits = Benefit::all();
-        $curdate = now();
-        $convocations = Convocation::where('start_date', '<=', $curdate)
-            ->where('end_date', '>=', $curdate)
-            ->get();
-
         $answers = Answer::with('question')->get();
-
         $postulationsbentfits = PostulationBenefit::all();
-
+    
+        // Retornar la vista con todos los datos
         return view('bienestar::postulation-management', compact('postulation', 'benefits', 'convocations', 'answers', 'postulationsbentfits'));
     }
+    
 
     public function get_benefit($postulationId)
     {

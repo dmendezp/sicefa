@@ -8,30 +8,47 @@ use Modules\BIENESTAR\Entities\PostulationBenefit;
 use Modules\BIENESTAR\Entities\RouteTransportation;
 use Modules\BIENESTAR\Entities\AssignTransportRoute;
 use Illuminate\Database\QueryException;
+use Modules\SICA\Entities\Quarter;
+use Modules\BIENESTAR\Entities\Convocation;
 
 class AssingFormTransporRoutesController extends Controller
 {
-    // Método para mostrar el formulario
     public function index()
-{
-    // Obtener los registros de RoutesTransportations
-    $routesTransportations = RouteTransportation::all();
+    {
+        // Obtener el trimestre más reciente
+        $latestQuarter = Quarter::orderBy('end_date', 'desc')->first();
     
-    // Obtener los registros de asignaciones de rutas de transporte
-    $assignments = AssignTransportRoute::all();
+        // Verificar si se encontró el trimestre más reciente
+        if ($latestQuarter) {
+            // Filtrar las convocatorias por el rango de fechas del trimestre más reciente
+            $convocations = Convocation::whereBetween('start_date', [$latestQuarter->start_date, $latestQuarter->end_date])
+                ->orWhereBetween('end_date', [$latestQuarter->start_date, $latestQuarter->end_date])
+                ->get();
+        } else {
+            // Manejar el caso en el que no haya trimestres disponibles
+            $convocations = [];
+        }
     
-    // Filtrar los registros de PostulationsBenefits por benefit_id igual a "Transporte"
-    $postulationsBenefits = PostulationBenefit::whereHas('benefit', function ($query) {
-        $query->where('name', 'Transporte');
-    })->get();
-
-    // Pasar los registros a la vista
-    return view('bienestar::assing-form-transportation-routes', [
-        'postulationsBenefits' => $postulationsBenefits,
-        'routesTransportations' => $routesTransportations,
-        'assignments' => $assignments, // Pasar las asignaciones de rutas a la vista
-    ]);
-}
+        // Obtener los registros de RoutesTransportations
+        $routesTransportations = RouteTransportation::all();
+        
+        // Obtener los registros de asignaciones de rutas de transporte
+        $assignments = AssignTransportRoute::all();
+        
+        // Filtrar los registros de PostulationsBenefits por benefit_id igual a "Transporte"
+        $postulationsBenefits = PostulationBenefit::whereHas('benefit', function ($query) {
+            $query->where('name', 'Transporte');
+        })->get();
+    
+        // Pasar los registros a la vista
+        return view('bienestar::assing-form-transportation-routes', [
+            'postulationsBenefits' => $postulationsBenefits,
+            'routesTransportations' => $routesTransportations,
+            'assignments' => $assignments, // Pasar las asignaciones de rutas a la vista
+            'convocations' => $convocations, // Pasar las convocatorias filtradas a la vista
+        ]);
+    }
+    
 
     
 public function updateInline(Request $request)

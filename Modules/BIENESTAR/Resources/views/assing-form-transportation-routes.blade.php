@@ -57,85 +57,86 @@
                             <tbody>
                                 @foreach ($postulationsBenefits as $postulationBenefit)
                                     @if ($postulationBenefit->state == 'Beneficiario')
-                                        <tr class="benefit-row">
-                                            <td>{{ $loop->iteration}}</td>
-                                            <td>{{ $postulationBenefit->benefit->name }}</td>
-                                            <td>
-                                                @if ($postulationBenefit->postulation && $postulationBenefit->postulation->convocation)
-                                                    {{ $postulationBenefit->postulation->convocation->name }}
-                                                @else
-                                                    Sin Convocatoria
-                                                @endif
-                                            </td>
-                                            
-                                            <td>
-                                                @if ($postulationBenefit->postulation && $postulationBenefit->postulation->apprentice && $postulationBenefit->postulation->apprentice->person)
-                                                    {{ $postulationBenefit->postulation->apprentice->person->first_name }}
-                                                    {{ $postulationBenefit->postulation->apprentice->person->first_last_name }}
-                                                    {{ $postulationBenefit->postulation->apprentice->person->second_last_name }}
-                                                @else
-                                                    Aprendiz no encontrado
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($postulationBenefit->postulation && $postulationBenefit->postulation->apprentice && $postulationBenefit->postulation->apprentice->person)
-                                                    {{ $postulationBenefit->postulation->apprentice->person->document_number }}
-                                                @else
-                                                    -
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @php
-                                                    $lugarEncuentro = null;
-                                                    $pregunta = $postulationBenefit->postulation->answers
-                                                        ->where('question.questions', 'Municipio o Ciudad en la que vive')
-                                                        ->first();
+                                        @php
+                                            // Obtener la convocatoria asociada al beneficio actual
+                                            $convocation = $postulationBenefit->postulation->convocation;
+                                        @endphp
+                                        {{-- Verificar si la convocatoria existe y la fecha actual está dentro de su rango --}}
+                                        @if ($convocation && $convocation->start_date <= now() && $convocation->end_date >= now())
+                                            <tr class="benefit-row">
+                                                <td>{{ $loop->iteration}}</td>
+                                                <td>{{ $postulationBenefit->benefit->name }}</td>
+                                                <td>{{ $convocation->name }}</td>
+                                                <td>
+                                                    @if ($postulationBenefit->postulation && $postulationBenefit->postulation->apprentice && $postulationBenefit->postulation->apprentice->person)
+                                                        {{ $postulationBenefit->postulation->apprentice->person->first_name }}
+                                                        {{ $postulationBenefit->postulation->apprentice->person->first_last_name }}
+                                                        {{ $postulationBenefit->postulation->apprentice->person->second_last_name }}
+                                                    @else
+                                                        Aprendiz no encontrado
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($postulationBenefit->postulation && $postulationBenefit->postulation->apprentice && $postulationBenefit->postulation->apprentice->person)
+                                                        {{ $postulationBenefit->postulation->apprentice->person->document_number }}
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @php
+                                                        $lugarEncuentro = null;
+                                                        $pregunta = $postulationBenefit->postulation->answers
+                                                            ->where('question.questions', 'Municipio o Ciudad en la que vive')
+                                                            ->first();
+                                                    
+                                                        if ($pregunta) {
+                                                            $lugarEncuentro = $pregunta->answer;
+                                                        }
+                                                    @endphp
                                                 
-                                                    if ($pregunta) {
-                                                        $lugarEncuentro = $pregunta->answer;
-                                                    }
-                                                @endphp
-                                            
-                                                @if ($lugarEncuentro)
-                                                    {{ $lugarEncuentro }}
-                                                @else
-                                                    Sin respuesta
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <ul>
-                                                    @foreach ($routesTransportations as $route)
-                                                    <li>
-                                                        <label class="radio-container">
-                                                            <input
-                                                                id="radio_route_{{ $postulationBenefit->id }}_{{ $route->id }}"
-                                                                class="radio-route"
-                                                                type="radio"
-                                                                name="routes[{{ $postulationBenefit->id }}]"
-                                                                value="{{ $route->id }}"
-                                                                data-apprentice-id="{{ $postulationBenefit->postulation->apprentice_id }}"
-                                                                data-postulation-benefit-id="{{ $postulationBenefit->id }}"
-                                                                data-route-id="{{ $route->id }}"
-                                                                {{ $assignments->where('apprentice_id', $postulationBenefit->postulation->apprentice_id)->where('postulation_benefit_id', $postulationBenefit->id)->where('route_transportation_id', $route->id)->isNotEmpty() ? 'checked' : '' }}
-                                                            >
-                                                            <span class="radio" for="radio_route_{{ $postulationBenefit->id }}_{{ $route->id }}"></span>
-                                                            {{ $route->route_number }} - {{ $route->name_route }}
-                                                        </label>
-                                                    </li>
-                                                @endforeach
-                                                </ul>
-                                            </td>
-                                                                                                  
-                                        </tr>
+                                                    @if ($lugarEncuentro)
+                                                        {{ $lugarEncuentro }}
+                                                    @else
+                                                        Sin respuesta
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <ul>
+                                                        @foreach ($routesTransportations as $route)
+                                                            <li>
+                                                                <label class="radio-container">
+                                                                    <input
+                                                                        id="radio_route_{{ $postulationBenefit->id }}_{{ $route->id }}"
+                                                                        class="radio-route"
+                                                                        type="radio"
+                                                                        name="routes[{{ $postulationBenefit->id }}]"
+                                                                        value="{{ $route->id }}"
+                                                                        data-apprentice-id="{{ $postulationBenefit->postulation->apprentice_id }}"
+                                                                        data-postulation-benefit-id="{{ $postulationBenefit->id }}"
+                                                                        data-route-id="{{ $route->id }}"
+                                                                        {{ $assignments->where('apprentice_id', $postulationBenefit->postulation->apprentice_id)->where('postulation_benefit_id', $postulationBenefit->id)->where('route_transportation_id', $route->id)->isNotEmpty() ? 'checked' : '' }}
+                                                                    >
+                                                                    <span class="radio" for="radio_route_{{ $postulationBenefit->id }}_{{ $route->id }}"></span>
+                                                                    {{ $route->route_number }} - {{ $route->name_route }}
+                                                                </label>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </td>                                                                                      
+                                            </tr>
+                                        @endif
                                     @endif
                                 @endforeach
                             </tbody>
                         </table>
+                        
                     </form>
                     @endif
                 </div>
             </div>
-            </div>
+            
+        </div>
         </div>
     </div>
 </div>

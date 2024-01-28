@@ -1,3 +1,4 @@
+
 @php
 $role_name = getRoleRouteName(Route::currentRouteName());
 @endphp
@@ -184,37 +185,41 @@ $role_name = getRoleRouteName(Route::currentRouteName());
                                                                 <textarea class="form-control" id="exampleFormControlTextarea1" name="message" id="message" rows="3" placeholder="Ingrese mensaje para beneficio" required></textarea>
                                                                 @endif
                                                             </div>
-                                                             <!-- Agregar sección para mostrar archivos socioeconómicos -->
+                                                            <!-- Agregar sección para mostrar archivos socioeconómicos -->
                                                             @if ($postulation->socioeconomicsupportfiles->isNotEmpty())
-                                                                <h4>Archivos Socioeconómicos:</h4>
-                                                                <div class="card-deck">
-                                                                    @foreach ($postulation->socioeconomicsupportfiles as $file)
-                                                                        <li class="card mb-3" style="max-width: 18rem;">
-                                                                            <div class="card-body">
-                                                                                @php
-                                                                                    $extension = pathinfo($file->file_path, PATHINFO_EXTENSION);
-                                                                                    $imageName = pathinfo($file->file_path, PATHINFO_FILENAME);
-                                                                                    $filePath = asset("modules/bienestar/icons/{$extension}.svg");
-                                                                                    $truncatedName = (strlen($imageName) > 20) ? substr($imageName, 0, 20) . '...' : $imageName;
-                                                                                @endphp
+                                                            <h4>Archivos Socioeconómicos:</h4>
+                                                            <div class="card-deck">
+                                                                @foreach ($postulation->socioeconomicsupportfiles as $file)
+                                                                    <li class="card mb-3" style="max-width: 18rem;">
+                                                                        <div class="card-body" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                                                            @php
+                                                                                $extension = pathinfo($file->file_path, PATHINFO_EXTENSION);
+                                                                                $imageName = pathinfo($file->file_path, PATHINFO_FILENAME);
+                                                                                $iconPath = asset('modules/bienestar/icons/' . $extension . '.svg');
+                                                                                $truncatedName = (strlen($imageName) > 20) ? substr($imageName, 0, 20) . '...' : $imageName;
+                                                                                $filePath = asset('/storage/' . $file->file_path);
+                                                                            @endphp
 
-                                                                                <p>
-                                                                                    <img src="{{ $filePath }}" alt="{{ $extension }} icon" style="width: 40px; height: 40px;">
-                                                                                    <strong class="card-title">{{ $truncatedName }} ({{ $extension }})</strong>
-                                                                                </p>
+                                                                            <!-- Icono -->
+                                                                            <img src="{{ $iconPath }}" alt="{{ $extension }} icon" style="width: 40px; height: 40px; margin-bottom: 10px;">
 
-                                                                                <!-- Agregar el botón de descarga -->
-                                                                                <a href="{{ str_replace('\\', '/', asset($file->file_path)) }}" download class="btn btn-primary btn-sm">
-    Descargar
-</a>
+                                                                            <!-- Nombre del archivo -->
+                                                                            <p>
+                                                                                <strong class="card-title">{{ $truncatedName }} ({{ $extension }})</strong>
+                                                                            </p>
 
-                                                                            </div>
-                                                                        </li>
-                                                                    @endforeach
-                                                                </div>
+                                                                            <!-- Agregar el botón de descarga -->
+                                                                            <a href="{{ $filePath }}" download="{{ basename($file->file_path) }}" class="btn btn-primary btn-sm">
+                                                                                Descargar
+                                                                            </a>
+                                                                        </div>
+                                                                    </li>
+                                                                @endforeach
+                                                            </div>
                                                             @else
-                                                                <p>No hay archivos socioeconómicos asociados a esta postulación.</p>
+                                                            <p>No hay archivos socioeconómicos asociados a esta postulación.</p>
                                                             @endif
+
                                                             <div class="form-group">
                                                                 <label for="message">{{ trans('bienestar::menu.Score') }}</label>
                                                                 <input type="number" class="form-control" name="score" id="score" value="{{ $postulation->total_score }}" required>
