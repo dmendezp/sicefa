@@ -37,7 +37,7 @@
                     <div class="card-body">
                         @if (Route::is('senaempresa.apprentice.*'))
                             <table id="inventory" class="table table-striped table-bordered">
-                            @elseif (Route::is('senaempresa.admin.*'))
+                            @else
                                 <table id="datatable" class="table table-striped table-bordered">
                         @endif
                         <thead>
@@ -49,7 +49,7 @@
                                 <th>{{ trans('senaempresa::menu.End date and time') }}</th>
                                 <th>{{ trans('senaempresa::menu.Status') }}</th>
                                 @if (Route::is('senaempresa.admin.*') ||
-                                        (Route::is('senaempresa.passant.*') &&
+                                        (Route::is('senaempresa.human_talent_leader.*') &&
                                             Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.new')))
                                     <th>
                                         <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.new') }}"
