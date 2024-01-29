@@ -860,6 +860,16 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_psychologo[] = $permission->id; // Almacenar permiso para rol
 
+        // manual de usuario (Aprendiz)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.apprentice.manual_apprentice'], [ // Registro o actualización de permiso
+            'name' => 'Manual de usuario (Aprendiz)',
+            'description' => 'Puede ver manual de usuario del Aprendiz',
+            'description_english' => 'You can view the user manual for the Appretice',
+            'app_id' => $app->id
+        ]);
+        $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
+
+
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'senaempresa.admin')->first(); // Rol Administrador Senaempresa
         $rol_lider_talento_humano = Role::where('slug', 'senaempresa.human_talent_leader')->first(); // Rol Pasante Senaempresa

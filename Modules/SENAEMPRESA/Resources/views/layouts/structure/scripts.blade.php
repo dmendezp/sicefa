@@ -105,7 +105,7 @@
     <script>
         Swal.fire({
             icon: 'success',
-            title: 'Exito!',
+            title: {{ trans('senaempresa::menu.Success') }},
             text: '{{ session('success') }}',
             showConfirmButton: false,
             timer: 4000 // Tiempo en milisegundos (2 segundos en este caso)
@@ -117,7 +117,7 @@
     <script>
         Swal.fire({
             icon: 'error',
-            title: 'Error',
+            title: {{ trans('senaempresa::menu.Mistake') }},
             text: '{{ session('error') }}',
             showConfirmButton: false,
             timer: 4000 // Tiempo en milisegundos (2 segundos en este caso)

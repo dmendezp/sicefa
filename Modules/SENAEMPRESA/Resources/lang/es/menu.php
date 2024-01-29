@@ -245,6 +245,7 @@ return [
     'Postulate Details'=> 'Detalles del Postulado',
     'Postulate'=> 'Postulado',
     'Email'=> 'Correo',
+    'Success' => 'Éxito',
 
 
 

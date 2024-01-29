@@ -21,6 +21,7 @@ Route::middleware(['lang'])->group(function () {
         //RUTAS COMO APRENDIZ
         Route::prefix('apprentice')->group(function () {
             Route::get('/', 'SENAEMPRESAController@Apprentice')->name('senaempresa.apprentice.index');
+            Route::get('manual/', 'SENAEMPRESAController@manual_apprentice')->name('senaempresa.apprentice.manual_apprentice');
 
             //RUTAS PARA EL REGISTRO, LA VISUALIZACIÓN, ELIMINACIÓN Y LA ACTUALIZACIÓN DEL PERSONAL DE SENAEMPRESA
             Route::prefix('staff')->group(function () {

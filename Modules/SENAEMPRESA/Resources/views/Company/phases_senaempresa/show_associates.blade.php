@@ -89,7 +89,7 @@
                         // Muestra una alerta al usuario
                         Swal.fire({
                             icon: 'success',
-                            title: 'Éxito',
+                            title: '{{ trans('senaempresa::menu.Success') }}',
                             text: data.success,
                         });
                     },

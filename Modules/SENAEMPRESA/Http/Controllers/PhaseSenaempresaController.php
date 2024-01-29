@@ -152,7 +152,7 @@ class PhaseSenaempresaController extends Controller
                 if ($association) {
                     $association->delete();
                 }
-                $message = trans('senaempresa::menu.Association created successfully.');
+                $message = trans('senaempresa::menu.Association deleted successfully.');
             }
 
             return response()->json(['success' => $message], 200);

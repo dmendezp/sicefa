@@ -87,6 +87,13 @@
                 </a>
             </li>
         @endif
+        @if (Route::is('senaempresa.apprentice.*') && (checkRol('senaempresa.apprentice')))
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="{{ route('senaempresa.apprentice.manual_apprentice') }}" class="nav-link @if (Route::is('senaempresa.apprentice.manual_apprentice')) active @endif">
+                <i class="fas fa-book"></i>
+            </a>
+        </li>
+    @endif
         <li class="nav-item mx-1">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip"
                 data-bs-placement="bottom" data-bs-title="{{ trans('senaempresa::menu.Full Screen Mode') }}">

@@ -2,7 +2,8 @@
 
 @section('content')
     @if (
-        (Auth::check() && Auth::user()->roles[0]->slug === 'senaempresa.apprentice') ||
+        (Auth::check() && Auth::user()->roles[0]->slug === 'senaempresa.admin') ||
+            (Auth::check() && Auth::user()->roles[0]->slug === 'senaempresa.human_talent_leader') ||
             Route::is('senaempresa.admin.*') ||
             Route::is('senaempresa.human_talent_leader.*'))
         <div class="container">

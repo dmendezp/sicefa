@@ -241,6 +241,9 @@ return [
     'Postulate Details'=> 'Postulate Details',
     'Postulate'=> 'Postulate',
     'Email'=> 'Email',
+    'Success' => 'Success',
+    'Mistake' => 'Mistake',
+
 
 
 

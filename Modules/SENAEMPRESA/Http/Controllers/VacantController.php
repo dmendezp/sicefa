@@ -406,13 +406,13 @@ class VacantController extends Controller
                     // If the association exists but was deleted, restore it
                     $association->restore();
                 }
-                $message = 'Association created successfully.';
+                $message = trans('senaempresa::menu.Association created successfully.');
             } else {
                 // If the checkbox is unchecked, delete the association if it exists
                 if ($association) {
                     $association->delete();
                 }
-                $message = 'Association deleted successfully.';
+                $message = trans('senaempresa::menu.Association deleted successfully.');
             }
 
             return response()->json(['success' => $message], 200);

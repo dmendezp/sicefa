@@ -120,9 +120,10 @@ class SENAEMPRESAController extends Controller
         $data = ['title' => trans('senaempresa::menu.Apprentice'), 'vacanciesCount' => $vacanciesCount];
         return view('senaempresa::Company.apprentice', $data);
     }
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    public function manual_apprentice()
+    {
+       $data = ['title' => trans('senaempresa::menu.manual')];
+       return view('senaempresa::Company.manual.manual_apprentice', $data);
+   }
 
 }

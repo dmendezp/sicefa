@@ -1,9 +1,11 @@
 @extends('senaempresa::layouts.master')
 @section('content')
-    <p>
-        <span>
-            Manual del administrador
-        </span>
-        &mdash; JSM6580 &mdash;
-    </p>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center">
+                <embed src="{{ asset('modules/senaempresa/manual/manual de usuario admin.pdf') }}" type="application/pdf"
+                    width="100%" height="562px" />
+            </div>
+        </div>
+    </div>
 @endsection

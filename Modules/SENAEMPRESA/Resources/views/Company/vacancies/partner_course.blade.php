@@ -93,7 +93,7 @@
                         // Show a user alert
                         Swal.fire({
                             icon: 'success',
-                            title: 'Success',
+                            title: '{{ trans('senaempresa::menu.Success') }}',
                             text: data.success,
                         });
                     },
@@ -102,7 +102,7 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: 'An error occurred while processing the request.',
+                            text: '{{ trans('senaempresa::menu.An error occurred while processing the request.') }}',
                         });
                         $(this).prop('checked', !isChecked);
                     }
