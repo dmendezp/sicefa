@@ -101,35 +101,42 @@
                                             </button>
                                         </td>
                                     </tr>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="detailsModal{{ $postulate->id }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="detailsModalLabel">
+                                                        {{ trans('senaempresa::menu.Postulate Details') }}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p><strong>{{ trans('senaempresa::menu.Postulate') }}:</strong>
+                                                        {{ $postulate->apprentice->person->full_name }}</p>
+                                                    <p><strong>{{ trans('senaempresa::menu.Document') }}:</strong>
+                                                        {{ $postulate->apprentice->person->document_number }}</p>
+                                                    <p><strong>{{ trans('senaempresa::menu.Email') }}:</strong>
+                                                        {{ $postulate->apprentice->person->personal_email }}</p>
+                                                    <p><strong>{{ trans('senaempresa::menu.Telephone') }}:</strong>
+                                                        {{ $postulate->apprentice->person->telephone1 }}</p>
+                                                    <p><strong>{{ trans('senaempresa::menu.Positon Id') }}:</strong>
+                                                        {{ $postulate->vacancy->positionCompany->name }}</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Cerrar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endif
                             @endforeach
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="detailsModal{{ $postulate->id }}" tabindex="-1" role="dialog"
-        aria-labelledby="detailsModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="detailsModalLabel">{{ trans('senaempresa::menu.Postulate Details') }}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>{{ trans('senaempresa::menu.Postulate') }}:</strong> {{ $postulate->apprentice->person->full_name }}</p>
-                    <p><strong>{{ trans('senaempresa::menu.Document') }}:</strong> {{ $postulate->apprentice->person->document_number }}</p>
-                    <p><strong>{{ trans('senaempresa::menu.Email') }}:</strong> {{ $postulate->apprentice->person->personal_email }}</p>
-                    <p><strong>{{ trans('senaempresa::menu.Telephone') }}:</strong> {{ $postulate->apprentice->person->telephone1 }}</p>
-                    <p><strong>{{ trans('senaempresa::menu.Positon Id') }}:</strong> {{ $postulate->vacancy->positionCompany->name }}</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
