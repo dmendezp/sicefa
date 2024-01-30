@@ -33,6 +33,7 @@ Route::middleware(['lang'])->group(function () {
         //RUTAS PARA EL REGISTRO, LA VISUALIZACIÓN Y LA ACTUALIZACIÓN DE LOS PRESTAMOS EPP DE SENAEMPRESA
         Route::prefix('loans')->group(function () {
             Route::get('/', 'LoanController@loans')->name('senaempresa.human_talent_leader.loans.index');
+            Route::get('/generatepdf', 'LoanController@generateLoansPDF')->name('senaempresa.human_talent_leader.loans.generate.pdf');
             Route::get('/new', 'LoanController@new')->name('senaempresa.human_talent_leader.loans.new');
             Route::post('/saved', 'LoanController@saved')->name('senaempresa.human_talent_leader.loans.saved');
             Route::get('/edit/{id}', 'LoanController@edit')->name('senaempresa.human_talent_leader.loans.edit');

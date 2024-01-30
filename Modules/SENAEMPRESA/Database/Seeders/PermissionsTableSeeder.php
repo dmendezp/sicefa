@@ -224,6 +224,24 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+         //Generar pdf de prestamos (Administrador)
+         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.loans.generate.pdf'], [ // Registro o actualización de permiso
+            'name' => 'Generar pdf prestamos (Administrador)',
+            'description' => 'Generar pdf de los prestamos de senaempresa',
+            'description_english' => 'Generate pdf of senaempresa loans',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+         //Generar pdf de prestamos (Lider talento humano)
+         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.loans.generate.pdf'], [ // Registro o actualización de permiso
+            'name' => 'Generar pdf prestamos (Lider talento humano)',
+            'description' => 'Generar pdf de los prestamos de senaempresa',
+            'description_english' => 'Generate pdf of senaempresa loans',
+            'app_id' => $app->id
+        ]);
+        $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
+
         // Vista senaempresa inventario (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.loans.inventory'], [ // Registro o actualización de permiso
             'name' => 'Vista SenaEmpresa Inventario (Administrador)',

@@ -1,6 +1,5 @@
 @extends('senaempresa::layouts.master')
-@section('stylesheet')
-    <!-- Main content -->
+@section('content')
     <div class="container-fluid">
         <div class="card card-primary card-outline shadow">
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -34,10 +33,10 @@
                     <div class="row">
                         @foreach ($staff as $staf)
                             <div class="col-md-4">
-                                <div class="candidate-card" style="max-width: 600px; margin: 0 10px 20px 0;">
+                                <div class="candidate-card" style="max-width: 250px; margin: 0 10px 20px 0;">
                                     <div class="card text-center">
                                         <img src="{{ asset($staf->image) }}" alt="{{ $staf->image }}" class="card-img-top"
-                                            style="height: 200px; width: 200px; object-fit: cover; border-radius: 10px;">
+                                            style="height: 300px; width: 250px; object-fit: cover; border-radius: 10px;">
                                         <div class="card-body"
                                             style="display: flex; flex-direction: column; align-items: center;">
                                             <h6 class="card-subtitle mb-2 text-muted">
@@ -65,7 +64,7 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <div class="btn-group">
-                                                            <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.edit', ['id' => $staff->id]) }}"
+                                                            <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.edit', ['id' => $staf->id]) }}"
                                                                 class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
                                                             <button type="submit" class="btn btn-danger btn-sm"><i
                                                                     class="fas fa-trash-alt"></i></button>

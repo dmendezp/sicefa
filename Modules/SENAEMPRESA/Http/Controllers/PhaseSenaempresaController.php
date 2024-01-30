@@ -117,9 +117,9 @@ class PhaseSenaempresaController extends Controller
             $compan = Senaempresa::findOrFail($id);
             $compan->delete();
 
-            return response()->json(['mensaje' => trans('senaempresa::menu.Vacancy successfully eliminated')]);
+            return response()->json(['mensaje' => trans('senaempresa::menu.SenaEmpresa deleted!')]);
         } catch (\Exception $e) {
-            return response()->json(['mensaje' => trans('senaempresa::menu.Error when deleting the vacancy')], 500);
+            return response()->json(['mensaje' => trans('senaempresa::menu.Error deleting the senaempresa')], 500);
         }
     }
 

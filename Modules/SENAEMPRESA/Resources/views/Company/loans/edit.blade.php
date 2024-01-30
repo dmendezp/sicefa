@@ -7,7 +7,7 @@
                 <div class="card card-primary card-outline shadow">
                     <div class="card-header">{{ $title }}</div>
                     <div class="card-body">
-                        <form action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.updated', ['id' => $loan->id]) }}" method="POST"
+                        <form action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.updated', ['id' => $loan->id]) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')

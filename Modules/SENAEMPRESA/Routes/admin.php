@@ -51,6 +51,7 @@ Route::middleware(['lang'])->group(function () {
             //RUTAS PARA EL REGISTRO, LA VISUALIZACIÓN Y LA ACTUALIZACIÓN DE LOS PRESTAMOS EPP DE SENAEMPRESA
             Route::prefix('loans')->group(function () {
                 Route::get('/', 'LoanController@loans')->name('senaempresa.admin.loans.index');
+                Route::get('/generatepdf', 'LoanController@generateLoansPDF')->name('senaempresa.admin.loans.generate.pdf');
                 Route::get('/new', 'LoanController@new')->name('senaempresa.admin.loans.new');
                 Route::post('/saved', 'LoanController@saved')->name('senaempresa.admin.loans.saved');
                 Route::get('/edit/{id}', 'LoanController@edit')->name('senaempresa.admin.loans.edit');

@@ -105,10 +105,10 @@
     <script>
         Swal.fire({
             icon: 'success',
-            title: {{ trans('senaempresa::menu.Success') }},
+            title: "{{ trans('senaempresa::menu.Success') }}",
             text: '{{ session('success') }}',
             showConfirmButton: false,
-            timer: 4000 // Tiempo en milisegundos (2 segundos en este caso)
+            timer: 4000 // Tiempo en milisegundos (2 segundos en este caso)Mistake
         });
     </script>
 @endif
@@ -117,7 +117,7 @@
     <script>
         Swal.fire({
             icon: 'error',
-            title: {{ trans('senaempresa::menu.Mistake') }},
+            title: "{{ trans('senaempresa::menu.mistake') }}",
             text: '{{ session('error') }}',
             showConfirmButton: false,
             timer: 4000 // Tiempo en milisegundos (2 segundos en este caso)
@@ -125,8 +125,7 @@
     </script>
 @endif
 
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script src="{{ asset('modules/senaempresa/js/modal.js') }}"></script>
 <script src="{{ asset('modules/senaempresa/js/fecha_alerta.js') }}"></script>
-

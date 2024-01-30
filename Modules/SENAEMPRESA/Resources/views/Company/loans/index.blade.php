@@ -38,7 +38,9 @@
                         @if (Route::is('senaempresa.apprentice.*'))
                             <table id="inventory" class="table table-striped table-bordered">
                             @else
-                                <table id="datatable" class="table table-striped table-bordered">
+                                <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.generate.pdf') }}"
+                                    class="btn btn-primary">{{ trans('senaempresa::menu.Generate PDF') }}</a>
+                                <table id="inventory" class="table table-striped table-bordered">
                         @endif
                         <thead>
                             <tr>

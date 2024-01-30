@@ -246,6 +246,10 @@ return [
     'Postulate'=> 'Postulado',
     'Email'=> 'Correo',
     'Success' => 'Éxito',
+    'Search by Document or Name' => 'Búsqueda por documento o nombre',
+    'SENAEmpresa_loans' => 'SENAEmpresa_préstamos',
+    'Error deleting the senaempresa' => 'Error al borrar la senaempresa',
+    'Telephone' => 'Teléfono',
 
 
 
@@ -266,8 +270,11 @@ return [
     'Associates Courses-Senaempresa' => 'Asociados Cursos-Senaempresa',
     'senaempresa already exists!' => 'senaempresa ya existe!',
     'We provide' => 'Prestamos',
-    'success' => 'éxito',
-    'mistake' => 'error',
+    'Mistake' => 'Error',
+    'Successfully registered.' => 'Inscrito con éxito.',
+    'There is no next quarter.' => 'No hay un próximo trimestre.',
+    'There is no senaempresa associated with the next quarter.' => 'No hay una senaempresa asociada al próximo trimestre.',
+    'You must first associate courses and vacancies to the next quarters senaempresa.' => 'Primero debe asociar cursos y vacantes a la senaempresa del próximo trimestre',
 
 
     'Digital System for Comprehensive Human Resources Management.' => 'Sistema Digital de Gestión Integral de Recursos Humanos.',

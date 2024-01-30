@@ -14,8 +14,8 @@
             <div class="row col-md-12">
                 <div class="image mt-2 mb-2">
                     @if (isset(Auth::user()->person->avatar))
-                    <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}"
-                    class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}" class="img-circle elevation-2"
+                            alt="User Image">
                     @else
                         <img src="{{ asset('modules/sica/images/blanco.png') }}" class="img-circle elevation-2"
                             alt="User Image">
@@ -181,7 +181,7 @@
                     @endif
                     @if (Auth::user()->havePermission('senaempresa.admin.phases'))
                         <li
-                            class="nav-item {{ Route::is('senaempresa.admin.phases.index', 'senaempresa.admin.phases.show_associates', 'senaempresa.admin.staff.index') ? 'menu-is-opening menu-open' : '' }}">
+                            class="nav-item {{ Route::is('senaempresa.admin.phases.index', 'senaempresa.admin.phases.show_associates', 'senaempresa.admin.staff.index', 'senaempresa.admin.attendances.index') ? 'menu-is-opening menu-open' : '' }}">
                             <a href="#"
                                 class="nav-link {{ !Route::is('senaempresa.admin.phases.*') ?: 'active' }}">
                                 <i class="fas fa-chess-rook"></i>
