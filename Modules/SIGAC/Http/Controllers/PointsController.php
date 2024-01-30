@@ -56,7 +56,7 @@ class PointsController extends Controller
 
 
 
-    public function saveForm(Request $request)
+    public function store(Request $request)
 {
     $validatedData = $request->validate([
 
@@ -76,7 +76,7 @@ class PointsController extends Controller
     $point->state = $request->input('state');
     $point->apprentice_id = $request->input('apprentice_id');
 
-    return redirect()->route('sigac::points.points.index')->with('success', 'Datos guardados correctamente.');
+    return redirect()->route('sigac::points.store')->with('success', 'Datos guardados correctamente.');
 
 }
 

@@ -1,10 +1,12 @@
 @extends('sigac::layouts.master')
 
 @section('content')
-<a href="{{ route('sigac::points.points.index') }}"> </a>
+
 
 <div class="container my-5">
-    <form class="form-registro" method="post" id="registerUserForm" action="{{ route('sigac::points.points.save_form') }}">
+    <form class="form-registro" method="get" id="registerUserForm" action="{{ route('sigac::points.store') }}">
+
+
         @csrf
 
         <div class="card border-primary">
@@ -13,12 +15,16 @@
             </div>
             <div class="card-body">
                 <div class="form-group">
-                    <label for="date">Fecha</label>
+                    <label for="date">Fecha
+
+                    </label>
                     <input type="date" class="form-control" id="date" name="date" required>
                     <small class="form-text text-muted">Ingrese la fecha en formato dd/mm/aaaa.</small>
                 </div>
                  <div class="form-group">
-                    <label for="program">Programa:</label>
+                    <label for="program">Programa:
+
+                    </label>
                     <select name="course" id="course" class="form-control">
                         @foreach($courses as $course)
                             <option value="{{ $course->id }}">{{ $course->CodeName }}</option>
@@ -31,13 +37,17 @@
                 </select>
 
                 <div class="form-group">
-                    <label for="quantity">Cantidad</label>
+                    <label for="quantity">Cantidad
+
+                    </label>
                     <input type="number" class="form-control" id="quantity" name="quantity" required>
                     <small class="form-text text-muted">Ingrese la cantidad como un número entero.</small>
                 </div>
 
                 <div class="form-group">
-                    <label for="theme">Tema</label>
+                    <label for="theme">Tema
+
+                    </label>
                     <input type="text" class="form-control" id="theme" name="theme" required>
                     <small class="form-text text-muted">Ingrese el tema del formulario.</small>
                 </div>
@@ -67,30 +77,31 @@
     $('#course').change(function() {
         var courseId = $(this).val();
 
+        // Get the selected apprentice's ID from the URL
+        var selectedApprenticeId = $.urlParam('selected_apprentice_id');
+
         $.ajax({
             url: '{{ route('sigac::points.getapprentices') }}',
             data: { course_id: courseId },
             type: 'GET',
             success: function(response) {
-                $('#apprentices').empty();
+                $('#apprentices').empty(); // Clear existing options
+
+                // Loop through response and append options, setting "selected" for the previously selected apprentice
                 $.each(response, function(index, apprentice) {
-                    $('#apprentices').append('<option value="">'+apprentice.person.first_name+'</option>');
+                    var selected = (apprentice.id === selectedApprenticeId) ? 'selected' : ''; // Check for previously selected apprentice
+                    $('#apprentices').append('<option value="' + apprentice.id + '" ' + selected + '>' + apprentice.person.first_name + '</option>');
                 });
             }
         });
     });
-    $(document).ready(function() {
-        // Check if selected apprentice data is present
-        if (typeof selectedApprentice !== 'undefined') {
-            $('#apprentices').val(selectedApprentice.value); // Set the selected value
-            $('#apprentices').change(); // Trigger the change event to execute the function
-        }
 
-        // Your original function to handle apprentice selection
-        $('#apprentices').change(function() {
-            // ... (function code here)
-        });
+    // Add the "selected_apprentice_id" query parameter to the URL when the form is submitted
+    $('form').submit(function() {
+        $.urlParam('selected_apprentice_id', $('#apprentices').val());
     });
+
+
 
 
 </script>
