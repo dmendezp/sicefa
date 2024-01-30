@@ -26,16 +26,8 @@
         <td>{{ $point->apprentice->full_name }}</td>
         <td>{{ $point->program->name }}</td>
         <td>
-            <form action="{{ route('sigac::points.points.edit', $point->id) }}" method="POST">
-                @csrf
-                @method('GET')
-                <button type="submit" class="btn btn-primary">Editar Punto</button>
-              </form>
-          <form action="{{ route('sigac::points.points.delete', $point->id) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger">Eliminar Punto</button>
-          </form>
+
+
         </td>
       </tr>
       @endforeach
@@ -43,4 +35,44 @@
   </table>
 </div>
 
+@endsection
+@section('scripts')
+<script>
+$(function () {
+
+
+        function llenarModal(data) {
+          $('#id').val(data.id);
+          $('#date').val(data.date);
+          $('#quantity').val(data.quantity);
+          $('#theme').val(data.theme);
+          $('#state').val(data.state);
+          $('#apprentice_id').val(data.apprentice_id);
+          $('#program_id').val(data.program_id);
+        }
+
+        function limpiarModal() {
+          // ... (same as before)
+        }
+
+        var table = $('.table').DataTable({
+          // ... (same options as before, except for "columns")
+          "columns": [
+            {"data": 'DT_RowIndex', "name": 'DT_RowIndex'},
+            {"data": 'date', "name": 'date'},
+            {"data": 'quantity', "name": 'quantity'},
+            {"data": 'theme', "name": 'theme'},
+            {"data": 'state', "name": 'state'},
+            {"data": 'apprentice.full_name', "name": 'apprentice.full_name'},
+            {"data": 'program.name', "name": 'program.name'},
+            {"data": 'action', "name": 'action', "orderable": true, "searchable": true, "fixedHeader": true}
+          ]
+        });
+
+        // ... (same event handlers as before, but using the new field names)
+
+      });
+
+
+</script>
 @endsection

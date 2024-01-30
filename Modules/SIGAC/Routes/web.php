@@ -98,7 +98,7 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
          Route::delete('points/{point}', 'PointsController@destroy')->name('sigac::points.points.delete');
 
          Route::post('/points/index', 'ApprenticeController@SaveForm')->name('sigac::points.points.apprentice');
-         Route::get('/points', 'PointsController@store')->name('sigac::points.store');
+         Route::get('/points/store', 'PointsController@store')->name('sigac::points.points.store');
 
 
          Route::get('points/{id}/edit', 'PointsController@edit')->name('sigac::points.points.edit');

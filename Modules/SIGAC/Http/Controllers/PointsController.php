@@ -76,7 +76,7 @@ class PointsController extends Controller
     $point->state = $request->input('state');
     $point->apprentice_id = $request->input('apprentice_id');
 
-    return redirect()->route('sigac::points.store')->with('success', 'Datos guardados correctamente.');
+    return redirect()->route('sigac::points.points.store')->with('success', 'Datos guardados correctamente.');
 
 }
 
@@ -126,35 +126,27 @@ public function getApprenticesByProgram(Request $request)
 
 
     public function update(Request $request, $id)
-    {
-        // Encontrar el punto por ID
-        $point = Point::findOrFail($id);
+{
+  // Encontrar el punto por ID
+  $point = Point::findOrFail($id);
 
-        // Validar los datos
-        $validatedData = $request->validate([
-            'update' => 'required|date',
-            'quantity' => 'required|integer',
-            'theme' => 'required|string',
-            'state' => 'required|in:Positivo,Negativo',
-            'apprentices' => 'required|exists:apprentices,id',
-            'courses' => 'required|exists:courses,id',
-        ]);
+  // Validar los datos
+  $validatedData = $request->validate([
+    'date' => 'required|date',
+    'quantity' => 'required|integer',
+    'theme' => 'required|string',
+    'state' => 'required|integer|in:1,2,3,4,5,6,7,8',
+    'apprentice_id' => 'required|exists:apprentices,id',
+    'program_id' => 'required|exists:programs,id',
+  ]);
 
-        // Actualizar el punto
-        $point->update($validatedData);
+  // Actualizar el punto
+  $point->update($validatedData);
 
-        // Valida el valor de estado
-    $estado = $request->input('estado');
-    if (!is_numeric($estado) || $estado < 1 || $estado > 8) {
-        return response()->json(['success' => false, 'message' => 'El estado debe ser un número entre 1 y 8.']);
-    }
+  // Retornar la redirección con un mensaje de éxito
+  return redirect()->route('sigac::points.points.store')->with('success', 'Punto actualizado correctamente.');
+}
 
-    // Convierte el valor de estado a un código abreviado
-    $estado = (int)$estado;
-
-        // Retornar la redirección con un mensaje de éxito
-        return redirect()->route('sigac::points.points.index')->with('success', 'Punto actualizado correctamente.');
-    }
     public function cargarVistapoints_asigned()
 {
     $points = Point::with('apprentice.person', 'program')->get();
