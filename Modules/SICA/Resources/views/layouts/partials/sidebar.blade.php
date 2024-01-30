@@ -200,7 +200,7 @@
                                 <li class="nav-item">
                                     <a href="{{ route('sica.admin.academy.holidays.index') }}" class="nav-link {{ !Route::is('sica.admin.academy.holidays.*') ?: 'active' }}">
                                         <i class="fa-solid fa-umbrella-beach"></i>
-                                        <p>Festivos</p>
+                                        <p>{{ trans('sica::menu.Holidays') }}</p>
                                     </a>
                                 </li>
                             @endif

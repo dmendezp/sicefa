@@ -788,6 +788,7 @@ class MovementController extends Controller
                         'name' => $item->element->name,
                         'price' => $item->element->price,
                         'amount' => $item->element->amount,
+                        'stock' => $item->stock,
                         // Agrega otros atributos relacionados con el elemento si es necesario
                     ];
                 });
@@ -965,6 +966,7 @@ class MovementController extends Controller
                 $destination = $productDestinations[$index];
                 $lot = $productLots[$index];
                 $stock = $productStocks[$index];
+               
             
                 // Buscar si el elemento ya existe en 'inventories' de la unidad que entrega
                 $existingInventory = Inventory::where([
@@ -1062,8 +1064,9 @@ class MovementController extends Controller
         } catch (\Exception $e) {
             // En caso de error, realiza un rollback de la transacción y maneja el error
             DB::rollBack();
-            return redirect()->route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.exit.index')->with('error', 'Error');
             \Log::error('Error en el registro: ' . $e->getMessage());
+            return redirect()->route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.exit.index')->with('error', 'Error');
+            
         }
     }
 

@@ -66,6 +66,7 @@ return [
 	'Name' => 'Name',
 	'Description' => 'Description',
 	'Actions' => 'Actions',
+	'Date' => 'Date',
 
 	/* Lineas */
 	'Lines' => 'Lines',
@@ -113,16 +114,73 @@ return [
 
 	/* Areas */
 	'Areas' => 'Areas',
+	'Sector' => 'Sector',
 	'Area Registration' => 'Area Registration',
 	'Add Area' => 'Add Area',
 	'Update Area' => 'Update Area',
-	'Do you want to delete the following area?' => 'Do you want to delete the following area?',
+	'Do you want to delete the following Area?' => 'Do you want to delete the following area?',
 	'Area successfully added' => 'Area successfully added',
 	'Could not add Area' => 'Could not add Area',
 	'Area successfully updated' => 'Area successfully updated',
 	'Failed to update Area' => 'Failed to update Area',
 	'Area successfully removed' => 'Area successfully removed',
 	'Could not delete Area' => 'Could not delete Area',
+
+	/* Unidades Productivas */
+	'Productive Units' => 'Productive Units',
+	'Productive Unit' => 'Productive Unit',
+	'Productive Unit Registration' => 'Productive Unit Registration',
+	'Add Productive Unit' => 'Add Productive Unit',
+	'Update Productive Unit' => 'Update Productive Unit',
+	'Do you want to delete the following Productive Unit?' => 'Do you want to delete the following Productive Unit?',
+	'Productive Unit successfully added' => 'Productive Unit successfully added',
+	'Could not add Productive Unit' => 'Could not add Productive Unit',
+	'Productive Unit successfully updated' => 'Productive Unit successfully updated',
+	'Failed to update Productive Unit' => 'Failed to update Productive Unit',
+	'Productive Unit successfully removed' => 'Productive Unit successfully removed',
+	'Could not delete Productive Unit' => 'Could not delete Productive Unit',
+
+	/* Festivos */
+	'Holidays' => 'Holidays',
+	'Issue' => 'Issue',
+	'Holiday Registration' => 'Holiday Registration',
+	'Add Holiday' => 'Add Holiday',
+	'Update Holiday' => 'Update Holiday',
+	'Do you want to delete the following area?' => 'Do you want to delete the following area?',
+	'Holiday successfully added' => 'Holiday successfully added',
+	'Could not add Holiday' => 'Could not add Holiday',
+	'Holiday successfully updated' => 'Holiday successfully updated',
+	'Failed to update Holiday' => 'Failed to update Holiday',
+	'Holiday successfully removed' => 'Holiday successfully removed',
+	'Could not delete Holiday' => 'Could not delete Holiday',
+
+	/* Trimestre */
+	'Quarters' => 'Quarters',
+	'Quarter' => 'Quarter',
+	'Quarter Registration' => 'Quarter Registration',
+	'Add Quarter' => 'Add Quarter',
+	'Update Quarter' => 'Update Quarter',
+	'Do you want to delete the following Quarter?' => 'Do you want to delete the following quarter?',
+	'Quarter successfully added' => 'Quarter successfully added',
+	'Could not add Quarter' => 'Could not add Quarter',
+	'Quarter successfully updated' => 'Quarter successfully updated',
+	'Failed to update Quarter' => 'Failed to update Quarter',
+	'Quarter successfully removed' => 'Quarter successfully removed',
+	'Could not delete Quarter' => 'Could not delete Quarter',
+
+	/* Actividades */
+	'Activities' => 'Activities',
+	'Activity' => 'Activity',
+	'Activity Registration' => 'Activity Registration',
+	'Add Activity' => 'Add Activity',
+	'Update Activity' => 'Update Activity',
+	'Do you want to delete the following Activity?' => 'Do you want to delete the following Activity?',
+	'Activity successfully added' => 'Activity successfully added',
+	'Could not add Activity' => 'Could not add Activity',
+	'Activity successfully updated' => 'Activity successfully updated',
+	'Failed to update Activity' => 'Failed to update Activity',
+	'Activity successfully removed' => 'Activity successfully removed',
+	'Could not delete Activity' => 'Could not delete Activity',
 
 	/* Titulaciones */
 	'Courses' => 'Courses',

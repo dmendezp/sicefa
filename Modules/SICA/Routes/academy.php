@@ -15,8 +15,8 @@ Route::middleware(['lang'])->group(function(){
         Route::get('academic_coordinator/academy/holidays/edit/{holiday}', [AcademyController::class, 'holidays_edit'])->name('sica.academic_coordinator.academy.holidays.edit'); // Formulario para actualizar día festivo (Coordinador académico)
         Route::post('admin/academy/holidays/update/{holiday}', [AcademyController::class, 'holidays_update'])->name('sica.admin.academy.holidays.update'); // Actualizar día festivo (Administrador)
         Route::post('academic_coordinator/academy/holidays/update/{holiday}', [AcademyController::class, 'holidays_update'])->name('sica.academic_coordinator.academy.holidays.update'); // Actualizar día festivo (Coordinador académico)
-        Route::delete('admin/academy/holidays/destroy/{holiday}', [AcademyController::class, 'holidays_destroy'])->name('sica.admin.academy.holidays.destroy'); // Eliminar día festivo (Administrador)
-        Route::delete('academic_coordinator/academy/holidays/destroy/{holiday}', [AcademyController::class, 'holidays_destroy'])->name('sica.academic_coordinator.academy.holidays.destroy'); // Eliminar día festivo (Coordinador académico)
+        Route::get('academic_coordinator/academy/holidays/delete/{id}', [AcademyController::class, 'holidays_delete'])->name('sica.academic_coordinator.academy.holidays.delete'); // Formulario de eliminacion del dia festivo (Coordinador académico)
+        Route::post('academic_coordinator/academy/holidays/destroy', [AcademyController::class, 'holidays_destroy'])->name('sica.academic_coordinator.academy.holidays.destroy'); // Eliminar dia festivo (Coordinador académico)
 
         // --------------  Rutas de Trimestres ---------------------------------
         Route::get('admin/academy/quarters', [AcademyController::class, 'quarters_index'])->name('sica.admin.academy.quarters.index'); // Listado de trimestres registrados (Administrador)
@@ -29,8 +29,10 @@ Route::middleware(['lang'])->group(function(){
         Route::get('academic_coordinator/academy/quarters/edit/{quarter}', [AcademyController::class, 'quarters_edit'])->name('sica.academic_coordinator.academy.quarters.edit'); // Formulario de actualización de trimestre (Coordinador académico)
         Route::post('admin/academy/quarters/update/{quarter}', [AcademyController::class, 'quarters_update'])->name('sica.admin.academy.quarters.update'); // Actualizar trimestre (Administrador)
         Route::post('academic_coordinator/academy/quarters/update/{quarter}', [AcademyController::class, 'quarters_update'])->name('sica.academic_coordinator.academy.quarters.update'); // Actualizar trimestre (Coordinador académico)
-        Route::delete('admin/academy/quarters/destroy/{quarter}', [AcademyController::class, 'quarters_destroy'])->name('sica.admin.academy.quarters.destroy'); // Eliminar trimestre (Administrador)
-        Route::delete('academic_coordinator/academy/quarters/destroy/{quarter}', [AcademyController::class, 'quarters_destroy'])->name('sica.academic_coordinator.academy.quarters.destroy'); // Eliminar trimestre (Coordinador académico)
+        Route::get('academic_coordinator/academy/quarters/delete/{id}', [AcademyController::class, 'quarters_delete'])->name('sica.academic_coordinator.academy.quarters.delete'); // Formulario de eliminacion del trimestre (Coordinador académico)
+        Route::get('admin/academy/quarters/delete/{id}', [AcademyController::class, 'quarters_delete'])->name('sica.admin.academy.quarters.delete'); // Formulario de eliminacion del trimestre (Coordinador académico)
+        Route::post('academic_coordinator/academy/quarters/destroy', [AcademyController::class, 'quarters_destroy'])->name('sica.academic_coordinator.academy.quarters.destroy'); // Eliminar trimestre (Coordinador académico)
+        Route::post('admin/academy/quarters/destroy', [AcademyController::class, 'quarters_destroy'])->name('sica.admin.academy.quarters.destroy'); // Eliminar trimestre (Coordinador académico)
 
         // ------------- Rutas de Programas de Formación ---------------------
         Route::get('admin/academy/programs', [AcademyController::class, 'programs_index'])->name('sica.admin.academy.programs.index'); // Listado de programas de formación registrados (Administrador)

@@ -9,7 +9,7 @@
         <div class="d-flex justify-content-center">
       <div class="card card-orange card-outline shadow col-md-12">
         <div class="card-header">
-          <h3 class="card-title">Areas</h3>
+          <h3 class="card-title">{{trans('sica::menu.Areas')}}</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -17,7 +17,7 @@
             <table id="example1" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>Id</th>
+                  <th>#</th>
                   <th>{{ trans('sica::menu.Name') }}</th>
                   <th>{{ trans('sica::menu.Description') }}</th>
                   <th class="text-center">{{ trans('sica::menu.Actions') }}

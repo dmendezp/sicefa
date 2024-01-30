@@ -67,6 +67,7 @@ return [
 	'Name' => 'Nombre',
 	'Description' => 'Descripción',
 	'Actions' => 'Acciones',
+	'Date' => 'Fecha',
 
 	/* Lineas */
 	'Lines' => 'Líneas',
@@ -115,16 +116,73 @@ return [
 
 	/* Areas */
 	'Areas' => 'Areas',
+	'Sector' => 'Sector',
 	'Area Registration' => 'Registro Area',
 	'Add Area' => 'Agregar Area',
 	'Update Area' => 'Actualizar Area',
-	'Do you want to delete the following area?' => '¿Desea eliminar la siguiente area?',
+	'Do you want to delete the following Area?' => '¿Desea eliminar la siguiente area?',
 	'Area successfully added' => 'Area agregada exitosamente',
 	'Could not add Area' => 'No se pudo agregar el area',
 	'Area successfully updated' => 'Area actualizado exitosamente',
 	'Failed to update Area' => 'No se pudo actualizar el area',
 	'Area successfully removed' => 'Area eliminado exitosamente',
 	'Could not delete Area' => 'No se pudo eliminar el area',
+
+	/* Unidades Productivas */
+	'Productive Units' => 'Unidades Productivas',
+	'Productive Unit' => 'Unidad Productiva',
+	'Productive Unit Registration' => 'Registro unidad productiva',
+	'Add Productive Unit' => 'Agregar unidad productiva',
+	'Update Productive Unit' => 'Actualizar unidad productiva',
+	'Do you want to delete the following Productive Unit?' => '¿Desea eliminar la siguiente unidad productiva?',
+	'Productive Unit successfully added' => 'unidad productiva agregada exitosamente',
+	'Could not add Productive Unit' => 'No se pudo agregar el unidad productiva',
+	'Productive Unit successfully updated' => 'unidad productiva actualizado exitosamente',
+	'Failed to update Productive Unit' => 'No se pudo actualizar la unidad productiva',
+	'Productive Unit successfully removed' => 'unidad productiva eliminada exitosamente',
+	'Could not delete Productive Unit' => 'No se pudo eliminar la unidad productiva',
+
+	/* Festivos */
+	'Holidays' => 'Festivos',
+	'Issue' => 'Asunto',
+	'Holiday Registration' => 'Registro Festivo',
+	'Add Holiday' => 'Agregar Festivo',
+	'Update Holiday' => 'Actualizar Festivo',
+	'Do you want to delete the following area?' => '¿Desea eliminar el siguiente Festivo?',
+	'Holiday successfully added' => 'Festivo agregada exitosamente',
+	'Could not add Holiday' => 'No se pudo agregar el Festivo',
+	'Holiday successfully updated' => 'Festivo actualizado exitosamente',
+	'Failed to update Holiday' => 'No se pudo actualizar el Festivo',
+	'Holiday successfully removed' => 'Festivo eliminado exitosamente',
+	'Could not delete Holiday' => 'No se pudo eliminar el Festivo',
+
+	/* Trimestre */
+	'Quarters' => 'Trimestres',
+	'Quarter' => 'Trimestre',
+	'Quarter Registration' => 'Registro Trimestre',
+	'Add Quarter' => 'Agregar Trimestre',
+	'Update Quarter' => 'Actualizar Trimestre',
+	'Do you want to delete the following Quarter?' => '¿Desea eliminar el siguiente Trimestre?',
+	'Quarter successfully added' => 'Trimestre agregada exitosamente',
+	'Could not add Quarter' => 'No se pudo agregar el Trimestre',
+	'Quarter successfully updated' => 'Trimestre actualizado exitosamente',
+	'Failed to update Quarter' => 'No se pudo actualizar el Trimestre',
+	'Quarter successfully removed' => 'Trimestre eliminado exitosamente',
+	'Could not delete Quarter' => 'No se pudo eliminar el Trimestre',
+
+	/* Actividades */
+	'Activities' => 'Actividades',
+	'Activity' => 'Actividad',
+	'Activity Registration' => 'Registro Actividad',
+	'Add Activity' => 'Agregar Actividad',
+	'Update Activity' => 'Actualizar Actividad',
+	'Do you want to delete the following Activity?' => '¿Desea eliminar la siguiente Actividad?',
+	'Activity successfully added' => 'Actividad agregada exitosamente',
+	'Could not add Activity' => 'No se pudo agregar la Actividad',
+	'Activity successfully updated' => 'Actividad actualizado exitosamente',
+	'Failed to update Activity' => 'No se pudo actualizar la Actividad',
+	'Activity successfully removed' => 'Actividad eliminado exitosamente',
+	'Could not delete Activity' => 'No se pudo eliminar la Actividad',
 
 	/* Titulaciones */
 	'Courses' => 'Titulaciones',

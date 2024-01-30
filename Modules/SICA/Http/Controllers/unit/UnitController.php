@@ -96,14 +96,24 @@ class UnitController extends Controller
         return redirect(route('sica.admin.units.productive_unit.index'))->with($message);
     }
 
+    /* Formulario de eliminación de unidad productiva */
+    public function productive_unit_delete($id){
+        $productive_unit = ProductiveUnit::find($id);
+        $data = [ 'title' => 'Eliminar Unidad Productiva', 'productive_unit' => $productive_unit];
+        return view('sica::admin.units.productive_units.delete', $data);
+    }
+
     /* Eliminar unidad productiva */
-    public function productive_unit_destroy(ProductiveUnit $productive_unit){
-        if ($productive_unit->delete()){
-            $message = ['message'=>'Se eliminó exitosamente la unidad productiva.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo eliminar la unidad productiva.', 'typealert'=>'danger'];
+    public function productive_unit_destroy(Request $request){
+        $productive_unit = ProductiveUnit::findOrFail($request->input('id'));
+        if($productive_unit->delete()){
+            $icon = 'success';
+            $message_productive_unit = trans('sica::menu.Productive Unit successfully removed');
+        }else{
+            $icon = 'error';
+            $message_productive_unit = trans('sica::menu.Could not delete Productive Unit');
         }
-        return redirect(route('sica.admin.units.productive_unit.index'))->with($message);
+        return redirect()->back()->with(['icon'=>$icon, 'message_productive_unit'=>$message_productive_unit]);
     }
 
     /* Listado de ambientes y unidades productivas asociadas */
@@ -198,14 +208,25 @@ class UnitController extends Controller
         return redirect(route('sica.admin.units.pu_warehouses.index'))->with($message);
     }
 
+
+    /* Formulario de eliminación de asociación de unidad productiva y bodega */
+    public function pu_warehouses_delete($id){
+        $puw = ProductiveUnitWarehouse::find($id);
+        $data = [ 'title' => 'Eliminar Unidad Productiva', 'puw' => $puw];
+        return view('sica::admin.units.pu_warehouses.delete', $data);
+    }
+
     /* Eliminar asociación de unidad productiva y bodega */
-    public function pu_warehouses_destroy(ProductiveUnitWarehouse $puw){
-        if ($puw->delete()){
-            $message = ['message'=>'Se eliminó exitosamente la asociación de unidad productiva y bodega.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo eliminar la asociación de unidad productiva y bodega.', 'typealert'=>'danger'];
+    public function pu_warehouses_destroy(Request $request){
+        $productive_unit_warehouses = ProductiveUnitWarehouse::findOrFail($request->input('id'));
+        if($productive_unit_warehouses->delete()){
+            $icon = 'success';
+            $message_puw = trans('sica::menu.Productive Unit successfully removed');
+        }else{
+            $icon = 'error';
+            $message_puw = trans('sica::menu.Could not delete Productive Unit');
         }
-        return redirect(route('sica.admin.units.pu_warehouses.index'))->with($message);
+        return redirect()->back()->with(['icon'=>$icon, 'message_puw'=>$message_puw]);
     }
 
     /* Listado de actividades disponibles */
@@ -239,11 +260,13 @@ class UnitController extends Controller
         }
         // Realizar registro
         if (Activity::create($request->all())){
-            $message = ['message'=>'Se registró exitosamente la actividad.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo realizar el registro de la actividad.', 'typealert'=>'danger'];
+            $icon = 'success';
+            $message_activity = trans('sica::menu.Activity successfully added');
+        }else{
+            $icon = 'error';
+            $message_activity = trans('sica::menu.Could not add Activity');
         }
-        return redirect(route('sica.admin.units.activities.index'))->with($message);
+        return redirect(route('sica.admin.units.activities.index'))->with(['icon'=>$icon, 'message_activity'=>$message_activity]);
     }
 
     /* Consultar actividad para su actualización */
@@ -270,21 +293,32 @@ class UnitController extends Controller
         }
         // Actualizar registro
         if ($activity->update($request->all())){
-            $message = ['message'=>'Se actualizó exitosamente la actividad.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo realizar la actualización de la actividad.', 'typealert'=>'danger'];
+            $icon = 'success';
+            $message_activity = trans('sica::menu.Activity successfully updated');
+        }else{
+            $icon = 'error';
+            $message_activity = trans('sica::menu.Failed to update Activity');
         }
-        return redirect(route('sica.admin.units.activities.index'))->with($message);
+        return redirect(route('sica.admin.units.activities.index'))->with(['icon'=>$icon, 'message_activity'=>$message_activity]);
+    }
+    /* Formulario de eliminación de actividad */
+    public function activities_delete($id){
+        $activity = Activity::find($id);
+        $data = [ 'title' => 'Eliminar Actividad', 'activity' => $activity];
+        return view('sica::admin.units.activities.delete', $data);
     }
 
     /* Eliminar actividad */
-    public function activities_destroy(Activity $activity){
-        if ($activity->delete()){
-            $message = ['message'=>'Se eliminó exitosamente la actividad.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo eliminar la actividad.', 'typealert'=>'danger'];
+    public function activities_destroy(Request $request){
+        $activity = Activity::findOrFail($request->input('id'));
+        if($activity->delete()){
+            $icon = 'success';
+            $message_activity = trans('sica::menu.Activity successfully removed');
+        }else{
+            $icon = 'error';
+            $message_activity = trans('sica::menu.Could not delete Activity');
         }
-        return redirect(route('sica.admin.units.activities.index'))->with($message);
+        return redirect()->back()->with(['icon'=>$icon, 'message_activity'=>$message_activity]);
     }
 
     /* Listado de areas disponibles */
