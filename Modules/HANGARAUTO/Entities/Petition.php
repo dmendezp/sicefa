@@ -13,7 +13,7 @@ class Petition extends Model {
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
 
-    public function people(){
+    public function person(){
         return $this->belongsTo(Person::class);
     }
 

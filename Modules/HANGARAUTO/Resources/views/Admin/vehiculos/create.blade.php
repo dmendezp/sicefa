@@ -16,27 +16,27 @@
                 {{ csrf_field() }}
 
                 <div class="mb-3">
-                    <label for="exampleInputEmiail1" class="form-label">Vehículo:</label>
+                    <label for="exampleInputEmail1" class="form-label">Vehículo:</label>
                     {!! Form::text('name', null, ['class' => 'form-control']) !!}
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmiail1" class="form-label">Referencia:</label>
+                    <label for="exampleInputEmail1" class="form-label">Referencia:</label>
                     {!! Form::select('referece',getEnumValues("vehicles", "referece"), null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmiail1" class="form-label">Estado De Vehículo:</label>
+                    <label for="exampleInputEmail1" class="form-label">Estado De Vehículo:</label>
                     {!! Form::select('status',getEnumValues("vehicles", "status"), null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmiail1" class="form-label">Nivel De Combustible:</label>
+                    <label for="exampleInputEmail1" class="form-label">Nivel De Combustible:</label>
                     {!! Form::select('fuel_level',getEnumValues("vehicles", "fuel_level"), null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmiail1" class="form-label">Placa:</label>
+                    <label for="exampleInputEmail1" class="form-label">Placa:</label>
                     {!! Form::text('license', null, ['class' => 'form-control']) !!}
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmiail1" class="form-label">Imagen Del Vehículo:</label>
+                    <label for="exampleInputEmail1" class="form-label">Imagen Del Vehículo:</label>
                     {!! Form::file('image', null, ['class' => 'custom-file-input', 'id' => 'customFile', 'accept' => 'image/*']) !!}
                 </div>
                 <div class="modal-footer">

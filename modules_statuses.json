@@ -10,5 +10,7 @@
     "SIGAC": true,
     "CAFETO": true,
     "HANGARAUTO": true,
-    "CreateDriversTable": true
+    "CreateDriversTable": true,
+    "Seeder": true,
+    "PeopleTableSeeder": true
 }

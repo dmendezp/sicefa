@@ -15,9 +15,13 @@ class HANGARAUTODatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::beginTransaction();
-        $this->call(AppTableSeeder::class);
+        DB::beginTransaction(); // Iniciar Transacción
+        $this->call(AppTableSeeder::class); // Ejecutar Seeder De La Aplicación
+        $this->call(PeopleTableSeeder::class); // Ejecutar Seeder De Personas
+        $this->call(UsersTableSeeder::class); // Ejecutar Seeder De Usuarios
+        $this->call(RolesTableSeeder::class); // Ejecutar Seeder De Roles De Usuario
+        $this->call(PermissionsTableSeeder::class); // Ejecutar Seeder De Permisos Para Roles
 
-        DB::commit();
+        DB::commit(); // Finalizar Transacción
     }
 }

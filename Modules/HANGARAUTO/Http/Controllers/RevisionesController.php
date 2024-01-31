@@ -88,7 +88,7 @@ class RevisionesController extends Controller
         return view('cefa.parking.tecnomecanica');
     }
 
-    public function postTecnomecanicAdd(Request $request)
+    public function postTecnomecanicaAdd(Request $request)
     {
         $rules = [
             'vehicle_name_id' => 'required',
@@ -105,7 +105,7 @@ class RevisionesController extends Controller
 
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()):
-            return back()->withErrors($validator)->withInput('messages','Se Ha Producido Un Error')->with('typealert','danger');
+            return back()->withErrors($validator)->with('messages','Se Ha Producido Un Error')->with('typealert','danger');
         else:
             $Tecnomecanic = new tecnomecanic();
             $Tecnomecanic->vehicle_name_id = $request->input('vehicle_name_id');
