@@ -117,7 +117,7 @@
     <script>
         Swal.fire({
             icon: 'error',
-            title: "{{ trans('senaempresa::menu.mistake') }}",
+            title: "{{ trans('senaempresa::menu.Mistake') }}",
             text: '{{ session('error') }}',
             showConfirmButton: false,
             timer: 4000 // Tiempo en milisegundos (2 segundos en este caso)

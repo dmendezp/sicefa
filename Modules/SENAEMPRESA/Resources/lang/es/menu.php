@@ -250,6 +250,10 @@ return [
     'SENAEmpresa_loans' => 'SENAEmpresa_préstamos',
     'Error deleting the senaempresa' => 'Error al borrar la senaempresa',
     'Telephone' => 'Teléfono',
+    'Attendance could not be recorded because the trainee is not on staff' => 'No se pudo registrar la asistencia porque el aprendiz no esta en el personal',
+    'Select SENAEmpresa' => 'Seleccionar SENAEmpresa',
+    'Assign Score' => 'Asignar puntaje',
+    'Score to be assigned' => 'Puntuación pendiente de asignar',
 
 
 

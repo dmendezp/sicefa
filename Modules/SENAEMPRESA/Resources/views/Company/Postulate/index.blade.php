@@ -135,6 +135,9 @@
                                                     @else
                                                         <p> {{ trans('senaempresa::menu.Score Assigned') }}</p>
                                                     @endif
+                                                    <td>
+                                                        <p>{{ trans('senaempresa::menu.Score to be assigned') }}</p>
+                                                    </td>
                                                 @endif
                                             </td>
                                         @else
@@ -152,14 +155,6 @@
                                                         data-vacancy-id="{{ $postulate->vacancy->id }}">
                                                         {{ trans('senaempresa::menu.To update') }}
                                                     </a>
-                                                </td>
-                                            @elseif (
-                                                $postulate->score_total < 0 &&
-                                                    (Route::is('senaempresa.admin.*') &&
-                                                        Auth::user()->havePermission(
-                                                            'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.state')))
-                                                <td>
-                                                    <p></p>
                                                 </td>
                                             @endif
                                         @endif

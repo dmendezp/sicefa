@@ -246,6 +246,9 @@ return [
     'SENAEmpresa_loans' => 'SENAEmpresa_loans',
     'Error deleting the senaempresa' => 'Error deleting the senacompany',
     'Telephone' => 'Telephone',
+    'Attendance could not be recorded because the trainee is not on staff' => 'Attendance could not be recorded because the trainee is not on staff.',
+    'Select SENAEmpresa' => 'Select SENAEmpresa',
+    'Score to be assigned' => 'Score to be assigned',
 
 
 
