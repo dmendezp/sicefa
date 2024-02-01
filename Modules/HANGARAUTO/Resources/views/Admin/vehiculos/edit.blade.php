@@ -12,8 +12,9 @@
                 <div class="card-header">
                     <h3>Modificar Datos Del Vehiculo</h3>
                 </div>
+                {!! Form::open(['url' => '/hangarauto/administrator/vehiculos/edit/',$vehicle->id, 'method' => 'post']) !!}
+                
                 {{ csrf_field() }}
-                {!! Form::open(['url' => '/hangarauto/administrator/vehicles/edit/'.$vehicle->id]) !!}
                 <label for="name">Vehiculo:</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -30,7 +31,7 @@
                             <i class="far fa-keyboard"></i>
                         </span>
                     </div>
-                    {!! Form::select('referece', getEnumValues("vehicles", "referece"), null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
+                    {!! Form::select('reference',getEnumValues("vehicles", "reference"), null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
                 </div>
                 <label for="name">Estado Del Vehiculo:</label>
                 <div class="input-group">

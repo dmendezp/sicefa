@@ -34,7 +34,9 @@ class VehiculosController extends Controller
         
     }
 
-    
+    public function getVehiclesAdd($marca, $modelo, $anio, $color){
+        
+    }
 
     public function postVehiclesAdd(Request $request)
     {
@@ -115,7 +117,7 @@ class VehiculosController extends Controller
             }
         
             endif;
-        return view('hangarauto::admin.drivers');
+        return view('hangarauto::admin.vehiculos');
     }
 
 
@@ -176,8 +178,7 @@ public function getVehiclesDelete($id)
     {
         $vehicle = Vehicle::find($id);
         if($vehicle->delete()):
-             return redirect(route('parking.admin.vehicles'))->with('messages', 'Vehiculo eliminado exitosamente')->with('typealert','success');
-         
+             return redirect(route('cefa.parking.admin.vehicles.delete'))->with('messages', 'Vehiculo eliminado exitosamente')->with('typealert','success');
      endif;
     }
 }

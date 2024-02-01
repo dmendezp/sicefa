@@ -17,7 +17,9 @@
                 <div class="card-header bg-warning">
                     <h5>{{ trans('hangarauto::Vehiculos.cefa_vehicles') }}</h5>
                 </div><br>
-                <a href="">Crear</a>
+                <a href="{{ route('cefa.parking.admin.vehicles.create')}}">
+                    <button type="button" class="btn btn-primary">Agregar Vehiculo</button>
+                </a><br><br>
                 <div class="card">
                     <div class="card-body">
                         <table id="Travel" class="table table-striped table-bordered" style="width:100%">
@@ -36,16 +38,16 @@
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$t->name}}</td>
-                                        <td>{{$t->referece}}</td>
+                                        <td>{{$t->reference}}</td>
                                         <td>{{$t->status}}</td>
                                         <td>{{$t->license}}</td>
                                         <td>{{$t->fuel_level}}</td>
                                         <td>
-                                            <img src="{{ asset('/public/modules/HANGARAUTO/img/rastrilladora.jpg'.$t->file_path.$t->image) }}" width="120">
+                                            {{$t->image}}
                                         </td>
                                         <td>
-                                            <a href="{{ route('parking.amdin.vehicles.edit',$t) }}" type="button"><i class="fas fa-edit"></i></a>
-                                            <a class="btn-delete" href="{{ route('parking.admin.vehicles.delete',$t) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                            <a href="{{ route('cefa.parking.admin.vehicles.edit',$t) }}" type="button"><i class="fas fa-edit"></i></a>
+                                            <a class="btn-delete" href="{{ route('cefa.parking.admin.vehicles.delete',$t) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td>
