@@ -18,6 +18,7 @@ class TransportationAssistancesController extends Controller
     public function index()
     {
         $rutas = RouteTransportation::get();
+    
         $results = DB::table('transportation_assistances')
             ->select(
                 'people.first_name',
@@ -40,44 +41,52 @@ class TransportationAssistancesController extends Controller
             ->join('postulations', 'postulations_benefits.postulation_id', '=', 'postulations.id')
             ->join('convocations', 'postulations.convocation_id', '=', 'convocations.id')
             ->join('quarters', 'convocations.quarter_id', '=', 'quarters.id')
+            ->whereNull('people.deleted_at')
+            ->whereNull('courses.deleted_at')
+            ->whereNull('programs.deleted_at')
+            ->whereNull('postulations_benefits.deleted_at')
+            ->whereNull('postulations.deleted_at')
+            ->whereNull('convocations.deleted_at')
+            ->whereNull('quarters.deleted_at')
             ->whereDate('quarters.start_date', '<=', now())
             ->whereDate('quarters.end_date', '>=', now())
             ->get();
-
+    
         return view('bienestar::transportation_assistance_list', compact('rutas', 'results'));
     }
-
+    
     //Funciones de la vista route-assistance
     public function indexasistances()
-    {
-        $resultados = DB::table('transportation_assistances')
-            ->join('apprentices', 'transportation_assistances.apprentice_id', '=', 'apprentices.id')
-            ->join('people', 'apprentices.person_id', '=', 'people.id')
-            ->join('assing_transport_routes', 'transportation_assistances.assing_transport_route_id', '=', 'assing_transport_routes.id')
-            ->join('routes_transportations', 'assing_transport_routes.route_transportation_id', '=', 'routes_transportations.id')
-            ->join('bus_drivers', 'transportation_assistances.bus_driver_id', '=', 'bus_drivers.id')
-            ->join('buses', 'transportation_assistances.bus_id', '=', 'buses.id')
-            ->select(
-                'transportation_assistances.apprentice_id',
-                'people.document_number',
-                'people.first_name',
-                'people.first_last_name',
-                'people.second_last_name',
-                'transportation_assistances.assing_transport_route_id',
-                'routes_transportations.route_number',
-                'routes_transportations.name_route',
-                'transportation_assistances.bus_driver_id',
-                'bus_drivers.name',
-                'transportation_assistances.bus_id',
-                'buses.plate',
-                'transportation_assistances.date_time'
-            )
-            ->whereDate('transportation_assistances.date_time', now()->toDateString())
-            ->get();
+{
+    $resultados = DB::table('transportation_assistances')
+        ->join('apprentices', 'transportation_assistances.apprentice_id', '=', 'apprentices.id')
+        ->join('people', 'apprentices.person_id', '=', 'people.id')
+        ->join('assing_transport_routes', 'transportation_assistances.assing_transport_route_id', '=', 'assing_transport_routes.id')
+        ->join('routes_transportations', 'assing_transport_routes.route_transportation_id', '=', 'routes_transportations.id')
+        ->join('bus_drivers', 'transportation_assistances.bus_driver_id', '=', 'bus_drivers.id')
+        ->join('buses', 'transportation_assistances.bus_id', '=', 'buses.id')
+        ->select(
+            'transportation_assistances.apprentice_id',
+            'people.document_number',
+            'people.first_name',
+            'people.first_last_name',
+            'people.second_last_name',
+            'transportation_assistances.assing_transport_route_id',
+            'routes_transportations.route_number',
+            'routes_transportations.name_route',
+            'transportation_assistances.bus_driver_id',
+            'bus_drivers.name',
+            'transportation_assistances.bus_id',
+            'buses.plate',
+            'transportation_assistances.date_time'
+        )
+        ->whereDate('transportation_assistances.date_time', now()->toDateString())
+        ->whereNull('transportation_assistances.deleted_at') // Agrega esta línea para verificar que no estén eliminadas lógicamente
+        ->get();
 
+    return view('bienestar::route-attendance.transportation-assistance', compact('resultados'));
+}
 
-        return view('bienestar::route-attendance.transportation-assistance', compact('resultados'));
-    }
 
     public function searchapprentice(Request $request)
     {

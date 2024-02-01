@@ -130,13 +130,13 @@ class PostulationsController extends Controller
     
         return view('bienestar::question_postulation.allquestion', compact('questions', 'answers'));
     }
-    
+
     public function savepostulation(Request $request)
     {
         // Validar si ya existe una postulación con el mismo documento
         $existingPostulation = Postulation::where('apprentice_id', $request->input('apprentice_id'))
-            ->where('convocation_id', $request->input('convocation_id'))
-            ->first();
+        ->where('convocation_id', $request->input('convocation_id'))
+        ->first();
 
         if ($existingPostulation) {
             // Ya existe una postulación con el mismo documento, puedes manejar esto según tus necesidades
@@ -150,6 +150,7 @@ class PostulationsController extends Controller
         $postulation->feed_benefit = $request->input('food') ?? 0;
         $postulation->transportation_benefit = $request->input('transport') ?? 0;
         $postulation->save();
+
 
         // Obtener las respuestas del formulario
         $answers = $request->input('answer', []);
@@ -181,5 +182,6 @@ class PostulationsController extends Controller
 
         // Redireccionar a la vista de edición o a donde desees después de guardar
         return response()->json(['success' => 'Postulación exitosa!']);
+        
     }
 }

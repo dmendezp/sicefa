@@ -1,4 +1,3 @@
-
 @php
 $role_name = getRoleRouteName(Route::currentRouteName());
 @endphp
@@ -197,7 +196,7 @@ $role_name = getRoleRouteName(Route::currentRouteName());
                                                                                 $imageName = pathinfo($file->file_path, PATHINFO_FILENAME);
                                                                                 $iconPath = asset('modules/bienestar/icons/' . $extension . '.svg');
                                                                                 $truncatedName = (strlen($imageName) > 20) ? substr($imageName, 0, 20) . '...' : $imageName;
-                                                                                $filePath = asset('/storage/' . $file->file_path);
+                                                                                $filePath = asset($file->file_path);
                                                                             @endphp
 
                                                                             <!-- Icono -->
