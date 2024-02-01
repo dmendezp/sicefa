@@ -9,7 +9,13 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Modules\EVS\Entities\Jury;
 use Modules\EVS\Entities\Authorized;
 use App\Models\User;
+use Modules\HDC\Entities\FamilyPersonFootprint;
 use Modules\SICA\Entities\Event;
+use Modules\SIGAC\Entities\Attendance;
+use Modules\AGROINDUSTRIA\Entities\Formulation;
+use Modules\AGROINDUSTRIA\Entities\RequestExternal;
+use Modules\AGROCEFA\Entities\Executor;
+
 
 class Person extends Model implements Auditable
 {
@@ -93,8 +99,14 @@ class Person extends Model implements Auditable
     }
 
     // RELACIONES
+    public function academic_programmings(){ // Accede a todos los registros de programaciones academicas asociadas a este persona designada como instructor
+        return $this->hasMany(AcademicProgramming::class, 'instructor_id');
+    }
     public function apprentices(){ // Accede a todos aprendices que han sido asociados con esta persona
         return $this->hasMany(Apprentice::class);
+    }
+    public function attendances(){ // Accede a todos aprendices que han sido asociados con esta persona
+        return $this->hasMany(Attendance::class);
     }
     public function authorizeds(){ // Accede a todas los registros de las personas que han sido autorizados para votar
         return $this->hasMany(Authorized::class);
@@ -117,8 +129,17 @@ class Person extends Model implements Auditable
     public function events(){ // Accede a todos los eventos que ha asistido esta persona (PIVOTE)
         return $this->belongsToMany(Event::class, 'event_attendances')->withTimestamps();
     }
+    public function executors(){
+        return $this->hasMany(Executor::class,);
+    }
     public function farms(){ // Accede a todas las granjas que lidera esta persona
         return $this->hasMany(Farm::class);
+    }
+    public function familypersonfootprints(){ // Accede a todas las familias que consumen este recuerso
+        return $this->hasMany(FamilyPersonFootprint::class);
+    }
+    public function formulations(){ // Accede a todos los registros de formulaciones que tiene esta persona.
+        return $this->hasMany(Formulation::class);
     }
     public function inventories(){ // Accede a todos los registros de inventarios que estan a cargo de esta persona
         return $this->hasMany(Inventory::class);
@@ -144,9 +165,13 @@ class Person extends Model implements Auditable
     public function productive_units(){ // Accede a todas las unidades productivas que lidera esta persona
         return $this->hasMany(ProductiveUnit::class);
     }
+    public function request_externals(){ // Accede a todas las solicitudes externas que le pertenecen esta persona
+        return $this->hasMany(RequestExternal::class);
+    }
     public function users(){ // Accede a todos los usuarios registrados con esta persona
         return $this->hasMany(User::class);
     }
+    
 
 
     // Configuración de factory para la generación de datos de pruebas

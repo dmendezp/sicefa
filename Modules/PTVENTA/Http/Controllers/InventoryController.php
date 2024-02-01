@@ -8,6 +8,8 @@ use Illuminate\Support\Carbon;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementType;
+use Modules\SICA\Entities\Element;
+use Modules\SICA\Entities\KindOfPurchase;
 use TCPDF;
 
 class InventoryController extends Controller
@@ -198,7 +200,6 @@ class InventoryController extends Controller
     // Método para mostrar la vista del formulario de entradas de inventario
     public function showInventoryEntriesForm(){
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_show_entries_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_show_entries_title_view')];
-
         // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
         $start_date = request()->input('start_date', now()->format('Y-m-d'));
         $end_date = request()->input('end_date', now()->format('Y-m-d'));
@@ -343,7 +344,6 @@ class InventoryController extends Controller
     // Método para mostrar la vista del formulario de ventas
     public function showSalesForm(){
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_sales_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_sales_title_view')];
-
         // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
         $start_date = request()->input('start_date', now()->format('Y-m-d'));
         $end_date = request()->input('end_date', now()->format('Y-m-d'));
@@ -495,5 +495,82 @@ class InventoryController extends Controller
 
         // Generar el PDF y devolverlo para su descarga
         $pdf->Output('reporte_ventas.pdf', 'I');
+    }
+
+    // Método para generar el reporte PDF de productos actual
+    public function generateProductsPDF(Request $request)
+    {
+        $kind_of_purchases = KindOfPurchase::where('name', '=', 'Producción de centro')->pluck('id');
+
+        $products = Element::where('kind_of_purchase_id', $kind_of_purchases)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+
+        $puw = PUW::getAppPuw();
+
+        $groupedProducts = collect(); // Nueva colección para almacenar el resultado
+        $groups = [];
+
+        foreach ($products as $product) {
+            $categoryId = $product->category->id;
+
+            if (array_key_exists($categoryId, $groups)) {
+                $groups[$categoryId]->push($product);
+            } else {
+                $groups[$categoryId] = collect([$product]);
+            }
+        }
+
+        foreach ($groups as $group) {
+            $groupedProducts->push($group);
+        }
+
+        $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+        $title = 'Reporte de Productos - ' . date('Y-m-d');
+        $pdf->SetTitle($title);
+        $pdf->SetFont('helvetica', '', 10);
+        $pdf->AddPage();
+        $pdf->SetY(15);
+        $header = 'Centro de Formación Agroindustrial "La Angostura" | Campoalegre - Huila';
+        $pdf->Cell(0, 0, $header, 0, 1, 'C');
+
+        $html = '<h4 style="text-align: center;"><strong>Bodega:</strong> ' . $puw->warehouse->name . ' - <strong>Unidad Productiva:</strong> ' . $puw->productive_unit->name . '</h4>';
+        $html .= '<h3 style="text-align: center;">' . $title . '</h3>';
+        $html .= '<table style="border-collapse: collapse; width: 100%;">';
+        $html .= '<thead style="background-color: #f2f2f2;">';
+        $html .= '<tr>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 130px;"><b>Categoria</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 150px;"><b>Producto</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 110px;"><b>Unidad Medida</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 120px;"><b>Precio</b></th>';
+        $html .= '</tr>';
+        $html .= '</thead>';
+        $html .= '<tbody>';
+
+        foreach ($groupedProducts as $key => $group) {
+            $firstRecord = $group->first();
+            $rowspan = $group->count();
+            $html .= '<tr>';
+            $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 130px;">' . $firstRecord->category->name . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 150px;">' . $firstRecord->name . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 110px;">' . $firstRecord->measurement_unit->name . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: right; padding: 8px; width: 120px;">'.'$' . number_format($firstRecord->price, 0, '.', ',') . '</td>';
+            $html .= '</tr>';
+            foreach ($group->slice(1) as $record) {
+                $html .= '<tr>';
+                $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . $record->name . '</td>';
+                $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . $record->measurement_unit->name . '</td>';
+                $html .= '<td style="border: 1px solid #dddddd; text-align: right; padding: 8px;">' .'$'. number_format($firstRecord->price, 0, '.', ',') . '</td>';
+                $html .= '</tr>';
+            }
+        }
+
+        $html .= '</tbody>';
+        $html .= '</table>';
+
+        $pdf->writeHTML($html, true, false, true, false, '');
+
+        $filename = 'reporte_productos_' . date('Ymd') . '.pdf';
+        $pdf->Output($filename, 'I');
     }
 }

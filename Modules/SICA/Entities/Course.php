@@ -10,6 +10,8 @@ use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Apprentice;
 use Modules\senaempresa\Entities\vacancy;
 use Modules\senaempresa\Entities\senaempresa;
+use Modules\AGROINDUSTRIA\Entities\RequestExternal;
+
 
 class Course extends Model implements Auditable
 {
@@ -40,11 +42,17 @@ class Course extends Model implements Auditable
     }
 
     // RELACIONES
+    public function academic_programmings(){ // Accede a todos los registros de programaciones academicas asociadas a este curso
+        return $this->hasMany(AcademicProgramming::class);
+    }
     public function apprentices(){ // Accede a todos los aprendices de este curso formativo
         return $this->hasMany(Apprentice::class);
     }
     public function program(){ // Accede al programa de formación al que pertenece
         return $this->belongsTo(Program::class);
+    }
+    public function requestexternals(){ // Accede a la información de los elementos usados en la Formula.
+        return $this->hasMany(RequestExternal::class);
     }
 
     // Configuración de factory para la generación de datos de pruebas

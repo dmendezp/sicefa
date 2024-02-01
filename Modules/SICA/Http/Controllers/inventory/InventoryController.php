@@ -42,11 +42,13 @@ class InventoryController extends Controller
         }
         // Realizar registro
         if (Warehouse::create($request->all())){
-            $message = ['message'=>'Se registró exitosamente la bodega.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo realizar el registro de la bodega.', 'typealert'=>'danger'];
+            $icon = 'success';
+            $message_warehouse = trans('sica::menu.Warehouse successfully added');
+        }else{
+            $icon = 'error';
+            $message_warehouse = trans('sica::menu.Could not add Warehouse');
         }
-        return redirect(route('sica.admin.inventory.warehouse.index'))->with($message);
+        return redirect(route('sica.admin.inventory.warehouse.index'))->with(['icon'=>$icon, 'message_warehouse'=>$message_warehouse]);
     }
 
     /* Ver bodega a actualizar */
@@ -69,21 +71,33 @@ class InventoryController extends Controller
         }
         // Actualizar registro
         if ($warehouse->update($request->all())){
-            $message = ['message'=>'Se actualizó exitosamente la bodega.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo realizar la actualización de la bodega.', 'typealert'=>'danger'];
+            $icon = 'success';
+            $message_warehouse = trans('sica::menu.Warehouse successfully updated');
+        }else{
+            $icon = 'error';
+            $message_warehouse = trans('sica::menu.Failed to update Warehouse');
         }
-        return redirect(route('sica.admin.inventory.warehouse.index'))->with($message);
+        return redirect(route('sica.admin.inventory.warehouse.index'))->with(['icon'=>$icon, 'message_warehouse'=>$message_warehouse]);
+    }
+
+     /* Formulario de eliminación de bodega */
+     public function warehouse_delete($id){
+        $warehouse = Warehouse::find($id);
+        $data = [ 'title' => 'Eliminar Bodega', 'warehouse' => $warehouse];
+        return view('sica::admin.inventory.warehouses.delete', $data);
     }
 
     /* Eliminar bodega */
-    public function warehouse_destroy(Warehouse $warehouse){
-        if ($warehouse->delete()){
-            $message = ['message'=>'Se eliminó exitosamente la bodega.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo eliminar la bodega.', 'typealert'=>'danger'];
+    public function warehouse_destroy(Request $request){
+        $warehouse = Warehouse::findOrFail($request->input('id'));
+        if($warehouse->delete()){
+            $icon = 'success';
+            $message_warehouse = trans('sica::menu.Warehouse successfully removed');
+        }else{
+            $icon = 'error';
+            $message_warehouse = trans('sica::menu.Could not delete Warehouse');
         }
-        return redirect(route('sica.admin.inventory.warehouse.index'))->with($message);
+        return redirect()->back()->with(['icon'=>$icon, 'message_warehouse'=>$message_warehouse]);
     }
 
     /* Inicio de funciones de elementos */

@@ -63,6 +63,9 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             // Reportes de bajas
             Route::get('admin/low/show/{movement}', 'showLow')->name('ptventa.admin.movements.low.show'); // Ver detalle de baja (Administrador)
             Route::get('cashier/low/show/{movement}', 'showLow')->name('ptventa.cashier.movements.low.show'); // Ver detalle de baja (Cajero)
+            // Reportes de Productos
+            Route::get('admin/reports/products/generatepdf', 'generateProductsPDF')->name('ptventa.admin.reports.products.generate.pdf'); // Generar PDF de productos actual (Administrador)
+            Route::get('cashier/reports/products/generatepdf', 'generateProductsPDF')->name('ptventa.cashier.reports.products.generate.pdf'); // Generar PDF de productos actual (Cajero)
         });
 
         // Rutas para Ventas

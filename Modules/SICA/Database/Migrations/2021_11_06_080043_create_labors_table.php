@@ -20,6 +20,7 @@ class CreateLaborsTable extends Migration
             $table->dateTime('planning_date');
             $table->dateTime('execution_date');
             $table->text('description');
+            $table->integer('price');
             $table->enum('status',['Programado','Realizado','Cancelado']);
             $table->text('observations');
             $table->enum('destination',['Producción','Formación']);

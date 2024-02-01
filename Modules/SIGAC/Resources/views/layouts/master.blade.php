@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-
-<html lang="en">
-{{-- Seccion del head --}}
-@include('sigac::layouts.partials.head')
-{{-- Seccion de estilos personalizados --}}
-@section('stylesheet')
-@show
-
-<body class="hold-transition sidebar-mini">
+<html lang="es">
+    <head>
+        @include('sigac::layouts.partials.head')
+        @stack('head')
+    </head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
     <div class="wrapper">
 
         <!-- Navbar -->
@@ -24,7 +21,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            @stack('title')
+                            <h1 class="m-0">{{ $view['titleView'] }}</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -57,7 +54,7 @@
 
     <!-- REQUIRED SCRIPTS -->
     @include('sigac::layouts.partials.scripts')
-    @section('scripts') @show
+    @stack('scripts')
 
 </body>
 

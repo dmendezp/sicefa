@@ -3,6 +3,8 @@
 return [
 	'Home' => 'Inicio',
 	'Administrator' => 'Administrador',
+	'Application' => 'Aplicación',
+	'academic_coordinator' => 'Coordinador académico',
 	'Attendance' => 'Asistencia',
 	'Contact' => 'Contacto',
 	'Notifications' => 'Notificaciones',
@@ -12,6 +14,9 @@ return [
 	'mins' => 'min',
 	'days' => 'dias',
 	'Welcome' => 'Bienvenido',
+	'admin_dashboard' => 'Panel de administración',
+	'academic_coordinator_dashboard' => 'Panel de coordinación académica',
+	'attendance_dashboard' => 'Panel de asistencias',
 	'Dashboard' => 'Panel de control',
 	'People' => 'Personas',
 	'Personal data' => 'Datos Personales',
@@ -61,7 +66,9 @@ return [
 
 	/* Generales de tablas */
 	'Name' => 'Nombre',
+	'Description' => 'Descripción',
 	'Actions' => 'Acciones',
+	'Date' => 'Fecha',
 
 	/* Lineas */
 	'Lines' => 'Líneas',
@@ -89,6 +96,34 @@ return [
 	'Failed to update Knowledge Network' => 'No se pudo actualizar la red de conocimiento',
 	'Knowledge Network successfully removed' => 'Red de conocimiento eliminada exitosamente',
 	'Could not delete Knowledge Network' => 'No se pudo eliminar la red de conocimiento',
+
+	/* Festivos */
+	'Holidays' => 'Festivos',
+	'Issue' => 'Asunto',
+	'Holiday Registration' => 'Registro Festivo',
+	'Add Holiday' => 'Agregar Festivo',
+	'Update Holiday' => 'Actualizar Festivo',
+	'Do you want to delete the following area?' => '¿Desea eliminar el siguiente Festivo?',
+	'Holiday successfully added' => 'Festivo agregada exitosamente',
+	'Could not add Holiday' => 'No se pudo agregar el Festivo',
+	'Holiday successfully updated' => 'Festivo actualizado exitosamente',
+	'Failed to update Holiday' => 'No se pudo actualizar el Festivo',
+	'Holiday successfully removed' => 'Festivo eliminado exitosamente',
+	'Could not delete Holiday' => 'No se pudo eliminar el Festivo',
+
+	/* Trimestre */
+	'Quarters' => 'Trimestres',
+	'Quarter' => 'Trimestre',
+	'Quarter Registration' => 'Registro Trimestre',
+	'Add Quarter' => 'Agregar Trimestre',
+	'Update Quarter' => 'Actualizar Trimestre',
+	'Do you want to delete the following Quarter?' => '¿Desea eliminar el siguiente Trimestre?',
+	'Quarter successfully added' => 'Trimestre agregada exitosamente',
+	'Could not add Quarter' => 'No se pudo agregar el Trimestre',
+	'Quarter successfully updated' => 'Trimestre actualizado exitosamente',
+	'Failed to update Quarter' => 'No se pudo actualizar el Trimestre',
+	'Quarter successfully removed' => 'Trimestre eliminado exitosamente',
+	'Could not delete Quarter' => 'No se pudo eliminar el Trimestre',
 
 	/* Programas de formación */
 	'Programs' => 'Programas',
@@ -124,4 +159,81 @@ return [
 	'Could not update the Course' => 'No se pudo actualizar la titulada',
 	'Course successfully removed' => 'Titulada eliminada exitosamente',
 	'Could not remove the Course' => 'No se pudo eliminar la titulada',
+
+	/* Areas */
+	'Areas' => 'Areas',
+	'Sector' => 'Sector',
+	'Area Registration' => 'Registro Area',
+	'Add Area' => 'Agregar Area',
+	'Update Area' => 'Actualizar Area',
+	'Do you want to delete the following Area?' => '¿Desea eliminar la siguiente area?',
+	'Area successfully added' => 'Area agregada exitosamente',
+	'Could not add Area' => 'No se pudo agregar el area',
+	'Area successfully updated' => 'Area actualizado exitosamente',
+	'Failed to update Area' => 'No se pudo actualizar el area',
+	'Area successfully removed' => 'Area eliminado exitosamente',
+	'Could not delete Area' => 'No se pudo eliminar el area',
+
+	/* Unidades Productivas */
+	'Productive Units' => 'Unidades Productivas',
+	'Productive Unit' => 'Unidad Productiva',
+	'Productive Unit Registration' => 'Registro unidad productiva',
+	'Add Productive Unit' => 'Agregar unidad productiva',
+	'Update Productive Unit' => 'Actualizar unidad productiva',
+	'Do you want to delete the following Productive Unit?' => '¿Desea eliminar la siguiente unidad productiva?',
+	'Productive Unit successfully added' => 'unidad productiva agregada exitosamente',
+	'Could not add Productive Unit' => 'No se pudo agregar el unidad productiva',
+	'Productive Unit successfully updated' => 'unidad productiva actualizado exitosamente',
+	'Failed to update Productive Unit' => 'No se pudo actualizar la unidad productiva',
+	'Productive Unit successfully removed' => 'unidad productiva eliminada exitosamente',
+	'Could not delete Productive Unit' => 'No se pudo eliminar la unidad productiva',
+
+	/* Actividades */
+	'Activities' => 'Actividades',
+	'Activity' => 'Actividad',
+	'Activity Registration' => 'Registro Actividad',
+	'Add Activity' => 'Agregar Actividad',
+	'Update Activity' => 'Actualizar Actividad',
+	'Do you want to delete the following Activity?' => '¿Desea eliminar la siguiente Actividad?',
+	'Activity successfully added' => 'Actividad agregada exitosamente',
+	'Could not add Activity' => 'No se pudo agregar la Actividad',
+	'Activity successfully updated' => 'Actividad actualizado exitosamente',
+	'Failed to update Activity' => 'No se pudo actualizar la Actividad',
+	'Activity successfully removed' => 'Actividad eliminado exitosamente',
+	'Could not delete Activity' => 'No se pudo eliminar la Actividad',
+
+	/* Bodegas  */
+	'Warehouses' => 'Bodegas',
+	'Warehouse' => 'Bodega',
+	'Warehouse Registration' => 'Registrar bodega',
+	'Add Warehouse' => 'Agregar bodega',
+	'Update Warehouse' => 'Actualizar bodega',
+	'Do you want to delete the following Warehouse?' => '¿Desea eliminar la siguiente bodega?',
+	'Warehouse successfully added' => 'bodega agregada exitosamente',
+	'Could not add Warehouse' => 'No se pudo agregar la bodega',
+	'Warehouse successfully updated' => 'bodega actualizado exitosamente',
+	'Failed to update Warehouse' => 'No se pudo actualizar la bodega',
+	'Warehouse successfully removed' => 'bodega eliminado exitosamente',
+	'Could not delete Warehouse' => 'No se pudo eliminar la bodega',
+
+	/* Elementos  */
+	'Elements' => 'Elementos',
+	'Element' => 'Elemento',
+	'Unit' => 'Unidad',
+	'Line' => 'Linea',
+	'Category' => 'Categoria',
+	'Lines' => 'Lineas',
+	'Categories' => 'Categorias',
+	'Element Registration' => 'Registrar elemento',
+	'Add Element' => 'Agregar elemento',
+	'Update Element' => 'Actualizar elemento',
+	'Do you want to delete the following Element?' => '¿Desea eliminar la siguiente elemento?',
+	'Element successfully added' => 'elemento agregada exitosamente',
+	'Could not add Element' => 'No se pudo agregar la elemento',
+	'Element successfully updated' => 'elemento actualizado exitosamente',
+	'Failed to update Element' => 'No se pudo actualizar la elemento',
+	'Element successfully removed' => 'elemento eliminado exitosamente',
+	'Could not delete Element' => 'No se pudo eliminar la elemento',
+
+	
 ];

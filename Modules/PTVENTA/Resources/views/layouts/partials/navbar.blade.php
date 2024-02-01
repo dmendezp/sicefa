@@ -106,5 +106,12 @@
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
+
+        <li class="nav-item mx-1">
+            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ trans('ptventa::general.Apps') }}">
+                <i class="fa-solid fa-shapes"></i>
+            </a>
+        </li>
     </ul>
 </nav>

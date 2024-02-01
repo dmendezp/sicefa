@@ -9,28 +9,32 @@
             <div class="d-flex justify-content-center">
                 <div class="card card-orange card-outline shadow col-md-12">
                     <div class="card-header">
-                        <h3 class="card-title">Elementos</h3>
+                        <h3 class="card-title">{{trans('sica::menu.Elements')}}</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <div class="btns">
-                            <a href="{{ route('sica.admin.inventory.elements.create') }}" class="btn btn-primary "><i
-                                    class="fas fa-user-plus"></i> Agregar Elemento</a>
-                            <a href="" class="btn btn-info float-right ml-1"> Categorias</a>
-                            <a href="" class="btn btn-info float-right ml-1"> Lineas</a>
+                            <a href="" class="btn btn-info float-right ml-1"> {{trans('sica::menu.Categories')}}</a>
+                            <a href="" class="btn btn-info float-right ml-1"> {{trans('sica::menu.Lines')}}</a>
 
                         </div>
                         <div class="mtop16">
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
-                                        <th>Nombre</th>
-                                        <th>Unidad</th>
-                                        <th>Descripción</th>
-                                        <th>Linea</th>
-                                        <th>Categoria</th>
-                                        <th>Acciones</th>
+                                        <th>#</th>
+                                        <th>{{trans('sica::menu.Name')}}</th>
+                                        <th>{{trans('sica::menu.Unit')}}</th>
+                                        <th>{{trans('sica::menu.Description')}}</th>
+                                        <th>{{trans('sica::menu.Line')}}</th>
+                                        <th>{{trans('sica::menu.Category')}}</th>
+                                        <th>{{trans('sica::menu.Actions')}}
+                                            <a class="mx-3" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.elements.create') }}')">
+                                                <b class="text-success" data-toggle="tooltip" data-placement="top" title="Registrar Elementos">
+                                                    <i class="fas fa-plus-circle"></i>
+                                                </b>
+                                            </a>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -44,15 +48,19 @@
                                             <td>{{ $e->category->name }}</td>
                                             <td>
                                                 <div class="opts">
-                                                  <a data-path="admin/role" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.elements.show', $e) }}')">
+                                                  <a id="actions" data-path="admin/role" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.elements.show', $e) }}')">
                                                     <b class="text-primary" data-toggle="tooltip" data-placement="top" title="Ver">
-                                                        <i class="fas fa-eye"></i>
+                                                        <i class="fas fa-eye text-warning"></i>
                                                     </b>
                                                   </a>                                                    
-                                                  <a href="{{ route('sica.admin.inventory.elements.edit', $e) }}" data-path="admin/role"  data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
-                                                  <a data-path="admin/role" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.elements.delete', $e->id) }}')">
-                                                    <b class="text-primary" data-toggle="tooltip" data-placement="top" title="Eliminar">
-                                                        <i class="fas fa-trash-alt"></i>
+                                                  <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.elements.edit', $e) }}')">
+                                                    <b class="text-info" data-toggle="tooltip" data-placement="top" title="Actualizar Elementos">
+                                                        <i class="fas fa-edit"></i>
+                                                    </b>
+                                                </a>
+                                                  <a id="actions" data-path="admin/role" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.elements.delete', $e->id) }}')">
+                                                    <b class="text-primary" data-toggle="tooltip" data-placement="top" title="Elementos">
+                                                        <i class="fas fa-trash-alt text-danger"></i>
                                                     </b>
                                                   </a>
                                                 </div>
@@ -74,7 +82,7 @@
     <!-- General modal -->
     <div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered" role="document">
-            <div class="modal-content" id="modal-content"></div>
+            <div class="modal-content" style="width: 850px; height: 680px" id="modal-content"></div>
         </div>
     </div>
     <div id="loader" style="display: none;"> {{-- Loader modal --}}
