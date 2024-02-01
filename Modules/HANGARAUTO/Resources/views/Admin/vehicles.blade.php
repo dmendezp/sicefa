@@ -1,4 +1,4 @@
-@extends('hangarauto::layout.adminhome')
+@extends('hangarauto::layouts.master')
 
 @push('breadcrumbs')
     <li class="breadcrumb-item active"><a href=""></a>{{ trans('hangarauto::') }}</li>
@@ -17,7 +17,7 @@
                 <div class="card-header bg-warning">
                     Vehiculos Del CEFA
                 </div><br>
-                @include('hangarauto::admin.vehiculos.create')
+                <a href="">Crear</a>
                 <div class="card">
                     <div class="card-body">
                         <table id="Travel" class="table table-striped table-bordered" style="width:100%">
@@ -32,9 +32,9 @@
                                 <th>Editar Info</th>
                             </thead>
                             <tbody>
-                                @foreach (vehicles as $t)
+                                @foreach ($vehicles as $t)
                                     <tr>
-                                        <td>{{loop->iteration}}</td>
+                                        <td>{{$loop->iteration}}</td>
                                         <td>{{$t->name}}</td>
                                         <td>{{$t->referece}}</td>
                                         <td>{{$t->status}}</td>
@@ -44,7 +44,7 @@
                                             <img src="{{ asset('/public/modules/HANGARAUTO/img/rastrilladora.jpg'.$t->file_path.$t->image) }}" width="120">
                                         </td>
                                         <td>
-                                            <a href="{{ route('parking.admin.vehicles.edit',$t) }}" type="button"><i class="fas fa-edit"></i></a>
+                                            <a href="{{ route('parking.amdin.vehicles.edit',$t) }}" type="button"><i class="fas fa-edit"></i></a>
                                             <a class="btn-delete" href="{{ route('parking.admin.vehicles.delete',$t) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
