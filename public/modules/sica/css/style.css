@@ -207,3 +207,7 @@
     transform: translateY(-10px);
   }
 }
+
+#actions{
+  margin-right: 3px;
+}

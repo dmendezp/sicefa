@@ -42,6 +42,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($environ as $env)
+                                        <tr>
                                             @php
                                                 $productiveUnitNames = [];
                                             @endphp
@@ -157,6 +158,7 @@
                                                     </a>
                                                 </td>
                                                 <!-- Fin para Editar y Eliminar -->
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>

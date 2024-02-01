@@ -49,6 +49,8 @@ Route::middleware(['lang'])->group(function(){
             Route::get('warehouse/edit/{warehouse}', [InventoryController::class,  'warehouse_edit'])->name('sica.admin.inventory.warehouse.edit'); // Ver bodega a  actualizar (Administrador)
             Route::post('warehouse/update/{warehouse}', [InventoryController::class,  'warehouse_update'])->name('sica.admin.inventory.warehouse.update'); // Actualizar bodega (Administrador)
             Route::get('warehouse/destroy/{warehouse}', [InventoryController::class,  'warehouse_destroy'])->name('sica.admin.inventory.warehouse.destroy'); // Eliminar bodega (Administrador)
+            Route::get('warehouse/delete/{id}', [InventoryController::class, 'warehouse_delete'])->name('sica.admin.inventory.warehouse.delete'); // Formulario de eliminacion de bodega (Administrador)
+            Route::post('warehouse/destroy/', [InventoryController::class, 'warehouse_destroy'])->name('sica.admin.inventory.warehouse.destroy'); // Eliminar bodega (Administrador)
 
             // --------------  Rutas de Elementos ---------------------------------
             Route::get('elements', [InventoryController::class,  'elements'])->name('sica.admin.inventory.elements'); // Lista de bodegas

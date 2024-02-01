@@ -54,11 +54,13 @@ class UnitController extends Controller
         // Realizar registro
         $request->merge(['person_id'=>$request->input('leader_id')]); // Reasignar el valor de leader_id como person_id
         if (ProductiveUnit::create($request->all())){
-            $message = ['message'=>'Se registró exitosamente la unidad productiva.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo realizar el registro de la unidad productiva.', 'typealert'=>'danger'];
+            $icon = 'success';
+            $message_productive_unit = trans('sica::menu.Productive Unit successfully added');
+        }else{
+            $icon = 'error';
+            $message_productive_unit = trans('sica::menu.Could not add Productive Unit');
         }
-        return redirect(route('sica.admin.units.productive_unit.index'))->with($message);
+        return redirect(route('sica.admin.units.productive_unit.index'))->with(['icon'=>$icon, 'message_productive_unit'=>$message_productive_unit]);
     }
 
     /* Consultar unidad productiva para su actualización (Administrador) */
@@ -89,11 +91,13 @@ class UnitController extends Controller
         // Actualizar registro
         $request->merge(['person_id'=>$request->input('leader_id')]); // Reasignar el valor de leader_id como person_id
         if ($productive_unit->update($request->all())){
-            $message = ['message'=>'Se actualizó exitosamente la unidad productiva.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo actualizar el registro de la unidad productiva.', 'typealert'=>'danger'];
+            $icon = 'success';
+            $message_productive_unit = trans('sica::menu.Product Unit successfully updated');
+        }else{
+            $icon = 'error';
+            $message_productive_unit = trans('sica::menu.Failed to update Product Unit');
         }
-        return redirect(route('sica.admin.units.productive_unit.index'))->with($message);
+        return redirect(route('sica.admin.units.productive_unit.index'))->with(['icon'=>$icon, 'message_productive_unit'=>$message_productive_unit]);
     }
 
     /* Formulario de eliminación de unidad productiva */
