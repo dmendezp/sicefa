@@ -1,42 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-@include('senaempresa::layouts.structure.head')
+    @include('senaempresa::layouts.structure.head')
 
-@section('stylesheet')
-@show
+    
+    <body>
+        @csrf
+        <div class="wrapper">
 
-<body class="hold-transition sidebar-mini layout-fixed">
-
-    <div class="wrapper">
         <!-- Navbar -->
         @include('senaempresa::layouts.structure.navbar')
         <!-- /.navbar -->
+
         <!-- Main Sidebar Container -->
         @include('senaempresa::layouts.structure.aside')
+
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            @include('senaempresa::layouts.structure.breadcrumb')
+            <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Starter Page</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Starter Page</li>
+                    </ol>
+                </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+            </div>
             <!-- /.content-header -->
-            <!-- Main content -->
-            @section('content')
-            @show
-            <!-- /.content -->
+
+        @section('content')
+        @show
+
+        <!-- Control Sidebar -->
+
+        <!-- /.control-sidebar -->
+
+       
+
         </div>
-        <!-- /.content-wrapper -->
+
         <!-- Main Footer -->
         @include('senaempresa::layouts.structure.footer')
-    </div>
-    <!-- ./wrapper -->
-    <!-- REQUIRED SCRIPTS -->
-    @include('senaempresa::layouts.structure.scripts')
 
-    @section('scripts')
-    @show
+        @include('senaempresa::layouts.structure.scripts')
 
-    @section('dataTables')
-    @show
+        <!--scripts utilizados para procesos-->
+        @section('scripts')
+        @show
 
-</body>
-
+        @section('dataTables')
+        @show
+       
+    </body>
 </html>

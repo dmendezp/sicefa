@@ -5,15 +5,6 @@ namespace Modules\SENAEMPRESA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Modules\SENAEMPRESA\Entities\PositionCompany;
-use Modules\SENAEMPRESA\Entities\senaempresa;
-use Modules\SICA\Entities\Course;
-use Modules\SENAEMPRESA\Entities\CourseSenaempresa;
-use Modules\SICA\Entities\Quarter;
-use Modules\SENAEMPRESA\Entities\postulate;
-
 
 class SENAEMPRESAController extends Controller
 {
@@ -23,107 +14,66 @@ class SENAEMPRESAController extends Controller
      */
     public function index()
     {
-        $data = ['title' => trans('senaempresa::menu.Home')];
-        return view('senaempresa::index', $data);
+        return view('senaempresa::index');
     }
+
     /**
-     * Display a listing of the resource.
+     * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function Developers()
+    public function create()
     {
-        $data = ['title' => trans('senaempresa::menu.Developers')];
-        return view('senaempresa::Company.developers', $data);
+        return view('senaempresa::create');
     }
 
-    public function Admin()
+    /**
+     * Store a newly created resource in storage.
+     * @param Request $request
+     * @return Renderable
+     */
+    public function store(Request $request)
     {
-        $vacanciesCount = DB::table('vacancies')
-            ->where('state', 'Disponible')
-            ->whereNull('deleted_at')
-            ->count();
-        $prestamosPrestados = DB::table('loans')
-            ->where('state', 'Prestado')
-            ->whereNull('deleted_at')
-            ->count();
-        $postulatesCount = DB::table('postulates')
-            ->whereNull('deleted_at')
-            ->count();
-        $registeredphasesCount = DB::table('senaempresas')
-            ->whereNull('deleted_at')
-            ->count();
-        $registeredStaffCount = DB::table('staff_senaempresas')
-            ->whereNull('deleted_at')
-            ->count();
-
-        $activePositionsCount = PositionCompany::where('state', 'activo')->count();
-        $deletedPositionsCount = PositionCompany::onlyTrashed()->count();
-
-        $totalPositionsCount = $activePositionsCount + $deletedPositionsCount;
-        $data = [
-            'title' => trans('senaempresa::menu.Administrator'), 'totalPositionsCount' => $totalPositionsCount,
-            'registeredStaffCount' => $registeredStaffCount, 'registeredphasesCount' => $registeredphasesCount, 'postulatesCount' => $postulatesCount,
-            'prestamosPrestados' => $prestamosPrestados, 'vacanciesCount' => $vacanciesCount
-        ];
-        return view('senaempresa::Company.admin', $data);
+        //
     }
 
-    public function manual_admin()
+    /**
+     * Show the specified resource.
+     * @param int $id
+     * @return Renderable
+     */
+    public function show($id)
     {
-       $data = ['title' => trans('senaempresa::menu.manual')];
-       return view('senaempresa::Company.manual.manual_admin', $data);
-   }
-    public function human_talent_leader()
-    {
-        $registeredStaffCount = DB::table('staff_senaempresas')
-            ->whereNull('deleted_at')
-            ->count();
-
-        $prestamosPrestados = DB::table('loans')
-            ->where('state', 'Prestado')
-            ->whereNull('deleted_at')
-            ->count();
-        $data = [
-            'title' => trans('senaempresa::menu.Human talent leader'), 'prestamosPrestados' => $prestamosPrestados,
-            'registeredStaffCount' => $registeredStaffCount
-        ];
-        return view('senaempresa::Company.human_talent_leader', $data);
+        return view('senaempresa::show');
     }
 
-    public function manual_human_talent_leader()
+    /**
+     * Show the form for editing the specified resource.
+     * @param int $id
+     * @return Renderable
+     */
+    public function edit($id)
     {
-       $data = ['title' => trans('senaempresa::menu.manual')];
-       return view('senaempresa::Company.manual.manual_human_talent_leader', $data);
-   }
-    public function psychologo()
-    {
-        $postulatesCount = DB::table('postulates')
-            ->whereNull('deleted_at')
-            ->count();
-
-        $data = [
-            'title' => trans('senaempresa::menu.Psychologo'), 'postulatesCount' => $postulatesCount
-        ];
-        return view('senaempresa::Company.psychologo', $data);
+        return view('senaempresa::edit');
     }
-    public function manual_psychologo()
-    {
-       $data = ['title' => trans('senaempresa::menu.manual')];
-       return view('senaempresa::Company.manual.manual_psychologo', $data);
-   }
-    public function Apprentice()
-    {
-        $vacanciesCount = DB::table('vacancies')
-            ->where('state', 'Disponible')
-            ->whereNull('deleted_at')
-            ->count();
-        $data = ['title' => trans('senaempresa::menu.Apprentice'), 'vacanciesCount' => $vacanciesCount];
-        return view('senaempresa::Company.apprentice', $data);
-    }
-    public function manual_apprentice()
-    {
-       $data = ['title' => trans('senaempresa::menu.manual')];
-       return view('senaempresa::Company.manual.manual_apprentice', $data);
-   }
 
+    /**
+     * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return Renderable
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     * @param int $id
+     * @return Renderable
+     */
+    public function destroy($id)
+    {
+        //
+    }
 }

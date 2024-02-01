@@ -16,10 +16,7 @@ class CreateAsistenciasTable extends Migration
     {
         Schema::create('asistencias', function (Blueprint $table) {
             $table->id();
-            //$table->date('date');
-            $table->text('title');
-            $table->dateTime('start');
-            $table->dateTime('end');
+            $table->date('date');
             $table->boolean('guardado')->nullable();
             $table->timestamps();
             $table->softDeletes();  

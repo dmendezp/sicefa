@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Apprentice;
-use Modules\senaempresa\Entities\vacancy;
-use Modules\senaempresa\Entities\senaempresa;
 use Modules\AGROINDUSTRIA\Entities\RequestExternal;
 
 
@@ -59,16 +57,6 @@ class Course extends Model implements Auditable
     protected static function newFactory()
     {
         return \Modules\SICA\Database\factories\CourseFactory::new();
-    }
-
-    public function vacancy()
-    { //Accede a los vacantes disponibles
-        return $this->belongsToMany(Vacancy::class);
-    }
-
-    public function senaempresa()
-    { //Accede a senaempresa registrados
-        return $this->belongsToMany(senaempresa::class);
     }
 
 }
