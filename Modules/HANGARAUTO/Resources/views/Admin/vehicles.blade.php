@@ -1,7 +1,7 @@
 @extends('hangarauto::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active"><a href=""></a>{{ trans('hangarauto::') }}</li>
+    <li class="breadcrumb-item active"><a href=""></a>{{ trans('hangarauto::Vehiculos.Vehicles') }}</li>
 @endpush
 
 @section('css')
@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col pt-4">
                 <div class="card-header bg-warning">
-                    Vehiculos Del CEFA
+                    <h5>{{ trans('hangarauto::Vehiculos.cefa_vehicles') }}</h5>
                 </div><br>
                 <a href="">Crear</a>
                 <div class="card">
