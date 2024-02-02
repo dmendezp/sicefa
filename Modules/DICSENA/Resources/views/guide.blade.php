@@ -14,28 +14,30 @@
                         <i class="fas fa-globe"></i> DICSENA
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                        <a href="{{ route('cefa.welcome') }}" class="dropdown-item">Volver a SICEFA</a>
+                        <a href="{{ route('cefa.welcome') }}" class="dropdown-item">Return to SICEFA</a>
                     </div>
                 </li>
             </ul>
 
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cefa.dicsena.home.index') }}" style="color: white;">Traductor</a>
+                    <a class="nav-link" href="{{ route('cefa.dicsena.home.index') }}" style="color: white;">Translator</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cefa.dicsena.guide')}}" style="color: white;">Guia</a>
+                    <a class="nav-link" href="{{ route('cefa.dicsena.guide')}}" style="color: white;">Guide</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cefa.dicsena.gloss')}}" style="color: white;">Glosario</a>
+                    <a class="nav-link" href="{{ route('cefa.dicsena.gloss')}}" style="color: white;">Glossary</a>
                 </li>
             </ul>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('cefa.dicsena.aprendiz') }}" data-toggle="tooltip" data-placement="top" data-title="¿Necesitas ayuda en el uso?" data-color="#ffffff" style="color: white;">
-                    <i class="fas fa-book-open"></i> Ayuda
-                </a>
-            </li>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('cefa.dicsena.aprendiz') }}" data-toggle="tooltip" data-placement="top" data-title="¿Necesitas ayuda en el uso?" data-color="#ffffff" style="color: white;">
+                        <i class="fas fa-book-open"></i> Help
+                    </a>
+                </li>
+            </ul>
 
             <ul class="navbar-nav ml-auto">
                 @if(Auth::user())
@@ -55,7 +57,7 @@
         <div class="col-md-6 ">
             <form action="{{ route('cefa.dicsena.guide') }}" method="get">
                 <div class="form-group">
-                    <label for="program_name" style="text-align: center;">Selecciona un programa:</label>
+                    <label for="program_name" style="text-align: center;">Select a program:</label>
                     <select name="program_name" id="program_name" class="form-control program-filter" style="border: blue solid 1px;">
                         <option value=""> ------</option>
                         @foreach ($programs as $program)
@@ -66,7 +68,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit">Filtrar</button>
+                    <button class="btn btn-primary" type="submit">Filtrer</button>
                 </div>
             </form>
         </div>

@@ -8,9 +8,9 @@
 </nav>
 
 <div class="container">
-    <h1 align="center">Glosarios</h1>
+    <h1 align="center">Guidepost</h1>
     <div class="d-flex align-items-center mb-3">
-        <a href="{{ route('dicsena.instructor.guidepost.create') }}" class="btn btn-primary">Crear Guia</a>
+        <a href="{{ route('dicsena.instructor.guidepost.create') }}" class="btn btn-primary">Create Guide</a>
         @if (session('success'))
         <div class="alert alert-success ml-3">
             {{ session('success') }}
@@ -43,7 +43,7 @@
                         <form action="{{ route('dicsena.instructor.guidepost.destroy', $guidepost->id) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta guia?')">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure to delete this guide?')">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </form>

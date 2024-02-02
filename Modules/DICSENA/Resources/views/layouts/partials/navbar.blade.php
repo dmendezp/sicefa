@@ -12,7 +12,7 @@
                         <i class="fas fa-globe"></i> DICSENA
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a href="{{ route('cefa.welcome') }}" class="dropdown-item">Volver a SICEFA</a>
+                        <a href="{{ route('cefa.welcome') }}" class="dropdown-item">Return to SICEFA</a>
                     </div>
                 </li>
 
@@ -23,7 +23,7 @@
                 </ul>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('cefa.dicsena.manual') }}" data-toggle="tooltip" data-placement="top" data-title="¿Necesitas ayuda en el uso?" data-color="#ffffff" style="color: white;">
-                        <i class="fas fa-book-open"></i> Ayuda
+                        <i class="fas fa-book-open"></i> Help
                     </a>
                 </li>
 
@@ -37,7 +37,7 @@
                             <div class="dropdown-item">
                                 <small class="text-muted">{{ Auth::user()->roles[0]->name }}</small>
                             </div>
-                            <a class="dropdown-item" href="{{ route('cefa.dicsena.home.index') }}">Salir</a>
+                            <a class="dropdown-item" href="{{ route('cefa.dicsena.home.index') }}">Go out</a>
                         </div>
                     </li>
                 </ul>

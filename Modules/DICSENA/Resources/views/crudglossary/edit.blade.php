@@ -9,7 +9,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header text-center">
-                    <h1>Editar Glosario</h1>
+                    <h1>Edit Glossary</h1>
                 </div>
                 <div class="card-body">
                     @if ($errors->any())
@@ -26,22 +26,22 @@
                         @method('PUT')
 
                         <div class="form-group">
-                            <label for="word">Palabra:</label>
+                            <label for="word">Word:</label>
                             <input type="text" name="word" id="word" class="form-control" value="{{ $glossary->word }}" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="traduction">Traducción:</label>
+                            <label for="traduction">Translation:</label>
                             <input type="text" name="traduction" id="traduction" class="form-control" value="{{ $glossary->traduction }}" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="meaning">Significado:</label>
+                            <label for="meaning">Meaning:</label>
                             <input type="text" name="meaning" id="meaning" class="form-control" value="{{ $glossary->meaning }}" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="program_id">Programa:</label>
+                            <label for="program_id">Program:</label>
                             <select name="program_id" id="program_id" class="form-control" required>
                                 @foreach ($programs as $program)
                                 <option value="{{ $program->id }}" {{ $program->id == $glossary->program_id ? 'selected' : '' }}>{{ $program->name }}</option>
@@ -49,7 +49,7 @@
                             </select>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-block">Actualizar</button>
+                        <button type="submit" class="btn btn-primary btn-block">Update</button>
                     </form>
                 </div>
             </div>

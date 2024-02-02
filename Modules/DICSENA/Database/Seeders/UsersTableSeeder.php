@@ -15,10 +15,10 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $person = Person::where('document_number', 1006506716)->first(); // Consultar Persona
+        $person = Person::where('document_number', 1075275923)->first(); // Consultar Persona
         User::updateOrCreate(['nickname' => 'Instructor'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
-            'email' => 'tifrankxd@gmail.com', //Frcu6716
+            'email' => 'ifrancom@sena.edu.co', //Isfr5923
         ]);
     }
 }

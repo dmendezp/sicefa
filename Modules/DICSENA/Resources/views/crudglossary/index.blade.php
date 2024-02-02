@@ -7,9 +7,9 @@
     @include('dicsena::layouts.partials.navbar')
 </nav>
 <div class="container">
-    <h1 align="center">Glosarios</h1>
+    <h1 align="center">Glossaries</h1>
     <div class="d-flex align-items-center mb-3">
-        <a href="{{ route('dicsena.instructor.glossary.create') }}" class="btn btn-primary">Crear Glosario</a>
+        <a href="{{ route('dicsena.instructor.glossary.create') }}" class="btn btn-primary">Create Glossary</a>
         @if (session('success'))
         <div class="alert alert-success ml-3">
             {{ session('success') }}
@@ -19,11 +19,11 @@
     <table id="tblglossary" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
         <thead class="bg-primary text-white">
             <tr>
-                <th scope="col">Palabra</th>
-                <th scope="col">Traducción</th>
-                <th scope="col">Significado</th>
-                <th scope="col">Programa</th>
-                <th scope="col">Acciones</th>
+                <th scope="col">Word</th>
+                <th scope="col">Translation</th>
+                <th scope="col">Meaning</th>
+                <th scope="col">Program</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -42,7 +42,7 @@
                         <form action="{{ route('dicsena.instructor.destroy', $glossary->id) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar este glosario?')">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Are you sure to delete this glossary?')">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </form>

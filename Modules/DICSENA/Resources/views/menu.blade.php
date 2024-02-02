@@ -12,7 +12,7 @@
         <div class="card-body">
           <a href="{{ route ('dicsena.instructor.guidepost.index')}}">
             <i class="fas fa-upload fa-3x"></i>
-            <p>Subir Guias</p>
+            <p>Upload Guides</p>
           </a>
         </div>
       </div>
@@ -22,7 +22,7 @@
         <div class="card-body">
           <a href="{{route ('dicsena.instructor.glossary.index')}}">
             <i class="fas fa-plus fa-3x"></i>
-            <p>Agregar Palabras</p>
+            <p>Add Words</p>
           </a>
         </div>
       </div>

@@ -14,27 +14,31 @@
                         <i class="fas fa-globe"></i> DICSENA
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a href="{{ route('cefa.welcome') }}" class="dropdown-item">Volver a SICEFA</a>
+                        <a href="{{ route('cefa.welcome') }}" class="dropdown-item">Return to SICEFA</a>
                     </div>
                 </li>
             </ul>
 
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cefa.dicsena.home.index') }}" style="color: white;">Traductor</a>
+                    <a class="nav-link" href="{{ route('cefa.dicsena.home.index') }}" style="color: white;">Translator</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cefa.dicsena.guide')}}" style="color: white;">Guia</a>
+                    <a class="nav-link" href="{{ route('cefa.dicsena.guide')}}" style="color: white;">Guide</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cefa.dicsena.gloss')}}" style="color: white;">Glosario</a>
+                    <a class="nav-link" href="{{ route('cefa.dicsena.gloss')}}" style="color: white;">Glossary</a>
                 </li>
             </ul>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('cefa.dicsena.aprendiz') }}" data-toggle="tooltip" data-placement="top" data-title="¿Necesitas ayuda en el uso?" data-color="#ffffff" style="color: white;">
-                    <i class="fas fa-book-open"></i> Ayuda
-                </a>
-            </li>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('cefa.dicsena.aprendiz') }}" data-toggle="tooltip" data-placement="top" data-title="¿Necesitas ayuda en el uso?" data-color="#ffffff" style="color: white;">
+                        <i class="fas fa-book-open"></i> Help
+                    </a>
+                </li>
+            </ul>
+
             <ul class="navbar-nav ml-auto">
                 @if(Auth::user())
                 @if(Auth::user()->havePermission('dicsena.instructor.menu'))
@@ -47,6 +51,7 @@
         </div>
     </div>
 </nav>
+
 <div class="container">
     <div class="wrapper">
         <div class="text-input">
@@ -71,7 +76,7 @@
             </li>
         </ul>
     </div>
-    <button class="buttontranslate">Traducir el Texto</button>
+    <button class="buttontranslate">Translate the Text</button>
 </div>
 <style>
     /* Import Google Font - Poppins */
