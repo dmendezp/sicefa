@@ -178,7 +178,30 @@ class EnvironmentController extends Controller
             $request->file->storeAs($path, $final_name, 'uploads');
             $edit->picture = $final_name;
         }
-    
+        // Guardar las coordenadas si están presentes
+        if ($request->input('lengthcoor') != '') {
+            $c = 0;
+            foreach ($request->input('lengthcoor') as $le) {
+                // Buscar si ya existe una coordenada para este entorno
+                $coordinate = Coordinate::where('environment_id', $edit->id)->skip($c)->first();
+                
+                // Si no existe una coordenada, crea una nueva
+                if (!$coordinate) {
+                    $coordinate = new Coordinate();
+                    $coordinate->environment_id = $edit->id;
+                }
+                
+                // Actualizar los valores de la coordenada
+                $coordinate->length = $le;
+                $coordinate->latitude = $request->input('latitudecoor')[$c];
+                
+                // Guardar la coordenada
+                $coordinate->save();
+                
+                $c++;
+            }
+        }
+        
         if ($edit->save()) {
             // Actualizar la relación en la tabla pivot (EnvironmentProductiveUnit)
             $edit->environment_productive_units()->updateOrCreate(

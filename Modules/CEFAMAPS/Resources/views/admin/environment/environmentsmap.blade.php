@@ -106,16 +106,55 @@
             // Inicio poligono
             @foreach ($viewenvironments as $e)
 
-                // The marker, positioned at Uluru
+                @if ($e->type_environment === 'EvacuationRoute')
+                    // Dibujar una línea para la ruta de evacuación
+                    const path{{ $e->id }} = [
+                        @foreach ($e->coordinates as $c)
+                            { lat: {{ $c->latitude }}, lng: {{ $c->length }} },
+                        @endforeach
+                    ];
+                    const line{{ $e->id }} = new google.maps.Polyline({
+                        path: path{{ $e->id }},
+                        geodesic: true,
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 1.0,
+                        strokeWeight: 2
+                    });
+                    line{{ $e->id }}.setMap(map);
+                @else
+                    // Dibujar un polígono para otros tipos de entornos
+                    const Coords{{ $e->id }} = [
+                        @foreach ($e->coordinates as $c)
+                            {
+                                lat: {{ $c->latitude }},
+                                lng: {{ $c->length }}
+                            },
+                        @endforeach
+                    ];
+
+                    // Construct the polygon.
+                    const Polygon{{ $e->id }} = new google.maps.Polygon({
+                        paths: Coords{{ $e->id }},
+                        // color de los bordes del area
+                        strokeColor: "#076EF1",
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        // color de adentro del area
+                        fillColor: "#FF0000",
+                        fillOpacity: 0.35,
+                    });
+                    Polygon{{ $e->id }}.setMap(map);
+                @endif
+
+                // Agregar marcadores comunes para todos los entornos
                 const marker{{ $e->id }} = new google.maps.Marker({
                     position: {
                         lat: {{ $e->latitude }},
                         lng: {{ $e->length }}
                     },
                     map: map,
-                    tittle: "{{ $e->name }}",
+                    title: "{{ $e->name }}",
                     icon: iconBase,
-                    /* Para poder tener un icono diferente */
                 });
 
                 const infoCultivo{{ $e->id }} = new google.maps.InfoWindow();
@@ -139,31 +178,8 @@
                     infoCultivo{{ $e->id }}.open(map, marker{{ $e->id }});
                 });
 
-                // Define the LatLng coordinates for the polygon's path.
-                const Coords{{ $e->id }} = [
-                    @foreach ($e->coordinates as $c)
-                        {
-                            lat: {{ $c->latitude }},
-                            lng: {{ $c->length }}
-                        },
-                    @endforeach
-                ];
-
-                // Construct the polygon.
-                const Polygon{{ $e->id }} = new google.maps.Polygon({
-                    paths: Coords{{ $e->id }},
-                    // color de los bordes del area
-                    strokeColor: "#076EF1",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    // color de adentro del area
-                    fillColor: "#FF0000",
-                    fillOpacity: 0.35,
-                });
-                Polygon{{ $e->id }}.setMap(map);
             @endforeach
             // Fin del poligono
-
         }
     </script>
 @endsection

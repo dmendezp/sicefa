@@ -151,14 +151,14 @@
                                                 <div class="row align-items-end">
                                                     <div class="col-md-5">
                                                         <div class="form-group">
-                                                            <label for="length">{{ trans('cefamaps::environment.Label_Length_Environment') }}</label>
-                                                            <input type="text" class="form-control m-input" name="length[]" value="{{ $c->length }}">
+                                                            <label for="lengthcoor">{{ trans('cefamaps::environment.Label_Length_Environment') }}</label>
+                                                            <input type="text" class="form-control m-input" name="lengthcoor[]" value="{{ $c->length }}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-5">
                                                         <div class="form-group">
-                                                            <label for="latitude">{{ trans('cefamaps::environment.Label_Latitude_Environment') }}</label>
-                                                            <input type="text" class="form-control m-input" name="latitude[]" value="{{ $c->latitude }}">
+                                                            <label for="latitudecoor">{{ trans('cefamaps::environment.Label_Latitude_Environment') }}</label>
+                                                            <input type="text" class="form-control m-input" name="latitudecoor[]" value="{{ $c->latitude }}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2">
@@ -222,14 +222,14 @@
             html += '<div class="row align-items-end">';
             html += '<div class="col-md-5">';
             html += '<div class="form-group">';
-            html += '<label for="length">{{ trans('cefamaps::environment.Label_Length_Environment') }}</label>';
-            html += '<input type="text" class="form-control m-input" name="length[]">';
+            html += '<label for="lengthcoor">{{ trans('cefamaps::environment.Label_Length_Environment') }}</label>';
+            html += '<input type="text" class="form-control m-input" id="lengthcoor" name="lengthcoor[]">';
             html += '</div>';
             html += '</div>';
             html += '<div class="col-md-5">';
             html += '<div class="form-group">';
-            html += '<label for="latitude">{{ trans('cefamaps::environment.Label_Latitude_Environment') }}</label>';
-            html += '<input type="text" class="form-control m-input" name="latitude[]">';
+            html += '<label for="latitudecoor">{{ trans('cefamaps::environment.Label_Latitude_Environment') }}</label>';
+            html += '<input type="text" class="form-control m-input" id="latitudecoor" name="latitudecoor[]">';
             html += '</div>';
             html += '</div>';
             html += '<div class="col-md-2">';
