@@ -263,7 +263,10 @@ class DeliverController extends Controller
             foreach ($selectedElementId as $key => $e) {
                 $requiredAmount = $amounts[$key]; // Cantidad requerida para el elemento
                 $measurement_unit = MeasurementUnit::whereIn('id', $element)->pluck('conversion_factor');
-                $conversion = $requiredAmount*$measurement_unit[$key];
+
+                foreach ($measurement_unit as $key => $c) {
+                    $conversion = $requiredAmount*$c;
+                }
                 
                 // Realiza una consulta para obtener los lotes correspondientes al elemento y ordénalos por lote
                 $selectedUnit = session('viewing_unit');
@@ -356,7 +359,7 @@ class DeliverController extends Controller
             
             if(Auth::check()){
                 $user = Auth::user();
-                if($user->roles->contains('slug', 'agroindustria.instructor')){
+                if($user->roles->contains('slug', 'agroindustria.instructor.vilmer') || $user->roles->contains('slug', 'agroindustria.instructor.chocolate') || $user->roles->contains('slug', 'agroindustria.instructor.cerveceria')){
                     // Redirige a la página de éxito
                     return redirect()->route('agroindustria.instructor.units.movements.table')->with([
                         'icon' => 'success',
@@ -370,7 +373,6 @@ class DeliverController extends Controller
                 }
             }
         } catch (\Exception $e) {
-            dd($e);
             // Si ocurre algún error durante la transacción, se revierten todas las operaciones
             DB::rollBack();
 
