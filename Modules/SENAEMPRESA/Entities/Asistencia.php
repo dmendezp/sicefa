@@ -14,7 +14,12 @@ class Asistencia extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
-    protected $fillable = ['date','guardado'];
+    /* protected $fillable = ['date','guardado']; sin full calendar title*/ 
+    protected $fillable = ['guardado','title','start','end']; /* con full calendar 
+                                                        title, start, end 
+                                                        (start y end son necesarias 
+                                                        para tener hora de inicio y fin de la actividad 
+                                                        aunque sin ellas y solo con date funciona perso sin horarios) */
     
     protected static function newFactory()
     {
@@ -22,8 +27,10 @@ class Asistencia extends Model
     }
 
     public function apprentices(){
-        return $this->belongsToMany(Apprentice::class)->withTimestamps()->withPivot('asistencia');
+        return $this->belongsToMany(Apprentice::class, 'apprentice_asistencias')->withTimestamps()->withPivot('asistencia','id','work_id');
     }
+
+
     
     public function getasistenciasNombreCursoAttribute(){
         return $this->Apprentice->Course->Program->name.'-'.$this->Apprentice->course_id;
@@ -32,5 +39,10 @@ class Asistencia extends Model
     public function getCourseIdAttribute(){
         return $this->apprentices->course_id;
     }
+
+   
+
+    
+   
     
 }

@@ -1,0 +1,288 @@
+.sidebar-dark-primary {
+    background-color: #2ea29c;
+}
+
+.btn-block {
+    color: #000000;
+    background-color: #2ea29c;
+    border-color: #2ea29c;
+}
+
+.btn-block:hover {
+    color: #e9efef;
+    background-color: #216b68;
+    border-color: #216b68;
+}
+
+.nav-item .active {
+    background-color: #216b68 !important;
+    color: #c2c7d0 !important;
+}
+
+.nav-item:hover {
+    background-color: #216b68 !important;
+    color: #fff !important;
+    border-radius: 5px;
+}
+
+.nav-item .active:hover {
+    color: #fff !important;
+    border-radius: 5px;
+}
+
+.menu-is-opening {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 5px;
+}
+
+.nav-item .active:hover {
+    color: #fff !important;
+    border-radius: 5px;
+}
+
+.menu-is-opening {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 5px;
+}
+
+.navbar {
+    background-color: #ffffff;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: rgb(0, 0, 0) !important;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #ffffff !important;
+}
+
+.navbar-nav .active {
+    background-color: #216b68 !important;
+    border-radius: 5px;
+}
+
+.navbar-nav .nav-item:hover {
+    background-color: #2ea29c !important;
+    border-radius: 5px;
+}
+
+.nav-treeview .nav-item > .nav-link i {
+    padding-left: 5px !important;
+}
+
+.content-wrapper {
+    background-color: #ebfffe;
+}
+
+.card-primary {
+    border-top: 3px solid #2ea29c !important;
+}
+
+#divbreadcrumb {
+    border: 2px solid #2ea29c !important;
+    border-radius: 5px;
+}
+
+.breadcrumb-item a {
+    color: #6c757d !important;
+}
+
+.info-user {
+    overflow: visible !important;
+    color: #c2c7d0 !important;
+}
+
+.sidebar-mini.sidebar-collapse .info {
+    animation-name: fadeOut;
+    animation-duration: 0.3s;
+    animation-fill-mode: both;
+    display: none;
+}
+
+.sidebar-collapse .main-sidebar:hover .info {
+    animation-name: fadeIn;
+    animation-duration: 0.1s;
+    display: block !important;
+}
+
+.mbottom16 {
+    margin-bottom: 16px;
+}
+
+.mtop16 {
+    margin-top: 16px;
+}
+
+.mleft8 {
+    margin-left: 8px;
+}
+
+.sidebar-collapse .main-sidebar:hover .info {
+    animation-name: fadeIn;
+    animation-duration: 0.1s;
+    display: block !important;
+}
+
+.mbottom16 {
+    margin-bottom: 16px;
+}
+
+.mtop16 {
+    margin-top: 16px;
+}
+
+.mleft8 {
+    margin-left: 8px;
+}
+
+.jumbotron {
+    background-color: #ebfffe !important;
+    padding: 5px 20px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Zurich+Ultra+Black+Extended&display=swap');
+
+.display-4{
+    font-family: 'Helvetica Medium', 'Arial', sans-serif;
+}
+.btn-app {
+    height: 80px;
+    min-width: 100px;
+}
+
+.btn-app-2 {
+    height: 110px !important;
+    min-width: 130px !important;
+}
+
+.btn-app i {
+    font-size: 30px !important;
+}
+
+.btn-app-2 i {
+    margin-top: 8px !important;
+    font-size: 45px !important;
+}
+
+.btn-app > .badge {
+    font-size: 15px;
+    top: -8px !important;
+}
+
+.btn-app-2 > .badge {
+    font-size: 16px;
+    top: -8px !important;
+}
+
+/*--------------------------------------------------------------
+# Hero Section
+--------------------------------------------------------------*/
+#hero {
+    width: 100%;
+}
+
+#hero .animated {
+    animation: up-down 2s ease-in-out infinite alternate-reverse both;
+}
+
+@media (max-width: 991px) {
+    #hero {
+        height: 100vh;
+        text-align: center;
+    }
+    #hero .animated {
+        -webkit-animation: none;
+        animation: none;
+    }
+    #hero .hero-img {
+        text-align: center;
+    }
+    #hero .hero-img img {
+        width: 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    #hero h1 {
+        font-size: 28px;
+        line-height: 36px;
+    }
+    #hero h2 {
+        font-size: 18px;
+        line-height: 24px;
+        margin-bottom: 30px;
+    }
+    #hero .hero-img img {
+        width: 70%;
+    }
+}
+
+@media (max-width: 575px) {
+    #hero .hero-img img {
+        width: 80%;
+    }
+    #hero .btn-get-started {
+        font-size: 16px;
+        padding: 10px 24px 11px 24px;
+    }
+}
+
+@-webkit-keyframes up-down {
+    0% {
+        transform: translateY(10px);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes up-down {
+    0% {
+        transform: translateY(10px);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+
+.modal-body .form-control {
+    width: 80% !important;
+    height: 80% !important;
+}
+
+a[title]:hover::before {
+    content: attr(title);
+    position: absolute;
+    background-color: #000;
+    color: #fff;
+    padding: 3px;
+    border: 1px solid #000;
+    border-radius: 3px;
+    margin-top: -25px;
+    margin-left: -20px;
+    white-space: nowrap;
+}
+
+.button-login {
+    position: relative;
+    padding: 6px 45px;
+    background: #ffffff;
+    font-size: 17px;
+    font-weight: 500;
+    color: #000; /* Change this line to set the text color to black */
+    border-radius: 8px;
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.2));
+}
+
+.button-login:hover {
+    background: linear-gradient(
+        85deg,
+        #2ea29c,
+        #2ea29c,
+        #2eb3ac,
+        #2ea29c,
+        #2ea29c
+    );
+    animation: wind 2s ease-in-out infinite;
+}
