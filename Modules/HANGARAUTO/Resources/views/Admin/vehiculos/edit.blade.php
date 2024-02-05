@@ -1,7 +1,7 @@
 @extends('hangarauto::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('hangarauto::Vehicles.Vehicles') }}</li>
+    <li class="breadcrumb-item active">{{ trans('hangarauto::Vehiculos.Vehicles') }}</li>
 @endpush
 
 @section('content')
@@ -31,7 +31,7 @@
                             <i class="far fa-keyboard"></i>
                         </span>
                     </div>
-                    {!! Form::select('reference',getEnumValues("vehicles", "reference"), null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
+                    {!! Form::select('referece',getEnumValues("vehicles", "referece"), null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
                 </div>
                 <label for="name">Estado Del Vehiculo:</label>
                 <div class="input-group">

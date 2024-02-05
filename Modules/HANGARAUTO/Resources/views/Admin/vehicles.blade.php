@@ -38,12 +38,12 @@
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$t->name}}</td>
-                                        <td>{{$t->reference}}</td>
+                                        <td>{{$t->referece}}</td>
                                         <td>{{$t->status}}</td>
                                         <td>{{$t->license}}</td>
                                         <td>{{$t->fuel_level}}</td>
                                         <td>
-                                            {{$t->image}}
+                                            <img src="{{ asset('/public/modules/HANGARAUTO/img/rastrilladora.jpg'.$t->file_path.$t->image) }}" width="120">
                                         </td>
                                         <td>
                                             <a href="{{ route('cefa.parking.admin.vehicles.edit',$t) }}" type="button"><i class="fas fa-edit"></i></a>

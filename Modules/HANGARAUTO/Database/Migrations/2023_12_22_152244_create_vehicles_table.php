@@ -16,7 +16,7 @@ class CreateVehiclesTable extends Migration
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('referece',['Motocicleta','Ciclomotor','Motocarro','Tractor Agrícola','Autobus','Furgoneta']);
+            $table->enum('reference',['Motocicleta','Ciclomotor','Motocarro','Tractor Agrícola','Autobus','Furgoneta','Camioneta','Carro']);
             $table->enum('status', ['Disponible','No Disponible']);
             $table->string('license');
             $table->enum('fuel_level', ['Bajo','Medio','Alto']);

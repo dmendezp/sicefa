@@ -13,9 +13,7 @@ class Vehicle extends Model
 
     protected $hidden = ['created_at','updated_at'];
 
-    public function Reference(){
-        return $this->belongsTo('Modules\HANGARAUTO\Entities\Reference');
-    }
+    
 
     public function Soat(){
         return $this->hasMany('Modules\HANGARAUTO\Entities\Soat');
