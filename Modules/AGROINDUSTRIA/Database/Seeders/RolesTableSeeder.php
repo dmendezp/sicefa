@@ -62,13 +62,11 @@ class RolesTableSeeder extends Seeder
         // Consulta de usuarios
         $user_admin = User::where('nickname','Julian')->first(); // Usuario Administrador (Julian Javier Ramirez Diaz)
         $user_instructor_vilmer = User::where('nickname','Bonilla')->first(); // Usuario Instructor (Juan Diego Bonilla Aroca)
-        $user_instructor_chocolate = User::where('nickname','Jennifer')->first(); // Usuario Instructor (Juan Diego Bonilla Aroca)
         $user_storer = User::where('nickname','Cadena')->first(); // Usuario Almacenista (David Juliam Cadena Barrera)
 
         // Asignación de ROLES para los USUARIOS de la aplicación AGROINDUSTRIA (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $user_admin->roles()->syncWithoutDetaching([$rol_admin->id]);
         $user_instructor_vilmer->roles()->syncWithoutDetaching([$rol_instructor_vilmer->id]);
-        $user_instructor_chocolate->roles()->syncWithoutDetaching([$rol_instructor_chocolate->id]);
         $user_storer->roles()->syncWithoutDetaching([$rol_storer->id]);
 
 

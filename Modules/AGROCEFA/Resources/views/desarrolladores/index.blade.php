@@ -6,194 +6,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido a la vista desarrolladores</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-JCHmOKJsZwJzoyY9vgZKLDjp/0sopofWt3IkL5uaz5PzU2Oyj8S+oUi7vQ34lX5wWcHhV1xVfQw28RfWb5NzZsQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Desarrolladores</title>
+   
+    <!-- Estilos CSS personalizados -->
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-            text-align: center;
-        }
-
-        /* Tarjetas */
-        .card-container {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin: 20px;
-        }
-        /* Estilos para las tarjetas */
+        /* Estilos para las tarjetas de desarrolladores */
         .developer-card {
-            background-color: #07000000;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0);
-            max-width: calc(25% - 20px);
-            margin: 20px;
-            padding: 5px;
-            text-align: center;
-            transition: transform 0.2s; /* Agregamos una transición a la propiedad transform */
-            border-radius: 10%; /* Forma de semi círculo */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #fff;
+            height: 100%; /* Altura máxima para las tarjetas */
         }
-
-        /* Agregamos el efecto de escala en hover */
-            .developer-card:hover {
-            transform: scale(1.05); /* Escalar la tarjeta en un 5% más grande en hover */
-        }
-
+        /* Estilos para las imágenes */
         .developer-card img {
-            width: 251.9px; 
-            height: 400px;      
-            border-radius: 15.9%; 
-            margin-bottom: 4%;
+            max-width: 100%;
+            height: 300px;
+            width: 350px;
+            object-fit: cover; /* Para mantener la relación de aspecto y recortar las imágenes */
+            border-radius: 8px;
+            margin-bottom: 15px;
         }
 
-        h1 {
-            font-size: 24px;
-            margin-top: 10px;
-        }
-
-
-        /* Botón de herramientas */
-        .glitch-button {
-            padding: 10px 50px;
-            font-size: 20px;
-            border: none;
-            border-radius: 5px;
-            color: #fffafa; /* Letras en negro */
-            background: linear-gradient(to right, #004916, #009688); /* Degradado similar al del pie de página */
-            position: relative;
-            overflow: hidden;
-            margin-top: 40px;
-            margin-bottom: 50px; /* Ajusta el margen inferior según sea necesario */
-        }
-
-        .glitch-button::after {
-            --move1: inset(50% 50% 50% 50%);
-            --move2: inset(31% 0 40% 0);
-            --move3: inset(39% 0 15% 0);
-            --move4: inset(45% 0 40% 0);
-            --move5: inset(45% 0 6% 0);
-            --move6: inset(14% 0 61% 0);
-            clip-path: var(--move1);
-            content: 'GLITCH';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: block;
-        }
-
-        .glitch-button:hover::after {
-            animation: glitch_4011 1s;
-            text-shadow: 10px 10px 10px black;
-            animation-timing-function: steps(2, end);
-            text-shadow: -3px -3px 0px black, 3px 3px 0px black;
-            background-color: transparent;
-            border: 3px solid rgb(0, 0, 0);
-        }
-
-        .glitch-button:hover {
-            text-shadow: -1px -1px 0px black, 1px 1px 0px ;
-            background: linear-gradient(to right, #004916, #009688); /* Degradado similar al del pie de página */
-            border: 1px solid rgba(0, 0, 0, 0.922);
-            box-shadow: 0px 10px 10px -10px rgb(0, 0, 0);
-        }
-
-        /* Estilos para la tabla y los iconos */
-        .hidden {
-            display: none;
-        }
-
-        .tools-table {
-            display: table;
-            width: 100%;
-        }
-
-        .icon-row {
-            display: table-row;
-        }
-
-        .icono-grande {
-            font-size: 10em; /* Ajusta el tamaño de los iconos  */
-            margin: 10px;   
-        }
-
-        /* Estilo para la imagen de abajo */
-        .tuclase {
+        .credit-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #fff;
+            height: 90%; /* Altura máxima para las tarjetas */
             text-align: center;
-            font-family: 'Comic Sans MS', sans-serif;
-            font-weight: bold;
-            font-size: 100px;
-            color: #19aa05;
-            text-shadow: -1px 0 #414D68, 0 1px #414D68, 1px 0 #414D68, 0 -1px #414D68, -2px 2px 0 #414D68, 2px 2px 0 #414D68, 1px 1px #414D68, 2px 2px #414D68, 3px 3px #414D68, 4px 4px #414D68, 5px 5px #414D68;
+        }
+        /* Estilos para las imágenes */
+        .credit-card img {
+            max-width: 100%;
+            height: 170px;
+            width: 170px;
+            object-fit: cover; /* Para mantener la relación de aspecto y recortar las imágenes */
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .container{
+            margin-left:100px
+        }
+        /* Estilos para los enlaces */
+        .developer-card a {
+            color: #535353; /* Cambiar el color del enlace */
+            text-decoration: none; /* Eliminar el subrayado */
+        }
+        .developer-card a:hover {
+            color: #0056b3; /* Cambiar el color del enlace al pasar el ratón por encima */
+            text-decoration: none; /* Mantener el subrayado eliminado */
         }
 
-        /* Estilo para los iconos */
-        .icono-grande {
-            font-size: 100px; 
-            margin: 20px; 
+        .credit-card a {
+            color: #535353; /* Cambiar el color del enlace */
+            text-decoration: none; /* Eliminar el subrayado */
+        }
+        .credit-card a:hover {
+            color: #0056b3; /* Cambiar el color del enlace al pasar el ratón por encima */
+            text-decoration: none; /* Mantener el subrayado eliminado */
         }
 
     </style>
 </head>
 <body>
-   
-    <!-- Título con imagen curvada -->
-    <h1 class="curved-title tuclase">{{ trans('agrocefa::desarrolladores.Developers')}}</h1>
-
-    <div class="card-container">
-        <div class="developer-card">
-            <img src="{{ asset('agrocefa/images/desar/mario.jpg') }}" class="knowledge_img">
-            <h1>Andres Felipe Almario</h1>
-        </div>
-
-        <div class="developer-card">
-            <img src="{{ asset('agrocefa/images/desar/ya.jpg') }}" class="knowledge_img">   
-            <h1>Dayana Valenzuela</h1>
-        </div>
-
-        <div class="developer-card">
-            <img src="{{ asset('agrocefa/images/desar/sapuy.jpg') }}" class="knowledge_img">
-            <h1>Yuderly Sapuy</h1>
-        </div>
-
-        <div class="developer-card">
-            <img src="{{ asset('agrocefa/images/desar/lau.jpg') }}" class="knowledge_img">
-            <h1>Laura Rodriguez</h1>
-        </div>
-    </div>
-
-    <button class="btn glitch-button" onclick="showTools()" style="margin-bottom: 10px;">{{ trans('agrocefa::desarrolladores.Tools used for development')}}</button>
-    <br>
-    <br>
-    
-    <div class="hidden">
-        <div class="tools-table">
-            <div class="icon-row">
-                <i class="fab fa-html5 icono-grande" title="HTML"></i>
-                <i class="fab fa-js icono-grande" title="JavaScript"></i>
-                <i class="fab fa-php icono-grande" title="PHP"></i>
-                <i class="fab fa-laravel icono-grande" title="Laravel"></i>
+    <div class="container">
+        <h1 class="text-center mt-5 mb-4">{{ trans('agrocefa::universal.Developers')}}</h1>
+        <div class="row">
+            <!-- Tarjetas de desarrolladores -->
+            <div class="col-md-6 col-lg-3">
+                <div class="developer-card">
+                    <img src="{{ asset('modules/agrocefa/images/desar/mario.jpg') }}" alt="Andres">
+                    <h5 class="text-center">Andres Felipe Almario Navarro</h5>
+                    <p class="text-center">Aprendiz</p>
+                    <!-- Agregar enlaces a LinkedIn y GitHub -->
+                    <div class="text-center">
+                        <a href="https://www.linkedin.com/in/andres-felipe-almario-178bb92b2/" target="_blank">LinkedIn</a> |
+                        <a href="https://github.com/Afandres" target="_blank">GitHub</a>
+                    </div>
+                </div>
             </div>
-            <div class="icon-row">
-                <i class="fab fa-bootstrap icono-grande" title="Bootstrap"></i>
-                <i class="fab fa-css3 icono-grande" title="CSS"></i>
-                <i class="fab fa-git icono-grande" title="Git"></i>
-                <i class="fas fa-comment-alt icono-grande" title="Chat GPT"></i>
+            <!-- Tarjeta de desarrollador 2 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="developer-card">
+                    <img src="{{ asset('modules/agrocefa/images/desar/ya.jpg') }}" alt="Dayana">
+                    <h5 class="text-center">Dayana Marcela Valenzuela Erazo</h5>
+                    <p class="text-center">Aprendiz</p>
+                    <!-- Agregar enlaces a LinkedIn y GitHub -->
+                    <div class="text-center">
+                        <a href="#" target="_blank">LinkedIn</a> |
+                        <a href="https://github.com/Yayis24" target="_blank">GitHub</a>
+                    </div>
+                </div>
             </div>
+            <!-- Tarjeta de desarrollador 3 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="developer-card">
+                    <img src="{{ asset('modules/agrocefa/images/desar/sapuy.jpg') }}" alt="Yuderly">
+                    <h5 class="text-center">Yuderly Sapuy Chavarro</h5>
+                    <p class="text-center">Aprendiz</p>
+                    <!-- Agregar enlaces a LinkedIn y GitHub -->
+                    <div class="text-center">
+                        <a href="#" target="_blank">LinkedIn</a> |
+                        <a href="https://github.com/DerlySapuy27" target="_blank">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Tarjeta de desarrollador 4 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="developer-card">
+                    <img src="{{ asset('modules/agrocefa/images/desar/lau.jpg') }}" alt="Laura">
+                    <h5 class="text-center">Laura Vanesa Rodriguez Chimbaco</h5>
+                    <p class="text-center">Aprendiz</p>
+                    <!-- Agregar enlaces a LinkedIn y GitHub -->
+                    <div class="text-center">
+                        <a href="#" target="_blank">LinkedIn</a> |
+                        <a href="https://github.com/vlaurac" target="_blank">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin del bloque de repetición -->
+
+            <!-- Sección de créditos -->
+            <div class="col-12 mt-5">
+                <h2 class="text-center">{{ trans('agrocefa::universal.Credits')}}</h2>
+                <br>
+                <br>
+            </div>
+        
+            <!-- Tarjetas de créditos -->
+            <div class="col-md-6 col-lg-3">
+                <div class="credit-card">
+                    <img src="{{ asset('modules/agrocefa/images/credits/laravel.png') }}" alt="Laravel 8">
+                    <h5 class="text-center">Laravel 8</h5>
+                    <!-- Agregar enlaces a más información -->
+                    <div class="text-center">
+                        <a href="https://laravel.com/docs/8.x" target="_blank">Más información</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="credit-card">
+                    <img src="{{ asset('modules/agrocefa/images/credits/php.png') }}" alt="Nombre del desarrollador">
+                    <h5 class="text-center">PHP</h5>
+                    <!-- Agregar enlaces a más información -->
+                    <div class="text-center">
+                        <a href="https://www.php.net/" target="_blank">Más información</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="credit-card">
+                    <img src="{{ asset('modules/agrocefa/images/credits/bootstrap.png') }}" alt="Nombre del desarrollador">
+                    <h5 class="text-center">Bootstrap</h5>
+                    <!-- Agregar enlaces a más información -->
+                    <div class="text-center">
+                        <a href="https://getbootstrap.com/" target="_blank">Más información</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="credit-card">
+                    <img src="{{ asset('modules/agrocefa/images/credits/sweetalert.png') }}" alt="Nombre del desarrollador">
+                    <h5 class="text-center">SweetAlert</h5>
+                    <!-- Agregar enlaces a más información -->
+                    <div class="text-center">
+                        <a href="https://sweetalert2.github.io/" target="_blank">Más información</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="credit-card">
+                    <img src="{{ asset('modules/agrocefa/images/credits/datatables.png') }}" alt="Nombre del desarrollador">
+                    <h5 class="text-center">Datatable</h5>
+                    <!-- Agregar enlaces a más información -->
+                    <div class="text-center">
+                        <a href="https://datatables.net/" target="_blank">Más información</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="credit-card">
+                    <img src="{{ asset('modules/agrocefa/images/credits/collective.png') }}" alt="Nombre del desarrollador">
+                    <h5 class="text-center">Laravel Collective</h5>
+                    <!-- Agregar enlaces a más información -->
+                    <div class="text-center">
+                        <a href="https://laravelcollective.com/" target="_blank">Más información</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="credit-card">
+                    <img src="{{ asset('modules/agrocefa/images/credits/visual.png') }}" alt="Nombre del desarrollador">
+                    <h5 class="text-center">Visual Studio Code</h5>
+                    <!-- Agregar enlaces a más información -->
+                    <div class="text-center">
+                        <a href="https://code.visualstudio.com/" target="_blank">Más información</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="credit-card">
+                    <img src="{{ asset('modules/agrocefa/images/credits/javascript.png') }}" alt="Nombre del desarrollador">
+                    <h5 class="text-center">JavaScript</h5>
+                    <!-- Agregar enlaces a más información -->
+                    <div class="text-center">
+                        <a href="https://lenguajejs.com/" target="_blank">Más información</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="credit-card">
+                    <img src="{{ asset('modules/agrocefa/images/credits/github.png') }}" alt="Nombre del desarrollador">
+                    <h5 class="text-center">GitHub</h5>
+                    <!-- Agregar enlaces a más información -->
+                    <div class="text-center">
+                        <a href="https://github.com/" target="_blank">Más información</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="credit-card">
+                    <img src="{{ asset('modules/agrocefa/images/credits/ajax.png') }}" alt="Nombre del desarrollador">
+                    <h5 class="text-center">Ajax</h5>
+                    <!-- Agregar enlaces a más información -->
+                    <div class="text-center">
+                        <a href="https://lenguajejs.com/javascript/peticiones-http/ajax/" target="_blank">Más información</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="credit-card">
+                    <img src="{{ asset('modules/agrocefa/images/credits/fontawesome.png') }}" alt="Nombre del desarrollador">
+                    <h5 class="text-center">FontAwesome</h5>
+                    <!-- Agregar enlaces a más información -->
+                    <div class="text-center">
+                        <a href="https://fontawesome.com/" target="_blank">Más información</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="credit-card">
+                    <img src="{{ asset('modules/agrocefa/images/credits/css.png') }}" alt="Nombre del desarrollador">
+                    <h5 class="text-center">CSS</h5>
+                    <!-- Agregar enlaces a más información -->
+                    <div class="text-center">
+                        <a href="https://lenguajecss.com/css/introduccion/que-es-css/" target="_blank">Más información</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin del bloque de repetición -->
         </div>
+        <br>
     </div>
-    
-    <script>
-        function showTools() {
-            const toolsList = document.querySelector('.hidden');
-            toolsList.classList.toggle('hidden');
-        }
-    </script>
-    @include('agrocefa::partials.footer')
 </body>
 </html>
 @endsection

@@ -4,13 +4,13 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <!----======== CSS ======== -->
-<link rel="stylesheet" href="{{ asset('agrocefa/css/style.css') }}">
-<link rel="stylesheet" href="{{ asset('agrocefa/css/estilos.css') }}">
-<link rel="stylesheet" href="{{ asset('agrocefa/css/stilos.css') }}">
-<link rel="stylesheet" href="{{ asset('agrocefa/css/navbar.css') }}">
-<link rel="stylesheet" href="{{ asset('agrocefa/css/movements.css') }}">
-<link rel="stylesheet" href="{{ asset('agrocefa/css/labormanagent.css') }}">
-{{-- <link rel="stylesheet" href="{{ asset('agrocefa/css/usuario/usuario.css') }}"> --}}
+<link rel="stylesheet" href="{{ asset('modules/agrocefa/css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('modules/agrocefa/css/estilos.css') }}">
+<link rel="stylesheet" href="{{ asset('modules/agrocefa/css/stilos.css') }}">
+<link rel="stylesheet" href="{{ asset('modules/agrocefa/css/navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('modules/agrocefa/css/movements.css') }}">
+<link rel="stylesheet" href="{{ asset('modules/agrocefa/css/labormanagent.css') }}">
+{{-- <link rel="stylesheet" href="{{ asset('modules/agrocefa/css/usuario/usuario.css') }}"> --}}
 
 
 <!----===== Boxicons CSS ===== -->

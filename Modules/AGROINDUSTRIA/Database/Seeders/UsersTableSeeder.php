@@ -36,12 +36,6 @@ class UsersTableSeeder extends Seeder
            'email' => 'cadena@gmail.com',
        ]);
 
-       // Registrar o actualizar usuario para Jennifer Marin Montealegre
-       $person = Person::where('document_number', 1075791904)->first(); // Consultar Persona
-       User::updateOrCreate(['nickname' => 'Jennifer'], [ // Actualizar o crear usuario
-           'person_id' => $person->id,
-           'email' => 'jennifer@gmail.com',
-       ]);
 
     }
     

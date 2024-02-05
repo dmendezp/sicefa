@@ -59,7 +59,7 @@ class InventoriesTableSeeder extends Seeder
         }
 
         // Crea una unidad de medida
-        $measurementUnit = MeasurementUnit::create([
+        $measurementUnit = MeasurementUnit::updateOrCreate([
             'name' => 'Unidad de Medida Ejemplo',
             'abbreviation' => 'UME',
             'minimum_unit_measure' => 'Mínimo',
@@ -67,7 +67,7 @@ class InventoriesTableSeeder extends Seeder
         ]);
 
         // Crea un elemento asociado a la categoría, tipo de compra y unidad de medida
-        $element = Element::create([
+        $element = Element::updateOrCreate([
             'name' => 'Elemento de Inventario',
             'measurement_unit_id' => $measurementUnit->id,
             'description' => 'Descripción del elemento',
@@ -86,7 +86,7 @@ class InventoriesTableSeeder extends Seeder
             return;
         }
 
-        Inventory::create([
+        Inventory::updateOrCreate([
             'person_id' => $person->id,
             'productive_unit_warehouse_id' => $productive_unit_warehouse->id,
             'element_id' => $element->id,

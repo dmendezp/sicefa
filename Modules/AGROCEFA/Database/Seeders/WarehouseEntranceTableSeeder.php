@@ -38,7 +38,7 @@ class WarehouseEntranceTableSeeder extends Seeder
 
         $farm = Farm::where('name','Cefa')->first();
 
-        $productiveunitnew = ProductiveUnit::updateOrCreate([ 
+        $productiveunitnew = ProductiveUnit::firstOrNew([ 
             'name' => 'Almacen',
             'description' => 'Almacen para movimientos de entrada',
             'person_id' => '5',
@@ -69,7 +69,7 @@ class WarehouseEntranceTableSeeder extends Seeder
         ]);
 
         $warehouseentrance = Warehouse::updateOrCreate([ 
-            'name' => 'Externa',
+            'name' => 'Externa Agricola',
             'description' => 'Bodega para realizar movimientos de entrada',
             'app_id' => $app->id
         ]);

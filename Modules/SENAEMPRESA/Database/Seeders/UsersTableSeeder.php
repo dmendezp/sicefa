@@ -30,10 +30,5 @@ class UsersTableSeeder extends Seeder
             'person_id' => $person->id,
             'email' => 'diegopenagos955@gmail.com',//Dipe2391
         ]);
-        $person = Person::where('document_number', 1109840652)->first(); // Consultar Persona
-        User::updateOrCreate(['nickname' => 'MayerliC'], [ // Actualizar o crear usuario
-            'person_id' => $person->id,
-            'email' => 'mayerlicastañeda@gmail.com',//Maca0652
-        ]);
     }
 }

@@ -312,29 +312,9 @@ class AGROCEFAController extends Controller
         Session::put('notificationstock', $stockCount);
     }
 
-    public function insumos()
-    {
-        return view('agrocefa::insumos');
-    }
-
     public function bodega()
     {
         return view('agrocefa::formulariocultivo');
-    }
-
-    public function inventory()
-    {
-        return view('agrocefa::inventory');
-    }
-
-    public function parameters()
-    {
-        return view('agrocefa::parameters');
-    }
-
-    public function vistaaprendiz()
-    {
-        return view('agrocefa::index');
     }
 
     public function vistauser()
@@ -342,14 +322,9 @@ class AGROCEFAController extends Controller
         return view('agrocefa::index');
     }
 
-    public function crop()
-    {
-        return view('agrocefa::crop');
-    }
-
     public function Manual()
     {
-        $rutaPdf = public_path('agrocefa\Manual de usuario - AGROCEFA.pdf');
+        $rutaPdf = public_path('modules\agrocefa\Manual de usuario - AGROCEFA.pdf');
 
         $nombreArchivo = 'Manual de usuario - AGROCEFA.pdf';
 

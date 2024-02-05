@@ -71,7 +71,7 @@ class ProductiveUnitWarehouseEntranceTableSeeder extends Seeder
         ]);
 
         $productiveentrance = ProductiveUnit::updateOrCreate([ 
-            'name' => 'Almacen',
+            'name' => 'Almacen Agroindustria',
             'description' => 'Unidad para realizar movimientos de entrada',
             'person_id' => $person->id,
             'sector_id' => $sector->id,
