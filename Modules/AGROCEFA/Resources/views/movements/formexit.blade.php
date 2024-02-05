@@ -1,5 +1,5 @@
 @extends('agrocefa::layouts.master')
-<link rel="stylesheet" href="{{ asset('agrocefa/css/movements.css') }}">
+<link rel="stylesheet" href="{{ asset('modules/agrocefa/css/movements.css') }}">
 @section('content')
     @if (session('success'))
         <script>

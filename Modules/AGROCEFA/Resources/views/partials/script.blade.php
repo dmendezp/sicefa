@@ -1,7 +1,7 @@
 
 
 
-<script src="{{ asset('agrocefa/js/sidebarclose.js')}}"></script>
+<script src="{{ asset('modules/agrocefa/js/sidebarclose.js')}}"></script>
 
 
 <script src="{{ asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

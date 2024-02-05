@@ -1,7 +1,7 @@
 @extends('agrocefa::layouts.master')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('agrocefa/css/specie.css') }}">
+    <link rel="stylesheet" href="{{ asset('modules/agrocefa/css/specie.css') }}">
 
     @if (session('success'))
         <script>

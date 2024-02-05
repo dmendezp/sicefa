@@ -18,6 +18,7 @@ return [
     'Production' => 'Produccion',
     'Developers' => 'Desarrolladores',
     'AGROCEFA?' => '¿ AGROCEFA ?',
+    'Credits' => 'Créditos',
 
     'maintitle' => 'Bienvenido al Software AGROCEFA',
 ];

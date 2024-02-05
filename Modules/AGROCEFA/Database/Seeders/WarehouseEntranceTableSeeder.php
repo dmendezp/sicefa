@@ -59,7 +59,7 @@ class WarehouseEntranceTableSeeder extends Seeder
         ]);
 
         $warehouseentrance = Warehouse::updateOrCreate([ 
-            'name' => 'Externa',
+            'name' => 'Externa Agricola',
             'description' => 'Bodega para realizar movimientos de entrada',
             'app_id' => $app->id
         ]);

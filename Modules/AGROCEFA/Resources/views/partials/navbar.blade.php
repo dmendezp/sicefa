@@ -30,10 +30,10 @@
                 <li style="margin-right: 90px"><a href="{{ route('cefa.agrocefa.index') }}"
                         id="an">{{ trans('agrocefa::universal.Home') }}</a></li>
                 <li style="margin-right: 40px"><a href="{{ url('lang', ['en']) }}" id="an"
-                        class="dropdown-item"><img src="{{ asset('agrocefa/images/general/en.png') }}" alt=""
+                        class="dropdown-item"><img src="{{ asset('modules/agrocefa/images/general/en.png') }}" alt=""
                             style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.English') }}</a></li>
-                <li style="margin-right: 80px"><a href="{{ url('lang', ['es']) }}" id="an"
-                        class="dropdown-item"><img src="{{ asset('agrocefa/images/general/es.png') }}" alt=""
+                <li style="margin-right: 60px"><a href="{{ url('lang', ['es']) }}" id="an"
+                        class="dropdown-item"><img src="{{ asset('modules/agrocefa/images/general/es.png') }}" alt=""
                             style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.Spanish') }}</a></li>
                 @if (checkRol('agrocefa.trainer'))
                 <li><a href="{{ route('agrocefa.trainer.movements.notification')}}" id="an"
@@ -61,7 +61,7 @@
                                         <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}"
                                             class="profile-img img-circle elevation-2" alt="User Image">
                                     @else
-                                        <img src="{{ asset('agrocefa/images/general/user.png') }}"
+                                        <img src="{{ asset('modules/agrocefa/images/general/user.png') }}"
                                             class="profile-img img-circle elevation-2" alt="User Image">
                                     @endif
                                 @endauth
@@ -79,19 +79,19 @@
                 </li>
                 @endif
 
-            </ul>
-        @else
-            <ul>
-                <li style="margin-left: 40px;margin-right: 200px"><a href="#" id="an">AGROCEFA</a></li>
-                <li style="margin-right: 400px"><a href="{{ route('cefa.agrocefa.index') }}"
-                        id="an">{{ trans('agrocefa::universal.Home') }}</a></li>
-                <li style="margin-right: 40px"><a href="{{ url('lang', ['en']) }}" id="an"
-                        class="dropdown-item"><img src="{{ asset('agrocefa/images/general/en.png') }}" alt=""
-                            style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.English') }}</a></li>
-                <li style="margin-right: 40px"><a href="{{ url('lang', ['es']) }}" id="an"
-                        class="dropdown-item"><img src="{{ asset('agrocefa/images/general/es.png') }}" alt=""
-                            style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.Spanish') }}</a></li>
-                
+            
+            @else
+                <ul>
+                    <li style="margin-left: 40px;margin-right: 200px"><a href="#" id="an">AGROCEFA</a></li>
+                    <li style="margin-right: 400px"><a href="{{ route('cefa.agrocefa.index') }}"
+                            id="an">{{ trans('agrocefa::universal.Home') }}</a></li>
+                    <li style="margin-right: 40px"><a href="{{ url('lang', ['en']) }}" id="an"
+                            class="dropdown-item"><img src="{{ asset('modules/agrocefa/images/general/en.png') }}" alt=""
+                                style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.English') }}</a></li>
+                    <li style="margin-right: 40px"><a href="{{ url('lang', ['es']) }}" id="an"
+                            class="dropdown-item"><img src="{{ asset('modules/agrocefa/images/general/es.png') }}" alt=""
+                                style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.Spanish') }}</a></li>
+                    
 
             </ul>
         @endif
