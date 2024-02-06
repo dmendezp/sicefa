@@ -1,37 +1,43 @@
 <?php
 
     return [
-        //table
-        'date' => 'Date',
-        'coordinator' => 'Coordinator',
-        'receiver' => 'Receiver',
-        'course' => 'Course',
-        'status' => 'Status',
+        //title
+        'requestInstructor' => 'Instructor Request',
+        'requestsAssets' => 'Requests for assets',
 
-        //form
-        'requestSupplies' => 'Request for supplies',
-        'dateRequest' => 'Date of request',
-        'nameOfficeHeadAreaCoordinator' => 'Name of office head or area coordinator',
-        'documentNumber' => 'Document number',
-        'namePersonWhomPropertyWillAssigned' => 'Name of the person to whom the property will be assigned',
-        'groupCodeCharacterizationSheet' => 'Group code or characterization sheet',
-        'products' => 'Products',
-        'SENACode' => 'SENA Code',
+        //table
+        'date' => 'Application Date',
+        'productiveUnit' => 'Productive Unit',
+        'element' => 'Products',
         'amount' => 'Amount',
-        'observations' => 'Observations',
+        'applicant' => 'Applicant',
+        'actions' => 'Actions',
+        'products' => 'Products',
+        'quantity' => 'Quantity',
+        'state' => 'State',
 
         //botones
-        'addProduct' => 'Add Product',
-        'delete' => 'Delete',
-        'send' => 'Send',
+        'approve' => 'Approve',
+        'yesApprove' => 'Yes, approve',
+        'reject' => 'Reject',
+        'cancel' => 'Cancel',
+        'requestForm' => 'Request Form',
+        'unifiedRequestForm' => 'Unified Request Form',
 
-        //modal
-        'cancelRequest' => 'Cancel Request',
-        'doYouWantCancelThisRequest' => 'Do you want to cancel this request?',
+        //Modals
+        'approveRequest' => 'Approve Request',
+        'haveElementsApplicationReceived' => 'Have all elements of this application been received?',
 
         //alerts
-        'applicationCancelled' => 'Application cancelled',
-        'iCannotCancelRequest' => 'I cannot cancel the request',
+        'registeredEntry' => 'Registered entry',
+        'error' => 'Error',
+        'areYouSure' => 'Are you sure?',
+        'thisActionWillMarkRequestApproved' => 'This action will mark the request as approved.',
+        'yesApprove' => 'Yes, approve',
+        'approved' => '¡Approved!',
+        'theRequestBeenMarkedApproved' => 'The request has been marked as approved.',
+        'rejectRequest' => 'Reject request',
+        'yesReject' => 'Yes, reject',
     ]
 
 ?>

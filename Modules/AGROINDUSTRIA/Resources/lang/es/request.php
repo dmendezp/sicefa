@@ -1,37 +1,43 @@
 <?php
 
     return [
+        //title
+        'requestInstructor' => 'Solicitud de Instructores',
+        'requestsAssets' => 'Solicitud de Bienes',
+        
         //table
-        'date' => 'Fecha',
-        'coordinator' => 'Coordinador',
-        'receiver' => 'Receptor',
-        'course' => 'Curso',
-        'status' => 'Estado',
-
-        //form
-        'requestSupplies' => 'Solicitud de suministros',
-        'dateRequest' => 'Fecha de la solicitud',
-        'nameOfficeHeadAreaCoordinator' => 'Nombre de jefe de oficina o coordinador de área',
-        'documentNumber' => 'Numero de documento',
-        'namePersonWhomPropertyWillAssigned' => 'Nombre de a quien se le asignara el bien',
-        'groupCodeCharacterizationSheet' => 'Código de grupo o ficha de caracterización',
-        'products' => 'Productos',
-        'SENACode' => 'Código SENA',
+        'date' => 'Fecha de Solicitud',
+        'productiveUnit' => 'Unidad productiva',
+        'element' => 'Productos',
         'amount' => 'Cantidad',
-        'observations' => 'Observaciones',
+        'applicant' => 'Solicitante',
+        'actions' => 'Acciones',
+        'products' => 'Productos',
+        'quantity' => 'Cantidad',
+        'state' => 'Estado',
 
         //botones
-        'addProduct' => 'Agregar Producto',
-        'delete' => 'Eliminar',
-        'send' => 'Enviar',
+        'approve' => 'Aprobar',
+        'yesApprove' => 'Sí, aprovar',
+        'reject' => 'Rechazar',
+        'cancel' => 'Cancelar',
+        'requestForm' => 'Formato de Solicitud',
+        'unifiedRequestForm' => 'Formato de Solicitud Unificado',
 
-        //modal
-        'cancelRequest' => 'Cancelar Solicitud',
-        'doYouWantCancelThisRequest' => '¿Quieres cancelar esta solicitud?',
+        //Modales
+        'approveRequest' => 'Aprobar Solicitud',
+        'haveElementsApplicationReceived' => '¿Todos los elementos de esta solicitud fueron recibidos?',
 
         //alerts
-        'applicationCancelled' => 'Solicitud cancelada',
-        'iCannotCancelRequest' => 'No se puedo cancelar la solicitud'
+        'registeredEntry' => 'Entrada Registrada',
+        'error' => 'Error',
+        'areYouSure' => '¿Está seguro?',
+        'thisActionWillMarkRequestApproved' => 'Esta acción marcará la solicitud como aprobada.',
+        'yesApprove' => 'Si, aprobar',
+        'approved' => '¡Aprobada!',
+        'theRequestBeenMarkedApproved' => 'La solicitud ha sido marcada como aprobada.',
+        'rejectRequest' => 'Rechazar solicitud',
+        'yesReject' => 'Sí, rechazar',
     ]
 
 ?> 

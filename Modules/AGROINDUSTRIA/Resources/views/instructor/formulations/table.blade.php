@@ -1,16 +1,16 @@
 @extends('agroindustria::layouts.master')
 @section('content')
 
-<div class="table_formulation">
-    <table id="formulation" class="hover" style="width: 100%">
+<div class="container-sm">
+    <table id="formulation" class="table table-striped" style="width: 100%">
         <thead>
             <tr>
-                <th>Fecha de creación</th>
-                <th>Creador</th>
+                <th>{{trans('agroindustria::formulations.dateCreation')}}</th>
+                <th>{{trans('agroindustria::formulations.Owner')}}</th>
                 <th>{{trans('agroindustria::formulations.Product Name')}}</th>
                 <th>{{trans('agroindustria::formulations.Production Quantity')}}</th>
                 <th>
-                    <a href="{{route('cefa.agroindustria.units.instructor.formulario')}}">
+                    <a href="{{route('cefa.agroindustria.instructor.units.formulario')}}">
                         <button class="btn btn-success float-end mb-2">
                             <i class="fa-solid fa-plus"></i>
                         </button>
@@ -27,13 +27,13 @@
                 <td>{{$f->amount}}</td>
                 <td>
                     <div class="d-flex justify-content-between">
-                        <a href="{{route('cefa.agroindustria.units.instructor.formulations.details')}}">
+                        <a href="{{route('cefa.agroindustria.instructor.units.formulations.details', ['id' => $f->id])}}">
                             <button class="btn btn-warning" style="width: 45px; height: 35px;">
                                 <i class="fas fa-eye" style="color: #ffffff;"></i>
                             </button>
                         </a>
                         <div style="width: 5px;"></div>
-                        <a href="{{route('cefa.agroindustria.units.instructor.form.edit',  ['id' => $f->id])}}">
+                        <a href="{{route('cefa.agroindustria.instructor.units.form.edit',  ['id' => $f->id])}}">
                             <button data-record-id="{{$f->id}}" class="btn btn-primary edit-button" style="width: 45px; height: 35px;">
                                 <i class="fa-solid fa-pen-to-square fa-sm"></i>
                             </button>

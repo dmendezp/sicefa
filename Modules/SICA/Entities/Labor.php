@@ -10,10 +10,10 @@ use Modules\AGROCEFA\Entities\Crop;
 
 
 
-use Modules\AGROINDUSTRIA\Entities\Consumable;
-use Modules\AGROINDUSTRIA\Entities\Executor;
-use Modules\AGROINDUSTRIA\Entities\Tool;
-use Modules\AGROINDUSTRIA\Entities\Production;
+use Modules\SICA\Entities\Consumable;
+use Modules\SICA\Entities\Executor;
+use Modules\SICA\Entities\Tool;
+use Modules\SICA\Entities\Production;
 
 class Labor extends Model implements Auditable
 {

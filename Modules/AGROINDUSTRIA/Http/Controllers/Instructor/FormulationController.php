@@ -7,6 +7,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\ProductiveUnit;
+use Modules\SICA\Entities\Category;
+use Modules\SICA\Entities\MeasurementUnit;
 use Modules\SICA\Entities\Element;
 use Modules\AGROINDUSTRIA\Entities\Formulation;
 use Modules\AGROINDUSTRIA\Entities\Ingredient;
@@ -20,17 +22,17 @@ class FormulationController extends Controller
 {
     private $dataAdd;
 
-    
-
     public function index()
     {
         $titleIndex = 'Formulaciones';
+        $selectedUnit = session('viewing_unit');
+
         $user = Auth::user();
         if($user){
             $idPersona = $user->person->id;
             $name = $user->person->first_name . ' ' . $user->person->first_last_name . ' ' . $user->person->second_last_name;
         }
-        $formulations = Formulation::with('person', 'element', 'utensils.element', 'ingredients.element')->where('person_id', $idPersona)->get();
+        $formulations = Formulation::with('person', 'element', 'utensils.element', 'ingredients.element')->where('productive_unit_id', $selectedUnit)->get();
 
         $data = [
             'title' => $titleIndex,
@@ -39,14 +41,12 @@ class FormulationController extends Controller
         return view('agroindustria::instructor.formulations.table', $data);  
     }
 
-    public function details (){
+    public function details ($id){
 
         $title = "Detalles";
-
         $selectedUnit = session('viewing_unit');
-        $unitName = ProductiveUnit::findOrFail($selectedUnit);
 
-        $formulations = Formulation::with('utensils.element.measurement_unit', 'ingredients.element.measurement_unit')->where('productive_unit_id', $selectedUnit)->get();
+        $formulations = Formulation::with('utensils.element.measurement_unit', 'ingredients.element.measurement_unit')->where('productive_unit_id', $selectedUnit)->where('id', $id)->get();
 
         $data = [
             'title' => $title,
@@ -57,7 +57,8 @@ class FormulationController extends Controller
     }
 
     public function form(){
-        $title = 'Formulacion';
+        $title = 'Formulación';
+        
         $user = Auth::user();
         if($user){
             $idPersona = $user->person->id;
@@ -76,7 +77,9 @@ class FormulationController extends Controller
             ];
         })->prepend(['id' => null, 'name' => 'Seleccione un Producto'])->pluck('name', 'id');
         
-        $consumables = Element::where('category_id', 1)->get();
+        $categoryGroceries = Category::where('name', 'Abarrotes')->pluck('id');
+        $additives = Category::where('name', 'Aditivos')->pluck('id');
+        $consumables = Element::whereIn('category_id', $categoryGroceries)->orWhereIn('category_id', $additives)->get();
 
         $ingredient = $consumables->map(function ($e){
             $id = $e->id;
@@ -88,7 +91,8 @@ class FormulationController extends Controller
             ];
         })->prepend(['id' => null, 'name' => 'Seleccione un Ingrediente'])->pluck('name', 'id');
 
-        $utencils = Element::where('category_id', 2)->get();
+        $categoryUtencils = Category::where('name', 'Utensilios')->pluck('id');
+        $utencils = Element::where('category_id', $categoryUtencils)->get();
 
         $utencil = $utencils->map(function ($e){
             $id = $e->id;
@@ -105,7 +109,7 @@ class FormulationController extends Controller
 
         $registros = null;
 
-        $this->dataAdd = [
+        $data = [
             'title' => $title,
             'person' => $name,
             'productiveUnits' => $unitName,
@@ -115,7 +119,7 @@ class FormulationController extends Controller
             'registros' => $registros
         ];
 
-        return view('agroindustria::instructor.formulations.form', $this->dataAdd);  
+        return view('agroindustria::instructor.formulations.form', $data);  
 
     }
 
@@ -139,13 +143,12 @@ class FormulationController extends Controller
         ];
 
         $validatedData = $request->validate($rules, $messages);
-        
         $formulationExisting = Formulation::where('element_id', $validatedData['element_id'])->first();
         if($formulationExisting){
             return back()
-                ->withInput()
-                ->with('icon', 'error')
-                ->with('message_line', 'Ya existe una receta para este producto');
+            ->withInput()
+            ->with('icon', 'error')
+            ->with('message_line', 'Ya existe una receta para este producto');
         }else{
             $f = new Formulation;
             $f->element_id = $validatedData['element_id'];
@@ -155,7 +158,8 @@ class FormulationController extends Controller
             $f->amount=  $validatedData['amount'];
             $f->date = $request->input('date');
             $f->save();
-    
+            
+            
             // Obtener los datos de ingredientes del formulario
             $nameIngredients = $request->input('element_ingredients');
             $amountIngredients = $request->input('amount_ingredients');
@@ -163,46 +167,29 @@ class FormulationController extends Controller
             // Obtener los datos de ingredientes del formulario
             $nameUtencils = $request->input('element_utencils');
             $amountUtencils = $request->input('amount_utencils');
-    
+
             // Recorrer los datos de productos y guardarlos en Supply
+            $measurement_unit = Element::whereIn('id', $nameIngredients)->pluck('measurement_unit_id');
             foreach ($nameIngredients as $key => $ingredient) {
+                $amount = $amountIngredients[$key];
+                $conversion_factor = MeasurementUnit::whereIn('id', $measurement_unit)->pluck('conversion_factor');
+                
+                foreach ($conversion_factor as $key => $c) {
+                    $amountConversion = $amount * $c;
+                }
                 $i = new Ingredient;
-                if(isset($ingredient)){
-                    $i->element_id = $ingredient;
-                }else{
-                    return back()
-                    ->withInput()
-                    ->with('icon', 'error')
-                    ->with('message_line', trans('agroindustria::menu.You must select an item'));
-                }
+                $i->element_id = $ingredient;
                 $i->formulation_id = $f->id;
-                if(isset($amountIngredients[$key])){
-                    $i->amount = $amountIngredients[$key];
-                }else{
-                    return back()
-                    ->withInput()
-                    ->with('icon', 'error')
-                    ->with('message_line', trans('agroindustria::menu.You must enter an amount'));
-                }
+                $i->amount = $amountConversion;
                 $i->save();
+                
+            }
+
+            foreach ($nameUtencils as $key => $utencil) {
                 $u = new Utensil;
-                if(isset($nameUtencils[$key])){
-                    $u->element_id = $nameUtencils[$key];
-                }else{
-                    return back()
-                    ->withInput()
-                    ->with('icon', 'error')
-                    ->with('message_line', trans('agroindustria::menu.You must select an item'));
-                }
+                $u->element_id = $nameUtencils[$key];
                 $u->formulation_id = $f->id;
-                if(isset($amountUtencils[$key])){
-                    $u->amount = $amountUtencils[$key];
-                }else{
-                    return back()
-                    ->withInput()
-                    ->with('icon', 'error')
-                    ->with('message_line', trans('agroindustria::menu.You must enter an amount'));
-                }
+                $u->amount = $amountUtencils[$key];
                 $u->save();
             }
         }    
@@ -210,13 +197,13 @@ class FormulationController extends Controller
         
 
         if($u->save()){
-           $icon = 'success';
-               $message_line = trans('agroindustria::formulations.Successfully created recipe');
+            $icon = 'success';
+            $message_line = trans('agroindustria::formulations.Successfully created recipe');
         }else{
-           $icon = 'error';
-           $message_line = trans('agroindustria::formulations.Error creating the recipe');
+            $icon = 'error';
+            $message_line = trans('agroindustria::formulations.Error creating the recipe');
         }
-        return redirect()->route('cefa.agroindustria.units.instructor.formulations')->with([
+        return redirect()->route('cefa.agroindustria.instructor.units.formulations')->with([
             'icon' => $icon,
             'message_line' => $message_line,
         ]); 
@@ -230,9 +217,36 @@ class FormulationController extends Controller
             $name = $user->person->first_name . ' ' . $user->person->first_last_name . ' ' . $user->person->second_last_name;
         }
         
-        $element = Element::pluck('name', 'id');
+        $element = Element::where('category_id', 3)->pluck('name', 'id');
         $selectedUnit = session('viewing_unit');
         $unitName = ProductiveUnit::findOrFail($selectedUnit);
+
+        $categoryGroceries = Category::where('name', 'Abarrotes')->pluck('id');
+        $additives = Category::where('name', 'Aditivos')->pluck('id');
+        $consumables = Element::where('category_id', $categoryGroceries)->orWhereIn('category_id', $additives)->get();
+
+        $ingredient = $consumables->map(function ($e){
+            $id = $e->id;
+            $name = $e->name . ' ' . '(' . $e->measurement_unit->name . ')';
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione un Ingrediente'])->pluck('name', 'id');
+
+        $categoryUtencils = Category::where('name', 'Utensilios')->pluck('id');
+        $utencils = Element::where('category_id', $categoryUtencils)->get();
+
+        $utencil = $utencils->map(function ($e){
+            $id = $e->id;
+            $name = $e->name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione un Utencilio'])->pluck('name', 'id');
         
         $registros = Formulation::with('person', 'element', 'utensils.element', 'ingredients.element')->findOrFail($id);
         
@@ -242,6 +256,8 @@ class FormulationController extends Controller
             'productiveUnits' => $unitName,
             'registros' => $registros,
             'elements' => $element,
+            'ingredients' => $ingredient,
+            'utencils' => $utencil,
         ];
 
         return view('agroindustria::instructor.formulations.form', $this->dataAdd);  
@@ -318,7 +334,7 @@ class FormulationController extends Controller
            $message_line = 'Error al editar la formula';
         }
 
-        return redirect()->route('cefa.agroindustria.units.instructor.formulations')->with([
+        return redirect()->route('cefa.agroindustria.instructor.units.formulations')->with([
             'icon' => $icon,
             'message_line' => $message_line,
         ]); 
@@ -335,7 +351,7 @@ class FormulationController extends Controller
                 $icon = 'error';
                 $message_line = trans('agroindustria::formularions.Error deleting the recipe');
             }
-        return redirect()->route('cefa.agroindustria.units.instructor.formulations')->with([
+        return redirect()->route('cefa.agroindustria.instructor.units.formulations')->with([
             'icon' => $icon,
             'message_line' => $message_line,
         ]); 

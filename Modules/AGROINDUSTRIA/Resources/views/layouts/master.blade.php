@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
         @include('agroindustria::layouts.partials.head')
-    <body>
+    <body class="hold-transition">
         <!-- navbar -->
         @include('agroindustria::layouts.partials.navbar')
 

@@ -15,12 +15,13 @@
 .form-group {
     display: inline-block;
     width: 200px; /* Ancho deseado para cada campo y etiqueta */
-    margin-right: 20px; /* Espacio entre campos */
+    margin-right: 10px; /* Espacio entre campos */
     margin-bottom: 10px; /* Espacio entre grupos de campos */
 }
 
 .salida{
-    background-color: #fa9cb2;
+    position: relative;
+    left: 450px;
     color: white;
     font-weight: bold;
     border: none;
@@ -38,7 +39,6 @@
     color: white;
     font-weight: bold;
     border: none;
-    background-color: green;
     border-radius: 4px;
 }
 
@@ -122,6 +122,7 @@
 }
 
 .button_discharge{
+    margin-top: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -148,10 +149,7 @@
 }
 
 .table_discharge{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
+    margin: 20px;
 }
 
 #pedingMovements{

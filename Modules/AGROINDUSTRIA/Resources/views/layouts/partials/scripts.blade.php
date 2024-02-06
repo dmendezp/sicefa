@@ -93,45 +93,6 @@ window.onclick = function(event) {
 </script>
 
 
-{{-- Obtiene el precio del inventario --}}
-<script>
-    $(document).ready(function () {
-        $('#elementInventory').change(function () {
-            var elementoSeleccionado = $(this).val();
-            
-            // Realiza una petición AJAX para obtener la cantidad
-            if (elementoSeleccionado) {
-                $.ajax({
-                    url: {!! json_encode(route('cefa.agroindustria.units.instructor.movements.id', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString()),
-                    method: 'GET',
-                    success: function (response) {
-                    if (Array.isArray(response.id)) {
-                        // Si recibes un arreglo de IDs, puedes recorrerlos aquí
-                        response.id.forEach(function (value) {
-                            var amount = parseFloat(value.amount); // Acceder al amount
-                            var price = parseFloat(value.price);   // Acceder al price
-                            
-                            // Establecer los valores en los campos correspondientes
-                            $('#available').val(amount);
-                            $('#price').val(price);
-                        });
-                    } else {
-                        // Manejar el caso en que el valor no sea un número válido
-                        console.error('No se encontró el precio válido.');
-                    }
-                },
-                    error: function (error) {
-                        console.error('Error al obtener la cantidad:', error);
-                    }
-                });
-            } else {
-                // Si se selecciona la opción predeterminada, deja el campo de "Cédula" en blanco
-                $('#available').val('');
-                $('#price').val('');
-            }
-        });
-    });
-</script>
 
 
 {{--Script para traer el id del curso seleccionado--}}
@@ -163,103 +124,7 @@ window.onclick = function(event) {
     @endif
 </script>
 
-{{-- Oculta formularios de labor--}}
-<script>
-    $(document).ready(function() {
-        // Inicialmente, oculta el formulario
-        $("#form-container").hide();
-        $("#form-container-tools").hide();
-        $("#form-container-consumables").hide();
-        $("#form-container-equipments").hide();
 
-        // Botón para abrir/cerrar el formulario
-        $("#toggle-form").click(function() {
-            // Alternar la visibilidad del formulario
-            $("#form-container").toggle();
-
-            // Cambiar el texto del botón en función del estado del formulario
-            var buttonText = $("#form-container").is(":visible")
-                ? "{{ trans('agroindustria::labors.closeCollaboratorsForm') }}"
-                : "{{ trans('agroindustria::labors.openCollaboratorFormulatio') }}";
-
-            // Actualizar el texto del botón
-            $(this).text(buttonText);
-
-            // Cambiar el color del botón a rojo cuando el formulario está abierto
-            if ($("#form-container").is(":visible")) {
-                $(this).css("background-color", "red");
-            } else {
-                // Restaurar el color original cuando el formulario se cierra
-                $(this).css("background-color", ""); // Vaciar el valor para restaurar el color original
-            }
-        });
-        
-        // Botón para abrir/cerrar el formulario
-        $("#toggle-form-tools").click(function() {
-            // Alternar la visibilidad del formulario
-            $("#form-container-tools").toggle();
-
-            // Cambiar el texto del botón en función del estado del formulario
-            var buttonText = $("#form-container-tools").is(":visible")
-                ? "Cerrar formulario de herramientas"
-                : "Registro de herramientas";
-
-            // Actualizar el texto del botón
-            $(this).text(buttonText);
-
-            // Cambiar el color del botón a rojo cuando el formulario está abierto
-            if ($("#form-container-tools").is(":visible")) {
-                $(this).css("background-color", "red");
-            } else {
-                // Restaurar el color original cuando el formulario se cierra
-                $(this).css("background-color", ""); // Vaciar el valor para restaurar el color original
-            }
-        });
-        // Botón para abrir/cerrar el formulario
-        $("#toggle-form-consumables").click(function() {
-            // Alternar la visibilidad del formulario
-            $("#form-container-consumables").toggle();
-
-            // Cambiar el texto del botón en función del estado del formulario
-            var buttonText = $("#form-container-consumables").is(":visible")
-                ? "Cerrar formulario de consumibles"
-                : "Registro de consumibles";
-
-            // Actualizar el texto del botón
-            $(this).text(buttonText);
-
-            // Cambiar el color del botón a rojo cuando el formulario está abierto
-            if ($("#form-container-consumables").is(":visible")) {
-                $(this).css("background-color", "red");
-            } else {
-                // Restaurar el color original cuando el formulario se cierra
-                $(this).css("background-color", ""); // Vaciar el valor para restaurar el color original
-            }
-        });
-
-        // Botón para abrir/cerrar el formulario
-        $("#toggle-form-equipment").click(function() {
-            // Alternar la visibilidad del formulario
-            $("#form-container-equipments").toggle();
-
-            // Cambiar el texto del botón en función del estado del formulario
-            var buttonText = $("#form-container-equipments").is(":visible")
-                ? "Cerrar formulario de equipos"
-                : "Registro de equipos";
-
-            // Actualizar el texto del botón
-            $(this).text(buttonText);
-
-            // Cambiar el color del botón a rojo cuando el formulario está abierto
-            if ($("#form-container-equipments").is(":visible")) {
-                $(this).css("background-color", "red");
-            } else {
-                // Restaurar el color original cuando el formulario se cierra
-                $(this).css("background-color", ""); // Vaciar el valor para restaurar el color original
-            }
-        });
-    });
-</script>
 
 
 
@@ -269,20 +134,20 @@ window.onclick = function(event) {
         // Detecta cambios en el primer campo de selección (Receiver)
         $('#activity-selected').on('change', function() {
             var selectedActivity = $(this).val();
-            var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.responsibilities', ['activityId' => ':activityId'])) !!}.replace(':activityId', selectedActivity.toString());
+            var url = {!! json_encode(route('cefa.agroindustria.instructor.labor.responsibilities', ['activityId' => ':activityId'])) !!}.replace(':activityId', selectedActivity.toString());
+            console.log('url: '+ url);
             // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
             console.log(url);
             $.ajax({
                 url: url,
                 type: 'GET',
                 success: function(response) {
-                    var options = '<option value="">' + '{{ trans("agroindustria::labors.selectResponsiblePerson") }}' + '</option>';
-                    $.each(response.id, function(index, warehouse) {
-                        options += '<option value="' + warehouse.id + '">' + warehouse.name + '</option>';
-                    });
-
+                    var personId = response.id[0].id;
+                    var personName = response.id[0].name;
+                    
                     // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
-                    $('#responsible').html(options);
+                    $('#responsible').val(personName);
+                    $('#responsibleId').val(personId);
 
                     // Añade aquí el código para consultar el tipo de actividad
                     var activityType = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.type', ['type' => ':type'])) !!}.replace(':type', selectedActivity.toString());
@@ -291,11 +156,13 @@ window.onclick = function(event) {
                         type: 'GET',
                         success: function(typeResponse) {
                             if (typeResponse.type.length > 0) {
+                                $('#total-labor').removeClass('col-md-6').addClass('col-md-12');
                                 $('#recipe-field').show();
                                 $('#date-expiration-field').show();
                                 $('#lot-field').show();
                                 $('#amount-production-field').show();
                             } else {
+                                $('#total-labor').removeClass('col-md-12').addClass('col-md-6');
                                 $('#recipe-field').hide();
                                 $('#date-expiration-field').hide();
                                 $('#lot-field').hide();
@@ -321,7 +188,8 @@ window.onclick = function(event) {
          // Detecta cambios en el primer campo de selección (Receiver)
          $('.employement_type').on('change', function() {
             var selectedEmployement = $(this).val();
-
+            var parentElement = $(this).closest('.collaborators');
+            var priceEmployement = parentElement.find('.quantity');
             var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.price', ['id' => ':id'])) !!}.replace(':id', selectedEmployement.toString());
 
             // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
@@ -332,6 +200,7 @@ window.onclick = function(event) {
                     // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
                     var price = response.price;
                     $('.price').val(price);
+                    priceEmployement.text('Precio: ' + price);
                 },
                 error: function(error) {
                     console.log(error);
@@ -384,6 +253,48 @@ window.onclick = function(event) {
      });
  </script>
  
+ {{-- Busca productos segun el numero de documento --}}
+<script>
+    $(document).ready(function() {
+        var baseUrl = '{{ route("cefa.agroindustria.units.instructor.element.name", ["name" => ":name"]) }}';
+          console.log(baseUrl);
+          $('.elementInventory-select').select2({
+            placeholder: 'Buscar productos',
+            minimumInputLength: 1, // Habilita la búsqueda en tiempo real
+            ajax: {
+              url: function(params) {
+                  // Reemplaza el marcador de posición con el término de búsqueda
+                  var searchUrl = baseUrl.replace(':name', params.term);
+
+                  return searchUrl; // Utiliza la URL actualizada con el término de búsqueda
+              },
+              dataType: 'json',
+              delay: 250, // Retardo antes de iniciar la búsqueda
+              processResults: function(data) {
+                  return {
+                      results: data.id.map(function(element) {
+                          return {
+                              id: element.id,
+                              text: element.name,
+                          };
+                      })
+                  };
+              },
+              cache: true
+            }
+          });
+
+          // Manejar la selección de una persona en el campo de búsqueda
+          $('.elementInventory-select').on('select2:select', function(e) {
+              var selectedElement = e.params.data;
+              console.log(selectedElement);
+              // Actualizar el contenido de la etiqueta con el nombre de la persona seleccionada
+              $(this).closest('.elements').find('input.element_id').val(selectedElement.id);
+              $(this).closest('.elements').find('input.element_name').val(selectedElement.text);
+          });
+        });
+ </script>
+
 
 <script>
     new DataTable('#discharge')
@@ -391,20 +302,34 @@ window.onclick = function(event) {
     new DataTable('#labors')
     new DataTable('#request')
     new DataTable('#table-production')
+    new DataTable('#request')
+    new DataTable('#deliveries')
+    new DataTable('#inventoryAlert')
+    new DataTable('#inventoryExp')
     $(document).ready(function() {
-    $('#deliveries').DataTable({
-        "order": [[0, "desc"]], // Ordenar por la primera columna (Fecha de Solicitud) en orden descendente
-        "paging": true,
-        // Agrega otras opciones de configuración según tus necesidades
+        $('#deliveries').DataTable({
+            "order": [[0, "desc"]], // Ordenar por la primera columna (Fecha de Solicitud) en orden descendente
+            "paging": true,
+            // Agrega otras opciones de configuración según tus necesidades
+        });
     });
-});
 </script>
 
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+    on('click', '.navbar .dropdown_lang > a', function(e) {
+        if (select('#navbar').classList.contains('navbar-mobile')) {
+        e.preventDefault()
+        this.nextElementSibling.classList.toggle('dropdown_lang-active')
+        }
+    }, true)
+</script>
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/6364639265.js" crossorigin="anonymous"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
 

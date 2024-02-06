@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'Recipes' => 'Recetas',
+    'Recipes' => 'Formulaciones',
     'Owner' => 'Propietario',
     'Product Name' => 'Nombre del Producto',
     'Select a product to prepare' => 'Seleccione un producto para preparar',
@@ -23,6 +23,7 @@ return [
     'Success' => 'Éxito',
 
     //datatable
+    'dateCreation' => 'Fecha de Creación',
     'Production Quantity' => 'Cantidad de Producción',
     'Delete' => 'Eliminar',
     'You want to remove the recipe from' => 'Desea eliminar la receta de',

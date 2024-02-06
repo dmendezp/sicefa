@@ -1,70 +1,86 @@
 @extends('agroindustria::layouts.master')
 @section('content')
     
-<div class="table-request">
-    <table id="request" class="hover" style="width: 90%">
+<div class="table-request" style="margin: 20px">
+    <h1>{{trans('agroindustria::request.requestsAssets')}}</h1>
+    <table id="request" class="table table-striped" style="width: 100%">
         <thead>
             <tr>
                 <th>{{trans('agroindustria::request.date')}}</th>
-                <th>{{trans('agroindustria::request.coordinator')}}</th>
-                <th>{{trans('agroindustria::request.receiver')}}</th>
-                <th>{{trans('agroindustria::request.course')}}</th>
-                <th>{{trans('agroindustria::request.status')}}</th>
+                <th>{{trans('agroindustria::request.products')}}</th>
+                <th>{{trans('agroindustria::request.quantity')}}</th>
+                <th>{{trans('agroindustria::request.state')}}</th>
                 <th>
-                    <a href="{{route('cefa.agroindustria.units.instructor.solicitud')}}">
+                    @if(auth()->check() && checkRol('agroindustria.instructor.vilmer') || auth()->check() && checkRol('agroindustria.instructor.chocolate'))  
+                    <a href="{{route('cefa.agroindustria.instructor.units.solicitud')}}">
                         <button class="btn btn-success float-end mb-2">
                             <i class="fa-solid fa-plus"></i>
                         </button>
                     </a>
+                    @else
+                    <a href="{{route('cefa.agroindustria.units.instructor.request.excel.unified')}}">
+                        <button class="btn btn-success float-end mb-2">
+                            <i class="fas fa-file-excel"></i> {{trans('agroindustria::request.unifiedRequestForm')}}
+                        </button>
+                    </a>
+                    @endif
                 </th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($requests as $r)           
-            <tr>
-                <td>{{$r->date}}</td>
-                <td>{{$r->person->first_name . ' ' . $r->person->first_last_name . ' ' . $r->person->second_last_name}}</td>
-                <td>{{$r->receive->first_name . ' ' . $r->receive->first_last_name . ' ' . $r->receive->second_last_name}}</td>
-                <td>{{$r->course->program->name}}</td>
-                <td>{{$r->status}}</td>
-                <td>
-                    @if ($r->status === 'Pendiente')
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#anular{{$r->id}}">
-                            {{trans('agroindustria::menu.Cancel')}}
-                        </button>     
-                    @endif
-                </td>
-            </tr>
+            @foreach ($movements as $m) 
+                <tr>
+                    <td>{{$m->registration_date}}</td>
+                    <td>
+                        @foreach ($m->movement_details as $detail)
+                            {{$detail->inventory->element->name}}<br>
+                        @endforeach
+                    </td>
+                    <td>
+                        @foreach ($m->movement_details as $detail)
+                            {{$detail->amount / $detail->inventory->element->measurement_unit->conversion_factor}}<br>
+                        @endforeach
+                    </td>
+                    <td>{{$m->state}}</td>
+                    <td>
+                        <form method="GET" action="{{ route('cefa.agroindustria.units.instructor.request.excel', ['movementId' => $m->id]) }}">
+                            @csrf
+                            <button type="submit" class="btn btn-info" style="margin-bottom: 10px"><i class="fas fa-file-excel"></i> {{trans('agroindustria::request.requestForm')}}</button>
+                        </form>
+                        @if(auth()->check() && checkRol('agroindustria.admin') && $m->state == 'Solicitado') 
+                            <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#approbed{{$m->id}}">{{trans('agroindustria::request.approve')}}</button>
+                        @endif
+                    </td>
+                </tr>
             @endforeach
         </tbody>
     </table>
 </div>
 
 <!-- Modal anular movimiento -->
-@foreach ($requests as $r)
-<div class="modal fade" id="anular{{$r->id}}" tabindex="-1" aria-labelledby="anularLabel" aria-hidden="true">
+@foreach ($movements as $m)
+<div class="modal fade" id="approbed{{$m->id}}" tabindex="-1" aria-labelledby="anularLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="anularLabel">{{trans('agroindustria::request.cancelRequest')}}</h1>
+          <h1 class="modal-title fs-5" id="anularLabel">{{trans('agroindustria::request.approveRequest')}}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-            {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.requests.cancelled', ['id' => $r->id])]) !!}
-            @csrf
-            @method('PUT')
-            <p>{{trans('agroindustria::request.doYouWantCancelThisRequest')}}</p>
+        <div class="modal-body"> 
+            <p>{{trans('agroindustria::request.haveElementsApplicationReceived')}}</p>
         </div>
         <div class="modal-footer">
-            {!! Form::submit(trans('agroindustria::menu.Cancel'),['class' => 'btn btn-danger', 'name' => 'anular']) !!}
-          {!! Form:: close() !!}
+            {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.request.pending.state', ['id' => $m->id])]) !!}
+            @csrf
+            @method('PUT')
+            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">{{trans('agroindustria::request.yesApprove')}}</button>
+            {!! Form:: close() !!}
+            <button type="button" class="btn btn-secondary">{{trans('agroindustria::request.cancel')}}</button>
         </div>
       </div>
     </div>
   </div>
-@endforeach
-
-
+  @endforeach
 
 @section('script')
 @endsection

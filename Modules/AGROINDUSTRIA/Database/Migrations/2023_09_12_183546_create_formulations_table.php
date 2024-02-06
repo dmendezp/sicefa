@@ -18,7 +18,7 @@ class CreateFormulationsTable extends Migration
             $table->foreignId('element_id')->constrained()->onDelete('cascade');
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->foreignId('productive_unit_id')->constrained()->onDelete('cascade');
-            $table->string('proccess');
+            $table->text('proccess');
             $table->integer('amount');
             $table->date('date');
             $table->softDeletes();

@@ -374,14 +374,14 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 ADS0 2500871
 #### Sprint Planning 22-Agt-2023
-* **Jennifer Marin Montealegre** - *CRUD de formulacion o recetas*
+
 * **David Juliam Cadena Barrera** - *Monitoreo de las bodegas con sus insumos.*
 * **Juan Diego Bonilla Aroca** - *CRUD de actividad*
 * **Julian Javier Ramirez Diaz** - *Solicitud de insumos a Centro*
 
 ...
 #### Meet 29-Ago-2023
-* **Jennifer Marin Montealegre** - *Rutas controladores vistas para formulacion* - *44%* - *Conflictos entre archivos* - *Solucionar conflictos y hacer diseño de las vistas*
+
 
 * **David Juliam Cadena Barrera** - *Rutas controladores vistas para formulacion* - *21 %* - *No contaba con mi equipo de computo* - *Continuar con el desarrollo de la tarea.*
 
@@ -391,7 +391,6 @@ ADS0 2500871
 
 ---
 #### Meet 31-Agosto-2023
-* **Jennifer Marin Montealegre** - *Formulario para registro de formulacion* - *78%* - *Nunguna* - *Ninguna*
 
 * **David Juliam Cadena Barrera** - *Formulario de registro de nuevo insumo y de edicion* - *50%* - *Ninguna* - *Ninguna.*
 
@@ -401,7 +400,6 @@ ADS0 2500871
 
 ### Sprint 2 🔄
 #### Sprint Planning 29-Agt-2023
-* **Jennifer Marin Montealegre** - *Visualización de Insumos utilizados en el desarrollo de productos.*
 * **David Juliam Cadena Barrera** - *Dar de baja a insumos de Bodega.*
 * **Juan Diego Bonilla Aroca** - *Registro de entrega de productos a punto de venta.*
 * **Julian Javier Ramirez Diaz** - *Registro de entrega de productos a punto de venta.*

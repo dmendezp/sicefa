@@ -7,35 +7,61 @@
     <div class="container text-center">
       <div class="row">
         @foreach ($units as $unit)
-        @php
-            $unitIcons = [       
-                'Panaderia' => 'fas fa-bread-slice fa-lg',
-                'Chocolateria' => 'fas fa-mug-hot fa-lg',
-                //'Pasteleria' => 'fas fa-birthday-cake fa-lg',
-            ];
-            $unitRoutes = [
-                'Panaderia' => route('cefa.agroindustria.units.bakery', ['unit'=> $unit->id]), // Reemplazar con la ruta real
-                'Chocolateria' => route('cefa.agroindustria.units.chocolateria',['unit' => $unit->id]), 
-                //'Pasteleria' => route('cefa.agroindustria.units.pasteleria',['unit' => $unit->id]), 
-            ];
-
-            // Determinar el ícono correspondiente al nombre de la unidad actual
-            $currentUnitIcon = $unitIcons[$unit->name] ?? 'fas fa-question-circle fa-lg';
-            $currentUnitRoute = $unitRoutes[$unit->name] ?? '#';
-        @endphp
             <div class="col">
-                <button onclick="window.location.href = '{{ $currentUnitRoute }}'" class="card-client-button" id="boton_unit">
-                    <div class="card-client-content">
-                        <h2 class="tittleU">{{ $unit->name }}</h2>
-                        <br>
-                        <i class="{{$currentUnitIcon}}" style="color: #ffffff;"></i>
-                        <br><br>
-                    </div>
-                </button>                
+                @if(Route::is('*instructor.*') && Auth::user()->havePermission('agroindustria.instructor.units.activity'))
+                <a href="{{route('agroindustria.instructor.units.activity' , ['unit'=> $unit->id])}}">
+                    <button class="card-client-button" id="boton_unit" data-unit-name="{{ $unit->name }}"  onclick="selectUnit('{{ $unit->id }}', '{{ $unit->name }}')">
+                        <div class="card-client-content">
+                            <h2 class="tittleU">{{ $unit->name }}</h2>
+                            <br>
+                            <i class="{{$unit->icon}}" style="color: #ffffff;"></i>
+                            <br><br>
+                        </div>
+                    </button>   
+                </a>      
+                @else
+                @if(Route::is('*storer.*') && auth()->check() && checkRol('agroindustria.almacenista'))
+                <a href="{{route('cefa.agroindustria.storer.units.inventory' , ['id'=> $unit->id])}}">
+                    <button class="card-client-button" id="boton_unit" data-unit-name="{{ $unit->name }}"  onclick="selectUnit('{{ $unit->id }}', '{{ $unit->name }}')">
+                        <div class="card-client-content">
+                            <h2 class="tittleU">{{ $unit->name }}</h2>
+                            <br>
+                            <i class="{{$unit->icon}}" style="color: #ffffff;"></i>
+                            <br><br>
+                        </div>
+                    </button>   
+                </a>  
+                @else  
+                @if(Route::is('*admin.*') && Auth::user()->havePermission('agroindustria.admin.units.activity'))
+                <a href="{{route('agroindustria.admin.units.activity' , ['unit'=> $unit->id])}}">
+                    <button class="card-client-button" id="boton_unit" data-unit-name="{{ $unit->name }}"  onclick="selectUnit('{{ $unit->id }}', '{{ $unit->name }}')">
+                        <div class="card-client-content">
+                            <h2 class="tittleU">{{ $unit->name }}</h2>
+                            <br>
+                            <i class="{{$unit->icon}}" style="color: #ffffff;"></i>
+                            <br><br>
+                        </div>
+                    </button>   
+                </a> 
+                @endif      
+                @endif
+                @endif
             </div>
         @endforeach            
         </div>
     </div>
     @endif
 
+
+    <script>
+        function selectUnit(unitId, unitName) {
+            // Actualizar el área de navegación con el nombre de la unidad seleccionada
+            document.getElementById('title').innerText = `AGROINDUSTRIA - ${unitName}`;
+    
+            // Almacenar la unidad seleccionada en sessionStorage
+            sessionStorage.setItem('viewing_unit', 'true');
+            sessionStorage.setItem('viewing_unit_id', unitId);
+            sessionStorage.setItem('viewing_unit_name', unitName);
+        }
+    </script>
 @endsection
