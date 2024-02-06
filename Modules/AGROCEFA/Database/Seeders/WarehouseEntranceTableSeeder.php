@@ -29,14 +29,14 @@ class WarehouseEntranceTableSeeder extends Seeder
         // Consultar la app para realizar la creacion de roles
         $app = App::where('name','AGROCEFA')->first();
 
-        $person = Person::where('document_number','13706')->first();
+        $person = Person::where('document_number','12275825')->first();
 
         $sector = Sector::updateOrCreate([ 
             'name' => 'Agricola',
             'description' => 'Sector agricola del cefa',
         ]);
 
-        $farm = Farm::where('name','Cefa')->first();
+        $farm = Farm::where('name','CEFA')->first();
 
         $productiveunitnew = ProductiveUnit::firstOrNew([ 
             'name' => 'Almacen',
@@ -58,14 +58,6 @@ class WarehouseEntranceTableSeeder extends Seeder
         $municipality = Municipality::updateOrCreate([ 
             'name' => 'Campoalegre',
             'department_id' => $departament->id,
-        ]);
-
-        $farm = Farm::updateOrCreate([ 
-            'name' => 'Cefa',
-            'description' => 'Granja Agruindustrial la angostura (cefa)',
-            'area' => '800000',
-            'person_id' => $person->id,
-            'municipality_id' => $municipality->id
         ]);
 
         $warehouseentrance = Warehouse::updateOrCreate([ 

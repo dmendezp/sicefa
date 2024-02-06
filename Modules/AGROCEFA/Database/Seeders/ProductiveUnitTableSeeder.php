@@ -29,24 +29,12 @@ class ProductiveUnitTableSeeder extends Seeder
 
        $sector = Sector::where('name','Agricola')->first();
 
-       $farm = Farm::where('name','Cefa')->first();
-
-       $roltrainer = Role::where('slug','agrocefa.trainer')->first();
-
-       $rolapassant = Role::where('slug','agrocefa.passant')->first();
+       $farm = Farm::where('name','CEFA')->first();
 
        $warehouse = Warehouse::updateOrCreate([ 
            'name' => 'General Agricola',
            'description' => 'Bodega general del sector agricola del cefa',
            'app_id' => $app->id
-       ]);
-
-       $productiveunit = ProductiveUnit::updateOrCreate([ 
-           'name' => 'Piña',
-           'description' => 'Unidad Productiva de piña',
-           'person_id' => '5',
-           'sector_id' => $sector->id,
-           'farm_id' => $farm->id
        ]);
 
        $productiveunitnew = ProductiveUnit::updateOrCreate([ 
@@ -57,31 +45,5 @@ class ProductiveUnitTableSeeder extends Seeder
         'farm_id' => $farm->id
         ]);
 
-       $productive_unit_warehouse = ProductiveUnitWarehouse::updateOrCreate([
-           'productive_unit_id' => $productiveunit->id,
-           'warehouse_id' => $warehouse->id
-       ]);
-
-       $activity_type = ActivityType::updateOrCreate([
-            'name' => 'Agricola'
-       ]);
-
-       $activity = Activity::updateOrCreate([
-            'name' => 'Siembra',
-            'productive_unit_id' => $productiveunit->id,
-            'activity_type_id' => $activity_type->id,
-            'description' => 'Actividad para realizar la siembra',
-            'period' => 'Mensual'
-       ]);
-
-       $responsibilitiesadmin = Responsibility::updateOrCreate([
-            'activity_id' => $activity->id,
-            'role_id' => $roltrainer->id
-       ]);
-       
-       $responsibilitiespassant = Responsibility::updateOrCreate([
-        'activity_id' => $activity->id,
-        'role_id' => $rolapassant->id
-   ]);
     }
 }

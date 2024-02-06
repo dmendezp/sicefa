@@ -29,35 +29,12 @@ class RolesTableSeeder extends Seeder
 
         // Registrar o actualizar rol de INSTRUCTOR de carnicos, panaderia, pasteleria, frutas
         $rol_instructor_vilmer = Role::updateOrCreate(['slug' => 'agroindustria.instructor.vilmer'], [
-            'name' => 'Instructor- carnicos, panaderia, pasteleria, frutas',
-            'description' => 'Rol instructor de las unidades productivas carnicos, panaderia, pasteleria y frutas',
-            'description_english' => 'Instructor role of meat, bakery, pastry and fruit production units',
+            'name' => 'Instructor',
+            'description' => 'Rol instructor',
+            'description_english' => 'Instructor role',
             'app_id' => $app->id
         ]);
 
-        // Registrar o actualizar rol de INSTRUCTOR de chocolateria
-        $rol_instructor_chocolate = Role::updateOrCreate(['slug' => 'agroindustria.instructor.chocolate'], [
-            'name' => 'Instructor- chocolateria',
-            'description' => 'Rol instructor de las unidad productiva chocolateria',
-            'description_english' => 'Instructor role of the chocolate production unit',
-            'app_id' => $app->id
-        ]);
-
-        // Registrar o actualizar rol de INSTRUCTOR de cerveceria
-        $rol_instructor_brewery = Role::updateOrCreate(['slug' => 'agroindustria.instructor.cerveceria'], [
-            'name' => 'Instructor- cerveceria',
-            'description' => 'Rol instructor de las unidad productiva cerveceria',
-            'description_english' => 'Instructor role of the brewery production unit',
-            'app_id' => $app->id
-        ]);
-
-        // Registrar o actualizar rol de ALMACENISTA
-        $rol_storer = Role::updateOrCreate(['slug' => 'agroindustria.almacenista'], [
-            'name' => 'Almacenista',
-            'description' => 'Rol almacenista de AGROINDUSTRIA',
-            'description_english' => 'Role storer of AGROINDUSTRIA',
-            'app_id' => $app->id
-        ]);
 
         // Consulta de usuarios
         $user_admin = User::where('nickname','Julian')->first(); // Usuario Administrador (Julian Javier Ramirez Diaz)

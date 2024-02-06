@@ -16,26 +16,11 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
        // Registrar o actualizar usuario para Julian Javier Ramirez Diaz
-       $person = Person::where('document_number', 1083874040)->first(); // Consultar Persona
-       User::updateOrCreate(['nickname' => 'Julian'], [ // Actualizar o crear usuario
+       $person = Person::where('document_number', 7723876)->first(); // Consultar Persona
+       User::updateOrCreate(['nickname' => 'Vilmer'], [ // Actualizar o crear usuario
            'person_id' => $person->id,
-           'email' => 'julian@gmail.com',
+           'email' => 'vmendez@sena.edu.co',
        ]);
-
-       // Registrar o actualizar usuario para Juan Diego Bonilla Aroca
-       $person = Person::where('document_number', 1123430216)->first(); // Consultar Persona
-       User::updateOrCreate(['nickname' => 'Bonilla'], [ // Actualizar o crear usuario
-           'person_id' => $person->id,
-           'email' => 'bonilla@gmail.com',
-       ]);
-
-       // Registrar o actualizar usuario para David Juliam Cadena Barrera
-       $person = Person::where('document_number', 1079508239)->first(); // Consultar Persona
-       User::updateOrCreate(['nickname' => 'Cadena'], [ // Actualizar o crear usuario
-           'person_id' => $person->id,
-           'email' => 'cadena@gmail.com',
-       ]);
-
 
     }
     
