@@ -12,7 +12,7 @@
                 <div class="card-header">
                     <h3>Modificar Datos Del Vehiculo</h3>
                 </div>
-                {!! Form::open(['url' => '/hangarauto/administrator/vehiculos/edit/',$vehicle->id, 'method' => 'post']) !!}
+                {!! Form::model(['url' => '/hangarauto/administrator/vehiculos/edit/',$vehicle->id, 'method' => 'post']) !!}
                 
                 {{ csrf_field() }}
                 <label for="name">Vehiculo:</label>

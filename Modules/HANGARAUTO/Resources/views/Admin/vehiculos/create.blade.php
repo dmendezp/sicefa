@@ -3,6 +3,7 @@
     <i class="fas fa-plus"></i>
 </button><br><br>
 
+
 <!-- Modal -->
 <div class="modal fade" id="addDriver" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -12,7 +13,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['url' => route('parking.admin.vehicles.create'), 'files' => true]) !!}
+                {!! Form::model(['url' => route('cefa.parking.admin.vehicles.create'),  'method'=>'post', 'files'=>true]) !!}
                 {{ csrf_field() }}
 
                 <div class="mb-3">
