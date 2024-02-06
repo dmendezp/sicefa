@@ -284,4 +284,13 @@ html, body{
 		border-width: 12px;
 		margin-right: -2px;
 	}
+
+	/* Footer */
+    footer a {
+        text-decoration: none; /* Eliminar el subrayado */
+    }
+
+	.networks {
+		margin-left :310px;
+	}
 }

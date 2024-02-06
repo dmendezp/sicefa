@@ -37,6 +37,12 @@ class AGROCEFAController extends Controller
         // Limpiar la variable 'selectedUnitName'
         Session::forget('selectedUnitName');
 
+        // Limpiar la variable 'notification'
+        Session::forget('notification');
+
+        // Limpiar la variable 'notificationstock'
+        Session::forget('notificationstock');
+
         // Limpiar la variable 'selectedRole'
         Session::forget('selectedRole');
 

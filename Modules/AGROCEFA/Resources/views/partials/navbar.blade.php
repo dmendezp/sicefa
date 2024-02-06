@@ -36,22 +36,29 @@
                         class="dropdown-item"><img src="{{ asset('modules/agrocefa/images/general/es.png') }}" alt=""
                             style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.Spanish') }}</a></li>
                 @if (checkRol('agrocefa.trainer'))
-                <li style="width: 70px"><a href="{{ route('agrocefa.trainer.movements.notification')}}" id="an"
-                        title="Ver Movimientos Pendientes">
-                        <i class="fa-regular fa-bell fa-flip"></i>
-                        @if (Session::has('notification') && Session::get('notification') > 0)
-                            <span class="notification-badge">{{ Session::get('notification') }}</span>
-                        @endif
-                    </a>
-                </li>
-                <li  style="width: 60px"><a href="{{ route('agrocefa.trainer.inventory.stock')}}" id="an"
-                        title="Ver Elementos por Agotarse">
-                        <i class='bx bx-error-circle' ></i>
-                        @if (Session::has('notificationstock') && Session::get('notificationstock') > 0)
-                            <span class="notification-badge">{{ Session::get('notificationstock') }}</span>
-                        @endif
-                    </a>
-                </li>
+                
+                @if (Route::currentRouteName() != 'agrocefa.trainer.index' && Route::currentRouteName() != 'agrocefa.passant.index')
+                    <li style="width: 70px">
+                        <a href="{{ route('agrocefa.trainer.movements.notification')}}" id="an" title="Ver Movimientos Pendientes">
+                            <i class="fa-regular fa-bell fa-flip"></i>
+                            @if (Session::has('notification') && Session::get('notification') > 0)
+                                <span class="notification-badge">{{ Session::get('notification') }}</span>
+                            @endif
+                        </a>
+                    </li>
+                @endif
+
+                @if (Route::currentRouteName() != 'agrocefa.trainer.index' && Route::currentRouteName() != 'agrocefa.passant.index')
+                    <li style="width: 60px">
+                        <a href="{{ route('agrocefa.trainer.inventory.stock')}}" id="an" title="Ver Elementos por Agotarse">
+                            <i class='bx bx-error-circle' ></i>
+                            @if (Session::has('notificationstock') && Session::get('notificationstock') > 0)
+                                <span class="notification-badge">{{ Session::get('notificationstock') }}</span>
+                            @endif
+                        </a>
+                    </li>
+                @endif
+
                 <li>
                     <div class="profile" style="margin-left: 20px; margin-right: 20px;">
                         <div class="user-info">
