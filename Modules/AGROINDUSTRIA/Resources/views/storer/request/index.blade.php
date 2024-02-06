@@ -7,7 +7,7 @@
         <thead>
             <tr>
                 <th>{{trans('agroindustria::request.date')}}</th>
-                <th>Unidad Productiva</th>
+                <th>{{trans('agroindustria::request.productiveUnit')}}</th>
                 <th>{{trans('agroindustria::request.element')}}</th>
                 <th>{{trans('agroindustria::request.amount')}}</th>
                 <th>{{trans('agroindustria::request.applicant')}}</th>
@@ -52,7 +52,7 @@
                 <td>{{$r->person->first_name . ' ' . $r->person->first_last_name . ' ' . $r->person->second_last_name}}</td>
                 <td>
                     <button class="btn btn-success approve-btn" data-request-id="{{$r->id}}">{{trans('agroindustria::request.approve')}}</button>
-                    <button type="button" class="btn btn-danger cancel-btn" data-bs-toggle="modal" data-bs-target="#cancelar{{$r->id}}" data-reject-id="{{$r->id}}">Rechazar</button>
+                    <button type="button" class="btn btn-danger cancel-btn" data-bs-toggle="modal" data-bs-target="#cancelar{{$r->id}}" data-reject-id="{{$r->id}}">{{trans('agroindustria::request.reject')}}</button>
                 </td>
             </tr>
             @endforeach
@@ -67,7 +67,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="cancelarLabel">Rechazar solicitud</h1>
+          <h1 class="modal-title fs-5" id="cancelarLabel">{{trans('agroindustria::request.rejectRequest')}}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -83,7 +83,7 @@
             </div>         
         </div>
         <div class="modal-footer">
-            {!! Form::submit('Si, rechazar',['class' => 'btn btn-success confirm-cancel', 'name' => 'anular', 'id' => 'btnRechazar_'.$r->id, 'data-reject-id' => $r->id]) !!}
+            {!! Form::submit(trans('agroindustria::request.yesReject'),['class' => 'btn btn-success confirm-cancel', 'name' => 'anular', 'id' => 'btnRechazar_'.$r->id, 'data-reject-id' => $r->id]) !!}
           {!! Form:: close() !!}
         </div>
       </div>
@@ -135,13 +135,13 @@
 
         button.addEventListener('click', function () {
             Swal.fire({
-                title: '¿Está seguro?',
-                text: 'Esta acción marcará la solicitud como aprobada.',
+                title: '{{trans("agroindustria::request.areYouSure")}}',
+                text: '{{trans("agroindustria::request.thisActionWillMarkRequestApproved")}}',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, aprobar'
+                confirmButtonText: '{{trans("agroindustria::request.yesApprove")}}'
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Cambiar el color de la fila al aprobar la solicitud
@@ -155,8 +155,8 @@
                     localStorage.setItem(`request_${requestId}_approved`, 'true');
 
                     Swal.fire(
-                        '¡Aprobada!',
-                        'La solicitud ha sido marcada como aprobada.',
+                        '{{trans("agroindustria::request.approved")}}',
+                        '{{trans("agroindustria::request.theRequestBeenMarkedApproved")}}',
                         'success'
                     );
 

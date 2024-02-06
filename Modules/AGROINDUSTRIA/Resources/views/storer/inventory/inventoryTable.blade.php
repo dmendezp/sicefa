@@ -1,24 +1,27 @@
 @extends('agroindustria::layouts.master')
 @section('content')
 
-<h1 class="title_labor">Inventario de {{ session('viewing_unit_name') }}</h1>
+<h1 class="title_labor">{{trans('agroindustria::inventory.inventoryOf')}} {{ session('viewing_unit_name') }}</h1>
 
-<select name="warehouse_id" id="warehouseSelect">
-    <option value="">Seleccione una bodega</option>
-    @foreach ($warehouses as $w)
-        <option value="{{$w->id}}">{{$w->name}}</option>
-    @endforeach
-</select>
+<div class="select-warehouse" style="margin-left: 10px">
+    <div class="form-group">
+        <select class="form-control" name="warehouse_id" id="warehouseSelect">
+            <option value="">{{trans('agroindustria::inventory.selectWinery')}}</option>
+            @foreach ($warehouses as $w)
+                <option value="{{$w->id}}">{{$w->name}}</option>
+            @endforeach
+        </select>
+    </div>
 
 @if(auth()->check() && (checkRol('agroindustria.almacenista')))
 <a href="#" id="inventoryAlertLink" style="margin-left: 120px; margin-bottom: 20px; text-decoration: none;">
     <button class="btn btn-success" >
-        <i class="fas fa-eye" style="color: #ffffff;">ㅤINSUMOS PRONTO A AGOTARSEN</i>
+        <i class="fas fa-eye" style="color: #ffffff;">ㅤ{{trans('agroindustria::inventory.suppliesSoonToBeSoldOut')}}</i>
     </button>
 </a>
 <a href="#" id="inventoryAlertExpLink" style="margin-left: 120px; margin-bottom: 20px; text-decoration: none;">
     <button class="btn btn-info" >
-        <i class="fas fa-calendar-times"style="color: #ffffff;">ㅤINSUMOS PRONTOS A CADUCAR</i>
+        <i class="fas fa-calendar-times"style="color: #ffffff;">ㅤ{{trans('agroindustria::inventory.suppliesSoonToExpire')}}</i>
     </button>
 </a>
 @endif
@@ -26,12 +29,12 @@
 @if(auth()->check() && (checkRol('agroindustria.admin')))
     <a href="#" id="inventoryAlertLink"  style="margin-left: 120px; margin-bottom: 20px; text-decoration: none;">
         <button class="btn btn-success" onclick="selectWarehouse()">
-            <i class="fas fa-eye" style="color: #ffffff;">ㅤINSUMOS PRONTO A AGOTARSEN</i>
+            <i class="fas fa-eye" style="color: #ffffff;">ㅤ{{trans('agroindustria::inventory.suppliesSoonToBeSoldOut')}}</i>
         </button>
     </a>
     <a href="#" id="inventoryAlertExpLink" style="margin-left: 120px; margin-bottom: 20px; text-decoration: none;">
         <button class="btn btn-info" >
-            <i class="fas fa-calendar-times"style="color: #ffffff;">ㅤINSUMOS PRONTOS A CADUCAR</i>
+            <i class="fas fa-calendar-times"style="color: #ffffff;">ㅤ{{trans('agroindustria::inventory.suppliesSoonToExpire')}}</i>
         </button>
     </a>
 @endif
@@ -39,15 +42,16 @@
 @if(auth()->check() && (checkRol('agroindustria.instructor.vilmer') || checkRol('agroindustria.instructor.chocolate') || checkRol('agroindustria.instructor.cerveceria')))
     <a href="#" id="inventoryAlertLink" style="margin-left: 120px; margin-bottom: 20px; text-decoration: none;">
         <button class="btn btn-success" >
-            <i class="fas fa-eye" style="color: #ffffff;">ㅤINSUMOS PRONTO A AGOTARSEN</i>
+            <i class="fas fa-eye" style="color: #ffffff;">ㅤ{{trans('agroindustria::inventory.suppliesSoonToBeSoldOut')}}</i>
         </button>
     </a>
     <a href="#" id="inventoryAlertExpLink" style="margin-left: 120px; margin-bottom: 20px; text-decoration: none;">
         <button class="btn btn-info" >
-            <i class="fas fa-calendar-times"style="color: #ffffff;">ㅤINSUMOS PRONTOS A CADUCAR</i>
+            <i class="fas fa-calendar-times"style="color: #ffffff;">ㅤ{{trans('agroindustria::inventory.suppliesSoonToExpire')}}</i>
         </button>
     </a>
 @endif
+</div>
 
 <hr>
 
@@ -55,17 +59,17 @@
     <table id="inventory" class="table table-striped" style="width: 98%; margin-left: 40px;">
         <thead>
             <tr>
-               <th>Producto</th>
-               <th>Categoria</th>
-               <th>Unidad de Medida</th>
-               <th>Cantidad</th>
-               <th>Stock</th>
-               <th>Precio</th>
-               <th>Fecha Producción</th>
-               <th>Fecha Expiración</th>
-               <th>Lote</th>
+               <th>{{trans('agroindustria::inventory.product')}}</th>
+               <th>{{trans('agroindustria::inventory.category')}}</th>
+               <th>{{trans('agroindustria::inventory.unitMeasure')}}</th>
+               <th>{{trans('agroindustria::inventory.quantity')}}</th>
+               <th>{{trans('agroindustria::inventory.stock')}}</th>
+               <th>{{trans('agroindustria::inventory.price')}}</th>
+               <th>{{trans('agroindustria::inventory.productionDate')}}</th>
+               <th>{{trans('agroindustria::inventory.expirationDate')}}</th>
+               <th>{{trans('agroindustria::inventory.lot')}}</th>
                @if(auth()->check() && (checkRol('agroindustria.admin')))  
-               <th>Acciones</th>
+               <th>{{trans('agroindustria::inventory.actions')}}</th>
                @endif
             </tr>
         </thead>
@@ -162,13 +166,13 @@
                             @if(auth()->check() && (checkRol('agroindustria.admin')))
                                 row += '<td>' +
                                     '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dischargeModal' + inventory.id + '">' +
-                                    'Dar baja' +
+                                    '{{trans("agroindustria::inventory.discharge")}}' +
                                     '</button>' +
                                     '<div class="modal fade" id="dischargeModal' + inventory.id + '" tabindex="-1" aria-labelledby="dischargeModalLabel' + inventory.id + '" aria-hidden="true">' +
                                     '<div class="modal-dialog">' +
                                         '<div class="modal-content">' +
                                             '<div class="modal-header">' +
-                                                '<h1 class="modal-title fs-5" id="dischargeModalLabel' + inventory.id + '">Dar baja a ' + inventory.element.name + '</h1>' +
+                                                '<h1 class="modal-title fs-5" id="dischargeModalLabel' + inventory.id + '">{{trans("agroindustria::deliveries.discharge")}} ' + inventory.element.name + '</h1>' +
                                                 '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
                                             '</div>' +
                                             '{!! Form::open(["method" => "post", "url" => route("cefa.agroindustria.admin.discharge.create")]) !!}' +
@@ -179,11 +183,11 @@
                                                     '<input id="amount" name="amount" type="hidden" value="' + inventory.amount + '">' +
                                                     '<input id="price" name="price" type="hidden" value="' + inventory.price + '">' +
                                                     '<div class="col-md-12">' +
-                                                        '{!! Form::label("date", trans("agroindustria::menu.Date Time")) !!}' +
+                                                        '{!! Form::label("date", trans("agroindustria::deliveries.dateTime")) !!}' +
                                                         '{!! Form::datetime("date", now()->format("Y-m-d\TH:i:s"), ["class" => "form-control", "id" => "readonly-bg-gray", "readonly" => "readonly"]) !!}' +
                                                     '</div>' +
                                                     '<div class="col-md-12">' +
-                                                        '{!! Form::label("observation", trans("agroindustria::menu.Observations")) !!}' +
+                                                        '{!! Form::label("observation", trans("agroindustria::deliveries.observations")) !!}' +
                                                         '{!! Form::textarea("observation", old("observation"), ["class" => "form-control", "id" => "textarea"]) !!}' +
                                                         '@error("observation")' +
                                                             '<span class="text-danger">{{ $message }}</span>' +
@@ -191,7 +195,7 @@
                                                     '</div>' +
                                                 '</div>' +
                                                 '<div class="modal-footer">' +
-                                                    '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>' +
+                                                    '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{trans("agroindustria::deliveries.close")}}</button>' +
                                                     '{!! Form::submit(trans("agroindustria::menu.Register deregistration"), ["class" => "baja btn btn-success", "name" => "baja"]) !!}' +
                                                 '{!! Form::close() !!}' +
                                             '</div>'

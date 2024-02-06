@@ -1,17 +1,17 @@
 @extends('agroindustria::layouts.master')
 @section('content')
-<h3 id="bajas">{{trans('agroindustria::menu.Deregistrations')}}</h3>
+<h3 id="bajas">{{trans('agroindustria::deliveries.desregistrations')}}</h3>
 <div class="table_discharge">
     <table id="discharge" class="table table-striped" style="width: 100%;">
         <thead>
             <tr>
-                <th>{{trans('agroindustria::menu.Date Time')}}</th>
-                <th>{{trans('agroindustria::menu.Responsible')}}</th>
-                <th>{{trans('agroindustria::menu.Element')}}</th>
-                <th>{{trans('agroindustria::menu.Amount')}}</th>
-                <th>{{trans('agroindustria::menu.Price')}}</th>
-                <th>{{trans('agroindustria::menu.Total Movement')}}</th>
-                <th>{{trans('agroindustria::menu.Observations')}}</th>
+                <th>{{trans('agroindustria::deliveries.dateTime')}}</th>
+                <th>{{trans('agroindustria::deliveries.responsible')}}</th>
+                <th>{{trans('agroindustria::deliveries.element')}}</th>
+                <th>{{trans('agroindustria::deliveries.amount')}}</th>
+                <th>{{trans('agroindustria::deliveries.price')}}</th>
+                <th>{{trans('agroindustria::deliveries.totalMovement')}}</th>
+                <th>{{trans('agroindustria::deliveries.observations')}}</th>
             </tr>
         </thead>
         <tbody>
@@ -57,7 +57,7 @@ $(document).ready(function() {
    
     // Agregar un nuevo campo de producto
     $("#add-product").click(function() {
-        var newProduct = '<div class="elements_discharge"><div class="form-group">{!! Form::label("elementDischarge" , trans("agroindustria::menu.Element")) !!}{!! Form::select("element[]", [], null, ["placeholder" => "Seleccione un elemento", "class" => "elementDischarge-select"]) !!}</div> <div class="form-group"><span class="quantity"></span>{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount[]", null, ["class" => "form-control", "id" => "amount", "style" => "width: 160px"]) !!}</div> <div class="form-group">{!! Form::label("amount" , "Valor unitario") !!}{!! Form::number("price[]", null, ["id" => "price", "readonly" => "readonly", "class" => "form-control", "style" => "width: 160px"]) !!}</div><div class="form-group">{!! Form::label("lote" , trans("agroindustria::menu.Lote")) !!} {!! Form::text("lote[]", null, ["class" => "form-control", "id" => "lote", "readonly" => "readonly", "style" => "width: 160px"]) !!}</div> <div class="form-group">{!! Form::label("fVto" , trans("agroindustria::menu.Expiration Date")) !!} {!! Form::text("fVto[]", null, ["class" => "form-control", "id" => "fVto", "readonly" => "readonly", "style" => "width: 160px"]) !!}{!! Form::hidden("price[]", null, ["id" => "price"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::menu.Delete")}}</button></div>';
+        var newProduct = '<div class="elements_discharge"><div class="form-group">{!! Form::label("elementDischarge" , trans("agroindustria::deliveries.Element")) !!}{!! Form::select("element[]", [], null, ["placeholder" => "Seleccione un elemento", "class" => "elementDischarge-select"]) !!}</div> <div class="form-group"><span class="quantity"></span>{!! Form::label("amount" , trans("agroindustria::deliveries.Amount")) !!} {!! Form::number("amount[]", null, ["class" => "form-control", "id" => "amount", "style" => "width: 160px"]) !!}</div> <div class="form-group">{!! Form::label("amount" , "Valor unitario") !!}{!! Form::number("price[]", null, ["id" => "price", "readonly" => "readonly", "class" => "form-control", "style" => "width: 160px"]) !!}</div><div class="form-group">{!! Form::label("lote" , trans("agroindustria::deliveries.Lote")) !!} {!! Form::text("lote[]", null, ["class" => "form-control", "id" => "lote", "readonly" => "readonly", "style" => "width: 160px"]) !!}</div> <div class="form-group">{!! Form::label("fVto" , trans("agroindustria::deliveries.Expiration Date")) !!} {!! Form::text("fVto[]", null, ["class" => "form-control", "id" => "fVto", "readonly" => "readonly", "style" => "width: 160px"]) !!}{!! Form::hidden("price[]", null, ["id" => "price"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::deliveries.Delete")}}</button></div>';
         
         // Agregar el nuevo campo al DOM
         $("#elements").append(newProduct);
@@ -239,7 +239,7 @@ $(document).ready(function() {
             url: url,
             type: 'GET',
             success: function(response) {
-                var options = '<option value="">' + '{{ trans("agroindustria::menu.Select a winery") }}' + '</option>';
+                var options = '<option value="">' + '{{ trans("agroindustria::deliveries.Select a winery") }}' + '</option>';
                 $.each(response.id, function(index, warehouse) {
                     options += '<option value="' + warehouse.id + '">' + warehouse.name + '</option>';
                 });

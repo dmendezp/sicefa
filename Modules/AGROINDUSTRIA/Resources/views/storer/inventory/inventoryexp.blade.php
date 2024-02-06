@@ -6,19 +6,19 @@
     <div class="card" style="width: 1100px">
         <table id="inventoryExp" class="table table-striped" style="width: 98%;">
             <br>    
-            <center><h4>Insumos pronto a caducar y caducados.</h4></center>
+            <center><h4>{{trans('agroindustria::inventory.suppliesSoonToExpire')}}</h4></center>
             <br>
             <thead>
                 <tr>
-                    <th>{{trans('agroindustria::menu.Name')}}</th>
-                    <th>Categoría</th>
-                    <th>Unidad de Medida</th>
-                    <th>Cantidad</th>
-                    <th>Fecha expiración</th>
-                    <th>Lote</th>
-                    <th>Estado</th>
+                    <th>{{trans('agroindustria::inventory.product')}}</th>
+                    <th>{{trans('agroindustria::inventory.category')}}</th>
+                    <th>{{trans('agroindustria::inventory.unitMeasure')}}</th>
+                    <th>{{trans('agroindustria::inventory.quantity')}}</th>
+                    <th>{{trans('agroindustria::inventory.expirationDate')}}</th>
+                    <th>{{trans('agroindustria::inventory.lot')}}</th>
+                    <th>{{trans('agroindustria::inventory.state')}}</th>
                     @if(auth()->check() && (checkRol('agroindustria.admin')))  
-                    <th>Acciones</th>
+                    <th>{{trans('agroindustria::inventory.actions')}}</th>
                     @endif
                 </tr>
             </thead>
@@ -36,7 +36,7 @@
                             @if(auth()->check() && (checkRol('agroindustria.admin')))  
                             <td>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dischargeModal{{$item['inventory_id']}}">
-                                    Dar baja
+                                    {{trans('agroindustria::inventory.discharge')}}
                                 </button>
                                 @include('agroindustria::storer.inventory.discharge')
                             </td>

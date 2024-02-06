@@ -66,7 +66,8 @@ class DeliverController extends Controller
         })->whereHas('movement_responsibilities', function ($r) use ($idPersona){
             $r->where('person_id', $idPersona)
             ->where('role', 'RECIBE');
-        })->where('state', 'Solicitado')->count();
+        })->where('state', 'Solicitado')->where('movement_type_id', 2)->count();
+        
 
         $data = [
             'title' => $title,
@@ -103,7 +104,7 @@ class DeliverController extends Controller
                 'id' => $warehouseId,
                 'name' => $warehouseName,
             ];
-        })->prepend(['id' => null, 'name' => trans('agroindustria::menu.Select a winery')])->pluck('name', 'id');
+        })->prepend(['id' => null, 'name' => trans('agroindustria::deliveries.Select a winery')])->pluck('name', 'id');
 
 
         //Consulta el inventario que pertenece a la bodega de esa unidad productiva
@@ -120,7 +121,7 @@ class DeliverController extends Controller
                 'id' => $elementId,
                 'name' => $elementWithUnit
             ];
-        })->prepend(['id' => null, 'name' => trans('agroindustria::menu.Select a product')])->pluck('name', 'id');
+        })->prepend(['id' => null, 'name' => trans('agroindustria::deliveries.Select a product')])->pluck('name', 'id');
 
 
         //Consulta las unidades productivas
@@ -133,7 +134,7 @@ class DeliverController extends Controller
                 'id' => $unitId,
                 'name' => $unitName
             ];
-        })->prepend(['id' => null, 'name' => 'Seleccione una unidad productiva'])->pluck('name', 'id');
+        })->prepend(['id' => null, 'name' => trans('agroindustria::deliveries.Select a productive unit')])->pluck('name', 'id');
 
         //Consulta los movimientos del responsable con el rol de ENTREGA
         $idMovements = Movement::pluck('id');
@@ -216,11 +217,11 @@ class DeliverController extends Controller
             ];
 
             $messages = [
-                'receive.required' => trans('agroindustria::menu.You must select a receiver'),
-                'deliver_warehouse.required' => trans('agroindustria::menu.You must select a delivery warehouse'),
-                'receive_warehouse.required' => trans('agroindustria::menu.You must select the winery that receives'),
-                'element.required' => trans('agroindustria::menu.You must select an item'),
-                'amount.required' => trans('agroindustria::menu.You must enter an amount')
+                'receive.required' => trans('agroindustria::deliveries.You must select a receiver'),
+                'deliver_warehouse.required' => trans('agroindustria::deliveries.You must select a delivery warehouse'),
+                'receive_warehouse.required' => trans('agroindustria::deliveries.You must select the winery that receives'),
+                'element.required' => trans('agroindustria::deliveries.You must select an item'),
+                'amount.required' => trans('agroindustria::deliveries.You must enter an amount')
             ];
 
             $validatedData = $request->validate($rules, $messages);
@@ -243,8 +244,7 @@ class DeliverController extends Controller
             $prices = $request->input('price');
             $totalPrice = 0;
 
-            $element = Element::whereIn('id', $selectedElementId)->pluck('measurement_unit_id');
-
+            
             //Registra el movimiento
             $mo = new Movement;
             $mo->registration_date = $request->input('date');
@@ -254,38 +254,37 @@ class DeliverController extends Controller
             $mo->observation = $request->input('observation');
             $mo->state = 'Solicitado';
             $mo->save();
-
+            
             $puw = json_decode($request->input('productiveUnitWarehouse'));
             
-
+            // Realiza una consulta para obtener los lotes correspondientes al elemento y ordénalos por lote
+            $selectedUnit = session('viewing_unit');
+            $warehouse = Warehouse::where('name', 'Agroindustria')->pluck('id');
+            $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->whereIn('warehouse_id', $warehouse)->pluck('id');
+            $element = Element::whereIn('id', $selectedElementId)->pluck('measurement_unit_id');
             //Registra Detalles del Movimiento
             $totalPrice = 0;
             foreach ($selectedElementId as $key => $e) {
                 $requiredAmount = $amounts[$key]; // Cantidad requerida para el elemento
-                $measurement_unit = MeasurementUnit::whereIn('id', $element)->pluck('conversion_factor');
-
-                foreach ($measurement_unit as $key => $c) {
-                    $conversion = $requiredAmount*$c;
-                }
                 
-                // Realiza una consulta para obtener los lotes correspondientes al elemento y ordénalos por lote
-                $selectedUnit = session('viewing_unit');
-                $warehouse = Warehouse::where('name', 'Agroindustria')->pluck('id');
-                $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->whereIn('warehouse_id', $warehouse)->pluck('id');
                 $inventories = Inventory::where('element_id', $e)
                 ->where('productive_unit_warehouse_id', $productiveUnit)
                 ->get();
-
+                
                 $consumedAmount = 0;
                 $elementTotalPrice = 0;
                 foreach ($inventories as $inventory) {
                     // Obtén la cantidad disponible y el precio del inventario
                     $availableAmount = $inventory->amount;
                     $priceInventory = $inventory->price;
+                    $eleId = $inventory->element_id;
+                    $measurement_unit_id = Element::where('id', $eleId)->pluck('measurement_unit_id')->first();
+                    $conversion_factor = MeasurementUnit::where('id', $measurement_unit_id)->pluck('conversion_factor')->first();                
+                    $conversion = $requiredAmount * $conversion_factor;
                     
                     // Calcula cuánto se puede consumir de este lote
                     $consumeFromThisLot = min($availableAmount, max(0, $conversion - $consumedAmount));
-                    $intAmount = $consumeFromThisLot/$measurement_unit[$key];
+                    $intAmount = $consumeFromThisLot/$conversion_factor;
                     $price = $intAmount*$priceInventory;
                     if ($consumeFromThisLot > 0) {
                         // Registra el consumo para este lote
@@ -298,7 +297,7 @@ class DeliverController extends Controller
 
                         $elementTotalPrice += $price;
                         // Actualiza la cantidad consumida
-                        $consumedAmount += $consumeFromThisLot;
+                        $consumedAmount += $intAmount * $conversion_factor;
                         // Si se ha consumido la cantidad requerida, sal del bucle
                         if ($consumedAmount >= $conversion) {
                             break;
@@ -363,12 +362,12 @@ class DeliverController extends Controller
                     // Redirige a la página de éxito
                     return redirect()->route('agroindustria.instructor.units.movements.table')->with([
                         'icon' => 'success',
-                        'message_line' => trans('agroindustria::menu.Successful check out'),
+                        'message_line' => trans('agroindustria::deliveries.Successful check out'),
                     ]);
                 }else{
                     return redirect()->route('agroindustria.admin.units.movements.table')->with([
                         'icon' => 'success',
-                        'message_line' => trans('agroindustria::menu.Successful check out'),
+                        'message_line' => trans('agroindustria::deliveries.Successful check out'),
                     ]); 
                 }
             }
@@ -379,7 +378,7 @@ class DeliverController extends Controller
             // Redirige de vuelta con un mensaje de error
             return redirect()->route('agroindustria.instructor.units.movements.table')->with([
                 'icon' => 'error',
-                'message_line' => trans('agroindustria::menu.Check out error'),
+                'message_line' => trans('agroindustria::deliveries.Check out error'),
             ]);
         }
     }
@@ -485,17 +484,17 @@ class DeliverController extends Controller
         
         if ($receiverInventory->save()) {
             $icon = 'success';
-            $message_line = trans('agroindustria::menu.Status of the edited movement');
+            $message_line = trans('agroindustria::deliveries.Status of the edited movement');
         } else {
             $icon = 'error';
-            $message_line = trans('agroindustria::menu.Error when editing movement status');
+            $message_line = trans('agroindustria::deliveries.Error when editing movement status');
         }
 
         if(Auth::check()){
             $user = Auth::user();
-            if($user->roles->contains('slug', 'agroindustria.instructor')){
+            if($user->roles->contains('slug', 'agroindustria.instructor.vilmer') || $user->roles->contains('slug', 'agroindustria.instructor.chocolate') || $user->roles->contains('slug', 'agroindustria.instructor.cerveceria')){
                 // Redirige a la página de éxito
-                return redirect()->route('agroindustria.instructor.units.movements.pending')->with([
+                 return redirect()->route('agroindustria.instructor.units.movements.pending')->with([
                     'icon' => $icon,
                     'message_line' => $message_line,
                 ]);
@@ -503,7 +502,7 @@ class DeliverController extends Controller
                 return redirect()->route('agroindustria.admin.units.movements.pending')->with([
                     'icon' => $icon,
                     'message_line' => $message_line,
-                ]); 
+                ]);
             }
         }
     }
@@ -515,7 +514,7 @@ class DeliverController extends Controller
             'observation' => 'required',
         ];
         $messages = [
-            'observation.required' => trans('agroindustria::menu.Required field'),
+            'observation.required' => trans('agroindustria::deliveries.Required field'),
         ];
 
         $validatedData = $request->validate($rules, $messages);
@@ -527,15 +526,15 @@ class DeliverController extends Controller
         }
         if($movement->save()){
             $icon = 'success';
-            $message_line = trans('agroindustria::menu.Motion successfully cancelled');
+            $message_line = trans('agroindustria::deliveries.Motion successfully cancelled');
         }else{
             $icon = 'error';
-            $message_line = trans('agroindustria::menu.Movement Cancel Error');
+            $message_line = trans('agroindustria::deliveries.Movement Cancel Error');
         }
 
         if(Auth::check()){
             $user = Auth::user();
-            if($user->roles->contains('slug', 'agroindustria.instructor')){
+            if($user->roles->contains('slug', 'agroindustria.instructor.vilmer') || $user->roles->contains('slug', 'agroindustria.instructor.chocolate') || $user->roles->contains('slug', 'agroindustria.instructor.cerveceria')){
                 // Redirige a la página de éxito
                 return redirect()->route('agroindustria.instructor.units.movements.table')->with([
                     'icon' => $icon,
@@ -556,7 +555,7 @@ class DeliverController extends Controller
             'observation' => 'required',
         ];
         $messages = [
-            'observation.required' => trans('agroindustria::menu.Required field'),
+            'observation.required' => trans('agroindustria::deliveries.Required field'),
         ];
 
         $validatedData = $request->validate($rules, $messages);
@@ -568,15 +567,15 @@ class DeliverController extends Controller
         }
         if($movement->save()){
             $icon = 'success';
-            $message_line = trans('agroindustria::menu.Movement successfully returned');
+            $message_line = trans('agroindustria::deliveries.Movement successfully returned');
         }else{
             $icon = 'error';
-            $message_line = trans('agroindustria::menu.Error when returning the movement');
+            $message_line = trans('agroindustria::deliveries.Error when returning the movement');
         }
 
         if(Auth::check()){
             $user = Auth::user();
-            if($user->roles->contains('slug', 'agroindustria.instructor')){
+            if($user->roles->contains('slug', 'agroindustria.instructor.vilmer') || $user->roles->contains('slug', 'agroindustria.instructor.chocolate') || $user->roles->contains('slug', 'agroindustria.instructor.cerveceria')){
                 // Redirige a la página de éxito
                 return redirect()->route('agroindustria.instructor.units.movements.pending')->with([
                     'icon' => $icon,

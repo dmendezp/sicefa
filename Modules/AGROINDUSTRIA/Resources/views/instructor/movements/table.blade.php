@@ -1,23 +1,23 @@
 @extends('agroindustria::layouts.master')
 @section('content')
 
-<h3 id="movimientos">{{trans('agroindustria::menu.Movements')}}</h3>
+<h3 id="movimientos">{{trans('agroindustria::deliveries.Movements')}}</h3>
 
 <div class="movement-table" style="margin-left: 10px">
   <table id="deliveries" class="table table-striped" style="width: 98%;">
       <thead>
           <tr>
-              <th>{{trans('agroindustria::menu.Date Time')}}</th>
-              <th>{{trans('agroindustria::menu.Send')}}</th>
-              <th>{{trans('agroindustria::menu.productiveSend')}}</th>
-              <th>{{trans('agroindustria::menu.Receive')}}</th>
-              <th>{{trans('agroindustria::menu.productiveReceives')}}</th>
-              <th>{{trans('agroindustria::menu.Element')}}</th>
-              <th>{{trans('agroindustria::menu.Amount')}}</th>
-              <th>{{trans('agroindustria::menu.Price')}}</th>
-              <th>{{trans('agroindustria::menu.Total Movement')}}</th>
-              <th>{{trans('agroindustria::menu.State')}}</th>
-              <th>{{trans('agroindustria::menu.Observations')}}</th>
+              <th>{{trans('agroindustria::deliveries.Date Time')}}</th>
+              <th>{{trans('agroindustria::deliveries.Send')}}</th>
+              <th>{{trans('agroindustria::deliveries.productiveSend')}}</th>
+              <th>{{trans('agroindustria::deliveries.Receive')}}</th>
+              <th>{{trans('agroindustria::deliveries.productiveReceives')}}</th>
+              <th>{{trans('agroindustria::deliveries.Element')}}</th>
+              <th>{{trans('agroindustria::deliveries.Amount')}}</th>
+              <th>{{trans('agroindustria::deliveries.Price')}}</th>
+              <th>{{trans('agroindustria::deliveries.Total Movement')}}</th>
+              <th>{{trans('agroindustria::deliveries.State')}}</th>
+              <th>{{trans('agroindustria::deliveries.Observations')}}</th>
               <th>
                 @if (Auth::user()->havePermission('agroindustria.admin.units.movements.form')) 
                 <a href="{{route('agroindustria.admin.units.movements.form')}}">
@@ -144,19 +144,25 @@
                       @foreach ($movement->movement_responsibilities as $responsibility)
                           @if ($movement->state === 'Solicitado' && $responsibility->role === 'RECIBE')
                               @if ($responsibility->person_id === Auth::user()->person->id)
-                              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#aprobar{{$movement->id}}">
-                                <i class="fas fa-thumbs-up"></i> {{trans('agroindustria::menu.Approve')}}
-                              </button>
-                              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#devolver{{$movement->id}}">
-                                <i class="fas fa-undo-alt"></i> {{trans('agroindustria::menu.Return')}}
-                              </button>
+                              <div class="mb-3">
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#aprobar{{$movement->id}}">
+                                  <i class="fas fa-thumbs-up"></i> {{trans('agroindustria::deliveries.Approve')}}
+                                </button>
+                              </div>
+                              <div class="mb-3">
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#devolver{{$movement->id}}">
+                                  <i class="fas fa-undo-alt"></i> {{trans('agroindustria::deliveries.Return')}}
+                                </button>
+                              </div>
                               @endif
                               @else
                                 @if($movement->state === 'Solicitado' && $responsibility->role === 'ENTREGA')
                                   @if ($responsibility->person_id === Auth::user()->person->id)
-                                  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#anular{{$movement->id}}">
-                                    <i class="fas fa-ban"></i> {{trans('agroindustria::menu.Cancel')}}
-                                  </button>                            
+                                  <div class="mb-3">
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#anular{{$movement->id}}">
+                                      <i class="fas fa-ban"></i> {{trans('agroindustria::deliveries.Cancel')}}
+                                    </button>       
+                                  </div>                     
                                   @endif
                                 @endif
                           @endif
@@ -173,7 +179,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="aprobarLabel">Aprobar Movimiento</h1>
+            <h1 class="modal-title fs-5" id="aprobarLabel">{{trans('agroindustria::deliveries.Approve Movement')}}</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -181,11 +187,11 @@
                   @csrf
                   @method('PUT')
                   <div class="form-group">
-                      <p>¿Quieres aprobar este movimiento?</p>
+                      <p>{{trans('agroindustria::deliveries.Do you want to approve this move')}}</p>
                   </div>                
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Aprobar</button>
+            <button type="submit" class="btn btn-primary">{{trans('agroindustria::deliveries.Approve')}}</button>
           </form>
           </div>
         </div>
@@ -199,7 +205,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="anularLabel">Anular Movimiento</h1>
+            <h1 class="modal-title fs-5" id="anularLabel">{{trans('agroindustria::deliveries.Cancel Movement')}}</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -207,7 +213,7 @@
               @csrf
               @method('PUT')
               <div class="form-group">
-                  {!! Form::label('observation', trans('agroindustria::menu.Observations')) !!}
+                  {!! Form::label('observation', trans('agroindustria::deliveries.Observations')) !!}
                   {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'id' => 'textarea'] ) !!}
                   @error('observation')
                       <span class="text-danger">{{ $message }}</span>
@@ -215,7 +221,7 @@
               </div>         
           </div>
           <div class="modal-footer">
-              {!! Form::submit(trans('agroindustria::menu.yesCancel'), ['class' => 'btn btn-success', 'name' => 'anular']) !!}
+              {!! Form::submit(trans('agroindustria::deliveries.yesCancel'), ['class' => 'btn btn-success', 'name' => 'anular']) !!}
             {!! Form:: close() !!}
           </div>
         </div>
@@ -237,7 +243,7 @@
               @csrf
               @method('PUT')
               <div class="form-group">
-                  {!! Form::label('observation', trans('agroindustria::menu.Observations')) !!}
+                  {!! Form::label('observation', trans('agroindustria::deliveries.Observations')) !!}
                   {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'id' => 'textarea'] ) !!}
                   @error('observation')
                       <span class="text-danger">{{ $message }}</span>
@@ -245,7 +251,7 @@
               </div>         
           </div>
           <div class="modal-footer">
-              {!! Form::submit(trans('agroindustria::menu.Return'),['class' => 'btn btn-danger', 'name' => 'anular']) !!}
+              {!! Form::submit(trans('agroindustria::deliveries.Return'),['class' => 'btn btn-danger', 'name' => 'anular']) !!}
             {!! Form:: close() !!}
           </div>
         </div>

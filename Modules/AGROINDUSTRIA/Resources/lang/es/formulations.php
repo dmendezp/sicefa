@@ -23,6 +23,7 @@ return [
     'Success' => 'Éxito',
 
     //datatable
+    'dateCreation' => 'Fecha de Creación',
     'Production Quantity' => 'Cantidad de Producción',
     'Delete' => 'Eliminar',
     'You want to remove the recipe from' => 'Desea eliminar la receta de',

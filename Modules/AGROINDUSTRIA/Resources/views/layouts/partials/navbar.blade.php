@@ -32,7 +32,7 @@
                     <a class="nav-link" href="{{route('agroindustria.admin.units.activity', ['unit'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Activities')}}</a>
                 </li>        
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.admin.units.requests')}}">Solicitud Insumos</a>
+                    <a class="nav-link" href="{{route('cefa.agroindustria.admin.units.requests')}}">{{trans('agroindustria::menu.Request for supplies')}}</a>
                 </li>        
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('agroindustria.admin.units.labor')}}">{{trans('agroindustria::menu.Task')}}</a>
@@ -42,7 +42,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Reportes
+                        {{trans('agroindustria::menu.reports')}}
                     </a>
                     <ul class="dropdown-menu">
                         <li >
@@ -85,11 +85,11 @@
 
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.instructor.units.requests')}}">Solicitud Insumos</a>
+                    <a class="nav-link" href="{{route('cefa.agroindustria.instructor.units.requests')}}">{{trans('agroindustria::menu.Request for supplies')}}</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Reportes
+                        {{trans('agroindustria::menu.reports')}}
                     </a>
                     <ul class="dropdown-menu">
                         @if(Auth::user()->havePermission('agroindustria.instructor.units.production'))

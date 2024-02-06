@@ -10,17 +10,17 @@
     <div class="card" style="width: 1100px">
         <table id="inventoryAlert" class="table table-striped" style="width: 98%;">
             <br>    
-            <center><h4>Insumos pronto a agotarse</h4></center>
+            <center><h4>{{trans('agroindustria::inventory.suppliesSoonToBeSoldOut')}}</h4></center>
             <br>
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>{{trans('agroindustria::menu.Name')}}</th>
-                    <th>{{trans('agroindustria::menu.Category')}}</th>
-                    <th>{{trans('agroindustria::menu.Amount stock')}}</th>
-                    <th>Fecha expiración</th>
-                    <th>Lote</th>
-                    <th>{{trans('agroindustria::menu.Description')}}</th>
+                    <th>{{trans('agroindustria::inventory.product')}}</th>
+                    <th>{{trans('agroindustria::inventory.category')}}</th>
+                    <th>{{trans('agroindustria::inventory.quantityAvailable')}}</th>
+                    <th>{{trans('agroindustria::inventory.expirationDate')}}</th>
+                    <th>{{trans('agroindustria::inventory.lot')}}</th>
+                    <th>{{trans('agroindustria::inventory.description')}}</th>
                 </tr>
             </thead>
             <tbody>

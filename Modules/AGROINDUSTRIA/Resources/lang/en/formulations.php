@@ -23,6 +23,7 @@ return [
     'Success' => 'Success',
 
     //datatable
+    'dateCreation' => 'Date of creation',
     'Production Quantity' => 'Production Quantity',
     'Delete' => 'Delete',
     'You want to remove the recipe from' => 'You want to remove the recipe from',

@@ -385,10 +385,10 @@ class WarehouseController extends Controller
         }
         if($wm->save()){
             $icon = 'success';
-            $message_line = trans('agroindustria::menu.Successful check out');
+            $message_line = trans('agroindustria::deliveries.Successful check out');
         }else{
             $icon = 'error';
-            $message_line = trans('agroindustria::menu.Check out error');
+            $message_line = trans('agroindustria::deliveries.Check out error');
         }
 
         return redirect()->route('cefa.agroindustria.admin.units.remove')->with([

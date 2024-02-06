@@ -66,21 +66,21 @@
                             @enderror   
                         </div>
                         <div class="col-md-4" id="date-expiration-field" style="display: none;">
-                            {!! Form::label('date_experation', 'Fecha de expiración') !!}
+                            {!! Form::label('date_experation', trans('agroindustria::labors.expirationDate')) !!}
                             {!! Form::date('date_experation', null, ['class' => 'form-control']) !!}
                             @error('date_experation')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-md-4" id="lot-field" style="display: none;">
-                            {!! Form::label('lot', 'Lote') !!}
+                            {!! Form::label('lot', trans('agroindustria::labors.lot')) !!}
                             {!! Form::number('lot', null, ['class' => 'form-control']) !!}
                             @error('lot')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-md-4" id="amount-production-field" style="display: none;">
-                            {!! Form::label('amount_production', 'Cantidad') !!}
+                            {!! Form::label('amount_production', trans('agroindustria::labors.quantity')) !!}
                             {!! Form::number('amount_production', null, ['class' => 'form-control', 'id' => 'amount_production']) !!}
                             @error('amount_production')
                                 <span class="text-danger">{{ $message }}</span>
@@ -108,23 +108,23 @@
                                                 <button type="button" class="btn btn-primary" id="add-consumables"><i class="fa-solid fa-plus"></i></button>
                                                 <div class="consumable">
                                                     <div class="form-group-consumables">
-                                                        {!! Form::label('consumables', 'Consumibles') !!}
+                                                        {!! Form::label('consumables', trans('agroindustria::labors.consumables')) !!}
                                                         {!! Form::select('consumables[]', $consumables, null, ['class' => 'element-select']) !!}
                                                     </div>
                                                     <div class="form-group-consumables"> 
                                                         <span class="quantity"></span>
-                                                        {!! Form::label('amount_consumables', 'Cantidad') !!}
+                                                        {!! Form::label('amount_consumables', trans('agroindustria::labors.quantity')) !!}
                                                         {!! Form::number('amount_consumables[]', null, ['class' => 'form-control', 'id' => 'amount_consumables', 'step' => '0.01']) !!}
                                                     </div>
                                                     <div class="form-group-consumables">
-                                                        {!! Form::label('price_consumable', 'Valor unitario') !!}
+                                                        {!! Form::label('price_consumable', trans('agroindustria::labors.unitValue')) !!}
                                                         {!! Form::number('price_unit_consumable', null, ['class'=>'form-control', 'id' => 'price_unit_consumable', 'readonly' => 'readonly']) !!}
                                                     </div>
                                                     <div class="form-group-consumables">
                                                         {!! Form::label('price_consumable_total', 'Total') !!}
                                                         {!! Form::number('price_unit_consumable_total', null, ['class'=>'form-control', 'id' => 'price_unit_consumable_total', 'readonly' => 'readonly']) !!}
                                                     </div>
-                                                    {!! Form::button(trans('agroindustria::menu.Delete'), ['class'=>'remove-consumables']) !!}                                
+                                                    {!! Form::button(trans('agroindustria::labors.delete'), ['class'=>'remove-consumables']) !!}                                
                                                 </div>                           
                                             </div>
                                         </div>
@@ -134,35 +134,35 @@
                                 <div class="accordion-item">
                                   <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                                        Registro de utencilios
+                                        {{trans('agroindustria::labors.registerTools')}}
                                     </button>
                                   </h2>
                                   <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
                                     <div class="accordion-body">
                                         <div class="tools" id="form-container-tools">
                                             <div id="form-tools">
-                                                <h3 id="title_tools">Utencilios</h3>
+                                                <h3 id="title_tools">{{trans('agroindustria::labors.tools')}}</h3>
                                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
                                                 <button type="button" class="btn btn-primary" id="add-tools"><i class="fa-solid fa-plus"></i></button>
                                                 <div class="tools">
                                                     <div class="form-group-tools">
-                                                        {!! Form::label('tools', 'Herramientas') !!}
+                                                        {!! Form::label('tools', trans('agroindustria::labors.tools')) !!}
                                                         {!! Form::select('tools[]', $tool, null, ['class' => 'tool_select', 'style' => 'width: 200px']) !!}
                                                     </div>
                                                     <div class="form-group-tools">
                                                         <span class="quantity"></span>
-                                                        {!! Form::label('amount', 'Cantidad') !!}
+                                                        {!! Form::label('amount', trans('agroindustria::labors.quantity')) !!}
                                                         {!! Form::number('amount_tools[]', null, ['class'=>'form-control', 'id' => 'amount_tools']) !!}
                                                     </div>   
                                                     <div class="form-group-tools">  
-                                                        {!! Form::label('price', 'Valor unitario') !!}
+                                                        {!! Form::label('price', trans('agroindustria::labors.unitValue')) !!}
                                                         {!! Form::number('price_unit_tool', null, ['class'=>'form-control', 'id' => 'price_unit_tool', 'readonly' => 'readonly']) !!}
                                                     </div> 
                                                     <div class="form-group-tools">  
                                                         {!! Form::label('price', 'Total') !!}
                                                         {!! Form::number('price_tools[]', null, ['class'=>'form-control', 'id' => 'price_tool', 'readonly' => 'readonly']) !!}
                                                     </div>            
-                                                    <button type="button" class="remove-tools">{{trans('agroindustria::menu.Delete')}}</button>
+                                                    <button type="button" class="remove-tools">{{trans('agroindustria::labors.delete')}}</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -210,7 +210,7 @@
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>            
-                                                    <button type="button" class="remove-executor">{{trans('agroindustria::menu.Delete')}}</button>
+                                                    <button type="button" class="remove-executor">{{trans('agroindustria::labors.delete')}}</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -220,35 +220,35 @@
                                 <div class="accordion-item">
                                   <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
-                                        Registro de Equipos
+                                        {{trans('agroindustria::labors.registerEquipments')}}
                                     </button>
                                   </h2>
                                   <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
                                     <div class="accordion-body">
                                         <div class="equipments" id="form-container-equipments">
                                             <div id="form-equipments">
-                                                <h3 id="equipments">Equipos</h3>
+                                                <h3 id="equipments">{{trans('agroindustria::labors.equipments')}}</h3>
                                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
                                                 <button type="button" class="btn btn-primary" id="add-equipments"><i class="fa-solid fa-plus"></i></button>
                                                 <div class="equipment">
                                                     <div class="form-group-equipments">
-                                                        {!! Form::label('inventories', 'Equipos') !!}
+                                                        {!! Form::label('inventories', trans('agroindustria::labors.equipments')) !!}
                                                         {!! Form::select('equipments[]', $equipment, null, ['class' => 'inventory_select', 'style' => 'width: 200px']) !!}
                                                     </div>
                                                     <div class="form-group-equipments">
                                                         <span class="quantity-equipment"></span>
-                                                        {!! Form::label('amount', 'Cantidad') !!}
+                                                        {!! Form::label('amount', trans('agroindustria::labors.quantity')) !!}
                                                         {!! Form::number('amount_equipments[]', null, ['class'=>'form-control', 'id' => 'amount_equipments']) !!}
                                                     </div>   
                                                     <div class="form-group-equipments">  
-                                                        {!! Form::label('price', 'Valor unitario') !!}
+                                                        {!! Form::label('price', trans('agroindustria::labors.unitValue')) !!}
                                                         {!! Form::number('price_unit_equipment', null, ['class'=>'form-control', 'id' => 'price_unit_equipment', 'readonly' => 'readonly']) !!}
                                                     </div> 
                                                     <div class="form-group-equipments">  
                                                         {!! Form::label('price', 'Total') !!}
                                                         {!! Form::number('price_equipments[]', null, ['class'=>'form-control', 'id' => 'price_equipment', 'readonly' => 'readonly']) !!}
                                                     </div>           
-                                                    <button type="button" class="remove-equipments">{{trans('agroindustria::menu.Delete')}}</button>
+                                                    <button type="button" class="remove-equipments">{{trans('agroindustria::labors.delete')}}</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -258,30 +258,30 @@
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
-                                            Recursos Ambientales
+                                            {{trans('agroindustria::labors.registerEnvironmentalResources')}}
                                         </button>
                                     </h2>
                                   <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
                                     <div class="accordion-body">
                                         <div class="resources" id="form-container-resources">
                                             <div id="form-resources">
-                                                <h3 id="resources">Recursos Ambientales</h3>
+                                                <h3 id="resources">{{trans('agroindustria::labors.environmentalResources')}}</h3>
                                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
                                                 <button type="button" class="btn btn-primary" id="add-resources"><i class="fa-solid fa-plus"></i></button>
                                                 <div class="resource">
                                                     <div class="form-group">
-                                                        {!! Form::label('environmental_aspect', 'Aspecto Ambientas') !!}
-                                                        {!! Form::select('environmental_aspect[]', [], null, ['class' => 'environmental_aspect_select', 'id' => 'select_aspect', 'style' => 'width: 200px', 'placeholder' => 'Seleccione un aspecto ambiental']) !!}
+                                                        {!! Form::label('environmental_aspect', trans('agroindustria::labors.environmentalAspect')) !!}
+                                                        {!! Form::select('environmental_aspect[]', [], null, ['class' => 'environmental_aspect_select', 'id' => 'select_aspect', 'style' => 'width: 200px', 'placeholder' => trans("agroindustria::labors.selectEnvironmentalAspect")]) !!}
                                                     </div>
                                                     <div class="form-group">
-                                                        {!! Form::label('amount_environmental_aspect', 'Cantidad') !!}
+                                                        {!! Form::label('amount_environmental_aspect', trans('agroindustria::labors.quantity')) !!}
                                                         {!! Form::number('amount_environmental_aspect[]', null, ['class'=>'form-control', 'id' => 'amount_environmental_aspect']) !!}
                                                     </div>   
                                                     <div class="form-group">  
-                                                        {!! Form::label('price_environmental_aspect', 'Precio') !!}
+                                                        {!! Form::label('price_environmental_aspect', trans('agroindustria::labors.price')) !!}
                                                         {!! Form::number('price_environmental_aspect[]', null, ['class'=>'form-control', 'id' => 'price_environmental_aspect']) !!}
                                                     </div>           
-                                                    <button type="button" class="remove-resources">{{trans('agroindustria::menu.Delete')}}</button>
+                                                    <button type="button" class="remove-resources">{{trans('agroindustria::labors.delete')}}</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -308,7 +308,7 @@
         $('.element-select').select2();
 
         $("#add-consumables").click(function () {
-            var newConsumable = '<div class="consumable"><div class="form-group">{!! Form::label("consumables", "Consumibles") !!}{!! Form::select("consumables[]", $consumables, null, ["class" => "element-select"]) !!}</div><div class="form-group" style="margin-left: 5px; margin-right: 16px;"><span class="quantity"></span>{!! Form::label("amount_consumables", "Cantidad") !!}{!! Form::number("amount_consumables[]", null, ["class" => "form-control", "id" => "amount_consumables", "step" => "0.01"]) !!}</div><div class="form-group">{!! Form::label("price_consumable", "Valor unitario") !!}{!! Form::number("price_unit_consumable", null, ["class"=>"form-control", "id" => "price_unit_consumable", "readonly" => "readonly"]) !!}</div><div class="form-group" style="margin-left: 3px">{!! Form::label("price_consumable_total", "Total") !!}{!! Form::number("price_unit_consumable_total", null, ["class"=>"form-control", "id" => "price_unit_consumable_total", "readonly" => "readonly"]) !!}</div>{!! Form::button(trans("agroindustria::menu.Delete"), ["class"=>"remove-consumables", "style" => "margin-left: 6px"]) !!}</div>';
+            var newConsumable = '<div class="consumable"><div class="form-group">{!! Form::label("consumables", trans("agroindustria::labors.consumables")) !!}{!! Form::select("consumables[]", $consumables, null, ["class" => "element-select"]) !!}</div><div class="form-group" style="margin-left: 5px; margin-right: 16px;"><span class="quantity"></span>{!! Form::label("amount_consumables", trans("agroindustria::labors.quantity")) !!}{!! Form::number("amount_consumables[]", null, ["class" => "form-control", "id" => "amount_consumables", "step" => "0.01"]) !!}</div><div class="form-group">{!! Form::label("price_consumable", trans("agroindustria::labors.unitValue")) !!}{!! Form::number("price_unit_consumable", null, ["class"=>"form-control", "id" => "price_unit_consumable", "readonly" => "readonly"]) !!}</div><div class="form-group" style="margin-left: 3px">{!! Form::label("price_consumable_total", "Total") !!}{!! Form::number("price_unit_consumable_total", null, ["class"=>"form-control", "id" => "price_unit_consumable_total", "readonly" => "readonly"]) !!}</div>{!! Form::button(trans("agroindustria::labors.delete"), ["class"=>"remove-consumables", "style" => "margin-left: 6px"]) !!}</div>';
 
             // Agregar el nuevo campo al DOM
             $("#form-consumables").append(newConsumable);
@@ -356,27 +356,28 @@
                         
                         var newConsumableField = '<div class="consumable recipe-product">' +
                             '<div class="form-group">' +
-                            '<label for="consumables">Buscar Consumibles</label>' +
+                            '<label for="consumables">{{trans("agroindustria::labors.searchConsumables")}}</label>' +
                             '<input type="hidden" name="consumables[]" class="form-control" id="element-select-' + counter + '" value="' + consumable.id + '" style="width: 200px;" readonly>' +
                             '</div>' +
                             '<div class="form-group">' +
-                            '<label for="consumables">Consumibles</label>' +
+                            '<label for="consumables">{{trans("agroindustria::labors.consumables")}}</label>' +
                             '<input type="text" name="name_consumable" class="form-control" id="element_name-' + counter + '" value="' + consumable.name + '" readonly>' +
                             '</div>' +
                             '<div class="form-group">' +
-                            '<span class="quantity">Cantidad Disponible: ' + consumable.amount + '</span>' +
-                            '<label for="amount_consumables">Cantidad</label>' +
+                            '<span class="quantity">{{trans("agroindustria::labors.quantityAvailable")}}: ' + consumable.amount + '</span>' +
+                            '<label for="amount_consumables">{{trans("agroindustria::labors.quantity")}}</label>' +
                             '<input type="number" name="amount_consumables[]" id="amount_consumables_formulation" class="form-control" value="' + totalAmount + '" readonly>' +
                             '</div>' +
                             '<div class="form-group">' +
-                            '<span class="price_unit">Valor unitario: ' + consumable.price + '</span>' +
+                            '<span class="price_unit">{{trans("agroindustria::labors.unitValue")}}: ' + consumable.price + '</span>' +
                             '<label for="amount_consumables">Total</label>' +
                             '<input type="number" name="total_price_consumable" id="total_price_consumable" class="form-control" value="' + totalPrice + '" readonly>' +
                             '</div>' +
-                            '<button type="button" class="remove-consumables">{{trans('agroindustria::menu.Delete')}}</button>'
+                            '<button type="button" class="remove-consumables">{{trans('agroindustria::labors.delete')}}</button>'
                             '</div>';
 
                             maxQuantity = consumable.amount;
+                            
 
                             function updateSaveButtonState(totalAmount, maxQuantity) {
                                 var saveButton = $('.save_receipe');
@@ -400,14 +401,13 @@
                             }
 
                         $consumableContainer.append(newConsumableField);
-
+                            
                        
                         if (totalAmount > maxQuantity) {
                             // Actualizar el contenido del span después de agregarlo al DOM
                             $consumableContainer.find('.quantity').text('Cantidad no disponible').css('color', 'red');
                             updateSaveButtonState(totalAmount, maxQuantity);
                         } else {
-                            $consumableContainer.find('.quantity').text('Cantidad Disponible: ' + maxQuantity).css('color', '#666');
                             updateSaveButtonState(totalAmount, maxQuantity);
                         }
                        
@@ -419,7 +419,7 @@
                         (function (currentCounter) {
                             var urlElemets = '{{ route("cefa.agroindustria.units.instructor.labor.elements", ["name" => ":name"]) }}';
                             $('#element-select-' + currentCounter).select2({
-                                placeholder: 'Buscar insumos',
+                                placeholder: '{{trans("agroindustria::labors.searchConsumables")}}',
                                 minimumInputLength: 1,
                                 ajax: {
                                     url: function (params) {
@@ -455,9 +455,6 @@
                 }
             });
         }
-
-
-
         // Llamar a updateConsumables al cargar la página
         updateConsumables();
         // Eliminar un campo de consumibles
@@ -474,7 +471,7 @@
         $('.employement_type').select2();
 
         $("#add-executor").click(function() {
-            var newCollaborator = '<div class="collaborators"><div class="form-group">{!! Form::label("personSearch", trans("agroindustria::labors.searchPerson")) !!}{!! Form::text("search", null, ["class"=>"personSearch-select"]) !!}</div> <div class="form-group"> {!! Form::label("collaborator", trans("agroindustria::labors.collaborators")) !!}{!! Form::hidden("executors_id[]", null, ["id" => "executors_id"]) !!}{!! Form::text("executor", null, ["class"=>"form-control", "id" => "collaborator_executors", "readonly" => "readonly"]) !!}</div> <div class="form-group"><span class="price-executor"></span>{!! Form::label("employement_type", trans("agroindustria::labors.employeeType")) !!}{!! Form::select("employement_type[]", $employee, null, ["class"=>"form-control employement_type", "style" => "width: 200px"]) !!}{!! Form::hidden("price[]", null, ["id" => "price"]) !!}</div> <div class="form-group"><span class="total-executor"></span>{!! Form::label("hours", trans("agroindustria::labors.hoursWorked")) !!}{!! Form::number("hours[]", null, ["class"=>"form-control hours", "id" => "hours"]) !!} {!! Form::hidden("total-executor[]", null, ["id" => "total-executor"]) !!}</div> <button type="button" class="remove-executor">{{trans("agroindustria::menu.Delete")}}</button></div>';
+            var newCollaborator = '<div class="collaborators"><div class="form-group">{!! Form::label("personSearch", trans("agroindustria::labors.searchPerson")) !!}{!! Form::text("search", null, ["class"=>"personSearch-select"]) !!}</div> <div class="form-group"> {!! Form::label("collaborator", trans("agroindustria::labors.collaborators")) !!}{!! Form::hidden("executors_id[]", null, ["id" => "executors_id"]) !!}{!! Form::text("executor", null, ["class"=>"form-control", "id" => "collaborator_executors", "readonly" => "readonly"]) !!}</div> <div class="form-group"><span class="price-executor"></span>{!! Form::label("employement_type", trans("agroindustria::labors.employeeType")) !!}{!! Form::select("employement_type[]", $employee, null, ["class"=>"form-control employement_type", "style" => "width: 200px"]) !!}{!! Form::hidden("price[]", null, ["id" => "price"]) !!}</div> <div class="form-group"><span class="total-executor"></span>{!! Form::label("hours", trans("agroindustria::labors.hoursWorked")) !!}{!! Form::number("hours[]", null, ["class"=>"form-control hours", "id" => "hours"]) !!} {!! Form::hidden("total-executor[]", null, ["id" => "total-executor"]) !!}</div> <button type="button" class="remove-executor">{{trans("agroindustria::labors.delete")}}</button></div>';
     
             // Agregar el nuevo campo al DOM
             $("#form-executors").append(newCollaborator);
@@ -637,7 +634,7 @@
        $('.tool_select').select2();
 
        $("#add-tools").click(function() {
-           var newTool = '<div class="tools"><div class="form-group">{!! Form::label("tools", "Herramientas") !!}{!! Form::select("tools[]", $tool, null, ["class" => "tool_select", "style" => "width: 200px"]) !!}</div><div class="form-group" style="margin-left: 5px; margin-right: 16px;"><span class="quantity"></span>{!! Form::label("amount", "Cantidad") !!}{!! Form::number("amount_tools[]", null, ["class"=>"form-control", "id" => "amount_tools"]) !!}</div><div class="form-group">{!! Form::label("price", "Valor Unitario") !!}{!! Form::number("price_unit_tool", null, ["class"=>"form-control", "id" => "price_unit_tool", "readonly" => "readonly"]) !!}</div><div class="form-group" style="margin-left: 3px">{!! Form::label("price", "Total") !!}{!! Form::number("price_tools[]", null, ["class"=>"form-control", "id" => "price_tool", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-tools" style="margin-left: 6px">{{trans("agroindustria::menu.Delete")}}</button></div>';
+           var newTool = '<div class="tools"><div class="form-group">{!! Form::label("tools", trans("agroindustria::labors.tools")) !!}{!! Form::select("tools[]", $tool, null, ["class" => "tool_select", "style" => "width: 200px"]) !!}</div><div class="form-group" style="margin-left: 5px; margin-right: 16px;"><span class="quantity"></span>{!! Form::label("amount", trans("agroindustria::labors.quantity")) !!}{!! Form::number("amount_tools[]", null, ["class"=>"form-control", "id" => "amount_tools"]) !!}</div><div class="form-group">{!! Form::label("price", trans("agroindustria::labors.unitValue")) !!}{!! Form::number("price_unit_tool", null, ["class"=>"form-control", "id" => "price_unit_tool", "readonly" => "readonly"]) !!}</div><div class="form-group" style="margin-left: 3px">{!! Form::label("price", "Total") !!}{!! Form::number("price_tools[]", null, ["class"=>"form-control", "id" => "price_tool", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-tools" style="margin-left: 6px">{{trans("agroindustria::labors.delete")}}</button></div>';
            
            // Agregar el nuevo campo al DOM
            $("#form-tools").append(newTool);
@@ -695,10 +692,9 @@
 
         function updateSaveButtonState(quantityField, amount, maxQuantity) {
             var saveButton = $('.save_receipe');
-            console.log(maxQuantity);
 
             if (amount > maxQuantity) {
-                quantityField.text('La cantidad ingresada es mayor que la disponible.').css('color', 'red');
+                quantityField.text('{{trans("agroindustria::labors.amountEnteredGreater")}}').css('color', 'red');
                 saveButton.prop('disabled', true);
                 saveButton.addClass('disabled-button');
                 isAnyProductExceeding = true;
@@ -845,13 +841,13 @@
             console.log(maxQuantity);
 
             if (amount > maxQuantity) {
-                availableQuantity.text('La cantidad ingresada es mayor que la disponible.').css('color', 'red');
+                availableQuantity.text('{{trans("agroindustria::labors.amountEnteredGreater")}}').css('color', 'red');
                 saveButton.prop('disabled', true);
                 saveButton.addClass('disabled-button');
                 isAnyProductExceeding = true;
                 console.log('Deshabilitado');
             } else {
-                availableQuantity.text('Cantidad Disponible: ' + maxQuantity).css('color', '#666');
+                availableQuantity.text('{{trans("agroindustria::labors.quantityAvailable")}}: ' + maxQuantity).css('color', '#666');
                 isAnyProductExceeding = false;
                 console.log(isAnyProductExceeding);
                 if (!isAnyProductExceeding) {
@@ -937,7 +933,7 @@
     $(document).ready(function() {
         $('.inventory_select').select2();
         $("#add-equipments").click(function() {
-           var newEquipment = '<div class="equipment"><div class="form-group">{!! Form::label("inventories", "Equipos") !!}{!! Form::select("equipments[]", $equipment, null, ["class" => "inventory_select", "style" => "width: 200px"]) !!}</div><div class="form-group" style="margin-left: 5px; margin-right: 16px;"><span class="quantity-equipment"></span>{!! Form::label("amount", "Cantidad") !!}{!! Form::number("amount_equipments[]", null, ["class"=>"form-control", "id" => "amount_equipments"]) !!}</div><div class="form-group">{!! Form::label("price", "Valor Unitario") !!}{!! Form::number("price_unit_equipment", null, ["class"=>"form-control", "id" => "price_unit_equipment", "readonly" => "readonly"]) !!}</div><div class="form-group" style="margin-left: 3px">{!! Form::label("price", "Total") !!}{!! Form::number("price_equipments[]", null, ["class"=>"form-control", "id" => "price_equipment", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-equipments" style="margin-left: 6px">{{trans("agroindustria::menu.Delete")}}</button></div>';
+           var newEquipment = '<div class="equipment"><div class="form-group">{!! Form::label("inventories", trans("agroindustria::labors.equipments")) !!}{!! Form::select("equipments[]", $equipment, null, ["class" => "inventory_select", "style" => "width: 200px"]) !!}</div><div class="form-group" style="margin-left: 5px; margin-right: 16px;"><span class="quantity-equipment"></span>{!! Form::label("amount", trans("agroindustria::labors.quantity")) !!}{!! Form::number("amount_equipments[]", null, ["class"=>"form-control", "id" => "amount_equipments"]) !!}</div><div class="form-group">{!! Form::label("price", trans("agroindustria::labors.unitValue")) !!}{!! Form::number("price_unit_equipment", null, ["class"=>"form-control", "id" => "price_unit_equipment", "readonly" => "readonly"]) !!}</div><div class="form-group" style="margin-left: 3px">{!! Form::label("price", "Total") !!}{!! Form::number("price_equipments[]", null, ["class"=>"form-control", "id" => "price_equipment", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-equipments" style="margin-left: 6px">{{trans("agroindustria::labors.delete")}}</button></div>';
            
            // Agregar el nuevo campo al DOM
            $("#form-equipments").append(newEquipment);
@@ -996,13 +992,13 @@
             console.log(maxQuantity);
 
             if (amount > maxQuantity) {
-                quantityField.text('La cantidad ingresada es mayor que la disponible.').css('color', 'red');
+                quantityField.text('{{trans("agroindustria::labors.amountEnteredGreater")}}').css('color', 'red');
                 saveButton.prop('disabled', true);
                 saveButton.addClass('disabled-button');
                 isAnyProductExceeding = true;
                 console.log('Deshabilitado');
             } else {
-                quantityField.text('Cantidad Disponible: ' + maxQuantity).css('color', '#666');
+                quantityField.text('{{trans("agroindustria::labors.quantityAvailable")}}: ' + maxQuantity).css('color', '#666');
                 isAnyProductExceeding = false;
                 console.log(isAnyProductExceeding);
                 if (!isAnyProductExceeding) {
@@ -1097,18 +1093,18 @@
 
             var newResource = '<div class="resource">' +
                 '<div class="form-group">' +
-                '{!! Form::label("environmental_aspect", "Aspecto Ambiental") !!}' +
-                '{!! Form::select("environmental_aspect[]", [], null, ["class" => "environmental_aspect_select", "style" => "width: 200px", "placeholder" => "Seleccione un aspecto ambiental"]) !!}' +
+                '{!! Form::label("environmental_aspect", trans("agroindustria::labors.environmentalAspect")) !!}' +
+                '{!! Form::select("environmental_aspect[]", [], null, ["class" => "environmental_aspect_select", "style" => "width: 200px", "placeholder" => trans("agroindustria::labors.selectEnvironmentalAspect")]) !!}' +
                 '</div>' +
                 '<div class="form-group">' +
-                '{!! Form::label("amount_environmental_aspect", "Cantidad") !!}' +
+                '{!! Form::label("amount_environmental_aspect", trans("agroindustria::labors.quantity")) !!}' +
                 '{!! Form::number("amount_environmental_aspect[]", null, ["class"=>"form-control"]) !!}' +
                 '</div>' +
                 '<div class="form-group">' +
-                '{!! Form::label("price_environmental_aspect", "Precio") !!}' +
+                '{!! Form::label("price_environmental_aspect", trans("agroindustria::labors.price")) !!}' +
                 '{!! Form::number("price_environmental_aspect[]", null, ["class"=>"form-control", "id" => "price_environmental_aspect"]) !!}' +
                 '</div>' +
-                '<button type="button" class="remove-resources">{{trans("agroindustria::menu.Delete")}}</button>' +
+                '<button type="button" class="remove-resources">{{trans("agroindustria::labors.delete")}}</button>' +
                 '</div>';
 
             // Agregar el nuevo campo al DOM
@@ -1125,7 +1121,7 @@
                 url: url,
                 type: 'GET',
                 success: function (response) {
-                    var options = '<option value="">' + 'Seleccione un aspecto ambiental' + '</option>';
+                    var options = '<option value="">' + '{{trans("agroindustria::labors.selectEnvironmentalAspect")}}' + '</option>';
                     $.each(response.aspect, function (index, aspect) {
                         options += '<option value="' + aspect.id + '">' + aspect.name + '</option>';
                     });
@@ -1151,7 +1147,7 @@
                         url: url,
                         type: 'GET',
                         success: function (response) {
-                            var options = '<option value="">' + 'Seleccione un aspecto ambiental' + '</option>';
+                            var options = '<option value="">' + '{{trans("agroindustria::labors.selectEnvironmentalAspect")}}' + '</option>';
                             $.each(response.aspect, function (index, aspect) {
                                 options += '<option value="' + aspect.id + '">' + aspect.name + '</option>';
                             });

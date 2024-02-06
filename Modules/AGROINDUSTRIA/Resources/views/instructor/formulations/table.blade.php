@@ -5,8 +5,8 @@
     <table id="formulation" class="table table-striped" style="width: 100%">
         <thead>
             <tr>
-                <th>Fecha de creación</th>
-                <th>Creador</th>
+                <th>{{trans('agroindustria::formulations.dateCreation')}}</th>
+                <th>{{trans('agroindustria::formulations.Owner')}}</th>
                 <th>{{trans('agroindustria::formulations.Product Name')}}</th>
                 <th>{{trans('agroindustria::formulations.Production Quantity')}}</th>
                 <th>

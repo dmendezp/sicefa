@@ -11,14 +11,14 @@
         @endif
         <div class="card-body">
         <h5 class="card-title"><strong>{{ $formulation->element->name }}</strong></h5>
-        <p><strong>Fecha de creción:</strong> {{ $formulation->date }}</p>
-        <p class="card-text"><strong>Creador:</strong> {{ $formulation->person->first_name . ' ' . $formulation->person->first_last_name . ' ' . $formulation->person->second_last_name }}</p>
-        <p class="card-text"><strong>{{trans('agroindustria::menu.Productive Unit')}}:</strong> {{ $formulation->productive_unit->name }}</p>
-        <p class="card-text"><strong>Cantidad que se produce:</strong> {{ $formulation->amount }}</p>
-        <p class="card-text"><strong>{{trans('agroindustria::menu.Proccess')}}:</strong> {{ $formulation->proccess }}</p>
+        <p><strong>{{trans('agroindustria::formulations.dateCreation')}}:</strong> {{ $formulation->date }}</p>
+        <p class="card-text"><strong>{{trans('agroindustria::formulations.Owner')}}:</strong> {{ $formulation->person->first_name . ' ' . $formulation->person->first_last_name . ' ' . $formulation->person->second_last_name }}</p>
+        <p class="card-text"><strong>{{trans('agroindustria::formulations.Productive Unit')}}:</strong> {{ $formulation->productive_unit->name }}</p>
+        <p class="card-text"><strong>{{trans('agroindustria::formulations.Quantity produced')}}:</strong> {{ $formulation->amount }}</p>
+        <p class="card-text"><strong>{{trans('agroindustria::formulations.Process')}}:</strong> {{ $formulation->proccess }}</p>
         <ul class="list-group list-group-flush">
         <li class="list-group-item">
-            <strong>Ingredientes:</strong> 
+            <strong>{{trans('agroindustria::formulations.Ingredients')}}:</strong> 
             <ul>
                 @foreach($formulation->ingredients as $ingredient)
                 <li>{{$ingredient->element->name .' ' . $ingredient->amount / $ingredient->element->measurement_unit->conversion_factor. '' .  $ingredient->element->measurement_unit->abbreviation}}</li>
@@ -26,7 +26,7 @@
             </ul>
         </li>
         <li class="list-group-item">
-            <strong>Utencilios:</strong>
+            <strong>{{trans('agroindustria::formulations.Utencils')}}:</strong>
             <ul>
                 @foreach($formulation->utensils as $utensil)
                 <li>{{$utensil->element->name .' ' . $utensil->amount . '' .  $utensil->element->measurement_unit->abbreviation}}</li>

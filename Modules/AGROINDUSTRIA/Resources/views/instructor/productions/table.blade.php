@@ -1,14 +1,14 @@
 @extends('agroindustria::layouts.master')
 @section('content')
-    <h1 style="text-align: center">Producción</h1>
+    <h1 style="text-align: center">{{trans('agroindustria::labors.production')}}</h1>
     <div class="production" style="margin-left:20px; margin-right:20px;">
         <table id="table-production" class="table table-striped" style="width: 100%;">
             <thead>
                 <tr>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>Fecha Expiración</th>
-                    <th>Lote</th>
+                    <th>{{trans('agroindustria::labors.product')}}</th>
+                    <th>{{trans('agroindustria::labors.quantity')}}</th>
+                    <th>{{trans('agroindustria::labors.expirationDate')}}</th>
+                    <th>{{trans('agroindustria::labors.lot')}}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -22,7 +22,7 @@
                     <td>
                     <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detail{{$p->id}}">
-                        Detalles
+                            {{trans('agroindustria::labors.details')}}
                         </button>
 
                         <!-- Modal -->
@@ -30,35 +30,34 @@
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header bg-primary text-white">
-                                        <h5 class="modal-title" id="details">Detalles de Produccion</h5>
+                                        <h5 class="modal-title" id="details">{{trans('agroindustria::labors.productionDetails')}}</h5>
                                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <table class="table">
                                             <tbody>
                                                 <tr>
-                                                    <th scope="row">Gastos :</th>
+                                                    <th scope="row">{{trans('agroindustria::labors.costs')}}:</th>
                                                     <td>{{ number_format($p->labor->price, 2, ',', '.') }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2"><hr></td>
                                                 </tr>
                                                 <tr>
-                                                    <th scope="row">Total Produccion :</th>
+                                                    <th scope="row">{{trans('agroindustria::labors.totalProduction')}}:</th>
                                                     <td>{{ number_format($p->amount * $p->element->price, 2, ',', '.') }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2"><hr></td>
                                                 </tr>
                                                 <tr>
-                                                    <th scope="row">Ganancias :</th>
+                                                    <th scope="row">{{trans('agroindustria::labors.earnings')}}:</th>
                                                     <td>{{ number_format($p->element->price * $p->amount - $p->labor->price, 2, ',', '.') }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                     </div>
                                 </div>
                             </div>

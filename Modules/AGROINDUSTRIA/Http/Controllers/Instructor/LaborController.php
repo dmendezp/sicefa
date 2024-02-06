@@ -117,7 +117,7 @@ class LaborController extends Controller
                 'id' => $id,
                 'name' => $name
             ];
-        })->prepend(['id' => null, 'name' => 'Seleccione una herramienta'])->pluck('name', 'id');
+        })->prepend(['id' => null, 'name' => trans('agroindustria::labors.selectInstrument')])->pluck('name', 'id');
 
         $categoryEquipments = Category::where('name', 'Equipos')->pluck('id');
         $elementEquipment = Element::whereIn('category_id', $categoryEquipments)->pluck('id');
@@ -134,7 +134,7 @@ class LaborController extends Controller
                 'id' => $id,
                 'name' => $name
             ];
-        })->prepend(['id' => null, 'name' => 'Seleccione una herramienta'])->pluck('name', 'id');
+        })->prepend(['id' => null, 'name' => trans('agroindustria::labors.selectEquipment')])->pluck('name', 'id');
 
         $groceries = Category::where('name', 'Abarrotes')->pluck('id');
         $additives = Category::where('name', 'Aditivos')->pluck('id');
@@ -154,7 +154,7 @@ class LaborController extends Controller
                 'id' => $id,
                 'name' => $name
             ];
-        })->prepend(['id' => null, 'name' => 'Seleccione un insumo'])->pluck('name', 'id');
+        })->prepend(['id' => null, 'name' => trans('agroindustria::labors.selectConsumable')])->pluck('name', 'id');
 
         $data = [
             'title' => $title,
@@ -398,6 +398,15 @@ class LaborController extends Controller
             'employement_type.required' => trans('agroindustria::labors.youMustSelectEmployeeType'),
             'hours.required' => trans('agroindustria::labors.youMustEnterNumberHoursWorked'),
         ];
+
+        $activities = $request->input('activities');
+        $type_activity = Activity::where('id', $activities)->pluck('activity_type_id')->first();
+
+        if ($type_activity == 1) {
+            $rules['recipe'] = 'required';
+            $messages['recipe.required'] = trans('agroindustria::labors.youMustSelectProductProduced');
+        }
+        
         $validatedData = $request->validate($rules, $messages);
 
         try {
@@ -419,36 +428,35 @@ class LaborController extends Controller
             
             $consumables = $request->input('consumables');
             $amount_consumables = $request->input('amount_consumables');
+
+            // Realiza una consulta para obtener los lotes correspondientes al elemento y ordénalos por lote
+            $selectedUnit = session('viewing_unit');
+            $warehouse = Warehouse::where('name', 'Agroindustria')->pluck('id');
+            $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->whereIn('warehouse_id', $warehouse)->pluck('id');
             
-            $element = Element::whereIn('id', $consumables)->pluck('measurement_unit_id');
+            
             foreach ($consumables as $key => $elementId) {
                 $requiredAmount = $amount_consumables[$key]; // Cantidad requerida para el elemento
-                $measurement_unit = MeasurementUnit::whereIn('id', $element)->pluck('conversion_factor');
-
-                foreach ($measurement_unit as $key => $c) {
-                    $conversion = $requiredAmount*$c;
-                }
                 
-                // Realiza una consulta para obtener los lotes correspondientes al elemento y ordénalos por lote
-                $selectedUnit = session('viewing_unit');
-                $warehouse = Warehouse::where('name', 'Agroindustria')->pluck('id');
-                $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->whereIn('warehouse_id', $warehouse)->pluck('id');
                 $inventories = Inventory::where('element_id', $elementId)
                 ->where('productive_unit_warehouse_id', $productiveUnit)
                 ->orderBy('lot_number', 'ASC')
                 ->get();
                 
-                // Inicializa la cantidad consumida en 0
                 $consumedAmount = 0;
+                
                 foreach ($inventories as $inventory) {
-                    // Obtén la cantidad disponible y el precio del inventario
                     $availableAmount = $inventory->amount;
                     $priceInventory = $inventory->price;
+                    $eleId = $inventory->element_id;
+                    $measurement_unit_id = Element::where('id', $eleId)->pluck('measurement_unit_id')->first();
+                    $conversion_factor = MeasurementUnit::where('id', $measurement_unit_id)->pluck('conversion_factor')->first();                
+                    $conversion = $requiredAmount * $conversion_factor;
                     
-                    // Calcula cuánto se puede consumir de este lote
                     $consumeFromThisLot = min($availableAmount, max(0, $conversion - $consumedAmount));
-                    $intAmount = $consumeFromThisLot/$measurement_unit[$key];
-                    $price = $intAmount*$priceInventory;
+                    $intAmount = $consumeFromThisLot / $conversion_factor;
+                    $price = $intAmount * $priceInventory;
+                    
                     if ($consumeFromThisLot > 0) {
                         // Registra el consumo para este lote
                         $c = new Consumable;
@@ -459,7 +467,8 @@ class LaborController extends Controller
                         $c->save();
                         
                         // Actualiza la cantidad consumida
-                        $consumedAmount += $consumeFromThisLot;
+                        $consumedAmount += $intAmount * $conversion_factor;
+                        
                         // Si se ha consumido la cantidad requerida, sal del bucle
                         if ($consumedAmount >= $conversion) {
                             break;
@@ -632,7 +641,6 @@ class LaborController extends Controller
             }
             
         } catch (\Exception $e) {
-            dd($e);
             // Rollback de la transacción en caso de error
             DB::rollBack();
     

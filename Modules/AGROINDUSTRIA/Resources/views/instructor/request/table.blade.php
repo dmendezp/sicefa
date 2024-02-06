@@ -2,14 +2,14 @@
 @section('content')
     
 <div class="table-request" style="margin: 20px">
-    <h1>Solicitudes de Bienes</h1>
+    <h1>{{trans('agroindustria::request.requestsAssets')}}</h1>
     <table id="request" class="table table-striped" style="width: 100%">
         <thead>
             <tr>
                 <th>{{trans('agroindustria::request.date')}}</th>
-                <th>Productos</th>
-                <th>Cantidad</th>
-                <th>Estado</th>
+                <th>{{trans('agroindustria::request.products')}}</th>
+                <th>{{trans('agroindustria::request.quantity')}}</th>
+                <th>{{trans('agroindustria::request.state')}}</th>
                 <th>
                     @if(auth()->check() && checkRol('agroindustria.instructor.vilmer') || auth()->check() && checkRol('agroindustria.instructor.chocolate'))  
                     <a href="{{route('cefa.agroindustria.instructor.units.solicitud')}}">
@@ -20,7 +20,7 @@
                     @else
                     <a href="{{route('cefa.agroindustria.units.instructor.request.excel.unified')}}">
                         <button class="btn btn-success float-end mb-2">
-                            <i class="fas fa-file-excel"></i> Formato de Solicitud Unificado
+                            <i class="fas fa-file-excel"></i> {{trans('agroindustria::request.unifiedRequestForm')}}
                         </button>
                     </a>
                     @endif
@@ -45,10 +45,10 @@
                     <td>
                         <form method="GET" action="{{ route('cefa.agroindustria.units.instructor.request.excel', ['movementId' => $m->id]) }}">
                             @csrf
-                            <button type="submit" class="btn btn-info" style="margin-bottom: 10px"><i class="fas fa-file-excel"></i> Formato de Solicitud</button>
+                            <button type="submit" class="btn btn-info" style="margin-bottom: 10px"><i class="fas fa-file-excel"></i> {{trans('agroindustria::request.requestForm')}}</button>
                         </form>
                         @if(auth()->check() && checkRol('agroindustria.admin') && $m->state == 'Solicitado') 
-                            <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#approbed{{$m->id}}">Aprobar</button>
+                            <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#approbed{{$m->id}}">{{trans('agroindustria::request.approve')}}</button>
                         @endif
                     </td>
                 </tr>
@@ -63,19 +63,19 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="anularLabel">Aprobar Solicitud</h1>
+          <h1 class="modal-title fs-5" id="anularLabel">{{trans('agroindustria::request.approveRequest')}}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body"> 
-            <p>¿Todos los elementos de esta solicitud fueron recibidos?</p>
+            <p>{{trans('agroindustria::request.haveElementsApplicationReceived')}}</p>
         </div>
         <div class="modal-footer">
             {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.request.pending.state', ['id' => $m->id])]) !!}
             @csrf
             @method('PUT')
-            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Si, aprobar</button>
+            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">{{trans('agroindustria::request.yesApprove')}}</button>
             {!! Form:: close() !!}
-            <button type="button" class="btn btn-secondary">Cancelar</button>
+            <button type="button" class="btn btn-secondary">{{trans('agroindustria::request.cancel')}}</button>
         </div>
       </div>
     </div>
