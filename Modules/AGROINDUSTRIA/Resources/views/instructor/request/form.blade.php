@@ -7,7 +7,7 @@
         {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.enviarsolicitud')]) !!}
         <div class="row">
           <div class="col-md-6">
-            {!! Form::label('fecha', trans('agroindustria::menu.Date Time')) !!}
+            {!! Form::label('fecha', trans('agroindustria::deliveries.Date Time')) !!}
             {!! Form::datetime('date', now()->format('Y-m-d\TH:i:s'), ['class' => 'form-control', 'id' => 'readonly-bg-gray', 'readonly' => 'readonly']) !!}
           </div>
           <div class="col-md-6">
@@ -16,21 +16,21 @@
             
           </div>
           <div class="col-md-6">
-            {!! Form::label('deliver_warehouse', trans('agroindustria::menu.Warehouse that Delivers')) !!}
+            {!! Form::label('deliver_warehouse', trans('agroindustria::deliveries.Warehouse that Delivers')) !!}
             {!! Form::select('deliver_warehouse', $warehouseDeliver->pluck('name', 'id'), old('deliver_warehouse'), ['class' => 'form-control', 'id' => 'deliver_warehouse']) !!}
             @error('deliver_warehouse')
             <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
           <div class="col-md-6">
-            {!! Form::label('receive_warehouse', trans('agroindustria::menu.Warehouse that Receives')) !!}
-            {!! Form::select('receive_warehouse', $warehouseReceive->pluck('name', 'id'), old('receive_warehouse'), ['placeholder' => trans('agroindustria::menu.Select a winery'), 'class' => 'form-control', 'id' => 'receive_warehouse']) !!}
+            {!! Form::label('receive_warehouse', trans('agroindustria::deliveries.Warehouse that Receives')) !!}
+            {!! Form::select('receive_warehouse', $warehouseReceive->pluck('name', 'id'), old('receive_warehouse'), ['placeholder' => trans('agroindustria::deliveries.Select a winery'), 'class' => 'form-control', 'id' => 'receive_warehouse']) !!}
             @error('receive_warehouse')
             <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
           <div class="col-md-12">
-            {!! Form::label('observation', trans('agroindustria::menu.Observations')) !!}
+            {!! Form::label('observation', trans('agroindustria::deliveries.Observations')) !!}
             {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'id' => 'textarea'] ) !!}
           </div>
           <div class="col-md-12">

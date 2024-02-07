@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-       // Registrar o actualizar usuario para Julian Javier Ramirez Diaz
+       // Registrar o actualizar
        $person = Person::where('document_number', 7723876)->first(); // Consultar Persona
        User::updateOrCreate(['nickname' => 'Vilmer'], [ // Actualizar o crear usuario
            'person_id' => $person->id,
