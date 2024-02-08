@@ -115,15 +115,15 @@ class PermissionsTableSeeder extends Seeder
         
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
-        /* Crear,editar y listar insumos en las bodegas (Administrador/Almacenista) 
-        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.storer.crud'], [
-            'name' => 'Crear, editar y listar insumos',
-            'description' => 'Puede crear, editar y listar insumos de la bodega de AGROINDUSTRIA',
-            'description_english' => 'You can create, edit and list supplies from the AGROINDUSTRIA warehouse',
+        //Ver inventario(Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.units.inventory'], [
+            'name' => 'Abrir vista de inventario',
+            'description' => 'Puede ver el inventario',
+            'description_english' => 'You can see the inventory',
             'app_id' => $app->id
         ]);
-        $permission_admin[] = $permission->id; // Almacenar permiso para rol
-        $permission_storer[] = $permission->id; // Almacenar permiso para rol*/
+
+        $permission_admin[] = $permission->id;
 
         // Unidades productivas (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units'], [
@@ -253,12 +253,32 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         $permission_instructor[] = $permission->id;
+
+        //Ver inventario(Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.inventory'], [
+            'name' => 'Abrir vista de inventario',
+            'description' => 'Puede ver el inventario',
+            'description_english' => 'You can see the inventory',
+            'app_id' => $app->id
+        ]);
+
+        $permission_instructor[] = $permission->id;
         
         //Visualizar solicitudes
         $permission = Permission::updateOrCreate(['slug' => 'agroindustria.storer.view.request'], [
             'name' => 'Visualizar solicitudes',
             'description' => 'Puede ver las solicitudes hechas por los instructores',
             'description_english' => 'You can see the requests made by the instructors',
+            'app_id' => $app->id
+        ]);
+
+        $permission_storer[] = $permission->id;
+
+        //Ver inventario(Almacenista)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.storer.units.inventory'], [
+            'name' => 'Abrir vista de inventario',
+            'description' => 'Puede ver el inventario',
+            'description_english' => 'You can see the inventory',
             'app_id' => $app->id
         ]);
 

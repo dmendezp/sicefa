@@ -51,7 +51,7 @@
                 </td>
                 <td>{{$r->person->first_name . ' ' . $r->person->first_last_name . ' ' . $r->person->second_last_name}}</td>
                 <td>
-                    <button class="btn btn-success approve-btn" data-request-id="{{$r->id}}">{{trans('agroindustria::request.approve')}}</button>
+                    <button type="button" class="btn btn-success approve-btn" data-bs-toggle="modal"  data-bs-target="#aprobar{{$r->id}}" data-request-id="{{$r->id}}">{{trans('agroindustria::request.approve')}}</button>
                     <button type="button" class="btn btn-danger cancel-btn" data-bs-toggle="modal" data-bs-target="#cancelar{{$r->id}}" data-reject-id="{{$r->id}}">{{trans('agroindustria::request.reject')}}</button>
                 </td>
             </tr>
@@ -61,8 +61,33 @@
 </div>
 
 
-<!-- Modal anular movimiento -->
 @foreach ($requests as $r)
+<!-- Modal aprobar solicitud -->
+<div class="modal fade" id="aprobar{{$r->id}}" tabindex="-1" aria-labelledby="aprobarLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="aprobarLabel">{{trans('agroindustria::request.approveRequest')}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.storer.units.request.approve', ['id' => $r->id])]) !!}
+            @csrf
+            @method('PUT')
+            <div class="form-group">
+                {!! Form::label('observation', trans('agroindustria::request.observations')) !!}
+                {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'id' => 'observation', 'style' => 'height: 0px'] ) !!}
+            </div>         
+        </div>
+        <div class="modal-footer">
+            {!! Form::submit(trans('agroindustria::request.approve'),['class' => 'btn btn-success confirm-approve', 'name' => 'aprobar', 'id' => 'btnAprobar_'.$r->id, 'data-request-id' => $r->id]) !!}
+          {!! Form:: close() !!}
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Modal rechazar solicitud -->
 <div class="modal fade" id="cancelar{{$r->id}}" tabindex="-1" aria-labelledby="cancelarLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -75,8 +100,8 @@
             @csrf
             @method('PUT')
             <div class="form-group">
-                {!! Form::label('observation', trans('agroindustria::menu.Observations')) !!}
-                {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'id' => 'textarea'] ) !!}
+                {!! Form::label('observation', trans('agroindustria::request.observations')) !!}
+                {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'id' => 'observation-cancel', 'style' => 'height: 0px'] ) !!}
                 @error('observation')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -116,6 +141,21 @@
     approveButtons.forEach(button => {
         const requestId = button.getAttribute('data-request-id');
         const row = button.closest('tr');
+        const modalForm = document.querySelector(`#aprobar${requestId} form`);
+        const btnAprobar = document.getElementById(`btnAprobar_${requestId}`);
+        $(document).ready(function() {
+            // Esta función se llama cada vez que se muestra el modal
+            $('div.modal').on('shown.bs.modal', function() {
+                var observationField = $('textarea#observation');
+                updateSaveButtonState(observationField);
+            });
+
+            // Esta función se llama cada vez que se cambia el contenido del campo de observaciones
+            $('textarea#observation').on('input', function() {
+                updateSaveButtonState($(this));
+            });
+
+        });
 
         // Verificar si la solicitud ya ha sido aprobada (si hay un valor en localStorage)
         const isApproved = localStorage.getItem(`request_${requestId}_approved`);
@@ -125,6 +165,7 @@
             row.style.color = 'white';
             row.style.fontWeight = 'bold';
             button.style.display = 'none';
+            //localStorage.removeItem(`request_${requestId}_approved`);
 
             const cancelButton = row.querySelector('.cancel-btn');
             if (cancelButton) {
@@ -133,40 +174,44 @@
 
         }
 
-        button.addEventListener('click', function () {
-            Swal.fire({
-                title: '{{trans("agroindustria::request.areYouSure")}}',
-                text: '{{trans("agroindustria::request.thisActionWillMarkRequestApproved")}}',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: '{{trans("agroindustria::request.yesApprove")}}'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Cambiar el color de la fila al aprobar la solicitud
-                    row.style.backgroundColor = 'green';
-                    // Cambiar el estilo de la letra al aprobar la solicitud
-                    row.style.color = 'white';
-                    row.style.fontWeight = 'bold';
-                    button.style.display = 'none';
+        function updateSaveButtonState(observationFieldId) {
+            var btnAprobar = $('.confirm-approve')
+            var observation = observationFieldId.val().trim();
+            console.log(observation);
 
-                    // Almacenar la aprobación en localStorage
-                    localStorage.setItem(`request_${requestId}_approved`, 'true');
-
-                    Swal.fire(
-                        '{{trans("agroindustria::request.approved")}}',
-                        '{{trans("agroindustria::request.theRequestBeenMarkedApproved")}}',
-                        'success'
-                    );
-
-                    const cancelButton = row.querySelector('.cancel-btn');
-                    if (cancelButton) {
-                        cancelButton.style.display = 'none';
-                    }
+            if (observation === '') {
+                btnAprobar.prop('disabled', true);
+                btnAprobar.addClass('disabled-button');
+                isAnyProductExceeding = true;
+                console.log('Deshabilitado');
+            } else {
+                isAnyProductExceeding = false;
+                console.log('Habilitado');
+                if (!isAnyProductExceeding) {
+                    btnAprobar.prop('disabled', false);
+                    btnAprobar.removeClass('disabled-button');
+                } else {
+                    btnAprobar.prop('disabled', true);
+                    btnAprobar.addClass('disabled-button');
                 }
-                
-            });
+            }
+        }
+
+        btnAprobar.addEventListener('click', function () {
+            // Verificar nuevamente si la solicitud ya ha sido cancelada antes de enviar el formulario
+            const isApproved = localStorage.getItem(`request_${requestId}_approved`);
+            if (!isApproved) {
+                event.preventDefault();
+
+                // Almacenar la cancelación en localStorage después de verificar
+                localStorage.setItem(`request_${requestId}_approved`, 'true');
+
+                // Cambiar el color de la fila al rechazar la solicitud
+                row.style.backgroundColor = 'green';
+
+                // Ahora puedes enviar el formulario si es necesario
+                modalForm.submit();
+            }
         });
     });
 
@@ -177,10 +222,23 @@
         const row = button.closest('tr');
         const modalForm = document.querySelector(`#cancelar${requestId} form`);
         const btnRechazar = document.getElementById(`btnRechazar_${requestId}`);
+        $(document).ready(function() {
+            // Esta función se llama cada vez que se muestra el modal
+            $('div.modal').on('shown.bs.modal', function() {
+                var observationField = $('textarea#observation-cancel');
+                updateSaveButtonStateCancel(observationField);
+            });
+
+            // Esta función se llama cada vez que se cambia el contenido del campo de observaciones
+            $('textarea#observation-cancel').on('input', function() {
+                updateSaveButtonStateCancel($(this));
+            });
+
+        });
 
         // Verificar si la solicitud ya ha sido cancelada (si hay un valor en localStorage)
         const isCancel = localStorage.getItem(`request_${requestId}_cancelled`);
-        console.log(isCancel);
+
         if (isCancel) {
             row.style.backgroundColor = 'red';
             // Cambiar el estilo de la letra al aprobar la solicitud
@@ -195,7 +253,28 @@
             }
         }
 
-        
+        function updateSaveButtonStateCancel(observationFieldId) {
+            var btnCancel = $('.confirm-cancel')
+            var observation = observationFieldId.val().trim();
+            console.log(observation);
+
+            if (observation === '') {
+                btnCancel.prop('disabled', true);
+                btnCancel.addClass('disabled-button');
+                isAnyProductExceeding = true;
+                console.log('Deshabilitado');
+            } else {
+                isAnyProductExceeding = false;
+                console.log('Habilitado');
+                if (!isAnyProductExceeding) {
+                    btnCancel.prop('disabled', false);
+                    btnCancel.removeClass('disabled-button');
+                } else {
+                    btnCancel.prop('disabled', true);
+                    btnCancel.addClass('disabled-button');
+                }
+            }
+        }
 
         // Manejar el evento de clic en el botón de rechazo
         btnRechazar.addEventListener('click', function () {

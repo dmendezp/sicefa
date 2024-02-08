@@ -18,7 +18,7 @@
                     <td>{{$p->element->name}}</td>
                     <td>{{$p->amount}}</td>
                     <td>{{$p->expiration_date}}</td>
-                    <td>{{$p->lot}}</td>
+                    <td>{{$p->lot_number}}</td>
                     <td>
                     <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detail{{$p->id}}">
