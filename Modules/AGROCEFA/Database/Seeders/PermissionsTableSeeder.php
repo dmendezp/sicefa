@@ -138,9 +138,27 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'You can see the elements that are in the inventory of the agricultural sector of Cefa',
             'app_id' => $app->id
         ]);
-        $permissions_passant[] = $permission->id;
+        
+        // Visualizar notificaiones movimientos
+        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.trainer.movements.notification'], [
+            'name' => 'Visualizar notificaiones movimientos',
+            'description' => 'Puede ver las notificaciones de los movimientos pendientes',
+            'description_english' => 'You can see notifications of pending movements',
+            'app_id' => $app->id
+        ]);
+        $permissions_trainer[] = $permission->id; 
+
+        // Visualizar notificaciones stock
+        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.trainer.inventory.stock'], [
+            'name' => 'Visualizar notificaciones stock',
+            'description' => 'Puede ver las notificaciones de los productos por agotarse',
+            'description_english' => 'You can see notifications of products that are out of stock',
+            'app_id' => $app->id
+        ]);
+        $permissions_trainer[] = $permission->id; 
 
 
+        
         // Consulta de ROLES
         $rol_trainer = Role::where('slug', 'agrocefa.trainer')->first();
         $rol_passant = Role::where('slug', 'agrocefa.passant')->first();

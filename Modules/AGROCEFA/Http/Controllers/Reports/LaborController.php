@@ -73,7 +73,7 @@ class LaborController extends Controller
                 // Asegúrate de que la relación 'crops' esté cargada y tenga al menos un elemento
                 if ($labor->crops->isNotEmpty()) {
                     $seedTime = $labor->crops->first()->seed_time;
-                    $finishDate = $labor->crops->first()->finish_date;
+                    $finishDate = $labor->crops->first()->finish_date ?? now();
 
                     // Verifica si es una labor de producción
                     if ($labor->activity && $labor->activity->activity_type) {

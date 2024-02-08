@@ -8,13 +8,6 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Modules\AGROCEFA\Entities\AgriculturalLabor;
 use Modules\AGROCEFA\Entities\Crop;
 
-
-
-use Modules\SICA\Entities\Consumable;
-use Modules\SICA\Entities\Executor;
-use Modules\SICA\Entities\Tool;
-use Modules\SICA\Entities\Production;
-
 class Labor extends Model implements Auditable
 {
 
