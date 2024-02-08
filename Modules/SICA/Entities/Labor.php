@@ -8,8 +8,6 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Modules\AGROCEFA\Entities\AgriculturalLabor;
 use Modules\AGROCEFA\Entities\Crop;
 
-
-
 class Labor extends Model implements Auditable
 {
 

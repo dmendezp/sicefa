@@ -517,9 +517,11 @@ class LaborManagementController extends Controller
         $movementType = MovementType::select('id', 'consecutive')->where('name', '=', 'Movimiento Interno')->first();
 
         $ProductiveUnitWarehouses = Session::get('productiveunitwarehouseid');
+        
         foreach ($ProductiveUnitWarehouses as $ProductiveUnitWarehouse) {
             $ProductiveUnitWarehousesId = $ProductiveUnitWarehouse->id;
         }
+        
         // Obten los datos generales de la labor
         $lot = $request->input('lot');
         $date = $request->input('date');
@@ -785,8 +787,7 @@ class LaborManagementController extends Controller
 
                     // Buscar si el elemento ya existe en 'inventories' de la unidad que entrega
                     $existingInventory = Inventory::where([
-                        'productive_unit_warehouse_id' => $ProductiveUnitWarehousesId,
-                        'element_id' => $toolId,
+                        'id' => $toolId,
                     ])->first();
 
                     // Registra la labor con el precio total calculado

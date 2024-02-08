@@ -83,7 +83,6 @@ Route::middleware(['lang'])->group(function () {
         Route::delete('passant/inventory/delete/{id}', 'InventoryController@destroy')->name('agrocefa.passant.inventory.destroy');
 
         // RUTAS DE MOVIMIENTOS
-
         Route::get('trainer/movements', 'MovementController@viewmovements')->name('agrocefa.trainer.movements.index');
         Route::get('passant/movements', 'MovementController@viewmovements')->name('agrocefa.passant.movements.index');
         Route::get('trainer/movements/list', 'MovementController@viewmovementslist')->name('agrocefa.trainer.movements.list');
@@ -129,7 +128,6 @@ Route::middleware(['lang'])->group(function () {
         Route::post('passant/labormanagement/store', 'LaborManagementController@registerlabor')->name('agrocefa.trainer.labormanagement.store');
         Route::get('trainer/labormanagement/obtenerAspectosAmbientales/{activity}', 'LaborManagementController@obtenerAspectosAmbientales')->name('agrocefa.trainer.labormanagement.obtenerAspectosAmbientales');
         Route::get('trainer/labormanagement/mostrarAspectosAmbientales', 'LaborManagementController@mostrarAspectosAmbientales')->name('agrocefa.trainer.labormanagement.mostrarAspectosAmbientales');
-
         Route::get('/labormanagement/culturalwork', 'LaborManagementController@activityproduct')->name('agrocefa.labormanagement.activityType');
         Route::get('/labormanagement/culturalwork/warehouseUnit', 'LaborManagementController@getWarehouses')->name('agrocefa.labormanagement.warehouseUnits');
 
@@ -151,7 +149,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('passant/reports/labor/laborDetails', 'Reports\LaborController@getLaborDetails')->name('agrocefa.reports.laborDetails');
         Route::get('/reports/labor/laborpdf', 'Reports\LaborController@laborpdf')->name('agrocefa.reports.laborpdf');
 
-        //produccion
+        // Produccion
         Route::get('trainer/reports/production', 'Reports\ProductionController@index')->name('agrocefa.trainer.reports.production.index');
         Route::get('passant/reports/production', 'Reports\ProductionController@index')->name('agrocefa.passant.reports.production.index');
         Route::get('/reports/cropsbylot', 'Reports\ProductionController@getCropsByLot')->name('agrocefa.reports.cropsbylot');
@@ -159,7 +157,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/reports/production/resultproduction', 'Reports\ProductionController@resultProduction')->name('agrocefa.reports.resultproduction');
         Route::post('/reports/productionpdf', 'Reports\ProductionController@productionPdf')->name('agrocefa.reports.productionpdf');
 
-        //Balance
+        // Balance
         Route::get('trainer/reports/balance', 'Reports\BalanceController@index')->name('agrocefa.trainer.reports.balance.index');
         Route::get('passant/reports/balance', 'Reports\BalanceController@index')->name('agrocefa.passant.reports.balance.index');
         Route::get('trainer/reports/balance/cropsbylot', 'Reports\BalanceController@getCropsByLot')->name('agrocefa.trainer.reports.balance.cropsbylot');
