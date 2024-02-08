@@ -259,7 +259,7 @@ window.onclick = function(event) {
         var baseUrl = '{{ route("cefa.agroindustria.units.instructor.element.name", ["name" => ":name"]) }}';
           console.log(baseUrl);
           $('.elementInventory-select').select2({
-            placeholder: 'Buscar productos',
+            placeholder: '{{trans("agroindustria::deliveries.Search Products")}}',
             minimumInputLength: 1, // Habilita la búsqueda en tiempo real
             ajax: {
               url: function(params) {

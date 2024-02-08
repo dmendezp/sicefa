@@ -12,6 +12,7 @@ return [
     'Date Time' => 'Fecha y Hora',
     'Select a receiver' => 'Seleccione un receptor',
     'Receiver' => 'Receptor',
+    'Responsible' => 'Responsable',
     'Warehouse that Delivers' => 'Bodega que Entrega',
     'Warehouse that Receives' => 'Bodega que Recibe',
     'Observations' => 'Observaciones',
@@ -25,6 +26,7 @@ return [
     'Total Movement' => 'Total del Movimiento',
     'Select a product' => 'Seleccione un producto',
     'Select a winery' => 'Seleccione una Bodega',
+    'Search Products' => 'Buscar Productos',
     'You must select a receiver' => 'Debe seleccionar un receptor',
     'You must select a delivery warehouse' => 'Debes seleccionar una bodega de entrega',
     'You must select the winery that receives' => 'Debes seleccionar la bodega que recibe',
@@ -63,6 +65,7 @@ return [
     'yesCancel' => 'Sí, cancelar',
     'Cancel' => 'Cancelar',
     'close' => 'Cerrar',
+    'save' => 'Guardar',
 
     //Bajas
     'desregistrations' => 'Bajas', 
