@@ -25,6 +25,7 @@ class WarehousesTableSeeder extends Seeder
         $productive_unit_vilmer = [];
         $productive_unit_chocolate = [];
         $productive_unit_cerveceria = [];
+        $productive_unit_almacenista = [];
 
         $warehouse_units_vilmer = [];
         $warehouse_units_chocolate = [];
@@ -39,7 +40,12 @@ class WarehousesTableSeeder extends Seeder
         $farm = Farm::where('name','CEFA')->firstOrFail(); // Consulta de la finca del Centro de Formación Agroindustrial La Angostura
 
         /* Traer el la bodega de Agroindustria */
-        $warehouse = Warehouse::where('name', 'Agroindustria')->first();
+        $warehouse = Warehouse::updateOrCreate([ 
+            'name' => 'Agroindustria',
+            'description' => 'Bodega de las unidades productivas del sector Agroindustrial',
+            'app_id' => $app->id
+        ]);
+
 
         $productive_unit = ProductiveUnit::updateOrCreate(['name' => 'Panadería'], [
             'description' => 'Unidad del complejo agroindustrial dedicada a la panadería',
@@ -50,6 +56,7 @@ class WarehousesTableSeeder extends Seeder
         ]);
 
         $productive_unit_admin[] = $productive_unit->id;
+        $productive_unit_almacenista[] = $productive_unit->id;
         $productive_unit_vilmer[] = $productive_unit->id;
 
         // Asociar a bodega con unidad unidad productiva
@@ -67,6 +74,7 @@ class WarehousesTableSeeder extends Seeder
         ]);
 
         $productive_unit_admin[] = $productive_unit->id;
+        $productive_unit_almacenista[] = $productive_unit->id;
         $productive_unit_vilmer[] = $productive_unit->id;
 
         // Asociar a bodega con unidad unidad productiva
@@ -84,6 +92,7 @@ class WarehousesTableSeeder extends Seeder
         ]);
 
         $productive_unit_admin[] = $productive_unit->id;
+        $productive_unit_almacenista[] = $productive_unit->id;
         $productive_unit_vilmer[] = $productive_unit->id;
 
         // Asociar a bodega con unidad unidad productiva
@@ -101,6 +110,7 @@ class WarehousesTableSeeder extends Seeder
         ]);
 
         $productive_unit_admin[] = $productive_unit->id;
+        $productive_unit_almacenista[] = $productive_unit->id;
         $productive_unit_vilmer[] = $productive_unit->id;
 
         // Asociar a bodega con unidad unidad productiva
@@ -118,6 +128,7 @@ class WarehousesTableSeeder extends Seeder
         ]);
 
         $productive_unit_admin[] = $productive_unit->id;
+        $productive_unit_almacenista[] = $productive_unit->id;
         $productive_unit_chocolate[] = $productive_unit->id;
 
         // Asociar a bodega con unidad unidad productiva
@@ -135,6 +146,7 @@ class WarehousesTableSeeder extends Seeder
         ]);
 
         $productive_unit_admin[] = $productive_unit->id;
+        $productive_unit_almacenista[] = $productive_unit->id;
         $productive_unit_cerveceria[] = $productive_unit->id;
 
         // Asociar a bodega con unidad unidad productiva
@@ -148,6 +160,7 @@ class WarehousesTableSeeder extends Seeder
         $rol_instructor_vilmer = Role::where('slug', 'agroindustria.instructor.vilmer')->first(); // Rol Coordinado Académico
         $rol_instructor_chocolate = Role::where('slug', 'agroindustria.instructor.chocolate')->first(); // Rol Coordinado Académico
         $rol_instructor_cerveceria = Role::where('slug', 'agroindustria.instructor.cerveceria')->first(); // Rol Coordinado Académico
+        $rol_almacenista = Role::where('slug', 'agroindustria.almacenista')->first(); // Rol Coordinado Académico
 
         
 
@@ -157,6 +170,7 @@ class WarehousesTableSeeder extends Seeder
         $rol_instructor_vilmer->productive_units()->syncWithoutDetaching($productive_unit_vilmer);
         $rol_instructor_chocolate->productive_units()->syncWithoutDetaching($productive_unit_chocolate);
         $rol_instructor_cerveceria->productive_units()->syncWithoutDetaching($productive_unit_cerveceria);
+        $rol_almacenista->productive_units()->syncWithoutDetaching($productive_unit_almacenista);
 
     }
 }

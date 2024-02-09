@@ -18,7 +18,6 @@
 
         //botones
         'approve' => 'Aprobar',
-        'yesApprove' => 'Sí, aprovar',
         'reject' => 'Rechazar',
         'cancel' => 'Cancelar',
         'requestForm' => 'Formato de Solicitud',
@@ -27,6 +26,7 @@
         //Modales
         'approveRequest' => 'Aprobar Solicitud',
         'haveElementsApplicationReceived' => '¿Todos los elementos de esta solicitud fueron recibidos?',
+        'observations' => 'Observaciones',
 
         //alerts
         'registeredEntry' => 'Entrada Registrada',
@@ -38,6 +38,10 @@
         'theRequestBeenMarkedApproved' => 'La solicitud ha sido marcada como aprobada.',
         'rejectRequest' => 'Rechazar solicitud',
         'yesReject' => 'Sí, rechazar',
+        'rejectedRequest' => 'Solicitud rechazada',
+        'errorRejectingRequest' => 'Error al rechazar la solicitud',
+        'errorApprovingRequest' => 'Error al aprobar la solicitud',
+        'requiredField' => 'Campo requerido',
     ]
 
 ?> 

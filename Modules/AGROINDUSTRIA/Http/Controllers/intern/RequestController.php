@@ -14,7 +14,7 @@ class RequestController extends Controller
     {
         $title = 'Solicitudes';
 
-        $requests = Labor::with('consumables.inventory.element', 'person')->where('status', 'Programado')->get();
+        $requests = Labor::with('consumables.inventory.element', 'person')->get();
 
         $data = [
             'title' => $title,

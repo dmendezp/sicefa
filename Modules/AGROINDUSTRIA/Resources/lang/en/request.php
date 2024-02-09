@@ -18,7 +18,6 @@
 
         //botones
         'approve' => 'Approve',
-        'yesApprove' => 'Yes, approve',
         'reject' => 'Reject',
         'cancel' => 'Cancel',
         'requestForm' => 'Request Form',
@@ -27,6 +26,7 @@
         //Modals
         'approveRequest' => 'Approve Request',
         'haveElementsApplicationReceived' => 'Have all elements of this application been received?',
+        'observations' => 'Observations',
 
         //alerts
         'registeredEntry' => 'Registered entry',
@@ -38,6 +38,10 @@
         'theRequestBeenMarkedApproved' => 'The request has been marked as approved.',
         'rejectRequest' => 'Reject request',
         'yesReject' => 'Yes, reject',
+        'rejectedRequest' => 'Rejected request',
+        'errorRejectingRequest' => 'Error rejecting request',
+        'errorApprovingRequest' => 'Error approving request',
+        'requiredField' => 'Required Field',
     ]
 
 ?>

@@ -44,18 +44,26 @@
                 <td>{{$l->status}}</td>
                 <td>{{$l->destination}}</td>
                 <td>
+                    <div class="mb-3">
+                        <a href="{{route('cefa.agroindustria.instructor.units.edit',  ['id' => $l->id])}}">
+                            <button data-record-id="{{$l->id}}" class="btn btn-primary edit-button" style="width: 45px; height: 35px;">
+                                <i class="fa-solid fa-pen-to-square fa-sm"></i>
+                            </button>
+                        </a>
+                    </div>
                     @if ($l->status === 'Programado')
                         <div class="mb-3">
                             <button type="submit" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelar{{$l->id}}">{{trans('agroindustria::labors.cancel')}}</button>
                         </div>
+                    @endif
+                    @if ($l->status === 'Aprobado')
                         <div class="mb-3">
                             <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#realizar{{$l->id}}">{{trans('agroindustria::labors.perform')}}</button>
                         </div>
                     @endif
                     <form method="GET" action="{{ route('cefa.agroindustria.units.instructor.labor.excel', ['laborId' => $l->id]) }}">
                         <div class="mb-3">
-                            @csrf
-                            
+                            @csrf 
                             <button type="submit" class="btn btn-info"><i class="fas fa-file-excel"></i> {{trans('agroindustria::labors.requestForm')}}</button>
                         </div>
                     </form>

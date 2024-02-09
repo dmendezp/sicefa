@@ -65,7 +65,8 @@ class FormulationController extends Controller
             $name = $user->person->first_name . ' ' . $user->person->first_last_name . ' ' . $user->person->second_last_name;
         }
 
-        $elements = Element::where('category_id', 3)->get();
+        $products = Category::where('name', 'Productos')->first();
+        $elements = Element::whereIn('category_id', $products)->get();
 
         $product = $elements->map(function ($e){
             $id = $e->id;
@@ -217,7 +218,8 @@ class FormulationController extends Controller
             $name = $user->person->first_name . ' ' . $user->person->first_last_name . ' ' . $user->person->second_last_name;
         }
         
-        $element = Element::where('category_id', 3)->pluck('name', 'id');
+        $products = Category::where('name', 'Productos')->first();
+        $element = Element::whereIn('category_id', $products)->pluck('name', 'id');
         $selectedUnit = session('viewing_unit');
         $unitName = ProductiveUnit::findOrFail($selectedUnit);
 
@@ -299,17 +301,23 @@ class FormulationController extends Controller
         // Obtener los datos de ingredientes del formulario
         $nameUtencils = $request->input('element_utencils');
         $amountUtencils = $request->input('amount_utencils');
-
+        $measurement_unit = Element::whereIn('id', $nameIngredients)->pluck('measurement_unit_id');
         // Recorrer los datos de productos y guardarlos en Supply
         foreach ($nameIngredients as $key => $ingredient) {
+            $amount = $amountIngredients[$key];
             $ingredientId = $f->ingredients[$key]->id ?? null; // Obtener el ID del ingrediente si existe
+            $conversion_factor = MeasurementUnit::whereIn('id', $measurement_unit)->pluck('conversion_factor');
+                
+            foreach ($conversion_factor as $key => $c) {
+                $amountConversion = $amount * $c;
+            }
     
             Ingredient::updateOrInsert(
                 ['id' => $ingredientId], // Condición para la actualización o inserción
                 [
                     'element_id' => $ingredient,
                     'formulation_id' => $f->id,
-                    'amount' => $amountIngredients[$key],
+                    'amount' => $amountConversion,
                 ]
             );
         }
