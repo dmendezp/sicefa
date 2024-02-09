@@ -18,13 +18,11 @@ class AGROCEFADatabaseSeeder extends Seeder
         DB::beginTransaction(); // Iniciar transacción
 
         $this->call(AppTableSeeder::class);
-        $this->call(PeopleTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
         $this->call(ProductiveUnitTableSeeder::class);
         $this->call(WarehouseEntranceTableSeeder::class);
-       
         $this->call(InventoryTableSeeder::class);
         
         

@@ -65,7 +65,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="returnModalLabel{{ $item->id }}">Realizar Baja de {{ $item->element->name}}</h5>
-                    <button type="button" class="btn-close" item-dismiss="modal"
+                    <button type="button" class="btn-close" data-dismiss="modal"
                     aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

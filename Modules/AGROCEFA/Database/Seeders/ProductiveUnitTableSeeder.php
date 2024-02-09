@@ -29,11 +29,7 @@ class ProductiveUnitTableSeeder extends Seeder
 
        $sector = Sector::where('name','Agricola')->first();
 
-       $farm = Farm::where('name','Cefa')->first();
-
-       $roltrainer = Role::where('slug','agrocefa.trainer')->first();
-
-       $rolapassant = Role::where('slug','agrocefa.passant')->first();
+       $farm = Farm::where('name','CEFA')->first();
 
        $warehouse = Warehouse::updateOrCreate([ 
            'name' => 'General Agricola',

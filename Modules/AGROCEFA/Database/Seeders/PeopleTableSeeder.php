@@ -23,7 +23,7 @@ class PeopleTableSeeder extends Seeder
         $pension_entity = PensionEntity::firstOrCreate(['name' => 'NO REGISTRA']); 
 
 
-        Person::firstOrCreate(['document_number' => 13706], [ 
+        Person::firstOrCreate(['document_number' => 12275825], [ 
             'document_type' => 'Cédula de ciudadanía',
             'first_name' => 'WILLIAM ALEXIS',
             'first_last_name' => 'OCHOA',
@@ -33,40 +33,5 @@ class PeopleTableSeeder extends Seeder
             'pension_entity_id' => $pension_entity->id
         ]);
 
-
-        Person::firstOrCreate(['document_number' => 1077721216], [ 
-            'document_type' => 'Cédula de ciudadanía',
-            'first_name' => 'ANDRES FELIPE',
-            'first_last_name' => 'ALMARIO',
-            'second_last_name' => 'NAVARRO',
-            'eps_id' => $eps->id,
-            'population_group_id' => $population_group->id,
-            'pension_entity_id' => $pension_entity->id
-        ]);
-
-        
-
-        
-        Person::firstOrCreate(['document_number' => 1007531693], [
-            'document_type' => 'Cédula de ciudadanía',
-            'first_name' => 'DAYANA MARCELA',
-            'first_last_name' => 'VALENZUELA',
-            'second_last_name' => 'ERAZO',
-            'eps_id' => $eps->id,
-            'population_group_id' => $population_group->id,
-            'pension_entity_id' => $pension_entity->id
-        ]);
-
-        Person::firstOrCreate(['document_number' => 1004418487], [
-            'document_type' => 'Cédula de ciudadanía',
-            'first_name' => 'YUDERLY',
-            'first_last_name' => 'SAPUY',
-            'second_last_name' => 'CHAVARRO',
-            'eps_id' => $eps->id,
-            'population_group_id' => $population_group->id,
-            'pension_entity_id' => $pension_entity->id
-        ]);
-
-        
     }
 }
