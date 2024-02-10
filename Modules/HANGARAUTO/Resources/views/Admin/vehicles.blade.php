@@ -30,7 +30,6 @@
                                 <th>Estado</th>
                                 <th>Placa</th>
                                 <th>Nivel De Gasolina</th>
-                                <th>Imagen</th>
                                 <th>Editar Info</th>
                             </thead>
                             <tbody>
@@ -42,9 +41,6 @@
                                         <td>{{$t->status}}</td>
                                         <td>{{$t->license}}</td>
                                         <td>{{$t->fuel_level}}</td>
-                                        <td>
-                                            <img src="{{ asset('/public/modules/HANGARAUTO/img/rastrilladora.jpg'.$t->file_path.$t->image) }}" width="120">
-                                        </td>
                                         <td>
                                             <a href="{{ route('cefa.parking.admin.vehicles.edit',$t) }}" type="button"><i class="fas fa-edit"></i></a>
                                             <a class="btn-delete" href="{{ route('cefa.parking.admin.vehicles.delete',$t) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">

@@ -1,4 +1,4 @@
-<label for="name">Ciudad Donde Se Dirige:</label>
+<label for="name" id="divMunicipality">Ciudad Donde Se Dirige:</label>
 
 <div class="input -group">
     <div class="input-group-prepend">

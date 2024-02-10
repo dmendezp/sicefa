@@ -34,8 +34,7 @@ class VehiculosController extends Controller
         
     }
 
-    public function getVehiclesAdd($marca, $modelo, $anio, $color){
-        dd("llega");
+    public function getVehiclesAdd(Request $request){
         
     }
 
@@ -107,8 +106,10 @@ class VehiculosController extends Controller
  {
      $rules = [
          'name' => 'required',
-         
+         'referece' => 'required',
+         'status' => 'required',
          'license' => 'required',
+         'fuel_level' => 'required',
          
      ];
      $messages = [

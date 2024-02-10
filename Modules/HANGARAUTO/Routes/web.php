@@ -15,10 +15,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['lang'])->group(function () {
     Route::prefix('hangarauto')->group(function () {
+        // Ruta Para Vista Index
+        Route::controller(HangarAutoController::class)->group(function(){
+            Route::get('/index', 'index')->name('cefa.hangarauto.index');
+            Route::get('admin/index', 'index')->name('hangarauto.admin.index');
+            Route::get('charge/index', 'index')->name('hangarauto.charge.index');
+        });
 
         // Ruta Para Abrir Vista Index
         Route::controller(ParkingController::class)->group(function(){
-            Route::get('/index', 'ParkingController@index')->name('cefa.parking.index');
             // Rutas Para Hacer Solicitudes
             Route::get('/index/solicitar', 'ParkingController@getSolicitarAdd')->name('cefa.parking.solicitar');
             Route::post('/index/solicitar', 'ParkingController@postSolicitarAdd')->name('cefa.parking.guardar');
@@ -26,11 +31,13 @@ Route::middleware(['lang'])->group(function () {
             Route::post('/index/solicitar/search', 'ParkingController@postSolicitarSearch')->name('cefa.parking.solicitar.search');
             // Rutas Municipios
             Route::post('/index/solicitar/municipios/search', 'ParkingController@postMunicipiosSearch')->name('cefa.parking.solicitar.municipios.search');
-        });
 
-        // Ruta Para Vista Desarrolladores
-        Route::controller(DevelopersController::class)->group(function(){
-            Route::get('/developer', 'developer')->name('cefa.hangarauto.developers');
+            /*Ruta Del CRUD Del Formulario De Registro */
+            Route::get('/admin/tabla', 'ParkingController@table')->name('cefa.parking.table');
+            Route::get('/charge/tabla', 'ParkingController@table')->name('cefa.charge.table');
+            Route::delete('admin/resulform/delete/{id}', 'ParkingController@delete')->name('cefa.parking.delete');
+            Route::delete('charge/resulform/delete/{id}', 'delete')->name('cefa.charge.delete');
+            Route::get('/admin/hangarauto/edit/{labor}', 'edit')->name('cefa.parking.edit');
         });
 
         Route::controller(RevisionesController::class)->group(function(){
@@ -74,6 +81,15 @@ Route::middleware(['lang'])->group(function () {
             // Route::post('/administrator/conductores/edit/{id}', 'DriversController@postDriversEdit')->name('parking.admin.drivers.ediet');
             // Ruta Para Eliminar Los Conductores
             Route::get('/administrator/conductores/delete/{id}', 'DriversController@getDriversDelete')->name('parking.admin.drivers.delete');
+        });
+
+        // Ruta Para Vista Desarrolladores
+        Route::controller(DevelopersController::class)->group(function(){
+            Route::get('/developer', 'developer')->name('cefa.hangarauto.developers');
+        });
+
+        Route::controller(InstructionManualController::class)->group(function() {
+            Route::get('/admin/instruction/manual', 'manual')->name('cefa.instruction.manual');
         });
     });
 });

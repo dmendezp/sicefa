@@ -1,7 +1,7 @@
 @extends('hangarauto::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('hangarauto::solicitar.Request_Vehicle') }}</li>
+    <li class="breadcrumb-item active">{{ trans('hangarauto::solicitar.Tilte_Card_Records_Saver') }} / {{ trans('hangarauto::solicitar.Request_Vehicle') }}</li>
 @endpush
 
 @section('content')
@@ -21,11 +21,11 @@
                                     {!! Form::text('search', null, ['class' => 'form-control', 'placeholder' => trans('Nombre'), 'required']) !!}
                                 </div>
                                 <div class="form-group">
-                                    {!! Form::label('start_date', trans('FechaInicio')) !!}
+                                    {!! Form::label('start_date', trans('Fecha Del Viaje')) !!}
                                     {!! Form::date('start_date', null, ['class' => 'form-control']) !!}
                                 </div>
                                 <div class="form-group">
-                                    {!! Form::label('end_date', trans('Fecha fin')) !!}
+                                    {!! Form::label('end_date', trans('Fecha De Regreso')) !!}
                                     {!! Form::date('end_date', null, ['class' => 'form-control']) !!}
                                 </div>
                                 <div class="form-group">
@@ -35,13 +35,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    {!! Form::label('department', trans('Cuidad Donde Se Dirige')) !!}
+                                    {!! Form::select('department', $department, null, ['class' => 'form-control', 'placeholder' => trans('Selecciona La Cuidad'), 'id' => 'department']) !!}
+                                </div>
+                                <div class="form-group">
                                     <div id="divMunicipality">
                                         <!-- Municipality field will be populated by AJAX -->
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    {!! Form::label('department', trans('Cuidad Donde Se Dirige')) !!}
-                                    {!! Form::select('department', $department, null, ['class' => 'form-control', 'placeholder' => trans('Selecciona La Cuidad'), 'id' => 'department']) !!}
                                 </div>
                                 <div class="form-group">
                                     {!! Form::label('numstudents', trans('Numero De Pasajeros')) !!}
@@ -54,7 +54,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            {!! Form::submit(trans('ENVIAR'), ['class' => 'btn btn-success']) !!}
+                            <center>{!! Form::submit(trans('ENVIAR'), ['class' => 'btn btn-success', 'id' => 'btn_guardar']) !!}</center>
                         </div>
                         {!! Form::close() !!}
                     </div>
@@ -64,45 +64,21 @@
     </section>
 @stop
 
-@section('js')
-    <script>
-        $(document).ready(function() {
-            $("#department").change(function() {
-                $.ajax({
-                    method: "POST",
-                    url: "{{ route('cefa.parking.solicitar.municipios.search') }}",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: {department_id: $(this).val()},
-                    success: function(html) {
-                        $("#divMunicipality").html(html);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
-                });
-            });
+@section('scripts')
+<script>
+    // Espera a que el documento esté completamente cargado
+    document.addEventListener('DOMContentLoaded', function () {
+        // Obtén el botón de guardar por su ID
+        var btn_guardar = document.getElementById('btn_guardar');
 
-            $('#vehicle-request-form').submit(function(event) {
-                event.preventDefault();
-                var formData = $(this).serialize();
-                $.ajax({
-                    method: "POST",
-                    url: $(this).attr('action'),
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: formData,
-                    success: function(response) {
-                        // Handle success response
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                        // Handle error response
-                    }
-                });
-            });
+        // Agrega un evento de clic al botón de guardar
+        btn_guardar.addEventListener('click', function (event) {
+            // Previene el comportamiento predeterminado del botón de enviar (por ejemplo, enviar el formulario)
+            event.preventDefault();
+
+            // Redirige a la vista de resultados
+            window.location.href = 'cefa.parking.table';
         });
-    </script>
+    });
+</script>
 @stop

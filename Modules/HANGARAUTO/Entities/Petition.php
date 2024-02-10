@@ -1,17 +1,29 @@
 <?php
 
 namespace Modules\HANGARAUTO\Entities;
-use Iluminate\Database\Eloquent\SoftDeletes;
 
-use Iluminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\Department;
 use Modules\SICA\Entities\Municipality;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Petition extends Model {
-    use SoftDeletes;
-    protected $table = 'Petitions';
+class Petition extends Model implements Auditable {
+    use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
+    SoftDeletes; // Borrado suave
+
+    protected $fillable = [
+        'person_id', 
+        'department_id',
+        'municipality_id',
+    ];
+
     protected $dates = ['deleted_at'];
-    protected $hidden = ['created_at','updated_at'];
+
+    protected $hidden = [
+        'created_at','updated_at'
+    ];
 
     public function person(){
         return $this->belongsTo(Person::class);
@@ -19,5 +31,9 @@ class Petition extends Model {
 
     public function municipality(){
         return $this->belongsTo(Municipality::class);
+    }
+
+    public function department(){
+        return $this->belongsTo(Department::class,'municipality_id');
     }
 }
