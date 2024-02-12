@@ -168,8 +168,6 @@ class WarehousesTableSeeder extends Seeder
         $rol_super_admin->productive_units()-> syncWithoutDetaching($productive_unit_admin);
         $rol_admin->productive_units()-> syncWithoutDetaching($productive_unit_admin);
         $rol_instructor_vilmer->productive_units()->syncWithoutDetaching($productive_unit_vilmer);
-        $rol_instructor_chocolate->productive_units()->syncWithoutDetaching($productive_unit_chocolate);
-        $rol_instructor_cerveceria->productive_units()->syncWithoutDetaching($productive_unit_cerveceria);
         $rol_almacenista->productive_units()->syncWithoutDetaching($productive_unit_almacenista);
 
     }

@@ -31,10 +31,7 @@ class WarehouseEntranceTableSeeder extends Seeder
 
         $person = Person::where('document_number','12275825')->first();
 
-        $sector = Sector::updateOrCreate([ 
-            'name' => 'Agricola',
-            'description' => 'Sector agricola del cefa',
-        ]);
+        $sector = Sector::where('name','Agricola')->first();
 
         $farm = Farm::where('name','CEFA')->first();
 

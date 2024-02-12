@@ -366,13 +366,13 @@ class InputRequestController extends Controller
         
         if ($receiverInventory->save()) {
             $icon = 'success';
-            $message_line = trans('agroindustria::menu.Status of the edited movement');
+            $message_line = trans('agroindustria::deliveries.Status of the edited movement');
         } else {
             $icon = 'error';
-            $message_line = trans('agroindustria::menu.Error when editing movement status');
+            $message_line = trans('agroindustria::deliveries.Error when editing movement status');
         }
 
-        return redirect()->route('cefa.agroindustria.units.instructor.requests')->with(['icon' => $icon, 'message_line' => $message_line]);
+        return redirect()->route('cefa.agroindustria.instructor.units.requests')->with(['icon' => $icon, 'message_line' => $message_line]);
     }
 
 }

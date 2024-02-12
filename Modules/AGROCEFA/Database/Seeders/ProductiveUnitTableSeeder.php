@@ -27,7 +27,10 @@ class ProductiveUnitTableSeeder extends Seeder
        // Consultar la app para realizar la creacion de roles
        $app = App::where('name','AGROCEFA')->first();
 
-       $sector = Sector::where('name','Agricola')->first();
+       $sector = Sector::updateOrCreate([ 
+        'name' => 'Agricola',
+        'description' => 'Unidades encargadas de realizar producciones agricolas',
+    ]);
 
        $farm = Farm::where('name','CEFA')->first();
 
