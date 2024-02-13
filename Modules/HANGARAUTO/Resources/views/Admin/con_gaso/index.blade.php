@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col pt-4">
                 <div class="card-header">
-                    <h4>Consumo de Gasolina</h4>
+                    <h4>{{trans('hangarauto::Vehiculos.Oil Consume') }}</h4>
                 </div><br>
                 <!-- Muestra errores de validación -->
                 @if($errors->any())
@@ -33,14 +33,14 @@
                         <table id="Travel" class="table table-striped table-bordered" style="width: 100%">
                             <thead>
                                 <th>#</th>
-                                <th>Vehiculo</th>
-                                <th>Responsable</th>
-                                <th>Fecha</th>
-                                <th>Tipo Combustible</th>
-                                <th>Cantidad</th>
-                                <th>Precio</th>
-                                <th>Kilometraje</th>
-                                <th>Acciones</th>
+                                <th>{{trans('hangarauto::Vehiculos.Vehicle') }}</th>
+                                <th>{{trans('hangarauto::Vehiculos.Responsability') }}</th>
+                                <th>{{trans('hangarauto::Vehiculos.Date') }}</th>
+                                <th>{{trans('hangarauto::Vehiculos.Fuel Type') }}</th>
+                                <th>{{trans('hangarauto::Vehiculos.Amount') }}</th>
+                                <th>{{trans('hangarauto::Vehiculos.Price') }}</th>
+                                <th>{{trans('hangarauto::Vehiculos.Mileage') }}</th>
+                                <th>{{trans('hangarauto::Drivers.Actions') }}</th>
                             </thead>
                             <tbody>
                                 @foreach($consumo as $c)
@@ -54,7 +54,7 @@
                                         <td>{{$c->price}}</td>
                                         <td>{{$c->mileage}}</td>
                                         <td>
-                                            <a class="btn-delete" href="{{ route('hangarauto.admin.consumo.delete',$c) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                            <a class="btn-delete" href="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.consumo.delete',$c) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td>

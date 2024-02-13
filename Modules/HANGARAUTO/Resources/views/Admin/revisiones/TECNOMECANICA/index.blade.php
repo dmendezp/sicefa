@@ -1,7 +1,7 @@
 @extends('hangarauto::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('hangarauto::Tecno.Tecnomecanic') }}</li>
+    <li class="breadcrumb-item active">{{ trans('hangarauto::Tecno.Tecnomechanic') }}</li>
 @endpush
 
 @section('css')
@@ -23,11 +23,11 @@
                         <table id="Travel" class="table table-striped table-bordered" style="width: 100%">
                             <thead>
                                 <th>#</th>
-                                <th>Vehiculo</th>
-                                <th>Responsable</th>
-                                <th>Fecha Revision</th>
-                                <th>Fecha Vencimiento</th>
-                                <th>Acciones</th>
+                                <th>{{trans('hangarauto::Vehiculos.Vehicle') }}</th>
+                                <th>{{trans('hangarauto::Vehiculos.Responsability') }}</th>
+                                <th>{{trans('hangarauto::Vehiculos.Review Date') }}</th>
+                                <th>{{trans('hangarauto::Vehiculos.Expiration Date') }}</th>
+                                <th>{{trans('hangarauto::Drivers.Actions') }}</th>
                             </thead>
                             <tbody>
                                 @foreach($Tecnomecanic as $t)
@@ -38,8 +38,8 @@
                                         <td>{{$t->review_date}}</td>
                                         <td>{{$t->expiration_date}}</td>
                                         <td>
-                                            <a class="btn-delete" href="{{ route('hangarauto.admin.tecnomecanica.delete',$t) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
-                                                <i class="fas fa-trash-alt"></i>
+                                            <a class="btn-delete" href="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.tecnomecanica.delete',$t) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                <i class="fas fa-trash-alt text-danger"></i>
                                             </a>
                                         </td>
                                     </tr>

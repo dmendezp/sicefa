@@ -13,12 +13,12 @@
                         <h3>{{ trans('hangarauto::solicitar.Request_Vehicle') }}</h3>
                     </div>
                     <div class="card-body">
-                        {!! Form::open(['url' => route('cefa.parking.guardar'), 'id' => 'vehicle-request-form']) !!}
+                        {!! Form::open(['url' => route('cefa.parking.guardar')]) !!}
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {!! Form::label('search', trans('Nombre')) !!}
-                                    {!! Form::text('search', null, ['class' => 'form-control', 'placeholder' => trans('Nombre'), 'required']) !!}
+                                    {!! Form::label('name', trans('Nombre')) !!}
+                                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('Nombre'), 'required']) !!}
                                 </div>
                                 <div class="form-group">
                                     {!! Form::label('start_date', trans('Fecha Del Viaje')) !!}
@@ -32,17 +32,18 @@
                                     {!! Form::label('department', trans('Departamento Donde Se Dirige')) !!}
                                     {!! Form::select('department', $department, null, ['class' => 'form-control', 'placeholder' => trans('Seleccione El Departamento'), 'id' => 'department']) !!}
                                 </div>
+                                <div class="form-group">
+                                    {!! Form::label('municipality', trans('Cuidad Donde Se Dirige')) !!}
+                                    <select name="municipality" id="municipality" class="form-control" disabled>
+                                        <option value="">{{ trans('Seleccione La Ciudad') }}</option>
+                                    </select>
+                                </div>        
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {!! Form::label('department', trans('Cuidad Donde Se Dirige')) !!}
-                                    {!! Form::select('department', $department, null, ['class' => 'form-control', 'placeholder' => trans('Selecciona La Cuidad'), 'id' => 'department']) !!}
-                                </div>
-                                <div class="form-group">
-                                    <div id="divMunicipality">
-                                        <!-- Municipality field will be populated by AJAX -->
-                                    </div>
-                                </div>
+                                    {!! Form::label('vehicle', trans('Vehiculo')) !!}
+                                    {!! Form::select('vehicle', $vehicles, null, ['class' => 'form-control', 'placeholder' => trans('Seleccione El Vehiculo')]) !!}
+                                </div> 
                                 <div class="form-group">
                                     {!! Form::label('numstudents', trans('Numero De Pasajeros')) !!}
                                     {!! Form::number('numstudents', null, ['class' => 'form-control']) !!}
@@ -64,21 +65,34 @@
     </section>
 @stop
 
-@section('scripts')
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script>
-    // Espera a que el documento esté completamente cargado
-    document.addEventListener('DOMContentLoaded', function () {
-        // Obtén el botón de guardar por su ID
-        var btn_guardar = document.getElementById('btn_guardar');
+    $(document).ready(function() {
+        $('#department').change(function() {
+            var departmentId = $(this).val();
 
-        // Agrega un evento de clic al botón de guardar
-        btn_guardar.addEventListener('click', function (event) {
-            // Previene el comportamiento predeterminado del botón de enviar (por ejemplo, enviar el formulario)
-            event.preventDefault();
+            // Realizar la petición AJAX
+            $.ajax({
+                url: '/hangarauto/get-municipalities/' + departmentId,
+                type: 'GET',
+                success: function(response) {
+                    // Limpiar el select de municipios
+                    $('#municipality').empty();
 
-            // Redirige a la vista de resultados
-            window.location.href = 'cefa.parking.table';
+                    // Habilitar el select de municipios
+                    $('#municipality').prop('disabled', false);
+
+                    // Agregar las opciones de municipios al select
+                    $.each(response, function(key, value) {
+                        $('#municipality').append('<option value="' + key + '">' + value + '</option>');
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
         });
     });
+
 </script>
-@stop
+

@@ -22,4 +22,8 @@ class Vehicle extends Model
     public function tecnomecanics(){
         return $this->hasMany(Tecnomecanic::class);
     }
+
+    public function fuel_consumptions(){
+        return $this->hasMany(FuelConsumption::class);
+    }
 }

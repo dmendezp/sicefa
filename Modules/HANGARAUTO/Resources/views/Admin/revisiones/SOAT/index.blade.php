@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col pt-4">
                 <div class="card-header">
-                    <h4>{{trans('hangarauto::Soat.Title1')}}</h3>
+                    <h4>{{trans('hangarauto::Soat.Soat')}}</h3>
                 </div><br>
                 @include('hangarauto::admin.revisiones.SOAT.create')
                 <div class="card">
@@ -23,11 +23,11 @@
                         <table id="Travel" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <th>#</th>
-                                <th>Vehiculo</th>
-                                <th>Responsable</th>
-                                <th>Fecha Revision</th>
-                                <th>Fecha Vencimiento</th>
-                                <th>Acciones</th>
+                                <th>{{trans('hangarauto::Vehiculos.Vehicle') }}</th>
+                                <th>{{trans('hangarauto::Vehiculos.Responsability') }}</th>
+                                <th>{{trans('hangarauto::Vehiculos.Review Date') }}</th>
+                                <th>{{trans('hangarauto::Vehiculos.Expiration Date') }}</th>
+                                <th>{{trans('hangarauto::Drivers.Actions') }}</th>
                             </thead>
                             <tbody>
                                 @foreach($Soat as $s)
@@ -38,8 +38,8 @@
                                         <td>{{$s->review_date}}</td>
                                         <td>{{$s->expiration_date}}</td>
                                         <td>
-                                            <a class="btn-delete" href="{{ route('hangarauto.admin.soat.delete', $s)}}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
-                                                <i class="fas fa-trash-alt"></i>
+                                            <a class="btn-delete" href="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.soat.delete', $s)}}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                <i class="fas fa-trash-alt text-danger"></i>
                                             </a>
                                         </td>
                                     </tr>

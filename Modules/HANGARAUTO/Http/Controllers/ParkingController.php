@@ -5,11 +5,11 @@ namespace Modules\HANGARAUTO\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-
 use Modules\HANGARAUTO\Entities\Petition;
 use Modules\HANGARAUTO\Entities\Drivers;
 use Modules\HANGARAUTO\Entities\Vehicle;
 use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\Country;
 use Modules\SICA\Entities\Department;
 use Modules\SICA\Entities\Municipality;
 
@@ -24,50 +24,50 @@ class ParkingController extends Controller
     }
 
     public function getSolicitarAdd(Request $request){
-        $department = Department::where('country_id')->pluck('name','id');
+        $pais = Country::where('name','=','Colombia')->pluck('id');
+        $department = Department::where('country_id', $pais)->pluck('name','id');
+        $vehicles = [];
+        foreach (Vehicle::all() as $vehicle) {
+            $vehicles[$vehicle->id] = $vehicle->name . ' - ' . $vehicle->license;
+        }
         $municipality = Municipality::where('department_id',$request->department_id)->get();
-        $data = ['municipality' => $municipality];
-        return view('hangarauto::request_form.solicitar', compact('department', 'municipality'));
+        $data = ['department' => $department , 'vehicles' => $vehicles];
+        return view('hangarauto::request_form.solicitar', $data);
     }
 
     // Solicitar
     public function postSolicitarAdd(Request $request){
         $rules = [
-            'person_id' => 'required',
+            'name' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
             'department' => 'required',
-            'city' => 'required',
-            'municipality_id' => 'required',
-            'reason' => 'required',
+            'municipality' => 'required',
             'numstudents' => 'required|numeric',
+            'reason' => 'required',
         ];
         $messages = [
-          'person_id.required' => 'Debe Seleccionar La Persona Que Solicita El Vehiculo.',
+          'name.required' => 'Debe Ingresar su nombre.',
           'start_date.required' => 'Debe Seleccionar Una Fecha Para Cuando Requiera El Vehiculo.',
           'end_date.required' => 'Debe Seleccionar La Fecha De Devolucion Del Vehiculo.',
           'department.required' => 'El Departamento Es Obligatorio.',
-          'city.required' => 'La Ciudad Es Obligatoria.',
-          'municipality_id.required' => 'Debe Ingresar La Ciudad A La Que Se Dirige.',
-          'reason.required' => 'Debe Escribir El Motivo De Su Viaje.',
+          'municipality.required' => 'Debe Ingresar La Ciudad A La Que Se Dirige.',
           'numstudents.required' => 'Por Favor Digite La Cantidad De Aprendices Que Va A Llevar.',
+          'reason.required' => 'Debe Escribir El Motivo De Su Viaje.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if($validator->fails()):
             return back()->withErrors($validator)->with('messages', 'Se Ha Producido Un Error')->with('typealert','danger');
             else:
                 $p = new Petition;
-                $p->star_date = $request->date('start_date');
+                $p->start_date = $request->date('start_date');
                 $p->end_date = $request->date('end_date');
-                $p->department = $request->input('department');
-                $p->city = $request->input('city');
-                $p->municipality_id = $request->select('municipality_id');
+                $p->municipality_id = $request->input('municipality');
                 $p->reason = $request->input('reason');
-                $p->NumStudents = $request->input('numstudents');
-                if($p-save()){
-                    $p->people()->attach($request->input('person_id'),['kind_of_people' => 'Usuario']);
+                $p->numstudents = $request->input('numstudents');
+                $p->vehicle_id = $request->input('vehicle');
+                if($p->save()){
                     return redirect(route('cefa.parking.table'))->with('message','Solicitud Enviada Exitosamente.')->with('typealert','success');
-                    dd($request);
                 }
         endif;
             return view('hangarauto::request_form.table');
@@ -102,7 +102,16 @@ class ParkingController extends Controller
 
     public function table()
     {
-        $requests = Petition::with('person','municipality.department')->orderBy('id','asc')->get();
+        $requests = Petition::with('municipality.department')->orderBy('id','asc')->get();
         return view('hangarauto::request_form.resultform', compact('requests'));
+    }
+
+    public function getMunicipalities($departmentId)
+    {
+        // Buscar los municipios correspondientes al departamento seleccionado
+        $municipalities = Municipality::where('department_id', $departmentId)->pluck('name', 'id');
+
+        // Devolver los municipios como respuesta en formato JSON
+        return response()->json($municipalities);
     }
 }

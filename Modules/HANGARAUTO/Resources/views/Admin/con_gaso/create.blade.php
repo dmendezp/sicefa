@@ -12,23 +12,23 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['url' => route('hangarauto.admin.consumo.add'), 'files' => true]) !!}
+                {!! Form::open(['url' => route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.consumo.add'), 'files' => true]) !!}
                 {{ csrf_field() }}
 
                 <div class="mb-3">
-                    <label for="vehicle_id" class="form-label">Vehiculo:</label>
+                    <label for="vehicle_id" class="form-label">{{trans('hangarauto::Vehiculos.Vehicle') }}:</label>
                     {!! Form::select('vehicle_id', $vehicles, null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
                 </div>
                 <div class="mb-3">
-                    <label for="person_id" class="form-label">Responsable:</label>
+                    <label for="person_id" class="form-label">{{trans('hangarauto::Vehiculos.Responsability') }}:</label>
                     {!! Form::select('person_id', $drivers, null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
                 </div>
                 <div class="mb-3">
-                    <label for="date" class="form-label">Fecha:</label>
+                    <label for="date" class="form-label">{{trans('hangarauto::Vehiculos.Date') }}:</label>
                     {!! Form::date('date', null, ['class' => 'form-control']) !!}
                 </div>
                 <div class="mb-3">
-                    <label for="type" class="form-label">Tipo:</label>
+                    <label for="type" class="form-label">{{trans('hangarauto::Vehiculos.Fuel Type') }}:</label>
                     {!! Form::select('type', 
                         [
                             'Corriente' => 'Corriente',
@@ -39,24 +39,24 @@
                     !!}
                 </div>
                 <div class="mb-3">
-                    <label for="measurement_unit_id" class="form-label">Medida:</label>
+                    <label for="measurement_unit_id" class="form-label">{{trans('hangarauto::Vehiculos.Measurement Unit') }}:</label>
                     {!! Form::select('measurement_unit_id', $measurement_units, null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
                 </div>
                 <div class="mb-3">
-                    <label for="amount" class="form-label">Cantidad:</label>
+                    <label for="amount" class="form-label">{{trans('hangarauto::Vehiculos.Amount') }}:</label>
                     {!! Form::number('amount', null, ['class' => 'form-control']) !!}
                 </div>
                 <div class="mb-3">
-                    <label for="price" class="form-label">Precio:</label>
+                    <label for="price" class="form-label">{{trans('hangarauto::Vehiculos.Price') }}:</label>
                     {!! Form::number('price', null, ['class' => 'form-control']) !!}
                 </div>
                 <div class="mb-3">
-                    <label for="mileage" class="form-label">Kilometraje:</label>
+                    <label for="mileage" class="form-label">{{trans('hangarauto::Vehiculos.Mileage') }}:</label>
                     {!! Form::number('mileage', null, ['class' => 'form-control']) !!}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    {!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{trans('hangarauto::Drivers.Cancel') }}</button>
+                    {!! Form::submit(trans('hangarauto::Drivers.Save'), ['class' => 'btn btn-success']) !!}
                 </div>
             </div>
         </div>

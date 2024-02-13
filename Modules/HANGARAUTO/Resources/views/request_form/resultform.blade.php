@@ -19,10 +19,10 @@
                     <table class="table table-bordered table-hover" id="myTable">
                         <thead class="table-dark">
                             <tr>
-                                <th>ID</th>
-                                <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_Name')}}</th>
+                                <th>#</th>
                                 <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_Travel_date')}}</th>
                                 <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_Return_Date')}}</th>
+                                <th>{{ trans('hangarauto::Vehiculos.Vehicle')}}</th>
                                 <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_Department')}}</th>
                                 <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_City')}}</th>
                                 <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_numstudents')}}</th>
@@ -33,16 +33,16 @@
                         <tbody>
                             @foreach($requests as $dato)
                                 <tr>
-                                    <td>{{ $dato->id }}</td>
-                                    <td>{{ $dato->name }}</td>
-                                    <td>{{ $dato->travel_date }}</td>
-                                    <td>{{ $dato->return_date }}</td>
-                                    <td>{{ $dato->department }}</td>
-                                    <td>{{ $dato->city }}</td>
-                                    <td>{{ $dato->num_students }}</td>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $dato->start_date }}</td>
+                                    <td>{{ $dato->end_date }}</td>
+                                    <td>{{ $dato->vehicle->name }} - {{ $dato->vehicle->license }} </td>
+                                    <td>{{ $dato->municipality->department->name }}</td>
+                                    <td>{{ $dato->municipality->name }}</td>
+                                    <td>{{ $dato->numstudents }}</td>
                                     <td>{{ $dato->reason }}</td>
                                     <td>
-                                        <form action="{{ route('hangarauto.'.getRoleRoueName(Route::currentRouteName()).'.delete', $dato->id) }}" method="post" id="formEliminar{{ $dato->id }}">
+                                        <form action="{{ route('cefa.parking.delete', $dato->id) }}" method="post" id="formEliminar{{ $dato->id }}">
                                             @csrf
                                             @method('DELETE')
 
@@ -50,7 +50,7 @@
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </form>
-                                        <a href="{ route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.edit', $dato) }}" class="btn btn-primary btnUpdat">
+                                        <a href="{{ route('cefa.parking.edit', $dato) }}" class="btn btn-primary btnUpdat">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
                                     </td>

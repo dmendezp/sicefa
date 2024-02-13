@@ -14,20 +14,20 @@
         <div class="row">
             <div class="col pt-4">
                 <div class="card-header">
-                    <h4>Conductores</h4>
+                    <h4>{{ trans('hangarauto::drivers.Drivers')}}</h4>
                 </div><br>
-                <a href="{{ route('hangarauto.admin.drivers.create') }}">
-                    <button type="button" class="btn btn-primary">Agregar Conductor</button>
+                <a href="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.drivers.create') }}">
+                    <button type="button" class="btn btn-primary">{{ trans('hangarauto::drivers.Add Driver')}}</button>
                 </a><br><br>
                 <div class="card">
                     <div class="card-body">
                         <table id="travels" class="table table-striped table-bordered" style="width: 100%">
                             <thead>
-                                <th>Nombre</th>
+                                <th>{{ trans('hangarauto::drivers.Name')}}</th>
                                 <th>Email</th>
-                                <th>Numero De Cédula</th>
-                                <th>Numero De Telefono</th>
-                                <th>Acciones</th>
+                                <th>{{ trans('hangarauto::drivers.Document')}}</th>
+                                <th>{{ trans('hangarauto::drivers.Telephone')}}</th>
+                                <th>{{ trans('hangarauto::drivers.Actions')}}</th>
                             </thead>
                             <tbody>
                                 @foreach($drivers as $d)
@@ -37,8 +37,8 @@
                                         <td>{{$d->person->telephone1}}</td>
                                         <td>{{$d->person->document_number}}</td>
                                         <td>
-                                            <a class="btn-delete" href="{{ route('hangarauto.admin.drivers.delete',$d) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
-                                                <i class="fas fa-trash-alt"></i>
+                                            <a class="btn-delete" href="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.drivers.delete',$d) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                <i class="fas fa-trash-alt text-danger"></i>
                                             </a>
                                         </td>
                                     </tr>

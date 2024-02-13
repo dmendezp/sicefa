@@ -12,7 +12,7 @@ use Modules\HANGARAUTO\Entities\Soat;
 use Modules\HANGARAUTO\Entities\Driver;
 use Modules\HANGARAUTO\Entities\FuelConsumption;
 use Modules\SICA\Entities\MeasurementUnit;
-
+use Illuminate\Support\Facades\Route;
 use Validator, Str;
 
 class RevisionesController extends Controller
@@ -28,11 +28,6 @@ class RevisionesController extends Controller
         return view('hangarauto::admin.revisiones.SOAT.index', $data);
     }
 
-    // Retorne A La Vista Soat
-    public function getSoatAdd()
-    {
-        return view('hangarauto.admin.soat');
-    }
 
     
     // Agregar Registro De Soat 
@@ -60,7 +55,7 @@ class RevisionesController extends Controller
             $Soat->review_date = $request->input('review_date');
             $Soat->expiration_date = Carbon::parse($request->input('review_date'))->addYear();
             if($Soat->save()){
-                return redirect(route('hangarauto.admin.soat'))->with('messages','Nuevo Registro De Soat Agregado Exitosamente')->with('typealert','success');
+                return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.soat'))->with('messages','Nuevo Registro De Soat Agregado Exitosamente')->with('typealert','success');
             }
         endif;
         return view('hangarauto::admin.revisiones.SOAT.index');
@@ -71,7 +66,7 @@ class RevisionesController extends Controller
     {
         $Soat = Soat::find($id);
         if($Soat->delete()):
-            return redirect(route('hangarauto.admin.soat'))->with('messages','Registro Elimado Con Exito')->with('typealert','success');
+            return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.soat'))->with('messages','Registro Elimado Con Exito')->with('typealert','success');
         endif;
     }
 
@@ -119,7 +114,7 @@ class RevisionesController extends Controller
         $Tecnomecanic->expiration_date = Carbon::parse($request->input('review_date'))->addYear();
 
         if ($Tecnomecanic->save()) {
-            return redirect(route('hangarauto.admin.tecnomecanica'))->with('messages','Nuevo Registro De Tecnomecanica Agregado Con Exito')->with('typealert','success');
+            return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.tecnomecanica'))->with('messages','Nuevo Registro De Tecnomecanica Agregado Con Exito')->with('typealert','success');
         }
 
         return back()->with('messages', 'Se Ha Producido Un Error')->with('typealert', 'danger');
@@ -130,7 +125,7 @@ class RevisionesController extends Controller
     {
         $Tecnomecanic = Tecnomecanic::find($id);
         if($Tecnomecanic->delete()):
-            return redirect(route('hangarauto.admin.tecnomecanica'))->with('messages', 'Registro Eliminado Con Exito')->with('typealert','success');
+            return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.tecnomecanica'))->with('messages', 'Registro Eliminado Con Exito')->with('typealert','success');
         endif;
     }
 
@@ -180,7 +175,7 @@ class RevisionesController extends Controller
         
 
         if ($consumo->save()) {
-            return redirect(route('hangarauto.admin.consumo'))->with('messages','Nuevo Registro De Consumo Agregado Con Exito')->with('typealert','success');
+            return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.consumo'))->with('messages','Nuevo Registro De Consumo Agregado Con Exito')->with('typealert','success');
         }
 
         return back()->with('messages', 'Se Ha Producido Un Error al guardar el registro')->with('typealert', 'danger');
@@ -192,7 +187,7 @@ class RevisionesController extends Controller
     {
         $Tecnomecanic = FuelConsumption::find($id);
         if($Tecnomecanic->delete()):
-            return redirect(route('hangarauto.admin.consumo'))->with('messages', 'Registro Eliminado Con Exito')->with('typealert','success');
+            return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.consumo'))->with('messages', 'Registro Eliminado Con Exito')->with('typealert','success');
         endif;
     }
 }

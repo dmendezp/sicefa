@@ -32,8 +32,8 @@ class Petition extends Model implements Auditable {
     public function municipality(){
         return $this->belongsTo(Municipality::class);
     }
-
-    public function department(){
-        return $this->belongsTo(Department::class,'municipality_id');
+    
+    public function vehicle(){
+        return $this->belongsTo(Vehicle::class);
     }
 }

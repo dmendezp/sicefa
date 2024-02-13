@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col pt-4">
                 <div class="card-header">
-                    <h4>{{ trans('hangarauto::Vehiculos.vehicles') }}</h4>
+                    <h4>{{ trans('hangarauto::Vehiculos.Vehicles') }}</h4>
                 </div><br>
                 @include('hangarauto::admin.vehiculos.create')
                 <div class="card">
@@ -23,12 +23,12 @@
                         <table id="Travel" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <th>#</th>
-                                <th>Vehículo</th>
-                                <th>Referencia</th>
-                                <th>Estado</th>
-                                <th>Placa</th>
-                                <th>Nivel De Gasolina</th>
-                                <th>Acciones</th>
+                                <th>{{ trans('hangarauto::Vehiculos.Vehicle') }}</th>
+                                <th>{{ trans('hangarauto::Vehiculos.Reference') }}</th>
+                                <th>{{ trans('hangarauto::Vehiculos.Statu') }}</th>
+                                <th>{{ trans('hangarauto::Vehiculos.Plate') }}</th>
+                                <th>{{ trans('hangarauto::Vehiculos.Fuel Level') }}</th>
+                                <th>{{ trans('hangarauto::Drivers.Actions') }}</th>
                             </thead>
                             <tbody>
                                 @foreach ($vehicles as $t)
@@ -40,8 +40,8 @@
                                         <td>{{$t->license}}</td>
                                         <td>{{$t->fuel_level}}</td>
                                         <td>
-                                            <a href="{{ route('hangarauto.admin.vehicles.edit', $t->id) }}" type="button"><i class="fas fa-edit"></i></a>
-                                            <a class="btn-delete" href="{{ route('hangarauto.admin.vehicles.delete',$t) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                            <a href="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.vehicles.edit', $t->id) }}" type="button"><i class="fas fa-edit"></i></a>
+                                            <a class="btn-delete" href="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.vehicles.delete',$t) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                                 <i class="fas fa-trash-alt text-danger"></i>
                                             </a>
                                         </td>

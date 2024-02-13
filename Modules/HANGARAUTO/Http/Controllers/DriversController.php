@@ -5,7 +5,7 @@ namespace Modules\HANGARAUTO\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-
+use Illuminate\Support\Facades\Route;
 use Modules\HANGARAUTO\Entities\Driver;
 use Modules\SICA\Entities\Person;
 use Validator, Str;
@@ -34,7 +34,7 @@ class DriversController extends Controller
         $drivers = new Driver();
         $drivers->person_id = $request->input('person_id');
         if ($drivers->save()){
-            return redirect(route('hangarauto.admin.drivers'))->with('messages', 'Conductor Agregado Con Exito')->with('typealert','success');
+            return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers'))->with('messages', 'Conductor Agregado Con Exito')->with('typealert','success');
         }
         return view('hangarauto::admin.drivers');
     }
@@ -109,7 +109,7 @@ class DriversController extends Controller
     {
         $driver = Driver::find($id);
         if($driver->delete()):
-            return redirect(route('hangarauto.admin.drivers'))->with('messages','Conductor Eliminado Con Exito.')->with('typealert','success');
+            return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers'))->with('messages','Conductor Eliminado Con Exito.')->with('typealert','success');
         endif;
     }
 }

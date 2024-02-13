@@ -8,7 +8,7 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{ route('cefa.hangarauto.index') }}"class="nav-link">{{ trans('hangarauto::general.Home') }}</a>
         </li>
-        
+            
                 @auth
                     @if (checkRol('hangarauto.admin'))
                         <li class="nav-item d-none d-sm-inline-block">

@@ -1,4 +1,4 @@
-@extends('hangarauto::layouts.adminhome')
+@extends('hangarauto::layouts.master')
 
 @push('breadcrumbs')
     <li class="breadcrumb-item active">{{ trans('hangarauto::general.Request_Vehicle') }}</li>

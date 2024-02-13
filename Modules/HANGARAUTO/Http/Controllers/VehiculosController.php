@@ -5,11 +5,10 @@ namespace Modules\HANGARAUTO\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-
+use Illuminate\Support\Facades\Route;
 use Modules\HANGARAUTO\Entities\Vehicle;
-
-
 use Modules\HANGARAUTO\Entities\Tecnomecanic;
+use Carbon\Carbon;
 
 
 use Validator, Str, Config, Image;
@@ -54,7 +53,7 @@ class VehiculosController extends Controller
         $vehicle->save();
 
         // Redirigir con un mensaje de éxito
-        return redirect()->route('hangarauto.admin.vehicles')->with('success', 'Vehículo creado exitosamente.');
+        return redirect()->route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.vehicles')->with('success', 'Vehículo creado exitosamente.');
     } catch (\Exception $e) {
         // Manejar cualquier excepción que ocurra durante la creación del vehículo
         return redirect()->back()->with('error', 'Ocurrió un error al intentar crear el vehículo: ' . $e->getMessage());
@@ -103,7 +102,7 @@ class VehiculosController extends Controller
             $img->save($upload_path . $path . '/t_' . $filename);
         }
 
-        return redirect(route('cefa.parking.admin.vehicles'))->with('messages', 'Vehículo agregado exitosamente')->with('typealert', 'success');
+        return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.vehicles'))->with('messages', 'Vehículo agregado exitosamente')->with('typealert', 'success');
     }
 
     return back()->with('messages', 'Error al agregar el vehículo')->with('typealert', 'danger');
@@ -144,14 +143,14 @@ class VehiculosController extends Controller
         $vehicle->save();
 
         // Redirigir con un mensaje de éxito
-        return redirect()->route('hangarauto.admin.vehicles')->with('success', 'Vehículo actualizado exitosamente.');
+        return redirect()->route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.vehicles')->with('success', 'Vehículo actualizado exitosamente.');
     } catch (\Exception $e) {
         // Manejar cualquier excepción que ocurra durante la actualización del vehículo
         return redirect()->back()->with('error', 'Ocurrió un error al intentar actualizar el vehículo: ' . $e->getMessage());
     }
 }
 
-public function getVehiclesDelete($id)
+    public function getVehiclesDelete($id)
     {
         // Intenta Encontrar El Registro
         try{
@@ -166,5 +165,44 @@ public function getVehiclesDelete($id)
             return redirect()->back()->with('error', $message);
         }
         
+    }
+
+    public function reportindex()
+    {
+        return view('hangarauto::admin.vehiculos.report');
+    }
+
+    public function search(Request $request)
+    {
+        $rules = [
+            'search' => 'required'
+        ];
+
+        $messages = [
+            'search.required' => 'El Campo Consultar Es Requerido.'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()):
+            return redirect('hangarauto::admin.vehiculos.report')->withErrors($validator)->with('messages', 'Se Ha Producido Un Error')->with('typealert', 'danger')->withInput();
+        else:
+            $currentDate = Carbon::now();
+
+            $vehicle = Vehicle::with([
+                'soats' => function ($query) use ($currentDate) {
+                    $query->orderBy('review_date', 'desc')
+                          ->limit(1);
+                },
+                'tecnomecanics' => function ($query) use ($currentDate) {
+                    $query->orderBy('review_date', 'desc')
+                          ->limit(1);
+                }
+            ])
+            ->where('license', $request->input('search'))
+            ->first();
+            
+            $data = ['vehicle' => $vehicle];
+            return view('hangarauto::admin.vehiculos.report', $data);
+        endif;
     }
 }

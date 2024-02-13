@@ -25,7 +25,23 @@ class PermissionTableSeeder extends Seeder
         // Consultar aplicación SICA para registrar los roles
         $app = App::where('name','HANGARAUTO')->first();
 
+        // Vista principal de Conductores
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.index'], [ // Registro o actualización de permiso
+            'name' => 'Ingresar al rol Administrador',
+            'description' => 'Acceder al rol Administrador',
+            'description_english' => 'Access the Administrator role',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista principal de Conductores
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.index'], [ // Registro o actualización de permiso
+            'name' => 'Ingresar al rol Encargado',
+            'description' => 'Acceder al rol Encargado',
+            'description_english' => 'Access the Charge role',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
         
         // Vista principal de Conductores
         $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.drivers'], [ // Registro o actualización de permiso
@@ -115,6 +131,13 @@ class PermissionTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.tecnomecanica'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de Tecnomecanica',
+            'description' => 'Ver la vista principal de tecnomecanica',
+            'description_english' => 'See the main view of tecnomechanic',
+            'app_id' => $app->id
+        ]);
         $permissions_charge[] = $permission->id; // Almacenar permiso para rol
 
 
@@ -125,6 +148,13 @@ class PermissionTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.tecnomecanica.add'], [ // Registro o actualización de permiso
+            'name' => 'Registro de Tecnomecanica',
+            'description' => 'Registro de tecnomecanica',
+            'description_english' => 'tecnomechanic regitration',
+            'app_id' => $app->id
+        ]);
         $permissions_charge[] = $permission->id; // Almacenar permiso para rol
 
 
@@ -135,10 +165,25 @@ class PermissionTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.tecnomecanica.update'], [ // Registro o actualización de permiso
+            'name' => 'Edicion de Tecnomecanica',
+            'description' => 'Editar tecnomecanica',
+            'description_english' => 'tecnomechanic edit',
+            'app_id' => $app->id
+        ]);
         $permissions_charge[] = $permission->id; // Almacenar permiso para rol
 
 
         $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.tecnomecanica.delete'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar Tecnomecanica',
+            'description' => 'Eliminacion de tecnomecanica',
+            'description_english' => 'tecnomechanic removal',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.tecnomecanica.delete'], [ // Registro o actualización de permiso
             'name' => 'Eliminar Tecnomecanica',
             'description' => 'Eliminacion de tecnomecanica',
             'description_english' => 'tecnomechanic removal',
@@ -155,10 +200,25 @@ class PermissionTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.soat'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de Soat',
+            'description' => 'Ver la vista principal del soat',
+            'description_english' => 'See the main view of soat',
+            'app_id' => $app->id
+        ]);
         $permissions_charge[] = $permission->id; // Almacenar permiso para rol
 
 
         $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.soat.add'], [ // Registro o actualización de permiso
+            'name' => 'Registro de Soat',
+            'description' => 'Registro de soat',
+            'description_english' => 'soat regitration',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.soat.add'], [ // Registro o actualización de permiso
             'name' => 'Registro de Soat',
             'description' => 'Registro de soat',
             'description_english' => 'soat regitration',
@@ -175,10 +235,26 @@ class PermissionTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.soat.update'], [ // Registro o actualización de permiso
+            'name' => 'Edicion del Soat',
+            'description' => 'Editar soat',
+            'description_english' => 'soat edit',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
         $permissions_charge[] = $permission->id; // Almacenar permiso para rol
 
 
         $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.soat.delete'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar el Soat',
+            'description' => 'Eliminacion de soat',
+            'description_english' => 'soat removal',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.soat.delete'], [ // Registro o actualización de permiso
             'name' => 'Eliminar el Soat',
             'description' => 'Eliminacion de soat',
             'description_english' => 'soat removal',
@@ -195,6 +271,15 @@ class PermissionTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+        
+        
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.consumo'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de Consumo',
+            'description' => 'Ver la vista principal del consumo',
+            'description_english' => 'See the main view of consumption',
+            'app_id' => $app->id
+        ]);
         $permissions_charge[] = $permission->id; // Almacenar permiso para rol
 
 
@@ -205,6 +290,13 @@ class PermissionTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.consumo.add'], [ // Registro o actualización de permiso
+            'name' => 'Registro de Consumo',
+            'description' => 'Registro de consumo',
+            'description_english' => 'consumption regitration',
+            'app_id' => $app->id
+        ]);
         $permissions_charge[] = $permission->id; // Almacenar permiso para rol
 
         $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.consumo.delete'], [ // Registro o actualización de permiso
@@ -214,6 +306,29 @@ class PermissionTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.consumo.delete'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar el consumo',
+            'description' => 'Eliminacion de Consumo',
+            'description_english' => 'consumption removal',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.vehicles.report.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista Reporte de Vehiculo',
+            'description' => 'Acceso a la vista para observar el reporte del vehiculo',
+            'description_english' => 'Access to view to observe the vehicle report',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.vehicles.report.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista Reporte de Vehiculo',
+            'description' => 'Acceso a la vista para observar el reporte del vehiculo',
+            'description_english' => 'Access to view to observe the vehicle report',
+            'app_id' => $app->id
+        ]);
         $permissions_charge[] = $permission->id; // Almacenar permiso para rol
         
 

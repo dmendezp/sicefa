@@ -69,8 +69,7 @@
             <!-- Sidebar Menu Administrador-->
             @if (Route::is('hangarauto.admin.*'))
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                    data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"data-accordion="false">
                     @if (Auth::user()->havePermission('hangarauto.admin.drivers'))
                     <li class="nav-item">
                         <a href="{{ route('hangarauto.admin.drivers')}}" class="nav-link">
@@ -81,7 +80,7 @@
                         </a>
                     </li>
                     @endif
-                    @if (Auth::user()->havePermission('hangarauto.admin.vehivles'))
+                    @if (Auth::user()->havePermission('hangarauto.admin.vehicles'))
                     <li class="nav-item">
                         <a href="{{ route('hangarauto.admin.vehicles') }}" class="nav-link">
                             <i class="fas fa-bus"></i>
@@ -121,22 +120,24 @@
                         </a>
                     </li>
                     @endif
-                    <!-- Menú de opciones públicas -->
-                    <li class="nav-item">
-                        <a href="{{ route('cefa.parking.table') }}" class="nav-link">
-                            <i class="fas fa-check-square"></i>
+                    <li class="nav-item {{ !Route::is('hangarauto.admin.vehicles.report.*') ?: 'menu-is-opening menu-open' }}">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-file"></i>
                             <p>
-                                {{trans('hangarauto::solicitar.Request_Vehicle')}}
+                                {{trans('hangarauto::Vehiculos.Reports')}}
+                                <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('cefa.hangarauto.developers') }}" class="nav-link">
-                            <i class="fa-solid fa-people-group"></i>
-                            <p>
-                                {{ trans('hangarauto::Developers.developers')}}
-                            </p>
-                        </a>
+                        <ul class="nav nav-treeview">
+                            @if (Auth::user()->havePermission('hangarauto.admin.vehicles.report.index'))
+                                <li class="nav-item">
+                                    <a href="{{ route('hangarauto.admin.vehicles.report.index') }}" class="nav-link ">
+                                        <i class="fa-solid fa-car"></i>
+                                        <p>{{trans('hangarauto::Vehiculos.Vehicle')}}</p>
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
                     </li>
                 </ul>
             </nav>
@@ -145,9 +146,9 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
-                    @if (Auth::user()->havePermission('hangarauto.admin.tecnomecanica'))
+                    @if (Auth::user()->havePermission('hangarauto.charge.tecnomecanica'))
                     <li class="nav-item">
-                        <a href="{{ route('hangarauto.admin.tecnomecanica') }}" class="nav-link">
+                        <a href="{{ route('hangarauto.charge.tecnomecanica') }}" class="nav-link">
                             <i class="fa-solid fa-screwdriver"></i>
                             <p>
                                 {{trans('hangarauto::Tecno.Tecnomechanic')}}
@@ -155,9 +156,9 @@
                         </a>
                     </li>
                     @endif
-                    @if (Auth::user()->havePermission('hangarauto.admin.soat'))
+                    @if (Auth::user()->havePermission('hangarauto.charge.soat'))
                     <li class="nav-item">
-                        <a href="{{ route('hangarauto.admin.soat') }}" class="nav-link">
+                        <a href="{{ route('hangarauto.charge.soat') }}" class="nav-link">
                             <i class="fas fa-file-signature"></i>
                             <p>
                                 {{trans('hangarauto::soat.Soat')}}
@@ -165,9 +166,9 @@
                         </a>
                     </li>
                     @endif
-                    @if (Auth::user()->havePermission('hangarauto.admin.consumo'))
+                    @if (Auth::user()->havePermission('hangarauto.charge.consumo'))
                     <li class="nav-item">
-                        <a href="{{ route('hangarauto.admin.consumo') }}" class="nav-link">
+                        <a href="{{ route('hangarauto.charge.consumo') }}" class="nav-link">
                             <i class="fa-solid fa-gas-pump"></i>
                             <p>
                                 {{trans('hangarauto::comsuption.fuelcomsuption')}}
@@ -175,19 +176,10 @@
                         </a>
                     </li>
                     @endif
-                    <!-- Menú de opciones públicas -->
-                    <li class="nav-item">
-                        <a href="{{ route('cefa.parking.table') }}" class="nav-link">
-                            <i class="fas fa-check-square"></i>
-                            <p>
-                                {{trans('hangarauto::solicitar.Request_Vehicle')}}
-                            </p>
-                        </a>
-                    </li>
                 </ul>
             </nav>
             @endif
-            @if (Route::is('cefa.hangarauto.index'))
+            @if (Route::is('cefa.*'))
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">

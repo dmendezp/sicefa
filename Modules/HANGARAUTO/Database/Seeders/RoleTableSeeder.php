@@ -32,18 +32,17 @@ class RoleTableSeeder extends Seeder
         ]);
 
         // Registrar o actualizar rol de Encargado
-        $role_charge = Role::updateOrCreate(['slug' => 'hangarauto.charge'], [
+        $role_charge= Role::updateOrCreate(['slug' => 'hangarauto.charge'], [
             'name' => 'Encargado',
             'description' => 'Rol Encargado de la aplicacion HANGAR',
             'description_english' => 'HANGAR Application Charge Role',
             'app_id' => $app->id
         ]);
 
-        // Consulta de usuarios
-        $user_admin = User::where('nickname','DCumaco')->first();
+        // Consultar el usuario
+        $user_admin = User::where('nickname','DCumaco')->first(); // Usuario Administrador (Manuel Steven Ossa Lievano)
 
-
-        // Asignación de ROLES  a usuarios
+        // Asignacion de rol
         $user_admin->roles()->syncWithoutDetaching([$role_admin->id]);
     }
 }
