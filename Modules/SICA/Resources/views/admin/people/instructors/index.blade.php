@@ -9,31 +9,28 @@
                         <h3 class="card-title">Instructores</h3>
                     </div>
                     <div class="card-body">
-                        <div class="btns">
-                            <a href="#" class="btn btn-primary" disabled>
-                                <i class="fas fa-user-plus"></i>
-                                Registrar instructor
-                            </a>
-                        </div>
                         <div class="mtop16">
                             <table id="table_instructors" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th class="text-center">Documento</th>
-                                        <th>Nombre</th>
-                                        <th>Vinculación</th>
-                                        <th>Especialidad</th>
+                                        <th class="text-center">Nombre</th>
+                                        <th>Documento</th>
+                                        <th>Correo</th>
+                                        <th>Telefono</th>
+                                        <th>Tipo de Empleado</th>
                                         <th class="text-center">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        @foreach ($instructors as $i)
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td class="text-center">{{ $i->person->fullname }}</td>
+                                        <td class="text-center">{{ $i->person->document_number }}</td>
+                                        <td>{{ $i->person->misena_email }}</td>
+                                        <td>{{ $i->person->telephone1 }}</td>
+                                        <td>{{ $i->employee_type->name }}</td>
                                         <td class="text-center">
                                             <div class="opts">
                                                 <a href="#" class="text-success" data-toggle='tooltip' data-placement="top" title="Actualizar instructor" disabled>
@@ -44,6 +41,7 @@
                                                 </a>
                                             </div>
                                         </td>
+                                        @endforeach
                                     </tr>
                                 </tbody>
                             </table>
