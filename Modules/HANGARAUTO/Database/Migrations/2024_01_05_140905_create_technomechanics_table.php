@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTecnomecanicsTable extends Migration
+class CreateTechnomechanicsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateTecnomecanicsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Tecnomecanics', function (Blueprint $table) {
+        Schema::create('technomechanics', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vehicle_name_id')->constrained('Vehicles');
-            $table->string('who');
-            $table->string('arrived');
-            $table->string('newdate');
+            $table->foreignId('vehicle_id')->constrained()->onDelete('cascade');
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
+            $table->date('review_date');
+            $table->date('expiration_date');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +31,7 @@ class CreateTecnomecanicsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Tecnomecanics');
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('technomechanics');
     }
 }

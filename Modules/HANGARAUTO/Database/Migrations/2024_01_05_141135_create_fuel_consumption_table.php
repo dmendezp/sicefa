@@ -13,16 +13,18 @@ class CreateFuelConsumptionTable extends Migration
      */
     public function up()
     {
-        Schema::create('fuel_consumption', function (Blueprint $table) {
+        Schema::create('fuel_consumptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vehicle_name_id')->constrained('Vehicles');
-            $table->enum('referece', ['Gasolina','Diesel']);
+            $table->foreignId('vehicle_id')->constrained()->onDelete('cascade');
+            $table->enum('type', ['Corriente','Extra']);
             $table->date('date');
-            $table->enum('reference', ['Litros','Galones']);
+            $table->foreignId('measurement_unit_id')->constrained()->onDelete('cascade');
             $table->integer('price');
-            $table->string('km/h');
-            $table->foreignId('person_id');
+            $table->integer('amount');
+            $table->integer('mileage');
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -33,6 +35,7 @@ class CreateFuelConsumptionTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('fuel_consumption');
     }
 }

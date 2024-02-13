@@ -23,20 +23,44 @@ class VehiculosController extends Controller
     public function Vehicles()
     {
         $vehicles = Vehicle::orderBy('id','asc')->get();
-        
-        
-        
         $data = ['vehicles'=>$vehicles];
         return view('hangarauto::admin.vehicles', $data); 
         
-        
-        
-        
     }
 
-    public function getVehiclesAdd(Request $request){
-        
+    public function postVehiclesStore(Request $request)
+{
+    // Validar los datos enviados por el formulario
+    $request->validate([
+        'name' => 'required|string',
+        'reference' => 'required|string',
+        'status' => 'required|string',
+        'license' => 'required|string|unique:vehicles',
+        'fuel_level' => 'required|string',
+    ]);
+
+    try {
+        // Crear una nueva instancia del modelo Vehicle
+        $vehicle = new Vehicle();
+
+        // Asignar los valores de los campos
+        $vehicle->name = $request->input('name');
+        $vehicle->reference = $request->input('reference');
+        $vehicle->status = $request->input('status');
+        $vehicle->license = $request->input('license');
+        $vehicle->fuel_level = $request->input('fuel_level');
+
+        // Guardar el vehículo en la base de datos
+        $vehicle->save();
+
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('hangarauto.admin.vehicles')->with('success', 'Vehículo creado exitosamente.');
+    } catch (\Exception $e) {
+        // Manejar cualquier excepción que ocurra durante la creación del vehículo
+        return redirect()->back()->with('error', 'Ocurrió un error al intentar crear el vehículo: ' . $e->getMessage());
     }
+}
+
 
     public function postVehiclesAdd(Request $request)
 {
@@ -84,19 +108,11 @@ class VehiculosController extends Controller
 
     return back()->with('messages', 'Error al agregar el vehículo')->with('typealert', 'danger');
 }
+ 
 
-
-
-    
-
-    
-
-    public function getViajesEdit($id)
-    {
-        $vehicle = Vehicle::find($id);
-        
-        
-        
+    public function getVehiclesEdit($id)
+    {   
+        $vehicle = Vehicle::find($id);  
         $data = ['vehicle'=>$vehicle];
         return view('hangarauto::admin.vehiculos.edit',$data);
         
@@ -104,46 +120,37 @@ class VehiculosController extends Controller
 
     public function postViajesEdit(Request $request, $id)
  {
-     $rules = [
-         'name' => 'required',
-         'referece' => 'required',
-         'status' => 'required',
-         'license' => 'required',
-         'fuel_level' => 'required',
-         
-     ];
-     $messages = [
-         'name.required' => 'Debe ingresar el nombre del vehículo',
-         'referece.required' => 'Debe  Ingresar La Referencia Del Vehiculo',
-         'status.required' => 'Debe Ingresar El Estado Del Vehiculo',
-         'license.required' => 'La placa del vehículo es obligatoria',
-         'fuel_level.required' => 'Ingrese El Nivel De Gasolina',
-         
-     ];
+     // Validar los datos enviados por el formulario
+     $request->validate([
+        'name' => 'required|string',
+        'reference' => 'required|string',
+        'status' => 'required|string',
+        'license' => 'required|string',
+        'fuel_level' => 'required|string',
+    ]);
 
-     $validator = Validator::make($request->all(), $rules, $messages);
-     if($validator->fails()):
-         return back()->withErrors($validator)->with('messages', 'Se ha producidor un error')->with('typealert','danger');
+    try {
+        // Buscar el vehículo por su ID
+        $vehicle = Vehicle::findOrFail($id);
 
-     else:
-         $vehicle =  Vehicle::findOrFail($id);
-         $vehicle -> name = $request -> input('name');
-         $vehicle -> referece = $request ->input('referece');
-         $vehicle -> status = $request -> input('status');
-         $vehicle -> license = $request -> input('license');
-         $vehicle -> fuel_level = $request -> input('fuel_level');
-         
-         
+        // Actualizar los valores de los campos
+        $vehicle->name = $request->input('name');
+        $vehicle->reference = $request->input('reference');
+        $vehicle->status = $request->input('status');
+        $vehicle->license = $request->input('license');
+        $vehicle->fuel_level = $request->input('fuel_level');
 
-         if($vehicle->save()){
-             return redirect(route('cefa.parking.vehicles'))->with('messages', 'Registro modificado exitosamente')->with('typealert','success');
-         }
-     endif;
+        // Guardar los cambios en la base de datos
+        $vehicle->save();
 
-    
-
-    
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('hangarauto.admin.vehicles')->with('success', 'Vehículo actualizado exitosamente.');
+    } catch (\Exception $e) {
+        // Manejar cualquier excepción que ocurra durante la actualización del vehículo
+        return redirect()->back()->with('error', 'Ocurrió un error al intentar actualizar el vehículo: ' . $e->getMessage());
+    }
 }
+
 public function getVehiclesDelete($id)
     {
         // Intenta Encontrar El Registro

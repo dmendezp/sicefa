@@ -13,12 +13,12 @@ class CreateSoatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Soats', function (Blueprint $table) {
+        Schema::create('soats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vehicle_name_id')->constrained('Vehicles');
-            $table->string('who');
-            $table->string('arrived');
-            $table->string('newdate');
+            $table->foreignId('vehicle_id')->constrained()->onDelete('cascade');
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
+            $table->string('review_date');
+            $table->date('expiration_date');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +31,7 @@ class CreateSoatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Soats');
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('soats');
     }
 }

@@ -13,10 +13,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col pt-4">
-                <div class="card-header bg-warning">
-                    <h5>Registro De Conductores Del CEFA</h5>
+                <div class="card-header">
+                    <h4>Conductores</h4>
                 </div><br>
-                <a href="{{ route('parking.admin.create') }}">
+                <a href="{{ route('hangarauto.admin.drivers.create') }}">
                     <button type="button" class="btn btn-primary">Agregar Conductor</button>
                 </a><br><br>
                 <div class="card">
@@ -24,24 +24,20 @@
                         <table id="travels" class="table table-striped table-bordered" style="width: 100%">
                             <thead>
                                 <th>Nombre</th>
-                                <th>Primer Apellido</th>
-                                <th>Segundo Apellido</th>
                                 <th>Email</th>
-                                <th>Numero De Telefono</th>
                                 <th>Numero De Cédula</th>
+                                <th>Numero De Telefono</th>
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
                                 @foreach($drivers as $d)
                                     <tr>
-                                        <td>{{$d->person->first_name}}</td>
-                                        <td>{{$d->person->first_last_name}}</td>
-                                        <td>{{$d->person->second_last_name}}</td>
-                                        <td>{{$d->person->misena_email}}</td>
+                                        <td>{{$d->person->fullname}}</td>
+                                        <td>{{$d->person->personal_email}}</td>
                                         <td>{{$d->person->telephone1}}</td>
-                                        <td>{{$td->person->document}}</td>
+                                        <td>{{$d->person->document_number}}</td>
                                         <td>
-                                            <a class="btn-delete" href="{{ route('parking.admin.drivers.delete',$d) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                            <a class="btn-delete" href="{{ route('hangarauto.admin.drivers.delete',$d) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td>

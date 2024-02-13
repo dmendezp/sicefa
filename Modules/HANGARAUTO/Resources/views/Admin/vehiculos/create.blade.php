@@ -1,50 +1,72 @@
-<!-- Button tigger modal -->
+<!--- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDriver">
     <i class="fas fa-plus"></i>
 </button><br><br>
-
 
 <!-- Modal -->
 <div class="modal fade" id="addDriver" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Añadir Información Del Vehiculo</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Añadir Nuevo Vehiculo</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {!! Form::model(['url' => route('cefa.parking.admin.vehicles.create'),  'method'=>'post', 'files'=>true]) !!}
+                {!! Form::open(['url' => route('hangarauto.admin.vehicles.store'), 'files' => true]) !!}
                 {{ csrf_field() }}
-
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Vehículo:</label>
+                    <label for="name" class="form-label">Nombre:</label>
                     {!! Form::text('name', null, ['class' => 'form-control']) !!}
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Referencia:</label>
-                    {!! Form::select('referece',getEnumValues("vehicles", "referece"), null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
+                    <label for="reference" class="form-label">Referencia:</label>
+                    {!! Form::select('reference', 
+                        [
+                            'Carro' => 'Carro',
+                            'Camioneta' => 'Camioneta',
+                            'Autobus' => 'Autobus',
+                            'Tractor' => 'Tractor',
+                            'Motocicleta' => 'Motocicleta',
+                            'Furgoneta' => 'Furgoneta',
+                            'Ciclomotor' => 'Ciclomotor',
+                            'Motocarro' => 'Motocarro',
+                        ], 
+                        null, 
+                        ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) 
+                    !!}
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Estado De Vehículo:</label>
-                    {!! Form::select('status',getEnumValues("vehicles", "status"), null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
+                    <label for="status" class="form-label">Estado:</label>
+                    {!! Form::select('status', 
+                        [
+                            'Disponible' => 'Disponible',
+                            'No Disponible' => 'No Disponible',
+                        ], 
+                        null, 
+                        ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) 
+                    !!}
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Nivel De Combustible:</label>
-                    {!! Form::select('fuel_level',getEnumValues("vehicles", "fuel_level"), null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Placa:</label>
+                    <label for="license" class="form-label">Placa:</label>
                     {!! Form::text('license', null, ['class' => 'form-control']) !!}
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Imagen Del Vehículo:</label>
-                    {!! Form::file('image', null, ['class' => 'custom-file-input', 'id' => 'customFile', 'accept' => 'image/*']) !!}
+                    <label for="fuel_level" class="form-label">Nivel de Gasolina:</label>
+                    {!! Form::select('fuel_level', 
+                        [
+                            'Bajo' => 'Bajo',
+                            'Medio' => 'Medio',
+                            'Alto' => 'Alto',
+                            
+                        ], 
+                        null, 
+                        ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) 
+                    !!}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                     {!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
                 </div>
-                {!! Form::close() !!}
             </div>
         </div>
     </div>

@@ -16,12 +16,12 @@ class CreateVehiclesTable extends Migration
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('reference',['Motocicleta','Ciclomotor','Motocarro','Tractor Agrícola','Autobus','Furgoneta','Camioneta','Carro']);
+            $table->enum('reference',['Motocicleta','Ciclomotor','Motocarro','Tractor','Autobus','Furgoneta','Camioneta','Carro']);
             $table->enum('status', ['Disponible','No Disponible']);
             $table->string('license');
             $table->enum('fuel_level', ['Bajo','Medio','Alto']);
-            $table->string('file_path');
-            $table->string('image');
+            $table->string('file_path')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,6 +34,7 @@ class CreateVehiclesTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('Vehicles');
     }
 }

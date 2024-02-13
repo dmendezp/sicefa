@@ -67,49 +67,60 @@
             </div>
 
             <!-- Sidebar Menu Administrador-->
+            @if (Route::is('hangarauto.admin.*'))
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
+                    @if (Auth::user()->havePermission('hangarauto.admin.drivers'))
                     <li class="nav-item">
-                        <a href="{{ route('cefa.parking.drivers')}}" class="nav-link">
+                        <a href="{{ route('hangarauto.admin.drivers')}}" class="nav-link">
                             <i class="fa-regular fa-id-card"></i>
                             <p>
                                 {{trans('hangarauto::drivers.Drivers')}}
                             </p>
                         </a>
                     </li>
+                    @endif
+                    @if (Auth::user()->havePermission('hangarauto.admin.vehivles'))
                     <li class="nav-item">
-                        <a href="{{ route('cefa.parking.vehicles') }}" class="nav-link">
+                        <a href="{{ route('hangarauto.admin.vehicles') }}" class="nav-link">
                             <i class="fas fa-bus"></i>
                             <p>
                                 {{trans('hangarauto::vehiculos.Vehicles')}}
                             </p>
                         </a>
                     </li>
+                    @endif
+                    @if (Auth::user()->havePermission('hangarauto.admin.tecnomecanica'))
                     <li class="nav-item">
-                        <a href="{{ route('cefa.parking.tecnomecanica') }}" class="nav-link">
+                        <a href="{{ route('hangarauto.admin.tecnomecanica') }}" class="nav-link">
                             <i class="fa-solid fa-screwdriver"></i>
                             <p>
-                                {{trans('hangarauto::Tecno.Tecnomecanic')}}
+                                {{trans('hangarauto::Tecno.Tecnomechanic')}}
                             </p>
                         </a>
                     </li>
+                    @endif
+                    @if (Auth::user()->havePermission('hangarauto.admin.soat'))
                     <li class="nav-item">
-                        <a href="{{ route('cefa.parking.soat') }}" class="nav-link">
+                        <a href="{{ route('hangarauto.admin.soat') }}" class="nav-link">
                             <i class="fas fa-file-signature"></i>
                             <p>
                                 {{trans('hangarauto::soat.Soat')}}
                             </p>
                         </a>
                     </li>
+                    @endif
+                    @if (Auth::user()->havePermission('hangarauto.admin.consumo'))
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('hangarauto.admin.consumo') }}" class="nav-link">
                             <i class="fa-solid fa-gas-pump"></i>
                             <p>
                                 {{trans('hangarauto::comsuption.fuelcomsuption')}}
                             </p>
                         </a>
                     </li>
+                    @endif
                     <!-- Menú de opciones públicas -->
                     <li class="nav-item">
                         <a href="{{ route('cefa.parking.table') }}" class="nav-link">
@@ -129,6 +140,102 @@
                     </li>
                 </ul>
             </nav>
+            @endif
+            @if (Route::is('hangarauto.charge.*'))
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
+                    @if (Auth::user()->havePermission('hangarauto.admin.tecnomecanica'))
+                    <li class="nav-item">
+                        <a href="{{ route('hangarauto.admin.tecnomecanica') }}" class="nav-link">
+                            <i class="fa-solid fa-screwdriver"></i>
+                            <p>
+                                {{trans('hangarauto::Tecno.Tecnomechanic')}}
+                            </p>
+                        </a>
+                    </li>
+                    @endif
+                    @if (Auth::user()->havePermission('hangarauto.admin.soat'))
+                    <li class="nav-item">
+                        <a href="{{ route('hangarauto.admin.soat') }}" class="nav-link">
+                            <i class="fas fa-file-signature"></i>
+                            <p>
+                                {{trans('hangarauto::soat.Soat')}}
+                            </p>
+                        </a>
+                    </li>
+                    @endif
+                    @if (Auth::user()->havePermission('hangarauto.admin.consumo'))
+                    <li class="nav-item">
+                        <a href="{{ route('hangarauto.admin.consumo') }}" class="nav-link">
+                            <i class="fa-solid fa-gas-pump"></i>
+                            <p>
+                                {{trans('hangarauto::comsuption.fuelcomsuption')}}
+                            </p>
+                        </a>
+                    </li>
+                    @endif
+                    <!-- Menú de opciones públicas -->
+                    <li class="nav-item">
+                        <a href="{{ route('cefa.parking.table') }}" class="nav-link">
+                            <i class="fas fa-check-square"></i>
+                            <p>
+                                {{trans('hangarauto::solicitar.Request_Vehicle')}}
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            @endif
+            @if (Route::is('cefa.hangarauto.index'))
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
+                    <!-- Menú de opciones públicas -->
+                    <li class="nav-item">
+                        <a href="{{ route('cefa.parking.table') }}" class="nav-link">
+                            <i class="fas fa-check-square"></i>
+                            <p>
+                                {{trans('hangarauto::solicitar.Request_Vehicle')}}
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('cefa.hangarauto.developers') }}" class="nav-link">
+                            <i class="fa-solid fa-people-group"></i>
+                            <p>
+                                {{ trans('hangarauto::Developers.developers')}}
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            @endif
+            @guest
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
+                    <!-- Menú de opciones públicas -->
+                    <li class="nav-item">
+                        <a href="{{ route('cefa.parking.table') }}" class="nav-link">
+                            <i class="fas fa-check-square"></i>
+                            <p>
+                                {{trans('hangarauto::solicitar.Request_Vehicle')}}
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('cefa.hangarauto.developers') }}" class="nav-link">
+                            <i class="fa-solid fa-people-group"></i>
+                            <p>
+                                {{ trans('hangarauto::Developers.developers')}}
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            @endguest
+            
             <!-- /.sidebar-menu -->
         </div>
         <!-- /.sidebar -->

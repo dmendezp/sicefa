@@ -1,4 +1,4 @@
-@extends('hangarauto::layout.adminhome')
+@extends('hangarauto::layouts.master')
 
 @push('breadcrumbs')
     <li class="breadcrumb-item active">{{ trans('hangarauto::') }}</li>
@@ -14,6 +14,7 @@
             </div>
 
             <div class="form_search" id="form_search">
+                <br>
                 {!! Form::open(['url' => 'hangarauto/administrator/conductores/search']) !!}
                 <div class="row">
                     <div class="col-md-8">
@@ -24,23 +25,25 @@
                     </div>
                 </div>
                 {!! Form::close() !!}
+                <br>
             </div>
             @if(isset($people))
                 @if(is_null($people))
                     <h1>"Documento No Encontrado"</h1>
                 @else
-                    {!! Form::open(['url' => route('parkind.admin.create')]) !!}
+                    {!! Form::open(['url' => route('hangarauto.admin.drivers.create'), 'method'=> 'POST']) !!}
+                    @csrf
                     <label class="mtop16" for="name">Nombre:</label>
                     <div>
                         {{ $people->first_name." ".$people->first_last_name." ".$people->second_last_name." ".$people->telephone1." ".$people->document." ".$people->misena_email }}
 
                         {!! Form::hidden('person_id', $people->id, ['class' => 'form-control', 'placeholder' => 'ingrese Su Busqueda', 'required']) !!}
                     </div>
-                    {!! Form::submit('Guardar' ['class' => 'btn btn-success mtop16']) !!}
+                    {!! Form::submit('Guardar', ['class' => 'btn btn-success mtop16']) !!}
                     {!! Form::close() !!}
                 @endif
             @endif
         </div>
     </div>
 </div>
-@stop
+@endsection

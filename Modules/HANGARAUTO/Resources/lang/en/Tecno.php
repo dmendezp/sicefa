@@ -2,7 +2,7 @@
 
 return [
     // Indicador De Sidebar Y Vista
-    'Tecnomecanic' => 'Tecnomecanic',
+    'Tecnomechanic' => 'Tecnomechanic',
     // Titulo 1
     'Title1' => 'Status Records and Update Date of the Tecnomecanica',
 ];

@@ -13,14 +13,14 @@ class CreatePetitionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Petitions', function (Blueprint $table) {
+        Schema::create('petitions', function (Blueprint $table) {
             $table->id();
             $table->dateTime('start_date', 0);
             $table->dateTime('end_date', 0);
-            $table->foreignId('munincipality_id')->constrained('municipalities')->nullable()->change();
+            $table->foreignId('municipality_id')->constrained()->onDelete('cascade');
             $table->string('reason');
             $table->string('numstudents');
-            $table->foreignId('asigned_vehicle_id')->constrained('vehicles')->nullable()->change();
+            $table->foreignId('vehicle_id')->constrained()->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +33,7 @@ class CreatePetitionsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('Petitions');
     }
 }

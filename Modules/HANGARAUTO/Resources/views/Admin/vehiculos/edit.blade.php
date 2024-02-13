@@ -5,6 +5,16 @@
 @endpush
 
 @section('content')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     <br>
     <div class="content">
         <div class="row justify-content-center">
@@ -12,58 +22,62 @@
                 <div class="card-header">
                     <h3>Modificar Datos Del Vehiculo</h3>
                 </div>
-                {!! Form::model(['url' => '/hangarauto/administrator/vehiculos/edit/',$vehicle->id, 'method' => 'post']) !!}
-                
-                {{ csrf_field() }}
-                <label for="name">Vehiculo:</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">
-                            <i class="far fa-keyboard"></i>
-                        </span>
+                {!! Form::model($vehicle, ['route' => ['hangarauto.admin.vehicles.update', $vehicle->id], 'method' => 'PUT']) !!}
+                    {{ csrf_field() }}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nombre:</label>
+                        {!! Form::text('name', $vehicle->name, ['class' => 'form-control']) !!}
                     </div>
-                    {!! Form::text('name', (( $vehicle->name )), ['class' => 'form-control']) !!}
-                </div>
-                <label for="name">Referencia:</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">
-                            <i class="far fa-keyboard"></i>
-                        </span>
+                    <div class="mb-3">
+                        <label for="reference" class="form-label">Referencia:</label>
+                        {!! Form::select('reference', 
+                            [
+                                'Carro' => 'Carro',
+                                'Camioneta' => 'Camioneta',
+                                'Autobus' => 'Autobus',
+                                'Tractor' => 'Tractor',
+                                'Motocicleta' => 'Motocicleta',
+                                'Furgoneta' => 'Furgoneta',
+                                'Ciclomotor' => 'Ciclomotor',
+                                'Motocarro' => 'Motocarro',
+                            ], 
+                            $vehicle->reference, 
+                            ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) 
+                        !!}
                     </div>
-                    {!! Form::select('referece',getEnumValues("vehicles", "referece"), null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
-                </div>
-                <label for="name">Estado Del Vehiculo:</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">
-                            <i class="far fa-keyboard"></i>
-                        </span>
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Estado:</label>
+                        {!! Form::select('status', 
+                            [
+                                'Disponible' => 'Disponible',
+                                'No Disponible' => 'No Disponible',
+                            ], 
+                            $vehicle->status, 
+                            ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) 
+                        !!}
                     </div>
-                    {!! Form::select('status',getEnumValues("vehicles", "status"), null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
-                </div>
-                <label for="name">Nivel De Combustible:</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">
-                            <i class="far fa-keyboard"></i>
-                        </span>
+                    <div class="mb-3">
+                        <label for="license" class="form-label">Placa:</label>
+                        {!! Form::text('license', $vehicle->license, ['class' => 'form-control']) !!}
                     </div>
-                    {!! Form::select('fuel_level',getEnumValues("vehicles", "fuel_level"), null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
-                </div>
-                <label for="name">Placa:</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">
-                            <i class="far fa-keyboard"></i>
-                        </span>
+                    <div class="mb-3">
+                        <label for="fuel_level" class="form-label">Nivel de Gasolina:</label>
+                        {!! Form::select('fuel_level', 
+                            [
+                                'Bajo' => 'Bajo',
+                                'Medio' => 'Medio',
+                                'Alto' => 'Alto',
+                            ], 
+                            $vehicle->fuel_level, 
+                            ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) 
+                        !!}
                     </div>
-                    {!! Form::text('license',(( $vehicle->license)), null, ['class' => 'form-control']) !!}
-                </div>
-                <div class="mt-4 text-center mb-4">
-                    {!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-                </div>
-                {!! Form::close() !!}
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        {!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
+                    </div>
+                    {!! Form::close() !!}
+
             </div>
         </div>
     </div>

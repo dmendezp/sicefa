@@ -7,12 +7,12 @@ use Modules\SICA\Entities\Person;
 
 class Driver extends Model {
     use SoftDeletes;
-    protected $table = 'Drivers';
+    protected $table = 'drivers';
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
 
-    public function Vehicles(){
-        return $this->hasMany('Modules\HANGARAUTO\Entities\Vehicles');
+    public function vehicle(){
+        return $this->hasMany(Vehicle::class);
     }
 
     public function person(){

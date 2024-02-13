@@ -14,31 +14,31 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col pt-4">
-                <div class="card-header bg-warning">
-                    <h5>{{trans('hangarauto::Tecno.Title1') }}</h5>
+                <div class="card-header">
+                    <h4>{{trans('hangarauto::Tecno.Tecnomechanic') }}</h4>
                 </div><br>
                 @include('hangarauto::admin.revisiones.tecnomecanica.create')
                 <div class="card">
                     <div class="card-body">
                         <table id="Travel" class="table table-striped table-bordered" style="width: 100%">
                             <thead>
-                                <th>ID</th>
+                                <th>#</th>
                                 <th>Vehiculo</th>
-                                <th>Persona Que Lo Llevó</th>
-                                <th>Lo Llevó el:</th>
-                                <th>Nueva Fecha De Vencimiento Tecnomecanica</th>
+                                <th>Responsable</th>
+                                <th>Fecha Revision</th>
+                                <th>Fecha Vencimiento</th>
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
                                 @foreach($Tecnomecanic as $t)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
-                                        <td>{{$t->vehicle_name_id}}</td>
-                                        <td>{{$t->who}}</td>
-                                        <td>{{$t->arrived}}</td>
-                                        <td>{{$t->newdate}}</td>
+                                        <td>{{$t->vehicle->name }}</td>
+                                        <td>{{$t->person->fullname }}</td>
+                                        <td>{{$t->review_date}}</td>
+                                        <td>{{$t->expiration_date}}</td>
                                         <td>
-                                            <a class="btn-delete" href="{{ route('parking.admin.tecnomecanica.delete',$t) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                            <a class="btn-delete" href="{{ route('hangarauto.admin.tecnomecanica.delete',$t) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td>

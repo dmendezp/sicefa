@@ -14,37 +14,35 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col pt-4">
-                <div class="card-header bg-warning">
-                    <h5>{{ trans('hangarauto::Vehiculos.cefa_vehicles') }}</h5>
+                <div class="card-header">
+                    <h4>{{ trans('hangarauto::Vehiculos.vehicles') }}</h4>
                 </div><br>
-                <a href="{{ route('cefa.parking.admin.vehicles.create')}}">
-                    <button type="button" class="btn btn-primary">Agregar Vehiculo</button>
-                </a><br><br>
+                @include('hangarauto::admin.vehiculos.create')
                 <div class="card">
                     <div class="card-body">
                         <table id="Travel" class="table table-striped table-bordered" style="width:100%">
                             <thead>
-                                <th>ID</th>
-                                <th>Vehículos</th>
+                                <th>#</th>
+                                <th>Vehículo</th>
                                 <th>Referencia</th>
                                 <th>Estado</th>
                                 <th>Placa</th>
                                 <th>Nivel De Gasolina</th>
-                                <th>Editar Info</th>
+                                <th>Acciones</th>
                             </thead>
                             <tbody>
                                 @foreach ($vehicles as $t)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$t->name}}</td>
-                                        <td>{{$t->referece}}</td>
+                                        <td>{{$t->reference}}</td>
                                         <td>{{$t->status}}</td>
                                         <td>{{$t->license}}</td>
                                         <td>{{$t->fuel_level}}</td>
                                         <td>
-                                            <a href="{{ route('cefa.parking.admin.vehicles.edit',$t) }}" type="button"><i class="fas fa-edit"></i></a>
-                                            <a class="btn-delete" href="{{ route('cefa.parking.admin.vehicles.delete',$t) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
-                                                <i class="fas fa-trash-alt"></i>
+                                            <a href="{{ route('hangarauto.admin.vehicles.edit', $t->id) }}" type="button"><i class="fas fa-edit"></i></a>
+                                            <a class="btn-delete" href="{{ route('hangarauto.admin.vehicles.delete',$t) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                <i class="fas fa-trash-alt text-danger"></i>
                                             </a>
                                         </td>
                                     </tr>

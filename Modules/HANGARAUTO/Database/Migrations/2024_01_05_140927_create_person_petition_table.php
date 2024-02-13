@@ -13,10 +13,10 @@ class CreatePersonPetitionTable extends Migration
      */
     public function up()
     {
-        Schema::create('person_petition', function (Blueprint $table) {
+        Schema::create('person_petitions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('petition_id');
-            $table->foreignId('person_id');
+            $table->foreignId('petition_id')->constrained()->onDelete('cascade');
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->enum('kind_of_people',['Conductor','Usuario']);
             $table->timestamps();
         });
@@ -29,6 +29,7 @@ class CreatePersonPetitionTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('person_petition');
     }
 }

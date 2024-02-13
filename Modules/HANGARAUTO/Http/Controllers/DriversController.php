@@ -31,10 +31,10 @@ class DriversController extends Controller
 
     // Agregar Conductor
     public function postCreateAdd(Request $request){
-        $drivers = new driver();
+        $drivers = new Driver();
         $drivers->person_id = $request->input('person_id');
         if ($drivers->save()){
-            return redirect(route('parking.admin.drivers'))->with('messages', 'Conductor Agregado Con Exito')->with('typealert','success');
+            return redirect(route('hangarauto.admin.drivers'))->with('messages', 'Conductor Agregado Con Exito')->with('typealert','success');
         }
         return view('hangarauto::admin.drivers');
     }
@@ -54,7 +54,7 @@ class DriversController extends Controller
         if ($validator->fails()):
             return redirect('hangarauto::admin.conductores.create')->withErrors($validator)->with('messages', 'Se Ha Producido Un Error')->with('typealert', 'danger')->withInput();
         else:
-            $people = Person::where('document', $request->input('search'))->first();
+            $people = Person::where('document_number', $request->input('search'))->first();
             $data = ['people' => $people];
             return view('hangarauto::admin.conductores.create', $data);
         endif;
@@ -107,9 +107,9 @@ class DriversController extends Controller
     // Eliminar Conductores
     public function getDriversDelete($id)
     {
-        $driver = Drivers::find($id);
-        if($drivers->delete()):
-            return redirect(route('parking.admin.drivers'))->with('messages','Conductor Eliminado Con Exito.')->with('typealert','success');
+        $driver = Driver::find($id);
+        if($driver->delete()):
+            return redirect(route('hangarauto.admin.drivers'))->with('messages','Conductor Eliminado Con Exito.')->with('typealert','success');
         endif;
     }
 }

@@ -12,20 +12,20 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['url' => route('cefa.parking.tecnomecanica.add'), 'files' => true]) !!}
+                {!! Form::open(['url' => route('hangarauto.admin.tecnomecanica.add'), 'files' => true]) !!}
                 {{ csrf_field() }}
 
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Vehiculo:</label>
-                    {!! Form::select('vehicle_name_id',$vehicles, null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
+                    <label for="vehicle_id" class="form-label">Vehiculo:</label>
+                    {!! Form::select('vehicle_id',$vehicles, null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Renovo La Tecnomecanica el:</label>
-                    {!! Form::date('arrived', null, ['class' => 'form-control']) !!}
+                    <label for="person_id" class="form-label">Responsable:</label>
+                    {!! Form::select('person_id',$drivers, null, ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) !!}
                 </div>
                 <div class="mb-3">
-                    <label for="exampleinputEmail1" class="form-label">Nueva Fecha De Vencimiento:</label>
-                    {!! Form::date('newdate', null, ['class' => 'form-control']) !!}
+                    <label for="review_date" class="form-label">Fecha de Revision:</label>
+                    {!! Form::date('review_date', null, ['class' => 'form-control']) !!}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>

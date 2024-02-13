@@ -15,11 +15,11 @@ class Vehicle extends Model
 
     
 
-    public function Soat(){
-        return $this->hasMany('Modules\HANGARAUTO\Entities\Soat');
+    public function soats(){
+        return $this->hasMany(Soat::class);
     }
 
-    public function Tecnomecanic(){
-        return $this->hasMany('Modules\HANGARAUTO\Entities\Tecnomecanic');
+    public function tecnomecanics(){
+        return $this->hasMany(Tecnomecanic::class);
     }
 }

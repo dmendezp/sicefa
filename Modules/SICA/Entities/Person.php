@@ -10,6 +10,7 @@ use Modules\EVS\Entities\Jury;
 use Modules\EVS\Entities\Authorized;
 use App\Models\User;
 use Modules\SICA\Entities\Event;
+use Modules\HANGARAUTO\Entities\Tecnomecanic;
 use Modules\SIGAC\Entities\AcademicProgramming;
 
 class Person extends Model implements Auditable
@@ -147,6 +148,9 @@ class Person extends Model implements Auditable
     }
     public function productive_units(){ // Accede a todas las unidades productivas que lidera esta persona
         return $this->hasMany(ProductiveUnit::class);
+    }
+    public function tecnomecanics(){ // Accede a todas las unidades productivas que lidera esta persona
+        return $this->hasMany(Tecnomecanic::class);
     }
     public function users(){ // Accede a todos los usuarios registrados con esta persona
         return $this->hasMany(User::class);

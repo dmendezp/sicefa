@@ -9,18 +9,20 @@
             <a href="{{ route('cefa.hangarauto.index') }}"class="nav-link">{{ trans('hangarauto::general.Home') }}</a>
         </li>
         
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" 
-                        class="nav-link ">{{ trans('hangarauto::general.Administrator')}}</a>
-                </li>
-
+                @auth
+                    @if (checkRol('hangarauto.admin'))
+                        <li class="nav-item d-none d-sm-inline-block">
+                            <a href="{{ route('hangarauto.admin.index') }}" 
+                                class="nav-link ">{{ trans('hangarauto::general.Administrator')}}</a>
+                        </li>
+                    @endif
+                    @if (checkRol('hangarauto.charge'))
+                        <li class="nav-item d-none d-sm-inline-block">
+                            <a href="{{ route('hangarauto.charge.index') }}" class="nav-link ">{{ trans('hangarauto::general.Charge')}}</a>
+                        </li>
+                    @endif
+                @endauth
             
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link ">{{ trans('hangarauto::general.Charge')}}</a>
-                </li>
-            
-        
-        
         
     </ul>
 
