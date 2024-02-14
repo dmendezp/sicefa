@@ -15,34 +15,23 @@
                                     <tr>
                                         <th class="text-center">#</th>
                                         <th class="text-center">Nombre</th>
-                                        <th>Documento</th>
-                                        <th>Correo</th>
-                                        <th>Telefono</th>
-                                        <th>Tipo de Empleado</th>
-                                        <th class="text-center">Acciones</th>
+                                        <th class="text-center">Documento</th>
+                                        <th class="text-center">Correo</th>
+                                        <th class="text-center">Telefono</th>
+                                        <th class="text-center">Tipo de Empleado</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($instructors as $instructor)
                                     <tr>
-                                        @foreach ($instructors as $i)
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td class="text-center">{{ $i->person->fullname }}</td>
-                                        <td class="text-center">{{ $i->person->document_number }}</td>
-                                        <td>{{ $i->person->misena_email }}</td>
-                                        <td>{{ $i->person->telephone1 }}</td>
-                                        <td>{{ $i->employee_type->name }}</td>
-                                        <td class="text-center">
-                                            <div class="opts">
-                                                <a href="#" class="text-success" data-toggle='tooltip' data-placement="top" title="Actualizar instructor" disabled>
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <a href="#" class="text-danger" data-toggle='tooltip' data-placement="top" title="Eliminar instructor" disabled>
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                        @endforeach
+                                        <td class="text-center">{{ $loop->iteration }}</td>
+                                        <td class="text-center">{{ $instructor->first_name }} {{ $instructor->first_last_name }}</td>
+                                        <td class="text-center">{{ $instructor->document_number }}</td>
+                                        <td class="text-center">{{ $instructor->misena_email }}</td>
+                                        <td class="text-center">{{ $instructor->telephone1 }}</td>
+                                        <td class="text-center">{{ $instructor->employee_type_name }}</td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
