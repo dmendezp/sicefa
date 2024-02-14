@@ -1,7 +1,7 @@
 @extends('hangarauto::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('hangarauto::') }}</li>
+    <li class="breadcrumb-item active">{{ trans('hangarauto::vehiculos.Reports') }}</li>
 @endpush
 
 @section('content')
@@ -35,11 +35,12 @@
                     @csrf
                     <label class="mtop16" for="name">{{ trans('hangarauto::drivers.Name')}}:</label>
                     <div>
-                        {{ $people->first_name." ".$people->first_last_name." ".$people->second_last_name." ".$people->telephone1." ".$people->document." ".$people->misena_email }}
+                        {{ $people->first_name." ".$people->first_last_name." ".$people->second_last_name." ".$people->document_number }}
 
                         {!! Form::hidden('person_id', $people->id, ['class' => 'form-control', 'placeholder' => 'ingrese Su Busqueda', 'required']) !!}
                     </div>
-                    {!! Form::submit( trans('hangarauto::drivers.Search'), ['class' => 'btn btn-success mtop16']) !!}
+                    <br>
+                    {!! Form::submit( trans('hangarauto::drivers.Save'), ['class' => 'btn btn-success mtop16', 'style' => 'margin-bottom:20px']) !!}
                     {!! Form::close() !!}
                 @endif
             @endif

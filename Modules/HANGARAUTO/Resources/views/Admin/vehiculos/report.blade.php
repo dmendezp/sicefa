@@ -20,7 +20,7 @@
                         {!! Form::text('search', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Numero de Placa', 'required']) !!}
                     </div>
                     <div class="col-md-4">
-                        {!! Form::submit(trans('hangarauto::Drivers.Save'), ['class' => 'btn btn-success']) !!}
+                        {!! Form::submit(trans('hangarauto::Drivers.Search'), ['class' => 'btn btn-success']) !!}
                     </div>
                 </div>
                 {!! Form::close() !!}

@@ -32,6 +32,7 @@ Route::middleware(['lang'])->group(function () {
             // Rutas Municipios
             Route::post('/index/solicitar/municipios/search', 'ParkingController@postMunicipiosSearch')->name('cefa.parking.solicitar.municipios.search');
             Route::get('/get-municipalities/{departmentId}', 'ParkingController@getMunicipalities')->name('cefa.parking.solicitar.searchmunicipio');
+            Route::get('/get-drivers/{driverId}', 'ParkingController@getDrivers')->name('cefa.parking.solicitar.searchdriver');
 
 
             /*Ruta Del CRUD Del Formulario De Registro */
@@ -106,9 +107,10 @@ Route::middleware(['lang'])->group(function () {
             Route::get('/administrator/conductores/delete/{id}', 'DriversController@getDriversDelete')->name('hangarauto.admin.drivers.delete');
             Route::get('/encargado/conductores/delete/{id}', 'DriversController@getDriversDelete')->name('hangarauto.charge.drivers.delete');
             // Rutas Para Editar Informacion De Los Conductores
-            // Route::get('/administrator/conductores/edit/{id}', 'DriversController@getDriverEdit')->name('parking.admin.drivers.edit');
+            // Route::get('/administrator/conductores/edit/{id}', 'DriversController@getDriverEdit')->name('hangarauto.admin.drivers.edit');
             // Route::post('/administrator/conductores/edit/{id}', 'DriversController@postDriversEdit')->name('parking.admin.drivers.ediet');
             // Ruta Para Eliminar Los Conductores
+            Route::delete('admin/resulform/delete/{id}', 'DriversController@delete')->name('hangarauto.admin.delete');
             
         });
 

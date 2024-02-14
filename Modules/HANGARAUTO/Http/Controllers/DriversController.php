@@ -62,15 +62,15 @@ class DriversController extends Controller
 
     
     // Editar Conductores
-    /*public function getDriversEdit($id)
+    public function getDriversEdit($id)
     {
         $drivers = Driver::find($id);
         $data = ['drivers' => $dirvers];
         return view('hangarauto::admin.conductores.edit', $data);
-    }*/
+    }
 
     // Mostar Conductores Actualizados
-    /*public function postDriversEdit(Request $request, $id)
+    public function postDriversEdit(Request $request, $id)
     {
         $rules = [
             'name' => 'required',
@@ -99,17 +99,17 @@ class DriversController extends Controller
             $drivers->phone = $request->input('phone');
             $drivers->i_number = $request->input('id_number');
             if($drivers->save()){
-                return redirect(route('parking.admin.drivers'))->with('messages','Conductor Actualizado Con Exito.')->with('typealert','success');
+                return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers'))->with('messages','Conductor Actualizado Con Exito.')->with('typealert','success');
             }
         endif;
-    }*/
+    }
 
     // Eliminar Conductores
     public function getDriversDelete($id)
     {
         $driver = Driver::find($id);
         if($driver->delete()):
-            return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers'))->with('messages','Conductor Eliminado Con Exito.')->with('typealert','success');
+            return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers.delete'))->with('messages','Conductor Eliminado Con Exito.')->with('typealert','success');
         endif;
     }
 }

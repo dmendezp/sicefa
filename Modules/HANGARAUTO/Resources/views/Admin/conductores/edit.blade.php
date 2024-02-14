@@ -1,4 +1,4 @@
-@extends('parking::layout.adminhome')
+@extends('hangarauto::layouts.master')
 
 @push('breadcrumbs')
     <li class="breadcrumb-item active">{{ trans('hangarauto::') }}</li>

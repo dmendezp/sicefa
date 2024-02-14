@@ -37,8 +37,16 @@
                                         <td>{{$d->person->telephone1}}</td>
                                         <td>{{$d->person->document_number}}</td>
                                         <td>
-                                            <a class="btn-delete" href="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.drivers.delete',$d) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
-                                                <i class="fas fa-trash-alt text-danger"></i>
+                                            <form action="{{ route('hangarauto'. getRoleRouteName(Route::currentRouteName()) .'drivers.delete', $d->id) }}" method="post" id="formEliminar{{ $d->id }}">
+                                                @csrf
+                                                @method('DELETE')
+    
+                                                <button class="btn btn-danger btnEliminar" type="button" data-form-id="formEliminar{{ $d->id }}">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                            <a href="{{ route('cefa.parking.edit', $d) }}" class="btn btn-primary btnUpdat">
+                                                <i class="fa-solid fa-pen-to-square"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -51,13 +59,34 @@
         </div>
     </div>
 @stop
-@section('js')
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min-js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+@push('scripts')
+    <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script>
-        $(document).ready(function() {
-            $('#travels').DataTable();
+        document.addEventListener('DOMContentLoaded', () => {
+            const deleteButtons = document.querySelectorAll('.btnEliminar');
+
+            deleteButtons.forEach((deleteButton) => {
+                deleteButton.addEventListener('click', () => {
+                    const formId = deleteButton.dataset.formId;
+                    const form = document.getElementById(formId);
+
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: 'Esta acción no se puede deshacer',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Sí, eliminar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Envía el formulario de manera convencional
+                            form.submit();
+                        } else {
+                            Swal.fire('Cancelado', 'La acción ha sido cancelada', 'info');
+                        }
+                    });
+                });
+            });
         });
     </script>
-@endsection
+@endpush

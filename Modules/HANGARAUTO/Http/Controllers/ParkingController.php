@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\HANGARAUTO\Entities\Petition;
-use Modules\HANGARAUTO\Entities\Drivers;
+use Modules\HANGARAUTO\Entities\Driver;
 use Modules\HANGARAUTO\Entities\Vehicle;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Country;
@@ -113,5 +113,14 @@ class ParkingController extends Controller
 
         // Devolver los municipios como respuesta en formato JSON
         return response()->json($municipalities);
+    }
+
+    public function getDrivers($vehicleId)
+    {
+        // Buscar los municipios correspondientes al departamento seleccionado
+        $drivers = Driver::where('person_id', $vehicleId)->get();
+
+        // Devolver los municipios como respuesta en formato JSON
+        return response()->json($drivers);
     }
 }

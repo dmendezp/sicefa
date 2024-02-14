@@ -22,11 +22,11 @@
                                 </div>
                                 <div class="form-group">
                                     {!! Form::label('start_date', trans('Fecha Del Viaje')) !!}
-                                    {!! Form::date('start_date', null, ['class' => 'form-control']) !!}
+                                    {{ Form::input('dateTime-local', 'start_date', null, ['id' => 'game-date-time-text', 'class' => 'form-control']) }}
                                 </div>
                                 <div class="form-group">
                                     {!! Form::label('end_date', trans('Fecha De Regreso')) !!}
-                                    {!! Form::date('end_date', null, ['class' => 'form-control']) !!}
+                                    {{ Form::input('dateTime-local', 'end_date', null, ['id' => 'game-date-time-text', 'class' => 'form-control']) }}
                                 </div>
                                 <div class="form-group">
                                     {!! Form::label('department', trans('Departamento Donde Se Dirige')) !!}
@@ -42,8 +42,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {!! Form::label('vehicle', trans('Vehiculo')) !!}
-                                    {!! Form::select('vehicle', $vehicles, null, ['class' => 'form-control', 'placeholder' => trans('Seleccione El Vehiculo')]) !!}
-                                </div> 
+                                    {!! Form::select('vehicle', $vehicles, null, ['class' => 'form-control', 'placeholder' => trans('Seleccione El Vehiculo'), 'id' => 'vehicle']) !!}
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::label('driver', trans('Conductor')) !!}
+                                    <select name="driver" id="driver" class="form-control" disabled>
+                                        <option value="">{{ trans('Seleccione el Conductor') }}</option>
+                                    </select>
+                                </div>  
                                 <div class="form-group">
                                     {!! Form::label('numstudents', trans('Numero De Pasajeros')) !!}
                                     {!! Form::number('numstudents', null, ['class' => 'form-control']) !!}
@@ -85,6 +91,30 @@
                     // Agregar las opciones de municipios al select
                     $.each(response, function(key, value) {
                         $('#municipality').append('<option value="' + key + '">' + value + '</option>');
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+        $('#vehicle').change(function() {
+            var vehicleId = $(this).val();
+
+            // Realizar la petición AJAX
+            $.ajax({
+                url: '/hangarauto/get-drivers/' + vehicleId,
+                type: 'GET',
+                success: function(response) {
+                    // Limpiar el select de municipios
+                    $('#driver').empty();
+
+                    // Habilitar el select de municipios
+                    $('#driver').prop('disabled', false);
+
+                    // Agregar las opciones de municipios al select
+                    $.each(response, function(key, value) {
+                        $('#driver').append('<option value="' + key + '">' + value + '</option>');
                     });
                 },
                 error: function(xhr, status, error) {

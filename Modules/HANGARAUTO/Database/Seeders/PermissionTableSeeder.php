@@ -68,6 +68,7 @@ class PermissionTableSeeder extends Seeder
             'description_english' => 'Search for the person to register them as a driver',
             'app_id' => $app->id
         ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Vista formulario del conductor
         $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.drivers.delete'], [ // Registro o actualización de permiso
@@ -325,6 +326,23 @@ class PermissionTableSeeder extends Seeder
 
         $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.vehicles.report.index'], [ // Registro o actualización de permiso
             'name' => 'Vista Reporte de Vehiculo',
+            'description' => 'Acceso a la vista para observar el reporte del vehiculo',
+            'description_english' => 'Access to view to observe the vehicle report',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.vehicles.report.search'], [ // Registro o actualización de permiso
+            'name' => 'Buscar Reporte de Vehiculo',
+            'description' => 'Acceso a la vista para observar el reporte del vehiculo',
+            'description_english' => 'Access to view to observe the vehicle report',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.vehicles.report.search'], [ // Registro o actualización de permiso
+            'name' => 'Buscar Reporte de Vehiculo',
             'description' => 'Acceso a la vista para observar el reporte del vehiculo',
             'description_english' => 'Access to view to observe the vehicle report',
             'app_id' => $app->id
