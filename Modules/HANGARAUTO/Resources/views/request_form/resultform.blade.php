@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="col-md-12">
-        <div class="card card-success card-outline shadow mt-2">
+        <div class="card card-primary card-outline shadow mt-2">
             <div class="card-header">
                 <h2 class="card-title"><strong>{{ trans('hangarauto::solicitar.Tilte_Card_Records_Saver') }}</strong></h2>
             </div>
@@ -25,6 +25,7 @@
                                 <th>{{ trans('hangarauto::Vehiculos.Vehicle')}}</th>
                                 <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_Department')}}</th>
                                 <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_City')}}</th>
+                                <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_Assigned_Driver')}}</th>
                                 <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_numstudents')}}</th>
                                 <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_reason_for_trip')}}</th>
                                 <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_Action')}}</th>
@@ -39,6 +40,7 @@
                                     <td>{{ $dato->vehicle->name }} - {{ $dato->vehicle->license }} </td>
                                     <td>{{ $dato->municipality->department->name }}</td>
                                     <td>{{ $dato->municipality->name }}</td>
+                                    <td>{{ $dato->driver }}</td>
                                     <td>{{ $dato->numstudents }}</td>
                                     <td>{{ $dato->reason }}</td>
                                     <td>

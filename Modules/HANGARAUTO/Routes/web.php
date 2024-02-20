@@ -108,9 +108,9 @@ Route::middleware(['lang'])->group(function () {
             Route::get('/encargado/conductores/delete/{id}', 'DriversController@getDriversDelete')->name('hangarauto.charge.drivers.delete');
             // Rutas Para Editar Informacion De Los Conductores
             // Route::get('/administrator/conductores/edit/{id}', 'DriversController@getDriverEdit')->name('hangarauto.admin.drivers.edit');
-            // Route::post('/administrator/conductores/edit/{id}', 'DriversController@postDriversEdit')->name('parking.admin.drivers.ediet');
+            // Route::post('/administrator/conductores/edit/{id}', 'DriversController@postDriversEdit')->name('hangarauto.admin.drivers.edit');
             // Ruta Para Eliminar Los Conductores
-            Route::delete('admin/resulform/delete/{id}', 'DriversController@delete')->name('hangarauto.admin.delete');
+            
             
         });
 

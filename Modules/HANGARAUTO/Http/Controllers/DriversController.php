@@ -61,7 +61,7 @@ class DriversController extends Controller
     }
 
     
-    // Editar Conductores
+    /*// Editar Conductores
     public function getDriversEdit($id)
     {
         $drivers = Driver::find($id);
@@ -102,7 +102,7 @@ class DriversController extends Controller
                 return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers'))->with('messages','Conductor Actualizado Con Exito.')->with('typealert','success');
             }
         endif;
-    }
+    }*/
 
     // Eliminar Conductores
     public function getDriversDelete($id)

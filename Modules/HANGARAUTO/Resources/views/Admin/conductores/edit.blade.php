@@ -1,7 +1,7 @@
 @extends('hangarauto::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('hangarauto::') }}</li>
+    <li class="breadcrumb-item active">{{ trans('hangarauto::drivers_update') }}</li>
 @endpush
 
 @section('content')

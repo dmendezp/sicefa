@@ -21,11 +21,11 @@
                                     {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('Nombre'), 'required']) !!}
                                 </div>
                                 <div class="form-group">
-                                    {!! Form::label('start_date', trans('Fecha Del Viaje')) !!}
+                                    {!! Form::label('start_date', trans('Fecha Y Hora Del Viaje')) !!}
                                     {{ Form::input('dateTime-local', 'start_date', null, ['id' => 'game-date-time-text', 'class' => 'form-control']) }}
                                 </div>
                                 <div class="form-group">
-                                    {!! Form::label('end_date', trans('Fecha De Regreso')) !!}
+                                    {!! Form::label('end_date', trans('Fecha Y Hora De Regreso')) !!}
                                     {{ Form::input('dateTime-local', 'end_date', null, ['id' => 'game-date-time-text', 'class' => 'form-control']) }}
                                 </div>
                                 <div class="form-group">

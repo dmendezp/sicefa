@@ -5,6 +5,7 @@ return [
     'Drivers' => 'Drivers',
     'Add Driver' => 'Add Driver',
     'Add New Driver' => 'Add new driver',
+    'drivers_update' => 'Drivers Update',
     'Name' => 'Name',
     'Document' => 'Document',
     'Telephone' => 'Telephone',

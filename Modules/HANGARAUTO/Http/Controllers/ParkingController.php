@@ -43,6 +43,7 @@ class ParkingController extends Controller
             'end_date' => 'required',
             'department' => 'required',
             'municipality' => 'required',
+            'driver' => 'required',
             'numstudents' => 'required|numeric',
             'reason' => 'required',
         ];
