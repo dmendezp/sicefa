@@ -13,6 +13,10 @@ return [
     'login' => 'Login',
     'BacktoSICEFA' => 'Back To SICEFA',
     'instructions' => 'instructions',
+    'Parameters' => 'Parameters',
+    'Check' => 'Check',
+    'Vehicle_drivers' => 'Vehicle Drivers',
+    'Requests' => 'Requests',
 
     // indicador Página Inicio
     'Indicator_Homepage' => 'Homepage',

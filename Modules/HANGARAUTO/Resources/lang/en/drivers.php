@@ -3,6 +3,8 @@
 return [
     // Indicador De La Vista Y Sidebar
     'Drivers' => 'Drivers',
+    'Vehicle_Report' => 'Vehicle Report',
+    'Assigned_Routes' => 'Assigned Routes',
     'Add Driver' => 'Add Driver',
     'Add New Driver' => 'Add new driver',
     'Name' => 'Name',

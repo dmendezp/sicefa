@@ -19,5 +19,12 @@ return [
     'Title_Header_Table_Column_City'                  =>  'Municipio',
     'Title_Header_Table_Column_numstudents'           =>  'N° Personas',
     'Title_Header_Table_Column_reason_for_trip'       =>  'Motivo Del Viaje',
-    'Title_Header_Table_Column_Action'                =>  'Acciones'
+    'Title_Header_Table_Column_reason_for_status'     =>  'Estado',
+    'Title_Header_Table_Column_Action'                =>  'Acciones',
+
+    // Botones
+    'btn_Assign_and_Confirm' => 'Asignar y Confirmar',
+    'btn_deny' => 'Denegar',
+    'btn_Approved' => 'Aprobado',
+    'btn_Show_Details' => 'Mostrar Observaciones',
 ];

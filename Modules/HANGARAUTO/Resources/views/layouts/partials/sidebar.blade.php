@@ -68,201 +68,227 @@
 
             <!-- Sidebar Menu Administrador-->
             @if (Route::is('hangarauto.admin.*'))
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"data-accordion="false">
-                    @if (Auth::user()->havePermission('hangarauto.admin.drivers'))
-                    <li class="nav-item">
-                        <a href="{{ route('hangarauto.admin.drivers')}}" class="nav-link">
-                            <i class="fa-regular fa-id-card"></i>
-                            <p>
-                                {{trans('hangarauto::drivers.Drivers')}}
-                            </p>
-                        </a>
-                    </li>
-                    @endif
-                    @if (Auth::user()->havePermission('hangarauto.admin.vehicles'))
-                    <li class="nav-item">
-                        <a href="{{ route('hangarauto.admin.drivervehicles') }}" class="nav-link">
-                            <i class="fa-solid fa-person-walking-dashed-line-arrow-right"></i>
-                            <p>
-                                Conductores Vehiculos
-                            </p>
-                        </a>
-                    </li>
-                    @endif
-                    @if (Auth::user()->havePermission('hangarauto.admin.vehicles'))
-                    <li class="nav-item">
-                        <a href="{{ route('hangarauto.admin.vehicles') }}" class="nav-link">
-                            <i class="fas fa-bus"></i>
-                            <p>
-                                {{trans('hangarauto::vehiculos.Vehicles')}}
-                            </p>
-                        </a>
-                    </li>
-                    @endif
-                    @if (Auth::user()->havePermission('hangarauto.admin.tecnomecanica'))
-                    <li class="nav-item">
-                        <a href="{{ route('hangarauto.admin.tecnomecanica') }}" class="nav-link">
-                            <i class="fa-solid fa-screwdriver"></i>
-                            <p>
-                                {{trans('hangarauto::Tecno.Tecnomechanic')}}
-                            </p>
-                        </a>
-                    </li>
-                    @endif
-                    @if (Auth::user()->havePermission('hangarauto.admin.petitions'))
-                    <li class="nav-item">
-                        <a href="{{ route('hangarauto.admin.petitions') }}" class="nav-link">
-                            <i class="fa-solid fa-envelope-open"></i>
-                            <p>
-                                Solicitudes
-                            </p>
-                        </a>
-                    </li>
-                    @endif
-                    @if (Auth::user()->havePermission('hangarauto.admin.check'))
-                    <li class="nav-item">
-                        <a href="{{ route('hangarauto.admin.check') }}" class="nav-link">
-                            <i class="fas fa-file-signature"></i>
-                            <p>
-                                Chequeo
-                            </p>
-                        </a>
-                    </li>
-                    @endif
-                    @if (Auth::user()->havePermission('hangarauto.admin.soat'))
-                    <li class="nav-item">
-                        <a href="{{ route('hangarauto.admin.soat') }}" class="nav-link">
-                            <i class="fas fa-file-signature"></i>
-                            <p>
-                                {{trans('hangarauto::soat.Soat')}}
-                            </p>
-                        </a>
-                    </li>
-                    @endif
-                    @if (Auth::user()->havePermission('hangarauto.admin.consumo'))
-                    <li class="nav-item">
-                        <a href="{{ route('hangarauto.admin.consumo') }}" class="nav-link">
-                            <i class="fa-solid fa-gas-pump"></i>
-                            <p>
-                                {{trans('hangarauto::comsuption.fuelcomsuption')}}
-                            </p>
-                        </a>
-                    </li>
-                    @endif
-                    <li class="nav-item {{ !Route::is('hangarauto.admin.vehicles.report.*') ?: 'menu-is-opening menu-open' }}">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-file"></i>
-                            <p>
-                                {{trans('hangarauto::Vehiculos.Reports')}}
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            @if (Auth::user()->havePermission('hangarauto.admin.vehicles.report.index'))
-                                <li class="nav-item">
-                                    <a href="{{ route('hangarauto.admin.vehicles.report.index') }}" class="nav-link ">
-                                        <i class="fa-solid fa-car-on"></i>
-                                        <p>{{trans('hangarauto::Vehiculos.Vehicle')}}</p>
-                                    </a>
-                                </li>
-                            @endif
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"data-accordion="false">
+                        <li class="nav-item {{ !Route::is('hangarauto.admin.vehicles.report.*') ?: 'menu-is-opening menu-open' }}">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-file"></i>
+                                <p>
+                                    {{trans('hangarauto::general.Parameters')}}
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                @if (Auth::user()->havePermission('hangarauto.admin.drivers'))
+                                    <li class="nav-item">
+                                        <a href="{{ route('hangarauto.admin.drivers')}}" class="nav-link">
+                                            <i class="fa-regular fa-id-card"></i>
+                                            <p>
+                                                {{trans('hangarauto::drivers.Drivers')}}
+                                            </p>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if (Auth::user()->havePermission('hangarauto.admin.vehicles'))
+                                    <li class="nav-item">
+                                        <a href="{{ route('hangarauto.admin.drivervehicles') }}" class="nav-link">
+                                            <i class="fa-solid fa-person-walking-dashed-line-arrow-right"></i>
+                                            <p>
+                                                {{trans('hangarauto::general.Vehicle_drivers') }}
+                                            </p>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if (Auth::user()->havePermission('hangarauto.admin.vehicles'))
+                                    <li class="nav-item">
+                                        <a href="{{ route('hangarauto.admin.vehicles') }}" class="nav-link">
+                                            <i class="fas fa-bus"></i>
+                                            <p>
+                                                {{trans('hangarauto::vehiculos.Vehicles')}}
+                                            </p>
+                                        </a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                        <li class="nav-item {{ !Route::is('hangarauto.admin.vehicles.report.*') ?: 'menu-is-opening menu-open' }}">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                                <p>
+                                    {{trans('hangarauto::Tecno.Maintainances')}}
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                @if (Auth::user()->havePermission('hangarauto.admin.tecnomecanica'))
+                                    <li class="nav-item">
+                                        <a href="{{ route('hangarauto.admin.tecnomecanica') }}" class="nav-link">
+                                            <i class="fa-solid fa-screwdriver"></i>
+                                            <p>
+                                                {{trans('hangarauto::Tecno.Tecnomechanic')}}
+                                            </p>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if (Auth::user()->havePermission('hangarauto.admin.soat'))
+                                    <li class="nav-item">
+                                        <a href="{{ route('hangarauto.admin.soat') }}" class="nav-link">
+                                            <i class="fas fa-file-signature"></i>
+                                            <p>
+                                                {{trans('hangarauto::soat.Soat')}}
+                                            </p>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if (Auth::user()->havePermission('hangarauto.admin.consumo'))
+                                    <li class="nav-item">
+                                        <a href="{{ route('hangarauto.admin.consumo') }}" class="nav-link">
+                                            <i class="fa-solid fa-gas-pump"></i>
+                                            <p>
+                                                {{trans('hangarauto::comsuption.fuelcomsuption')}}
+                                            </p>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if (Auth::user()->havePermission('hangarauto.admin.check'))
+                                    <li class="nav-item">
+                                        <a href="{{ route('hangarauto.admin.check') }}" class="nav-link">
+                                            <i class="fas fa-file-signature"></i>
+                                            <p>
+                                                {{ trans('hangarauto::general.Check')}}
+                                            </p>
+                                        </a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                        @if (Auth::user()->havePermission('hangarauto.admin.petitions'))
+                        <li class="nav-item">
+                            <a href="{{ route('hangarauto.admin.petitions') }}" class="nav-link">
+                                <i class="fa-solid fa-envelope-open"></i>
+                                <p>
+                                    {{ trans('hangarauto::general.Requests')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+                        <li class="nav-item {{ !Route::is('hangarauto.admin.vehicles.report.*') ?: 'menu-is-opening menu-open' }}">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-file"></i>
+                                <p>
+                                    {{trans('hangarauto::Vehiculos.Reports')}}
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                @if (Auth::user()->havePermission('hangarauto.admin.vehicles.report.index'))
+                                    <li class="nav-item">
+                                        <a href="{{ route('hangarauto.admin.vehicles.report.index') }}" class="nav-link ">
+                                            <i class="fa-solid fa-car-on"></i>
+                                            <p>{{trans('hangarauto::Vehiculos.Vehicle')}}</p>
+                                        </a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
             @endif
+            <!-- Sidebar Menu Encargado -->
             @if (Route::is('hangarauto.charge.*'))
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                    data-accordion="false">
-                    @if (Auth::user()->havePermission('hangarauto.charge.tecnomecanica'))
-                    <li class="nav-item">
-                        <a href="{{ route('hangarauto.charge.tecnomecanica') }}" class="nav-link">
-                            <i class="fa-solid fa-screwdriver"></i>
-                            <p>
-                                {{trans('hangarauto::Tecno.Tecnomechanic')}}
-                            </p>
-                        </a>
-                    </li>
-                    @endif
-                    @if (Auth::user()->havePermission('hangarauto.charge.soat'))
-                    <li class="nav-item">
-                        <a href="{{ route('hangarauto.charge.soat') }}" class="nav-link">
-                            <i class="fas fa-file-signature"></i>
-                            <p>
-                                {{trans('hangarauto::soat.Soat')}}
-                            </p>
-                        </a>
-                    </li>
-                    @endif
-                    @if (Auth::user()->havePermission('hangarauto.charge.consumo'))
-                    <li class="nav-item">
-                        <a href="{{ route('hangarauto.charge.consumo') }}" class="nav-link">
-                            <i class="fa-solid fa-gas-pump"></i>
-                            <p>
-                                {{trans('hangarauto::comsuption.fuelcomsuption')}}
-                            </p>
-                        </a>
-                    </li>
-                    @endif
-                    @if (Auth::user()->havePermission('hangarauto.charge.petitions'))
-                    <li class="nav-item">
-                        <a href="{{ route('hangarauto.charge.petitions') }}" class="nav-link">
-                            <i class="fa-solid fa-envelope-open"></i>
-                            <p>
-                                Solicitudes
-                            </p>
-                        </a>
-                    </li>
-                    @endif
-                    @if (Auth::user()->havePermission('hangarauto.charge.check'))
-                    <li class="nav-item">
-                        <a href="{{ route('hangarauto.charge.check') }}" class="nav-link">
-                            <i class="fas fa-file-signature"></i>
-                            <p>
-                                Chequeo
-                            </p>
-                        </a>
-                    </li>
-                    @endif
-                </ul>
-            </nav>
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        @if (Auth::user()->havePermission('hangarauto.charge.tecnomecanica'))
+                        <li class="nav-item">
+                            <a href="{{ route('hangarauto.charge.tecnomecanica') }}" class="nav-link">
+                                <i class="fa-solid fa-screwdriver"></i>
+                                <p>
+                                    {{trans('hangarauto::Tecno.Tecnomechanic')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+                        @if (Auth::user()->havePermission('hangarauto.charge.soat'))
+                        <li class="nav-item">
+                            <a href="{{ route('hangarauto.charge.soat') }}" class="nav-link">
+                                <i class="fas fa-file-signature"></i>
+                                <p>
+                                    {{trans('hangarauto::soat.Soat')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+                        @if (Auth::user()->havePermission('hangarauto.charge.consumo'))
+                        <li class="nav-item">
+                            <a href="{{ route('hangarauto.charge.consumo') }}" class="nav-link">
+                                <i class="fa-solid fa-gas-pump"></i>
+                                <p>
+                                    {{trans('hangarauto::comsuption.fuelcomsuption')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+                        @if (Auth::user()->havePermission('hangarauto.charge.petitions'))
+                        <li class="nav-item">
+                            <a href="{{ route('hangarauto.charge.petitions') }}" class="nav-link">
+                                <i class="fa-solid fa-envelope-open"></i>
+                                <p>
+                                    {{ trans('hangarauto::general.Requests')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+                        @if (Auth::user()->havePermission('hangarauto.charge.check'))
+                        <li class="nav-item">
+                            <a href="{{ route('hangarauto.charge.check') }}" class="nav-link">
+                                <i class="fas fa-file-signature"></i>
+                                <p>
+                                    {{ trans('hangarauto::general.Check')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+                    </ul>
+                </nav>
             @endif
+            <!-- Sidebar Menu Conductor -->
             @if (Route::is('hangarauto.driver.*'))
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                    data-accordion="false">
-                    @if (Auth::user()->havePermission('hangarauto.driver.vehicles.report.index'))
-                    <li class="nav-item">
-                        <a href="{{ route('hangarauto.driver.vehicles.report.index') }}" class="nav-link ">
-                            <i class="fa-solid fa-car-on"></i>
-                            <p>Reporte Vehiculo</p>
-                        </a>
-                    </li>
-                    @endif
-                    @if (Auth::user()->havePermission('hangarauto.driver.petitions'))
-                    <li class="nav-item">
-                        <a href="{{ route('hangarauto.driver.petitions') }}" class="nav-link">
-                            <i class="fa-solid fa-envelope-open"></i>
-                            <p>
-                                Rutas Asignadas
-                            </p>
-                        </a>
-                    </li>
-                    @endif
-                    @if (Auth::user()->havePermission('hangarauto.driver.check'))
-                    <li class="nav-item">
-                        <a href="{{ route('hangarauto.driver.check') }}" class="nav-link">
-                            <i class="fas fa-file-signature"></i>
-                            <p>
-                                Chequeo
-                            </p>
-                        </a>
-                    </li>
-                    @endif
-                </ul>
-            </nav>
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        @if (Auth::user()->havePermission('hangarauto.driver.vehicles.report.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('hangarauto.driver.vehicles.report.index') }}" class="nav-link ">
+                                <i class="fa-solid fa-car-on"></i>
+                                <p>
+                                    {{ trans('hangarauto::drivers.Vehicle_Report')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+                        @if (Auth::user()->havePermission('hangarauto.driver.petitions'))
+                        <li class="nav-item">
+                            <a href="{{ route('hangarauto.driver.petitions') }}" class="nav-link">
+                                <i class="fa-solid fa-envelope-open"></i>
+                                <p>
+                                    {{ trans('hangarauto::drivers.Assigned_Routes')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+                        @if (Auth::user()->havePermission('hangarauto.driver.check'))
+                        <li class="nav-item">
+                            <a href="{{ route('hangarauto.driver.check') }}" class="nav-link">
+                                <i class="fas fa-file-signature"></i>
+                                <p>
+                                    {{ trans('hangarauto::general.Check')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+                    </ul>
+                </nav>
             @endif
             @if (Route::is('cefa.*'))
             <nav class="mt-2">

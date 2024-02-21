@@ -21,5 +21,12 @@ return [
     'Title_Header_Table_Column_City'                  =>  'City',
     'Title_Header_Table_Column_numstudents'           =>  'Number Students',
     'Title_Header_Table_Column_reason_for_trip'       =>  'Reason For Trip',
-    'Title_Header_Table_Column_Action'                =>  'Actions'
+    'Title_Header_Table_Column_reason_for_status'     =>  'Status',
+    'Title_Header_Table_Column_Action'                =>  'Actions',
+
+    // Botones
+    'btn_Assign_and_Confirm' => 'Assign and Confirm',
+    'btn_deny' => 'Deny',
+    'btn_Approved' => 'Approved',
+    'btn_Show_Details' => 'Show Details',
 ];

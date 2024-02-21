@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="col-md-12">
-        <div class="card card-success card-outline shadow mt-2">
+        <div class="card card-primary card-outline shadow mt-2">
             <div class="card-header">
                 <h2 class="card-title"><strong>{{ trans('hangarauto::solicitar.Tilte_Card_Records_Saver') }}</strong></h2>
             </div>
@@ -36,7 +36,7 @@
                                 <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_City')}}</th>
                                 <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_numstudents')}}</th>
                                 <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_reason_for_trip')}}</th>
-                                <th>Estado</th>
+                                <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_reason_for_status')}}</th>
                                 <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_Action')}}</th>
                             </tr>
                         </thead>
@@ -63,17 +63,17 @@
                                         @if ($dato->status == 'Solicitud')
                                             @if (Auth::user()->havePermission('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.petitions.assign.index'))
                                             <button class="btn btn-primary btnAsignar" data-toggle="modal" data-target="#modalAsignar{{ $dato->id }}" data-petition-id="{{ $dato->id }}">
-                                                Asignar y Confirmar
+                                                {{ trans('hangarauto::solicitar.btn_Assign_and_Confirm')}}
                                             </button>
                                             @endif
                                             
                                             <button class="btn btn-danger btnDenegar" data-toggle="modal" data-target="#modalDenegar{{ $dato->id }}">
-                                                Denegar
+                                                {{ trans('hangarauto::solicitar.btn_deny')}}
                                             </button>
                                             
                                         @elseif ($dato->status == 'Denegado')
                                             <button class="btn btn-warning btnMostrarDescripcion" data-toggle="modal" data-target="#modalDescripcion{{ $dato->id }}">
-                                                Mostrar Observacion
+                                                {{ trans('hangarauto::solicitar.btn_Show_Details')}}
                                             </button>
                                         @else
                                             <button class="btn btn-primary ">
