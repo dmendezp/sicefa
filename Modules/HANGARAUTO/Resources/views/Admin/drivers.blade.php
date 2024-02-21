@@ -17,7 +17,7 @@
                     <h4>{{ trans('hangarauto::drivers.Drivers')}}</h4>
                 </div><br>
                 <a href="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.drivers.create') }}">
-                    <button type="button" class="btn btn-primary">{{ trans('hangarauto::drivers.Add Driver')}}</button>
+                    <button type="button" class="btn btn-primary"><i class="fas fa-plus"></i></button>
                 </a><br><br>
                 <div class="card">
                     <div class="card-body">

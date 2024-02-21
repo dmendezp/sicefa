@@ -24,5 +24,4 @@ return [
     'Measurement Unit' => 'Unidad de Medida',
     'Reports' => 'Reportes',
     'Search Vehicle' => 'Consultar Vehiculo',
-
 ];
