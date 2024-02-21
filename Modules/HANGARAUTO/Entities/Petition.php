@@ -14,9 +14,16 @@ class Petition extends Model implements Auditable {
     SoftDeletes; // Borrado suave
 
     protected $fillable = [
-        'person_id', 
-        'department_id',
+        'start_date', 
+        'end_date',
         'municipality_id',
+        'reason',
+        'numstudents',
+        'vehicletype',
+        'person_id',
+        'observation',
+        'status',
+        
     ];
 
     protected $dates = ['deleted_at'];
@@ -33,7 +40,8 @@ class Petition extends Model implements Auditable {
         return $this->belongsTo(Municipality::class);
     }
     
-    public function vehicle(){
-        return $this->belongsTo(Vehicle::class);
+
+    public function petition_assignments(){
+        return $this->hasMany(PetitionAssignment::class);
     }
 }

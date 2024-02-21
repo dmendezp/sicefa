@@ -13,7 +13,7 @@ class Vehicle extends Model
 
     protected $hidden = ['created_at','updated_at'];
 
-    
+
 
     public function soats(){
         return $this->hasMany(Soat::class);
@@ -26,4 +26,10 @@ class Vehicle extends Model
     public function fuel_consumptions(){
         return $this->hasMany(FuelConsumption::class);
     }
+
+    public function petition_assignments(){
+        return $this->hasMany(PetitionAssignment::class);
+    }
+
+    
 }

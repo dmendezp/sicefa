@@ -3,15 +3,19 @@
 namespace Modules\HANGARAUTO\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Modules\HANGARAUTO\Entities\Petition;
 use Modules\HANGARAUTO\Entities\Driver;
+use Modules\HANGARAUTO\Entities\PetitionAssignment;
 use Modules\HANGARAUTO\Entities\Vehicle;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Country;
 use Modules\SICA\Entities\Department;
 use Modules\SICA\Entities\Municipality;
+use App\Models\User;
 
 use Validator, Str;
 
@@ -38,41 +42,137 @@ class ParkingController extends Controller
     // Solicitar
     public function postSolicitarAdd(Request $request){
         $rules = [
-            'name' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
             'department' => 'required',
             'municipality' => 'required',
-            'driver' => 'required',
+            'vehicletype' => 'required',
             'numstudents' => 'required|numeric',
             'reason' => 'required',
         ];
         $messages = [
-          'name.required' => 'Debe Ingresar su nombre.',
-          'start_date.required' => 'Debe Seleccionar Una Fecha Para Cuando Requiera El Vehiculo.',
-          'end_date.required' => 'Debe Seleccionar La Fecha De Devolucion Del Vehiculo.',
-          'department.required' => 'El Departamento Es Obligatorio.',
-          'municipality.required' => 'Debe Ingresar La Ciudad A La Que Se Dirige.',
-          'numstudents.required' => 'Por Favor Digite La Cantidad De Aprendices Que Va A Llevar.',
-          'reason.required' => 'Debe Escribir El Motivo De Su Viaje.',
+            'start_date.required' => 'Debe seleccionar una fecha para cuando requiera el vehículo.',
+            'end_date.required' => 'Debe seleccionar la fecha de devolución del vehículo.',
+            'department.required' => 'El departamento es obligatorio.',
+            'municipality.required' => 'Debe ingresar la ciudad a la que se dirige.',
+            'vehicletype.required' => 'Debe seleccionar el tipo de vehículo.',
+            'numstudents.required' => 'Por favor digite la cantidad de aprendices que va a llevar.',
+            'reason.required' => 'Debe escribir el motivo de su viaje.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
-        if($validator->fails()):
-            return back()->withErrors($validator)->with('messages', 'Se Ha Producido Un Error')->with('typealert','danger');
-            else:
-                $p = new Petition;
-                $p->start_date = $request->date('start_date');
-                $p->end_date = $request->date('end_date');
-                $p->municipality_id = $request->input('municipality');
-                $p->reason = $request->input('reason');
-                $p->numstudents = $request->input('numstudents');
-                $p->vehicle_id = $request->input('vehicle');
-                if($p->save()){
-                    return redirect(route('cefa.parking.table'))->with('message','Solicitud Enviada Exitosamente.')->with('typealert','success');
+        if($validator->fails()){
+            return back()->withErrors($validator)->with('messages', 'Se ha producido un error')->with('typealert','danger');
+        } else {
+            // Obtiene el usuario autenticado
+            $user = Auth::user();
+            $personid = $user->person->id;
+            $p = new Petition;
+            $p->start_date = $request->start_date;
+            $p->end_date = $request->end_date;
+            $p->municipality_id = $request->input('municipality');
+            $p->reason = $request->input('reason');
+            $p->numstudents = $request->input('numstudents');
+            $p->vehicletype = $request->input('vehicletype');
+            $p->person_id = $personid;
+            if ($p->save()) {
+                if (Route::is('hangarauto.admin.*')) {
+                    // Si el usuario tiene el rol "admin", redirige a una ruta específica
+                    return redirect(route('hangarauto.admin.petitions'))->with('message', 'Solicitud enviada exitosamente.')->with('typealert', 'success');
+    
+                } elseif (Route::is('hangarauto.charge.*')) {
+                    // Si el usuario tiene el rol "charge", redirige a una ruta específica
+                    return redirect(route('hangarauto.charge.petitions'))->with('message', 'Solicitud enviada exitosamente.')->with('typealert', 'success');
+                } else {
+                    // Si el usuario no tiene el rol "admin" ni "charge", redirige a otra ruta
+                    return redirect(route('cefa.parking.table'))->with('message', 'Solicitud enviada exitosamente.')->with('typealert', 'success');
                 }
-        endif;
-            return view('hangarauto::request_form.table');
+            } else {
+                // En caso de que la solicitud no se haya guardado correctamente, redirige a otra ruta
+                return view('hangarauto::request_form.table');
+            }
+        }
     }
+
+    public function assignadd(Request $request){
+        $rules = [
+            'petition_id' => 'required',
+            'vehicle' => 'required',
+            'driver' => 'required',
+           
+        ];
+        $messages = [
+            'petition_id.required' => 'Requiere la peticion.',
+            'vehicle.required' => 'Debe seleccionar el vehiculo.',
+            'driver.required' => 'Debe seleccionar el conductor.',
+           
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()){
+            return back()->withErrors($validator)->with('messages', 'Se ha producido un error')->with('typealert','danger');
+        } else {
+            // Obtiene el usuario autenticado
+            $p = new PetitionAssignment;
+            $p->petition_id = $request->input('petition_id');
+            $p->vehicle_id = $request->input('vehicle');
+            $p->driver_id = $request->input('driver');
+            if ($p->save()) {
+                $petition = Petition::find($request->input('petition_id'));
+                $petition->status = 'Aprobado';
+                $petition->save();
+                if (Route::is('hangarauto.admin.*')) {
+                    // Si el usuario tiene el rol "admin", redirige a una ruta específica
+                    return redirect(route('hangarauto.admin.petitions'))->with('message', 'Solicitud enviada exitosamente.')->with('typealert', 'success');
+    
+                } elseif (Route::is('hangarauto.charge.*')) {
+                    // Si el usuario tiene el rol "charge", redirige a una ruta específica
+                    return redirect(route('hangarauto.charge.petitions'))->with('message', 'Solicitud enviada exitosamente.')->with('typealert', 'success');
+                } else {
+                    // Si el usuario no tiene el rol "admin" ni "charge", redirige a otra ruta
+                    return redirect(route('cefa.parking.table'))->with('message', 'Solicitud enviada exitosamente.')->with('typealert', 'success');
+                }
+            } else {
+                // En caso de que la solicitud no se haya guardado correctamente, redirige a otra ruta
+                return view('hangarauto::request_form.table');
+            }
+        }
+    }
+
+    public function dennypetition(Request $request, $id){
+        $rules = [
+            'observation' => 'required',
+           
+        ];
+        $messages = [
+            'observation.required' => 'Requiere una observacion de su motivo.',
+           
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()){
+            return back()->withErrors($validator)->with('messages', 'Se ha producido un error')->with('typealert','danger');
+        } else {
+            $petition = Petition::find($id);
+            $petition->status = 'Denegado';
+            $petition->observation = $request->input('observation');
+            if ($petition->save()) {
+                if (Route::is('hangarauto.admin.*')) {
+                    // Si el usuario tiene el rol "admin", redirige a una ruta específica
+                    return redirect(route('hangarauto.admin.petitions'))->with('message', 'Solicitud enviada exitosamente.')->with('typealert', 'success');
+    
+                } elseif (Route::is('hangarauto.charge.*')) {
+                    // Si el usuario tiene el rol "charge", redirige a una ruta específica
+                    return redirect(route('hangarauto.charge.petitions'))->with('message', 'Solicitud enviada exitosamente.')->with('typealert', 'success');
+                } else {
+                    // Si el usuario no tiene el rol "admin" ni "charge", redirige a otra ruta
+                    return redirect(route('cefa.parking.table'))->with('message', 'Solicitud enviada exitosamente.')->with('typealert', 'success');
+                }
+            } else {
+                // En caso de que la solicitud no se haya guardado correctamente, redirige a otra ruta
+                return view('hangarauto::request_form.table');
+            }
+        }
+    }
+    
+    
 
     // Bucar Solicitud
     public function getSolicitarSearch(Request $request){
@@ -107,6 +207,19 @@ class ParkingController extends Controller
         return view('hangarauto::request_form.resultform', compact('requests'));
     }
 
+
+    public function tabledriver()
+    {
+        // Obtiene el usuario autenticado
+        $user = Auth::user();
+
+        $personid = $user->person->id;
+
+        $requests = Petition::where('person_id', $personid)->orderBy('id','asc')->get();
+
+        return view('hangarauto::request_form.resultform', compact('requests'));
+    }
+
     public function getMunicipalities($departmentId)
     {
         // Buscar los municipios correspondientes al departamento seleccionado
@@ -118,10 +231,66 @@ class ParkingController extends Controller
 
     public function getDrivers($vehicleId)
     {
-        // Buscar los municipios correspondientes al departamento seleccionado
-        $drivers = Driver::where('person_id', $vehicleId)->get();
+        // Obtener la fecha de inicio
+        $startDate = request()->input('start_date');
 
-        // Devolver los municipios como respuesta en formato JSON
+       
+
+        // Buscar los conductores que no tienen una petición para la fecha de inicio
+        $drivers = Driver::whereDoesntHave('petition_assignments.petition', function ($query) use ($startDate) {
+            $query->where('start_date', '<=', $startDate)
+                ->where('end_date', '>=', $startDate);
+        })
+        ->with('person')
+        ->get();
+
+     
+        // Devolver los conductores como respuesta en formato JSON
         return response()->json($drivers);
     }
+
+    public function getVehicles($petitionId)
+    {
+
+        $petition = Petition::find($petitionId);
+        $vehiculotype = $petition->vehicletype;
+        $startDate = $petition->start_date;
+
+        $vehicles = Vehicle::with('petition_assignments.petition')
+        ->where('reference',$vehiculotype)
+        ->whereDoesntHave('petition_assignments.petition', function ($query) use ($startDate) {
+            $query->where('start_date', '<=', $startDate)
+                ->where('end_date', '>=', $startDate);
+        })
+        ->get();
+
+
+        
+
+        // Devolver los conductores como respuesta en formato JSON
+        return response()->json($vehicles);
+    }
+
+    public function getVehiclessolicitar(Request $request,$start_date)
+    {
+        
+        $vehiculotype = $request->input('vehicletype');
+        $vehicles = Vehicle::with('petition_assignments.petition')
+        ->where('reference',$vehiculotype)
+        ->whereDoesntHave('petition_assignments.petition', function ($query) use ($start_date) {
+            $query->where('start_date', '<=', $start_date)
+                ->where('end_date', '>=', $start_date);
+        })
+        ->get();
+
+
+        
+
+        // Devolver los conductores como respuesta en formato JSON
+        return response()->json($vehicles);
+    }
+
+
+
+
 }

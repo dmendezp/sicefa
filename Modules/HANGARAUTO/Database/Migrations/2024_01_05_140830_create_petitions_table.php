@@ -20,7 +20,10 @@ class CreatePetitionsTable extends Migration
             $table->foreignId('municipality_id')->constrained()->onDelete('cascade');
             $table->string('reason');
             $table->string('numstudents');
-            $table->foreignId('vehicle_id')->constrained()->onDelete('cascade');
+            $table->enum('vehicletype',['Motocicleta','Ciclomotor','Motocarro','Tractor','Autobus','Furgoneta','Camioneta','Carro']);
+            $table->enum('status',['Solicitud','Aprobado','Denegado']);
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
+            $table->string('observation')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,6 +37,6 @@ class CreatePetitionsTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('Petitions');
+        Schema::dropIfExists('petitions');
     }
 }

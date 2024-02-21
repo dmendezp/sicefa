@@ -15,11 +15,10 @@ return [
     'Tilte_Card_Records_Saver' => 'Tilte_Card_Records_Saver',
 
     'Title_Header_Table_Column_Name'                  =>  'Name',
-    'Title_Header_Table_Column_Travel_date'           =>  'Travel Time And Date',
-    'Title_Header_Table_Column_Return_Date'           =>  'Date And Time Of Return',
+    'Title_Header_Table_Column_Travel_date'           =>  'Travel Date',
+    'Title_Header_Table_Column_Return_Date'           =>  'Return Date',
     'Title_Header_Table_Column_Department'            =>  'Department',
     'Title_Header_Table_Column_City'                  =>  'City',
-    'Title_Header_Table_Column_Assigned_Driver'       => 'Assigned Driver',
     'Title_Header_Table_Column_numstudents'           =>  'Number Students',
     'Title_Header_Table_Column_reason_for_trip'       =>  'Reason For Trip',
     'Title_Header_Table_Column_Action'                =>  'Actions'

@@ -4,6 +4,7 @@ return [
     // Indicador De La Vista
     'Vehicles' => 'Vehiculos',
     'Vehicle' => 'Vehiculo',
+    'VehicleType' => 'Tipo De Vehiculo',
     'Add New Vehicle' => 'Añadir Nuevo Vehiculo',
     'Reference' => 'Referencia',
     'Statu' => 'Estado',
@@ -24,4 +25,5 @@ return [
     'Measurement Unit' => 'Unidad de Medida',
     'Reports' => 'Reportes',
     'Search Vehicle' => 'Consultar Vehiculo',
+
 ];

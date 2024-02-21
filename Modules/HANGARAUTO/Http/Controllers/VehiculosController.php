@@ -3,11 +3,15 @@
 namespace Modules\HANGARAUTO\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Route;
 use Modules\HANGARAUTO\Entities\Vehicle;
 use Modules\HANGARAUTO\Entities\Tecnomecanic;
+use Modules\HANGARAUTO\Entities\CheckList;
+use Modules\HANGARAUTO\Entities\Check;
+use Modules\HANGARAUTO\Entities\Driver;
 use Carbon\Carbon;
 
 
@@ -205,4 +209,190 @@ class VehiculosController extends Controller
             return view('hangarauto::admin.vehiculos.report', $data);
         endif;
     }
+
+    public function check()
+    {
+       // Obtener todos los chequeos de autos
+    $chequeos = Check::with('check_lists')->get();
+
+
+    $data = ['chequeos'=>$chequeos];
+    return view('hangarauto::admin.check.index', $data); 
+        
+    }
+
+    public function getcheckadd()
+    {
+       // Obtener todos los chequeos de autos
+       $checklist_items = [
+        'Licencia Conduccion',
+        'SOAT',
+        'Seguro Daños',
+        'Revision TM',
+        'Luces',
+        'Limpiabrisas',
+        'Frenos',
+        'Llantas',
+        'Espejos',
+        'Nivel Aceite',
+        'Nivel Liquido Frenos',
+        'Nivel Refrigerante',
+        'Cinturones',
+        'Extintor',
+        'Equipo Carretera',
+        'Herramientas'
+    ];
+    
+    $drivers = Driver::get();
+    $vehicles = Vehicle::get();
+
+
+    $data = ['checklist_items'=>$checklist_items,'drivers'=>$drivers,'vehicles'=>$vehicles];
+    return view('hangarauto::admin.check.create', $data); 
+        
+    }
+
+    public function postcheckadd(Request $request)
+{
+    try {
+        // Validar la solicitud
+        $validatedData = $request->validate([
+            'driver' => 'required',
+            'vehicle' => 'required',
+            'date' => 'required|date',
+            'initial_kilometer' => 'required|numeric',
+            'final_kilometer' => 'required|numeric',
+            'initial_hour' => 'required',
+            'final_hour' => 'required',
+            'observations.*.complete' => 'required', // Asegura que el campo 'complete' esté presente para todas las observaciones
+        ]);
+
+        // Obtener los elementos de la lista de verificación
+        $checklist_items = $request->checklist_items;
+
+        // Crear el chequeo
+        $check = Check::create([
+            'driver_id' => $request->driver,
+            'vehicle_id' => $request->vehicle,
+            'date' => $request->date,
+            'initial_kilometer' => $request->initial_kilometer,
+            'final_kilometer' => $request->final_kilometer,
+            'initial_hour' => $request->initial_hour,
+            'final_hour' => $request->final_hour,
+        ]);
+
+        // Crear los elementos de la lista de verificación
+        foreach ($request->input('observations') as $index => $observation) {
+            CheckList::create([
+                'check_id' => $check->id,
+                'inspection' => $checklist_items[$index],
+                'complete' => $observation['complete'] === 'yes' ? 'Si' : 'No',
+                'observation' => $observation['observation'],
+            ]);
+        }
+
+        // Redirigir con mensaje de éxito
+        return redirect()->route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.check')->with('success', '¡El chequeo se ha registrado correctamente!');
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        // Redirigir con mensaje de error de validación
+        return redirect()->back()->withErrors($e->errors())->withInput();
+    } catch (\Exception $e) {
+        // Manejar el error
+        Log::error('Error al registrar el chequeo: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Ha ocurrido un error al registrar el chequeo: ' . $e->getMessage())->withInput();
+    }
+}
+
+public function getcheckedit($id)
+{
+    $checkup = Check::findOrFail($id);
+        $drivers = Driver::all();
+        $vehicles = Vehicle::all();
+        $checklist_items = [
+            'Licencia Conduccion',
+            'SOAT',
+            'Seguro Daños',
+            'Revision TM',
+            'Luces',
+            'Limpiabrisas',
+            'Frenos',
+            'Llantas',
+            'Espejos',
+            'Nivel Aceite',
+            'Nivel Liquido Frenos',
+            'Nivel Refrigerante',
+            'Cinturones',
+            'Extintor',
+            'Equipo Carretera',
+            'Herramientas'
+        ];
+    // Aquí puedes cargar cualquier otro dato que necesites, como conductores, vehículos, etc.
+    return view('hangarauto::admin.check.edit', compact('checkup', 'drivers', 'vehicles', 'checklist_items'));
+}
+
+public function updatecheck(Request $request, $id)
+{
+    try {
+        // Validar la solicitud
+        $request->validate([
+            'driver' => 'required',
+            'vehicle' => 'required',
+            'date' => 'required|date',
+            'initial_kilometer' => 'required|numeric',
+            'final_kilometer' => 'required|numeric',
+            'initial_hour' => 'required',
+            'final_hour' => 'required',
+            'observations.*.complete' => 'required', // Asegura que el campo 'complete' esté presente para todas las observaciones
+        ]);
+
+        // Obtener los elementos de la lista de verificación
+        $checklist_items = $request->checklist_items;
+
+        // Encontrar el chequeo a actualizar
+        $checkup = Check::findOrFail($id);
+
+        // Actualizar el chequeo
+        $checkup->update([
+            'driver_id' => $request->driver,
+            'vehicle_id' => $request->vehicle,
+            'date' => $request->date,
+            'initial_kilometer' => $request->initial_kilometer,
+            'final_kilometer' => $request->final_kilometer,
+            'initial_hour' => $request->initial_hour,
+            'final_hour' => $request->final_hour,
+        ]);
+
+        // Actualizar los elementos de la lista de verificación
+        foreach ($request->input('observations') as $index => $observation) {
+            $checklist = $checkup->check_lists()->where('inspection', $checklist_items[$index])->firstOrFail();
+            $checklist->update([
+                'complete' => $observation['complete'] === 'yes' ? 'Si' : 'No',
+                'observation' => $observation['observation'],
+            ]);
+        }
+
+        // Redirigir con mensaje de éxito
+        return redirect()->route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.check')->with('success', '¡El chequeo se ha actualizado correctamente!');
+    } catch (\Exception $e) {
+        // Manejar el error
+        Log::error('Error al actualizar el chequeo: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Ha ocurrido un error al actualizar el chequeo: ' . $e->getMessage())->withInput();
+    }
+}
+
+public function deletecheck($id)
+{
+    try {
+        $checkup = Check::findOrFail($id);
+        $checkup->delete();
+        return redirect()->back()->with('success', '¡El chequeo ha sido eliminado correctamente!');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Ha ocurrido un error al eliminar el chequeo: ' . $e->getMessage());
+    }
+}
+
+
+
+
+
 }

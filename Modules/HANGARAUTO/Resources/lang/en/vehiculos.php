@@ -4,6 +4,7 @@ return [
     // Indicador De La Vista
     'Vehicles' => 'Vehicles',
     'Vehicle' => 'Vehicle',
+    'VehicleType' => 'VehicleType',
     'Add New Vehicle' => 'Add New Vehicle',
     'Reference' => 'Reference',
     'Statu' => 'Statu',

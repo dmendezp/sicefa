@@ -13,12 +13,11 @@ return [
     'Tilte_Card_Records_Saver' => 'Registro de vehiculos solicitados',
 
     'Title_Header_Table_Column_Name'                  =>  'Nombre',
-    'Title_Header_Table_Column_Travel_date'           => 'Fecha Y Hora Del Viaje',
-    'Title_Header_Table_Column_Return_Date'           =>  'Fecha Y Hora Del Regreso',
+    'Title_Header_Table_Column_Travel_date'           => 'Fecha Del Viaje',
+    'Title_Header_Table_Column_Return_Date'           =>  'Fecha Del Regreso',
     'Title_Header_Table_Column_Department'            =>  'Departamento',
-    'Title_Header_Table_Column_City'                  =>  'Ciudad',
-    'Title_Header_Table_Column_Assigned_Driver'       => 'Conductor Asignado',
-    'Title_Header_Table_Column_numstudents'           =>  'N° Pasajeros',
+    'Title_Header_Table_Column_City'                  =>  'Municipio',
+    'Title_Header_Table_Column_numstudents'           =>  'N° Personas',
     'Title_Header_Table_Column_reason_for_trip'       =>  'Motivo Del Viaje',
     'Title_Header_Table_Column_Action'                =>  'Acciones'
 ];

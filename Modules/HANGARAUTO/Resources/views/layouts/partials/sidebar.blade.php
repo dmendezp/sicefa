@@ -82,6 +82,16 @@
                     @endif
                     @if (Auth::user()->havePermission('hangarauto.admin.vehicles'))
                     <li class="nav-item">
+                        <a href="{{ route('hangarauto.admin.drivervehicles') }}" class="nav-link">
+                            <i class="fa-solid fa-person-walking-dashed-line-arrow-right"></i>
+                            <p>
+                                Conductores Vehiculos
+                            </p>
+                        </a>
+                    </li>
+                    @endif
+                    @if (Auth::user()->havePermission('hangarauto.admin.vehicles'))
+                    <li class="nav-item">
                         <a href="{{ route('hangarauto.admin.vehicles') }}" class="nav-link">
                             <i class="fas fa-bus"></i>
                             <p>
@@ -96,6 +106,26 @@
                             <i class="fa-solid fa-screwdriver"></i>
                             <p>
                                 {{trans('hangarauto::Tecno.Tecnomechanic')}}
+                            </p>
+                        </a>
+                    </li>
+                    @endif
+                    @if (Auth::user()->havePermission('hangarauto.admin.petitions'))
+                    <li class="nav-item">
+                        <a href="{{ route('hangarauto.admin.petitions') }}" class="nav-link">
+                            <i class="fa-solid fa-envelope-open"></i>
+                            <p>
+                                Solicitudes
+                            </p>
+                        </a>
+                    </li>
+                    @endif
+                    @if (Auth::user()->havePermission('hangarauto.admin.check'))
+                    <li class="nav-item">
+                        <a href="{{ route('hangarauto.admin.check') }}" class="nav-link">
+                            <i class="fas fa-file-signature"></i>
+                            <p>
+                                Chequeo
                             </p>
                         </a>
                     </li>
@@ -132,7 +162,7 @@
                             @if (Auth::user()->havePermission('hangarauto.admin.vehicles.report.index'))
                                 <li class="nav-item">
                                     <a href="{{ route('hangarauto.admin.vehicles.report.index') }}" class="nav-link ">
-                                        <i class="fa-solid fa-car"></i>
+                                        <i class="fa-solid fa-car-on"></i>
                                         <p>{{trans('hangarauto::Vehiculos.Vehicle')}}</p>
                                     </a>
                                 </li>
@@ -176,6 +206,61 @@
                         </a>
                     </li>
                     @endif
+                    @if (Auth::user()->havePermission('hangarauto.charge.petitions'))
+                    <li class="nav-item">
+                        <a href="{{ route('hangarauto.charge.petitions') }}" class="nav-link">
+                            <i class="fa-solid fa-envelope-open"></i>
+                            <p>
+                                Solicitudes
+                            </p>
+                        </a>
+                    </li>
+                    @endif
+                    @if (Auth::user()->havePermission('hangarauto.charge.check'))
+                    <li class="nav-item">
+                        <a href="{{ route('hangarauto.charge.check') }}" class="nav-link">
+                            <i class="fas fa-file-signature"></i>
+                            <p>
+                                Chequeo
+                            </p>
+                        </a>
+                    </li>
+                    @endif
+                </ul>
+            </nav>
+            @endif
+            @if (Route::is('hangarauto.driver.*'))
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
+                    @if (Auth::user()->havePermission('hangarauto.driver.vehicles.report.index'))
+                    <li class="nav-item">
+                        <a href="{{ route('hangarauto.driver.vehicles.report.index') }}" class="nav-link ">
+                            <i class="fa-solid fa-car-on"></i>
+                            <p>Reporte Vehiculo</p>
+                        </a>
+                    </li>
+                    @endif
+                    @if (Auth::user()->havePermission('hangarauto.driver.petitions'))
+                    <li class="nav-item">
+                        <a href="{{ route('hangarauto.driver.petitions') }}" class="nav-link">
+                            <i class="fa-solid fa-envelope-open"></i>
+                            <p>
+                                Rutas Asignadas
+                            </p>
+                        </a>
+                    </li>
+                    @endif
+                    @if (Auth::user()->havePermission('hangarauto.driver.check'))
+                    <li class="nav-item">
+                        <a href="{{ route('hangarauto.driver.check') }}" class="nav-link">
+                            <i class="fas fa-file-signature"></i>
+                            <p>
+                                Chequeo
+                            </p>
+                        </a>
+                    </li>
+                    @endif
                 </ul>
             </nav>
             @endif
@@ -208,14 +293,6 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
                     <!-- Menú de opciones públicas -->
-                    <li class="nav-item">
-                        <a href="{{ route('cefa.parking.table') }}" class="nav-link">
-                            <i class="fas fa-check-square"></i>
-                            <p>
-                                {{trans('hangarauto::solicitar.Request_Vehicle')}}
-                            </p>
-                        </a>
-                    </li>
                     <li class="nav-item">
                         <a href="{{ route('cefa.hangarauto.developers') }}" class="nav-link">
                             <i class="fa-solid fa-people-group"></i>

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Route;
 use Modules\HANGARAUTO\Entities\Driver;
+use Modules\HANGARAUTO\Entities\DriverVehicle;
+use Modules\HANGARAUTO\Entities\Vehicle;
 use Modules\SICA\Entities\Person;
 use Validator, Str;
 
@@ -61,7 +63,7 @@ class DriversController extends Controller
     }
 
     
-    /*// Editar Conductores
+    // Editar Conductores
     public function getDriversEdit($id)
     {
         $drivers = Driver::find($id);
@@ -102,7 +104,7 @@ class DriversController extends Controller
                 return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers'))->with('messages','Conductor Actualizado Con Exito.')->with('typealert','success');
             }
         endif;
-    }*/
+    }
 
     // Eliminar Conductores
     public function getDriversDelete($id)
@@ -111,5 +113,53 @@ class DriversController extends Controller
         if($driver->delete()):
             return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers.delete'))->with('messages','Conductor Eliminado Con Exito.')->with('typealert','success');
         endif;
+    }
+
+    public function driversvehicles_index(){
+        $drivervehicles_pus = DriverVehicle::join('drivers', 'driver_vehicles.driver_id', '=', 'drivers.id')
+                                    ->join('vehicles', 'driver_vehicles.vehicle_id', '=', 'vehicles.id')
+                                    ->select('driver_vehicles.*')
+                                    ->orderBy('vehicles.name', 'asc')
+                                    ->get();
+        $drivers = Driver::get();
+        $vehicles = Vehicle::orderBy('name','ASC')->get();
+        $data = ['title'=>'Ambientes U.P.', 'drivervehicles_pus'=>$drivervehicles_pus, 'drivers'=>$drivers, 'vehicles'=>$vehicles];
+        return view('hangarauto::admin.drivervehicles', $data);
+    }
+
+    public function driversvehicles_add(Request $request){
+        $rules = [
+            'driver_id' => 'required',
+            'vehicle_id' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }
+        // Verificar que no exista un registro con los datos recibidos en la base de datos
+        $existingRecord = DriverVehicle::where([
+            'driver_id' => e($request->input('driver_id')),
+            'vehicle_id' => e($request->input('vehicle_id'))
+        ])->exists();
+        if (!$existingRecord) {
+            /* Realizar el registro */
+            if (DriverVehicle::create($request->all())) {
+                $message = ['message' => 'Se sincronizó exitosamente el conductor y el vehiculo.', 'typealert' => 'success'];
+            } else {
+                $message = ['message' => 'No se pudo sincronizar el conductor y el vehiculo.', 'typealert' => 'danger'];
+            }
+        } else {
+            $message = ['message' => 'Ya existe un registro con los datos enviados.', 'typealert' => 'warning'];
+        }
+        return redirect(route('hangarauto.admin.drivervehicles'))->with($message);
+    }
+
+    public function driversvehicles_delete(DriverVehicle $epu){
+        if ($epu->delete()){
+            $message = ['message'=>'Se eliminó exitosamente la asociación de el conductor y el vehiculo.', 'typealert'=>'success'];
+        } else {
+            $message = ['message'=>'No se pudo eliminar la asociación de el conductor y el vehiculo.', 'typealert'=>'danger'];
+        }
+        return redirect(route('hangarauto.admin.drivervehicles'))->with($message);
     }
 }

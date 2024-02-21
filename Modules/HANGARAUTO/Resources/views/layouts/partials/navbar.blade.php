@@ -21,6 +21,11 @@
                             <a href="{{ route('hangarauto.charge.index') }}" class="nav-link ">{{ trans('hangarauto::general.Charge')}}</a>
                         </li>
                     @endif
+                    @if (checkRol('hangarauto.driver'))
+                        <li class="nav-item d-none d-sm-inline-block">
+                            <a href="{{ route('hangarauto.driver.index') }}" class="nav-link ">Conductor</a>
+                        </li>
+                    @endif
                 @endauth
             
         

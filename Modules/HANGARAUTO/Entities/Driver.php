@@ -11,11 +11,17 @@ class Driver extends Model {
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
 
-    public function vehicle(){
-        return $this->hasMany(Vehicle::class);
+    public function driver_vehicles(){
+        return $this->hasMany(DriverVehicle::class);
     }
 
     public function person(){
         return $this->belongsTo(Person::class);
     }
+
+    public function petition_assignments(){
+        return $this->hasMany(PetitionAssignment::class);
+    }
+
+    
 }

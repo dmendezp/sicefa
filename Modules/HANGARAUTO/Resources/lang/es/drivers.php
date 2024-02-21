@@ -5,7 +5,6 @@ return [
     'Drivers' => 'Conductores',
     'Add Driver' => 'Agregar Conductor',
     'Add New Driver' => 'Agregar Nuevo Conductor',
-    'drivers_update' => 'Actualizar Conductor',
     'Name' => 'Nombre',
     'Document' => 'Documento',
     'Telephone' => 'Telefono',

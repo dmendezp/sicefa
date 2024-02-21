@@ -39,6 +39,15 @@ class RoleTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
+
+        // Registrar o actualizar rol de Conductor
+        $role_charge= Role::updateOrCreate(['slug' => 'hangarauto.driver'], [
+            'name' => 'Conductor',
+            'description' => 'Rol Conductor de la aplicacion HANGAR',
+            'description_english' => 'HANGAR Application Driver Role',
+            'app_id' => $app->id
+        ]);
+
         // Consultar el usuario
         $user_admin = User::where('nickname','DCumaco')->first(); // Usuario Administrador (Manuel Steven Ossa Lievano)
 

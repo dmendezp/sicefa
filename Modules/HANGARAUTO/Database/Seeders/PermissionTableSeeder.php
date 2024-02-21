@@ -20,6 +20,7 @@ class PermissionTableSeeder extends Seeder
         
         $permissions_admin = []; 
         $permissions_charge = []; 
+        $permissions_driver = []; 
 
 
         // Consultar aplicación SICA para registrar los roles
@@ -75,6 +76,31 @@ class PermissionTableSeeder extends Seeder
             'name' => 'Eliminar el conductor',
             'description' => 'Eliminacion de el conductor',
             'description_english' => 'Driver removal',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista formulario del conductor
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.drivervehicles'], [ // Registro o actualización de permiso
+            'name' => 'Vista Conductores Vehiculos',
+            'description' => 'Acceder a la vista conductores vehiculos',
+            'description_english' => 'Access the vehicle driver view',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.drivervehicles.add'], [ // Registro o actualización de permiso
+            'name' => 'Agregar Conductores Vehiculos',
+            'description' => 'Agregar conductores vehiculos',
+            'description_english' => 'Add Driver Vehicle',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.drivervehicles.delete'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar Conductores Vehiculos',
+            'description' => 'Eliminar conductores vehiculos',
+            'description_english' => 'Delete Driver Vehicle',
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
@@ -332,6 +358,14 @@ class PermissionTableSeeder extends Seeder
         ]);
         $permissions_charge[] = $permission->id; // Almacenar permiso para rol
 
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.driver.vehicles.report.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista Reporte de Vehiculo',
+            'description' => 'Acceso a la vista para observar el reporte del vehiculo',
+            'description_english' => 'Access to view to observe the vehicle report',
+            'app_id' => $app->id
+        ]);
+        $permissions_driver[] = $permission->id; // Almacenar permiso para rol
+
 
         $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.vehicles.report.search'], [ // Registro o actualización de permiso
             'name' => 'Buscar Reporte de Vehiculo',
@@ -348,7 +382,258 @@ class PermissionTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.driver.vehicles.report.search'], [ // Registro o actualización de permiso
+            'name' => 'Buscar Reporte de Vehiculo',
+            'description' => 'Acceso a la vista para observar el reporte del vehiculo',
+            'description_english' => 'Access to view to observe the vehicle report',
+            'app_id' => $app->id
+        ]);
+        $permissions_driver[] = $permission->id; // Almacenar permiso para rol
+
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.petitions'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de Peticiones',
+            'description' => 'Ver la vista principal de peticiones',
+            'description_english' => 'See the main view of petitions',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.petitions'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de Peticiones',
+            'description' => 'Ver la vista principal de peticiones',
+            'description_english' => 'See the main view of petitions',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.driver.petitions'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de Peticiones',
+            'description' => 'Ver la vista principal de peticiones',
+            'description_english' => 'See the main view of petitions',
+            'app_id' => $app->id
+        ]);
+        $permissions_driver[] = $permission->id; // Almacenar permiso para rol
         
+    
+        
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.petitions.deny'], [ // Registro o actualización de permiso
+            'name' => 'Denegar Solicitud',
+            'description' => 'Aprobar la solicitud de prestamo de vehiculo',
+            'description_english' => 'Deny the vehicle loan application',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.petitions.deny'], [ // Registro o actualización de permiso
+            'name' => 'Denegar Solicitud',
+            'description' => 'Aprobar la solicitud de prestamo de vehiculo',
+            'description_english' => 'Deny the vehicle loan application',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+        
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.petitions.assign'], [ // Registro o actualización de permiso
+            'name' => 'Botones de asignacion',
+            'description' => 'Mostrar botones de asignacion',
+            'description_english' => 'Show assignment buttons',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.petitions.assign.index'], [ // Registro o actualización de permiso
+            'name' => 'Formulario para asignar vehiculo y conductor',
+            'description' => 'Acceder al formulario de asignacion',
+            'description_english' => 'Access the assignment form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+        
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.petitions.assign.add'], [ // Registro o actualización de permiso
+            'name' => 'Accion de asignar vehiculo y conductor',
+            'description' => 'Asignar vehiculo y conductar a la peticion o ruta',
+            'description_english' => 'Assign vehicle and drive to the request or route',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.petitions.assign'], [ // Registro o actualización de permiso
+            'name' => 'Botones de asignacion',
+            'description' => 'Mostrar botones de asignacion',
+            'description_english' => 'Show assignment buttons',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.petitions.assign.index'], [ // Registro o actualización de permiso
+            'name' => 'Formulario para asignar vehiculo y conductor',
+            'description' => 'Acceder al formulario de asignacion',
+            'description_english' => 'Access the assignment form',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+        
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.petitions.assign.add'], [ // Registro o actualización de permiso
+            'name' => 'Accion de asignar vehiculo y conductor',
+            'description' => 'Asignar vehiculo y conductar a la peticion o ruta',
+            'description_english' => 'Assign vehicle and drive to the request or route',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.check'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Chequeo',
+            'description' => 'Acceder a la vista de chequeo',
+            'description_english' => 'Access the checkup view',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.check.add.index'], [ // Registro o actualización de permiso
+            'name' => 'Boton Agregar',
+            'description' => 'Acceder al formulario de agregar chequeo',
+            'description_english' => 'Access the add check form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.check.add'], [ // Registro o actualización de permiso
+            'name' => 'Agregar Chequeo',
+            'description' => 'Agregar Chequeo',
+            'description_english' => 'Add Check',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.check.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar Chequeo',
+            'description' => 'Actualizar Chequeo',
+            'description_english' => 'Update Check',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+        
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.check.edit'], [ // Registro o actualización de permiso
+            'name' => 'Boton de Editar',
+            'description' => 'Mostrar el boton de editar',
+            'description_english' => 'Show the edit button',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+        
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.check.delete'], [ // Registro o actualización de permiso
+            'name' => 'Boton de Eliminar',
+            'description' => 'Mostrar el boton de eliminar',
+            'description_english' => 'Show the delete button',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.check'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Chequeo',
+            'description' => 'Acceder a la vista de chequeo',
+            'description_english' => 'Access the checkup view',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+        
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.check.add.index'], [ // Registro o actualización de permiso
+            'name' => 'Boton Agregar',
+            'description' => 'Acceder al formulario de agregar chequeo',
+            'description_english' => 'Access the add check form',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.check.add'], [ // Registro o actualización de permiso
+            'name' => 'Agregar Chequeo',
+            'description' => 'Agregar Chequeo',
+            'description_english' => 'Add Check',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+        
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.check.edit'], [ // Registro o actualización de permiso
+            'name' => 'Boton de Editar',
+            'description' => 'Mostrar el boton de editar',
+            'description_english' => 'Show the edit button',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.check.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar Chequeo',
+            'description' => 'Actualizar Chequeo',
+            'description_english' => 'Update Check',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+        
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.check.delete'], [ // Registro o actualización de permiso
+            'name' => 'Boton de Eliminar',
+            'description' => 'Mostrar el boton de eliminar',
+            'description_english' => 'Show the delete button',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.driver.check'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Chequeo',
+            'description' => 'Acceder a la vista de chequeo',
+            'description_english' => 'Access the checkup view',
+            'app_id' => $app->id
+        ]);
+        $permissions_driver[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.driver.check.add.index'], [ // Registro o actualización de permiso
+            'name' => 'Boton Agregar',
+            'description' => 'Acceder al formulario de agregar chequeo',
+            'description_english' => 'Access the add check form',
+            'app_id' => $app->id
+        ]);
+        $permissions_driver[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.driver.index'], [ // Registro o actualización de permiso
+            'name' => 'Rol conductor',
+            'description' => 'Acceder al rol conductor',
+            'description_english' => 'Access the driving role',
+            'app_id' => $app->id
+        ]);
+        $permissions_driver[] = $permission->id; // Almacenar permiso para rol
+
+        
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.petitions.add.index'], [ // Registro o actualización de permiso
+            'name' => 'Boton Solicitar',
+            'description' => 'Acceder al formulario de solicitar',
+            'description_english' => 'Access the request form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.petitions.add'], [ // Registro o actualización de permiso
+            'name' => 'Accion Solicitar',
+            'description' => 'Solicitar vehiculo',
+            'description_english' => 'Request vehicle',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.petitions.add.index'], [ // Registro o actualización de permiso
+            'name' => 'Boton Solicitar',
+            'description' => 'Acceder al formulario de solicitar',
+            'description_english' => 'Access the request form',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.charge.petitions.add'], [ // Registro o actualización de permiso
+            'name' => 'Accion Solicitar',
+            'description' => 'Solicitar vehiculo',
+            'description_english' => 'Request vehicle',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
 
         
 
@@ -356,9 +641,11 @@ class PermissionTableSeeder extends Seeder
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'hangarauto.admin')->first(); // Rol Administrador
         $rol_charge = Role::where('slug', 'hangarauto.charge')->first(); // Rol Operador de Cajero
+        $rol_driver = Role::where('slug', 'hangarauto.driver')->first(); // Rol Operador de Cajero
 
         // Asignación de PERMISOS para los ROLES de la aplicación PTVENTA (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_admin->permissions()-> syncWithoutDetaching($permissions_admin);
         $rol_charge->permissions()-> syncWithoutDetaching($permissions_charge);
+        $rol_driver->permissions()-> syncWithoutDetaching($permissions_driver);
     }
 }

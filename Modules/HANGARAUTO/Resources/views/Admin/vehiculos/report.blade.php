@@ -1,7 +1,7 @@
 @extends('hangarauto::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('hangarauto::vehiculos.consult_vehicle') }}</li>
+    <li class="breadcrumb-item active">{{ trans('hangarauto::') }}</li>
 @endpush
 
 @section('content')
@@ -14,7 +14,7 @@
             </div>
             <div class="form_search" id="form_search">
                 <br>
-                {!! Form::open(['url' => 'hangarauto/administrator/vehiculos/report/search']) !!}
+                {!! Form::open(['route' => 'hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.vehicles.report.search']) !!}
                 <div class="row">
                     <div class="col-md-8">
                         {!! Form::text('search', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Numero de Placa', 'required']) !!}
