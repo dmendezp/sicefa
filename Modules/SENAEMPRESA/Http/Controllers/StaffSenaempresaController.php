@@ -12,9 +12,11 @@ use Modules\SENAEMPRESA\Entities\StaffSenaempresa;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
 use Modules\SENAEMPRESA\Entities\SenaEmpresa;
 use Modules\SICA\Entities\Apprentice;
+use Modules\SICA\Entities\Person;
 use Illuminate\Support\Facades\File;
 use Modules\SICA\Entities\Quarter;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 
 class StaffSenaempresaController extends Controller
@@ -142,6 +144,21 @@ class StaffSenaempresaController extends Controller
 
         // Guarda la instancia en la base de datos
         if ($staffSenaempresa->save()) {
+            $position = PositionCompany::where('id', $request->input('position_company_id'))->first();
+            if ($position->name === 'Gestor Agricola') {
+                $apprentices = Apprentice::where('id',$request->input('apprentice_id'))->with('person')->first();
+                foreach ($apprentices as $apprentice) {
+                   
+                    $personid = $apprentices->person->id;
+                    
+                }
+                
+                User::updateOrCreate(['nickname' => 'Gestor Agricola'], [ // Actualizar o crear usuario
+                    'person_id' => $personid,
+                    'email' => 'gestoragricola@gmail.com', 
+                ]);
+            }
+
             // Redirige a la vista adecuada con un mensaje de éxito
             return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.index')->with('success', trans('senaempresa::menu.Staff successfully created.'));
         } else {
@@ -217,7 +234,24 @@ class StaffSenaempresaController extends Controller
         $staffSenaempresa->position_company_id = $request->input('position_company_id');
         $staffSenaempresa->apprentice_id = $request->input('apprentice_id');
         $staffSenaempresa->senaempresa_id = $request->input('senaempresa_id');
-        $staffSenaempresa->save();
+        
+
+        if($staffSenaempresa->save()){
+            $position = PositionCompany::where('id', $request->input('position_company_id'))->first();
+            if ($position->name === 'Gestor Agricola') {
+                $apprentices = Apprentice::where('id',$request->input('apprentice_id'))->with('person')->first();
+                foreach ($apprentices as $apprentice) {
+                   
+                    $personid = $apprentices->person->id;
+                    
+                }
+                
+                User::updateOrCreate(['nickname' => 'Gestor Agricola'], [ // Actualizar o crear usuario
+                    'person_id' => $personid,
+                    'email' => 'gestoragricola@gmail.com', 
+                ]);
+            }
+        }
 
         return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.index')->with('success', trans('senaempresa::menu.Registration successfully updated.'));
     }

@@ -20,6 +20,7 @@ class PermissionsTableSeeder extends Seeder
         // crear listas para almacenar los permisos de cada rol
         $permissions_trainer = [];
         $permissions_passant = [];
+        $permissions_manageragricultural = [];
 
 
         // Consultar aplicación SICA para registrar los roles
@@ -41,6 +42,22 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_trainer[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.passant.parameters.index'], [
+            'name' => 'Gestionar los Parametros',
+            'description' => 'Tendra el acceso a gestionar los parametros',
+            'description_english' => 'You will have access to manage the parameters',
+            'app_id' => $app->id
+        ]);
+        $permissions_passant[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.manageragricultural.parameters.index'], [
+            'name' => 'Gestionar los Parametros',
+            'description' => 'Tendra el acceso a gestionar los parametros',
+            'description_english' => 'You will have access to manage the parameters',
+            'app_id' => $app->id
+        ]);
+        $permissions_manageragricultural[] = $permission->id; // Almacenar permiso para rol
 
         // Gestionar acciones de parametrizacion
         $permission = Permission::updateOrCreate(['slug' => 'agrocefa.trainer.parameters.manage'], [
@@ -162,9 +179,11 @@ class PermissionsTableSeeder extends Seeder
         // Consulta de ROLES
         $rol_trainer = Role::where('slug', 'agrocefa.trainer')->first();
         $rol_passant = Role::where('slug', 'agrocefa.passant')->first();
+        $rol_manageragricultural = Role::where('slug', 'agrocefa.manageragricultural')->first();
 
         // Asignación de permisos para roles
         $rol_trainer->permissions()->syncWithoutDetaching($permissions_trainer);
         $rol_passant->permissions()->syncWithoutDetaching($permissions_passant);
+        $rol_manageragricultural->permissions()->syncWithoutDetaching($permissions_manageragricultural);
     }
 }

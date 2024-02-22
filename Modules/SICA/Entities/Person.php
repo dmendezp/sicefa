@@ -81,7 +81,8 @@ class Person extends Model implements Auditable
             'Cédula de extranjería' => 'CE',
             'Pasaporte' => 'PP',
             'Documento nacional de identidad' => 'DNI',
-            'Registro civil' => 'RC'
+            'Registro civil' => 'RC',
+            'Número de Identificación Tributaria' => 'NIT'
         ];
         return $document_type_abbreviations[$this->attributes['document_type']].'-'.$this->attributes['document_number'];
     }
@@ -96,6 +97,14 @@ class Person extends Model implements Auditable
     }
     public function setSecondLastNameAttribute($value){ // Convertir a mayúsculas en valor del dato second_last_name (MUTADOR)
         return $this->attributes['second_last_name'] = mb_strtoupper($value);
+    }
+
+    public function setFirstLastNameAttributeNIT($value){// Establecer first_last_name como null cuando el tipo de documento sea "Número de Identificación Tributaria"
+        if ($this->document_type === 'Número de Identificación Tributaria') {
+            $this->attributes['first_last_name'] = null;
+        } else {
+            $this->attributes['first_last_name'] = mb_strtoupper($value);
+        }
     }
 
     // RELACIONES

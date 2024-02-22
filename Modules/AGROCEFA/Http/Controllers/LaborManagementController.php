@@ -968,7 +968,7 @@ class LaborManagementController extends Controller
         return response()->json([
             'filteredWarehouses' => $filteredWarehouses
         ]);
-    }
+    }   
 
     public function obtenerAspectosAmbientales(Activity $activity)
     {

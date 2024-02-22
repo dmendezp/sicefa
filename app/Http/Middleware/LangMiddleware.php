@@ -16,13 +16,13 @@ class LangMiddleware
         }
         //Codigo para que las vistas puedan ser accedidas sin loguearse
         //print_r($request->route()->getAction()['uses']);
-        if($request->route()->getName()!=''){
-            $pos = strpos($request->route()->getName(), 'cefa');
+        if ($request->route()->getName() !== '' && strpos($request->route()->getName(), 'cefa.') !== 0) {
             $pos2 = strpos($request->route()->getAction()['uses'], 'Auth');
-            if ($pos === false && $pos2 === false) {
-                Gate::authorize('haveaccess',$request->route()->getName());
+            if ($pos2 === false) {
+                Gate::authorize('haveaccess', $request->route()->getName());
             }
         }
+        
 
         return $next($request);
     }

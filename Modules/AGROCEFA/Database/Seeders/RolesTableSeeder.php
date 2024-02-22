@@ -40,6 +40,15 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
+        // Registrar o actualizar rol de Pasante en AGROCEFA
+        $rolpasante = Role::updateOrCreate(['slug' => 'agrocefa.manageragricultural'], [
+            'name' => 'Gestor Agricola',
+            'description' => 'Rol Gestor Agricola para el registro de labores AGROCEFA',
+            'description_english' => 'ManagerAgricultural role for registration of AGROCEFA labor',
+            'full_access' => 'No',
+            'app_id' => $app->id
+        ]);
+
 
         // Consulta de usuarios
         $useradministrador = User::where('nickname','William')->first(); 
