@@ -25,20 +25,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="vehicletype" class="form-label">Tipo de vehiculo :</label>
-                                    {!! Form::select('vehicletype', 
-                                        [
-                                            'Carro' => 'Carro',
-                                            'Camioneta' => 'Camioneta',
-                                            'Autobus' => 'Autobus',
-                                            'Tractor' => 'Tractor',
-                                            'Motocicleta' => 'Motocicleta',
-                                            'Furgoneta' => 'Furgoneta',
-                                            'Ciclomotor' => 'Ciclomotor',
-                                            'Motocarro' => 'Motocarro',
-                                        ], 
-                                        null, 
-                                        ['class' => 'form-control', 'placeholder' => 'Selccione el Tipo de vehiculo', 'id' => 'vehicletype']) 
-                                    !!}
+                                    {!! Form::select('vehicletype', $vehicletype, null, ['class' => 'form-control', 'placeholder' => trans('Seleccione El Vehiculo'), 'id' => 'vehicletype']) !!}
                                 </div>
                                 <div class="form-group">
                                     {!! Form::label('start_date', trans('Fecha Del Viaje')) !!}

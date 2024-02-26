@@ -16,7 +16,7 @@ class CreateFuelConsumptionTable extends Migration
         Schema::create('fuel_consumptions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('vehicle_id')->constrained()->onDelete('cascade');
-            $table->enum('type', ['Corriente','Extra']);
+            $table->foreignId('fuel_type_id')->constrained()->onDelete('cascade');
             $table->date('date');
             $table->foreignId('measurement_unit_id')->constrained()->onDelete('cascade');
             $table->integer('price');

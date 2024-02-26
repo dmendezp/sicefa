@@ -49,14 +49,25 @@
                                         <td>{{$c->vehicle->name }}</td>
                                         <td>{{$c->person->fullname }}</td>
                                         <td>{{$c->date }}</td>
-                                        <td>{{$c->type }}</td>
+                                        <td>{{$c->fuel_type->name }}</td>
                                         <td>{{$c->amount }}</td>
                                         <td>{{$c->price}}</td>
                                         <td>{{$c->mileage}}</td>
                                         <td>
-                                            <a class="btn-delete" href="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.consumo.delete',$c) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                            @php
+                                                // Verificar si la fecha actual es un día mayor que la fecha de creación del registro
+                                                $currentDate = now();
+                                                $disableButton = $currentDate->diffInDays($c->created_at) >= 1;
+                                            @endphp
+
+                                            @if (!$disableButton || !checkRol('hangarauto.driver'))
+                                                <a class="btn btn-primary" href="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.consumo.edit', $c->id) }}" type="button"><i class="fas fa-edit"></i></a>
+                                            
+
+                                            <a class="btn btn-danger btn-delete" href="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.consumo.delete',$c) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -67,15 +78,5 @@
             </div>
         </div>
     </div>
-@stop
 
-@section('js')
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#travels').DataTable();
-        });
-    </script>
 @endsection

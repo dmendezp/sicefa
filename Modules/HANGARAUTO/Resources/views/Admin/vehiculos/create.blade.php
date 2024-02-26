@@ -19,21 +19,8 @@
                     {!! Form::text('name', null, ['class' => 'form-control']) !!}
                 </div>
                 <div class="mb-3">
-                    <label for="reference" class="form-label">{{ trans('hangarauto::Vehiculos.Reference') }}:</label>
-                    {!! Form::select('reference', 
-                        [
-                            'Carro' => 'Carro',
-                            'Camioneta' => 'Camioneta',
-                            'Autobus' => 'Autobus',
-                            'Tractor' => 'Tractor',
-                            'Motocicleta' => 'Motocicleta',
-                            'Furgoneta' => 'Furgoneta',
-                            'Ciclomotor' => 'Ciclomotor',
-                            'Motocarro' => 'Motocarro',
-                        ], 
-                        null, 
-                        ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) 
-                    !!}
+                    <label for="vehicletype" class="form-label">Tipo de vehiculo :</label>
+                    {!! Form::select('vehicletype', $vehicletype, null, ['class' => 'form-control', 'placeholder' => 'Seleccione el tipo de vehiculo']) !!}
                 </div>
                 <div class="mb-3">
                     <label for="status" class="form-label">{{ trans('hangarauto::Vehiculos.Statu') }}:</label>

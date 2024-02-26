@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePersonPetitionTable extends Migration
+class CreateVehicleTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreatePersonPetitionTable extends Migration
      */
     public function up()
     {
-        Schema::create('person_petitions', function (Blueprint $table) {
+        Schema::create('vehicle_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('petition_id')->constrained()->onDelete('cascade');
-            $table->foreignId('person_id')->constrained()->onDelete('cascade');
-            $table->enum('kind_of_people',['Conductor','Usuario']);
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreatePersonPetitionTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('person_petition');
+        Schema::dropIfExists('vehicle_types');
     }
 }

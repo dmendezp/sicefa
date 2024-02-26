@@ -20,8 +20,8 @@ class CreatePetitionsTable extends Migration
             $table->foreignId('municipality_id')->constrained()->onDelete('cascade');
             $table->string('reason');
             $table->string('numstudents');
-            $table->enum('vehicletype',['Motocicleta','Ciclomotor','Motocarro','Tractor','Autobus','Furgoneta','Camioneta','Carro']);
-            $table->enum('status',['Solicitud','Aprobado','Denegado']);
+            $table->foreignId('vehicle_type_id')->constrained()->onDelete('cascade');
+            $table->enum('status',['Solicitud','Asignado','Aprobado','Denegado']);
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->string('observation')->nullable();
             $table->timestamps();

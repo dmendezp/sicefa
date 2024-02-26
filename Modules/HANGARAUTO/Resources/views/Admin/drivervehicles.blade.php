@@ -15,7 +15,7 @@
                                   <i class="fa-solid fa-angles-left fa-beat-fade mr-1"></i> Conductores
                                 </a>
                                 <a href="{{ route('hangarauto.admin.vehicles') }}" class="btn btn btn-primary float-right ml-1">
-                                  <i class="fa-solid fa-angles-left fa-beat-fade mr-1"></i> Vehivulos
+                                  <i class="fa-solid fa-angles-left fa-beat-fade mr-1"></i> Vehiculos
                                 </a>
                             </div>
                         </div>

@@ -19,7 +19,7 @@ class Petition extends Model implements Auditable {
         'municipality_id',
         'reason',
         'numstudents',
-        'vehicletype',
+        'vehicle_type_id',
         'person_id',
         'observation',
         'status',
@@ -34,6 +34,10 @@ class Petition extends Model implements Auditable {
 
     public function person(){
         return $this->belongsTo(Person::class);
+    }
+
+    public function vehicle_type(){
+        return $this->belongsTo(VehicleType::class);
     }
 
     public function municipality(){

@@ -70,6 +70,36 @@
             @if (Route::is('hangarauto.admin.*'))
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"data-accordion="false">
+                        @if (Session::has('countTecnomecanica') && Session::get('countTecnomecanica') > 0)
+                        @if (Auth::user()->havePermission('hangarauto.admin.tecnomecanica.notification'))
+                        <li class="nav-item">
+                            <a href="{{ route('hangarauto.admin.tecnomecanica.notification') }}" class="nav-link">
+                                <i class="fa-solid fa-bell"> @if (Session::has('countTecnomecanica') && Session::get('countTecnomecanica') > 0)
+                                    <span class="notification-badge">{{ Session::get('countTecnomecanica') }}</span>
+                                @endif</i>
+                                <p>
+                                    Alerta Tecnomecanica
+                                </p>
+                            
+                            </a>
+                        </li>
+                        @endif
+                        @endif
+                        @if (Session::has('countSoat') && Session::get('countSoat') > 0)
+                            @if (Auth::user()->havePermission('hangarauto.admin.soat.notification'))
+                            <li class="nav-item">
+                                <a href="{{ route('hangarauto.admin.soat.notification') }}" class="nav-link">
+                                    <i class="fa-solid fa-bell"> @if (Session::has('countSoat') && Session::get('countSoat') > 0)
+                                        <span class="notification-badge">{{ Session::get('countSoat') }}</span>
+                                    @endif</i>
+                                    <p>
+                                        Alerta Soat
+                                    </p>
+                                
+                                </a>
+                            </li>
+                            @endif
+                        @endif
                         <li class="nav-item {{ !Route::is('hangarauto.admin.vehicles.report.*') ?: 'menu-is-opening menu-open' }}">
                             <a href="#" class="nav-link">
                                 <i class="fas fa-file"></i>
@@ -79,6 +109,24 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+                                @if (Auth::user()->havePermission('hangarauto.admin.drivers'))
+                                <li class="nav-item">
+                                    <a href="{{ route('hangarauto.admin.fueltype')}}" class="nav-link">
+                                        <i class="fa-solid fa-gas-pump"></i>
+                                        <p>
+                                            Tipo de Combustible
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('hangarauto.admin.vehicletype')}}" class="nav-link">
+                                        <i class="fa-solid fa-car-burst"></i>
+                                        <p>
+                                            Tipo de Vehiculo
+                                        </p>
+                                    </a>
+                                </li>
+                                @endif
                                 @if (Auth::user()->havePermission('hangarauto.admin.drivers'))
                                     <li class="nav-item">
                                         <a href="{{ route('hangarauto.admin.drivers')}}" class="nav-link">
@@ -199,6 +247,36 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
+                        @if (Session::has('countTecnomecanica') && Session::get('countTecnomecanica') > 0)
+                        @if (Auth::user()->havePermission('hangarauto.charge.tecnomecanica.notification'))
+                        <li class="nav-item">
+                            <a href="{{ route('hangarauto.charge.tecnomecanica.notification') }}" class="nav-link">
+                                <i class="fa-solid fa-bell"> @if (Session::has('countTecnomecanica') && Session::get('countTecnomecanica') > 0)
+                                    <span class="notification-badge">{{ Session::get('countTecnomecanica') }}</span>
+                                @endif</i>
+                                <p>
+                                    Alerta Tecnomecanica
+                                </p>
+                            
+                            </a>
+                        </li>
+                        @endif
+                    @endif
+                    @if (Session::has('countSoat') && Session::get('countSoat') > 0)
+                        @if (Auth::user()->havePermission('hangarauto.charge.soat.notification'))
+                        <li class="nav-item">
+                            <a href="{{ route('hangarauto.charge.soat.notification') }}" class="nav-link">
+                                <i class="fa-solid fa-bell"> @if (Session::has('countSoat') && Session::get('countSoat') > 0)
+                                    <span class="notification-badge">{{ Session::get('countSoat') }}</span>
+                                @endif</i>
+                                <p>
+                                    Alerta Soat
+                                </p>
+                            
+                            </a>
+                        </li>
+                        @endif
+                    @endif
                         @if (Auth::user()->havePermission('hangarauto.charge.tecnomecanica'))
                         <li class="nav-item">
                             <a href="{{ route('hangarauto.charge.tecnomecanica') }}" class="nav-link">
@@ -287,6 +365,14 @@
                             </a>
                         </li>
                         @endif
+                        <li class="nav-item">
+                            <a href="{{ route('hangarauto.driver.consumo') }}" class="nav-link">
+                                <i class="fa-solid fa-gas-pump"></i>
+                                <p>
+                                    {{trans('hangarauto::comsuption.fuelcomsuption')}}
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             @endif
@@ -314,22 +400,7 @@
                 </ul>
             </nav>
             @endif
-            @guest
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                    data-accordion="false">
-                    <!-- Menú de opciones públicas -->
-                    <li class="nav-item">
-                        <a href="{{ route('cefa.hangarauto.developers') }}" class="nav-link">
-                            <i class="fa-solid fa-people-group"></i>
-                            <p>
-                                {{ trans('hangarauto::Developers.developers')}}
-                            </p>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            @endguest
+            
             
             <!-- /.sidebar-menu -->
         </div>

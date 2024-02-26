@@ -59,34 +59,3 @@
         </div>
     </div>
 @stop
-@push('scripts')
-    <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const deleteButtons = document.querySelectorAll('.btnEliminar');
-
-            deleteButtons.forEach((deleteButton) => {
-                deleteButton.addEventListener('click', () => {
-                    const formId = deleteButton.dataset.formId;
-                    const form = document.getElementById(formId);
-
-                    Swal.fire({
-                        title: '¿Estás seguro?',
-                        text: 'Esta acción no se puede deshacer',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Sí, eliminar',
-                        cancelButtonText: 'Cancelar'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // Envía el formulario de manera convencional
-                            form.submit();
-                        } else {
-                            Swal.fire('Cancelado', 'La acción ha sido cancelada', 'info');
-                        }
-                    });
-                });
-            });
-        });
-    </script>
-@endpush

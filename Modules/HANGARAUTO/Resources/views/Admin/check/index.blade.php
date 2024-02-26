@@ -45,15 +45,23 @@
                                             </ul>
                                         </td>
                                         <td>
-                                            @if (Auth::user()->havePermission('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.check.edit'))
-                                            <a href="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.check.edit', $checkup->id) }}" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a>
-                                            @endif
-                                            @if (Auth::user()->havePermission('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.check.delete'))
-                                            <form action="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.check.delete', $checkup->id) }}" method="POST" style="display: inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                            </form>
+                                            @php
+                                                // Verificar si la fecha actual es un día mayor que la fecha de creación del registro
+                                                $currentDate = now();
+                                                $disableButton = $currentDate->diffInDays($checkup->created_at) >= 1;
+                                            @endphp
+
+                                            @if (!$disableButton || !checkRol('hangarauto.driver'))
+                                                @if (Auth::user()->havePermission('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.check.edit'))
+                                                <a href="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.check.edit', $checkup->id) }}" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a>
+                                                @endif
+                                                @if (Auth::user()->havePermission('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.check.delete'))
+                                                <form action="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.check.delete', $checkup->id) }}" method="POST" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                </form>
+                                                @endif
                                             @endif
                                         </td>
                                     </tr>

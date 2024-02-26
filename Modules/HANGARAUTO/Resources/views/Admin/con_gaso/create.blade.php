@@ -28,15 +28,8 @@
                     {!! Form::date('date', null, ['class' => 'form-control']) !!}
                 </div>
                 <div class="mb-3">
-                    <label for="type" class="form-label">{{trans('hangarauto::Vehiculos.Fuel Type') }}:</label>
-                    {!! Form::select('type', 
-                        [
-                            'Corriente' => 'Corriente',
-                            'Extra' => 'Extra',
-                        ], 
-                        null, 
-                        ['class' => 'form-control', 'placeholder' => '-- Seleccione --']) 
-                    !!}
+                    <label for="fuel_type" class="form-label">Tipo de Combustible:</label>
+                    {!! Form::select('fuel_type', $fuel_type, null, ['class' => 'form-control', 'placeholder' => 'Seleccione el tipo de combustible']) !!}
                 </div>
                 <div class="mb-3">
                     <label for="measurement_unit_id" class="form-label">{{trans('hangarauto::Vehiculos.Measurement Unit') }}:</label>

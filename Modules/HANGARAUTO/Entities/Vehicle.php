@@ -31,5 +31,9 @@ class Vehicle extends Model
         return $this->hasMany(PetitionAssignment::class);
     }
 
+    public function vehicle_type(){
+        return $this->belongsTo(VehicleType::class);
+    }
+
     
 }

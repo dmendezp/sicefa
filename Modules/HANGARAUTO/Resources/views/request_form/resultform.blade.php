@@ -19,6 +19,8 @@
                     <a href="{{ route('hangarauto.charge.petitions.add.index') }}" class="btn btn-primary mb-2">
                         <i class="fa-solid fa-plus"></i>
                     </a>
+                    @elseif (Route::is('hangarauto.driver.*'))
+
                     @else 
                     <a href="{{ route('cefa.parking.solicitar') }}" class="btn btn-primary mb-2">
                         <i class="fa-solid fa-plus"></i>
@@ -36,8 +38,8 @@
                                 <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_City')}}</th>
                                 <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_numstudents')}}</th>
                                 <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_reason_for_trip')}}</th>
-                                <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_reason_for_status')}}</th>
-                                <th>{{ trans('hangarauto::solicitar.Title_Header_Table_Column_Action')}}</th>
+                                <th>Estado</th>
+                                <th class="col-2">{{ trans('hangarauto::solicitar.Title_Header_Table_Column_Action')}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,10 +50,10 @@
                                     <td>{{ $dato->end_date }}</td>
                                     @if($dato->petition_assignments->isNotEmpty())
                                         @foreach ($dato->petition_assignments as $pa)
-                                            <td>{{ $dato->vehicletype }} - {{ $pa->vehicle->name}} - {{ $pa->driver->person->fullname }}</td> <!-- Mostrar vehículo y conductor asignado si existe -->
+                                            <td>{{ $dato->vehicle_type->name }} - {{ $pa->vehicle->name}} - {{ $pa->driver->person->fullname }}</td> <!-- Mostrar vehículo y conductor asignado si existe -->
                                         @endforeach
                                     @else
-                                        <td>{{ $dato->vehicletype }}</td> <!-- Mostrar solo el tipo de vehículo si no hay asignaciones -->
+                                        <td>{{ $dato->vehicle_type->name }}</td> <!-- Mostrar solo el tipo de vehículo si no hay asignaciones -->
                                     @endif
                                     <td>{{ $dato->municipality->department->name }}</td>
                                     <td>{{ $dato->municipality->name }}</td>
@@ -63,20 +65,34 @@
                                         @if ($dato->status == 'Solicitud')
                                             @if (Auth::user()->havePermission('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.petitions.assign.index'))
                                             <button class="btn btn-primary btnAsignar" data-toggle="modal" data-target="#modalAsignar{{ $dato->id }}" data-petition-id="{{ $dato->id }}">
-                                                {{ trans('hangarauto::solicitar.btn_Assign_and_Confirm')}}
+                                                Asignar
                                             </button>
                                             @endif
-                                            
                                             <button class="btn btn-danger btnDenegar" data-toggle="modal" data-target="#modalDenegar{{ $dato->id }}">
-                                                {{ trans('hangarauto::solicitar.btn_deny')}}
+                                                Denegar
                                             </button>
                                             
                                         @elseif ($dato->status == 'Denegado')
                                             <button class="btn btn-warning btnMostrarDescripcion" data-toggle="modal" data-target="#modalDescripcion{{ $dato->id }}">
-                                                {{ trans('hangarauto::solicitar.btn_Show_Details')}}
+                                                Mostrar Observacion
                                             </button>
+                                        @elseif ($dato->status == 'Asignado')
+                                            @if (Route::is('hangarauto.driver*'))
+                                                <a href="{{ route('hangarauto.driver.petitions.confirmation', $dato->id) }}" class="btn btn-primary mb-2">
+                                                    Confirmar
+                                                </a>
+                                                <button class="btn btn-danger btnDenegar" data-toggle="modal" data-target="#modalDenegar{{ $dato->id }}">
+                                                    Denegar
+                                                </button>
+                                            @else 
+                                                <button class="btn btn-secondary ">
+                                                    {{ $dato->status }}
+                                                </button> 
+                                            @endif
+                                            
+                                           
                                         @else
-                                            <button class="btn btn-primary ">
+                                            <button class="btn btn-secondary ">
                                                 {{ $dato->status }}
                                             </button> 
                                         @endif
@@ -94,7 +110,7 @@
                                     </td>
                                     @endif
                                 </tr>
-                                @if (Route::is('hangarauto.admin.*') || Route::is('hangarauto.charge.*'))
+                                @if (Route::is('hangarauto.admin.*') || Route::is('hangarauto.charge.*') || Route::is('hangarauto.driver*'))
                                  <!-- Modal para la denegación con campo de observación -->
                                 <div class="modal fade" id="modalDenegar{{ $dato->id }}" tabindex="-1" role="dialog" aria-labelledby="modalDenegarLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -141,7 +157,7 @@
                                     </div>
                                 </div>
                                 @endif
-                                @if (Route::is('hangarauto.admin.*') || Route::is('hangarauto.charge.*'))
+                                @if (Route::is('hangarauto.admin.*') || Route::is('hangarauto.charge.*') )
                                 <!-- Modal para la asignación de vehículos -->
                                 <div class="modal fade" id="modalAsignar{{ $dato->id }}" tabindex="-1" role="dialog" aria-labelledby="modalAsignarLabel{{ $dato->id }}" aria-hidden="true">
                                     <div class="modal-dialog" role="document">

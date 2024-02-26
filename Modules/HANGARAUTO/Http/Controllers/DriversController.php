@@ -92,7 +92,7 @@ class DriversController extends Controller
 
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()):
-            return back()->withErrors($validator)->with('messages', 'Se Ha Producido Un Error')->with('typealert', 'danger');
+            return back()->withErrors($validator)->with('error', 'Se Ha Producido Un Error')->with('typealert', 'danger');
         else:
             $drivers = Driver::findOrFail($id);
             $drivers->name = $request->input('name');
@@ -102,6 +102,7 @@ class DriversController extends Controller
             $drivers->i_number = $request->input('id_number');
             if($drivers->save()){
                 return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers'))->with('messages','Conductor Actualizado Con Exito.')->with('typealert','success');
+                return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers'))->with('success','Conductor Actualizado Con Exito.')->with('typealert','success');
             }
         endif;
     }
@@ -110,10 +111,17 @@ class DriversController extends Controller
     public function getDriversDelete($id)
     {
         $driver = Driver::find($id);
-        if($driver->delete()):
-            return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers.delete'))->with('messages','Conductor Eliminado Con Exito.')->with('typealert','success');
-        endif;
-    }
+        if(!$driver) {
+            return redirect()->back()->with('error', 'Conductor no encontrado.');
+        }
+
+        if($driver->delete()) {
+            return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers'))->with('success','Conductor Eliminado Con Exito.')->with('typealert','success');
+        } else {
+            return redirect()->back()->with('error', 'Error al eliminar el conductor.');
+        }
+}
+
 
     public function driversvehicles_index(){
         $drivervehicles_pus = DriverVehicle::join('drivers', 'driver_vehicles.driver_id', '=', 'drivers.id')
@@ -134,7 +142,7 @@ class DriversController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+            return redirect()->back()->withErrors($validator)->withInput()->with(['error'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
         }
         // Verificar que no exista un registro con los datos recibidos en la base de datos
         $existingRecord = DriverVehicle::where([
@@ -144,22 +152,26 @@ class DriversController extends Controller
         if (!$existingRecord) {
             /* Realizar el registro */
             if (DriverVehicle::create($request->all())) {
-                $message = ['message' => 'Se sincronizó exitosamente el conductor y el vehiculo.', 'typealert' => 'success'];
+                $message = ['success' => 'Se sincronizó exitosamente el conductor y el vehiculo.', 'typealert' => 'success'];
             } else {
-                $message = ['message' => 'No se pudo sincronizar el conductor y el vehiculo.', 'typealert' => 'danger'];
+                $message = ['error' => 'No se pudo sincronizar el conductor y el vehiculo.', 'typealert' => 'danger'];
             }
         } else {
-            $message = ['message' => 'Ya existe un registro con los datos enviados.', 'typealert' => 'warning'];
+            $message = ['error' => 'Ya existe un registro con los datos enviados.', 'typealert' => 'warning'];
         }
         return redirect(route('hangarauto.admin.drivervehicles'))->with($message);
     }
 
     public function driversvehicles_delete(DriverVehicle $epu){
         if ($epu->delete()){
-            $message = ['message'=>'Se eliminó exitosamente la asociación de el conductor y el vehiculo.', 'typealert'=>'success'];
+            $message = ['success'=>'Se eliminó exitosamente la asociación de el conductor y el vehiculo.', 'typealert'=>'success'];
         } else {
-            $message = ['message'=>'No se pudo eliminar la asociación de el conductor y el vehiculo.', 'typealert'=>'danger'];
+            $message = ['error'=>'No se pudo eliminar la asociación de el conductor y el vehiculo.', 'typealert'=>'danger'];
         }
         return redirect(route('hangarauto.admin.drivervehicles'))->with($message);
     }
+
+    
+
+    
 }

@@ -38,8 +38,9 @@
                                         <td>{{$t->review_date}}</td>
                                         <td>{{$t->expiration_date}}</td>
                                         <td>
-                                            <a class="btn-delete" href="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.tecnomecanica.delete',$t) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
-                                                <i class="fas fa-trash-alt text-danger"></i>
+                                            <a class="btn btn-primary" href="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.tecnomecanica.edit', $t->id) }}" type="button"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-danger btn-delete" href="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.tecnomecanica.delete',$t) }}" data-action="eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -51,15 +52,8 @@
             </div>
         </div>
     </div>
-@stop
 
-@section('js')
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#travels').DataTable();
-        });
-    </script>
+    
+
+    
 @endsection
