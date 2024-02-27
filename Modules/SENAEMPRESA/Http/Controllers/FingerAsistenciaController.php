@@ -10,6 +10,9 @@ use Modules\SENAEMPRESA\Entities\FingerAsistencia;
 use Modules\SENAEMPRESA\Imports\FingerAsistenciaImport;
 use Maatwebsite\Excel\Facades\Excel;
 
+use Maatwebsite\Excel\Validators\ValidationException;
+/* use App\Exceptions\DataImportException; */
+
 
 class FingerAsistenciaController extends Controller
 {
@@ -37,25 +40,47 @@ class FingerAsistenciaController extends Controller
      * @param Request $request
      * @return Renderable
      */
+
+    /*----- Este es el controlador sin el mensaje de validación ---*/
     public function import(Request $request )
     {
 
-       
+        
 
-        if($request->hasFile('file')){
+            if($request->hasFile('file')){
+
+                $excel = $request->file('file');
+                
+                $retorno = Excel::import(new FingerAsistenciaImport, $excel);
+
+                return redirect()->route('fingerPrint.home')->with('success', 'All good!');
+                
+
+                
+            }else{
+                return redirect()->route('fingerPrint.home')->with('message', 'The file do not upload');
+            }
+        
+        
+    }
+
+
+    /* Este es el controlador con la validación tradicional */
+    /* public function import(Request $request)
+    {
+        try {
+            $request->validate([
+                'file' => 'required|file|mimes:xlsx,xls',
+            ]);
 
             $excel = $request->file('file');
-            
             $retorno = Excel::import(new FingerAsistenciaImport, $excel);
 
-            
             return redirect()->route('fingerPrint.home')->with('success', 'All good!');
-
-            
-        }else{
-            return redirect()->route('fingerPrint.home')->with('message', 'The file do not upload');
+        } catch (ValidationException $e) {
+            return redirect()->route('fingerPrint.home')->withErrors($e->errors());
         }
-    }
+    } */
 
     /**
      * Show the specified resource.

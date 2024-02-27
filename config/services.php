@@ -30,4 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    /* Para la utilización de la libreria de fingerprint */
+    'mhdpfp' => [
+        'key' => env('PLUGIN_BIOMETRIC_KEY'),        
+    ],
+
 ];

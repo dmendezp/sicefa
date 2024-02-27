@@ -4,7 +4,7 @@
 
 
 <div class="col">
-<div class="card card-outline card-primary " style="padding-left:1%; padding-right:1%">
+<div class="card card-outline card-primary" style="padding-left:1%; padding-right:1%">
 <div class="card-header">
 <h3 class="card-title">Primary Card Example</h3>
 

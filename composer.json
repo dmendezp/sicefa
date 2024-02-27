@@ -15,6 +15,7 @@
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.2",
         "maatwebsite/excel": "^3.1",
+        "mhtutorials/dpfp4500": "^1.0",
         "nwidart/laravel-modules": "^8.2",
         "owen-it/laravel-auditing": "^13.0",
         "unisharp/laravel-filemanager": "^2.4",

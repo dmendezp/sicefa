@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "26af8a27ed91ae7b7280c24872e00b6b",
+    "content-hash": "d278ad83b8c588b63b4269fe1db0bd6b",
     "packages": [
         {
             "name": "alexusmai/laravel-file-manager",
@@ -2332,6 +2332,79 @@
                 "source": "https://github.com/MarkBaker/PHPMatrix/tree/3.0.0"
             },
             "time": "2021-07-01T19:01:15+00:00"
+        },
+        {
+            "name": "mhtutorials/dpfp4500",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mauricio870331/mh-dpfp-1.0.git",
+                "reference": "56844a75b42ae909dbaaf524006f8d81a821a606"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mauricio870331/mh-dpfp-1.0/zipball/56844a75b42ae909dbaaf524006f8d81a821a606",
+                "reference": "56844a75b42ae909dbaaf524006f8d81a821a606",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "mhtutorials\\dpfp4500\\Providers\\ServiceProvider"
+                    ],
+                    "migrations": [
+                        "database/migrations"
+                    ],
+                    "models": [
+                        "src/Models"
+                    ],
+                    "controllers": [
+                        "src/Controllers"
+                    ],
+                    "views": [
+                        "src/views"
+                    ],
+                    "publish": {
+                        "mhtutorials\\dpfp4500": [
+                            "src/Models",
+                            "src/Controllers",
+                            "src/css",
+                            "src/js",
+                            "src/views",
+                            "src/images",
+                            "src/layout"
+                        ]
+                    },
+                    "assets": {
+                        "src/js/funciones.js": "public/dpfp/js/funciones.js",
+                        "src/js/jquery-1.7.2.min.js": "public/dpfp/js/jquery-1.7.2.min.js",
+                        "src/js/reloj.js": "public/dpfp/js/reloj.js",
+                        "src/js/SweetAlert2.js": "public/dpfp/js/SweetAlert2.js"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "mhtutorials\\dpfp4500\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mauricio Herrera",
+                    "email": "mauricio.herrera.ajc@gmail.com"
+                }
+            ],
+            "description": "Biometria FingerPrint-4500",
+            "support": {
+                "issues": "https://github.com/mauricio870331/mh-dpfp-1.0/issues",
+                "source": "https://github.com/mauricio870331/mh-dpfp-1.0/tree/1.0.0"
+            },
+            "time": "2023-04-17T20:20:03+00:00"
         },
         {
             "name": "monolog/monolog",

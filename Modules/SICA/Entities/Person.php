@@ -30,7 +30,8 @@ class Person extends Model implements Auditable
         'document_type',
         'document_number',
         'date_of_issue',
-        'first_name',
+        /* 'first_name', */
+        'name',
         'first_last_name',
         'second_last_name',
         'date_of_birth',
@@ -52,7 +53,8 @@ class Person extends Model implements Auditable
     ];
 
     public function getFullNameAttribute(){
-        return $this->first_name.' '.$this->first_last_name.' '.$this->second_last_name;
+        /* return $this->first_name.' '.$this->first_last_name.' '.$this->second_last_name; */
+        return $this->name.' '.$this->first_last_name.' '.$this->second_last_name;
     }
 
     public function getAgeAttribute(){
@@ -98,6 +100,10 @@ class Person extends Model implements Auditable
         return $this->belongsToMany(Event::class)->withTimestamps();
     }
 
+    #fingerprint
+    public function fingerprints() {
+        return $this->hasMany("App\Models\DpfpModels\FingerPrint");
+    } 
     
 
     

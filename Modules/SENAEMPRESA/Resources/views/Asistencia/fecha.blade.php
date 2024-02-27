@@ -23,6 +23,9 @@
 <script src="{{asset('AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{asset('AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 
+
+
+
 <!-- SweetAlert2 -->
 <link rel="stylesheet" type="text/css" href="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.css')}}">
 
@@ -362,6 +365,10 @@ input:checked+.slide:before {
 <script>
 $(function() {
     $("#myTable").DataTable({
+        /* dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf'
+        ], */
         "responsive": true,
         "autoWidth": false,
         language: {
@@ -369,6 +376,7 @@ $(function() {
         "Show": "Mostrar",
         "entries": "Registros",
         }
+        
     });
 
 });
@@ -380,7 +388,6 @@ $(function() {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"
     integrity="sha512-F636MAkMAhtTplahL9F6KmTfxTmYcAcjcCkyu0f0voT3N/6vzAuJ4Num55a0gEJ+hRLHhdz3vDvZpf6kqgEa5w=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 
 
 

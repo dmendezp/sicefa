@@ -7,21 +7,42 @@ use Carbon\Carbon;
 use Modules\SENAEMPRESA\Entities\FingerAsistencia;
 use Modules\SICA\Entities\Person;
 use Maatwebsite\Excel\Concerns\ToModel;
+use DateTime;/*  Para convertir el dato a tiempo */
 
 use Maatwebsite\Excel\Concerns\WithStartRow;
 /* use Maatwebsite\Excel\Concerns\WithHeadingRow; */ // Se egrega para implementar row por nombre definido y si se coloca solo buscará por heading
 use Maatwebsite\Excel\Concerns\WithBatchInserts; //Ayuda a limitar la carga de los elementos del excel
 use Maatwebsite\Excel\Concerns\WithChunkReading; // se usa para cargar documentos extensos
 
-class FingerAsistenciaImport implements ToModel, WithChunkReading, WithBatchInserts, WithStartRow //WithHeadingRow se importa para row definido en el excel
+/* Para las validaciones */
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Collection;
+
+class FingerAsistenciaImport implements ToModel, WithChunkReading, WithBatchInserts, WithStartRow//WithHeadingRow se importa para row definido en el excel
+
+
 {
     private $people;
     public function __construct(){
         $this->people = Person::pluck('id','document_number');
     }
+
    
     public function model(array $row)
     {
+
+        if (!isset($this->people[$row[1]])) {
+             
+            return null;
+        }
+
+        $datetime1 = new DateTime($row[5]);
+        $datetime2 = new DateTime($row[4]);
+        $interval = $datetime1->diff($datetime2);
+        //return $interval->format('%H:%I:%S');
+       
         return new FingerAsistencia([
         
             /* 'area' => $row['dept'], //el nombre en la base de datos es el primero el de $row es el de la tabla de excel
@@ -42,7 +63,7 @@ class FingerAsistenciaImport implements ToModel, WithChunkReading, WithBatchInse
             'date_turn' => $row[3],
             'time_in' => $row[4],
             'time_exit' => $row[5],
-           /*  'hours_work' =>$hours, */
+            'hours_work' =>$interval->format('%H'), 
             /* 'user_id' => ($user), */
             'person_id' => $this->people[$row[1]],
 
@@ -76,6 +97,11 @@ class FingerAsistenciaImport implements ToModel, WithChunkReading, WithBatchInse
     {
         return 1000;
     }
+
+ 
+
+
+
 
   
     

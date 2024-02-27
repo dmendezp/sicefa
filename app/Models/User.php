@@ -29,4 +29,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    /* relation model to finger print */
+    /* public function fingerprints() {
+        return $this->hasMany("App\Models\DpfpModels\FingerPrint");
+    } */
+
 }

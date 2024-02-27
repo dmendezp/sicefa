@@ -1,7 +1,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Starter</title>
+  <title>SENAEMPRESA | Asistencias</title>
 
   <link rel="icon" href="{{ asset('AdminLTE/dist/img/logo P SENA.png')}}">
 
@@ -43,6 +43,14 @@
   <link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
 
 
+  <!-- Estilos del Fingerprint -->
+  <!-- Fonts -->
+  <!-- <link rel="dns-prefetch" href="//fonts.gstatic.com">
+  <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet"> -->
+  <link rel="stylesheet" href="{{asset('dpfp/css/estilos.css')}}">
+
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   
 

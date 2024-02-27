@@ -110,6 +110,13 @@
                             <p>Turnos Sena Empresa</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                      <a class="nav-link {{ ! Route::is('verify-users') ?: 'active' }}" href="{{ route('verify-users') }}">
+                      <i class="nav-icon fas fa-fingerprint"></i>
+                        <p>{{ __('Check Users') }}</p>
+                      </a>
+                    </li>
+                    
                     @endif
                 </ul>
             </li>

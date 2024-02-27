@@ -40,3 +40,37 @@ video {
     font-size: 65px;
     text-shadow: 3px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
 }
+
+
+
+/* Estilos de la lista de users */
+.pagination-container {
+    margin-top: 20px;
+  }
+  
+  .pagination {
+    display: flex !important;
+    justify-content: center !important;
+  }
+  
+  .pagination .page-item {
+    margin: 0 5px;
+  }
+  
+  .pagination .page-link {
+    padding: 10px;
+    color: #333;
+    background-color: #fff !important;
+    border: 1px solid #ddd !important;
+    border-radius: 5px;
+  }
+  
+  .pagination .page-link:hover {
+    background-color: #eee !important;
+  }
+  
+  .pagination .page-item.active .page-link {
+    background-color: #007bff !important;
+    color: #fff;
+    border-color: #007bff !important;
+  }
