@@ -6,7 +6,7 @@
         <h1>Certificado Contactual</h1>
     </div>
     <div class="card-body">
-    <form method="POST" action="">
+    <form method="POST" action="{{ route('cefa.contractualcertificate.search') }}">
         @csrf
 
         <!-- Información de la Persona -->

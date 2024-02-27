@@ -9,7 +9,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.store') }}">
+                    <form method="POST" action="{{-- {{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.store') }} --}}">
                         @csrf
                         <div class="form-group">
                             <label
@@ -106,7 +106,7 @@
                     </div>
                     <div class="modal-body">
                         <form id="editInventoryForm"
-                            action="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.update', ['id' => $item->id]) }}" method="POST">
+                            action="{{-- {{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.update', ['id' => $item->id]) }} --}}" method="POST">
                             @csrf
                             @method('PUT')
 
@@ -216,7 +216,7 @@
         </div>
     @endforeach
 
-    @foreach ($inventory as $item)
+    {{-- @foreach ($inventory as $item)
     <div class="modal fade" id="eliminarinventory_{{ $item->id }}" tabindex="-1"
         aria-labelledby="eliminarinventoryLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -244,5 +244,5 @@
         </div>
     </div>
     
-@endforeach
+@endforeach --}}
 

@@ -214,7 +214,7 @@
         });
     </script>
     {{-- Script para editar --}}
-    <script>
+    {{-- <script>
         $('.btn-edit-inventory').on('click', function(event) {
             var InventoryId = $(this).data('inventory-id'); // Obtener el ID de la especie desde el botón
 
@@ -251,7 +251,7 @@
             // Actualizar la URL del formulario con el ID de la especie
             $('#editInventoryForm_' + InventoryId).attr('action', formAction);
         });
-    </script>
+    </script> --}}
 
 
     <style>

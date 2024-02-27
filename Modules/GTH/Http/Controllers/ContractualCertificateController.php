@@ -29,15 +29,11 @@ class ContractualCertificateController extends Controller
     }
     public function search(Request $request)
     {
-        $document_number = $request->input('document');
+        $document_number = $request->input('document_number');
 
         $personid = Person::where('document_number', $document_number)->get()->pluck('id');
 
         $contract = Contractor::where('person_id', $personid)->get();
-
-
-
-
 
         return view('gth::contractualcertificate.resultcontractual', [
             'contractors' => $contract,
@@ -45,6 +41,7 @@ class ContractualCertificateController extends Controller
 
         ]);
     }
+    
     public function pdf(Request $request, $id)
 {
     $contracts = Contractor::where('id', $id)->get();

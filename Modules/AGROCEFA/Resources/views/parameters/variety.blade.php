@@ -166,13 +166,13 @@
         var varietyId = $(this).data('variety-id');
 
         Swal.fire({
-            title: 'Are you sure?',
-            text: 'This action cannot be undone.',
+            title: '¿Estás seguro?',
+            text: 'Esta acción no se puede deshacer.',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete'
+            confirmButtonText: 'Sí, eliminar'
         }).then((result) => {
             if (result.isConfirmed) {
                 $('#delete-variety-form-' + varietyId).submit();

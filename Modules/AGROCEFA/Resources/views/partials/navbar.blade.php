@@ -26,6 +26,12 @@
                                 class="nav-link @if (Route::is('agrocefa.passant.*')) active @endif">Pasante</a>
                         </li>
                     @endif
+                    @if (checkRol('agrocefa.manageragricultural'))
+                        <li style="margin-right: 30px">
+                            <a href="{{ route('agrocefa.manageragricultural.index') }}" id="an"
+                                class="nav-link @if (Route::is('agrocefa.manageragricultural.*')) active @endif">Gestor Agricola</a>
+                        </li>
+                    @endif
                 @endauth
                 <li style="margin-right: 60px"><a href="{{ route('cefa.agrocefa.index') }}"
                         id="an">{{ trans('agrocefa::universal.Home') }}</a></li>

@@ -12,8 +12,10 @@ Route::middleware(['lang'])->group(function () {
         Route::get('home', 'AGROCEFAController@home')->name('cefa.agrocefa.home');
         Route::get('trainer', 'AGROCEFAController@trainer_passant')->name('agrocefa.trainer.index'); // Vista principal del Administrador (Instructor)
         Route::get('passant', 'AGROCEFAController@trainer_passant')->name('agrocefa.passant.index'); // Vista principal del Pasante (Pasante)
+        Route::get('manageragricultural', 'AGROCEFAController@trainer_passant')->name('agrocefa.manageragricultural.index'); // Vista principal del Gestor Agricola (Gestor Agricola)
         Route::get('trainer/select-unit/{id}', 'AGROCEFAController@selectUnit')->name('agrocefa.trainer.select-unit');
         Route::get('passant/select-unit/{id}', 'AGROCEFAController@selectUnit')->name('agrocefa.passant.select-unit');
+        Route::get('manageragricultural/select-unit/{id}', 'AGROCEFAController@selectUnit')->name('agrocefa.manageragricultural.select-unit');
         Route::get('bodegas', 'AGROCEFAController@bodega')->name('agrocefa.bodegas');
         Route::get('user', 'AGROCEFAController@vistauser')->name('agrocefa.user');
         Route::get('developers', 'desarrolladoresController@index')->name('cefa.agrocefa.developers.index');
@@ -24,16 +26,21 @@ Route::middleware(['lang'])->group(function () {
         // RUTAS DE PARAMETROS
         Route::get('trainer/parameters', 'Parameters\ParameterAgroController@parametersview')->name('agrocefa.trainer.parameters.index');
         Route::get('passant/parameters', 'Parameters\ParameterAgroController@parametersview')->name('agrocefa.passant.parameters.index');
+        Route::get('manageragricultural/parameters', 'Parameters\ParameterAgroController@parametersview')->name('agrocefa.manageragricultural.parameters.index');
 
         // Actividad
         Route::get('trainer/parameters/activity/getactivity', 'Parameters\ActivityController@getActivitiesForSelectedUnit')->name('agrocefa.trainer.parameters.activity.getactivity');
         Route::get('passant/parameters/activity/getactivity', 'Parameters\ActivityController@getActivitiesForSelectedUnit')->name('agrocefa.passant.parameters.activity.getactivity');
+        Route::get('manageragricultural/parameters/activity/getactivity', 'Parameters\ActivityController@getActivitiesForSelectedUnit')->name('agrocefa.manageragricultural.parameters.activity.getactivity');
         Route::post('trainer/parameters/activity/store', 'Parameters\ActivityController@createActivity')->name('agrocefa.trainer.parameters.activity.store');
         Route::post('passant/parameters/activity/store', 'Parameters\ActivityController@createActivity')->name('agrocefa.passant.parameters.activity.store');
+        Route::post('manageragricultural/parameters/activity/store', 'Parameters\ActivityController@createActivity')->name('agrocefa.manageragricultural.parameters.activity.store');
         Route::put('trainer/parameters/activity/update/{id}', 'Parameters\ActivityController@editActivity')->name('agrocefa.trainer.parameters.activity.update');
         Route::put('passant/parameters/activity/update/{id}', 'Parameters\ActivityController@editActivity')->name('agrocefa.passant.parameters.activity.update');
+        Route::put('manageragricultural/parameters/activity/update/{id}', 'Parameters\ActivityController@editActivity')->name('agrocefa.manageragricultural.parameters.activity.update');
         Route::delete('trainer/parameters/activity/destroy/{id}', 'Parameters\ActivityController@deleteActivity')->name('agrocefa.trainer.parameters.activity.destroy');
         Route::delete('passant/parameters/activity/destroy/{id}', 'Parameters\ActivityController@deleteActivity')->name('agrocefa.passant.parameters.activity.destroy');
+        Route::delete('manageragricultural/parameters/activity/destroy/{id}', 'Parameters\ActivityController@deleteActivity')->name('agrocefa.manageragricultural.parameters.activity.destroy');
 
         // Variedad
         Route::post('trainer/parameters/variety/store', 'Parameters\VarietyController@store')->name('agrocefa.trainer.parameters.variety.store');
@@ -71,16 +78,16 @@ Route::middleware(['lang'])->group(function () {
         Route::get('trainer/inventory/low', 'InventoryController@lowentrance')->name('agrocefa.trainer.inventory.low');
         Route::get('trainer/inventory/stock', 'InventoryController@stockview')->name('agrocefa.trainer.inventory.stock');
         Route::post('inventory/movementlow/{id}', 'InventoryController@movementlow')->name('agrocefa.inventory.movementlow');
-        Route::post('trainer/inventory/store', 'InventoryController@store')->name('agrocefa.trainer.inventory.store');
-        Route::post('passant/inventory/store', 'InventoryController@store')->name('agrocefa.passant.inventory.store');
         Route::post('trainer/inventory/category/store', 'InventoryController@addCategory')->name('agrocefa.trainer.inventory.category.store');
         Route::post('passant/inventory/category/store', 'InventoryController@addCategory')->name('agrocefa.passant.inventory.category.store');
         Route::post('trainer/inventory/element/store', 'InventoryController@addElement')->name('agrocefa.trainer.inventory.element.store');
         Route::post('passant/inventory/element/store', 'InventoryController@addElement')->name('agrocefa.passant.inventory.element.store');
-        Route::put('trainer/inventory/{id}', 'InventoryController@update')->name('agrocefa.trainer.inventory.update');
-        Route::put('passant/inventory/{id}', 'InventoryController@update')->name('agrocefa.passant.inventory.update');
-        Route::delete('trainer/inventory/delete/{id}', 'InventoryController@destroy')->name('agrocefa.trainer.inventory.destroy');
-        Route::delete('passant/inventory/delete/{id}', 'InventoryController@destroy')->name('agrocefa.passant.inventory.destroy');
+        // Route::post('trainer/inventory/store', 'InventoryController@store')->name('agrocefa.trainer.inventory.store');
+        // Route::post('passant/inventory/store', 'InventoryController@store')->name('agrocefa.passant.inventory.store');
+        // Route::put('trainer/inventory/{id}', 'InventoryController@update')->name('agrocefa.trainer.inventory.update');
+        // Route::put('passant/inventory/{id}', 'InventoryController@update')->name('agrocefa.passant.inventory.update');
+        // Route::delete('trainer/inventory/delete/{id}', 'InventoryController@destroy')->name('agrocefa.trainer.inventory.destroy');
+        // Route::delete('passant/inventory/delete/{id}', 'InventoryController@destroy')->name('agrocefa.passant.inventory.destroy');
 
         // RUTAS DE MOVIMIENTOS
         Route::get('trainer/movements', 'MovementController@viewmovements')->name('agrocefa.trainer.movements.index');
@@ -124,8 +131,8 @@ Route::middleware(['lang'])->group(function () {
         Route::get('passant/labormanagement/getpriceemploye', 'LaborManagementController@getpriceemploye')->name('agrocefa.passant.labormanagement.getpriceemploye');
         Route::get('trainer/labormanagement/getcropinformation', 'LaborManagementController@getcropinformation')->name('agrocefa.trainer.labormanagement.getcropinformation');
         Route::get('passant/labormanagement/getcropinformation', 'LaborManagementController@getcropinformation')->name('agrocefa.passant.labormanagement.getcropinformation');
-        Route::post('trainer/labormanagement/registerlabor', 'LaborManagementController@registerlabor')->name('agrocefa.trainer.labormanagement.registerlabor');
-        Route::post('passant/labormanagement/store', 'LaborManagementController@registerlabor')->name('agrocefa.trainer.labormanagement.store');
+        Route::post('trainer/labormanagement/store', 'LaborManagementController@registerlabor')->name('agrocefa.trainer.labormanagement.store');
+        Route::post('passant/labormanagement/store', 'LaborManagementController@registerlabor')->name('agrocefa.passant.labormanagement.store');
         Route::get('trainer/labormanagement/obtenerAspectosAmbientales/{activity}', 'LaborManagementController@obtenerAspectosAmbientales')->name('agrocefa.trainer.labormanagement.obtenerAspectosAmbientales');
         Route::get('trainer/labormanagement/mostrarAspectosAmbientales', 'LaborManagementController@mostrarAspectosAmbientales')->name('agrocefa.trainer.labormanagement.mostrarAspectosAmbientales');
         Route::get('/labormanagement/culturalwork', 'LaborManagementController@activityproduct')->name('agrocefa.labormanagement.activityType');
@@ -152,7 +159,6 @@ Route::middleware(['lang'])->group(function () {
         // Produccion
         Route::get('trainer/reports/production', 'Reports\ProductionController@index')->name('agrocefa.trainer.reports.production.index');
         Route::get('passant/reports/production', 'Reports\ProductionController@index')->name('agrocefa.passant.reports.production.index');
-        Route::get('/reports/cropsbylot', 'Reports\ProductionController@getCropsByLot')->name('agrocefa.reports.cropsbylot');
         Route::post('/reports/production/filter', 'Reports\ProductionController@filterProduction')->name('agrocefa.reports.filterproduction');
         Route::get('/reports/production/resultproduction', 'Reports\ProductionController@resultProduction')->name('agrocefa.reports.resultproduction');
         Route::post('/reports/productionpdf', 'Reports\ProductionController@productionPdf')->name('agrocefa.reports.productionpdf');
@@ -160,8 +166,6 @@ Route::middleware(['lang'])->group(function () {
         // Balance
         Route::get('trainer/reports/balance', 'Reports\BalanceController@index')->name('agrocefa.trainer.reports.balance.index');
         Route::get('passant/reports/balance', 'Reports\BalanceController@index')->name('agrocefa.passant.reports.balance.index');
-        Route::get('trainer/reports/balance/cropsbylot', 'Reports\BalanceController@getCropsByLot')->name('agrocefa.trainer.reports.balance.cropsbylot');
-        Route::get('passant/reports/balance/cropsbylot', 'Reports\BalanceController@getCropsByLot')->name('agrocefa.passant.reports.balance.cropsbylot');
         Route::post('/reports/balance/filter', 'Reports\BalanceController@filterbalance')->name('agrocefa.reports.filterbalance');
         Route::get('/reports/balance/balancepdf', 'Reports\BalanceController@balancepdf')->name('agrocefa.reports.balancepdf');
 

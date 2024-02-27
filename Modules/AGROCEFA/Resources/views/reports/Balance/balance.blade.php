@@ -59,7 +59,7 @@
 
             if (selectedProductId) {
                 $.ajax({
-                    url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.reports.balance.cropsbylot') }}',
+                    url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.reports.consumable.getCropsBylot') }}',
                     method: 'GET',
                     data: {
                         unit: selectedProductId

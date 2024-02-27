@@ -22,11 +22,6 @@
                         <th>{{ trans('agrocefa::inventory.Price') }}</th>
                         <th>{{ trans('agrocefa::inventory.Amount') }}</th>
                         <th>Stock</th>
-                        @auth
-                            @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.manage'))
-                                <th>{{ trans('agrocefa::inventory.Actions') }}</th>
-                            @endif
-                        @endauth
                     </tr>
                 </thead>
                 <tbody>
@@ -59,29 +54,7 @@
                             <td class="col-1">{{ $item->price }}</td>
                             <td class="col-1">{{ $item->amount / $measurement_unit}}</td>
                             <td class="col-1">{{ $item->stock }}</td>
-
-                            @auth
-                                @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.manage'))
-                                    <td class="col-1">
-                                        <div class="button-group">
-                                            <button class="btn btn-primary btn-sm btn-edit-inventory" data-bs-toggle="modal"
-                                                data-bs-target="#editarRegistroModal_{{ $item->id }}"
-                                                data-inventory-id="{{ $item->id }}"><i
-                                                    class='bx bx-edit icon'></i></button>
-                                            <button class="btn btn-danger btn-sm btn-inventory-crop" data-inventory-id="{{ $item->id }}">
-                                                <i class='bx bx-trash icon'></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                @endif
-                            @endauth
                         </tr>
-
-                        {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.destroy', 'id' => $item->id], 'method' => 'POST', 'id' => 'delete-inventory-form-' . $item->id]) !!}
-                            @csrf
-                            @method('DELETE')
-                            <!-- Otros campos ocultos necesarios... -->
-                        {!! Form::close() !!}
                     @endforeach
 
                 </tbody>
