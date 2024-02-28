@@ -1,9 +1,9 @@
 {{-- CRUD parametro Cultivo --}}
-<div class="card" style="width: 90%; margin-left: 40px">
-    <div class="card-header">
+<div class="card" style="width: 98%; margin-left: 10px">
+    <div class="card-header" style="width: 100%">
         {{ trans('agrocefa::cultivo.Crop') }}
         @auth
-            @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
+            @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
                 <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearcrop"><i
                         class='bx bx-plus icon'></i>
                 </button>
@@ -11,7 +11,7 @@
         @endauth
     </div>
     <div class="card-body">
-        <table class="table table-sm table-bordered table-striped" style="width: 90%">
+        <table class="table table-sm table-bordered table-striped" style="width: 100%">
             <thead>
                 <tr>
                     <th>#</th>
@@ -23,7 +23,7 @@
                     <th>{{ trans('agrocefa::cultivo.Variety') }}</th>
                     <th>{{ trans('agrocefa::cultivo.End date') }}</th>
                     @auth
-                        @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
+                        @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
                             <th>{{ trans('agrocefa::specie.Actions') }}</th>
                         @endif
                     @endauth
@@ -47,7 +47,7 @@
                         <td>{{ $crop->variety->name }}</td>
                         <td>{{ $crop->finish_date }}</td>
                         @auth
-                            @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
+                            @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
                                 <td>
                                     <button class="btn btn-primary btn-sm btn-edit-crop"
                                         data-bs-target="#editCultivo_{{ $crop->id }}" data-bs-toggle="modal">

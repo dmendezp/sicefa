@@ -3,7 +3,7 @@
     <div class="card-header">
         {{ trans('agrocefa::variety.variety') }}
         @auth
-            @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
+            @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
                 <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#createVarieties"><i
                         class='bx bx-plus icon'></i></button>
             @endif
@@ -17,7 +17,7 @@
                     <th>{{ trans('agrocefa::variety.name') }}</th>
                     <th>{{ trans('agrocefa::variety.specie') }}</th>
                     @auth
-                        @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
+                        @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
                             <th>{{ trans('agrocefa::variety.Actions') }}</th>
                         @endif
                     @endauth
@@ -30,7 +30,7 @@
                         <td>{{ $variety->name }}</td>
                         <td>{{ $variety->specie->name }}</td>
                         @auth
-                            @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
+                            @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
                                 <td>
                                     <button class="btn btn-primary btn-sm btn-edit-variety"
                                         data-bs-target="#editVarietyModal_{{ $variety->id }}" data-bs-toggle="modal">
@@ -135,7 +135,7 @@
                         {!! Form::select('specie_id', collect($species)->pluck('name', 'id'), null, ['class' => 'form-control']) !!}
                     </div>                    
                     <br>
-                    {!! Form::submit(trans('agrocefa::variety.Delete_Variety'), ['class' => 'btn btn-primary']) !!}
+                    {!! Form::submit(trans('agrocefa::variety.Update_Variety'), ['class' => 'btn btn-primary']) !!}
                     {!! Form::close() !!}
                 </div>
             </div>

@@ -76,7 +76,7 @@ class AGROCEFAController extends Controller
             // Recorre la colección de roles
             foreach ($productive_units_role as $role) {
                 // Verifica si el rol tiene el atributo 'full_access'
-                if ($role->full_access === 'Si' ) {
+                if ($role->full_access === 'Si' || $role->slug === 'agrocefa.manageragricultural') {
                    
                     $hasFullAccess = true;
                     break; // Rompe el bucle si se encuentra un rol con acceso completo

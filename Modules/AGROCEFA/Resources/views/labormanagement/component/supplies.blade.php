@@ -268,7 +268,9 @@
                     success: function(response) {
                         console.log(response);
                         // Actualizar los campos de precio, cantidad y destino
-                        currentRow.find('#supplies_price').val(response.price || '');
+
+                        var formattedPrice = response.price.toLocaleString();
+                        currentRow.find('#supplies_price').val(formattedPrice || '');
                         currentRow.find('#product-stock').val(response.stock || '');
 
                         var quantityMessage = currentRow.find('.quantity-message');
@@ -362,18 +364,41 @@
                     var quantityField = currentRow.find('.supplies_quantity');
                     var priceTotalField = currentRow.find('.supplies_price-total');
 
-                    var price = parseFloat(priceField.val()) || 0;
+                    // Obtener el precio como un número flotante
+                    var price = parseFloat(priceField.val().replace(',', '.')) || 0;
                     var quantity = parseInt(quantityField.val()) || 0;
+
+                    console.log(price, quantity);
                     if (price > 0 && quantity > 0) {
-                        var total = price * quantity * sownArea; // Multiplica por el área sembrada
+                        var total = price * quantity; // Multiplica por la cantidad
 
+                        // Formatear el precio total manualmente
+                        var formattedTotal = formatNumber(total, 3);
 
-                        priceTotalField.val(total.toFixed(0));
+                        priceTotalField.val(formattedTotal);
                     } else {
-                        priceTotalField.val(''); // Deja el campo en blanco si falta información
+                        priceTotalField.val(''); // Dejar el campo en blanco si falta información
                     }
                 });
             }
+
+// Función para formatear un número con separador de miles y decimales
+function formatNumber(number, decimals) {
+    var decimalSeparator = '.';
+    var thousandsSeparator = ',';
+
+    var numParts = number.toFixed(decimals).split('.');
+    var integerPart = numParts[0];
+    var decimalPart = numParts.length > 1 ? decimalSeparator + numParts[1] : '';
+
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSeparator);
+
+    return integerPart + decimalPart;
+}
+
+
+
+
 
             // Manejador de eventos para el cambio en el campo de cantidad y precio
             suppliesTable.on('input', 'input[name="supplies_quantity[]"]', function() {

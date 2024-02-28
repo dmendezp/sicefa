@@ -15,13 +15,13 @@
             <table class="table table-sm table-bordered table-striped" style="font-size: 0.9rem;">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th class="col-1">#</th>
                         <th>{{ trans('agrocefa::inventory.Element') }}</th>
                         <th>{{ trans('agrocefa::inventory.Category') }}</th>
                         <th>{{ trans('agrocefa::inventory.Destination') }}</th>
                         <th>{{ trans('agrocefa::inventory.Price') }}</th>
                         <th>{{ trans('agrocefa::inventory.Amount') }}</th>
-                        <th>Stock</th>
+                        <th>Stock Minimo</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,13 +47,13 @@
                         @endif
 
                         <tr>
-                            <td class="col-1" style="/* width: 10.6px; *//* height: 9px; */">{{ $item->id }}</td>
-                            <td class="col-1">{{ $item->element->name }}</td>
-                            <td class="col-1">{{ $item->element->category->name }}</td>
-                            <td class="col-1">{{ $item->destination }}</td>
-                            <td class="col-1">{{ $item->price }}</td>
-                            <td class="col-1">{{ $item->amount / $measurement_unit}}</td>
-                            <td class="col-1">{{ $item->stock }}</td>
+                            <td style="/* width: 10.6px; *//* height: 9px; */">{{ $loop->iteration }}</td>
+                            <td >{{ $item->element->name }}</td>
+                            <td >{{ $item->element->category->name }}</td>
+                            <td >{{ $item->destination }}</td>
+                            <td >{{ $item->price }}</td>
+                            <td >{{ $item->amount / $measurement_unit}}</td>
+                            <td >{{ $item->stock }}</td>
                         </tr>
                     @endforeach
 
@@ -90,7 +90,7 @@
 
     function redirectTlow() {
         // Redirigir a la otra vista
-        window.location.href = "{{ route('agrocefa.trainer.inventory.low') }}";
+        window.location.href = "{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.low') }}";
     }
 </script>
 

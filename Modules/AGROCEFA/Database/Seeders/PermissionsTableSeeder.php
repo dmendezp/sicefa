@@ -131,7 +131,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'You can manage the different actions of the parameters section',
             'app_id' => $app->id
         ]);
-        $permissions_trainer[] = $permission->id; // Almacenar permiso para rol
+        $permissions_manageragricultural[] = $permission->id; // Almacenar permiso para rol
 
 
         // || Actividad ||
@@ -183,6 +183,59 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Eliminar Actividad',
             'description' => 'Realizar la eliminacion de la actividad',
             'description_english' => 'Perform activity delete',
+            'app_id' => $app->id
+        ]);
+        $permissions_manageragricultural[] = $permission->id; // Almacenar permiso para rol
+
+        // ||   Tipo de Empleado ||
+
+        // Registrar tipo de empleado
+        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.trainer.parameters.employeetype.store'], [
+            'name' => 'Registrar tipo de empleado',
+            'description' => 'Realizar el registro de la tipo de empleado',
+            'description_english' => 'Record the variety',
+            'app_id' => $app->id
+        ]);
+        $permissions_trainer[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.manageragricultural.parameters.employeetype.store'], [
+            'name' => 'Registrar tipo de empleado',
+            'description' => 'Realizar el registro de la tipo de empleado',
+            'description_english' => 'Record the variety',
+            'app_id' => $app->id
+        ]);
+        $permissions_manageragricultural[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar tipo de empleado
+        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.trainer.parameters.employeetype.update'], [
+            'name' => 'Actualizar tipo de empleado',
+            'description' => 'Realizar la actualizacion de la tipo de empleado',
+            'description_english' => 'Perform variety update',
+            'app_id' => $app->id
+        ]);
+        $permissions_trainer[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.manageragricultural.parameters.employeetype.update'], [
+            'name' => 'Actualizar tipo de empleado',
+            'description' => 'Realizar la actualizacion de la tipo de empleado',
+            'description_english' => 'Perform variety update',
+            'app_id' => $app->id
+        ]);
+        $permissions_manageragricultural[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar tipo de empleado
+        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.trainer.parameters.employeetype.destroy'], [
+            'name' => 'Eliminar tipo de empleado',
+            'description' => 'Realizar la eliminacion de la tipo de empleado',
+            'description_english' => 'Perform variety delete',
+            'app_id' => $app->id
+        ]);
+        $permissions_trainer[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.manageragricultural.parameters.employeetype.destroy'], [
+            'name' => 'Eliminar tipo de empleado',
+            'description' => 'Realizar la eliminacion de la tipo de empleado',
+            'description_english' => 'Perform variety delete',
             'app_id' => $app->id
         ]);
         $permissions_manageragricultural[] = $permission->id; // Almacenar permiso para rol

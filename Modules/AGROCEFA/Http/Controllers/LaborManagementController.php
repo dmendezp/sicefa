@@ -276,7 +276,7 @@ class LaborManagementController extends Controller
     {
         $term = $request->input('q');
 
-        $persons = Person::where('document_number', 'like', '%' . $term . '%')->get();
+        $persons = Person::whereRaw("CONCAT(first_name, ' ', first_last_name, ' ', second_last_name) LIKE ?", ['%' . $term . '%'])->get();
 
         $results = [];
         foreach ($persons as $person) {
@@ -507,9 +507,6 @@ class LaborManagementController extends Controller
 
     public function registerlabor(Request $request)
     {
-
-        
-
         // Obtén el ID de la unidad productiva seleccionada de la sesión
         $this->selectedUnitId = Session::get('selectedUnitId');
 

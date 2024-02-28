@@ -87,7 +87,7 @@
                             <br>
                             <div class="form-group">
                                 {!! Form::label('date', trans('agrocefa::labor.Date')) !!}
-                                {!! Form::text('date', old('date', $date), ['class' => 'form-control', 'required', 'readonly' => 'readonly']) !!}
+                                {!! Form::date('date', old('date', $date), ['class' => 'form-control', 'required']) !!}
                             </div>
                             <br>
                             <div class="form-group">

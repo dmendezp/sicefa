@@ -3,7 +3,7 @@
     <div class="card-header">
         {{ trans('agrocefa::parameters.Activity') }}
         @auth
-            @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
+            @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
                 <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearactividad"><i
                         class='bx bx-plus icon'></i>
                 </button>
@@ -20,7 +20,7 @@
                     <th class="col-2">{{ trans('agrocefa::parameters.1T_Description') }}</th>
                     <th class="col-1">{{ trans('agrocefa::parameters.1T_Period') }}</th>
                     @auth
-                        @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
+                        @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
                             <th class="col-3">{{ trans('agrocefa::parameters.1T_Actions') }}</th>
                         @endif
                     @endauth
@@ -35,7 +35,7 @@
                         <td>{{ $activity->description }}</td>
                         <td>{{ $activity->period }}</td>
                         @auth
-                            @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
+                            @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
                                 <td>
                                     <button class="btn btn-primary btn-sm btn-edit-activity" data-bs-toggle="modal"
                                         data-bs-target="#editaractividad_{{ $activity->id }}"

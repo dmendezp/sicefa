@@ -3,7 +3,7 @@
     <div class="card-header">
         {{ trans('agrocefa::specie.Species') }}
         @auth
-            @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
+            @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
                 <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearspecie"><i
                         class='bx bx-plus icon'></i>
                 </button>
@@ -18,7 +18,7 @@
                     <th>{{ trans('agrocefa::specie.Name') }}</th>
                     <th>{{ trans('agrocefa::specie.lifecycle') }}</th>
                     @auth
-                        @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
+                        @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
                             <th>{{ trans('agrocefa::specie.Actions') }}</th>
                         @endif
                     @endauth
@@ -31,7 +31,7 @@
                         <td>{{ $a->name }}</td>
                         <td>{{ $a->lifecycle }}</td>
                         @auth
-                            @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
+                            @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
                                 <td>
                                     <div class="button-group">
                                         <button class="btn btn-primary btn-sm btn-edit-specie" data-bs-toggle="modal"

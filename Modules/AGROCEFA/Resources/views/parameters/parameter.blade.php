@@ -45,6 +45,8 @@
         <div class="col-md-6">
             @include('agrocefa::parameters.variety')
             <br>
+            @include('agrocefa::parameters.employeetype')
+            <br>
 
             
         <br>

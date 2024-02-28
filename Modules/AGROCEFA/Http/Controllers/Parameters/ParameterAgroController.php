@@ -13,6 +13,7 @@ use Modules\SICA\Entities\Activity;
 use Modules\AGROCEFA\Entities\Crop;
 use Modules\SICA\Entities\ActivityType;
 use Modules\SICA\Entities\Environment;
+use Modules\SICA\Entities\EmployeeType;
 use Modules\AGROCEFA\Entities\Variety;
 use Modules\AGROCEFA\Http\Controllers\Parameters\ActivityController;
 use Modules\AGROCEFA\Http\Controllers\Parameters\AplicationMethodController;
@@ -41,6 +42,7 @@ class ParameterAgroController extends Controller
         $activities = $activityController->getActivitiesForSelectedUnit(); // Llama a la función y obtiene las actividades
         $laborsData = $aplicationController->getAplicationForLabor(); // Llama a la función y obtiene las actividades
         $environments = Environment::all(); // Agrega esta línea para obtener los ambientes
+        $employeetypes = EmployeeType::all(); // Agrega esta línea para obtener los ambientes
 
 
         return view('agrocefa::parameters.parameter', [
@@ -52,6 +54,7 @@ class ParameterAgroController extends Controller
             'varieties' => $varieties,
             'environments' => $environments, // Pasa la lista de ambientes a la vista
             'laborsData' => $laborsData,
+            'employeetypes' => $employeetypes,
         ]);
     }
 

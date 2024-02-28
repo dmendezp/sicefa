@@ -97,6 +97,7 @@ class MovementController extends Controller
             $productiveunit = $movement['warehouse_movements'][0]['productive_unit_warehouse']['productive_unit']['name'];
             $warehouse = $movement['warehouse_movements'][0]['productive_unit_warehouse']['warehouse']['name'];
             
+            
             // Verificar si hay elementos en movement_details
             if (isset($movement['movement_details']) && is_array($movement['movement_details']) && count($movement['movement_details']) > 0) {
                 // Iterar a través de los elementos en movement_details
@@ -119,7 +120,6 @@ class MovementController extends Controller
                         'warehouse' => $warehouse,
                         'inventory' => $inventory,
                         'amount' => $amount,
-                        'price' => $price,
                         'state' => $state,
                         'inventory_id' => $inventoryId,
                         'element_id' => $elementid,
@@ -193,9 +193,12 @@ class MovementController extends Controller
             $id = $movement['id'];
             $date = $movement['registration_date'];
             $person_id = $movement['movement_responsibilities'][0]['person_id'];
+            $movement_type = $movement['movement_type']['name'];
             $respnsibility = $movement['movement_responsibilities'][0]['person']['first_name'];
             $productiveunit = $movement['warehouse_movements'][0]['productive_unit_warehouse']['productive_unit']['name'];
             $warehouse = $movement['warehouse_movements'][0]['productive_unit_warehouse']['warehouse']['name'];
+            $pricetotal = $movement['price'];
+            
             
             // Verificar si hay elementos en movement_details
             if (isset($movement['movement_details']) && is_array($movement['movement_details']) && count($movement['movement_details']) > 0) {
@@ -226,6 +229,8 @@ class MovementController extends Controller
                         'destination' => $destination,
                         'person_id' => $person_id,
                         'lot' => $lot,
+                        'movement_type' => $movement_type,
+                        'pricetotal' => $pricetotal,
                         // Agrega aquí otros datos que necesites
                     ];
                 }

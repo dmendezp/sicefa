@@ -22,7 +22,7 @@ return [
     'Elements' => 'Elements',
     'Observation' => 'Observation',
     'MovementHistory' => 'Movement History',
-    
+    'MovementType' => 'MovementType',    
 
     //Tabla dinamica
     '1T_Name_Of_The_Element' => 'Name Of The Element',

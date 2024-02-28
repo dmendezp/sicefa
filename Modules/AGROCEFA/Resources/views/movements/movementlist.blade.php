@@ -9,17 +9,18 @@
         <div class="row">
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped" >
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{ trans('agrocefa::movements.2T_Date')}}</th>
+                                <th class="col-3">{{ trans('agrocefa::movements.2T_Date')}}</th>
                                 <th>{{ trans('agrocefa::movements.2T_Responsibility')}}</th>
                                 <th>{{ trans('agrocefa::movements.2T_ProductUnit')}}</th>
                                 <th>{{ trans('agrocefa::movements.2T_Warehouse')}}</th>
-                                <th>{{ trans('agrocefa::movements.2T_Elements')}}</th>
+                                <th class="col-5">{{ trans('agrocefa::movements.2T_Elements')}}</th>
                                 <th>{{ trans('agrocefa::movements.2T_Amount')}}</th>
                                 <th>{{ trans('agrocefa::movements.2T_Price')}}</th>
+                                <th>{{ trans('agrocefa::movements.MovementType')}}</th>
                                 <th>{{ trans('agrocefa::movements.2T_State')}}</th>
                                 
                             </tr>
@@ -51,7 +52,8 @@
                                                 @endif
                                             @endforeach
                                         </td>
-                                        <td>{{ $data['price'] }}</td>
+                                        <td>{{ number_format($data['pricetotal'], 0, ',', '.') }}</td>
+                                        <td>{{ $data['movement_type'] }}</td>
                                         <td>{{ $data['state'] }}</td>
                                         <td>
                                             {!! Form::open(['route' => ['agrocefa.movements.confirmation', $data['id']], 'method' => 'POST']) !!}
@@ -79,3 +81,9 @@
         <p>No hay movimientos.</p>
 @endif
 @endsection
+
+<script>
+    $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>

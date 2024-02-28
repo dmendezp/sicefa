@@ -4,25 +4,31 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
 
 class LangMiddleware
 {
- 
     public function handle(Request $request, Closure $next)
     {
-        if(!empty(session('lang'))){
-            \App::setlocale(session('lang'));
+        // Establecer el idioma si está disponible en la sesión
+        if (!empty(session('lang'))) {
+            App::setLocale(session('lang'));
         }
-        //Codigo para que las vistas puedan ser accedidas sin loguearse
-        //print_r($request->route()->getAction()['uses']);
+
+        // Verificar el nombre de la ruta y el acceso a la autorización
         if ($request->route()->getName() !== '' && strpos($request->route()->getName(), 'cefa.') !== 0) {
-            $pos2 = strpos($request->route()->getAction()['uses'], 'Auth');
-            if ($pos2 === false) {
-                Gate::authorize('haveaccess', $request->route()->getName());
+            // Obtener la acción de la ruta
+            $action = $request->route()->getAction();
+
+            if (is_string($action['uses'])) {
+                $pos2 = strpos($action['uses'], 'Auth');
+                if ($pos2 === false) {
+                    // Si no contiene 'Auth', entonces verificar el acceso usando Gate
+                    Gate::authorize('haveaccess', $request->route()->getName());
+                }
             }
         }
-        
 
         return $next($request);
     }

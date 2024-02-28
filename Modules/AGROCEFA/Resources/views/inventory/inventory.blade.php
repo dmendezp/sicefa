@@ -4,7 +4,7 @@
 
     <h1>{{ trans('agrocefa::inventory.Inventory') }}</h1>
     @auth
-        @if (Auth::user()->havePermission('agrocefa.trainer.inventory.manage'))
+        @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.manage'))
             <div id="espacio" class="btn-group" role="group" aria-label="Botones">
 
                 <button id="categorys" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearcategoria">

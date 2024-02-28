@@ -41,9 +41,9 @@
                 <li style="margin-right: 60px"><a href="{{ url('lang', ['es']) }}" id="an"
                         class="dropdown-item"><img src="{{ asset('modules/agrocefa/images/general/es.png') }}" alt=""
                             style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.Spanish') }}</a></li>
-                @if (checkRol('agrocefa.trainer'))
+                @if (checkRol('agrocefa.trainer') || checkRol('agrocefa.manageragricultural'))
                 
-                @if (Auth::user()->havePermission('agrocefa.trainer.movements.notification') && Route::currentRouteName() != 'agrocefa.passant.index' && Route::currentRouteName() != 'agrocefa.trainer.index' && Route::currentRouteName() != 'cefa.agrocefa.index' && Route::currentRouteName() != 'cefa.agrocefa.developers.index' && Route::currentRouteName() != 'cefa.agrocefa.usuario.index')
+                @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.notification') && Route::currentRouteName() != 'agrocefa.passant.index' && Route::currentRouteName() != 'agrocefa.trainer.index' && Route::currentRouteName() != 'cefa.agrocefa.index' && Route::currentRouteName() != 'cefa.agrocefa.developers.index' && Route::currentRouteName() != 'cefa.agrocefa.usuario.index')
                     <li style="width: 70px">
                         <a href="{{ route('agrocefa.trainer.movements.notification')}}" id="an" title="Ver Movimientos Pendientes">
                             <i class="fa-regular fa-bell fa-flip"></i>
@@ -54,7 +54,7 @@
                     </li>
                 @endif
 
-                @if (Auth::user()->havePermission('agrocefa.trainer.inventory.stock') && Route::currentRouteName() != 'agrocefa.passant.index' && Route::currentRouteName() != 'agrocefa.trainer.index' && Route::currentRouteName() != 'cefa.agrocefa.index' && Route::currentRouteName() != 'cefa.agrocefa.developers.index' && Route::currentRouteName() != 'cefa.agrocefa.usuario.index')
+                @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.stock') && Route::currentRouteName() != 'agrocefa.passant.index' && Route::currentRouteName() != 'agrocefa.trainer.index' && Route::currentRouteName() != 'cefa.agrocefa.index' && Route::currentRouteName() != 'cefa.agrocefa.developers.index' && Route::currentRouteName() != 'cefa.agrocefa.usuario.index')
                     <li style="width: 60px">
                         <a href="{{ route('agrocefa.trainer.inventory.stock')}}" id="an" title="Ver Elementos por Agotarse">
                             <i class='bx bx-error-circle' ></i>

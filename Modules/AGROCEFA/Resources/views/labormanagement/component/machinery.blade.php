@@ -45,7 +45,7 @@
                 newRow.html(
     
                     '<td class="col-2"><select id="machinery-id" class="form-control machinery-id" name="machinery-id[]" ><option value="">Seleccione la Herramienta</option>@foreach ($machineryOptions as $machineryId => $machineryName)<option value="{{ $machineryId }}">{{ $machineryName }}</option>@endforeach</select></td>' +
-                    '<td><input type="text" id="machinery_price" class="form-control machinery_price" name="machinery_price[]" placeholder="Precio"></td>' +
+                    '<td><input type="number" id="machinery_price" class="form-control machinery_price" name="machinery_price[]" placeholder="Precio"></td>' +
                     '<td class="col-2"><input type="number" id="machinery_wage" class="form-control machinery_wage" name="machinery_wage[]" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
                     '<td><input type="text" id="machinery_price-total" class="form-control machinery_price-total" name="machinery_price-total[]" readonly></td>' +
                     '<td class="col-1"><button type="button" id="button" class="btn btn-danger removeProduct"><i class="fa fa-trash"></i></button>'
@@ -132,10 +132,9 @@
             }
 
             // Manejador de eventos para el cambio en el campo de cantidad y precio
-            machineryTable.on('input', 'input[name="machinery_wage[]"], input[name="price[]"]', function() {
+            machineryTable.on('input', 'input[name="machinery_wage[]"], input[name="machinery_price[]"]', function() {
                 calculateTotal();
             });
-
 
 
 

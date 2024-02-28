@@ -20,6 +20,7 @@ return [
     'Elements' => 'Elementos',
     'Observation' => 'Observacion',
     'MovementHistory' => 'Historial Movimientos',
+    'MovementType' => 'Tipo de Movimiento',
 
     //Tabla dinamica
     '1T_Name_Of_The_Element' => 'Nombre del Producto',
