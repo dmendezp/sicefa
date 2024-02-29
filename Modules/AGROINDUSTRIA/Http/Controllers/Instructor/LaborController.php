@@ -1300,7 +1300,7 @@ class LaborController extends Controller
             $message_line = trans('agroindustria::request.errorRejectingRequest');
         }
 
-        return redirect()->route('cefa.agroindustria.storer.units.view.request')->with([
+        return redirect()->route('agroindustria.storer.units.view.request')->with([
             'icon' => $icon,
             'message_line' => $message_line,
         ]);
@@ -1321,7 +1321,7 @@ class LaborController extends Controller
             $message_line = trans('agroindustria::request.errorApprovingRequest');
         }
 
-        return redirect()->route('cefa.agroindustria.storer.units.view.request')->with([
+        return redirect()->route('agroindustria.storer.units.view.request')->with([
             'icon' => $icon,
             'message_line' => $message_line,
         ]);

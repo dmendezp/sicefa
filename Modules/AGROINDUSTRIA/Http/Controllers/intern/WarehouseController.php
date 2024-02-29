@@ -391,7 +391,7 @@ class WarehouseController extends Controller
             $message_line = trans('agroindustria::deliveries.Check out error');
         }
 
-        return redirect()->route('cefa.agroindustria.admin.units.remove')->with([
+        return redirect()->route('agroindustria.admin.remove.view')->with([
             'icon' => $icon,
             'message_line' => $message_line,
         ]);

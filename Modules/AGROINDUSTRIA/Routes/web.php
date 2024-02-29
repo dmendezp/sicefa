@@ -29,13 +29,13 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/units', 'AGROINDUSTRIAController@unidd')->name('agroindustria.admin.units');   
             
             //Bajas
-            Route::get('/discharge', [WarehouseController::class, 'discharge'])->name('cefa.agroindustria.admin.units.remove');
+            Route::get('/discharge', [WarehouseController::class, 'discharge'])->name('agroindustria.admin.units.remove.view');
             Route::post('/discharge/create', [WarehouseController::class, 'createDischarge'])->name('cefa.agroindustria.admin.discharge.create');
             Route::get('/discharge/warehouse/{id}', [WarehouseController::class, 'warehouse'])->name('cefa.agroindustria.admin.discharge.warehouse');
             Route::get('/discharge/element/{productiveUnitId}/{warehouseId}', [WarehouseController::class, 'element'])->name('cefa.agroindustria.admin.discharge.element');
            
             //Solicitudes
-            Route::get('/requests', [InputRequestController::class, 'table'])->name('cefa.agroindustria.admin.units.requests');
+            Route::get('/requests', [InputRequestController::class, 'table'])->name('agroindustria.admin.units.view.request');
             Route::get('/solicitud', [InputRequestController::class, 'form'])->name('cefa.agroindustria.units.instructor.solicitud');
             Route::get('/amount/{id}', [InputRequestController::class, 'amount'])->name('cefa.agroindustria.units.instructor.amount');
             Route::post('/enviarsolicitud', [InputRequestController::class, 'create'])->name('cefa.agroindustria.units.instructor.enviarsolicitud');
@@ -80,8 +80,8 @@ Route::middleware(['lang'])->group(function(){
             Route::post('/movements/out', [DeliverController::class, 'createMoveOut'])->name('cefa.agroindustria.units.instructor.movements.out');
         
             Route::get('/inventory/{id}', [WarehouseController::class ,'inventory'])->name('agroindustria.admin.units.inventory');
-            Route::get('/inventoryA/{waId}', [WarehouseController::class ,'inventoryAlert'])->name('cefa.agroindutria.admin.units.inventoryAlert'); 
-            Route::get('/Inventoryexp/{wId}', [WarehouseController::class ,'expirationdate'])->name('cefa.agroindutria.admin.units.inventoryAlertexp'); 
+            Route::get('/inventoryA/{waId}', [WarehouseController::class ,'inventoryAlert'])->name('agroindustria.admin.units.inventory.spent'); 
+            Route::get('/Inventoryexp/{wId}', [WarehouseController::class ,'expirationdate'])->name('agroindustria.admin.units.inventory.expire'); 
 
         });
    
@@ -96,7 +96,7 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/units', 'AGROINDUSTRIAController@unidd')->name('agroindustria.instructor.units');
 
             //Solicitudes
-            Route::get('/requests', [InputRequestController::class, 'table'])->name('cefa.agroindustria.instructor.units.requests');
+            Route::get('/requests', [InputRequestController::class, 'table'])->name('agroindustria.instructor.units.view.request');
             Route::get('/solicitud', [InputRequestController::class, 'form'])->name('cefa.agroindustria.instructor.units.solicitud');
             
             Route::get('/amount/{id}', [InputRequestController::class, 'amount'])->name('cefa.agroindustria.units.instructor.amount');
@@ -129,7 +129,7 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/agroindustria/generar-excel-consumables/{laborId}', [ExcelController::class, 'generateExcel'])->name('cefa.agroindustria.units.instructor.labor.excel');
 
             //Producción
-            Route::get('/production', [ProductionController::class, 'index'])->name('cefa.agroindustria.instructor.units.production');
+            Route::get('/production', [ProductionController::class, 'index'])->name('agroindustria.instructor.units.production');
 
             //Movimientos
             Route::get('/movements/table', [DeliverController::class, 'table'])->name('agroindustria.instructor.units.movements.table');
@@ -154,8 +154,8 @@ Route::middleware(['lang'])->group(function(){
             //Inventario
             Route::get('/inventory/{id}', [WarehouseController::class ,'inventory'])->name('agroindustria.instructor.units.inventory');
             Route::get('/inventory/elements/{warehouseId}', [WarehouseController::class ,'elements'])->name('cefa.agroindustria.instructor.units.inventory.elements');
-            Route::get('/inventoryA/{waId}', [WarehouseController::class ,'inventoryAlert'])->name('cefa.agroindutria.instructor.units.inventoryAlert'); 
-            Route::get('/Inventoryexp/{wId}', [WarehouseController::class ,'expirationdate'])->name('cefa.agroindutria.instructor.units.inventoryAlertexp'); 
+            Route::get('/inventoryA/{waId}', [WarehouseController::class ,'inventoryAlert'])->name('agroindustria.instructor.units.inventory.spent'); 
+            Route::get('/Inventoryexp/{wId}', [WarehouseController::class ,'expirationdate'])->name('agroindustria.instructor.units.inventory.expire'); 
         });
 
         //storer
@@ -167,9 +167,9 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/getInventoryByCategory', [WarehouseController::class ,'getInventoryByCategory'])->name('cefa.inventory.category');
             Route::get('/update/{id}', [WarehouseController::class ,'edit'])->name('cefa.agroindustria.storer.update'); 
             Route::get('/list', [WarehouseController::class ,'inventoryAlert'])->name('cefa.agroindustria.storer.inventory.list');   
-            Route::get('/request', [RequestController::class, 'index'])->name('cefa.agroindustria.storer.units.view.request');
-            Route::get('/inventoryA/{waId}', [WarehouseController::class ,'inventoryAlert'])->name('cefa.agroindutria.storer.units.inventoryAlert'); 
-            Route::get('/Inventoryexp/{wId}', [WarehouseController::class ,'expirationdate'])->name('cefa.agroindutria.storer.units.inventoryAlertexp'); 
+            Route::get('/request', [RequestController::class, 'index'])->name('agroindustria.storer.units.view.request');
+            Route::get('/inventoryA/{waId}', [WarehouseController::class ,'inventoryAlert'])->name('agroindustria.storer.units.inventory.spent'); 
+            Route::get('/Inventoryexp/{wId}', [WarehouseController::class ,'expirationdate'])->name('agroindustria.storer.units.inventory.expire'); 
 
             Route::put('/request/approve/{id}', [LaborController::class, 'approve'])->name('cefa.agroindustria.storer.units.request.approve');
             Route::put('/request/cancelled/{id}', [LaborController::class, 'rechazarSolicitud'])->name('cefa.agroindustria.storer.units.request.cancelled');
