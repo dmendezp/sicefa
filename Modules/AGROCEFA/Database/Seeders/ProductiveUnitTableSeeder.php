@@ -41,7 +41,7 @@ class ProductiveUnitTableSeeder extends Seeder
        ]);
 
        $productiveunitnew = ProductiveUnit::updateOrCreate([ 
-        'name' => 'Almacen',
+        'name' => 'Almacen Agricola',
         'description' => 'Almacen para movimientos de entrada',
         'person_id' => '5',
         'sector_id' => $sector->id,

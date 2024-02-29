@@ -144,21 +144,6 @@ class StaffSenaempresaController extends Controller
 
         // Guarda la instancia en la base de datos
         if ($staffSenaempresa->save()) {
-            $position = PositionCompany::where('id', $request->input('position_company_id'))->first();
-            if ($position->name === 'Gestor Agricola') {
-                $apprentices = Apprentice::where('id',$request->input('apprentice_id'))->with('person')->first();
-                foreach ($apprentices as $apprentice) {
-                   
-                    $personid = $apprentices->person->id;
-                    
-                }
-                
-                User::updateOrCreate(['nickname' => 'Gestor Agricola'], [ // Actualizar o crear usuario
-                    'person_id' => $personid,
-                    'email' => 'gestoragricola@gmail.com', 
-                ]);
-            }
-
             // Redirige a la vista adecuada con un mensaje de éxito
             return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.index')->with('success', trans('senaempresa::menu.Staff successfully created.'));
         } else {
