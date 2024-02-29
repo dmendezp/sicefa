@@ -6,8 +6,9 @@
         <div class="col-md-12">
             <h1 class="mb-4">{{ trans('gth::menu.Attendance View') }}</h1>
             <p class="lead">{{ trans('gth::menu.Welcome to the attendance page. Here you can view and manage employee attendance.') }}</p>
-            <button class="btn btn-success btn-sm mx-auto" data-bs-toggle="modal" data-bs-target="#agregarAsistenciaModal">{{ trans('gth::menu.Add Attendance') }}</button>
-
+            <a class="btn btn-success btn-sm mx-auto" href="{{ route('gth.registerattendance.registerattendance.index') }}">{{ trans('gth::menu.Add Attendance') }}</a>
+            <br>
+            <br>
             <div class="card">
                 <div class="card-header">
                     {{ trans('gth::menu.List of Attendance') }}

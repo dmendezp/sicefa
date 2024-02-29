@@ -39,6 +39,7 @@ public function search(Request $request)
 
     // Obtén la información del curso
     $course = Course::with('apprentices.person')->findOrFail($courseid);
+    
 
     // Obtén la fecha y hora actual
     $currentDateOnly = Carbon::today()->toDateString();
@@ -47,9 +48,10 @@ public function search(Request $request)
     $attendances = $course->apprentices->map(function ($apprentice) use ($currentDateOnly) {
         return [
             'person' => $apprentice->person,
-            'attendance' => $apprentice->attendances->firstWhere('date', $currentDateOnly),
+            'attendance' => $apprentice->person->attendances->firstWhere('date', $currentDateOnly),
         ];
     });
+   
 
     return view('gth::resultattendance', [
         'attendances' => $attendances,
