@@ -3,8 +3,8 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" id="title" href="{{ route('cefa.agroindustria.home.index') }}">
+    <div  class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a style="width: 260px;" class="navbar-brand" id="title" href="{{ route('cefa.agroindustria.home.index') }}">
             @if (session('viewing_unit'))
                 AGROINDUSTRIA - {{ session('viewing_unit_name') }}
             @else
