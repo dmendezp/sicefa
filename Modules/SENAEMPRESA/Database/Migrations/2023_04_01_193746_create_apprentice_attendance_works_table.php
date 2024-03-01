@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateApprenticeAsistenciaWorkTable extends Migration
+class CreateApprenticeAttendanceWorksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateApprenticeAsistenciaWorkTable extends Migration
      */
     public function up()
     {
-        Schema::create('apprentice_asistencia_work', function (Blueprint $table) {
+        Schema::create('apprentice_attendance_works', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('apprentice_asistencia_id')->constrained('apprentice_asistencias');
+            $table->foreignId('apprentice_attendance_id')->constrained();
             $table->foreignId('work_id')->constrained();
             $table->timestamps();
             $table->softDeletes();
@@ -29,6 +29,6 @@ class CreateApprenticeAsistenciaWorkTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('apprentice_asistencia_work');
+        Schema::dropIfExists('apprentice_attendance_works');
     }
 }

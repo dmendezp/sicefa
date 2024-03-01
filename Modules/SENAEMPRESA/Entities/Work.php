@@ -25,12 +25,12 @@ class Work extends Model
         return $this->belongsTo(ProductiveUnit::class);
     }
 
-    /* public function apprentice_asistencias()
+    /* public function apprentice_attendances()
     {
-        return $this->belongsToMany(ApprenticeAsistencia::class, 'apprentice_asistencia_work')->withTimestamps();
+        return $this->belongsToMany(ApprenticeAsistencia::class, 'apprentice_attendance_works')->withTimestamps();
     } */
 
-    public function apprentice_asistencias(){
+    public function apprentice_attendances(){
         return $this->hasMany(ApprenticeAsistencia::class);
     }
 

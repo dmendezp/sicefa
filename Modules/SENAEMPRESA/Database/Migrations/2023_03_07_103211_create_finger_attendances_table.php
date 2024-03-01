@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFingerAsistenciasTable extends Migration
+class CreateFingerAttendancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFingerAsistenciasTable extends Migration
      */
     public function up()
     {
-        Schema::create('finger_asistencias', function (Blueprint $table) {
+        Schema::create('finger_attendances', function (Blueprint $table) {
             $table->id();
             $table->foreignId('person_id')->nullable()->constrained();
             $table->string('area');
@@ -33,6 +33,6 @@ class CreateFingerAsistenciasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('finger_asistencias');
+        Schema::dropIfExists('finger_attendances');
     }
 }

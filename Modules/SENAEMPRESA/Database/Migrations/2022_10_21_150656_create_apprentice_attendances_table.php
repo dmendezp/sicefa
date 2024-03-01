@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateApprenticeAsistenciaTable extends Migration
+class CreateApprenticeAttendancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateApprenticeAsistenciaTable extends Migration
      */
     public function up()
     {
-        Schema::create('apprentice_asistencias', function (Blueprint $table) {
+        Schema::create('apprentice_attendances', function (Blueprint $table) {
             $table->id();
             $table->foreignId('apprentice_id')->constrained();
-            $table->foreignId('asistencia_id')->constrained()->onDelete('cascade');
+            $table->foreignId('attendance_id')->constrained()->onDelete('cascade');
             $table->foreignId('work_id')->nullable()->constrained()->onDelete('cascade');
             $table->enum('asistencia',['si','no'])->nullable()->default('no');
             $table->timestamps();
@@ -31,6 +31,6 @@ class CreateApprenticeAsistenciaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('apprentice_asistencias');
+        Schema::dropIfExists('apprentice_attendances');
     }
 }

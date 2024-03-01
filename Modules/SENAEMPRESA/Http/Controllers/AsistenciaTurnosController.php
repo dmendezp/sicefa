@@ -42,7 +42,7 @@ class AsistenciaTurnosController extends Controller
         //return $id;
         $ids=87;
         $works = Work::get();
-        $asistencias1 = ApprenticeAsistencia::where('asistencia_id',$id)->get();
+        $asistencias1 = ApprenticeAsistencia::where('attendance_id',$id)->get();
         $asistencias = Apprentice::where('course_id',$ids)->get();
         //$asistencias = Asistencia::where('',$id)->get();
         

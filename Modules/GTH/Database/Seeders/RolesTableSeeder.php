@@ -48,17 +48,5 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
-
-        // Consulta de usuarios
-        $useradministrador = User::where('nickname','Daniel')->first();
-        $userbrigadista = User::where('nickname','Mayerly')->first();
-
-
-        // Asignacion de roles a usuarios
-        $useradministrador->roles()->syncWithoutDetaching([$roladministrador->id]);
-        $userbrigadista->roles()->syncWithoutDetaching([$rolbrigadista->id]);
-        $useradministrador->roles()->syncWithoutDetaching([$rolregisterattendance->id]);
-
-
     }
 }
