@@ -45,6 +45,8 @@ return [
     'Cash Control'     => 'Cash control',
     'Reports Panel'    => 'Reports Panel',
     'Movement History' => 'Movement History',
+    'Recipes'          => 'Recipes',
+    'Recipes Control'  => 'Recipes Control',
     'Configuration'    => 'Configuration',
     'Developers'       => 'Developers',
     'About us'         => 'About us',

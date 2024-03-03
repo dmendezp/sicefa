@@ -83,4 +83,9 @@ return [
 	// Index
 	'CAFETO_cash_index_title_page' => 'Control de Caja',
 	'CAFETO_cash_index_title_view' => 'Apertura y cierre de caja',
+
+	// -----RecipesController-----
+	// Index
+	'CAFETO_recipes_index_title_page' => 'Control de Recetas',
+	'CAFETO_recipes_index_title_view' => 'Control de Recetas',
 ];

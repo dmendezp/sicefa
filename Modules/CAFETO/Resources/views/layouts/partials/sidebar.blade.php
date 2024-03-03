@@ -149,6 +149,14 @@
                             </a>
                         </li>
                     @endif
+                    @if(Auth::user()->havePermission('cafeto.admin.recipes.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('cafeto.admin.recipes.index') }}" class="nav-link text-light">
+                                <i class="nav-icon fa-solid fa-kitchen-set"></i>
+                                <p>{{ trans('cafeto::general.Recipes Control') }}</p>
+                            </a>
+                        </li>
+                    @endif
                     @if(Auth::user()->havePermission('cafeto.admin.configuration.index'))
                         <li class="nav-item">
                             <a href="{{ route('cafeto.admin.configuration.index') }}" 
@@ -211,6 +219,15 @@
                             <a href="{{ route('cafeto.cashier.movements.index') }}" class="nav-link text-light">
                                 <i class="nav-icon fa-solid fa-shuffle"></i>
                                 <p>{{ trans('cafeto::general.Movement History') }}</p>
+                            </a>
+                        </li>
+                    @endif
+                    @if(Auth::user()->havePermission('cafeto.admin.recipes.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('cafeto.admin.recipes.index') }}" 
+                                class="nav-link {{ !Route::is('cafeto.recipes*') ?: 'active' }} text-light">
+                                <i class="nav-icon fa-solid fa-kitchen-set"></i>
+                                <p>{{ trans('cafeto::general.Recipes Control') }}</p>
                             </a>
                         </li>
                     @endif

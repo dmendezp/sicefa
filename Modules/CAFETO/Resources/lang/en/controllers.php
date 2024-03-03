@@ -83,4 +83,9 @@ return [
 	// Index
 	'CAFETO_cash_index_title_page' => 'Cash Control',
 	'CAFETO_cash_index_title_view' => 'Opening and closing of cash register',
+
+	// -----RecipesController-----
+	// Index
+	'CAFETO_recipes_index_title_page' => 'Recipes Control',
+	'CAFETO_recipes_index_title_view' => 'Recipes Control',
 ];

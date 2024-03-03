@@ -91,5 +91,11 @@ Route::middleware(['lang'])->group(function () {  // Middleware para la internza
             Route::post('admin/movement/consult', 'consult')->name('cafeto.admin.movements.consult'); // Consultar movimientos por fecha y actor (Administrador)
             Route::post('cashier/movement/consult', 'consult')->name('cafeto.cashier.movements.consult'); // Consultar movimientos por fecha y actor (Cajero)
         });
+
+        // Rutas para recipes
+        Route::controller(RecipesController::class)->group(function () {
+            Route::get('admin/recipes/index', 'index')->name('cafeto.admin.recipes.index'); // Vista principal de recetas (Administrador)
+            Route::get('cashier/recipes/index', 'index')->name('cafeto.cashier.recipes.index'); // Vista principal de recetas (Cajero)
+        });
     });
 });
