@@ -50,7 +50,7 @@
                                     <td>{{ $dato->end_date }}</td>
                                     @if($dato->petition_assignments->isNotEmpty())
                                         @foreach ($dato->petition_assignments as $pa)
-                                            <td>{{ $dato->vehicle_type->name }} - {{ $pa->vehicle->license}} - {{ $pa->driver->person->fullname }}</td> <!-- Mostrar vehículo, placa y conductor asignado si existe -->
+                                            <td>{{ $dato->person->fullname}} - {{ $dato->vehicle_type->name }} - {{ $pa->vehicle->license}} - {{ $pa->driver->person->fullname }} </td> <!-- Mostrar vehículo, placa y conductor asignado si existe -->
                                         @endforeach
                                     @else
                                         <td>{{ $dato->vehicle_type->name }}</td> <!-- Mostrar solo el tipo de vehículo si no hay asignaciones -->
