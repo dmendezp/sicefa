@@ -91,7 +91,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <label class="form-label">&nbsp;</label>
-                                                <button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button>
+                                                <button type="button" class="btn btn-outline-danger btn-sm btn-delete d-block">Eliminar</button>
                                             </div>
                                         </div>
                                         <div class="row mt-3">
@@ -101,8 +101,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                
                             </div>
+
                             <div class="col-md-6">
                                 <div class="card">
                                     <div class="card-body">
@@ -121,7 +121,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <label class="form-label">&nbsp;</label>
-                                                <button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button>
+                                                <button type="button" class="btn btn-outline-danger btn-sm btn-delete d-block">Eliminar</button>
                                             </div>
                                         </div>
                                         <div class="row mt-3">
@@ -129,7 +129,7 @@
                                                 <button type="button" class="btn btn-primary btn-sm-lg">Agregar Elemento</button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>                                    
                                 </div>                                
                             </div>
                         </div>
