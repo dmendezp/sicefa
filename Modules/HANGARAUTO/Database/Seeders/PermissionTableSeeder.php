@@ -63,6 +63,15 @@ class PermissionTableSeeder extends Seeder
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Vista formulario del conductor
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.drivers.edit'], [ // Registro o actualización de permiso
+            'name' => 'Editar el conductor',
+            'description' => 'Editar la informacion del conductor',
+            'description_english' => 'Edit driver information',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista formulario del conductor
         $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.drivers.search'], [ // Registro o actualización de permiso
             'name' => 'Buscar la persona para el registro de conductor',
             'description' => 'Realizar la busqueda de la persona para registrarla como conductor',
@@ -71,6 +80,24 @@ class PermissionTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista formulario del conductor
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.drivers.searchedit'], [ // Registro o actualización de permiso
+            'name' => 'Buscar la persona para la actualizacion del conductor',
+            'description' => 'Realizar la busqueda de la persona para actualizarla como conductor',
+            'description_english' => 'Search for the person to update them as a driver',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista formulario del conductor
+        $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.drivers.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar Conductor',
+            'description' => 'Accion de actualizar el conductor',
+            'description_english' => 'Driver update action',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+        
         // Vista formulario del conductor
         $permission = Permission::updateOrCreate(['slug' => 'hangarauto.admin.drivers.delete'], [ // Registro o actualización de permiso
             'name' => 'Eliminar el conductor',

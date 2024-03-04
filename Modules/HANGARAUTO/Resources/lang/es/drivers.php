@@ -15,4 +15,5 @@ return [
     'Cancel' => 'Cancelar',
     'Save' => 'Guardar',
     'Document Not Found' => 'Documento no encontrado',
+    'Update_driver' => 'Actualizar Conductor',
 ];

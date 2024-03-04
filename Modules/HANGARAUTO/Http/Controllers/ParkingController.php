@@ -334,7 +334,7 @@ class ParkingController extends Controller
     {
         
         $vehiculotype = $request->input('vehicletype');
-        $vehicletypeid = VehicleType::where('name',$vehiculotype)->pluck('id');
+        $vehicletypeid = VehicleType::where('id',$vehiculotype)->pluck('id');
         $vehicles = Vehicle::with('petition_assignments.petition')
         ->where('vehicle_type_id',$vehicletypeid)
         ->whereDoesntHave('petition_assignments.petition', function ($query) use ($start_date) {

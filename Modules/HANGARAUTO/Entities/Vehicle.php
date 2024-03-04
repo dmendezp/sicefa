@@ -10,7 +10,6 @@ class Vehicle extends Model
     use SoftDeletes;
     protected $table = 'vehicles';
     protected $dates = ['deleted_at'];
-
     protected $hidden = ['created_at','updated_at'];
 
 

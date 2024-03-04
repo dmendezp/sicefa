@@ -60,26 +60,22 @@
                             <hr>
                             <h5>Elementos a Inspeccionar:</h5>
                             @foreach($checklist_items as $index => $item)
-                            <div class="form-group">
-                                <label for="item_{{ $index }}">{{ $item }}</label>
-                                <input type="hidden" name="checklist_items[]" value="{{ $item }}">
-                                
-                                <div class="form-check">
-                                    <input type="radio" name="observations[{{ $index }}][complete]" value="yes" class="form-check-input" id="item_yes_{{ $index }}">
-                                    <label class="form-check-label" for="item_yes_{{ $index }}">Sí</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" name="observations[{{ $index }}][complete]" value="no" class="form-check-input" id="item_no_{{ $index }}">
-                                    <label class="form-check-label" for="item_no_{{ $index }}">No</label>
-                                </div>
-                                
-                                <input type="text" name="observations[{{ $index }}][observation]" class="form-control" placeholder="Observation">
-                            </div>
-                            @endforeach
+                                <div class="form-group">
+                                    <label for="item_{{ $index }}">{{ $item }}</label>
+                                    <input type="hidden" name="checklist_items[]" value="{{ $item }}">
 
-                                                
-                        
-                        
+                                    <div class="form-check">
+                                        <input type="radio" name="observations[{{ $index }}][complete]" value="yes" class="form-check-input" id="item_yes_{{ $index }}">
+                                        <label class="form-check-label" for="item_yes_{{ $index }}">Sí</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" name="observations[{{ $index }}][complete]" value="no" class="form-check-input" id="item_no_{{ $index }}">
+                                        <label class="form-check-label" for="item_no_{{ $index }}">No</label>
+                                    </div>
+
+                                    <input type="text" name="observations[{{ $index }}][observation]" class="form-control" placeholder="Observation">
+                                </div>
+                            @endforeach
                             <hr>
                             <button type="submit" class="btn btn-primary">Guardar</button>
                         </form>

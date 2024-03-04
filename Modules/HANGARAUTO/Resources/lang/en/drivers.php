@@ -15,4 +15,5 @@ return [
     'Cancel' => 'Cancel',
     'Save' => 'Save',
     'Document Not Found' => 'Document Not Found',
+    'Update_driver' => 'Update Driver',
 ];

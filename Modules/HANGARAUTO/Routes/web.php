@@ -164,7 +164,7 @@ Route::middleware(['lang'])->group(function () {
             Route::post('/administrator/vehiculos/check/add/post', 'VehiculosController@postcheckadd')->name('hangarauto.admin.check.add');
             Route::get('/administrator/vehiculos/check/edit/{id}', 'VehiculosController@getcheckedit')->name('hangarauto.admin.check.edit');
             Route::put('/administrator/vehiculos/check/update/{id}', 'VehiculosController@updatecheck')->name('hangarauto.admin.check.update');
-            Route::get('/administrator/vehiculos/check/delete/{id}', 'VehiculosController@deletecheck')->name('hangarauto.admin.check.delete');
+            Route::DELETE('/administrator/vehiculos/check/delete/{id}', 'VehiculosController@deletecheck')->name('hangarauto.admin.check.delete');
 
             // Ruta Tipo Vehiculo
             Route::get('/administrator/vehicletype', 'VehiculosController@vehicletype')->name('hangarauto.admin.vehicletype');
@@ -192,8 +192,16 @@ Route::middleware(['lang'])->group(function () {
             Route::get('/encargado/conductores/create', 'DriversController@getCreateAdd')->name('hangarauto.charge.drivers.create');
             Route::post('/administrator/conductores/create', 'DriversController@postCreateAdd')->name('hangarauto.admin.drivers.create');
             Route::post('/encargado/conductores/create', 'DriversController@postCreateAdd')->name('hangarauto.charge.drivers.create');
+            Route::get('/administrator/conductores/edit/{id}', 'DriversController@getDriversEdit')->name('hangarauto.admin.drivers.edit');
+            Route::get('/encargado/conductores/edit/{id}', 'DriversController@getDriversEdit')->name('hangarauto.charge.drivers.edit');
+            Route::post('/administrator/conductores/update/{id}', 'DriversController@getDriversUpdate')->name('hangarauto.admin.drivers.update');
+            Route::post('/encargado/conductores/update/{id}', 'DriversController@getDriversUpdate')->name('hangarauto.charge.drivers.update');
             Route::post('/administrator/conductores/search', 'DriversController@postDriversSearch')->name('hangarauto.admin.drivers.search');
             Route::post('/encargado/conductores/search', 'DriversController@postDriversSearch')->name('hangarauto.charge.drivers.search');
+            Route::post('/administrator/conductores/searchedit/{id}', 'DriversController@postDriversSearchEdit')->name('hangarauto.admin.drivers.searchedit');
+            Route::post('/encargado/conductores/searchedit/{id}', 'DriversController@postDriversSearchEdit')->name('hangarauto.charge.drivers.searchedit');
+            Route::post('/administrator/conductores/searchedited/', 'DriversController@postDriversSearchEdited')->name('hangarauto.admin.drivers.searchedited');
+            Route::post('/encargado/conductores/searchedited/', 'DriversController@postDriversSearchEdited')->name('hangarauto.charge.drivers.searchedited');
             Route::delete('/administrator/conductores/delete/{id}', 'DriversController@getDriversDelete')->name('hangarauto.admin.drivers.delete');
             Route::delete('/encargado/conductores/delete/{id}', 'DriversController@getDriversDelete')->name('hangarauto.charge.drivers.delete');
             // Rutas Para Editar Informacion De Los Conductores

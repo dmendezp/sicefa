@@ -30,13 +30,28 @@ class DriversController extends Controller
     {
         return view('hangarauto::admin.conductores.create');
     }
+    public function getDriversUpdate(Request $request,$id)
+    {
+        $drivers = Driver::where('person_id',$id)->first();
+
+        if (!$drivers) {
+            $drivers->person_id = $request->input('person_id');
+            if ($drivers->save()){
+                return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers'))->with('success', 'Conductor Actualizado Con Exito')->with('typealert','success');
+            } else {
+            return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers.edit'))->with('error', 'Ocurrio un error')->with('typealert','error');
+            }
+        } else {
+            return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers.edit', ['id' => $drivers]))->with('error', 'El conductor ya existe')->with('typealert','error');
+        }
+    }
 
     // Agregar Conductor
     public function postCreateAdd(Request $request){
         $drivers = new Driver();
         $drivers->person_id = $request->input('person_id');
         if ($drivers->save()){
-            return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers'))->with('messages', 'Conductor Agregado Con Exito')->with('typealert','success');
+            return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers'))->with('success', 'Conductor Agregado Con Exito')->with('typealert','success');
         }
         return view('hangarauto::admin.drivers');
     }
@@ -54,11 +69,34 @@ class DriversController extends Controller
 
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()):
-            return redirect('hangarauto::admin.conductores.create')->withErrors($validator)->with('messages', 'Se Ha Producido Un Error')->with('typealert', 'danger')->withInput();
+            return redirect('hangarauto::admin.conductores.create')->withErrors($validator)->with('error', 'Se Ha Producido Un Error')->with('typealert', 'danger')->withInput();
         else:
             $people = Person::where('document_number', $request->input('search'))->first();
             $data = ['people' => $people];
             return view('hangarauto::admin.conductores.create', $data);
+        endif;
+    }
+
+    public function postDriversSearchEdit(Request $request,$id)
+    {
+        $rules = [
+            'search' => 'required'
+        ];
+
+        $messages = [
+            'search.required' => 'El Campo Consultar Es Requerido.'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()):
+            return redirect('hangarauto::admin.conductores.create')->withErrors($validator)->with('error', 'Se Ha Producido Un Error')->with('typealert', 'danger')->withInput();
+        else:
+            $people = Person::find($id);
+            $personid = $people->id;
+            $drivers = Driver::with('person')->where('person_id',$personid)->first();
+            $peopleupdate = Person::where('document_number',$request->input('search'))->first();
+            $data = ['people' => $people,'drivers' => $drivers,'peopleupdate' => $peopleupdate];
+            return view('hangarauto::admin.conductores.edit', $data);
         endif;
     }
 
@@ -67,7 +105,7 @@ class DriversController extends Controller
     public function getDriversEdit($id)
     {
         $drivers = Driver::find($id);
-        $data = ['drivers' => $dirvers];
+        $data = ['drivers' => $drivers];
         return view('hangarauto::admin.conductores.edit', $data);
     }
 
@@ -101,8 +139,8 @@ class DriversController extends Controller
             $drivers->phone = $request->input('phone');
             $drivers->i_number = $request->input('id_number');
             if($drivers->save()){
-                return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers'))->with('messages','Conductor Actualizado Con Exito.')->with('typealert','success');
                 return redirect(route('hangarauto.'.getRoleRouteName(Route::currentRouteName()).'.drivers'))->with('success','Conductor Actualizado Con Exito.')->with('typealert','success');
+
             }
         endif;
     }

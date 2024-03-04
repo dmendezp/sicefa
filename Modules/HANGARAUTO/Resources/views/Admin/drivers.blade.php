@@ -24,8 +24,8 @@
                         <table id="travels" class="table table-striped table-bordered" style="width: 100%">
                             <thead>
                                 <th>{{ trans('hangarauto::drivers.Name')}}</th>
-                                <th>Email</th>
                                 <th>{{ trans('hangarauto::drivers.Document')}}</th>
+                                <th>Email</th>
                                 <th>{{ trans('hangarauto::drivers.Telephone')}}</th>
                                 <th>{{ trans('hangarauto::drivers.Actions')}}</th>
                             </thead>
@@ -33,9 +33,9 @@
                                 @foreach($drivers as $d)
                                     <tr>
                                         <td>{{$d->person->fullname}}</td>
+                                        <td>{{$d->person->document_number}}</td>
                                         <td>{{$d->person->personal_email}}</td>
                                         <td>{{$d->person->telephone1}}</td>
-                                        <td>{{$d->person->document_number}}</td>
                                         <td>
                                             <form action="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.drivers.delete', $d->id) }}" method="post" id="formEliminar{{ $d->id }}">
                                                 @csrf
@@ -45,7 +45,7 @@
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </form>
-                                            <a href="{{ route('cefa.parking.edit', $d) }}" class="btn btn-primary btnUpdat">
+                                            <a href="{{ route('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.drivers.edit', $d->id) }}" class="btn btn-primary btnUpdat">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </a>
                                         </td>

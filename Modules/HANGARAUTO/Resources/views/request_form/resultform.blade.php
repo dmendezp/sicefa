@@ -50,7 +50,7 @@
                                     <td>{{ $dato->end_date }}</td>
                                     @if($dato->petition_assignments->isNotEmpty())
                                         @foreach ($dato->petition_assignments as $pa)
-                                            <td>{{ $dato->vehicle_type->name }} - {{ $pa->vehicle->name}} - {{ $pa->driver->person->fullname }}</td> <!-- Mostrar vehículo y conductor asignado si existe -->
+                                            <td>{{ $dato->vehicle_type->name }} - {{ $pa->vehicle->license}} - {{ $pa->driver->person->fullname }}</td> <!-- Mostrar vehículo, placa y conductor asignado si existe -->
                                         @endforeach
                                     @else
                                         <td>{{ $dato->vehicle_type->name }}</td> <!-- Mostrar solo el tipo de vehículo si no hay asignaciones -->
@@ -59,7 +59,7 @@
                                     <td>{{ $dato->municipality->name }}</td>
                                     <td>{{ $dato->numstudents }}</td>
                                     <td>{{ $dato->reason }}</td>
-                                    <td>{{ $dato->status }}</td>
+                                    <td>{{ $dato->status }} - {{ $dato->observation }}</td>
                                     @if (Auth::check() && Auth::user()->havePermission('hangarauto.'. getRoleRouteName(Route::currentRouteName()) .'.petitions.assign'))
                                     <td>
                                         @if ($dato->status == 'Solicitud')
@@ -157,7 +157,7 @@
                                     </div>
                                 </div>
                                 @endif
-                                @if (Route::is('hangarauto.admin.*') || Route::is('hangarauto.charge.*') )
+                                @if (Route::is('hangarauto.admin.*') || Route::is('hangarauto.charge.*')  )
                                 <!-- Modal para la asignación de vehículos -->
                                 <div class="modal fade" id="modalAsignar{{ $dato->id }}" tabindex="-1" role="dialog" aria-labelledby="modalAsignarLabel{{ $dato->id }}" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
