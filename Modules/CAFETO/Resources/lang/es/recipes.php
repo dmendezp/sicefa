@@ -10,6 +10,7 @@ return [
 	// Section Card Show Recipes
     'Title_Recipes' => 'Lista de recetas',
 	// Table Show Recipes
+    '1T_N'            => 'N°',
 	'1T_Creation'     => 'Creación',
 	'1T_Owner'        => 'Propietario',
 	'1T_Product_Name' => 'Nombre del Producto',

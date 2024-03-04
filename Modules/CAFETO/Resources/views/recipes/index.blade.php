@@ -32,6 +32,7 @@
                 <table class="table table-bordered border-secondary table-hover" id="tableRecipesCountAll">
                     <thead class="table-dark">
                         <tr class="border-dark">
+                            <th>{{ trans('cafeto::recipes.1T_N') }}</th>
                             <th>
                                 <i class="fa-solid fa-calendar-days"></i>
                                 {{ trans('cafeto::recipes.1T_Creation') }}
@@ -47,6 +48,7 @@
                     <tbody>
                     @foreach ($formulations as $f)
                         <tr>
+                            <td>{{ $loop->iteration}}</td>
                             <td>{{ $f->date }}</td>
                             <td>{{ $f->person->full_name }}</td>
                             <td>{{ $f->element->product_name }}</td>
