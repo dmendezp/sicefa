@@ -54,12 +54,11 @@
                             <td>{{ $f->element->product_name }}</td>
                             <td class="text-center">{{ $f->amount }}</td>
                             <td>
-                                <button type="button" class="btn btn-outline-info btn-sm py-0"
-                                    data-toggle="tooltip" data-placement="right"
-                                    title="Ver detalles">
+                                <a href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.recipes.details') }}" class="btn btn-outline-info btn-sm py-0" 
+                                   data-toggle="tooltip" data-placement="right" title="Ver detalles">
                                     <i class="fa-solid fa-eye"></i>
-                                </button>
-                            </td>
+                                </a>
+                            </td>                            
                         </tr>
                         @endforeach
                     </tbody>

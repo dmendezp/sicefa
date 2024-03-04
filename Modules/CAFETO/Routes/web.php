@@ -98,6 +98,8 @@ Route::middleware(['lang'])->group(function () {  // Middleware para la internza
             Route::get('cashier/recipes/index', 'index')->name('cafeto.cashier.recipes.index'); // Vista principal de recetas (Cajero)
             Route::get('admin/recipes/create', 'create')->name('cafeto.admin.recipes.create'); // Vista de creacion de recetas (Administrador)
             Route::get('cashier/recipes/create', 'create')->name('cafeto.cashier.recipes.create'); // Vista de creacion de recetas (Cajero)
+            Route::get('admin/recipes/details', 'details')->name('cafeto.admin.recipes.details'); // Vista detalles de una receta (Administrador)
+            Route::get('cashier/recipes/details', 'details')->name('cafeto.cashier.recipes.details'); // Vista detalles de una receta (Cajero)
         });
     });
 });

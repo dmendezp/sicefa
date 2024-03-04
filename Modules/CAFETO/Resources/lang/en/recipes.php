@@ -5,6 +5,7 @@ return [
 	'Breadcrumb_Recipes_1'        		   => 'Recipes',
 	'Breadcrumb_Active_Recipes_1' 		   => 'Recipes Control',
 	'Breadcrumb_Active_Register_Recipes_1' => 'Create Recipe',
+	'Breadcrumb_Active_Details_Recipes_1'  => 'Recipe Details',
 	
 	// ---Section Show Recipes---
 	// Section Card Show Recipes

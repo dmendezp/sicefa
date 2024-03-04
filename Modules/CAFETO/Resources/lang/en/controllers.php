@@ -91,4 +91,7 @@ return [
 	// Create
 	'CAFETO_recipes_create_title_page' => 'Creation of recipes',
 	'CAFETO_recipes_create_title_view' => 'Creation of recipes',
+	// Details
+	'CAFETO_recipes_details_title_page' => 'Recipe Details',
+	'CAFETO_recipes_details_title_view' => 'Recipe Details',
 ];
