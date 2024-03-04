@@ -75,7 +75,7 @@ return [
 	// Create
 	'CAFETO_element_create_title_page' => 'Products - Create Product',
 	'CAFETO_element_create_title_view' => 'Create New Product',
-	// Create
+	// Edit
 	'CAFETO_element_edit_title_page' => 'Products - Edit Product',
 	'CAFETO_element_edit_title_view' => 'Update product information',
 
@@ -88,4 +88,7 @@ return [
 	// Index
 	'CAFETO_recipes_index_title_page' => 'Recipes Control',
 	'CAFETO_recipes_index_title_view' => 'Recipes Control',
+	// Create
+	'CAFETO_recipes_create_title_page' => 'Creation of recipes',
+	'CAFETO_recipes_create_title_view' => 'Creation of recipes',
 ];

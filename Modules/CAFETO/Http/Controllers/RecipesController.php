@@ -19,4 +19,10 @@ class RecipesController extends Controller
         return view('cafeto::recipes.index', compact('view','formulations'));
     }
 
+    public function create()
+    {
+        $view = ['titlePage' => trans('cafeto::controllers.CAFETO_recipes_create_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_recipes_create_title_view')];
+        return view('cafeto::recipes.create', compact('view'));
+    }
+
 }

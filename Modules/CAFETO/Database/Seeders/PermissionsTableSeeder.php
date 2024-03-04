@@ -558,7 +558,25 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'Main view of recipes',
             'app_id' => $app->id
         ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista de creacion de recetas (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.recipes.create'], [ // Registro o actualización de permiso
+            'name' => 'Vista de creacion de recetas (Administrador)',
+            'description' => 'Vista de creacion de recetas',
+            'description_english' => 'View of recipe creation',
+            'app_id' => $app->id
+        ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista de creacion de recetas (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.recipes.create'], [ // Registro o actualización de permiso
+            'name' => 'Vista de creacion de recetas (Cajero)',
+            'description' => 'Vista de creacion de recetas',
+            'description_english' => 'View of recipe creation',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'cafeto.admin')->first(); // Rol Administrador

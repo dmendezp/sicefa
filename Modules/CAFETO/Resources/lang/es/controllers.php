@@ -88,4 +88,7 @@ return [
 	// Index
 	'CAFETO_recipes_index_title_page' => 'Control de Recetas',
 	'CAFETO_recipes_index_title_view' => 'Control de Recetas',
+	// Create
+	'CAFETO_recipes_create_title_page' => 'Creación de Recetas',
+	'CAFETO_recipes_create_title_view' => 'Crear receta',
 ];
