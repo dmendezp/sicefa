@@ -1,5 +1,9 @@
 @extends('cafeto::layouts.master')
 
+@push('head')
+    @livewireStyles()
+@endpush
+
 @push('breadcrumbs')
     <li class="breadcrumb-item"><a
             href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.recipes.index') }}"
@@ -13,51 +17,45 @@
             <div class="card-body">
                 <form method="POST">
                     <div class="row mx-3 align-items-end">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label><strong class="text-danger">*
-                                    </strong>Propietario</label>
-                                <select class="form-select" required>
-                                    <option value="">Selecciona</option>
-                                </select>
+                                <label>
+                                    <strong class="text-danger">*</strong> Propietario
+                                </label>
+                                {!! Form::hidden('person_id', Auth::user()->person_id) !!}
+                                {!! Form::text('person_id', Auth::user()->person->full_name, ['class'=>'form-control', 'readonly']) !!}
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
+                            {{-- Se incluye el componente livewire para seleccionar un producto para la receta --}}
+                            @livewire('cafeto::recipe.select-product', ['formulation'=>null])
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label><strong class="text-danger">*
-                                    </strong>Nombre del Producto</label>
-                                <select class="form-select" required>
-                                    <option value="">Selecciona</option>
-                                </select>
+                                <label>
+                                    <strong class="text-danger">*</strong> Fecha de creación
+                                </label>
+                                {!! Form::date('date', \Carbon\Carbon::now()->toDateString(), ['class' => 'form-control text-center', 'required']) !!}
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Fecha de Creacion</label>
-                                {!! Form::date(null, null, [
-                                    'class' => 'form-control text-center',
-                                    'required',
-                                ]) !!}
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Cantidad</label>
-                                {!! Form::number(null, null, [
-                                    'class' => 'form-control',
-                                ]) !!}
+                                <label>
+                                    <strong class="text-danger">*</strong> Cantidad
+                                </label>
+                                {!! Form::number('amount', 1, ['class' => 'form-control text-center','required']) !!}
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Unidad Productiva</label>
-                                {!! Form::text(null, null, [
-                                    'class' => 'form-control',
-                                ]) !!}
+                                <label>
+                                    <strong class="text-danger">*</strong> Unidad productiva
+                                </label>
+                                {!! Form::hidden('productive_unit_id', $productive_unit->id) !!}
+                                {!! Form::text('productive_unit_name', $productive_unit->name, ['class'=>'form-control', 'readonly']) !!}
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 mb-3">
                             <div class="form-group my-0 mb-1">
                                 <div class="form-floating">
                                     {!! Form::textarea(null, null, [
@@ -65,7 +63,9 @@
                                         'style' => 'height: 124px',
                                         'placeholder' => 'Registre alguna observación',
                                     ]) !!}
-                                    <label>Proceso</label>
+                                    <label>
+                                        <strong class="text-danger">*</strong> Proceso:
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -129,8 +129,8 @@
                                                 <button type="button" class="btn btn-primary btn-sm-lg">Agregar Elemento</button>
                                             </div>
                                         </div>
-                                    </div>                                    
-                                </div>                                
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-auto mx-auto">
@@ -145,3 +145,7 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    @livewireScripts()
+@endpush

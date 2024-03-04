@@ -19,10 +19,15 @@ class RecipesController extends Controller
         return view('cafeto::recipes.index', compact('view','formulations'));
     }
 
+    /* Vista de creación de recetas */
     public function create()
     {
-        $view = ['titlePage' => trans('cafeto::controllers.CAFETO_recipes_create_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_recipes_create_title_view')];
-        return view('cafeto::recipes.create', compact('view'));
+        $view = [
+            'titlePage' => trans('cafeto::controllers.CAFETO_recipes_create_title_page'),
+            'titleView' => trans('cafeto::controllers.CAFETO_recipes_create_title_view')
+        ];
+        $productive_unit = PUW::getAppPuw()->productive_unit;
+        return view('cafeto::recipes.create', compact('view','productive_unit'));
     }
 
     public function details()
