@@ -19,7 +19,7 @@ class HomeController extends Controller
         $productiveunit = ProductiveUnit::where('name','=','Punto de venta')->pluck('id');
         $warehouse = Warehouse::where('name','=','Punto de venta')->pluck('id');
         $productiveunit_warehouse = ProductiveUnitWarehouse::where('productive_unit_id',$productiveunit)->where('warehouse_id',$warehouse)->pluck('id');
-        $category = Category::whereHas('elements.inventories', function ($query) use ($productiveunit_warehouse) {
+        $category = Category::where('name','=','Productos')->whereHas('elements.inventories', function ($query) use ($productiveunit_warehouse) {
             $query->where('productive_unit_warehouse_id', $productiveunit_warehouse);
         })->get();
         $inventory = Inventory::where('productive_unit_warehouse_id',$productiveunit_warehouse)->get();
