@@ -3,8 +3,8 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" id="title" href="{{ route('cefa.agroindustria.home.index') }}">
+    <div  class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a style="width: 260px;" class="navbar-brand" id="title" href="{{ route('cefa.agroindustria.home.index') }}">
             @if (session('viewing_unit'))
                 AGROINDUSTRIA - {{ session('viewing_unit_name') }}
             @else
@@ -32,7 +32,7 @@
                     <a class="nav-link" href="{{route('agroindustria.admin.units.activity', ['unit'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Activities')}}</a>
                 </li>        
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.admin.units.requests')}}">{{trans('agroindustria::menu.Request for supplies')}}</a>
+                    <a class="nav-link" href="{{route('agroindustria.admin.units.view.request')}}">{{trans('agroindustria::menu.Request for supplies')}}</a>
                 </li>        
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('agroindustria.admin.units.labor')}}">{{trans('agroindustria::menu.Task')}}</a>
@@ -58,7 +58,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('cefa.agroindustria.admin.units.remove')}}" class="nav-link">{{trans('agroindustria::menu.Desregistrations')}}</a>
+                    <a href="{{route('agroindustria.admin.units.remove.view')}}" class="nav-link">{{trans('agroindustria::menu.Desregistrations')}}</a>
                 </li>
             @endif
 
@@ -89,7 +89,7 @@
 
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.instructor.units.requests')}}">{{trans('agroindustria::menu.Request for supplies')}}</a>
+                    <a class="nav-link" href="{{route('agroindustria.instructor.units.view.request')}}">{{trans('agroindustria::menu.Request for supplies')}}</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -98,7 +98,7 @@
                     <ul class="dropdown-menu">
                         @if(Auth::user()->havePermission('agroindustria.instructor.units.production'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('cefa.agroindustria.instructor.units.production')}}">{{trans('agroindustria::menu.production')}}</a>
+                            <a class="nav-link" href="{{route('agroindustria.instructor.units.production')}}">{{trans('agroindustria::menu.production')}}</a>
                         </li>
                         @endif
                         @if(Auth::user()->havePermission('agroindustria.instructor.units.inventory'))
@@ -118,7 +118,7 @@
                 @endif
                 @if(Auth::user()->havePermission('agroindustria.storer.view.request'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('cefa.agroindustria.storer.units.view.request')}}">{{trans('agroindustria::menu.requests')}}</a>
+                        <a class="nav-link" href="{{route('agroindustria.storer.units.view.request')}}">{{trans('agroindustria::menu.requests')}}</a>
                     </li>
                 @endif
             @endif

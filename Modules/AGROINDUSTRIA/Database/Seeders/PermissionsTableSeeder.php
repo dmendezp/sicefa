@@ -34,7 +34,17 @@ class PermissionsTableSeeder extends Seeder
 
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
-         // Dar baja a un producto (Administrador)
+        // Ver vista de bajas (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.units.remove.view'], [
+            'name' => 'Vista de bajas',
+            'description' => 'Puede ver las bajas de insumos.',
+            'description_english' => 'You can see the decreases in inputs.',
+            'app_id' => $app->id
+        ]);
+
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Dar baja a un producto (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.remove'], [
             'name' => 'Dar baja a un insumo',
             'description' => 'Puede dar de baja a insumos de la bodega de AGROINDUSTRIA',
@@ -120,6 +130,36 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Abrir vista de inventario',
             'description' => 'Puede ver el inventario',
             'description_english' => 'You can see the inventory',
+            'app_id' => $app->id
+        ]);
+
+        $permission_admin[] = $permission->id;
+
+        //Vista de solicitudes externas (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.units.view.request'], [
+            'name' => 'Visualizar la vista de solicitud de insumos.',
+            'description' => 'Puede visualizar el la vista de solicitudes externas.',
+            'description_english' => 'You can view the external requests view.',
+            'app_id' => $app->id
+        ]);
+
+        $permission_admin[] = $permission->id;
+
+        //Ver inventario de insumos prontos a agotarse(Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.units.inventory.spent'], [
+            'name' => 'Abrir vista de inventario de insumos prontos a agotarse',
+            'description' => 'Puede ver el inventario de los insumos prontos a agotarse.',
+            'description_english' => 'You can see the inventory of supplies that are soon to be sold out.',
+            'app_id' => $app->id
+        ]);
+
+        $permission_admin[] = $permission->id;
+
+        //Ver inventario de insumos prontos a caducar(Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.units.inventory.expire'], [
+            'name' => 'Abrir vista de inventario de insumos prontos a caducar',
+            'description' => 'Puede ver el inventario de los insumos prontos a caducar.',
+            'description_english' => 'You can view the inventory of supplies that are about to expire.',
             'app_id' => $app->id
         ]);
 
@@ -254,6 +294,16 @@ class PermissionsTableSeeder extends Seeder
 
         $permission_instructor[] = $permission->id;
 
+        //Vista de solicitudes externas (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.view.request'], [
+            'name' => 'Visualizar la vista de solicitud de insumos.',
+            'description' => 'Puede visualizar el la vista de solicitudes externas.',
+            'description_english' => 'You can view the external requests view.',
+            'app_id' => $app->id
+        ]);
+
+        $permission_instructor[] = $permission->id;
+
         //Ver inventario(Instructor)
         $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.inventory'], [
             'name' => 'Abrir vista de inventario',
@@ -263,9 +313,29 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         $permission_instructor[] = $permission->id;
+
+        //Ver inventario de insumos prontos a agotarse(Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.inventory.spent'], [
+            'name' => 'Abrir vista de inventario de insumos prontos a agotarse',
+            'description' => 'Puede ver el inventario de los insumos prontos a agotarse.',
+            'description_english' => 'You can see the inventory of supplies that are soon to be sold out.',
+            'app_id' => $app->id
+        ]);
+
+        $permission_instructor[] = $permission->id;
+
+        //Ver inventario de insumos prontos a caducar(Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.inventory.expire'], [
+            'name' => 'Abrir vista de inventario de insumos prontos a caducar',
+            'description' => 'Puede ver el inventario de los insumos prontos a caducar.',
+            'description_english' => 'You can view the inventory of supplies that are about to expire.',
+            'app_id' => $app->id
+        ]);
+
+        $permission_instructor[] = $permission->id;
         
         //Visualizar solicitudes
-        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.storer.view.request'], [
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.storer.units.view.request'], [
             'name' => 'Visualizar solicitudes',
             'description' => 'Puede ver las solicitudes hechas por los instructores',
             'description_english' => 'You can see the requests made by the instructors',
@@ -279,6 +349,26 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Abrir vista de inventario',
             'description' => 'Puede ver el inventario',
             'description_english' => 'You can see the inventory',
+            'app_id' => $app->id
+        ]);
+
+        $permission_storer[] = $permission->id;
+
+        //Ver inventario de insumos prontos a agotarse(Almacenista)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.storer.units.inventory.spent'], [
+            'name' => 'Abrir vista de inventario de insumos prontos a agotarse',
+            'description' => 'Puede ver el inventario de los insumos prontos a agotarse.',
+            'description_english' => 'You can see the inventory of supplies that are soon to be sold out.',
+            'app_id' => $app->id
+        ]);
+
+        $permission_storer[] = $permission->id;
+
+        //Ver inventario de insumos prontos a caducar(Almacenista)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.storer.units.inventory.expire'], [
+            'name' => 'Abrir vista de inventario de insumos prontos a caducar',
+            'description' => 'Puede ver el inventario de los insumos prontos a caducar.',
+            'description_english' => 'You can view the inventory of supplies that are about to expire.',
             'app_id' => $app->id
         ]);
 

@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
     <!-- Brand Logo -->
-    <a href="{{ route('cefa.sica.home.index') }}" class="brand-link">
+    <a href="{{ route('cefa.index.view') }}" class="brand-link">
         <img src="{{ asset('modules/gth/images/logo.png') }}" alt="GTH Logo" class="brand-image " style="opacity: .8">
         <span class="brand-text h3">GTH</span>
     </a>

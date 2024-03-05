@@ -16,7 +16,7 @@ class ApprenticeAsistencia extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
-    protected $fillable = ['asistencia','apprentice_id','asistencia_id','work_id'];
+    protected $fillable = ['asistencia','apprentice_id','attendance_id','work_id'];
     
     protected static function newFactory()
     {
@@ -31,7 +31,7 @@ class ApprenticeAsistencia extends Model
     }
     
     /* public function works(){
-        return $this->belongsToMany(Work::class, 'apprentice_asistencia_work')->withTimestamps();
+        return $this->belongsToMany(Work::class, 'apprentice_attendance_works')->withTimestamps();
     } */
     
     public function work(){

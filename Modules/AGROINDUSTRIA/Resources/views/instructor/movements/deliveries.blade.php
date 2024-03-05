@@ -48,7 +48,7 @@
         </div>
         <div class="col-md-6">
           {!! Form::label('observation', trans('agroindustria::deliveries.Observations')) !!}
-          {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'id' => 'textarea'] ) !!}
+          {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'id' => 'textarea', 'style' => 'height: 0px'] ) !!}
         </div>
         <div class="col-md-6" id="total-movement">
           {!! Form::label('total_movement', 'Total') !!}

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Course;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementType;
 use Modules\SICA\Entities\MovementDetail;
@@ -263,7 +264,7 @@ class InputRequestController extends Controller
             $message_line = trans('agroindustria::request.error');
         }
 
-        return redirect()->route('cefa.agroindustria.instructor.units.requests')->with([
+        return redirect()->route('agroindustria.instructor.units.view.request')->with([
             'icon' => $icon,
             'message_line' => $message_line
         ]);
@@ -372,7 +373,7 @@ class InputRequestController extends Controller
             $message_line = trans('agroindustria::deliveries.Error when editing movement status');
         }
 
-        return redirect()->route('cefa.agroindustria.instructor.units.requests')->with(['icon' => $icon, 'message_line' => $message_line]);
+        return redirect()->route('agroindustria.admin.units.view.request')->with(['icon' => $icon, 'message_line' => $message_line]);
     }
 
 }

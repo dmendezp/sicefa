@@ -27,7 +27,7 @@ class Asistencia extends Model
     }
 
     public function apprentices(){
-        return $this->belongsToMany(Apprentice::class, 'apprentice_asistencias')->withTimestamps()->withPivot('asistencia','id','work_id');
+        return $this->belongsToMany(Apprentice::class, 'apprentice_attendances')->withTimestamps()->withPivot('asistencia','id','work_id');
     }
 
 

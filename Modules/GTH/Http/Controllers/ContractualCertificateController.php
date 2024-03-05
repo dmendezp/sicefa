@@ -29,7 +29,7 @@ class ContractualCertificateController extends Controller
     }
     public function search(Request $request)
     {
-        $document_number = $request->input('document_number');
+        $document_number = $request->input('document');
 
         $personid = Person::where('document_number', $document_number)->get()->pluck('id');
 
