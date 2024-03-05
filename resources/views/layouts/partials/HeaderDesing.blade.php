@@ -14,7 +14,7 @@
               @auth
                  <a href="{{ route('cefa.home') }}">{{ Auth::user()->nickname }}</a>
                 <ul>
-                  <li><a href="#">Cambiar contraseña</a></li>
+                  <li><a href="{{ route('password.change.index') }}">Cambiar contraseña</a></li>
                   <li>
                     
                 <a href="{{ route('logout') }}" class="d-block" onclick="event.preventDefault();

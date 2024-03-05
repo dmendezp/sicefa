@@ -4,12 +4,15 @@ namespace Modules\SICA\Http\Controllers\security;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Modules\SICA\Entities\Person;
 use App\Models\User;
 use App\Rules\AtLeastOneRoleSelected;
 use Modules\SICA\Entities\App;
-use Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
 
 class UserController extends Controller
 {
@@ -129,6 +132,41 @@ class UserController extends Controller
             $message = ['message'=>'No se pudo eliminar el usuario.', 'typealert'=>'danger'];
         }
         return redirect(route('sica.admin.security.users.index'))->with($message);
+    }
+
+    public function change(Request $request)
+    {
+        return view('auth.passwords.change');
+    }
+ 
+    public function changesave(Request $request)
+    {
+        $rules = [
+            'current_password' => 'required|string',
+            'new_password' => 'required|confirmed|min:8|string',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $auth = Auth::user();
+ 
+
+        if (!Hash::check($request->get('current_password'), $auth->password)) 
+        {
+            return back()->with('current_password', "La contraseña actual es invalida");
+        }
+ 
+
+        if (strcmp($request->get('current_password'), $request->new_password) == 0) 
+        {
+            return redirect()->back()->with("new_password", "La nueva contraseña no puede ser la misma que su contraseña actual.");
+        }
+ 
+        $user =  User::find($auth->id);
+        $user->password =  Hash::make($request->new_password);
+        $user->save();
+        return back()->with('success', "Contraseña cambiada exitosamente");
     }
 
 }

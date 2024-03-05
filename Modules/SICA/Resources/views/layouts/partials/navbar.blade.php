@@ -8,6 +8,7 @@
         <li class="nav-item d-lg-inline-block">
             <a href="{{ route('cefa.sica.home.index') }}" class="nav-link">{{ trans('sica::menu.Home') }}</a>
         </li>
+        @auth
         @if (checkRol('superadmin'))
         @guest
         @else
@@ -98,6 +99,7 @@
         </li>
         @endguest
         @endif
+        @endauth
     </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto"> 
