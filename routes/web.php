@@ -4,7 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use Modules\SICA\Http\Controllers\security\UserController;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Laravel\Socialite\Facades\Socialite;
+
+Route::post('/register/usergoogle/', [UserController::class, 'storer_usergoogle'])->name('register.usergoogle'); /* Registrar usuarion por google */
 
 Route::middleware(['lang'])->group(function(){
 
@@ -27,12 +30,19 @@ Route::middleware(['lang'])->group(function(){
 
     Route::get('/login_google', function () {
         return Socialite::driver('google')->redirect();
-    });
+    })->name('logingoogle');
      
-    Route::get('/auth/callback', function () {
+    Route::get('/google-callback', function () {
         $user = Socialite::driver('google')->user();
-     
-        // $user->token
+        $userexist = User::where('email',$user->email)->first();
+            if ($userexist) {
+                Auth::login($userexist);
+                $message = ['message'=>'Usuario logueado', 'typealert'=>'success'];
+                return redirect(route('cefa.home'));
+            } else {
+                $data=['user'=>$user];
+                return view('auth.logingoogle',$data);
+            }
     });
 
     Route::prefix('filemanager')->group(function() {

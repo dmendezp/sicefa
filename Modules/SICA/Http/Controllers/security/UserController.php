@@ -9,6 +9,7 @@ use Modules\SICA\Entities\Person;
 use App\Models\User;
 use App\Rules\AtLeastOneRoleSelected;
 use Modules\SICA\Entities\App;
+use Modules\SICA\Entities\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -167,6 +168,41 @@ class UserController extends Controller
         $user->password =  Hash::make($request->new_password);
         $user->save();
         return back()->with('success', "Contraseña cambiada exitosamente");
+    }
+
+    /* Registrar usuario google */
+    public function storer_usergoogle(Request $request){ 
+        $rules = [
+            'nickname' => 'required|unique:users',
+            'document_number' => 'required',
+            'personal_email' => 'required|email|unique:users,email',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+            return back()->withErrors($validator)->with('message', 'Ocurrió un error con el formulario.')->with('typealert', 'danger')->withInput($request->except('password'))->with('scriptJS', 'ajaxSearchPersonUser()');
+        } else {
+            $app = App::where('name','SENAEMPRESA')->pluck('id');
+            $person_id = Person::where('document_number',$request->input('document_number'))->first();
+            
+            try {
+                DB::beginTransaction(); // Iniciar transacción
+                $user = new User;
+                $user->nickname = e($request->input('nickname'));
+                $user->person_id = $person_id->id;
+                $user->email = e($request->input('personal_email'));
+                $user->save(); // Registrar usuario
+                $role = Role::where('name','Aprendiz Senaempresa')->where('app_id', $app)->first();
+                $user->roles()->syncWithoutDetaching($role); // Sincronizar los nuevos roles al usuario
+                Auth::login($user);
+                DB::commit(); // Confirmar la transacción
+                $message = ['message'=>'Se registró exitosamente el usuario.', 'typealert'=>'success'];
+            } catch (\Exception $e) {
+                DB::rollBack(); // Revertir cambios realizados en la transacción
+                dd($e);
+                $message = ['message'=>'No se pudo realizar el registro del usuario.', 'typealert'=>'danger'];
+            }
+            return redirect(route('cefa.home'))->with($message);
+        }
     }
 
 }
