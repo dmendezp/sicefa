@@ -18,6 +18,7 @@ Route::middleware(['lang'])->group(function () {
     Route::prefix('gth')->group(function () {
 
         Route::get('/index', 'GTHController@index')->name('cefa.index.view');
+        Route::get('/admin', 'GTHController@index')->name('gth.admin.index');
         Route::get('/attendanceregister', 'GTHController@viewregisterattendance')->name('gth.registerattendance.registerattendance.index');
 
         // Type_employee

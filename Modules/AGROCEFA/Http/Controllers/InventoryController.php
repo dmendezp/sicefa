@@ -19,7 +19,7 @@ use Modules\SICA\Entities\Category;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\MeasurementUnit;
 use Modules\SICA\Entities\Movement;
-use Modules\SICA\Entities\kindOfPurchase;
+use Modules\SICA\Entities\KindOfPurchase;
 use Modules\SICA\Entities\MovementType;
 use Modules\SICA\Entities\MovementDetail;
 use Modules\SICA\Entities\WarehouseMovement;
@@ -52,7 +52,7 @@ class InventoryController extends Controller
         $categories = Category::all();
         $elements = Element::all();
         $measurementUnits = MeasurementUnit::all();
-        $purchaseTypes = kindOfPurchase::all();
+        $purchaseTypes = KindOfPurchase::all();
 
         // Obtén los registros de productive_unit_warehouse que coinciden con la unidad productiva seleccionada
         $ProductiveUnitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->get();

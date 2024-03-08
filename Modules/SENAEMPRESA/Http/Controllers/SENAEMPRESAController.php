@@ -65,6 +65,7 @@ class SENAEMPRESAController extends Controller
             'registeredStaffCount' => $registeredStaffCount, 'registeredphasesCount' => $registeredphasesCount, 'postulatesCount' => $postulatesCount,
             'prestamosPrestados' => $prestamosPrestados, 'vacanciesCount' => $vacanciesCount
         ];
+        
         return view('senaempresa::Company.admin', $data);
     }
 

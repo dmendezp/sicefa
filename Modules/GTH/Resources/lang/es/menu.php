@@ -4,6 +4,7 @@ return [
 	//home
 	'Home' => 'Inicio',
 	'Attendance' => 'Asistencia',
+	'Admin' => 'Administrador',
 	'English' => 'Ingles',
 	'Spanish' => 'Español',
 	'Login' => 'Login',

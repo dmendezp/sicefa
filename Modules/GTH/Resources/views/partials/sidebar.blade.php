@@ -76,7 +76,7 @@
                 </li>
 
                 <li
-                    class="nav-item {{ Route::is('gth.admin.contractors.index', 'gth.admin.contractreports.index', 'cefa.contractualcertificates.view') ? 'menu-is-opening menu-open' : '' }}">
+                    class="nav-item">
                     <a href="#" class="nav-link {{ !Route::is('contratos.*') ?: 'active' }}">
                         <i class="fas fa-file-signature"></i>
                         <p>{{ trans('gth::menu.Contracts') }}

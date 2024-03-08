@@ -38,6 +38,14 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_registerattendance[] = $permission->id; // Almacenar permiso para rol
 
+        $permission = Permission::updateOrCreate(['slug' => 'gth.admin.index'], [
+            'name' => 'Administrador',
+            'description' => 'Tendra el acceso al menu del administrador',
+            'description_english' => 'You will have access to the administrator menu',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
 
         $permission = Permission::updateOrCreate(['slug' => 'gth.brigadista.attendancereport.index'], [
             'name' => 'Reporte',
