@@ -201,4 +201,62 @@ class ParameterController extends Controller
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
     }
 
+    //Funciones para Tipo de Movimiento
+    public function createMovementType(){
+        return view('sica::admin.inventory.parameters.movement_type.create');
+    }
+
+    public function storeMovementType(Request $request){
+        $c = new MovementType;
+        $c->name = e($request->input('name'));
+        $c->consecutive = e($request->input('consecutive'));
+        $card = 'card-movement_type';
+        if($c->save()){
+            $icon = 'success';
+            $message_parameter = 'Tipo de Movimiento agregado exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_parameter = 'No se pudo agregar el Tipo de Movimiento.';
+        }
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
+    }
+
+    public function editMovementType($id){
+        $movement_type = MovementType::find($id);
+        return view('sica::admin.inventory.parameters.movement_type.edit',compact('movement_type'));
+    }
+
+    public function updateMovementType(Request $request){
+        $movement_type = MovementType::findOrFail($request->input('id'));
+        $movement_type->name = e($request->input('name'));
+        $movement_type->consecutive = e($request->input('consecutive'));
+        $card = 'card-movement_type';
+        if($movement_type->save()){
+            $icon = 'success';
+            $message_parameter = 'Tipo de Movimiento actualizado exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_parameter = 'No se pudo actualizar el Tipo de Movimiento.';
+        }
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
+    }
+
+    public function deleteMovementType($id){
+        $movement_type = MovementType::find($id);
+        return view('sica::admin.inventory.parameters.movement_type.delete',compact('movement_type'));
+    }
+
+    public function destroyMovementType(Request $request){
+        $movement_type = MovementType::findOrFail($request->input('id'));
+        $card = 'card-movement_type';
+        if($movement_type->delete()){
+            $icon = 'success';
+            $message_parameter = 'Tipo de Movimiento eliminado exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_parameter = 'No se pudo eliminar el Tipo de Movimiento.';
+        }
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
+    }
+
 }

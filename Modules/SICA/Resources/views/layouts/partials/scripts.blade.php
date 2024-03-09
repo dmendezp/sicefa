@@ -46,4 +46,14 @@
       showConfirmButton: false,
       timer: 3000
     });
+
+    @if (Session::get('message'))
+          /* Show the message */
+          @if (Session::get('icon') == 'success')
+              toastr.success("{{ Session::get('message') }}");
+          @elseif (Session::get('icon') == 'error')
+              toastr.error("{{ Session::get('message') }}");
+          @endif
+      @endif
 </script>
+

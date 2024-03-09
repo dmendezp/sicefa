@@ -32,7 +32,9 @@ class InstructorController extends Controller
 
     // Verificar si la colección de instructores está vacía
     if ($instructors->isEmpty()) {
-        return 'No se encontraron registros de empleados o contratistas.';
+        $icon = 'error';
+        $message = 'No se encontraron registros de empleados o contratistas.';  
+        return back()->with(['icon'=>$icon, 'message'=>$message]);
     }
 
     // Pasar la variable a la vista
