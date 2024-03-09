@@ -1,5 +1,10 @@
 @extends('cafeto::layouts.master')
 
+@push('head')
+    <!-- Estilos de la galería de imágenes -->
+    <link rel="stylesheet" href="{{ asset('modules/cafeto/css/image-gallery-styles.css') }}">
+@endpush
+
 @push('breadcrumbs')
     <li class="breadcrumb-item"><a
             href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.recipes.index') }}"
@@ -10,7 +15,46 @@
 @section('content')
     <div class="card card-danger card-outline shadow-sm custom-border-color">
         <div class="card-body">
-            
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="e-card playing">
+                        <div class="image"></div>
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+
+                        <div class="infotop">
+                            <img src="{{ asset('modules/cafeto/images/gifs/recipes.gif') }}" alt="dish img"
+                                style="max-width: 30%; height: auto;">
+                            <br>
+                            Granizado con chispas de chocolate
+                            <br>
+                            <div class="name">Por: Jesús David Guevara Munar</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Receta para creacion de 1 granizado</h4>
+                            <p>Ingredientes:</p>
+                            <ul>
+                                <li>1 taza de café</li>
+                                <li>1 taza de leche</li>
+                                <li>1/2 taza de azúcar</li>
+                                <li>1 taza de hielo</li>
+                                <li>1/2 taza de chispas de chocolate</li>
+                            </ul>
+                            <p>Preparación:</p>
+                            <ol>
+                                <li>En una licuadora, mezcle el café, la leche, el azúcar y el hielo hasta que esté suave.</li>
+                                <li>Vierte en un vaso y agrega las chispas de chocolate.</li>
+                                <li>Sirva inmediatamente.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
