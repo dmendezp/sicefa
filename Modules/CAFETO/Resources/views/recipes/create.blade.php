@@ -20,39 +20,44 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>
-                                    <strong class="text-danger">*</strong> Propietario
+                                    <strong class="text-danger">*</strong> {{ trans('cafeto::recipes.Title_Form_Owner') }}
                                 </label>
                                 {!! Form::hidden('person_id', Auth::user()->person_id) !!}
-                                {!! Form::text('person_id', Auth::user()->person->full_name, ['class'=>'form-control', 'readonly']) !!}
+                                {!! Form::text('person_id', Auth::user()->person->full_name, ['class' => 'form-control', 'readonly']) !!}
                             </div>
                         </div>
                         <div class="col-md-8">
                             {{-- Se incluye el componente livewire para seleccionar un producto para la receta --}}
-                            @livewire('cafeto::recipe.select-product', ['formulation'=>null])
+                            @livewire('cafeto::recipe.select-product', ['formulation' => null])
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>
-                                    <strong class="text-danger">*</strong> Fecha de creación
+                                    <strong class="text-danger">*</strong>
+                                    {{ trans('cafeto::recipes.Title_Form_Date_of_Creation') }}
                                 </label>
-                                {!! Form::date('date', \Carbon\Carbon::now()->toDateString(), ['class' => 'form-control text-center', 'required']) !!}
+                                {!! Form::date('date', \Carbon\Carbon::now()->toDateString(), [
+                                    'class' => 'form-control text-center',
+                                    'required',
+                                ]) !!}
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>
-                                    <strong class="text-danger">*</strong> Cantidad
+                                    <strong class="text-danger">*</strong> {{ trans('cafeto::recipes.Title_Form_Amount') }}
                                 </label>
-                                {!! Form::number('amount', 1, ['class' => 'form-control text-center','required']) !!}
+                                {!! Form::number('amount', 1, ['class' => 'form-control text-center', 'required']) !!}
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>
-                                    <strong class="text-danger">*</strong> Unidad productiva
+                                    <strong class="text-danger">*</strong>
+                                    {{ trans('cafeto::recipes.Title_Form_Productive_Unit') }}
                                 </label>
                                 {!! Form::hidden('productive_unit_id', $productive_unit->id) !!}
-                                {!! Form::text('productive_unit_name', $productive_unit->name, ['class'=>'form-control', 'readonly']) !!}
+                                {!! Form::text('productive_unit_name', $productive_unit->name, ['class' => 'form-control', 'readonly']) !!}
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
@@ -64,7 +69,8 @@
                                         'placeholder' => 'Registre alguna observación',
                                     ]) !!}
                                     <label>
-                                        <strong class="text-danger">*</strong> Proceso:
+                                        <strong class="text-danger">*</strong>
+                                        {{ trans('cafeto::recipes.Title_Form_Process') }}
                                     </label>
                                 </div>
                             </div>
@@ -73,60 +79,42 @@
                         <hr>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5>Ingredientes</h5>
+                                        <h5>{{ trans('cafeto::recipes.Title_Form_Ingredents') }}</h5>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="inputState" class="form-label">Elemento</label>
+                                            <div class="col-md-4">
+                                                {!! Form::label(null, trans('cafeto::recipes.Title_Form_Measurement_Unit'), ['class' => 'mt-3']) !!}
                                                 <select id="inputState" class="form-select">
                                                     <option selected>Selecciona...</option>
                                                     <option>...</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
-                                                <label class="form-label">Cantidad</label>
-                                                <input type="number" class="form-control">
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label class="form-label">&nbsp;</label>
-                                                <button type="button" class="btn btn-outline-danger btn-sm btn-delete d-block">Eliminar</button>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-3">
-                                            <div class="col-md-12 text-center">
-                                                <button type="button" class="btn btn-primary btn-sm-lg">Agregar Ingrediente</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5>Utensilios</h5>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="inputState" class="form-label">Elemento</label>
+                                                {!! Form::label(null, trans('cafeto::recipes.Title_Form_Element'), ['class' => 'mt-3']) !!}
                                                 <select id="inputState" class="form-select">
                                                     <option selected>Selecciona...</option>
                                                     <option>...</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-4">
-                                                <label class="form-label">Cantidad</label>
-                                                <input type="number" class="form-control">
+                                            <div class="col-md-2">
+                                                {!! Form::label(null, trans('cafeto::recipes.Title_Form_Amount'), ['class' => 'mt-3']) !!}
+                                                {!! Form::text(null, null, [
+                                                    'class' => 'form-control',
+                                                    'required',
+                                                ]) !!}
                                             </div>
                                             <div class="col-md-2">
-                                                <label class="form-label">&nbsp;</label>
-                                                <button type="button" class="btn btn-outline-danger btn-sm btn-delete d-block">Eliminar</button>
+                                                <label class="form-label mt-3">&nbsp;</label>
+                                                <button type="button"
+                                                    class="btn btn-outline-danger btn-sm btn-delete d-block">{{ trans('cafeto::recipes.Btn_Delete_Ingredent') }}</button>
                                             </div>
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col-md-12 text-center">
-                                                <button type="button" class="btn btn-primary btn-sm-lg">Agregar Elemento</button>
+                                                <button type="button"
+                                                    class="btn btn-primary btn-sm-lg">{{ trans('cafeto::recipes.Btn_Add_Ingredent') }}</button>
                                             </div>
                                         </div>
                                     </div>

@@ -3,7 +3,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label>
-                    <strong class="text-danger">*</strong> Categoria
+                    <strong class="text-danger">*</strong> {{ trans('cafeto::recipes.Title_Form_Category') }}
                 </label>
                 <select class="form-select" name="category_id" wire:model="category_id" required>
                     <option value="">-- Seleccione</option>
@@ -16,7 +16,7 @@
         <div class="col-md-8">
             <div class="form-group">
                 <label>
-                    <strong class="text-danger">*</strong> Producto
+                    <strong class="text-danger">*</strong> {{ trans('cafeto::recipes.Title_Form_Product') }}
                 </label>
                 <select class="form-select" name="element_id" wire:model="element_id" @if(empty($elements)) disabled @endif required>
                     <option value="">-- Seleccione</option>

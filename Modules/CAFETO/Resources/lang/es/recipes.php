@@ -18,6 +18,24 @@ return [
 	'1T_Amount'       => 'Cantidad',
 	'1T_Actions'      => 'Acciones',
 
+	// ---Section Show Recipes---
+	// Form Register Recipes
+    'Title_Form_Owner'            => 'Propietario:',
+    'Title_Form_Category'         => 'Categoría:',
+    'Title_Form_Product'          => 'Producto:',
+    'Title_Form_Date_of_Creation' => 'Fecha de Creación:',
+    'Title_Form_Amount'           => 'Cantidad:',
+    'Title_Form_Productive_Unit'  => 'Unidad Productiva:',
+    'Title_Form_Process'          => 'Proceso:',
+	
+	// Form Register Ingredents
+    'Title_Form_Ingredents'       => 'Ingredientes',
+    'Title_Form_Measurement_Unit' => 'Unidad de Medida',
+    'Title_Form_Element'          => 'Elemento',
+    'Title_Form_Amount'           => 'Cantidad',
+
 	// Btns
-    'Btn_Create_Recipe'  => 'Crear Receta',
+    'Btn_Delete_Ingredent' => 'Eliminar Ingrediente',
+    'Btn_Add_Ingredent'    => 'Agregar Ingrediente',
+    'Btn_Create_Recipe'    => 'Crear Receta',
 ];

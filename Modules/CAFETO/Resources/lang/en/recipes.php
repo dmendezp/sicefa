@@ -18,6 +18,24 @@ return [
     '1T_Amount'       => 'Amount',
     '1T_Actions'      => 'Actions',
 
+    // ---Section Show Recipes---
+	// Form Register Recipes
+    'Title_Form_Owner'            => 'Owner:',
+    'Title_Form_Category'         => 'Category:',
+    'Title_Form_Product'          => 'Product:',
+    'Title_Form_Date_of_Creation' => 'Date of Creation:',
+    'Title_Form_Amount'           => 'Amount:',
+    'Title_Form_Productive_Unit'  => 'Productive Unit:',
+    'Title_Form_Process'          => 'Process:',
+	
+	// Form Register Ingredents
+    'Title_Form_Ingredents'       => 'Ingredents',
+    'Title_Form_Measurement_Unit' => 'Measurement Unit',
+    'Title_Form_Element'          => 'Element',
+    'Title_Form_Amount'           => 'Amount',
+
 	// Btns
-    'Btn_Create_Recipe'  => 'Create Recipe',
+    'Btn_Delete_Ingredent' => 'Delete Ingredent',
+    'Btn_Add_Ingredent'    => 'Add Ingredent',
+    'Btn_Create_Recipe'    => 'Create Recipe',
 ];
