@@ -23,7 +23,14 @@
                                     <strong class="text-danger">*</strong> {{ trans('cafeto::recipes.Title_Form_Owner') }}
                                 </label>
                                 {!! Form::hidden('person_id', Auth::user()->person_id) !!}
-                                {!! Form::text('person_id', Auth::user()->person->full_name, ['class' => 'form-control', 'readonly']) !!}
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa-solid fa-user-tag"></i>
+                                        </span>
+                                    </div>
+                                    {!! Form::text('person_id', Auth::user()->person->full_name, ['class' => 'form-control', 'readonly']) !!}
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-8">
@@ -47,7 +54,14 @@
                                 <label>
                                     <strong class="text-danger">*</strong> {{ trans('cafeto::recipes.Title_Form_Amount') }}
                                 </label>
-                                {!! Form::number('amount', 1, ['class' => 'form-control text-center', 'required']) !!}
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-keyboard"></i>
+                                        </span>
+                                    </div>
+                                    {!! Form::number('amount', 1, ['class' => 'form-control text-center', 'required']) !!}
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -56,22 +70,36 @@
                                     <strong class="text-danger">*</strong>
                                     {{ trans('cafeto::recipes.Title_Form_Productive_Unit') }}
                                 </label>
-                                {!! Form::hidden('productive_unit_id', $productive_unit->id) !!}
-                                {!! Form::text('productive_unit_name', $productive_unit->name, ['class' => 'form-control', 'readonly']) !!}
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-keyboard"></i>
+                                        </span>
+                                    </div>
+                                    {!! Form::hidden('productive_unit_id', $productive_unit->id) !!}
+                                    {!! Form::text('productive_unit_name', $productive_unit->name, ['class' => 'form-control', 'readonly']) !!}
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="form-group my-0 mb-1">
-                                <div class="form-floating">
-                                    {!! Form::textarea(null, null, [
-                                        'class' => 'form-control',
-                                        'style' => 'height: 124px',
-                                        'placeholder' => 'Registre alguna observación',
-                                    ]) !!}
-                                    <label>
-                                        <strong class="text-danger">*</strong>
-                                        {{ trans('cafeto::recipes.Title_Form_Process') }}
-                                    </label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-keyboard"></i>
+                                        </span>
+                                    </div>
+                                    <div class="form-floating">
+                                        {!! Form::textarea(null, null, [
+                                            'class' => 'form-control',
+                                            'style' => 'height: 124px',
+                                            'placeholder' => 'Registre alguna observación',
+                                        ]) !!}
+                                        <label>
+                                            <strong class="text-danger">*</strong>
+                                            {{ trans('cafeto::recipes.Title_Form_Process') }}
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -86,24 +114,45 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 {!! Form::label(null, trans('cafeto::recipes.Title_Form_Measurement_Unit'), ['class' => 'mt-3']) !!}
-                                                <select id="inputState" class="form-select">
-                                                    <option selected>Selecciona...</option>
-                                                    <option>...</option>
-                                                </select>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-list"></i>
+                                                        </span>
+                                                    </div>
+                                                    <select id="inputState" class="form-select">
+                                                        <option selected>{{ trans('cafeto::recipes.Select') }}</option>
+                                                        <option>...</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="col-md-4">
                                                 {!! Form::label(null, trans('cafeto::recipes.Title_Form_Element'), ['class' => 'mt-3']) !!}
-                                                <select id="inputState" class="form-select">
-                                                    <option selected>Selecciona...</option>
-                                                    <option>...</option>
-                                                </select>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-list"></i>
+                                                        </span>
+                                                    </div>
+                                                    <select id="inputState" class="form-select">
+                                                        <option selected>{{ trans('cafeto::recipes.Select') }}</option>
+                                                        <option>...</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="col-md-2">
                                                 {!! Form::label(null, trans('cafeto::recipes.Title_Form_Amount'), ['class' => 'mt-3']) !!}
-                                                {!! Form::text(null, null, [
-                                                    'class' => 'form-control',
-                                                    'required',
-                                                ]) !!}
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="far fa-keyboard"></i>
+                                                        </span>
+                                                    </div>
+                                                    {!! Form::text(null, null, [
+                                                        'class' => 'form-control',
+                                                        'required',
+                                                    ]) !!}
+                                                </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <label class="form-label mt-3">&nbsp;</label>

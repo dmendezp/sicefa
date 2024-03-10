@@ -34,6 +34,9 @@ return [
     'Title_Form_Element'          => 'Elemento',
     'Title_Form_Amount'           => 'Cantidad',
 
+    // Select
+    'Select' => '-- Seleccione --',
+
 	// Btns
     'Btn_Delete_Ingredent' => 'Eliminar Ingrediente',
     'Btn_Add_Ingredent'    => 'Agregar Ingrediente',

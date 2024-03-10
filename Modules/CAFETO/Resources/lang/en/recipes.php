@@ -33,6 +33,9 @@ return [
     'Title_Form_Measurement_Unit' => 'Measurement Unit',
     'Title_Form_Element'          => 'Element',
     'Title_Form_Amount'           => 'Amount',
+    
+    // Select
+    'Select' => '-- Select --',
 
 	// Btns
     'Btn_Delete_Ingredent' => 'Delete Ingredent',
