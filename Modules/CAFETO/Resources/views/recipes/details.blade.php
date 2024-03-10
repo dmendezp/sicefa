@@ -36,7 +36,7 @@
                 <div class="col-md-9">
                     <div class="card">
                         <div class="card-body">
-                            <h4>Receta para creacion de 1 granizado</h4>
+                            <h4>Receta para creación de 1 granizado</h4>
                             <p>Ingredientes:</p>
                             <ul>
                                 <li>1 taza de café</li>
@@ -47,10 +47,15 @@
                             </ul>
                             <p>Preparación:</p>
                             <ol>
-                                <li>En una licuadora, mezcle el café, la leche, el azúcar y el hielo hasta que esté suave.</li>
+                                <li>En una licuadora, mezcle el café, la leche, el azúcar y el hielo hasta que esté suave.
+                                </li>
                                 <li>Vierte en un vaso y agrega las chispas de chocolate.</li>
                                 <li>Sirva inmediatamente.</li>
                             </ol>
+                            <div class="d-flex flex-row-reverse">
+                                <button class="btn btn-danger mx-1">Eliminar receta</button>
+                                <button class="btn btn-warning mx-1">Editar receta</button>
+                            </div>
                         </div>
                     </div>
                 </div>
