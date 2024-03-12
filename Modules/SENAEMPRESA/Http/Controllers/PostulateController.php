@@ -373,6 +373,9 @@ class PostulateController extends Controller
     public function postulations()
     {
         $Apprentice = auth()->user()->person->apprentices()->first(); // Obtener el usuario autenticado
+        if (!$Apprentice) {
+            return redirect()->back()->withInput()->with('error', 'No eres una Aprendiz');
+        }
         $postulations = Postulate::where('apprentice_id', $Apprentice->id)->get();
 
         $data = ['title' => 'Estado Aprendiz', 'postulations' => $postulations];

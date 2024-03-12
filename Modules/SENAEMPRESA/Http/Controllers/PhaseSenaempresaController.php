@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Modules\SENAEMPRESA\Entities\CourseSenaempresa;
-use Modules\SENAEMPRESA\Entities\senaempresa;
+use Modules\SENAEMPRESA\Entities\Senaempresa;
 use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\Quarter;
 
@@ -17,8 +17,8 @@ class PhaseSenaempresaController extends Controller
     public function phases()
 
     {
-        $senaempresas = senaempresa::get();
-        $staff = senaempresa::with('Quarter')->get();
+        $senaempresas = Senaempresa::get();
+        $staff = Senaempresa::with('Quarter')->get();
         $data = ['title' => trans('senaempresa::menu.SenaEmpresa - Phases'), 'senaempresas' => $senaempresas, 'staff' => $staff];
         return view('senaempresa::Company.phases_senaempresa.index', $data);
     }
@@ -89,7 +89,7 @@ class PhaseSenaempresaController extends Controller
         ]);
 
         // Busca el registro en la base de datos
-        $company = senaempresa::find($id);
+        $company = Senaempresa::find($id);
 
         // Verifica si el registro existe
         if (!$company) {

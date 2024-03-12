@@ -9,7 +9,7 @@ use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\Quarter;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class senaempresa extends Model implements Auditable
+class Senaempresa extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
         SoftDeletes, // Borrado suave

@@ -203,9 +203,9 @@ Route::middleware(['lang'])->group(function () {
         Route::get('manageragricultural/reports/consumable/resultreport', 'Reports\ConsumableController@filterByDate')->name('agrocefa.manageragricultural.reports.consumable.resultreport');
 
         // Labor
-        Route::get('trainer/reports/labor', 'Reports\laborController@index')->name('agrocefa.trainer.reports.labor.index');
-        Route::get('passant/reports/labor', 'Reports\laborController@index')->name('agrocefa.passant.reports.labor.index');
-        Route::get('manageragricultural/reports/labor', 'Reports\laborController@index')->name('agrocefa.manageragricultural.reports.labor.index');
+        Route::get('trainer/reports/labor', 'Reports\LaborController@index')->name('agrocefa.trainer.reports.labor.index');
+        Route::get('passant/reports/labor', 'Reports\LaborController@index')->name('agrocefa.passant.reports.labor.index');
+        Route::get('manageragricultural/reports/labor', 'Reports\LaborController@index')->name('agrocefa.manageragricultural.reports.labor.index');
         Route::post('/reports/labor/filter', 'Reports\LaborController@filterlabor')->name('agrocefa.reports.filterlabor');
         Route::get('trainer/reports/labor/laborDetails', 'Reports\LaborController@getLaborDetails')->name('agrocefa.reports.laborDetails');
         Route::get('passant/reports/labor/laborDetails', 'Reports\LaborController@getLaborDetails')->name('agrocefa.reports.laborDetails');

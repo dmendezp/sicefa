@@ -34,8 +34,8 @@ class Vacancy extends Model implements Auditable
     }
 
     public function senaempresa()
-    { //Accede a senaempresa registrados
-        return $this->belongsToMany(senaempresa::class);
+    { //Accede a Senaempresa registrados
+        return $this->belongsToMany(Senaempresa::class);
     }
 
     public function positionCompany()

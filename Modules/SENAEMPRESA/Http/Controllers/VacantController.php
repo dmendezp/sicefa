@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Modules\SENAEMPRESA\Entities\CourseVacancy;
-use Modules\SENAEMPRESA\Entities\senaempresa;
+use Modules\SENAEMPRESA\Entities\Senaempresa;
 use Modules\SICA\Entities\Course;
 use Modules\SENAEMPRESA\Entities\Vacancy;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
@@ -62,6 +62,9 @@ class VacantController extends Controller
             if ($user->roles[0]->name === 'Aprendiz Senaempresa' || (Route::is('senaempresa.apprentice.*'))) {
                 // Obtén el curso del aprendiz logueado
                 $apprentice = auth()->user()->person->apprentices()->first();
+                if (!$apprentice) {
+                    return redirect()->back()->withInput()->with('error', 'No eres una Aprendiz');
+                }
                 $course = $apprentice->course;
 
                 // Obtén la `senaempresa` asociada al próximo trimestre
