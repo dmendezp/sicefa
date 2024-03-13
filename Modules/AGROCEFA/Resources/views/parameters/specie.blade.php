@@ -11,49 +11,51 @@
         @endauth
     </div>
     <div class="card-body">
-        <table class="table table-sm table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>{{ trans('agrocefa::specie.Name') }}</th>
-                    <th>{{ trans('agrocefa::specie.lifecycle') }}</th>
-                    @auth
-                        @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
-                            <th>{{ trans('agrocefa::specie.Actions') }}</th>
-                        @endif
-                    @endauth
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($species as $a)
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered table-striped">
+                <thead>
                     <tr>
-                        <td>{{ $a->id }}</td>
-                        <td>{{ $a->name }}</td>
-                        <td>{{ $a->lifecycle }}</td>
+                        <th>#</th>
+                        <th>{{ trans('agrocefa::specie.Name') }}</th>
+                        <th>{{ trans('agrocefa::specie.lifecycle') }}</th>
                         @auth
                             @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
-                                <td>
-                                    <div class="button-group">
-                                        <button class="btn btn-primary btn-sm btn-edit-specie" data-bs-toggle="modal"
-                                            data-bs-target="#editarEspecieModal_{{ $a->id }}"
-                                            data-specie-id="{{ $a->id }}"><i class='bx bx-edit icon'></i>
-                                        </button>
-                                        
-                                        <button class="btn btn-danger btn-sm btn-delete-specie" data-specie-id="{{ $a->id }}">
-                                            <i class='bx bx-trash icon'></i>
-                                        </button>
-                                    </div>
-                                </td>
+                                <th>{{ trans('agrocefa::specie.Actions') }}</th>
                             @endif
                         @endauth
                     </tr>
-                    {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.specie.destroy', 'id' => $a->id], 'method' => 'DELETE', 'id' => 'delete-specie-form-' . $a->id]) !!}
-                    @csrf
-                    @method('DELETE')
-                    {!! Form::close() !!}
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($species as $a)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $a->name }}</td>
+                            <td>{{ $a->lifecycle }}</td>
+                            @auth
+                                @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
+                                    <td>
+                                        <div class="button-group">
+                                            <button class="btn btn-primary btn-sm btn-edit-specie" data-bs-toggle="modal"
+                                                data-bs-target="#editarEspecieModal_{{ $a->id }}"
+                                                data-specie-id="{{ $a->id }}"><i class='bx bx-edit icon'></i>
+                                            </button>
+                                            
+                                            <button class="btn btn-danger btn-sm btn-delete-specie" data-specie-id="{{ $a->id }}">
+                                                <i class='bx bx-trash icon'></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                @endif
+                            @endauth
+                        </tr>
+                        {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.specie.destroy', 'id' => $a->id], 'method' => 'DELETE', 'id' => 'delete-specie-form-' . $a->id]) !!}
+                        @csrf
+                        @method('DELETE')
+                        {!! Form::close() !!}
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 {{-- Modal agregar Especie --}}

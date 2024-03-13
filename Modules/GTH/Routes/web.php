@@ -80,7 +80,7 @@ Route::middleware(['lang'])->group(function () {
 
         //brigader
         Route::get('/brigade', 'BrigadeController@viewbrigader')->name('gth.admin.brigader.index');
-        Route::get('/sistencia', 'BrigadeController@viewAsistencia')->name ('cefa.gth.brigade.asistencia');
+        Route::get('/asistencia', 'BrigadeController@viewAsistencia')->name ('cefa.gth.brigade.asistencia');
         Route::get('/reporte', 'BrigadeController@generateReport')->name('cefa.brigade.reporte');
 
         //Contractual Certificate

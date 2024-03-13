@@ -20,7 +20,7 @@
                             style="width:100%">
                             <thead class="bg-primary text-white">
                                 <tr>
-                                    <th scope="col">{{ trans('gth::menu.ID') }}</th>
+                                    <th scope="col">#</th>
                                     <th scope="col">{{ trans('gth::menu.Name') }}</th>
                                     <th scope="col">{{ trans('gth::menu.Description') }}</th>
                                     <th scope="col">{{ trans('gth::menu.actions') }}</th>
@@ -29,7 +29,7 @@
                             <tbody>
                                 @foreach ($pensionentities as $pension)
                                     <tr>
-                                        <td>{{ $pension->id }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $pension->name }}</td>
                                         <td>{{ $pension->description }}</td>
                                         <td>

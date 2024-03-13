@@ -14,7 +14,7 @@
                         <table id="contractor" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
                             <thead class="bg-primary text-white">
                                 <tr>
-                                    <th scope="col">{{ trans('gth::menu.ID') }}</th>
+                                    <th scope="col">#</th>
                                     <th scope="col">{{ trans('gth::menu.Document type') }}</th>
                                     <th scope="col">{{ trans('gth::menu.ID number') }}</th>
                                     <th scope="col">{{ trans('gth::menu.Full name') }}</th>
@@ -24,7 +24,7 @@
                             <tbody>
                                 @foreach ($contractor as $contract)
                                     <tr>
-                                        <td>{{ $contract->person->id }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $contract->person->document_type }}</td>
                                         <td>{{ $contract->person->document_number }}</td>
                                         <td>{{ $contract->person->full_name }}</td>

@@ -1,74 +1,77 @@
 {{-- CRUD parametro Cultivo --}}
-<div class="card" style="width: 98%; margin-left: 10px">
-    <div class="card-header" style="width: 100%">
-        {{ trans('agrocefa::cultivo.Crop') }}
+<div class="card">
+    <div class="card-header row"> <!-- Agrega la clase "row" para utilizar el sistema de grid -->
+        <div class="col">{{ trans('agrocefa::cultivo.Crop') }}</div> <!-- Utiliza la clase "col" para ocupar todo el ancho -->
         @auth
             @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
-                <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearcrop"><i
-                        class='bx bx-plus icon'></i>
-                </button>
+                <div class="col-auto"> <!-- Utiliza la clase "col-auto" para que el botón no ocupe todo el espacio disponible -->
+                    <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearcrop"><i class='bx bx-plus icon'></i>
+                    </button>
+                </div>
             @endif
         @endauth
     </div>
     <div class="card-body">
-        <table class="table table-sm table-bordered table-striped" style="width: 100%">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>{{ trans('agrocefa::cultivo.Name') }}</th>
-                    <th>{{ trans('agrocefa::cultivo.Sown area') }}</th>
-                    <th>{{ trans('agrocefa::cultivo.Seedtime') }}</th>
-                    <th>{{ trans('agrocefa::cultivo.Plant Density') }}</th>
-                    <th>{{ trans('agrocefa::movements.1T_Lot') }}</th>
-                    <th>{{ trans('agrocefa::cultivo.Variety') }}</th>
-                    <th>{{ trans('agrocefa::cultivo.End date') }}</th>
-                    @auth
-                        @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
-                            <th>{{ trans('agrocefa::specie.Actions') }}</th>
-                        @endif
-                    @endauth
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($crops as $crop)
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered table-striped">
+                <thead>
                     <tr>
-                        <td>{{ $crop->id }}</td>
-                        <td>{{ $crop->name }}</td>
-                        <td>{{ $crop->sown_area }}</td>
-                        <td>{{ $crop->seed_time }}</td>
-                        <td>{{ $crop->density }}</td>
-                        <td>
-                            @if ($crop->environments->isNotEmpty())
-                                {{ $crop->environments->first()->name }}
-                            @else
-                                Sin lote asociado
-                            @endif
-                        </td>
-                        <td>{{ $crop->variety->name }}</td>
-                        <td>{{ $crop->finish_date }}</td>
+                        <th>#</th>
+                        <th>{{ trans('agrocefa::cultivo.Name') }}</th>
+                        <th>{{ trans('agrocefa::cultivo.Sown area') }}</th>
+                        <th>{{ trans('agrocefa::cultivo.Seedtime') }}</th>
+                        <th>{{ trans('agrocefa::cultivo.Plant Density') }}</th>
+                        <th>{{ trans('agrocefa::movements.1T_Lot') }}</th>
+                        <th>{{ trans('agrocefa::cultivo.Variety') }}</th>
+                        <th>{{ trans('agrocefa::cultivo.End date') }}</th>
                         @auth
                             @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
-                                <td>
-                                    <button class="btn btn-primary btn-sm btn-edit-crop"
-                                        data-bs-target="#editCultivo_{{ $crop->id }}" data-bs-toggle="modal">
-                                        <i class='bx bx-edit icon'></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm btn-delete-crop" data-crop-id="{{ $crop->id }}">
-                                        <i class='bx bx-trash icon'></i>
-                                    </button>
-                                </td>
-
-                                {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.crop.destroy', 'id' => $crop->id], 'method' => 'POST', 'id' => 'delete-crop-form-' . $crop->id]) !!}
-                                    @csrf
-                                    @method('DELETE')
-                                    <!-- Otros campos ocultos necesarios... -->
-                                {!! Form::close() !!}
+                                <th>{{ trans('agrocefa::specie.Actions') }}</th>
                             @endif
                         @endauth
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($crops as $crop)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $crop->name }}</td>
+                            <td>{{ $crop->sown_area }}</td>
+                            <td>{{ $crop->seed_time }}</td>
+                            <td>{{ $crop->density }}</td>
+                            <td>
+                                @if ($crop->environments->isNotEmpty())
+                                    {{ $crop->environments->first()->name }}
+                                @else
+                                    Sin lote asociado
+                                @endif
+                            </td>
+                            <td>{{ $crop->variety->name }}</td>
+                            <td>{{ $crop->finish_date }}</td>
+                            @auth
+                                @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
+                                    <td>
+                                        <button class="btn btn-primary btn-sm btn-edit-crop"
+                                            data-bs-target="#editCultivo_{{ $crop->id }}" data-bs-toggle="modal">
+                                            <i class='bx bx-edit icon'></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-sm btn-delete-crop" data-crop-id="{{ $crop->id }}">
+                                            <i class='bx bx-trash icon'></i>
+                                        </button>
+                                    </td>
+
+                                    {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.crop.destroy', 'id' => $crop->id], 'method' => 'POST', 'id' => 'delete-crop-form-' . $crop->id]) !!}
+                                        @csrf
+                                        @method('DELETE')
+                                        <!-- Otros campos ocultos necesarios... -->
+                                    {!! Form::close() !!}
+                                @endif
+                            @endauth
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 {{-- Modal Agregar Cultivo --}}

@@ -25,7 +25,7 @@
                         <table id="position" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
                             <thead class="bg-primary text-white">
                                 <tr>
-                                    <th scope="col">{{ trans('gth::menu.ID') }}</th>
+                                    <th scope="col">#</th>
                                     <th scope="col">{{ trans('gth::menu.Professional Title') }}</th>
                                     <th scope="col">{{ trans('gth::menu.Qualifications') }}</th>
                                     <th scope="col">{{ trans('gth::menu.actions') }}</th>
@@ -34,7 +34,7 @@
                             <tbody>
                                 @foreach ($positions as $positio)
                                     <tr>
-                                        <td>{{ $positio->id }}</td> <!-- Cambiado a $positio -->
+                                        <td>{{ $loop->iteration }}</td> <!-- Cambiado a $positio -->
                                         <td>{{ $positio->professional_denomination }}</td> <!-- Cambiado a $positio -->
                                         <td>{{ $positio->grade }}</td> <!-- Cambiado a $positio -->
                                         <td>

@@ -99,7 +99,8 @@
                             </li>
                         @endif 
                     @endif
-                    @if (checkRol('agrocefa.trainer') || checkRol('agrocefa.passant') || checkRol('agrocefa.manageragricultural'))
+                    @if (!checkRol('superadmin') )
+                        @if (checkRol('agrocefa.trainer') || checkRol('agrocefa.passant') || checkRol('agrocefa.manageragricultural'))
                         @if (checkRol('agrocefa.trainer'))
                             <li style="margin-right: 80px">
                                 <a href="{{ route('agrocefa.trainer.index') }}" id="an"
@@ -180,6 +181,8 @@
                                 </div>
                             </li>
                         @endif
+                    @endif
+                    
                     
         @else
             <ul>

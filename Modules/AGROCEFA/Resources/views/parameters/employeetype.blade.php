@@ -1,5 +1,5 @@
 {{-- CRUD Parametro Actividad --}}
-<div class="card" style="width: 465px; margin-left: 40px">
+<div class="card" >
     <div class="card-header">
         {{ trans('agrocefa::parameters.EmployeeType') }}
         @auth
@@ -11,47 +11,49 @@
         @endauth
     </div>
     <div class="card-body">
-        <table class="table table-sm table-bordered table-striped" style="font-size: 0.9rem;">
-            <thead>
-                <tr>
-                    <th class="col-1">#</th>
-                    <th class="col-4">{{ trans('agrocefa::parameters.2T_Name') }}</th>
-                    <th class="col-2">{{ trans('agrocefa::parameters.2T_Price') }}</th>
-                    <th class="col-2">{{ trans('agrocefa::parameters.2T_Year') }}</th>
-                    @auth
-                        @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
-                            <th class="col-3">{{ trans('agrocefa::parameters.2T_Actions') }}</th>
-                        @endif
-                    @endauth
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($employeetypes as $employeetype)
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered table-striped" style="font-size: 0.9rem;">
+                <thead>
                     <tr>
-                        <td>{{ $employeetype->id }}</td>
-                        <td>{{ $employeetype->name }}</td>
-                        <td>{{ $employeetype->price }}</td>
-                        <td>{{ $employeetype->year }}</td>
+                        <th class="col-1">#</th>
+                        <th class="col-4">{{ trans('agrocefa::parameters.2T_Name') }}</th>
+                        <th class="col-2">{{ trans('agrocefa::parameters.2T_Price') }}</th>
+                        <th class="col-2">{{ trans('agrocefa::parameters.2T_Year') }}</th>
                         @auth
                             @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
-                                <td>
-                                    <button class="btn btn-primary btn-sm btn-edit-employeetype" data-bs-toggle="modal"
-                                        data-bs-target="#editaremployeetype_{{ $employeetype->id }}"
-                                        data-employeetype-id="{{ $employeetype->id }}"><i class='bx bx-edit icon'></i></button>
-                                    <button class="btn btn-danger btn-sm btn-delete-employeetype" data-employeetype-id="{{ $employeetype->id }}"><i class='bx bx-trash icon'></i></button>
-                                </td>
+                                <th class="col-3">{{ trans('agrocefa::parameters.2T_Actions') }}</th>
                             @endif
                         @endauth
                     </tr>
-                    <form id="delete-employeetype-form-{{ $employeetype->id }}"
-                        action="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.employeetype.destroy', ['id' => $employeetype->id]) }}"
-                        method="POST">
-                      @csrf
-                      @method('DELETE')
-                  </form>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($employeetypes as $employeetype)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $employeetype->name }}</td>
+                            <td>{{ $employeetype->price }}</td>
+                            <td>{{ $employeetype->year }}</td>
+                            @auth
+                                @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
+                                    <td>
+                                        <button class="btn btn-primary btn-sm btn-edit-employeetype" data-bs-toggle="modal"
+                                            data-bs-target="#editaremployeetype_{{ $employeetype->id }}"
+                                            data-employeetype-id="{{ $employeetype->id }}"><i class='bx bx-edit icon'></i></button>
+                                        <button class="btn btn-danger btn-sm btn-delete-employeetype" data-employeetype-id="{{ $employeetype->id }}"><i class='bx bx-trash icon'></i></button>
+                                    </td>
+                                @endif
+                            @endauth
+                        </tr>
+                        <form id="delete-employeetype-form-{{ $employeetype->id }}"
+                            action="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.employeetype.destroy', ['id' => $employeetype->id]) }}"
+                            method="POST">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <br>

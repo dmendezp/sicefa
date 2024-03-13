@@ -19,7 +19,7 @@
                         <table id="datatable" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">{{ trans('gth::menu.ID') }}</th>
+                                    <th scope="col">#</th>
                                     <th scope="col">{{ trans('gth::menu.Name') }}</th>
                                     <th scope="col">{{ trans('gth::menu.Description') }}</th>
                                     <th scope="col">{{ trans('gth::menu.actions') }}</th>
@@ -28,7 +28,7 @@
                             <tbody>
                                 @foreach ($insurerentities as $insurer)
                                     <tr>
-                                        <td>{{ $insurer->id }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $insurer->name }}</td>
                                         <td>{{ $insurer->description }}</td>
                                         <td>

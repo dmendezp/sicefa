@@ -20,7 +20,7 @@
                             style="width:100%">
                             <thead class="bg-primary text-white">
                                 <tr>
-                                    <th scope="col">{{ trans('gth::menu.ID') }}</th>
+                                    <th scope="col">#</th>
                                     <th scope="col">{{ trans('gth::menu.Name') }}</th>
                                     <th scope="col">{{ trans('gth::menu.actions') }}</th>
                                 </tr>
@@ -28,7 +28,7 @@
                             <tbody>
                                 @foreach ($contractortype as $contractor)
                                     <tr>
-                                        <td>{{ $contractor->id }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $contractor->name }}</td>
                                         <td>
                                             <div class="d-flex">
