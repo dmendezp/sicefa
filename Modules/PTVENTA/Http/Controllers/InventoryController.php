@@ -194,7 +194,7 @@ class InventoryController extends Controller
 
         // Generar el PDF y devolverlo para su descarga con la fecha en el nombre del archivo
         $filename = 'reporte_inventarios_' . date('Ymd') . '.pdf';
-        $pdf->Output($filename, 'I');
+        $pdf->Output($filename, 'D');
     }
 
     // Método para mostrar la vista del formulario de entradas de inventario
@@ -338,7 +338,7 @@ class InventoryController extends Controller
 
         // Generar el PDF y devolverlo para su descarga con las fechas en el nombre del archivo
         $filename = 'Reporte_entradas_inventario_' . $startDateInput . '_al_' . $endDateInput . '.pdf';
-        $pdf->Output($filename, 'I');
+        $pdf->Output($filename, 'D');
     }
 
     // Método para mostrar la vista del formulario de ventas
@@ -494,7 +494,7 @@ class InventoryController extends Controller
         $pdf->writeHTML($html, true, false, true, false, '');
 
         // Generar el PDF y devolverlo para su descarga
-        $pdf->Output('reporte_ventas.pdf', 'I');
+        $pdf->Output('reporte_ventas.pdf', 'D');
     }
 
     // Método para generar el reporte PDF de productos actual
@@ -571,6 +571,6 @@ class InventoryController extends Controller
         $pdf->writeHTML($html, true, false, true, false, '');
 
         $filename = 'reporte_productos_' . date('Ymd') . '.pdf';
-        $pdf->Output($filename, 'I');
+        $pdf->Output($filename, 'D');
     }
 }

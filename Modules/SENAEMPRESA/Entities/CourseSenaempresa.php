@@ -4,7 +4,7 @@ namespace Modules\SENAEMPRESA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\SENAEMPRESA\Entities\senaempresa;
+use Modules\SENAEMPRESA\Entities\Senaempresa;
 use Modules\SICA\Entities\Course;
 
 class CourseSenaempresa extends Model
@@ -23,8 +23,8 @@ class CourseSenaempresa extends Model
         return $this->belongsTo(Course::class);
     }
 
-    public function senaempresa()
+    public function sompanyenaempresa()
     {
-        return $this->belongsTo(senaempresa::class);
+        return $this->belongsTo(Senaempresa::class);
     }
 }

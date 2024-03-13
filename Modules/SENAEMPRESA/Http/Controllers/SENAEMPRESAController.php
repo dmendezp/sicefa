@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
-use Modules\SENAEMPRESA\Entities\senaempresa;
+use Modules\SENAEMPRESA\Entities\Senaempresa;
 use Modules\SICA\Entities\Course;
 use Modules\SENAEMPRESA\Entities\CourseSenaempresa;
 use Modules\SICA\Entities\Quarter;

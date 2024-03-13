@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\SENAEMPRESA\Entities\AttendanceSenaempresa;
 use Modules\SENAEMPRESA\Entities\StaffSenaempresa;
 use Modules\SICA\Entities\Apprentice;
+use Modules\SICA\Entities\Quarter;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Modules\SENAEMPRESA\Entities\Senaempresa;
@@ -18,15 +19,40 @@ class AttendanceSenaempresaController extends Controller
 {
     public function new()
     {
-        // Assuming you have authentication in place, retrieve the currently authenticated user
-        $apprentice = auth()->user()->person->apprentices()->first();
+        if (auth()->user()->person->apprentices()->first()) {
+            // Assuming you have authentication in place, retrieve the currently authenticated user
+            $apprentice = auth()->user()->person->apprentices()->first();
 
-        // Retrieve attendance records for the authenticated apprentice
+            // Retrieve attendance records for the authenticated apprentice
+            $attendances_apprentice = AttendanceSenaempresa::with('staffSenaempresa.apprentice.person')
+                ->whereHas('staffSenaempresa', function ($query) use ($apprentice) {
+                    $query->where('apprentice_id', $apprentice->id);
+                })
+                ->get();
+
+        }
+        $user = Auth::user();
+        $rol = $user->roles->first();
+       
+        if ($rol->slug != 'senaempresa.apprentice' && Route::is('senaempresa.apprentice.attendances.index')) {
+            return redirect()->back()->withInput()->with('error', 'No eres una Aprendiz');
+        }
+        
+
+        $datenow = Carbon::now();
+        $quarter = Quarter::where('start_date', '<=', $datenow)->where('end_date', '>=', $datenow)->first();
+        if (!$quarter) {
+            return redirect()->back()->withInput()->with('error', 'No hay un trimestre para la fecha actual');
+        }
+        $senaempresa = Senaempresa::where('quarter_id',$quarter->id)->first();
+        if (!$senaempresa) {
+            return redirect()->back()->withInput()->with('error', 'No hay una senaempresa para el trimestre actual');
+        }
         $attendances_apprentice = AttendanceSenaempresa::with('staffSenaempresa.apprentice.person')
-            ->whereHas('staffSenaempresa', function ($query) use ($apprentice) {
-                $query->where('apprentice_id', $apprentice->id);
-            })
-            ->get();
+                ->whereHas('staffSenaempresa', function ($query) use ($senaempresa) {
+                    $query->where('senaempresa_id', $senaempresa->id);
+                })
+                ->get();
         $attendances = AttendanceSenaempresa::with('staffSenaempresa.apprentice.person')->get();
         $senaempresas = Senaempresa::all();
 
