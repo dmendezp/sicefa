@@ -275,6 +275,23 @@ body.dark .sidebar header .toggle{
 .sidebar li a:hover{
     background-color: var(--primary-color);
 }
+
+
+.side-link.active {
+    background-color: var(--primary-color);
+    
+}
+
+.icon.active {
+    color: var(--sidebar-color);
+    
+}
+
+.text.active {
+    color: var(--sidebar-color);
+    
+}
+
 .sidebar li a:hover .icon,
 .sidebar li a:hover .text{
     color: var(--sidebar-color);
