@@ -213,7 +213,7 @@ class InventoryController extends Controller
         // Si se seleccionó una categoría, aplicar el filtro por categoría
         if ($selectedCategoryId) {
             $query->whereHas('element', function ($subquery) use ($selectedCategoryId) {
-                $subquery->where('category_id', $selectedCategoryId);
+                $subquery->where('category_id', $selectedCategoryId)->where('amount','>','0');
             });
         }
 
@@ -398,7 +398,7 @@ class InventoryController extends Controller
         $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->pluck('id');
 
         // Aplicar filtro por unidad productiva
-        $query->whereIn('productive_unit_warehouse_id', $unitWarehouses);
+        $query->whereIn('productive_unit_warehouse_id', $unitWarehouses)->where('amount','>','0');
 
         if ($filtre === 'Stock') {
             // Si se seleccionó una categoría, aplicar el filtro por categoría y ajustar la cantidad según el factor de conversión

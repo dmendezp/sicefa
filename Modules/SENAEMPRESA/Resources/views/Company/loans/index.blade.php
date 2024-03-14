@@ -66,7 +66,7 @@
                             @foreach ($loans as $loan)
                                 @if (Auth::check() && Auth::user()->roles[0]->slug === 'senaempresa.apprentice')
                                     <tr>
-                                        <td>{{ $loan->id }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>
                                             @foreach ($apprentices as $apprentice)
                                                 @if ($apprentice->id == $loan->apprentice_id)

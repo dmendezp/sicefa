@@ -252,7 +252,7 @@ class LoanController extends Controller
         $inventories = Inventory::with(['Element.Category'])
             ->where('state', 'Disponible')
             ->whereHas('Element.Category', function ($query) {
-                $query->where('name', 'Senaempresa_epp');
+                $query->where('name', 'SENAEMPRESA_EPP');
             })
             ->get();
 
@@ -288,7 +288,7 @@ class LoanController extends Controller
         $inventories = Inventory::with(['Element.Category'])
             ->where('state', 'Disponible')
             ->whereHas('Element.Category', function ($query) {
-                $query->where('name', 'Senaempresa_epp');
+                $query->where('name', 'SENAEMPRESA_EPP');
             })
             ->get();
 

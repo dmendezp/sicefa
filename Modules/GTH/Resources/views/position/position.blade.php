@@ -88,7 +88,7 @@
                                 <option value="Asesor">{{ trans('gth::menu.Advisor') }}</option>
                                 <option value="Directivo">{{ trans('gth::menu.Executive') }}</option>
                                 <option value="Instructor">{{ trans('gth::menu.Instructor') }}</option>
-                                <option value="Profesiona">{{ trans('gth::menu.Professional') }}</option>
+                                <option value="Profesional">{{ trans('gth::menu.Professional') }}</option>
                                 <option value="Técnico">{{ trans('gth::menu.Technician') }}</option>
                             </select>
                         </div>

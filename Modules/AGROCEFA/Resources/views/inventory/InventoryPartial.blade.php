@@ -12,8 +12,8 @@
             </button>
         </div>
         <div class="card-body">
-            <table class="table table-sm table-bordered table-striped" style="font-size: 0.9rem;">
-                <thead>
+            <table class="table table-sm table-bordered table-hover table-sm" style="font-size: 0.9rem;">
+                <thead class="table-dark">
                     <tr>
                         <th class="col-1">#</th>
                         <th>{{ trans('agrocefa::inventory.Element') }}</th>
@@ -37,7 +37,7 @@
 
                         @if (!in_array($currentWarehouse, $shownWarehouses))
                             <tr>
-                                <td colspan="8" class="warehouse-name">
+                                <td colspan="8" class="warehouse-name table-secondary">
                                     <h7>Bodega : </h7>{{ $currentWarehouse }}
                                 </td>
                             </tr>

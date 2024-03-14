@@ -11,13 +11,13 @@
                     </a>
                 </li>
                 @else
-                <li style="margin-left: 60px; margin-right: 200px; width: 280px">
+                <li style="margin-left: 5px; margin-right: 200px; width: 280px">
                     <a href="#" id="an2">
                         AGROCEFA
                     </a>
                 </li>
                 @endif
-                    @if (checkRol('superadmin'))
+                    @if (checkRol('superadmin'))    
                         @if (checkRol('agrocefa.trainer'))
                             <li style="margin-right: 20px">
                                 <a href="{{ route('agrocefa.trainer.index') }}" id="an"

@@ -40,14 +40,6 @@
                             <!-- Otros campos de entrada -->
                             <div class="card-header">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="contract_number-{{$employe->id }}" class="form-label">{{ trans('gth::menu.Contract Number:') }}</label>
-                                        <input type="text" class="form-control" id="contract_number-{{ $employe->id }}"
-                                            name="contract_number" value="{{ old('contract_number', $employe->contract_number) }}"
-                                            required>
-                                    </div>
-                                </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">

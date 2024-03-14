@@ -10,19 +10,16 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped" id="myTable">
+                        <table class="table table-bordered table-striped table-hover" id="myTable">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th class="col-3">{{ trans('agrocefa::movements.2T_Date')}}</th>
-                                    <th>{{ trans('agrocefa::movements.2T_Responsibility')}}</th>
-                                    <th>{{ trans('agrocefa::movements.2T_ProductUnit')}}</th>
-                                    <th class="col-5">{{ trans('agrocefa::movements.2T_Warehouse')}}</th>
-                                    <th class="col-2">{{ trans('agrocefa::movements.2T_Elements')}}</th>
+                                    <th class="col-2">{{ trans('agrocefa::movements.2T_Responsibility')}}</th>
+                                    <th style="width: 40%">{{ trans('agrocefa::movements.2T_Elements')}}</th>
                                     <th>{{ trans('agrocefa::movements.2T_Amount')}}</th>
                                     <th>{{ trans('agrocefa::movements.2T_Price')}}</th>
-                                    <th>{{ trans('agrocefa::movements.MovementType')}}</th>
-                                    <th>{{ trans('agrocefa::movements.2T_State')}}</th>
+                                    <th class="col-5">{{ trans('agrocefa::movements.MovementType')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -34,8 +31,6 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $data['date'] }}</td>
                                             <td>{{ $data['respnsibility'] }}</td>
-                                            <td>{{ $data['productiveunit'] }}</td>
-                                            <td>{{ $data['warehouse'] }}</td>
                                             <td>
                                                 {{-- Crear una columna para los elementos --}}
                                                 @foreach ($datas as $innerData)
@@ -52,9 +47,8 @@
                                                     @endif
                                                 @endforeach
                                             </td>
-                                            <td>{{ number_format($data['pricetotal'], 0, ',', '.') }}</td>
+                                            <td>${{ number_format($data['pricetotal'], 0, ',', '.') }}</td>
                                             <td>{{ $data['movement_type'] }}</td>
-                                            <td>{{ $data['state'] }}</td>
                                             
                                                 {!! Form::open(['route' => ['agrocefa.movements.confirmation', $data['id']], 'method' => 'POST']) !!}
                                                 @csrf

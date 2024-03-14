@@ -13,4 +13,11 @@ button.buttonlabor
 {
     width: 230px;
     margin-left: 20px;
+    background-color: #695CFE ;
+    border-color: #695CFE;
+}
+#addProduct
+{
+    background-color: #695CFE ;
+    border-color: #695CFE;
 }

@@ -73,7 +73,7 @@
                             @foreach ($postulates as $postulate)
                                 @if ($postulate->state === 'Inscrito')
                                     <tr>
-                                        <td>{{ $postulate->id }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $postulate->apprentice->person->full_name }}</td>
                                         <td>{{ $postulate->vacancy->name }}</td>
                                         @if (Route::is('senaempresa.admin.*') &&

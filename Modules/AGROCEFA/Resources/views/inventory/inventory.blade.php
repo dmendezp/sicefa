@@ -7,11 +7,11 @@
         @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.manage'))
             <div id="espacio" class="btn-group" role="group" aria-label="Botones">
 
-                <button id="categorys" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearcategoria">
+                <button id="standcolor" class="btn" data-bs-toggle="modal" data-bs-target="#crearcategoria">
                     {{ trans('agrocefa::inventory.AddCategory') }}
                 </button>
 
-                <button id="elements" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearElemento">
+                <button id="standcolor" style="margin-left: 10px" class="btn elements" data-bs-toggle="modal" data-bs-target="#crearElemento">
                     {{ trans('agrocefa::inventory.AddElement') }}
                 </button>
 
@@ -96,7 +96,7 @@
                             </select>
                         </div>
                         <br>
-                        <button type="submit" class="btn btn-primary">{{ trans('agrocefa::inventory.Add') }}</button>
+                        <button type="submit" class="btn" id="standcolor">{{ trans('agrocefa::inventory.Add') }}</button>
                     </form>
                 </div>
             </div>
@@ -155,7 +155,7 @@
                             <input type="number" name="price" id="price" class="form-control" required>
                         </div>
                         <br>
-                        <button type="submit" class="btn btn-primary">{{ trans('agrocefa::inventory.Add') }}</button>
+                        <button type="submit" class="btn" id="standcolor">{{ trans('agrocefa::inventory.Add') }}</button>
                     </form>
                 </div>
             </div>

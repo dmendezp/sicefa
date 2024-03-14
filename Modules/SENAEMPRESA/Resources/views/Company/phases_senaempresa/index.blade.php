@@ -25,7 +25,7 @@
                         <tbody>
                             @foreach ($senaempresas as $senaempresa)
                                 <tr>
-                                    <td>{{ $senaempresa->id }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $senaempresa->name }}</td>
                                     <td>{{ $senaempresa->description }}</td>
                                     <td>{{ $senaempresa->quarter->name }}</td>

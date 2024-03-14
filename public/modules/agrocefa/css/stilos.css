@@ -24,6 +24,12 @@
     --tran-05: all 0.3s ease;
 }
 
+#standcolor {
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    color: white;
+}
+
 body{
     min-height: 100vh;
     background-color: var(--body-color);

@@ -108,7 +108,7 @@
                     <tbody>
                         @foreach ($vacancies as $vacancy)
                             <tr>
-                                <td>{{ $vacancy->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $vacancy->name }}</td>
                                 <td><img src="{{ asset($vacancy->image) }}" alt="{{ $vacancy->name }}" width="200">
                                 </td>
