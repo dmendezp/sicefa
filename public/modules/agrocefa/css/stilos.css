@@ -28,6 +28,7 @@
     background-color: var(--primary-color);
     border-radius: 5px;
     color: white;
+    border-color: var(--primary-color);;
 }
 
 body{

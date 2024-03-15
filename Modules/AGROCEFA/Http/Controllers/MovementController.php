@@ -121,6 +121,7 @@ class MovementController extends Controller
                         'inventory' => $inventory,
                         'amount' => $amount,
                         'state' => $state,
+                        'price' => $price,
                         'inventory_id' => $inventoryId,
                         'element_id' => $elementid,
                         'destination' => $destination,
@@ -481,7 +482,7 @@ class MovementController extends Controller
         $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $receivewarehouse)->first();
         $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
 
-        $productiveexterna = ProductiveUnit::where('name','=','Almacen')->get()->pluck('id');
+        $productiveexterna = ProductiveUnit::where('name','=','Almacen Sena')->get()->pluck('id');
         
         $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $deliverywarehouse)->where('productive_unit_id',$productiveexterna)->first();
         $productiveWarehousedeliveryId = $deliveryproductive_warehouse->id;
@@ -511,6 +512,7 @@ class MovementController extends Controller
                 // Generar el voucher como consecutivo simple sin ceros adicionales
                 $voucher = $this->getNextVoucherNumber();
                 
+                
                 // Registra un solo movimiento con el precio total calculado
                 $movement = new Movement([
                     'registration_date' => $date,
@@ -523,6 +525,8 @@ class MovementController extends Controller
         
                 $movement->save();
                 $movementId = $movement->id;
+
+                
                 
                 // Procesar cada elemento
                 foreach ($productElementIds as $index => $productElementId) {

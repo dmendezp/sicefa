@@ -45,7 +45,7 @@
         }
     </style>
 
-    <div class="container_inventory" style="width: 1400px">
+    <div class="container_inventory" style="max-width: 100%; margin-left: 20px;">
         <form method="POST" action="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.showWarehouseFilter') }}">
             @csrf
             <div class="form-group">

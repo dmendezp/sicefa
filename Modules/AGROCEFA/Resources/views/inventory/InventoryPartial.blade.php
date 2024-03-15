@@ -1,6 +1,6 @@
 
 @if (!empty($inventory) && count($inventory) > 0)
-    <div class="card">
+    <div class="card" style="max-width: 100%">
         <div class="card-header">
             {{ trans('agrocefa::inventory.Records') }}
             <button class="btn btn-warning float-end" onclick="redirectTlow()">
@@ -15,12 +15,12 @@
             <table class="table table-sm table-bordered table-hover table-sm" style="font-size: 0.9rem;">
                 <thead class="table-dark">
                     <tr>
-                        <th class="col-1">#</th>
+                        <th>#</th>
                         <th>{{ trans('agrocefa::inventory.Element') }}</th>
                         <th>{{ trans('agrocefa::inventory.Category') }}</th>
-                        <th>{{ trans('agrocefa::inventory.Destination') }}</th>
-                        <th>{{ trans('agrocefa::inventory.Price') }}</th>
+                        <th>$ {{ trans('agrocefa::inventory.Price') }}</th>
                         <th>{{ trans('agrocefa::inventory.Amount') }}</th>
+                        <th>{{ trans('agrocefa::inventory.Destination') }}</th>
                         <th>Stock Minimo</th>
                     </tr>
                 </thead>
@@ -47,12 +47,12 @@
                         @endif
 
                         <tr>
-                            <td style="/* width: 10.6px; *//* height: 9px; */">{{ $loop->iteration }}</td>
+                            <td >{{ $loop->iteration }}</td>
                             <td >{{ $item->element->name }}</td>
                             <td >{{ $item->element->category->name }}</td>
-                            <td >{{ $item->destination }}</td>
                             <td >{{ $item->price }}</td>
                             <td >{{ $item->amount / $measurement_unit}}</td>
+                            <td >{{ $item->destination }}</td>
                             <td >{{ $item->stock }}</td>
                         </tr>
                     @endforeach

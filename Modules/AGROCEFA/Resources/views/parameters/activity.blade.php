@@ -93,7 +93,7 @@
                 </div>
                 <!-- Otros campos del formulario según tus necesidades -->
                 <br>
-                {!! Form::submit(trans('agrocefa::parameters.Btn_Register_Activity'), ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit(trans('agrocefa::parameters.Btn_Register_Activity'), ['class' => 'btn btn-primary','id' => 'standcolor']) !!}
                 {!! Form::close() !!}
             </div>
         </div>
