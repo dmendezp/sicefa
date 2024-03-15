@@ -1,4 +1,5 @@
 <div class="sidebar-color">
+    <link rel="stylesheet" href="{{ asset('modules/sigac/css/sidebar.css')}}">
     <aside class="main-sidebar sidebar-dark-blue elevation-4">
         <!-- Bran Logo: Aqui se realiza el ajuste del logo y titulo que esta en el sidebar-->
         <a href="{{ route('cefa.sigac.index') }}" class="brand-link text-decoration-none">
@@ -70,7 +71,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
                     <!-- Menú de opciones públicas -->
-                    @if (Route::is('cefa.sigac.*'))
+                    @if (Route::is('cefa.sigac.index*'))
                         <li class="nav-item">
                             <a href="{{ route('cefa.sigac.index') }}"
                                 class="nav-link {{ !Route::is('cefa.sigac.index*') ?: 'active' }}">
@@ -94,6 +95,198 @@
                                 <p>{{ trans('sigac::general.Developers') }}</p>
                             </a>
                         </li>
+                    @endif
+
+                    <!-- Menú de opciones de prueba -->
+                    @if (Route::is('cefa.sigac.proof*'))
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p>
+                                Comites
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview items">
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fas fa-file-invoice"></i>
+                                    <p>Reporte novedades</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fas fa-user-edit"></i>
+                                    <p>Citar comite</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fas fa-book-reader"></i>
+                                    <p>Resultado Comite</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon far fa-calendar"></i>
+                            <p>
+                                Programacion
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview items" style="display: none;">
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fas fa-user-tie"></i>
+                                    <p>Instructores</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fas fa-door-open"></i>
+                                    <p>Ambientes</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fas fa-graduation-cap"></i>
+                                    <p>Tituladas</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon far fa-calendar-alt"></i>
+                            <p>
+                                Programacion externa
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview items" style="display: none;">
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fas fa-graduation-cap"></i>
+                                    <p>Tituladas</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-user-clock"></i>
+                            <p>
+                                Optativas y Basicos
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview items" style="display: none;">
+    
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fas fa-th-large"></i>
+                                    <p>Parametros</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-tasks"></i>
+                            <p>
+                                Asistencias
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview items" style="display: none;">
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fas fa-address-card"></i>
+                                    <p>Seguimientos</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fas fa-folder-open"></i>
+                                    <p>Excusas</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fas fa-paste"></i>
+                                    <p>Reportes</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon far fa-calendar"></i>
+                            <p>
+                                Planeacion curricular
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview items" style="display: none;">
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon far fa-calendar-alt"></i>
+                                    <p>Programacion Titulada</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fas fa-users-cog"></i>
+                                    <p>Proyecto formativo</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-people-carry"></i>
+                            <p>
+                                Talento Humano
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview items" style="display: none;">
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fas fa-th-large"></i>
+                                    <p>Parametros</p>
+                                </a>
+                            </li>
+                        
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-hand-paper"></i>
+                            <p>
+                                Control ambientes
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview items" style="display: none;">
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fas fa-pen-fancy"></i>
+                                    <p>Observaciones</p>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
                     @endif
 
                     <!-- Menú de opciones para coordinación académica -->
@@ -220,6 +413,18 @@
                                 </a>
                             </li>
                         @endif
+
+
+
+                        @if (Auth::user()->havePermission('sigac.instructor.points.points.index'))
+                            <li class="nav-item">
+                                <a href="{{ route('sigac.instructor.points.points.index') }}" class="nav-link"
+                                    {{ !Route::is('sigac.instructor.points.points.*') ?: 'active' }}>
+                                    <i class="nav-icon fa-solid fa-user-plus"></i>
+                                    <p>{{ trans('sigac::general.PointsApprentice') }}</p>
+                                </a>
+                            </li>
+                        @endif
                     @endif
 
                     <!-- Menú de opciones para Bienestar -->
@@ -267,6 +472,14 @@
                                 @endif
                             </ul>
                         </li>
+                        @if (Auth::user()->havePermission('sigac.apprentice.apprentice'))
+                            <li class="nav-item">
+                                <a href="{{ route('sigac.apprentice.index') }}" class="nav-link">
+                                    <i class="nav-icon fa-solid fa-star"></i>
+                                    <p>{{ trans('sigac::general.apprentice') }}</p>
+                                </a>
+                            </li>
+                        @endif
                         @if (Auth::user()->havePermission('sigac.apprentice.excuses.send'))
                             <li class="nav-item">
                                 <a href="{{ route('sigac.apprentice.excuses.send') }}"
@@ -283,3 +496,4 @@
         </div>
     </aside>
 </div>
+

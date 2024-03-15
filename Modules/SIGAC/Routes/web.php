@@ -15,6 +15,10 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
             Route::get('instructors', 'instructor_dashboards')->name('sigac.instructor.dashboards'); // Panel de control del instructor (Instructor)
             Route::get('wellness', 'wellness_dashboard')->name('sigac.wellness.dashboard'); // Panel de control de bienestar (Bienestar)
             Route::get('apprentice', 'apprentice_dashboard')->name('sigac.apprentice.dashboard'); // Panel de control de aprendiz (Aprendiz)
+
+            //Rutas para el menu de prueba
+            Route::get('proof', 'proof')->name('cefa.sigac.proof'); // Vista principal y pública de la aplicación.
+
         });
         
         // Rutas para la programacion de eventos y horarios
@@ -47,4 +51,3 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
         });
     });
 });
-
