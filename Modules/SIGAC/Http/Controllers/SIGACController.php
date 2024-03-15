@@ -12,6 +12,11 @@ class SIGACController extends Controller
         return view('sigac::index', compact('view'));
     }
 
+    public function proof(){
+        $view = ['titlePage'=>trans('sigac::controllers.SIGAC_index_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_index_title_view')];
+        return view('sigac::proof', compact('view'));
+    }
+
     public function info(){
         $view = ['titlePage'=>trans('sigac::controllers.SIGAC_info_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_info_title_view')];
         return view('sigac::information.index', compact('view'));
