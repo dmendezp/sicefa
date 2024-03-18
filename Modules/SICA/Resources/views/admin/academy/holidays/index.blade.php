@@ -66,7 +66,7 @@
                                                     <td class="text-center">
                                                         @if(Auth::user()->havePermission('sica.'.$role_name.'.academy.holidays.edit'))
                                                             <a href="{{ route('sica.'.$role_name.'.academy.holidays.edit', $h) }}" class="mr-1" data-toggle='tooltip' data-placement="top" title="Actualizar día festivo">
-                                                                <i class="fas fa-edit text-success"></i>
+                                                                <i class="fas fa-edit"></i>
                                                             </a>
                                                         @endif
                                                         @if(Auth::user()->havePermission('sica.'.$role_name.'.academy.holidays.destroy'))

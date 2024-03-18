@@ -55,7 +55,7 @@
                                                 <td class="text-center">{{ $pu->farm->name }}</td>
                                                 <td class="text-center">
                                                     <a href="{{ route('sica.'.$role_name.'.units.productive_unit.edit', $pu) }}" data-toggle='tooltip' data-placement="top" title="Actualizar unidad productiva">
-                                                        <i class="fas fa-edit text-success"></i>
+                                                        <i class="fas fa-edit"></i>
                                                     </a>
                                                     <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.units.productive_unit.delete', $pu->id) }}')">
                                                         <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar unidad productiva">

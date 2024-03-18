@@ -33,7 +33,7 @@
                                             <td>{{ $w->name }}</td>
                                             <td>{{ $w->description }}</td>
                                             <td>{{ $w->app->name }}</td>
-                                            <td>
+                                            <td class="text-center">
                                                 <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.warehouse.edit', $w->id) }}')">
                                                     <b class="text-info" data-toggle="tooltip" data-placement="top" title="Actualizar Bodega">
                                                         <i class="fas fa-edit"></i>

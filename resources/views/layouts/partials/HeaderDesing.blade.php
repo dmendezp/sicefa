@@ -9,11 +9,14 @@
     <nav id="navbar-top" class="navbar" style="margin-right: 20px">
       <div class="navbar-nav">
           <div class="dropdown d-lg-none">
-            <li><a class="nav-link scrollto" href="{{ route('cefa.welcome') }}">Inicio</a></li>
-          </div>
-          <div class="dropdown developers d-lg-none">
-            <li><a class="nav-link scrollto" href="{{ route('cefa.developers') }}">Desarrolladores</a></li>
-          </div>
+            <a class="nav-link scrollto" data-toggle="dropdown" href="#">
+                Menu
+            </a>
+            <div class="dropdown-menu">
+                <a class="nav-link scrollto" href="{{ route('cefa.welcome') }}">Inicio</a>
+                <a class="nav-link scrollto" href="{{ route('cefa.developers') }}">Desarrolladores</a>
+            </div>
+        </div>
           <div class="dropdown d-lg-none">
               @auth
               <a href="{{ route('cefa.home') }}">{{ Auth::user()->nickname }}</a>

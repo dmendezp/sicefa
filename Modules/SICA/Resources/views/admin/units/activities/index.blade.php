@@ -19,12 +19,11 @@
                                             <th class="text-center">#</th>
                                             <th>Actividad</th>
                                             <th class="col-3" data-toggle='tooltip' data-placement="top" title="Unidad productiva">U. productiva</th>
-                                            <th class="col-2" data-toggle='tooltip' data-placement="top" title="Tipo de actividad">Tipo</th>
+                                            <th class="col-4" data-toggle='tooltip' data-placement="top" title="Tipo de actividad">Tipo</th>
                                             <th class="col-3">Descripción</th>
                                             <th class="col-2">Periodo</th>
                                             <th class="text-center">Estado</th>
-                                            <th class="col-3">Acciones
-                                                
+                                            <th class="text-center">Acciones
                                                 <a class="mx-3" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.units.activities.create') }}')">
                                                     <b class="text-success" data-toggle="tooltip" data-placement="top" title="Registrar Trimestre">
                                                         <i class="fas fa-plus-circle"></i>

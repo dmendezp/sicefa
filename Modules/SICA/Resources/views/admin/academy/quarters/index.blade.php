@@ -38,7 +38,7 @@
                     <td>{{ $q->name }}</td>
                     <td>{{ $q->start_date }}</td>
                     <td>{{ $q->end_date }}</td>
-                    <td>
+                    <td class="text-center">
                       <div class="opts"> 
                         <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.quarters.edit', $q->id) }}')">
                           <b class="text-info" data-toggle="tooltip" data-placement="top" title="Actualizar Trimestre">

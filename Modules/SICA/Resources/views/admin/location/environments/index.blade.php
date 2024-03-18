@@ -34,7 +34,7 @@
                                             <td class="text-center">{{ $e->type_environment }}</td>
                                             <td class="text-center">{{ $e->length }} / {{ $e->latitude }}</td>
                                             <td class="text-center">
-                                                <a href="#" class="text-success" data-toggle='tooltip' data-placement="top" title="Actualizar ambiente" disabled>
+                                                <a href="#" data-toggle='tooltip' data-placement="top" title="Actualizar ambiente" disabled>
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                                 <a href="#" class="text-danger" data-toggle='tooltip' data-placement="top" title="Eliminar ambiente" disabled>

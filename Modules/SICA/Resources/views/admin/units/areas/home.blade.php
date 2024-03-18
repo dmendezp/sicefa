@@ -35,7 +35,7 @@
                   <td>{{ $loop->iteration }}</td>
                   <td>{{ $a->name }}</td>
                   <td>{{ $a->description }}</td>
-                  <td>
+                  <td class="text-center">
                     <div class="opts">
                       
                       <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.units.areas.edit', $a->id) }}')">

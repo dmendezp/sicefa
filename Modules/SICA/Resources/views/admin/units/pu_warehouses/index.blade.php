@@ -65,7 +65,7 @@
                                                 <td>{{ $puw->warehouse->name }}</td>
                                                 <td class="text-center">
                                                     <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.units.pu_warehouses.delete', $puw->id) }}')">
-                                                        <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar area">
+                                                        <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar asociación">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </b>
                                                     </a>

@@ -28,7 +28,7 @@ class LocationController extends Controller
         return Datatables::of($data)->addIndexColumn()
                 ->addColumn('action', function($row){
                     $actionBtn = '
-                        <a href="javascript:void(0)" class="edit btn-editar text-success" data-toggle="tooltip" data-placement="top" title="Actualizar registro"><i class="fas fa-edit"></i></a>
+                        <a href="javascript:void(0)" class="edit btn-editar" data-toggle="tooltip" data-placement="top" title="Actualizar registro"><i class="fas fa-edit"></i></a>
                         <a href="javascript:void(0)" class="delete btn-eliminar text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar registro"><i class="fas fa-trash-alt"></i></a>
                     ';
                     return $actionBtn;
