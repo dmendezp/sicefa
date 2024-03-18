@@ -58,7 +58,7 @@
                     <!-- Agrega un div para contener el botón de detalles del cultivo -->
                     <div id="cultivoDetailsButton" class="cultivo-details-button"
                         style="text-align: right; padding-right: 20px;">
-                        <button type="button" id="cultivoDetails" class="btn btn-primary btn-sm">
+                        <button type="button" id="cultivoDetails" class="btn standcolor btn-sm">
                             <span id="cultivoNameSpan" style="margin-right: 10px;"></span>
                             <i class="bx bx-show-alt" style="font-size: 24px; vertical-align: middle;"></i>
                         </button>
@@ -165,7 +165,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <button type="button" id="buttonsupplie"
-                                    class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
+                                    class="btn buttonlabor d-flex justify-content-between align-items-center">
                                     <span>{{ trans('agrocefa::labor.Suplies')}}</span>
                                     <span id="arrowsupplies" class="fas fa-chevron-down ml-auto"></span>
                                 </button>
@@ -176,7 +176,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <button type="button" id="buttontool"
-                                    class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
+                                    class="btn buttonlabor d-flex justify-content-between align-items-center">
                                     <span>{{ trans('agrocefa::labor.ToolUsed')}}</span>
                                     <span id="arrowtool" class="fas fa-chevron-down ml-auto"></span>
                                 </button>
@@ -187,7 +187,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <button type="button" id="buttonmachinery"
-                                    class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
+                                    class="btn buttonlabor d-flex justify-content-between align-items-center">
                                     <span>{{ trans('agrocefa::labor.Machinery')}}</span>
                                     <span id="arrowmachinery" class="fas fa-chevron-down ml-auto"></span>
                                 </button>
@@ -198,7 +198,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <button type="button" id="buttonexecutor"
-                                    class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
+                                    class="btn buttonlabor d-flex justify-content-between align-items-center">
                                     <span>{{ trans('agrocefa::labor.HiredsStaff')}}</span>
                                     <span id="arrowexecutor" class="fas fa-chevron-down ml-auto"></span>
                                 </button>

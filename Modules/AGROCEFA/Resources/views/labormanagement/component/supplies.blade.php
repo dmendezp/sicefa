@@ -24,7 +24,7 @@
                 </table>
 
                 <br>   
-                <button type="button" class="btn btn-primary" id="addProduct1">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>    
+                <button type="button" class="btn standcolor" id="addProduct1">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>    
             </div>
         </div>
     </div>
@@ -138,15 +138,15 @@
 
             // Manejador de eventos para el cambio en la categoria
             $('#suppliesTable').on('change', 'select[name="category-id[]"]', function() {
-                var selectcategory = $(this).val(); // Obtener el ID de la bodega seleccionada
+                var selectcategory = $(this).val(); // Obtener el ID de la categoría seleccionada
 
-                // Realizar una solicitud AJAX para enviar el ID seleccionado a la ruta o función de Laravel
+                // Realizar una solicitud AJAX para obtener los suministros relacionados con la categoría seleccionada
                 $.ajax({
-                    url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.getsupplies') }}', // Reemplaza 'agrocefa.obtenerelementos' con la ruta adecuada
-                    method: 'GET', // Puedes usar GET u otro método según tu configuración
+                    url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.getsupplies') }}',
+                    method: 'GET',
                     data: {
                         category: selectcategory
-                    }, // Enviar el ID seleccionado como parámetro
+                    },
                     success: function(response) {
                         // Manejar la respuesta de la solicitud AJAX aquí
                         console.log('Respuesta de la solicitud elementos:', response);
@@ -156,9 +156,9 @@
 
                         // Obtener el campo de selección de productos de la última fila
                         var productNameSelect = newRow.find('.supplies-id');
-                        var productName = $('.product-name');
 
-                        productNameSelect.empty(); // Vaciar las opciones actuales
+                        // Vaciar las opciones actuales
+                        productNameSelect.empty();
 
                         // Agregar la opción predeterminada "Seleccione el elemento"
                         productNameSelect.append(new Option('Seleccione el elemento', ''));
@@ -166,22 +166,13 @@
                         // Iterar sobre la respuesta JSON y agregar las opciones al campo de selección
                         $.each(response, function(index, element) {
                             // Agregar una nueva opción con el atributo "value" como el ID del elemento y "name" como texto
-                            console.log(element.name);
-                            productNameSelect.append(new Option(element.name, element
-                                .id));
-                            productName.val(element.name || '');
-                            // Actualizar los atributos "name" de otros campos según sea necesario
-                            var currentRow = productNameSelect.closest(
-                                'tr.product-row');
+                            productNameSelect.append(new Option(element.name, element.id));
+                        });
 
-                            currentRow.find('.product-measurement-unit').attr('name',
-                                'product-measurement-unit[]');
-                            currentRow.find('.supplies_price').attr('name',
-                                'supplies_price[]');
-                            currentRow.find('.product-category').attr('name',
-                                'product-category[]');
-                            currentRow.find('.product-destination').attr('name',
-                                'product-destination[]');
+                        // Inicializar Select2 en el campo de selección de productos
+                        productNameSelect.select2({
+                            placeholder: "Buscar suministro...",
+                            allowClear: true // Esto permite borrar la selección actual
                         });
                     },
                     error: function() {
@@ -190,6 +181,9 @@
                     }
                 });
             });
+
+
+
 
             // Manejador de eventos para el botón Agregar Producto
             $('#addProduct1').click(function() {

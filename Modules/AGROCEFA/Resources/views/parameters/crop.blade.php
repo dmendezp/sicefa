@@ -127,7 +127,7 @@
                     </div>
                     <br>
                     <button type="submit"
-                        class="btn btn-primary">{{ trans('agrocefa::cultivo.Register Crop') }}</button>
+                        class="btn standcolor">{{ trans('agrocefa::cultivo.Register Crop') }}</button>
                 </form>
             </div>
         </div>
@@ -199,7 +199,7 @@
                     
                     <!-- Otros campos del formulario según tus necesidades -->
                     <br>
-                    {!! Form::submit(trans('agrocefa::cultivo.Update Crop'), ['class' => 'btn btn-primary']) !!}
+                    {!! Form::submit(trans('agrocefa::cultivo.Update Crop'), ['class' => 'btn btn-primary','id' => 'standcolor']) !!}
                     {!! Form::close() !!}
                 </div>
             </div>

@@ -20,7 +20,7 @@
                         <!-- Filas de la tabla se agregarán dinámicamente aquí -->
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-primary"
+                <button type="button" class="btn standcolor"
                     id="addProduct">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>
             </div>
         </div>
@@ -50,6 +50,12 @@
                     '<td><input type="text" id="machinery_price-total" class="form-control machinery_price-total" name="machinery_price-total[]" readonly></td>' +
                     '<td class="col-1"><button type="button" id="button" class="btn btn-danger removeProduct"><i class="fa fa-trash"></i></button>'
                 );
+
+                // Inicializar Select2 en el campo de selección de herramientas
+                newRow.find('.machinery-id').select2({
+                    placeholder: "Buscar maquinaria...",
+                    allowClear: true // Esto permite borrar la selección actual
+                });
 
                 // Agregar la fila a la tabla
                 machineryTable.append(newRow);

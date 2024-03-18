@@ -24,7 +24,7 @@ return [
 
     //Tabla dinamica
     '1T_Name_Of_The_Element' => 'Nombre del Producto',
-    '1T_Measurement_Unit' => 'Unidad de Medida',
+    '1T_Measurement_Unit' => 'U.Medida',
     '1T_Amount' => 'Cantidad',
     '1T_Price' => 'Precio',
     '1T_Lot' => 'Lote',

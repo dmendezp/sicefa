@@ -83,7 +83,7 @@
                 </div>
                 <!-- Agrega más campos según tus necesidades -->
                 <br>
-                {!! Form::submit(trans('agrocefa::specie.Register'), ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit(trans('agrocefa::specie.Register'), ['class' => 'btn btn-primary','id' => 'standcolor']) !!}
                 {!! Form::close() !!}
 
             </div>
@@ -125,7 +125,7 @@
                     </div>
                     <!-- Agrega más campos según tus necesidades -->
                     <br>
-                    {!! Form::submit(trans('agrocefa::specie.UpdateSpecie'), ['class' => 'btn btn-primary']) !!}
+                    {!! Form::submit(trans('agrocefa::specie.UpdateSpecie'), ['class' => 'btn btn-primary','id' => 'standcolor']) !!}
                     {!! Form::close() !!}
 
                 </div>

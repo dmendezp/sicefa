@@ -65,7 +65,7 @@
                         <!-- Filas de la tabla se agregarán dinámicamente aquí -->
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-primary"
+                <button type="button" class="btn standcolor"
                     id="addProduct">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>
             </div>
         </div>

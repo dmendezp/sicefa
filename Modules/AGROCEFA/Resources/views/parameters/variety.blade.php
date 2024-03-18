@@ -77,7 +77,7 @@
                             {!! Form::select('specie_id', $species->pluck('name', 'id'), null, ['class' => 'form-control']) !!}
                         </div>                        
                         <br>
-                        <button type="submit" class="btn btn-primary">{{ trans('agrocefa::variety.create_varieties') }}</button>
+                        <button type="submit" class="btn standcolor">{{ trans('agrocefa::variety.create_varieties') }}</button>
                     </form>
                 </div>
             </div>
@@ -103,7 +103,7 @@
                     {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.variety.destroy', 'id' => $variety->id], 'method' => 'DELETE']) !!}
                     @csrf
                     @method('DELETE')
-                    {!! Form::submit(trans('agrocefa::parameters.Delete'), ['class' => 'btn btn-danger']) !!}
+                    {!! Form::submit(trans('agrocefa::parameters.Delete'), ['class' => 'btn btn-danger','id' => 'standcolor']) !!}
                     {!! Form::close() !!}
                 </div>
             </div>
@@ -137,7 +137,7 @@
                         {!! Form::select('specie_id', collect($species)->pluck('name', 'id'), null, ['class' => 'form-control']) !!}
                     </div>                    
                     <br>
-                    {!! Form::submit(trans('agrocefa::variety.Update_Variety'), ['class' => 'btn btn-primary']) !!}
+                    {!! Form::submit(trans('agrocefa::variety.Update_Variety'), ['class' => 'btn btn-primary','id' => 'standcolor']) !!}
                     {!! Form::close() !!}
                 </div>
             </div>
