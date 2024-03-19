@@ -276,7 +276,7 @@ public function postAsignarTurno(Request $request){
         }
 
         if(in_array($productive_unit, $productive_suma_id)){   /* Condicional para recorrer el arreglo y buscar si existe el valor, primero el valor segundo el arreglo de busqueda */
-            return response()->json(['message' => 'Aprendiz ya se asignó en esta unidad','icon'=>'error']);
+            return response()->json(['message' => 'Aprendiz ya se asignó en esta unidad','icon'=>'info']);
         }else{
             $apprenticesSend->work_id = $work;
 

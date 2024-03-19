@@ -31,7 +31,7 @@ class PostulateController extends Controller
         $Apprentice = auth()->user()->person->apprentices()->first();
 
         if (!$Apprentice) {
-            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.You don’t have an associate apprentice.'));
+            return redirect()->route('company.vacant.vacantes')->with('info', trans('senaempresa::menu.You don’t have an associate apprentice.'));
         }
 
         $ApprenticeId = $Apprentice->id;
@@ -56,7 +56,7 @@ class PostulateController extends Controller
         $Apprentice = auth()->user()->person->apprentices()->first();
 
         if (!$Apprentice) {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.You don’t have an associate apprentice.'));
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('info', trans('senaempresa::menu.You don’t have an associate apprentice.'));
         }
 
         $ApprenticeId = $Apprentice->id;
@@ -64,7 +64,7 @@ class PostulateController extends Controller
         $existingPostulatesCount = Postulate::where('apprentice_id', $ApprenticeId)->count();
 
         if ($existingPostulatesCount >= 2) {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.You cannot make more than two entries.'));
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('info', trans('senaempresa::menu.You cannot make more than two entries.'));
         }
 
         $existingPostulate = Postulate::where('apprentice_id', $ApprenticeId)
@@ -72,7 +72,7 @@ class PostulateController extends Controller
             ->first();
 
         if ($existingPostulate) {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.You’ve already applied for this position.'));
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('info', trans('senaempresa::menu.You’ve already applied for this position.'));
         }
 
         $postulate = new Postulate();
@@ -120,7 +120,7 @@ class PostulateController extends Controller
                 $employment_certificateFile->move(public_path('modules/senaempresa/files/employment_certificate/'), $employment_certificateFileeName);
                 $postulate->employment_certificate = 'modules/senaempresa/files/employment_certificate/' . $employment_certificateFileeName;
             } else {
-                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', 'El archivo del certificado debe estar en formato PDF.');
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('info', 'El archivo del certificado debe estar en formato PDF.');
             }
         }
 
@@ -189,7 +189,7 @@ class PostulateController extends Controller
 
         // Check if a postulate is found
         if (!$postulate) {
-            return redirect()->back()->with('error', 'No se encontró un postulado con el ID proporcionado.');
+            return redirect()->back()->with('info', 'No se encontró un postulado ');
         }
 
         $data = [
@@ -319,7 +319,7 @@ class PostulateController extends Controller
 
         // Check if a postulate is found
         if (!$postulate) {
-            return redirect()->back()->with('error', 'No se encontró un postulado con el ID proporcionado.');
+            return redirect()->back()->with('info', 'No se encontró un postulado.');
         }
 
         $data = [
@@ -374,7 +374,7 @@ class PostulateController extends Controller
     {
         $Apprentice = auth()->user()->person->apprentices()->first(); // Obtener el usuario autenticado
         if (!$Apprentice) {
-            return redirect()->back()->withInput()->with('error', 'No eres una Aprendiz');
+            return redirect()->back()->withInput()->with('info', 'No eres una Aprendiz');
         }
         $postulations = Postulate::where('apprentice_id', $Apprentice->id)->get();
 

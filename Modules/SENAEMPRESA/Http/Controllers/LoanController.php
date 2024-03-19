@@ -200,7 +200,7 @@ class LoanController extends Controller
             }
         } else {
             // La cantidad en el inventario no es suficiente
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index')->with('error', trans('senaempresa::menu.There is not enough in the inventory to make the loan.'));
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index')->with('info', trans('senaempresa::menu.There is not enough in the inventory to make the loan.'));
         }
     }
 

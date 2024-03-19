@@ -35,18 +35,18 @@ class AttendanceSenaempresaController extends Controller
         $rol = $user->roles->first();
        
         if ($rol->slug != 'senaempresa.apprentice' && Route::is('senaempresa.apprentice.attendances.index')) {
-            return redirect()->back()->withInput()->with('error', 'No eres una Aprendiz');
+            return redirect()->back()->withInput()->with('info', 'No eres una Aprendiz');
         }
         
 
         $datenow = Carbon::now();
         $quarter = Quarter::where('start_date', '<=', $datenow)->where('end_date', '>=', $datenow)->first();
         if (!$quarter) {
-            return redirect()->back()->withInput()->with('error', 'No hay un trimestre para la fecha actual');
+            return redirect()->back()->withInput()->with('info', 'No hay un trimestre para la fecha actual');
         }
         $senaempresa = Senaempresa::where('quarter_id',$quarter->id)->first();
         if (!$senaempresa) {
-            return redirect()->back()->withInput()->with('error', 'No hay una senaempresa para el trimestre actual');
+            return redirect()->back()->withInput()->with('info', 'No hay una senaempresa para el trimestre actual');
         }
         $attendances_apprentice = AttendanceSenaempresa::with('staffSenaempresa.apprentice.person')
                 ->whereHas('staffSenaempresa', function ($query) use ($senaempresa) {
@@ -148,7 +148,7 @@ class AttendanceSenaempresaController extends Controller
             // Ya existe un registro de asistencia para esta persona en el mismo día
             if ($existingAttendance->end_datetime) {
                 // Si ya tiene una fecha y hora de salida registrada, muestra una alerta
-                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('error', trans('senaempresa::menu.Attendance for this day has already been recorded with a check-in and check-out time.'));
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('info', trans('senaempresa::menu.Attendance for this day has already been recorded with a check-in and check-out time.'));
             } else {
                 // Actualiza la fecha y hora de salida
                 // Actualiza la fecha y hora de salida
@@ -191,7 +191,7 @@ class AttendanceSenaempresaController extends Controller
                 return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('success', trans('senaempresa::menu.Attendance successfully registered.'));
             } else {
                 // Maneja el caso en el que $staffsenaempresaid no es válido, por ejemplo, mostrando un mensaje de error
-                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('error', trans('senaempresa::menu.Attendance could not be recorded because the trainee is not on staff'));
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('info', trans('senaempresa::menu.Attendance could not be recorded because the trainee is not on staff'));
             }
         }
     }

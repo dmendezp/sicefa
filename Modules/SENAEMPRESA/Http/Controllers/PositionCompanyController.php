@@ -54,7 +54,7 @@ class PositionCompanyController extends Controller
             return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.positions.index')->with('success', trans('senaempresa::menu.Position successfully restored'));
         } elseif ($existingPositionCompany) {
             // Si el registro existe pero no está eliminado, mostrar un mensaje de error
-            return redirect()->back()->with('error', trans('senaempresa::menu.The position already exists in the database'));
+            return redirect()->back()->with('info', trans('senaempresa::menu.The position already exists in the database'));
         }
 
         // Si no se encuentra ningún registro existente, crear uno nuevo
