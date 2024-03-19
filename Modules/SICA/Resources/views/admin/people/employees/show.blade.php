@@ -26,10 +26,13 @@
                         <p><b>Tipo de Empleado:</b> {{ $employee->employee_type->name }}</p>
                     </li>
                     <li>
-                        <p><b>Especialidad:</b> {{ $employee->position->professional_denomination }}</p>
+                        <p><b>Grado:</b> {{ $employee->position->professional_denomination }} - {{ $employee->position->grade }}</p>
                     </li>
                     <li>
                         <p><b>Tipo de riesgo:</b> {{ $employee->risk_type }}</p>
+                    </li>
+                    <li>
+                        <p><b>state:</b> {{ $employee->state }}</p>
                     </li>
                 </ul>
         </div>

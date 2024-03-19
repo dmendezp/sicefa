@@ -5,6 +5,7 @@ namespace Modules\SICA\Http\Controllers\location;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Municipality;
 use Modules\SICA\Entities\Environment;
+use Modules\SICA\Entities\Productiveunit;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -46,9 +47,25 @@ class LocationController extends Controller
 
     /* Vista principal de ambientes de formación */
     public function environments_index(){
+        $productive_units = Productiveunit::get();
         $environments = Environment::orderByDesc('updated_at')->get();
-        $data = ['title'=>trans('sica::menu.Environments'),'environments'=>$environments];
+        $data = ['title'=>trans('sica::menu.Environments'),
+        'environments'=>$environments,
+        'productive_units' => $productive_units
+    ];
         return view('sica::admin.location.environments.index',$data);
+    }
+    /* Filtro de ambientes por unidad productiva */
+    public function environments_filter(Request $request){
+        $productive_unit_id = $request->input('productive_unit');
+        $environments = Environment::whereHas('environment_productive_units', function ($query) use ($productive_unit_id) {
+            $query->where('productive_unit_id', $productive_unit_id);
+        })
+        ->orderByDesc('updated_at')->get();
+        $data = ['title'=>trans('sica::menu.Environments'),
+        'environments'=>$environments
+    ];
+        return view('sica::admin.location.environments.table',$data);
     }
 
     /* Formulario de registro de finca */

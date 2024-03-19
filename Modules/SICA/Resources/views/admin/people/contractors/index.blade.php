@@ -16,7 +16,8 @@
                                         <th class="text-center">#</th>
                                         <th class="text-center">Documento</th>
                                         <th class="text-center">Nombre</th>
-                                        <th>Tipo Contracto</th>
+                                        <th>Tipo Empleado</th>
+                                        <th>Tipo Contrato</th>
                                         <th>Fecha</th>
                                         <th class="text-center">Acciones</th>
                                     </tr>
@@ -27,6 +28,7 @@
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td class="text-center">{{ $contractor->person->document_number }}</td>
                                         <td class="text-center">{{ $contractor->person->fullname }}</td>
+                                        <td>{{ $contractor->employee_type->name }}</td>
                                         <td>{{ $contractor->contractor_type->name }}</td>
                                         <td>{{ $contractor->contract_start_date }}</td>
                                         <td
@@ -52,7 +54,7 @@
     <!-- General modal -->
     <div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered" role="document">
-            <div class="modal-content" style="width: 850px; height: 680px" id="modal-content"></div>
+            <div class="modal-content" style="width: 850px;" id="modal-content"></div>
         </div>
     </div>
     <div id="loader" style="display: none;"> {{-- Loader modal --}}

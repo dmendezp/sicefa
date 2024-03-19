@@ -47,7 +47,9 @@ Route::middleware(['lang'])->group(function(){
         Route::post('/admin/units/areas/destroy/', [UnitController::class, 'areas_destroy'])->name('sica.admin.units.areas.destroy'); // Eliminar Area (Administrador)
 
         Route::get('/admin/units/consumption', [UnitController::class, 'consumption'])->name('sica.admin.units.consumption');
+        Route::post('/admin/units/consumption/filter', [UnitController::class, 'consumption_filter'])->name('sica.admin.units.consumptions.filter');
         Route::get('/admin/units/production', [UnitController::class, 'production'])->name('sica.admin.units.production');
+        Route::post('/admin/units/production/filter', [UnitController::class, 'production_filter'])->name('sica.admin.units.productions.filter');
 
     });
 

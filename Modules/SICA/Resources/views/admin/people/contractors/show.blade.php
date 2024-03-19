@@ -14,6 +14,9 @@
                         <p><b>Numero de contrato: </b> {{ $contractor->contract_number }}</p>
                     </li>
                     <li>
+                        <p><b>Supervisor: </b> {{ $contractor->person->fullname }}</p>
+                    </li>
+                    <li>
                         <p><b>Fecha de inicio: </b> {{ $contractor->contract_start_date }}</p>
                     </li>
                     <li>
@@ -26,6 +29,9 @@
                         <p><b>Horas:</b> {{ $contractor->amount_hours }}</p>
                     </li>
                     <li>
+                        <p><b>Codigo SIIF:</b> {{ $contractor->SIIF_code }}</p>
+                    </li>
+                    <li>
                         <p><b>Tipo de Empleado:</b> {{ $contractor->employee_type->name }}</p>
                     </li>
                     <li>
@@ -36,6 +42,30 @@
                     </li>
                     <li>
                         <p><b>Tipo de riesgo:</b> {{ $contractor->risk_type }}</p>
+                    </li>
+                    <li>
+                        <p><b>Numero de poliza:</b> {{ $contractor->policy_number }}</p>
+                    </li>
+                    <li>
+                        <p><b>Fecha Emisión de Póliza:</b> {{ $contractor->policy_issue_date }}</p>
+                    </li>
+                    <li>
+                        <p><b>Fecha Aprobación de Póliza:</b> {{ $contractor->policy_approval_date }}</p>
+                    </li>
+                    <li>
+                        <p><b>Fecha Vigencia de Póliza:</b> {{ $contractor->policy_effective_date }}</p>
+                    </li>
+                    <li>
+                        <p><b>Fecha Vencimiento de Póliza:</b> {{ $contractor->policy_expiration_date }}</p>
+                    </li>
+                    <li>
+                        <p><b>Objeto:</b> {{ $contractor->contract_object }}</p>
+                    </li>
+                    <li>
+                        <p><b>Obligaciones:</b> {{ $contractor->contract_obligations }}</p>
+                    </li>
+                    <li>
+                        <p><b>Estado:</b> {{ $contractor->state }}</p>
                     </li>
                 </ul>
         </div>

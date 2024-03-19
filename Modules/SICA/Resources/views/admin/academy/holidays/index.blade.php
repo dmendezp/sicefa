@@ -40,7 +40,7 @@
                                         @else
                                             <button type="reset" class="btn btn-secondary">{{ trans('sica::menu.Cancel') }}</button>
                                             @if(Auth::user()->havePermission('sica.'.$role_name.'.academy.holidays.store'))
-                                                <button type="submit" class="btn btn-primary">{{ trans('sica::menu.Register') }}</button>
+                                                <button type="submit" class="btn btn-success">{{ trans('sica::menu.Register') }}</button>
                                             @endif
                                         @endisset
                                     </div>

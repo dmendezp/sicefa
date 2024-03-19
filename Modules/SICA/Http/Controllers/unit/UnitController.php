@@ -15,6 +15,8 @@ use Modules\SICA\Entities\EnvironmentProductiveUnit;
 use Modules\SICA\Entities\Farm;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\Warehouse;
+use Modules\SICA\Entities\Consumable;
+use Modules\SICA\Entities\Production;
 
 class UnitController extends Controller
 {
@@ -397,15 +399,154 @@ class UnitController extends Controller
     }
 
 	public function consumption(){
-        $consumption = array(); 
-        $data = ['title'=>trans('sica::menu.Consumption'),'consumption'=>$consumption];
+        $productive_units  = ProductiveUnit::get();
+
+        $data = ['title'=>trans('sica::menu.Consumption'),
+        'productive_units' => $productive_units];
+
         return view('sica::admin.units.consumption.home',$data);
     }
 
+	public function consumption_filter(Request $request){
+        $productiveUnitId = $request->input('productive_unit');
+        // Obtener las actividades relacionadas con la unidad productiva
+        $activities = Activity::with('labors')
+        ->whereHas('productive_unit', function ($query) use ($productiveUnitId) {
+            $query->where('id', $productiveUnitId);
+        })
+        ->get();
+
+        // Obtener las labores relacionadas con las actividades
+        $labors = collect(); // Inicializar una colección vacía
+        foreach ($activities as $activity) {
+        $labors = $labors->merge($activity->labors);
+        }
+
+        // Obtén los consumibles relacionados con esas labores
+        $consumables = Consumable::whereIn('labor_id', $labors->pluck('id'))
+        ->with('inventory.element', 'labor')
+        ->get();
+
+        
+        // Crear un array asociativo para almacenar toda la información agrupada por labor
+        $groupedData = [];
+        $totalLaborSubtotal = 0;
+
+        foreach ($consumables as $consumable) {
+            $laborId = $consumable->labor->id;
+
+            if (!isset($groupedData[$laborId])) {
+                // Inicializa el array para esta labor si aún no existe
+                $groupedData[$laborId] = [
+                    'laborDescription' => $consumable->labor->description,
+                    'laborDate' => $consumable->labor->execution_date,
+                    'elements' => [],
+                    'laborSubtotal' => 0, // Inicializa el subtotal de labor
+                ];
+            }
+
+            $elementName = $consumable->inventory->element->name;
+            $consumableAmount = $consumable->amount;
+            $consumablePrice = $consumable->price;
+
+            // Calcular el subtotal por elemento
+            $elementSubtotal = $consumableAmount * $consumablePrice;
+
+            // Agregar información al array asociativo
+            $groupedData[$laborId]['elements'][] = [
+                'elementName' => $elementName,
+                'consumableAmount' => $consumableAmount,
+                'consumablePrice' => $consumablePrice,
+                'elementSubtotal' => $elementSubtotal, // Agregar el subtotal al elemento
+            ];
+
+            // Sumar el subtotal del elemento al subtotal de labor
+            $groupedData[$laborId]['laborSubtotal'] += $elementSubtotal;
+            $totalLaborSubtotal += $elementSubtotal; // Sumar al total de subtotales de labor
+        }
+
+        $data = ['title'=>trans('sica::menu.Consumption'),
+        'groupedData' => $groupedData,
+        'totalLaborSubtotal' => $totalLaborSubtotal,
+        'no_found' => 'No se encontro consumo de la unidad seleccionada'];
+
+        return view('sica::admin.units.consumption.table',$data);
+    }
+
 	public function production(){
-        $production = array();
-        $data = ['title'=>trans('sica::menu.Production'),'production'=>$production];
+        $productive_units  = ProductiveUnit::get();
+
+        $data = ['title'=>trans('sica::menu.Production'),
+        'productive_units' => $productive_units];
         return view('sica::admin.units.production.home',$data);
+    }
+
+    public function production_filter(Request $request){
+        $productiveUnitId = $request->input('productive_unit');
+        // Obtener las actividades relacionadas con la unidad productiva
+        $activities = Activity::with('labors')
+        ->whereHas('productive_unit', function ($query) use ($productiveUnitId) {
+            $query->where('id', $productiveUnitId);
+        })
+        ->get();
+
+        // Obtener las labores relacionadas con las actividades
+        $labors = collect(); // Inicializar una colección vacía
+        foreach ($activities as $activity) {
+        $labors = $labors->merge($activity->labors);
+        }
+
+        // Obtén los consumibles relacionados con esas labores
+        $consumables = Production::whereIn('labor_id', $labors->pluck('id'))
+        ->with('element', 'labor')
+        ->get();
+
+        
+        // Crear un array asociativo para almacenar toda la información agrupada por labor
+        $groupedData = [];
+        $totalLaborSubtotal = 0;
+
+        foreach ($consumables as $consumable) {
+            $laborId = $consumable->labor->id;
+
+            if (!isset($groupedData[$laborId])) {
+                // Inicializa el array para esta labor si aún no existe
+                $groupedData[$laborId] = [
+                    'laborDescription' => $consumable->labor->description,
+                    'laborDate' => $consumable->labor->execution_date,
+                    'elements' => [],
+                    'laborSubtotal' => 0, // Inicializa el subtotal de labor
+                ];
+            }
+
+            $elementName = $consumable->element->name;
+            $consumableAmount = $consumable->amount;
+            $consumablePrice = $consumable->element->price;
+            $expiration_date = $consumable->expiration_date;
+
+            // Calcular el subtotal por elemento
+            $elementSubtotal = $consumableAmount * $consumablePrice;
+
+            // Agregar información al array asociativo
+            $groupedData[$laborId]['elements'][] = [
+                'elementName' => $elementName,
+                'consumableAmount' => $consumableAmount,
+                'consumablePrice' => $consumablePrice,
+                'elementSubtotal' => $elementSubtotal, // Agregar el subtotal al elemento
+                'expiration_date' => $expiration_date, // Agregar el subtotal al elemento
+            ];
+
+            // Sumar el subtotal del elemento al subtotal de labor
+            $groupedData[$laborId]['laborSubtotal'] += $elementSubtotal;
+            $totalLaborSubtotal += $elementSubtotal; // Sumar al total de subtotales de labor
+        }
+
+        $data = ['title'=>trans('sica::menu.Consumption'),
+        'groupedData' => $groupedData,
+        'totalLaborSubtotal' => $totalLaborSubtotal,
+        'no_found' => 'No se encontro produccion de la unidad seleccionada'];
+
+        return view('sica::admin.units.production.table',$data);
     }
 
 }
