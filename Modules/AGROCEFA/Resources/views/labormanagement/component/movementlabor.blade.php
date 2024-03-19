@@ -93,6 +93,12 @@
                     '<td class="col-1"><button type="button" id="button" class="btn btn-danger removeProduct"><i class="fa fa-trash"></i></button>'
                 );
 
+                // Inicializar Select2 en el campo de selección de herramientas
+                newRow.find('.production-id').select2({
+                    placeholder: "Buscar producto...",
+                    allowClear: true // Esto permite borrar la selección actual
+                });
+
                 // Agregar la fila a la tabla
                 productionTable.append(newRow);
 

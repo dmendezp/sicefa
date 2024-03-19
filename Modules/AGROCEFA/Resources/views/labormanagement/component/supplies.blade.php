@@ -5,26 +5,28 @@
         <div class="container" id="form">
             <!-- Agregar la tabla dinámica -->
             <div class="form-group">
-                <h3 id="title">{{ trans('agrocefa::labor.Suplies')}}</h3>
-                <table id="suppliesTable" class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>{{ trans('agrocefa::labor.1T_Category') }}</th>
-                            <th>{{ trans('agrocefa::labor.1T_Suplies') }}</th>
-                            <th>{{ trans('agrocefa::labor.1T_Dose') }}</th>
-                            <th>{{ trans('agrocefa::labor.1T_Item_Unit_Price') }}</th>
-                            <th>{{ trans('agrocefa::labor.1T_Total') }}</th>
-                            <!-- Agregar la columna de Destino -->
-                            <th>{{ trans('agrocefa::movements.1T_Actions') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Filas de la tabla se agregarán dinámicamente aquí -->
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <h3 id="title">{{ trans('agrocefa::labor.Suplies')}}</h3>
+                    <table id="suppliesTable" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>{{ trans('agrocefa::labor.1T_Category') }}</th>
+                                <th>{{ trans('agrocefa::labor.1T_Suplies') }}</th>
+                                <th>{{ trans('agrocefa::labor.1T_Dose') }}</th>
+                                <th>{{ trans('agrocefa::labor.1T_Item_Unit_Price') }}</th>
+                                <th>{{ trans('agrocefa::labor.1T_Total') }}</th>
+                                <!-- Agregar la columna de Destino -->
+                                <th>{{ trans('agrocefa::movements.1T_Actions') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Filas de la tabla se agregarán dinámicamente aquí -->
+                        </tbody>
+                    </table>
 
-                <br>   
-                <button type="button" class="btn standcolor" id="addProduct1">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>    
+                    <br>   
+                    <button type="button" class="btn standcolor" id="addProduct1">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>    
+                </div>
             </div>
         </div>
     </div>

@@ -21,7 +21,10 @@ return [
     'select_lot' => 'Seleccione el Lote',
     'There_is_no_registered_production'=>'No hay producción registrada',
     'Does_not_have_production'=>'No cuenta con produccion',
-    'No_work_found'=>'No se encontraron labores del cultivo seleccionado',
+    'No_work_found_consumption'=>'No se encontro consumo del cultivo seleccionado',
+    'No_work_found_labor'=>'No se encontraron labores del cultivo seleccionado',
+    'No_work_found_balance'=>'No se encontro un balance del cultivo seleccionado',
+    'No_work_found_production'=>'No se encontro producción del cultivo seleccionado',
     'totals'=>'Totales',
     'export'=>'Exportar',
 

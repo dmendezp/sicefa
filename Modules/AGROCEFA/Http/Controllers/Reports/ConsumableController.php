@@ -142,6 +142,7 @@ class ConsumableController extends Controller
         return view('agrocefa::reports.consumption_table', [
             'groupedData' => $groupedData,
             'totalLaborSubtotal' => $totalLaborSubtotal,
+            'no_found' => trans('agrocefa::balance.No_work_found_consumption')
         ]);
     }
 

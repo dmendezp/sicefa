@@ -118,6 +118,7 @@ class ProductionController extends Controller
             'totalExpenses' => $totalExpenses,
             'totalProductions' => $totalProductions,
             'selectedCropId' => $selectedCropId,
+            'no_found' => trans('agrocefa::balance.No_work_found_production')
         ]);
     }
 

@@ -64,7 +64,9 @@
     </div>
 @else
     <br>
-    <p>{{ trans('agrocefa::balance.No_work_found') }}</p>
+    @if (isset($no_found))
+        <p>{{ $no_found }}</p>
+    @endif  
 @endif
 
 <style>
