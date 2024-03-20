@@ -8,12 +8,6 @@
             <a href="{{ route('cefa.sigac.index') }}" class="nav-link @if(Route::is('cefa.sigac.index')) active @endif">{{ trans('sigac::general.Home') }}</a>
         </li>
 
-        @guest
-        <li class="nav-item d-none d-sm-inline-block mx-1">
-            <a href="{{ route('cefa.sigac.proof') }}" class="nav-link @if(Route::is('cefa.sigac.proof')) active @endif">prueba</a>
-        </li>
-        @endguest
-
         @auth
             @if (checkRol('sigac.academic_coordinator'))
                 <li class="nav-item d-none d-sm-inline-block mx-1">

@@ -11,6 +11,7 @@ use Modules\SICA\Entities\Apprentice;
 use Modules\senaempresa\Entities\vacancy;
 use Modules\senaempresa\Entities\senaempresa;
 use Modules\AGROINDUSTRIA\Entities\RequestExternal;
+use Modules\SIGAC\Entities\InstructorProgram;
 
 
 class Course extends Model implements Auditable
@@ -61,6 +62,9 @@ class Course extends Model implements Auditable
         return \Modules\SICA\Database\factories\CourseFactory::new();
     }
 
+    public function instructor_programs(){ // Accede a todas las programaciones de este curso
+        return $this->hasMany(InstructorProgram::class);
+    }
     public function vacancy()
     { //Accede a los vacantes disponibles
         return $this->belongsToMany(Vacancy::class);
