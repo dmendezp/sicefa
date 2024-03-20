@@ -14,7 +14,7 @@
               <!-- /.card-header -->
 
               <!-- /.card-body -->
-        <di class="card-body">
+        <div class="card-body">
           <label for="productive_unit">Unidad Productiva</label>
           <div class="input-select">
               <select class="form-select" name="productive_unit" id="productive_unit">

@@ -75,6 +75,7 @@ Route::middleware(['lang'])->group(function(){
 
             // --------------  Rutas de Inventario ---------------------------------
             Route::get('inventory', [InventoryController::class,  'inventory'])->name('sica.admin.inventory.inventory'); // Lista de inventario
+            Route::post('inventory/filter', [InventoryController::class,  'inventory_filter'])->name('sica.admin.inventory.inventories.filter'); // Lista de inventario
         });
 
 

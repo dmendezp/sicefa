@@ -448,6 +448,7 @@ class UnitController extends Controller
             $elementName = $consumable->inventory->element->name;
             $consumableAmount = $consumable->amount;
             $consumablePrice = $consumable->price;
+            $expiration_date = $consumable->expiration_date;
 
             // Calcular el subtotal por elemento
             $elementSubtotal = $consumableAmount * $consumablePrice;
@@ -458,6 +459,7 @@ class UnitController extends Controller
                 'consumableAmount' => $consumableAmount,
                 'consumablePrice' => $consumablePrice,
                 'elementSubtotal' => $elementSubtotal, // Agregar el subtotal al elemento
+                'expiration_date' => $expiration_date,
             ];
 
             // Sumar el subtotal del elemento al subtotal de labor
@@ -533,7 +535,7 @@ class UnitController extends Controller
                 'consumableAmount' => $consumableAmount,
                 'consumablePrice' => $consumablePrice,
                 'elementSubtotal' => $elementSubtotal, // Agregar el subtotal al elemento
-                'expiration_date' => $expiration_date, // Agregar el subtotal al elemento
+                'expiration_date' => $expiration_date,
             ];
 
             // Sumar el subtotal del elemento al subtotal de labor

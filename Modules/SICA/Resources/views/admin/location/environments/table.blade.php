@@ -115,7 +115,7 @@
 
 @else
 @if (isset($environments))
-No se encontraros ambientes
+No se encontraron ambientes
 @endif
     
 @endif

@@ -14,7 +14,8 @@
             <tbody>
                 @foreach ($groupedData as $laborId => $data)
                     <tr>
-                        <td colspan="5">
+                        <td>{{ $loop->iteration }}</td>
+                        <td colspan="4">
                             <strong>{{ trans('agrocefa::reports.Labor') }} {{ $data['laborDescription'] }}</strong><br>
                             <em>{{ trans('agrocefa::reports.Date_Labor') }} {{ $data['laborDate'] }}</em>
                         </td>
@@ -25,8 +26,9 @@
                             <td></td>
                             <td>{{ $element['elementName'] }}</td>
                             <td>{{ $element['consumableAmount'] }}</td>
-                            <td>{{ $element['consumablePrice'] }}</td>
+                            <td>{{ priceFormat($element['consumablePrice']) }}</td>
                             <td>{{ $element['expiration_date'] }}</td>
+                            <td></td>
                         </tr>
                     @endforeach
                 @endforeach

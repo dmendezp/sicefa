@@ -60,11 +60,10 @@ class InventoryController extends Controller
         // Obtener los registros de 'productive_unit_warehouses' que coinciden con la unidad productiva seleccionada
         $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->pluck('id');
 
-        //Declaracion de estado
-        $state = 'Disponible';
+        $datenow = Carbon::now();
 
         // Obtener los registros de inventario que coinciden con las bodegas relacionadas
-        $inventory = Inventory::whereIn('productive_unit_warehouse_id', $unitWarehouses)->where('state','=','Disponible')->get();
+        $inventory = Inventory::whereIn('productive_unit_warehouse_id', $unitWarehouses)->where('state','=','Disponible')->where('amount','>','0')->where('expiration_date','>', $datenow)->get();
 
         $productiveUnitName = ProductiveUnit::where('id', $selectedUnitId)->value('name');
 
@@ -85,7 +84,7 @@ class InventoryController extends Controller
             }
         }
 
-        $datenow = Carbon::now();
+        
 
         $inventories = Inventory::where('productive_unit_warehouse_id','=', $productiveInventory)
             ->where('expiration_date','<', $datenow)

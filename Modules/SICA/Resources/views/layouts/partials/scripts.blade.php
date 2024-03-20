@@ -11,6 +11,18 @@
 <script src="{{ asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+
+<script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('AdminLTE/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('AdminLTE/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('AdminLTE/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+
+
 <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.js') }}"></script>
 <script src="{{ asset('js/generalscripts.js') }}"></script>
 <script src="{{ asset('modules/sica/js/scripts.js') }}"></script>
@@ -24,7 +36,7 @@
 <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/toastr/toastr.min.js') }}"></script>
 
-<script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
+
 
 <!-- Highcharts -->
 <script src="{{ asset('Highcharts/code/highcharts.js') }}"></script>
