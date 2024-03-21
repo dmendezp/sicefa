@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Modules\SIGAC\Entities;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +12,8 @@ use Modules\SICA\Entities\Course;
 class InstructorProgram extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['person_id','environment_id','course_id','date','start_time','end_time'];
 
     public function attendances (){
         return $this->hasMany(Attendance::class);

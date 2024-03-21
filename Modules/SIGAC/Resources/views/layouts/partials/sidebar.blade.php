@@ -137,17 +137,17 @@
                                         <p>Parametros</p>
                                     </a>
                                 </li>
-                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming_schedules.index'))
+                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming.index'))
                                     <li class="nav-item">
-                                        <a href="{{ route('sigac.academic_coordination.programming_schedules.index') }}"
-                                            class="nav-link {{ !Route::is('sigac.academic_coordination.programming_schedules.*') ?: 'active' }}">
+                                        <a href="{{ route('sigac.academic_coordination.programming.index') }}"
+                                            class="nav-link {{ !Route::is('sigac.academic_coordination.programming.*') ?: 'active' }}">
                                             <i class="nav-icon far fa-calendar-alt"></i>
                                             <p>{{ trans('sigac::general.Scheduling') }}</p>
                                         </a>
                                     </li>
                                 @endif
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="{{ route('sigac.academic_coordination.programming.create') }}" class="nav-link">
                                         <i class="nav-icon fas fa-user-tie"></i>
                                         <p>Gestion</p>
                                     </a>
@@ -276,10 +276,10 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview" style="display: none;">
-                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming_schedules.index'))
+                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming.index'))
                                     <li class="nav-item">
-                                        <a href="{{ route('sigac.academic_coordination.programming_schedules.index') }}"
-                                            class="nav-link {{ !Route::is('sigac.academic_coordination.programming_schedules.*') ?: 'active' }}">
+                                        <a href="{{ route('sigac.academic_coordination.programming.index') }}"
+                                            class="nav-link {{ !Route::is('sigac.academic_coordination.programming.*') ?: 'active' }}">
                                             <i class="nav-icon far fa-calendar-alt"></i>
                                             <p>{{ trans('sigac::general.Scheduling') }}</p>
                                         </a>
@@ -407,10 +407,10 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview" style="display: none;">
-                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming_schedules.index'))
+                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming.index'))
                                     <li class="nav-item">
-                                        <a href="{{ route('sigac.academic_coordination.programming_schedules.index') }}"
-                                            class="nav-link {{ !Route::is('sigac.academic_coordination.programming_schedules.*') ?: 'active' }}">
+                                        <a href="{{ route('sigac.academic_coordination.programming.index') }}"
+                                            class="nav-link {{ !Route::is('sigac.academic_coordination.programming.*') ?: 'active' }}">
                                             <i class="nav-icon far fa-calendar-alt"></i>
                                             <p>{{ trans('sigac::general.Scheduling') }}</p>
                                         </a>
@@ -449,10 +449,10 @@
 
                     <!-- Menú de opciones para Aprendiz -->
                     @if (Route::is('sigac.apprentice.*'))
-                        @if (Auth::user()->havePermission('sigac.academic_coordination.programming_schedules.index'))
+                        @if (Auth::user()->havePermission('sigac.academic_coordination.programming.index'))
                             <li class="nav-item">
-                                <a href="{{ route('sigac.academic_coordination.programming_schedules.index') }}"
-                                    class="nav-link {{ !Route::is('sigac.academic_coordination.programming_schedules.*') ?: 'active' }}">
+                                <a href="{{ route('sigac.academic_coordination.programming.index') }}"
+                                    class="nav-link {{ !Route::is('sigac.academic_coordination.programming.*') ?: 'active' }}">
                                     <i class="nav-icon far fa-calendar-alt"></i>
                                     <p>{{ trans('sigac::general.Scheduling') }}</p>
                                 </a>

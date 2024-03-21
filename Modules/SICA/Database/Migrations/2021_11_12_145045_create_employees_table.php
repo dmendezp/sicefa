@@ -24,6 +24,7 @@ class CreateEmployeesTable extends Migration
             $table->foreignId('position_id')->constrained()->onDelete('cascade');
             $table->enum('risk_type', ['I','II','III','IV','V']);
             $table->enum('state', ['Activo','Inactivo']);
+            $table->enum('bonding', ['Planta Temporal','Planta Provisional','Carrera Administrativa']);
             $table->softDeletes();
             $table->timestamps();
         });
