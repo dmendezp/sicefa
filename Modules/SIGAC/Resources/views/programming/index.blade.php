@@ -11,22 +11,26 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <h4>Filtrar Por :</h4>
-        <select name="filter" id="filter" class="form-select form-select-sm" aria-label="Small select example">
-            <option selected>Seleccionar Filtro</option>
-            <option value="1">Instructor</option>
-            <option value="2">Ambiente</option>
-            <option value="3">Curso</option>
-        </select>
-        <br>
-        <h4>{{ trans('sigac::programming.Select_Environment') }}</h4>
-        {!! Form::select('search', [], old('search'), [
-            'class' => 'form-control',
-            'required',
-            'id' => 'search',
-        ]) !!}
-        {!! Form::hidden('option', null, ['id' => 'option']) !!}
-        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Filtrar Por :</h4>
+                <select name="filter" id="filter" class="form-select form-select-sm" aria-label="Small select example">
+                    <option selected>Seleccionar Filtro</option>
+                    <option value="1">Instructor</option>
+                    <option value="2">Ambiente</option>
+                    <option value="3">Curso</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <h4 id="titulo">Seleccionar</h4>
+                {!! Form::select('search', [], old('search'), [
+                    'class' => 'form-control',
+                    'required',
+                    'id' => 'search',
+                ]) !!}
+                {!! Form::hidden('option', null, ['id' => 'option']) !!}
+            </div>
+        </div>
     </div>
 </div>
     
@@ -95,6 +99,7 @@
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
                 } else if (option == 2) {
+                    console.log('paso');
                     $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
                         $('#instructor').text('Instructor: ' + (eventData.person ? eventData.person.first_name : 'N/A'));
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
@@ -164,7 +169,16 @@
                     calendar.removeAllEvents();
                     response.programmingEvents.forEach(function(eventData) {
                         // Concatenar las iniciales al principio del título del evento
-                        var titleWithInitials = eventData.person.initials + ' - ' + eventData.course.code;
+                        if (option == 1) {
+                            var titleWithInitials = eventData.course.code + ' - ' + eventData.environment.name;
+                        } else if (option == 2) {
+                            var titleWithInitials = eventData.person.initials + ' - ' + eventData.course.code;
+                        } else if (option == 3) {
+                            var titleWithInitials = eventData.person.initials + ' - ' + eventData.environment.name;
+                        } else {
+                            var titleWithInitials = eventData.person.initials + ' - ' + eventData.course.code;
+                        }
+                        
 
                         calendar.addEvent({
                             title: titleWithInitials, // Usar el título con las iniciales
@@ -186,7 +200,33 @@
 
         $('#filter').change(function() {
             var filter = $(this).val();
+            var titulo = '';
 
+            // Limpiar contenido del modal
+            $('#environment').empty();
+            $('#instructor').empty();
+            $('#course').empty();
+            $('#date').empty();
+            $('#start_time').empty();
+            $('#end_time').empty();
+
+            // Determinar el título según la opción seleccionada
+            switch(filter) {
+                case '1':
+                    titulo = 'Seleccionar Instructor';
+                    break;
+                case '2':
+                    titulo = 'Seleccionar Ambiente';
+                    break;
+                case '3':
+                    titulo = 'Seleccionar Curso';
+                    break;
+                default:
+                    titulo = 'Seleccionar';
+            }
+
+            // Actualizar el título del <h4>
+            $('#titulo').text(titulo);
             $.ajax({
                 type: 'POST',
                 url: "{{ route('sigac.academic_coordination.programming.filter') }}",
