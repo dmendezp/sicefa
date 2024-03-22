@@ -107,8 +107,11 @@
     background-color: #007BFF; /* Color de fondo */
     color: #FFFFFF; /* Color del texto */
     cursor: pointer; /* Cambia el cursor al pasar el ratón */
-    margin: 5px 0; /* Espacio entre eventos */
-    padding: 5px; /* Espacio interno */
+    margin: 5px ; /* Espacio entre eventos */
+    padding: 2px; /* Espacio interno */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Alinear el contenido al centro vertical */
 }
 
 /* Estilos personalizados para las cards de consulta de asitencia */
