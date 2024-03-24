@@ -6,10 +6,11 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item">
-        <a href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.cash.index') }}" class="text-decoration-none">
+        <a href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.cash.index') }}"
+            class="text-decoration-none">
             {{ trans('cafeto::cash.Breadcrumb_Cash_1') }}
         </a>
-        <li class="breadcrumb-item active">{{ trans('cafeto::cash.Breadcrumb_Active_Cash_1') }}</li>
+    <li class="breadcrumb-item active">{{ trans('cafeto::cash.Breadcrumb_Active_Cash_1') }}</li>
     </li>
 @endpush
 
@@ -102,8 +103,10 @@
                                     <th scope="col">{{ trans('cafeto::cash.2T_Opening_Manager') }}</th>
                                     <th scope="col" class="text-center">{{ trans('cafeto::cash.2T_Opening_Date') }}</th>
                                     <th scope="col" class="text-center">{{ trans('cafeto::cash.2T_Closing_Date') }}</th>
-                                    <th scope="col" class="text-center">{{ trans('cafeto::cash.2T_Initial_Balance') }}</th>
-                                    <th scope="col" class="text-center">{{ trans('cafeto::cash.2T_Final_Balance') }}</th>
+                                    <th scope="col" class="text-center">{{ trans('cafeto::cash.2T_Initial_Balance') }}
+                                    </th>
+                                    <th scope="col" class="text-center">{{ trans('cafeto::cash.2T_Final_Balance') }}
+                                    </th>
                                     <th scope="col" class="text-center">{{ trans('cafeto::cash.2T_Total_Sales') }}</th>
                                     <th scope="col" class="text-center">{{ trans('cafeto::cash.2T_State') }}</th>
                                     <th scope="col">{{ trans('cafeto::cash.2T_Warehouse') }}</th>
@@ -152,43 +155,93 @@
                     <!-- Campos del formulario -->
                     <div class="form-group col-md-4">
                         {{ Form::label('opening_manager', trans('cafeto::cash.Modal_Opening_Manager')) }}
-                        {{ Form::text('opening_manager', null, ['class' => 'form-control', 'readonly', 'id' => 'opening_manager']) }}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-user-tag"></i>
+                                </span>
+                            </div>
+                            {{ Form::text('opening_manager', null, ['class' => 'form-control', 'readonly', 'id' => 'opening_manager']) }}
+                        </div>
                     </div>
 
                     <div class="form-group col-md-4">
                         {{ Form::label('opening_date', trans('cafeto::cash.Modal_Opening_Date')) }}
-                        {{ Form::datetimeLocal('opening_date', null, ['class' => 'form-control', 'readonly']) }}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-calendar-day"></i>
+                                </span>
+                            </div>
+                            {{ Form::datetimeLocal('opening_date', null, ['class' => 'form-control', 'readonly']) }}
+                        </div>
                     </div>
 
                     <div class="form-group col-md-4">
                         {{ Form::label('initial_balance', trans('cafeto::cash.Modal_Initial_Balance')) }}
-                        {{ Form::text('initial_balance', null, ['class' => 'form-control', 'readonly', 'id' => 'initial_balance']) }}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-grip"></i>
+                                </span>
+                            </div>
+                            {{ Form::text('initial_balance', null, ['class' => 'form-control', 'readonly', 'id' => 'initial_balance']) }}
+                        </div>
                     </div>
 
                     <div class="form-group col-md-4">
                         {{ Form::label('final_balance', trans('cafeto::cash.Modal_Final_Balance')) }}
-                        {{ Form::text('final_balance', null, ['class' => 'form-control price-format', 'step' => '0.01', 'required']) }}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-keyboard"></i>
+                                </span>
+                            </div>
+                            {{ Form::text('final_balance', null, ['class' => 'form-control price-format', 'step' => '0.01', 'required']) }}
+                        </div>
                     </div>
 
                     <div class="form-group col-md-4">
                         {{ Form::label('total_sales', trans('cafeto::cash.Modal_Total_Sales')) }}
-                        {{ Form::text('total_sales', null, ['class' => 'form-control', 'disabled', 'id' => 'total_sales']) }}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-grip"></i>
+                                </span>
+                            </div>
+                            {{ Form::text('total_sales', null, ['class' => 'form-control', 'disabled', 'id' => 'total_sales']) }}
+                        </div>
                     </div>
 
                     <div class="form-group col-md-4">
                         {{ Form::label('date', trans('cafeto::cash.Modal_Closing_Date')) }}
-                        {{ Form::datetimeLocal('date', null, ['class' => 'form-control', 'readonly']) }}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-calendar-day"></i>
+                                </span>
+                            </div>
+                            {{ Form::datetimeLocal('date', null, ['class' => 'form-control', 'readonly']) }}
+                        </div>
                     </div>
 
                     <div class="form-group col-md-4">
                         {{ Form::label('warehouse_name', trans('cafeto::cash.Modal_Warehouse')) }}
-                        {{ Form::text('warehouse_name', null, ['class' => 'form-control', 'readonly', 'id' => 'warehouse']) }}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-warehouse"></i>
+                                </span>
+                            </div>
+                            {{ Form::text('warehouse_name', null, ['class' => 'form-control', 'readonly', 'id' => 'warehouse']) }}
+                        </div>
                     </div>
 
                     <div class="form-group mt-4 col-md-4 d-flex justify-content-end">
                         {{ Form::hidden('cash_count_id', null, ['id' => 'cash-count-id']) }}
                         @if (Auth::user()->havePermission('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.cash.close'))
-                            <button type="submit" class="btn btn-danger btn-block" id="cerrar-caja-btn">{{ trans('cafeto::cash.Btn_Close_Cash') }}</button>
+                            <button type="submit" class="btn btn-danger btn-block"
+                                id="cerrar-caja-btn">{{ trans('cafeto::cash.Btn_Close_Cash') }}</button>
                         @endif
                     </div>
                     {!! Form::close() !!}
@@ -213,7 +266,8 @@
 
         form.addEventListener('submit', () => {
             cerrarCajaBtn.disabled = true;
-            cerrarCajaBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+            cerrarCajaBtn.innerHTML =
+                '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
 
             // Simulando un proceso que tarda unos segundos
             setTimeout(() => {
