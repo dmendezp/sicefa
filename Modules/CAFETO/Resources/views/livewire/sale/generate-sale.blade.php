@@ -4,50 +4,85 @@
         <div class="col-4">
             <div class="form-group">
                 <label>{{ trans('cafeto::sales.Title_Product') }}</label>
-                <select id='product_id' class="form-select" wire:model="product_id">
-                    <option value="">{{ trans('cafeto::sales.Select_Product') }}</option>
-                    @foreach ($products as $product)
-                        <option value="{{ $product->id }}"> {{ $product->product_name }} </option>
-                    @endforeach
-                </select>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-list"></i>
+                        </span>
+                    </div>
+                    <select id='product_id' class="form-select" wire:model="product_id">
+                        <option value="">{{ trans('cafeto::sales.Select_Product') }}</option>
+                        @foreach ($products as $product)
+                            <option value="{{ $product->id }}"> {{ $product->product_name }} </option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
         </div>
         <div class="col-2">
             <div class="form-group">
                 <label>{{ trans('cafeto::sales.Title_Stock') }}</label>
-                {!! Form::text('product_total_amount', $product_total_amount, [
-                    'class' => 'form-control text-center',
-                    'disabled',
-                ]) !!}
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-grip"></i>
+                        </span>
+                    </div>
+                    {!! Form::text('product_total_amount', $product_total_amount, [
+                        'class' => 'form-control text-center',
+                        'disabled',
+                    ]) !!}
+                </div>
             </div>
         </div>
         <div class="col-2">
             <div class="form-group">
                 <label>{{ trans('cafeto::sales.Title_Price') }}</label>
-                {!! Form::text('product_price', $product_price, ['class' => 'form-control text-center', 'disabled']) !!}
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-grip"></i>
+                        </span>
+                    </div>
+                    {!! Form::text('product_price', $product_price, ['class' => 'form-control text-center', 'disabled']) !!}
+                </div>
             </div>
         </div>
         <div class="col-2">
             <div class="form-group">
                 <label>{{ trans('cafeto::sales.Title_Amount') }}</label>
-                {!! Form::number('product_amount', null, [
-                    'class' => 'form-control text-center',
-                    'id' => 'product_amount',
-                    'disabled',
-                    'wire:model.defer' => 'product_amount',
-                    'wire:keydown.enter' => 'addProduct',
-                ]) !!}
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-keyboard"></i>
+                        </span>
+                    </div>
+                    {!! Form::number('product_amount', null, [
+                        'class' => 'form-control text-center',
+                        'id' => 'product_amount',
+                        'disabled',
+                        'wire:model.defer' => 'product_amount',
+                        'wire:keydown.enter' => 'addProduct',
+                    ]) !!}
+                </div>
             </div>
         </div>
         <div class="col-2">
             <div class="form-group">
                 <label>{{ trans('cafeto::sales.Title_Subtotal') }}</label>
-                {!! Form::text('product_subtotal', null, [
-                    'class' => 'form-control text-center',
-                    'id' => 'product_subtotal',
-                    'disabled',
-                    'wire:model' => 'product_subtotal',
-                ]) !!}
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-grip"></i>
+                        </span>
+                    </div>
+                    {!! Form::text('product_subtotal', null, [
+                        'class' => 'form-control text-center',
+                        'id' => 'product_subtotal',
+                        'disabled',
+                        'wire:model' => 'product_subtotal',
+                    ]) !!}
+                </div>
             </div>
         </div>
     </div>
@@ -82,10 +117,16 @@
                                             <strong>{{ priceFormat($sp['product_subtotal']) }}</strong>
                                         </td>
                                         <td class="text-center">
-                                            <a href="#" class="btn btn-outline-warning btn-sm py-0" data-toggle="tooltip" data-placement="top" title="{{ trans('cafeto::sales.Tooltip1') }}" wire:click="editProduct({{ $sp['product_element_id'] }})">
+                                            <a href="#" class="btn btn-outline-warning btn-sm py-0"
+                                                data-toggle="tooltip" data-placement="top"
+                                                title="{{ trans('cafeto::sales.Tooltip1') }}"
+                                                wire:click="editProduct({{ $sp['product_element_id'] }})">
                                                 <i class="fas fa-pen-alt"></i>
                                             </a>
-                                            <a href="#" class="btn btn-outline-danger btn-sm py-0" data-toggle="tooltip" data-placement="top" title="{{ trans('cafeto::sales.Tooltip2') }}" wire:click="deleteProduct({{ $sp['product_element_id'] }})">
+                                            <a href="#" class="btn btn-outline-danger btn-sm py-0"
+                                                data-toggle="tooltip" data-placement="top"
+                                                title="{{ trans('cafeto::sales.Tooltip2') }}"
+                                                wire:click="deleteProduct({{ $sp['product_element_id'] }})">
                                                 <i class="far fa-trash-alt"></i>
                                             </a>
                                         </td>
@@ -151,7 +192,7 @@
                             {!! Form::text('total', $change_value ? $change_value : '$0', [
                                 'class' => 'form-control form-control-lg text-center mx-0 fw-bold',
                                 'id' => 'change_value',
-                                'style' => 'background-color: #ced4da; color: #bc6c25;', /* Cambia el color del texto a #bc6c25 */
+                                'style' => 'background-color: #ced4da; color: #bc6c25;' /* Cambia el color del texto a #bc6c25 */,
                                 'disabled',
                             ]) !!}
                         </li>
@@ -193,62 +234,99 @@
                             <label>{{ trans('cafeto::sales.Title_Modal_Identification') }}</label>
                             <div class="row">
                                 <div class="col-6 pe-1">
-                                    {{ Form::select('person_document_type', $document_types, $person_document_type, [
-                                        'placeholder' => trans('cafeto::sales.Placeholder_Identification'),
-                                        'class' => 'form-select form-select-sm',
-                                        'wire:model.defer' => 'person_document_type',
-                                    ]) }}
-                                    @error('person_document_type')
-                                        <span class="error text-danger" style="font-size: 10px">{{ $message }}</span>
-                                    @enderror
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-list"></i>
+                                            </span>
+                                        </div>
+                                        {{ Form::select('person_document_type', $document_types, $person_document_type, [
+                                            'placeholder' => trans('cafeto::sales.Placeholder_Identification'),
+                                            'class' => 'form-select form-select-sm',
+                                            'wire:model.defer' => 'person_document_type',
+                                        ]) }}
+                                        @error('person_document_type')
+                                            <span class="error text-danger"
+                                                style="font-size: 10px">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                                 <div class="col-6 ps-1">
-                                    {{ Form::number('person_document_number', $person_document_number, [
-                                        'class' => 'form-control form-control-sm',
-                                        'placeholder' => trans('cafeto::sales.Placeholder_Number_Identification'),
-                                        'wire:model.defer' => 'person_document_number',
-                                    ]) }}
-                                    @error('person_document_number')
-                                        <span class="error text-danger" style="font-size: 10px">{{ $message }}</span>
-                                    @enderror
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa-solid fa-keyboard"></i>
+                                            </span>
+                                        </div>
+                                        {{ Form::number('person_document_number', $person_document_number, [
+                                            'class' => 'form-control form-control-sm',
+                                            'placeholder' => trans('cafeto::sales.Placeholder_Number_Identification'),
+                                            'wire:model.defer' => 'person_document_number',
+                                        ]) }}
+                                        @error('person_document_number')
+                                            <span class="error text-danger"
+                                                style="font-size: 10px">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>{{ trans('cafeto::sales.Title_Modal_Name') }}</label>
-                            {{ Form::text('person_first_name', $person_first_name, [
-                                'class' => 'form-control form-control-sm',
-                                'placeholder' => trans('cafeto::sales.Placeholder_Name'),
-                                'wire:model.defer' => 'person_first_name',
-                            ]) }}
-                            @error('person_first_name')
-                                <span class="error text-danger" style="font-size: 10px">{{ $message }}</span>
-                            @enderror
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fa-solid fa-keyboard"></i>
+                                    </span>
+                                </div>
+                                {{ Form::text('person_first_name', $person_first_name, [
+                                    'class' => 'form-control form-control-sm',
+                                    'placeholder' => trans('cafeto::sales.Placeholder_Name'),
+                                    'wire:model.defer' => 'person_first_name',
+                                ]) }}
+                                @error('person_first_name')
+                                    <span class="error text-danger" style="font-size: 10px">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>{{ trans('cafeto::sales.Title_Modal_Last_Name') }}</label>
                             <div class="row">
                                 <div class="col-6">
-                                    {{ Form::text('person_first_last_name', $person_first_last_name, [
-                                        'class' => 'form-control form-control-sm',
-                                        'placeholder' => trans('cafeto::sales.Placeholder_First_Last_Name'),
-                                        'wire:model.defer' => 'person_first_last_name',
-                                    ]) }}
-                                    @error('person_first_last_name')
-                                        <span class="error text-danger"
-                                            style="font-size: 10px">{{ $message }}</span>
-                                    @enderror
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa-solid fa-keyboard"></i>
+                                            </span>
+                                        </div>
+                                        {{ Form::text('person_first_last_name', $person_first_last_name, [
+                                            'class' => 'form-control form-control-sm',
+                                            'placeholder' => trans('cafeto::sales.Placeholder_First_Last_Name'),
+                                            'wire:model.defer' => 'person_first_last_name',
+                                        ]) }}
+                                        @error('person_first_last_name')
+                                            <span class="error text-danger"
+                                                style="font-size: 10px">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                                 <div class="col-6">
-                                    {{ Form::text('person_second_last_name', $person_second_last_name, [
-                                        'class' => 'form-control form-control-sm',
-                                        'placeholder' => trans('cafeto::sales.Placeholder_Second_Last_Name'),
-                                        'wire:model.defer' => 'person_second_last_name',
-                                    ]) }}
-                                    @error('person_second_last_name')
-                                        <span class="error text-danger"
-                                            style="font-size: 10px">{{ $message }}</span>
-                                    @enderror
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa-solid fa-keyboard"></i>
+                                            </span>
+                                        </div>
+                                        {{ Form::text('person_second_last_name', $person_second_last_name, [
+                                            'class' => 'form-control form-control-sm',
+                                            'placeholder' => trans('cafeto::sales.Placeholder_Second_Last_Name'),
+                                            'wire:model.defer' => 'person_second_last_name',
+                                        ]) }}
+                                        @error('person_second_last_name')
+                                            <span class="error text-danger"
+                                                style="font-size: 10px">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                         </div>
