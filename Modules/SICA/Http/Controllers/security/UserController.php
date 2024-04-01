@@ -10,6 +10,10 @@ use App\Models\User;
 use App\Rules\AtLeastOneRoleSelected;
 use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\Role;
+use Modules\SICA\Entities\Employee;
+use Modules\SICA\Entities\EmployeeType;
+use Modules\SICA\Entities\Contractor;
+use Modules\SICA\Entities\Apprentice;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -168,6 +172,31 @@ class UserController extends Controller
         $user->password =  Hash::make($request->new_password);
         $user->save();
         return back()->with('success', "Contraseña cambiada exitosamente");
+    }
+
+    public function user_register()
+    {
+        return view('auth.passwords.request_user');
+    }
+
+    public function user_search_person(Request $request)
+    {
+        $document_number = $request->input('document_number');
+        $employee_type = EmployeeType::where('name','=','Instructor')->pluck('id');
+        $person = Person::where('document_number',$document_number)->first();
+
+        if ($person) {
+            $employee = Employee::where('person_id',$person->id)->where('employee_type_id',$employee_type)->first();
+            $contractor = Contractor::where('person_id',$person->id)->where('employee_type_id',$employee_type)->first();
+            $apprentice = Apprentice::where('person_id',$person->id)->first();
+            if ($employee || $contractor) {
+                $rol = 'Rol : Instructor';
+            } elseif ($apprentice) {
+                $rol = 'Rol : Aprendiz';
+            }
+
+            return response()->json(['person' => $person,'rol' => $rol], 200);
+        }
     }
 
     /* Registrar usuario google */

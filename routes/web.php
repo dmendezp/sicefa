@@ -9,6 +9,9 @@ use Laravel\Socialite\Facades\Socialite;
 
 Route::post('/register/usergoogle/', [UserController::class, 'storer_usergoogle'])->name('register.usergoogle'); /* Registrar usuarion por google */
 
+Route::get('/user/register/', [UserController::class, 'user_register'])->name('cefa.user.register.index');
+Route::get('/user/register/searchperson', [UserController::class, 'user_search_person'])->name('cefa.user.register.searchperson');
+
 Route::middleware(['lang'])->group(function(){
 
     Auth::routes();

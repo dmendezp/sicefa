@@ -125,7 +125,8 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
-                            <button type="submit" class="text-white text-weight-bold bt">Login</button>
+                            <button type="submit" class="text-white text-weight-bold btlogin">Login</button>
+                            <a href="{{ route('cefa.user.register.index') }}" class="btn btlogin text-white">Registrarse</a>
                            {{--  <a class="btn btn-link forgot" href="{{ route('password.request') }}" > {{ __('Forgot Your Password?') }}</a>
                             <a class="button google" href="{{ route('logingoogle') }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" viewBox="0 0 256 262">
