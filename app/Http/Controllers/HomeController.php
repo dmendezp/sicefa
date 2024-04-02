@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\ProductiveUnit;
@@ -16,6 +20,21 @@ class HomeController extends Controller
 
     public function welcome()
     {
+        if (Auth::check()) {
+            $user = Auth::user();
+            $user_id = $user->person->id;
+
+            // Verificar si hay una contraseña guardada en la sesión para este usuario
+            if (Session::has('passwords.' . $user_id)) {
+                $session_password = Session::get('passwords.' . $user_id);
+
+                // Comparar la contraseña del usuario actual con la contraseña de la sesión
+                if ($user->password === $session_password) {
+                    return redirect(route('cefa.password.change.index'));
+                }
+            }
+        }
+
         $apps = App::all();
         $productiveunit = ProductiveUnit::where('name','=','Punto de venta')->pluck('id');
         $warehouse = Warehouse::where('name','=','Punto de venta')->pluck('id');
@@ -47,8 +66,25 @@ class HomeController extends Controller
 
     public function index()
     {
+        if (Auth::check()) {
+            $user = Auth::user();
+            $user_id = $user->person->id;
+
+            // Verificar si hay una contraseña guardada en la sesión para este usuario
+            if (Session::has('passwords.' . $user_id)) {
+                $session_password = Session::get('passwords.' . $user_id);
+
+                // Comparar la contraseña del usuario actual con la contraseña de la sesión
+                if ($user->password === $session_password) {
+                    return redirect(route('cefa.password.change.index'));
+                }
+            }
+        }
+
         $apps = App::all();
         $data = ['apps'=>$apps];
         return view('home', $data);
     }
+
+
 }

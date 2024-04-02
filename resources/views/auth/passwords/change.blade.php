@@ -9,7 +9,7 @@
             <div class="d-flex">
                 <h3 class="font-weight-bold title"> {{ __('Change Password') }}</h3>
             </div>
-            <form method="POST" action="{{ route('password.change') }}">
+            <form method="POST" action="{{ route('cefa.password.change') }}">
                 @csrf
 
                 <div class="row mb-3">

@@ -5,6 +5,9 @@ namespace Modules\SICA\Http\Controllers\security;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use Modules\SICA\Entities\Person;
 use App\Models\User;
 use App\Rules\AtLeastOneRoleSelected;
@@ -171,6 +174,10 @@ class UserController extends Controller
         $user =  User::find($auth->id);
         $user->password =  Hash::make($request->new_password);
         $user->save();
+
+        // Eliminar la contraseña de la sesión
+        Session::forget('passwords.' . $auth->id);
+
         return back()->with('success', "Contraseña cambiada exitosamente");
     }
 
@@ -198,6 +205,67 @@ class UserController extends Controller
             return response()->json(['person' => $person,'rol' => $rol], 200);
         }
     }
+
+    public function user_register_store(Request $request){
+        $document_number = $request->input('document_number');
+        $role = $request->input('role');
+        $person = Person::where('document_number', $document_number)->first();
+
+        // Verificar si se encontró una persona con el número de documento proporcionado
+        if ($person) {
+            // Crear un nuevo usuario con la información de esa persona
+            $user = User::create([
+                'nickname' => $person->first_name,
+                'person_id' => $person->id,
+                'email' => $person->misena_email,
+            ]);
+
+            if ($role === 'Rol : Instructor') {
+                
+                $roles = Role::where('slug','LIKE','%.trainer%')->get();
+
+                $user->roles()->sync($roles);
+
+            }
+
+            if ($role === 'Rol : Aprendiz') {
+                
+                $roles = Role::where('slug','LIKE','%.apprentice%')->get();
+
+                $user->roles()->sync($roles);
+
+            }
+
+            // Obtener el correo electrónico y la contraseña desencriptada del usuario recién creado
+            $email = $person->misena_email;
+            $first_name = Str::ascii($user->person->first_name); // Eliminar caracteres especiales del nombre
+            $first_last_name = Str::ascii($user->person->first_last_name); // Eliminar caracteres especiales del primer apellido
+            $password =
+                ucfirst( // Convertir el primer caracter en mayúscula
+                    strtolower( // Convertir todo en minúsculas
+                        substr($first_name, 0, 2) // Extraer los dos primeros caracteres del nombre
+                        .substr($first_last_name, 0, 2) // Extraer los dos primeros caracteres del primer apellido
+                        .substr($user->person->document_number, -4) // Extraer los cuatro últimos caracteres del número de documento
+                    )
+                );
+
+
+            // Enviar un correo electrónico con esta información
+            $asunto = "Solicitud de Usuario";
+            Mail::send('auth.passwords.content_email', compact('asunto', 'email', 'password'), function ($msg) use ($asunto, $email) {
+                $msg->from($email);
+                $msg->subject($asunto);
+                $msg->to($email);
+            });
+
+            return redirect(route('cefa.home'));
+        } else {
+            // No se encontró ninguna persona con el número de documento proporcionado
+            // Redireccionar o mostrar un mensaje de error
+        }
+    }
+
+
 
     /* Registrar usuario google */
     public function storer_usergoogle(Request $request){ 

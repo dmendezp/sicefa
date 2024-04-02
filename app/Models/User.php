@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\SICA\Entities\Role;
@@ -65,7 +66,7 @@ class User extends Authenticatable implements Auditable
             if (empty($user->password)) { // Verificar si se recibe una contraseña por defecto para así crear una por defecto
                 $first_name = Str::ascii($user->person->first_name); // Eliminar caracteres especiales del nombre
                 $first_last_name = Str::ascii($user->person->first_last_name); // Eliminar caracteres especiales del primer apellido
-                $user->password = Hash::make( // Encriptar contraseña generada
+                $password = Hash::make( // Encriptar contraseña generada
                     ucfirst( // Convertir el primer caracter en mayúscula
                         strtolower( // Convertir todo en minúsculas
                             substr($first_name, 0, 2) // Extraer los dos primeros caracteres del nombre
@@ -74,6 +75,17 @@ class User extends Authenticatable implements Auditable
                         )
                     )
                 );
+                $user->password =$password;
+
+                // Obtener el ID de usuario
+                $user_id =$user->person->id;
+
+                // Guardar la contraseña en la sesión asociada al ID de usuario
+                session(['passwords.' . $user_id => $password]);
+
+                // Acceder a la contraseña del usuario actual
+                $password = session('passwords.' . $user_id);
+       
             }
         });
     }

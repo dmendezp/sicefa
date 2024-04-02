@@ -17,7 +17,7 @@
                             <div class="row mb-3 m-3"> 
                                 <a href="{{ route('cefa.welcome') }}"><img src="{{ asset('general/images/Group1.png')}}" width="40%" height="auto" alt=""></a> 
                             </div>
-                            {!! Form::open(['url' => route('register.usergoogle')]) !!}
+                            {!! Form::open(['url' => route('cefa.user.register.store')]) !!}
                             <div class="d-flex">
                                 <h3 class="font-weight-bold">Registrarse</h3>
                             </div>
@@ -28,6 +28,7 @@
                                 'id' => 'document_number',
                                 'required'
                             ]) !!}
+                            <input type="hidden" name="role" id="role">
                             <div class="row">
                                 <div class="col-sm-12" >
                                     <br>
@@ -69,18 +70,21 @@
     $(document).ready(function() {
         $('#document_number').on('change', function() {
             var document_number = $(this).val();
+            var role = $('#role').val();
 
             if (document_number) {
                 $.ajax({
                     url: '{{ route('cefa.user.register.searchperson') }}',
                     method: 'GET',
                     data: {
-                        document_number: document_number
+                        document_number: document_number,
+                        role: role
                     },
                     success: function(response) {
                         
                         $('#name').text(response.person.first_name + ' ' + response.person.first_last_name + ' ' + response.person.second_last_name);
                         $('#rol').text(response.rol);
+                        $('#role').val(response.rol);
                     },
                     error: function() {
                         console.error('Error en la solicitud AJAX');
