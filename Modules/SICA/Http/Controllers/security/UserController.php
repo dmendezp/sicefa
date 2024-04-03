@@ -144,6 +144,19 @@ class UserController extends Controller
 
     public function change(Request $request)
     {
+        if (Auth::check()) {
+            $user = Auth::user();
+            $user_id = $user->person->id;
+            
+            // Verificar si hay una contraseña guardada en la sesión para este usuario
+            if (Session::has('passwords.' . $user_id)) {
+                $session_password = Session::get('passwords.' . $user_id);
+
+                $first_change = 1;
+                return view('auth.passwords.change')->with(['firstchange' => $first_change]);
+            }
+        }
+
         return view('auth.passwords.change');
     }
  
@@ -173,10 +186,14 @@ class UserController extends Controller
  
         $user =  User::find($auth->id);
         $user->password =  Hash::make($request->new_password);
+        if ($nickname = $request->input('nickname')) {
+            $user->nickname =  $nickname;
+        }
+        
         $user->save();
 
         // Eliminar la contraseña de la sesión
-        Session::forget('passwords.' . $auth->id);
+        Session::forget('passwords.' . $user->person->id);
 
         return back()->with('success', "Contraseña cambiada exitosamente");
     }
@@ -231,10 +248,8 @@ class UserController extends Controller
 
             if ($role === 'Instructor') {
                 
-                $roles = Role::where('slug','LIKE','%.trainer%')->get();
-                $rolesinstructor = Role::where('slug','LIKE','%.instructor%')->get();
-
-                $user->roles()->sync($roles);
+                $rolesinstructor = Role::where('name','LIKE','%instructor%')->get();
+                
                 $user->roles()->sync($rolesinstructor);
 
             }

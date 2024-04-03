@@ -28,7 +28,7 @@
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td class="text-center">{{ $employee->person->document_number }}</td>
                                         <td class="text-center">{{ $employee->person->fullname }}</td>
-                                        <td>{{ $employee->employee_type->name }}</td>
+                                        <td>{{ $employee->bonding }}</td>
                                         <td>{{ $employee->position->professional_denomination }} - {{ $employee->position->grade }}</td>
                                         <td>{{ $employee->contract_date }}</td>
                                         <td

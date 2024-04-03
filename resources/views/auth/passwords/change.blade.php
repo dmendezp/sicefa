@@ -12,6 +12,15 @@
             <form method="POST" action="{{ route('cefa.password.change') }}">
                 @csrf
 
+                
+                @if (isset($firstchange))
+                <div class="row mb-3">
+                    <label for="nickname" class="col-md-4 col-form-label text-md-right">{{ __('Nickname') }}</label>
+                    <div class="col-md-6">
+                        <input id="nickname" type="text" class="form-control" name="nickname" value="" placeholder="Como quiere llamarse" required >
+                    </div>
+                </div>
+                @endif 
                 <div class="row mb-3">
                     <label for="current_password" class="col-md-4 col-form-label text-md-right">{{ __('Current Password') }}</label>
 

@@ -40,7 +40,7 @@
                             </div>
                             
                             <div class="text-center">
-                                {!! Form::submit('Solicitar Usuario', ['class' => 'btn btn-primary bt', 'id' => 'solicitar']) !!}
+                                {!! Form::submit('Solicitar Usuario', ['class' => 'btn btn-primary bt', 'id' => 'solicitar', 'disabled' => 'disabled']) !!}
                             </div>
                         {!! Form::close() !!}
                         </div>
@@ -84,23 +84,26 @@
                         $('#name').text('');
                         $('#rol').text('');
 
-                        $('#solicitar').show();
+                        $('#solicitar').prop('disabled', true);
 
                         if (response.person && response.rol) {
                             $('#name').text(response.person.first_name + ' ' + response.person.first_last_name + ' ' + response.person.second_last_name);
 
                             if (response.rol == 'Instructor') {
                                 $('#rol').text('Rol : Instructor');
+                                $('#solicitar').prop('disabled', false)
                             } else if (response.rol == 'Aprendiz') {
                                 $('#rol').text('Rol : Aprendiz');
+                                $('#solicitar').prop('disabled', false)
                             } else {
                                 $('#rol').text('No eres instructor o aprendiz');
-                                $('#solicitar').hide();
+                                $('#solicitar').prop('disabled', true)
                             }
                         }
                         
 
                         if (response.error) {
+                            $('#solicitar').prop('disabled', true);
                             $('#name').text(response.error);
 
                         }

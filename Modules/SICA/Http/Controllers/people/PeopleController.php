@@ -64,7 +64,6 @@ class PeopleController extends Controller
             'document_type' => 'required',
             'first_name' => 'required',
             'first_last_name' => 'required',
-            'second_last_name' => 'required',
             'eps_id' => 'required',
             'population_group_id' => 'required',
             'pension_entity_id' => 'required'

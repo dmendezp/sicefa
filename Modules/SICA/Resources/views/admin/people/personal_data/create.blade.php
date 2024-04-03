@@ -56,7 +56,6 @@
                                         {!! Form::text('second_last_name', null, [
                                             'class' => 'form-control',
                                             'placeholder' => 'Ingrese su segundo apellido',
-                                            'required',
                                         ]) !!}
                                     </div>
                                 </div>
