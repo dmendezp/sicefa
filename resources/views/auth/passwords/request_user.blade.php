@@ -40,7 +40,7 @@
                             </div>
                             
                             <div class="text-center">
-                                {!! Form::submit('Solicitar Usuario', ['class' => 'btn btn-primary bt']) !!}
+                                {!! Form::submit('Solicitar Usuario', ['class' => 'btn btn-primary bt', 'id' => 'solicitar']) !!}
                             </div>
                         {!! Form::close() !!}
                         </div>
@@ -81,9 +81,30 @@
                         role: role
                     },
                     success: function(response) {
+                        $('#name').text('');
+                        $('#rol').text('');
+
+                        $('#solicitar').show();
+
+                        if (response.person && response.rol) {
+                            $('#name').text(response.person.first_name + ' ' + response.person.first_last_name + ' ' + response.person.second_last_name);
+
+                            if (response.rol == 'Instructor') {
+                                $('#rol').text('Rol : Instructor');
+                            } else if (response.rol == 'Aprendiz') {
+                                $('#rol').text('Rol : Aprendiz');
+                            } else {
+                                $('#rol').text('No eres instructor o aprendiz');
+                                $('#solicitar').hide();
+                            }
+                        }
                         
-                        $('#name').text(response.person.first_name + ' ' + response.person.first_last_name + ' ' + response.person.second_last_name);
-                        $('#rol').text(response.rol);
+
+                        if (response.error) {
+                            $('#name').text(response.error);
+
+                        }
+                        
                         $('#role').val(response.rol);
                     },
                     error: function() {

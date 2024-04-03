@@ -193,16 +193,25 @@ class UserController extends Controller
         $person = Person::where('document_number',$document_number)->first();
 
         if ($person) {
+            $user = User::where('person_id', $person->id)->first();
+
+            if ($user) {
+                return response()->json(['error' => 'Esta persona ya cuenta con un usuario']);
+            }
             $employee = Employee::where('person_id',$person->id)->where('employee_type_id',$employee_type)->first();
             $contractor = Contractor::where('person_id',$person->id)->where('employee_type_id',$employee_type)->first();
             $apprentice = Apprentice::where('person_id',$person->id)->first();
             if ($employee || $contractor) {
-                $rol = 'Rol : Instructor';
+                $rol = 'Instructor';
             } elseif ($apprentice) {
-                $rol = 'Rol : Aprendiz';
+                $rol = 'Aprendiz';
+            } else {
+                $rol = 'Ninguno';
             }
 
             return response()->json(['person' => $person,'rol' => $rol], 200);
+        } else {
+            return response()->json(['error' => 'Persona no encontrada']);
         }
     }
 
@@ -220,16 +229,18 @@ class UserController extends Controller
                 'email' => $person->misena_email,
             ]);
 
-            if ($role === 'Rol : Instructor') {
+            if ($role === 'Instructor') {
                 
                 $roles = Role::where('slug','LIKE','%.trainer%')->get();
+                $rolesinstructor = Role::where('slug','LIKE','%.instructor%')->get();
 
                 $user->roles()->sync($roles);
+                $user->roles()->sync($rolesinstructor);
 
             }
 
-            if ($role === 'Rol : Aprendiz') {
-                
+            if ($role === 'Aprendiz') {
+            
                 $roles = Role::where('slug','LIKE','%.apprentice%')->get();
 
                 $user->roles()->sync($roles);
