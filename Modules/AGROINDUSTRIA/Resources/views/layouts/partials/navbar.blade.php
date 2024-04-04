@@ -188,10 +188,11 @@
                         <span id="volver-sicefa">Manual de Usuario</span>
                       </a>                    
                       @else
+                      @if(Auth::user()->roles == null || count(Auth::user()->roles) == 0)
                       <div class="col info info-user">
                           <div class="nickname" data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">{{ Auth::user()->nickname }}</div>
-                          <div class="small"><em> {{ Auth::user()->roles[0]->name }}</em></div>
-                      </div>
+                          <div class="small"><em> Aún no tienes un rol asignado</em></div>
+                        </div>
                       <div id="logout" class="col info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Logout') }}"><a href="{{ route('logout') }}" class="d-block" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt fa-lg"></i></a>
                       </div>
@@ -202,6 +203,23 @@
                             <i class="fas fa-question-circle"></i>
                             <span id="volver-sicefa">Manual de Usuario</span>
                         </a>   
+                        @else
+                        <div class="col info info-user">
+                            <div class="nickname" data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">{{ Auth::user()->nickname }}</div>
+                            <div class="small"><em> {{ Auth::user()->roles[0]->name }}</em></div>
+
+                        </div>
+                        <div id="logout" class="col info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Logout') }}"><a href="{{ route('logout') }}" class="d-block" onclick="event.preventDefault();
+                              document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt fa-lg"></i></a>
+                        </div>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                              @csrf
+                         </form>
+                         <a href="{{ route ('cefa.agroindustria.home.manual')}}" class="nav-link" id="question">
+                              <i class="fas fa-question-circle"></i>
+                              <span id="volver-sicefa">Manual de Usuario</span>
+                          </a>   
+                        @endif  
                        @endguest
                        <a href="{{ route('cefa.welcome') }}" class="nav-link {{ ! Route::is('cefa.contact.maps') ?: 'active' }}">
                         <i class="fas fa-puzzle-piece" id="sicefa"></i>
