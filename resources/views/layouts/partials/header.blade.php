@@ -34,7 +34,7 @@
                   </form>
               </div>
               @else
-              <a href="{{ route('login') }}">Log in</a>
+              <a href="{{ route('login', ['redirect' => url()->current()]) }}">Log in</a>
               @endauth
           </div>
           <div class="dropdown lang d-lg-none">
@@ -73,7 +73,7 @@
                 </li>
               </ul>
             @else
-                <a href="{{ route('login') }}">Log in</a>
+                <a href="{{ route('login', ['redirect' => url()->current()]) }}">Log in</a>
             @endauth
         </li>
           

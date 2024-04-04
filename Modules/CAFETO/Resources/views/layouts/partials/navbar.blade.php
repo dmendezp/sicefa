@@ -26,7 +26,7 @@
         <li>{{-- Boton de Iniciar Sesion en CSS es la clase Login-Button --}}
             <div type="button" class="button-login">
                 @guest
-                    <a href="{{ route('login') }}" class="text-decoration-none text-black">
+                    <a href="{{ route('login', ['redirect' => url()->current()]) }}" class="text-decoration-none text-black">
                         <span>{{ trans('cafeto::general.Log In') }}</span>
                     </a>
                 @else

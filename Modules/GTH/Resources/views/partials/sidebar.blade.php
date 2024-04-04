@@ -22,10 +22,10 @@
                 @guest
                     <div class="col info info-user">
                         <div>{{ trans('senaempresa::menu.Welcome') }}</div>
-                        <div><a href="{{ route('login') }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
+                        <div><a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
                     </div>
                     <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right"
-                        title="{{ trans('Auth.Login') }}"><a href="{{ route('login') }}" class="d-block"><i
+                        title="{{ trans('Auth.Login') }}"><a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block"><i
                                 class="fas fa-sign-in-alt"></i></a>
                     </div>
                 @else

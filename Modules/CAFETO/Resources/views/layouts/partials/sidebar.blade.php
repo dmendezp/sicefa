@@ -19,10 +19,10 @@
             </div>
             @guest
                 <div class="col info info-user">
-                    <a href="{{ route('login') }}" class="d-block custom-color" style="text-decoration: none">{{ trans('cafeto::general.Session') }}</a>
+                    <a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block custom-color" style="text-decoration: none">{{ trans('cafeto::general.Session') }}</a>
                 </div>
                 <div class="col-auto info float-right ">
-                    <a href="{{ route('login') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title={{ trans('cafeto::general.InSession') }}>
+                    <a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title={{ trans('cafeto::general.InSession') }}>
                         <i class="fas fa-sign-in-alt"></i>
                     </a>
                 </div>

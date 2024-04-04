@@ -281,7 +281,7 @@
                     <ul class="dropdown-menu">
                         @guest
                             <li>
-                                <a class="menu-item" href="{{ route('login') }}">
+                                <a class="menu-item" href="{{ route('login', ['redirect' => url()->current()]) }}">
                                     <i class="fa-solid fa-right-to-bracket"></i> {{ trans('cafeto::general.Log In') }}
                                 </a>
                             </li>

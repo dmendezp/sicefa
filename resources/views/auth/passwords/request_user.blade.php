@@ -11,7 +11,7 @@
                         
                         <div class="col-md-7 col-sm-12 col-xs-12 c2 px-5 pt-5">
                             <div class="row"> 
-                                <a href="{{ route('login') }}" ><i class="fa fa-arrow-left fa-2x" ></i></a>
+                                <a href="{{ route('login', ['redirect' => url()->current()]) }}" ><i class="fa fa-arrow-left fa-2x" ></i></a>
                             </div>
                             <br>
                             <div class="row mb-3 m-3"> 
