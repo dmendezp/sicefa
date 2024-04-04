@@ -812,7 +812,7 @@
 
        $("#add-tools").click(function() {
            var newTool = '<div class="tools"><div class="form-group">{!! Form::label("tools", trans("agroindustria::labors.tools")) !!}{!! Form::select("tools[]", $tool, null, ["class" => "tool_select", "style" => "width: 200px"]) !!}</div><div class="form-group" style="margin-left: 5px; margin-right: 16px;"><span class="quantity"></span>{!! Form::label("amount", trans("agroindustria::labors.quantity")) !!}{!! Form::number("amount_tools[]", null, ["class"=>"form-control", "id" => "amount_tools"]) !!}</div><div class="form-group">{!! Form::label("price", trans("agroindustria::labors.unitValue")) !!}{!! Form::number("price_unit_tool", null, ["class"=>"form-control", "id" => "price_unit_tool", "readonly" => "readonly"]) !!}</div><div class="form-group" style="margin-left: 3px">{!! Form::label("price", "Total") !!}{!! Form::number("price_tools[]", null, ["class"=>"form-control", "id" => "price_tool", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-tools" style="margin-left: 6px">{{trans("agroindustria::labors.delete")}}</button></div>';
-           
+
            // Agregar el nuevo campo al DOM
            $("#form-tools").append(newTool);
 
@@ -877,7 +877,7 @@
                 isAnyProductExceeding = true;
                 console.log('Deshabilitado');
             } else {
-                quantityField.text('Cantidad Disponible: ' + $t->inventory->amount).css('color', '#666');
+                quantityField.text('Cantidad Disponible: ' + maxQuantity).css('color', '#666');
                 isAnyProductExceeding = false;
                 console.log(isAnyProductExceeding);
                 if (!isAnyProductExceeding) {
