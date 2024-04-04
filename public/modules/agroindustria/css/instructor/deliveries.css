@@ -70,10 +70,11 @@
     border: none;
 }
 
-#textarea{
-    height: 0px;
+.disabled-button {
+    background-color: #CCCCCC; /* Color más claro cuando está deshabilitado */
+    cursor: not-allowed; /* Cambiar el cursor a "no permitido" */
+    /* Otros estilos de diseño según tus preferencias */
 }
-
 #elementInventory{
     width: 200px;
 }

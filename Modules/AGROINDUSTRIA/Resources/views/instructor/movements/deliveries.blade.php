@@ -48,7 +48,7 @@
         </div>
         <div class="col-md-6">
           {!! Form::label('observation', trans('agroindustria::deliveries.Observations')) !!}
-          {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'id' => 'textarea'] ) !!}
+          {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'id' => 'textarea', 'style' => 'height: 0px'] ) !!}
         </div>
         <div class="col-md-6" id="total-movement">
           {!! Form::label('total_movement', 'Total') !!}
@@ -135,8 +135,10 @@
 
         // Realizar una petición AJAX para obtener la cantidad disponible
         if (elementoSeleccionado) {
+          var url = {!! json_encode(route('cefa.agroindustria.units.instructor.movements.id', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString());
+          console.log(url);
             $.ajax({
-                url: {!! json_encode(route('cefa.agroindustria.units.instructor.movements.id', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString()),
+                url: url,
                 method: 'GET',
                 success: function(response) {
                     if (Array.isArray(response.id)) {
