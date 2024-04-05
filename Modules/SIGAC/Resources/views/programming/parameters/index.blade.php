@@ -75,7 +75,7 @@
                         </div>
                     </div>
                 </div> {{-- Fin  --}}
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="card card-blue card-outline shadow">
                         <div class="card-header">
                             <h3 class="card-title">Profesiones</h3>
@@ -112,6 +112,16 @@
                         </div>
                     </div>
                 </div> {{-- Fin --}}
+                <div class="col-md-6">
+                    <div class="card card-blue card-outline shadow">
+                        <div class="card-header">
+                            <h3 class="card-title">Actividades Externas</h3>
+                        </div>
+                        <div class="card-body">
+                            @include('sigac::programming.parameters.external_activities.table')
+                        </div>
+                    </div>
+                </div> {{-- Fin --}}
             </div>
         </div>
     </div>
@@ -145,7 +155,12 @@
                 { orderable: false, targets: 3 }
             ]
         });
-        $('#profession').DataTable({});
+        $('#profession').DataTable({
+
+        });
+        $('#external_activities').DataTable({
+
+        });
         
     });
 

@@ -18,6 +18,7 @@ class CreateInstructorProgramsTable extends Migration
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time');
+            $table->integer('quarter');
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
             $table->foreignId('environment_id')->constrained()->onDelete('cascade');

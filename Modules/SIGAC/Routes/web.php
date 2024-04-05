@@ -35,6 +35,10 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
             
             // Parametros
             Route::get('coordination/programming/parameters/index', 'parameter')->name('sigac.academic_coordination.programming.parameters.index'); // Parametros de programacion (Coordinación Académica)
+            Route::get('wellbeing/programming/parameters/index', 'parameter')->name('sigac.wellbeing.programming.parameters.index'); // Parametros de programacion (Bienestar)
+
+            // Parametro - Actividades Externas
+            Route::get('wellbeing/programming/parameters/external_activities/store', 'parameter')->name('sigac.wellbeing.programming.parameters.external_activities.store'); // Registrar actividad externa (Bienestar)
         });
 
         // Rutas para la visualiación de horarios

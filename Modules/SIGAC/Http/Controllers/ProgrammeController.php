@@ -10,6 +10,7 @@ use Modules\SICA\Entities\Contractor;
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\Course;
 use Modules\SIGAC\Entities\InstructorProgram;
+use Modules\SIGAC\Entities\ExternalActivity;
 use DB;
 
 class ProgrammeController extends Controller
@@ -247,8 +248,10 @@ class ProgrammeController extends Controller
 
     public function parameter()
     {
-        $view = ['titlePage'=>trans('Parametros'), 'titleView'=>trans('Parametros')];
-        return view('sigac::programming.parameters.index',$view);
+        $external_activities = ExternalActivity::get();
+        $titlePage ='Parametros';
+        $titleView = 'Parametros';
+        return view('sigac::programming.parameters.index')->with(['titlePage' => $titlePage, 'titleView' => $titleView, 'external_activities' => $external_activities]);
     }
 
 }
