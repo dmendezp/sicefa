@@ -39,6 +39,9 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
 
             // Parametro - Actividades Externas
             Route::get('wellbeing/programming/parameters/external_activities/store', 'parameter')->name('sigac.wellbeing.programming.parameters.external_activities.store'); // Registrar actividad externa (Bienestar)
+            Route::post('coordination/profession/store', 'profession_store')->name('sigac.academic_coordination.profession.store'); // Registro de profesiones (Coordinación Académica)
+            Route::post('coordination/profession/update/{id}', 'profession_update')->name('sigac.academic_coordination.profession.update'); // Edición de profesiones (Coordinación Académica)
+            Route::post('coordination/profession/destroy/{id}', 'profession_destroy')->name('sigac.academic_coordination.profession.destroy'); // Eliminación de profesiones (Coordinación Académica)
         });
 
         // Rutas para la visualiación de horarios
@@ -62,6 +65,12 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
         // Rutas para la administración de funcionalidades de aprendiz
         Route::controller(ApprenticeController::class)->group(function(){
             Route::get('apprentice/excuses', 'send_excuses')->name('sigac.apprentice.excuses.send'); // Enviar excusa para justificación de inasistencia (Aprendiz)
+        });
+
+         // Rutas para la programacion de eventos y horarios
+         Route::controller(InstructorManagementController::class)->group(function(){            
+            // Gestion de Instructores
+            Route::get('coordination/human_talent/management_instructor/index', 'index')->name('sigac.academic_coordination.human_talent.management_instructor.index'); // Index de Gestion de instructores (Coordinación Académica)
         });
     });
 });

@@ -194,7 +194,6 @@ class DeliverController extends Controller
         $inventory = Inventory::with('element.measurement_unit')->where('element_id', $id)->where('productive_unit_warehouse_id', $pwId)->groupBy('element_id')->select('element_id', \DB::raw('SUM(amount) as totalAmount'), \DB::raw('GROUP_CONCAT(price) as prices'))->get();
         $amountPrice = $inventory->map(function ($e){
             $measurement_unit = $e->element->measurement_unit->conversion_factor;
-           
             $conversion = $e->totalAmount/$measurement_unit;
             $amount = $conversion;
             $price = $e->prices;

@@ -583,6 +583,18 @@ class ConsumableExport implements FromCollection, WithHeadings, Responsable, Wit
             $sheet->getStyle('K' . $currentRow . ':M' . $currentRow)->applyFromArray($styleArray);
             $sheet->getStyle('K' . $currentRow . ':M' . $currentRow)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THIN);
 
+            $sheet->getStyle('C' . $currentRow)->applyFromArray([
+                'font' => [
+                    'size' => 11,
+                ],
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+                ],
+            ]);
+
+            $sheet->setCellValue('C' . $currentRow, $supplie->inventory->inventory_code);
+
             $sheet->getStyle('E' . $currentRow)->applyFromArray([
                 'font' => [
                     'size' => 11,
