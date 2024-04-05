@@ -45,11 +45,21 @@
                 <td>{{$l->destination}}</td>
                 <td>
                     <div class="mb-3">
-                        <a href="{{route('cefa.agroindustria.instructor.units.edit',  ['id' => $l->id])}}">
-                            <button data-record-id="{{$l->id}}" class="btn btn-primary edit-button" style="width: 45px; height: 35px;">
-                                <i class="fa-solid fa-pen-to-square fa-sm"></i>
-                            </button>
-                        </a>
+                        @if (Auth::user()->havePermission('agroindustria.admin.units.labor.form'))
+                            <a href="{{route('cefa.agroindustria.admin.units.edit',  ['id' => $l->id])}}">
+                                <button data-record-id="{{$l->id}}" class="btn btn-primary edit-button" style="width: 45px; height: 35px;">
+                                    <i class="fa-solid fa-pen-to-square fa-sm"></i>
+                                </button>
+                            </a>
+                        @else
+                            @if (Auth::user()->havePermission('agroindustria.instructor.units.form'))
+                                <a href="{{route('cefa.agroindustria.instructor.units.edit',  ['id' => $l->id])}}">
+                                    <button data-record-id="{{$l->id}}" class="btn btn-primary edit-button" style="width: 45px; height: 35px;">
+                                        <i class="fa-solid fa-pen-to-square fa-sm"></i>
+                                    </button>
+                                </a>
+                            @endif
+                        @endif         
                     </div>
                     @if ($l->status === 'Programado')
                         <div class="mb-3">
