@@ -43,6 +43,10 @@ class Program extends Model implements Auditable
         return $this->belongsTo(Network::class);
     }
 
+    public function competence(){ //Accede a todas las competencias asociadas a este programa.
+        return $this->hasMany(Competence::class);
+    }
+
 
     // Configuración de factory para la generación de datos de pruebas
     protected static function newFactory()

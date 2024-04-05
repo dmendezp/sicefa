@@ -64,9 +64,10 @@
                                             @endif
                                                 <td>{{ $puw->warehouse->name }}</td>
                                                 <td class="text-center">
-                                                    <a href="{{ route('sica.admin.units.pu_warehouses.destroy', $puw) }}" data-toggle='tooltip' data-placement="top" title="Eliminar"
-                                                        onclick="return confirm('¿Estás seguro de que deseas eliminar la asociación de la unidad productiva {{ $puw->productive_unit->name }} y la bodega {{ $puw->warehouse->name }}?')">
-                                                        <i class="fas fa-trash-alt text-danger"></i>
+                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.units.pu_warehouses.delete', $puw->id) }}')">
+                                                        <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar asociación">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </b>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -84,4 +85,59 @@
             </div>
         </div>
     </div>
+    <!-- General modal -->
+<div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog  modal-dialog-centered" role="document">
+    <div class="modal-content" id="modal-content"></div>
+</div>
+</div>
+<div id="loader" style="display: none;"> {{-- Loader modal --}}
+<div class="modal-body text-center" id="modal-loader">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div><br>
+    <b id="loader-message"></b>
+</div>
+</div>
 @endsection
+
+@section('script')
+
+
+<script>
+  @if (Session::get('message_puw'))
+      /* Show the message */
+      @if (Session::get('icon') == 'success')
+          toastr.success("{{ Session::get('message_puw') }}");
+      @elseif (Session::get('icon') == 'error')
+          toastr.error("{{ Session::get('message_puw') }}");
+      @endif
+  @endif
+
+  function ajaxAction(route) {
+      /* Ajax to show content modal to add line */
+      $('#loader-message').text("{{ trans('sica::menu.Loading Content') }}"); /* Add content to loader */
+      $('#modal-content').append($('#modal-loader').clone()); /* Add the loader to the modal */
+      $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKE': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+      $.ajax({
+              method: "get",
+              url: route,
+              data: {}
+          })
+          .done(function(html) {
+              $("#modal-content").html(html);
+          });
+  }
+
+  // Vaciar el contenido del modal cuando sea cerrado
+  $("#generalModal").on("hidden.bs.modal", function() {
+      $("#modal-content").empty();
+  });
+</script>
+@endsection
+

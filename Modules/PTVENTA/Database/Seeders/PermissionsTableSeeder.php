@@ -307,6 +307,24 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
+        // Generar PDF del producto actual (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.reports.products.generate.pdf'], [ // Registro o actualización de permiso
+            'name' => 'Generar PDF de producto actual (Administrador)',
+            'description' => 'Generar PDF de productos actual',
+            'description_english' => 'Generate PDF of current products',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Generar PDF del producto actual (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.reports.products.generate.pdf'], [ // Registro o actualización de permiso
+            'name' => 'Generar PDF de producto actual (Cajero)',
+            'description' => 'Generar PDF de productos actual',
+            'description_english' => 'Generate PDF of current products',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
         // Ver detalle de movimiento interno (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.movements.entries.show'], [ // Registro o actualización de permiso
             'name' => 'Ver detalle de movimiento interno (Administrador)',

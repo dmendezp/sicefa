@@ -9,8 +9,15 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Modules\EVS\Entities\Jury;
 use Modules\EVS\Entities\Authorized;
 use App\Models\User;
+use Modules\HDC\Entities\FamilyPersonFootprint;
 use Modules\SICA\Entities\Event;
-use Modules\SIGAC\Entities\AcademicProgramming;
+use Modules\SIGAC\Entities\Attendance;
+use Modules\AGROINDUSTRIA\Entities\Formulation;
+use Modules\AGROINDUSTRIA\Entities\RequestExternal;
+use Modules\AGROCEFA\Entities\Executor;
+use Modules\SIGAC\Entities\CompetencePerson;
+use Modules\SIGAC\Entities\InstructorProgram;
+use Modules\SIGAC\Entities\Profession;
 
 class Person extends Model implements Auditable
 {
@@ -76,7 +83,8 @@ class Person extends Model implements Auditable
             'Cédula de extranjería' => 'CE',
             'Pasaporte' => 'PP',
             'Documento nacional de identidad' => 'DNI',
-            'Registro civil' => 'RC'
+            'Registro civil' => 'RC',
+            'Número de Identificación Tributaria' => 'NIT'
         ];
         return $document_type_abbreviations[$this->attributes['document_type']].'-'.$this->attributes['document_number'];
     }
@@ -93,6 +101,14 @@ class Person extends Model implements Auditable
         return $this->attributes['second_last_name'] = mb_strtoupper($value);
     }
 
+    public function setFirstLastNameAttributeNIT($value){// Establecer first_last_name como null cuando el tipo de documento sea "Número de Identificación Tributaria"
+        if ($this->document_type === 'Número de Identificación Tributaria') {
+            $this->attributes['first_last_name'] = null;
+        } else {
+            $this->attributes['first_last_name'] = mb_strtoupper($value);
+        }
+    }
+
     // RELACIONES
     public function academic_programmings(){ // Accede a todos los registros de programaciones academicas asociadas a este persona designada como instructor
         return $this->hasMany(AcademicProgramming::class, 'instructor_id');
@@ -100,11 +116,17 @@ class Person extends Model implements Auditable
     public function apprentices(){ // Accede a todos aprendices que han sido asociados con esta persona
         return $this->hasMany(Apprentice::class);
     }
+    public function attendances(){ // Accede a todos aprendices que han sido asociados con esta persona
+        return $this->hasMany(Attendance::class);
+    }
     public function authorizeds(){ // Accede a todas los registros de las personas que han sido autorizados para votar
         return $this->hasMany(Authorized::class);
     }
     public function cash_counts(){ // Accede a todas las sesiones de caja asociados a esta persona
         return $this->hasMany(CashCount::class);
+    }
+    public function learning_outcomes(){ //Accede a todas los resultados de aprendizaje que pertenecen a este perfil (PIVOTE)
+        return $this->belongsToMany(LearningOutcome::class);
     }
     public function contractors(){ // Accede a todos los registros de contratistas que le pertenecen a esta persona
         return $this->hasMany(Contractor::class);
@@ -121,11 +143,23 @@ class Person extends Model implements Auditable
     public function events(){ // Accede a todos los eventos que ha asistido esta persona (PIVOTE)
         return $this->belongsToMany(Event::class, 'event_attendances')->withTimestamps();
     }
+    public function executors(){
+        return $this->hasMany(Executor::class,);
+    }
     public function farms(){ // Accede a todas las granjas que lidera esta persona
         return $this->hasMany(Farm::class);
     }
+    public function familypersonfootprints(){ // Accede a todas las familias que consumen este recuerso
+        return $this->hasMany(FamilyPersonFootprint::class);
+    }
+    public function formulations(){ // Accede a todos los registros de formulaciones que tiene esta persona.
+        return $this->hasMany(Formulation::class);
+    }
     public function inventories(){ // Accede a todos los registros de inventarios que estan a cargo de esta persona
         return $this->hasMany(Inventory::class);
+    }
+    public function instructor_programs(){ // Accede a todas las programaciones de este instructor
+        return $this->hasMany(InstructorProgram::class);
     }
     public function juries(){ // Accede a todos los jurados que están registrados con esta persona
         return $this->hasMany(Jury::class);
@@ -148,9 +182,16 @@ class Person extends Model implements Auditable
     public function productive_units(){ // Accede a todas las unidades productivas que lidera esta persona
         return $this->hasMany(ProductiveUnit::class);
     }
+    public function professions(){ //Accede a todas las profesiones que tiene esta persona.
+        return $this->belongsToMany(Profession::class);
+    }
+    public function request_externals(){ // Accede a todas las solicitudes externas que le pertenecen esta persona
+        return $this->hasMany(RequestExternal::class);
+    }
     public function users(){ // Accede a todos los usuarios registrados con esta persona
         return $this->hasMany(User::class);
     }
+    
 
 
     // Configuración de factory para la generación de datos de pruebas

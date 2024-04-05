@@ -93,10 +93,12 @@ Route::middleware(['lang'])->group(function(){
         // --------------  Rutas de Funcionarios ---------------------------------
         Route::get('admin/people/employees', [EmployeeController::class, 'index'])->name('sica.admin.people.employees.index'); // Vista principal de funcionarios (Administrador)
         Route::get('academic_coordinator/people/employees', [EmployeeController::class, 'index'])->name('sica.academic_coordinator.people.employees.index'); // Vista principal de funcionarios (Coordinador académico)
+        Route::get('admin/employees/show/{employee}', [EmployeeController::class, 'showEmployee'])->name('sica.admin.people.employees.show'); // Detalles del funcionario (Administrador)
 
         // --------------  Rutas de Contratistas ---------------------------------
         Route::get('admin/people/contractors', [ContractorController::class, 'index'])->name('sica.admin.people.contractors.index'); // Vista pricipal de contratistas (Administrador)
         Route::get('academic_coordinator/people/contractors', [ContractorController::class, 'index'])->name('sica.academic_coordinator.people.contractors.index'); // Vista pricipal de contratistas (Coordinador académico)
+        Route::get('admin/contractors/show/{contractor}', [ContractorController::class, 'showContractor'])->name('sica.admin.people.contractors.show'); // Detalles del contratista (Administrador)
 
         // --------------  Rutas de Asistencia a eventos ---------------------------------
         Route::get('admin/events_attendance_dashboard', [SICAController::class, 'attendance_dashboard'])->name('sica.admin.events_attendance_dashboard'); // Panel de control de asistencias a eventos (Administrador)

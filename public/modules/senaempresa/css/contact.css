@@ -1,0 +1,78 @@
+#heading,
+#heading0 {
+    color: #000000;
+}
+
+.card {
+    background-color: #ffffff;
+    padding-top: 0px;
+    cursor: pointer;
+}
+.card-name {
+    font-size: 18px;
+}
+.card-name:hover {
+    color: #424242;
+}
+
+#card1 {
+    border-top: 4px solid #2ea29c !important;
+    transition: 0.5s;
+}
+
+#card1:hover {
+    box-shadow: 0 0 2px 2px #2ea29c;
+    transition: 0.5s;
+}
+
+#card2 {
+    border-top: 4px solid #2ea29c !important;
+    transition: 0.5s;
+}
+
+#card2:hover {
+    box-shadow: 0 0 2px 2px #2ea29c;
+    transition: 0.5s;
+}
+
+#card3 {
+    border-top: 4px solid #2ea29c !important;
+    transition: 0.5s;
+}
+
+#card3:hover {
+    box-shadow: 0 0 2px 2px #2ea29c;
+    transition: 0.5s;
+}
+
+.hex-icon {
+    background-color: black;
+    width: 30%;
+}
+
+.fab {
+    color: white;
+    background-color: black;
+    width: 40px;
+    transition: 0.2s;
+}
+
+.fab:hover {
+    opacity: 1;
+    transition: 0.2s;
+}
+
+.fa-facebook {
+    background-color: #0055ff;
+    opacity: 0.8;
+    border-radius: 10px;
+}
+.fa-github {
+    background-color: #000000;
+    opacity: 0.8;
+    border-radius: 10px;
+}
+svg {
+    height: 200px;
+    width: 250px;
+}

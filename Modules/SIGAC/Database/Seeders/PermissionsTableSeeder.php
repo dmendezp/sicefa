@@ -64,7 +64,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
 
         // Programación de horarios (Coordinación Académica)
-        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming_schedules.index'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.index'], [ // Registro o actualización de permiso
             'name' => 'Programación de horarios (Coordinación Académica)',
             'description' => 'Programación de horarios',
             'description_english' => "Programming schedules",

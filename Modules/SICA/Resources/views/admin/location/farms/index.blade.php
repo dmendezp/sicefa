@@ -37,7 +37,7 @@
                                             <td class="text-center">{{ $f->municipality->cou_dep_mun }}</td>
                                             <td class="text-center">
                                                 <div class="text-center">
-                                                    <a href="{{ route('sica.admin.location.farms.edit', $f) }}" class="text-success" data-toggle='tooltip' data-placement="top" title="Actualizar finca">
+                                                    <a href="{{ route('sica.admin.location.farms.edit', $f) }}" data-toggle='tooltip' data-placement="top" title="Actualizar finca">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                     <a href="{{ route('sica.admin.location.farms.destroy', $f) }}" onclick="event.preventDefault(); if(confirm('¿Estás seguro de que deseas eliminar la finca {{ $f->name }}?')) { document.getElementById('delete-form-farm{{ $f->id }}').submit(); }" data-toggle='tooltip' data-placement="top" title="Eliminar finca">

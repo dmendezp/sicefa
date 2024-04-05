@@ -13,6 +13,9 @@
 <script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 
+<!-- Select2 -->
+<script src="{{ asset('AdminLTE/plugins/select2/js/select2.full.min.js') }}"></script>
+
 <!-- Script de tooltip de bootstrap 5  -->
 <script>
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')

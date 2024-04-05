@@ -171,7 +171,7 @@
                 {{-- Aqui finaliza la tabla unidades de medida --}}
 
                 {{-- Aqui finaliza la tabla unidades de medida --}}
-                <div class="col-md-6"  id="card-movement_types">
+                <div class="col-md-6"  id="card-movement_type">
                     <div class="card card-orange card-outline shadow">
                         <div class="card-header">
                             <h3 class="card-title">Tipos de movimiento</h3>
@@ -184,14 +184,35 @@
                                             <th class="text-center">#</th>
                                             <th>Nombre</th>
                                             <th class="text-center">Consecutivo</th>
+                                            <th>
+                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.movement_type.create') }}')">
+                                                    <b class="text-success" data-toggle="tooltip" data-placement="top" title="Agregar">
+                                                        <i class="fas fa-plus-circle"></i>
+                                                    </b>
+                                                </a>
+                                            </th>
                                         </tr>
-                                    </thead>
+                                    </thead>    
                                     <tbody>
                                         @foreach ($movement_types as $mt)
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td>{{ $mt->name }}</td>
                                                 <td class="text-center">{{ $mt->consecutive }}</td>
+                                                <td>
+                                                    <div class="opts">
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.movement_type.edit', $mt->id)}}')">
+                                                            <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                                <i class="fas fa-edit"></i>
+                                                            </b>
+                                                        </a>
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.movement_type.delete', $mt->id)}}')">
+                                                            <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </b>
+                                                        </a>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

@@ -24,7 +24,11 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
 
         // Rutas para la programacion de eventos y horarios
         Route::controller(ProgrammeController::class)->group(function(){
-            Route::get('coordination/program', 'programming_schedules')->name('sigac.academic_coordination.programming_schedules.index'); // Programación de horarios (Coordinación Académica)
+            Route::get('coordination/program', 'programming')->name('sigac.academic_coordination.programming.index'); // Programación de horarios (Coordinación Académica)
+            Route::get('coordination/program/create', 'programming_create')->name('sigac.academic_coordination.programming.create'); // Vista registro de programación de horarios (Coordinación Académica)
+            Route::post('coordination/program/store', 'programming_store')->name('sigac.academic_coordination.programming.store'); // Registro programación de horarios (Coordinación Académica)
+            Route::post('coordination/program/filter', 'programming_filter')->name('sigac.academic_coordination.programming.filter'); // Registro programación de horarios (Coordinación Académica)
+            Route::post('coordination/program/search', 'programming_search')->name('sigac.academic_coordination.programming.search'); // Registro programación de horarios (Coordinación Académica)
             Route::get('coordination/events', 'event_programming')->name('sigac.academic_coordination.event_programming.index'); // Programación de eventos (Coordinación Académica)
         });
 
@@ -50,69 +54,5 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
         Route::controller(ApprenticeController::class)->group(function(){
             Route::get('apprentice/excuses', 'send_excuses')->name('sigac.apprentice.excuses.send'); // Enviar excusa para justificación de inasistencia (Aprendiz)
         });
-
-        // Rutas para puntos
-        Route::controller(PointsController::class)->group(function(){
-
-            // Ruta para mostrar la vista del formulario
-            Route::get('/instructor/points/index', 'PointsController@index')->name('sigac::points.points.index');
-
-            // Ruta para guardar datos desde el formulario
-
-
-
-            // Ruta para eliminar un punto
-            Route::get('/instructor/points/{id}', 'PointsController@destroy')->name('points.destroy');
-
-             // web.php
-
-            Route::get('/instructor/points/index', 'PointsController@index')->name('sigac.instructor.points.points.index');
-
-            Route::get('sigac/instructor/points/index', ['as' => 'sigac::points.points.index', 'uses' => 'PointsController@index']);
-
-
-
-            Route::get('/sigac/apprentice', 'ApprenticeController@index')->name('sigac.apprentice.index');
-
-            Route::get('/apprentice/points/apprentices',   'AprenticeController@apprentice')->name('sigac::points.points.apprentices');
-
-
-
-
-
-
-
-
-
-           Route::get('/instructor/points', 'PointsController@index')->name('sigac.instructor.points.points.index');
-
-
-
-
-            Route::get('instructor/points', 'PointsController@consult_points')->name('sigac::points.points.index'); // Consultar puntos de aprendiz
-        });
-         Route::get('instructor/points', 'PointsController@index')->name('sigac::points.points.index');
-
-
-         Route::get('sigac/instructor/points', 'PointsController@index')->name('sigac::points.points.index');
-
-         Route::get('/points/instructor', 'PointsController@getApprenticesByProgram')->name('sigac::points.getapprentices');
-
-         Route::get('sigac/instructor/points/index', 'PointsController@index')->name('sigac::points.points.index');
-         Route::delete('points/{point}', 'PointsController@destroy')->name('sigac::points.points.delete');
-
-         Route::post('/points/index', 'ApprenticeController@SaveForm')->name('sigac::points.points.apprentice');
-         Route::get('/points/store', 'PointsController@store')->name('sigac::points.points.store');
-
-
-         Route::get('points/{id}/edit', 'PointsController@edit')->name('sigac::points.points.edit');
-         Route::get('sigac/instructor/points', 'PointsController@index')->name('sigac.points.points.index');
-         Route::get('sigac/instructor/points/index', 'PointsController@index')->name('sigac.instructor.points.index');
-
-
-
-
-         Route::get('sigac/instructor/points/', 'PointsController@index')->name('sigac::points.points.index');
-
     });
 });
