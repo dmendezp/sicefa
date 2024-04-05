@@ -10,6 +10,7 @@ use Modules\SICA\Entities\Contractor;
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\Course;
 use Modules\SIGAC\Entities\InstructorProgram;
+use Modules\SIGAC\Entities\Profession;
 use DB;
 
 class ProgrammeController extends Controller
@@ -247,8 +248,56 @@ class ProgrammeController extends Controller
 
     public function parameter()
     {
-        $view = ['titlePage'=>trans('Parametros'), 'titleView'=>trans('Parametros')];
+        $view = ['titlePage'=>trans('Parametros'), 'titleView'=>trans('Parametros'), 'professions' => Profession::all(),];
         return view('sigac::programming.parameters.index',$view);
+    }
+
+    public function profession_store(Request $request){
+        $rules = [
+            'name' => 'required',
+            'level' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }
+        // Realizar registro
+        if (Profession::create($request->all())){
+            $icon = 'success';
+            $message_profession = 'Se agrego la profesion correctamente.';
+        } else {
+            $icon = 'error';
+            $message_profession = 'Error al añadir la profesión.';
+        }
+        return redirect(route('sigac.academic_coordination.programming.parameters.index'))->with(['icon'=>$icon, 'message_profession'=>$message_profession]);
+    }
+
+    public function profession_update(Request $request){
+        $p = Profession::find($request->input('id'));
+        $p->name = e($request->input('name'));
+        $p->level = e($request->input('level'));
+        if($p->save()){
+            $icon = 'success';
+            $message_profession = 'Profesión editada con exito';
+        }else{
+            $icon = 'error';
+            $message_profession = 'Error al editar la profesión';
+        }
+        return redirect()->back()->with(['icon'=>$icon, 'message_profession'=>$message_profession]);
+    }
+
+    public function profession_destroy(Request $request){
+        $p = Profession::find($request->input('id'));
+        if($p->delete()){
+            $icon = 'success';
+            $message_profession = 'Profesión eliminada con exito';
+        }else{
+            $icon = 'error';
+            $message_profession = 'Error al eliminar la profesión';
+        }
+        return redirect()->back()->with(['icon'=>$icon, 'message_profession'=>$message_profession]);
     }
 
 }

@@ -81,34 +81,7 @@
                             <h3 class="card-title">Profesiones</h3>
                         </div>
                         <div class="card-body">
-                            <div>
-                                <div class="table-responsive">
-                                    <table id="profession" class="display table table-bordered table-striped table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th class="text-center">Nombre</th>
-                                                <th>Descripción</th>
-                                                <th class="text-center">
-                                                    <a data-toggle="modal" data-target="#generalModal" onclick="">
-                                                        <b class="text-success" data-toggle="tooltip" data-placement="top" title="">
-                                                            <i class="fas fa-plus-circle"></i>
-                                                        </b>
-                                                    </a>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                    <td class="text-center"></td>
-                                                    <td class="text-center"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                            @include('sigac::programming.parameters.professions.table')
                         </div>
                     </div>
                 </div> {{-- Fin --}}
@@ -116,21 +89,7 @@
         </div>
     </div>
 
-    <!-- General modal -->
-    <div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-dialog-centered" role="document">
-            <div class="modal-content" id="modal-content"></div>
-        </div>
-    </div>
-    <div id="loader" style="display: none;"> {{-- Loader modal --}}
-        <div class="modal-body text-center" id="modal-loader">
-            <div class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
-            </div><br>
-            <b id="loader-message"></b>
-        </div>
-    </div>
-@endsection
+    @endsection
 
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script>
@@ -181,7 +140,7 @@
             });
     }
 
-    $("#generalModal").on("hidden.bs.modal", function() {
+    $("#addProfession").on("hidden.bs.modal", function() {
         /* Modal content is removed when the modal is closed */
         $("#modal-content").empty();
     });

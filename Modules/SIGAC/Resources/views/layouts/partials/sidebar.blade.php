@@ -229,7 +229,7 @@
                             </a>
                             <ul class="nav nav-treeview items" style="display: none;">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="{{ route('sigac.academic_coordination.human_talent.management_instructor.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-th-large"></i>
                                         <p>Gestion Instructores</p>
                                     </a>
