@@ -20,7 +20,7 @@ class ProgrammeController extends Controller
         $view = [
             'titlePage' => trans('sigac::controllers.SIGAC_programming_schedules_title_page'),
             'titleView' => trans('sigac::controllers.SIGAC_programming_schedules_title_view'),
-            'programmingEvents' => InstructorProgram::get(), // Suponiendo que tienes un modelo llamado ProgrammingEvent que representa la programación
+            'programmingEvents' => InstructorProgram::get(),
         ];
 
         return view('sigac::programming.index', $view);
@@ -29,7 +29,7 @@ class ProgrammeController extends Controller
     /* Vista registro de programación de horarios (Coordinación Académica) */
     public function programming_create()
     {
-        // Nombres de los tipos de empleados que quieres incluir
+        // Nombres de los tipos de empleados
         $employeeTypeNames = ['Instructor'];
 
         // Obtener tanto empleados como contratistas que sean de los tipos especificados
@@ -61,7 +61,8 @@ class ProgrammeController extends Controller
         ]);
     }
 
-    public function programming_store (Request $request) {
+    public function programming_store (Request $request) 
+    {
         try {
             // Reglas de validación
             $rules = [
@@ -109,13 +110,14 @@ class ProgrammeController extends Controller
         }
     }
 
-    public function programming_filter (Request $request) {
+    public function programming_filter (Request $request) 
+    {
 
         $filter = $request->input('filter');
 
         if ($filter == 1) {
             $option = 1;
-            // Nombres de los tipos de empleados que quieres incluir
+            // Nombres de los tipos de empleados
             $employeeTypeNames = ['Instructor'];
 
             // Obtener tanto empleados como contratistas que sean de los tipos especificados
@@ -153,7 +155,8 @@ class ProgrammeController extends Controller
         
     }
 
-    public function programming_get (Request $request) {
+    public function programming_get (Request $request) 
+    {
 
         $programmingEvents = InstructorProgram::with('person','course.program','environment')->get();
 
@@ -182,7 +185,8 @@ class ProgrammeController extends Controller
         
     }
 
-    public function programming_search (Request $request) {
+    public function programming_search (Request $request) 
+    {
 
         $filter = $request->input('search');
         $option = $request->input('option');
@@ -240,4 +244,11 @@ class ProgrammeController extends Controller
         $view = ['titlePage'=>trans('sigac::controllers.SIGAC_event_programming_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_event_programming_title_view')];
         return view('sigac::programming.event_programming', $view);
     }
+
+    public function parameter()
+    {
+        $view = ['titlePage'=>trans('Parametros'), 'titleView'=>trans('Parametros')];
+        return view('sigac::programming.parameters.index',$view);
+    }
+
 }

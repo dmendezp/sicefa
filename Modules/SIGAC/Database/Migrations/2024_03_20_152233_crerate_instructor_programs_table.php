@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CrerateInstructorProgramsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('instructor_programs', function (Blueprint $table) {
+            $table->id();
+            $table->date('date');
+            $table->time('start_time');
+            $table->time('end_time');
+            $table->integer('quarter');
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
+            $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->foreignId('environment_id')->constrained()->onDelete('cascade');
+            $table->softDeletes();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('instructor_programs');
+    }
+}

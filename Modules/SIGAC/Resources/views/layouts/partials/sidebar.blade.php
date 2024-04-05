@@ -132,7 +132,7 @@
                             </a>
                             <ul class="nav nav-treeview" style="display: none;">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="{{ route('sigac.academic_coordination.programming.parameters.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-th-large"></i>
                                         <p>Parametros</p>
                                     </a>

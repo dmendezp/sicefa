@@ -24,6 +24,7 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
 
         // Rutas para la programacion de eventos y horarios
         Route::controller(ProgrammeController::class)->group(function(){
+            //  ---------- Progamacion de instructor ------------------
             Route::get('coordination/program', 'programming')->name('sigac.academic_coordination.programming.index'); // Programación de horarios (Coordinación Académica)
             Route::get('coordination/program/get', 'programming_get')->name('sigac.academic_coordination.programming.get'); // Programación de horarios (Coordinación Académica)
             Route::get('coordination/program/create', 'programming_create')->name('sigac.academic_coordination.programming.create'); // Vista registro de programación de horarios (Coordinación Académica)
@@ -31,6 +32,9 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
             Route::post('coordination/program/filter', 'programming_filter')->name('sigac.academic_coordination.programming.filter'); // Registro programación de horarios (Coordinación Académica)
             Route::post('coordination/program/search', 'programming_search')->name('sigac.academic_coordination.programming.search'); // Registro programación de horarios (Coordinación Académica)
             Route::get('coordination/events', 'event_programming')->name('sigac.academic_coordination.event_programming.index'); // Programación de eventos (Coordinación Académica)
+            
+            // Parametros
+            Route::get('coordination/programming/parameters/index', 'parameter')->name('sigac.academic_coordination.programming.parameters.index'); // Parametros de programacion (Coordinación Académica)
         });
 
         // Rutas para la visualiación de horarios
