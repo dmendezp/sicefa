@@ -153,46 +153,83 @@ class ProgrammeController extends Controller
         
     }
 
+    public function programming_get (Request $request) {
+
+        $programmingEvents = InstructorProgram::with('person','course.program','environment')->get();
+
+        foreach ($programmingEvents as $programmingEvent) {
+            $name = $programmingEvent->person->fullname;
+            $parts = explode(' ', $name); // Dividir el nombre completo en palabras individuales
+            $initials = '';
+        
+            foreach ($parts as $part) {
+                $initials .= strtoupper(substr($part, 0, 1)); // Tomar la primera letra de cada palabra y convertirla a mayúsculas
+            }
+        
+            $programmingEvent->person->initials = $initials; // Agregar las iniciales al objeto de persona en el evento de programación
+        }
+        
+        // Construir una cadena de texto que contenga todas las iniciales
+        $allInitials = '';
+        foreach ($programmingEvents as $programmingEvent) {
+            $allInitials .= $programmingEvent->person->initials;
+        }
+        return response()->json([
+            'programmingEvents' => $programmingEvents,
+            'initials' => $allInitials,
+            
+        ]);
+        
+    }
+
     public function programming_search (Request $request) {
 
         $filter = $request->input('search');
+        $option = $request->input('option');
 
-        if ($filter == 1) {
-            $option = 'Instructor';
-            // Nombres de los tipos de empleados que quieres incluir
-            $employeeTypeNames = ['Instructor'];
+        if ($option == 1) {
+        
+        $programmingEvents = InstructorProgram::with('person','course.program','environment')->whereHas('person', function ($query) use ($filter) {
+            $query->where('id', $filter);
+        })
+        ->get();
 
-            // Obtener tanto empleados como contratistas que sean de los tipos especificados
-            $results = DB::table('employees')
-                            ->join('employee_types', 'employees.employee_type_id', '=', 'employee_types.id')
-                            ->join('people', 'employees.person_id', '=', 'people.id')
-                            ->whereIn('employee_types.name', $employeeTypeNames)
-                            ->select('people.id','people.first_name as name', 'people.first_last_name', 'people.document_number', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
-                            ->union(
-                                DB::table('contractors')
-                                    ->join('employee_types', 'contractors.employee_type_id', '=', 'employee_types.id')
-                                    ->join('people', 'contractors.person_id', '=', 'people.id')
-                                    ->whereIn('employee_types.name', $employeeTypeNames)
-                                    ->select('people.id','people.first_name as name', 'people.first_last_name', 'people.document_number', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
-                            )
-                            ->get();
-        } elseif ($filter == 2) {
-            $option = 'Ambiente';
-            $results = Environment::get();
+        } elseif ($option == 2) {
+            $programmingEvents = InstructorProgram::with('person','course.program','environment')->whereHas('environment', function ($query) use ($filter) {
+                $query->where('id', $filter);
+            })
+            ->get();
 
         } else {
-            $option = 'Curso';
-            $results = Course::with('program')->get()->map(function ($course) {
-                return [
-                    'id' => $course->id,
-                    'name' => $course->program->name . ' - ' . $course->code,
-                ];
-            });
+            $programmingEvents = InstructorProgram::with('person','course.program','environment')->whereHas('course', function ($query) use ($filter) {
+                $query->where('id', $filter);
+            })
+            ->get();
         }
 
+        foreach ($programmingEvents as $programmingEvent) {
+            $name = $programmingEvent->person->fullname;
+            $parts = explode(' ', $name); // Dividir el nombre completo en palabras individuales
+            $initials = '';
+        
+            foreach ($parts as $part) {
+                $initials .= strtoupper(substr($part, 0, 1)); // Tomar la primera letra de cada palabra y convertirla a mayúsculas
+            }
+        
+            $programmingEvent->person->initials = $initials; // Agregar las iniciales al objeto de persona en el evento de programación
+        }
+        
+        // Construir una cadena de texto que contenga todas las iniciales
+        $allInitials = '';
+        foreach ($programmingEvents as $programmingEvent) {
+            $allInitials .= $programmingEvent->person->initials;
+        }
+        
+        // Devolver las iniciales junto con la respuesta JSON
         return response()->json([
-            'results' => $results,
+            'programmingEvents' => $programmingEvents,
             'option' => $option,
+            'initials' => $allInitials,
         ]);
         
     }
