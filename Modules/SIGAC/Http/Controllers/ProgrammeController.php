@@ -303,4 +303,45 @@ class ProgrammeController extends Controller
         return redirect()->back()->with(['icon'=>$icon, 'message_profession'=>$message_profession]);
     }
 
+    public function external_activity_store(Request $request){
+        $rules = [
+            'name' => 'required',
+            'description' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }
+        // Realizar registro
+        if (ExternalActivity::create($request->all())){
+            return redirect()->back()->with(['success'=>'Actividad externa registrada exitosamente']);
+        } else {
+            return redirect()->back()->with(['error'=>'Error al registrar la actividad externa']);
+        }
+        return redirect()->back()->with(['error'=>'Ocurrio algun error']);
+    }
+
+    public function external_activity_update(Request $request){
+        $e = ExternalActivity::find($request->input('id'));
+        $e->name = e($request->input('name'));
+        $e->description = e($request->input('description'));
+        if($e->save()){
+            return redirect()->back()->with(['success'=>'Actividad externa actualizada exitosamente']);
+        }else{
+            return redirect()->back()->with(['error'=>'Error al actualizar la actividad externa']);
+        }
+        return redirect()->back()->with(['error'=>'Ocurrio algun error']);
+    }
+
+    public function external_activity_destroy($id)
+    {
+    // Obtener la actividad por su ID
+    $e = ExternalActivity::findOrFail($id);
+
+    // Realizar la eliminación
+    $e->delete();
+
+    return redirect()->back()->with('success', 'Actividad externa eliminada exitosamente');
+    }
+
 }

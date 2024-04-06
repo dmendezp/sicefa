@@ -88,7 +88,7 @@
                 <div class="col-md-6">
                     <div class="card card-blue card-outline shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Actividades Externas</h3>
+                            <h3 class="card-title">{{ trans('sigac::programming.External_Activities')}}</h3>
                         </div>
                         <div class="card-body">
                             @include('sigac::programming.parameters.external_activities.table')
@@ -122,38 +122,6 @@
         });
         
     });
-
-    @if (Session::get('message_config'))
-        $('html, body').animate({
-            /* Move the page to the previously selected configuration */
-            scrollTop: $("#{{ Session::get('card') }}").offset().top
-        }, 1000);
-        /* Show the message */
-        @if (Session::get('icon') == 'success')
-            toastr.success("{{ Session::get('message_config') }}");
-        @elseif (Session::get('icon') == 'error')
-            toastr.error("{{ Session::get('message_config') }}");
-        @endif
-    @endif
-
-    function ajaxAction(route) {
-        /* Ajax to show content modal to add event */
-        $('#loader-message').text('Cargando contenido...'); /* Add content to loader */
-        $('#modal-content').append($('#modal-loader').clone()); /* Add the loader to the modal */
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKE': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-                method: "get",
-                url: route,
-                data: {}
-            })
-            .done(function(html) {
-                $("#modal-content").html(html);
-            });
-    }
 
     $("#addProfession").on("hidden.bs.modal", function() {
         /* Modal content is removed when the modal is closed */

@@ -61,4 +61,16 @@ return [
     // Tooltips
     'InSession'   => 'Sign in / Log in',
     'ExitSession' => 'Exit',
+
+    // Table general
+    'T_Name' => 'Name',
+    'T_Description' => 'Description',
+    'T_Actions' => 'Actions',
+
+    // Buttons
+    'Btn_Save' => 'Save',
+    'Btn_Update' => 'Update',
+    'Btn_Delete' => 'Delete',
+    'Btn_Synchronize' => 'Synchronize',
+     
 ];
