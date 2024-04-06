@@ -19,4 +19,16 @@ return [
     'Select_Technologist' => 'Selecciona el tecnólogo',
     'Drag_Programming'    => 'Arrastra la programación al calendario',
     'Select'              => 'Selecciona...',
+
+
+    // ---------- Parametros -------------
+    'Parameters'   => 'Parametros',
+
+    // Parametro Actividad Externa
+    'External_Activities'   => 'Actividades Externas',
+    'External_Activity'   => 'Actividad Externa',
+    'External_Activity_add'   => 'Agregar Actividad Externa',
+    'External_Activity_edit'   => 'Editar Actividad Externa',
+
+
 ];

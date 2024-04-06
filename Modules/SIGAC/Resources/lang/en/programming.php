@@ -18,4 +18,14 @@ return [
     'Select_Technologist' => 'Select the technologist',
     'Drag_Programming'    => 'Drag the schedule to the calendar',
     'Select'              => 'Select...',
+
+
+    // ---------- Parametros -------------
+    'Parameters'   => 'Parameters',
+
+    // Parametro Actividad Externa
+    'External_Activities'   => 'External Activities',
+    'External_Activity'   => 'External Activity',
+    'External_Activity_add'   => 'Add External Activity',
+    'External_Activity_edit'   => 'Edit External Activity',
 ];

@@ -38,7 +38,9 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
             Route::get('wellbeing/programming/parameters/index', 'parameter')->name('sigac.wellbeing.programming.parameters.index'); // Parametros de programacion (Bienestar)
 
             // Parametro - Actividades Externas
-            Route::get('wellbeing/programming/parameters/external_activities/store', 'parameter')->name('sigac.wellbeing.programming.parameters.external_activities.store'); // Registrar actividad externa (Bienestar)
+            Route::post('wellbeing/programming/parameters/external_activities/store', 'external_activity_store')->name('sigac.wellbeing.programming.parameters.external_activities.store'); // Registrar actividad externa (Bienestar)
+            Route::post('wellbeing/programming/parameters/external_activities/update', 'external_activity_update')->name('sigac.wellbeing.programming.parameters.external_activities.update'); // Actualizar actividad externa (Bienestar)
+            Route::delete('wellbeing/programming/parameters/external_activities/destroy/{id}', 'external_activity_destroy')->name('sigac.wellbeing.programming.parameters.external_activities.destroy'); // Actualizar actividad externa (Bienestar)
             Route::post('coordination/profession/store', 'profession_store')->name('sigac.academic_coordination.profession.store'); // Registro de profesiones (Coordinación Académica)
             Route::post('coordination/profession/update/{id}', 'profession_update')->name('sigac.academic_coordination.profession.update'); // Edición de profesiones (Coordinación Académica)
             Route::post('coordination/profession/destroy/{id}', 'profession_destroy')->name('sigac.academic_coordination.profession.destroy'); // Eliminación de profesiones (Coordinación Académica)

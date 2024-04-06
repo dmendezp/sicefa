@@ -193,7 +193,7 @@ class PermissionsTableSeeder extends Seeder
         // Consulta de ROLES
         $rol_academic_coordination = Role::where('slug', 'sigac.academic_coordinator')->firstOrFail(); // Rol Coordinador Académico
         $rol_instructor = Role::where('slug', 'sigac.instructor')->firstOrFail(); // Rol Instructor
-        $rol_wellness = Role::where('slug', 'sigac.wellness')->firstOrFail(); // Rol Bienestar
+        $rol_wellness = Role::where('slug', 'sigac.wellbeing')->firstOrFail(); // Rol Bienestar
         $rol_apprentice = Role::where('slug', 'sigac.apprentice')->firstOrFail(); // Rol Aprendiz
 
         // Asignación de PERMISOS para los ROLES de la aplicación SIGAC (Sincronización de las relaciones sin eliminar las relaciones existentes)

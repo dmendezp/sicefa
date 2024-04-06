@@ -59,4 +59,18 @@ return [
     // Tooltips
     'InSession'   => 'Acceder / Ingresar',
     'ExitSession' => 'Salir',
+
+
+    // Table general
+    'T_Name' => 'Nombre',
+    'T_Description' => 'Descripción',
+    'T_Actions' => 'Acciones',
+
+    // Buttons
+    'Btn_Save' => 'Guardar',
+    'Btn_Update' => 'Actualizar',
+    'Btn_Delete' => 'Eliminar',
+    'Btn_Synchronize' => 'Sincronizar',
+
+
 ];
