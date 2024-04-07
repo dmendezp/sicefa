@@ -13,6 +13,8 @@ use Modules\SIGAC\Entities\InstructorProgram;
 use Modules\SIGAC\Entities\ExternalActivity;
 use Modules\SIGAC\Entities\Profession;
 use DB;
+use Modules\SICA\Entities\Program;
+use Modules\SICA\Entities\Competencie;
 
 class ProgrammeController extends Controller
 {
@@ -249,10 +251,21 @@ class ProgrammeController extends Controller
 
     public function parameter()
     {
+        $prof = Program::all();
+        $programs = $prof->map(function($p){
+            $id = $p->id;
+            $name = $p->name;
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione un programa'])->pluck('name', 'id');
+
+
         $external_activities = ExternalActivity::get();
         $titlePage ='Parametros';
         $titleView = 'Parametros';
-        return view('sigac::programming.parameters.index')->with(['titlePage' => $titlePage, 'titleView' => $titleView, 'external_activities' => $external_activities, 'professions' => Profession::all()]);
+        return view('sigac::programming.parameters.index')->with(['titlePage' => $titlePage, 'titleView' => $titleView, 'external_activities' => $external_activities, 'professions' => Profession::all(), 'competences' => Competencie::all(), 'programs'=>$programs]);
     }
 
     public function profession_store(Request $request){
@@ -309,6 +322,11 @@ class ProgrammeController extends Controller
             'description' => 'required'
         ];
         $validator = Validator::make($request->all(), $rules);
+
+    //Funcion crear registro de competencia
+   
+
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
         }
@@ -342,6 +360,55 @@ class ProgrammeController extends Controller
     $e->delete();
 
     return redirect()->back()->with('success', 'Actividad externa eliminada exitosamente');
+       
     }
+    public function competence_store(Request $request){
+        $rules = [
+            'program_id'=>'required',
+            'name' => 'required|string|max:255',
+            'hour'=> 'required|numeric', 
+            'type'=> 'required|string',
+            'code'=> 'required|numeric',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }
+        
+        if (Competencie::create($request->all())){
+            $icon = 'success';
+            $message_profession = 'Se agrego la competencia correctamente.';
+        } else {
+            $icon = 'error';
+            $message_profession = 'Error al añadir la competencia.';
+        }
+        return redirect(route('sigac.academic_coordination.programming.parameters.index'))->with(['icon'=>$icon, 'message_profession'=>$message_profession]);
+    }
+
+    public function competence_update(Request $request){
+        $c = Competencie::find($request->input('id'));
+        $c->program_id = e($request->input('program_id'));
+        $c->name = e($request->input('name'));
+        $c->hour = e($request->input('hour'));
+        $c->type = e($request->input('type'));
+        $c->code = e($request->input('code'));
+
+        if($c->save()){
+            return redirect()->back()->with('success', 'Registro actualizado correctamente');
+        }else{
+            return redirect()->back()->with('error', 'Ocurrio un error al actualizar el registro');
+        }
+    }
+
+    public function competence_destroy($id){
+        $c = Competencie::find($id);
+        if($c->delete()){
+            return redirect()->back()->with('success', 'Registro eliminado correctamente');
+        }else{
+            return redirect()->back()->with('error', 'Error al elimminar el registro');
+        }
+    }
+
 
 }

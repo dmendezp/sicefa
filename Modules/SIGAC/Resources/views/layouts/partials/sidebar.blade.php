@@ -217,6 +217,12 @@
                                         <p>Proyecto formativo</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-square-poll-vertical"></i>
+                                        <p>Resultados por clase de ambiente</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item">

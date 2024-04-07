@@ -33,9 +33,16 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
             Route::post('coordination/program/search', 'programming_search')->name('sigac.academic_coordination.programming.search'); // Registro programación de horarios (Coordinación Académica)
             Route::get('coordination/events', 'event_programming')->name('sigac.academic_coordination.event_programming.index'); // Programación de eventos (Coordinación Académica)
             
+            
             // Parametros
             Route::get('coordination/programming/parameters/index', 'parameter')->name('sigac.academic_coordination.programming.parameters.index'); // Parametros de programacion (Coordinación Académica)
             Route::get('wellbeing/programming/parameters/index', 'parameter')->name('sigac.wellbeing.programming.parameters.index'); // Parametros de programacion (Bienestar)
+
+            //Parametro - Competencias
+            Route::post('coordination/competences/store', 'competence_store')->name('sigac.academic_coordination.competences.store'); // Parametros de programacion (Coordinación Académica)
+            Route::post('coordination/competences/update/{id}', 'competence_update')->name('sigac.academic_coordination.competences.update'); // Edición de competencias(Coordinación Académica)
+            Route::delete('coordination/competences/destroy/{id}', 'competence_destroy')->name('sigac.academic_coordination.competences.destroy'); // Eliminación de competencias (Coordinación Académica)
+
 
             // Parametro - Actividades Externas
             Route::post('wellbeing/programming/parameters/external_activities/store', 'external_activity_store')->name('sigac.wellbeing.programming.parameters.external_activities.store'); // Registrar actividad externa (Bienestar)
@@ -44,6 +51,7 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
             Route::post('coordination/profession/store', 'profession_store')->name('sigac.academic_coordination.profession.store'); // Registro de profesiones (Coordinación Académica)
             Route::post('coordination/profession/update/{id}', 'profession_update')->name('sigac.academic_coordination.profession.update'); // Edición de profesiones (Coordinación Académica)
             Route::post('coordination/profession/destroy/{id}', 'profession_destroy')->name('sigac.academic_coordination.profession.destroy'); // Eliminación de profesiones (Coordinación Académica)
+            Route::post('coordination/programming/parameters/competences/store', 'store')->name('sigac.academic_coordination.programming.parameters.competences.store'); // Parametros de programacion (Coordinación Académica)
         });
 
         // Rutas para la visualiación de horarios

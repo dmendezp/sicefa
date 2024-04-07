@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
-class Competence extends Model
+class Competencie extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = ['program_id', 'name', 'hour', 'type', 'code'];
     
     protected static function newFactory()
     {
-        return \Modules\SICA\Database\factories\CompetenceFactory::new();
+        return \Modules\SICA\Database\factories\CompetencieFactory::new();
     }
 
     public function learning_outcomes(){ // Accede a la información de los resultados de aprendizaje
