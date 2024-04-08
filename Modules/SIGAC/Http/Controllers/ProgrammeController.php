@@ -18,7 +18,7 @@ use Modules\SICA\Entities\Competencie;
 
 class ProgrammeController extends Controller
 {
-    /* Vista principal para la programación de horarios */
+    // Programación de horarios
     public function programming()
     {
         $view = [
@@ -30,34 +30,12 @@ class ProgrammeController extends Controller
         return view('sigac::programming.index', $view);
     }
 
-    /* Vista registro de programación de horarios (Coordinación Académica) */
-    public function programming_create()
+    // Gestion de la programacion
+    public function management_programming()
     {
-        // Nombres de los tipos de empleados
-        $employeeTypeNames = ['Instructor'];
-
-        // Obtener tanto empleados como contratistas que sean de los tipos especificados
-        $instructors = DB::table('employees')
-                        ->join('employee_types', 'employees.employee_type_id', '=', 'employee_types.id')
-                        ->join('people', 'employees.person_id', '=', 'people.id')
-                        ->whereIn('employee_types.name', $employeeTypeNames)
-                        ->select('people.id','people.first_name', 'people.first_last_name', 'people.document_number', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
-                        ->union(
-                            DB::table('contractors')
-                                ->join('employee_types', 'contractors.employee_type_id', '=', 'employee_types.id')
-                                ->join('people', 'contractors.person_id', '=', 'people.id')
-                                ->whereIn('employee_types.name', $employeeTypeNames)
-                                ->select('people.id','people.first_name', 'people.first_last_name', 'people.document_number', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
-                        )
-                        ->get();
-
-        $environments = Environment::get();
-
         $courses = Course::with('program')->get();
                     
         return view('sigac::programming.create',[
-            'instructors' => $instructors,
-            'environments' => $environments,
             'courses' => $courses,
             'titlePage'=>trans('Programación - Crear Programación'),
             'titleView'=>trans('Crear Programación')
@@ -65,7 +43,8 @@ class ProgrammeController extends Controller
         ]);
     }
 
-    public function programming_store (Request $request) 
+    // Registrar programacion
+    public function management_programming_store (Request $request) 
     {
         try {
             // Reglas de validación
@@ -113,6 +92,7 @@ class ProgrammeController extends Controller
             return redirect(route('sigac.academic_coordination.programming.index'))->with('error', 'No se registró la Programación');
         }
     }
+    
 
     public function programming_filter (Request $request) 
     {
@@ -249,6 +229,10 @@ class ProgrammeController extends Controller
         return view('sigac::programming.event_programming', $view);
     }
 
+
+    // ||----------------- Parametros --------------------||
+
+    // Parametros de programacion
     public function parameter()
     {
         $prof = Program::all();
@@ -268,7 +252,9 @@ class ProgrammeController extends Controller
         return view('sigac::programming.parameters.index')->with(['titlePage' => $titlePage, 'titleView' => $titleView, 'external_activities' => $external_activities, 'professions' => Profession::all(), 'competences' => Competencie::all(), 'programs'=>$programs]);
     }
 
-    public function profession_store(Request $request){
+    // Registrar profesion
+    public function profession_store(Request $request)
+    {
         $rules = [
             'name' => 'required',
             'level' => 'required'
@@ -290,7 +276,9 @@ class ProgrammeController extends Controller
         return redirect(route('sigac.academic_coordination.programming.parameters.index'))->with(['icon'=>$icon, 'message_profession'=>$message_profession]);
     }
 
-    public function profession_update(Request $request){
+    // Actualizar profesion
+    public function profession_update(Request $request)
+    {
         $p = Profession::find($request->input('id'));
         $p->name = e($request->input('name'));
         $p->level = e($request->input('level'));
@@ -304,7 +292,9 @@ class ProgrammeController extends Controller
         return redirect()->back()->with(['icon'=>$icon, 'message_profession'=>$message_profession]);
     }
 
-    public function profession_destroy(Request $request){
+    // Eliminar profesion
+    public function profession_destroy(Request $request)
+    {
         $p = Profession::find($request->input('id'));
         if($p->delete()){
             $icon = 'success';
@@ -316,16 +306,14 @@ class ProgrammeController extends Controller
         return redirect()->back()->with(['icon'=>$icon, 'message_profession'=>$message_profession]);
     }
 
-    public function external_activity_store(Request $request){
+    // Registrar actividad externa
+    public function external_activity_store(Request $request)
+    {
         $rules = [
             'name' => 'required',
             'description' => 'required'
         ];
         $validator = Validator::make($request->all(), $rules);
-
-    //Funcion crear registro de competencia
-   
-
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
@@ -339,7 +327,9 @@ class ProgrammeController extends Controller
         return redirect()->back()->with(['error'=>'Ocurrio algun error']);
     }
 
-    public function external_activity_update(Request $request){
+    // Actualizar actividad externa
+    public function external_activity_update(Request $request)
+    {
         $e = ExternalActivity::find($request->input('id'));
         $e->name = e($request->input('name'));
         $e->description = e($request->input('description'));
@@ -351,6 +341,7 @@ class ProgrammeController extends Controller
         return redirect()->back()->with(['error'=>'Ocurrio algun error']);
     }
 
+    // Eliminar actividad externa
     public function external_activity_destroy($id)
     {
     // Obtener la actividad por su ID
@@ -360,9 +351,11 @@ class ProgrammeController extends Controller
     $e->delete();
 
     return redirect()->back()->with('success', 'Actividad externa eliminada exitosamente');
-       
     }
-    public function competence_store(Request $request){
+
+    // Registrar competencia
+    public function competence_store(Request $request)
+    {
         $rules = [
             'program_id'=>'required',
             'name' => 'required|string|max:255',
@@ -386,7 +379,9 @@ class ProgrammeController extends Controller
         return redirect(route('sigac.academic_coordination.programming.parameters.index'))->with(['icon'=>$icon, 'message_profession'=>$message_profession]);
     }
 
-    public function competence_update(Request $request){
+    // Actualizar competencia
+    public function competence_update(Request $request)
+    {
         $c = Competencie::find($request->input('id'));
         $c->program_id = e($request->input('program_id'));
         $c->name = e($request->input('name'));
@@ -401,7 +396,9 @@ class ProgrammeController extends Controller
         }
     }
 
-    public function competence_destroy($id){
+    // Eliminar competencia
+    public function competence_destroy($id)
+    {
         $c = Competencie::find($id);
         if($c->delete()){
             return redirect()->back()->with('success', 'Registro eliminado correctamente');

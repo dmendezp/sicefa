@@ -19,8 +19,8 @@ class LearningOutcome extends Model
 
     
 
-    public function competence(){ //Accede a la competencia a la que pertenece.
-        return $this->belongsTo(Competence::class);
+    public function competencie(){ //Accede a la competencia a la que pertenece.
+        return $this->belongsTo(Competencie::class);
     }
 
     public function quarterlies(){ //Accede a todos los registros de trimestralizacion que pertenecen a este resultado.

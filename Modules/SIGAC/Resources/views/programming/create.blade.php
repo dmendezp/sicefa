@@ -11,26 +11,8 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            {!! Form::open(['route' => 'sigac.academic_coordination.programming.store', 'method' => 'POST']) !!}
+            {!! Form::open(['route' => 'sigac.academic_coordination.programming.management.store', 'method' => 'POST']) !!}
             @csrf
-            <div class="form-group">
-                {!! Form::label('instructor', 'Instructor') !!}
-                <div class="input-select">
-                    {!! Form::select('person_id', $instructors->pluck('first_name', 'id'), null, ['class' => 'form-select', 'placeholder' => 'Seleccione el instructor', 'required']) !!}
-                </div>
-                @error('instructor')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-            <div class="form-group">
-                {!! Form::label('environment', 'Ambiente') !!}
-                <div class="input-select">
-                    {!! Form::select('environment_id', $environments->pluck('name', 'id'), null, ['class' => 'form-select', 'placeholder' => 'Seleccione el ambiente', 'required']) !!}
-                </div>
-                @error('environment')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
             <div class="form-group">
                 {!! Form::label('course', 'Curso') !!}
                 <div class="input-select">
@@ -42,27 +24,7 @@
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="form-group">
-                {!! Form::label('date', 'Fecha') !!}
-                {!! Form::date('date', null, ['class' => 'form-control', 'aria-label' => 'fecha', 'aria-describedby' => 'basic-addon1', 'required']) !!}
-                @error('date')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-            <div class="form-group">
-                {!! Form::label('start_time', 'Hora de entrada') !!}
-                {!! Form::time('start_time', null, ['class' => 'form-control', 'aria-label' => 'fecha', 'aria-describedby' => 'basic-addon1', 'required']) !!}
-                @error('start_time')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-            <div class="form-group">
-                {!! Form::label('end_time', 'Hora de salida') !!}
-                {!! Form::time('end_time', null, ['class' => 'form-control', 'aria-label' => 'fecha', 'aria-describedby' => 'basic-addon1', 'required']) !!}
-                @error('end_time')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
+            
             {!! Form::submit('Guardar', ['class'=>'btn btn-primary']) !!}
             {!! Form::close() !!}
             
@@ -74,6 +36,45 @@
 <script>
     $(document).ready(function() {
         $('#course').select2(); // Inicializa el campo course como select2
+
+        // Agrega un evento de clic al botón de detalles del cultivo
+        $('#course').on('click', function() {
+                    var course_id = $('#course').val();
+                    if (course_id) {
+                        $.ajax({
+                            url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.getcropinformation') }}',
+                            method: 'GET',
+                            data: {
+                                id: selectedCropId
+                            },
+                            success: function(response) {
+                                var areaSembrada = response
+                                    .sown_area; // Aquí obtienes el valor del área sembrada
+
+                                // Establece el valor en el campo oculto
+                                $('#sownArea').val(areaSembrada);
+                                console.log(response);
+                                // Mostrar los detalles del cultivo en el modal
+                                $('#cultivoInfo').html(
+                                    '<p><strong>Nombre:</strong> ' + response.name + '</p>' +
+                                    '<p><strong>Área sembrada:</strong> ' + response.sown_area +
+                                    ' hectáreas</p>' +
+                                    '<p><strong>Fecha de siembra:</strong> ' + response
+                                    .seed_time + '</p>' +
+                                    '<p><strong>Densidad:</strong> ' + response.density + '</p>'
+                                    // Agrega más detalles si es necesario
+                                );
+
+                                // Abre el modal para mostrar la información del cultivo
+                                $('#myModal').modal('show');
+                            },
+                            error: function() {
+                                // Manejar errores si la solicitud AJAX falla
+                                console.error('Error en la solicitud AJAX');
+                            }
+                        });
+                    }
+                });
     });
 </script>
     

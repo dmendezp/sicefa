@@ -3,7 +3,7 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row justify-content-center">
-                <div class="col-md-6"> {{-- Inicio competencia --}}
+                <div class="col-md-12"> {{-- Inicio competencia --}}
                     <div class="card card-blue card-outline shadow">
                         <div class="card-header">
                             <h3 class="card-title">Competencia</h3>
@@ -14,7 +14,7 @@
                 </div>
                 </div> {{-- Fin competencia --}}
 
-                <div class="col-md-6"> 
+                <div class="col-md-12"> 
                     <div class="card card-blue card-outline shadow">
                         <div class="card-header">
                             <h3 class="card-title">Resultados</h3>

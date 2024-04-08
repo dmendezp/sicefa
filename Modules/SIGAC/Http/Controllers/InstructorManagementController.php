@@ -4,6 +4,7 @@ namespace Modules\SIGAC\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller;
 use Modules\SIGAC\Entities\Profession;
 use Modules\SICA\Entities\Program;
