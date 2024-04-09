@@ -74,11 +74,18 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
             
             // ---------------- Proyecto Formatrivo ---------------------------
             Route::get('academic_coordination/curriculum_planning/training_project/index', 'training_project_index')->name('sigac.academic_coordination.curriculum_planning.training_project.index'); // Proyecto formativo (Coordinación Académica)
+            Route::get('academic_coordination/curriculum_planning/training_project/quarterlie/index/{id}', 'training_project_quarterlie_index')->name('sigac.academic_coordination.curriculum_planning.training_project.quarterlie.index'); // Proyecto formativo (Coordinación Académica)
             Route::post('academic_coordination/curriculum_planning/training_project/store', 'training_project_store')->name('sigac.academic_coordination.curriculum_planning.training_project.store'); // Registrar proyecto formativo (Coordinación Académica)
+            Route::post('academic_coordination/curriculum_planning/training_project/update', 'training_project_update')->name('sigac.academic_coordination.curriculum_planning.training_project.update'); // Actualizar proyecto formativo (Coordinación Académica)
+            Route::post('academic_coordination/curriculum_planning/training_project/destroy/{id}', 'training_project_destroy')->name('sigac.academic_coordination.curriculum_planning.training_project.destroy'); // Eliminar proyecto formativo (Coordinación Académica)
             
             // ---------------- Trimestralización ---------------------------
             Route::get('academic_coordination/curriculum_planning/quarterlie/index', 'quarterlie_index')->name('sigac.academic_coordination.curriculum_planning.quarterlie.index'); // Trimestralización (Coordinación Académica)
+            Route::get('academic_coordination/curriculum_planning/quarterlie/create', 'quarterlie_create')->name('sigac.academic_coordination.curriculum_planning.quarterlie.create'); // Fromulario de registro (Coordinación Académica)
             Route::post('academic_coordination/curriculum_planning/quarterlie/store', 'quarterlie_store')->name('sigac.academic_coordination.curriculum_planning.quarterlie.store'); // Registrar Trimestralización (Coordinación Académica)
+            Route::get('academic_coordination/curriculum_planning/quarterlie/edit/{id}', 'quarterlie_edit')->name('sigac.academic_coordination.curriculum_planning.quarterlie.edit'); // Fromulario de registro (Coordinación Académica)
+            Route::get('academic_coordination/curriculum_planning/quarterlie/filterlearnin_outcome', 'quarterlie_filterlearnin_outcome')->name('sigac.academic_coordination.curriculum_planning.quarterlie.filterlearnin_outcome'); // Fromulario de registro (Coordinación Académica)
+            Route::post('academic_coordination/curriculum_planning/quarterlie/update/{id}', 'quarterlie_update')->name('sigac.academic_coordination.curriculum_planning.quarterlie.update'); // Registrar Trimestralización (Coordinación Académica)
         });
 
         // Rutas para la administración de asistencias

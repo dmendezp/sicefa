@@ -10,7 +10,7 @@ class Quarterly extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = ['quarter_number','training_project_id','learning_outcome_id'];
     
     protected static function newFactory()
     {

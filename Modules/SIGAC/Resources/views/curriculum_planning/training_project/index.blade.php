@@ -1,64 +1,36 @@
 @extends('sigac::layouts.master')
-
-@push('head')
-    <link rel="stylesheet" href="{{ asset('modules/sigac/css/customStyles.css') }}">
-@endpush
-
-@push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('Proyecto Formativo y Trimestralización') }}</li>
-@endpush
-
 @section('content')
-    <div class="card">
-        <div class="card-body">
-            {!! Form::open(['route' => 'sigac.academic_coordination.curriculum_planning.training_project.store', 'method' => 'POST']) !!}
-            @csrf
-            <div class="form-group">
-                {!! Form::label('name', 'Nombre') !!}
-                {!! Form::text('name', null, ['class' => 'form-control','placeholder' => 'Ingrese el nombre', 'required']) !!}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-md-12"> {{-- Inicio Trimestralización --}}
+                    <div class="card card-blue card-outline shadow">
+                        <div class="card-header">
+                            <h3 class="card-title">Proyecto Formativo</h3>
+                        </div>
+                        <div class="card-body">
+                        @include('sigac::curriculum_planning.training_project.table')
+                    </div>
+                </div>
+                </div> {{-- Fin Trimestralización --}}
+
             </div>
-            <div class="form-group">
-                {!! Form::label('execution_time', 'Tiempo de ejecucion') !!}
-                {!! Form::number('execution_time', null, ['class' => 'form-control','placeholder' => 'Ingrese el número de meses de ejecucion', 'required']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::label('total_result', 'Número Total resultados de aprendizaje') !!}
-                {!! Form::number('total_result', null, ['class' => 'form-control','placeholder' => 'Ingrese el total de resultados de aprendizaje', 'required']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::label('objective', trans('Objetivo')) !!}
-                {!! Form::textarea('objective', old('objective'), [
-                    'class' => 'form-control',
-                    'style' => 'max-height: 100px;',
-                ]) !!}
-            </div>
-            <br>
-            {!! Form::submit('Guardar', ['class'=>'btn btn-primary']) !!}
-            {!! Form::close() !!}
-            
         </div>
     </div>
-@endsection
 
-@push('scripts')
+    @endsection
+
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() {
-        $('#course').select2(); // Inicializa el campo course como select2
-
-        $('#learning_outcome').select2(); // Inicializa el campo resultado de aprendizaje como select2
-
-        // Función para agregar fila de resultado de aprendizaje
-        $(".add_learning_outcomes").click(function() {
-            var clonedRow = $(".learning_outcomes_row").first().clone();
-            clonedRow.find('select').val(''); // Limpiar el valor seleccionado
-            $("#learning_outcomes_container").append(clonedRow);
+        $('#quarterlies').DataTable({
         });
-
-        // Función para eliminar fila de resultado de aprendizaje
-        $(document).on('click', '.delete-row', function() {
-            $(this).closest('.learning_outcomes_row').remove();
-        });
+        
     });
+
+    function mayus(e) {
+        /* Convert the content of a field to uppercase */
+        e.value = e.value.toUpperCase();
+    }
 </script>
-    
-@endpush
+
