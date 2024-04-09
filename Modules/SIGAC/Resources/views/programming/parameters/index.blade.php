@@ -20,34 +20,7 @@
                             <h3 class="card-title">Resultados</h3>
                         </div>
                         <div class="card-body">
-                            <div>
-                                <div class="table-responsive">
-                                    <table id="learning_customes" class="display table table-bordered table-striped table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th class="text-center">Nombre</th>
-                                                <th>Descripción</th>
-                                                <th class="text-center">
-                                                    <a data-toggle="modal" data-target="#generalModal" onclick="">
-                                                        <b class="text-success" data-toggle="tooltip" data-placement="top" title="">
-                                                            <i class="fas fa-plus-circle"></i>
-                                                        </b>
-                                                    </a>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                    <td class="text-center"></td>
-                                                    <td class="text-center"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                            @include('sigac::programming.parameters.learning_outcomes.table')
                         </div>
                     </div>
                 </div> {{-- Fin  --}}

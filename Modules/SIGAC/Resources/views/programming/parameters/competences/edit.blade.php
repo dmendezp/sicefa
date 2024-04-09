@@ -33,7 +33,7 @@
                 
                 <!-- Otros campos del formulario según tus necesidades -->
                 <br>
-                {!! Form::submit('Guardar', ['class' => 'btn btn-success','id' => 'standcolor']) !!}
+                {!! Form::submit('Actualizar', ['class' => 'btn btn-primary','id' => 'standcolor']) !!}
                 {!! Form::close() !!}
             </div>
         </div>
