@@ -10,7 +10,11 @@ class LearningOutcome extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'competencie_id',
+        'name',
+        'hour'
+    ];
     
     protected static function newFactory()
     {

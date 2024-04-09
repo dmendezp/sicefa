@@ -39,6 +39,12 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
             Route::post('coordination/competences/update/{id}', 'competence_update')->name('sigac.academic_coordination.competences.update'); // Actualizar competencia (Coordinación Académica)
             Route::delete('coordination/competences/destroy/{id}', 'competence_destroy')->name('sigac.academic_coordination.competences.destroy'); // Eliminar competencia (Coordinación Académica)
 
+            //Parametro - Resultados de aprendizaje
+            Route::post('coordination/learning_outcomes/store', 'learning_outcome_store')->name('sigac.academic_coordination.learning_outcome.store'); // Registrar Resultado de aprendizaje (Coordinación Académica)
+            Route::post('coordination/learning_outcomes/update/{id}', 'learning_outcome_update')->name('sigac.academic_coordination.learning_outcome.update'); // Actualizar Resultado de aprendizaje (Coordinación Académica)
+            Route::delete('coordination/learning_outcomes/destroy/{id}', 'learning_outcome_destroy')->name('sigac.academic_coordination.learning_outcome.destroy'); // Eliminar Resultado de aprendizaje (Coordinación Académica)
+
+
             // Parametro - Actividades Externas
             Route::post('wellbeing/programming/parameters/external_activities/store', 'external_activity_store')->name('sigac.wellbeing.programming.parameters.external_activities.store'); // Registrar actividad externa (Bienestar)
             Route::post('wellbeing/programming/parameters/external_activities/update', 'external_activity_update')->name('sigac.wellbeing.programming.parameters.external_activities.update'); // Actualizar actividad externa (Bienestar)
