@@ -277,17 +277,14 @@ class ProgrammeController extends Controller
 
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput()->with(['message' => 'Ocurrió un error con el formulario.', 'typealert' => 'danger']);
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=> trans('sigac::profession.An_Error_Occurred_With_Form'), 'typealert'=>'danger']);
         }
         // Realizar registro
-        if (Profession::create($request->all())) {
-            $icon = 'success';
-            $message_profession = 'Se agrego la profesion correctamente.';
+        if (Profession::create($request->all())){
+            return redirect(route('sigac.academic_coordination.programming.parameters.index'))->with(['success'=> trans('sigac::profession.The_Profession_Was_Added_Correctly')]);
         } else {
-            $icon = 'error';
-            $message_profession = 'Error al añadir la profesión.';
+            return redirect(route('sigac.academic_coordination.programming.parameters.index'))->with(['error'=> trans('sigac::profession.Error_When_Adding_Profession')]);
         }
-        return redirect(route('sigac.academic_coordination.programming.parameters.index'))->with(['icon' => $icon, 'message_profession' => $message_profession]);
     }
 
     // Actualizar profesion
@@ -296,28 +293,20 @@ class ProgrammeController extends Controller
         $p = Profession::find($request->input('id'));
         $p->name = e($request->input('name'));
         $p->level = e($request->input('level'));
-        if ($p->save()) {
-            $icon = 'success';
-            $message_profession = 'Profesión editada con exito';
-        } else {
-            $icon = 'error';
-            $message_profession = 'Error al editar la profesión';
+        if($p->save()){
+            return redirect(route('sigac.academic_coordination.programming.parameters.index'))->with(['success'=> trans('sigac::profession.Profession_Edited_Successfully')]);
+        }else{
+            return redirect(route('sigac.academic_coordination.programming.parameters.index'))->with(['error'=> trans('sigac::profession.Error_Editing_Profession')]);
         }
-        return redirect()->back()->with(['icon' => $icon, 'message_profession' => $message_profession]);
     }
 
-    // Eliminar profesion
-    public function profession_destroy(Request $request)
-    {
-        $p = Profession::find($request->input('id'));
-        if ($p->delete()) {
-            $icon = 'success';
-            $message_profession = 'Profesión eliminada con exito';
-        } else {
-            $icon = 'error';
-            $message_profession = 'Error al eliminar la profesión';
+    public function profession_destroy($id){
+        $p = Profession::find($id);
+        if($p->delete()){
+            return redirect(route('sigac.academic_coordination.programming.parameters.index'))->with(['success'=> trans('sigac::profession.Profession_Successfully_Eliminated')]);
+        }else{
+            return redirect(route('sigac.academic_coordination.programming.parameters.index'))->with(['error'=> trans('sigac::profession.Error_Deleting_Profession')]);
         }
-        return redirect()->back()->with(['icon' => $icon, 'message_profession' => $message_profession]);
     }
 
     // Registrar actividad externa
