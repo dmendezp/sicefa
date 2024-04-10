@@ -3,8 +3,8 @@
         <table id="profession" class="display table table-bordered table-striped table-sm">
             <thead>
                 <tr>
-                    <th class="text-center">Nombre</th>
-                    <th>Nivel</th>
+                    <th class="text-center">{{trans('sigac::profession.Name')}}</th>
+                    <th>{{trans('sigac::profession.Level')}}</th>
                     <th class="text-center">
                         <a data-bs-toggle="modal" data-bs-target="#addProfession">
                             <b class="text-success" data-toggle="tooltip" data-placement="top" title="">
@@ -22,20 +22,25 @@
                         <td class="text-center">
                             <div class="opts">
                                 <a  data-bs-toggle="modal" data-bs-target="#editProfession{{$p->id}}">
-                                    <b class="text-primary" data-toggle="tooltip" data-placement="top" title="Actualizar Profesión">
+                                    <b class="text-primary" data-toggle="tooltip" data-placement="top" title={{trans('sigac::profession.Update')}}>
                                         <i class="fas fa-edit"></i>
                                     </b>
                                 </a>
-                                @include('sigac::programming.parameters.professions.edit')
-
-                                <a data-bs-toggle="modal" data-bs-target="#deleteProfession{{$p->id}}">
-                                    <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar Profesión">
+                                
+                                <a class="delete-profession" data-profession-id="{{ $p->id }}">
+                                    <b class="text-danger" data-toggle="tooltip" data-placement="top" title={{trans('sigac::profession.Eliminate')}}>
                                         <i class="fas fa-trash-alt"></i>
                                     </b>
                                 </a>
-                                @include('sigac::programming.parameters.professions.delete')
                             </div>
                         </td>
+                        @include('sigac::programming.parameters.professions.edit')
+                        <form id="delete-profession-form-{{ $p->id }}"
+                            action="{{ route('sigac.academic_coordination.profession.destroy', ['id' => $p->id]) }}"
+                            method="POST">
+                            @csrf
+                            @method('DELETE')
+                        </form>
                     </tr>
                 @endforeach
             </tbody>
@@ -44,3 +49,27 @@
 </div>
 
 @include('sigac::programming.parameters.professions.create')
+
+<script>
+    $(document).ready(function() {
+            $('.delete-profession').on('click', function(event) {
+            var profession_id = $(this).data('profession-id');
+
+            // Mostrar SweetAlert para confirmar la eliminación
+            Swal.fire({
+                title: '{{trans('sigac::profession.You_Sure')}}',
+                text: '{{trans('sigac::profession.This_Action_Can_Undone')}}',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: '{{trans('sigac::profession.Yes_Delete')}}'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Si el usuario confirma, enviar el formulario de eliminación
+                    document.getElementById('delete-profession-form-' + profession_id).submit();
+                }
+            });
+        });
+    });
+</script>

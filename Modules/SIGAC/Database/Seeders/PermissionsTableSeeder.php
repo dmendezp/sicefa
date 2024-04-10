@@ -199,7 +199,6 @@ class PermissionsTableSeeder extends Seeder
         // Asignación de PERMISOS para los ROLES de la aplicación SIGAC (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_academic_coordination->permissions()->syncWithoutDetaching($permissions_academic_coordination);
         $rol_instructor->permissions()->syncWithoutDetaching($permissions_instructor);
-        $rol_wellness->permissions()->syncWithoutDetaching($permissions_wellness);
         $rol_apprentice->permissions()->syncWithoutDetaching($permissions_apprentice);
     }
 }

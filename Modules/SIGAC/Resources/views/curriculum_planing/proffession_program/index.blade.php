@@ -5,28 +5,28 @@
             <div class="d-flex justify-content-center">
                 <div class="card card-blue card-outline shadow col-md-12">
                     <div class="card-header">
-                        <h3 class="card-title"></h3>
+                        <h3 class="card-title">Profesion x Programas</h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 pr-3 pb-3">
-                                @isset($persProf)
-                                    <form action="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_update', $persProf->first()->id) }}" method="post">
+                                @isset($profProg)
+                                    <form action="{{ route('sigac.academic_coordination.curriculum_planing.assign_learning_outcomes.profession_program_update', $profProg->first()->id) }}" method="post">
                                 @else
-                                    <form action="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_store') }}" method="post">
+                                    <form action="{{ route('sigac.academic_coordination.curriculum_planing.assign_learning_outcomes.profession_program_store') }}" method="post">
                                 @endisset
                                     @csrf
                                     <div class="form-group">
-                                        {!! Form::label('instructor',  trans('sigac::profession.Instructor')) !!}
-                                        {!! Form::select('instructor', $instructors, isset($persProf) ? $persProf->first()->person_id : old('instructor'), ['class' => 'form-control instructor'],) !!}                                    
+                                        {!! Form::label('profession',  trans('sigac::profession.Professions')) !!}
+                                        {!! Form::select('profession', $professions, isset($profProg) ? $profProg->first()->profession_id : old('profession'), ['class' => 'form-control profession'],) !!}                                    
                                     </div>
                                     <div class="form-group">
-                                        {!! Form::label('profession',  trans('sigac::profession.Profession')) !!}
-                                        {!! Form::select('profession', $professions,  isset($persProf) ? $persProf->first()->profession_id : old('profession'), ['class' => 'form-control learningOutCome'],) !!}                                         
+                                        {!! Form::label('program',  trans('sigac::profession.Programs')) !!}
+                                        {!! Form::select('program', $programs,  isset($profProg) ? $profProg->first()->program_id : old('program'), ['class' => 'form-control program'],) !!}                                         
                                     </div>
                                     <div class="text-center">
-                                        @isset ($persProf)
-                                            <a href="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_index') }}" class="btn btn-secondary">{{ trans('sigac::profession.Cancel')}}</a>
+                                        @isset ($profProg)
+                                            <a href="{{ route('sigac.academic_coordination.curriculum_planing.assign_learning_outcomes.profession_program_index') }}" class="btn btn-secondary">{{ trans('sigac::profession.Cancel')}}</a>
                                             <button type="submit" class="btn btn-success">{{ trans('sigac::profession.Update')}}</button>
                                         @else
                                             <button type="reset" class="btn btn-secondary">{{ trans('sigac::profession.Cancel')}}</button>
@@ -37,36 +37,36 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="table-responsive">
-                                    <table id="personProfession" class="display table table-bordered table-striped table-sm">
+                                    <table id="professionxprogram" class="display table table-bordered table-striped table-sm">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">{{ trans('sigac::profession.Instructor')}}</th>
-                                                <th class="text-center">{{trans ('sigac::profession.Profession')}}</th>
+                                                <th class="text-center">{{ trans('sigac::profession.Program')}}</th>
+                                                <th class="text-center">{{ trans('sigac::profession.Profession')}}</th>
                                                 <th class="text-center">{{ trans('sigac::profession.Actions')}}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($person_profession as $p)
+                                            @foreach ($professionPrograms as $p)
                                             @php
-                                                $person = DB::table('people')->where('id', $p->person_id)->first();
                                                 $profession = DB::table('professions')->where('id', $p->profession_id)->first();
+                                                $program = DB::table('programs')->where('id', $p->program_id)->first();
                                             @endphp
                                             <tr>
-                                                <td class="text-center">{{ $person->first_name . ' ' . $person->first_last_name . ' ' . $person->second_last_name }}</td>
+                                                <td class="text-center">{{ $program->name }}</td>
                                                 <td class="text-center">{{ $profession->name }}</td>
                                                 <td class="text-center">
-                                                    <a href="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_edit', $p->id) }}" class="mr-1" data-toggle='tooltip' data-placement="top" title="{{ trans('sigac::profession.Edit')}}">
+                                                    <a href="{{ route('sigac.academic_coordination.curriculum_planing.assign_learning_outcomes.profession_program_edit', $p->id) }}" class="mr-1" data-toggle='tooltip' data-placement="top" title="{{ trans('sigac::profession.Edit')}}">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-
-                                                    <a class="delete-person_profession" data-person_profession-id="{{ $p->id }}">
+                                                    <a class="delete-profession_program" data-professionprogram-id="{{ $p->id }}">
                                                         <b class="text-danger" data-toggle="tooltip" data-placement="top" title="{{ trans('sigac::profession.Eliminate')}}">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </b>
                                                     </a>
+
                                                 </td>
-                                                <form id="delete-person_profession-form-{{ $p->id }}"
-                                                    action="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_destroy', ['id' => $p->id]) }}"
+                                                <form id="delete-professionprogram-form-{{ $p->id }}"
+                                                    action="{{ route('sigac.academic_coordination.curriculum_planing.assign_learning_outcomes.profession_program_destroy', ['id' => $p->id]) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -89,7 +89,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#personProfession').DataTable({
+        $('#professionxprogram').DataTable({
             columnDefs: [
                 { orderable: false, targets: 2 }
             ]
@@ -99,10 +99,10 @@
 
 <script>
     $(document).ready(function() {
-        $('.instructor').select2();
-        $('.learningOutCome').select2();
-        $('.delete-person_profession').on('click', function(event) {
-            var profession_program_id = $(this).data('person_profession-id');
+        $('.profession').select2();
+        $('.program').select2();
+        $('.delete-profession_program').on('click', function(event) {
+            var profession_program_id = $(this).data('professionprogram-id');
 
             // Mostrar SweetAlert para confirmar la eliminación
             Swal.fire({
@@ -116,7 +116,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Si el usuario confirma, enviar el formulario de eliminación
-                    document.getElementById('delete-person_profession-form-' + profession_program_id).submit();
+                    document.getElementById('delete-professionprogram-form-' + profession_program_id).submit();
                 }
             });
         });

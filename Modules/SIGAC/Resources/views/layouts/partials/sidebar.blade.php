@@ -223,6 +223,18 @@
                                         <p>Resultados por clase de ambiente</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{route('sigac.academic_coordination.curriculum_planing.assign_learning_outcomes.learning_out_people_index')}}" class="nav-link">
+                                        <i class="nav-icon fas fa-user-plus"></i>
+                                        <p>{{trans('sigac::learning_out_come.AssignLearning')}}</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.academic_coordination.curriculum_planing.assign_learning_outcomes.profession_program_index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-tags"></i>
+                                        <p>Programas x Profesión</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -235,7 +247,7 @@
                             </a>
                             <ul class="nav nav-treeview items" style="display: none;">
                                 <li class="nav-item">
-                                    <a href="{{ route('sigac.academic_coordination.human_talent.management_instructor.index') }}" class="nav-link">
+                                    <a href="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-th-large"></i>
                                         <p>Gestion Instructores</p>
                                     </a>

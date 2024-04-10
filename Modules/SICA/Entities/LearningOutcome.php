@@ -10,7 +10,19 @@ class LearningOutcome extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'competencie_id',
+        'name',
+        'hour'
+    ];
+
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
+
+    protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
+        'created_at',
+        'updated_at'
+    ];
+
     
     protected static function newFactory()
     {
@@ -19,8 +31,8 @@ class LearningOutcome extends Model
 
     
 
-    public function competence(){ //Accede a la competencia a la que pertenece.
-        return $this->belongsTo(Competence::class);
+    public function competencie(){ //Accede a la competencia a la que pertenece.
+        return $this->belongsTo(Competencie::class);
     }
 
     public function quarterlies(){ //Accede a todos los registros de trimestralizacion que pertenecen a este resultado.
