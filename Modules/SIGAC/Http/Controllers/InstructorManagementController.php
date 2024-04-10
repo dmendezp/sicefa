@@ -9,7 +9,6 @@ use Illuminate\Routing\Controller;
 use Modules\SIGAC\Entities\Profession;
 use Modules\SICA\Entities\Program;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 
 class InstructorManagementController extends Controller{
     public function profession_instructor_index(){

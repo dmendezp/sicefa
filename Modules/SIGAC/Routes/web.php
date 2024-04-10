@@ -53,7 +53,7 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
             // Parametro - Profesiones
             Route::post('coordination/profession/store', 'profession_store')->name('sigac.academic_coordination.profession.store'); // Registrar profesion (Coordinación Académica)
             Route::post('coordination/profession/update/{id}', 'profession_update')->name('sigac.academic_coordination.profession.update'); // Actualizar profesion (Coordinación Académica)
-            Route::post('coordination/profession/destroy/{id}', 'profession_destroy')->name('sigac.academic_coordination.profession.destroy'); // Eliminar profesion (Coordinación Académica)
+            Route::delete('coordination/profession/destroy/{id}', 'profession_destroy')->name('sigac.academic_coordination.profession.destroy'); // Eliminar profesion (Coordinación Académica)
             Route::post('coordination/programming/parameters/competences/store', 'store')->name('sigac.academic_coordination.programming.parameters.competences.store'); // Parametros de programacion (Coordinación Académica)
 
 
