@@ -19,10 +19,6 @@
             {!! Form::model($quarterlie, ['route' => ['sigac.academic_coordination.curriculum_planning.quarterlie.update', $quarterlie->id], 'method' => 'POST']) !!}
                 @csrf
                 <div class="form-group">
-                    {!! Form::label('quarter_number', trans('Número de trimestres')) !!}
-                    {!! Form::number('quarter_number', null, ['class' => 'form-control', 'required']) !!}
-                </div>
-                <div class="form-group">
                     <label for="training_project_id">{{ trans('Proyecto Formativo') }}</label>
                     {!! Form::select(
                         'training_project_id',

@@ -18,10 +18,6 @@
                     {!! Form::number('execution_time', $t->execution_time, ['class' => 'form-control','placeholder' => 'Ingrese el número de meses de ejecucion', 'required']) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label('total_result', 'Número total resultados de aprendizaje') !!}
-                    {!! Form::number('total_result', $t->total_result, ['class' => 'form-control','placeholder' => 'Ingrese el total de resultados de aprendizaje', 'required']) !!}
-                </div>
-                <div class="form-group">
                     {!! Form::label('objective', trans('Objetivo')) !!}
                     {!! Form::textarea('objective', $t->objective, [
                         'class' => 'form-control',

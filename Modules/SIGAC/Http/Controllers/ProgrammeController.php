@@ -239,8 +239,8 @@ class ProgrammeController extends Controller
             ];
         })->prepend(['id' => null, 'name' => 'Seleccione un programa'])->pluck('name', 'id');
 
-        $Comp = Competencie::all();
-        $competencies = $Comp->map(function ($c) {
+        $Comps = Competencie::all();
+        $competencies = $Comps->map(function ($c) {
             $id = $c->id;
             $name = $c->name;
             return [
@@ -249,11 +249,21 @@ class ProgrammeController extends Controller
             ];
         })->prepend(['id' => null, 'name' => 'Seleccione una competencia'])->pluck('name', 'id');
 
+        $Comps = Competencie::with('program')->get()->groupBy('program.name');
+
+        $learning_outcomes = LearningOutcome::with('competencie')->get()->groupBy('competencie.name');
 
         $external_activities = ExternalActivity::get();
         $titlePage = 'Parametros';
         $titleView = 'Parametros';
-        return view('sigac::programming.parameters.index')->with(['titlePage' => $titlePage, 'titleView' => $titleView, 'external_activities' => $external_activities, 'professions' => Profession::all(), 'competences' => Competencie::all(), 'learning_outcomes' => LearningOutcome::all(), 'programs' => $programs, 'competencies' => $competencies]);
+        return view('sigac::programming.parameters.index')->with(['titlePage' => $titlePage,
+        'titleView' => $titleView, 
+        'external_activities' => $external_activities, 
+        'professions' => Profession::all(), 
+        'competences' => $Comps, 
+        'learning_outcomes' => $learning_outcomes, 
+        'programs' => $programs, 
+        'competencies' => $competencies]);
     }
 
     // Registrar profesion

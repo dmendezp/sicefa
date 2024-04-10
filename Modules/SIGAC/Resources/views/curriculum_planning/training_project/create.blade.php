@@ -1,4 +1,4 @@
-{{-- Modal Actividad --}}
+{{-- Modal Crear Proyecto Formativo --}}
 <div class="modal fade" id="crearproyecto" tabindex="-1" aria-labelledby="crearproyecto" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -16,10 +16,6 @@
                 <div class="form-group">
                     {!! Form::label('execution_time', 'Tiempo de ejecucion') !!}
                     {!! Form::number('execution_time', null, ['class' => 'form-control','placeholder' => 'Ingrese el número de meses de ejecucion', 'required']) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::label('total_result', 'Número total resultados de aprendizaje') !!}
-                    {!! Form::number('total_result', null, ['class' => 'form-control','placeholder' => 'Ingrese el total de resultados de aprendizaje', 'required']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('objective', trans('Objetivo')) !!}

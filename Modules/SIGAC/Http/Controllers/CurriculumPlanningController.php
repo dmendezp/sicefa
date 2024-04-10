@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\LearningOutcome;
 use Modules\SICA\Entities\Competence;
+use Modules\SICA\Entities\Course;
 use Modules\SIGAC\Entities\TrainingProject;
 use Modules\SIGAC\Entities\Quarterly;
 
@@ -22,29 +23,40 @@ class CurriculumPlanningController extends Controller
     public function training_project_index()
     {
         $learning_outcomes = LearningOutcome::pluck('name','id');
-        $training_projects = TrainingProject::get();
-        return view('sigac::curriculum_planning.training_project.index')->with(['titlePage'=>trans('Proyecto Formativo'), 'titleView'=>trans('Proyecto Formativo'), 'learning_outcomes' => $learning_outcomes, 'training_projects' => $training_projects]);
+        $coursesWithTrainingProjects =  Course::has('training_projects')->get();
+        return view('sigac::curriculum_planning.training_project.index')->with(['titlePage'=>trans('Proyecto Formativo'), 
+        'titleView'=>trans('Proyecto Formativo'), 
+        'learning_outcomes' => $learning_outcomes, 
+        'coursesWithTrainingProjects' => $coursesWithTrainingProjects]);
     }
 
-    public function training_project_quarterlie_index($id)
+    public function training_project_quarterlie_index($training_project_id ,$course_id )
     {
         $learning_outcomes_select = LearningOutcome::pluck('name','id');
-        $quarterlies = Quarterly::with('training_project.courses.program', 'learning_outcome.competencie')
-                        ->where('training_project_id', $id)
-                        ->get()
-                        ->groupBy(function ($quarterly) {
-                            return $quarterly->training_project->pluck('name')->implode('_');
-                        })
-                        ->map(function ($courseQuarterlies) {
-                            return $courseQuarterlies->groupBy(function ($quarterly) {
-                                return $quarterly->learning_outcome->competencie->name;
-                            });
-                        });
+        $quarterlies = Quarterly::with('training_project.courses.program', 'learning_outcome.competencie','learning_outcome.people.professions')
+        ->where('training_project_id', $training_project_id)
+        ->whereHas('training_project.courses', function ($query) use ($course_id) {
+            $query->where('courses.id', $course_id);
+        })
+        ->get()
+        ->groupBy(function ($quarterly) {
+            return $quarterly->learning_outcome->competencie->name;
+        });
+        
+        
+        $trainingProject = TrainingProject::findOrFail($training_project_id);
+        $trainingProjectName = $trainingProject->name;
+        $trainingProjectId = $trainingProject->id;
 
+        $course = Course::findOrFail($course_id);
+        $courseNumber = $course->program->quarter_number; 
         return view('sigac::curriculum_planning.quarterlie.index')->with([
             'titlePage' => trans('Trimestralización'),
             'titleView' => trans('Trimestralización'),
             'quarterlies' => $quarterlies,
+            'trainingProjectName' => $trainingProjectName,
+            'courseNumber' => $courseNumber,
+            'trainingProjectId' => $trainingProjectId,
             'learning_outcomes_select' => $learning_outcomes_select
         ]);
     }
@@ -54,7 +66,6 @@ class CurriculumPlanningController extends Controller
         $rules = [
             'name' => 'required|string',
             'execution_time' => 'required|numeric',
-            'total_result' => 'required|numeric',
             'objective' => 'required|string',
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -65,7 +76,6 @@ class CurriculumPlanningController extends Controller
         $training_project =  new TrainingProject;
         $training_project->name = $request->name;
         $training_project->execution_time = $request->execution_time;
-        $training_project->total_result = $request->total_result;
         $training_project->objective = $request->objective;
         $training_project->save();
 
@@ -124,11 +134,17 @@ class CurriculumPlanningController extends Controller
     }
 
 
-    public function quarterlie_create()
+    public function quarterlie_create($quarter_number ,$training_project_id)
     {
         $training_projects = TrainingProject::pluck('name','id');
         $learning_outcomes_select = LearningOutcome::pluck('name','id');
-        return view('sigac::curriculum_planning.quarterlie.create')->with(['titlePage'=>trans('Trimestralización - Registro'), 'titleView'=>trans('Trimestralización - Registro'), 'learning_outcomes_select' => $learning_outcomes_select, 'training_projects' => $training_projects ]);
+        return view('sigac::curriculum_planning.quarterlie.create')->with(['titlePage'=>trans('Trimestralización - Registro'), 
+        'titleView'=>trans('Trimestralización - Registro'), 
+        'learning_outcomes_select' => $learning_outcomes_select, 
+        'training_projects' => $training_projects,
+        'quarter_number' => $quarter_number,
+        'training_project_id' => $training_project_id,
+    ]);
     }
 
     public function quarterlie_filterlearnin_outcome(Request $request)
@@ -168,7 +184,7 @@ class CurriculumPlanningController extends Controller
             $quarterly->save();
         }
 
-        return redirect(route('sigac.academic_coordination.curriculum_planning.quarterlie.index'))->with('success', "Trimestralización registrada exitosamente");
+        return redirect(route('sigac.academic_coordination.curriculum_planning.training_project.index'))->with('success', "Trimestralización registrada exitosamente");
     }
 
     public function quarterlie_edit($id)
@@ -238,6 +254,18 @@ class CurriculumPlanningController extends Controller
         }
 
         return redirect(route('sigac.academic_coordination.curriculum_planning.quarterlie.index'))->with('success', "Trimestralización actualizada exitosamente");
+    }
+
+    // Eliminar trimestralización
+    public function quarterlie_destroy($id)
+    {
+        
+        $e = Quarterly::findOrFail($id);
+
+        // Realizar la eliminación
+        $e->delete();
+
+        return redirect()->back()->with('success', 'Trimestralización eliminada exitosamente');
     }
 
     /**

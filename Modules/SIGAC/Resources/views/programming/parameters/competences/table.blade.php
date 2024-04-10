@@ -1,14 +1,15 @@
     <div>
         <div class="table-responsive">
-            <table id="competences" class="display table table-bordered table-striped table-sm">
+            <table id="competences" class="display table  table-striped ">
                 <thead>
                     <tr>
                         <th class="text-center">Programa</th>
+                        <th class="text-center">#</th>
                         <th class="text-center">Nombre</th>
                         <th class="text-center">Horas</th>
                         <th class="text-center">Tipo</th>
                         <th class="text-center">Código</th>
-                        <th class="text-center">
+                        <th class="text-center ">
                             <a data-toggle="modal" data-target="#addCompetence" onclick="">
                                 <b class="text-success" data-toggle="tooltip" data-placement="top" title="">
                                     <i class="fas fa-plus-circle"></i>
@@ -18,38 +19,42 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($competences as $c)
+                    @foreach($competences as $programName => $competencies)
                     <tr>
-                        <td class="text-center">{{ $c->program->name }}</td>
-                        <td class="text-center">{{ $c->name }}</td>
-                        <td class="text-center">{{ $c->hour }}</td>
-                        <td class="text-center">{{ $c->type }}</td>
-                        <td class="text-center">{{ $c->code }}</td>
-                        <td class="text-center">
-                            <div class="opts">
-                                <a  data-bs-toggle="modal" data-bs-target="#editCompetence{{$c->id}}">
-                                    <b class="text-primary" data-toggle="tooltip" data-placement="top" title="Actualizar Competencia">
-                                        <i class="fas fa-edit"></i>
-                                    </b>
-                                </a>
-
-                                <a class="delete-competence" data-competence-id="{{ $c->id }}">
-                                    <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </b>
-                                </a>
-                            </div>
-                        </td>
-                        @include('sigac::programming.parameters.competences.edit')
-                        <form id="delete-competence-form-{{ $c->id }}"
-                            action="{{ route('sigac.academic_coordination.competences.destroy', ['id' => $c->id]) }}"
-                            method="POST">
-                            @csrf
-                            @method('DELETE')
-                        </form>
+                        <td rowspan="{{ count($competencies) + 1 }}">{{ $programName }}</td> <!-- Mostrar el nombre del programa en la primera fila y fusionar las siguientes filas -->
                     </tr>
-                    @endforeach
+                    @foreach($competencies as $c)
+                        <tr>
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td class="text-center">{{ $c->name }}</td>
+                            <td class="text-center">{{ $c->hour }}</td>
+                            <td class="text-center">{{ $c->type }}</td>
+                            <td class="text-center">{{ $c->code }}</td>
+                            <td class="text-center col-1">
+                                <div class="opts">
+                                    <a  data-bs-toggle="modal" data-bs-target="#editCompetence{{$c->id}}">
+                                        <b class="text-primary" data-toggle="tooltip" data-placement="top" title="Actualizar Competencia">
+                                            <i class="fas fa-edit"></i>
+                                        </b>
+                                    </a>
 
+                                    <a class="delete-competence" data-competence-id="{{ $c->id }}">
+                                        <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </b>
+                                    </a>
+                                </div>
+                            </td>
+                            @include('sigac::programming.parameters.competences.edit')
+                            <form id="delete-competence-form-{{ $c->id }}"
+                                action="{{ route('sigac.academic_coordination.competences.destroy', ['id' => $c->id]) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                        </tr>
+                    @endforeach
+                @endforeach
                 </tbody>
             </table>
         </div>

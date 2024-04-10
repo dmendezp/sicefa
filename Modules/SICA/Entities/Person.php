@@ -126,7 +126,7 @@ class Person extends Model implements Auditable
         return $this->hasMany(CashCount::class);
     }
     public function learning_outcomes(){ //Accede a todas los resultados de aprendizaje que pertenecen a este perfil (PIVOTE)
-        return $this->belongsToMany(LearningOutcome::class);
+        return $this->belongsToMany(LearningOutcome::class, 'learning_outcome_people');
     }
     public function contractors(){ // Accede a todos los registros de contratistas que le pertenecen a esta persona
         return $this->hasMany(Contractor::class);
@@ -183,7 +183,7 @@ class Person extends Model implements Auditable
         return $this->hasMany(ProductiveUnit::class);
     }
     public function professions(){ //Accede a todas las profesiones que tiene esta persona.
-        return $this->belongsToMany(Profession::class);
+        return $this->belongsToMany(Profession::class, 'person_professions');
     }
     public function request_externals(){ // Accede a todas las solicitudes externas que le pertenecen esta persona
         return $this->hasMany(RequestExternal::class);

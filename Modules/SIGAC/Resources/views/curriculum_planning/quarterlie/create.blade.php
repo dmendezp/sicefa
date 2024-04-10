@@ -13,19 +13,8 @@
         <div class="card-body">
             {!! Form::open(['route' => 'sigac.academic_coordination.curriculum_planning.quarterlie.store', 'method' => 'POST']) !!}
                 @csrf
-                <div class="form-group">
-                    {!! Form::label('quarter_number', trans('Número de trimestres')) !!}
-                    {!! Form::number('quarter_number', null, ['class' => 'form-control', 'required']) !!}
-                </div>
-                <div class="form-group">
-                    <label for="training_project_id">{{ trans('Proyecto Formativo') }}</label>
-                    {!! Form::select(
-                        'training_project_id',
-                        $training_projects,
-                        [],
-                        ['class' => 'form-control', 'placeholder' => 'Seleccione el proyecto formativo', 'id' =>'training_project' ,'required']
-                    ) !!}
-                </div>
+                {!! Form::hidden('quarter_number', $quarter_number) !!}
+                {!! Form::hidden('training_project_id', $training_project_id) !!}
                 <label for="learning_outcome_id">{{ trans('Resultados de Aprendizaje') }}</label>
                 <!-- Resultado de Aprendizaje -->
                 <div id="learning_outcomes_container">

@@ -1,56 +1,60 @@
+
 <div>
     <div class="table-responsive">
         <table id="quarterlies" class="table">
             <thead>
                 <tr>
-                    <th class="text-center">Proyecto Formativo</th>
                     <th class="text-center">Competencia</th>
-                    <th class="text-center">Número de trimestres</th>
                     <th class="text-center">Resultado de Aprendizaje</th>
-                    <th class="text-center">
-                        <a href="{{ route('sigac.academic_coordination.curriculum_planning.quarterlie.create') }}">
-                            <b class="text-success" data-toggle="tooltip" data-placement="top" title="">
-                                <i class="fas fa-plus-circle"></i>
-                            </b>
-                        </a>
-                    </th>
+                    <th class="text-center">Horas</th>
+                    <th class="text-center">Instructor</th>
+                    <th class="text-center">Agregar</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($quarterlies as $training_project => $competencies)
-                    @foreach($competencies as $competency => $trimestres)
-                        @foreach($trimestres as $trimestre)
+                @for($trimestreNumber = 1; $trimestreNumber <= $courseNumber; $trimestreNumber++)
+                    <tr>
+                        <td colspan="4" class="text-center">Trimestre {{ $trimestreNumber }}</td>
+                        <td colspan="1" class="text-center"><a href="{{ route('sigac.academic_coordination.curriculum_planning.quarterlie.create', ['quarter_number' => $trimestreNumber , 'training_project_id' => $trainingProjectId]) }}">
+                            <b class="text-success" data-toggle="tooltip" data-placement="top" title="">
+                                <i class="fas fa-plus-circle"></i>
+                            </b>
+                        </a></td>
+                    </tr>
+                    @foreach($quarterlies as $competency => $trimestres)
+                        @foreach($trimestres->where('quarter_number', $trimestreNumber) as $trimestre)
                             <tr>
                                 @if($loop->first)
-                                    <td rowspan="{{ count($trimestres) }}" class="text-center">{{ $training_project }}</td>
                                     <td rowspan="{{ count($trimestres) }}" class="text-center">{{ $competency }}</td>
                                 @endif
-                                <td class="text-center">{{ $trimestre->quarter_number }}</td>
-                                <td class="text-center">{{ $trimestre->learning_outcome->name }}</td>
+                                <td class="">{{ $trimestre->learning_outcome->name }}</td>
+                                <td class="">{{ $trimestre->learning_outcome->hour }}</td>
+                                @if (count($trimestre->learning_outcome->people) > 0)
+                                    @foreach($trimestre->learning_outcome->people as $person)
+                                        <td class="">{{ $person->first_name }}</td>
+                                    @endforeach
+                                @else
+                                    <td></td>
+                                @endif
+                                
                                 <td class="text-center">
                                     <div class="opts">
-                                        <a  href="{{ route('sigac.academic_coordination.curriculum_planning.quarterlie.edit', ['id' => $trimestre->id]) }}">
-                                            <b class="text-primary" data-toggle="tooltip" data-placement="top" title="Actualizar Competencia">
-                                                <i class="fas fa-edit"></i>
-                                            </b>
-                                        </a>
-                                        <a class="delete-competence" data-competence-id="{{ $trimestre->id }}">
+                                        <a class="delete-quarterlie" data-quarterlie-id="{{ $trimestre->id }}">
                                             <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                                 <i class="fas fa-trash-alt"></i>
                                             </b>
                                         </a>
                                     </div>
                                 </td>
-                                <form id="delete-competence-form-{{ $trimestre->id }}"
-                                    action="{{ route('sigac.academic_coordination.competences.destroy', ['id' => $trimestre->id]) }}"
-                                    method="POST">
+                                <form id="delete-quarterlie-form-{{ $trimestre->id }}"
+                                      action="{{ route('sigac.academic_coordination.curriculum_planning.quarterlie.destroy', ['id' => $trimestre->id]) }}"
+                                      method="POST">
                                     @csrf
-                                    @method('DELETE')
                                 </form>
                             </tr>
                         @endforeach
                     @endforeach
-                @endforeach
+                @endfor
             </tbody>
         </table>
     </div>
@@ -58,8 +62,8 @@
 
 <script>
     $(document).ready(function() {
-        $('.delete-competence').on('click', function(event) {
-            var competence_id = $(this).data('competence-id');
+        $('.delete-quarterlie').on('click', function(event) {
+            var competence_id = $(this).data('quarterlie-id');
             console.log(competence_id); // Your value from
             // Mostrar SweetAlert para confirmar la eliminación
             Swal.fire({
@@ -74,7 +78,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Si el usuario confirma, enviar el formulario de eliminación
-                    document.getElementById('delete-competence-form-' + competence_id).submit();
+                    document.getElementById('delete-quarterlie-form-' + competence_id).submit();
                 }
             });
         });
