@@ -64,7 +64,7 @@ class Course extends Model implements Auditable
     }
 
     public function training_projects(){ //Accede a todos los proyectos formativos que pertenecen a este curso.
-        return $this->belongsToMany(TrainingProject::class);
+        return $this->belongsToMany(TrainingProject::class, 'course_training_projects');
     }
 
     public function instructor_programs(){ // Accede a todas las programaciones de este curso

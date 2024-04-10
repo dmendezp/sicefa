@@ -3,7 +3,7 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row justify-content-center">
-                <div class="col-md-6"> {{-- Inicio competencia --}}
+                <div class="col-md-12"> {{-- Inicio competencia --}}
                     <div class="card card-blue card-outline shadow">
                         <div class="card-header">
                             <h3 class="card-title">Competencia</h3>
@@ -14,40 +14,13 @@
                 </div>
                 </div> {{-- Fin competencia --}}
 
-                <div class="col-md-6"> 
+                <div class="col-md-12"> 
                     <div class="card card-blue card-outline shadow">
                         <div class="card-header">
                             <h3 class="card-title">Resultados</h3>
                         </div>
                         <div class="card-body">
-                            <div>
-                                <div class="table-responsive">
-                                    <table id="learning_customes" class="display table table-bordered table-striped table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th class="text-center">Nombre</th>
-                                                <th>Descripción</th>
-                                                <th class="text-center">
-                                                    <a data-toggle="modal" data-target="#generalModal" onclick="">
-                                                        <b class="text-success" data-toggle="tooltip" data-placement="top" title="">
-                                                            <i class="fas fa-plus-circle"></i>
-                                                        </b>
-                                                    </a>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                    <td class="text-center"></td>
-                                                    <td class="text-center"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                            @include('sigac::programming.parameters.learning_outcomes.table')
                         </div>
                     </div>
                 </div> {{-- Fin  --}}

@@ -18,10 +18,10 @@ class TrainingProject extends Model
     }
 
     public function courses(){ //Accede a todos los cursos que pertenecen a este projecto formativo.
-        return $this->belongsToMany(Course::class);
+        return $this->belongsToMany(Course::class, 'course_training_projects');
     }
 
-    public function quarterlies(){ //Accede a todas las trimestralizaciones del proyecto formativo.
+    public function quarterlies(){ //Accede a todas las trimestralizaciones     del proyecto formativo.
         return $this->hasMany(Quarterly::class);
     }
 

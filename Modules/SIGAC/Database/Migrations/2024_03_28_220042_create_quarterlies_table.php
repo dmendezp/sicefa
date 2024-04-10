@@ -18,7 +18,6 @@ class CreateQuarterliesTable extends Migration
             $table->foreignId('training_project_id')->constrained()->onDelete('cascade');
             $table->foreignId('learning_outcome_id')->constrained()->onDelete('cascade');
             $table->integer('quarter_number');
-            $table->string('code');
             $table->softDeletes();
             $table->timestamps();
         });

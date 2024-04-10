@@ -159,7 +159,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "{{ route('sigac.academic_coordination.programming.search') }}",
+                url: "{{ route('sigac.academic_coordination.programming.management.search') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     search: $(this).val(),
@@ -229,7 +229,7 @@
             $('#titulo').text(titulo);
             $.ajax({
                 type: 'POST',
-                url: "{{ route('sigac.academic_coordination.programming.filter') }}",
+                url: "{{ route('sigac.academic_coordination.programming.management.filter') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     filter: filter

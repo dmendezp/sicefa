@@ -19,7 +19,6 @@ class CreateTrainingProjectsTable extends Migration
             $table->integer('execution_time');
             $table->integer('total_result');
             $table->string('objective');
-            
             $table->softDeletes();
             $table->timestamps();
         });

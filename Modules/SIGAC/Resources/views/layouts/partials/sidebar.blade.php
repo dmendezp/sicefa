@@ -147,7 +147,7 @@
                                     </li>
                                 @endif
                                 <li class="nav-item">
-                                    <a href="{{ route('sigac.academic_coordination.programming.create') }}" class="nav-link">
+                                    <a href="{{ route('sigac.academic_coordination.programming.management.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-user-tie"></i>
                                         <p>Gestion</p>
                                     </a>
@@ -212,9 +212,15 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.training_project.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-users-cog"></i>
                                         <p>Proyecto formativo</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.quarterlie.index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-users-cog"></i>
+                                        <p>Trimestralización</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">

@@ -14,7 +14,6 @@
                     {!! Form::text('name', $e->name, ['class' => 'form-control', 'required']) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::hidden('id', $e->id) !!}
                     {!! Form::label('description', trans('sigac::general.T_Description')) !!}
                     {!! Form::text('description', $e->description, ['class' => 'form-control', 'required']) !!}
                 </div>
