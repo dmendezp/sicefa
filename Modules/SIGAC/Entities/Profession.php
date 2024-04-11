@@ -24,7 +24,7 @@ class Profession extends Model
         return $this->belongsToMany(Person::class, 'person_professions');
     }
 
-    public function programs(){   //Accede a todos los programas que tienen esta profesion.
-        return $this->belongsToMany(Person::class);
+    public function competencies(){   //Accede a todas las competencias que tienen esta profesion.
+        return $this->belongsToMany(Person::class, 'competencie_professions');
     }
 }

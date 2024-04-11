@@ -61,9 +61,9 @@
                             @method('DELETE')
                         </form>
                     </tr>
-                    @include('sigac::curriculum_planning.training_project.create')
                 @endforeach
                 @endforeach
+                @include('sigac::curriculum_planning.training_project.create')
             </tbody>
         </table>
     </div>

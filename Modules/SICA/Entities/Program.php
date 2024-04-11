@@ -47,10 +47,6 @@ class Program extends Model implements Auditable
         return $this->hasMany(Competence::class);
     }
 
-    public function professions(){   //Accede a todas las personas que tienen esta profesion.
-        return $this->belongsToMany(Profession::class);
-    }
-
 
     // Configuración de factory para la generación de datos de pruebas
     protected static function newFactory()
