@@ -7,10 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\LearningOutcome;
-use Modules\SICA\Entities\Competence;
+use Modules\SICA\Entities\Competencie;
 use Modules\SICA\Entities\Course;
 use Modules\SIGAC\Entities\TrainingProject;
 use Modules\SIGAC\Entities\Quarterly;
+use Modules\SICA\Entities\Program;
+use Modules\SIGAC\Entities\Profession;
+use Illuminate\Support\Facades\DB;
 
 class CurriculumPlanningController extends Controller
 {
@@ -268,54 +271,236 @@ class CurriculumPlanningController extends Controller
         return redirect()->back()->with('success', 'Trimestralización eliminada exitosamente');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
+    public function competencie_profession_index(){
+        $competencieProfession = DB::table('competencie_professions')->get();
+
+        $prof = Profession::all();
+        $proffesions = $prof->map(function ($p) {
+            $id = $p->id;
+            $name = $p->name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => trans('sigac::profession.Select_Profession')])->pluck('name', 'id');
+
+        $prog = Program::all();
+        $programs = $prog->map(function ($p) {
+            $id = $p->id;
+            $name = $p->name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => trans('sigac::profession.Select_Program')])->pluck('name', 'id');
+
+        $view = [
+            'titlePage'=> trans('sigac::profession.Instructor_Management'), 
+            'titleView'=> trans('sigac::profession.Instructor_Management'), 
+            'professions' => $proffesions, 
+            'programs' => $programs,
+            'competencieProfession' => $competencieProfession
+        ];
+
+        return view('sigac::curriculum_planning.competencie_profession.index', $view);
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('sigac::show');
+    public function competencie_profession_search($id){
+        $comp = Competencie::where('program_id', $id)->get();
+        $competencies = $comp->map(function ($c) {
+            $id = $c->id;
+            $name = $c->name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        });
+
+        return response()->json(['competencie' => $competencies]);      
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('sigac::edit');
+    public function competencie_profession_store(Request $request){
+        $rules = [
+            'profession' => 'required',
+            'competencie' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }
+        // Realizar registro
+        $competencie = Competencie::where('id', $request->competencie)->first();
+        $existingRecord = DB::table('competencie_professions')
+        ->where('competencie_id', $competencie->id)
+        ->where('profession_id', $request->profession)
+        ->exists();
+        
+        if(!$existingRecord){
+            if ($competencie->professions()->syncWithoutDetaching($request->profession)){
+                return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index'))->with(['success'=> trans('sigac::profession.Successful_Aggregation')]);
+            } else {
+                return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index'))->with(['error'=> trans('sigac::profession.Error_Adding')]);
+            }
+        }else{
+            return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index'))->with(['error'=> trans('sigac::learning_out_come.RecordAlreadyExistsWithDataSent')]);
+        }
+    } 
+
+    public function competencie_profession_destroy($id){
+        $competencie = DB::table('competencie_professions')->where('id', $id)->delete();
+
+        if($competencie){
+            return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index'))->with(['success'=> trans('sigac::profession.Successful_Removal')]);
+        }else{
+            return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index'))->with(['error'=> trans('sigac::profession.Delete_Error')]);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    public function learning_out_people_index(){
+        $learningOutcomePeople = DB::table('learning_outcome_people')->get();
+
+        $progr = Program::all();
+        $programs = $progr->map(function ($p) {
+            $id = $p->id;
+            $name = $p->name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => trans('sigac::learning_out_come.SelectProgram')])->pluck('name', 'id');
+
+
+        $view = [
+            'titlePage'=> trans('sigac::learning_out_come.AssignLearning'), 
+            'titleView'=> trans('sigac::learning_out_come.AssignLearningOutcomesInstructors'), 
+            'programs' => $programs, 
+            'learningOutcomePeople' => $learningOutcomePeople
+        ];
+
+        return view('sigac::curriculum_planning.assign_learning_outcomes.index', $view);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+    public function learning_out_people_search_competencie($id) {
+        $comp = Competencie::where('program_id', $id)->get();
+        $competencies = $comp->map(function ($c) {
+            $id = $c->id;
+            $name = $c->name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        });
+
+        return response()->json(['competencies' => $competencies]);     
+    }
+
+    public function learning_out_people_search_learning_outcome($id) {
+        $lear = LearningOutCome::where('competencie_id', $id)->get();
+        $learning_outcomes = $lear->map(function ($l) {
+            $id = $l->id;
+            $name = $l->name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        });
+
+        return response()->json(['learning_outcomes' => $learning_outcomes]);     
+    }
+
+    public function learning_out_people_search_instructor($id){
+        $learningOutCome = LearningOutCome::with('competencie.professions')->where('id', $id)->get();
+        $professions = [];
+
+        foreach ($learningOutCome as $l) {
+            foreach ($l->competencie->professions as $p){
+                $profession = $p->id;
+                $professions[] = $profession;
+            } 
+        }
+       
+        $people = Profession::with('people')->whereIn('id', $professions)->get();
+        $person = [];
+
+        foreach ($people as $p) {
+            foreach ($p->people as $pp){
+                $person_id = $pp->id;
+                $person[] = $person_id;
+            }
+        }
+    
+        // Obtener tanto empleados como contratistas que sean de los tipos especificados
+        $getInstructor = DB::table('employees')
+                        ->join('employee_types', 'employees.employee_type_id', '=', 'employee_types.id')
+                        ->join('people', 'employees.person_id', '=', 'people.id')
+                        ->where('state', 'Activo')
+                        ->where('employee_types.name', 'Instructor')
+                        ->whereIn('person_id', $person)
+                        ->select('people.id','people.first_name', 'people.first_last_name', 'people.second_last_name')
+                        ->union(
+                            DB::table('contractors')
+                            ->join('employee_types', 'contractors.employee_type_id', '=', 'employee_types.id')
+                            ->join('people', 'contractors.person_id', '=', 'people.id')
+                            ->where('state', 'Activo')
+                            ->where('employee_types.name', 'Instructor')
+                            ->whereIn('person_id', $person)
+                            ->select('people.id','people.first_name', 'people.first_last_name', 'people.second_last_name')
+                        )->get();
+
+        $instructors = $getInstructor->map(function ($i) {
+            $id = $i->id;
+            $name = $i->first_name . ' ' . $i->first_last_name . ' ' . $i->second_last_name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        });
+
+        return response()->json(['instructors' => $instructors]);      
+    }
+   
+    public function learning_out_people_store(Request $request){
+        $rules = [
+            'instructor' => 'required',
+            'learningOutCome' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }
+        $learning_outcome = LearningOutCome::where('id', $request->learningOutCome)->first();
+        $existingRecord = DB::table('learning_outcome_people')
+        ->where('person_id', $request->instructor)
+        ->where('learning_outcome_id', $learning_outcome->id)
+        ->exists();
+        
+        // Realizar registro
+        if(!$existingRecord){
+            if ($learning_outcome->people()->syncWithoutDetaching($request->instructor)){
+                return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index'))->with(['success'=> trans('sigac::profession.Successful_Aggregation')]);
+            } else {
+                return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index'))->with(['error'=> trans('sigac::profession.Error_Adding')]);
+            }
+        }else{
+            return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index'))->with(['error'=> trans('sigac::learning_out_come.RecordAlreadyExistsWithDataSent')]);
+        }
+    }
+
+    public function learning_out_people_destroy($id){
+        $professionProgram = DB::table('learning_outcome_people')->where('id', $id)->delete();
+
+        if($professionProgram){
+            return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index'))->with(['success'=> trans('sigac::profession.Successful_Removal')]);
+
+        }else{
+            return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index'))->with(['error'=> trans('sigac::profession.Delete_Error')]);
+        }
     }
 }

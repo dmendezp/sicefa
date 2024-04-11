@@ -10,28 +10,18 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 pr-3 pb-3">
-                                @isset($persProf)
-                                    <form action="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_update', $persProf->first()->id) }}" method="post">
-                                @else
-                                    <form action="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_store') }}" method="post">
-                                @endisset
+                                <form action="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_store') }}" method="post">
                                     @csrf
                                     <div class="form-group">
                                         {!! Form::label('instructor',  trans('sigac::profession.Instructor')) !!}
-                                        {!! Form::select('instructor', $instructors, isset($persProf) ? $persProf->first()->person_id : old('instructor'), ['class' => 'form-control instructor'],) !!}                                    
+                                        {!! Form::select('instructor', $instructors, old('instructor'), ['class' => 'form-control instructor'],) !!}                                    
                                     </div>
                                     <div class="form-group">
                                         {!! Form::label('profession',  trans('sigac::profession.Profession')) !!}
-                                        {!! Form::select('profession', $professions,  isset($persProf) ? $persProf->first()->profession_id : old('profession'), ['class' => 'form-control learningOutCome'],) !!}                                         
+                                        {!! Form::select('profession', $professions, old('profession'), ['class' => 'form-control learningOutCome'],) !!}                                         
                                     </div>
                                     <div class="text-center">
-                                        @isset ($persProf)
-                                            <a href="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_index') }}" class="btn btn-secondary">{{ trans('sigac::profession.Cancel')}}</a>
-                                            <button type="submit" class="btn btn-success">{{ trans('sigac::profession.Update')}}</button>
-                                        @else
-                                            <button type="reset" class="btn btn-secondary">{{ trans('sigac::profession.Cancel')}}</button>
-                                            <button type="submit" class="btn btn-success">{{ trans('sigac::profession.Add')}}</button>
-                                        @endisset
+                                        <button type="submit" class="btn btn-success">{{ trans('sigac::profession.Add')}}</button>
                                     </div>
                                 </form>
                             </div>
@@ -55,10 +45,6 @@
                                                 <td class="text-center">{{ $person->first_name . ' ' . $person->first_last_name . ' ' . $person->second_last_name }}</td>
                                                 <td class="text-center">{{ $profession->name }}</td>
                                                 <td class="text-center">
-                                                    <a href="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_edit', $p->id) }}" class="mr-1" data-toggle='tooltip' data-placement="top" title="{{ trans('sigac::profession.Edit')}}">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-
                                                     <a class="delete-person_profession" data-person_profession-id="{{ $p->id }}">
                                                         <b class="text-danger" data-toggle="tooltip" data-placement="top" title="{{ trans('sigac::profession.Eliminate')}}">
                                                             <i class="fas fa-trash-alt"></i>
