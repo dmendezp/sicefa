@@ -23,7 +23,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('type', 'Tipo') !!}
-                    {!! Form::text('type', null, ['class' => 'form-control', 'required']) !!}
+                    {!! Form::select('type', ['' => trans('Seleccione el tipo'), 'Técnico' => 'Técnico', 'Transversal' => 'Transversal', 'Bilingüismo' => 'Bilingüismo'], null, ['class' => 'form-control', 'required']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('code', 'Codigo') !!}

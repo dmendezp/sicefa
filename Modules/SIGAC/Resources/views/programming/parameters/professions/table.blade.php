@@ -3,6 +3,7 @@
         <table id="profession" class="display table table-bordered table-striped table-sm">
             <thead>
                 <tr>
+                    <th class="text-center">#</th>
                     <th class="text-center">{{trans('sigac::profession.Name')}}</th>
                     <th>{{trans('sigac::profession.Level')}}</th>
                     <th class="text-center">

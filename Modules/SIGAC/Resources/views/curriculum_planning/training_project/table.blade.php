@@ -27,7 +27,10 @@
                             <td class="text-center">{{ $course->program->name }} - {{ $course->code }}</td>
                             <td class="text-center">{{ $t->name }}</td>
                             <td class="text-center">{{ $t->execution_time }}</td>
-                            <td class="text-center">{{ $t->total_result }}</td>
+                            <td class="text-center">{{ $course->program->competencies->flatMap(function ($competency) {
+                                return $competency->learning_outcomes;
+                            })->count() }}
+                            </td>
                         <td class="text-center">
                             <a  class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#informationproyecto{{$t->id}}">
                                 <i class="fas fa-eye"></i>

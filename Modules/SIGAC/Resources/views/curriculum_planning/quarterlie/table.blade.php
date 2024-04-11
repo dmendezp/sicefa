@@ -7,32 +7,37 @@
                     <th class="text-center">Competencia</th>
                     <th class="text-center">Resultado de Aprendizaje</th>
                     <th class="text-center">Horas</th>
-                    <th class="text-center">Instructor</th>
+                    <th class="text-center">Perfil</th>
                     <th class="text-center">Agregar</th>
                 </tr>
             </thead>
             <tbody>
                 @for($trimestreNumber = 1; $trimestreNumber <= $courseNumber; $trimestreNumber++)
-                    <tr>
-                        <td colspan="4" class="text-center">Trimestre {{ $trimestreNumber }}</td>
-                        <td colspan="1" class="text-center"><a href="{{ route('sigac.academic_coordination.curriculum_planning.quarterlie.create', ['quarter_number' => $trimestreNumber , 'training_project_id' => $trainingProjectId]) }}">
-                            <b class="text-success" data-toggle="tooltip" data-placement="top" title="">
-                                <i class="fas fa-plus-circle"></i>
-                            </b>
-                        </a></td>
+                    <tr class="quarter">
+                        <td colspan="4" class="text-center"><b>Trimestre {{ $trimestreNumber }}</b></td>
+                        <td colspan="1" class="text-center">
+                            <a data-toggle="modal" data-target="#addTrimestralizacion" data-trimestre="{{ $trimestreNumber }}" onclick="">
+                                <b class="text-success" data-toggle="tooltip" data-placement="top" title="">
+                                    <i class="fas fa-plus-circle"></i>
+                                </b>
+                            </a>
+                        </td>
                     </tr>
                     @foreach($quarterlies as $competency => $trimestres)
                         @foreach($trimestres->where('quarter_number', $trimestreNumber) as $trimestre)
                             <tr>
                                 @if($loop->first)
-                                    <td rowspan="{{ count($trimestres) }}" class="text-center">{{ $competency }}</td>
+                                    <td rowspan="{{ $trimestres->count() }}" class="text-center">{{ $competency }}</td>
                                 @endif
                                 <td class="">{{ $trimestre->learning_outcome->name }}</td>
-                                <td class="">{{ $trimestre->learning_outcome->hour }}</td>
+                                <td class="text-center">{{ $trimestre->learning_outcome->hour }}</td>
                                 @if (count($trimestre->learning_outcome->people) > 0)
-                                    @foreach($trimestre->learning_outcome->people as $person)
-                                        <td class="">{{ $person->first_name }}</td>
+                                <td class="text-center">
+                                    @foreach($trimestre->learning_outcome->competencie->professions as $profession)
+                                        {{ $profession->name }} <br>
+                                        <br>
                                     @endforeach
+                                </td>
                                 @else
                                     <td></td>
                                 @endif
@@ -54,11 +59,13 @@
                             </tr>
                         @endforeach
                     @endforeach
+                    
                 @endfor
             </tbody>
         </table>
     </div>
 </div>
+@include('sigac::curriculum_planning.quarterlie.create')
 
 <script>
     $(document).ready(function() {
@@ -81,6 +88,12 @@
                     document.getElementById('delete-quarterlie-form-' + competence_id).submit();
                 }
             });
+        });
+
+         // Capturar el número de trimestre cuando se haga clic en el botón de agregar
+        $('[data-toggle="modal"]').on('click', function() {
+            var trimestreNumber = $(this).data('trimestre');
+            $('#trimestre_number_input').val(trimestreNumber); // Asignar el número de trimestre al campo oculto
         });
     });
 </script>

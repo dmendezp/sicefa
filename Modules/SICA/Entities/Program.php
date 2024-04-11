@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Network;
 use Modules\SICA\Entities\Course;
-use Modules\SIGAC\Entities\Profession;
+
 class Program extends Model implements Auditable
 {
 
@@ -43,8 +43,8 @@ class Program extends Model implements Auditable
         return $this->belongsTo(Network::class);
     }
 
-    public function competence(){ //Accede a todas las competencias asociadas a este programa.
-        return $this->hasMany(Competence::class);
+    public function competencies(){ //Accede a todas las competencias asociadas a este programa.
+        return $this->hasMany(Competencie::class);
     }
 
 

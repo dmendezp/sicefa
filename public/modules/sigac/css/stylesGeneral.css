@@ -133,3 +133,19 @@
 .services .icon-box:hover {
   transform: translateY(-5px);
 }
+
+/* Estilos Trimestralización */
+
+.quarter {
+  background-color: #bebebea0 !important; 
+}
+
+/* Asegúrate de que el z-index del modal sea inferior al del select2 */
+.modal {
+  z-index: 1050; /* O cualquier número inferior */
+}
+
+/* Ajusta el z-index del contenedor del select2 para que esté por encima del modal */
+.select2-container {
+  z-index: 1060; /* Un número mayor que el del modal */
+}
