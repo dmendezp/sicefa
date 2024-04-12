@@ -46,9 +46,6 @@ class CurriculumPlanningController extends Controller
             return $quarterly->learning_outcome->competencie->name . '-' . $quarterly->quarter_number; // Agrupar por competencia y trimestre
         });
 
-
-        
-        
         $trainingProject = TrainingProject::findOrFail($training_project_id);
         $trainingProjectName = $trainingProject->name;
         $trainingProjectId = $trainingProject->id;
@@ -61,6 +58,10 @@ class CurriculumPlanningController extends Controller
             $query->where('id', $programId);
         })->pluck('name','id');
 
+        $competences_select = Competencie::whereHas('program', function ($query) use ($programId) {
+            $query->where('id', $programId);
+        })->pluck('name','id');
+
         return view('sigac::curriculum_planning.quarterlie.index')->with([
             'titlePage' => trans('Trimestralización'),
             'titleView' => trans('Trimestralización'),
@@ -69,7 +70,8 @@ class CurriculumPlanningController extends Controller
             'courseNumber' => $courseNumber,
             'trainingProjectId' => $trainingProjectId,
             'programId' => $programId,
-            'learning_outcomes_select' => $learning_outcomes_select
+            'learning_outcomes_select' => $learning_outcomes_select,
+            'competences_select' => $competences_select
         ]);
     }
     // Registrar proyecto formativo
@@ -145,17 +147,13 @@ class CurriculumPlanningController extends Controller
         ]);
     }
 
-    public function quarterlie_filterlearnin_outcome(Request $request)
+    public function quarterlie_filterlearning(Request $request)
     {
-        $learning_outcome_id = $request->input('learning_outcome_id');
+        $competencie_id = $request->input('competencie_id');
 
-        $quartely = Quarterly::where('learning_outcome_id', $learning_outcome_id)->first();
+        $learning_outcome = LearningOutcome::where('competencie_id', $competencie_id)->pluck('name','id');
 
-        if ($quartely) {
-            return false;
-        }
-
-        return true;
+        return response()->json(['learning_outcome' => $learning_outcome->toArray()]);
     }
 
     public function quarterlie_store(Request $request)
