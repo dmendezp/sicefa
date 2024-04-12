@@ -44,6 +44,6 @@ class LearningOutcome extends Model
     }
 
     public function class_environments(){ //Accede a todas las clases de ambientes que se relacionan con este resultado de aprendizaje. (PIVOTE)
-        return $this->belongsToMany(ClassEnvironment::class);
+        return $this->belongsToMany(ClassEnvironment::class,'class_environment_learning_outcomes');
     }
 }

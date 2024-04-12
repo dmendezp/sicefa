@@ -21,7 +21,7 @@ class TrainingProject extends Model
         return $this->belongsToMany(Course::class, 'course_training_projects');
     }
 
-    public function quarterlies(){ //Accede a todas las trimestralizaciones     del proyecto formativo.
+    public function quarterlies(){ //Accede a todas las trimestralizaciones del proyecto formativo.
         return $this->hasMany(Quarterly::class);
     }
 

@@ -27,7 +27,6 @@ class CurriculumPlanningController extends Controller
     {
         $learning_outcomes = LearningOutcome::pluck('name','id');
         $coursesWithTrainingProjects =  Course::has('training_projects')->get();
-        $coursesWithTrainingProjects =  Course::has('training_projects')->get();
         return view('sigac::curriculum_planning.training_project.index')->with(['titlePage'=>trans('Proyecto Formativo'), 
         'titleView'=>trans('Proyecto Formativo'), 
         'learning_outcomes' => $learning_outcomes, 

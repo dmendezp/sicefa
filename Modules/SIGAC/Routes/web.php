@@ -60,6 +60,10 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
 
             // Gestion de la Programacion de Instructor
             Route::get('coordination/programming/management/index', 'management_programming')->name('sigac.academic_coordination.programming.management.index'); // Gestion de la programacion (Coordinación Académica)
+            Route::get('coordination/programming/management/filterquarterlie', 'management_programming_filterquarterlie')->name('sigac.academic_coordination.programming.management.filterquarterlie'); // Gestion de la programacion (Coordinación Académica)
+            Route::get('coordination/programming/management/filterlearning', 'management_programming_filterlearning')->name('sigac.academic_coordination.programming.management.filterlearning'); // Gestion de la programacion (Coordinación Académica)
+            Route::get('coordination/programming/management/filterinstructor', 'management_programming_filterinstructor')->name('sigac.academic_coordination.programming.management.filterinstructor'); // Gestion de la programacion (Coordinación Académica)
+            Route::get('coordination/programming/management/filterenvironment', 'management_programming_filterenvironment')->name('sigac.academic_coordination.programming.management.filterenvironment'); // Gestion de la programacion (Coordinación Académica)
             Route::post('coordination/programming/management/store', 'management_programming_store')->name('sigac.academic_coordination.programming.management.store'); // Registrar programacion (Coordinación Académica)
 
 

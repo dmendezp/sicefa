@@ -12,7 +12,9 @@ use Modules\SICA\Entities\Course;
 use Modules\SIGAC\Entities\InstructorProgram;
 use Modules\SIGAC\Entities\ExternalActivity;
 use Modules\SIGAC\Entities\Profession;
+use Modules\SIGAC\Entities\Quarterly;
 use DB;
+use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Competencie;
 use Modules\SICA\Entities\LearningOutcome;
@@ -32,17 +34,68 @@ class ProgrammeController extends Controller
     }
 
     // Gestion de la programacion
-    public function management_programming()
-    {
-        $courses = Course::with('program')->get();
+        public function management_programming()
+        {
+            $courses = Course::with('program')->get();
 
-        return view('sigac::programming.create', [
-            'courses' => $courses,
-            'titlePage' => trans('Programación - Crear Programación'),
-            'titleView' => trans('Crear Programación')
+            return view('sigac::programming.create', [
+                'courses' => $courses,
+                'titlePage' => trans('Programación - Crear Programación'),
+                'titleView' => trans('Crear Programación')
 
-        ]);
-    }
+            ]);
+        }
+
+        public function management_programming_filterquarterlie(Request $request)
+        {
+            $course_id = $request->input('course_id');
+            $quarter_number =$request->input('quarter_number');
+            $quarterlie = Quarterly::with('learning_outcome.competencie')
+            ->where('quarter_number', $quarter_number)
+            ->whereHas('training_project.courses', function($query) use ($course_id) {
+                $query->where('courses.id', $course_id);
+            })
+            ->get()
+            ->groupBy(function ($quarterly) use ($quarter_number) {
+                $competencieName = $quarterly->learning_outcome->competencie->name;
+                return str_replace('-' . $quarter_number, '', $competencieName);
+            });
+        
+            return response()->json(['quarterlie' => $quarterlie]);
+        }
+
+        public function management_programming_filterlearning(Request $request)
+        {
+            $course_id = $request->input('course_id');
+
+            $learning_outcome = LearningOutcome::whereHas('competencie.program.courses', function($query) use ($course_id) {
+                $query->where('courses.id', $course_id);
+            })->pluck('name','id');
+
+            return response()->json(['learning_outcome' => $learning_outcome->toArray()]);
+        }
+
+        public function management_programming_filterinstructor(Request $request)
+        {
+            $learning_outcome_id = $request->input('learning_outcome_id');
+
+            $instructors = Person::whereHas('professions.competencies.learning_outcomes', function($query) use ($learning_outcome_id) {
+                $query->where('learning_outcomes.id', $learning_outcome_id);
+            })->pluck('first_name','id');
+
+            return response()->json(['instructors' => $instructors->toArray()]);
+        }
+
+        public function management_programming_filterenvironment(Request $request)
+        {
+            $learning_outcome_id = $request->input('learning_outcome_id');
+
+            $environments = Environment::whereHas('class_environment.learning_outcomes', function($query) use ($learning_outcome_id) {
+                $query->where('learning_outcomes.id', $learning_outcome_id);
+            })->pluck('name','id');
+
+            return response()->json(['environments' => $environments->toArray()]);
+        }
 
     // Registrar programacion
     public function management_programming_store(Request $request)

@@ -5,6 +5,7 @@ namespace Modules\SIGAC\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\Competencie;
 
 class Profession extends Model
 {
@@ -25,6 +26,8 @@ class Profession extends Model
     }
 
     public function competencies(){   //Accede a todas las competencias que tienen esta profesion.
-        return $this->belongsToMany(Person::class, 'competencie_professions');
+        return $this->belongsToMany(Competencie::class, 'competencie_professions');
     }
+    
+
 }
