@@ -43,10 +43,10 @@
                                             @foreach ($competencieProfession as $c)
                                             @php
                                                 $profession = DB::table('professions')->where('id', $c->profession_id)->first();
-                                                $competencies = DB::table('competencies')->where('id', $c->competencie_id)->first();
+                                                $competencie = DB::table('competencies')->where('id', $c->competencie_id)->first();
                                             @endphp
                                             <tr>
-                                                <td class="text-center">{{ $competencies->name }}</td>
+                                                <td class="text-center">{{ $competencie->name }}</td>
                                                 <td class="text-center">{{ $profession->name }}</td>
                                                 <td class="text-center">
                                                     <a class="delete-competencie_profession" data-professionprogram-id="{{ $c->id }}">

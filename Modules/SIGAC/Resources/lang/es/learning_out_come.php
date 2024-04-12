@@ -15,6 +15,12 @@ return [
     'SelectLearningOutcome' => 'Seleccione un resultado de aprendizaje',
     'SelectInstructor' => 'Seleccione un instructor',
 
+    // Formulario asignar proyectos formativos a cursos
+    'Courses' => 'Cursos',
+    'TrainingProject' => 'Proyecto formativo',
+    'SelectCourse' => 'Seleccione un curso',
+    'SelectTrainingProject' => 'Seleccione un proyecto formativo',
+
     'Actions'   => 'Acciones',
     'Add' => 'Agregar',
     'Edit'   => 'Editar',

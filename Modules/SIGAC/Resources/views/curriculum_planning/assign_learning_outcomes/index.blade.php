@@ -47,11 +47,11 @@
                                             @foreach ($learningOutcomePeople as $l)
                                             @php
                                                 $person = DB::table('people')->where('id', $l->person_id)->first();
-                                                $learning_outcomes = DB::table('learning_outcomes')->where('id', $l->learning_outcome_id)->first();
+                                                $learning_outcome = DB::table('learning_outcomes')->where('id', $l->learning_outcome_id)->first();
                                             @endphp
                                             <tr>
                                                 <td class="text-center">{{ $person->first_name . ' ' . $person->first_last_name . ' ' . $person->second_last_name }}</td>
-                                                <td class="text-center">{{ $learning_outcomes->name }}</td>
+                                                <td class="text-center">{{ $learning_outcome->name }}</td>
                                                 <td class="text-center">
                                                     <a class="delete-learning_outcomes_person" data-learning_outcomes_person-id="{{ $l->id }}">
                                                         <b class="text-danger" data-toggle="tooltip" data-placement="top" title="{{ trans('sigac::learning_out_come.Eliminate')}}">

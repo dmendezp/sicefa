@@ -498,4 +498,79 @@ class CurriculumPlanningController extends Controller
             return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index'))->with(['error'=> trans('sigac::profession.Delete_Error')]);
         }
     }
+
+    public function course_training_project_index(){
+        $course_training_projects = DB::table('course_training_projects')->get();
+
+        $course = Course::with('program')->get();
+        $courses = $course->map(function ($c) {
+            $id = $c->id;
+            $name = $c->code_name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => trans('sigac::learning_out_come.SelectCourse')])->pluck('name', 'id');
+
+        $training_project = TrainingProject::all();
+
+        $training_projects = $training_project->map(function ($t) {
+            $id = $t->id;
+            $name = $t->name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => trans('sigac::learning_out_come.SelectTrainingProject')])->pluck('name', 'id');
+
+        $view = [
+            'titlePage'=> 'Curso x Proyecto Formativo', 
+            'titleView'=> 'Curso x Proyecto Formativo', 
+            'courses' => $courses, 
+            'training_projects' => $training_projects,
+            'course_training_projects' => $course_training_projects,
+        ];
+
+        return view('sigac::curriculum_planning.course_training_project.index', $view);
+    }
+
+    public function course_training_project_store(Request $request){
+        $rules = [
+            'course' => 'required',
+            'training_project' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }
+
+        $course = Course::where('id', $request->course)->first();
+        $existingRecord = DB::table('course_training_projects')
+        ->where('course_id', $course->id)
+        ->where('training_project_id', $request->training_project)
+        ->exists();
+
+        // Realizar registro
+        if(!$existingRecord){
+            if ($course->training_projects()->syncWithoutDetaching($request->training_project)){
+                return redirect(route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index'))->with(['success'=> trans('sigac::profession.Successful_Aggregation')]);
+            } else {
+                return redirect(route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index'))->with(['error'=> trans('sigac::profession.Error_Adding')]);
+            }
+        }else{
+            return redirect(route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index'))->with(['error'=> trans('sigac::learning_out_come.RecordAlreadyExistsWithDataSent')]);
+        }
+    }
+
+    public function course_training_project_destroy($id){
+        $course_training_project = DB::table('course_training_projects')->where('id', $id)->delete();
+
+        if($course_training_project){
+            return redirect(route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index'))->with(['success'=> trans('sigac::profession.Successful_Removal')]);
+        }else{
+            return redirect(route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index'))->with(['error'=> trans('sigac::profession.Delete_Error')]);
+        }
+    }
 }

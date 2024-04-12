@@ -241,6 +241,12 @@
                                         <p>Competencias x Profesión</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-tags"></i>
+                                        <p>Cursos x Proyectos Formativos</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item">
