@@ -18,7 +18,7 @@ class CreateCompetenciesTable extends Migration
             $table->foreignId('program_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->integer('hour');
-            $table->string('type');
+            $table->enum('type', ['Técnico', 'Transversal', 'Bilingüismo']);
             $table->string('code')->unique();
             $table->softDeletes();
             $table->timestamps();

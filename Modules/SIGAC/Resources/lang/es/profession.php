@@ -16,6 +16,7 @@ return [
     'Programs' => 'Programas',
     'Profession'   => 'Profesión',
     'Program'   => 'Programa',
+    'Competencies' => 'Competencias',
     'Actions'   => 'Acciones',
     'Add' => 'Agregar',
     'Edit'   => 'Editar',
@@ -30,6 +31,7 @@ return [
     //Alertas
     'Select_Profession' => 'Seleccione una profesión',
     'Select_Program' => 'Seleccione un programa',
+    'SelectCompetition' => 'Seleccione una competencia',
     'An_Error_Occurred_With_Form' => 'Ocurrió un error con el formulario.',
     'Successful_Aggregation' => 'Agregación exitosa',
     'Error_Adding' => 'Error al agregar',

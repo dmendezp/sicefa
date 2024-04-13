@@ -195,6 +195,24 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-people-carry"></i>
+                                <p>
+                                    Talento Humano
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items" style="display: none;">
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-th-large"></i>
+                                        <p>Gestion Instructores</p>
+                                    </a>
+                                </li>
+                            
+                            </ul>
+                        </li>
                         
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -224,43 +242,32 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.learning_class.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-square-poll-vertical"></i>
-                                        <p>Resultados por clase de ambiente</p>
+                                        <p>R.A x Ambiente</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('sigac.academic_coordination.curriculum_planing.assign_learning_outcomes.learning_out_people_index')}}" class="nav-link">
+                                    <a href="{{route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index')}}" class="nav-link">
                                         <i class="nav-icon fas fa-user-plus"></i>
                                         <p>{{trans('sigac::learning_out_come.AssignLearning')}}</p>
                                     </a>
-                                </li>
+                                </li>     
                                 <li class="nav-item">
-                                    <a href="{{ route('sigac.academic_coordination.curriculum_planing.assign_learning_outcomes.profession_program_index') }}" class="nav-link">
+                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-tags"></i>
-                                        <p>Programas x Profesión</p>
+                                        <p>Competencias x Profesión</p>
                                     </a>
                                 </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-people-carry"></i>
-                                <p>
-                                    Talento Humano
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview items" style="display: none;">
                                 <li class="nav-item">
-                                    <a href="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_index') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-th-large"></i>
-                                        <p>Gestion Instructores</p>
+                                    <a href="{{ route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-tags"></i>
+                                        <p>Cursos x Proyectos Formativos</p>
                                     </a>
                                 </li>
-                            
                             </ul>
                         </li>
+                       
     
                         <li class="nav-item">
                             <a href="#" class="nav-link">

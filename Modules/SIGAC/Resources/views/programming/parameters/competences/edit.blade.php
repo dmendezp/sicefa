@@ -1,7 +1,7 @@
 <div class="modal fade" id="editCompetence{{$c->id}}" tabindex="-1" aria-labelledby="editCompetence" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header">|
                 <h5 class="modal-title" id="agregarAsistenciaModalLabel">Editar Competencia</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -24,7 +24,8 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('type', 'Tipo') !!}
-                    {!! Form::text('type', $c->type, ['class' => 'form-control', 'required']) !!}
+                    {!! Form::select('type', ['' => trans('Seleccione el tipo'), 'Técnico' => 'Técnico', 'Transversal' => 'Transversal', 'Bilingüismo' => 'Bilingüismo'], $c->type, ['class' => 'form-control', 'required']) !!}
+                    
                 </div>
                 <div class="form-group">
                     {!! Form::label('code', 'Codigo') !!}

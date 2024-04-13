@@ -15,7 +15,7 @@ return [
     'Professions' => 'Professions',
     'Programs' => 'Programs',
     'Profession'   => 'Profession',
-    'Program'   => 'Program',
+    'Competencies' => 'Competencies',
     'Actions'   => 'Actions',
     'Add' => 'Add',
     'Edit'   => 'Edit',
@@ -30,6 +30,7 @@ return [
     // Alertas
     'Select_Profession' => 'Select a profession',
     'Select_Program' => 'Select a program',
+    'SelectCompetition' => 'Select a competition',
     'An_Error_Occurred_With_Form' => 'An error occurred with the form.',
     'Successful_Aggregation' => 'Successful aggregation',
     'Error_Adding' => 'Error adding',

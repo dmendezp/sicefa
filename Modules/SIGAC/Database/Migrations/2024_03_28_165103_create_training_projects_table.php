@@ -17,7 +17,6 @@ class CreateTrainingProjectsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('execution_time');
-            $table->integer('total_result');
             $table->string('objective');
             $table->softDeletes();
             $table->timestamps();

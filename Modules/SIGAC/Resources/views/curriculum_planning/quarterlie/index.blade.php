@@ -6,7 +6,7 @@
                 <div class="col-md-12"> {{-- Inicio Trimestralización --}}
                     <div class="card card-blue card-outline shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Trimestralización</h3>
+                            <h3 class="card-title">Trimestralización - {{ $trainingProjectName }}</h3>
                         </div>
                         <div class="card-body">
                         @include('sigac::curriculum_planning.quarterlie.table')

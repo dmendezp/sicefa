@@ -3,6 +3,7 @@
         <table id="profession" class="display table table-bordered table-striped table-sm">
             <thead>
                 <tr>
+                    <th class="text-center">#</th>
                     <th class="text-center">{{trans('sigac::profession.Name')}}</th>
                     <th>{{trans('sigac::profession.Level')}}</th>
                     <th class="text-center">
@@ -17,6 +18,7 @@
             <tbody>
                 @foreach ($professions as $p)      
                     <tr>
+                        <td class="text-center">{{ $loop->iteration }}</td>
                         <td class="text-center">{{ $p->name }}</td>
                         <td class="text-center">{{ $p->level }}</td>
                         <td class="text-center">

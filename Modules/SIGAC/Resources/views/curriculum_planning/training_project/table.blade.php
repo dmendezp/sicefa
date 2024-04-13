@@ -4,6 +4,7 @@
             <thead>
                 <tr>
                     <th class="text-center">#</th>
+                    <th class="text-center">Titulada</th>
                     <th class="text-center">{{ trans('sigac::general.T_Name')}}</th>
                     <th class="text-center">Tiempo de ejecucion</th>
                     <th class="text-center">Total de resultados</th>
@@ -19,15 +20,24 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($training_projects as $t)
-                    <tr>
-                        <td class="text-center">{{ $loop->iteration }}</td>
-                        <td class="text-center">{{ $t->name }}</td>
-                        <td class="text-center">{{ $t->execution_time }}</td>
-                        <td class="text-center">{{ $t->total_result }}</td>
-                        <td class="text-center">{{ $t->objective }}</td>
+                @foreach($coursesWithTrainingProjects as $course)
+                    @foreach($course->training_projects as $t)
+                        <tr>
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td class="text-center">{{ $course->program->name }} - {{ $course->code }}</td>
+                            <td class="text-center">{{ $t->name }}</td>
+                            <td class="text-center">{{ $t->execution_time }}</td>
+                            <td class="text-center">{{ $course->program->competencies->flatMap(function ($competency) {
+                                return $competency->learning_outcomes;
+                            })->count() }}
+                            </td>
                         <td class="text-center">
-                            <a class="btn btn-primary" href="{{ route('sigac.academic_coordination.curriculum_planning.training_project.quarterlie.index', ['id' => $t->id]) }}">
+                            <a  class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#informationproyecto{{$t->id}}">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a class="btn btn-primary" href="{{ route('sigac.academic_coordination.curriculum_planning.training_project.quarterlie.index', ['training_project_id' => $t->id, 'course_id' => $course->id]) }}">
                                 <i class="fa-solid fa-outdent"></i>
                             </a>
                         </td>
@@ -38,6 +48,7 @@
                                         <i class="fas fa-edit"></i>
                                     </b>
                                 </a>
+                                @include('sigac::curriculum_planning.training_project.information')
                                 @include('sigac::curriculum_planning.training_project.edit')
                                 <a class="delete-training_project"  data-trainingproject-id="{{ $t->id }}">
                                     <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar Proyecto Formativo">
@@ -53,8 +64,9 @@
                             @method('DELETE')
                         </form>
                     </tr>
-                    @include('sigac::curriculum_planning.training_project.create')
+                    
                 @endforeach
+                @include('sigac::curriculum_planning.training_project.create')
             </tbody>
         </table>
     </div>

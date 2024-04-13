@@ -12,11 +12,14 @@ use Modules\SICA\Entities\Course;
 use Modules\SIGAC\Entities\InstructorProgram;
 use Modules\SIGAC\Entities\ExternalActivity;
 use Modules\SIGAC\Entities\Profession;
+use Modules\SIGAC\Entities\Quarterly;
 use DB;
+use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Competencie;
 use Modules\SICA\Entities\LearningOutcome;
-
+use Modules\SICA\Entities\Holiday;
+use Carbon\Carbon;
 class ProgrammeController extends Controller
 {
     // Programación de horarios
@@ -32,17 +35,68 @@ class ProgrammeController extends Controller
     }
 
     // Gestion de la programacion
-    public function management_programming()
-    {
-        $courses = Course::with('program')->get();
+        public function management_programming()
+        {
+            $courses = Course::with('program')->get();
 
-        return view('sigac::programming.create', [
-            'courses' => $courses,
-            'titlePage' => trans('Programación - Crear Programación'),
-            'titleView' => trans('Crear Programación')
+            return view('sigac::programming.create', [
+                'courses' => $courses,
+                'titlePage' => trans('Programación - Crear Programación'),
+                'titleView' => trans('Crear Programación')
 
-        ]);
-    }
+            ]);
+        }
+
+        public function management_programming_filterquarterlie(Request $request)
+        {
+            $course_id = $request->input('course_id');
+            $quarter_number =$request->input('quarter_number');
+            $quarterlie = Quarterly::with('learning_outcome.competencie')
+            ->where('quarter_number', $quarter_number)
+            ->whereHas('training_project.courses', function($query) use ($course_id) {
+                $query->where('courses.id', $course_id);
+            })
+            ->get()
+            ->groupBy(function ($quarterly) use ($quarter_number) {
+                $competencieName = $quarterly->learning_outcome->competencie->name;
+                return str_replace('-' . $quarter_number, '', $competencieName);
+            });
+        
+            return response()->json(['quarterlie' => $quarterlie]);
+        }
+
+        public function management_programming_filterlearning(Request $request)
+        {
+            $course_id = $request->input('course_id');
+
+            $learning_outcome = LearningOutcome::whereHas('competencie.program.courses', function($query) use ($course_id) {
+                $query->where('courses.id', $course_id);
+            })->pluck('name','id');
+
+            return response()->json(['learning_outcome' => $learning_outcome->toArray()]);
+        }
+
+        public function management_programming_filterinstructor(Request $request)
+        {
+            $learning_outcome_id = $request->input('learning_outcome_id');
+
+            $instructors = Person::whereHas('professions.competencies.learning_outcomes', function($query) use ($learning_outcome_id) {
+                $query->where('learning_outcomes.id', $learning_outcome_id);
+            })->pluck('first_name','id');
+
+            return response()->json(['instructors' => $instructors->toArray()]);
+        }
+
+        public function management_programming_filterenvironment(Request $request)
+        {
+            $learning_outcome_id = $request->input('learning_outcome_id');
+
+            $environments = Environment::whereHas('class_environment.learning_outcomes', function($query) use ($learning_outcome_id) {
+                $query->where('learning_outcomes.id', $learning_outcome_id);
+            })->pluck('name','id');
+
+            return response()->json(['environments' => $environments->toArray()]);
+        }
 
     // Registrar programacion
     public function management_programming_store(Request $request)
@@ -239,8 +293,8 @@ class ProgrammeController extends Controller
             ];
         })->prepend(['id' => null, 'name' => 'Seleccione un programa'])->pluck('name', 'id');
 
-        $Comp = Competencie::all();
-        $competencies = $Comp->map(function ($c) {
+        $Comps = Competencie::all();
+        $competencies = $Comps->map(function ($c) {
             $id = $c->id;
             $name = $c->name;
             return [
@@ -249,11 +303,21 @@ class ProgrammeController extends Controller
             ];
         })->prepend(['id' => null, 'name' => 'Seleccione una competencia'])->pluck('name', 'id');
 
+        $Comps = Competencie::with('program')->get()->groupBy('program.name');
+
+        $learning_outcomes = LearningOutcome::with('competencie')->get()->groupBy('competencie.name');
 
         $external_activities = ExternalActivity::get();
         $titlePage = 'Parametros';
         $titleView = 'Parametros';
-        return view('sigac::programming.parameters.index')->with(['titlePage' => $titlePage, 'titleView' => $titleView, 'external_activities' => $external_activities, 'professions' => Profession::all(), 'competences' => Competencie::all(), 'learning_outcomes' => LearningOutcome::all(), 'programs' => $programs, 'competencies' => $competencies]);
+        return view('sigac::programming.parameters.index')->with(['titlePage' => $titlePage,
+        'titleView' => $titleView, 
+        'external_activities' => $external_activities, 
+        'professions' => Profession::all(), 
+        'competences' => $Comps, 
+        'learning_outcomes' => $learning_outcomes, 
+        'programs' => $programs, 
+        'competencies' => $competencies]);
     }
 
     // Registrar profesion
@@ -448,5 +512,86 @@ class ProgrammeController extends Controller
         } else {
             return redirect()->back()->with('error', 'Error al elimminar el registro');
         }
+    }
+
+    public function dates_index(){
+        $titleView = 'Fechas';
+        $titlePage = 'Fechas';
+
+        return view('sigac::programming.dates')->with([
+            'titlePage' => $titlePage,
+            'titleView' => $titleView, 
+        ]);
+    }
+
+    public function store_dates(Request $request){
+        $days = $request->days;
+        $fechas = [];
+        $fechaActual = Carbon::parse($request->start_date);
+        while ($fechaActual->lte(Carbon::parse($request->end_date))) {
+            if (in_array($fechaActual->englishDayOfWeek, $days)) {
+                $fechas[] = $fechaActual->toDateString();
+            }
+            $fechaActual->addDay();
+        }
+
+        $course_id = $request->course;
+       
+
+        foreach ($fechas as $f) {
+            $programming = InstructorProgram::where('date', $f)
+            ->where(function ($query) use ($request) {
+                $query->where(function ($q) use ($request) {
+                    $q->where('start_time', '>=', $request->start_time)
+                        ->where('start_time', '<=', $request->end_time);
+                })
+                ->orWhere(function ($q) use ($request) {
+                    $q->where('end_time', '>=', $request->start_time)
+                        ->where('end_time', '<=', $request->end_time);
+                })
+                ->orWhere(function ($q) use ($request) {
+                    $q->where('start_time', '<=', $request->start_time)
+                        ->where('end_time', '>=', $request->end_time);
+                });
+            })
+            ->where('person_id', $request->instructor)
+            ->where('environment_id', $request->environment)
+            ->where('course_id', $course_id)
+            ->exists();
+
+            $holidays = Holiday::where('date', $f)->exists();
+
+            if($programming || $holidays){
+                $fechas_no_registradas[] = $f;
+                continue;
+            }
+
+            $quarterlies = Quarterly::with('learning_outcome.competencie','learning_outcome.people.professions')
+            ->where('learning_outcome_id', $request->learning_outcome)
+            ->whereHas('training_project.courses', function ($query) use ($course_id) {
+                $query->where('courses.id', $course_id);
+            })->pluck('id')->first();
+
+            $p = new InstructorProgram;
+            $p->date = $f;
+            $p->start_time = $request->start_time;
+            $p->end_time = $request->end_time;
+            $p->person_id = $request->instructor;
+            $p->course_id = $request->course;
+            $p->environment_id = $request->environment;
+            $p->quarterlie_id = $quarterlies;
+            $p->save(); 
+        }
+
+        if (!empty($fechas_no_registradas)) {
+            $hora_inicio = $request->start_time;
+            $hora_fin = $request->end_time;
+            $mensaje = 'No se pudieron registrar las siguientes fechas: ' . implode(', ', $fechas_no_registradas) . ', ya hay programación para estas fechas entre estas horas: ' . $hora_inicio . ' - ' . $hora_fin . '.';
+            return redirect(route('sigac.academic_coordination.programming.dates_index'))->with(['error'=> $mensaje]);
+        } else {
+            $mensaje = 'Programación creada con éxito.';
+            return redirect(route('sigac.academic_coordination.programming.dates_index'))->with(['success'=> $mensaje]);
+        }
+
     }
 }

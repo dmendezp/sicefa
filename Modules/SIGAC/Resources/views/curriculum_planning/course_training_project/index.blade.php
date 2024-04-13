@@ -10,15 +10,15 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 pr-3 pb-3">
-                                <form action="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_store') }}" method="post">
+                                <form action="{{ route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_store') }}" method="post">
                                     @csrf
                                     <div class="form-group">
-                                        {!! Form::label('instructor',  trans('sigac::profession.Instructor')) !!}
-                                        {!! Form::select('instructor', $instructors, old('instructor'), ['class' => 'form-control instructor'],) !!}                                    
+                                        {!! Form::label('course', trans('sigac::learning_out_come.Courses')) !!}
+                                        {!! Form::select('course', $courses, old('course'), ['class' => 'form-control course'],) !!}                                    
                                     </div>
                                     <div class="form-group">
-                                        {!! Form::label('profession',  trans('sigac::profession.Profession')) !!}
-                                        {!! Form::select('profession', $professions, old('profession'), ['class' => 'form-control learningOutCome'],) !!}                                         
+                                        {!! Form::label('training_project', trans('sigac::learning_out_come.TrainingProject')) !!}
+                                        {!! Form::select('training_project', $training_projects, old('training_project'), ['class' => 'form-control training_project'],) !!}                                         
                                     </div>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-success">{{ trans('sigac::profession.Add')}}</button>
@@ -30,29 +30,31 @@
                                     <table id="personProfession" class="display table table-bordered table-striped table-sm">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">{{ trans('sigac::profession.Instructor')}}</th>
-                                                <th class="text-center">{{trans ('sigac::profession.Profession')}}</th>
+                                                <th class="text-center">{{ trans('sigac::learning_out_come.Courses') }}</th>
+                                                <th class="text-center">{{ trans('sigac::learning_out_come.TrainingProject') }}</th>
                                                 <th class="text-center">{{ trans('sigac::profession.Actions')}}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($person_profession as $p)
+                                            @foreach ($course_training_projects as $c)
                                             @php
-                                                $person = DB::table('people')->where('id', $p->person_id)->first();
-                                                $profession = DB::table('professions')->where('id', $p->profession_id)->first();
+                                                $courses = \Modules\SICA\Entities\Course::all();
+                                                
+                                                $course = $courses->where('id', $c->course_id)->first();
+                                                $training_project = DB::table('training_projects')->where('id', $c->training_project_id)->first();
                                             @endphp
                                             <tr>
-                                                <td class="text-center">{{ $person->first_name . ' ' . $person->first_last_name . ' ' . $person->second_last_name }}</td>
-                                                <td class="text-center">{{ $profession->name }}</td>
+                                                <td class="text-center">{{ $course->code_name }}</td>
+                                                <td class="text-center">{{ $training_project->name }}</td>
                                                 <td class="text-center">
-                                                    <a class="delete-person_profession" data-person_profession-id="{{ $p->id }}">
+                                                    <a class="delete-course_training_projects" data-course_training_projects-id="{{ $c->id }}">
                                                         <b class="text-danger" data-toggle="tooltip" data-placement="top" title="{{ trans('sigac::profession.Eliminate')}}">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </b>
                                                     </a>
                                                 </td>
-                                                <form id="delete-person_profession-form-{{ $p->id }}"
-                                                    action="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_destroy', ['id' => $p->id]) }}"
+                                                <form id="delete-course_training_projects-form-{{ $c->id }}"
+                                                    action="{{ route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_destroy', ['id' => $c->id]) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -85,10 +87,10 @@
 
 <script>
     $(document).ready(function() {
-        $('.instructor').select2();
-        $('.learningOutCome').select2();
-        $('.delete-person_profession').on('click', function(event) {
-            var profession_program_id = $(this).data('person_profession-id');
+        $('.course').select2();
+        $('.training_project').select2();
+        $('.delete-course_training_projects').on('click', function(event) {
+            var profession_program_id = $(this).data('course_training_projects-id');
 
             // Mostrar SweetAlert para confirmar la eliminación
             Swal.fire({
@@ -102,7 +104,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Si el usuario confirma, enviar el formulario de eliminación
-                    document.getElementById('delete-person_profession-form-' + profession_program_id).submit();
+                    document.getElementById('delete-course_training_projects-form-' + profession_program_id).submit();
                 }
             });
         });

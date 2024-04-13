@@ -40,10 +40,10 @@ class LearningOutcome extends Model
     }
 
     public function people(){ //Accede a todos los perfiles que se relacionan con este resultado de aprendizaje. (PIVOTE)
-        return $this->belongsToMany(Person::class);
+        return $this->belongsToMany(Person::class, 'learning_outcome_people');
     }
 
     public function class_environments(){ //Accede a todas las clases de ambientes que se relacionan con este resultado de aprendizaje. (PIVOTE)
-        return $this->belongsToMany(ClassEnvironment::class);
+        return $this->belongsToMany(ClassEnvironment::class,'class_environment_learning_outcomes');
     }
 }

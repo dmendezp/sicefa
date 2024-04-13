@@ -3,14 +3,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="agregarAsistenciaModalLabel">Agregar resultado de aprendizaje</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 {!! Form::open(['route' => 'sigac.academic_coordination.learning_outcome.store', 'method' => 'POST']) !!}
                 @csrf
                 @method('POST')
                 <div class="form-group">
-                    {!! Form::label('competencie_id', 'Programa') !!}
+                    {!! Form::label('competencie_id', 'Competencia') !!}
                     {!! Form::select('competencie_id', $competencies, null, ['class' => 'form-control', 'required']) !!}
                 </div>
                 <div class="form-group">
