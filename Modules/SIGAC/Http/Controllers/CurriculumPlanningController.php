@@ -27,12 +27,26 @@ class CurriculumPlanningController extends Controller
     public function training_project_index()
     {
         $learning_outcomes = LearningOutcome::pluck('name', 'id');
-        $coursesWithTrainingProjects =  Course::has('training_projects')->get();
+        $coursesWithTrainingProjects =  Course::has('training_projects')->with('training_projects.quarterlies.instructor_programs')->get();
+
+        // Contar los resultados de aprendizaje programados para cada proyecto formativo
+        $counts = [];
+        foreach ($coursesWithTrainingProjects as $course) {
+            foreach ($course->training_projects as $trainingProject) {
+                $count = $trainingProject->quarterlies->flatMap(function ($quarterly) {
+                    return $quarterly->instructor_programs;
+                })->unique('quarterly_id')->count();
+                $counts[$trainingProject->id] = $count;
+            }
+        }
+
+
         return view('sigac::curriculum_planning.training_project.index')->with([
             'titlePage' => trans('Proyecto Formativo'),
             'titleView' => trans('Proyecto Formativo'),
             'learning_outcomes' => $learning_outcomes,
-            'coursesWithTrainingProjects' => $coursesWithTrainingProjects
+            'coursesWithTrainingProjects' => $coursesWithTrainingProjects,
+            'counts' => $counts, // Pasar el conteo a la vista
         ]);
     }
 

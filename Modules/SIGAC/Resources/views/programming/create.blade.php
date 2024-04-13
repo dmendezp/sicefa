@@ -9,70 +9,129 @@
 @endpush
 
 @section('content')
-    <div class="card">
-        <div class="card-body">
-            {!! Form::open(['route' => 'sigac.academic_coordination.programming.management.store', 'method' => 'POST']) !!}
-            @csrf
-            <div class="form-group">
-                {!! Form::label('querter_number', 'Trimestre') !!}
-                <div class="input-select">
-                    {!! Form::select('querter_number', ['' => trans('Seleccione el trimestre'), '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7'], null, ['class' => 'form-control', 'required' , 'id' => 'quarter_number']) !!}
-                </div>
-                @error('course')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-            <div class="form-group">
-                {!! Form::label('course', 'Curso') !!}
-                <div class="input-select">
-                    {!! Form::select('course_id', $courses->pluck('program.name', 'id')->map(function ($item, $key) use ($courses) {
-                        return $item . ' - ' . $courses->find($key)->code;
-                    }), null, ['class' => 'form-select', 'placeholder' => 'Seleccione el curso','id'=> 'course']) !!}
-                </div>
-                @error('course')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-            {!! Form::submit('Guardar', ['class'=>'btn btn-primary']) !!}
-            {!! Form::close() !!}
-        </div>
-    </div>
-    <div id="quaterlie">
+<div class="row">
+    <div class="col-6">
         <div class="card">
-            <div class="card-header">
-                <h2>Trimestralización</h2>
-            </div>
             <div class="card-body">
-                <div id="cometencies"></div>
+                {!! Form::open(['route' => 'sigac.academic_coordination.programming.management.store', 'method' => 'POST']) !!}
+                @csrf
+                <div class="form-group">
+                    {!! Form::label('querter_number', 'Trimestre') !!}
+                    <div class="input-select">
+                        {!! Form::select('querter_number', ['' => trans('Seleccione el trimestre'), '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7'], null, ['class' => 'form-control', 'required' , 'id' => 'quarter_number']) !!}
+                    </div>
+                    @error('course')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    {!! Form::label('course', 'Curso') !!}
+                    <div class="input-select">
+                        {!! Form::select('course', $courses->pluck('program.name', 'id')->map(function ($item, $key) use ($courses) {
+                            return $item . ' - ' . $courses->find($key)->code;
+                        }), null, ['class' => 'form-select', 'placeholder' => 'Seleccione el curso','id'=> 'course']) !!}
+                    </div>
+                    @error('course')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                
+            </div>
+        </div>
+        <div id="quaterlie">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Trimestralización</h2>
+                </div>
+                <div class="card-body">
+                    <div id="cometencies"></div>
+                </div>
             </div>
         </div>
     </div>
+    <div class="col-6">
         <div class="card">
             <div class="card-header">
                 <h2>Programación</h2>
             </div>
             <div class="card-body">
+                @if(session('mensaje'))
+                    <p>
+                        {{ session('mensaje') }}
+                    </p>
+                @endif
                 <div class="form-group">
-                    {!! Form::label('learning_outcome_id', 'Resultado de Aprendizaje') !!}
+                    {!! Form::label('learning_outcome', 'Resultado de Aprendizaje') !!}
                     <div class="input-select">
-                        {!! Form::select('learning_outcome_id', [], old('learning_outcome_id'), ['class' => 'form-control select2 learning_outcome_select', 'required']) !!}
+                        {!! Form::select('learning_outcome', [], old('learning_outcome'), ['class' => 'form-control select2 learning_outcome_select', 'required']) !!}
                     </div>
                 </div>
                 <div class="form-group">
-                    {!! Form::label('instructors', 'Instructor') !!}
+                    {!! Form::label('instructor', 'Instructor') !!}
                     <div class="input-select">
-                        {!! Form::select('instructors', [], old('instructors'), ['class' => 'form-control select2 instructors', 'required']) !!}
+                        {!! Form::select('instructor', [], old('instructor'), ['class' => 'form-control select2 instructors', 'required']) !!}
                     </div>
                 </div>
                 <div class="form-group">
-                    {!! Form::label('environments', 'Ambiente') !!}
+                    {!! Form::label('environment', 'Ambiente') !!}
                     <div class="input-select">
-                        {!! Form::select('environments', [], old('environments'), ['class' => 'form-control select2 environments', 'required']) !!}
+                        {!! Form::select('environment', [], old('environment'), ['class' => 'form-control select2 environments', 'required']) !!}
                     </div>
                 </div>
                 
+                <div class="form-check form-check-inline">
+                    {!! Form::checkbox('days[]', 'Monday', null, false, ['class' => 'form-check-input', 'id' => 'monday']) !!}
+                    {!! Form::label('lunes', 'Lunes', ['class' => 'form-check-label']) !!}
+                </div>
+                <div class="form-check form-check-inline">
+                    {!! Form::checkbox('days[]', 'Tuesday', null, false, ['class' => 'form-check-input', 'id' => 'tuesday']) !!}
+                    {!! Form::label('martes', 'Martes', ['class' => 'form-check-label']) !!}
+                </div>
+                <div class="form-check form-check-inline">
+                    {!! Form::checkbox('days[]', 'Wednesday', null, false, ['class' => 'form-check-input', 'id' => 'wednesday']) !!}
+                    {!! Form::label('miercoles', 'Miercoles', ['class' => 'form-check-label']) !!}
+                </div>
+                <div class="form-check form-check-inline">
+                    {!! Form::checkbox('days[]', 'Thursday', null, false, ['class' => 'form-check-input', 'id' => 'thursday']) !!}
+                    {!! Form::label('jueves', 'Jueves', ['class' => 'form-check-label']) !!}
+                </div>
+                <div class="form-check form-check-inline">
+                    {!! Form::checkbox('days[]', 'Friday', null, false, ['class' => 'form-check-input', 'id' => 'friday']) !!}
+                    {!! Form::label('viernes', 'Viernes', ['class' => 'form-check-label']) !!}
+                </div>
+                <div class="form-check form-check-inline">
+                    {!! Form::checkbox('days[]', 'Saturday', null, false, ['class' => 'form-check-input', 'id' => 'saturday']) !!}
+                    {!! Form::label('sabado', 'Sábado', ['class' => 'form-check-label']) !!}
+                </div>
+                <div class="form-check form-check-inline">
+                    {!! Form::checkbox('days[]', 'Sunday', null, false, ['class' => 'form-check-input', 'id' => 'sunday']) !!}
+                    {!! Form::label('domingo', 'Domingo', ['class' => 'form-check-label']) !!}
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        {!! Form::label('start_date', 'Fecha de inicio') !!}
+                        {!! Form::date('start_date', now(), ['class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('end_date', 'Fecha de finalización') !!}
+                        {!! Form::date('end_date', now(), ['class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('start_time', 'Hora de inicio') !!}
+                        {!! Form::time('start_time', now()->format('H:i'), ['class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('end_time', 'Hora de finalización') !!}
+                        {!! Form::time('end_time', now()->format('H:i'), ['class' => 'form-control']) !!}
+                    </div>
+                    
+                </div>
+                {!! Form::submit('Guardar', ['class'=>'btn btn-primary']) !!}
+                {!! Form::close() !!}
             </div>
         </div>
+    </div>
+</div>
     
 @endsection
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
@@ -125,6 +184,7 @@
                             
                             var learning_outcomeSelect = $('.learning_outcome_select').last();
                             learning_outcomeSelect.empty();
+                            learning_outcomeSelect.append(new Option('Seleccione el resultado de aprendizaje', ''));
                             $.each(response.learning_outcome, function(id , name) {
                                 learning_outcomeSelect.append(new Option(name, id));
                             });
@@ -155,6 +215,7 @@
                             
                             var instructorSelect = $('.instructors').last();
                             instructorSelect.empty();
+                            instructorSelect.append(new Option('Seleccione el instructor', ''));
                             $.each(response.instructors, function(id , first_name) {
                                 instructorSelect.append(new Option(first_name, id));
                             });
@@ -177,6 +238,7 @@
                             
                             var environmentsSelect = $('.environments').last();
                             environmentsSelect.empty();
+                            environmentsSelect.append(new Option('Seleccione el ambiente', ''));
                             $.each(response.environments, function(id , name) {
                                 environmentsSelect.append(new Option(name, id));
                             });

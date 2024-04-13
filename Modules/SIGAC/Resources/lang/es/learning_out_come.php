@@ -2,7 +2,7 @@
 
 return [
     // Titulos
-    'AssignLearning' => 'Asignar R.Aprendizaje',
+    'AssignLearning' => 'R.A x Instructor',
     'AssignLearningOutcomesInstructors' => 'Asignar Resultados de Aprendizaje a Instructores',
 
     // Formulario Asignar resultados de aprendizaje a instructores

@@ -230,15 +230,9 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.training_project.index') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-users-cog"></i>
-                                        <p>Proyecto formativo</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.quarterlie.index') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-users-cog"></i>
-                                        <p>Trimestralización</p>
+                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-tags"></i>
+                                        <p>Co x Profesión</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -254,15 +248,15 @@
                                     </a>
                                 </li>     
                                 <li class="nav-item">
-                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index') }}" class="nav-link">
+                                    <a href="{{ route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-tags"></i>
-                                        <p>Competencias x Profesión</p>
+                                        <p>Cu x Proyecto Formativo</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-tags"></i>
-                                        <p>Cursos x Proyectos Formativos</p>
+                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.training_project.index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-users-cog"></i>
+                                        <p>Proyecto formativo</p>
                                     </a>
                                 </li>
                             </ul>

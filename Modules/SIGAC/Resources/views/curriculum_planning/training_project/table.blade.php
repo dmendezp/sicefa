@@ -6,7 +6,7 @@
                     <th class="text-center">#</th>
                     <th class="text-center">Titulada</th>
                     <th class="text-center">{{ trans('sigac::general.T_Name')}}</th>
-                    <th class="text-center">Tiempo de ejecucion</th>
+                    <th class="text-center">Tiempo de ejecucion (Meses)</th>
                     <th class="text-center">Total de resultados</th>
                     <th class="text-center">Objetivo</th>
                     <th class="text-center">Trimestralizacion</th>
@@ -27,7 +27,7 @@
                             <td class="text-center">{{ $course->program->name }} - {{ $course->code }}</td>
                             <td class="text-center">{{ $t->name }}</td>
                             <td class="text-center">{{ $t->execution_time }}</td>
-                            <td class="text-center">{{ $course->program->competencies->flatMap(function ($competency) {
+                            <td class="text-center">{{ $counts[$t->id] ?? 0 }} de {{ $course->program->competencies->flatMap(function ($competency) {
                                 return $competency->learning_outcomes;
                             })->count() }}
                             </td>
@@ -64,7 +64,7 @@
                             @method('DELETE')
                         </form>
                     </tr>
-                    
+                    @endforeach
                 @endforeach
                 @include('sigac::curriculum_planning.training_project.create')
             </tbody>
@@ -74,6 +74,8 @@
 
 <script>
     $(document).ready(function() {
+        $('#training_project').DataTable({
+        });
             $('.delete-training_project').on('click', function(event) {
             var trainingproject_id = $(this).data('trainingproject-id');
 

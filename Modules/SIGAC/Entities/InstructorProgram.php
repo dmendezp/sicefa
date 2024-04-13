@@ -13,7 +13,7 @@ class InstructorProgram extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['person_id','environment_id','course_id','date','start_time','end_time'];
+    protected $fillable = ['person_id','environment_id','course_id','quarterly_id','date','start_time','end_time'];
 
     public function attendances (){
         return $this->hasMany(Attendance::class);
@@ -29,5 +29,9 @@ class InstructorProgram extends Model
     public function course()
     {
         return $this->belongsTo(Course::class);
+    }
+    public function quarterly()
+    {
+        return $this->belongsTo(Quarterly::class);
     }
 }

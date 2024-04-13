@@ -23,5 +23,9 @@ class Quarterly extends Model
 
     public function training_project(){ //Accede al proyecto forrmativo al que pertenece.
         return $this->belongsTo(TrainingProject::class);
+    }   
+
+    public function instructor_programs(){ //Accede al proyecto forrmativo al que pertenece.
+        return $this->hasMany(InstructorProgram::class);
     }
 }
