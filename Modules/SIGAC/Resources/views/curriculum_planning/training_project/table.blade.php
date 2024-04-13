@@ -64,7 +64,7 @@
                             @method('DELETE')
                         </form>
                     </tr>
-                @endforeach
+                    
                 @endforeach
                 @include('sigac::curriculum_planning.training_project.create')
             </tbody>

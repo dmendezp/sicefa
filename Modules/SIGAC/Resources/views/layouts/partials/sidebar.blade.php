@@ -224,9 +224,9 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.learning_class.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-square-poll-vertical"></i>
-                                        <p>Resultados por clase de ambiente</p>
+                                        <p>R.A x Ambiente</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">

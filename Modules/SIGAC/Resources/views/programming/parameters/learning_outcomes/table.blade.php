@@ -6,7 +6,13 @@
                 <th class="text-center">#</th>
                 <th class="text-center">Nombre</th>
                 <th class="text-center">Horas</th>
-                <th class="text-center">Acciones</th>
+                <th class="text-center">
+                    <a data-toggle="modal" data-target="#addLearning_outcome" onclick="">
+                        <b class="text-success" data-toggle="tooltip" data-placement="top" title="">
+                            <i class="fas fa-plus-circle"></i>
+                        </b>
+                    </a>
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -54,17 +60,6 @@
 
 <script>
     $(document).ready(function() {
-    // Esperar a que la página se haya cargado completamente
-    $(window).on('load', function() {
-        // Inicialización de DataTables
-        $('#learning_customes').DataTable({
-            // Deshabilitar ordenación y paginación
-            ordering: false,
-            paging: false,
-            language: {
-                "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json" // Agregar soporte de idioma en español
-            }
-        });
 
         // Evento para eliminar un registro
         $('.delete-learning').on('click', function(event) {
@@ -88,6 +83,5 @@
             });
         });
     });
-});
 
 </script>
