@@ -24,6 +24,13 @@
     --tran-05: all 0.3s ease;
 }
 
+#standcolor {
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    color: white;
+    border-color: var(--primary-color);;
+}
+
 body{
     min-height: 100vh;
     background-color: var(--body-color);
@@ -275,6 +282,23 @@ body.dark .sidebar header .toggle{
 .sidebar li a:hover{
     background-color: var(--primary-color);
 }
+
+
+.side-link.active {
+    background-color: var(--primary-color);
+    
+}
+
+.icon.active {
+    color: var(--sidebar-color);
+    
+}
+
+.text.active {
+    color: var(--sidebar-color);
+    
+}
+
 .sidebar li a:hover .icon,
 .sidebar li a:hover .text{
     color: var(--sidebar-color);

@@ -4,25 +4,27 @@
             <div class="container" id="form">
                 <!-- Agregar la tabla dinámica -->
                 <div class="form-group">
-                    <h3 id="title">{{ trans('agrocefa::labor.HiredsStaff') }}</h3>
-                    <table id="executorTable" class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>{{ trans('agrocefa::labor.4T_Person') }}</th>
-                                <th>{{ trans('agrocefa::labor.4T_EmpoyeeType') }}</th>
-                                <th>{{ trans('agrocefa::labor.4T_Hours') }}</th>
-                                <th>{{ trans('agrocefa::labor.4T_Price') }}</th>
-                                <th>{{ trans('agrocefa::labor.4T_Total') }}</th>
-                                <!-- Agregar la columna de Destino -->
-                                <th>{{ trans('agrocefa::movements.1T_Actions') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Filas de la tabla se agregarán dinámicamente aquí -->
-                        </tbody>
-                    </table>
-                    <button type="button" class="btn btn-primary"
-                        id="addEmploye">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>
+                    <div class="table-responsive">
+                        <h3 id="title">{{ trans('agrocefa::labor.HiredsStaff') }}</h3>
+                        <table id="executorTable" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>{{ trans('agrocefa::labor.4T_Person') }}</th>
+                                    <th>{{ trans('agrocefa::labor.4T_EmpoyeeType') }}</th>
+                                    <th>{{ trans('agrocefa::labor.4T_Hours') }}</th>
+                                    <th>{{ trans('agrocefa::labor.4T_Price') }}</th>
+                                    <th>{{ trans('agrocefa::labor.4T_Total') }}</th>
+                                    <!-- Agregar la columna de Destino -->
+                                    <th>{{ trans('agrocefa::movements.1T_Actions') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Filas de la tabla se agregarán dinámicamente aquí -->
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn standcolor"
+                            id="addEmploye">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -160,13 +162,12 @@
 
                             var priceemployeField = currentRow.find('#executor_priceemploye');
 
-                            priceemployeField.val(response.price ||
-                                'Precio no encontrada');
+                            priceemployeField.val(response.price);
                         },
                         error: function() {
                             var priceemployeField = currentRow.find('#executor_priceemploye');
 
-                            priceemployeField.val('Error al obtener la unidad de medida');
+                            priceemployeField.val('Error al obtener el precio');
 
                         }
                     });

@@ -86,7 +86,7 @@
                 <button type="button" class="btn btn-primary" id="addProduct">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>
             </div>
             <br>
-            {!! Form::submit( trans('agrocefa::movements.Btn_Register_Entrance'), ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit( trans('agrocefa::movements.Btn_Register_Entrance'), ['class' => 'btn btn-primary','id' => 'standcolor']) !!}
             {!! Form::close() !!}
         </div>
     </div>
@@ -101,9 +101,6 @@
     }
 </style>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
     $(document).ready(function () {
         var productTable = $('#productTable tbody');
@@ -117,11 +114,11 @@
                     '<td class="col-2"><select id="product-id" class="form-control product-id" name="product-id[]" required></select></td>' +
                     '<td><input type="text" id="product-measurement-unit" class="form-control product-measurement-unit" name="product-measurement-unit[]" readonly></td>' +
                     '<td class="col-1.5"><input type="number" id="product-quantity" class="form-control product-quantity" name="product-quantity[]" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
-                    '<td><input type="text" id="product-price" class="form-control product-price" name="product-price[]"></td>' +
+                    '<td><input type="text" id="product-price" class="form-control product-price" name="product-price[]" placeholder="$"></td>' +
                     '<td><input type="text" id="product-lot" class="form-control product-lot" name="product-lot[]" placeholder="Lote #"></td>' +
                     '<td><input type="text" id="product-stock" class="form-control product-stock" name="product-stock[]" placeholder="Stock"></td>' +
                     '<td><input type="text" id="product-category" class="form-control product-category" name="product-category[]" readonly></td>' +
-                    '<td class="col-1.5"><select id="product-destination" class="form-control product-destination" name="product-destination[]" required>' +
+                    '<td class="col-1"><select id="product-destination" class="form-control product-destination" name="product-destination[]" required>' +
                     '<option value="Producción">Producción</option>' +
                     '<option value="Formación">Formación</option>' +
                     '</select></td>' +
@@ -136,6 +133,16 @@
             $.each(elements, function(index, element) {
                 productNameSelect.append('<option value="' + element.id + '">' + element.name + '</option>');
             });
+
+
+            // Inicializar Select2 en el campo de selección de herramientas
+            newRow.find('#product-id').select2({
+                        placeholder: "Buscar producto...",
+                        allowClear: true // Esto permite borrar la selección actual
+                    });
+
+                // Agregar la fila a la tabla
+                productTable.append(newRow);
 
             // Agregar la fila a la tabla
             productTable.append(newRow);

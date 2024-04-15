@@ -52,8 +52,14 @@
                     @endforeach
                 </tbody>
             </table>
-        @else
-            <br>
+        </div>
+    </div>
+@else
+    <br>
+    @if (isset($no_found))
+        <p>{{ $no_found }}</p>
+    @endif
+    
 @endif
 <script>
     // Cuando se hace clic en una fila de la tabla de labores

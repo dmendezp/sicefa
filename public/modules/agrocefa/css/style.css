@@ -150,7 +150,7 @@ html, body{
 }
 @keyframes banner{
 	0%{
-		background-image: url('../images/banner-1.jpg');
+		background-image: url('../images/piña1.png');
 	}
 	25%{
 		background-image: url('../images/foto-casona-la-angostura.jpg');
@@ -158,26 +158,26 @@ html, body{
 
 
 	26%{
-		background-image: url('../images/innovar-y-modernizar-la-agricultura-880.jpg');
+		background-image: url('../images/tractor1.png');
 	}
 	50%{
-		background-image: url('../images/innovar-y-modernizar-la-agricultura-880.jpg');
+		background-image: url('../images/tractor1.png');
 	}
 
 
 	51%{
-		background-image: url('../images/green-field-spring-wallpaper-preview.jpg');
+		background-image: url('../images/piña2.png');
 	}
 	75%{
-		background-image: url('../images/green-field-spring-wallpaper-preview.jpg');
+		background-image: url('../images/piña2.png');
 	}
 	
 
 	76%{
-		background-image: url('../images/Como-se-utilizan-los-drones-en-la-agricultura-1080x675.png');
+		background-image: url('../images/cacao.png');
 	}
 	100%{
-		background-image: url('../images/Como-se-utilizan-los-drones-en-la-agricultura-1080x675.png');
+		background-image: url('../images/cacao.png');
 	}
 
 }

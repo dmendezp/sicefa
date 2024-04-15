@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Modules\SENAEMPRESA\Entities\CourseVacancy;
-use Modules\SENAEMPRESA\Entities\senaempresa;
+use Modules\SENAEMPRESA\Entities\Senaempresa;
 use Modules\SICA\Entities\Course;
 use Modules\SENAEMPRESA\Entities\Vacancy;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
@@ -62,6 +62,9 @@ class VacantController extends Controller
             if ($user->roles[0]->name === 'Aprendiz Senaempresa' || (Route::is('senaempresa.apprentice.*'))) {
                 // Obtén el curso del aprendiz logueado
                 $apprentice = auth()->user()->person->apprentices()->first();
+                if (!$apprentice) {
+                    return redirect()->back()->withInput()->with('info', 'No eres una Aprendiz');
+                }
                 $course = $apprentice->course;
 
                 // Obtén la `senaempresa` asociada al próximo trimestre
@@ -80,12 +83,12 @@ class VacantController extends Controller
                     } else {
                         // Handle the case where no `senaempresa` is associated with the next quarter
                         // You can redirect back with an error message or take other appropriate action.
-                        return redirect()->back()->with('error', trans('senaempresa::menu.There is no senaempresa associated with the next quarter.'));
+                        return redirect()->back()->with('info', trans('senaempresa::menu.There is no senaempresa associated with the next quarter.'));
                     }
                 } else {
                     // Handle the case where no next quarter is found
                     // You can redirect back with an error message or take other appropriate action.
-                    return redirect()->back()->with('error', trans('senaempresa::menu.There is no next quarter.'));
+                    return redirect()->back()->with('info', trans('senaempresa::menu.There is no next quarter.'));
                 }
             } else {
                 // Obtén el ID de la senaempresa seleccionado del formulario si está presente
@@ -445,7 +448,7 @@ class VacantController extends Controller
 
         if (!$nextQuarter) {
             // Handle the case where no next quarter is found
-            return redirect()->back()->with('error', trans('senaempresa::menu.There is no next quarter.'));
+            return redirect()->back()->with('info', trans('senaempresa::menu.There is no next quarter.'));
         }
 
         // Retrieve the senaempresa associated with the next quarter
@@ -453,7 +456,7 @@ class VacantController extends Controller
 
         if (!$nextSenaempresa) {
             // Handle the case where no senaempresa is found for the next quarter
-            return redirect()->back()->with('error', trans('senaempresa::menu.There is no senaempresa associated with the next quarter.'));
+            return redirect()->back()->with('info', trans('senaempresa::menu.There is no senaempresa associated with the next quarter.'));
         }
 
         // Retrieve the courses and vacancies related to the next senaempresa
@@ -464,7 +467,7 @@ class VacantController extends Controller
 
         if ($courses->isEmpty() && $vacancies->isEmpty()) {
             // Handle the case where no courses and vacancies are found
-            return redirect()->back()->with('error', trans('senaempresa::menu.You must first associate courses and vacancies to the next quarters senaempresa.'));
+            return redirect()->back()->with('info', trans('senaempresa::menu.You must first associate courses and vacancies to the next quarters senaempresa.'));
         }
 
         $courseofvacancy = CourseVacancy::all();

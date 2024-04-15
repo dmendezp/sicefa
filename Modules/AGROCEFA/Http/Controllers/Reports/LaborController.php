@@ -142,6 +142,7 @@ class LaborController extends Controller
             'filteredLabors' => $filteredLabors,
             'totalExpenses' => $totalExpenses,
             'totalProductions' => $totalProductions,
+            'no_found' => trans('agrocefa::balance.No_work_found_labor')
         ]);
     }
 
@@ -150,7 +151,7 @@ class LaborController extends Controller
         $laborId = $request->input('laborId');
         $labor = Labor::with('activity', 'equipments', 'consumables', 'executors', 'tools')->find($laborId);
 
-        return view('agrocefa::reports.laborDetails', ['labor' => $labor]);
+        return view('agrocefa::reports.laborDetails', ['labor' => $labor,'no_found' => trans('agrocefa::balance.No_work_found_labor')]);
     }
 
     public function laborpdf(Request $request)

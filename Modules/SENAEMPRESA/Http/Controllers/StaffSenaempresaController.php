@@ -67,7 +67,7 @@ class StaffSenaempresaController extends Controller
 
         if (!$currentQuarter) {
             // Handle the case where no current quarter is found
-            // You can throw an exception or take other appropriate action here.
+            return redirect()->back()->with('info', 'No se han encontrado un trimestre para la fecha actual');
         }
 
         // Find the next quarter
@@ -92,7 +92,7 @@ class StaffSenaempresaController extends Controller
 
         // Check if senaempresas is empty for both quarters
         if ($senaempresas->isEmpty()) {
-            return redirect()->back()->with('error', 'No se han encontrado senaempresas para el trimestre actual o el siguiente');
+            return redirect()->back()->with('info', 'No se han encontrado senaempresas para el trimestre actual o el siguiente');
         }
 
         $staffSenaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
@@ -104,7 +104,7 @@ class StaffSenaempresaController extends Controller
 
 
         if ($apprentices->isEmpty()) {
-            return redirect()->back()->with('error', trans('senaempresa::menu.No apprentices selected'));
+            return redirect()->back()->with('info', trans('senaempresa::menu.No apprentices selected'));
         } else {
             $firstApprentice = $apprentices->first();
             $postulate = $firstApprentice->postulates->first();
@@ -189,7 +189,7 @@ class StaffSenaempresaController extends Controller
 
         // Check if senaempresas is empty for both quarters
         if ($senaempresas->isEmpty()) {
-            return redirect()->back()->with('error', 'No se han encontrado senaempresas para el trimestre actual o el siguiente');
+            return redirect()->back()->with('info', 'No se han encontrado senaempresas para el trimestre actual o el siguiente');
         }
         $staffSenaempresa = StaffSenaempresa::findOrFail($id);
         $PositionCompany = PositionCompany::all();

@@ -70,7 +70,7 @@
         {{--   <li class="nav-item">
             <div type="button" class="btn btn-success">
                 @guest
-                    <a href="{{ route('login') }}" class="text-decoration-none text-black">
+                    <a href="{{ route('login', ['redirect' => url()->current()]) }}" class="text-decoration-none text-black">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 @else

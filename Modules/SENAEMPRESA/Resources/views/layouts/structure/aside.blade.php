@@ -24,10 +24,10 @@
                 @guest
                     <div class="col info info-user">
                         <div>{{ trans('senaempresa::menu.Welcome') }}</div>
-                        <div><a href="{{ route('login') }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
+                        <div><a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
                     </div>
                     <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right"
-                        title="{{ trans('Auth.Login') }}"><a href="{{ route('login') }}" class="d-block"><i
+                        title="{{ trans('Auth.Login') }}"><a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block"><i
                                 class="fas fa-sign-in-alt"></i></a>
                     </div>
                 @else
@@ -90,14 +90,14 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="fas fa-vr-cardboard"></i>
-                            <p>WIX
+                            <p>Estrategia
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('cefa.Nosotros') }}"
-                                    class="nav-link {{ !Route::is('cefa.Nosotros') ?: 'active' }}">
+                                <a href="{{ route('cefa.senaempresa.nosotros') }}"
+                                    class="nav-link {{ !Route::is('cefa.senaempresa.nosotros') ?: 'active' }}">
                                     <i class="fas fa-users"></i>
                                     <p>
                                         {{ trans('senaempresa::menu.We') }}
@@ -106,66 +106,6 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link ">
-                            <i class="nav-icon far fa-list-alt"></i>
-                            <p>
-                                Turnos
-                                <i class="right fas fa-angle-left "></i>
-                            </p>
-                        </a>
-
-                        @guest
-                        <li class="nav-item">
-                            <a href="{{ route('calendarTurno.home') }}"
-                                class="nav-link {{ !Route::is('calendarTurno.home') ?: 'active' }}">
-                                <i class="nav-icon far fa-calendar-alt"></i>
-                                <p>Turnos por Calendario</p>
-                            </a>
-                        </li>
-                    @else
-                        <ul class="nav nav-treeview">
-                            @if (Auth::user()->havePermission('senaempresa.turnosRutinarios'))
-                                <li class="nav-item">
-                                    <a href="{{ route('turnosRutinarios') }}"
-                                        class="nav-link {{ !Route::is('turnosRutinarios') ?: 'active' }}">
-                                        <i class="nav-icon fas fa-people-carry"></i>
-                                        <p>Turnos Rutinarios</p>
-                                    </a>
-                                </li>
-                            @endif
-                            <li class="nav-item">
-                                <a href="{{ route('calendarTurno.home') }}"
-                                    class="nav-link {{ !Route::is('calendarTurno.home') ?: 'active' }}">
-                                    <i class="nav-icon far fa-calendar-alt"></i>
-                                    <p>Turnos por Calendario</p>
-                                </a>
-                            </li>
-                            @if (Auth::user()->havePermission('senaempresa.fingerPrint.home'))
-                                <li class="nav-item">
-                                    <a href="{{ route('fingerPrint.home') }}"
-                                        class="nav-link {{ !Route::is('fingerPrint.home') ?: 'active' }}">
-                                        <i class="nav-icon far fa-id-card"></i>
-                                        <p>Turnos Sena Empresa</p>
-                                    </a>
-                                </li>
-                            @endif
-                        </ul>
-                        </li>
-                        @if (Auth::user()->havePermission('senaempresa.work.index'))
-                            <li class="nav-item">
-                                <a href="{{ route('work.index') }}"
-                                    class="nav-link {{ !Route::is('work.index') ?: 'active' }}">
-                                    <i class="nav-icon fas fa-hammer"></i>
-                                    <p>
-                                        Works
-                                        <span class="right badge badge-danger">New</span>
-                                    </p>
-                                </a>
-                            </li>
-                        @endif
-
-                    @endguest
                 @endif
 
                 {{-- Menú de opciones para Administrador Senaempresa --}}

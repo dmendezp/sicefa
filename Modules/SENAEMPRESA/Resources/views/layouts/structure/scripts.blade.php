@@ -125,6 +125,18 @@
     </script>
 @endif
 
+@if (session('info'))
+    <script>
+        Swal.fire({
+            icon: 'info',
+            title: "{{ trans('senaempresa::menu.Info') }}",
+            text: '{{ session('info') }}',
+            showConfirmButton: false,
+            timer: 4000 // Tiempo en milisegundos (2 segundos en este caso)
+        });
+    </script>
+@endif
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script src="{{ asset('modules/senaempresa/js/modal.js') }}"></script>

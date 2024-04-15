@@ -5,6 +5,7 @@ return [
 	//home
 	'Home' => 'Home',
 	'Attendance' => 'Attendance',
+	'Admin' => 'Admin',
 	'English' => 'English',
 	'Spanish' => 'Spanish',
 	'Login' => 'Login',

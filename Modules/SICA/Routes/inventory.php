@@ -32,6 +32,13 @@ Route::middleware(['lang'])->prefix('sica/admin')->group(function() {
         Route::post('kindOfPurchase/edit', [ParameterController::class, 'updateKindOfPurchase'])->name('sica.admin.inventory.parameters.kindOfPurchase.update');
         Route::get('kindOfPurchase/delete/{id}', [ParameterController::class, 'deleteKindOfPurchase'])->name('sica.admin.inventory.parameters.kindOfPurchase.delete');
         Route::post('kindOfPurchase/delete/', [ParameterController::class, 'destroyKindOfPurchase'])->name('sica.admin.inventory.parameters.kindOfPurchase.destroy');
+        // Rutas de Tipos de movimiento
+        Route::get('movement_type/create', [ParameterController::class, 'createMovementType'])->name('sica.admin.inventory.parameters.movement_type.create');
+        Route::post('movement_type/add', [ParameterController::class, 'storeMovementType'])->name('sica.admin.inventory.parameters.movement_type.store');
+        Route::get('movement_type/edit/{id}', [ParameterController::class, 'editMovementType'])->name('sica.admin.inventory.parameters.movement_type.edit');
+        Route::post('movement_type/edit', [ParameterController::class, 'updateMovementType'])->name('sica.admin.inventory.parameters.movement_type.update');
+        Route::get('movement_type/delete/{id}', [ParameterController::class, 'deleteMovementType'])->name('sica.admin.inventory.parameters.movement_type.delete');
+        Route::post('movement_type/delete/', [ParameterController::class, 'destroyMovementType'])->name('sica.admin.inventory.parameters.movement_type.destroy');
     });
 
 });
@@ -68,6 +75,7 @@ Route::middleware(['lang'])->group(function(){
 
             // --------------  Rutas de Inventario ---------------------------------
             Route::get('inventory', [InventoryController::class,  'inventory'])->name('sica.admin.inventory.inventory'); // Lista de inventario
+            Route::post('inventory/filter', [InventoryController::class,  'inventory_filter'])->name('sica.admin.inventory.inventories.filter'); // Lista de inventario
         });
 
 

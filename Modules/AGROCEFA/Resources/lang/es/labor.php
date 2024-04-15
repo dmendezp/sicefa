@@ -39,7 +39,7 @@ return [
 
     '1T_Category' => 'Categoria',
     '1T_Suplies' => 'Insumos',
-    '1T_Dose' => 'Dosis*HA: Lt-Kg',
+    '1T_Dose' => 'Dosis',
     '1T_Item_Unit_Price' => 'Precio U.Elemento',
     '1T_Price' => 'Precio',
     '1T_Total' => 'Total',

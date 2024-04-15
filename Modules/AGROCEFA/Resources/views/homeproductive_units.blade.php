@@ -1,4 +1,5 @@
 @extends('agrocefa::partials.head')
+<link rel="shortcut icon" href="{{ asset('modules/agrocefa/images/usuario/tractor.png') }}">
 @extends('agrocefa::partials.navbar')
 
 @section('selectproductive')

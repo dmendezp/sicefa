@@ -65,7 +65,7 @@
                             <tbody>
                                 @foreach ($inventories as $inventory)
                                     <tr>
-                                        <td>{{ $inventory->id }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $inventory->person->full_name }}</td>
                                         <td>{{ $inventory->element->name }}</td>
                                         <td>{{ $inventory->destination }}</td>

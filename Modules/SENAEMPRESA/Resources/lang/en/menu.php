@@ -265,6 +265,7 @@ return [
     'Registry successfully updated' => 'Registry successfully updated',
     'Associates Courses-Senaempresa' => 'Associates Courses-Senaempresa',
     'Mistake' => 'Mistake',
+    'Info' => 'Info',
     'Successfully registered.' => 'Successfully registered.',
     'There is no next quarter.' => 'There is no next quarter.',
     'There is no senaempresa associated with the next quarter.' => 'There is no senacompany associated with the next quarter.',

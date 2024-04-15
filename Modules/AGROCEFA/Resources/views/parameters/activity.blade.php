@@ -11,49 +11,51 @@
         @endauth
     </div>
     <div class="card-body">
-        <table class="table table-sm table-bordered table-striped" style="font-size: 0.9rem;">
-            <thead>
-                <tr>
-                    <th class="col-1">#</th>
-                    <th class="col-1">{{ trans('agrocefa::parameters.1T_Name') }}</th>
-                    <th class="col-1">{{ trans('agrocefa::parameters.1T_Type') }}</th>
-                    <th class="col-2">{{ trans('agrocefa::parameters.1T_Description') }}</th>
-                    <th class="col-1">{{ trans('agrocefa::parameters.1T_Period') }}</th>
-                    @auth
-                        @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
-                            <th class="col-3">{{ trans('agrocefa::parameters.1T_Actions') }}</th>
-                        @endif
-                    @endauth
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($activities as $activity)
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered table-striped" style="font-size: 0.9rem;">
+                <thead>
                     <tr>
-                        <td>{{ $activity->id }}</td>
-                        <td>{{ $activity->name }}</td>
-                        <td>{{ $activity->activity_type->name }}</td>
-                        <td>{{ $activity->description }}</td>
-                        <td>{{ $activity->period }}</td>
+                        <th class="col-1">#</th>
+                        <th class="col-1">{{ trans('agrocefa::parameters.1T_Name') }}</th>
+                        <th class="col-1">{{ trans('agrocefa::parameters.1T_Type') }}</th>
+                        <th class="col-2">{{ trans('agrocefa::parameters.1T_Description') }}</th>
+                        <th class="col-1">{{ trans('agrocefa::parameters.1T_Period') }}</th>
                         @auth
                             @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
-                                <td>
-                                    <button class="btn btn-primary btn-sm btn-edit-activity" data-bs-toggle="modal"
-                                        data-bs-target="#editaractividad_{{ $activity->id }}"
-                                        data-activity-id="{{ $activity->id }}"><i class='bx bx-edit icon'></i></button>
-                                    <button class="btn btn-danger btn-sm btn-delete-activity" data-activity-id="{{ $activity->id }}"><i class='bx bx-trash icon'></i></button>
-                                </td>
+                                <th class="col-3">{{ trans('agrocefa::parameters.1T_Actions') }}</th>
                             @endif
                         @endauth
                     </tr>
-                    <form id="delete-activity-form-{{ $activity->id }}"
-                        action="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.activity.destroy', ['id' => $activity->id]) }}"
-                        method="POST">
-                      @csrf
-                      @method('DELETE')
-                  </form>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($activities as $activity)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $activity->name }}</td>
+                            <td>{{ $activity->activity_type->name }}</td>
+                            <td>{{ $activity->description }}</td>
+                            <td>{{ $activity->period }}</td>
+                            @auth
+                                @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
+                                    <td>
+                                        <button class="btn btn-primary btn-sm btn-edit-activity" data-bs-toggle="modal"
+                                            data-bs-target="#editaractividad_{{ $activity->id }}"
+                                            data-activity-id="{{ $activity->id }}"><i class='bx bx-edit icon'></i></button>
+                                        <button class="btn btn-danger btn-sm btn-delete-activity" data-activity-id="{{ $activity->id }}"><i class='bx bx-trash icon'></i></button>
+                                    </td>
+                                @endif
+                            @endauth
+                        </tr>
+                        <form id="delete-activity-form-{{ $activity->id }}"
+                            action="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.activity.destroy', ['id' => $activity->id]) }}"
+                            method="POST">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <br>
@@ -91,7 +93,7 @@
                 </div>
                 <!-- Otros campos del formulario según tus necesidades -->
                 <br>
-                {!! Form::submit(trans('agrocefa::parameters.Btn_Register_Activity'), ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit(trans('agrocefa::parameters.Btn_Register_Activity'), ['class' => 'btn standcolor','id' => 'standcolor']) !!}
                 {!! Form::close() !!}
             </div>
         </div>
@@ -132,7 +134,7 @@
                     </div>
                     <!-- Otros campos del formulario según tus necesidades -->
                     <br>
-                    {!! Form::submit('Actualizar Actividad', ['class' => 'btn btn-primary']) !!}
+                    {!! Form::submit('Actualizar Actividad', ['class' => 'btn btn-primary','id' => 'standcolor']) !!}
                     {!! Form::close() !!}
 
                 </div>

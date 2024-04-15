@@ -37,7 +37,9 @@
 
 @else
     <br>
-    <p>{{ __('agrocefa::produccion.No_labor_selected') }}</p>
+    @if (isset($no_found))
+        <p>{{ $no_found }}</p>
+    @endif  
 @endif
 
 <style>

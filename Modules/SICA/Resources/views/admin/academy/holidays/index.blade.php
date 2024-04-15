@@ -40,7 +40,7 @@
                                         @else
                                             <button type="reset" class="btn btn-secondary">{{ trans('sica::menu.Cancel') }}</button>
                                             @if(Auth::user()->havePermission('sica.'.$role_name.'.academy.holidays.store'))
-                                                <button type="submit" class="btn btn-primary">{{ trans('sica::menu.Register') }}</button>
+                                                <button type="submit" class="btn btn-success">{{ trans('sica::menu.Register') }}</button>
                                             @endif
                                         @endisset
                                     </div>
@@ -66,7 +66,7 @@
                                                     <td class="text-center">
                                                         @if(Auth::user()->havePermission('sica.'.$role_name.'.academy.holidays.edit'))
                                                             <a href="{{ route('sica.'.$role_name.'.academy.holidays.edit', $h) }}" class="mr-1" data-toggle='tooltip' data-placement="top" title="Actualizar día festivo">
-                                                                <i class="fas fa-edit text-success"></i>
+                                                                <i class="fas fa-edit"></i>
                                                             </a>
                                                         @endif
                                                         @if(Auth::user()->havePermission('sica.'.$role_name.'.academy.holidays.destroy'))

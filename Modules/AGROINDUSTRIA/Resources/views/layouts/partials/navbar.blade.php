@@ -186,9 +186,9 @@
                       @guest
                       <div class="col info info-user">
                           <div class="welcome">{{ trans('menu.Welcome') }}</div>
-                          <div class="login"><a href="{{ route('login') }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
+                          <div class="login"><a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
                       </div>
-                      <div class="col info float-right mt-2" id="icon_login" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Login') }}"><a href="{{ route('login') }}" class="d-block" ><i class="fas fa-sign-in-alt"></i></a></div>
+                      <div class="col info float-right mt-2" id="icon_login" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Login') }}"><a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block" ><i class="fas fa-sign-in-alt"></i></a></div>
                       <a href="{{ route ('cefa.agroindustria.home.manual')}}" class="nav-link" id="question">
                         <i class="fas fa-question-circle"></i>
                         <span id="volver-sicefa">Manual de Usuario</span>

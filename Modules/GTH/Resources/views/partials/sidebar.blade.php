@@ -22,10 +22,10 @@
                 @guest
                     <div class="col info info-user">
                         <div>{{ trans('senaempresa::menu.Welcome') }}</div>
-                        <div><a href="{{ route('login') }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
+                        <div><a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
                     </div>
                     <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right"
-                        title="{{ trans('Auth.Login') }}"><a href="{{ route('login') }}" class="d-block"><i
+                        title="{{ trans('Auth.Login') }}"><a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block"><i
                                 class="fas fa-sign-in-alt"></i></a>
                     </div>
                 @else
@@ -74,132 +74,131 @@
                         <p> {{ trans('gth::menu.Home') }}</p>
                     </a>
                 </li>
-
+                @if (Route::is('gth.admin.*') || Route::is('cefa.contractualcertificate.*'))
                 <li
-                    class="nav-item {{ Route::is('gth.admin.contractors.index', 'gth.admin.contractreports.index', 'cefa.contractualcertificates.view') ? 'menu-is-opening menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ !Route::is('contratos.*') ?: 'active' }}">
-                        <i class="fas fa-file-signature"></i>
-                        <p>{{ trans('gth::menu.Contracts') }}
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        @if (Auth::user()->havePermission('gth.admin.contractreports.index'))
-                        <li class="nav-item">
-                            <a href="{{ route('gth.admin.contractreports.index') }}"
-                                class="nav-link {{ !Route::is('gth.admin.contractreports.index') ?: 'active' }}">
-                                <i class="fas fa-file-alt"></i>
-                                <p> {{ trans('gth::menu.Employment Contract') }}</p>
-                            </a>
-                        </li>
-                        @endif
+                        class="nav-item {{ Route::is('gth.admin.insurerentities.index', 'gth.admin.contractortypes.index', 'gth.admin.employeetypes.index', 'gth.admin.pensionentities.index', 'gth.admin.position.index') ? 'menu-is-opening menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ !Route::is('contratos.*') ?: 'active' }}">
+                            <i class="fas fa-users-cog"></i>
+                            <p>{{ trans('gth::menu.Configuration') }}
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @if (Auth::user()->havePermission('gth.admin.insurerentities.index'))
+                            <li class="nav-item">
+                                <a href="{{ route('gth.admin.insurerentities.index') }}"
+                                    class="nav-link {{ !Route::is('gth.admin.insurerentities.index') ?: 'active' }}">
+                                    <i class="fas fa-newspaper"></i>
+                                    <p>
+                                        {{ trans('gth::menu.Insurance Company') }}
+                                    </p>
+                                </a>
+                            </li>
+                            @endif
 
-                        @if (Auth::user()->havePermission('gth.admin.contractors.index'))
-                        <li class="nav-item">
-                            <a href="{{ route('gth.admin.contractors.index') }}"
-                                class="nav-link {{ !Route::is('gth.admin.contractors.index') ?: 'active' }}">
-                                <i class="fas fa-file-contract"></i>
-                                <p>
-                                    {{ trans('gth::menu.Contract Report') }}
-                                </p>
-                            </a>
-                        </li>
-                        @endif
+                            @if (Auth::user()->havePermission('gth.admin.contractortypes.index'))
+                            <li class="nav-item">
+                                <a href="{{ route('gth.admin.contractortypes.index') }}"
+                                    class="nav-link {{ !Route::is('gth.admin.contractortypes.index') ?: 'active' }}">
+                                    <i class="far fa-clipboard"></i>
+                                    <p>
+                                        {{ trans('gth::menu.Type of Contract') }}
+                                    </p>
+                                </a>
+                            </li>
+                            @endif
 
-                        <li class="nav-item">
-                            <a href="{{ route('cefa.contractualcertificate.view') }}"
-                                class="nav-link {{ !Route::is('cefa.contractualcertificate.view') ?: 'active' }}">
-                                <i class="fas fa-receipt"></i>
-                                <p>
-                                    {{ trans('gth::menu.Contract Certificate') }}
-                                </p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                            @if (Auth::user()->havePermission('gth.admin.employeetypes.index'))
+                            <li class="nav-item">
+                                <a href="{{ route('gth.admin.employeetypes.index') }}"
+                                    class="nav-link {{ !Route::is('gth.admin.employeetypes.index') ?: 'active' }}">
+                                    <i class="fas fa-puzzle-piece"></i>
+                                    <p>
+                                        {{ trans('gth::menu.Type of Employee') }}
+                                    </p>
+                                </a>
+                            </li>
+                            @endif
 
-                <li
-                    class="nav-item {{ Route::is('gth.admin.insurerentities.index', 'gth.admin.contractortypes.index', 'gth.admin.employeetypes.index', 'gth.admin.pensionentities.index', 'gth.admin.position.index') ? 'menu-is-opening menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ !Route::is('contratos.*') ?: 'active' }}">
-                        <i class="fas fa-users-cog"></i>
-                        <p>{{ trans('gth::menu.Configuration') }}
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        @if (Auth::user()->havePermission('gth.admin.insurerentities.index'))
-                        <li class="nav-item">
-                            <a href="{{ route('gth.admin.insurerentities.index') }}"
-                                class="nav-link {{ !Route::is('gth.admin.insurerentities.index') ?: 'active' }}">
-                                <i class="fas fa-newspaper"></i>
-                                <p>
-                                    {{ trans('gth::menu.Insurance Company') }}
-                                </p>
-                            </a>
-                        </li>
-                        @endif
+                            @if (Auth::user()->havePermission('gth.admin.pensionentities.index'))
+                            <li class="nav-item">
+                                <a href="{{ route('gth.admin.pensionentities.index') }}"
+                                    class="nav-link {{ !Route::is('gth.admin.pensionentities.index') ?: 'active' }}">
+                                    <i class="fas fa-user-edit"></i>
+                                    <p>
+                                        {{ trans('gth::menu.Pension') }}
+                                    </p>
+                                </a>
+                            </li>
+                            @endif
 
-                        @if (Auth::user()->havePermission('gth.admin.contractortypes.index'))
-                        <li class="nav-item">
-                            <a href="{{ route('gth.admin.contractortypes.index') }}"
-                                class="nav-link {{ !Route::is('gth.admin.contractortypes.index') ?: 'active' }}">
-                                <i class="far fa-clipboard"></i>
-                                <p>
-                                    {{ trans('gth::menu.Type of Contract') }}
-                                </p>
-                            </a>
-                        </li>
-                        @endif
+                            @if (Auth::user()->havePermission('gth.admin.position.index'))
+                            <li class="nav-item">
+                                <a href="{{ route('gth.admin.position.index') }}"
+                                    class="nav-link {{ !Route::is('gth.admin.position.index') ?: 'active' }}">
+                                    <i class="fas fa-envelope-open-text"></i>
+                                    <p>
+                                        {{ trans('gth::menu.Grades') }}
+                                    </p>
+                                </a>
+                            </li>
+                            @endif
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link {{ !Route::is('contratos.*') ?: 'active' }}">
+                            <i class="fas fa-file-signature"></i>
+                            <p>{{ trans('gth::menu.Contracts') }}
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @if (Auth::user()->havePermission('gth.admin.contractreports.index'))
+                            <li class="nav-item">
+                                <a href="{{ route('gth.admin.contractreports.index') }}"
+                                    class="nav-link {{ !Route::is('gth.admin.contractreports.index') ?: 'active' }}">
+                                    <i class="fas fa-file-alt"></i>
+                                    <p> {{ trans('gth::menu.Employment Contract') }}</p>
+                                </a>
+                            </li>
+                            @endif
 
-                        @if (Auth::user()->havePermission('gth.admin.employeetypes.index'))
-                        <li class="nav-item">
-                            <a href="{{ route('gth.admin.employeetypes.index') }}"
-                                class="nav-link {{ !Route::is('gth.admin.employeetypes.index') ?: 'active' }}">
-                                <i class="fas fa-puzzle-piece"></i>
-                                <p>
-                                    {{ trans('gth::menu.Type of Employee') }}
-                                </p>
-                            </a>
-                        </li>
-                        @endif
+                            @if (Auth::user()->havePermission('gth.admin.contractors.index'))
+                            <li class="nav-item">
+                                <a href="{{ route('gth.admin.contractors.index') }}"
+                                    class="nav-link {{ !Route::is('gth.admin.contractors.index') ?: 'active' }}">
+                                    <i class="fas fa-file-contract"></i>
+                                    <p>
+                                        {{ trans('gth::menu.Contract Report') }}
+                                    </p>
+                                </a>
+                            </li>
+                            @endif
 
-                        @if (Auth::user()->havePermission('gth.admin.pensionentities.index'))
-                        <li class="nav-item">
-                            <a href="{{ route('gth.admin.pensionentities.index') }}"
-                                class="nav-link {{ !Route::is('gth.admin.pensionentities.index') ?: 'active' }}">
-                                <i class="fas fa-user-edit"></i>
-                                <p>
-                                    {{ trans('gth::menu.Pension') }}
-                                </p>
-                            </a>
-                        </li>
-                        @endif
-
-                        @if (Auth::user()->havePermission('gth.admin.position.index'))
-                        <li class="nav-item">
-                            <a href="{{ route('gth.admin.position.index') }}"
-                                class="nav-link {{ !Route::is('gth.admin.position.index') ?: 'active' }}">
-                                <i class="fas fa-envelope-open-text"></i>
-                                <p>
-                                    {{ trans('gth::menu.Grades') }}
-                                </p>
-                            </a>
-                        </li>
-                        @endif
-                    </ul>
-                </li>
-
-                @if (Auth::user()->havePermission('gth.admin.officials.index'))
-                <li class="nav-item">
-                    <a href="{{ route('gth.admin.officials.index') }}"
-                        class="nav-link {{ !Route::is('gth.admin.officials.index') ?: 'active' }}">
-                        <i class="fas fa-street-view"></i>
-                        <p>
-                            {{ trans('gth::menu.Officials') }}
-                        </p>
-                    </a>
-                </li>
+                            <li class="nav-item">
+                                <a href="{{ route('cefa.contractualcertificate.view') }}"
+                                    class="nav-link {{ !Route::is('cefa.contractualcertificate.view') ?: 'active' }}">
+                                    <i class="fas fa-receipt"></i>
+                                    <p>
+                                        {{ trans('gth::menu.Contract Certificate') }}
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    @if (Auth::user()->havePermission('gth.admin.officials.index'))
+                    <li class="nav-item">
+                        <a href="{{ route('gth.admin.officials.index') }}"
+                            class="nav-link {{ !Route::is('gth.admin.officials.index') ?: 'active' }}">
+                            <i class="fas fa-street-view"></i>
+                            <p>
+                                {{ trans('gth::menu.Officials') }}
+                            </p>
+                        </a>
+                    </li>
+                    @endif
                 @endif
+                
 
         </nav>
         <!-- /.sidebar-menu -->

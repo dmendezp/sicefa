@@ -28,7 +28,7 @@
                         <tbody>
                             @foreach ($position_companies as $PositionCompany)
                                 <tr>
-                                    <td>{{ $PositionCompany->id }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $PositionCompany->name }}</td>
                                     <td>{{ $PositionCompany->description }}</td>
                                     <td>{{ $PositionCompany->state }}</td>

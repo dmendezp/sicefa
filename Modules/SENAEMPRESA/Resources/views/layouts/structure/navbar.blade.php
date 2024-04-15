@@ -44,17 +44,15 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+        @guest
         <li>
             <div type="button" class="button-login">
-                @guest
-                    <a href="{{ route('login') }}" class="text-decoration-none" style="color: black; cursor: pointer;">
-                        <span>{{ trans('senaempresa::menu.Login') }}</span>
-                    </a>
-                @else
-                    <span>{{ Auth::user()->person->fullname }}</span>
-                @endguest
+                <a href="{{ route('login', ['redirect' => url()->current()]) }}" class="text-decoration-none" style="color: black; cursor: pointer;">
+                    <span>{{ trans('senaempresa::menu.Login') }}</span>
+                </a>
             </div>
         </li>
+        @endguest
 
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">

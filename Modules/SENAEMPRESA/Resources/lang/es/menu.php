@@ -275,6 +275,7 @@ return [
     'senaempresa already exists!' => 'senaempresa ya existe!',
     'We provide' => 'Prestamos',
     'Mistake' => 'Error',
+    'Info' => 'Información',
     'Successfully registered.' => 'Inscrito con éxito.',
     'There is no next quarter.' => 'No hay un próximo trimestre.',
     'There is no senaempresa associated with the next quarter.' => 'No hay una senaempresa asociada al próximo trimestre.',

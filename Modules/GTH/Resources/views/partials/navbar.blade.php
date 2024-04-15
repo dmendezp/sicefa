@@ -5,25 +5,30 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         @auth
-            @if(auth()->check() && auth()->user()->role === 'Administrador')
+            @if(checkRol('superadmin') )
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('cefa.index.view') }}" class="nav-link">{{ trans('gth::menu.Home') }}</a>
                 </li>
             @endif
+            @if (checkRol('gth.admin'))
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="{{ route('gth.admin.index') }}" class="nav-link ">{{ trans('gth::menu.Admin') }}
+                </a>
+            </li>
+            @endif
+                @if (Auth::user()->havePermission('gth.registerattendance.attendancecourse.index'))
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{ route('gth.registerattendance.registerattendance.index') }}" class="nav-link ">{{ trans('gth::menu.Attendance') }}
+                    </a>
+                </li>
+            @endif
+                @if (Auth::user()->havePermission('gth.brigadista.attendancereport.index'))
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{route('gth.brigadista.attendancereport.index')}}" class="nav-link ">{{ trans('gth::menu.brigadista') }}
+                    </a>
+                </li>
+            @endif
         @endauth
-        @if (Auth::user()->havePermission('gth.registerattendance.attendancecourse.index'))
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('gth.registerattendance.registerattendance.index') }}" class="nav-link ">{{ trans('gth::menu.Attendance') }}
-            </a>
-        </li>
-       @endif
-        @if (Auth::user()->havePermission('gth.brigadista.attendancereport.index'))
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{route('gth.brigadista.attendancereport.index')}}" class="nav-link ">{{ trans('gth::menu.brigadista') }}
-            </a>
-        </li>
-       @endif
-
 
         <!--{{--
     <li class="nav-item d-none d-sm-inline-block">

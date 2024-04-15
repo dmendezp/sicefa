@@ -40,7 +40,7 @@ return [
 
     '1T_Category' => 'Category',
     '1T_Suplies' => 'Suplies',
-    '1T_Dose' => 'Dose*HA: Lt-Kg',
+    '1T_Dose' => 'Dose',
     '1T_Item_Unit_Price' => 'Item Unit Price',
     '1T_Total' => 'Total',
 

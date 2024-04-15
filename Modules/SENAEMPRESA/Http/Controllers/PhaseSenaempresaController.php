@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Modules\SENAEMPRESA\Entities\CourseSenaempresa;
-use Modules\SENAEMPRESA\Entities\senaempresa;
+use Modules\SENAEMPRESA\Entities\Senaempresa;
 use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\Quarter;
 
@@ -17,8 +17,8 @@ class PhaseSenaempresaController extends Controller
     public function phases()
 
     {
-        $senaempresas = senaempresa::get();
-        $staff = senaempresa::with('Quarter')->get();
+        $senaempresas = Senaempresa::get();
+        $staff = Senaempresa::with('Quarter')->get();
         $data = ['title' => trans('senaempresa::menu.SenaEmpresa - Phases'), 'senaempresas' => $senaempresas, 'staff' => $staff];
         return view('senaempresa::Company.phases_senaempresa.index', $data);
     }
@@ -43,7 +43,7 @@ class PhaseSenaempresaController extends Controller
             // Si existe una fase con el mismo nombre, verifica si está asociada al mismo trimestre
             if ($existingSena->quarter_id == $quarterId) {
                 // Si está asociada al mismo trimestre, muestra una alerta o toma la acción necesaria
-                return redirect()->back()->with('error', trans('senaempresa::menu.SenaEmpresa already exists in the same quarter'));
+                return redirect()->back()->with('info', trans('senaempresa::menu.SenaEmpresa already exists in the same quarter'));
             }
 
             // Si la fase existe pero en un trimestre diferente, verifica si está eliminada
@@ -53,7 +53,7 @@ class PhaseSenaempresaController extends Controller
                 return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.index')->with('success', trans('senaempresa::menu.SenaEmpresa Successfully restored'));
             } else {
                 // Si la fase no está eliminada, muestra una alerta
-                return redirect()->back()->with('error', trans('senaempresa::menu.SenaEmpresa already exists in the database'));
+                return redirect()->back()->with('info', trans('senaempresa::menu.SenaEmpresa already exists in the database'));
             }
         } else {
             // El registro no existe, crea uno nuevo
@@ -89,7 +89,7 @@ class PhaseSenaempresaController extends Controller
         ]);
 
         // Busca el registro en la base de datos
-        $company = senaempresa::find($id);
+        $company = Senaempresa::find($id);
 
         // Verifica si el registro existe
         if (!$company) {
@@ -188,7 +188,7 @@ class PhaseSenaempresaController extends Controller
         if (!$currentQuarter && !$nextQuarter) {
             // No SenaEmpresa for the current or next quarter, show alert
             return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.index')
-                ->with('error', trans('senaempresa::menu.No SenaEmpresa related to the current or next quarter'));
+                ->with('info', trans('senaempresa::menu.No SenaEmpresa related to the current or next quarter'));
         }
 
         $currentQuarterSenaempresa = $currentQuarter

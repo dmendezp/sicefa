@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            {!! Form::label('lot', trans('agrocefa::produccion.Environment')) !!}
+                            {!! Form::label('lot', trans('agrocefa::balance.environment')) !!}
                             {!! Form::select(
                                 'lot',
                                 ['' => trans('agrocefa::produccion.Select_lot')] +

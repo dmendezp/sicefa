@@ -121,6 +121,7 @@ class MovementController extends Controller
                         'inventory' => $inventory,
                         'amount' => $amount,
                         'state' => $state,
+                        'price' => $price,
                         'inventory_id' => $inventoryId,
                         'element_id' => $elementid,
                         'destination' => $destination,
@@ -393,7 +394,7 @@ class MovementController extends Controller
                 $people = [$user->person->id => $user->person->first_name];
             }
             // ---------------- Filtro para Bodega de Entrega -----------------------
-            $wer = 'Almacen';
+            $wer = 'Almacen Sena';
 
             // Realiza una consulta para obtener las unidades productivas relacionadas con 'Almacen' y sus IDs en la tabla pivote
             $units = ProductiveUnit::whereHas('productive_unit_warehouses', function ($query) use ($wer) {
@@ -410,53 +411,59 @@ class MovementController extends Controller
                     ];
                 });
             });
-
-            // Obtén el primer ID de la tabla pivote, o cualquier otro que desees enviar
-            $this->pivotId = $werhousentrance->first()['id'];
-
-            Session::put('pivotId', $this->pivotId);
             
+            if (!$werhousentrance->isEmpty()) {
+                // Obtén el primer ID de la tabla pivote, o cualquier otro que desees enviar
+                    $this->pivotId = $werhousentrance->first()['id'];
 
-            // ---------------- Filtro para Bodega de Recibe -----------------------
-            // Intenta encontrar la unidad productiva por su ID y verifica si se encuentra
-            $selectedUnit = ProductiveUnit::find($this->selectedUnitId);
+                    Session::put('pivotId', $this->pivotId);
+                    
+
+                    // ---------------- Filtro para Bodega de Recibe -----------------------
+                    // Intenta encontrar la unidad productiva por su ID y verifica si se encuentra
+                    $selectedUnit = ProductiveUnit::find($this->selectedUnitId);
 
 
-            // Inicializa un array para almacenar la información de las bodegas
-            $warehouseData = [];
+                    // Inicializa un array para almacenar la información de las bodegas
+                    $warehouseData = [];
 
-            // Verifica si hay registros en la tabla productive_unit_warehouses para esta unidad
-            if ($selectedUnit) {
-                $warehouses = $selectedUnit->productive_unit_warehouses;
+                    // Verifica si hay registros en la tabla productive_unit_warehouses para esta unidad
+                    if ($selectedUnit) {
+                        $warehouses = $selectedUnit->productive_unit_warehouses;
 
-                // Mapea las bodegas y agrega su información al array
-                $warehouseData = $warehouses->map(function ($warehouseRelation) {
-                    $warehouse = $warehouseRelation->warehouse;
-                    return [
-                        'id' => $warehouse->id,
-                        'name' => $warehouse->name,
-                    ];
-                }); 
+                        // Mapea las bodegas y agrega su información al array
+                        $warehouseData = $warehouses->map(function ($warehouseRelation) {
+                            $warehouse = $warehouseRelation->warehouse;
+                            return [
+                                'id' => $warehouse->id,
+                                'name' => $warehouse->name,
+                            ];
+                        }); 
+                    }
+
+
+                    
+                    // ---------------- Filtro para Elementos -----------------------
+                    // Obtén los elementos con sus IDs
+                    $elements = Element::select('id', 'name')->get();
+
+
+
+
+                // ---------------- Retorno a vista y funciones -----------------------
+
+                return view('agrocefa::movements.formentrance', [
+                    'people' => $people,
+                    'date' => $date,
+                    'werhousentrance' => $werhousentrance,
+                    'warehouseData' => $warehouseData,
+                    'elements' => $elements,
+                ]);
+            } else {
+                return redirect()->back()->withInput()->with('error', 'No se encuentra la unidad de almacen con su bodega asociada');
             }
 
-
             
-            // ---------------- Filtro para Elementos -----------------------
-            // Obtén los elementos con sus IDs
-            $elements = Element::select('id', 'name')->get();
-
-
-
-
-        // ---------------- Retorno a vista y funciones -----------------------
-
-        return view('agrocefa::movements.formentrance', [
-            'people' => $people,
-            'date' => $date,
-            'werhousentrance' => $werhousentrance,
-            'warehouseData' => $warehouseData,
-            'elements' => $elements,
-        ]);
     }
 
 
@@ -475,7 +482,7 @@ class MovementController extends Controller
         $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $receivewarehouse)->first();
         $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
 
-        $productiveexterna = ProductiveUnit::where('name','=','Almacen')->get()->pluck('id');
+        $productiveexterna = ProductiveUnit::where('name','=','Almacen Sena')->get()->pluck('id');
         
         $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $deliverywarehouse)->where('productive_unit_id',$productiveexterna)->first();
         $productiveWarehousedeliveryId = $deliveryproductive_warehouse->id;
@@ -505,6 +512,7 @@ class MovementController extends Controller
                 // Generar el voucher como consecutivo simple sin ceros adicionales
                 $voucher = $this->getNextVoucherNumber();
                 
+                
                 // Registra un solo movimiento con el precio total calculado
                 $movement = new Movement([
                     'registration_date' => $date,
@@ -517,6 +525,8 @@ class MovementController extends Controller
         
                 $movement->save();
                 $movementId = $movement->id;
+
+                
                 
                 // Procesar cada elemento
                 foreach ($productElementIds as $index => $productElementId) {

@@ -42,7 +42,7 @@
                                             @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.programs.create'))
                                                 <a class="mx-3" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.programs.create') }}')">
                                                     <b class="text-success" data-toggle="tooltip" data-placement="top" title="Registrar programa de formación">
-                                                        <i class="fas fa-plus-circle"></i>
+                                                        <i class="fas fa-plus-circle text-success"></i>
                                                     </b>
                                                 </a>
                                             @endif

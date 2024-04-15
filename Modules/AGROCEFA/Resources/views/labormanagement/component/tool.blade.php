@@ -4,24 +4,26 @@
     <div class="container" id="form">
         <!-- Agregar la tabla dinámica -->
         <div class="form-group">
-            <h3 id="title">{{ trans('agrocefa::labor.ToolUsed') }}</h3>
-            <table id="toolTable" class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>{{ trans('agrocefa::labor.2T_Tool') }}</th>
-                        <th>{{ trans('agrocefa::labor.2T_Hours') }}</th>
-                        <th>{{ trans('agrocefa::labor.2T_Price') }}</th>
-                        <th>{{ trans('agrocefa::labor.2T_Total') }}</th>
-                        <!-- Agregar la columna de Destino -->
-                        <th>{{ trans('agrocefa::movements.1T_Actions') }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Filas de la tabla se agregarán dinámicamente aquí -->
-                </tbody>
-            </table>
-            <button type="button" class="btn btn-primary"
-                id="addtool">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>
+            <div class="table-responsive">
+                <h3 id="title">{{ trans('agrocefa::labor.ToolUsed') }}</h3>
+                <table id="toolTable" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>{{ trans('agrocefa::labor.2T_Tool') }}</th>
+                            <th>{{ trans('agrocefa::labor.2T_Hours') }}</th>
+                            <th>{{ trans('agrocefa::labor.2T_Price') }}</th>
+                            <th>{{ trans('agrocefa::labor.2T_Total') }}</th>
+                            <!-- Agregar la columna de Destino -->
+                            <th>{{ trans('agrocefa::movements.1T_Actions') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Filas de la tabla se agregarán dinámicamente aquí -->
+                    </tbody>
+                </table>
+                <button type="button" class="btn standcolor"
+                    id="addtool">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>
+            </div>
         </div>
     </div>
 </div>
@@ -48,6 +50,12 @@
                 '<td><input type="text" id="tool_price-total" class="form-control tool_price-total" name="tool_price-total[]" readonly></td>' +
                 '<td class="col-1"><button type="button" id="button" class="btn btn-danger removeProduct"><i class="fa fa-trash"></i></button>'
             );
+
+            // Inicializar Select2 en el campo de selección de herramientas
+            newRow.find('.tool-id').select2({
+                placeholder: "Buscar herramienta...",
+                allowClear: true // Esto permite borrar la selección actual
+            });
 
             // Agregar la fila a la tabla
             toolTable.append(newRow);

@@ -27,12 +27,6 @@
                     <input type="hidden" name="person_id" id="person_id" value="">
 
                     <div class="form-group">
-                        <label for="contract_number">{{ trans('gth::menu.Contract Number:') }}</label>
-                        <input type="text" class="form-control" id="contract_number" name="contract_number"
-                            placeholder={{ trans('gth::menu.Enter the contract number') }}>
-                    </div>
-
-                    <div class="form-group">
                         <label for="contract_date">{{ trans('gth::menu.Contract date:') }}</label>
                         <input type="date" class="form-control" id="contract_date" name="contract_date"
                             placeholder= {{ trans('gth::menu.Enter the contract date') }}>

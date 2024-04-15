@@ -4,6 +4,7 @@ return [
 	//home
 	'Home' => 'Inicio',
 	'Attendance' => 'Asistencia',
+	'Admin' => 'Administrador',
 	'English' => 'Ingles',
 	'Spanish' => 'Español',
 	'Login' => 'Login',
@@ -249,7 +250,7 @@ return [
 
 	//employeetype
 	'Types of Employees' => 'Tipos de Empleados',
-	'Create Employee Type' => 'Crear Tipo de Empleados',
+	'Create Employee Type' => 'Crear Tipo de Empleado',
 	'ID' => 'ID',
 	'Name' => 'Nombre',
 	'actions' => 'Acciones',
@@ -296,7 +297,6 @@ return [
 	'Advisor' => 'Asesor',
 	'Executive' => 'Directivo',
 	'Instructor' => 'Instructor',
-	'Professional' => 'Profesiona',
 	'Technician' => 'Técnico',
 	'Qualifications:' => 'Calificaciones:',
 	'-- Select --' => '-- Seleccione --',
@@ -307,7 +307,7 @@ return [
 	'Assistant' => 'Asistencial',
 	'Executive' => 'Directivo',
 	'Instructor' => 'Instructor',
-	'Professional' => 'Profesiona',
+	'Professional' => 'Profesional',
 	'Technician' => 'Técnico',
 	'Qualifications:' => 'Calificaciones:',
 	'Save Changes' => 'Guarda Cambios',
@@ -336,7 +336,7 @@ return [
 	'Error' => 'Error',
 	//fficials
 	'Officials' => 'Funcionarios',
-	'Create Type of Officials' => 'Crear Tipo de Funcionarios',
+	'Create Type of Officials' => 'Crear Funcionario',
 	'ID' => 'ID',
 	'ID number' => 'Número documento',
 	'Name' => 'Nombre',
@@ -380,25 +380,5 @@ return [
 	'Close' => 'Cerrar',
 	'Edit' => 'Editar',
 	'Delete' => 'Eliminar',
-	'' => '',
-	'' => '',
-	'' => '',
-	'' => '',
-	'' => '',
-	'' => '',
-	'' => '',
-	'' => '',
-	'' => '',
-	'' => '',
-	'' => '',
-	'' => '',
-	'' => '',
-	'' => '',
-
-
-
-
-
-
 
 ];

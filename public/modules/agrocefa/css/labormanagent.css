@@ -2,6 +2,9 @@ button.buttonlabor
 {
     width: 97%;
     margin-left: 10px;
+    background-color: #695CFE ;
+    border-color: #695CFE;
+    color: white;
 }
 
 #form
@@ -13,4 +16,17 @@ button.buttonlabor
 {
     width: 230px;
     margin-left: 20px;
+    background-color: #695CFE ;
+    border-color: #695CFE;
+}
+#addProduct
+{
+    background-color: #695CFE ;
+    border-color: #695CFE;
+}
+
+button.standcolor { 
+    background-color: #695CFE ;
+    border-color: #695CFE;
+    color: white;
 }

@@ -18,7 +18,7 @@
                     <i class="fas fa-user-graduate"></i> Aprendices
                 </a>
                 <a class="btn btn-app  btn-app-2">
-                    <span class="badge bg-info">0</span>
+                    <span class="badge bg-info">{{ number_format($instructors, 0, ',', '.') }}</span>
                     <i class="fas fa-chalkboard-teacher"></i> Instructores
                 </a>
                 <a class="btn btn-app btn-app-2">
@@ -38,7 +38,7 @@
                     <i class="fas fa-cash-register"></i> Productos
                 </a>
                 <a class="btn btn-app btn-app-2">
-                    <span class="badge bg-info">0</span>
+                    <span class="badge bg-info">{{ number_format($machinery, 0, ',', '.') }}</span>
                     <i class="fas fa-tractor"></i> Maquinaria
                 </a>
                 <a class="btn btn-app btn-app-2">

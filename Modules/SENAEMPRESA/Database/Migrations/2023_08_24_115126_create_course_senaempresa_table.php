@@ -13,7 +13,7 @@ class CreateCourseSenaempresaTable extends Migration
      */
     public function up()
     {
-        Schema::create('course_senaempresa', function (Blueprint $table) {
+        Schema::create('course_senaempresas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
             $table->foreignId('senaempresa_id')->constrained()->onDelete('cascade');
@@ -29,6 +29,6 @@ class CreateCourseSenaempresaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course_senaempresa');
+        Schema::dropIfExists('course_senaempresas');
     }
 }

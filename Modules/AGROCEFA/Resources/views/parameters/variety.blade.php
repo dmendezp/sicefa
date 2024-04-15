@@ -1,5 +1,5 @@
 {{-- CRUD Variety Parameter --}}
-<div class="card" style="width: 90%; margin-left: 40px">
+<div class="card">
     <div class="card-header">
         {{ trans('agrocefa::variety.variety') }}
         @auth
@@ -10,47 +10,49 @@
         @endauth
     </div>
     <div class="card-body">
-        <table class="table table-sm table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>{{ trans('agrocefa::variety.name') }}</th>
-                    <th>{{ trans('agrocefa::variety.specie') }}</th>
-                    @auth
-                        @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
-                            <th>{{ trans('agrocefa::variety.Actions') }}</th>
-                        @endif
-                    @endauth
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($varieties as $variety)
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered table-striped">
+                <thead>
                     <tr>
-                        <td>{{ $variety->id }}</td>
-                        <td>{{ $variety->name }}</td>
-                        <td>{{ $variety->specie->name }}</td>
+                        <th>#</th>
+                        <th>{{ trans('agrocefa::variety.name') }}</th>
+                        <th>{{ trans('agrocefa::variety.specie') }}</th>
                         @auth
                             @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
-                                <td>
-                                    <button class="btn btn-primary btn-sm btn-edit-variety"
-                                        data-bs-target="#editVarietyModal_{{ $variety->id }}" data-bs-toggle="modal">
-                                        <i class='bx bx-edit icon'></i>
-                                    </button>
-
-                                    <button class="btn btn-danger btn-sm btn-variety-specie" data-variety-id="{{ $variety->id }}">
-                                        <i class='bx bx-trash icon'></i>
-                                    </button>
-                                </td>
+                                <th>{{ trans('agrocefa::variety.Actions') }}</th>
                             @endif
                         @endauth
                     </tr>
-                    {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.variety.destroy', 'id' => $variety->id], 'method' => 'DELETE', 'id' => 'delete-variety-form-' . $variety->id]) !!}
-                    @csrf
-                    @method('DELETE')
-                    {!! Form::close() !!}
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($varieties as $variety)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $variety->name }}</td>
+                            <td>{{ $variety->specie->name }}</td>
+                            @auth
+                                @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.manage'))
+                                    <td>
+                                        <button class="btn btn-primary btn-sm btn-edit-variety"
+                                            data-bs-target="#editVarietyModal_{{ $variety->id }}" data-bs-toggle="modal">
+                                            <i class='bx bx-edit icon'></i>
+                                        </button>
+
+                                        <button class="btn btn-danger btn-sm btn-variety-specie" data-variety-id="{{ $variety->id }}">
+                                            <i class='bx bx-trash icon'></i>
+                                        </button>
+                                    </td>
+                                @endif
+                            @endauth
+                        </tr>
+                        {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.variety.destroy', 'id' => $variety->id], 'method' => 'DELETE', 'id' => 'delete-variety-form-' . $variety->id]) !!}
+                        @csrf
+                        @method('DELETE')
+                        {!! Form::close() !!}
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -75,7 +77,7 @@
                             {!! Form::select('specie_id', $species->pluck('name', 'id'), null, ['class' => 'form-control']) !!}
                         </div>                        
                         <br>
-                        <button type="submit" class="btn btn-primary">{{ trans('agrocefa::variety.create_varieties') }}</button>
+                        <button type="submit" class="btn standcolor">{{ trans('agrocefa::variety.create_varieties') }}</button>
                     </form>
                 </div>
             </div>
@@ -101,7 +103,7 @@
                     {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.variety.destroy', 'id' => $variety->id], 'method' => 'DELETE']) !!}
                     @csrf
                     @method('DELETE')
-                    {!! Form::submit(trans('agrocefa::parameters.Delete'), ['class' => 'btn btn-danger']) !!}
+                    {!! Form::submit(trans('agrocefa::parameters.Delete'), ['class' => 'btn btn-danger','id' => 'standcolor']) !!}
                     {!! Form::close() !!}
                 </div>
             </div>
@@ -135,7 +137,7 @@
                         {!! Form::select('specie_id', collect($species)->pluck('name', 'id'), null, ['class' => 'form-control']) !!}
                     </div>                    
                     <br>
-                    {!! Form::submit(trans('agrocefa::variety.Update_Variety'), ['class' => 'btn btn-primary']) !!}
+                    {!! Form::submit(trans('agrocefa::variety.Update_Variety'), ['class' => 'btn btn-primary','id' => 'standcolor']) !!}
                     {!! Form::close() !!}
                 </div>
             </div>

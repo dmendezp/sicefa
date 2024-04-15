@@ -18,6 +18,7 @@ Route::middleware(['lang'])->group(function () {
     Route::prefix('gth')->group(function () {
 
         Route::get('/index', 'GTHController@index')->name('cefa.index.view');
+        Route::get('/admin', 'GTHController@index')->name('gth.admin.index');
         Route::get('/attendanceregister', 'GTHController@viewregisterattendance')->name('gth.registerattendance.registerattendance.index');
 
         // Type_employee
@@ -79,7 +80,7 @@ Route::middleware(['lang'])->group(function () {
 
         //brigader
         Route::get('/brigade', 'BrigadeController@viewbrigader')->name('gth.admin.brigader.index');
-        Route::get('/sistencia', 'BrigadeController@viewAsistencia')->name ('cefa.gth.brigade.asistencia');
+        Route::get('/asistencia', 'BrigadeController@viewAsistencia')->name ('cefa.gth.brigade.asistencia');
         Route::get('/reporte', 'BrigadeController@generateReport')->name('cefa.brigade.reporte');
 
         //Contractual Certificate

@@ -3,27 +3,34 @@
 @section('content')
     <div class="container">
         <h3>{{ trans('agrocefa::reports.ConsumptionReport') }}</h3>
-
-        <div class="form-group">
-            <label for="lot">{{ trans('agrocefa::reports.Lot') }}</label>
-            <select name="lot" class="form-control" required id="lotSelect">
-                <option value="">{{ trans('agrocefa::reports.Select_lot') }}</option>
-                @foreach (array_combine($environmentIds, $environmentNames) as $id => $name)
-                    <option value="{{ $id }}" {{ old('lot') == $id ? 'selected' : '' }}>
-                        {{ $name }}</option>
-                @endforeach
-            </select>
-        </div>
-        <br>
-        <div id="cropsSelectContainer" style="display: none;">
-            <div class="form-group">
-                <label for="cropsSelect">{{ trans('agrocefa::reports.Crop') }}</label>
-                <select name="crops" class="form-control" id="cropsSelect">
-                    <option value="">{{ trans('agrocefa::reports.Select_crop') }}</option>
-                </select>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="lot">{{ trans('agrocefa::reports.Lot') }}</label>
+                            <select name="lot" class="form-control" required id="lotSelect">
+                                <option value="">{{ trans('agrocefa::reports.Select_lot') }}</option>
+                                @foreach (array_combine($environmentIds, $environmentNames) as $id => $name)
+                                    <option value="{{ $id }}" {{ old('lot') == $id ? 'selected' : '' }}>
+                                        {{ $name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="cropsSelect">{{ trans('agrocefa::reports.Crop') }}</label>
+                            <select name="crops" class="form-control" id="cropsSelect">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <br>
+        
         <div id="resultTableContainer">
             <!-- Aquí se mostrará la tabla de resultados -->
         </div>
