@@ -83,4 +83,15 @@ return [
 	// Index
 	'CAFETO_cash_index_title_page' => 'Control de Caja',
 	'CAFETO_cash_index_title_view' => 'Apertura y cierre de caja',
+
+	// -----RecipesController-----
+	// Index
+	'CAFETO_recipes_index_title_page' => 'Control de Recetas',
+	'CAFETO_recipes_index_title_view' => 'Control de Recetas',
+	// Create
+	'CAFETO_recipes_create_title_page' => 'Creación de Recetas',
+	'CAFETO_recipes_create_title_view' => 'Crear receta',
+	// Details
+	'CAFETO_recipes_details_title_page' => 'Detalles de Receta',
+	'CAFETO_recipes_details_title_view' => 'Detalles de Receta',
 ];

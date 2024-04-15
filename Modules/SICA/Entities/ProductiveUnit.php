@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\HDC\Entities\ProductiveUnitResource;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\AGROCEFA\Entities\Specie;
+use Modules\AGROINDUSTRIA\Entities\Formulation;
 
 class ProductiveUnit extends Model implements Auditable
 {

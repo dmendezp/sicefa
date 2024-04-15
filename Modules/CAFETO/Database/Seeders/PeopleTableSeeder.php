@@ -75,5 +75,17 @@ class PeopleTableSeeder extends Seeder
             'population_group_id' => $population_group->id,
             'pension_entity_id' => $pension_entity->id
         ]);
+
+        // Consulta o registro de datos para Julian Javier Ramirez Díaz (Registro necesario para ejecutar seeders de AGROINDUSTRIA)
+        Person::firstOrCreate(['document_number' => 1083874040], [ // Consultar o registrar Persona
+            'document_type' => 'Cédula de ciudadanía',
+            'first_name' => 'JULIAN JAVIER',
+            'first_last_name' => 'RAMIREZ',
+            'second_last_name' => 'DÍAZ',
+            'eps_id' => $eps->id,
+            'population_group_id' => $population_group->id,
+            'pension_entity_id' => $pension_entity->id
+        ]);
+        
     }
 }

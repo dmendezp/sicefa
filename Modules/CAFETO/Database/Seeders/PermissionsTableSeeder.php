@@ -24,7 +24,7 @@ class PermissionsTableSeeder extends Seeder
 
         // Consultar aplicación SICA para registrar los roles
         $app = App::where('name', 'CAFETO')->first();
-        
+
 
         // ===================== Registro de todos los permisos de la aplicación CAFETO ==================
         // Vista principal del administrador
@@ -542,6 +542,59 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista principal de recetas (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.recipes.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de recetas (Administrador)',
+            'description' => 'Vista principal de recetas',
+            'description_english' => 'Main view of recipes',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista principal de recetas (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.recipes.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de recetas (Cajero)',
+            'description' => 'Vista principal de recetas',
+            'description_english' => 'Main view of recipes',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista de creación de recetas (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.recipes.create'], [ // Registro o actualización de permiso
+            'name' => 'Vista de creación de recetas (Administrador)',
+            'description' => 'Vista de creación de recetas',
+            'description_english' => 'View of recipe creation',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista de creación de recetas (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.recipes.create'], [ // Registro o actualización de permiso
+            'name' => 'Vista de creación de recetas (Cajero)',
+            'description' => 'Vista de creación de recetas',
+            'description_english' => 'View of recipe creation',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista detalles de una receta (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.recipes.details'], [ // Registro o actualización de permiso
+            'name' => 'Vista detalles de una receta (Administrador)',
+            'description' => 'Vista detalles de una receta',
+            'description_english' => 'View details of a recipe',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista detalles de una receta (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.recipes.details'], [ // Registro o actualización de permiso
+            'name' => 'Vista detalles de una receta (Cajero)',
+            'description' => 'Vista detalles de una receta',
+            'description_english' => 'View details of a recipe',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'cafeto.admin')->first(); // Rol Administrador

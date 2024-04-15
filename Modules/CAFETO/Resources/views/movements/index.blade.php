@@ -10,7 +10,8 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.movements.consult') }}" method="POST" class="row g-3">
+            <form action="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.movements.consult') }}"
+                method="POST" class="row g-3">
                 @csrf
                 <div class="col-md-3">
                     <label class="form-label">{{ trans('cafeto::movement.Title_Initial_Date') }}</label>
@@ -22,10 +23,18 @@
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">{{ trans('cafeto::movement.Title_Document_Number') }}</label>
-                    <input type="number" name="document_number" class="form-control">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-keyboard"></i>
+                            </span>
+                        </div>
+                        <input type="number" name="document_number" class="form-control">
+                    </div>
                 </div>
                 <div class="col-md-2 d-flex align-items-end">
-                    <button type="submit" class="btn btn-success btn-block">{{ trans('cafeto::movement.Btn_Consult') }}</button>
+                    <button type="submit"
+                        class="btn btn-success btn-block">{{ trans('cafeto::movement.Btn_Consult') }}</button>
                 </div>
             </form>
         </div>
@@ -69,16 +78,23 @@
                                     </td>
                                     <td class="text-center fw-bold">{{ priceFormat($movement->price) }}</td>
                                     <td class="text-center">
-                                        @if($movement_type == 'Venta')
-                                            <a href="{{ route('cafeto.'.getRoleRouteName(Route::currentRouteName()).'.movements.sale.show', $movement) }}" class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title={{ trans('cafeto::movement.Tooltip') }}> 
-                                        @elseif ($movement_type == 'Movimiento Interno')
-                                            <a href="{{ route('cafeto.'.getRoleRouteName(Route::currentRouteName()).'.movements.entries.show', $movement) }}" class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title={{ trans('cafeto::movement.Tooltip') }}>
-                                        @elseif ($movement_type == 'Baja')
-                                        <a href="{{ route('cafeto.'.getRoleRouteName(Route::currentRouteName()).'.movements.low.show', $movement) }}" class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title={{ trans('cafeto::movement.Tooltip') }}>
-                                        @else 
-                                            <a href="#">{{ $movement_type }}
+                                        @if ($movement_type == 'Venta')
+                                            <a href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.movements.sale.show', $movement) }}"
+                                                class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left"
+                                                data-bs-title={{ trans('cafeto::movement.Tooltip') }}>
+                                            @elseif ($movement_type == 'Movimiento Interno')
+                                                <a href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.movements.entries.show', $movement) }}"
+                                                    class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left"
+                                                    data-bs-title={{ trans('cafeto::movement.Tooltip') }}>
+                                                @elseif ($movement_type == 'Baja')
+                                                    <a href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.movements.low.show', $movement) }}"
+                                                        class="btn bg-olive" data-bs-toggle="tooltip"
+                                                        data-bs-placement="left"
+                                                        data-bs-title={{ trans('cafeto::movement.Tooltip') }}>
+                                                    @else
+                                                        <a href="#">{{ $movement_type }}
                                         @endif
-                                            <i class="fa-solid fa-eye"></i>
+                                        <i class="fa-solid fa-eye"></i>
                                         </a>
                                     </td>
                                 </tr>

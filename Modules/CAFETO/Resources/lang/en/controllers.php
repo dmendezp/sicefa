@@ -75,7 +75,7 @@ return [
 	// Create
 	'CAFETO_element_create_title_page' => 'Products - Create Product',
 	'CAFETO_element_create_title_view' => 'Create New Product',
-	// Create
+	// Edit
 	'CAFETO_element_edit_title_page' => 'Products - Edit Product',
 	'CAFETO_element_edit_title_view' => 'Update product information',
 
@@ -83,4 +83,15 @@ return [
 	// Index
 	'CAFETO_cash_index_title_page' => 'Cash Control',
 	'CAFETO_cash_index_title_view' => 'Opening and closing of cash register',
+
+	// -----RecipesController-----
+	// Index
+	'CAFETO_recipes_index_title_page' => 'Recipes Control',
+	'CAFETO_recipes_index_title_view' => 'Recipes Control',
+	// Create
+	'CAFETO_recipes_create_title_page' => 'Creation of recipes',
+	'CAFETO_recipes_create_title_view' => 'Creation of recipes',
+	// Details
+	'CAFETO_recipes_details_title_page' => 'Recipe Details',
+	'CAFETO_recipes_details_title_view' => 'Recipe Details',
 ];
