@@ -15,7 +15,9 @@ use Modules\SIGAC\Entities\Attendance;
 use Modules\AGROINDUSTRIA\Entities\Formulation;
 use Modules\AGROINDUSTRIA\Entities\RequestExternal;
 use Modules\AGROCEFA\Entities\Executor;
-
+use Modules\SIGAC\Entities\CompetencePerson;
+use Modules\SIGAC\Entities\InstructorProgram;
+use Modules\SIGAC\Entities\Profession;
 
 class Person extends Model implements Auditable
 {
@@ -123,6 +125,9 @@ class Person extends Model implements Auditable
     public function cash_counts(){ // Accede a todas las sesiones de caja asociados a esta persona
         return $this->hasMany(CashCount::class);
     }
+    public function learning_outcomes(){ //Accede a todas los resultados de aprendizaje que pertenecen a este perfil (PIVOTE)
+        return $this->belongsToMany(LearningOutcome::class, 'learning_outcome_people');
+    }
     public function contractors(){ // Accede a todos los registros de contratistas que le pertenecen a esta persona
         return $this->hasMany(Contractor::class);
     }
@@ -153,6 +158,9 @@ class Person extends Model implements Auditable
     public function inventories(){ // Accede a todos los registros de inventarios que estan a cargo de esta persona
         return $this->hasMany(Inventory::class);
     }
+    public function instructor_programs(){ // Accede a todas las programaciones de este instructor
+        return $this->hasMany(InstructorProgram::class);
+    }
     public function juries(){ // Accede a todos los jurados que están registrados con esta persona
         return $this->hasMany(Jury::class);
     }
@@ -173,6 +181,9 @@ class Person extends Model implements Auditable
     }
     public function productive_units(){ // Accede a todas las unidades productivas que lidera esta persona
         return $this->hasMany(ProductiveUnit::class);
+    }
+    public function professions(){ //Accede a todas las profesiones que tiene esta persona.
+        return $this->belongsToMany(Profession::class, 'person_professions');
     }
     public function request_externals(){ // Accede a todas las solicitudes externas que le pertenecen esta persona
         return $this->hasMany(RequestExternal::class);

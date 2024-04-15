@@ -51,6 +51,7 @@ class Apprentice extends Model implements Auditable
         return $this->attributes['guardian'] = mb_strtoupper($value);
     }
 
+
     // RELACIONES
     public function attendances(){
         return $this->hasMany(Attendance::class);

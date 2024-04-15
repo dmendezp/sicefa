@@ -2404,11 +2404,7 @@ progress {
   color: var(--bs-body-color);
   background-color: transparent;
   border: solid transparent;
-<<<<<<< HEAD
-  border-width: 1px 0;
-=======
   border-width: var(--bs-border-width) 0;
->>>>>>> FABRICA5
 }
 .form-control-plaintext.form-control-sm, .form-control-plaintext.form-control-lg {
   padding-right: 0;
@@ -2650,11 +2646,7 @@ textarea.form-control-lg {
 }
 .form-switch .form-check-input:checked {
   background-position: right center;
-<<<<<<< HEAD
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
-=======
   --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
->>>>>>> FABRICA5
 }
 
 .form-check-inline {
@@ -2943,11 +2935,7 @@ textarea.form-control-lg {
   border-bottom-right-radius: 0;
 }
 .input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
-<<<<<<< HEAD
-  margin-left: -1px;
-=======
   margin-left: calc(var(--bs-border-width) * -1);
->>>>>>> FABRICA5
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -3010,13 +2998,8 @@ textarea.form-control-lg {
   background-size: 16px 12px, calc(0.8em + 0.375rem) calc(0.8em + 0.375rem);
 }
 .was-validated .form-select:valid:focus, .form-select.is-valid:focus {
-<<<<<<< HEAD
-  border-color: #198754;
-  box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
-=======
   border-color: var(--bs-form-valid-border-color);
   box-shadow: 0 0 0 0.25rem rgba(var(--bs-success-rgb), 0.25);
->>>>>>> FABRICA5
 }
 
 .was-validated .form-check-input:valid, .form-check-input.is-valid {
@@ -3105,13 +3088,8 @@ textarea.form-control-lg {
   background-size: 16px 12px, calc(0.8em + 0.375rem) calc(0.8em + 0.375rem);
 }
 .was-validated .form-select:invalid:focus, .form-select.is-invalid:focus {
-<<<<<<< HEAD
-  border-color: #dc3545;
-  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
-=======
   border-color: var(--bs-form-invalid-border-color);
   box-shadow: 0 0 0 0.25rem rgba(var(--bs-danger-rgb), 0.25);
->>>>>>> FABRICA5
 }
 
 .was-validated .form-check-input:invalid, .form-check-input.is-invalid {
@@ -4107,13 +4085,10 @@ textarea.form-control-lg {
 }
 .nav-link:hover, .nav-link:focus {
   color: #0a58ca;
-<<<<<<< HEAD
-=======
 }
 .nav-link:focus-visible {
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
->>>>>>> FABRICA5
 }
 .nav-link.disabled {
   color: #6c757d;
@@ -4161,8 +4136,6 @@ textarea.form-control-lg {
 .nav-pills .show > .nav-link {
   color: #fff;
   background-color: #0d6efd;
-<<<<<<< HEAD
-=======
 }
 
 .nav-underline {
@@ -4184,7 +4157,6 @@ textarea.form-control-lg {
   font-weight: 700;
   color: var(--bs-nav-underline-link-active-color);
   border-bottom-color: currentcolor;
->>>>>>> FABRICA5
 }
 
 .nav-fill > .nav-link,
@@ -5043,13 +5015,8 @@ textarea.form-control-lg {
   border-color: #dee2e6;
 }
 
-<<<<<<< HEAD
-.page-link {
-  padding: 0.375rem 0.75rem;
-=======
 .page-item:not(:first-child) .page-link {
   margin-left: -1px;
->>>>>>> FABRICA5
 }
 
 .page-item:first-child .page-link {
@@ -5248,8 +5215,6 @@ textarea.form-control-lg {
 .progress-bar-striped {
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-size: 1rem 1rem;
-<<<<<<< HEAD
-=======
 }
 
 .progress-stacked > .progress {
@@ -5258,7 +5223,6 @@ textarea.form-control-lg {
 
 .progress-stacked > .progress > .progress-bar {
   width: 100%;
->>>>>>> FABRICA5
 }
 
 .progress-bar-animated {
@@ -6412,8 +6376,6 @@ textarea.form-control-lg {
   color: #000;
 }
 
-<<<<<<< HEAD
-=======
 [data-bs-theme=dark] .carousel .carousel-control-prev-icon,
 [data-bs-theme=dark] .carousel .carousel-control-next-icon, [data-bs-theme=dark].carousel .carousel-control-prev-icon,
 [data-bs-theme=dark].carousel .carousel-control-next-icon {
@@ -6426,7 +6388,6 @@ textarea.form-control-lg {
   color: #000;
 }
 
->>>>>>> FABRICA5
 @-webkit-keyframes spinner-border {
   to {
     transform: rotate(360deg) /* rtl:ignore */;
@@ -7245,20 +7206,15 @@ textarea.form-control-lg {
 
 .border-dark {
   border-color: #212529 !important;
-<<<<<<< HEAD
-=======
 }
 
 .border-black {
   --bs-border-opacity: 1;
   border-color: rgba(var(--bs-black-rgb), var(--bs-border-opacity)) !important;
->>>>>>> FABRICA5
 }
 
 .border-white {
   border-color: #fff !important;
-<<<<<<< HEAD
-=======
 }
 
 .border-primary-subtle {
@@ -7291,7 +7247,6 @@ textarea.form-control-lg {
 
 .border-dark-subtle {
   border-color: var(--bs-dark-border-subtle) !important;
->>>>>>> FABRICA5
 }
 
 .border-1 {
@@ -8567,8 +8522,6 @@ textarea.form-control-lg {
 .rounded-top {
   border-top-left-radius: 0.25rem !important;
   border-top-right-radius: 0.25rem !important;
-<<<<<<< HEAD
-=======
 }
 
 .rounded-top-0 {
@@ -8584,7 +8537,6 @@ textarea.form-control-lg {
 .rounded-top-2 {
   border-top-left-radius: var(--bs-border-radius) !important;
   border-top-right-radius: var(--bs-border-radius) !important;
->>>>>>> FABRICA5
 }
 
 .rounded-top-3 {
@@ -8615,8 +8567,6 @@ textarea.form-control-lg {
 .rounded-end {
   border-top-right-radius: 0.25rem !important;
   border-bottom-right-radius: 0.25rem !important;
-<<<<<<< HEAD
-=======
 }
 
 .rounded-end-0 {
@@ -8632,7 +8582,6 @@ textarea.form-control-lg {
 .rounded-end-2 {
   border-top-right-radius: var(--bs-border-radius) !important;
   border-bottom-right-radius: var(--bs-border-radius) !important;
->>>>>>> FABRICA5
 }
 
 .rounded-end-3 {
@@ -8663,8 +8612,6 @@ textarea.form-control-lg {
 .rounded-bottom {
   border-bottom-right-radius: 0.25rem !important;
   border-bottom-left-radius: 0.25rem !important;
-<<<<<<< HEAD
-=======
 }
 
 .rounded-bottom-0 {
@@ -8680,7 +8627,6 @@ textarea.form-control-lg {
 .rounded-bottom-2 {
   border-bottom-right-radius: var(--bs-border-radius) !important;
   border-bottom-left-radius: var(--bs-border-radius) !important;
->>>>>>> FABRICA5
 }
 
 .rounded-bottom-3 {
@@ -8711,8 +8657,6 @@ textarea.form-control-lg {
 .rounded-start {
   border-bottom-left-radius: 0.25rem !important;
   border-top-left-radius: 0.25rem !important;
-<<<<<<< HEAD
-=======
 }
 
 .rounded-start-0 {
@@ -8728,7 +8672,6 @@ textarea.form-control-lg {
 .rounded-start-2 {
   border-bottom-left-radius: var(--bs-border-radius) !important;
   border-top-left-radius: var(--bs-border-radius) !important;
->>>>>>> FABRICA5
 }
 
 .rounded-start-3 {

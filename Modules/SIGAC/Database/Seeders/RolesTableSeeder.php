@@ -45,7 +45,7 @@ class RolesTableSeeder extends Seeder
         ]);
 
         // Registrar o actualizar rol de Bienestar
-        $rol_wellness = Role::firstOrCreate(['slug' => 'sigac.wellness'], [
+        $rol_wellness = Role::firstOrCreate(['slug' => 'sigac.wellbeing'], [
             'name' => 'Bienestar',
             'description' => 'Rol Bienestar de la aplicación SIGAC',
             'description_english' => 'Role Wellness of the SIGAC application',

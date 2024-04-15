@@ -135,8 +135,10 @@
 
         // Realizar una petición AJAX para obtener la cantidad disponible
         if (elementoSeleccionado) {
+          var url = {!! json_encode(route('cefa.agroindustria.units.instructor.movements.id', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString());
+          console.log(url);
             $.ajax({
-                url: {!! json_encode(route('cefa.agroindustria.units.instructor.movements.id', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString()),
+                url: url,
                 method: 'GET',
                 success: function(response) {
                     if (Array.isArray(response.id)) {
