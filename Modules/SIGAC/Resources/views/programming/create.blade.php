@@ -249,6 +249,51 @@
                         console.error('Error en la solicitud AJAX');
                     }
                 });
+
+                $.ajax({
+                    url: '{{ route('sigac.academic_coordination.programming.management.filterstatelearning') }}',
+                    method: 'GET',
+                    data: {
+                        learning_outcome_id: learning_outcome_id,
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if (response.status === 'Programado') {
+                            var scheduledInfo = response.scheduled_info;
+                            var message = '<p>El resultado de aprendizaje está programado. Detalles:</p><ul>';
+                            scheduledInfo.forEach(function(info) {
+                                var startTimeParts = info.start_time.split(':');
+                                var endTimeParts = info.end_time.split(':');
+                                var startHours = parseInt(startTimeParts[0], 10);
+                                var startMinutes = parseInt(startTimeParts[1], 10);
+                                var endHours = parseInt(endTimeParts[0], 10);
+                                var endMinutes = parseInt(endTimeParts[1], 10);
+                                var durationHours = endHours - startHours;
+                                var durationMinutes = endMinutes - startMinutes;
+                                if (durationMinutes < 0) {
+                                    durationHours--;
+                                    durationMinutes += 60;
+                                }
+                                message += '<li><strong>Fecha:</strong> ' + info.date + ', <strong>Duración:</strong> ' + durationHours + ' horas ' + durationMinutes + ' minutos</li>';
+                            });
+                            message += '</ul>';
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Información',
+                                html: message,
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Información',
+                                text: 'El resultado de aprendizaje no está programado.',
+                            });
+                        }
+                    },
+                    error: function() {
+                        console.error('Error en la solicitud AJAX');
+                    }
+                });
                 
             } else {
                 

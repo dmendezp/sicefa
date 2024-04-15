@@ -98,6 +98,39 @@ class ProgrammeController extends Controller
         return response()->json(['environments' => $environments->toArray()]);
     }
 
+    public function management_programming_filterstatelearning(Request $request)
+    {
+        $learning_outcome_id = $request->input('learning_outcome_id');
+
+        // Obtener la lista de programas de instructor asociados al resultado de aprendizaje
+        $instructor_programs = InstructorProgram::whereHas('quarterly.learning_outcome', function($query) use ($learning_outcome_id) {
+            $query->where('id', $learning_outcome_id);
+        })->get();
+
+        // Verificar si el resultado de aprendizaje está programado
+        if ($instructor_programs->isEmpty()) {
+            // El resultado de aprendizaje no está programado
+            $message = 'No programado';
+        } else {
+            // El resultado de aprendizaje está programado
+            $message = 'Programado';
+            // Recorrer los programas de instructor para obtener la información de fecha y hora
+            $scheduled_info = [];
+            foreach ($instructor_programs as $program) {
+                $scheduled_info[] = [
+                    'date' => $program->date,
+                    'start_time' => $program->start_time,
+                    'end_time' => $program->end_time
+                ];
+            }
+        }
+
+        return response()->json([
+            'status' => $message,
+            'scheduled_info' => $scheduled_info ?? null
+        ]);
+    }
+
     // Registrar programacion
     public function management_programming_store(Request $request)
     {
