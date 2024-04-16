@@ -277,17 +277,13 @@
                                 message += '<li><strong>Fecha:</strong> ' + info.date + ', <strong>Duración:</strong> ' + durationHours + ' horas ' + durationMinutes + ' minutos</li>';
                             });
                             message += '</ul>';
+                            message += '<p>Observacion: Una hora es de almuerzo</p>';
                             Swal.fire({
                                 icon: 'info',
                                 title: 'Información',
                                 html: message,
                             });
                         } else {
-                            Swal.fire({
-                                icon: 'info',
-                                title: 'Información',
-                                text: 'El resultado de aprendizaje no está programado.',
-                            });
                         }
                     },
                     error: function() {

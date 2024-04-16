@@ -51,6 +51,7 @@
                 <div id="date"></div>
                 <div id="start_time"></div>
                 <div id="end_time"></div>
+                <div id="learning_outcome"></div>
                 <!-- Agrega más detalles del evento según sea necesario -->
             </div>
             <div class="modal-footer">
@@ -90,12 +91,14 @@
             eventClick: function(info) {
                 var eventData = info.event.extendedProps;
                 var option = $('#option').val();
-                console.log(option)
+                console.log(option);
+                console.log(eventData);
 
                 if (option == 1) {
                     $('#environment').text('Ambiente: ' + (eventData.environment ? eventData.environment.name : 'N/A'));
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
+                        $('#learning_outcome').text('Resultado: ' + (eventData.quarterly && eventData.quarterly ? (eventData.quarterly.learning_outcome.name) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
                 } else if (option == 2) {
@@ -105,12 +108,14 @@
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
+                        $('#learning_outcome').text('Resultado: ' + (eventData.quarterly && eventData.quarterly ? (eventData.quarterly.learning_outcome.name) : 'N/A'));
                 } else if (option == 3) {
                     $('#environment').text('Ambiente: ' + (eventData.environment ? eventData.environment.name : 'N/A'));
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
                         $('#instructor').text('Instructor: ' + (eventData.person ? eventData.person.first_name : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
+                        $('#learning_outcome').text('Resultado: ' + (eventData.quarterly && eventData.quarterly ? (eventData.quarterly.learning_outcome.name) : 'N/A'));
                 } else {
                     $('#environment').text('Ambiente: ' + (eventData.environment ? eventData.environment.name : 'N/A'));
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
@@ -118,6 +123,7 @@
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
+                        $('#learning_outcome').text('Resultado: ' + (eventData.quarterly && eventData.quarterly ? (eventData.quarterly.learning_outcome.name) : 'N/A'));
                 }
 
                 $('#eventDetailsModal').modal('show');
@@ -128,7 +134,7 @@
         // Inicializa el calendario
         calendar.render();
 
-        // Cargar todas las programaciones al cargar la página
+        /* // Cargar todas las programaciones al cargar la página
         $.ajax({
             type: 'GET',
             url: "{{ route('sigac.academic_coordination.programming.get') }}",
@@ -152,7 +158,7 @@
             error: function(xhr, status, error) {
                 console.error(error);
             }
-        });
+        }); */
 
         $('#search').change(function() {
             var option = $('#option').val();
@@ -166,6 +172,7 @@
                     option: option
                 },
                 success: function(response) {
+                    console.log(response);
                     calendar.removeAllEvents();
                     response.programmingEvents.forEach(function(eventData) {
                         // Concatenar las iniciales al principio del título del evento
@@ -186,7 +193,8 @@
                             end: eventData.date + 'T' + eventData.end_time,
                             person: eventData.person,
                             course: eventData.course,
-                            environment: eventData.environment
+                            environment: eventData.environment,
+                            quarterly: eventData.quarterly
                         });
                     });
 

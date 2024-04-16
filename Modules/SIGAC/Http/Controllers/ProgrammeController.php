@@ -28,7 +28,7 @@ class ProgrammeController extends Controller
         $view = [
             'titlePage' => trans('sigac::controllers.SIGAC_programming_schedules_title_page'),
             'titleView' => trans('sigac::controllers.SIGAC_programming_schedules_title_view'),
-            'programmingEvents' => InstructorProgram::get(),
+            
         ];
 
         return view('sigac::programming.index', $view);
@@ -285,17 +285,17 @@ class ProgrammeController extends Controller
 
         if ($option == 1) {
 
-            $programmingEvents = InstructorProgram::with('person', 'course.program', 'environment')->whereHas('person', function ($query) use ($filter) {
+            $programmingEvents = InstructorProgram::with('person', 'course.program', 'environment','quarterly.learning_outcome')->whereHas('person', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
                 ->get();
         } elseif ($option == 2) {
-            $programmingEvents = InstructorProgram::with('person', 'course.program', 'environment')->whereHas('environment', function ($query) use ($filter) {
+            $programmingEvents = InstructorProgram::with('person', 'course.program', 'environment','quarterly.learning_outcome')->whereHas('environment', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
                 ->get();
         } else {
-            $programmingEvents = InstructorProgram::with('person', 'course.program', 'environment')->whereHas('course', function ($query) use ($filter) {
+            $programmingEvents = InstructorProgram::with('person', 'course.program', 'environment','quarterly.learning_outcome')->whereHas('course', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
                 ->get();
