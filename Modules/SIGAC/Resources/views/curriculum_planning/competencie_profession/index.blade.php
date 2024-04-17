@@ -13,10 +13,6 @@
                                 <form action="{{ route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_store') }}" method="post">
                                     @csrf
                                     <div class="form-group">
-                                        {!! Form::label('profession',  trans('sigac::profession.Professions')) !!}
-                                        {!! Form::select('profession', $professions, old('profession'), ['class' => 'form-control profession'],) !!}                                    
-                                    </div>
-                                    <div class="form-group">
                                         {!! Form::label('program',  trans('sigac::profession.Programs')) !!}
                                         {!! Form::select('program', $programs,  old('program'), ['class' => 'form-control program'],) !!}                                         
                                     </div>
@@ -24,48 +20,18 @@
                                         {!! Form::label('competencie', trans('sigac::profession.Competencies')) !!}
                                         {!! Form::select('competencie', [],  old('competencie'), ['class' => 'form-control competencie', 'placeholder' =>  trans('sigac::profession.SelectCompetition')],) !!}                                         
                                     </div>
+                                    <div class="form-group">
+                                        {!! Form::label('profession',  trans('sigac::profession.Professions')) !!}
+                                        {!! Form::select('profession', $professions, old('profession'), ['class' => 'form-control profession'],) !!}                                    
+                                    </div>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-success">{{ trans('sigac::profession.Add')}}</button>
                                     </div>
                                 </form>
                             </div>
                             <div class="col-md-8">
-                                <div class="table-responsive">
-                                    <table id="professionxprogram" class="display table table-bordered table-striped table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">{{ trans('sigac::profession.Competencies')}}</th>
-                                                <th class="text-center">{{ trans('sigac::profession.Profession')}}</th>
-                                                <th class="text-center">{{ trans('sigac::profession.Actions')}}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($competencieProfession as $c)
-                                            @php
-                                                $profession = DB::table('professions')->where('id', $c->profession_id)->first();
-                                                $competencie = DB::table('competencies')->where('id', $c->competencie_id)->first();
-                                            @endphp
-                                            <tr>
-                                                <td class="text-center">{{ $competencie->name }}</td>
-                                                <td class="text-center">{{ $profession->name }}</td>
-                                                <td class="text-center">
-                                                    <a class="delete-competencie_profession" data-professionprogram-id="{{ $c->id }}">
-                                                        <b class="text-danger" data-toggle="tooltip" data-placement="top" title="{{ trans('sigac::profession.Eliminate')}}">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </b>
-                                                    </a>
-
-                                                </td>
-                                                <form id="delete-professionprogram-form-{{ $c->id }}"
-                                                    action="{{ route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_destroy', ['id' => $c->id]) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
+                                <div id="professions">
+                                    @include('sigac::curriculum_planning.competencie_profession.table')
                                 </div>
                             </div>
                         </div>
@@ -74,8 +40,8 @@
             </div>
         </div>
     </div>
-
 @endsection
+
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
 <script>
@@ -85,34 +51,31 @@
                 { orderable: false, targets: 2 }
             ]
         });
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
         $('.profession').select2();
         $('.program').select2();
         $('.competencie').select2();
-        $('.delete-competencie_profession').on('click', function(event) {
-            var competencie_profession_id = $(this).data('professionprogram-id');
-
-            // Mostrar SweetAlert para confirmar la eliminación
-            Swal.fire({
-                title: '{{trans('sigac::profession.You_Sure')}}',
-                text: '{{trans('sigac::profession.This_Action_Can_Undone')}}',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: '{{trans('sigac::profession.Yes_Delete')}}'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Si el usuario confirma, enviar el formulario de eliminación
-                    document.getElementById('delete-professionprogram-form-' + competencie_profession_id).submit();
-                }
-            });
-        });
     });
+</script>
+<script>
+    function confirmDelete(event) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¡No podrás revertir esto!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminarlo'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Evitar que el formulario se envíe automáticamente
+                event.preventDefault();
+                
+                // Enviar el formulario manualmente
+                event.target.closest('form').submit();
+            }
+        });
+    }
 </script>
 
 <script>
@@ -137,6 +100,27 @@
                     var options = '<option value="">' + '{{ trans("sigac::profession.SelectCompetition") }}' + '</option>';
                     $('.competencie').last().html(options);
                     console.log(error);
+                }
+            });
+            
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('sigac.academic_coordination.curriculum_planning.competencie_profession.table') }}",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    selectedProgram: selectedProgram
+                },
+                success: function(data) {
+                    // Actualizar el contenedor con los resultados filtrados
+                    $('#professions').html(data);
+                    $('#professionxprogram').DataTable({
+                        columnDefs: [
+                            { orderable: false, targets: 2 }
+                        ]
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
                 }
             });
         });

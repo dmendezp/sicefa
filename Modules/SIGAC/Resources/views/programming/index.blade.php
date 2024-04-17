@@ -48,9 +48,11 @@
                 <div id="environment"></div>
                 <div id="instructor"></div>
                 <div id="course"></div>
+                <div id="modality"></div>
                 <div id="date"></div>
                 <div id="start_time"></div>
                 <div id="end_time"></div>
+                <div id="municipality"></div>
                 <div id="learning_outcome"></div>
                 <!-- Agrega más detalles del evento según sea necesario -->
             </div>
@@ -98,6 +100,8 @@
                     $('#environment').text('Ambiente: ' + (eventData.environment ? eventData.environment.name : 'N/A'));
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
+                        $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.modality ? (eventData.course.modality) : 'N/A'));
+                        $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name + ' - ' + eventData.course.municipality.department.name) : 'N/A'));
                         $('#learning_outcome').text('Resultado: ' + (eventData.quarterly && eventData.quarterly ? (eventData.quarterly.learning_outcome.name) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
@@ -106,12 +110,16 @@
                     $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
                         $('#instructor').text('Instructor: ' + (eventData.person ? eventData.person.first_name : 'N/A'));
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
+                        $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.modality ? (eventData.course.modality) : 'N/A'));
+                        $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
                         $('#learning_outcome').text('Resultado: ' + (eventData.quarterly && eventData.quarterly ? (eventData.quarterly.learning_outcome.name) : 'N/A'));
                 } else if (option == 3) {
                     $('#environment').text('Ambiente: ' + (eventData.environment ? eventData.environment.name : 'N/A'));
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
+                        $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.modality ? (eventData.course.modality) : 'N/A'));
+                        $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name) : 'N/A'));
                         $('#instructor').text('Instructor: ' + (eventData.person ? eventData.person.first_name : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));

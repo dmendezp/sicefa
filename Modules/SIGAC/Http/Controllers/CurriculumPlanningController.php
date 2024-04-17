@@ -315,6 +315,18 @@ class CurriculumPlanningController extends Controller
 
         return view('sigac::curriculum_planning.competencie_profession.index', $view);
     }
+    public function competencie_profession_table(Request $request)
+    {
+        $selectedProgram = $request->input('selectedProgram');
+
+
+        $competencies = Competencie::where('program_id',$selectedProgram)->has('professions')->get();
+        $view = [
+            'competencies' => $competencies,
+        ];
+
+        return view('sigac::curriculum_planning.competencie_profession.table', $view);
+    }
 
     public function competencie_profession_search($id)
     {
@@ -360,21 +372,20 @@ class CurriculumPlanningController extends Controller
         }
     }
 
-    public function competencie_profession_destroy($id)
+    public function competencie_profession_destroy($competencieId, $profession_id)
     {
-        $competencie = DB::table('competencie_professions')->where('id', $id)->delete();
+        // Obtener la competencia
+        $competencie = Competencie::findOrFail($profession_id);
 
-        if ($competencie) {
-            return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
-        } else {
-            return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index'))->with(['error' => trans('sigac::profession.Delete_Error')]);
-        }
+        // Eliminar la relación a través de Eloquent
+        $competencie->professions()->detach($profession_id);
+        
+        return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
     }
+    
 
     public function learning_out_people_index()
     {
-        $learningOutcomePeople = DB::table('learning_outcome_people')->get();
-
         $progr = Program::all();
         $programs = $progr->map(function ($p) {
             $id = $p->id;
@@ -391,10 +402,22 @@ class CurriculumPlanningController extends Controller
             'titlePage' => trans('sigac::learning_out_come.AssignLearning'),
             'titleView' => trans('sigac::learning_out_come.AssignLearningOutcomesInstructors'),
             'programs' => $programs,
-            'learningOutcomePeople' => $learningOutcomePeople
         ];
 
         return view('sigac::curriculum_planning.assign_learning_outcomes.index', $view);
+    }
+
+    public function learning_out_people_table(Request $request)
+    {
+        $competencie_id = $request->input('selectedCompetencie');
+
+        $learning_outcomes = LearningOutcome::where('competencie_id',$competencie_id)->has('people')->get();
+ 
+        $view = [
+            'learning_outcomes' => $learning_outcomes,
+        ];
+
+        return view('sigac::curriculum_planning.assign_learning_outcomes.table', $view);
     }
 
     public function learning_out_people_search_competencie($id)
@@ -510,20 +533,19 @@ class CurriculumPlanningController extends Controller
         }
     }
 
-    public function learning_out_people_destroy($id)
+    public function learning_out_people_destroy($learning_id, $person_id)
     {
-        $professionProgram = DB::table('learning_outcome_people')->where('id', $id)->delete();
+        // Obtener la competencia
+        $learning_outcome = LearningOutcome::findOrFail($learning_id);
 
-        if ($professionProgram) {
-            return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
-        } else {
-            return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index'))->with(['error' => trans('sigac::profession.Delete_Error')]);
-        }
+        // Eliminar la relación a través de Eloquent
+        $learning_outcome->people()->detach($person_id);
+        
+        return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
     }
 
     public function course_training_project_index()
     {
-        $course_training_projects = DB::table('course_training_projects')->get();
 
         $course = Course::with('program')->get();
         $courses = $course->map(function ($c) {
@@ -537,8 +559,7 @@ class CurriculumPlanningController extends Controller
         })->prepend(['id' => null, 'name' => trans('sigac::learning_out_come.SelectCourse')])->pluck('name', 'id');
 
         $training_project = TrainingProject::all();
-
-        $training_projects = $training_project->map(function ($t) {
+        $training_project_select = $training_project->map(function ($t) {
             $id = $t->id;
             $name = $t->name;
 
@@ -552,11 +573,23 @@ class CurriculumPlanningController extends Controller
             'titlePage' => 'Curso x Proyecto Formativo',
             'titleView' => 'Curso x Proyecto Formativo',
             'courses' => $courses,
-            'training_projects' => $training_projects,
-            'course_training_projects' => $course_training_projects,
+            'training_project_select' => $training_project_select,
         ];
 
         return view('sigac::curriculum_planning.course_training_project.index', $view);
+    }
+
+    public function course_training_project_table(Request $request)
+    {
+        $training_project = $request->input('training_project');
+
+        $training_projects = TrainingProject::where('id',$training_project)->has('courses')->get();
+ 
+        $view = [
+            'training_projects' => $training_projects,
+        ];
+
+        return view('sigac::curriculum_planning.course_training_project.table', $view);
     }
 
     public function course_training_project_store(Request $request)
@@ -588,15 +621,15 @@ class CurriculumPlanningController extends Controller
         }
     }
 
-    public function course_training_project_destroy($id)
+    public function course_training_project_destroy($training_project_id, $course_id)
     {
-        $course_training_project = DB::table('course_training_projects')->where('id', $id)->delete();
+        // Obtener la competencia
+        $training_project = TrainingProject::findOrFail($training_project_id);
 
-        if ($course_training_project) {
-            return redirect(route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
-        } else {
-            return redirect(route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index'))->with(['error' => trans('sigac::profession.Delete_Error')]);
-        }
+        // Eliminar la relación a través de Eloquent
+        $training_project->courses()->detach($course_id);
+
+        return redirect(route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
     }
 
     // Proyecto formativo

@@ -285,17 +285,17 @@ class ProgrammeController extends Controller
 
         if ($option == 1) {
 
-            $programmingEvents = InstructorProgram::with('person', 'course.program', 'environment','quarterly.learning_outcome')->whereHas('person', function ($query) use ($filter) {
+            $programmingEvents = InstructorProgram::with('person', 'course.program', 'course.municipality.department','environment','quarterly.learning_outcome')->whereHas('person', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
                 ->get();
         } elseif ($option == 2) {
-            $programmingEvents = InstructorProgram::with('person', 'course.program', 'environment','quarterly.learning_outcome')->whereHas('environment', function ($query) use ($filter) {
+            $programmingEvents = InstructorProgram::with('person', 'course.program', 'course.municipality.department', 'environment','quarterly.learning_outcome')->whereHas('environment', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
                 ->get();
         } else {
-            $programmingEvents = InstructorProgram::with('person', 'course.program', 'environment','quarterly.learning_outcome')->whereHas('course', function ($query) use ($filter) {
+            $programmingEvents = InstructorProgram::with('person', 'course.program', 'course.municipality.department','environment','quarterly.learning_outcome')->whereHas('course', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
                 ->get();
@@ -340,15 +340,7 @@ class ProgrammeController extends Controller
     // Parametros de programacion
     public function parameter()
     {
-        $prof = Program::all();
-        $programs = $prof->map(function ($p) {
-            $id = $p->id;
-            $name = $p->name;
-            return [
-                'id' => $id,
-                'name' => $name
-            ];
-        })->prepend(['id' => null, 'name' => 'Seleccione un programa'])->pluck('name', 'id');
+        $programs = Program::all();
 
         $Comps = Competencie::all();
         $competencies = $Comps->map(function ($c) {
@@ -374,6 +366,52 @@ class ProgrammeController extends Controller
         'competences' => $Comps, 
         'learning_outcomes' => $learning_outcomes, 
         'programs' => $programs, 
+        'competencies' => $competencies]);
+    }
+
+    public function parameter_competencies($program_id)
+    {
+        $prof = Program::all();
+        $programs = $prof->map(function ($p) {
+            $id = $p->id;
+            $name = $p->name;
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione un programa'])->pluck('name', 'id');
+        $competencies = Competencie::where('program_id',$program_id)->get();
+        $titlePage = 'Parametros - Competencia';
+        $titleView = 'Parametros - Competencia';
+        return view('sigac::programming.parameters.competences.table')->with(['titlePage' => $titlePage,
+        'titleView' => $titleView, 
+        'program_id' => $program_id,
+        'programs' => $programs, 
+        'competencies' => $competencies]);
+    }
+
+    public function parameter_learning_outcomes($competencie_id)
+    {
+        $Comps = Competencie::all();
+        $competencies = $Comps->map(function ($c) {
+            $id = $c->id;
+            $name = $c->name;
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione una competencia'])->pluck('name', 'id');
+        $learning_outcomes = LearningOutcome::where('competencie_id',$competencie_id)->get();
+        foreach ($learning_outcomes as $l) {
+           $program_id = $l->competencie->program_id;
+        }
+        $titlePage = 'Parametros - Resultado de aprendizaje';
+        $titleView = 'Parametros - Resultado de aprendizaje';
+        return view('sigac::programming.parameters.learning_outcomes.table')->with(['titlePage' => $titlePage,
+        'titleView' => $titleView, 
+        'competencie_id' => $competencie_id,
+        'learning_outcomes' => $learning_outcomes, 
+        'program_id' => $program_id,
         'competencies' => $competencies]);
     }
 

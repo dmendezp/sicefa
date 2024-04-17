@@ -34,41 +34,8 @@
                                 </form>
                             </div>
                             <div class="col-md-8">
-                                <div class="table-responsive">
-                                    <table id="learningoutcomeperson" class="display table table-bordered table-striped table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">{{ trans('sigac::learning_out_come.Instructor')}}</th>
-                                                <th class="text-center">{{ trans('sigac::learning_out_come.LearningOutComes')}}</th>
-                                                <th class="text-center">{{ trans('sigac::learning_out_come.Actions')}}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($learningOutcomePeople as $l)
-                                            @php
-                                                $person = DB::table('people')->where('id', $l->person_id)->first();
-                                                $learning_outcome = DB::table('learning_outcomes')->where('id', $l->learning_outcome_id)->first();
-                                            @endphp
-                                            <tr>
-                                                <td class="text-center">{{ $person->first_name . ' ' . $person->first_last_name . ' ' . $person->second_last_name }}</td>
-                                                <td class="text-center">{{ $learning_outcome->name }}</td>
-                                                <td class="text-center">
-                                                    <a class="delete-learning_outcomes_person" data-learning_outcomes_person-id="{{ $l->id }}">
-                                                        <b class="text-danger" data-toggle="tooltip" data-placement="top" title="{{ trans('sigac::learning_out_come.Eliminate')}}">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </b>
-                                                    </a>
-                                                </td>
-                                                <form id="delete-learning_outcomes_person-form-{{ $l->id }}"
-                                                    action="{{ route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_destroy', ['id' => $l->id]) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
+                                <div id="instructors">
+                                    @include('sigac::curriculum_planning.assign_learning_outcomes.table')
                                 </div>
                             </div>
                         </div>
@@ -83,7 +50,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#learningoutcomeperson').DataTable({
+        $('#assign_learning').DataTable({
             columnDefs: [
                 { orderable: false, targets: 2 }
             ]
@@ -92,30 +59,30 @@
 </script>
 
 <script>
+    function confirmDelete(event) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: '¡No podrás revertir esto!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminarlo'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Evitar que el formulario se envíe automáticamente
+                    event.preventDefault();
+                    
+                    // Enviar el formulario manualmente
+                    event.target.closest('form').submit();
+                }
+            });
+        }
     $(document).ready(function() {
         $('.program').select2();
         $('.competencie').select2();
         $('.instructor').select2();
         $('.learningOutCome').select2();
-        $('.delete-learning_outcomes_person').on('click', function(event) {
-            var profession_program_id = $(this).data('learning_outcomes_person-id');
-
-            // Mostrar SweetAlert para confirmar la eliminación
-            Swal.fire({
-                title: '{{trans('sigac::profession.You_Sure')}}',
-                text: '{{trans('sigac::profession.This_Action_Can_Undone')}}',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: '{{trans('sigac::profession.Yes_Delete')}}'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Si el usuario confirma, enviar el formulario de eliminación
-                    document.getElementById('delete-learning_outcomes_person-form-' + profession_program_id).submit();
-                }
-            });
-        });
     });
 </script>
 <script>
@@ -166,6 +133,27 @@
                     var options = '<option value="">' + '{{ trans("sigac::learning_out_come.SelectLearningOutcome") }}' + '</option>';
                     $('.learningOutCome').last().html(options);
                     console.log(error);
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.table') }}",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    selectedCompetencie: selectedCompetencie
+                },
+                success: function(data) {
+                    // Actualizar el contenedor con los resultados filtrados
+                    $('#instructors').html(data);
+                    $('#assign_learning').DataTable({
+                        columnDefs: [
+                            { orderable: false, targets: 2 }
+                        ]
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
                 }
             });
         });

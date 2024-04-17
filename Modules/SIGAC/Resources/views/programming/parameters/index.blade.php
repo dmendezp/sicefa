@@ -6,24 +6,13 @@
                 <div class="col-md-12"> {{-- Inicio competencia --}}
                     <div class="card card-blue card-outline shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Competencia</h3>
+                            <h3 class="card-title">Programas</h3>
                         </div>
                         <div class="card-body">
-                        @include('sigac::programming.parameters.competences.table')
+                        @include('sigac::programming.parameters.competences.table_programs')
                     </div>
                 </div>
                 </div> {{-- Fin competencia --}}
-
-                <div class="col-md-12"> 
-                    <div class="card card-blue card-outline shadow">
-                        <div class="card-header">
-                            <h3 class="card-title">Resultados</h3>
-                        </div>
-                        <div class="card-body">
-                            @include('sigac::programming.parameters.learning_outcomes.table')
-                        </div>
-                    </div>
-                </div> {{-- Fin  --}}
                 <div class="col-md-6">
                     <div class="card card-blue card-outline shadow">
                         <div class="card-header">
@@ -57,6 +46,9 @@
 
         });
         $('#external_activities').DataTable({
+
+        });
+        $('#programs').DataTable({
 
         });
         

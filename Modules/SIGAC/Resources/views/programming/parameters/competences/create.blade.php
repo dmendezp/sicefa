@@ -3,16 +3,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="agregarAsistenciaModalLabel">Agregar Competencia</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 {!! Form::open(['route' => 'sigac.academic_coordination.competences.store', 'method' => 'POST']) !!}
                 @csrf
                 @method('POST')
-                <div class="form-group">
-                    {!! Form::label('program_id', 'Programa') !!}
-                    {!! Form::select('program_id', $programs, null, ['class' => 'form-control', 'required']) !!}
-                </div>
+                {!! Form::hidden('program_id', $program_id ) !!}
                 <div class="form-group">
                     {!! Form::label('name', 'Nombre') !!}
                     {!! Form::text('name', null, ['class' => 'form-control', 'required']) !!}

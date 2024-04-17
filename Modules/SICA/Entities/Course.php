@@ -27,7 +27,9 @@ class Course extends Model implements Auditable
         'star_date',
         'end_date',
         'status',
+        'modality',
         'program_id',
+        'municipality_id',
         'deschooling'
     ];
 
@@ -49,6 +51,10 @@ class Course extends Model implements Auditable
     }
     public function apprentices(){ // Accede a todos los aprendices de este curso formativo
         return $this->hasMany(Apprentice::class);
+    }
+    public function municipality()
+    { //Accede a senaempresa registrados
+        return $this->belongsTo(Municipality::class);
     }
     public function program(){ // Accede al programa de formación al que pertenece
         return $this->belongsTo(Program::class);
