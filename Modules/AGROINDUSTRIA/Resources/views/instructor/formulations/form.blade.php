@@ -58,7 +58,7 @@
                             <div id="ingredients">
                                 <h3>{{trans('agroindustria::formulations.Ingredients')}}</h3>
                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
-                                <button type="button" class="btn btn-primary" id="add-ingredients-formulation"><i class="fa-solid fa-plus"></i> {{trans('agroindustria::menu.Add Product')}}</button>
+                                <button type="button" class="btn btn-primary" id="add-ingredients-formulation"><i class="fa-solid fa-plus"></i> {{trans('agroindustria::deliveries.Add Product')}}</button>
                                 @if (isset($registros) && $registros)                   
                                     @foreach ($registros->ingredients as $ingredient)
                                         <div class="ingredient">
@@ -71,12 +71,12 @@
                                             </div>
                                             <div class="form-group">
                                                 {!! Form::label('amount' , trans('agroindustria::menu.Amount')) !!}
-                                                {!! Form::number('amount_ingredients[]', $ingredient->amount / $ingredient->element->measurement_unit->conversion_factor, ['class'=>'form-control amount-select', 'step' => '0.01']) !!}
+                                                {!! Form::number('amount_ingredients[]', $ingredient->amount / $ingredient->element->measurement_unit->conversion_factor, ['class'=>'form-control amount-select']) !!}
                                                 @error('amount')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>  
-                                            <button type="button" class="remove-ingredient">{{trans('agroindustria::menu.Delete')}}</button>
+                                            <button type="button" class="remove-ingredient">{{trans('agroindustria::deliveries.Delete')}}</button>
                                         </div>
                                     @endforeach
                                 @else
@@ -95,7 +95,7 @@
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror        
                                         </div>  
-                                        <button type="button" class="remove-ingredient">{{trans('agroindustria::menu.Delete')}}</button>
+                                        <button type="button" class="remove-ingredient">{{trans('agroindustria::deliveries.Delete')}}</button>
                                     </div>
                                 @endif
                             </div>
@@ -104,7 +104,7 @@
                             <div id="utencils">
                                 <h3>{{trans('agroindustria::formulations.Utencils')}}</h3>
                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
-                                <button type="button" class="btn btn-primary" id="add-utencils-formulation"><i class="fa-solid fa-plus"></i> {{trans('agroindustria::menu.Add Product')}}</button>
+                                <button type="button" class="btn btn-primary" id="add-utencils-formulation"><i class="fa-solid fa-plus"></i> {{trans('agroindustria::deliveries.Add Product')}}</button>
                                 @if (isset($registros) && $registros)                   
                                     @foreach ($registros->utensils as $utensil)
                                         <div class="utencil">
@@ -122,7 +122,7 @@
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>    
-                                            <button type="button" class="remove-utencils">{{trans('agroindustria::menu.Delete')}}</button>
+                                            <button type="button" class="remove-utencils">{{trans('agroindustria::deliveries.Delete')}}</button>
                                         </div>
                                     @endforeach
                                     @else
@@ -141,7 +141,7 @@
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>    
-                                        <button type="button" class="remove-utencils">{{trans('agroindustria::menu.Delete')}}</button>
+                                        <button type="button" class="remove-utencils">{{trans('agroindustria::deliveries.Delete')}}</button>
                                     </div>
                                 @endif 
                             </div>
@@ -164,7 +164,7 @@
     
         // Agregar un nuevo campo de producto
         $("#add-ingredients-formulation").click(function() {
-            var newProduct = '<div class="ingredient"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::menu.Element")) !!} {!! Form::select("element_ingredients[]", $ingredients, null, ["class" => "form-control ingredient-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount_ingredients[]", NULL, ["class"=>"form-control amount-select", "step" => "0.01"]) !!}</div> <button type="button" class="remove-ingredient">{{trans("agroindustria::menu.Delete")}}</button></div>';
+            var newProduct = '<div class="ingredient"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::menu.Element")) !!} {!! Form::select("element_ingredients[]", $ingredients, null, ["class" => "form-control ingredient-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount_ingredients[]", NULL, ["class"=>"form-control amount-select", "step" => "0.01"]) !!}</div> <button type="button" class="remove-ingredient">{{trans("agroindustria::deliveries.Delete")}}</button></div>';
     
             // Agregar el nuevo campo al DOM
             $("#ingredients").append(newProduct);
@@ -188,7 +188,7 @@
     
         // Agregar un nuevo campo de producto
         $("#add-utencils-formulation").click(function() {
-            var newProduct = '<div class="utencil"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::menu.Element")) !!} {!! Form::select("element_utencils[]", $utencils, null, ["class" => "utencil-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount_utencils[]", NULL, ["class"=>"form-control", "id" => "amount"]) !!}</div> <button type="button" class="remove-utencils">{{trans("agroindustria::menu.Delete")}}</button></div>';
+            var newProduct = '<div class="utencil"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::menu.Element")) !!} {!! Form::select("element_utencils[]", $utencils, null, ["class" => "utencil-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount_utencils[]", NULL, ["class"=>"form-control", "id" => "amount"]) !!}</div> <button type="button" class="remove-utencils">{{trans("agroindustria::deliveries.Delete")}}</button></div>';
     
             // Agregar el nuevo campo al DOM
             $("#utencils").append(newProduct);

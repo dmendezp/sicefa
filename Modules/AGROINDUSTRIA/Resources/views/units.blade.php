@@ -21,7 +21,7 @@
                 </a>      
                 @else
                 @if(Route::is('*storer.*') && auth()->check() && checkRol('agroindustria.almacenista'))
-                <a href="{{route('cefa.agroindustria.storer.units.inventory' , ['id'=> $unit->id])}}">
+                <a href="{{route('agroindustria.storer.units.inventory' , ['id'=> $unit->id])}}">
                     <button class="card-client-button" id="boton_unit" data-unit-name="{{ $unit->name }}"  onclick="selectUnit('{{ $unit->id }}', '{{ $unit->name }}')">
                         <div class="card-client-content">
                             <h2 class="tittleU">{{ $unit->name }}</h2>

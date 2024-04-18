@@ -7,40 +7,40 @@
         {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.enviarsolicitud')]) !!}
         <div class="row">
           <div class="col-md-6">
-            {!! Form::label('fecha', trans('agroindustria::menu.Date Time')) !!}
+            {!! Form::label('fecha', trans('agroindustria::deliveries.Date Time')) !!}
             {!! Form::datetime('date', now()->format('Y-m-d\TH:i:s'), ['class' => 'form-control', 'id' => 'readonly-bg-gray', 'readonly' => 'readonly']) !!}
           </div>
           <div class="col-md-6">
-            {!! Form::label('responsible', 'Responsable') !!}
+            {!! Form::label('responsible', trans('agroindustria::deliveries.Responsible')) !!}
             {!! Form::select('responsible', $people, null,  ['class' => 'form-control', 'readonly' => 'readonly', 'id' => 'responsible']) !!}
             
           </div>
           <div class="col-md-6">
-            {!! Form::label('deliver_warehouse', trans('agroindustria::menu.Warehouse that Delivers')) !!}
+            {!! Form::label('deliver_warehouse', trans('agroindustria::deliveries.Warehouse that Delivers')) !!}
             {!! Form::select('deliver_warehouse', $warehouseDeliver->pluck('name', 'id'), old('deliver_warehouse'), ['class' => 'form-control', 'id' => 'deliver_warehouse']) !!}
             @error('deliver_warehouse')
             <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
           <div class="col-md-6">
-            {!! Form::label('receive_warehouse', trans('agroindustria::menu.Warehouse that Receives')) !!}
-            {!! Form::select('receive_warehouse', $warehouseReceive->pluck('name', 'id'), old('receive_warehouse'), ['placeholder' => trans('agroindustria::menu.Select a winery'), 'class' => 'form-control', 'id' => 'receive_warehouse']) !!}
+            {!! Form::label('receive_warehouse', trans('agroindustria::deliveries.Warehouse that Receives')) !!}
+            {!! Form::select('receive_warehouse', $warehouseReceive->pluck('name', 'id'), old('receive_warehouse'), ['placeholder' => trans('agroindustria::deliveries.Select a winery'), 'class' => 'form-control', 'id' => 'receive_warehouse']) !!}
             @error('receive_warehouse')
             <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
           <div class="col-md-12">
-            {!! Form::label('observation', trans('agroindustria::menu.Observations')) !!}
+            {!! Form::label('observation', trans('agroindustria::deliveries.Observations')) !!}
             {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'id' => 'textarea'] ) !!}
           </div>
           <div class="col-md-12">
             <div id="products">
-                <h3>{{trans('agroindustria::menu.Products')}}</h3>
+                <h3>{{trans('agroindustria::deliveries.Products')}}</h3>
                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
-                <button type="button" class="btn btn-primary" id="add-element"><i class="fa-solid fa-plus"></i> {{trans('agroindustria::menu.Add Product')}}</button>
+                <button type="button" class="btn btn-primary" id="add-element"><i class="fa-solid fa-plus"></i> {{trans('agroindustria::deliveries.Add Product')}}</button>
                 <div class="elements">
                   <div class="form-group">
-                    {!! Form::label('elementInventory' , 'Buscar productos') !!}
+                    {!! Form::label('elementInventory' , trans('agroindustria::deliveries.Search Products')) !!}
                     {!! Form::text('search', null, ['class' => 'elementInventory-select']) !!}
                   </div>
                   <div class="form-group">
@@ -52,7 +52,7 @@
                     @endif
                   </div>  
                   <div class="form-group">
-                    {!! Form::label('amount' , trans('agroindustria::menu.Amount')) !!}
+                    {!! Form::label('amount' , trans('agroindustria::deliveries.Amount')) !!}
                     {!! Form::number('amount[]', null, ['class' => 'form-control', 'id' => 'amount']) !!}
                     @error('amount')
                       <span class="text-danger">{{ $message }}</span>
@@ -60,13 +60,13 @@
                   </div>   
                     {!! Form::hidden('available[]', null, ['class' => 'form-control', 'id' => 'available', 'readonly' => 'readonly']) !!}
                     {!! Form::hidden('price[]', null, ['class' => 'form-control', 'id' => 'price', 'readonly'=> 'readonly']) !!}
-                    <button type="button" class="remove-element">{{trans('agroindustria::menu.Delete')}}</button>
+                    <button type="button" class="remove-element">{{trans('agroindustria::deliveries.Delete')}}</button>
                 </div>
             </div>
         </div>
         </div>
         <div class="button">
-          {!! Form::submit('Guardar',['class' => 'salida btn btn-success', 'name' => 'salida']) !!}
+          {!! Form::submit(trans('agroindustria::deliveries.save'),['class' => 'salida btn btn-success', 'name' => 'salida']) !!}
         </div>
         {!! Form:: close() !!}
       </div>
@@ -81,7 +81,7 @@
     $(document).ready(function() {
       // Agregar un nuevo campo de producto
       $("#add-element").click(function() {
-          var newProduct = '<div class="elements"><div class="form-group">{!! Form::label("elementInventory" , "Buscar productos") !!} {!! Form::text("search", null, ["readonly" => "readonly", "id" => "elementInventory-select"]) !!} </div> <div class="form-group">{!! Form::label("element" , trans("agroindustria::menu.Element")) !!} {!! Form::hidden("element[]", null, ["id" => "element_id"]) !!} {!! Form::text("element_name", null, ["class"=>"form-control", "id" => "element_name", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount[]", NULL, ["class" => "form-control", "id" => "amount"]) !!}</div>{!! Form::hidden("available[]", null, ["class" => "form-control", "id" => "available", "readonly" => "readonly"]) !!}{!! Form::hidden("price[]", null, ["class" => "form-control", "id" => "price", "readonly" => "readonly"]) !!}<button type="button" class="remove-element">{{trans("agroindustria::menu.Delete")}}</button></div>';
+          var newProduct = '<div class="elements"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::deliveries.Search Products")) !!} {!! Form::text("search", null, ["readonly" => "readonly", "id" => "elementInventory-select"]) !!} </div> <div class="form-group">{!! Form::label("element" , trans("agroindustria::deliveries.Element")) !!} {!! Form::hidden("element[]", null, ["id" => "element_id"]) !!} {!! Form::text("element_name", null, ["class"=>"form-control", "id" => "element_name", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::deliveries.Amount")) !!} {!! Form::number("amount[]", NULL, ["class" => "form-control", "id" => "amount"]) !!}</div>{!! Form::hidden("available[]", null, ["class" => "form-control", "id" => "available", "readonly" => "readonly"]) !!}{!! Form::hidden("price[]", null, ["class" => "form-control", "id" => "price", "readonly" => "readonly"]) !!}<button type="button" class="remove-element">{{trans("agroindustria::deliveries.Delete")}}</button></div>';
   
           // Agregar el nuevo campo al DOM
           $("#products").append(newProduct);
@@ -89,7 +89,7 @@
           var baseUrl = '{{ route("cefa.agroindustria.units.instructor.element.name", ["name" => ":name"]) }}';
           console.log(baseUrl);
           $('#elementInventory-select:last').select2({
-            placeholder: 'Buscar productos',
+            placeholder: '{{trans("agroindustria::deliveries.Search Products")}}',
             minimumInputLength: 1, // Habilita la búsqueda en tiempo real
             ajax: {
               url: function(params) {

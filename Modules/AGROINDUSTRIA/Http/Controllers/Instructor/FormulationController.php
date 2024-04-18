@@ -303,6 +303,7 @@ class FormulationController extends Controller
         
         // Recorrer los datos de productos y guardarlos en Supply
         foreach ($nameIngredients as $key => $ingredient) {
+            $amount = $amountIngredients[$key];
             $ingredientId = $f->ingredients[$key]->id ?? null; // Obtener el ID del ingrediente si existe
             $measurement_unit = Element::where('id', $ingredient)->pluck('measurement_unit_id');
             $conversion_factor = MeasurementUnit::where('id', $measurement_unit)->pluck('conversion_factor')->first();

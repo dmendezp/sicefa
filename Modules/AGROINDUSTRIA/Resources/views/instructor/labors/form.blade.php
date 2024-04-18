@@ -6,89 +6,134 @@
             <div class="form">
                 <div class="form-header">{{trans('agroindustria::labors.laborRegistration')}}</div>
                 <div class="form-body">
+                    @if (Route::is('*form*'))
                     {!! Form::open(['url' => route('cefa.agroindustria.units.instructor.labor.register'),'method' => 'post']) !!}
+                    @else
+                    {!! Form::open(['url' => route('cefa.agroindustria.units.instructor.labor.update'),'method' => 'post']) !!}
+                    @endif
                     <div class="row">
                         <div class="col-md-6">
+                            @if (isset($registros))
+                            {!! Form::hidden('id', $registros->id) !!}
+                            @endif
                             {!! Form::label('activities', trans('agroindustria::labors.activity')) !!}
-                            {!! Form::select('activities', $activity, old('activities'), ['class' => 'form-control', 'id' => 'activity-selected']) !!}  
+                            {!! Form::select('activities', $activity, isset($registros) ? $registros->activity->id : old('activities'), ['class' => 'form-control', 'id' => 'activity-selected']) !!}  
                             @error('activities')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror                      
                         </div>
+                        @if (isset($registros))
+                        @if($registros->activity->activity_type->id == 1 && $registros->destination == 'Producción')
                         <div class="col-md-6" id="recipe-field" style="display: none;">
                             {!! Form::label('recipe', trans('agroindustria::labors.recipes')) !!}
-                            {!! Form::select('recipe', $recipe, old('recipe'), ['class' => 'form-control', 'id' => 'recipe-select']) !!}
+                            {!! Form::select('recipe', $recipe, isset($registros) ? $registros->productions->first()->element->id : old('recipe'), ['class' => 'form-control', 'id' => 'recipe-select']) !!}
                             @error('recipe')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        @endif
+                        @else
+                        <div class="col-md-6" id="recipe-field" style="display: none;">
+                            {!! Form::label('recipe', trans('agroindustria::labors.recipes')) !!}
+                            {!! Form::select('recipe', $recipe, isset($registros) ? $registros->productions->first()->element->id : old('recipe'), ['class' => 'form-control', 'id' => 'recipe-select']) !!}
+                            @error('recipe')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        @endif
                         <div class="col-md-6">
                             {!! Form::label('date_plannig', trans('agroindustria::labors.planningDate')) !!}
-                            {!! Form::date('date_plannig', now(), ['id' => 'readonly-bg-gray', 'class' => 'form-control', 'readonly' => 'readonly']) !!}
+                            {!! Form::input('datetime-local', 'date_plannig', isset($registros) ? $registros->planning_date : now(), ['id' => 'readonly-bg-gray', 'class' => 'form-control', 'readonly' => 'readonly']) !!}
                             @error('date_plannig')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror   
                         </div>
                         <div class="col-md-6">
                             {!! Form::label('date_execution', trans('agroindustria::labors.executionDate')) !!}
-                            {!! Form::input('datetime-local', 'date_execution', null, ['class' => 'form-control']) !!}
+                            {!! Form::input('datetime-local', 'date_execution', isset($registros) ? $registros->execution_date : null, ['class' => 'form-control']) !!}
                             @error('date_execution')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror   
                         </div>
                         <div class="col-md-6">
                             {!! Form::label('description', trans('agroindustria::labors.description')) !!}
-                            {!! Form::textarea('description', null, ['class'=>'form-control', 'id'=>'proccess']) !!}
+                            {!! Form::textarea('description', isset($registros) ? $registros->description : null, ['class'=>'form-control', 'id'=>'proccess']) !!}
                             @error('description')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror   
                         </div> 
                         <div class="col-md-6">
                             {!! Form::label('observations', trans('agroindustria::labors.observations')) !!}
-                            {!! Form::textarea('observations', null, ['class'=>'form-control', 'id' => 'observations']) !!}
+                            {!! Form::textarea('observations', isset($registros) ? $registros->observations : null, ['class'=>'form-control', 'id' => 'observations']) !!}
                             @error('observations')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror 
                         </div> 
                         <div class="col-md-6">
                             {!! Form::label('destination', trans('agroindustria::labors.destination')) !!}
-                            {!! Form::select('destination', $destination, null, ['class'=>'form-control', 'placeholder' => trans("agroindustria::labors.selectDestination")]) !!}
+                            {!! Form::select('destination', $destination, isset($registros) ? $registros->destination : null, ['class'=>'form-control', 'placeholder' => trans("agroindustria::labors.selectDestination")]) !!}
                             @error('destination')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror   
                         </div>  
                         <div class="col-md-6">
                             {!! Form::label('personName', trans('agroindustria::labors.responsible')) !!}
-                            {!! Form::text('personName', null, ['class'=>'form-control', 'id' => 'responsible', 'readonly' => 'readonly']) !!}
-                            {!! Form::hidden('person', null, ['id' => 'responsibleId']) !!}
+                            {!! Form::text('personName', isset($registros) ? $registros->person->first_name . ' ' . $registros->person->first_last_name . ' ' . $registros->person->second_last_name: null, ['class'=>'form-control', 'id' => 'responsible', 'readonly' => 'readonly']) !!}
+                            {!! Form::hidden('person', isset($registros) ? $registros->person_id : null, ['id' => 'responsibleId']) !!}
                             @error('person')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror   
                         </div>
+                        @if (isset($registros))
+                        @if ($registros->activity->activity_type->id == 1 && $registros->destination == 'Producción')
                         <div class="col-md-4" id="date-expiration-field" style="display: none;">
                             {!! Form::label('date_experation', trans('agroindustria::labors.expirationDate')) !!}
-                            {!! Form::date('date_experation', null, ['class' => 'form-control']) !!}
+                            {!! Form::date('date_experation', isset($registros) ? $registros->productions->first()->expiration_date : null, ['class' => 'form-control']) !!}
                             @error('date_experation')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-md-4" id="lot-field" style="display: none;">
                             {!! Form::label('lot', trans('agroindustria::labors.lot')) !!}
-                            {!! Form::number('lot', null, ['class' => 'form-control']) !!}
+                            {!! Form::number('lot', isset($registros) ? $registros->productions->first()->lot_number : null, ['class' => 'form-control']) !!}
                             @error('lot')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-md-4" id="amount-production-field" style="display: none;">
                             {!! Form::label('amount_production', trans('agroindustria::labors.quantity')) !!}
-                            {!! Form::number('amount_production', null, ['class' => 'form-control', 'id' => 'amount_production']) !!}
+                            {!! Form::number('amount_production', isset($registros) ? $registros->productions->first()->amount : null, ['class' => 'form-control', 'id' => 'amount_production']) !!}
                             @error('amount_production')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        @endif
+                        @else
+                        <div class="col-md-4" id="date-expiration-field" style="display: none;">
+                            {!! Form::label('date_experation', trans('agroindustria::labors.expirationDate')) !!}
+                            {!! Form::date('date_experation', isset($registros) ? $registros->productions->first()->expiration_date : null, ['class' => 'form-control']) !!}
+                            @error('date_experation')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-md-4" id="lot-field" style="display: none;">
+                            {!! Form::label('lot', trans('agroindustria::labors.lot')) !!}
+                            {!! Form::number('lot', isset($registros) ? $registros->productions->first()->lot_number : null, ['class' => 'form-control']) !!}
+                            @error('lot')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-md-4" id="amount-production-field" style="display: none;">
+                            {!! Form::label('amount_production', trans('agroindustria::labors.quantity')) !!}
+                            {!! Form::number('amount_production', isset($registros) ? $registros->productions->first()->amount : null, ['class' => 'form-control', 'id' => 'amount_production']) !!}
+                            @error('amount_production')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        @endif
                         <div class="col-md-6" id="total-labor">
                             {!! Form::label('total_labor', 'Total') !!}
-                            {!! Form::number('total_labor', null, ['class' => 'form-control', 'id' => 'total_labor', 'readonly' => 'readonly']) !!}
+                            {!! Form::number('total_labor', isset($registros) ? $registros->price: null, ['class' => 'form-control', 'id' => 'total_labor', 'readonly' => 'readonly']) !!}
                         </div>
                         <br>
                         <div class="col-md-12" style="margin-top: 10px">
@@ -106,26 +151,51 @@
                                                 <h3>{{trans('agroindustria::labors.consumables')}}</h3>
                                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
                                                 <button type="button" class="btn btn-primary" id="add-consumables"><i class="fa-solid fa-plus"></i></button>
-                                                <div class="consumable">
-                                                    <div class="form-group-consumables">
-                                                        {!! Form::label('consumables', trans('agroindustria::labors.consumables')) !!}
-                                                        {!! Form::select('consumables[]', $consumables, null, ['class' => 'element-select']) !!}
-                                                    </div>
-                                                    <div class="form-group-consumables"> 
-                                                        <span class="quantity"></span>
-                                                        {!! Form::label('amount_consumables', trans('agroindustria::labors.quantity')) !!}
-                                                        {!! Form::number('amount_consumables[]', null, ['class' => 'form-control', 'id' => 'amount_consumables', 'step' => '0.01']) !!}
-                                                    </div>
-                                                    <div class="form-group-consumables">
-                                                        {!! Form::label('price_consumable', trans('agroindustria::labors.unitValue')) !!}
-                                                        {!! Form::number('price_unit_consumable', null, ['class'=>'form-control', 'id' => 'price_unit_consumable', 'readonly' => 'readonly']) !!}
-                                                    </div>
-                                                    <div class="form-group-consumables">
-                                                        {!! Form::label('price_consumable_total', 'Total') !!}
-                                                        {!! Form::number('price_unit_consumable_total', null, ['class'=>'form-control', 'id' => 'price_unit_consumable_total', 'readonly' => 'readonly']) !!}
-                                                    </div>
-                                                    {!! Form::button(trans('agroindustria::labors.delete'), ['class'=>'remove-consumables']) !!}                                
-                                                </div>                           
+                                                @if (isset($registros) && $registros)
+                                                    @foreach ($registros->consumables as $c)
+                                                        <div class="consumable">
+                                                            <div class="form-group-consumables">
+                                                                {!! Form::label('consumables', trans('agroindustria::labors.consumables')) !!}
+                                                                {!! Form::select('consumables[]', $consumables, $c->inventory_id, ['class' => 'element-select']) !!}
+                                                            </div>
+                                                            <div class="form-group-consumables"> 
+                                                                <span class="quantity"></span>
+                                                                {!! Form::label('amount_consumables', trans('agroindustria::labors.quantity')) !!}
+                                                                {!! Form::number('amount_consumables[]',  $c->amount / $c->inventory->element->measurement_unit->conversion_factor, ['class' => 'form-control', 'id' => 'amount_consumables', 'step' => '0.01']) !!}
+                                                            </div>
+                                                            <div class="form-group-consumables">
+                                                                {!! Form::label('price_consumable', trans('agroindustria::labors.unitValue')) !!}
+                                                                {!! Form::number('price_unit_consumable', $c->inventory->price, ['class'=>'form-control', 'id' => 'price_unit_consumable', 'readonly' => 'readonly']) !!}
+                                                            </div>
+                                                            <div class="form-group-consumables">
+                                                                {!! Form::label('price_consumable_total', 'Total') !!}
+                                                                {!! Form::number('price_unit_consumable_total', $c->price, ['class'=>'form-control', 'id' => 'price_unit_consumable_total', 'readonly' => 'readonly']) !!}
+                                                            </div>
+                                                            {!! Form::button(trans('agroindustria::labors.delete'), ['class'=>'remove-consumables']) !!}                                
+                                                        </div> 
+                                                    @endforeach   
+                                                    @else
+                                                    <div class="consumable">
+                                                        <div class="form-group-consumables">
+                                                            {!! Form::label('consumables', trans('agroindustria::labors.consumables')) !!}
+                                                            {!! Form::select('consumables[]', $consumables, null, ['class' => 'element-select']) !!}
+                                                        </div>
+                                                        <div class="form-group-consumables"> 
+                                                            <span class="quantity"></span>
+                                                            {!! Form::label('amount_consumables', trans('agroindustria::labors.quantity')) !!}
+                                                            {!! Form::number('amount_consumables[]', null, ['class' => 'form-control', 'id' => 'amount_consumables', 'step' => '0.01']) !!}
+                                                        </div>
+                                                        <div class="form-group-consumables">
+                                                            {!! Form::label('price_consumable', trans('agroindustria::labors.unitValue')) !!}
+                                                            {!! Form::number('price_unit_consumable', null, ['class'=>'form-control', 'id' => 'price_unit_consumable', 'readonly' => 'readonly']) !!}
+                                                        </div>
+                                                        <div class="form-group-consumables">
+                                                            {!! Form::label('price_consumable_total', 'Total') !!}
+                                                            {!! Form::number('price_unit_consumable_total', null, ['class'=>'form-control', 'id' => 'price_unit_consumable_total', 'readonly' => 'readonly']) !!}
+                                                        </div>
+                                                        {!! Form::button(trans('agroindustria::labors.delete'), ['class'=>'remove-consumables']) !!}                                
+                                                    </div> 
+                                                @endif                       
                                             </div>
                                         </div>
                                     </div>
@@ -144,26 +214,51 @@
                                                 <h3 id="title_tools">{{trans('agroindustria::labors.tools')}}</h3>
                                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
                                                 <button type="button" class="btn btn-primary" id="add-tools"><i class="fa-solid fa-plus"></i></button>
-                                                <div class="tools">
-                                                    <div class="form-group-tools">
-                                                        {!! Form::label('tools', trans('agroindustria::labors.tools')) !!}
-                                                        {!! Form::select('tools[]', $tool, null, ['class' => 'tool_select', 'style' => 'width: 200px']) !!}
+                                                @if (isset($registros) && $registros)
+                                                    @foreach ($registros->tools as $t)
+                                                        <div class="tools">
+                                                            <div class="form-group-tools">
+                                                                {!! Form::label('tools', trans('agroindustria::labors.tools')) !!}
+                                                                {!! Form::select('tools[]', $tool, $t->inventory_id, ['class' => 'tool_select', 'style' => 'width: 200px']) !!}
+                                                            </div>
+                                                            <div class="form-group-tools">
+                                                                <span class="quantity"></span>
+                                                                {!! Form::label('amount', trans('agroindustria::labors.quantity')) !!}
+                                                                {!! Form::number('amount_tools[]', $t->amount, ['class'=>'form-control', 'id' => 'amount_tools']) !!}
+                                                            </div>   
+                                                            <div class="form-group-tools">  
+                                                                {!! Form::label('price', trans('agroindustria::labors.unitValue')) !!}
+                                                                {!! Form::number('price_unit_tool', $t->inventory->price, ['class'=>'form-control', 'id' => 'price_unit_tool', 'readonly' => 'readonly']) !!}
+                                                            </div> 
+                                                            <div class="form-group-tools">  
+                                                                {!! Form::label('price', 'Total') !!}
+                                                                {!! Form::number('price_tools[]', $t->price, ['class'=>'form-control', 'id' => 'price_tool', 'readonly' => 'readonly']) !!}
+                                                            </div>            
+                                                            <button type="button" class="remove-tools">{{trans('agroindustria::labors.delete')}}</button>
+                                                        </div>
+                                                    @endforeach
+                                                    @else
+                                                    <div class="tools">
+                                                        <div class="form-group-tools">
+                                                            {!! Form::label('tools', trans('agroindustria::labors.tools')) !!}
+                                                            {!! Form::select('tools[]', $tool, null, ['class' => 'tool_select', 'style' => 'width: 200px']) !!}
+                                                        </div>
+                                                        <div class="form-group-tools">
+                                                            <span class="quantity"></span>
+                                                            {!! Form::label('amount', trans('agroindustria::labors.quantity')) !!}
+                                                            {!! Form::number('amount_tools[]', null, ['class'=>'form-control', 'id' => 'amount_tools']) !!}
+                                                        </div>   
+                                                        <div class="form-group-tools">  
+                                                            {!! Form::label('price', trans('agroindustria::labors.unitValue')) !!}
+                                                            {!! Form::number('price_unit_tool', null, ['class'=>'form-control', 'id' => 'price_unit_tool', 'readonly' => 'readonly']) !!}
+                                                        </div> 
+                                                        <div class="form-group-tools">  
+                                                            {!! Form::label('price', 'Total') !!}
+                                                            {!! Form::number('price_tools[]', null, ['class'=>'form-control', 'id' => 'price_tool', 'readonly' => 'readonly']) !!}
+                                                        </div>            
+                                                        <button type="button" class="remove-tools">{{trans('agroindustria::labors.delete')}}</button>
                                                     </div>
-                                                    <div class="form-group-tools">
-                                                        <span class="quantity"></span>
-                                                        {!! Form::label('amount', trans('agroindustria::labors.quantity')) !!}
-                                                        {!! Form::number('amount_tools[]', null, ['class'=>'form-control', 'id' => 'amount_tools']) !!}
-                                                    </div>   
-                                                    <div class="form-group-tools">  
-                                                        {!! Form::label('price', trans('agroindustria::labors.unitValue')) !!}
-                                                        {!! Form::number('price_unit_tool', null, ['class'=>'form-control', 'id' => 'price_unit_tool', 'readonly' => 'readonly']) !!}
-                                                    </div> 
-                                                    <div class="form-group-tools">  
-                                                        {!! Form::label('price', 'Total') !!}
-                                                        {!! Form::number('price_tools[]', null, ['class'=>'form-control', 'id' => 'price_tool', 'readonly' => 'readonly']) !!}
-                                                    </div>            
-                                                    <button type="button" class="remove-tools">{{trans('agroindustria::labors.delete')}}</button>
-                                                </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -182,36 +277,71 @@
                                                 <h3 id="title_executor">{{ trans('agroindustria::labors.collaborators') }}</h3>
                                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
                                                 <button type="button" class="btn btn-primary" id="add-executor"><i class="fa-solid fa-plus"></i></button>
-                                                <div class="collaborators">
-                                                    <div class="form-group-collaborators">
-                                                        {!! Form::label('personSearch', trans('agroindustria::labors.searchPerson')) !!}
-                                                        {!! Form::text('search', null, ['class'=>'personSearch-select', 'style' => 'width: 185px']) !!}
-                                                    </div>
-                                                    <div class="form-group-collaborators">
-                                                        {!! Form::label('collaborator', trans('agroindustria::labors.collaborators')) !!}
-                                                        {!! Form::hidden('executors_id[]', null, ['class' => 'executors_id']) !!}
-                                                        {!! Form::text('executor', null, ['class'=>'form-control collaborator_executors', 'readonly' => 'readonly']) !!}
-                                                    </div>   
-                                                    <div class="form-group-collaborators">
-                                                        <span class="price-executor"></span>
-                                                        {!! Form::label('employement_type', trans('agroindustria::labors.employeeType')) !!}
-                                                        {!! Form::select('employement_type[]', $employee, null, ['class'=>'form-control employement_type', 'style' => 'width: 200px']) !!}
-                                                        {!! Form::hidden('price[]', null, ['id' => 'price']) !!}
-                                                        @error('employement_type')
-                                                            <span class="text-danger">{{ $message }}</span>
+                                                @if (isset($registros) && $registros)
+                                                    @foreach ($registros->executors as $e)
+                                                        <div class="collaborators">
+                                                            <div class="form-group-collaborators">
+                                                                {!! Form::label('personSearch', trans('agroindustria::labors.searchPerson')) !!}
+                                                                {!! Form::text('search', null, ['class'=>'personSearch-select', 'style' => 'width: 185px']) !!}
+                                                            </div>
+                                                            <div class="form-group-collaborators">
+                                                                {!! Form::label('collaborator', trans('agroindustria::labors.collaborators')) !!}
+                                                                {!! Form::hidden('executors_id[]', $e->person_id, ['class' => 'executors_id']) !!}
+                                                                {!! Form::text('executor', $e->person->first_name . ' ' . $e->person->first_last_name . ' ' . $e->person->second_last_name, ['class'=>'form-control collaborator_executors', 'readonly' => 'readonly']) !!}
+                                                            </div>   
+                                                            <div class="form-group-collaborators">
+                                                                <span class="price-executor"></span>
+                                                                {!! Form::label('employement_type', trans('agroindustria::labors.employeeType')) !!}
+                                                                {!! Form::select('employement_type[]', $employee, $e->employee_type_id, ['class'=>'form-control employement_type', 'style' => 'width: 200px']) !!}
+                                                                {!! Form::hidden('price[]', $e->price, ['id' => 'price']) !!}
+                                                                @error('employement_type')
+                                                                    <span class="text-danger">{{ $message }}</span>
+                                                                    @enderror
+                                                            </div>
+                                                            <div class="form-group-collaborators">  
+                                                                <span class="total-executor"></span>
+                                                                {!! Form::label('hours', trans('agroindustria::labors.hoursWorked')) !!}
+                                                                {!! Form::number('hours[]', $e->amount, ['class'=>'form-control hours', 'id' => 'hours']) !!}
+                                                                {!! Form::hidden('total-executor[]', $e->price, ['id' => 'total-executor']) !!}
+                                                                @error('hours')
+                                                                    <span class="text-danger">{{ $message }}</span>
+                                                                @enderror
+                                                            </div>            
+                                                            <button type="button" class="remove-executor">{{trans('agroindustria::labors.delete')}}</button>
+                                                        </div>
+                                                    @endforeach
+                                                    @else
+                                                    <div class="collaborators">
+                                                        <div class="form-group-collaborators">
+                                                            {!! Form::label('personSearch', trans('agroindustria::labors.searchPerson')) !!}
+                                                            {!! Form::text('search', null, ['class'=>'personSearch-select', 'style' => 'width: 185px']) !!}
+                                                        </div>
+                                                        <div class="form-group-collaborators">
+                                                            {!! Form::label('collaborator', trans('agroindustria::labors.collaborators')) !!}
+                                                            {!! Form::hidden('executors_id[]', null, ['class' => 'executors_id']) !!}
+                                                            {!! Form::text('executor', null, ['class'=>'form-control collaborator_executors', 'readonly' => 'readonly']) !!}
+                                                        </div>   
+                                                        <div class="form-group-collaborators">
+                                                            <span class="price-executor"></span>
+                                                            {!! Form::label('employement_type', trans('agroindustria::labors.employeeType')) !!}
+                                                            {!! Form::select('employement_type[]', $employee, null, ['class'=>'form-control employement_type', 'style' => 'width: 200px']) !!}
+                                                            {!! Form::hidden('price[]', null, ['id' => 'price']) !!}
+                                                            @error('employement_type')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                                @enderror
+                                                        </div>
+                                                        <div class="form-group-collaborators">  
+                                                            <span class="total-executor"></span>
+                                                            {!! Form::label('hours', trans('agroindustria::labors.hoursWorked')) !!}
+                                                            {!! Form::number('hours[]', null, ['class'=>'form-control hours', 'id' => 'hours']) !!}
+                                                            {!! Form::hidden('total-executor[]', null, ['id' => 'total-executor']) !!}
+                                                            @error('hours')
+                                                                <span class="text-danger">{{ $message }}</span>
                                                             @enderror
+                                                        </div>            
+                                                        <button type="button" class="remove-executor">{{trans('agroindustria::labors.delete')}}</button>
                                                     </div>
-                                                    <div class="form-group-collaborators">  
-                                                        <span class="total-executor"></span>
-                                                        {!! Form::label('hours', trans('agroindustria::labors.hoursWorked')) !!}
-                                                        {!! Form::number('hours[]', null, ['class'=>'form-control hours', 'id' => 'hours']) !!}
-                                                        {!! Form::hidden('total-executor[]', null, ['id' => 'total-executor']) !!}
-                                                        @error('hours')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>            
-                                                    <button type="button" class="remove-executor">{{trans('agroindustria::labors.delete')}}</button>
-                                                </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -230,26 +360,51 @@
                                                 <h3 id="equipments">{{trans('agroindustria::labors.equipments')}}</h3>
                                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
                                                 <button type="button" class="btn btn-primary" id="add-equipments"><i class="fa-solid fa-plus"></i></button>
-                                                <div class="equipment">
-                                                    <div class="form-group-equipments">
-                                                        {!! Form::label('inventories', trans('agroindustria::labors.equipments')) !!}
-                                                        {!! Form::select('equipments[]', $equipment, null, ['class' => 'inventory_select', 'style' => 'width: 200px']) !!}
+                                                @if (isset($registros) && $registros)
+                                                    @foreach ($registros->equipments as $eq)
+                                                        <div class="equipment">
+                                                            <div class="form-group-equipments">
+                                                                {!! Form::label('inventories', trans('agroindustria::labors.equipments')) !!}
+                                                                {!! Form::select('equipments[]', $equipment, $eq->inventory_id, ['class' => 'inventory_select', 'style' => 'width: 200px']) !!}
+                                                            </div>
+                                                            <div class="form-group-equipments">
+                                                                <span class="quantity-equipment"></span>
+                                                                {!! Form::label('amount', trans('agroindustria::labors.quantity')) !!}
+                                                                {!! Form::number('amount_equipments[]', $eq->amount, ['class'=>'form-control', 'id' => 'amount_equipments']) !!}
+                                                            </div>   
+                                                            <div class="form-group-equipments">  
+                                                                {!! Form::label('price', trans('agroindustria::labors.unitValue')) !!}
+                                                                {!! Form::number('price_unit_equipment', $eq->inventory->price, ['class'=>'form-control', 'id' => 'price_unit_equipment', 'readonly' => 'readonly']) !!}
+                                                            </div> 
+                                                            <div class="form-group-equipments">  
+                                                                {!! Form::label('price', 'Total') !!}
+                                                                {!! Form::number('price_equipments[]', $eq->price, ['class'=>'form-control', 'id' => 'price_equipment', 'readonly' => 'readonly']) !!}
+                                                            </div>           
+                                                            <button type="button" class="remove-equipments">{{trans('agroindustria::labors.delete')}}</button>
+                                                        </div>
+                                                    @endforeach
+                                                    @else
+                                                    <div class="equipment">
+                                                        <div class="form-group-equipments">
+                                                            {!! Form::label('inventories', trans('agroindustria::labors.equipments')) !!}
+                                                            {!! Form::select('equipments[]', $equipment, null, ['class' => 'inventory_select', 'style' => 'width: 200px']) !!}
+                                                        </div>
+                                                        <div class="form-group-equipments">
+                                                            <span class="quantity-equipment"></span>
+                                                            {!! Form::label('amount', trans('agroindustria::labors.quantity')) !!}
+                                                            {!! Form::number('amount_equipments[]', null, ['class'=>'form-control', 'id' => 'amount_equipments']) !!}
+                                                        </div>   
+                                                        <div class="form-group-equipments">  
+                                                            {!! Form::label('price', trans('agroindustria::labors.unitValue')) !!}
+                                                            {!! Form::number('price_unit_equipment', null, ['class'=>'form-control', 'id' => 'price_unit_equipment', 'readonly' => 'readonly']) !!}
+                                                        </div> 
+                                                        <div class="form-group-equipments">  
+                                                            {!! Form::label('price', 'Total') !!}
+                                                            {!! Form::number('price_equipments[]', null, ['class'=>'form-control', 'id' => 'price_equipment', 'readonly' => 'readonly']) !!}
+                                                        </div>           
+                                                        <button type="button" class="remove-equipments">{{trans('agroindustria::labors.delete')}}</button>
                                                     </div>
-                                                    <div class="form-group-equipments">
-                                                        <span class="quantity-equipment"></span>
-                                                        {!! Form::label('amount', trans('agroindustria::labors.quantity')) !!}
-                                                        {!! Form::number('amount_equipments[]', null, ['class'=>'form-control', 'id' => 'amount_equipments']) !!}
-                                                    </div>   
-                                                    <div class="form-group-equipments">  
-                                                        {!! Form::label('price', trans('agroindustria::labors.unitValue')) !!}
-                                                        {!! Form::number('price_unit_equipment', null, ['class'=>'form-control', 'id' => 'price_unit_equipment', 'readonly' => 'readonly']) !!}
-                                                    </div> 
-                                                    <div class="form-group-equipments">  
-                                                        {!! Form::label('price', 'Total') !!}
-                                                        {!! Form::number('price_equipments[]', null, ['class'=>'form-control', 'id' => 'price_equipment', 'readonly' => 'readonly']) !!}
-                                                    </div>           
-                                                    <button type="button" class="remove-equipments">{{trans('agroindustria::labors.delete')}}</button>
-                                                </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -268,21 +423,41 @@
                                                 <h3 id="resources">{{trans('agroindustria::labors.environmentalResources')}}</h3>
                                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
                                                 <button type="button" class="btn btn-primary" id="add-resources"><i class="fa-solid fa-plus"></i></button>
-                                                <div class="resource">
-                                                    <div class="form-group">
-                                                        {!! Form::label('environmental_aspect', trans('agroindustria::labors.environmentalAspect')) !!}
-                                                        {!! Form::select('environmental_aspect[]', [], null, ['class' => 'environmental_aspect_select', 'id' => 'select_aspect', 'style' => 'width: 200px', 'placeholder' => trans("agroindustria::labors.selectEnvironmentalAspect")]) !!}
+                                                @if (isset($registros) && $registros)
+                                                    @foreach ($registros->environmental_aspect_labors as $en)
+                                                        <div class="resource">
+                                                            <div class="form-group">
+                                                                {!! Form::label('environmental_aspect', trans('agroindustria::labors.environmentalAspect')) !!}
+                                                                {!! Form::select('environmental_aspect[]', $environmental_aspect, isset($en) ? $en->environmental_aspect_id : old('environmental_aspect'),  ['class' => 'environmental_edit', 'style' => 'width: 200px']) !!}
+                                                            </div>
+                                                            <div class="form-group">
+                                                                {!! Form::label('amount_environmental_aspect', trans('agroindustria::labors.quantity')) !!}
+                                                                {!! Form::number('amount_environmental_aspect[]', $en->amount, ['class'=>'form-control', 'id' => 'amount_environmental_aspect']) !!}
+                                                            </div>   
+                                                            <div class="form-group">  
+                                                                {!! Form::label('price_environmental_aspect', trans('agroindustria::labors.price')) !!}
+                                                                {!! Form::number('price_environmental_aspect[]', $en->price, ['class'=>'form-control', 'id' => 'price_environmental_aspect']) !!}
+                                                            </div>           
+                                                            <button type="button" class="remove-resources">{{trans('agroindustria::labors.delete')}}</button>
+                                                        </div>
+                                                    @endforeach
+                                                    @else
+                                                    <div class="resource">
+                                                        <div class="form-group">
+                                                            {!! Form::label('environmental_aspect', trans('agroindustria::labors.environmentalAspect')) !!}
+                                                            {!! Form::select('environmental_aspect[]', [], null, ['class' => 'environmental_aspect_select', 'id' => 'select_aspect', 'style' => 'width: 200px', 'placeholder' => trans("agroindustria::labors.selectEnvironmentalAspect")]) !!}
+                                                        </div>
+                                                        <div class="form-group">
+                                                            {!! Form::label('amount_environmental_aspect', trans('agroindustria::labors.quantity')) !!}
+                                                            {!! Form::number('amount_environmental_aspect[]', null, ['class'=>'form-control', 'id' => 'amount_environmental_aspect']) !!}
+                                                        </div>   
+                                                        <div class="form-group">  
+                                                            {!! Form::label('price_environmental_aspect', trans('agroindustria::labors.price')) !!}
+                                                            {!! Form::number('price_environmental_aspect[]', null, ['class'=>'form-control', 'id' => 'price_environmental_aspect']) !!}
+                                                        </div>           
+                                                        <button type="button" class="remove-resources">{{trans('agroindustria::labors.delete')}}</button>
                                                     </div>
-                                                    <div class="form-group">
-                                                        {!! Form::label('amount_environmental_aspect', trans('agroindustria::labors.quantity')) !!}
-                                                        {!! Form::number('amount_environmental_aspect[]', null, ['class'=>'form-control', 'id' => 'amount_environmental_aspect']) !!}
-                                                    </div>   
-                                                    <div class="form-group">  
-                                                        {!! Form::label('price_environmental_aspect', trans('agroindustria::labors.price')) !!}
-                                                        {!! Form::number('price_environmental_aspect[]', null, ['class'=>'form-control', 'id' => 'price_environmental_aspect']) !!}
-                                                    </div>           
-                                                    <button type="button" class="remove-resources">{{trans('agroindustria::labors.delete')}}</button>
-                                                </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -326,6 +501,7 @@
             updateConsumables();
         });
 
+        @if(Route::is('*form*'))
         function updateConsumables() {
             var amount = $('#amount_production').val(); // Obtener la cantidad actual
             var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.consumables', ['id' => ':id'])) !!}.replace(':id', $('#recipe-select').val().toString());
@@ -455,6 +631,7 @@
                 }
             });
         }
+        @endif
         // Llamar a updateConsumables al cargar la página
         updateConsumables();
         // Eliminar un campo de consumibles
@@ -635,7 +812,7 @@
 
        $("#add-tools").click(function() {
            var newTool = '<div class="tools"><div class="form-group">{!! Form::label("tools", trans("agroindustria::labors.tools")) !!}{!! Form::select("tools[]", $tool, null, ["class" => "tool_select", "style" => "width: 200px"]) !!}</div><div class="form-group" style="margin-left: 5px; margin-right: 16px;"><span class="quantity"></span>{!! Form::label("amount", trans("agroindustria::labors.quantity")) !!}{!! Form::number("amount_tools[]", null, ["class"=>"form-control", "id" => "amount_tools"]) !!}</div><div class="form-group">{!! Form::label("price", trans("agroindustria::labors.unitValue")) !!}{!! Form::number("price_unit_tool", null, ["class"=>"form-control", "id" => "price_unit_tool", "readonly" => "readonly"]) !!}</div><div class="form-group" style="margin-left: 3px">{!! Form::label("price", "Total") !!}{!! Form::number("price_tools[]", null, ["class"=>"form-control", "id" => "price_tool", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-tools" style="margin-left: 6px">{{trans("agroindustria::labors.delete")}}</button></div>';
-           
+
            // Agregar el nuevo campo al DOM
            $("#form-tools").append(newTool);
 
@@ -1087,6 +1264,8 @@
     $(document).ready(function () {
         // Agregar un nuevo campo de colaborador
         $('.environmental_aspect_select').select2();
+        $('.environmental_edit').select2();
+        
 
         $("#add-resources").click(function () {
             var selectedActivity = $('#activity-selected').val();

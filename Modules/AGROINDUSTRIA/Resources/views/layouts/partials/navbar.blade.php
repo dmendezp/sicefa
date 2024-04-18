@@ -32,7 +32,7 @@
                     <a class="nav-link" href="{{route('agroindustria.admin.units.activity', ['unit'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Activities')}}</a>
                 </li>        
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.admin.units.requests')}}">{{trans('agroindustria::menu.Request for supplies')}}</a>
+                    <a class="nav-link" href="{{route('agroindustria.admin.units.view.request')}}">{{trans('agroindustria::menu.Request for supplies')}}</a>
                 </li>        
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('agroindustria.admin.units.labor')}}">{{trans('agroindustria::menu.Task')}}</a>
@@ -45,16 +45,20 @@
                         {{trans('agroindustria::menu.reports')}}
                     </a>
                     <ul class="dropdown-menu">
+                        @if(Auth::user()->havePermission('agroindustria.admin.units.production'))
                         <li >
                             <a class="dropdown-item" href="{{route('agroindustria.admin.units.production')}}">{{trans('agroindustria::menu.production')}}</a>
                         </li>
+                        @endif
+                        @if(Auth::user()->havePermission('agroindustria.admin.units.inventory'))
                         <li >
-                            <a class="dropdown-item" href="{{route('cefa.agroindustria.admin.units.inventory', ['id'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Inventory')}}</a>
+                            <a class="dropdown-item" href="{{route('agroindustria.admin.units.inventory', ['id'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Inventory')}}</a>
                         </li>
+                        @endif
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('cefa.agroindustria.admin.units.remove')}}" class="nav-link">{{trans('agroindustria::menu.Desregistrations')}}</a>
+                    <a href="{{route('agroindustria.admin.units.remove.view')}}" class="nav-link">{{trans('agroindustria::menu.Desregistrations')}}</a>
                 </li>
             @endif
 
@@ -85,7 +89,7 @@
 
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.instructor.units.requests')}}">{{trans('agroindustria::menu.Request for supplies')}}</a>
+                    <a class="nav-link" href="{{route('agroindustria.instructor.units.view.request')}}">{{trans('agroindustria::menu.Request for supplies')}}</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -94,25 +98,27 @@
                     <ul class="dropdown-menu">
                         @if(Auth::user()->havePermission('agroindustria.instructor.units.production'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('cefa.agroindustria.instructor.units.production')}}">{{trans('agroindustria::menu.production')}}</a>
+                            <a class="nav-link" href="{{route('agroindustria.instructor.units.production')}}">{{trans('agroindustria::menu.production')}}</a>
                         </li>
                         @endif
+                        @if(Auth::user()->havePermission('agroindustria.instructor.units.inventory'))
                         <li >
-                            <a class="dropdown-item" href="{{route('cefa.agroindustria.instructor.units.inventory', ['id'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Inventory')}}</a>
+                            <a class="dropdown-item" href="{{route('agroindustria.instructor.units.inventory', ['id'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Inventory')}}</a>
                         </li>
+                        @endif
                     </ul>
                 </li>
             @endif
             {{-- Menu storer --}}
             @if(Route::is('*storer.units.*') &&  auth()->check() && (checkRol('agroindustria.almacenista')))  
-                @if(Auth::user()->havePermission('agroindustria.storer.crud'))
+                @if(Auth::user()->havePermission('agroindustria.storer.units.inventory'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('cefa.agroindustria.storer.units.inventory', ['id'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Inventory')}}</a>
+                        <a class="nav-link" href="{{route('agroindustria.storer.units.inventory', ['id'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Inventory')}}</a>
                     </li>
                 @endif
                 @if(Auth::user()->havePermission('agroindustria.storer.view.request'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('cefa.agroindustria.storer.units.view.request')}}">{{trans('agroindustria::menu.requests')}}</a>
+                        <a class="nav-link" href="{{route('agroindustria.storer.units.view.request')}}">{{trans('agroindustria::menu.requests')}}</a>
                     </li>
                 @endif
             @endif
@@ -188,10 +194,11 @@
                         <span id="volver-sicefa">Manual de Usuario</span>
                       </a>                    
                       @else
+                      @if(Auth::user()->roles == null || count(Auth::user()->roles) == 0)
                       <div class="col info info-user">
                           <div class="nickname" data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">{{ Auth::user()->nickname }}</div>
-                          <div class="small"><em> {{ Auth::user()->roles[0]->name }}</em></div>
-                      </div>
+                          <div class="small"><em> Aún no tienes un rol asignado</em></div>
+                        </div>
                       <div id="logout" class="col info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Logout') }}"><a href="{{ route('logout') }}" class="d-block" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt fa-lg"></i></a>
                       </div>
@@ -202,6 +209,23 @@
                             <i class="fas fa-question-circle"></i>
                             <span id="volver-sicefa">Manual de Usuario</span>
                         </a>   
+                        @else
+                        <div class="col info info-user">
+                            <div class="nickname" data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">{{ Auth::user()->nickname }}</div>
+                            <div class="small"><em> {{ Auth::user()->roles[0]->name }}</em></div>
+
+                        </div>
+                        <div id="logout" class="col info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Logout') }}"><a href="{{ route('logout') }}" class="d-block" onclick="event.preventDefault();
+                              document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt fa-lg"></i></a>
+                        </div>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                              @csrf
+                         </form>
+                         <a href="{{ route ('cefa.agroindustria.home.manual')}}" class="nav-link" id="question">
+                              <i class="fas fa-question-circle"></i>
+                              <span id="volver-sicefa">Manual de Usuario</span>
+                          </a>   
+                        @endif  
                        @endguest
                        <a href="{{ route('cefa.welcome') }}" class="nav-link {{ ! Route::is('cefa.contact.maps') ?: 'active' }}">
                         <i class="fas fa-puzzle-piece" id="sicefa"></i>

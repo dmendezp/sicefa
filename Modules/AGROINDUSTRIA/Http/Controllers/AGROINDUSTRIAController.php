@@ -21,6 +21,7 @@ class AGROINDUSTRIAController extends Controller
 {
     public function index()
     {
+       
         $title = 'Inicio';
         return view('agroindustria::index', compact('title'));
     }

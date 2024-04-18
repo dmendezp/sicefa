@@ -11,6 +11,7 @@ return [
     'Exit from Cellar' => 'Exit from Cellar',
     'Date Time' => 'Date and Time',
     'Receiver' => 'Receiver',
+    'Responsible' => 'Responsible',
     'Select a receiver' => 'Select a receiver',
     'Warehouse that Delivers' => 'Warehouse that Delivers',
     'Warehouse that Receives' => 'Warehouse that Receives',
@@ -25,6 +26,7 @@ return [
     'Total Movement' => 'Total Movement',
     'Select a product' => 'Select a product',
     'Select a winery' => 'Select a Winery',
+    'Search Products' => 'Search Products',
     'You must select a receiver' => 'You must select a receiver',
     'You must select a delivery warehouse' => 'You must select a delivery warehouse',
     'You must select the winery that receives' => 'You must select the winery that receives',
@@ -63,6 +65,7 @@ return [
     'yesCancel' => 'Yes, cancel',
     'Cancel' => 'Cancel',
     'close' => 'Close',
+    'save' => 'Save',
 
     //Bajas
     'desregistrations' => 'Desregistrations',
