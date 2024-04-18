@@ -1,0 +1,130 @@
+#lista-agroquimicos {
+    list-style: none;
+    padding: 0;
+    width: 100%; /* Ajusta el ancho al 100% de la columna */
+}
+
+#lista-agroquimicos li {
+    width: 100%; /* Ajusta el ancho al 100% de la columna */
+}
+
+
+
+.agroquimico-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 20%; /* Ajusta el ancho según tu preferencia, en este caso se reduce a la mitad */
+    box-sizing: border-box; /* Incluir el padding y el borde en el ancho total */
+}
+
+.eliminar-button {
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.eliminar-button:hover {
+    background-color: darkred;
+}
+.flex-container {
+    display: flex;
+}
+
+.form-group {
+    margin-right: 20px; /* Espacio entre los elementos */
+}
+
+/* Alinea los elementos verticalmente */
+label, input, select {
+    margin-bottom: 10px;
+}
+
+/* Estilo adicional para mejorar la apariencia */
+label {
+    display: block;
+    font-weight: bold;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 90%; /* Hacer que la container ocupe el ancho completo */
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.column {
+    flex: 1; /* Cada columna toma igual ancho */
+    padding: 0 10px;
+    width: 30%; /* Ajusta el ancho de cada columna según tu preferencia */
+}
+
+.column label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%; /* El ancho es 100% del contenedor */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Incluir el padding y el borde en el ancho total */
+}
+
+
+
+/* Ajuste para que la columna con Agroquímicos Seleccionados sea más ancha */
+.agroquimicos-column {
+    flex: 1.5; /* Ajusta el valor según tu preferencia para hacerla más ancha */
+    padding: 0 10px;
+    width: 45%; /* Ajusta el ancho de la columna según tu preferencia */
+}
+/* Estilo para el botón GUARDAR */
+.guardar-button {
+    width: 100%; /* El botón ocupará el 100% del ancho disponible */
+    padding: 15px 0; /* Ajusta el padding según sea necesario */
+    background-color: #4CAF50; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Esquinas redondeadas */
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transición suave del color de fondo */
+}
+
+.guardar-button:hover {
+    background-color: #45a049; /* Cambia el color de fondo al pasar el mouse */
+}
+

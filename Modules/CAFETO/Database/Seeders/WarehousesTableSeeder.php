@@ -35,8 +35,8 @@ class WarehousesTableSeeder extends Seeder
             'farm_id' => $farm->id
         ]);
 
-        /* Registro o actualización de bodega para Agroindustria */
-        $warehouse = Warehouse::updateOrCreate(['name' => 'Agroindustria'], [
+        /* Registro o actualización de bodega para Agroindustria2 */
+        $warehouse = Warehouse::updateOrCreate(['name' => 'Agroindustria2'], [
             'description' => 'Bodega general del complejo complejo agroindustrial',
             'app_id' => $app->id
         ]);

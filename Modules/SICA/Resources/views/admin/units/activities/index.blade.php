@@ -1,5 +1,7 @@
 @extends('sica::layouts.master')
-
+@php
+    $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
+@endphp
 @section('content')
     <div class="content">
         <div class="container-fluid">
@@ -9,24 +11,25 @@
                         <h3 class="card-title">Actividades</h3>
                     </div>
                     <div class="card-body">
-                        <div class="btns">
-                            <a href="{{ route('sica.admin.units.activities.create') }}" class="btn btn-primary">
-                                <i class="fas fa-plus"></i> Registrar actividad
-                            </a>
-                        </div>
                         <div class="mtop16">
                             <div class="table-responsive">
                                 <table class="table table-striped" id="activities_table">
-                                    <thead class="table-dark">
+                                    <thead>
                                         <tr>
                                             <th class="text-center">#</th>
                                             <th>Actividad</th>
-                                            <th data-toggle='tooltip' data-placement="top" title="Unidad productiva">U. productiva</th>
-                                            <th data-toggle='tooltip' data-placement="top" title="Tipo de actividad">Tipo</th>
-                                            <th>Descripción</th>
-                                            <th class="text-center">Periodo</th>
+                                            <th class="col-3" data-toggle='tooltip' data-placement="top" title="Unidad productiva">U. productiva</th>
+                                            <th class="col-4" data-toggle='tooltip' data-placement="top" title="Tipo de actividad">Tipo</th>
+                                            <th class="col-3">Descripción</th>
+                                            <th class="col-2">Periodo</th>
                                             <th class="text-center">Estado</th>
-                                            <th class="text-center">Acciones</th>
+                                            <th class="text-center">Acciones
+                                                <a class="mx-3" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.units.activities.create') }}')">
+                                                    <b class="text-success" data-toggle="tooltip" data-placement="top" title="Registrar Trimestre">
+                                                        <i class="fas fa-plus-circle"></i>
+                                                    </b>
+                                                </a>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -40,16 +43,16 @@
                                                 <td class="text-center">{{ $a->period }}</td>
                                                 <td class="text-center">{{ $a->status }}</td>
                                                 <td class="text-center">
-                                                    <a href="{{ route('sica.admin.units.activities.edit', $a) }}" data-toggle='tooltip' data-placement="top" title="Editar actividad">
-                                                        <i class="fas fa-edit text-success"></i>
+                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.units.activities.edit', $a->id) }}')">
+                                                        <b class="text-info" data-toggle="tooltip" data-placement="top" title="Actualizar Actividad">
+                                                            <i class="fas fa-edit"></i>
+                                                        </b>
                                                     </a>
-                                                    <a href="#" onclick="event.preventDefault(); if(confirm('¿Estás seguro de que deseas eliminar la actividad {{ $a->name }}?')) { document.getElementById('delete-form-activity{{ $a->id }}').submit(); }" data-toggle='tooltip' data-placement="top" title="Eliminar actividad">
-                                                        <i class="fas fa-trash-alt text-danger"></i>
+                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.units.activities.delete', $a->id) }}')">
+                                                        <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar Actividad">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </b>
                                                     </a>
-                                                    <form id="delete-form-activity{{ $a->id }}" action="{{ route('sica.admin.units.activities.destroy', $a) }}" method="POST" style="display: none;">
-                                                        @csrf               
-                                                        @method('DELETE')
-                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -62,6 +65,21 @@
             </div>
         </div>
     </div>
+    <!-- General modal -->
+  <div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered" role="document">
+      <div class="modal-content" id="modal-content"></div>
+  </div>
+  </div>
+  <div id="loader" style="display: none;"> {{-- Loader modal --}}
+  <div class="modal-body text-center" id="modal-loader">
+      <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+      </div><br>
+      <b id="loader-message"></b>
+  </div>
+  </div>
 @endsection
 
 @section('script')
@@ -70,4 +88,38 @@
             $('#activities_table').DataTable({});
         });
     </script>
+    <script>
+        @if (Session::get('message_activity'))
+            /* Show the message */
+            @if (Session::get('icon') == 'success')
+                toastr.success("{{ Session::get('message_activity') }}");
+            @elseif (Session::get('icon') == 'error')
+                toastr.error("{{ Session::get('message_activity') }}");
+            @endif
+        @endif
+      
+        function ajaxAction(route) {
+            /* Ajax to show content modal to add line */
+            $('#loader-message').text("{{ trans('sica::menu.Loading Content') }}"); /* Add content to loader */
+            $('#modal-content').append($('#modal-loader').clone()); /* Add the loader to the modal */
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKE': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                    method: "get",
+                    url: route,
+                    data: {}
+                })
+                .done(function(html) {
+                    $("#modal-content").html(html);
+                });
+        }
+      
+        // Vaciar el contenido del modal cuando sea cerrado
+        $("#generalModal").on("hidden.bs.modal", function() {
+            $("#modal-content").empty();
+        });
+      </script>
 @endsection

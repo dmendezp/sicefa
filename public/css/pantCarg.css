@@ -24,9 +24,9 @@
 	right: 0;
 	bottom: 0;
 	margin: auto;
-	-webkit-animation: imag 3s linear infinite;
-	-o-animation: imag 3s linear infinite;	
-	animation: imag 3s linear infinite;	
+	-webkit-animation: imag 1s linear infinite;
+	-o-animation: imag 1s linear infinite;	
+	animation: imag 1s linear infinite;	
 }
 
 @keyframes imag {

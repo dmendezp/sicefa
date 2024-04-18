@@ -35,11 +35,13 @@ class AcademyController extends Controller
         }
         // Realizar registro
         if (Holiday::create($request->all())){
-            $message = ['message'=>'Se registró exitosamente el día festivo.', 'typealert'=>'success'];
+            $icon = 'success';
+            $message_holiday = trans('sica::menu.Holiday successfully added');
         } else {
-            $message = ['message'=>'No se pudo realizar el registro del día festivo.', 'typealert'=>'danger'];
+            $icon = 'error';
+            $message_holiday = trans('sica::menu.Could not add Holiday');
         }
-        return redirect(route('sica.'.getRoleRouteName(Route::currentRouteName()).'.academy.holidays.index'))->with($message);
+        return redirect(route('sica.'.getRoleRouteName(Route::currentRouteName()).'.academy.holidays.index'))->with(['icon'=>$icon, 'message_holiday'=>$message_holiday]);
     }
 
     /* Formulario para actualizar día festivo */
@@ -61,21 +63,33 @@ class AcademyController extends Controller
         }
         // Realizar registro
         if ($holiday->update($request->all())){
-            $message = ['message'=>'Se actualizó exitosamente el día festivo.', 'typealert'=>'success'];
+            $icon = 'success';
+            $message_holiday = trans('sica::menu.Holiday successfully updated');
         } else {
-            $message = ['message'=>'No se pudo actualizar el día festivo.', 'typealert'=>'danger'];
+            $icon = 'error';
+            $message_holiday = trans('sica::menu.Failed to update Holiday');
         }
-        return redirect(route('sica.'.getRoleRouteName(Route::currentRouteName()).'.academy.holidays.index'))->with($message);
+        return redirect(route('sica.'.getRoleRouteName(Route::currentRouteName()).'.academy.holidays.index'))->with(['icon'=>$icon, 'message_holiday'=>$message_holiday]);
     }
 
-    /* Eliminar día festivo */
-    public function holidays_destroy(Holiday $holiday){
-        if ($holiday->delete()){
-            $message = ['message'=>'Se eliminó exitosamente el día festivo.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo eliminar el día festivo.', 'typealert'=>'danger'];
+    /* Formulario de eliminación del festivo */
+    public function holidays_delete($id){
+        $holiday = Holiday::find($id);
+        $data = [ 'title' => 'Eliminar festivo', 'holiday' => $holiday];
+        return view('sica::admin.academy.holidays.delete', $data);
+    }
+
+     /* Eliminar festivo */
+     public function holidays_destroy(Request $request){
+        $holiday = Holiday::findOrFail($request->input('id'));
+        if($holiday->delete()){
+            $icon = 'success';
+            $message_holiday = trans('sica::menu.Holiday successfully removed');
+        }else{
+            $icon = 'error';
+            $message_holiday = trans('sica::menu.Could not delete Holiday');
         }
-        return redirect(route('sica.'.getRoleRouteName(Route::currentRouteName()).'.academy.holidays.index'))->with($message);
+        return redirect()->back()->with(['icon'=>$icon, 'message_holiday'=>$message_holiday]);
     }
 
     /* Listado de trimestres registrados */
@@ -104,11 +118,13 @@ class AcademyController extends Controller
         }
         // Realizar registro
         if (Quarter::create($request->all())){
-            $message = ['message'=>'Se registró exitosamente el trimestre.', 'typealert'=>'success'];
+            $icon = 'success';
+            $message_quarter = trans('sica::menu.Quarter successfully added');
         } else {
-            $message = ['message'=>'No se pudo realizar el registro del trismestre.', 'typealert'=>'danger'];
+            $icon = 'error';
+            $message_quarter = trans('sica::menu.Could not add Quarter');
         }
-        return redirect(route('sica.'.getRoleRouteName(Route::currentRouteName()).'.academy.quarters.index'))->with($message);
+        return redirect(route('sica.'.getRoleRouteName(Route::currentRouteName()).'.academy.quarters.index'))->with(['icon'=>$icon, 'message_quarter'=>$message_quarter]);
     }
 
     /* Formulario de actualización de trimestre (Administrador) */
@@ -130,21 +146,33 @@ class AcademyController extends Controller
         }
         // Actualizar registro
         if ($quarter->update($request->all())){
-            $message = ['message'=>'Se actualizó exitosamente el trimestre.', 'typealert'=>'success'];
+            $icon = 'success';
+            $message_quarter = trans('sica::menu.Quarter successfully updated');
         } else {
-            $message = ['message'=>'No se pudo actualizar el trimestre.', 'typealert'=>'danger'];
+            $icon = 'error';
+            $message_quarter = trans('sica::menu.Failed to update Quarter');
         }
-        return redirect(route('sica.'.getRoleRouteName(Route::currentRouteName()).'.academy.quarters.index'))->with($message);
+        return redirect(route('sica.'.getRoleRouteName(Route::currentRouteName()).'.academy.quarters.index'))->with(['icon'=>$icon, 'message_quarter'=>$message_quarter]);
     }
 
-    /* Eliminar trimestre */
-    public function quarters_destroy(Quarter $quarter){
-        if ($quarter->delete()){
-            $message = ['message'=>'Se eliminó exitosamente el trimestre.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo eliminar el trimestre.', 'typealert'=>'danger'];
+    /* Formulario de eliminación del trimestre */
+    public function quarters_delete($id){
+        $quarter = Quarter::find($id);
+        $data = [ 'title' => 'Eliminar Trimestre', 'quarter' => $quarter];
+        return view('sica::admin.academy.quarters.delete', $data);
+    }
+
+     /* Eliminar trimestre */
+     public function quarters_destroy(Request $request){
+        $quarter = Quarter::findOrFail($request->input('id'));
+        if($quarter->delete()){
+            $icon = 'success';
+            $message_quarter = trans('sica::menu.Quarter successfully removed');
+        }else{
+            $icon = 'error';
+            $message_quarter = trans('sica::menu.Could not delete Quarter');
         }
-        return redirect(route('sica.'.getRoleRouteName(Route::currentRouteName()).'.academy.quarters.index'))->with($message);
+        return redirect()->back()->with(['icon'=>$icon, 'message_quarter'=>$message_quarter]);
     }
 
     /* Listado de programas de formación registrados */
@@ -436,17 +464,6 @@ class AcademyController extends Controller
         return view('sica::admin.academy.courses.delete', $data);
     }
 
-    /* Eliminar curso */
-    public function course_destroy(Request $request){
-        $course = Course::findOrFail($request->input('id'));
-        if($course->delete()){
-            $icon = 'success';
-            $message_course = trans('sica::menu.Course successfully removed');
-        }else{
-            $icon = 'error';
-            $message_course = trans('sica::menu.Could not remove the Course');
-        }
-        return redirect()->back()->with(['icon'=>$icon, 'message_course'=>$message_course]);
-    }
+    
 
 }

@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Apprentice;
-use Modules\SIGAC\Entities\AcademicProgramming;
+use Modules\senaempresa\Entities\vacancy;
+use Modules\senaempresa\Entities\senaempresa;
+use Modules\AGROINDUSTRIA\Entities\RequestExternal;
+use Modules\SIGAC\Entities\CourseTrainingProject;
+use Modules\SIGAC\Entities\InstructorProgram;
+use Modules\SIGAC\Entities\TrainingProject;
 
 class Course extends Model implements Auditable
 {
@@ -48,11 +53,33 @@ class Course extends Model implements Auditable
     public function program(){ // Accede al programa de formación al que pertenece
         return $this->belongsTo(Program::class);
     }
+    public function requestexternals(){ // Accede a la información de los elementos usados en la Formula.
+        return $this->hasMany(RequestExternal::class);
+    }
 
     // Configuración de factory para la generación de datos de pruebas
     protected static function newFactory()
     {
         return \Modules\SICA\Database\factories\CourseFactory::new();
     }
+
+    public function training_projects(){ //Accede a todos los proyectos formativos que pertenecen a este curso.
+        return $this->belongsToMany(TrainingProject::class, 'course_training_projects');
+    }
+
+    public function instructor_programs(){ // Accede a todas las programaciones de este curso
+        return $this->hasMany(InstructorProgram::class);
+    }
+    public function vacancy()
+    { //Accede a los vacantes disponibles
+        return $this->belongsToMany(Vacancy::class);
+    }
+
+    public function senaempresa()
+    { //Accede a senaempresa registrados
+        return $this->belongsToMany(senaempresa::class);
+    }
+
+    
 
 }

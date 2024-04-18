@@ -5,6 +5,22 @@ return [
 	// Index
 	'SIGAC_index_title_page' => 'Página principal',
 	'SIGAC_index_title_view' => 'Página principal',
+    'breadcrumbs' => [
+        'active_attendance' => 'Asistencia Activa',
+        'points_apprentice' => 'Puntos del Aprendiz',
+    ],
+    'labels' => [
+        'update_date' => 'Fecha de Actualización',
+        'quantity' => 'Cantidad',
+        'theme' => 'Tema',
+        'state' => 'Estado',
+        'positive' => 'Positivo',
+        'negative' => 'Negativo',
+        'apprentice' => 'Aprendiz',
+        'save' => 'Guardar',
+        'delete' => 'Eliminar',
+    ],
+
 	// Info
 	'SIGAC_info_title_page' => 'Información',
 	'SIGAC_info_title_view' => 'Información',
@@ -43,6 +59,12 @@ return [
 	'SIGAC_reports_attendance_title_page'  => 'Asistencia',
 	'SIGAC_reports_attendance_title_view'  => 'Reportes de Asistencia',
 
+     // points view
+	'Breadcrumb_Active_PointsApprentice'  => 'Apprentice Points',
+    'PointsApprentice' => 'Apprentice Points',
+    'AssignPoints' => 'Assign Points',
+    'generalpointsApprentice'=>  'general pointsApprentice',
+
 	// -----ProgrammeController------
 	// Programming Schedules
 	'SIGAC_programming_schedules_title_page' => 'Programación de Horarios',
@@ -61,4 +83,7 @@ return [
 	// Schedule Apprentice
 	'SIGAC_schedule_apprentice_title_page' => 'Horario de Aprendiz',
 	'SIGAC_schedule_apprentice_title_view' => 'Horario de Aprendiz',
+     //Schedule points
+    'SIGAC_pointsApprentice_title_page' => 'Puntos generales del aprendiz',
+    'SIGAC_assignpoints_title_view' => 'Asignar puntos',
 ];

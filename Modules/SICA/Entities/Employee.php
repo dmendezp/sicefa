@@ -21,6 +21,7 @@ class Employee extends Model implements Auditable
         'employee_type_id',
         'position_id',
         'risk_type',
+        'bonding'.
         'state'
     ];
 

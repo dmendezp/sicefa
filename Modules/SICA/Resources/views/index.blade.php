@@ -23,7 +23,7 @@
                             <i class="fas fa-user-graduate"></i> Aprendices
                         </a>
                         <a class="btn btn-app">
-                            <span class="badge bg-info">0</span>
+                            <span class="badge bg-info">{{ number_format($instructors, 0, ',', '.') }}</span>
                             <i class="fas fa-chalkboard-teacher"></i> Instructores
                         </a>
                         <a class="btn btn-app">
@@ -59,7 +59,7 @@
                             <i class="fas fa-graduation-cap"></i> Programas
                         </a>
                         <a class="btn btn-app">
-                            <span class="badge bg-info">0</span>
+                            <span class="badge bg-info">{{ number_format($machinery, 0, ',', '.') }}</span>
                             <i class="fas fa-tractor"></i> Maquinaria
                         </a>
                     </div>

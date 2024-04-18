@@ -64,7 +64,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
 
         // Programación de horarios (Coordinación Académica)
-        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming_schedules.index'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.index'], [ // Registro o actualización de permiso
             'name' => 'Programación de horarios (Coordinación Académica)',
             'description' => 'Programación de horarios',
             'description_english' => "Programming schedules",
@@ -80,7 +80,7 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
-        
+
         // Visualización de horario asignado a instructor (Instructor)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.schedule_instructor.index'], [ // Registro o actualización de permiso
             'name' => 'Visualización de horario asignado a instructor (Instructor)',
@@ -144,7 +144,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_wellness[] = $permission->id; // Almacenar permiso para rol
 
-        // Vista principal de la sección de reportes de asistencia (Coordinación Académica) 
+        // Vista principal de la sección de reportes de asistencia (Coordinación Académica)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.reports.attendance.index'], [ // Registro o actualización de permiso
             'name' => 'Vista principal de la sección de reportes de asistencia (Coordinación Académica)',
             'description' => 'Vista principal de la sección de reportes de asistencia',
@@ -153,7 +153,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
 
-        // Vista principal de la sección de reportes de asistencia (Instructor) 
+        // Vista principal de la sección de reportes de asistencia (Instructor)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.reports.attendance.index'], [ // Registro o actualización de permiso
             'name' => 'Vista principal de la sección de reportes de asistencia (Instructor)',
             'description' => 'Vista principal de la sección de reportes de asistencia',
@@ -162,7 +162,17 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
 
-        // Vista principal de la sección de reportes de asistencia (Bienestar) 
+         // Vista principal de la sección de reportes de asistencia (Instructor)
+         $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.points.points.index'], [ // Vista de puntos
+            'name' => 'Vista principal de la seccion de  puntos (Instructor)',
+            'description' => 'Vista principal de la sección de puntos',
+            'description_english' => "Main view of the points section",
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
+
+
+        // Vista principal de la sección de reportes de asistencia (Bienestar)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.wellness.reports.attendance.index'], [ // Registro o actualización de permiso
             'name' => 'Vista principal de la sección de reportes de asistencia (Bienestar)',
             'description' => 'Vista principal de la sección de reportes de asistencia',
@@ -183,13 +193,12 @@ class PermissionsTableSeeder extends Seeder
         // Consulta de ROLES
         $rol_academic_coordination = Role::where('slug', 'sigac.academic_coordinator')->firstOrFail(); // Rol Coordinador Académico
         $rol_instructor = Role::where('slug', 'sigac.instructor')->firstOrFail(); // Rol Instructor
-        $rol_wellness = Role::where('slug', 'sigac.wellness')->firstOrFail(); // Rol Bienestar
+        $rol_wellness = Role::where('slug', 'sigac.wellbeing')->firstOrFail(); // Rol Bienestar
         $rol_apprentice = Role::where('slug', 'sigac.apprentice')->firstOrFail(); // Rol Aprendiz
 
         // Asignación de PERMISOS para los ROLES de la aplicación SIGAC (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_academic_coordination->permissions()->syncWithoutDetaching($permissions_academic_coordination);
         $rol_instructor->permissions()->syncWithoutDetaching($permissions_instructor);
-        $rol_wellness->permissions()->syncWithoutDetaching($permissions_wellness);
         $rol_apprentice->permissions()->syncWithoutDetaching($permissions_apprentice);
     }
 }

@@ -6,11 +6,13 @@
     "TILABS": true,
     "SENAEMPRESA": true,
     "CPD": true,
+    "AGROINDUSTRIA": true,
+    "AGROCEFA": true,
     "PTVENTA": true,
     "SIGAC": true,
-    "CAFETO": true,
-    "HANGARAUTO": true,
-    "CreateDriversTable": true,
-    "Seeder": true,
-    "PeopleTableSeeder": true
+    "CAFETO": false,
+    "HANGARAUTO": false,
+    "GTH": true,
+    "HDC": false,
 }
+

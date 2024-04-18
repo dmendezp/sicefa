@@ -14,6 +14,7 @@ Route::middleware(['lang'])->group(function(){
         // Todas las rutas de los Environments
         Route::get('/environment/index', [EnvironmentController::class, 'index'])->name('cefamaps.admin.config.environment.index');
         Route::get('/environment/view/{id}',[EnvironmentController::class, 'view'])->name('cefa.cefamaps.environment.view');
+        Route::get('/environment/viewenvironments/{id}',[EnvironmentController::class, 'viewenvironments'])->name('cefa.cefamaps.environment.viewenvironments');
         // para poder agregar Environments
         Route::get('/environment/add',[EnvironmentController::class, 'add'])->name('cefamaps.admin.config.environment.add');
         Route::post('/environment/add',[EnvironmentController::class, 'addpost'])->name('cefamaps.admin.config.environment.add');
@@ -62,6 +63,8 @@ Route::middleware(['lang'])->group(function(){
         Route::post('/page/edit/',[PageController::class, 'editpost'])->name('cefamaps.admin.config.page.edit');
         // para poder borrar una Page
         Route::get('/page/delete/{id}', [PageController::class, 'destroy'])->name('cefamaps.admin.page.delete');
+
+
 
     });
 

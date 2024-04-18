@@ -2,69 +2,65 @@
 
 @push('head')
 
-@endpush
+@end
 
 @push('breadcrumbs')
     <li class="breadcrumb-item">
-        <a href="#" class="text-decoration-none">{{ trans('sigac::consult.Breadcrumb_Active_Attendance') }}</a>
+        <a href="#" class="text-decoration-none">{{ trans('sigac::attendance.Breadcrumb_Active_Attendance') }}</a>
     </li>
-    <li class="breadcrumb-item active breadcrumb-color">{{ trans('sigac::consult.Breadcrumb_Consult_Excuses') }}</li>
+    <li
+    </
+class="breadcrumb-item active breadcrumb-color">{{ trans('sigac::pointsApprentice') }}</li>
 @endpush
 
 @section('content')
-    <div class="row">
-        <div class="col-md-5">
-            <div class="card">
-                <div class="card-body">
-                    <form class="row g-3">
-                        <div class="col-12">
-                            <label class="form-label">{{ trans('sigac::consult.Card_Title_Technologist') }}</label>
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>{{ trans('sigac::consult.Card_Select') }}</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">{{ trans('sigac::consult.Card_Title_Apprentice') }}</label>
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>{{ trans('sigac::consult.Card_Select') }}</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">{{ trans('sigac::consult.Card_Title_Start_Date') }}</label>
-                            <input type="date" class="form-control" id="start-date">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">{{ trans('sigac::consult.Card_Title_End_Date') }}</label>
-                            <input type="date" class="form-control" id="end-date">
-                        </div>
-                        <div class="col-md-6 d-flex align-items-end justify-content-md-start">
-                            <button type="submit"
-                                class="btn btn-primary btn-block">{{ trans('sigac::consult.Btn_Consult') }}</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+<div class="container">
+    <form method="POST" action="{{ route('sigac.instructor.points.points.index') }}">
+        @csrf
+
+        <div class="form-group">
+            <label for="apprentice">Seleccionar Aprendiz</label>
+            <select id="apprentice" name="apprentice" class="form-control">
+                <option value="">Seleccionar Aprendiz</option>
+                @foreach($apprentices as $apprentice)
+                    <option value="{{ $apprentice->id }}">{{ $apprentice->name }}</option>
+                @endforeach
+            </select>
         </div>
 
-        <div class="col-md-7">
-            <div class="card">
-                <div class="card-body">
-                    <div class="text-center">
-                        <h5 class="font-weight-bold">{{ trans('sigac::consult.Title_Aprentice_Attendance') }} Usuario de prueba
-                        </h5>
-                    </div>
-                    <hr>
-                    <div id='calendar' class="calendar"></div>
-                </div>
-            </div>
+        <div class="form-group">
+            <label for="update">Fecha de Actualización</label>
+            <input type="datetime-local" id="update" name="update" class="form-control">
         </div>
-    </div>
+
+        <div class="form-group">
+            <label for="quantity">Cantidad</label>
+            <input type="number" id="quantity" name="quantity" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="theme">Tema</label>
+            <input type="text" id="theme" name="theme" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="state">Estado</label>
+            <select id="state" name="state" class="form-control">
+                <option value="Positivo">Positivo</option>
+                <option value="Negativo">Negativo</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+    @if(isset($point))
+    <form method="POST" action="{{ route('points.destroy', $point->id) }}">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+    </form>
+    @endif
+</div>
 @endsection
 
 @push('scripts')

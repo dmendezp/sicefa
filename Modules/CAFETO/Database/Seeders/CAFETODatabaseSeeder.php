@@ -4,6 +4,7 @@ namespace Modules\CAFETO\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Modules\AGROINDUSTRIA\Entities\Formulation;
 use Modules\SICA\Entities\Category;
 use Modules\SICA\Entities\Movement;
 
@@ -30,7 +31,7 @@ class CAFETODatabaseSeeder extends Seeder
         $this->call(ElementsTableSeeder::class); // Ejecutar Seeder de elementos
         $this->call(InventoriesTableSeeder::class); // Ejecutar el seeder de inventarios
         $this->call(WarehousesTableSeeder::class); // Ejecutar Seeder de bodegas
-        Movement::factory()->count(500)->create(); //  Generar Movimientos de pruebas */
+        Formulation::factory()->count(20)->create(); // Generar recetas de pruebas */
 
         DB::commit(); // Finalizar transación
     }
