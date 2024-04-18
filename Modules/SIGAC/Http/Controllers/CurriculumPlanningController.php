@@ -633,19 +633,19 @@ class CurriculumPlanningController extends Controller
     }
 
     // Proyecto formativo
-    public function learning_class_index()
+    public function competencie_class_index()
     {
-        $class_learning = DB::table('class_environment_learning_outcomes')->get();
+        $competencies = Competencie::has('class_environments')->get();
 
-        $proff = LearningOutcome::all();
-        $learningOut = $proff->map(function ($p) {
+        $competencie = Competencie::all();
+        $competencieselect = $competencie->map(function ($p) {
             $id = $p->id;
             $name = $p->name;
             return [
                 'id' => $id,
                 'name' => $name
             ];
-        })->prepend(['id' => null, 'name' => 'Seleccione un resultado de aprendizaje'])->pluck('name', 'id');
+        })->prepend(['id' => null, 'name' => 'Seleccione una competencia'])->pluck('name', 'id');
 
         $prof = ClassEnvironment::all();
         $ClassEnvi = $prof->map(function ($p) {
@@ -658,14 +658,18 @@ class CurriculumPlanningController extends Controller
         })->prepend(['id' => null, 'name' => 'Seleccione una clase de ambiente'])->pluck('name', 'id');
 
 
-        return view('sigac::curriculum_planning.learning_class.index')->with(['titlePage' => 'Resultado por ambiente', 'titleView' => 'Resultado por ambiente', 'learningOut' => $learningOut, 'ClassEnvi' => $ClassEnvi, 'class_environment_learning_outcome' => $class_learning]);
+        return view('sigac::curriculum_planning.competencie_class.index')->with(['titlePage' => 'Competencia por ambiente',
+        'titleView' => 'Competencia por ambiente', 
+        'competencieselect' => $competencieselect, 
+        'ClassEnvi' => $ClassEnvi, 
+        'competencies' => $competencies]);
     }
 
-    public function learning_class_store(Request $request)
+    public function competencie_class_store(Request $request)
     {
         $rules = [
             'class_environment_id' => 'required',
-            'learning_outcome_id' => 'required'
+            'competencie_id' => 'required'
         ];
     
         // Validación de los datos recibidos del formulario
@@ -677,34 +681,36 @@ class CurriculumPlanningController extends Controller
         }
     
         // Obtener el resultado de aprendizaje y verificar si ya existe un registro para ese par de IDs
-        $learning_outcome = LearningOutcome::find($request->learning_outcome_id);
-        $existingRecord = DB::table('class_environment_learning_outcomes')
+        $competencie = Competencie::find($request->competencie_id);
+
+        
+        $existingRecord = DB::table('class_environment_competencies')
             ->where('class_environment_id', $request->class_environment_id)
-            ->where('learning_outcome_id', $request->learning_outcome_id)
+            ->where('competencie_id', $request->competencie_id)
             ->exists();
     
         // Realizar el registro si no existe un registro previo para el par de IDs
         if (!$existingRecord) {
             // SyncWithoutDetaching para asociar los datos en la tabla pivote sin eliminar los registros existentes
-            if ($learning_outcome->class_environments()->syncWithoutDetaching([$request->class_environment_id])) {
-                return redirect(route('sigac.academic_coordination.curriculum_planning.learning_class.index'))->with(['success' => 'Registro exitoso.']);
+            if ($competencie->class_environments()->syncWithoutDetaching([$request->class_environment_id])) {
+                return redirect(route('sigac.academic_coordination.curriculum_planning.competencie_class.index'))->with(['success' => 'Registro exitoso.']);
             } else {
-                return redirect(route('sigac.academic_coordination.curriculum_planning.learning_class.index'))->with(['error' => 'Error al agregar el registro.']);
+                return redirect(route('sigac.academic_coordination.curriculum_planning.competencie_class.index'))->with(['error' => 'Error al agregar el registro.']);
             }
         } else {
-            return redirect(route('sigac.academic_coordination.curriculum_planning.learning_class.index'))->with(['error' => 'Ya existe un registro para este par de IDs.']);
+            return redirect(route('sigac.academic_coordination.curriculum_planning.competencie_class.index'))->with(['error' => 'Ya existe un registro.']);
         }
     }
 
-    public function learning_class_destroy($id){
-        $cl = DB::table('class_environment_learning_outcomes')->where('id', $id)->delete();
-
-        if($cl){
-            return redirect(route('sigac.academic_coordination.curriculum_planning.learning_class.index'))->with(['success'=> 'Actividad exitosa']);
-        }else{
-            return redirect(route('sigac.academic_coordination.curriculum_planning.learning_class.index'))->with(['error'=> 'Ups, hubo un fallo']);
-        }
-
+    public function competencie_class_destroy($class_environment_id, $competencie_id)
+    {
+        // Obtener la competencia
+        $class_environment = ClassEnvironment::findOrFail($class_environment_id);
+       
+        // Eliminar la relación a través de Eloquent
+        $class_environment->competencies()->detach($competencie_id);
+        
+        return redirect(route('sigac.academic_coordination.curriculum_planning.competencie_class.index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
     }
     
 }

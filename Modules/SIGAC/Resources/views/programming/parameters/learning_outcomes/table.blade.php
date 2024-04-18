@@ -9,7 +9,7 @@
                             <h3 class="card-title">Resultados de Aprendizaje</h3>
                             <div class="btns">
                                 <a href="{{ route('sigac.academic_coordination.competences.index', ['program_id' => $program_id]) }}"class="btn btn-primary float-right ml-1">
-                                    <i class="fa-solid fa-angles-right fa-beat-fade"></i>
+                                    <i class="fa-solid fa-angles-left fa-beat-fade"></i>
                                     Competencias
                                 </a>
                             </div>

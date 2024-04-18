@@ -14,11 +14,11 @@
                                     @csrf
                                     <div class="form-group">
                                         {!! Form::label('training_project', trans('sigac::learning_out_come.TrainingProject')) !!}
-                                        {!! Form::select('training_project', $training_project_select, old('training_project'), ['class' => 'form-control training_project_select'],) !!}                                         
+                                        {!! Form::select('training_project', $training_project_select, old('training_project'), ['class' => 'form-control training_project_select', 'required']) !!}                                         
                                     </div>
                                     <div class="form-group">
                                         {!! Form::label('course', trans('sigac::learning_out_come.Courses')) !!}
-                                        {!! Form::select('course', $courses, old('course'), ['class' => 'form-control course'],) !!}                                    
+                                        {!! Form::select('course', $courses, old('course'), ['class' => 'form-control course', 'required' ]) !!}                                    
                                     </div>
                                     
                                     <div class="text-center">
@@ -31,6 +31,7 @@
                                     @include('sigac::curriculum_planning.course_training_project.table')
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

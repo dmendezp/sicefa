@@ -14,19 +14,19 @@
                                     @csrf
                                     <div class="form-group">
                                         {!! Form::label('program', trans('sigac::learning_out_come.Programs')) !!}
-                                        {!! Form::select('program', $programs, old('program'), ['class' => 'form-control program'],) !!}                                         
+                                        {!! Form::select('program', $programs, old('program'), ['class' => 'form-control program', 'required' ,]) !!}                                         
                                     </div>
                                     <div class="form-group">
                                         {!! Form::label('competencie', trans('sigac::learning_out_come.Competencies')) !!}
-                                        {!! Form::select('competencie', [], old('competencie'), ['class' => 'form-control competencie', 'placeholder' => trans('sigac::learning_out_come.SelectCompetition')]) !!}                                         
+                                        {!! Form::select('competencie', [], old('competencie'), ['class' => 'form-control competencie', 'required' ,'placeholder' => trans('sigac::learning_out_come.SelectCompetition')]) !!}                                         
                                     </div>
                                     <div class="form-group">
                                         {!! Form::label('learningOutCome', trans('sigac::learning_out_come.LearningOutComes')) !!}
-                                        {!! Form::select('learningOutCome', [], old('learningOutCome'), ['class' => 'form-control learningOutCome', 'placeholder' => trans('sigac::learning_out_come.SelectLearningOutcome')]) !!}                                         
+                                        {!! Form::select('learningOutCome', [], old('learningOutCome'), ['class' => 'form-control learningOutCome','required' , 'placeholder' => trans('sigac::learning_out_come.SelectLearningOutcome')]) !!}                                         
                                     </div>
                                     <div class="form-group">
                                         {!! Form::label('instructor', trans('sigac::learning_out_come.Instructor')) !!}
-                                        {!! Form::select('instructor', [], old('instructor'), ['class' => 'form-control instructor', 'placeholder' => trans('sigac::learning_out_come.SelectInstructor')],) !!}                                    
+                                        {!! Form::select('instructor', [], old('instructor'), ['class' => 'form-control instructor','required' , 'placeholder' => trans('sigac::learning_out_come.SelectInstructor')],) !!}                                    
                                     </div>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-success">{{ trans('sigac::learning_out_come.Add')}}</button>

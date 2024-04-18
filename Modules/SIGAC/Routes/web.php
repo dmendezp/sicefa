@@ -128,9 +128,9 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
  
 
             // ---------------- Resultado de aprendizaje por clase de ambiente ---------------------------
-            Route::get('coordination/curriculum_planning/learning_class/index', 'learning_class_index')->name('sigac.academic_coordination.curriculum_planning.learning_class.index'); // Proyecto formativo (Coordinación Académica)
-            Route::post('coordination/curriculum_planning/learning_class/learning_outcome/learning_class_storex', 'learning_class_store')->name('sigac.academic_coordination.curriculum_planning.learning_class_store'); // Index de Gestion de instructores (Coordinación Académica)
-            Route::delete('coordination/curriculum_planning/learning_class/destroy/{id}', 'learning_class_destroy')->name('sigac.academic_coordination.curriculum_planning.learning_class_destroy'); // Index de Gestion de instructores (Coordinación Académica)
+            Route::get('coordination/curriculum_planning/learning_class/index', 'competencie_class_index')->name('sigac.academic_coordination.curriculum_planning.competencie_class.index'); // Proyecto formativo (Coordinación Académica)
+            Route::post('coordination/curriculum_planning/learning_class/learning_outcome/learning_class_store', 'competencie_class_store')->name('sigac.academic_coordination.curriculum_planning.competencie_class.store'); // Index de Gestion de instructores (Coordinación Académica)
+            Route::delete('coordination/curriculum_planning/learning_class/destroy/{class_environment_id}/{competencie_id}', 'competencie_class_destroy')->name('sigac.academic_coordination.curriculum_planning.competencie_class.destroy'); // Index de Gestion de instructores (Coordinación Académica)
 
         });
 

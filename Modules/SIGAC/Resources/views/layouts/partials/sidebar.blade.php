@@ -236,7 +236,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.learning_class.index') }}" class="nav-link">
+                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.competencie_class.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-square-poll-vertical"></i>
                                         <p>Ambiente x Co</p>
                                     </a>

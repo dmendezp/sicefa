@@ -14,15 +14,15 @@
                                     @csrf
                                     <div class="form-group">
                                         {!! Form::label('program',  trans('sigac::profession.Programs')) !!}
-                                        {!! Form::select('program', $programs,  old('program'), ['class' => 'form-control program'],) !!}                                         
+                                        {!! Form::select('program', $programs,  old('program'), ['class' => 'form-control program', 'required' ,],) !!}                                         
                                     </div>
                                     <div class="form-group">
                                         {!! Form::label('competencie', trans('sigac::profession.Competencies')) !!}
-                                        {!! Form::select('competencie', [],  old('competencie'), ['class' => 'form-control competencie', 'placeholder' =>  trans('sigac::profession.SelectCompetition')],) !!}                                         
+                                        {!! Form::select('competencie', [],  old('competencie'), ['class' => 'form-control competencie', 'required' ,'placeholder' =>  trans('sigac::profession.SelectCompetition')],) !!}                                         
                                     </div>
                                     <div class="form-group">
                                         {!! Form::label('profession',  trans('sigac::profession.Professions')) !!}
-                                        {!! Form::select('profession', $professions, old('profession'), ['class' => 'form-control profession'],) !!}                                    
+                                        {!! Form::select('profession', $professions, old('profession'), ['class' => 'form-control profession', 'required' ,],) !!}                                    
                                     </div>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-success">{{ trans('sigac::profession.Add')}}</button>
