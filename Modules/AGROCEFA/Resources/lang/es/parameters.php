@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'Parameters' => 'Parametrizacion',
+    'Parameters' => 'Parametrización',
     'Activity' => 'Actividad',
     'EmployeeType' => 'Tipo Empleado',
     'Variety' => 'Variedad',
