@@ -1,0 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap');
+
+h1, h2, h3, h4, h5, h6, a, span, p{
+    font-family: 'M PLUS Rounded 1c', sans-serif !important;
+}
