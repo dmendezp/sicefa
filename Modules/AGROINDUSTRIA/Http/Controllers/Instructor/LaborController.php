@@ -77,11 +77,13 @@ class LaborController extends Controller
             'Producción' => 'Producción'
         ];
 
-        $elementProduct = Element::where('category_id', 3)->get();
+        $product = Category::where('name', 'Productos')->pluck('id');
+       
+        $elementProduct = Element::where('category_id', $product)->get();
         $recipe = $elementProduct->map(function ($f){
             $id = $f->id;
             $name = $f->name;
-
+            
             return [
                 'id' => $id,
                 'name' => $name
@@ -119,7 +121,7 @@ class LaborController extends Controller
             ];
         })->prepend(['id' => null, 'name' => trans('agroindustria::labors.selectInstrument')])->pluck('name', 'id');
 
-        $categoryEquipments = Category::where('name', 'Equipos')->pluck('id');
+        $categoryEquipments = Category::where('name', 'Maquinaria')->pluck('id');
         $elementEquipment = Element::whereIn('category_id', $categoryEquipments)->pluck('id');
 
         $equipments = Inventory::where('productive_unit_warehouse_id', $productive_unit_warehouse)->whereIn('element_id', $elementEquipment)
@@ -480,13 +482,13 @@ class LaborController extends Controller
             $tools = $request->input('tools');
             $amount_tools = $request->input('amount_tools');
             $price_tools = $request->input('price_tools');
-
-            $elementTool = Element::whereIn('id', $tools)->pluck('measurement_unit_id');
+            
             foreach ($tools as $key => $tool){ 
                 if($tool != null){
                     $requiredAmount = $amount_tools[$key]; // Cantidad requerida para el elemento
-                    $measurement_unit = MeasurementUnit::whereIn('id', $elementTool)->pluck('conversion_factor');
-                    $conversion = $requiredAmount*$measurement_unit[$key];
+                    $elementTool = Element::where('id', $tool)->pluck('measurement_unit_id');
+                    $measurement_unit = MeasurementUnit::where('id', $elementTool)->pluck('conversion_factor')->first();
+                    $conversion = $requiredAmount*$measurement_unit;
 
                     $selectedUnit = session('viewing_unit');
                     $warehouse = Warehouse::where('name', 'Agroindustria')->pluck('id');
@@ -505,7 +507,7 @@ class LaborController extends Controller
                             
                         // Calcula cuánto se puede consumir de este lote
                         $consumeFromThisLot = min($availableAmount, max(0, $conversion - $consumedAmount));
-                        $intAmount = $consumeFromThisLot/$measurement_unit[$key];
+                        $intAmount = $consumeFromThisLot/$measurement_unit;
                         $price = $intAmount*$priceInventory;
                         if ($consumeFromThisLot > 0) {
                             // Registra el consumo para este lote
@@ -616,7 +618,7 @@ class LaborController extends Controller
                 $p->element_id = $recipeRequest;
                 $p->amount = $request->input('amount_production');
                 $p->expiration_date = $request->input('date_experation');
-                $p->lot = $request->input('lot');
+                $p->lot_number = $request->input('lot');
                 $p->save();
             }
             
@@ -641,6 +643,7 @@ class LaborController extends Controller
             }
             
         } catch (\Exception $e) {
+            dd($e);
             // Rollback de la transacción en caso de error
             DB::rollBack();
     

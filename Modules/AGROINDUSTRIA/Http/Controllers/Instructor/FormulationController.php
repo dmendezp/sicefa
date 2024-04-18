@@ -65,7 +65,8 @@ class FormulationController extends Controller
             $name = $user->person->first_name . ' ' . $user->person->first_last_name . ' ' . $user->person->second_last_name;
         }
 
-        $elements = Element::where('category_id', 3)->get();
+        $categoryProduct = Category::where('name', 'Productos')->pluck('id');
+        $elements = Element::where('category_id', $categoryProduct)->get();
 
         $product = $elements->map(function ($e){
             $id = $e->id;
@@ -216,8 +217,9 @@ class FormulationController extends Controller
             $idPersona = $user->person->id;
             $name = $user->person->first_name . ' ' . $user->person->first_last_name . ' ' . $user->person->second_last_name;
         }
-        
-        $element = Element::where('category_id', 3)->pluck('name', 'id');
+
+        $categoryProduct = Category::where('name', 'Productos')->pluck('id');        
+        $element = Element::where('category_id', $categoryProduct)->pluck('name', 'id');
         $selectedUnit = session('viewing_unit');
         $unitName = ProductiveUnit::findOrFail($selectedUnit);
 
@@ -295,21 +297,23 @@ class FormulationController extends Controller
         // Obtener los datos de ingredientes del formulario
         $nameIngredients = $request->input('element_ingredients');
         $amountIngredients = $request->input('amount_ingredients');
-        
         // Obtener los datos de ingredientes del formulario
         $nameUtencils = $request->input('element_utencils');
         $amountUtencils = $request->input('amount_utencils');
-
+        
         // Recorrer los datos de productos y guardarlos en Supply
         foreach ($nameIngredients as $key => $ingredient) {
             $ingredientId = $f->ingredients[$key]->id ?? null; // Obtener el ID del ingrediente si existe
-    
+            $measurement_unit = Element::where('id', $ingredient)->pluck('measurement_unit_id');
+            $conversion_factor = MeasurementUnit::where('id', $measurement_unit)->pluck('conversion_factor')->first();
+
+            $amount = $amountIngredients[$key] * $conversion_factor;
             Ingredient::updateOrInsert(
                 ['id' => $ingredientId], // Condición para la actualización o inserción
                 [
                     'element_id' => $ingredient,
                     'formulation_id' => $f->id,
-                    'amount' => $amountIngredients[$key],
+                    'amount' => $amount,
                 ]
             );
         }

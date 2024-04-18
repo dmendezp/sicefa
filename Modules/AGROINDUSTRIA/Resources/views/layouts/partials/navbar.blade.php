@@ -65,7 +65,7 @@
                         <a class="nav-link" href="{{route('agroindustria.instructor.units.activity', ['unit'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Activities')}}</a>
                     </li>
                 @endif
-                @if(Auth::user()->havePermission('agroindustria.instructor.formulations'))
+                @if(Auth::user()->havePermission('agroindustria.instructor.units.formulation'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('cefa.agroindustria.instructor.units.formulations')}}">{{trans('agroindustria::formulations.Recipes')}}</a>
                     </li>

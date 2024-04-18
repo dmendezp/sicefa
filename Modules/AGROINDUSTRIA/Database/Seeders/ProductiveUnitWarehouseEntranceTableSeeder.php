@@ -58,6 +58,13 @@ class ProductiveUnitWarehouseEntranceTableSeeder extends Seeder
             'municipality_id' => $municipality->id
         ]);
 
+        $warehouse = Warehouse::updateOrCreate([ 
+            'name' => 'Agroindustria',
+            'description' => 'Bodega para el complejo agroindustrial',
+            'app_id' => $app->id
+        ]);
+
+
         $warehouseentrance = Warehouse::updateOrCreate([ 
             'name' => 'Externa',
             'description' => 'Bodega para realizar movimientos de entrada',

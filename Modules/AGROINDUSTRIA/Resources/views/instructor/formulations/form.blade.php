@@ -90,7 +90,7 @@
                                         </div>
                                         <div class="form-group">
                                             {!! Form::label('amount' , trans('agroindustria::menu.Amount')) !!}
-                                            {!! Form::number('amount_ingredients[]', null, ['class'=>'form-control amount-select']) !!}
+                                            {!! Form::number('amount_ingredients[]', null, ['class'=>'form-control amount-select', 'step' => '0.01']) !!}
                                             @error('amount')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror        

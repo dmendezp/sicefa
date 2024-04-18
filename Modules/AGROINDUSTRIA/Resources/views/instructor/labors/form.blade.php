@@ -920,7 +920,7 @@
                 var availableTotal = $(this).find('input#price_unit_consumable_total');
                 var availableAmount = $(this).find('input#amount_consumables');
                 var priceField = $(this).find('input#price_unit_consumable');
-                var amount = parseInt(availableAmount.val()) || 0;
+                var amount = parseFloat(availableAmount.val()) || 0;
                 var price = parseFloat(priceField.val()) || 0;
                 var totalPrice = price * amount;
                 availableTotal.val(totalPrice);

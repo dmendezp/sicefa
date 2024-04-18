@@ -34,5 +34,9 @@ class CategoriesTableSeeder extends Seeder
             'kind_of_property' => 'Devolutivo'
         ]);
 
+        $categories = Category::updateOrCreate(['name' => 'Productos'], [
+            'kind_of_property' => 'Bodega'
+        ]);
+
     }
 }
