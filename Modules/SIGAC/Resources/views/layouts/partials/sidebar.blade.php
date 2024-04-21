@@ -323,7 +323,7 @@
                             <ul class="nav nav-treeview items" style="display: none;">
                                 @if (Auth::user()->havePermission('sigac.instructor.attendance.register'))
                                     <li class="nav-item">
-                                        <a href="{{ route('sigac.instructor.attendance.register') }}"
+                                        <a href="{{ route('sigac.instructor.attendances.attendance.index') }}"
                                             class="nav-link {{ !Route::is('sigac.instructor.attendance.register*') ?: 'active' }}">
                                             <i class="nav-icon fas fa-user-check"></i>
                                             <p>{{ trans('sigac::general.AttendanceRegister') }}</p>
