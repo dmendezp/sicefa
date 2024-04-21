@@ -1,0 +1,27 @@
+<?php
+
+namespace Modules\SIGAC\Entities;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\SICA\Entities\Person;
+
+class AttendanceApprentice extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ['date','state','person_id','instructor_program_id'];
+    
+    protected static function newFactory()
+    {
+        return \Modules\SIGAC\Database\factories\AttendanceApprendiceFactory::new();
+    }
+
+    public function person(){ // Accede a la información de los datos personales de la persona responsable
+        return $this->belongsTo(Person::class);
+    }
+
+    public function instructor_program(){ // Accede a la información de los datos personales de la persona responsable
+        return $this->belongsTo(InstructorProgram::class);
+    }
+}

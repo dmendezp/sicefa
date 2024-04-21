@@ -136,6 +136,9 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
 
         // Rutas para la administración de asistencias
         Route::controller(AttendanceController::class)->group(function () {
+            Route::get('instructor/attendances/attendance/index', 'attendance_index')->name('sigac.instructor.attendances.attendance.index'); // Consultar excusas de aprendiz (Instructor)
+            Route::get('instructor/attendances/attendance/search', 'attendance_search')->name('sigac.instructor.attendances.attendance.search'); // Consultar excusas de aprendiz (Instructor)
+            Route::get('instructor/attendances/attendance/store', 'attendance_store')->name('sigac.instructor.attendances.attendance.store'); // Consultar excusas de aprendiz (Instructor)
             Route::get('instructor/consult/excuses', 'consult_excuses')->name('sigac.instructor.attendance.excuses'); // Consultar excusas de aprendiz (Instructor)
             Route::get('instructor/consult/attendance', 'consult_attendance')->name('sigac.instructor.attendance.consult'); // Consultar asistencia por aprendiz o tituladas (Instructor)
             Route::get('instructor/register', 'index')->name('sigac.instructor.attendance.register'); // Registrar asistencia de aprendiz por titulada (Instructor)

@@ -18,6 +18,10 @@ class InstructorProgram extends Model
     public function attendances (){
         return $this->hasMany(Attendance::class);
     }
+    public function attendance_apprentices()
+    {
+        return $this->hasMany(AttendanceApprentice::class);
+    }
     public function person()
     {
         return $this->belongsTo(Person::class);
