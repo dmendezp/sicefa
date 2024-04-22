@@ -25,8 +25,6 @@ class AttendanceController extends Controller
         $list = InstructorProgram::with('course.apprentices.person.attendance_apprentices')
             ->where('person_id', $instructor)
             ->where('date', $date)
-            ->whereTime('start_time', '<=', $currentTime)
-            ->whereTime('end_time', '>=', $currentTime)
             ->get();
 
             

@@ -21,57 +21,93 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div id="list">@if(isset($instructor_programs))
-                                <div class="table-responsive">
-                                    <table id="instructor_program" class="display table table-bordered table-striped table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th class="text-center">{{trans('sigac::profession.Name')}}</th>
-                                                <th class="text-center">Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($instructor_programs as $i)
-                                                @foreach ($i->course->apprentices as $a)
-                                                    @php
-                                                        $attendanceState = ''; // Estado de asistencia predeterminado
-                                                        // Verificar si hay asistencias para la fecha actual
-                                                        $attendances = $a->person->attendance_apprentices->where('date', $currentDate);
-                                                        if ($attendances->isNotEmpty()) {
-                                                            // Obtener el estado de la asistencia más reciente
-                                                            $latestAttendance = $attendances->sortByDesc('created_at')->first();
-                                                            $attendanceState = $latestAttendance->state;
-                                                           
-                                                        }
-                                                    @endphp
-                                                    <tr>
-                                                        <td class="text-center">{{ $loop->iteration }}</td>
-                                                        <td class="text-center">{{ $a->person->fullname }}</td>
-                                                        <td class="text-center">
-                                                            <!-- Botón flotante -->
-                                                            <div class="floating-button-container">
-                                                                <button class="floating-button" data-student-id="{{ $a->person->id }}" data-instructor-program-id="{{ $i->id }}">
-                                                                    @if($attendanceState)
-                                                                        {{ $attendanceState }}
-                                                                    @else
-                                                                        <i class="fas fa-plus"></i>
-                                                                    @endif
-                                                                </button>
-                                                                <div class="floating-button-menu">
-                                                                    <button class="sub-button" data-action="P">P</button>
-                                                                    <button class="sub-button" data-action="FI">FI</button>
-                                                                    <button class="sub-button" data-action="FJ">FJ</button>
-                                                                    <button class="sub-button" data-action="MF">MF</button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div id="list">
+                                @if(isset($instructor_programs))
+                                    @foreach ($instructor_programs as $i)
+                                    <div class="accordion" id="accordionExample">
+                                        <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingOne">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne_{{ $i->id }}" aria-expanded="true" aria-controls="collapseOne">
+                                            {{ $i->course->program->name }} - {{ $i->course->code }} : de {{ $i->start_time }} hasta {{ $i->end_time }}
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne_{{ $i->id }}" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <div class="table-responsive">
+                                                    <table id="" class="display table table-bordered table-striped table-sm instructor_program">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-center">#</th>
+                                                                <th class="text-center">{{trans('sigac::profession.Name')}}</th>
+                                                                <th class="text-center">Acciones</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($i->course->apprentices as $a)
+                                                                @php
+                                                                    $attendanceState = ''; // Estado de asistencia predeterminado
+                                                                    // Verificar si hay asistencias para la fecha actual
+                                                                    $attendances = $a->person->attendance_apprentices->where('date', $currentDate);
+                                                                    if ($attendances->isNotEmpty()) {
+                                                                        // Obtener el estado de la asistencia más reciente
+                                                                        $latestAttendance = $attendances->sortByDesc('created_at')->first();
+                                                                        $attendanceState = $latestAttendance->state;
+                                                                        
+                                                                    }
+                                                                @endphp
+                                                                <tr>
+                                                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                                                    <td class="text-center">{{ $a->person->fullname }}</td>
+                                                                    <td class="text-center">
+                                                                        <!-- Botón flotante -->
+                                                                        <div class="floating-button-container">
+                                                                                @if($attendanceState)
+                                                                                    @switch($attendanceState)
+                                                                                        @case($attendanceState == 'P')
+                                                                                            <button class="floating-button b1" data-student-id="{{ $a->person->id }}" data-instructor-program-id="{{ $i->id }}">
+                                                                                                {{ $attendanceState }}
+                                                                                            @break
+                                                                                        @case($attendanceState == 'FI')
+                                                                                            <button class="floating-button b2" data-student-id="{{ $a->person->id }}" data-instructor-program-id="{{ $i->id }}">
+                                                                                                {{ $attendanceState }}
+                                                                                            @break
+                                                                                        @case($attendanceState == 'FJ')
+                                                                                            <button class="floating-button b3" data-student-id="{{ $a->person->id }}" data-instructor-program-id="{{ $i->id }}">
+                                                                                                {{ $attendanceState }}
+                                                                                            @break
+                                                                                        @case($attendanceState == 'MF')
+                                                                                            <button class="floating-button b4" data-student-id="{{ $a->person->id }}" data-instructor-program-id="{{ $i->id }}">
+                                                                                                {{ $attendanceState }}
+                                                                                            @break
+                                                                                        $@default
+                                                                                            <button class="floating-button" data-student-id="{{ $a->person->id }}" data-instructor-program-id="{{ $i->id }}">
+                                                                                            <i class="fas fa-plus"></i>
+                                                                                    @endswitch
+                                                                                    
+                                                                                @else
+                                                                                    <button class="floating-button" data-student-id="{{ $a->person->id }}" data-instructor-program-id="{{ $i->id }}">
+                                                                                    <i class="fas fa-plus"></i>
+                                                                                @endif
+                                                                            </button>
+                                                                            <div class="floating-button-menu">
+                                                                                <button class="sub-button b1" data-action="P">P</button>
+                                                                                <button class="sub-button b2" data-action="FI">FI</button>
+                                                                                <button class="sub-button b3" data-action="FJ">FJ</button>
+                                                                                <button class="sub-button b4" data-action="MF">MF</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    @endforeach
                                 @endif
                             </div>
                         </div>
@@ -85,10 +121,15 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() {
-        $('#instructor_program').DataTable();
+        $('.instructor_program').DataTable( {
+            paging: false
+        } );
 
         // Obtener la fecha actual
+        var currentDatenow = "{{ $currentDate }}";
         var currentDate = "{{ $currentDate }}";
+        var dateattendance = currentDate;
+         $('#nextDate').hide();
 
         // Manejar clics en las flechas de navegación
         $('#prevDate').on('click', function() {
@@ -97,6 +138,11 @@
             prevDate.setDate(prevDate.getDate() - 1);
             currentDate = prevDate.toISOString().slice(0, 10); // Actualizar la fecha actual
             $('#currentDate').text(currentDate); // Actualizar el texto de la fecha en la interfaz
+            dateattendance = currentDate
+
+            if (dateattendance != currentDatenow) {
+                $('#nextDate').show();
+            }
             $.ajax({
                 url: '{{ route('sigac.instructor.attendances.attendance.search') }}',
                 method: 'GET',
@@ -119,6 +165,13 @@
             nextDate.setDate(nextDate.getDate() + 1);
             currentDate = nextDate.toISOString().slice(0, 10); // Actualizar la fecha actual
             $('#currentDate').text(currentDate); // Actualizar el texto de la fecha en la interfaz
+            dateattendance = currentDate
+
+            if (dateattendance != currentDatenow) {
+                $('#nextDate').show();
+            } else {
+                $('#nextDate').hide();
+            }
             $.ajax({
                 url: '{{ route('sigac.instructor.attendances.attendance.search') }}',
                 method: 'GET',
@@ -128,7 +181,7 @@
                 success: function(response) {
                     // Actualizar el contenedor con los resultados filtrados
                     $('#list').html(response);
-                    $('#instructor_program').DataTable();
+                    $('.instructor_program').DataTable();
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
@@ -177,23 +230,30 @@
                 success: function(response) {
                     // Cambiar el texto del botón de tomar la asistencia por el estado de la asistencia
                     var stateText = '';
+                    var classb = '';
                     switch (action) {
                         case 'P':
                             stateText = 'P';
+                            classb = 'floating-button b1';
                             break;
                         case 'FI':
                             stateText = 'FI';
+                            classb = 'floating-button b2';
                             break;
                         case 'FJ':
                             stateText = 'FJ';
+                            classb = 'floating-button b3';
                             break;
                         case 'MF':
                             stateText = 'MF';
+                            classb = 'floating-button b4';
                             break;
                         default:
                             stateText = 'Desconocido';
                     }
                     floatingButton.text(stateText);
+                    floatingButton.removeClass();
+                    floatingButton.addClass(classb);
                 },
                 error: function(xhr, status, error) {
                     console.error(error);

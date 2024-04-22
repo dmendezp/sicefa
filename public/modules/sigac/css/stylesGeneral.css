@@ -179,7 +179,7 @@
 .floating-button-menu {
   position: absolute;
   bottom: 30%;
-  left: -70px;
+  left: 0px;
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s, opacity 0.2s linear;
@@ -229,3 +229,17 @@
 .sub-button:nth-child(4) {
   transform: translateY(-220px); /* Ajuste para colocar arriba del tercer botón */
 }
+
+.b1{
+  background-color: green;
+}
+.b2{
+  background-color: red;
+}
+.b3{
+  background-color: rgb(255, 230, 0);
+}
+.b4{
+  background-color: orange;
+}
+

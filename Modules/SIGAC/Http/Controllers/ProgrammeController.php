@@ -89,10 +89,11 @@ class ProgrammeController extends Controller
 
     public function management_programming_filterenvironment(Request $request)
     {
-        $learning_outcome_id = $request->input('learning_outcome_id');
+        $learning_outcome = LearningOutcome::findOrfail($request->input('learning_outcome_id')) ;
+        $competencie_id = $learning_outcome->competencie->id;
 
-        $environments = Environment::whereHas('class_environment.learning_outcomes', function($query) use ($learning_outcome_id) {
-            $query->where('learning_outcomes.id', $learning_outcome_id);
+        $environments = Environment::whereHas('class_environment.competencies', function($query) use ($competencie_id) {
+            $query->where('competencies.id', $competencie_id);
         })->pluck('name','id');
 
         return response()->json(['environments' => $environments->toArray()]);
