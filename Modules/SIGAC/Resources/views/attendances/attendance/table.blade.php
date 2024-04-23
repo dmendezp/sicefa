@@ -87,3 +87,10 @@
         @endforeach
     @endif
 </div>
+<script>
+    $(document).ready(function() {
+        $('.instructor_program').DataTable( {
+            paging: false
+        } );
+    });
+</script>

@@ -259,6 +259,12 @@
                                         <p>Proyecto formativo</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.evaluative_judgment.index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-address-card"></i>
+                                        <p>Juicio Evaluativo</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                        

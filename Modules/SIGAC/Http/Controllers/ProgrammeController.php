@@ -189,7 +189,7 @@ class ProgrammeController extends Controller
             $p->person_id = $request->instructor;
             $p->course_id = $request->course;
             $p->environment_id = $request->environment;
-            $p->quarterly_id = $quarterlies;
+            $p->learning_outcome_id = $request->learning_outcome;
             $p->save(); 
         }
 
@@ -286,17 +286,17 @@ class ProgrammeController extends Controller
 
         if ($option == 1) {
 
-            $programmingEvents = InstructorProgram::with('person', 'course.program', 'course.municipality.department','environment','quarterly.learning_outcome')->whereHas('person', function ($query) use ($filter) {
+            $programmingEvents = InstructorProgram::with('person', 'course.program', 'course.municipality.department','environment','learning_outcome')->whereHas('person', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
                 ->get();
         } elseif ($option == 2) {
-            $programmingEvents = InstructorProgram::with('person', 'course.program', 'course.municipality.department', 'environment','quarterly.learning_outcome')->whereHas('environment', function ($query) use ($filter) {
+            $programmingEvents = InstructorProgram::with('person', 'course.program', 'course.municipality.department', 'environment','learning_outcome')->whereHas('environment', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
                 ->get();
         } else {
-            $programmingEvents = InstructorProgram::with('person', 'course.program', 'course.municipality.department','environment','quarterly.learning_outcome')->whereHas('course', function ($query) use ($filter) {
+            $programmingEvents = InstructorProgram::with('person', 'course.program', 'course.municipality.department','environment','learning_outcome')->whereHas('course', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
                 ->get();

@@ -132,6 +132,9 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::post('coordination/curriculum_planning/learning_class/learning_outcome/learning_class_store', 'competencie_class_store')->name('sigac.academic_coordination.curriculum_planning.competencie_class.store'); // Index de Gestion de instructores (Coordinación Académica)
             Route::delete('coordination/curriculum_planning/learning_class/destroy/{class_environment_id}/{competencie_id}', 'competencie_class_destroy')->name('sigac.academic_coordination.curriculum_planning.competencie_class.destroy'); // Index de Gestion de instructores (Coordinación Académica)
 
+            // ---------------- Cargar Juicio Evaluativo ---------------------------
+            Route::get('coordination/curriculum_planning/evaluative_judgment/index', 'evaluative_judgment_index')->name('sigac.academic_coordination.curriculum_planning.evaluative_judgment.index'); // Proyecto formativo (Coordinación Académica)
+            Route::post('coordination/curriculum_planning/evaluative_judgment/load/store', 'evaluative_judgment_store')->name('sigac.academic_coordination.curriculum_planning.evaluative_judgment.load.store'); // Proyecto formativo (Coordinación Académica)
         });
 
         // Rutas para la administración de asistencias

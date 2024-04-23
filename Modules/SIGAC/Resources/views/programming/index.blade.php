@@ -102,7 +102,7 @@
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
                         $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.modality ? (eventData.course.modality) : 'N/A'));
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name + ' - ' + eventData.course.municipality.department.name) : 'N/A'));
-                        $('#learning_outcome').text('Resultado: ' + (eventData.quarterly && eventData.quarterly ? (eventData.quarterly.learning_outcome.name) : 'N/A'));
+                        $('#learning_outcome').text('Resultado: ' + (eventData.learning_outcome && eventData.learning_outcome ? (eventData.learning_outcome.name) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
                 } else if (option == 2) {
@@ -114,7 +114,7 @@
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
-                        $('#learning_outcome').text('Resultado: ' + (eventData.quarterly && eventData.quarterly ? (eventData.quarterly.learning_outcome.name) : 'N/A'));
+                        $('#learning_outcome').text('Resultado: ' + (eventData.learning_outcome && eventData.learning_outcome ? (eventData.learning_outcome.name) : 'N/A'));
                 } else if (option == 3) {
                     $('#environment').text('Ambiente: ' + (eventData.environment ? eventData.environment.name : 'N/A'));
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
@@ -123,7 +123,7 @@
                         $('#instructor').text('Instructor: ' + (eventData.person ? eventData.person.first_name : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
-                        $('#learning_outcome').text('Resultado: ' + (eventData.quarterly && eventData.quarterly ? (eventData.quarterly.learning_outcome.name) : 'N/A'));
+                        $('#learning_outcome').text('Resultado: ' + (eventData.learning_outcome && eventData.learning_outcome ? (eventData.learning_outcome.name) : 'N/A'));
                 } else {
                     $('#environment').text('Ambiente: ' + (eventData.environment ? eventData.environment.name : 'N/A'));
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
@@ -131,7 +131,7 @@
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
-                        $('#learning_outcome').text('Resultado: ' + (eventData.quarterly && eventData.quarterly ? (eventData.quarterly.learning_outcome.name) : 'N/A'));
+                        $('#learning_outcome').text('Resultado: ' + (eventData.learning_outcome && eventData.learning_outcome ? (eventData.learning_outcome.name) : 'N/A'));
                 }
 
                 $('#eventDetailsModal').modal('show');
@@ -202,7 +202,7 @@
                             person: eventData.person,
                             course: eventData.course,
                             environment: eventData.environment,
-                            quarterly: eventData.quarterly
+                            learning_outcome: eventData.learning_outcome
                         });
                     });
 

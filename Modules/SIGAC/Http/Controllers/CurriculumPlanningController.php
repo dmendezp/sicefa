@@ -15,6 +15,11 @@ use Modules\SICA\Entities\Program;
 use Modules\SIGAC\Entities\Profession;
 use Illuminate\Support\Facades\DB;
 use Modules\SICA\Entities\ClassEnvironment;
+use Modules\SIGAC\Entities\InstructorProgram;
+use Modules\SICA\Imports\PeopleImport;
+use Modules\SIGAC\Imports\ApprenticeLearningOutcomeImport;
+
+use Excel, Exception;
 
 class CurriculumPlanningController extends Controller
 {
@@ -27,15 +32,15 @@ class CurriculumPlanningController extends Controller
     public function training_project_index()
     {
         $learning_outcomes = LearningOutcome::pluck('name', 'id');
-        $coursesWithTrainingProjects =  Course::has('training_projects')->with('training_projects.quarterlies.instructor_programs')->get();
+        $coursesWithTrainingProjects =  Course::has('training_projects')->with('training_projects.quarterlies.learning_outcome.instructor_programs')->get();
 
         // Contar los resultados de aprendizaje programados para cada proyecto formativo
         $counts = [];
         foreach ($coursesWithTrainingProjects as $course) {
             foreach ($course->training_projects as $trainingProject) {
                 $count = $trainingProject->quarterlies->flatMap(function ($quarterly) {
-                    return $quarterly->instructor_programs;
-                })->unique('quarterly_id')->count();
+                    return $quarterly->learning_outcome->instructor_programs;
+                })->unique('learning_outcome_id')->count();
                 $counts[$trainingProject->id] = $count;
             }
         }
@@ -711,6 +716,62 @@ class CurriculumPlanningController extends Controller
         $class_environment->competencies()->detach($competencie_id);
         
         return redirect(route('sigac.academic_coordination.curriculum_planning.competencie_class.index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
+    }
+
+    public function evaluative_judgment_index () 
+    {
+        return view('sigac::curriculum_planning.evaluative_judgment.index')->with(['titlePage' => 'Cargar juicio evaluativo',
+        'titleView' => 'Cargar juicio evaluativo']);
+    }
+
+    /* Registrar aprendices a partir de un archivo */
+    public function evaluative_judgment_store(Request $request){
+        ini_set('max_execution_time', 3000); // Ampliar el tiempo máximo de la ejecución del proceso en el servidor
+        $validator = Validator::make($request->all(),
+            ['archivo'  => 'required'],
+            ['archivo.required'  => 'El archivo es requerido.']
+        );
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }else{
+            $path = $request->file('archivo'); // Obtener ubicación temporal del archivo en el servidor
+            $array = Excel::toArray(new ApprenticeLearningOutcomeImport, $path); // Convertir el contenido del archivo excel en una arreglo de arreglos
+            $apprentices_data = array_splice($array[0], 12, count($array[0])); // Obtener solo los registros de los datos de los aprendices
+
+
+            try {
+                $countstate = 0;
+                // Recorrer datos y relizar registros
+               
+                foreach($apprentices_data as $data){
+                    $learning_outcome = explode(" - ",$data[6]);
+                    if ($learning_outcome) {
+                        $name_learning = $learning_outcome[1];
+                        $state = $data[7];
+                        $learning_outcome = LearningOutcome::where('name', '=', $name_learning)->first();
+                        
+                        if ($learning_outcome) {
+                            $learning_outcome_id = $learning_outcome->id;
+                            if ($state = "APROBADO") {
+                                $instructor_programs = InstructorProgram::where('learning_outcome_id',$learning_outcome_id)->get();
+                                
+                                foreach ($instructor_programs as $instructor_program) {
+                                    $instructor_program->state = 2;
+                                    $instructor_program->save();
+                                    $countstate++;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                return back()->with('success', 'Archivo excel escaneado coerrectamente. '.$countstate.' Programaciones Actualizados exitosamente.')->with('typealert', 'success');
+            } catch (Exception $e) {
+                DB::rollBack(); // Devolver cambios realizados durante la transacción
+                return back()->with('error', 'Ocurrio un error en la importación y/o registro de datos del archivo excel cargado. <hr> <strong>Error: </strong> ('.$e->getMessage().').')->with('typealert', 'danger');
+             }
+
+        }
     }
     
 }

@@ -5,6 +5,7 @@ namespace Modules\SICA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\SIGAC\Entities\Quarterly;
+use Modules\SIGAC\Entities\InstructorProgram;
 
 class LearningOutcome extends Model
 {
@@ -35,6 +36,9 @@ class LearningOutcome extends Model
         return $this->belongsTo(Competencie::class);
     }
 
+    public function instructor_programs(){ //Accede a todos los registros de trimestralizacion que pertenecen a este resultado.
+        return $this->hasMany(InstructorProgram::class);
+    }
     public function quarterlies(){ //Accede a todos los registros de trimestralizacion que pertenecen a este resultado.
         return $this->hasMany(Quarterly::class);
     }
