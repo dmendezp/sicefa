@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\SIGAC\Entities\Quarterly;
 use Modules\SIGAC\Entities\InstructorProgram;
+use Modules\SIGAC\Entities\EvaluativeJudgment;
 
 class LearningOutcome extends Model
 {
@@ -35,7 +36,9 @@ class LearningOutcome extends Model
     public function competencie(){ //Accede a la competencia a la que pertenece.
         return $this->belongsTo(Competencie::class);
     }
-
+    public function evaluative_judgments(){ // Accede a todos los juicios evaluativos de este resultado
+        return $this->hasMany(EvaluativeJudgment::class);
+    }
     public function instructor_programs(){ //Accede a todos los registros de trimestralizacion que pertenecen a este resultado.
         return $this->hasMany(InstructorProgram::class);
     }

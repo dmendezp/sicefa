@@ -19,6 +19,7 @@ use Modules\SIGAC\Entities\CompetencePerson;
 use Modules\SIGAC\Entities\InstructorProgram;
 use Modules\SIGAC\Entities\Profession;
 use Modules\SIGAC\Entities\AttendanceApprentice;
+use Modules\SIGAC\Entities\EvaluativeJudgment;
 
 class Person extends Model implements Auditable
 {
@@ -129,6 +130,9 @@ class Person extends Model implements Auditable
     }
     public function cash_counts(){ // Accede a todas las sesiones de caja asociados a esta persona
         return $this->hasMany(CashCount::class);
+    }
+    public function evaluative_judgments(){ // Accede a todos los juicios evaluativos de esta persona
+        return $this->hasMany(EvaluativeJudgment::class);
     }
     public function learning_outcomes(){ //Accede a todas los resultados de aprendizaje que pertenecen a este perfil (PIVOTE)
         return $this->belongsToMany(LearningOutcome::class, 'learning_outcome_people');

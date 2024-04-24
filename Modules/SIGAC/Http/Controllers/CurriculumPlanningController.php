@@ -12,10 +12,13 @@ use Modules\SICA\Entities\Course;
 use Modules\SIGAC\Entities\TrainingProject;
 use Modules\SIGAC\Entities\Quarterly;
 use Modules\SICA\Entities\Program;
+use Modules\SICA\Entities\Apprentice;
 use Modules\SIGAC\Entities\Profession;
 use Illuminate\Support\Facades\DB;
 use Modules\SICA\Entities\ClassEnvironment;
 use Modules\SIGAC\Entities\InstructorProgram;
+use Modules\SIGAC\Entities\EvaluativeJudgment;
+use Modules\SICA\Entities\Person;
 use Modules\SICA\Imports\PeopleImport;
 use Modules\SIGAC\Imports\ApprenticeLearningOutcomeImport;
 
@@ -718,10 +721,53 @@ class CurriculumPlanningController extends Controller
         return redirect(route('sigac.academic_coordination.curriculum_planning.competencie_class.index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
     }
 
+    /* Consultar aprendices por titulación */
+
+    public function evaluative_judgment_create(Request $request){
+	
+		return view('sigac::curriculum_planning.evaluative_judgment.load')->with(['titlePage' => 'Cargar juicio evaluativo',
+        'titleView' => 'Cargar juicio evaluativo']);
+	}
+
+	public function evaluative_judgment_filter(Request $request){
+        $person_id = $request->person_id;
+        $state = $request->state;
+        $course_id = $request->course_id;
+		if($person_id):
+            $evaluative_judgments = EvaluativeJudgment::where('course_id',$course_id)->where('person_id',$person_id)->where('state',$state)->get();
+            
+            $apprentices = Person::whereHas('evaluative_judgments', function ($query) use ($course_id) {
+                $query->where('course_id', $course_id);
+            })->pluck('first_name','id');
+			$course = Course::with('program')->findOrFail($course_id);
+			$data = ['evaluative_judgments'=>$evaluative_judgments,'course'=>$course,'apprentices'=>$apprentices];
+            return view('sigac::curriculum_planning.evaluative_judgment.table',$data);
+        endif;
+	}
+
+	public function evaluative_judgment_search(Request $request){
+        $course_id = $request->course_id;
+		if($course_id):
+            $evaluative_judgments = EvaluativeJudgment::where('course_id',$course_id)->get();
+            $apprentices = Person::whereHas('evaluative_judgments', function ($query) use ($course_id) {
+                $query->where('course_id', $course_id);
+            })->pluck('first_name','id');
+			$course = Course::with('program')->findOrFail($course_id);
+			$data = ['evaluative_judgments'=>$evaluative_judgments,'course'=>$course,'apprentices'=>$apprentices];
+            return view('sigac::curriculum_planning.evaluative_judgment.table',$data);
+        else:
+            return '<div class="row d-flex justify-content-center"><span class="h5 text-danger">No se encontró registros</span><div>';
+        endif;
+	}
+
     public function evaluative_judgment_index () 
     {
-        return view('sigac::curriculum_planning.evaluative_judgment.index')->with(['titlePage' => 'Cargar juicio evaluativo',
-        'titleView' => 'Cargar juicio evaluativo']);
+        $courses = Course::orderBy('code','Asc')->get()->mapWithKeys(function ($course) {
+            return [$course->id => $course->program->name . ' - ' . $course->code];
+        });
+        return view('sigac::curriculum_planning.evaluative_judgment.index')->with(['titlePage' => 'Consultar juicio evaluativo',
+        'titleView' => 'Consultar juicio evaluativo',
+        'courses'=>$courses]);
     }
 
     /* Registrar aprendices a partir de un archivo */
@@ -736,22 +782,65 @@ class CurriculumPlanningController extends Controller
         }else{
             $path = $request->file('archivo'); // Obtener ubicación temporal del archivo en el servidor
             $array = Excel::toArray(new ApprenticeLearningOutcomeImport, $path); // Convertir el contenido del archivo excel en una arreglo de arreglos
+            $program_name = $array[0][4][2]; // Obtener la ficha del curso y el nombre del programa en un arreglo
+            $course_code = $array[0][1][2];
             $apprentices_data = array_splice($array[0], 12, count($array[0])); // Obtener solo los registros de los datos de los aprendices
-
-
             try {
                 $countstate = 0;
                 // Recorrer datos y relizar registros
                
                 foreach($apprentices_data as $data){
-                    $learning_outcome = explode(" - ",$data[6]);
+                    $document_number = $data[1];
+                    $learning_outcome = explode(" - ", $data[6]); // Dividir la cadena por el guión ('-')
                     if ($learning_outcome) {
-                        $name_learning = $learning_outcome[1];
+                        if (count($learning_outcome) > 1) {
+                            // Si hay más de una parte después de dividir por el guión
+                            $name_learning = trim(preg_replace('/^[0-9]+\s*/', '', $learning_outcome[1])); // Eliminar números y espacios al principio de la cadena
+                        } else {
+                            // Si no hay un guión, entonces tomar el nombre completo sin modificar
+                            $name_learning = trim($learning_outcome[0]);
+                        }
                         $state = $data[7];
                         $learning_outcome = LearningOutcome::where('name', '=', $name_learning)->first();
                         
                         if ($learning_outcome) {
                             $learning_outcome_id = $learning_outcome->id;
+
+                            $course = Course::where('code',$course_code)->first();
+                            if ($course) {
+                                $course_id = $course->id;
+                                $person = Person::where('document_number',$document_number)->first();
+                                $person_id = $person->id;
+                                $evaluative_judgments = EvaluativeJudgment::where('person_id',$person_id)->where('learning_outcome_id',$learning_outcome_id)->where('course_id',$course_id)->first();
+                                switch ($state) {
+                                    case 'APROBADO':
+                                        $status = 'Aprobado';
+                                        break;
+                                    case 'POR EVALUAR':
+                                        $status = 'Pendiente';
+                                        break;
+                                    case 'NO APROBADO':
+                                        $status = 'No Aprobado';
+                                        break;
+                                    
+                                    default:
+                                        $status = 'Pendiente';
+                                        break;
+                                }
+                                if ($evaluative_judgments) {
+                                    
+                                    $evaluative_judgments->state = $status;
+                                    $evaluative_judgments->save();
+                                } else {
+                                    $evaluative_judgments = new EvaluativeJudgment;
+                                    $evaluative_judgments->person_id = $person_id;
+                                    $evaluative_judgments->course_id = $course_id;
+                                    $evaluative_judgments->learning_outcome_id = $learning_outcome_id;
+                                    $evaluative_judgments->state = $status;
+                                    $evaluative_judgments->save();
+                                }
+                            }
+                            
                             if ($state = "APROBADO") {
                                 $instructor_programs = InstructorProgram::where('learning_outcome_id',$learning_outcome_id)->get();
                                 
@@ -760,6 +849,8 @@ class CurriculumPlanningController extends Controller
                                     $instructor_program->save();
                                     $countstate++;
                                 }
+
+
                             }
                         }
                     }

@@ -14,6 +14,7 @@ use Modules\AGROINDUSTRIA\Entities\RequestExternal;
 use Modules\SIGAC\Entities\CourseTrainingProject;
 use Modules\SIGAC\Entities\InstructorProgram;
 use Modules\SIGAC\Entities\TrainingProject;
+use Modules\SIGAC\Entities\EvaluativeJudgment;
 
 class Course extends Model implements Auditable
 {
@@ -52,15 +53,29 @@ class Course extends Model implements Auditable
     public function apprentices(){ // Accede a todos los aprendices de este curso formativo
         return $this->hasMany(Apprentice::class);
     }
+
+    public function evaluative_judgments(){ // Accede a todos los juicios evaluativos de este curso
+        return $this->hasMany(EvaluativeJudgment::class);
+    }
+
+    public function instructor_programs(){ // Accede a todas las programaciones de este curso
+        return $this->hasMany(InstructorProgram::class);
+    }
     public function municipality()
     { //Accede a senaempresa registrados
         return $this->belongsTo(Municipality::class);
     }
+
     public function program(){ // Accede al programa de formación al que pertenece
         return $this->belongsTo(Program::class);
     }
     public function requestexternals(){ // Accede a la información de los elementos usados en la Formula.
         return $this->hasMany(RequestExternal::class);
+    }
+
+    public function senaempresa()
+    { //Accede a senaempresa registrados
+        return $this->belongsToMany(senaempresa::class);
     }
 
     // Configuración de factory para la generación de datos de pruebas
@@ -73,18 +88,13 @@ class Course extends Model implements Auditable
         return $this->belongsToMany(TrainingProject::class, 'course_training_projects');
     }
 
-    public function instructor_programs(){ // Accede a todas las programaciones de este curso
-        return $this->hasMany(InstructorProgram::class);
-    }
+    
     public function vacancy()
     { //Accede a los vacantes disponibles
         return $this->belongsToMany(Vacancy::class);
     }
 
-    public function senaempresa()
-    { //Accede a senaempresa registrados
-        return $this->belongsToMany(senaempresa::class);
-    }
+    
 
     
 
