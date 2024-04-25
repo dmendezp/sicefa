@@ -723,7 +723,7 @@ class CurriculumPlanningController extends Controller
 
     /* Consultar aprendices por titulación */
 
-    public function evaluative_judgment_create(Request $request){
+    public function evaluative_judgment_create(){
 	
 		return view('sigac::curriculum_planning.evaluative_judgment.load')->with(['titlePage' => 'Cargar juicio evaluativo',
         'titleView' => 'Cargar juicio evaluativo']);

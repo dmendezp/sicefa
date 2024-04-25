@@ -12,6 +12,7 @@
                                     <i class="fa-solid fa-angles-left fa-beat-fade"></i>
                                     Programas
                                 </a>
+                                <a class="btn btn-outline-secondary float-right ml-1" href="{{ route('sigac.academic_coordination.programming.learning_outcome.load.create', ['program_id' => $program_id]) }}">Cargar Resultados</a>
                             </div>
                         </div>
                         <div class="card-body">

@@ -45,6 +45,9 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::post('coordination/learning_outcomes/store', 'learning_outcome_store')->name('sigac.academic_coordination.learning_outcome.store'); // Registrar Resultado de aprendizaje (Coordinación Académica)
             Route::post('coordination/learning_outcomes/update/{id}', 'learning_outcome_update')->name('sigac.academic_coordination.learning_outcome.update'); // Actualizar Resultado de aprendizaje (Coordinación Académica)
             Route::delete('coordination/learning_outcomes/destroy/{id}', 'learning_outcome_destroy')->name('sigac.academic_coordination.learning_outcome.destroy'); // Eliminar Resultado de aprendizaje (Coordinación Académica)
+            Route::get('coordination/learning_outcomes/load/create/{program_id}', 'learning_outcome_load_create')->name('sigac.academic_coordination.programming.learning_outcome.load.create'); // Eliminar Resultado de aprendizaje (Coordinación Académica)
+            Route::post('coordination/learning_outcomes/load/store', 'learning_outcome_load_store')->name('sigac.academic_coordination.programming.learning_outcome.load.store'); // Eliminar Resultado de aprendizaje (Coordinación Académica)
+
 
 
             // Parametro - Actividades Externas
