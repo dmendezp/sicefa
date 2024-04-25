@@ -158,6 +158,8 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/units', 'AGROINDUSTRIAController@unidd')->name('agroindustria.storer.units'); 
             Route::get('/inventory/{id}', [WarehouseController::class ,'inventory'])->name('agroindustria.storer.units.inventory');
             Route::get('/request', [RequestController::class, 'index'])->name('agroindustria.storer.units.view.request');
+            Route::get('/inventory/elements/{warehouseId}', [WarehouseController::class ,'elements'])->name('agroindustria.storer.units.inventory.elements');
+            Route::get('/inventory/elements/{waId}', [WarehouseController::class ,'inventoryAlert'])->name('agroindustria.storer.units.inventory.spent'); 
             Route::get('/inventoryA/{waId}', [WarehouseController::class ,'inventoryAlert'])->name('agroindustria.storer.units.inventory.spent'); 
             Route::get('/Inventoryexp/{wId}', [WarehouseController::class ,'expirationdate'])->name('agroindustria.storer.units.inventory.expire'); 
 

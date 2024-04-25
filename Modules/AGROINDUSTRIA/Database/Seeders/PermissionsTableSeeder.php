@@ -923,6 +923,16 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         $permission_storer[] = $permission->id;
+        
+        //Ver inventario de la bodega seleccionada(Almacenista)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.storer.units.inventory.elements'], [
+            'name' => 'Ver inventario de la bodega seleccionada',
+            'description' => 'Puede ver el inventario con los elementos de la bodega seleccionada',
+            'description_english' => 'You can see the inventory with the items from the selected warehouse',
+            'app_id' => $app->id
+        ]);
+
+        $permission_storer[] = $permission->id;
 
         //Ver inventario de insumos prontos a agotarse(Almacenista)
         $permission = Permission::updateOrCreate(['slug' => 'agroindustria.storer.units.inventory.spent'], [
@@ -967,13 +977,14 @@ class PermissionsTableSeeder extends Seeder
         $rol_admin = Role::where('slug', 'agroindustria.admin')->first(); // Rol Administrador
         $rol_instructor_vilmer = Role::where('slug', 'agroindustria.instructor.vilmer')->first(); // Rol Coordinado Académico
         $rol_instructor_chocolate = Role::where('slug', 'agroindustria.instructor.chocolate')->first(); // Rol Coordinado Académico
+        $rol_instructor_cerveceria = Role::where('slug', 'agroindustria.instructor.cerveceria')->first(); // Rol Coordinado Académico
         $rol_storer = Role::where('slug', 'agroindustria.almacenista')->first(); // Rol Registro Asistencia
-        $rol_visitor = Role::where('slug', 'agroindustria.visitante')->first(); // Rol Registro Asistencia
 
         // Asignación de PERMISOS para los ROLES de la aplicación AGROINDUSTRIA (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_admin->permissions()-> syncWithoutDetaching($permission_admin);
         $rol_instructor_vilmer->permissions()->syncWithoutDetaching($permission_instructor);
         $rol_instructor_chocolate->permissions()->syncWithoutDetaching($permission_instructor);
+        $rol_instructor_cerveceria->permissions()->syncWithoutDetaching($permission_instructor);
         $rol_storer->permissions()->syncWithoutDetaching($permission_storer);
     }
 }
