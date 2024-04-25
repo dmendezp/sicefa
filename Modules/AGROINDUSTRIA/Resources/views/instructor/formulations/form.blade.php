@@ -7,9 +7,9 @@
                 <div class="form-header">{{trans('agroindustria::formulations.Recipes')}}</div>
                 <div class="form-body">
                     @if (Route::is('*formulario*'))
-                    {!! Form::open(['url' => route('cefa.agroindustria.units.instructor.formulations.create'),'method' => 'post']) !!}
+                    {!! Form::open(['url' => route('agroindustria.instructor.units.formulations.create'),'method' => 'post']) !!}
                     @else
-                    {!! Form::open(['url' => route('cefa.agroindustria.units.instructor.formulations.update'),'method' => 'post']) !!}
+                    {!! Form::open(['url' => route('agroindustria.instructor.units.formulations.update'),'method' => 'post']) !!}
                     @endif
                     <div class="row">
                         <div class="col-md-6">

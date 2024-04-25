@@ -13,20 +13,12 @@
                 <th>{{trans('agroindustria::labors.state')}}</th>
                 <th>{{trans('agroindustria::labors.destination')}}</th>
                 <th>
-                    @if (Auth::user()->havePermission('agroindustria.admin.units.labor.form'))
-                        <a href="{{route('agroindustria.admin.units.labor.form')}}">
+                    @if (Auth::user()->havePermission('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.form'))
+                        <a href="{{route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.form')}}">
                             <button class="btn btn-success float-end mb-2">
                                 <i class="fa-solid fa-plus"></i>
                             </button>
                         </a>
-                    @else
-                        @if (Auth::user()->havePermission('agroindustria.instructor.units.form'))
-                            <a href="{{route('agroindustria.instructor.units.form')}}">
-                                <button class="btn btn-success float-end mb-2">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
-                            </a>
-                        @endif
                     @endif         
                 </th>
             </tr>
@@ -44,24 +36,14 @@
                 <td>{{$l->status}}</td>
                 <td>{{$l->destination}}</td>
                 <td>
-                    <div class="mb-3">
-                        @if (Auth::user()->havePermission('agroindustria.admin.units.labor.form'))
-                            <a href="{{route('cefa.agroindustria.admin.units.edit',  ['id' => $l->id])}}">
+                    @if ($l->status === 'Programado')
+                        <div class="mb-3">
+                            <a href="{{route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.edit',  ['id' => $l->id])}}">
                                 <button data-record-id="{{$l->id}}" class="btn btn-primary edit-button" style="width: 45px; height: 35px;">
                                     <i class="fa-solid fa-pen-to-square fa-sm"></i>
                                 </button>
                             </a>
-                        @else
-                            @if (Auth::user()->havePermission('agroindustria.instructor.units.form'))
-                                <a href="{{route('cefa.agroindustria.instructor.units.edit',  ['id' => $l->id])}}">
-                                    <button data-record-id="{{$l->id}}" class="btn btn-primary edit-button" style="width: 45px; height: 35px;">
-                                        <i class="fa-solid fa-pen-to-square fa-sm"></i>
-                                    </button>
-                                </a>
-                            @endif
-                        @endif         
-                    </div>
-                    @if ($l->status === 'Programado')
+                        </div>
                         <div class="mb-3">
                             <button type="submit" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelar{{$l->id}}">{{trans('agroindustria::labors.cancel')}}</button>
                         </div>
@@ -71,7 +53,7 @@
                             <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#realizar{{$l->id}}">{{trans('agroindustria::labors.perform')}}</button>
                         </div>
                     @endif
-                    <form method="GET" action="{{ route('cefa.agroindustria.units.instructor.labor.excel', ['laborId' => $l->id]) }}">
+                    <form method="GET" action="{{ route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.excel', ['laborId' => $l->id]) }}">
                         <div class="mb-3">
                             @csrf
                             <button type="submit" class="btn btn-info"><i class="fas fa-file-excel"></i> {{trans('agroindustria::labors.requestForm')}}</button>
@@ -93,7 +75,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.labor.cancelar', ['id' => $l->id])]) !!}
+            {!! Form::open(['method' => 'post', 'url' => route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.cancel', ['id' => $l->id])]) !!}
             @csrf
             @method('POST')
             <div class="form-group">
@@ -117,7 +99,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.labor.realizar.movement', ['id' => $l->id])]) !!}
+            {!! Form::open(['method' => 'post', 'url' => route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.do.movement', ['id' => $l->id])]) !!}
             @csrf
             @method('PUT')
             <div class="form-group">
@@ -135,7 +117,7 @@
         <div class="modal-footer">
             {!! Form::submit(trans('agroindustria::labors.send'),['class' => 'btn btn-success', 'name' => 'anular']) !!}
             {!! Form:: close() !!}
-            {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.labor.realizar', ['id' => $l->id])]) !!}
+            {!! Form::open(['method' => 'post', 'url' => route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.do', ['id' => $l->id])]) !!}
             {!! Form::submit(trans('agroindustria::labors.laterOn'),['class' => 'btn btn-info', 'name' => 'after']) !!}
             {!! Form:: close() !!}
         </div>
@@ -151,7 +133,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.labor.realizar', ['id' => $l->id])]) !!}
+            {!! Form::open(['method' => 'post', 'url' => route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.do', ['id' => $l->id])]) !!}
             @csrf
             @method('POST')
             <div class="form-group">

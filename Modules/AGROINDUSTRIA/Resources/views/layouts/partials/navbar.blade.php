@@ -69,9 +69,9 @@
                         <a class="nav-link" href="{{route('agroindustria.instructor.units.activity', ['unit'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Activities')}}</a>
                     </li>
                 @endif
-                @if(Auth::user()->havePermission('agroindustria.instructor.units.formulation'))
+                @if(Auth::user()->havePermission('agroindustria.instructor.units.formulations'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('cefa.agroindustria.instructor.units.formulations')}}">{{trans('agroindustria::formulations.Recipes')}}</a>
+                        <a class="nav-link" href="{{route('agroindustria.instructor.units.formulations')}}">{{trans('agroindustria::formulations.Recipes')}}</a>
                     </li>
                 @endif
      
@@ -116,7 +116,7 @@
                         <a class="nav-link" href="{{route('agroindustria.storer.units.inventory', ['id'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Inventory')}}</a>
                     </li>
                 @endif
-                @if(Auth::user()->havePermission('agroindustria.storer.view.request'))
+                @if(Auth::user()->havePermission('agroindustria.storer.units.view.request'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('agroindustria.storer.units.view.request')}}">{{trans('agroindustria::menu.requests')}}</a>
                     </li>
@@ -151,7 +151,7 @@
     <div class="dashboard_storer">  
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('cefa.agroindustria.storer.units') }}">Almacenista</a>
+                <a class="nav-link" href="{{ route('agroindustria.storer.units') }}">Almacenista</a>
             </li>
         </ul>
     </div>

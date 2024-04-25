@@ -5,7 +5,7 @@
   <div class="form">
     <div class="form-header">{{trans('agroindustria::deliveries.Exit from Cellar')}}</div>
     <div class="form-body">
-      {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.movements.out')]) !!}
+      {!! Form::open(['method' => 'post', 'url' => route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.movements.out')]) !!}
       <div class="row">
         <div class="col-md-6">
           {!! Form::label('productive_unit', trans('agroindustria::deliveries.Productive Unit delivering')) !!}
@@ -135,7 +135,7 @@
 
         // Realizar una petición AJAX para obtener la cantidad disponible
         if (elementoSeleccionado) {
-          var url = {!! json_encode(route('cefa.agroindustria.units.instructor.movements.id', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString());
+          var url = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.movements.id', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString());
           console.log(url);
             $.ajax({
                 url: url,
@@ -245,7 +245,7 @@ $(document).ready(function() {
     $('#receiveUnit-selected').on('change', function() {
         var selectedReceiver = $(this).val();
 
-        var url = {!! json_encode(route('cefa.agroindustria.units.instructor.movements.warehouse', ['id' => ':id'])) !!}.replace(':id', selectedReceiver.toString());
+        var url = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.movements.warehouse', ['id' => ':id'])) !!}.replace(':id', selectedReceiver.toString());
 
         // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
         $.ajax({
