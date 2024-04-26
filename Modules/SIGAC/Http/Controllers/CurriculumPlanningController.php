@@ -67,7 +67,8 @@ class CurriculumPlanningController extends Controller
             })
             ->get()
             ->groupBy(function ($quarterly) {
-                return $quarterly->learning_outcome->competencie->name . '-' . $quarterly->quarter_number; // Agrupar por competencia y trimestre
+                $competencieName = $quarterly->learning_outcome->competencie->name;
+                return str_replace('-' . $quarterly->quarter_number, '', $competencieName);
             });
 
         $trainingProject = TrainingProject::findOrFail($training_project_id);

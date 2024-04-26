@@ -152,7 +152,7 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('instructor/consult/attendance', 'consult_attendance')->name('sigac.instructor.attendance.consult'); // Consultar asistencia por aprendiz o tituladas (Instructor)
             Route::get('instructor/register', 'index')->name('sigac.instructor.attendance.register'); // Registrar asistencia de aprendiz por titulada (Instructor)
             Route::get('wellness/consult/attendance', 'consult_attendance')->name('sigac.wellness.attendance.consult'); // Consultar asistencia por aprendiz o tituladas (Bienestar)
-            Route::get('coordination/reports/attendance', 'reports_attendance')->name('sigac.academic_coordination.reports.attendance.index'); // Vista principal de la sección de reportes de asistencia (Coordinación Académica)
+            Route::get('academic_coordination/reports/attendance', 'reports_attendance')->name('sigac.academic_coordination.reports.attendance.index'); // Vista principal de la sección de reportes de asistencia (Coordinación Académica)
             Route::get('instructor/reports/attendance', 'reports_attendance')->name('sigac.instructor.reports.attendance.index'); // Vista principal de la sección de reportes de asistencia (Instructor)
             Route::get('wellness/reports/attendance', 'reports_attendance')->name('sigac.wellness.reports.attendance.index'); // Vista principal de la sección de reportes de asistencia (Bienestar)
         });
@@ -165,9 +165,17 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
         // Rutas para la programacion de eventos y horarios
         Route::controller(InstructorManagementController::class)->group(function () {
             // Gestion de Instructores
-            Route::get('coordination/human_talent/management_instructor/profession_instructor_index', 'profession_instructor_index')->name('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_index'); // Index de Gestion de instructores (Coordinación Académica)
-            Route::post('coordination/human_talent/management_instructor/profession_instructor_store', 'profession_instructor_store')->name('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_store'); // Index de Gestion de instructores (Coordinación Académica)
-            Route::delete('coordination/human_talent/management_instructor/profession_instructor_destroy/{id}', 'profession_instructor_destroy')->name('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_destroy'); // Index de Gestion de instructores (Coordinación Académica)
+            Route::get('academic_coordination/human_talent/management_instructor/profession_instructor_index', 'profession_instructor_index')->name('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_index'); // Index de Gestion de instructores (Coordinación Académica)
+            Route::post('academic_coordination/human_talent/management_instructor/profession_instructor_store', 'profession_instructor_store')->name('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_store'); // Index de Gestion de instructores (Coordinación Académica)
+            Route::delete('academic_coordination/human_talent/management_instructor/profession_instructor_destroy/{id}', 'profession_instructor_destroy')->name('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_destroy'); // Index de Gestion de instructores (Coordinación Académica)
+
+        });
+        
+        // Rutas para la programacion de eventos y horarios
+        Route::controller(ReportController::class)->group(function () {
+            // Gestion de Instructores
+            Route::get('academic_coordination/reports/quarterlies/index', 'report_quarterlie_index')->name('sigac.academic_coordination.reports.quartelies.index'); // Index de Gestion de instructores (Coordinación Académica)
+            Route::post('academic_coordination/reports/quarterlies/search', 'report_quarterlie_search')->name('sigac.academic_coordination.reports.quartelies.search'); // Index de Gestion de instructores (Coordinación Académica)
 
         });
 

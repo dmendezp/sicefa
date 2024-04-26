@@ -670,7 +670,7 @@ class ProgrammeController extends Controller
                             $competencies = new Competencie;
                             $competencies->program_id = $program_id;
                             $competencies->code = $code_competencie;
-                            $competencies->name = $name_competencia;
+                            $competencies->name = ucfirst(strtolower($name_competencia));
                             $competencies->hour = 0;
                             $competencies->type = 'Técnico';
                             $competencies->save();
@@ -686,7 +686,7 @@ class ProgrammeController extends Controller
                         } else {
                             $learning_outcomes = new LearningOutcome;
                             $learning_outcomes->competencie_id = $competencie_id;
-                            $learning_outcomes->name = $name_learning;
+                            $learning_outcomes->name = ucfirst(strtolower($name_learning));
                             $learning_outcomes->hour = 0;
                             $learning_outcomes->save();
                             $count++;

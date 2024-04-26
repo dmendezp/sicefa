@@ -304,7 +304,7 @@
                             </a>
                             <ul class="nav nav-treeview items">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="{{ route('sigac.academic_coordination.reports.quartelies.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-file-invoice"></i>
                                         <p>Trimestralización</p>
                                     </a>
