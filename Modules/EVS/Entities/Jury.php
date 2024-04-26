@@ -5,9 +5,11 @@ use Modules\SICA\Entities\Person;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
 class Jury extends Model
 {
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','update_at'];

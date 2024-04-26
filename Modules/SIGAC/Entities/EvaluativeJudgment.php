@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\LearningOutcome;
+use OwenIt\Auditing\Contracts\Auditable;
 
 class EvaluativeJudgment extends Model
 {
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     use HasFactory;
 
     protected $fillable = [];

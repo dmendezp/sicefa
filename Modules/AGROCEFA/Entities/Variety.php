@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\AGROCEFA\Entities\Crop;
 use Modules\AGROCEFA\Entities\Specie;
+use OwenIt\Auditing\Contracts\Auditable;
 
 
 class Variety extends Model
 {
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     use HasFactory;
 
     protected $fillable = [

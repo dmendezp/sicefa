@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\SICA\Entities\Environment;
 use Modules\AGROCEFA\Entities\Variety;
 use Modules\SICA\Entities\Labor;
+use OwenIt\Auditing\Contracts\Auditable;
 
 class Crop extends Model
 {
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     use HasFactory;
 
     protected $fillable = [

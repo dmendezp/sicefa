@@ -3,9 +3,13 @@
 namespace Modules\BOLMETEOR\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
 class Climaticdata extends Model
 {
+
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
+
     protected $fillable = [
         'person_id',
         'date_time',

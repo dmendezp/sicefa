@@ -8,10 +8,12 @@ use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\learningOutcome;
+use OwenIt\Auditing\Contracts\Auditable;
 
 
 class InstructorProgram extends Model
 {
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     use HasFactory;
 
     protected $fillable = ['person_id','environment_id','course_id','learning_outcome_id','state','date','start_time','end_time'];

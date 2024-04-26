@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SENAEMPRESA\Entities\ApprenticeAsistencia;
+use OwenIt\Auditing\Contracts\Auditable;
 
 class Work extends Model
 {
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     use HasFactory;
     
     protected $dates = ['deleted_at'];

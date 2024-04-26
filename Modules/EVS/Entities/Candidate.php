@@ -1,13 +1,15 @@
 <?php
 
 namespace Modules\EVS\Entities;
-use Modules\SICA\Entities\Person;
 
+use Modules\SICA\Entities\Person;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
 class Candidate extends Model
 {
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     use SoftDeletes;
     protected $fillable = ['person_id','election_id','number','avatar'];
     protected $dates = ['deleted_at'];
