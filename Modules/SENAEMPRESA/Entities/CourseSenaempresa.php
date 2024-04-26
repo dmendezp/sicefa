@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\SENAEMPRESA\Entities\Senaempresa;
 use Modules\SICA\Entities\Course;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class CourseSenaempresa extends Model
+class CourseSenaempresa extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     protected $fillable = ['course_id', 'senaempresa_id'];
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at', 'update_at'];

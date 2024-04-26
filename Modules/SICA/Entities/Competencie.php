@@ -5,9 +5,11 @@ namespace Modules\SICA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\SIGAC\Entities\Profession;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Competencie extends Model
+class Competencie extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     use HasFactory;
 
     protected $fillable = ['program_id', 'name', 'hour', 'type', 'code'];

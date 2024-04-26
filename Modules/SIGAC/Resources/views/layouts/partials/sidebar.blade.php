@@ -294,6 +294,23 @@
     
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Reportes
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice"></i>
+                                        <p>Trimestralización</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     @endif
 
                     <!-- Menú de opciones para Instructor -->

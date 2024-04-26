@@ -653,7 +653,7 @@ class ProgrammeController extends Controller
 
                     }
                     $learning_outcome = explode(" - ", $data[6]); // Dividir la cadena por el guión ('-')
-                   
+                    $program_id = $request->program_id;
                     if ($learning_outcome) {
                         if (count($learning_outcome) > 1) {
                             // Si hay más de una parte después de dividir por el guión
@@ -662,13 +662,13 @@ class ProgrammeController extends Controller
                             // Si no hay un guión, entonces tomar el nombre completo sin modificar
                             $name_learning = trim($learning_outcome[0]);
                         }
-                        $competenciefind = Competencie::where('name', '=', $name_competencia)->first();
+                        $competenciefind = Competencie::where('name', '=', $name_competencia)->where('program_id',$program_id)->first();
 
                         if ($competenciefind) {
                             $competencie_id = $competenciefind->id;
                         } else {
                             $competencies = new Competencie;
-                            $competencies->program_id = $request->program_id;
+                            $competencies->program_id = $program_id;
                             $competencies->code = $code_competencie;
                             $competencies->name = $name_competencia;
                             $competencies->hour = 0;
@@ -677,7 +677,9 @@ class ProgrammeController extends Controller
                             $competencie_id = $competencies->id;
                         }
 
-                        $learning_outcome = LearningOutcome::where('name', '=', $name_learning)->first();
+                        $learning_outcome = LearningOutcome::where('name', '=', $name_learning)->whereHas('competencie', function($query) use ($program_id) {
+                            $query->where('program_id', $program_id);
+                        })->first();
                         
                         if ($learning_outcome) {
                             $learning_outcome_id = $learning_outcome->id;
