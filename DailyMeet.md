@@ -7,15 +7,372 @@ Es un encuentro entre los miembros del equipo en el que cada uno inspecciona el 
 ## Que debe contener 🚀
 
 _Cada proyecto debe editar este documento e incluir por cada Sprint._
-*  1- En el Sprint Planning las actividades que va a realizar cada integrante del Team
-*  2- En cada Meet, las actividades realizadas, el porcentaje de avance de sus responsabilidades, que dificultades presenta y que acciones se van a tomar para continuar.
+
+-   1- En el Sprint Planning las actividades que va a realizar cada integrante del Team
+-   2- En cada Meet, las actividades realizadas, el porcentaje de avance de sus responsabilidades, que dificultades presenta y que acciones se van a tomar para continuar.
 
 <!-- Mira **Deployment** para conocer como desplegar el proyecto. -->
+
+## SENAEMPRESA 📌
+## HDC 📌
+
+
+## GTH 📌
+
+### Sprint 1 🔄
+#### Sprint Planning 23-Agos-2023
+* **Daniel Guzman** - *Creación de CRUD para Tipos de Empleado y  Reportes de registro Biométrico*
+* **Mayerli Castañeda** - *Creación de CRUD para Tipos de Contrato*
+...
+#### Meet 23-Agos-2023
+* **Daniel Guzman** - *Diseñar una vista para agregar un nuevo tipo de empleado.* - *8 %* - *Niguna* - *Ninguna*
+* **Mayerli Castañeda** - *Ninguna* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 24-Agos-2023
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*   
+---
+#### Meet 25-Agos-2023
+* **Daniel Guzman** - *Ajustes de iconos y organizacion de iconos* - *0 %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - *Diseño de plantilla de contratacion* - *8 %* - *Dificultades* - *Acciones*
+---
+#### Meet 26-Agos-2023
+* **Daniel Guzman** - *Reportes de registro Biométrico y Creación de CRUD para Tipos de Empleado* - *91 % y 61 %* - *Si* - *Tengo los modales pero aun no tiene funcionalidad y aun no los muestra*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 27-Agos-2023
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 28-Agos-2023
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *diseñar la vista de contrato* - *5* - *Dificultades* - *Acciones*
+---
+
+### Sprint 2 🔄
+#### Sprint Planning 29-Agos-2023
+* **Daniel Guzman** - *Registro de contratistas*
+* **Mayerli Castañeda** - *Gestión de Contratos*
+...
+#### Meet 29-Agos-2023
+* **Daniel Guzman** - *Crear las rutas para ingresar a la vista y las otras funciones para el registro del contrato* - *30 %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 30-Agos-2023
+* **Daniel Guzman** - *AImplementar la utilización de los modelos para realizar el registro de la información del contrato en las tablas necesarias* - *50 %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*   
+---
+#### Meet 31-Agos-2023
+* **Daniel Guzman** - *Crear controlador para construir las funciones* - *66 %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 1-Agos-2023
+* **Daniel Guzman** - *Crear un modal para "Ver Detalles" con información relevante de la persona.* - *73 %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 2-Agos-2023
+* **Daniel Guzman** - *Agregar un filtro en la página para seleccionar entre "Registrados", "No Registrados" y "Mostrar Todos".* - *64 %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 3-Agos-2023
+* **Daniel Guzman** - *Crear validación de campos del formulario por ejemplo campos requeridos, tipo de datos* - *70 %* - *Tengo dificultad con la base de datos* - *Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 4-Agos-2023
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 5-Agos-2023
+* **Daniel Guzman** - *Implementación de auditoria (Monitoriar los movimientos)* - *86 %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 14-septiembre -2023
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %*- *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - *vista de reporte de contracto* - *50* - *Dificultades* - *Acciones*
+#### Meet 15-septiembre-2023
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - * Alerta y modal de editar* - *80 %* - *Tengo dificultades en la funcionaliada de las alerta y con la base de datos * - *Acciones*
+#### Meet 16-septiembre-2023
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - * organizar el modal de editar* - *80 %* - *Dificultades* - *Acciones*
+
+
+---
+
+### Sprint 3 🔄
+#### Sprint Planning 19-Septiembre-2023
+* **Daniel Guzman** - *CRUDs de insurer_intities y Pension*
+* **Mayerli Castañeda** - *CRUD de Position*
+#### Meet 19-Sep-2023
+* **Daniel Guzman** - *Diseñar la vista y crear las rutas para las vistas* - *50 %* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mayerli Castañeda** - *Diseñar vista* - *30* - *Dificultades* - *Acciones*
+---
+#### Meet 20-Sep-2023
+* **Daniel Guzman** - *CRUD terminado* - *100 %* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mayerli Castañeda** - ** - ** - *Dificultades* - *Acciones*
+---
+
+#### Meet 21-Sep-2023
+* **Daniel Guzman** - CRUD listo realizadas* - *100 % - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mayerli Castañeda** - *areeglos de vistas de posicion * - *30%* - *Dificultades* - *Acciones*
+---
+#### Meet 22-Sep-2023
+* **Daniel Guzman** - CRUD listo realizadas* - *100 % - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 23-Sep-2023
+* **Daniel Guzman** - Roles y permiso* - *10 % - *Asignar roles* - *Creacion de seeders*
+* **Mayerli Castañeda** - *funcionalisa boton de crear entida pencion* - *20* - *Dificulta en guardar los datos en la base de datos * - *Acciones*
+---
+#### Meet 24-Sep-2023
+* **Daniel Guzman** - Listo los seeders de permisos, roles y usuarios* - *40 % - *Crear permisos* - *Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 25-Sep-2023
+* **Daniel Guzman** - Roles y permisos* - *70 % - ** - *Asignar roles y usuarios a las vistas*
+* **Mayerli Castañeda** - *funcionalidad en todos los  botones * - *90* - *Dificulta en errores en los botones* - *Acciones*
+---
+#### Meet 26-Sep-2023
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *traducion de las viata * - *Avance 70* - *Dificultades* - *Acciones*
+---
+#### Meet 12-Oct-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Traducion insure y types* - *90* - *Dificultades* - *Acciones*
+#### Meet 18-Oct-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Traducion attendaces y pension,position y type* - *95* - *Dificultades* - *Acciones*
+
+### Sprint 4 🔄
+#### Sprint Planning 25-Oct-2022
+* **Daniel Guzman** - *Registro de Huellas Digitales *
+* **Mayerli Castañeda** - *Creacion de creud funcionario y Registro de asistencia Huella Digital *
+
+#### Sprint Planning 26-Oct-2022
+* **Daniel Guzman** - *Actividades a realizar*
+* **Mayerli Castañeda** - *Actividades a realizar*
+...
+#### Meet 28-Oct-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 31-Oct-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 02-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *crear el crud de official* - *30 %* - *Dificultades* - *Acciones*
+---
+#### Meet 03-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *crear el crud de official* - *30 %* - *Dificultades* - *Acciones*
+---
+#### Meet 04-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 07-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *botton de crear el funcionario - *10 %* - *Dificulta en hacer el formulario* - *Acciones*
+---
+#### Meet 08-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *botton de crear el funcionario* - *20%* - *Dificulta en las rutaciones* - *Acciones*
+---
+#### Meet 09-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 10-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Implementación de plantilla AdminLTE* - *40 %* - *Erros de emplentacion* - *Acciones*
+---
+#### Meet 11-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Implementación de plantilla AdminLTE* - *50 %* - *Dificultades* - *Acciones*
+---
+#### Meet 12-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Arreglos del sidebar * - *50 %* - *Dificultades* - *Acciones*
+---
+#### Meet 13-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Implementación de plantilla AdminLTE* - *90 %* - *Dificultades* - *Acciones*
+---
+#### Meet 14-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - ** - * %* - *Dificultades* - *Acciones*
+---
+#### Meet 22-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - ** - *%* - *Dificultades* - *Acciones*
+---
+#### Meet 23-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - ** - *%* - *Dificultades* - *Acciones*
+---
+#### Meet 28-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Arreglo en sidebar y alertas* - *90 %* - *Dificultades* - *Acciones*
+---
+#### Meet 29-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Implementacion boton de editar funcinarios* - *50 %* - *funcionalidad no guarda  cambios* - *Acciones*
+---
+#### Mee
+
+
+
+
+## CEFAMAPS 📌
+
 
 
 ## AGROINDUSTRIA 🧁
 
+
 ### Sprint 1 🔄
+
+#### Sprint Planning 26-Oct-2022
+
+*Integrante 1**Junior Medina** - *CRUD de vacantes\*
+*Integrante 2**Diego Penagos** - *CRUD de cargo\*
+*Integrante 3**Jary Garay** - *CRUD de senaempresa\*
+
+-   **Integrante 1** - _Actividades a realizar_
+-   **Integrante 2** - _Actividades a realizar_
+    ...
+
+#### Meet 28-Oct-2022
+
+-   **Integrante 1** - _Actividades realizadas_ - _Avance %_ - _Dificultades_ - _Acciones_
+-   **Integrante 2** - _Actividades realizadas_ - _Avance %_ - _Dificultades_ - _Acciones_
+
+---
+
+#### Meet 31-Oct-2022
+
+-   **Integrante 1** - _Actividades realizadas_ - _Avance %_ - _Dificultades_ - _Acciones_
+-   **Integrante 2** - _Actividades realizadas_ - _Avance %_ - _Dificultades_ - _Acciones_
+
+---
+
+#### Meet 02-Nov-2022
+
+-   **Integrante 1** - _Actividades realizadas_ - _Avance %_ - _Dificultades_ - _Acciones_
+-   **Integrante 2** - _Actividades realizadas_ - _Avance %_ - _Dificultades_ - _Acciones_
+
+---
+
+#### Meet 04-Nov-2022
+
+-   **Integrante 1** - _Actividades realizadas_ - _Avance %_ - _Dificultades_ - _Acciones_
+-   **Integrante 2** - _Actividades realizadas_ - _Avance %_ - _Dificultades_ - _Acciones_
+
+---
+
+#### Meet 07-Nov-2022
+
+-   **Integrante 1** - _Actividades realizadas_ - _Avance %_ - _Dificultades_ - _Acciones_
+-   **Integrante 2** - _Actividades realizadas_ - _Avance %_ - _Dificultades_ - _Acciones_
+
+---
+
+### Sprint 2 🔄
+
+#### Sprint Planning 29-agosto-2023
+
+-   **Junior Medina** - _Prestamos de EPP:_
+-   **Diego Penagos** -_CRUD de personal:_
+-   **Jary Garay** - _terminar Crud asignado en el sprint 1 SenaEmpresa:_
+    ...
+
+#### Meet 29-agosto-2023
+
+-   **Junior Medina** - _creacion de vista de vacantes de editar y eliminar_ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
+-   **Diego Penagos** - _creacion de vista de personal y de registar :_ - _80 %_ - _Dificultades=en el de editar_ - _Acciones_
+-   **Jary Garay** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
+
+---
+
+#### Meet 30-agosto-2023
+
+-   **Junior Medina** - _vista asociar curso a vacantes_ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
+-   **Diego Penagos** - _creacion y funcionalidad de registrar en vista de personal:_ - _100 %_ - _Dificultades_ - _Acciones_
+-   **Jary Garay** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
+
+---
+
+#### Meet 31--2023
+
+-   **Junior Medina** - _vista asociar curso a senaempresa_ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
+-   **Diego Penagos** - _creacion de rutas y alertas_ - _100 %_ - _Dificultades_ - _Acciones_
+-   **Jary Garay** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
+
+---
+
+#### Meet 02-sep-2023
+
+-   **Junior Medina** - _Modal de nueva vacante y sweetalert de eliminar vacante_ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
+-   **Diego Penagos** - *creacion de vista y funcionalidad de editar y elimna - *50 %* - *Dificultades=traer aprendices* - *Acciones\*
+-   **Jary Garay** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
+
+#### Meet 03-sep-2023
+
+-   **Junior Medina** - _vista de prestamos_ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
+-   **Diego Penagos** - *creacion de vista y funcionalidad de editar y elimna - *100 %* - *Dificultades* - *Acciones\*
+-   **Jary Garay** - _botones de agregar editar y eliminar_ - _100 %_ - _Dificultades_ - _Acciones_
+
+#### Meet 05-sep-2023
+
+-   **Junior Medina** - _Mostrar vacantes según el curso_ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
+-   **Diego Penagos** - *creacion de agregar senaempresa - *50 %* - *Dificultades* - *Acciones\*
+-   **Jennifer Marin** - _botones de agregar editar y eliminar_ - _100 %_ - _Dificultades_ - _Acciones_
+-   **Jary Garay** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
+
+#### Meet 06-sep-2023
+
+-   **Junior Medina** - _Traducción del sidebar_ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
+-   **Diego Penagos** - *creacion de agregar senaempresa - *100 %* - *Dificultades* - *Acciones\*
+-   **Jennifer Marin** - _Permisos de vista de Senaempresa estrategias para pasante y usuario_ - _100 %_ - _Dificultades_ - _Acciones_
+-   **Jary Garay** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
+
+#### Meet 07-sep-2023
+
+-   **Junior Medina** - _Alerta para no permitir el registro de una vacante ya existente_ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
+-   **Diego Penagos** - *creacion de editar y elimnar senaempresa - *100 %* - *Dificultades* - *Acciones\*
+-   **Jennifer Marin** - _Permisos de vista de Senaempresa estrategias para pasante y usuario_ - _100 %_ - _Dificultades_ - _Acciones_
+-   **Jary Garay** - _NO se reporto _ - _0 %_ - _Dificultades_ - _Acciones_
+
+#### Meet 08-sep-2023
+
+-   **Junior Medina** - _Alerta para no permitir el registro de una vacante ya existente_ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
+-   **Diego Penagos** - *Traduccion de senaempresa- *100 %* - *Dificultades* - *Acciones\*
+-   **Jennifer Marin** - _botones de agregar editar y eliminar_ - _100 %_ - _Dificultades_ - _Acciones_
+-   **Jary Garay** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
+
+#### Meet 09-sep-2023
+
+-   **Junior Medina** - _Actualización de vista contacto_ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
+-   **Diego Penagos** - *SweetAlert de cargso y senaempresa - *80 %* - *Dificultades* - *Acciones\*
+-   **Jennifer Marin** - _swealert2 de eliminar y agregar de pivote cursos vacantes_ - _100 %_ - _Dificultades_ - _Acciones_
+-   **Jary Garay** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
+
+#### Meet 10-sep-2023
+
+-   **Junior Medina** - _swealert2 de eliminar y agregar de pivote cursos vacantes _ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
+-   **Diego Penagos** - *SweetAlert,traducciones de senaempresa y positon - *100 %* - *Dificultades* - *Acciones\*
+-   **Jennifer Marin** - _botones de agregar editar y eliminar_ - _100 %_ - _Dificultades_ - _Acciones_
+-   **Jary Garay** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
+
+#### Meet 11-sep-2023
+
+-   **Junior Medina** - _Arreglo en pivote de curso Senaempresa _ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
+-   **Diego Penagos** - *Permisos a la vista Cargos - *100 %* - *Dificultades* - *Acciones\*
+-   **Jennifer Marin**  - _botones de agregar editar y eliminar_ - _100 %_ - _Dificultades_ - _Acciones_
+-   **Jary Garay** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
+
+ADS0 2500871
 #### Sprint Planning 22-Agt-2023
 
 * **David Juliam Cadena Barrera** - *Monitoreo de las bodegas con sus insumos.*
@@ -83,11 +440,257 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 **Julian Javier Ramirez Diaz** - *Implementacion de movimientos internos.* - *100%* - *Ninguna* - *Ninguna*
 
 ---
+## Agrocefa 📌
+
+### Sprint 1 🔄
+#### Sprint Planning 22-Ago-2022
+* **Dayana Marcela** - *Parametro de Especies*
+* **Yuderly Sapuy** - *Parametro de Cultivos*
+* **Laura Rodriguez** - *Parametro de Variedades*
+* **Andres Almario** - *Parametro Actividad*
+* 
+...
+#### Meet 22-Ago-2022
+*  -  **Dayana Marcela** - *Creacion de migaricion,controlador y rutas* - *Avance 100%* - *N/A* - **
+*  -  **Yuderly Sapuy** - *Creacion de migaricion,controlador y rutas* - *Avance 100%* - *N/A* - **
+*  -  **Laura Rodriguez** - *Creacion de migaricion,controlador y rutas* - *Avance 100%* - *N/A* - **
+*  -  **Andres Almario** - *Vista parametro general, roles y permisos* - *Avance 100* - *N/A* - **
+
 ---
-#### Meet 07-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 23-Ago-2022
+*  -  **Dayana Marcela** - *Implementacion del diseño (vista) segun el estandar, funcionalidad del CRUD* - *Avance 100%* - *N/A* - **
+*  -  **Yuderly Sapuy** - *Creacion de las vistas del formulario e implementacion de diseño* - *Avance 100%* - *N/A* - **
+*  -  **Laura Rodriguez** - *Implementacion de diseño segun el estandar* - *Avance 100%* - *N/A* - **
+*  -  **Andres Almario** - *validacion de autenticacion responsable para vista de unidades productivas* - *Avance 100* - *N/A* - **
 ---
+#### Meet 28-Ago-2022
+*  -  **Dayana Marcela** - *Implementar lo realizado en la vista de parametros* - *Avance 100%* - *N/A* - **
+*  -  **Yuderly Sapuy** - *Implementar lo realizado en la vista de parametros* - *Avance 100%* - *N/A* - **
+*  -  **Laura Rodriguez** - *Implementar lo realizado en la vista de parametros* - *Avance 100%* - *N/A* - **
+*  -  **Andres Almario** - *Implementar parametro actividad* - *Avance 70%* - *Perdida de tiempo por diseño y filtro de unidades* - *Terminar en el otro sprint*
+---
+
+### Sprint 2 🔄
+#### Sprint Planning 29-Ago-2023
+* **Dayana Marcela** - *Inventario general*
+* **Yuderly Sapuy** - *Vista AGROCEFA*
+* **Laura Rodriguez** - *Vista desarrolladores*
+* **Andres Almario** - *Gestion de movimientos y Reporte consumo*
+
+#### Meet 30-Ago-2023
+* **Andres Almario** - *Modificacion Actividad y contextaulizacion de movimientos (BD y acciones) * - *100%* - *Dificultades* - *Acciones*
+---
+
+#### Meet 31-Ago-2023
+* **Andres Almario** - *Solucion de conflictos, ruta y controlador de movimientos* - *100%* - *Dificultades* - *Acciones*
+
+---
+#### Meet 01-Sep-2023
+* **Andres Almario** - *Diseñar la vista de movimientos* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Crear controlador para inventario, ruta y funciones de prueba* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Laura Vanessa** - *Ruta y diseño de vista de desarrolladores* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Creacion de archivo de vista para el usuario acerca de AGROCEFA Y ruta  para retornar a la vista* - *30 %* - *N/A* - *N/A*
+---
+
+#### Meet 03-Sep-2023
+* **Andres Almario** - *Formulario de entrada y salida con tabla dinamica de productos, filtro para respondable y bodegas* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Implementacion para filtrar los elementos por categoria teniendo en cuenta la bodega* - *Avance 70%* - *Complicaciones con las consultas* - *Buscar soluciones al problema*
+* **Laura Vanessa** - *Creacion de tarjetas para los desarrolladores* - *Avance %* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - ** - *Avance en el crud Cultivo, elimina registros * - *Dificultades para agregar un atributo de la tabla crops_environment* *Avance 80%* - *Acciones*
+---
+
+#### Meet 04-Sep-2023
+* **Andres Almario** - *Registro de productos movimiento de entrada* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Ajustes de filtro de elementos por categoría* - *Avance 100%* - *Complicaciones con las consultas* - *Buscar soluciones al problema*
+* **Laura Vanessa** - *modificacion de la vista desarrolladores creaccion le las targetas de donde van las herramientas que utilizamos para el desarrollo de  el software* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Vista AGROCEFA* - *Avance 40%* - *Dificultades N/A* - *Acciones*
+
+#### Meet 05-Sep-2023
+* **Andres Almario** - *Estandarizacion y Organizacion de archivos; y avance de movimiento* - *Avance 100%* - *Dificultades N/A* - *Acciones*
+* **Dayana Valenzuela** - *Ajuste en la funcionalidad de la vista de inventario* - *Avance 40%* - *Complicaciones con la relacion de las tablas* - *Buscar soluciones al problema*
+* **Laura Vanessa** - *Avance en la vista de Desarrolladores y Avance eL CRUD de variedad * - *Avance 60%* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Avance en la vista Acerca de AGROCEFA para el rol de usuario* - *Avance 60%* - *Dificultades N/A* - *Acciones*
+
+#### Meet 06-Sep-2023
+* **Andres Almario** - *Registro movimientos de entrada* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Listar elementos de inventario segun unidad productiva e implementacion del filtro por categoria* - *Avance 70%* - *Dificultad para implementar el AJAX* - *Buscar soluciones al problema*
+* **Laura Vanessa** - *Funciones de CRUD variedad* - *Avance 60%* - *Errores en el foreach* - *Solicitar ayuda de otro integrante*
+* **Yuderly Sapuy** - *Cambios en los campos para unidades de medida, ajustes de tabla crops y algunas funcionalidades del CRUD* - *Avance 80%* - *Dificultades* - *Acciones*
+---
+
+#### Meet 07-Sep-2023
+* **Andres Almario** - *Registro solicitud de salida de elementos* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Filtro por categoria con AJAX finalizado, inicializacion del CRUD y modificaciones del CRUD especies* - *Avance 75%* - *Dificultades* - *Acciones*
+* **Laura Vanessa** - *CRUD de variedad finalizado, avance en la vista desarrolladores* - *Avance 80%* - *Problemas en el editar del CRUD* - *Solicitar ayuda de otro integrante*
+* **Yuderly Sapuy** - *CRUD cultivos finalizado* - *Avance 100%* - *Dificultades* - *Acciones*
+---
+
+#### Meet 08-Sep-2023
+* **Andres Almario** - *Creacion de ruta controlador y vista de reporte consumo* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Crear rutas para el funcionamiento del CRUD de inventario e inclusion de iconos (No funcionales)* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Laura Vanessa** - *Avance en la vista de desarrolladores* - *Avance 75%* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Avance en diseño de la vista AGROCEFA* - *Avance 80%* - *Dificultades* - *Acciones*
+---
+
+#### Meet 09-Sep-2023
+* **Andres Almario** - *Implementacion de datatable para reporte y descarga* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Funcionalidad del CRUD inventario finalizada* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Laura Vanessa** - ** - *Avance* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - ** - *Avance* - *Dificultades* - *Acciones*
+---
+
+#### Meet 10-Sep-2023
+* **Andres Almario** - *Consulta,filtro de fechas y descarga de reporte de consumo* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Implementación para agregar elementos y categorías completada* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Laura Vanessa** - ** - *Avance* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Avance vista usuario* - *Avance 80%* - *Dificultades* - *Acciones*
+---
+
+#### Meet 19-Sep-2023
+* **Andres Almario** - *SENA SOFT - ** - ** - **
+* **Dayana Valenzuela**  - *SENA SOFT - ** - ** - **
+* **Laura Vanessa** - ** - *Avance* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Creacion vista gestion de labores* - *Avance 10%* - *Dificultades* - *Acciones*
+---
+
+#### Meet 20-Sep-2023
+* **Andres Almario** - *SENA SOFT - ** - ** - **
+* **Dayana Valenzuela**  - *SENA SOFT - ** - ** - **
+* **Laura Vanessa** - ** - *Avance* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Creacion tarjetas y rutas gestión de labores, ruta de gestión de labores en el sidebar* - *Avance 40%* - *Dificultades* - *Acciones*
+---
+
+#### Meet 21-Sep-2023
+* **Andres Almario** - *SENA SOFT - ** - ** - **
+* **Dayana Valenzuela**  - *SENA SOFT - ** - ** - **
+* **Laura Vanessa** - ** - *Avance* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Rutas tarjetas gestión de labores* - *Avance 60%* - *Dificultades* - *Acciones*
+---
+
+#### Meet 22-Sep-2023
+* **Andres Almario** - *SENA SOFT - ** - ** - **
+* **Dayana Valenzuela**  - *SENA SOFT - ** - ** - **
+* **Laura Vanessa** - ** - *Avance* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Creacion de vista de REGISTRO DE APLICACIÓN DE LABORES CULTURALES* - *Avance 30%* - *Dificultades N/A* - *Acciones*
+---
+
+#### Meet 23-Sep-2023
+* **Andres Almario** - *SENA SOFT - ** - ** - **
+* **Dayana Valenzuela**  - *SENA SOFT - ** - ** - **
+* **Laura Vanessa** - ** - *Avance* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Creacion de rutas y controlador de REGISTRO DE APLICACIÓN DE LABORES CULTURALES* - *Avance 40%* - *Dificultades N/A* - *Acciones*
+---
+
+#### Meet 25-Sep-2023
+* **Andres Almario** - *SENA SOFT - ** - ** - **
+* **Dayana Valenzuela**  - *SENA SOFT - ** - ** - **
+* **Laura Vanessa** - ** - *Avance* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Uso de las tablas activities y elements del modulo  SICA para el REGISTRO DE APLICACIÓN DE LABORES CULTURALES* - *Avance 55%* - *Complicacion en las relaciones de las tablas* - *Busquedas en internet y preguntar a compañeros del proyecto*
+---
+
+#### Meet 23-Oct-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Asignacion de tarjeta Reporte Balance - *Avance 10%* - *Dificultades N/A* - *Acciones N/A** **Laura Vanessa** - *Asignacion de tarjeta Reporte de producción* - *Avance 10%* - *Dificultades N/A* - *N/A** **Yuderly Sapuy** - *Asignacion de tarjeta Contabilidad Total de Gestion Labor e Insumos* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A*
+---
+
+#### Meet 24-Oct-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Asignacion de tarjeta Reporte Balance - *Avance 10%* - *Dificultades N/A* - *Acciones N/A** **Laura Vanessa** - *Asignacion de tarjeta Reporte de producción* - *Avance 10%* - *Dificultades N/A* - *N/A** **Yuderly Sapuy** - *Creacion de vista, rutas, modelos y migraciones necesarias para trabajar en la tarjeta asignada* - *Avance 15%* - *Dificultades N/A* - *Acciones N/A*
+---
+
+#### Meet 25-Oct-2023* **Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Creacion vista y controlador de Reporte Balance - *Avance 100%* - *Dificultades N/A* - *Acciones N/A** **Laura Vanessa** - *Asignacion de tarjeta Reporte de producción* - *Avance 10%* - *Dificultades N/A* - *N/A** 
+**Yuderly Sapuy** - *filtrar unidad productiva segun corrsponda para atraer los datos necesarios para la consulta* - *Avance 25%* - *Dificultades para las consultas* - *Acciones: trabajo en equipo y consultas en internet*
+---
+
+#### Meet 26-Oct-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Asignacion de tarjeta Reporte Balance - *Avance 10%* - *Dificultades N/A* - *Acciones N/A** **Laura Vanessa** - *Asignacion de tarjeta Reporte de producción* - *Avance 10%* - *Dificultades N/A* - *N/A** **Yuderly Sapuy** - *filtrar cultivos asignados por unidad productiva* - *Avance 30%* - *Dificultades para las consultas* - *Acciones: trabajo en equipo y consultas en internet*
+---
+
+#### Meet 27-Oct-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Asignacion de tarjeta Reporte Balance - *Avance 10%* - *Dificultades N/A* - *Acciones N/A** **Laura Vanessa** - *Asignacion de tarjeta Reporte de producción* - *Avance 10%* - *Dificultades N/A* - *N/A** 
+**Yuderly Sapuy** - *campo para filtar las labores ejecutadas en el cultivo entre fechas * - *Avance 35%* - *Dificultades para las consultas y filtros* - *Acciones: trabajo en equipo y consultas en internet*
+---
+
+#### Meet 28-Oct-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Filtro de labores segun fecha de ejecucion para el balance - *Avance 30%* - *Dificultades N/A***Acciones N/A**
+**Laura Vanessa** - *Asignacion de tarjeta Reporte de producción* - *Avance 10%* - *Dificultades N/A* - *N/A** **Yuderly Sapuy** - *filtro para las labores ejecutadas* - *Avance 40%* - *Dificultades para las consultas y filtros* - *Acciones: trabajo en equipo y consultas en internet*
+---
+
+#### Meet 30-Oct-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Actualizacion y arreglos Reporte Balance - *Avance 70%* - *Dificultades N/A* - *Acciones N/A***
+**Laura Vanessa** - *Asignacion de tarjeta Reporte de producción* - *Avance 10%* - *Dificultades N/A* - *N/A** 
+**Yuderly Sapuy** - *trabajo en la vista de filtro para las labores ejecutadas* - *Avance 40%* - *Dificultades para las consultas y filtros* - *Acciones: trabajo en equipo y consultas en internet*
+---
+
+#### Meet 02-Nov-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Filtro segun el tipo de actividad con su respectivo gasto y produccion - *Avance 90%* - *Dificultades N/A* - *Acciones N/A***
+**Laura Vanessa** - *Llamar al cultivo segun el lote, traducciones y avances en reportes de produccion* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A***
+**Yuderly Sapuy** - *Edicion de fechas de siembra CRUD-Crops* - *Avance 60%* - *Dificultades N/A* - *Acciones*
+---
+
+#### Meet 03-Nov-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Inclusion de graficas para el balance de gastos y producciones - *Avance 100%* - *Dificultades N/A* - *Acciones N/A***
+**Laura Vanessa** - *Llamar al cultivo segun el lote, traducciones y avances en reportes de produccion* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A***
+**Yuderly Sapuy** - *Atraer y filtrar en la vista el lote y cultivo asociado al lote* - *Avance 65%* - *Dificultades N/A* - *Acciones N/A*
+---
+
+#### Meet 04-Nov-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Traducciones de la vista balance y cambios en el diseño de las tablas - *Avance 100%* - *Dificultades N/A* - *Acciones N/A***
+**Laura Vanessa** - *Llamar al cultivo segun el lote, traducciones y avances en reportes de produccion* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A***
+**Yuderly Sapuy** - *Atraer y filtrar labores asociados al cultivo seleccionado * - *Avance 70%* - *Dificultades para filtrar la labor* - *Acciones: trabajo en equipo y consultas en internet*
+---
+#### Meet 05-Nov-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Traducciones de la vista balance y cambios en el diseño de las tablas - *Avance 100%* - *Dificultades N/A* - *Acciones N/A***
+**Laura Vanessa** - *Llamar al cultivo segun el lote, traducciones y avances en reportes de produccion* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A***
+**Yuderly Sapuy** - *Crear tabla para mostrar las labores asociadas al cultivo* - *Avance 75%* - *Dificultades N/A* - *Acciones*
+---
+
+#### Meet 06-Nov-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Traducciones de la vista balance y cambios en el diseño de las tablas - *Avance 100%* - *Dificultades N/A* - *Acciones N/A***
+**Laura Vanessa** - *Llamar al cultivo segun el lote, traducciones y avances en reportes de produccion* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A***
+**Yuderly Sapuy** - *Atraer y filtrar los componentes asociados y aplicados a la labor * - *Avance 78%* - *Dificultades para filtrar los componentes* - *Acciones: trabajo en equipo y consultas en internet*
+---
+
+#### Meet 07-Nov-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Traducciones de la vista balance y cambios en el diseño de las tablas - *Avance 100%* - *Dificultades N/A* - *Acciones N/A***
+**Laura Vanessa** - *Llamar al cultivo segun el lote, traducciones y avances en reportes de produccion* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A***
+**Yuderly Sapuy** - *Crear tabla para mostrar los componentes filtrados y asociados y aplicados a la labor * - *Avance 80%* - *Dificultades N/A* - *Acciones*
+---
+
+#### Meet 08-Nov-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Traducciones de la vista balance y cambios en el diseño de las tablas - *Avance 100%* - *Dificultades N/A* - *Acciones N/A***
+**Laura Vanessa** - *Llamar al cultivo segun el lote, traducciones y avances en reportes de produccion* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A***
+**Yuderly Sapuy** - *Continuacion de front-end  para mostrar los componentes filtrados y asociados y aplicados a la labor * - *Avance 85%* - *Dificultades N/A* - *Acciones*
+---
+
+#### Meet 09-Nov-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Traducciones de la vista balance y cambios en el diseño de las tablas - *Avance 100%* - *Dificultades N/A* - *Acciones N/A***
+**Laura Vanessa** - *Llamar al cultivo segun el lote, traducciones y avances en reportes de produccion* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A***
+**Yuderly Sapuy** - *Filtracion exitosa de los datos de los componentes  asociados y aplicados a la labor * - *Avance 86%* - *Dificultades N/A* - *Acciones*
+---
+
+#### Meet 10-Nov-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Traducciones de la vista balance y cambios en el diseño de las tablas - *Avance 100%* - *Dificultades N/A* - *Acciones N/A***
+**Laura Vanessa** - *Llamar al cultivo segun el lote, traducciones y avances en reportes de produccion* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A***
+**Yuderly Sapuy** - *Descarga y aplicacion de la libreria para implementar PDF en los componentes de la labor  * - *Avance 88%* - *Dificultades N/A* - *Acciones*
+---
+
+
+
 
 
 ## PUNTO DE VENTA 🛒
@@ -243,267 +846,86 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Nelsy yulied Gómez Morales** - *Mostrar las ventas del día y generar reporte PDF* - *Avance %* - *Dificultades* - *Acciones*
 --- 
 
+
+
+
+
+
 ## GANADERIA 🐮
 
-### Sprint 1 🔄
-#### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar* 
-* **Integrante 2** - *Actividades a realizar*
-...
-#### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 31-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 02-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 04-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 07-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-
-## SIS 🛒
 
 ### Sprint 1 🔄
-#### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar* 
-* **Integrante 2** - *Actividades a realizar*
+#### Sprint Planning 22-AGO-2023
+* **Andres David Cumaco Rojas** - *(Administrador - Pasante) Administrar Recursos/ Pagina principal e informativa sobre Huella de Carbono CEFA*
+* **Mary Luz Aldana Vidarte** - *Registro de Consumo/Pagina principal e informativa sobre Huella de Carbono CEFA*
+* **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva*
 ...
-#### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 31-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 02-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 04-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 07-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-
-## TENDER GREEN 🍔
-
-### Sprint 1 🔄
-#### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar* 
-* **Integrante 2** - *Actividades a realizar*
-...
-#### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 31-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 02-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 04-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 07-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-
-## SENA EMPRESA 🏙
-
-### Sprint 1 🔄
-#### Sprint Planning 26-Oct-2022
-* **Diego Tovar** - *Actividades a realizar:*
-*Crear nuevo modulo con nwidart*, 
-*Asociar modulo a la tabla apps*, 
-*Realizar estructura de layouts*,
-*Definir ruta para el master*, 
-*Crear modelo de asistencia* 
-* **Jesús Guevara** -*Actividades a realizar:* 
-...
-#### Meet 28-Oct-2022
-* **Diego Tovar** - *Actividades realizadas:* 
-*Crear migraciones de asistencia y tabla pivote "apprentice_asistencia"*, 
-*Definir relación entre el modelo Apprentice y Asistencia*,
-*Crear controlador de AsistenciaTurnosController*,
-*Hacer vista principal para asignar turno*  - *Avance: 45 %* - *No se encuentran dificultades* - *Realizar las sigientes actividades*
-* **Jesus Guevara** - *Actividades realizadas:* - *45 %* - *Dificultades* - *Acciones*   
----
-#### Meet 31-Oct-2022
-* **Diego Tovar** - *Actividades realizadas:* *Select con programas y código de los técnicos y técnologos vista Turnos Rutinarios*
-*Agregar modal en la vista home para agregar turnos rutinarios*
-*Filtrar aprendices por el id del curso método buscarLista controlador *
- - *Avance 65%* - *Dificultades: * *Trabajo de diseño con select2 dentro del modal*, *Trabajo con eloquent laravel* - *Documentarse sobre el manejo de las relaciones con eloquent*
-* **Jesus Guevara** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 02-Nov-2022
-* **Diego Tovar** - *Actividades realizadas: * *Definir una fecha para el turno y obtener el get para crear asistencia*
-*Método getAsignarTurno para implementar filtro ajax y traer los datos de todos los aprendices*
-*Definir ruta para el  ajax*
-*Método postAsignarTurno los aprendices del curso con la relación de la asistencia a la tabla pivote*
-*definir ruta para el post/get de los datos* - *Avance 81%* - *Siguen las dificultades con eloquent y estilos* - *Investigar nuevos métodos de aplicación*
-* **Jesus Guevara** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 04-Nov-2022
-* **Diego Tovar** - *Actividades realizadas:*
-*Definir ruta para listar asistencias*
-*Definir método de editar junto con su ruta*
-*añadir botón de editar turno para ejecutar el método de editar*
-*mostrar input date con fecha asignada y cambiar*
-*mostrar mensaje de cambio exitoso al dar submit*
-*mostrar lista con la nueva fecha*  - *Avance 100%* - *Diseño* - *Reeplantear estructura de la vista para no utilizar modal en la asignación de turno*
-* **Jesus Guevara** - *Actividades realizadas:*
-*Organización estructural * - *Avance 100%* - *Organización de tiempos* - *Reemplanteamiento de cronograma*
----
-#### Meet 07-Nov-2022
-* **Diego Tovar** - *Actividades realizadas: Se realizan ajustes de diseño en base a los colores seleccionados* - *Avance 100%* - *reemplantear vistas de asignación* - *Realizar la propuesta y definir nueva ruta*
-* **Jesus Guevara** - *Actividades realizadas:*
-*Determinación de los nuevos requerimientos para el módulo nuevo*
- - *Avance 100%* - *Dificultades* - *Acciones*
----
-
-## KOLINA 🏕
-
-### Sprint 1 🔄
-#### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar* 
-* **Integrante 2** - *Actividades a realizar*
-...
-#### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 31-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 02-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 04-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 07-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-
-## RADIO CEFA 📻
-
-### Sprint 1 🔄
-#### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar: Crear carpeta proyecto, Clonar Sicefa Rama-Proyecto, Asociar usuario damendezp, Commit,Push, Merge, Pull* 
-
-...
-#### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas: Crear carpeta proyecto, Clonar Sicefa Rama-Proyecto,* - *Avance 38%* - *Dificultades: Dificultar al asocuar al usuario "damendezp" al repositorio para crear los commits dentro de SICEFA en github* - *Acciones: Clonar nuevamente el repositorio desde el aplicativo github*
+#### Meet 24-AGO-2023
+* **Andres David Cumaco Rojas** - *Pagina principal e informativa sobre Huella de Carbono CEFA* - *80%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Pagina principal e informativa sobre Huella de Carbono CEFA* - *80%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva* - *10%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
 
 ---
-#### Meet 31-Oct-2022
-* **Integrante 1** - *Actividades realizadas: clonar repositorio desde git* - *Avance 13%* - *Dificultades:* - *Acciones:*
-
+#### Meet 27-AGO-2023
+* **Andres David Cumaco Rojas** - *(Administrador - Pasante) Administrar Recursos* - *Avance3 30%* - *Dificultades* - *Acciones*
+* **Mary Luz Aldana Vidarte** - *Registro de Consumo* - *Avance 20%* - *Dificultades* - *Acciones*
+* **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva NO SE PRESENTO* - *0%* - *Dificultades* - *Acciones*
 ---
-#### Meet 02-Nov-2022
-* **Integrante 1** - *Actividades realizadas:Commit,Push, Merge, Pull* - *Avance 50%* - *Dificultades* - *Acciones: Se realizaron cambios en el proyecto tales como las vistas para poder subir el primer commit*
-* 
 
 ### Sprint 2 🔄
-#### Sprint Planning 09-Nov-2022
-* **Integrante 1** - *Actividades a realizar: Clonar o Crear proyecto Laravel, Crear Modulo (SICEFA), Creacion del Layout (definir estilos, colores y maqueta general), subir las migraciones y corregir las tablas que crean conflicto, Definir usuarios, Roles, Permisos, Responsabilidades., Crear Modelo Relacional, Definir Estilos y paleta de colores, Agregar Librerias y herramientas al proyecto, Definir Rutas de acuerdo al Estandar de Laravel y SICEFA.*
-
-...
-#### Meet 04-Nov-2022
-* **Integrante 1** - *Actividades realizadas:Crear Modulo Radiocefa, * - *Avance 22%* - *Dificultades:Crear modulo en el repositorio sicefa de damendezp * - *Acciones:Se creo el modulo "RADIOCEFA" desde la terminal*
-
+#### Meet 29-AGO-2023
+* **Andres David Cumaco Rojas** - *Analisis e integración de "Calcula tu huella"* - *Avance %* - *Dificultades* - *Acciones*
+* **Mary Luz Aldana Vidarte** - *Analisis e integración de "Calcula tu huella"* - *Avance %* - *Dificultades* - *Acciones*
+* **Leidy Sofia Osorio Vera** - *Analisis e integración de "Calcula tu huella"* - *Avance %* - *Dificultades* - *Acciones*
 ---
-#### Meet 07-Nov-2022
-* **Integrante 1** - *Actividades realizadas:Creacion del Layout (definir estilos, colores y maqueta general), subir las migraciones y corregir las tablas que crean conflicto,Definir Estilos y paleta de colores, * - *Avance 33%* - *Dificultades: Las tablas de migraciones del modulo "SICA", entraban en conflicto y no permitian realizar las migraciones del modulo "RADIOCEFA" * - *Acciones: Verificar las tablas y migraciones e ir corrigiendo las que causan conflicto*
-
+#### Meet 30-AGO-2023
+* **Andres David Cumaco Rojas** - *(Administrador - Pasante) Administrar Recursos* - *Avance 50%* - *Dificultades-Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Registro de Consumo* - *Avance 30%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva"* - *Avance 50%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
 ---
 
-#### Meet 09-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-
+#### Meet 31-AGO-2023
+* **Andres David Cumaco Rojas** - *(Administrador - Pasante) Administrar Recursos* - *Avance 50%* - *Dificultades-Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Registro de Consumo* - *Avance 30%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva"* - *Avance 50%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+---
+#### Meet 01-Sep-2023
+* **Andres David Cumaco Rojas** - *Integración del proyecto Calcula tu huella* - *Avance 0%* - *Dificultades-Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Integración del proyecto Calcula tu huella* - *Avance 20%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Leidy Sofia Osorio Vera** - *Integración del proyecto Calcula tu huella* - *Avance 0%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
 ---
 
-#### Meet 11-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-
+#### Meet 04-Sep-2023
+* **Andres David Cumaco Rojas** - *(Administrador - Pasante) Administrar Recursos* - *Avance 100%* - *Dificultades-Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Integración del proyecto Calcula tu huella* - *Avance 50%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva* - *Avance 60%* - *Dificultades->Error en la base de datos* - *Acciones->Se solicita la ayuda de los pasantes para solucionar el respectivo error*
 ---
 
-#### Meet 14-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 05-Sep-2023
+* **Andres David Cumaco Rojas** - *Integración del proyecto Calcula tu huella* - *Avance 0%* - *Dificultades-Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Integración del proyecto Calcula tu huella* - *Avance 50%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva* - *Avance 62%* - *Dificultades->Error en la base de datos* - *Acciones->Se solicito ayuda de los pasantes para solucionar el respectivo error*
+---
+#### Meet 01-Nov-2023
+* **Andres David Cumaco Rojas** - *(Administrador - Pasante) Administrar Recursos* - *Avance 80%* - *Dificultades-Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Integración del proyecto Calcula tu huella* - *Avance 100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Integración Grafica Anual* - *Avance 100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Registro de Consumo* - *Avance 100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Reporte Del Impacto De Huella* - *Avance 50%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva* - *Avance 62%* - *Dificultades->No se presento* 
+---
+#### Meet 06-Nov-2023
+* **Andres David Cumaco Rojas** - *(Administrador - Pasante) Administrar Recursos* - *Avance 90%* - *Dificultades-Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Vista de Manual Instructivo* - *Avance 20%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Reporte Del Impacto De Huella* - *Avance 100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva* - *Avance 62%* - *Dificultades->No se presento* 
+---
+#### Meet 20-Nov-2023
 
+* **Mary Luz Aldana Vidarte** - *Vista De Desarrolladores* - *Avance 100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Administrar Recursos* - *Avance 80%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+ 
 ---
 
-#### Meet 16-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-
----
-
-#### Meet 18-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-
----
-
-#### Meet 21-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-
----
-
-#### Meet 23-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-
----
-
-## BURGUER WEB 🍔
-
-### Sprint 1 🔄
-#### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar* 
-* **Integrante 2** - *Actividades a realizar*
-...
-#### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 31-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 02-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 04-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 07-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-
-
-ADSI 2397491
+ADSO 2500871
 Centro de Formacion Agroindustrial la Angostura SENA.

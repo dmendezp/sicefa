@@ -6,6 +6,7 @@ return [
 	'Breadcrumb_Active_Inventory_1'         => 'Panel de Reportes',
 	'Breadcrumb_Active_Inventory_Entries_1' => 'Entradas de Inventario',
 	'Breadcrumb_Active_Sales_1'             => 'Ventas',
+	'Breadcrumb_Active_Sales_1'             => 'Ventas',
 
     // ---Section Card Select Report---
     'Title_Select_Report'          => 'Selecciona aquí el tipo de reporte que deseas consultar',
@@ -18,6 +19,9 @@ return [
     // Card Inventory Sale
     'Title_Card_Inventory_Sales'   => 'Ventas',
     'Text_Card_Inventory_Sales'    => 'Genera el reporte de ventas por fechas',
+    // Card Inventory Product
+    'Title_Card_Inventory_Products'   => 'Productos',
+    'Text_Card_Inventory_Products'    => 'Genera el reporte de productos actual',
 
     // ---Section Report Inventory Entries---
     'Title_Form_Start_Date' => 'Fecha de Inicio:',

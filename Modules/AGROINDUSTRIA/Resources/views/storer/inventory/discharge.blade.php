@@ -29,7 +29,7 @@
         
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{trans('agroindustria::deliveries.close')}}</button>
-            {!! Form::submit(trans('agroindustria::menu.Register deregistration'),['class' => 'baja btn btn-success', 'name' => 'baja']) !!}
+            {!! Form::submit(trans('agroindustria::deliveries.Register deregistration'),['class' => 'baja btn btn-success', 'name' => 'baja']) !!}
         </div>
         {!! Form:: close() !!}
       </div>

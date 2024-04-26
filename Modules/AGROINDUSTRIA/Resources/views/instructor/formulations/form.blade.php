@@ -136,7 +136,7 @@
                                         </div>
                                         <div class="form-group">
                                             {!! Form::label('amount' , trans('agroindustria::menu.Amount')) !!}
-                                            {!! Form::number('amount_utencils[]', null, ['class'=>'form-control', 'id' => 'amount']) !!}
+                                            {!! Form::number('amount_utencils[]', null, ['class'=>'form-control', 'id' => 'amount' , 'required']) !!}
                                             @error('amount')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -188,7 +188,8 @@
     
         // Agregar un nuevo campo de producto
         $("#add-utencils-formulation").click(function() {
-            var newProduct = '<div class="utencil"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::menu.Element")) !!} {!! Form::select("element_utencils[]", $utencils, null, ["class" => "utencil-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount_utencils[]", NULL, ["class"=>"form-control", "id" => "amount"]) !!}</div> <button type="button" class="remove-utencils">{{trans("agroindustria::deliveries.Delete")}}</button></div>';
+            var newProduct = '<div class="utencil"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::menu.Element")) !!}{!! Form::select("element_utencils[]", $utencils, null, ["class" => "utencil-select", "required"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!}{!! Form::number("amount_utencils[]", NULL, ["class"=>"form-control", "id" => "amount", "required"]) !!}</div> <button type="button" class="remove-utencils">{{trans("agroindustria::deliveries.Delete")}}</button></div>';
+
     
             // Agregar el nuevo campo al DOM
             $("#utencils").append(newProduct);

@@ -20,6 +20,7 @@ Route::middleware(['lang'])->group(function(){
 
         // --------------  Rutas de Ambientes ---------------------------------
         Route::get('/admin/location/environments', [LocationController::class, 'environments_index'])->name('sica.admin.location.environments.index'); // Vista principal de ambientes de formación (Administrador)
+        Route::post('/admin/location/environments/filter', [LocationController::class, 'environments_filter'])->name('sica.admin.location.environments.filter'); // Filtro de ambientes por unidad productiva (Administrador)
 
     });
 

@@ -966,14 +966,11 @@ class PermissionsTableSeeder extends Seeder
 
         $rol_admin = Role::where('slug', 'agroindustria.admin')->first(); // Rol Administrador
         $rol_instructor_vilmer = Role::where('slug', 'agroindustria.instructor.vilmer')->first(); // Rol Coordinado Académico
-        $rol_instructor_chocolate = Role::where('slug', 'agroindustria.instructor.chocolate')->first(); // Rol Coordinado Académico
         $rol_storer = Role::where('slug', 'agroindustria.almacenista')->first(); // Rol Registro Asistencia
-        $rol_visitor = Role::where('slug', 'agroindustria.visitante')->first(); // Rol Registro Asistencia
 
         // Asignación de PERMISOS para los ROLES de la aplicación AGROINDUSTRIA (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_admin->permissions()-> syncWithoutDetaching($permission_admin);
         $rol_instructor_vilmer->permissions()->syncWithoutDetaching($permission_instructor);
-        $rol_instructor_chocolate->permissions()->syncWithoutDetaching($permission_instructor);
         $rol_storer->permissions()->syncWithoutDetaching($permission_storer);
     }
 }

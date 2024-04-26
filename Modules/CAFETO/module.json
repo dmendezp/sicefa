@@ -1,0 +1,13 @@
+{
+    "name": "CAFETO",
+    "alias": "cafeto",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\CAFETO\\Providers\\CAFETOServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

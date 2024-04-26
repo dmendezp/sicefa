@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\CEFAMAPS\Entities\Coordinate;
 use Modules\CEFAMAPS\Entities\Page;
+use Modules\AGROCEFA\Entities\Crop;
+use Modules\SIGAC\Entities\InstructorProgram;
 
 class Environment extends Model implements Auditable
 {
@@ -42,6 +44,9 @@ class Environment extends Model implements Auditable
     }
 
     // RELACIONES
+    public function academic_programmings(){ // Accede a todos los registros de programaciones academicas asociadas a este ambiente de formación
+        return $this->hasMany(AcademicProgramming::class);
+    }
     public function class_environment(){ // Accede a la información de la clase de ambiente de formación al que pertenece
         return $this->belongsTo(ClassEnvironment::class);
     }
@@ -54,8 +59,15 @@ class Environment extends Model implements Auditable
     public function farm(){ // Accede a la información de la granja al que pertenece
         return $this->belongsTo(Farm::class);
     }
+    public function instructor_programs(){ // Accede a todas las programaciones de este ambiente
+        return $this->hasMany(InstructorProgram::class);
+    }
     public function pages(){ // Accede a la información del page al que pertenece
         return $this->hasMany(Page::class);
     }
+    public function crops(){
+        return $this->belongsToMany(Crop::class);
+    }
+
 
 }

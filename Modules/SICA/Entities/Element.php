@@ -12,6 +12,7 @@ use Modules\AGROINDUSTRIA\Entities\Ingredient;
 use Modules\AGROINDUSTRIA\Entities\Supply;
 use Modules\AGROINDUSTRIA\Entities\Utensil;
 use Modules\AGROINDUSTRIA\Entities\Production;
+use Modules\SIGAC\Entities\TrainingMaterial;
 
 class Element extends Model implements Auditable
 {
@@ -83,6 +84,10 @@ class Element extends Model implements Auditable
     }
     public function utensils(){ // Accede a todos los registros de utensilios que le pertenecen a este elemento
         return $this->hasMany(Utensil::class);
+    }
+
+    public function training_materials(){ //Accede a todos los registros de elemento y proyectos formativo que pertenece a este elemento.
+        return $this->hasMany(TrainingMaterial::class);
     }
 
 

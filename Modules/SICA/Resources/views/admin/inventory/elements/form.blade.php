@@ -97,30 +97,29 @@
                 ],
             ) !!}
         </div>
+        
     </div>
-
-    <div class="col-md-4">
-        <div class="input-group">
-            <div class="row">
-                <label>Subir imagen:</label>
-                <div class="flex items-center justify-center w-full">
-                    <input type="file" name="image" id="image" class="hidden">
-                </div>
-            </div>
-        </div>
-
-        <div class="card border-secondary mb-3 mt-4" style="max-width: 18rem;">
-            <div class="card-header"><b>Imagen</b></div>
-            <div class="card-body">
-                @if (isset($element))
-                    <img src="@if ($element->image && file_exists(public_path($element->image))) {{ asset($element->image) }} @else {{ asset('modules/sica/images/sinImagen.png') }} @endif"
-                        id="imagenSeleccionada" class="img-fluid img-thumbnail"
-                        style="max-height: 200px; max-width:300px float: left;">
-                @else
-                    <img src="" id="imagenSeleccionada" class="img-fluid img-thumbnail"
-                        style="max-height: 200px; max-width:300px float: left;">
-                @endif
-            </div>
+</div>
+<br>
+<br>
+<div class="row">
+    <label>Subir imagen:</label>
+    <div class="flex items-center justify-center w-full">
+        <input type="file" name="image" id="image" class="hidden">
+    </div>
+</div>
+<div class="row">
+    <div class="card" style="max-width: 150px;">
+        <div class="card-header"><b>Imagen</b></div>
+        <div class="card-body">
+            @if (isset($element))
+                <img src="@if ($element->image && file_exists(public_path($element->image))) {{ asset($element->image) }} @else {{ asset('modules/sica/images/sinImagen.png') }} @endif"
+                    id="imagenSeleccionada" class="img-fluid img-thumbnail"
+                    style="max-height: 200px; max-width:300px float: left;">
+            @else
+                <img src="" id="imagenSeleccionada" class="img-fluid img-thumbnail"
+                    style="max-height: 200px; max-width:300px float: left;">
+            @endif
         </div>
     </div>
 </div>

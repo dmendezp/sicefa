@@ -27,7 +27,7 @@
         <li>{{-- Boton de Iniciar Sesion en CSS es la clase Login-Button --}}
             <div type="button" class="button-login">
                 @guest
-                    <a href="{{ route('login') }}" class="text-decoration-none text-black">
+                    <a href="{{ route('login', ['redirect' => url()->current()]) }}" class="text-decoration-none text-black">
                         <span>{{ trans('ptventa::general.Log In') }}</span>
                     </a>
                 @else
@@ -104,6 +104,13 @@
             <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip"
                 data-bs-placement="bottom" data-bs-title="{{ trans('ptventa::general.Full Screen Mode') }}">
                 <i class="fas fa-expand-arrows-alt"></i>
+            </a>
+        </li>
+
+        <li class="nav-item mx-1">
+            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ trans('ptventa::general.Apps') }}">
+                <i class="fa-solid fa-shapes"></i>
             </a>
         </li>
     </ul>

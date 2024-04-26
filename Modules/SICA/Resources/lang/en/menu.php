@@ -3,6 +3,8 @@
 return [
 	'Home' => 'Home',
 	'Administrator' => 'Administrator',
+	'Application' => 'Application',
+	'academic_coordinator' => 'Academic coordinator',
 	'Attendance' => 'Attendance',
 	'Contact' => 'Contact',
 	'Notifications' => 'Notifications',
@@ -12,7 +14,9 @@ return [
 	'mins' => 'mins',
 	'days' => 'days',
 	'Welcome' => 'Welcome',
-	'Dashboard' => 'Dashboard',
+	'admin_dashboard' => 'Administration panel',
+	'academic_coordinator_dashboard' => 'Academic coordination panel',
+	'attendance_dashboard' => 'Asistance panel',
 	'People' => 'People',
 	'Personal data' => 'Personal data',
 	'Personal data Add' => 'Personal data Add',
@@ -61,7 +65,9 @@ return [
 
 	/* Generales de tablas */
 	'Name' => 'Name',
+	'Description' => 'Description',
 	'Actions' => 'Actions',
+	'Date' => 'Date',
 
 	/* Lineas */
 	'Lines' => 'Lines',
@@ -89,6 +95,34 @@ return [
 	'Failed to update Knowledge Network' => 'Failed to update Knowledge Network',
 	'Knowledge Network successfully removed' => 'Knowledge Network successfully removed',
 	'Could not delete Knowledge Network' => 'Could not delete Knowledge Network',
+
+	/* Festivos */
+	'Holidays' => 'Holidays',
+	'Issue' => 'Issue',
+	'Holiday Registration' => 'Holiday Registration',
+	'Add Holiday' => 'Add Holiday',
+	'Update Holiday' => 'Update Holiday',
+	'Do you want to delete the following area?' => 'Do you want to delete the following area?',
+	'Holiday successfully added' => 'Holiday successfully added',
+	'Could not add Holiday' => 'Could not add Holiday',
+	'Holiday successfully updated' => 'Holiday successfully updated',
+	'Failed to update Holiday' => 'Failed to update Holiday',
+	'Holiday successfully removed' => 'Holiday successfully removed',
+	'Could not delete Holiday' => 'Could not delete Holiday',
+
+	/* Trimestre */
+	'Quarters' => 'Quarters',
+	'Quarter' => 'Quarter',
+	'Quarter Registration' => 'Quarter Registration',
+	'Add Quarter' => 'Add Quarter',
+	'Update Quarter' => 'Update Quarter',
+	'Do you want to delete the following Quarter?' => 'Do you want to delete the following quarter?',
+	'Quarter successfully added' => 'Quarter successfully added',
+	'Could not add Quarter' => 'Could not add Quarter',
+	'Quarter successfully updated' => 'Quarter successfully updated',
+	'Failed to update Quarter' => 'Failed to update Quarter',
+	'Quarter successfully removed' => 'Quarter successfully removed',
+	'Could not delete Quarter' => 'Could not delete Quarter',
 
 	/* Programas de formación */
 	'Programs' => 'Programs',
@@ -124,4 +158,81 @@ return [
 	'Could not update the Course' => 'Could not update the course',
 	'Course successfully removed' => 'Course successfully removed',
 	'Could not remove the Course' => 'Could not remove the Course',
+
+	/* Areas */
+	'Areas' => 'Areas',
+	'Sector' => 'Sector',
+	'Area Registration' => 'Area Registration',
+	'Add Area' => 'Add Area',
+	'Update Area' => 'Update Area',
+	'Do you want to delete the following Area?' => 'Do you want to delete the following area?',
+	'Area successfully added' => 'Area successfully added',
+	'Could not add Area' => 'Could not add Area',
+	'Area successfully updated' => 'Area successfully updated',
+	'Failed to update Area' => 'Failed to update Area',
+	'Area successfully removed' => 'Area successfully removed',
+	'Could not delete Area' => 'Could not delete Area',
+
+	/* Unidades Productivas */
+	'Productive Units' => 'Productive Units',
+	'Productive Unit' => 'Productive Unit',
+	'Productive Unit Registration' => 'Productive Unit Registration',
+	'Add Productive Unit' => 'Add Productive Unit',
+	'Update Productive Unit' => 'Update Productive Unit',
+	'Do you want to delete the following Productive Unit?' => 'Do you want to delete the following Productive Unit?',
+	'Productive Unit successfully added' => 'Productive Unit successfully added',
+	'Could not add Productive Unit' => 'Could not add Productive Unit',
+	'Productive Unit successfully updated' => 'Productive Unit successfully updated',
+	'Failed to update Productive Unit' => 'Failed to update Productive Unit',
+	'Productive Unit successfully removed' => 'Productive Unit successfully removed',
+	'Could not delete Productive Unit' => 'Could not delete Productive Unit',
+
+	/* Actividades */
+	'Activities' => 'Activities',
+	'Activity' => 'Activity',
+	'Activity Registration' => 'Activity Registration',
+	'Add Activity' => 'Add Activity',
+	'Update Activity' => 'Update Activity',
+	'Do you want to delete the following Activity?' => 'Do you want to delete the following Activity?',
+	'Activity successfully added' => 'Activity successfully added',
+	'Could not add Activity' => 'Could not add Activity',
+	'Activity successfully updated' => 'Activity successfully updated',
+	'Failed to update Activity' => 'Failed to update Activity',
+	'Activity successfully removed' => 'Activity successfully removed',
+	'Could not delete Activity' => 'Could not delete Activity',
+
+	/* Bodegas */
+	'Warehouses' => 'Warehouses',
+	'Warehouse' => 'Warehouse',
+	'Warehouse Registration' => 'Warehouse Registration',
+	'Add Warehouse' => 'Add Warehouse',
+	'Update Warehouse' => 'Update Warehouse',
+	'Do you want to delete the following Warehouse?' => 'Do you want to delete the following Warehouse?',
+	'Warehouse successfully added' => 'Warehouse successfully added',
+	'Could not add Warehouse' => 'Could not add Warehouse',
+	'Warehouse successfully updated' => 'Warehouse successfully updated',
+	'Failed to update Warehouse' => 'Failed to update Warehouse',
+	'Warehouse successfully removed' => 'Warehouse successfully removed',
+	'Could not delete Warehouse' => 'Could not delete Warehouse',
+
+	/* Elementos */
+	'Elements' => 'Elementos',
+	'Element' => 'Element',
+	'Unit' => 'Unit',
+	'Line' => 'Line',
+	'Category' => 'Category',
+	'Lines' => 'Lines',
+	'Categories' => 'Categories',
+	'Element Registration' => 'Element Registration',
+	'Add Element' => 'Add Element',
+	'Update Element' => 'Update Element',
+	'Do you want to delete the following Element?' => 'Do you want to delete the following Element?',
+	'Element successfully added' => 'Element successfully added',
+	'Could not add Element' => 'Could not add Element',
+	'Element successfully updated' => 'Element successfully updated',
+	'Failed to update Element' => 'Failed to update Element',
+	'Element successfully removed' => 'Element successfully removed',
+	'Could not delete Element' => 'Could not delete Element',
+
+	
 ];

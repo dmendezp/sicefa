@@ -4,7 +4,7 @@
 <div id="content-config">
     <div class="modal-header py-2">
         <h5 class="modal-title" id="exampleModalLabel">
-            <b>Agregar Tipo de Compra</b>
+            <b>Detalles del Elemento</b>
         </h5>
     </div>
         <div class="modal-body px-4 pt-0">

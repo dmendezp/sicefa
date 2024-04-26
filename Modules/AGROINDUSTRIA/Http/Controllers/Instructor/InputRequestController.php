@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Course;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementType;
 use Modules\SICA\Entities\MovementDetail;
@@ -77,7 +78,7 @@ class InputRequestController extends Controller
             $people = [$user->person->id => $user->person->first_name . ' ' . $user->person->first_last_name . ' ' . $user->person->second_last_name];
         }
         
-        $warehouseDeliver = Warehouse::where('name', 'Externa')->get();
+        $warehouseDeliver = Warehouse::where('name', 'Almacen General')->get();
 
         $productiveUnitWarehouseReceive = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('warehouse_id');
         $warehouseReceive = Warehouse::whereIn('id', $productiveUnitWarehouseReceive)->get();

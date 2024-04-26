@@ -1,3 +1,7 @@
+@php
+    $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
+@endphp
+
 @extends('sica::layouts.master')
 
 @section('content')
@@ -9,7 +13,7 @@
                         <h3 class="card-title">Actualizar Datos Personales</h3>
                     </div>
                     <div class="card-body box-profile">
-                        {!! Form::open(['url' => route('sica.admin.people.personal_data.update', $person)]) !!}
+                        {!! Form::open(['url' => route('sica.'.$role_name.'.people.personal_data.update', $person)]) !!}
                             @method('put')
                             <div class="row">
                                 <div class="col-sm-6">
@@ -67,7 +71,6 @@
                                         {!! Form::text('second_last_name', $person->second_last_name, [
                                             'class' => 'form-control',
                                             'placeholder' => 'Ingrese su segundo apellido',
-                                            'required',
                                         ]) !!}
                                     </div>
                                 </div>
@@ -267,7 +270,9 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                {!! Form::submit('Actualizar', ['class' => 'btn btn-success']) !!}
+                                @if (Auth::user()->havePermission('sica.'.$role_name.'.people.personal_data.update'))
+                                    {!! Form::submit('Actualizar', ['class' => 'btn btn-success']) !!}
+                                @endif
                             </div>
                         {!! Form::close() !!}
                     </div>

@@ -15,8 +15,9 @@ class CreateEmployeeTypesTable extends Migration
     {
         Schema::create('employee_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->integer('price');
+            $table->integer('year');
             $table->softDeletes();
             $table->timestamps();
         });

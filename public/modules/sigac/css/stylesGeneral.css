@@ -1,7 +1,7 @@
 /* ---- Personalizacion de estilos de cada boton del sidebar ---- */
 
 .content-wrapper {
-  background-image: url('/modules/sigac/images/books.webp');
+  background-image: url('/modules/sigac/images/backgrounds/books.webp');
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -14,7 +14,7 @@
 }
 
 /* Color de los iconos, botones o links que se agreguen a la barra de navegacion superior */
-.navbar-nav .nav-item .nav-link {
+.navbar-nav  .nav-link {
   color: #0a2472a0 !important;
 }
 
@@ -88,18 +88,21 @@
 /* Estilos varios personalizados: En caso de no quererlos solo borre la clase CSS */
 
 /* Al navegar por las vistas la primera en la guia del breadcrum tendra un tono mas claro */
-.breadcrumb-item a {
-  color: #6c757d !important;
+.breadcrumb-item a{
+  color: #009afa !important;
+  text-decoration: none;
+}
+
+.breadcrumb-color{
+  color: #ffffff !important;
 }
 
 /* Tamaño del texto de la pantalla inicial */
-.hmax {
-  font-size: 35px;
-}
+
 
 /* Clase que aplica la propiedad de tamaño de la imagen que este dentro de la card de la pagina principal */
 .custom-img {
-  width: 100px !important;
+  width: 80px !important;
   height: auto !important;
 }
 
@@ -131,293 +134,23 @@
   transform: translateY(-5px);
 }
 
-/* Los siguientes estilos son lo que se aplican a los selects del llamado de asistencia, cada uno esta segun el valor del select que se tome */
-.green-background {
-  background-color: green !important;
+/* Estilos Trimestralización */
+
+.quarter {
+  background-color: #bebebea0 !important; 
 }
 
-.yellow-background {
-  background-color: yellow !important;
+/* Asegúrate de que el z-index del modal sea inferior al del select2 */
+.modal {
+  z-index: 1050; 
 }
 
-.orange-background {
-  background-color: orange !important;
+/* Ajusta el z-index del contenedor del select2 para que esté por encima del modal */
+.select2-container {
+  z-index: 1060; 
 }
 
-.red-background {
-  background-color: red !important;
-}
-
-/* CSS Styles Button select type attendance */
-/* Estilos personalizados para el boton de asistencias */
-
-/* Variables de colores inciales */
-.wrapper-custom {
-  --background: #62abff;
-  --icon-color: #414856;
-  --width: 35px;
-  --height: 35px;
-  --border-radius: var(--height);
-  width: var(--width);
-  height: var(--height);
-  position: relative;
-  border-radius: var(--border-radius);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Color y tamaño del circulo que rodea el boton "+" */
-.wrapper-custom .btn {
-  background: var(--background);
-  width: var(--width);
-  height: var(--height);
-  position: relative;
-  z-index: 2;
-  border-radius: var(--border-radius);
-  box-shadow: 0 10px 30px rgba(65, 72, 86, 0.05);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  -webkit-animation: plus-animation-reverse 0.5s ease-out forwards;
-          animation: plus-animation-reverse 0.5s ease-out forwards;
-}
-/* Ajusta el color del icono "+" y la posicion del boton */
-.wrapper-custom .btn::before, .wrapper-custom .btn::after {
-  content: "";
-  display: block;
-  position: absolute;
-  border-radius: 4px;
-  background: #fff;
-}
-/* Tamaño del boton inicial, esta ajusta la barra vertical */
-.wrapper-custom .btn::before {
-  width: 4px;
-  height: 18px;
-}
-/* Tamaño del boton inicial, esta ajusta la barra horizontal */
-.wrapper-custom .btn::after {
-  width: 18px;
-  height: 4px;
-}
-
-/* Ajusta el box donde se encuentran los elementos tooltip */
-.wrapper-custom .tooltip {
-  width: 90px;
-  height: 75px;
-  border-radius: 70px;
-  position: absolute;
-  background: #fff;
-  z-index: 2;
-  padding: 0 15px;
-  box-shadow: 0 10px 10px rgba(65, 72, 86, 0.05);
-  opacity: 0;
-  top: 0;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  transition: opacity 0.15s ease-in, top 0.15s ease-in, width 0.15s ease-in;
-}
-
-/* Tamaño de los botones del tooltip */
-.wrapper-custom .tooltip > svg {
-  width: 100%;
-  height: 20px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  cursor: pointer;
-}
-
-.wrapper-custom .tooltip > svg .icon {
-  fill: none;
-  stroke: var(--icon-color);
-  stroke-width: 2px;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  opacity: 0.4;
-  transition: opacity 0.3s ease;
-}
-.wrapper-custom .tooltip > svg:hover .icon {
-  opacity: 1;
-}
-.wrapper-custom .tooltip::after {
-  content: "";
-  width: 20px;
-  height: 20px;
-  background: #fff;
-  border-radius: 3px;
-  position: absolute;
-  left: 50%;
-  margin-left: -10px;
-  bottom: -8px;
-  transform: rotate(45deg);
-  z-index: 0;
-}
-.wrapper-custom > svg {
-  width: 300px;
-  height: 300px;
-  position: absolute;
-  z-index: 1;
-  transform: scale(0);
-}
-
-.wrapper-custom input {
-  height: 100%;
-  width: 100%;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  position: absolute;
-  z-index: 5;
-  opacity: 0;
-}
-
-.wrapper-custom input:checked ~ .btn {
-  -webkit-animation: plus-animation 0.5s ease-out forwards;
-          animation: plus-animation 0.5s ease-out forwards;
-}
-.wrapper-custom input:checked ~ .tooltip {
-  width: 190px;
-  height: 70px;
-  -webkit-animation: stretch-animation 1s ease-out forwards 0.15s;
-          animation: stretch-animation 1s ease-out forwards 0.15s;
-  top: -90px;
-  opacity: 1;
-}
-
-/* Animaciones del del boton de asistencia */
-@-webkit-keyframes pang-animation {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  40% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1.1);
-    opacity: 0;
-  }
-}
-
-@keyframes pang-animation {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  40% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1.1);
-    opacity: 0;
-  }
-}
-@-webkit-keyframes plus-animation {
-  0% {
-    transform: rotate(0) scale(1);
-  }
-  20% {
-    transform: rotate(60deg) scale(0.93);
-  }
-  55% {
-    transform: rotate(35deg) scale(0.97);
-  }
-  80% {
-    transform: rotate(48deg) scale(0.94);
-  }
-  100% {
-    transform: rotate(45deg) scale(0.95);
-  }
-}
-@keyframes plus-animation {
-  0% {
-    transform: rotate(0) scale(1);
-  }
-  20% {
-    transform: rotate(60deg) scale(0.93);
-  }
-  55% {
-    transform: rotate(35deg) scale(0.97);
-  }
-  80% {
-    transform: rotate(48deg) scale(0.94);
-  }
-  100% {
-    transform: rotate(45deg) scale(0.95);
-  }
-}
-@-webkit-keyframes plus-animation-reverse {
-  0% {
-    transform: rotate(45deg) scale(0.95);
-  }
-  20% {
-    transform: rotate(-15deg);
-  }
-  55% {
-    transform: rotate(10deg);
-  }
-  80% {
-    transform: rotate(-3deg);
-  }
-  100% {
-    transform: rotate(0) scale(1);
-  }
-}
-@keyframes plus-animation-reverse {
-  0% {
-    transform: rotate(45deg) scale(0.95);
-  }
-  20% {
-    transform: rotate(-15deg);
-  }
-  55% {
-    transform: rotate(10deg);
-  }
-  80% {
-    transform: rotate(-3deg);
-  }
-  100% {
-    transform: rotate(0) scale(1);
-  }
-}
-@-webkit-keyframes stretch-animation {
-  0% {
-    transform: scale(1, 1);
-  }
-  10% {
-    transform: scale(1.1, 0.9);
-  }
-  30% {
-    transform: scale(0.9, 1.1);
-  }
-  50% {
-    transform: scale(1.05, 0.95);
-  }
-  100% {
-    transform: scale(1, 1);
-  }
-}
-@keyframes stretch-animation {
-  0% {
-    transform: scale(1, 1);
-  }
-  10% {
-    transform: scale(1.1, 0.9);
-  }
-  30% {
-    transform: scale(0.9, 1.1);
-  }
-  50% {
-    transform: scale(1.05, 0.95);
-  }
-  100% {
-    transform: scale(1, 1);
-  }
-}
-
-p {
-  font-size: 90%;
+/* Ajustar posicion z-index de los select2 */
+.select2  {
+  z-index: 1030 !important;
 }
