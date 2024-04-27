@@ -118,11 +118,6 @@ class InputRequestController extends Controller
         });
         return response()->json(['id' => $element]);
     }
-
-    public function amount($id){
-        $inventory = Inventory::where('element_id', $id)->get();
-        return response()->json(['inventory' => $inventory]);
-    }
  
     public function create(Request $request){  
         $idPersona = null;

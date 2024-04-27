@@ -27,43 +27,41 @@
         </script>
     @endif
 
-<div class="container" style="margin-left: 20px">
-    <div class="row">
-        <div class="col-md-12">
-            <h1 class="mb-4">{{ trans('agrocefa::parameters.Parameters') }}</h1>
+    <div class="container" style="margin-left: 20px">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="mb-4">{{ trans('agrocefa::parameters.Parameters') }}</h1>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        {{-- Columna 1 --}}
-        <div class="col-md-6">
-            @include('agrocefa::parameters.activity')
-            @include('agrocefa::parameters.specie')
+        <div class="row">
+            {{-- Columna 1 --}}
+            <div class="col-md-6">
+                @include('agrocefa::parameters.activity')
+                @include('agrocefa::parameters.specie')
+            </div>
+            {{-- Columna 2 --}}
+            <div class="col-md-6">
+                @include('agrocefa::parameters.variety')
+                <br>
+                @include('agrocefa::parameters.employeetype')
+                <br>
+                <br>
+            </div>
         </div>
-
-
-        {{-- Columna 2 --}}
-        <div class="col-md-6">
-            @include('agrocefa::parameters.variety')
-            <br>
-            @include('agrocefa::parameters.employeetype')
-            <br>
-
-            
         <br>
+        <br>
+        <div class="row">
+            @include('agrocefa::parameters.crop')
+        </div>
     </div>
-</div>
-<br>
-<br>
-<br>
-
-<div class="row">
-    @include('agrocefa::parameters.crop')
-</div>
-<br>
-
-
-
-
-
-
+    <br>
 @endsection
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#activity').DataTable({
+        });
+    });
+</script>

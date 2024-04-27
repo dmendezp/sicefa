@@ -10,9 +10,9 @@
     "AGROCEFA": true,
     "PTVENTA": true,
     "SIGAC": true,
+    "CAFETO": false,
+    "HANGARAUTO": false,
     "GTH": true,
-    "HDC": true,
-    "CAFETO": true
+    "HDC": true
 }
-
 

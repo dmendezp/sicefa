@@ -5,7 +5,7 @@
   <div class="form">
     <div class="form-header">{{trans('agroindustria::deliveries.Exit from Cellar')}}</div>
     <div class="form-body">
-      {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.movements.out')]) !!}
+      {!! Form::open(['method' => 'post', 'url' => route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.movements.out')]) !!}
       <div class="row">
         <div class="col-md-6">
           {!! Form::label('productive_unit', trans('agroindustria::deliveries.Productive Unit delivering')) !!}
@@ -70,7 +70,7 @@
                 <div class="form-group">
                   <span class="quantity"></span>
                   {!! Form::label('amount' , trans('agroindustria::deliveries.Amount')) !!}
-                  {!! Form::number('amount[]', null, ['class' => 'form-control', 'id' => 'amount',  'step' => '0.01']) !!}
+                  {!! Form::number('amount[]', null, ['class' => 'form-control', 'id' => 'amount', 'step' => '0.01']) !!}
                   @error('amount')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -109,7 +109,7 @@
   $(document).ready(function() {
     // Agregar un nuevo campo de producto
     $("#add-element").click(function() {
-        var newProduct = '<div class="elements"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::deliveries.Element")) !!} {!! Form::select("element[]", $elements, null, ["readonly" => "readonly", "class" => "elementInventory", "style" => "width:200px"]) !!}</div> <div class="form-group"><span class="quantity"></span>{!! Form::label("amount" , trans("agroindustria::deliveries.Amount")) !!} {!! Form::number("amount[]", NULL, ["class" => "form-control", "id" => "amount"]) !!}</div>  <div class="form-group">{!! Form::label("price" , trans("agroindustria::deliveries.Price")) !!} {!! Form::number("price[]", null, ["class" => "form-control", "id" => "price", "readonly" => "readonly"]) !!}</div><div class="form-group-equipments">{!! Form::label("subtotal", "Total") !!}{!! Form::number("subtotal", null, ["class"=>"form-control", "id" => "subtotal", "readonly" => "readonly"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::deliveries.Delete")}}</button></div>';
+        var newProduct = '<div class="elements"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::deliveries.Element")) !!} {!! Form::select("element[]", $elements, null, ["readonly" => "readonly", "class" => "elementInventory", "style" => "width:200px"]) !!}</div> <div class="form-group"><span class="quantity"></span>{!! Form::label("amount" , trans("agroindustria::deliveries.Amount")) !!} {!! Form::number("amount[]", NULL, ["class" => "form-control", "id" => "amount", "step" => "0.01"]) !!}</div>  <div class="form-group">{!! Form::label("price" , trans("agroindustria::deliveries.Price")) !!} {!! Form::number("price[]", null, ["class" => "form-control", "id" => "price", "readonly" => "readonly"]) !!}</div><div class="form-group-equipments">{!! Form::label("subtotal", "Total") !!}{!! Form::number("subtotal", null, ["class"=>"form-control", "id" => "subtotal", "readonly" => "readonly"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::deliveries.Delete")}}</button></div>';
 
         // Agregar el nuevo campo al DOM
         $("#products").append(newProduct);
@@ -135,7 +135,7 @@
 
         // Realizar una petición AJAX para obtener la cantidad disponible
         if (elementoSeleccionado) {
-          var url = {!! json_encode(route('cefa.agroindustria.units.instructor.movements.id', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString());
+          var url = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.movements.id', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString());
           console.log(url);
             $.ajax({
                 url: url,
@@ -245,7 +245,7 @@ $(document).ready(function() {
     $('#receiveUnit-selected').on('change', function() {
         var selectedReceiver = $(this).val();
 
-        var url = {!! json_encode(route('cefa.agroindustria.units.instructor.movements.warehouse', ['id' => ':id'])) !!}.replace(':id', selectedReceiver.toString());
+        var url = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.movements.warehouse', ['id' => ':id'])) !!}.replace(':id', selectedReceiver.toString());
 
         // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
         $.ajax({
