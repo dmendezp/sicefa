@@ -13,6 +13,7 @@ return [
     'carbonfootprint' => 'Huella De Carbono',
     'login' => 'Iniciar Sesion',
     'BacktoSICEFA' => 'Volver A SICEFA',
+    'Parameters' => 'Parametros',
     'RegisterConsumption' => 'Registro de Consumo',
     'consumptionconsultation' => 'Consulta de Consumo',
     'instructions' => 'Instrucciones',

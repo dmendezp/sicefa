@@ -37,4 +37,7 @@ return [
     'th2' => 'Activity',
     'th3' => 'Environmental Aspect',
     'th4' => 'Actions',
+
+    // Preguntas Alertas
+    'pregunt1' => '¿You Are Sure?',
 ];
