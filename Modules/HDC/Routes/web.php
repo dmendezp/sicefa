@@ -22,11 +22,8 @@ Route::middleware(['lang'])->group(function () {
             Route::get('/index', 'index')->name('cefa.hdc.index');
             Route::get('admin/index', 'index')->name('hdc.admin.index'); // Ruta pagina principal del administrador
             Route::get('charge/index', 'index')->name('hdc.charge.index'); // Ruta pagina principal del Encargado
-
-
-
-
         });
+
         Route::controller(CarbonfootprintreportController::class)->group(function () {
             Route::get('/admin/generate/report', 'generateReport')->name('hdc.admin.generate.report');
             Route::get('/charge/generate/report', 'generateReport')->name('hdc.charge.generate.report');
@@ -112,6 +109,23 @@ Route::middleware(['lang'])->group(function () {
 
         Route::controller(DeveloperController::class)->group(function () {
             Route::get('/developer', 'developer')->name('cefa.hdc.developers');
+        });
+
+        Route::controller(ParameterController::class)->group(function () {
+            Route::get('/admin/parameters', 'parameters')->name('hdc.admin.parameter');
+            Route::get('/charge/parameters', 'parameters')->name('hdc.charge.parameter');
+            Route::post('/admin/parameters/resource/store', 'resource_store')->name('hdc.admin.parameters.resource.store');
+            Route::post('/admin/parameters/resource/update', 'resource_update')->name('hdc.admin.parameters.resource.update');
+            Route::delete("/admin/parameters/resource/destroy/{id}", 'resource_destroy')->name('hdc.admin.parameters.resource.destroy');
+            Route::post('/charge/parameters/resource/store', 'resource_store')->name('hdc.charge.parameters.resource.store');
+            Route::post('/charge/parameters/resource/update', 'resource_update')->name('hdc.charge.parameters.resource.update');
+            Route::delete("/charge/parameters/resource/destroy/{id}", 'resource_destroy')->name('hdc.charge.parameters.resource.destroy');
+            Route::post('/admin/parameters/environmental_aspect/store', 'enviromental_aspect_store')->name('hdc.admin.parameters.environment_aspects.store');
+            Route::post('/admin/parameters/environmental_aspect/update', 'enviromental_aspect_update')->name('hdc.admin.parameters.environment_aspects.update');
+            Route::delete("/admin/parameters/environmental_aspect/destroy/{id}", 'enviromental_aspect_destroy')->name('hdc.admin.parameters.environment_aspects.destroy');
+            Route::post('/charge/parameters/environmental_aspect/store', 'enviromental_aspect_store')->name('hdc.charge.parameters.environment_aspects.store');
+            Route::post('/charge/parameters/environmental_aspect/update', 'enviromental_aspect_update')->name('hdc.charge.parameters.environment_aspects.update');
+            Route::delete('/charge/parameters/environmental_aspect/destroy/{id}', 'enviromental_aspect_destroy')->name('hdc.charge.parameters.environment_aspects.destroy');
         });
     });
 });
