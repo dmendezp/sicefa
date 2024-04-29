@@ -56,6 +56,7 @@ class OfficialController extends Controller
     {
   // Validar los datos del formulario
         $validatedData = $request->validate([
+            'contract_number' => 'required',
             'person_id' => 'required|string',
             'contract_date' => 'required|date',
             'professional_card_number' => 'required|string',
@@ -86,6 +87,7 @@ class OfficialController extends Controller
     {
         // Valida los datos del formulario
         $validatedData = $request->validate([
+            'contract_number' => 'required',
             'document_number' => 'required|string',
             'contract_date' => 'required|date',
             'professional_card_number' => 'required|string',
@@ -113,6 +115,7 @@ class OfficialController extends Controller
         // Actualiza los datos del empleado
         $employee->update([
             'person_id' => $person->id,
+            'contract_number' => $validatedData['contract_number'],
             'contract_date' => $validatedData['contract_date'],
             'professional_card_number' => $validatedData['professional_card_number'],
             'professional_card_issue_date' => $validatedData['professional_card_issue_date'],

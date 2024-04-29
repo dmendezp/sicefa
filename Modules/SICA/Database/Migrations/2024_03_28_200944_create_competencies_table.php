@@ -19,7 +19,7 @@ class CreateCompetenciesTable extends Migration
             $table->string('name');
             $table->integer('hour');
             $table->enum('type', ['Técnico', 'Transversal', 'Bilingüismo']);
-            $table->string('code')->unique();
+            $table->string('code');
             $table->softDeletes();
             $table->timestamps();
         });
