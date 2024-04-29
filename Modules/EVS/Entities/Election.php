@@ -4,9 +4,11 @@ namespace Modules\EVS\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Election extends Model
+class Election extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     use SoftDeletes;
     protected $fillable = ['name','start_date','end_date','status'];
     protected $dates = ['deleted_at'];

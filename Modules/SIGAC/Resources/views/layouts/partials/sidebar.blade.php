@@ -232,19 +232,19 @@
                                 <li class="nav-item">
                                     <a href="{{ route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-tags"></i>
-                                        <p>Co x Profesión</p>
+                                        <p>Profesión x Co</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.learning_class.index') }}" class="nav-link">
+                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.competencie_class.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-square-poll-vertical"></i>
-                                        <p>R.A x Ambiente</p>
+                                        <p>Ambiente x Co</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index')}}" class="nav-link">
                                         <i class="nav-icon fas fa-user-plus"></i>
-                                        <p>{{trans('sigac::learning_out_come.AssignLearning')}}</p>
+                                        <p>Instructor x Rap</p>
                                     </a>
                                 </li>     
                                 <li class="nav-item">
@@ -257,6 +257,12 @@
                                     <a href="{{ route('sigac.academic_coordination.curriculum_planning.training_project.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-users-cog"></i>
                                         <p>Proyecto formativo</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.evaluative_judgment.index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-address-card"></i>
+                                        <p>Juicio Evaluativo</p>
                                     </a>
                                 </li>
                             </ul>
@@ -286,6 +292,23 @@
                                 </li>
                                 
     
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Reportes
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items">
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.academic_coordination.reports.quartelies.index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice"></i>
+                                        <p>Trimestralización</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     @endif
@@ -323,7 +346,7 @@
                             <ul class="nav nav-treeview items" style="display: none;">
                                 @if (Auth::user()->havePermission('sigac.instructor.attendance.register'))
                                     <li class="nav-item">
-                                        <a href="{{ route('sigac.instructor.attendance.register') }}"
+                                        <a href="{{ route('sigac.instructor.attendances.attendance.index') }}"
                                             class="nav-link {{ !Route::is('sigac.instructor.attendance.register*') ?: 'active' }}">
                                             <i class="nav-icon fas fa-user-check"></i>
                                             <p>{{ trans('sigac::general.AttendanceRegister') }}</p>
