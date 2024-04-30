@@ -494,17 +494,10 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_charge[] = $permission->id; // Almacenar permiso para rol
 
-
-
-
-
-
         $rol_admin = Role::where('slug', 'hdc.admin')->first();
         $rol_charge = Role::where('slug', 'hdc.charge')->first();
 
         $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
-        $rol_admin->permissions()->syncWithoutDetaching($permissions_userHDC);
         $rol_charge->permissions()->syncWithoutDetaching($permissions_charge);
-        $rol_charge->permissions()->syncWithoutDetaching($permissions_userHDC);
     }
 }

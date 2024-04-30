@@ -456,7 +456,7 @@ class LaborManagementController extends Controller
             $elementId = $request->input('element');
 
             // Realiza la lógica para obtener los datos del elemento en una sola consulta
-            $dataelement = Inventory::where('element_id', $elementId)->first();
+            $dataelement = Inventory::where('element_id', $elementId)->where('amount','>',0)->first();
 
             if ($dataelement) {
                 $measurement_unit = $dataelement->element->measurement_unit->conversion_factor;

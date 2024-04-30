@@ -18,8 +18,8 @@ class HDCDatabaseSeeder extends Seeder
     {
        DB::beginTransaction(); // Iniciar Transaccion
        $this->call(AppTableSeeder::class); // Ejecutar Seeder de aplicacion
-       $this->call(PeopleTableSeeder::class); // Ejecutar Seeder de personas
-       $this->call(UsersTableSeeder::class); // Ejecutar Seeder de usuarios
+       /* $this->call(PeopleTableSeeder::class); // Ejecutar Seeder de personas */
+      /*  $this->call(UsersTableSeeder::class); // Ejecutar Seeder de usuarios */
        $this->call(RolesTableSeeder::class); // Ejecutar Seeder de roles de usuario
        $this->call(PermissionsTableSeeder::class); // Ejecutar Seeder de permisos para roles 
 

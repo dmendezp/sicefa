@@ -19,7 +19,7 @@
                     <table class="table table-bordered table-hover" id="myTable">
                         <thead class="table-dark">
                             <tr>
-                                <th>ID</th>
+                                <th>#</th>
                                 <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_productive_unit')}}</th>
                                 <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Activities')}}</th>
                                 <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Date')}}</th>
