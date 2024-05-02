@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\EPS;
+use Modules\SICA\Entities\PensionEntity;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementDetail;
@@ -380,6 +381,7 @@ class GenerateSale extends Component
             'first_last_name' => $validatedData['person_first_last_name'],
             'second_last_name' => $validatedData['person_second_last_name'],
             'eps_id' => EPS::firstOrCreate(['name'=>'NO REGISTRA'])->id, // Consulta o registro de EPS
+            'pension_entity_id' => PensionEntity::firstOrCreate(['name'=>'NO REGISTRA'])->id, // Consulta o registro de Entidad Pension
             'population_group_id' => PopulationGroup::firstOrCreate(['name'=>'NINGUNA'])->id // Consulta o registro de grupo poblacional
         ]);
 

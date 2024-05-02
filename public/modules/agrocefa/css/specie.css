@@ -1,0 +1,182 @@
+body {
+    font-family: Arial, sans-serif;
+}
+#titulo {
+    background-color: #695CFE;    
+    color: white;
+    padding: 20px;
+    margin: 0;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    text-align: center;
+}
+
+.edit_title{
+    background-color: #695CFE;    
+    color: white;
+    padding: 20px;
+    margin: 0;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+table {
+    top: auto;
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+td a {
+    text-decoration: none;
+    color: #333;
+}
+td a:hover {
+    color: #ff6347;
+}
+.edit-icon, .delete-icon {
+    font-size: 18px;
+    margin: 0 5px;
+}
+
+#edit {
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add {
+    background-color: #20D414;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    margin: 25px 0 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    float: left;
+    margin-left: 85%;
+}
+
+.add i {
+    margin-right: 5px; /* Ajusta el espacio entre el ícono y el texto */
+}
+
+.back {
+    background-color: #695CFE;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-right: 93%;
+}
+
+#delete {
+    margin-left: 5px;
+}
+
+.custom-icon {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+/* Aplicar diferentes colores a los íconos */
+.edit .custom-icon {
+    color: #030303; /* Color para el ícono de edición */
+}
+
+.delete .custom-icon {
+    color: #28a745; /* Color para el ícono de eliminación */
+}
+
+.add:hover {
+    background-color: #207c0e;
+}
+
+.back:hover {
+    background-color: #4e41e0;
+}
+
+.edit:hover {
+    background-color: #0e74a3;
+}
+
+.delete:hover {
+    background-color: #c01010;
+    color: white;
+}
+
+/*ESTILOS FORMULARIO DE EDICION*/
+
+.form-container {
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button.act {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button.act{
+    background-color: #20D414;
+}
+
+button.act:hover {
+    background-color: #207c0e;
+}
+
+.button-group {
+    display: flex;
+    align-items: center;
+    
+}
+
+/* Estilos generales para el contenedor */
+.content_species {
+    background-color: #ffff;
+    padding: 5%;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display:inline-block;
+}
+

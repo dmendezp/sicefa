@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-md-6">
                             {!! Form::label('element_id', trans('agroindustria::formulations.Product Name')) !!}
-                            {!! Form::select('element_id', $elements, isset($registros) ? $registros->element_id : null, ['id' => 'element_id', 'class' => 'form-control']) !!}
+                            {!! Form::select('element_id', [], isset($registros) ? $registros->element_id : null, ['id' => 'element_id', 'class' => 'form-control']) !!}
                             @error('element_id')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
@@ -136,7 +136,7 @@
                                         </div>
                                         <div class="form-group">
                                             {!! Form::label('amount' , trans('agroindustria::menu.Amount')) !!}
-                                            {!! Form::number('amount_utencils[]', null, ['class'=>'form-control', 'id' => 'amount']) !!}
+                                            {!! Form::number('amount_utencils[]', null, ['class'=>'form-control', 'id' => 'amount' , 'required']) !!}
                                             @error('amount')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -154,6 +154,39 @@
     </div>
 </div>
 </div>
+<script>
+    $(document).ready(function() {
+     var baseUrl = '{{ route("agroindustria.instructor.units.formulations.elements") }}';
+          console.log(baseUrl);
+          $('select[name="element_id"]').select2({
+                        placeholder: 'Seleccione un elemento',
+                        minimumInputLength: 3,
+                        ajax: {
+                            url: baseUrl,
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    element_id: params.term,
+                                };
+                            },
+                            processResults: function(data) {
+                                var results = data.map(function(item) {
+                                    return {
+                                        id: item.id,
+                                        text: item.name
+                                    };
+                                });
+
+                                return {
+                                    results: results
+                                };
+                            },
+                            cache: true
+                        }
+                    });
+    });
+</script>
 <script>
     $(document).ready(function() {
         // Aplicar Select2 al campo de selección con el id 'receive_warehouse'
@@ -188,7 +221,8 @@
     
         // Agregar un nuevo campo de producto
         $("#add-utencils-formulation").click(function() {
-            var newProduct = '<div class="utencil"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::menu.Element")) !!} {!! Form::select("element_utencils[]", $utencils, null, ["class" => "utencil-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount_utencils[]", NULL, ["class"=>"form-control", "id" => "amount"]) !!}</div> <button type="button" class="remove-utencils">{{trans("agroindustria::deliveries.Delete")}}</button></div>';
+            var newProduct = '<div class="utencil"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::menu.Element")) !!}{!! Form::select("element_utencils[]", $utencils, null, ["class" => "utencil-select", "required"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!}{!! Form::number("amount_utencils[]", NULL, ["class"=>"form-control", "id" => "amount", "required"]) !!}</div> <button type="button" class="remove-utencils">{{trans("agroindustria::deliveries.Delete")}}</button></div>';
+
     
             // Agregar el nuevo campo al DOM
             $("#utencils").append(newProduct);

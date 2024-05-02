@@ -67,6 +67,7 @@ class CashController extends Controller
 
             $cashCount->save();
 
+            /* Abrir caja automaticamente deshabilitado
             $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
             CashCount::create([
                 'person_id' => Auth::user()->person_id,
@@ -78,6 +79,7 @@ class CashController extends Controller
                 'total_sales' => null,
                 'state' => 'Abierta',
             ]);
+            */
 
             DB::commit(); // Confirmar cambios realizados durante la transacción
 

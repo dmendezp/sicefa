@@ -17,11 +17,10 @@ class AGROINDUSTRIADatabaseSeeder extends Seeder
     {
         DB::beginTransaction(); // Iniciar transacción
         $this->call(AppTableSeeder::class); // Ejecutar Seeder de aplicación
-        $this->call(UsersTableSeeder::class); // Ejecutar Seeder de usuarios
+        $this->call(UsersTableSeeder::class); // Ejecutar Seeder de Usuarios
         $this->call(RolesTableSeeder::class); // Ejecutar Seeder de roles
         $this->call(PermissionsTableSeeder::class); // Ejecutar Seeder de permisos
         $this->call(WarehousesTableSeeder::class); // Ejecutar Seeder de Bodega relacionada a las unidades productivas
-        $this->call(ProductiveUnitWarehouseEntranceTableSeeder::class); // Ejecutar Seeder de bodega con unidad productiva para hacer el movimiento de entrada
         $this->call(CategoriesTableSeeder::class); // Ejecutar Seeder de Categorias
 
         DB::commit(); // Finalizar transacción

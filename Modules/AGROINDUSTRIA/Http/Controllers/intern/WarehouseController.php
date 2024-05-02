@@ -300,9 +300,9 @@ class WarehouseController extends Controller
         ];
 
         $messages = [
-            'observation.required' => trans('agroindustria::menu.Required field'),
-            'element.required' => trans('agroindustria::menu.You must select an item'),
-            'amount.required' => trans('agroindustria::menu.You must enter an amount')
+            'observation.required' => trans('agroindustria::deliveries.Required field'),
+            'element.required' => trans('agroindustria::deliveries.You must select an item'),
+            'amount.required' => trans('agroindustria::deliveries.You must enter an amount')
         ];
         $validatedData = $request->validate($rules, $messages);
         //Se trae el id de la persona logueada para registrar el responsable

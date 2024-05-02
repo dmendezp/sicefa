@@ -45,7 +45,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Dar baja a un producto (Administrador)
-        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.remove'], [
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.units.remove.create'], [
             'name' => 'Dar baja a un insumo',
             'description' => 'Puede dar de baja a insumos de la bodega de AGROINDUSTRIA',
             'description_english' => 'You can cancel inputs from the AGROINDUSTRIA warehouse',
@@ -79,6 +79,16 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Formulario para registrar la labor',
             'description' => 'Puede abrir el formulario para registrar todos los elementos y personal involucrado en la labor (Administrador)',
             'description_english' => 'You can open the form to register all the elements and personnel involved in the work',
+            'app_id' => $app->id
+        ]);
+
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        //Buscar el elemento a crear por el nombre (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.units.labor.form.elements'], [
+            'name' => 'Buscar elemento a crear por el nombre',
+            'description' => 'Puede buscar el elemento a crear por el nombre (Administrador)',
+            'description_english' => 'You can search for the item to be created by name',
             'app_id' => $app->id
         ]);
 
@@ -454,6 +464,16 @@ class PermissionsTableSeeder extends Seeder
 
         $permission_instructor[] = $permission->id; // Almacenar permiso para rol
 
+        //Buscar el elemento a crear por el nombre (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.labor.form.elements'], [
+            'name' => 'Buscar elemento a crear por el nombre',
+            'description' => 'Puede buscar el elemento a crear por el nombre (Instructor)',
+            'description_english' => 'You can search for the item to be created by name',
+            'app_id' => $app->id
+        ]);
+
+        $permission_instructor[] = $permission->id; // Almacenar permiso para rol
+
         //Buscar el responsable de la actividad (Instructor)
         $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.labor.responsibilities'], [
             'name' => 'Buscar el responsable de la actividad',
@@ -733,6 +753,17 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         $permission_instructor[] = $permission->id;
+
+        //Buscar el elemento a crear por el nombre (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.formulations.elements'], [
+            'name' => 'Buscar elemento a crear por el nombre',
+            'description' => 'Puede buscar el elemento a crear por el nombre (Instructor)',
+            'description_english' => 'You can search for the item to be created by name',
+            'app_id' => $app->id
+        ]);
+
+        $permission_instructor[] = $permission->id; // Almacenar permiso para rol
+        
 
         //Detalles formulacion
         $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.formulations.details'], [
