@@ -12,4 +12,5 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-/Modules/SIGAC
+composer.lock
+composer.json

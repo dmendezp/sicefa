@@ -11,7 +11,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <div class="btns">
-                            <a href="{{ route('sica.admin.security.users.create') }}" class="btn btn-primary ">
+                            <a href="{{ route('sica.admin.security.users.create') }}" class="btn btn-success ">
                                 <i class="fas fa-user-plus"></i> Registrar Usuario
                             </a>
                         </div>
@@ -45,7 +45,7 @@
                                             <td class="text-center">
                                                 <div class="opts">
                                                     <a href="{{ route('sica.admin.security.users.edit', $u) }}" class="mr-1" data-toggle='tooltip' data-placement="top" title="Actualizar usuario">
-                                                        <i class="fas fa-edit text-success"></i>
+                                                        <i class="fas fa-edit text-primary"></i>
                                                     </a>
                                                     <a href="#" onclick="event.preventDefault(); if(confirm('¿Estás seguro de que deseas eliminar el usuario {{ $u->nickname }} de {{ $u->person->full_name }}?')) { document.getElementById('delete-form-user{{ $u->id }}').submit(); }" data-toggle='tooltip' data-placement="top" title="Eliminar usuario">
                                                         <i class="fas fa-trash-alt text-danger"></i>

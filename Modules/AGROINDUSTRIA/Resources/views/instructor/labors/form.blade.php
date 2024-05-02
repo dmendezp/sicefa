@@ -26,7 +26,7 @@
                         @if($registros->activity->activity_type->id == 1 && $registros->destination == 'Producción')
                         <div class="col-md-6" id="recipe-field" style="display: none;">
                             {!! Form::label('recipe', trans('agroindustria::labors.recipes')) !!}
-                            {!! Form::select('recipe', $recipe, isset($registros) ? $registros->productions->first()->element->id : old('recipe'), ['class' => 'form-control', 'id' => 'recipe-select']) !!}
+                            {!! Form::select('recipe', [], isset($registros) ? $registros->productions->first()->element->id : old('recipe'), ['class' => 'form-control', 'id' => 'recipe-select']) !!}
                             @error('recipe')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -35,7 +35,7 @@
                         @else
                         <div class="col-md-6" id="recipe-field" style="display: none;">
                             {!! Form::label('recipe', trans('agroindustria::labors.recipes')) !!}
-                            {!! Form::select('recipe', $recipe, isset($registros) ? $registros->productions->first()->element->id : old('recipe'), ['class' => 'form-control', 'id' => 'recipe-select']) !!}
+                            {!! Form::select('recipe', [], isset($registros) ? $registros->productions->first()->element->id : old('recipe'), ['class' => 'form-control', 'id' => 'recipe-select']) !!}
                             @error('recipe')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -476,6 +476,39 @@
 
 @section('script')
 @endsection
+
+<script>
+    $(document).ready(function() {
+     var baseUrl = '{{ route("agroindustria.instructor.units.labor.form.elements") }}';
+          $('select[name="recipe"]').select2({
+            placeholder: '----------------------Seleccione un elemento----------------------                        ',
+            minimumInputLength: 3,
+            ajax: {
+                url: baseUrl,
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        element_id: params.term,
+                    };
+                },
+                processResults: function(data) {
+                    var results = data.map(function(item) {
+                        return {
+                            id: item.id,
+                            text: item.name
+                        };
+                    });
+
+                    return {
+                        results: results
+                    };
+                },
+                cache: true
+            }
+        });
+    });
+</script>
 
 <script>
     $(document).ready(function () {
@@ -1334,19 +1367,17 @@
             $('#activity-selected').on('change', function () {
                 var selectedActivity = $(this).val();
                 var url = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.responsibilities', ['activityId' => ':activityId'])) !!}.replace(':activityId', selectedActivity.toString());
-                console.log(url);
-
                 $.ajax({
                 url: url,
                 type: 'GET',
                 success: function(response) {
                     var personId = response.id[0].id;
                     var personName = response.id[0].name;
-                    
+
                     // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
                     $('#responsible').val(personName);
                     $('#responsibleId').val(personId);
-
+                    
                     // Añade aquí el código para consultar el tipo de actividad
                     var activityType = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.type', ['type' => ':type'])) !!}.replace(':type', selectedActivity.toString());
                     $.ajax({
@@ -1354,6 +1385,7 @@
                         type: 'GET',
                         success: function(typeResponse) {
                             if (typeResponse.type.length > 0) {
+                               
                                 $('#total-labor').removeClass('col-md-6').addClass('col-md-12');
                                 $('#recipe-field').show();
                                 $('#date-expiration-field').show();

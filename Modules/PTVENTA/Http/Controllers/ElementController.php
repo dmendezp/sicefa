@@ -11,7 +11,6 @@ use Modules\SICA\Entities\MeasurementUnit;
 use Modules\SICA\Entities\KindOfPurchase;
 use Illuminate\Support\Facades\Validator;
 
-
 class ElementController extends Controller
 {
     public function index(){ // Vista de galería de imágenes

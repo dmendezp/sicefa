@@ -64,19 +64,6 @@ class FormulationController extends Controller
             $idPersona = $user->person->id;
             $name = $user->person->first_name . ' ' . $user->person->first_last_name . ' ' . $user->person->second_last_name;
         }
-
-        $categoryProduct = Category::where('name', 'Productos')->pluck('id');
-        $elements = Element::where('category_id', $categoryProduct)->get();
-
-        $product = $elements->map(function ($e){
-            $id = $e->id;
-            $name = $e->name;
-
-            return [
-                'id' => $id,
-                'name' => $name
-            ];
-        })->prepend(['id' => null, 'name' => 'Seleccione un Producto'])->pluck('name', 'id');
         
         $categoryGroceries = Category::where('name', 'Abarrotes')->pluck('id');
         $additives = Category::where('name', 'Aditivos')->pluck('id');
@@ -114,7 +101,6 @@ class FormulationController extends Controller
             'title' => $title,
             'person' => $name,
             'productiveUnits' => $unitName,
-            'elements' => $product,
             'ingredients' => $ingredient,
             'utencils' => $utencil,
             'registros' => $registros
@@ -122,6 +108,22 @@ class FormulationController extends Controller
 
         return view('agroindustria::instructor.formulations.form', $data);  
 
+    }
+
+    public function searchElement(Request $request)
+    {
+        $term = $request->input('element_id');
+
+        $elements = Element::whereRaw("name LIKE ?", ['%' . $term . '%'])->get();
+        $results = [];
+        foreach ($elements as $element) {
+            $results[] = [
+                'id' => $element->id,
+                'name' => $element->name,
+            ];
+        }
+
+        return response()->json($results);
     }
 
     public function create(Request $request){  

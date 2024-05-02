@@ -4,6 +4,8 @@ namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\HDC\Entities\EnvironmentalAspect;
+use Modules\HDC\Entities\ProductiveUnitResource;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class Resource extends Model implements Auditable

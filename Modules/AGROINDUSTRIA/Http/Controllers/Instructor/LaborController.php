@@ -78,19 +78,6 @@ class LaborController extends Controller
             'Producción' => 'Producción'
         ];
 
-        $product = Category::where('name', 'Productos')->pluck('id');
-       
-        $elementProduct = Element::where('category_id', $product)->get();
-        $recipe = $elementProduct->map(function ($f){
-            $id = $f->id;
-            $name = $f->name;
-            
-            return [
-                'id' => $id,
-                'name' => $name
-            ];
-        })->prepend(['id' => null, 'name' => trans('agroindustria::labors.selectRecipe')])->pluck('name', 'id');
-
         $employee = EmployeeType::get();
         $nameEmployee = $employee->map(function ($e){
             $id = $e->id;
@@ -164,7 +151,6 @@ class LaborController extends Controller
         $data = [
             'title' => $title,
             'activity' => $activity,
-            'recipe' => $recipe,
             'destination' => $destination,
             'employee' => $nameEmployee,
             'tool' => $tool,
@@ -173,6 +159,22 @@ class LaborController extends Controller
             'registros' => $registros
         ];
         return view('agroindustria::instructor.labors.form', $data);
+    }
+
+    public function searchProduct(Request $request)
+    {
+        $term = $request->input('element_id');
+
+        $elements = Element::whereRaw("name LIKE ?", ['%' . $term . '%'])->get();
+        $results = [];
+        foreach ($elements as $element) {
+            $results[] = [
+                'id' => $element->id,
+                'name' => $element->name,
+            ];
+        }
+
+        return response()->json($results);
     }
 
     public function responsibilites ($activityId){

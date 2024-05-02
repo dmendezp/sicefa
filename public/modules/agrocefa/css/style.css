@@ -1,0 +1,296 @@
+
+@font-face {
+    font-family: 'OswaldRegular';
+    src: url('/fonts/oswald-regular.eot');
+    src: url('/fonts/oswald-regular.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/oswald-regular.woff2') format('woff2'),
+         url('/fonts/oswald-regular.woff') format('woff'),
+         url('/fonts/oswald-regular.ttf') format('truetype'),
+         url('/fonts/oswald-regular.svg#oswaldregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'RobotoCondensedRegular';
+    src: url('/fonts/robotocondensed-regular.eot');
+    src: url('/fonts/robotocondensed-regular.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/robotocondensed-regular.woff2') format('woff2'),
+         url('/fonts/robotocondensed-regular.woff') format('woff'),
+         url('/fonts/robotocondensed-regular.ttf') format('truetype'),
+         url('/fonts/robotocondensed-regular.svg#roboto_condensedregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+html, body{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	font-family: 'RobotoCondensedRegular';
+	font-size: 16px;
+}
+.full-width{
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.ShowBox{
+	opacity: 1 !important;
+	pointer-events: auto !important;
+}
+.formated-section{
+	padding: 60px 0;
+}
+.font-oswald{
+	font-family: 'OswaldRegular';
+}
+/*=========== Barra de navegacion ===*/
+.NavBarP,
+.NavBarP-Logo,
+.NavBarP-Nav,
+.NavBarP-Nav > ul,
+.NavBarP-Nav > ul > li,
+.NavBarP-Nav > ul > li > a{
+	height: 50px;
+	line-height: 50px;
+}
+.NavBarP{
+	background-color: #141414;
+	color: #fff;
+	position: relative;
+	font-family: 'RobotoCondensedLight';
+	text-transform: uppercase;
+	font-size: 18px;
+	text-align: center;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+}
+.NavBarP-Logo,
+.NavBarP-Nav{
+	position: absolute;
+	top: 0;
+	background-color: #141414;
+}
+.NavBarP-Logo{
+	left: 0;
+	width: 30%;
+	font-family: 'OswaldRegular';
+}
+.NavBarP-Nav{
+	right: 0;
+	width: 70%;
+}
+.NavBarP-Nav > ul{
+	text-align: right;
+	padding-right: 10px;
+}
+.NavBarP-Nav > ul > li{
+	display: inline-block;
+	position: relative;
+}
+.NavBarP-Nav > ul > li > a{
+	color: #fff;
+	text-align: center;
+	display: block;
+	text-decoration: none;
+	padding: 0 7px;
+	transition: all .3s ease-in-out;
+}
+.NavBarP-Nav > ul > li > a:hover{
+	color: #FAE76F;
+}
+.banner{
+	position: relative;
+	width: 115%;
+	height: calc(100vh - 50px);
+	background-color: #F5F5F5;
+	background-size: cover;
+	background-position: center;
+	transition: all .1s ease-out;
+	background-image: url('banner-1.jpg');
+	animation: banner 28s infinite linear;
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.banner-content{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	color: #FFF;
+	background-color: rgba(0, 22, 40, .6);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.banner-content h1{
+	margin: 0;
+	padding: 0;
+	padding-bottom: 30px;
+	font-size: 40px;
+	text-align: center;
+}
+.banner-content a{
+	text-decoration: none;
+	color: #FFF;
+	padding: 9px 20px;
+	border: 1px solid #FFF;
+	text-transform: uppercase;
+	transition: all .3s ease-in-out;
+}
+.banner-content a:hover{
+	background-color: #fff;
+	color: #333;
+}
+@keyframes banner{
+	0%{
+		background-image: url('../images/piña1.png');
+	}
+	25%{
+		background-image: url('../images/foto-casona-la-angostura.jpg');
+	}
+
+
+	26%{
+		background-image: url('../images/tractor1.png');
+	}
+	50%{
+		background-image: url('../images/tractor1.png');
+	}
+
+
+	51%{
+		background-image: url('../images/piña2.png');
+	}
+	75%{
+		background-image: url('../images/piña2.png');
+	}
+	
+
+	76%{
+		background-image: url('../images/cacao.png');
+	}
+	100%{
+		background-image: url('../images/cacao.png');
+	}
+
+}
+/*=======================================================================================================
+=                                        Media queries                                                  =
+========================================================================================================*/
+/* col-xs */
+@media (max-width: 767px) {
+	.NoScroll{
+		overflow-y: hidden;
+	}
+    .NavBarP-Logo{
+    	width: 100%;
+    	z-index: 99;
+    	position: fixed;
+    	border-bottom: 1px solid rgba(255, 255, 255, .2);
+    }
+    .NavBarP-Nav{
+    	width: 100%;
+    	padding-top: 50px;
+    	height: 100%;
+    	z-index: 97;
+    	position: fixed;
+    	opacity: 0;
+    	pointer-events: none;
+    	transition: all .3s ease-in-out;
+    }
+    .NavBarP-Nav > ul{
+    	padding-right: 0;
+    	text-align: center;
+    	height: 100%;
+    }
+    .NavBarP-Nav > ul > li{
+		display: block;
+    }
+    .btn-menuMobile{
+    	position: absolute;
+    	z-index: 100;
+    	top: 0;
+    	right: 0;
+    	color: #fff;
+    	height: 50px;
+    	width: 50px;
+    	cursor: pointer;
+    	line-height: 50px;
+    	font-size: 25px;
+    	transition: all .3s ease-in-out;
+    }
+    .btn-menuMobile:hover{
+		color: #FAE76F;
+	}
+    .Login{
+    	position: fixed;
+    	height: 100%;
+    	top: 0;
+    	padding-top: 50px;
+    	z-index: 100;
+    }
+}
+
+/* col-sm */
+@media (min-width: 768px) and (max-width: 991px) {
+    
+}
+
+/* col-md */
+@media (min-width: 992px) and (max-width: 1199px) {
+    
+}
+
+/* col-lg */
+@media (min-width: 1200px) {
+    
+}
+
+/*col-sm col-md col-lg*/
+@media (min-width: 768px) {
+	.Login{
+		border: 1px solid #E1E1E1;
+		position: absolute;
+		top: 62px;
+		width: 250px;
+	}
+    .Login::after,
+	.Login::before {
+		bottom: 100%;
+		right: 14px;
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+	}
+	.Login::after {
+		border-color: rgba(136, 183, 213, 0);
+		border-bottom-color: #fff;
+		border-width: 10px;
+		margin-right: 0px;
+	}
+	.Login::before {
+		border-color: rgba(194, 225, 245, 0);
+		border-bottom-color: #E1E1E1;
+		border-width: 12px;
+		margin-right: -2px;
+	}
+
+	/* Footer */
+    footer a {
+        text-decoration: none; /* Eliminar el subrayado */
+    }
+
+	.networks {
+		margin-left :310px;
+	}
+}

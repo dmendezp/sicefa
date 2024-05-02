@@ -21,7 +21,8 @@ class CreatePeopleTable extends Migration
                 'Cédula de extranjería',
                 'Pasaporte',
                 'Documento nacional de identidad',
-                'Registro civil'
+                'Registro civil',
+                'Número de Identificación Tributaria'
             ]);
             $table->unsignedBigInteger('document_number')->unique();
             $table->date('date_of_issue')->nullable();

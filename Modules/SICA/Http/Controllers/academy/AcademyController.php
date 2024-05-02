@@ -2,10 +2,9 @@
 
 namespace Modules\SICA\Http\Controllers\academy;
 
-use Dotenv\Parser\Lines;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\Holiday;
@@ -17,6 +16,82 @@ use Modules\SICA\Entities\Quarter;
 class AcademyController extends Controller
 {
 
+    /* Listado de días festivos registrados */
+    public function holidays_index(){
+        $holidays = Holiday::orderBy('updated_at','DESC')->get();
+        $data = ['title'=>'Festivos', 'holidays'=>$holidays];
+        return view('sica::admin.academy.holidays.index', $data);
+    }
+
+    /* Registrar día festivo */
+    public function holidays_store(Request $request){
+        $rules = [
+            'date' => 'required',
+            'issue' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }
+        // Realizar registro
+        if (Holiday::create($request->all())){
+            $icon = 'success';
+            $message_holiday = trans('sica::menu.Holiday successfully added');
+        } else {
+            $icon = 'error';
+            $message_holiday = trans('sica::menu.Could not add Holiday');
+        }
+        return redirect(route('sica.'.getRoleRouteName(Route::currentRouteName()).'.academy.holidays.index'))->with(['icon'=>$icon, 'message_holiday'=>$message_holiday]);
+    }
+
+    /* Formulario para actualizar día festivo */
+    public function holidays_edit(Holiday $holiday){
+        $holidays = Holiday::orderBy('updated_at','DESC')->get();
+        $data = ['title'=>'Festivos - Actualización', 'holidays'=>$holidays, 'holiday'=>$holiday];
+        return view('sica::admin.academy.holidays.index', $data);
+    }
+
+    /* Actualizar día festivo */
+    public function holidays_update(Request $request, Holiday $holiday){
+        $rules = [
+            'date' => 'required',
+            'issue' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }
+        // Realizar registro
+        if ($holiday->update($request->all())){
+            $icon = 'success';
+            $message_holiday = trans('sica::menu.Holiday successfully updated');
+        } else {
+            $icon = 'error';
+            $message_holiday = trans('sica::menu.Failed to update Holiday');
+        }
+        return redirect(route('sica.'.getRoleRouteName(Route::currentRouteName()).'.academy.holidays.index'))->with(['icon'=>$icon, 'message_holiday'=>$message_holiday]);
+    }
+
+    /* Formulario de eliminación del festivo */
+    public function holidays_delete($id){
+        $holiday = Holiday::find($id);
+        $data = [ 'title' => 'Eliminar festivo', 'holiday' => $holiday];
+        return view('sica::admin.academy.holidays.delete', $data);
+    }
+
+     /* Eliminar festivo */
+     public function holidays_destroy(Request $request){
+        $holiday = Holiday::findOrFail($request->input('id'));
+        if($holiday->delete()){
+            $icon = 'success';
+            $message_holiday = trans('sica::menu.Holiday successfully removed');
+        }else{
+            $icon = 'error';
+            $message_holiday = trans('sica::menu.Could not delete Holiday');
+        }
+        return redirect()->back()->with(['icon'=>$icon, 'message_holiday'=>$message_holiday]);
+    }
+
     /* Listado de trimestres registrados */
     public function quarters_index(){
         $quarters = Quarter::orderBy('updated_at','DESC')->get();
@@ -27,7 +102,7 @@ class AcademyController extends Controller
     /* Formulario de registro de trimestre */
     public function quarters_create(){
         $data = ['title'=>'Trimestres - Registro'];
-        return view('sica::admin.academy.quarters.create',$data);
+        return view('sica::admin.academy.quarters.create', $data);
     }
 
     /* Registrar trimestre */
@@ -43,17 +118,19 @@ class AcademyController extends Controller
         }
         // Realizar registro
         if (Quarter::create($request->all())){
-            $message = ['message'=>'Se registró exitosamente el trimestre.', 'typealert'=>'success'];
+            $icon = 'success';
+            $message_quarter = trans('sica::menu.Quarter successfully added');
         } else {
-            $message = ['message'=>'No se pudo realizar el registro del trismestre.', 'typealert'=>'danger'];
+            $icon = 'error';
+            $message_quarter = trans('sica::menu.Could not add Quarter');
         }
-        return redirect(route('sica.admin.academy.quarters.index'))->with($message);
+        return redirect(route('sica.'.getRoleRouteName(Route::currentRouteName()).'.academy.quarters.index'))->with(['icon'=>$icon, 'message_quarter'=>$message_quarter]);
     }
 
     /* Formulario de actualización de trimestre (Administrador) */
     public function quarters_edit(Quarter $quarter){
         $data = ['title'=>'Trimestres - Actualización', 'quarter'=>$quarter];
-        return view('sica::admin.academy.quarters.edit',$data);
+        return view('sica::admin.academy.quarters.edit', $data);
     }
 
     /* Actualizar trimestre */
@@ -69,225 +146,50 @@ class AcademyController extends Controller
         }
         // Actualizar registro
         if ($quarter->update($request->all())){
-            $message = ['message'=>'Se actualizó exitosamente el trimestre.', 'typealert'=>'success'];
+            $icon = 'success';
+            $message_quarter = trans('sica::menu.Quarter successfully updated');
         } else {
-            $message = ['message'=>'No se pudo actualizar el trimestre.', 'typealert'=>'danger'];
+            $icon = 'error';
+            $message_quarter = trans('sica::menu.Failed to update Quarter');
         }
-        return redirect(route('sica.admin.academy.quarters.index'))->with($message);
+        return redirect(route('sica.'.getRoleRouteName(Route::currentRouteName()).'.academy.quarters.index'))->with(['icon'=>$icon, 'message_quarter'=>$message_quarter]);
     }
 
-    /* Eliminar trimestre */
-    public function quarters_destroy(Quarter $quarter){
-        if ($quarter->delete()){
-            $message = ['message'=>'Se eliminó exitosamente el trimestre.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo eliminar el trimestre.', 'typealert'=>'danger'];
-        }
-        return redirect(route('sica.admin.academy.quarters.index'))->with($message);
+    /* Formulario de eliminación del trimestre */
+    public function quarters_delete($id){
+        $quarter = Quarter::find($id);
+        $data = [ 'title' => 'Eliminar Trimestre', 'quarter' => $quarter];
+        return view('sica::admin.academy.quarters.delete', $data);
     }
 
-    /* Listado de días festivos disponibles */
-    public function holidays_index(){
-        $holidays = Holiday::orderBy('updated_at','DESC')->get();
-        $data = ['title'=>'Festivos', 'holidays'=>$holidays];
-        return view('sica::admin.academy.holidays.index',$data);
-    }
-
-    /* Registrar día festivo */
-    public function holidays_store(Request $request){
-        $rules = [
-            'date' => 'required',
-            'issue' => 'required'
-        ];
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
-        }
-        // Realizar registro
-        if (Holiday::create($request->all())){
-            $message = ['message'=>'Se registró exitosamente el día festivo.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo realizar el registro del día festivo.', 'typealert'=>'danger'];
-        }
-        return redirect(route('sica.admin.academy.holidays.index'))->with($message);
-    }
-
-    /* Formulario para actualizar día festivo */
-    public function holidays_edit(Holiday $holiday){
-        $holidays = Holiday::orderBy('updated_at','DESC')->get();
-        $data = ['title'=>'Festivos - Actualización', 'holidays'=>$holidays, 'holiday'=>$holiday];
-        return view('sica::admin.academy.holidays.index',$data);
-    }
-
-    /* Actualizar día festivo */
-    public function holidays_update(Request $request, Holiday $holiday){
-        $rules = [
-            'date' => 'required',
-            'issue' => 'required'
-        ];
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
-        }
-        // Realizar registro
-        if ($holiday->update($request->all())){
-            $message = ['message'=>'Se actualizó exitosamente el día festivo.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo actualizar el día festivo.', 'typealert'=>'danger'];
-        }
-        return redirect(route('sica.admin.academy.holidays.index'))->with($message);
-    }
-
-    /* Eliminar día festivo */
-    public function holidays_destroy(Holiday $holiday){
-        if ($holiday->delete()){
-            $message = ['message'=>'Se eliminó exitosamente el día festivo.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo eliminar el día festivo.', 'typealert'=>'danger'];
-        }
-        return redirect(route('sica.admin.academy.holidays.index'))->with($message);
-    }
-
-    public function lines(){
-        $line = Line::orderBy('updated_at','DESC')->get();
-        $data = ['title'=>trans('sica::menu.Lines'),'lines'=>$line];
-        return view('sica::admin.academy.lines.home',$data);
-    }
-
-    public function createLine(){
-        return view('sica::admin.academy.lines.create');
-    }
-
-    public function storeLine(Request $request){
-        $line = new Line;
-        $line->name = e($request->input('name'));
-        if($line->save()){
+     /* Eliminar trimestre */
+     public function quarters_destroy(Request $request){
+        $quarter = Quarter::findOrFail($request->input('id'));
+        if($quarter->delete()){
             $icon = 'success';
-            $message_line = trans('sica::menu.Technological line successfully added');
+            $message_quarter = trans('sica::menu.Quarter successfully removed');
         }else{
             $icon = 'error';
-            $message_line = trans('sica::menu.Could not add technological line');
+            $message_quarter = trans('sica::menu.Could not delete Quarter');
         }
-        return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
+        return redirect()->back()->with(['icon'=>$icon, 'message_quarter'=>$message_quarter]);
     }
 
-    public function editLine($id){
-        $line = Line::find($id);
-        return view('sica::admin.academy.lines.edit',compact('line'));
-    }
-
-    public function updateLine(Request $request){
-        $line = Line::findOrFail($request->input('id'));
-        $line->name = e($request->input('name'));
-        if($line->save()){
-            $icon = 'success';
-            $message_line = trans('sica::menu.Technological line updated successfully');
-        }else{
-            $icon = 'error';
-            $message_line = trans('sica::menu.Could not update technological line');
-        }
-        return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
-    }
-
-    public function deleteLine($id){
-        $line = Line::find($id);
-        return view('sica::admin.academy.lines.delete',compact('line'));
-    }
-
-    public function destroyLine(Request $request){
-        $line = Line::findOrFail($request->input('id'));
-        if($line->delete()){
-            $icon = 'success';
-            $message_line = trans('sica::menu.Technological line successfully removed');
-        }else{
-            $icon = 'error';
-            $message_line = trans('sica::menu.Could not delete technological line');
-        }
-        return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
-    }
-
-    //-------------------Seccion de Redes de Conocimiento------------------------
-    public function networks(){
-        $networks = Network::with('line')->orderBy('updated_at','DESC')->get();
-        $data = ['title'=>trans('sica::menu.Knowledge Networks'),'networks'=>$networks];
-        return view('sica::admin.academy.networks.home',$data);
-    }
-
-    public function createNetwork(){
-        $lines = Line::orderBy('name', 'ASC')->pluck('name', 'id');
-        return view('sica::admin.academy.networks.create', compact('lines'));
-    }
-
-    public function storeNetwork(Request $request){
-        $network = new Network();
-        $network->name = e($request->input('name'));
-        $network->line()->associate(Line::find($request->input('line_id')));
-        if($network->save()){
-            $icon = 'success';
-            $message_network = trans('sica::menu.Knowledge Network successfully added');
-        }else{
-            $icon = 'error';
-            $message_network = trans('sica::menu.Could not add Knowledge Network');
-        }
-        return back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
-    }
-
-    public function editNetwork($id){
-        $network = Network::find($id);
-        $lines = Line::orderBy('name', 'ASC')->pluck('name', 'id');
-        $data = [
-            'title' => 'Editar Red de Conocimiento',
-            'network' => $network,
-            'lines' => $lines
-        ];
-        return view('sica::admin.academy.networks.edit', $data);
-    }
-
-    public function updateNetwork(Request $request){
-        $network = Network::find($request->input('id'));
-        $network->name = e($request->input('name'));
-        $network->line_id = e($request->input('line_id'));
-        if($network->save()){
-            $icon = 'success';
-            $message_network = trans('sica::menu.Knowledge Network successfully updated');
-        }else{
-            $icon = 'error';
-            $message_network = trans('sica::menu.Failed to update Knowledge Network');
-        }
-        return redirect()->back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
-    }
-
-    public function deleteNetwork($id){
-        $network = Network::find($id);
-        $data = [ 'title' => 'Eliminar Red de Conocimiento', 'network' => $network,];
-        return view('sica::admin.academy.networks.delete', $data);
-    }
-
-    public function destroyNetwork(Request $request){
-        $network = Network::findOrFail($request->input('id'));
-        if($network->delete()){
-            $icon = 'success';
-            $message_network = trans('sica::menu.Knowledge Network successfully removed');
-        }else{
-            $icon = 'error';
-            $message_network = trans('sica::menu.Could not delete Knowledge Network');
-        }
-        return redirect()->back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
-    }
-
-    //-------------------Seccion de Programas de Formación------------------------
-    public function programs(){
+    /* Listado de programas de formación registrados */
+    public function programs_index(){
         $programs = Program::with('network')->orderBy('updated_at','DESC')->get();
         $data = ['title'=>trans('sica::menu.Formation Programs'),'programs'=>$programs];
-        return view('sica::admin.academy.programs.home',$data);
+        return view('sica::admin.academy.programs.index',$data);
     }
 
-    public function createProgram(){
+    /* Formulario de registro de programa de formación */
+    public function programs_create(){
         $network = Network::orderBy('name', 'ASC')->pluck('name', 'id');
         return view('sica::admin.academy.programs.create', compact('network'));
     }
 
-    public function storeProgram(Request $request){
+    /* Registrar programa de formación */
+    public function programs_store(Request $request){
         $program = new Program();
         $program->sofia_code = e($request->input('sofia_code'));
         $program->program_type = e($request->input('program_type'));
@@ -303,7 +205,8 @@ class AcademyController extends Controller
         return back()->with(['icon'=>$icon, 'message_program'=>$message_program]);
     }
 
-    public function editProgram($id){
+    /* Formulario de actualización de programa de formación */
+    public function programs_edit($id){
         $program = Program::find($id);
         $network = Network::orderBy('name', 'ASC')->pluck('name', 'id');
         $data = [
@@ -314,7 +217,8 @@ class AcademyController extends Controller
         return view('sica::admin.academy.programs.edit', $data);
     }
 
-    public function updateProgram(Request $request){
+    /* Actualizar programa de formación */
+    public function programs_update(Request $request){
         $program = Program::find($request->input('id'));
         $program->sofia_code = e($request->input('sofia_code'));
         $program->program_type = e($request->input('program_type'));
@@ -330,13 +234,15 @@ class AcademyController extends Controller
         return redirect()->back()->with(['icon'=>$icon, 'message_program'=>$message_program]);
     }
 
-    public function deleteProgram($id){
+    /* Formulario de eliminación de programa de formación */
+    public function programs_delete($id){
         $program = Program::find($id);
         $data = [ 'title' => 'Eliminar programa de formación', 'program' => $program];
         return view('sica::admin.academy.programs.delete', $data);
     }
 
-    public function destroyProgram(Request $request){
+    /* Eliminar programa de formación */
+    public function programs_destroy(Request $request){
         $program = Program::findOrFail($request->input('id'));
         if($program->delete()){
             $icon = 'success';
@@ -348,19 +254,161 @@ class AcademyController extends Controller
         return redirect()->back()->with(['icon'=>$icon, 'message_program'=>$message_program]);
     }
 
-    //-------------------Seccion de Titulaciones------------------------
-    public function courses(){
-        $courses = Course::with('program')->orderBy('code','desc')->get();
-        $data = ['title'=>trans('sica::menu.Courses'),'courses'=>$courses];
-        return view('sica::admin.academy.courses.home',$data);
+    /* Listado de redes de conocimiento registrados */
+    public function networks_index(){
+        $networks = Network::with('line')->orderBy('updated_at','DESC')->get();
+        $data = ['title'=>trans('sica::menu.Knowledge Networks'),'networks'=>$networks];
+        return view('sica::admin.academy.networks.index', $data);
     }
 
-    public function createCourse(){
+    // Formulario de registro de red de conocimiento
+    public function networks_create(){
+        $lines = Line::orderBy('name', 'ASC')->pluck('name', 'id');
+        return view('sica::admin.academy.networks.create', compact('lines'));
+    }
+
+    /* Registrar red de conocimiento */
+    public function networks_store(Request $request){
+        $network = new Network();
+        $network->name = e($request->input('name'));
+        $network->line()->associate(Line::find($request->input('line_id')));
+        if($network->save()){
+            $icon = 'success';
+            $message_network = trans('sica::menu.Knowledge Network successfully added');
+        }else{
+            $icon = 'error';
+            $message_network = trans('sica::menu.Could not add Knowledge Network');
+        }
+        return back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
+    }
+
+    /* Formulario de actualización de red de conocimiento */
+    public function networks_edit($id){
+        $network = Network::find($id);
+        $lines = Line::orderBy('name', 'ASC')->pluck('name', 'id');
+        $data = [
+            'title' => 'Editar Red de Conocimiento',
+            'network' => $network,
+            'lines' => $lines
+        ];
+        return view('sica::admin.academy.networks.edit', $data);
+    }
+
+    /* Actualizar red de conocimiento */
+    public function networks_update(Request $request){
+        $network = Network::find($request->input('id'));
+        $network->name = e($request->input('name'));
+        $network->line_id = e($request->input('line_id'));
+        if($network->save()){
+            $icon = 'success';
+            $message_network = trans('sica::menu.Knowledge Network successfully updated');
+        }else{
+            $icon = 'error';
+            $message_network = trans('sica::menu.Failed to update Knowledge Network');
+        }
+        return redirect()->back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
+    }
+
+    /* Formulario de eliminación de red de conocimiento */
+    public function networks_delete($id){
+        $network = Network::find($id);
+        $data = [ 'title' => 'Eliminar Red de Conocimiento', 'network' => $network,];
+        return view('sica::admin.academy.networks.delete', $data);
+    }
+
+    /* Eliminar red de conocimiento */
+    public function networks_destroy(Request $request){
+        $network = Network::findOrFail($request->input('id'));
+        if($network->delete()){
+            $icon = 'success';
+            $message_network = trans('sica::menu.Knowledge Network successfully removed');
+        }else{
+            $icon = 'error';
+            $message_network = trans('sica::menu.Could not delete Knowledge Network');
+        }
+        return redirect()->back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
+    }
+
+    /* Listado de líneas tecnológicas registradas */
+    public function lines_index(){
+        $line = Line::orderBy('updated_at','DESC')->get();
+        $data = ['title'=>trans('sica::menu.Lines'),'lines'=>$line];
+        return view('sica::admin.academy.lines.index', $data);
+    }
+
+    /* Formulario de registro de línea tecnológica */
+    public function lines_create(){
+        return view('sica::admin.academy.lines.create');
+    }
+
+    /* Registrar línea tecnológica */
+    public function lines_store(Request $request){
+        $line = new Line;
+        $line->name = e($request->input('name'));
+        if($line->save()){
+            $icon = 'success';
+            $message_line = trans('sica::menu.Technological line successfully added');
+        }else{
+            $icon = 'error';
+            $message_line = trans('sica::menu.Could not add technological line');
+        }
+        return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
+    }
+
+    /* Formulario de actualización de línea tecnológica */
+    public function lines_edit($id){
+        $line = Line::find($id);
+        return view('sica::admin.academy.lines.edit',compact('line'));
+    }
+
+    /* Actualizar línea tecnológica */
+    public function lines_update(Request $request){
+        $line = Line::findOrFail($request->input('id'));
+        $line->name = e($request->input('name'));
+        if($line->save()){
+            $icon = 'success';
+            $message_line = trans('sica::menu.Technological line updated successfully');
+        }else{
+            $icon = 'error';
+            $message_line = trans('sica::menu.Could not update technological line');
+        }
+        return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
+    }
+
+    /* Formulario de eliminación de línea tecnológica */
+    public function lines_delete($id){
+        $line = Line::find($id);
+        return view('sica::admin.academy.lines.delete', compact('line'));
+    }
+
+    /* Eliminar línea tecnológica */
+    public function lines_destroy(Request $request){
+        $line = Line::findOrFail($request->input('id'));
+        if($line->delete()){
+            $icon = 'success';
+            $message_line = trans('sica::menu.Technological line successfully removed');
+        }else{
+            $icon = 'error';
+            $message_line = trans('sica::menu.Could not delete technological line');
+        }
+        return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
+    }
+
+    /* Listado de cursos registados */
+    public function courses_index(){
+        $courses = Course::with('program')->orderByDesc('updated_at')->get();
+        $data = ['title'=>trans('sica::menu.Courses'),'courses'=>$courses];
+        return view('sica::admin.academy.courses.index',$data);
+    }
+
+    /* Formulario de registro de curso */
+    public function courses_create(){
         $program = Program::orderBy('name', 'ASC')->pluck('name','id');
         return view('sica::admin.academy.courses.create', compact('program'));
     }
 
-    public function storeCourse(Request $request){
+    /* Registrar curso */
+    public function courses_store(Request $request){
         $course = new Course();
         $course->code = e($request->input('code'));
         $course->star_date = e($request->input('star_date'));
@@ -378,7 +426,8 @@ class AcademyController extends Controller
         return back()->with(['icon'=>$icon, 'message_course'=>$message_course]);
     }
 
-    public function editCourse($id){
+    /* Formulario de actualización de curso */
+    public function courses_edit($id){
         $course = Course::find($id);
         $program = Program::orderBy('name', 'ASC')->pluck('name','id');
         $data = [
@@ -389,7 +438,8 @@ class AcademyController extends Controller
         return view('sica::admin.academy.courses.edit', $data);
     }
 
-    public function updateCourse(Request $request){
+    /* Actualizar curso */
+    public function courses_update(Request $request){
         $course = Course::find($request->input('id'));
         $course->code = e($request->input('code'));
         $course->program_id = e($request->input('program_id'));
@@ -407,21 +457,13 @@ class AcademyController extends Controller
         return redirect()->back()->with(['icon'=>$icon, 'message_course'=>$message_course]);
     }
 
-    public function deleteCourse($id){
+    /* Formulario de eliminación de curso */
+    public function courses_delete($id){
         $course = Course::find($id);
         $data = ['title' => 'Eliminar Titulada', 'course' => $course];
         return view('sica::admin.academy.courses.delete', $data);
     }
 
-    public function destroyCourse(Request $request){
-        $course = Course::findOrFail($request->input('id'));
-        if($course->delete()){
-            $icon = 'success';
-            $message_course = trans('sica::menu.Course successfully removed');
-        }else{
-            $icon = 'error';
-            $message_course = trans('sica::menu.Could not remove the Course');
-        }
-        return redirect()->back()->with(['icon'=>$icon, 'message_course'=>$message_course]);
-    }
+    
+
 }

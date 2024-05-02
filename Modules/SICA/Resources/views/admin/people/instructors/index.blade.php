@@ -9,42 +9,29 @@
                         <h3 class="card-title">Instructores</h3>
                     </div>
                     <div class="card-body">
-                        <div class="btns">
-                            <a href="#" class="btn btn-primary" disabled>
-                                <i class="fas fa-user-plus"></i>
-                                Registrar instructor
-                            </a>
-                        </div>
                         <div class="mtop16">
                             <table id="table_instructors" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th class="text-center">#</th>
+                                        <th class="text-center">Nombre</th>
                                         <th class="text-center">Documento</th>
-                                        <th>Nombre</th>
-                                        <th>Vinculación</th>
-                                        <th>Especialidad</th>
-                                        <th class="text-center">Acciones</th>
+                                        <th class="text-center">Correo</th>
+                                        <th class="text-center">Telefono</th>
+                                        <th class="text-center">Vinculacion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($instructors as $instructor)
                                     <tr>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="text-center">
-                                            <div class="opts">
-                                                <a href="#" class="text-success" data-toggle='tooltip' data-placement="top" title="Actualizar instructor" disabled>
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <a href="#" class="text-danger" data-toggle='tooltip' data-placement="top" title="Eliminar instructor" disabled>
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </a>
-                                            </div>
-                                        </td>
+                                        <td class="text-center">{{ $loop->iteration }}</td>
+                                        <td class="text-center">{{ $instructor->first_name }} {{ $instructor->first_last_name }}</td>
+                                        <td class="text-center">{{ $instructor->document_number }}</td>
+                                        <td class="text-center">{{ $instructor->misena_email }}</td>
+                                        <td class="text-center">{{ $instructor->telephone1 }}</td>
+                                        <td class="text-center">{{ $instructor->vinculacion }}</td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
