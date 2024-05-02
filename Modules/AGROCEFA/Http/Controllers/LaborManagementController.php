@@ -339,6 +339,7 @@ class LaborManagementController extends Controller
 
             // Obtener los elementos de las bodegas
             $inventory = Inventory::whereIn('productive_unit_warehouse_id', $warehouseIds)
+                ->where('amount','>',0)
                 ->whereHas('element.category', function ($query) use ($categoryId) {
                     $query->where('name', $categoryId);
                 })
@@ -349,9 +350,10 @@ class LaborManagementController extends Controller
                 $elementsData = $inventory->map(function ($item) {
                     return [
                         'id' => $item->element->id,
+                        'inventory_id' => $item->id,
                         'name' => $item->element->name,
-                        'price' => $item->element->price,
-                        'amount' => $item->element->amount,
+                        'price' => $item->price,
+                        'amount' => $item->amount,
                         // Agrega otros atributos relacionados con el elemento si es necesario
                     ];
                 });
@@ -456,7 +458,7 @@ class LaborManagementController extends Controller
             $elementId = $request->input('element');
 
             // Realiza la lógica para obtener los datos del elemento en una sola consulta
-            $dataelement = Inventory::where('element_id', $elementId)->where('amount','>',0)->first();
+            $dataelement = Inventory::where('id', $elementId)->where('amount','>',0)->first();
 
             if ($dataelement) {
                 $measurement_unit = $dataelement->element->measurement_unit->conversion_factor;
@@ -808,12 +810,13 @@ class LaborManagementController extends Controller
                     // Accede a los datos de cada elemento de la tabla
                     $suppliesQuantitie = $suppliesQuantities[$index];
                     $suppliesPrice = $suppliesPrices[$index];
+                    $suppliesPrice = str_replace('.', '', $suppliesPrice);
                     $suppliesAplication = $suppliesAplications[$index];
                     $suppliesObjective = $suppliesObjectives[$index];
 
                     $existingInventory = Inventory::where([
                         'productive_unit_warehouse_id' => $ProductiveUnitWarehousesId,
-                        'element_id' => $suppliesId,
+                        'id' => $suppliesId,
                     ])->first();
 
                     if (!empty($suppliesAplications) && !empty($suppliesObjectives) && is_array($suppliesAplications) && is_array($suppliesObjectives) && count(array_filter($suppliesAplications)) > 0 && count(array_filter($suppliesObjectives)) > 0) {
@@ -845,7 +848,6 @@ class LaborManagementController extends Controller
                             $factor = $existingInventory->element->measurement_unit->conversion_factor;
                         }
                         $amountentero = $suppliesQuantitie * (int) $factor;
-
                         // Restar la cantidad solicitada del inventario existente
                         $existingInventory->amount -= $amountentero;
                         $existingInventory->save();

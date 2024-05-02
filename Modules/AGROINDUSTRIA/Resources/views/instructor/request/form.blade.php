@@ -140,7 +140,7 @@
           // Realizar una petición AJAX para obtener la cantidad disponible
           if (elementoSeleccionado) {
               $.ajax({
-                  url: {!! json_encode(route('cefa.agroindustria.units.instructor.movements.id', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString()),
+                  url: {!! json_encode(route('agroindustria.instructor.units.movements.id', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString()),
                   method: 'GET',
                   success: function(response) {
                       if (Array.isArray(response.id)) {
@@ -178,7 +178,7 @@
       $('#receiveUnit-selected').on('change', function() {
           var selectedReceiver = $(this).val();
   
-          var url = {!! json_encode(route('cefa.agroindustria.units.instructor.movements.warehouse', ['id' => ':id'])) !!}.replace(':id', selectedReceiver.toString());
+          var url = {!! json_encode(route('agroindustria.instructor.units.movements.warehouse', ['id' => ':id'])) !!}.replace(':id', selectedReceiver.toString());
   
           // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
           $.ajax({

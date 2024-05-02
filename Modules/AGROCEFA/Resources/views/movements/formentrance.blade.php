@@ -65,25 +65,25 @@
             <div class="form-group">
                 <h3>{{ trans('agrocefa::movements.Elements')}}</h3>
                 <div class="table-responsive">
-                <table id="productTable" class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>{{ trans('agrocefa::movements.1T_Name_Of_The_Element') }}</th>
-                            <th>{{ trans('agrocefa::movements.1T_Amount') }}</th>
-                            <th>{{ trans('agrocefa::movements.1T_Price') }}</th>
-                            <th>{{ trans('agrocefa::movements.1T_Lot') }}</th>
-                            <th>{{ trans('agrocefa::movements.1T_Stock') }}</th>
-                            <th>{{ trans('agrocefa::movements.1T_Category') }}</th>
-                            <th>{{ trans('agrocefa::movements.1T_Destination') }}</th>
-                            <th>{{ trans('agrocefa::movements.1T_Expiration') }}</th>
-                            <th></th> 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Filas de la tabla se agregarán dinámicamente aquí -->
-                    </tbody>
-                </table>
+                    <table id="productTable" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>{{ trans('agrocefa::movements.1T_Name_Of_The_Element') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Amount') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Price') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Lot') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Stock') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Category') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Destination') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Expiration') }}</th>
+                                <th></th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Filas de la tabla se agregarán dinámicamente aquí -->
+                        </tbody>
+                    </table>
             </div>
                 <button type="button" class="btn btn-primary" id="addProduct">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>
             </div>

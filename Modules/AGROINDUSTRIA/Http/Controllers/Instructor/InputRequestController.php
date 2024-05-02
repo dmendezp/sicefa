@@ -45,6 +45,9 @@ class InputRequestController extends Controller
             $movements = Movement::with(['movement_details.inventory.element', 'movement_responsibilities.person', 'movement_type', 'warehouse_movements'])
             ->whereHas('movement_type', function ($query){
                 $query->where('name', 'Movimiento Entrada');
+            })->whereHas('warehouse_movements', function ($query) use ($productiveUnitWarehouseId) {
+                $query->where('productive_unit_warehouse_id', $productiveUnitWarehouseId)
+                    ->where('role', 'RECIBE');
             })->get();            
         }else{
             $movements = Movement::with(['movement_details.inventory.element', 'movement_responsibilities.person', 'movement_type', 'warehouse_movements'])
@@ -226,8 +229,8 @@ class InputRequestController extends Controller
         $mr->save();
         
         //Registro del WarehouseMovement (entrega)
-        $warehouseDeliver = Warehouse::where('name', 'Externa')->pluck('id');
-        $productiveUnitWarehouseDeliver = ProductiveUnitWarehouse::where('warehouse_id', $warehouseDeliver)->get();
+        $productiveexterna = ProductiveUnit::where('name','=','Almacen Sena')->get()->pluck('id');
+        $productiveUnitWarehouseDeliver = ProductiveUnitWarehouse::where('productive_unit_id',$productiveexterna)->get();
         foreach($productiveUnitWarehouseDeliver as $wd){
             $warehouseDeliverId = $wd->id;
         }

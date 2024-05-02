@@ -147,24 +147,26 @@
                 <!-- Agregar la tabla dinámica -->
                 <div class="form-group">
                     <h3 id="title">{{ trans('agrocefa::movements.Elements') }}</h3>
-                    <table id="productTable" class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>{{ trans('agrocefa::movements.1T_Name_Of_The_Element') }}</th>
-                                <th>{{ trans('agrocefa::movements.1T_Measurement_Unit') }}</th>
-                                <th>{{ trans('agrocefa::movements.1T_Amount') }}</th>
-                                <th>{{ trans('agrocefa::movements.1T_Price') }}</th>
-                                <th>{{ trans('agrocefa::movements.1T_Category') }}</th>
-                                <th>{{ trans('agrocefa::movements.1T_Destination') }}</th>
-                                <!-- Agregar la columna de Destino -->
-                                <th>{{ trans('agrocefa::movements.1T_Actions') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Filas de la tabla se agregarán dinámicamente aquí -->
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table id="productTable" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>{{ trans('agrocefa::movements.1T_Name_Of_The_Element') }}</th>
+                                    <th>{{ trans('agrocefa::movements.1T_Measurement_Unit') }}</th>
+                                    <th>{{ trans('agrocefa::movements.1T_Amount') }}</th>
+                                    <th>{{ trans('agrocefa::movements.1T_Price') }}</th>
+                                    <th>{{ trans('agrocefa::movements.1T_Category') }}</th>
+                                    <th>{{ trans('agrocefa::movements.1T_Destination') }}</th>
+                                    <!-- Agregar la columna de Destino -->
+                                    <th>{{ trans('agrocefa::movements.1T_Actions') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Filas de la tabla se agregarán dinámicamente aquí -->
+                            </tbody>
+                        </table>
+                    </div>
                     <button type="button" class="btn btn-primary"
                         id="addProduct">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>
                 </div>
@@ -259,7 +261,7 @@
                 newRow = $('<tr class="product-row">');
                 newRow.html(
                     '<td><input type="hidden" id="product-name" class="product-name" name="product-name[]"><input type="hidden" id="product-lot" class="product-lot" name="product-lot[]"></td>' +
-                    '<td class="col-2"><select id="product-id" class="form-control product-id" name="product-id[]" required></select></td>' +
+                    '<td class="col-2"><select id="product-id" class="form-control product-id" name="product-id[]" required></select><input type="hidden" id="product-element" class="product-element" name="product-element[]"></td>' +
                     '<td><input type="text" id="product-measurement-unit" class="form-control product-measurement-unit" name="product-measurement-unit[]" readonly><input type="hidden" id="product-stock" class="product-stock" name="product-stock[]"></td>' +
                     '<td class="col-2"><input type="number" id="product-quantity" class="form-control product-quantity" name="product-quantity[]" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
                     '<td><input type="text" id="product-price" class="form-control product-price" name="product-price[]" readonly></td>' +
@@ -336,9 +338,12 @@
                             productNameSelect.append(new Option(element.name, element
                                 .id));
                             productName.val(element.name || '');
+
                             // Actualizar los atributos "name" de otros campos según sea necesario
                             var currentRow = productNameSelect.closest(
                                 'tr.product-row');
+
+                            $('#product-element').val(element.element_id);
 
                             currentRow.find('.product-measurement-unit').attr('name',
                                 'product-measurement-unit[]');
