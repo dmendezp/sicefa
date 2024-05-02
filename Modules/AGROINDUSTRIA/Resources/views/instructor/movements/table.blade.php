@@ -18,17 +18,39 @@
               <th>{{trans('agroindustria::deliveries.Total Movement')}}</th>
               <th>{{trans('agroindustria::deliveries.State')}}</th>
               <th>{{trans('agroindustria::deliveries.Observations')}}</th>
-              <th>             
-                <a href="{{route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.movements.form')}}">
+              <th>
+                @if (Auth::user()->havePermission('agroindustria.admin.units.movements.form')) 
+                <a href="{{route('agroindustria.admin.units.movements.form')}}">
                   <button class="btn btn-success float-end mb-2">
                       <i class="fa-solid fa-plus"></i>
                   </button>
-                </a>        
-                <a href="{{route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.movements.pending')}}">
+                </a>
+                @else
+                  @if (Auth::user()->havePermission('agroindustria.instructor.units.movements.form'))                
+                  <a href="{{route('agroindustria.instructor.units.movements.form')}}">
+                    <button class="btn btn-success float-end mb-2">
+                      <i class="fa-solid fa-plus"></i>
+                    </button>
+                  </a>
+                  @endif
+                @endif
+                
+                @if (Auth::user()->havePermission('agroindustria.instructor.units.movements.pending'))                
+                <a href="{{route('agroindustria.instructor.units.movements.pending')}}">
                   <button class="btn btn-warning float-end mb-2">
                     <i class="fas fa-bell"> {{ $pedingMovements }}</i>
                   </button>
                 </a>
+                @else
+                  @if (Auth::user()->havePermission('agroindustria.admin.units.movements.pending'))                
+                  <a href="{{route('agroindustria.admin.units.movements.pending')}}">
+                    <button class="btn btn-warning float-end mb-2">
+                      <i class="fas fa-bell"> {{ $pedingMovements }}</i>
+                    </button>
+                  </a>
+                  @endif
+                @endif
+                
               </th>
           </tr>
       </thead>
@@ -161,7 +183,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-              <form action="{{ route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.movements.pending.state', ['id' => $movement->id]) }}" method="POST">
+              <form action="{{ route('cefa.agroindustria.units.instructor.movements.pending.state', ['id' => $movement->id]) }}" method="POST">
                   @csrf
                   @method('PUT')
                   <div class="form-group">
@@ -187,7 +209,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-              {!! Form::open(['method' => 'post', 'url' => route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.movements.cancelled', ['id' => $movement->id])]) !!}
+              {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.movements.cancelled', ['id' => $movement->id])]) !!}
               @csrf
               @method('PUT')
               <div class="form-group">
@@ -217,7 +239,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-              {!! Form::open(['method' => 'post', 'url' => route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.movements.return', ['id' => $movement->id])]) !!}
+              {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.movements.return', ['id' => $movement->id])]) !!}
               @csrf
               @method('PUT')
               <div class="form-group">

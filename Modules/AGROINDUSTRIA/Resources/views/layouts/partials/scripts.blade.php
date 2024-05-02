@@ -123,11 +123,140 @@ window.onclick = function(event) {
         @endif
     @endif
 </script>
+
+
+
+
+
+{{-- Trae el responsable de la actividad seleccionada --}}
+<script>
+    $(document).ready(function() {
+        // Detecta cambios en el primer campo de selección (Receiver)
+        $('#activity-selected').on('change', function() {
+            var selectedActivity = $(this).val();
+            var url = {!! json_encode(route('cefa.agroindustria.instructor.labor.responsibilities', ['activityId' => ':activityId'])) !!}.replace(':activityId', selectedActivity.toString());
+            console.log('url: '+ url);
+            // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
+            console.log(url);
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {
+                    var personId = response.id[0].id;
+                    var personName = response.id[0].name;
+                    
+                    // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
+                    $('#responsible').val(personName);
+                    $('#responsibleId').val(personId);
+
+                    // Añade aquí el código para consultar el tipo de actividad
+                    var activityType = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.type', ['type' => ':type'])) !!}.replace(':type', selectedActivity.toString());
+                    $.ajax({
+                        url: activityType,
+                        type: 'GET',
+                        success: function(typeResponse) {
+                            if (typeResponse.type.length > 0) {
+                                $('#total-labor').removeClass('col-md-6').addClass('col-md-12');
+                                $('#recipe-field').show();
+                                $('#date-expiration-field').show();
+                                $('#lot-field').show();
+                                $('#amount-production-field').show();
+                            } else {
+                                $('#total-labor').removeClass('col-md-12').addClass('col-md-6');
+                                $('#recipe-field').hide();
+                                $('#date-expiration-field').hide();
+                                $('#lot-field').hide();
+                                $('#amount-production-field').hide();
+                            }
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
+
+{{-- Trae el precio segun el tipo de empleado seleccionado --}}
+<script>
+    $(document).ready(function() {
+         // Detecta cambios en el primer campo de selección (Receiver)
+         $('.employement_type').on('change', function() {
+            var selectedEmployement = $(this).val();
+            var parentElement = $(this).closest('.collaborators');
+            var priceEmployement = parentElement.find('.quantity');
+            var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.price', ['id' => ':id'])) !!}.replace(':id', selectedEmployement.toString());
+
+            // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {
+                    // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
+                    var price = response.price;
+                    $('.price').val(price);
+                    priceEmployement.text('Precio: ' + price);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+    })
+</script>
+
+{{-- Busca personas segun el numero de documento --}}
+<script>
+    $(document).ready(function() {
+         var baseUrl = '{{ route("cefa.agroindustria.units.instructor.labor.executors", ["document_number" => ":document_number"]) }}';
+ 
+         // Inicializa Select2 en el campo de búsqueda de personas
+         $('.personSearch-select').select2({
+             placeholder: '{{trans("agroindustria::labors.searchPerson")}}',
+             minimumInputLength: 1, // Habilita la búsqueda en tiempo real
+             ajax: {
+                 url: function(params) {
+                     // Reemplaza el marcador de posición con el término de búsqueda
+                     var searchUrl = baseUrl.replace(':document_number', params.term);
+ 
+ 
+                     return searchUrl; // Utiliza la URL actualizada con el término de búsqueda
+                 },
+                 dataType: 'json',
+                 delay: 250, // Retardo antes de iniciar la búsqueda
+                 processResults: function(data) {
+                     return {
+                         results: data.id.map(function(person) {
+                             return {
+                                 id: person.id,
+                                 text: person.name,
+                             };
+                         })
+                     };
+                 },
+                 cache: true
+             }
+         });
+ 
+         // Manejar la selección de una persona en el campo de búsqueda
+         $('.personSearch-select').on('select2:select', function(e) {
+             var selectedPerson = e.params.data;
+             // Actualizar el contenido de la etiqueta con el nombre de la persona seleccionada
+             $('.executors_id').val(selectedPerson.id);
+             $('.collaborator_executors').val(selectedPerson.text);
+         });
+     });
+ </script>
  
  {{-- Busca productos segun el numero de documento --}}
 <script>
     $(document).ready(function() {
-        var baseUrl = '{{ route("agroindustria.instructor.units.element.name", ["name" => ":name"]) }}';
+        var baseUrl = '{{ route("cefa.agroindustria.units.instructor.element.name", ["name" => ":name"]) }}';
           console.log(baseUrl);
           $('.elementInventory-select').select2({
             placeholder: '{{trans("agroindustria::deliveries.Search Products")}}',

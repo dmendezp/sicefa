@@ -11,14 +11,14 @@
                 <th>{{trans('agroindustria::request.quantity')}}</th>
                 <th>{{trans('agroindustria::request.state')}}</th>
                 <th>
-                    @if(auth()->check() && checkRol('agroindustria.instructor.vilmer') || auth()->check() && checkRol('agroindustria.instructor.chocolate') || auth()->check() && checkRol('agroindustria.instructor.cerveceria'))  
-                    <a href="{{route('agroindustria.instructor.units.request.form')}}">
+                    @if(auth()->check() && checkRol('agroindustria.instructor.vilmer') || auth()->check() && checkRol('agroindustria.instructor.chocolate'))  
+                    <a href="{{route('cefa.agroindustria.instructor.units.solicitud')}}">
                         <button class="btn btn-success float-end mb-2">
                             <i class="fa-solid fa-plus"></i>
                         </button>
                     </a>
                     @else
-                    <a href="{{route('agroindustria.admin.units.request.excel.unified')}}">
+                    <a href="{{route('cefa.agroindustria.units.instructor.request.excel.unified')}}">
                         <button class="btn btn-success float-end mb-2">
                             <i class="fas fa-file-excel"></i> {{trans('agroindustria::request.unifiedRequestForm')}}
                         </button>
@@ -43,7 +43,7 @@
                     </td>
                     <td>{{$m->state}}</td>
                     <td>
-                        <form method="GET" action="{{ route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.request.excel', ['movementId' => $m->id]) }}">
+                        <form method="GET" action="{{ route('cefa.agroindustria.units.instructor.request.excel', ['movementId' => $m->id]) }}">
                             @csrf
                             <button type="submit" class="btn btn-info" style="margin-bottom: 10px"><i class="fas fa-file-excel"></i> {{trans('agroindustria::request.requestForm')}}</button>
                         </form>
@@ -70,7 +70,7 @@
             <p>{{trans('agroindustria::request.haveElementsApplicationReceived')}}</p>
         </div>
         <div class="modal-footer">
-            {!! Form::open(['method' => 'post', 'url' => route('agroindustria.admin.units.request.pending.state', ['id' => $m->id])]) !!}
+            {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.request.pending.state', ['id' => $m->id])]) !!}
             @csrf
             @method('PUT')
             <button type="submit" class="btn btn-success" data-bs-dismiss="modal">{{trans('agroindustria::request.yesApprove')}}</button>

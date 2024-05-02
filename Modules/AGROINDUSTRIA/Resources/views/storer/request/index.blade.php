@@ -71,7 +71,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            {!! Form::open(['method' => 'post', 'url' => route('agroindustria.storer.units.request.approve', ['id' => $r->id])]) !!}
+            {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.storer.units.request.approve', ['id' => $r->id])]) !!}
             @csrf
             @method('PUT')
             <div class="form-group">
@@ -96,7 +96,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            {!! Form::open(['method' => 'post', 'url' => route('agroindustria.storer.units.request.cancelled', ['id' => $r->id])]) !!}
+            {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.storer.units.request.cancelled', ['id' => $r->id])]) !!}
             @csrf
             @method('PUT')
             <div class="form-group">
