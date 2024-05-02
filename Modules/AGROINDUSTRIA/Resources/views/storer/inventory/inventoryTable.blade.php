@@ -102,13 +102,32 @@
         var selectedWarehouseId = this.value;
 
         // Construir la URL con el parámetro warehouse_id
-        var urlAlert = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.inventory.spent', ['waId' => ':waId'])) !!}.replace(':waId', selectedWarehouseId);
-        var urlExp = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.inventory.expire', ['wId' => ':wId'])) !!}.replace(':wId', selectedWarehouseId);
+        @if(auth()->check() && (checkRol('agroindustria.admin')))
+        var urlAlert = {!! json_encode(route('agroindustria.admin.units.inventory.spent', ['waId' => ':waId'])) !!}.replace(':waId', selectedWarehouseId);
+        var urlExp = {!! json_encode(route('agroindustria.admin.units.inventory.expire', ['wId' => ':wId'])) !!}.replace(':wId', selectedWarehouseId);
 
         // Actualizar el atributo href del enlace
         document.getElementById('inventoryAlertLink').href = urlAlert;
         document.getElementById('inventoryAlertExpLink').href = urlExp;
+        @endif
 
+        @if(auth()->check() && (checkRol('agroindustria.instructor.vilmer') || checkRol('agroindustria.instructor.chocolate') || checkRol('agroindustria.instructor.cerveceria')))
+        var urlAlert = {!! json_encode(route('agroindustria.instructor.units.inventory.spent', ['waId' => ':waId'])) !!}.replace(':waId', selectedWarehouseId);
+        var urlExp = {!! json_encode(route('agroindustria.instructor.units.inventory.expire', ['wId' => ':wId'])) !!}.replace(':wId', selectedWarehouseId);
+
+        // Actualizar el atributo href del enlace
+        document.getElementById('inventoryAlertLink').href = urlAlert;
+        document.getElementById('inventoryAlertExpLink').href = urlExp;
+        @endif
+
+        @if(auth()->check() && (checkRol('agroindustria.almacenista')))
+        var urlAlert = {!! json_encode(route('agroindustria.storer.units.inventory.spent', ['waId' => ':waId'])) !!}.replace(':waId', selectedWarehouseId);
+        var urlExp = {!! json_encode(route('agroindustria.storer.units.inventory.expire', ['wId' => ':wId'])) !!}.replace(':wId', selectedWarehouseId);
+
+        // Actualizar el atributo href del enlace
+        document.getElementById('inventoryAlertLink').href = urlAlert;
+        document.getElementById('inventoryAlertExpLink').href = urlExp;
+        @endif
     });
     
     $(document).ready(function () {
@@ -116,7 +135,7 @@
         $('#warehouseSelect').on('change', function() {
             var warehouseId = $(this).val();
 
-            var url = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.inventory.elements', ['warehouseId' => ':warehouseId'])) !!}.replace(':warehouseId', warehouseId);
+            var url = {!! json_encode(route('cefa.agroindustria.instructor.units.inventory.elements', ['warehouseId' => ':warehouseId'])) !!}.replace(':warehouseId', warehouseId);
             console.log(url);
             if(warehouseId){
                 $.ajax({

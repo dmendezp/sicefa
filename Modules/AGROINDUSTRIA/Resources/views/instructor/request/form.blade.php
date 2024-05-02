@@ -4,7 +4,7 @@
     <div class="form">
       <div class="form-header">Solicitud de Insumos</div>
       <div class="form-body">
-        {!! Form::open(['method' => 'post', 'url' => route('agroindustria.instructor.units.request.create')]) !!}
+        {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.enviarsolicitud')]) !!}
         <div class="row">
           <div class="col-md-6">
             {!! Form::label('fecha', trans('agroindustria::deliveries.Date Time')) !!}
@@ -31,7 +31,7 @@
           </div>
           <div class="col-md-12">
             {!! Form::label('observation', trans('agroindustria::deliveries.Observations')) !!}
-            {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'id' => 'textarea', 'style' => 'height: 0px'] ) !!}
+            {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'id' => 'textarea'] ) !!}
           </div>
           <div class="col-md-12">
             <div id="products">
@@ -86,7 +86,7 @@
           // Agregar el nuevo campo al DOM
           $("#products").append(newProduct);
   
-          var baseUrl = '{{ route("agroindustria.instructor.units.element.name", ["name" => ":name"]) }}';
+          var baseUrl = '{{ route("cefa.agroindustria.units.instructor.element.name", ["name" => ":name"]) }}';
           console.log(baseUrl);
           $('#elementInventory-select:last').select2({
             placeholder: '{{trans("agroindustria::deliveries.Search Products")}}',

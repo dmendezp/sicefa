@@ -15,14 +15,13 @@ use Modules\AGROINDUSTRIA\Entities\Formulation;
 use Modules\AGROINDUSTRIA\Entities\Ingredient;
 use Modules\AGROINDUSTRIA\Entities\Utensil;
 use DB;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 
 class AGROINDUSTRIAController extends Controller
 {
     public function index()
     {
-
+       
         $title = 'Inicio';
         return view('agroindustria::index', compact('title'));
     }

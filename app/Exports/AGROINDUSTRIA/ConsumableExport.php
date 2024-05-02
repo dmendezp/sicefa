@@ -593,7 +593,7 @@ class ConsumableExport implements FromCollection, WithHeadings, Responsable, Wit
                 ],
             ]);
 
-            $sheet->setCellValue('C' . $currentRow, $consumable->inventory->inventory_code);
+            $sheet->setCellValue('C' . $currentRow, $supplie->inventory->inventory_code);
 
             $sheet->getStyle('E' . $currentRow)->applyFromArray([
                 'font' => [
