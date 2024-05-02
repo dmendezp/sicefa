@@ -35,10 +35,10 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         $categories = Category::updateOrCreate(['name' => 'Productos'], [
-            'kind_of_property' => 'Devolutivo'
+            'kind_of_property' => 'Bodega'
         ]);
 
-        $categories = Category::updateOrCreate(['name' => 'Equipos'], [
+        $categories = Category::updateOrCreate(['name' => 'Maquinaria'], [
             'kind_of_property' => 'Devolutivo'
         ]);
 
