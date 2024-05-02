@@ -15,7 +15,7 @@ class Production extends Model implements Auditable
         'element_id',
         'amount',
         'expiration_date',
-        'lot',
+        'lot_number',
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon

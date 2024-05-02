@@ -18,6 +18,9 @@ return [
     // Card Inventory Sales
     'Title_Card_Inventory_Sales'   => 'Sales',
     'Text_Card_Inventory_Sales'    => 'Generates the report of sales by dates',
+    // Card Inventory Product
+    'Title_Card_Inventory_Products'   => 'Products',
+    'Text_Card_Inventory_Products'    => 'Generates the current products report',
     
     // ---Section Report Inventory Entries---
     'Title_Form_Start_Date' => 'Start Date:',

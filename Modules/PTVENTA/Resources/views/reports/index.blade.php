@@ -56,6 +56,17 @@
                             </a>
                         </div>
                     @endif
+                    @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.products.generate.pdf'))
+                        <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="3000">
+                            <a class="card-custom a-custom" href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.products.generate.pdf') }}">
+                                <div class="icon">
+                                    <i class="fa-solid fa-file-pdf"></i>
+                                </div>
+                                <p class="title">{{ trans('ptventa::reports.Title_Card_Inventory_Products') }}</p>
+                                <p class="text">{{ trans('ptventa::reports.Text_Card_Inventory_Products') }}</p>
+                            </a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

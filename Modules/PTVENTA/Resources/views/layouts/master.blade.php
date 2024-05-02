@@ -65,6 +65,10 @@
         </div>
         <!-- /.content-wrapper -->
 
+        <!-- Control Sidebar -->
+        @include('ptventa::layouts.partials.controlSidebar')
+        <!-- /.control-sidebar -->
+
         <!-- Main Footer -->
         @include('ptventa::layouts.partials.footer')
 

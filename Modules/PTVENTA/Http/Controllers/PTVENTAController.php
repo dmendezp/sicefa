@@ -28,7 +28,7 @@ class PTVENTAController extends Controller
 
     public function info()
     {
-        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_info_title_page'), 'titleView' => trans('ptventa::Controllers.PTVENTA_info_title_view')];
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_info_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_info_title_view')];
         return view('ptventa::information.index', compact('view'));
     }
 
@@ -41,7 +41,6 @@ class PTVENTAController extends Controller
     public function admin()
     {
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_admin_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_admin_title_view')];
-
         $movement_type = MovementType::where('name', 'Venta')->firstOrFail();
 
         $app_puw = PUW::getAppPuw(); // Obtener la unidad productiva y bodega de la aplicación

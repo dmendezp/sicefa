@@ -18,6 +18,7 @@
 						<th class="text-center">Documento</th>
 						<th>Nombre</th>
 						<th>Correo</th>
+						<th class="text-center">Telefono</th>
 						<th class="text-center">Estado</th>
 						<th class="text-center">Acciones</th>
 					</tr>
@@ -29,6 +30,7 @@
                             <td class="text-center">{{ $a->person->document_number }}</td>
                             <td>{{ $a->person->full_name }}</td>
                             <td>{{ $a->person->personal_email }}</td>
+                            <td class="text-center">{{ $a->person->telephone1 }}</td>
                             <td class="text-center">{{ $a->apprentice_status }}</td>
                             <td class="text-center">
                                 <div class="opts">

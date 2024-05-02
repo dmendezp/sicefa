@@ -91,32 +91,39 @@
                                     </div>
                                 </div>
                                 <!-- fin de las longitudes y latitudes -->
-                                <!-- inicio para el id de la unidad -->
-                                <div class="row align-items-end">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label
-                                                for="unit">{{ trans('cefamaps::environment.Label_Productive_Unit') }}</label>
-                                            {!! Form::select(
-                                                'productive_unit_id',
-                                                $unitadd,
-                                                [],
-                                                ['class' => 'form-control', 'placeholder' => 'Seleccione...', 'required'],
-                                            ) !!}
-                                        </div>
-                                    </div>
+                                <!-- Unidades productivas -->
+                                <div id="unidad_productiva_container">
                                     <div class="col-3">
                                         <div class="form-group">
-                                            <label>{{ trans('cefamaps::environment.Label_Add_Productive_Unit') }}</label>
+                                            <label>Asignar otra Unidad Productiva</label>
                                             <br>
-                                            <a href="#" class="btn btn-light btn-block btn-outline-success addunit"
-                                                type="button">
+                                            <a href="#" class="btn btn-light btn-block btn-outline-success addunit" type="button">
                                                 <i class="fa-solid fa-square-plus"></i>
                                             </a>
                                         </div>
                                     </div>
+                                    <!-- Campo de selección de unidad productiva -->
+                                    <div class="row align-items-center unidad_productiva_row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="unit">{{ trans('cefamaps::environment.Label_Productive_Unit') }}</label>
+                                                {!! Form::select(
+                                                    'productive_unit_id[]',
+                                                    $unitadd,
+                                                    [],
+                                                    ['class' => 'form-control', 'placeholder' => 'Seleccione...', 'required']
+                                                ) !!}
+                                            </div>
+                                        </div>
+                                        <div class="col-1">
+                                            <div class="form-group">
+                                                <br>
+                                                <button type="button" class="btn btn-danger delete-row">{{ trans('cefamaps::menu.Delete') }}</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!-- fin para el id de la unidad -->
+                                
                                 <!-- inicio de los complementos de environment -->
                                 <div class="row align-items-end">
                                     <!-- inicio de la clase de ambiente -->
@@ -192,6 +199,23 @@
 @endsection
 
 @section('script')
+<script type="text/javascript">
+    $(document).ready(function() {
+        // Función para agregar fila de unidad productiva
+        $(".addunit").click(function() {
+            var clonedRow = $(".unidad_productiva_row").first().clone();
+            clonedRow.find('select').val(''); // Limpiar el valor seleccionado
+            $("#unidad_productiva_container").append(clonedRow);
+        });
+
+        // Función para eliminar fila de unidad productiva
+        $(document).on('click', '.delete-row', function() {
+            $(this).closest('.unidad_productiva_row').remove();
+        });
+    });
+</script>
+
+
     <script type="text/javascript">
         let seleccionar = document.getElementById('option');
         let parrafo = document.getElementById('aqui');
@@ -372,25 +396,4 @@
     </script>
     <!-- Fin mapa para las cooordenadas -->
 
-    <script type="text/javascript">
-        /* esta es la alerta para ir a crear una UNIDAD */
-        $(document).ready(function() {
-            $(document).on("click", ".addunit", function() {
-                var url = "{{ url('/cefamaps/unit/add') }}";
-                Swal.fire({
-                    title: '{{ trans('cefamaps::menu.You Want') }} {{ trans('cefamaps::menu.Add') }} {{ trans('cefamaps::menu.A') }} {{ trans('cefamaps::unit.Unit') }}?',
-                    text: "Si aceptas, se eliminara todos los campos",
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = url
-                    }
-                })
-            })
-        })
-    </script>
 @endsection

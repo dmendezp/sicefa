@@ -6,7 +6,7 @@
           <h1 class="modal-title fs-5" id="dischargeModalLabel">{{trans('agroindustria::deliveries.discharge')}} {{$item['element_name']}}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.admin.discharge.create')]) !!}
+        {!! Form::open(['method' => 'post', 'url' => route('agroindustria.admin.units.remove.create')]) !!}
         <div class="modal-body">
             {!! Form::hidden('warehouse', $wId, ['id' => 'warehouse']) !!}
             {!! Form::hidden('element', $item['inventory_id'], ['id' => 'element']) !!}
@@ -29,7 +29,7 @@
         
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{trans('agroindustria::deliveries.close')}}</button>
-            {!! Form::submit(trans('agroindustria::menu.Register deregistration'),['class' => 'baja btn btn-success', 'name' => 'baja']) !!}
+            {!! Form::submit(trans('agroindustria::deliveries.Register deregistration'),['class' => 'baja btn btn-success', 'name' => 'baja']) !!}
         </div>
         {!! Form:: close() !!}
       </div>

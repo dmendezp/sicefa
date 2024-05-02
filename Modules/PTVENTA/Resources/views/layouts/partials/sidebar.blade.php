@@ -2,7 +2,7 @@
     <aside class="main-sidebar sidebar-dark-blue elevation-4">
         <!-- Bran Logo: Aqui se realiza el ajuste del logo y titulo que esta en el sidebar-->
         <a href="{{ route('cefa.ptventa.index') }}" class="brand-link text-decoration-none">
-            <img src="{{ asset('modules/ptventa/images/Logo-Sidebar.webp') }}" class="brand-image"
+            <img src="{{ asset('modules/ptventa/images/logo-sidebar.webp') }}" class="brand-image"
                 alt="PTVenta-Logo">{{-- Icono de punto de venta --}}
             <span class="brand-text font-weight-bold">{{ trans('ptventa::general.Sales Point') }}</span>
         </a>
@@ -19,10 +19,10 @@
                 </div>
                 @guest
                     <div class="col info info-user">
-                        <a href="{{ route('login') }}" class="d-block custom-color" style="text-decoration: none">{{ trans('ptventa::general.Session') }}</a>
+                        <a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block custom-color" style="text-decoration: none">{{ trans('ptventa::general.Session') }}</a>
                     </div>
                     <div class="col-auto info float-right ">
-                        <a href="{{ route('login') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ trans('ptventa::general.InSession') }}">
+                        <a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ trans('ptventa::general.InSession') }}">
                             <i class="fas fa-sign-in-alt"></i>
                         </a>
                     </div>

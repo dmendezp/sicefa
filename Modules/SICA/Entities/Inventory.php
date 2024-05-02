@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
-
+use Modules\AGROCEFA\Entities\Tool;
+use Modules\AGROCEFA\Entities\Equipment;
 use Modules\AGROINDUSTRIA\Entities\Consumable;
-use Modules\AGROINDUSTRIA\Entities\Tool;
 
 class Inventory extends Model implements Auditable
 {

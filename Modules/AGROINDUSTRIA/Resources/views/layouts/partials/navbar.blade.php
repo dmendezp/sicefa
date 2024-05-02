@@ -3,8 +3,8 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" id="title" href="{{ route('cefa.agroindustria.home.index') }}">
+    <div  class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a style="width: 260px;" class="navbar-brand" id="title" href="{{ route('cefa.agroindustria.home.index') }}">
             @if (session('viewing_unit'))
                 AGROINDUSTRIA - {{ session('viewing_unit_name') }}
             @else
@@ -186,9 +186,9 @@
                       @guest
                       <div class="col info info-user">
                           <div class="welcome">{{ trans('menu.Welcome') }}</div>
-                          <div class="login"><a href="{{ route('login') }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
+                          <div class="login"><a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
                       </div>
-                      <div class="col info float-right mt-2" id="icon_login" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Login') }}"><a href="{{ route('login') }}" class="d-block" ><i class="fas fa-sign-in-alt"></i></a></div>
+                      <div class="col info float-right mt-2" id="icon_login" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Login') }}"><a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block" ><i class="fas fa-sign-in-alt"></i></a></div>
                       <a href="{{ route ('cefa.agroindustria.home.manual')}}" class="nav-link" id="question">
                         <i class="fas fa-question-circle"></i>
                         <span id="volver-sicefa">Manual de Usuario</span>

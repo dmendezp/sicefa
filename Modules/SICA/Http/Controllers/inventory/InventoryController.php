@@ -5,11 +5,16 @@ namespace Modules\SICA\Http\Controllers\inventory;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\App;
+use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
 use Modules\SICA\Entities\Category;
 use Modules\SICA\Entities\MeasurementUnit;
 use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\KindOfPurchase;
+use Modules\SICA\Entities\ProductiveUnitWarehouse;
+use Modules\SICA\Entities\Inventory;
+use Modules\SICA\Entities\ProductiveUnit;
 use Illuminate\Support\Facades\Validator;
 
 class InventoryController extends Controller
@@ -42,11 +47,13 @@ class InventoryController extends Controller
         }
         // Realizar registro
         if (Warehouse::create($request->all())){
-            $message = ['message'=>'Se registró exitosamente la bodega.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo realizar el registro de la bodega.', 'typealert'=>'danger'];
+            $icon = 'success';
+            $message_warehouse = trans('sica::menu.Warehouse successfully added');
+        }else{
+            $icon = 'error';
+            $message_warehouse = trans('sica::menu.Could not add Warehouse');
         }
-        return redirect(route('sica.admin.inventory.warehouse.index'))->with($message);
+        return redirect(route('sica.admin.inventory.warehouse.index'))->with(['icon'=>$icon, 'message_warehouse'=>$message_warehouse]);
     }
 
     /* Ver bodega a actualizar */
@@ -69,21 +76,33 @@ class InventoryController extends Controller
         }
         // Actualizar registro
         if ($warehouse->update($request->all())){
-            $message = ['message'=>'Se actualizó exitosamente la bodega.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo realizar la actualización de la bodega.', 'typealert'=>'danger'];
+            $icon = 'success';
+            $message_warehouse = trans('sica::menu.Warehouse successfully updated');
+        }else{
+            $icon = 'error';
+            $message_warehouse = trans('sica::menu.Failed to update Warehouse');
         }
-        return redirect(route('sica.admin.inventory.warehouse.index'))->with($message);
+        return redirect(route('sica.admin.inventory.warehouse.index'))->with(['icon'=>$icon, 'message_warehouse'=>$message_warehouse]);
+    }
+
+     /* Formulario de eliminación de bodega */
+     public function warehouse_delete($id){
+        $warehouse = Warehouse::find($id);
+        $data = [ 'title' => 'Eliminar Bodega', 'warehouse' => $warehouse];
+        return view('sica::admin.inventory.warehouses.delete', $data);
     }
 
     /* Eliminar bodega */
-    public function warehouse_destroy(Warehouse $warehouse){
-        if ($warehouse->delete()){
-            $message = ['message'=>'Se eliminó exitosamente la bodega.', 'typealert'=>'success'];
-        } else {
-            $message = ['message'=>'No se pudo eliminar la bodega.', 'typealert'=>'danger'];
+    public function warehouse_destroy(Request $request){
+        $warehouse = Warehouse::findOrFail($request->input('id'));
+        if($warehouse->delete()){
+            $icon = 'success';
+            $message_warehouse = trans('sica::menu.Warehouse successfully removed');
+        }else{
+            $icon = 'error';
+            $message_warehouse = trans('sica::menu.Could not delete Warehouse');
         }
-        return redirect(route('sica.admin.inventory.warehouse.index'))->with($message);
+        return redirect()->back()->with(['icon'=>$icon, 'message_warehouse'=>$message_warehouse]);
     }
 
     /* Inicio de funciones de elementos */
@@ -158,8 +177,49 @@ class InventoryController extends Controller
     }
 
     public function inventory(){
-        $warehouses = Warehouse::pluck('name','id');
+        $warehouses = Warehouse::get();
         $data = ['title'=>trans('sica::menu.Inventory'),'warehouses'=>$warehouses];
         return view('sica::admin.inventory.inventory.home',$data);
+    }
+
+    public function inventory_filter(Request $request){
+
+       $warehouse_id = Warehouse::where('id',$request->input('warehouse_id'))->pluck('id');
+       
+       // Obtener los registros de 'productive_unit_warehouses' que coinciden con la unidad productiva seleccionada
+       $unitWarehouses = ProductiveUnitWarehouse::where('warehouse_id', $warehouse_id)->pluck('id');
+
+       $datenow = Carbon::now();
+
+       // Obtener los registros de inventario que coinciden con las bodegas relacionadas
+       $inventory = Inventory::whereIn('productive_unit_warehouse_id', $unitWarehouses)->where('state','=','Disponible')->where('amount','>','0')->get();
+
+       // Inicializa un array para almacenar la información de las bodegas
+       $warehouseData = [];
+
+       
+       $datas = [];
+       
+       foreach ($inventory as $inventor) {
+           $id = $inventor['id'];
+
+   
+           // Agregar información al array asociativo
+           $datas[] = [
+               'id' => $id,
+           ];
+           
+       }
+
+       // Contar el número de registros después de obtener los datos
+       $lowCount = count($datas);
+
+       Session::put('notificationlow', $lowCount);
+
+       return view('sica::admin.inventory.inventory.table', [
+           'inventory' => $inventory,
+           'notificationlow' => $lowCount,
+           'no_found' => 'No se encontraron elementos de la bodega seleccionada'
+       ]);
     }
 }
