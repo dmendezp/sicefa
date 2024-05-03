@@ -5,9 +5,11 @@ namespace Modules\SIGAC\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\SICA\Entities\LearningOutcome;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Quarterly extends Model
+class Quarterly extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     use HasFactory;
 
     protected $fillable = ['quarter_number','training_project_id','learning_outcome_id'];

@@ -20,6 +20,9 @@ use Modules\SICA\Entities\Competencie;
 use Modules\SICA\Entities\LearningOutcome;
 use Modules\SICA\Entities\Holiday;
 use Carbon\Carbon;
+use Modules\SIGAC\Imports\ApprenticeLearningOutcomeImport;
+
+use Excel, Exception;
 class ProgrammeController extends Controller
 {
     // Programación de horarios
@@ -28,7 +31,7 @@ class ProgrammeController extends Controller
         $view = [
             'titlePage' => trans('sigac::controllers.SIGAC_programming_schedules_title_page'),
             'titleView' => trans('sigac::controllers.SIGAC_programming_schedules_title_view'),
-            'programmingEvents' => InstructorProgram::get(),
+            
         ];
 
         return view('sigac::programming.index', $view);
@@ -89,13 +92,47 @@ class ProgrammeController extends Controller
 
     public function management_programming_filterenvironment(Request $request)
     {
-        $learning_outcome_id = $request->input('learning_outcome_id');
+        $learning_outcome = LearningOutcome::findOrfail($request->input('learning_outcome_id')) ;
+        $competencie_id = $learning_outcome->competencie->id;
 
-        $environments = Environment::whereHas('class_environment.learning_outcomes', function($query) use ($learning_outcome_id) {
-            $query->where('learning_outcomes.id', $learning_outcome_id);
+        $environments = Environment::whereHas('class_environment.competencies', function($query) use ($competencie_id) {
+            $query->where('competencies.id', $competencie_id);
         })->pluck('name','id');
 
         return response()->json(['environments' => $environments->toArray()]);
+    }
+
+    public function management_programming_filterstatelearning(Request $request)
+    {
+        $learning_outcome_id = $request->input('learning_outcome_id');
+
+        // Obtener la lista de programas de instructor asociados al resultado de aprendizaje
+        $instructor_programs = InstructorProgram::whereHas('quarterly.learning_outcome', function($query) use ($learning_outcome_id) {
+            $query->where('id', $learning_outcome_id);
+        })->get();
+
+        // Verificar si el resultado de aprendizaje está programado
+        if ($instructor_programs->isEmpty()) {
+            // El resultado de aprendizaje no está programado
+            $message = 'No programado';
+        } else {
+            // El resultado de aprendizaje está programado
+            $message = 'Programado';
+            // Recorrer los programas de instructor para obtener la información de fecha y hora
+            $scheduled_info = [];
+            foreach ($instructor_programs as $program) {
+                $scheduled_info[] = [
+                    'date' => $program->date,
+                    'start_time' => $program->start_time,
+                    'end_time' => $program->end_time
+                ];
+            }
+        }
+
+        return response()->json([
+            'status' => $message,
+            'scheduled_info' => $scheduled_info ?? null
+        ]);
     }
 
     // Registrar programacion
@@ -155,7 +192,7 @@ class ProgrammeController extends Controller
             $p->person_id = $request->instructor;
             $p->course_id = $request->course;
             $p->environment_id = $request->environment;
-            $p->quarterly_id = $quarterlies;
+            $p->learning_outcome_id = $request->learning_outcome;
             $p->save(); 
         }
 
@@ -252,17 +289,17 @@ class ProgrammeController extends Controller
 
         if ($option == 1) {
 
-            $programmingEvents = InstructorProgram::with('person', 'course.program', 'environment')->whereHas('person', function ($query) use ($filter) {
+            $programmingEvents = InstructorProgram::with('person', 'course.program', 'course.municipality.department','environment','learning_outcome')->whereHas('person', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
                 ->get();
         } elseif ($option == 2) {
-            $programmingEvents = InstructorProgram::with('person', 'course.program', 'environment')->whereHas('environment', function ($query) use ($filter) {
+            $programmingEvents = InstructorProgram::with('person', 'course.program', 'course.municipality.department', 'environment','learning_outcome')->whereHas('environment', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
                 ->get();
         } else {
-            $programmingEvents = InstructorProgram::with('person', 'course.program', 'environment')->whereHas('course', function ($query) use ($filter) {
+            $programmingEvents = InstructorProgram::with('person', 'course.program', 'course.municipality.department','environment','learning_outcome')->whereHas('course', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
                 ->get();
@@ -307,15 +344,7 @@ class ProgrammeController extends Controller
     // Parametros de programacion
     public function parameter()
     {
-        $prof = Program::all();
-        $programs = $prof->map(function ($p) {
-            $id = $p->id;
-            $name = $p->name;
-            return [
-                'id' => $id,
-                'name' => $name
-            ];
-        })->prepend(['id' => null, 'name' => 'Seleccione un programa'])->pluck('name', 'id');
+        $programs = Program::all();
 
         $Comps = Competencie::all();
         $competencies = $Comps->map(function ($c) {
@@ -341,6 +370,52 @@ class ProgrammeController extends Controller
         'competences' => $Comps, 
         'learning_outcomes' => $learning_outcomes, 
         'programs' => $programs, 
+        'competencies' => $competencies]);
+    }
+
+    public function parameter_competencies($program_id)
+    {
+        $prof = Program::all();
+        $programs = $prof->map(function ($p) {
+            $id = $p->id;
+            $name = $p->name;
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione un programa'])->pluck('name', 'id');
+        $competencies = Competencie::where('program_id',$program_id)->get();
+        $titlePage = 'Parametros - Competencia';
+        $titleView = 'Parametros - Competencia';
+        return view('sigac::programming.parameters.competences.table')->with(['titlePage' => $titlePage,
+        'titleView' => $titleView, 
+        'program_id' => $program_id,
+        'programs' => $programs, 
+        'competencies' => $competencies]);
+    }
+
+    public function parameter_learning_outcomes($competencie_id)
+    {
+        $Comps = Competencie::all();
+        $competencies = $Comps->map(function ($c) {
+            $id = $c->id;
+            $name = $c->name;
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione una competencia'])->pluck('name', 'id');
+        $learning_outcomes = LearningOutcome::where('competencie_id',$competencie_id)->get();
+        foreach ($learning_outcomes as $l) {
+           $program_id = $l->competencie->program_id;
+        }
+        $titlePage = 'Parametros - Resultado de aprendizaje';
+        $titleView = 'Parametros - Resultado de aprendizaje';
+        return view('sigac::programming.parameters.learning_outcomes.table')->with(['titlePage' => $titlePage,
+        'titleView' => $titleView, 
+        'competencie_id' => $competencie_id,
+        'learning_outcomes' => $learning_outcomes, 
+        'program_id' => $program_id,
         'competencies' => $competencies]);
     }
 
@@ -538,84 +613,94 @@ class ProgrammeController extends Controller
         }
     }
 
-    public function dates_index(){
-        $titleView = 'Fechas';
-        $titlePage = 'Fechas';
+    public function learning_outcome_load_create($program_id){
+	
+		return view('sigac::programming.parameters.learning_outcomes.load')->with(['titlePage' => 'Cargar Resultados de Aprendizaje',
+        'titleView' => 'Cargar Resultados de Aprendizaje',
+        'program_id' => $program_id]);
+	}
 
-        return view('sigac::programming.dates')->with([
-            'titlePage' => $titlePage,
-            'titleView' => $titleView, 
-        ]);
+    /* Registrar aprendices a partir de un archivo */
+    public function learning_outcome_load_store(Request $request){
+        ini_set('max_execution_time', 3000); // Ampliar el tiempo máximo de la ejecución del proceso en el servidor
+        $validator = Validator::make($request->all(),
+            ['archivo'  => 'required'],
+            ['archivo.required'  => 'El archivo es requerido.']
+        );
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }else{
+            $path = $request->file('archivo'); // Obtener ubicación temporal del archivo en el servidor
+            $array = Excel::toArray(new ApprenticeLearningOutcomeImport, $path); // Convertir el contenido del archivo excel en una arreglo de arreglos
+            $program_name = $array[0][4][2]; // Obtener la ficha del curso y el nombre del programa en un arreglo
+            $course_code = $array[0][1][2];
+            $datas = array_splice($array[0], 12, count($array[0])); // Obtener solo los registros de los datos de los aprendices
+            try {
+                $count = 0;
+                // Recorrer datos y relizar registros
+               
+                foreach($datas as $data){
+                    $competencie = explode(" - ", $data[5]);
+                    if ($competencie) {
+                        if (count($competencie) > 1) {
+                            $code_competencie = $competencie[0];
+                            // Si hay más de una parte después de dividir por el guión
+                            $name_competencia = trim(preg_replace('/^[0-9]+\s*/', '', $competencie[1])); // Eliminar números y espacios al principio de la cadena
+                        } else {
+                            // Si no hay un guión, entonces tomar el nombre completo sin modificar
+                            $name_competencia = trim($competencie[0]);
+                        }
+
+                    }
+                    $learning_outcome = explode(" - ", $data[6]); // Dividir la cadena por el guión ('-')
+                    $program_id = $request->program_id;
+                    if ($learning_outcome) {
+                        if (count($learning_outcome) > 1) {
+                            // Si hay más de una parte después de dividir por el guión
+                            $name_learning = trim(preg_replace('/^[0-9]+\s*/', '', $learning_outcome[1])); // Eliminar números y espacios al principio de la cadena
+                        } else {
+                            // Si no hay un guión, entonces tomar el nombre completo sin modificar
+                            $name_learning = trim($learning_outcome[0]);
+                        }
+                        $competenciefind = Competencie::where('name', '=', $name_competencia)->where('program_id',$program_id)->first();
+
+                        if ($competenciefind) {
+                            $competencie_id = $competenciefind->id;
+                        } else {
+                            $competencies = new Competencie;
+                            $competencies->program_id = $program_id;
+                            $competencies->code = $code_competencie;
+                            $competencies->name = ucfirst(strtolower($name_competencia));
+                            $competencies->hour = 0;
+                            $competencies->type = 'Técnico';
+                            $competencies->save();
+                            $competencie_id = $competencies->id;
+                        }
+
+                        $learning_outcome = LearningOutcome::where('name', '=', $name_learning)->whereHas('competencie', function($query) use ($program_id) {
+                            $query->where('program_id', $program_id);
+                        })->first();
+                        
+                        if ($learning_outcome) {
+                            $learning_outcome_id = $learning_outcome->id;
+                        } else {
+                            $learning_outcomes = new LearningOutcome;
+                            $learning_outcomes->competencie_id = $competencie_id;
+                            $learning_outcomes->name = ucfirst(strtolower($name_learning));
+                            $learning_outcomes->hour = 0;
+                            $learning_outcomes->save();
+                            $count++;
+                        }
+                    }
+                }
+                
+                return back()->with('success', 'Archivo excel escaneado coerrectamente. '.$count.' Resultados registrados exitosamente.')->with('typealert', 'success');
+            } catch (Exception $e) {
+                DB::rollBack(); // Devolver cambios realizados durante la transacción
+                return back()->with('error', 'Ocurrio un error en la importación y/o registro de datos del archivo excel cargado. <hr> <strong>Error: </strong> ('.$e->getMessage().').')->with('typealert', 'danger');
+             }
+
+        }
     }
-
-    public function store_dates(Request $request){
-        $days = $request->days;
-        $fechas = [];
-        $fechaActual = Carbon::parse($request->start_date);
-        while ($fechaActual->lte(Carbon::parse($request->end_date))) {
-            if (in_array($fechaActual->englishDayOfWeek, $days)) {
-                $fechas[] = $fechaActual->toDateString();
-            }
-            $fechaActual->addDay();
-        }
-
-        $course_id = $request->course;
-       
-
-        foreach ($fechas as $f) {
-            $programming = InstructorProgram::where('date', $f)
-            ->where(function ($query) use ($request) {
-                $query->where(function ($q) use ($request) {
-                    $q->where('start_time', '>=', $request->start_time)
-                        ->where('start_time', '<=', $request->end_time);
-                })
-                ->orWhere(function ($q) use ($request) {
-                    $q->where('end_time', '>=', $request->start_time)
-                        ->where('end_time', '<=', $request->end_time);
-                })
-                ->orWhere(function ($q) use ($request) {
-                    $q->where('start_time', '<=', $request->start_time)
-                        ->where('end_time', '>=', $request->end_time);
-                });
-            })
-            ->where('person_id', $request->instructor)
-            ->where('environment_id', $request->environment)
-            ->where('course_id', $course_id)
-            ->exists();
-
-            $holidays = Holiday::where('date', $f)->exists();
-
-            if($programming || $holidays){
-                $fechas_no_registradas[] = $f;
-                continue;
-            }
-
-            $quarterlies = Quarterly::with('learning_outcome.competencie','learning_outcome.people.professions')
-            ->where('learning_outcome_id', $request->learning_outcome)
-            ->whereHas('training_project.courses', function ($query) use ($course_id) {
-                $query->where('courses.id', $course_id);
-            })->pluck('id')->first();
-
-            $p = new InstructorProgram;
-            $p->date = $f;
-            $p->start_time = $request->start_time;
-            $p->end_time = $request->end_time;
-            $p->person_id = $request->instructor;
-            $p->course_id = $request->course;
-            $p->environment_id = $request->environment;
-            $p->quarterlie_id = $quarterlies;
-            $p->save(); 
-        }
-
-        if (!empty($fechas_no_registradas)) {
-            $hora_inicio = $request->start_time;
-            $hora_fin = $request->end_time;
-            $mensaje = 'No se pudieron registrar las siguientes fechas: ' . implode(', ', $fechas_no_registradas) . ', ya hay programación para estas fechas entre estas horas: ' . $hora_inicio . ' - ' . $hora_fin . '.';
-            return redirect(route('sigac.academic_coordination.programming.dates_index'))->with(['error'=> $mensaje]);
-        } else {
-            $mensaje = 'Programación creada con éxito.';
-            return redirect(route('sigac.academic_coordination.programming.dates_index'))->with(['success'=> $mensaje]);
-        }
-
-    }
+    
 }

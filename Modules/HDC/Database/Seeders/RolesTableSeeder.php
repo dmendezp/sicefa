@@ -54,7 +54,7 @@ class RolesTableSeeder extends Seeder
 
         ]);
 
-        //Consulta de usuarios
+       /*  //Consulta de usuarios
         $user_admin = User::where('nickname', 'aldavi')->first(); //usuario para Mary Luz Aldana Vidarte
         $user_charge = User::where('nickname', 'jitaco')->first(); //usuario para Magaly Jimena Tafur Campos
 
@@ -63,7 +63,7 @@ class RolesTableSeeder extends Seeder
         $user_admin->roles()->syncWithoutDetaching([$role_admin->id]);
         $user_admin->roles()->syncWithoutDetaching([$role_userHDC->id]);
         $user_charge->roles()->syncWithoutDetaching([$role_charge->id]);
-        $user_charge->roles()->syncWithoutDetaching([$role_userHDC->id]);
+        $user_charge->roles()->syncWithoutDetaching([$role_userHDC->id]); */
 
     }
 }

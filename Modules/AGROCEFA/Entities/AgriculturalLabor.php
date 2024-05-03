@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AgriculturalLabor extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
-
-        
     use HasFactory;
 
     protected $fillable = [

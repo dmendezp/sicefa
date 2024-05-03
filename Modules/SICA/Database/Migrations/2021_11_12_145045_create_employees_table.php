@@ -25,7 +25,6 @@ class CreateEmployeesTable extends Migration
             $table->enum('risk_type', ['I','II','III','IV','V']);
             $table->enum('bonding', ['Planta Temporal','Planta Provisional','Carrera Administrativa']);
             $table->enum('state', ['Activo','Inactivo']);
-            $table->enum('bonding', ['Planta Temporal','Planta Provisional','Carrera Administrativa']);
             $table->softDeletes();
             $table->timestamps();
         });

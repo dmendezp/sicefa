@@ -38,4 +38,7 @@ return [
      'th2' => 'Actividad',
      'th3' => 'Apecto Ambiental',
      'th4' => 'Acciones',
+
+     // ALERTAS
+     'TextSuccess' => 'Registr Exitoso',
 ];

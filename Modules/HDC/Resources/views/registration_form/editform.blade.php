@@ -71,7 +71,7 @@
                                                         <td>{{ $envasp->environmental_aspect->name }}</td>
 
                                                         <td>
-                                                            <input type="number" name="amounts[]" class="amount-input"
+                                                            <input type="number" name="amounts[]" class="amount-input form-control"
                                                                 value="{{ $envasp->amount }}" required>
                                                         </td>
 

@@ -173,6 +173,7 @@ return [
 	'Create Contract Type' => 'Create Contract Type',
 	'ID' => 'ID',
 	'Name' => 'Name',
+	'Price' => 'Price',
 	'actions' => 'actions',
 	'Edit' => 'Edit',
 	'Delete' => 'Delete',

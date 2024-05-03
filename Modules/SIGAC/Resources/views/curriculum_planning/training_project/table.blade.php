@@ -31,39 +31,39 @@
                                 return $competency->learning_outcomes;
                             })->count() }}
                             </td>
-                        <td class="text-center">
-                            <a  class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#informationproyecto{{$t->id}}">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                        </td>
-                        <td class="text-center">
-                            <a class="btn btn-primary" href="{{ route('sigac.academic_coordination.curriculum_planning.training_project.quarterlie.index', ['training_project_id' => $t->id, 'course_id' => $course->id]) }}">
-                                <i class="fa-solid fa-outdent"></i>
-                            </a>
-                        </td>
-                        <td class="text-center col-1">
-                            <div class="opts">
-                                <a  data-bs-toggle="modal" data-bs-target="#editproyecto{{$t->id}}">
-                                    <b class="text-primary" data-toggle="tooltip" data-placement="top" title="Actualizar Proyecto Formativo">
-                                        <i class="fas fa-edit"></i>
-                                    </b>
+                            <td class="text-center">
+                                <a  class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#informationproyecto{{$t->id}}">
+                                    <i class="fas fa-eye"></i>
                                 </a>
-                                @include('sigac::curriculum_planning.training_project.information')
-                                @include('sigac::curriculum_planning.training_project.edit')
-                                <a class="delete-training_project"  data-trainingproject-id="{{ $t->id }}">
-                                    <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar Proyecto Formativo">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </b>
+                            </td>
+                            <td class="text-center">
+                                <a class="btn btn-primary" href="{{ route('sigac.academic_coordination.curriculum_planning.training_project.quarterlie.index', ['training_project_id' => $t->id, 'course_id' => $course->id]) }}">
+                                    <i class="fa-solid fa-outdent"></i>
                                 </a>
-                            </div>
-                        </td>
-                        <form id="delete-trainingproject-form-{{ $t->id }}"
-                            action="{{ route('sigac.academic_coordination.curriculum_planning.training_project.destroy', ['id' => $t->id]) }}"
-                            method="POST">
-                            @csrf
-                            @method('DELETE')
-                        </form>
-                    </tr>
+                            </td>
+                            <td class="text-center col-1">
+                                <div class="opts">
+                                    <a  data-bs-toggle="modal" data-bs-target="#editproyecto{{$t->id}}">
+                                        <b class="text-primary" data-toggle="tooltip" data-placement="top" title="Actualizar Proyecto Formativo">
+                                            <i class="fas fa-edit"></i>
+                                        </b>
+                                    </a>
+                                    @include('sigac::curriculum_planning.training_project.information')
+                                    @include('sigac::curriculum_planning.training_project.edit')
+                                    <a class="delete-training_project"  data-trainingproject-id="{{ $t->id }}">
+                                        <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar Proyecto Formativo">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </b>
+                                    </a>
+                                </div>
+                            </td>
+                            <form id="delete-trainingproject-form-{{ $t->id }}"
+                                action="{{ route('sigac.academic_coordination.curriculum_planning.training_project.destroy', ['id' => $t->id]) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                        </tr>
                     @endforeach
                 @endforeach
                 @include('sigac::curriculum_planning.training_project.create')

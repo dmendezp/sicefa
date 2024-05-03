@@ -67,6 +67,7 @@ class FormularioController extends Controller
             'execution_date' => now(),
             'description' => 'Descripción de la labor',
             'status' => 'Realizado',
+            'price' => 0,
             'observations' => 'Observaciones de la labor',
             'destination' => 'Formacion',
         ]);

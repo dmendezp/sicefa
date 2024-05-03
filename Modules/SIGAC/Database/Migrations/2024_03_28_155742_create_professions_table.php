@@ -16,7 +16,7 @@ class CreateProfessionsTable extends Migration
         Schema::create('professions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('level', ['Técnico', 'Tecnólogo', 'Operario']);
+            $table->enum('level', ['Técnico', 'Tecnólogo', 'Profesion', 'Especialidad', 'Maestria', 'Doctorado']);
             $table->softDeletes();
             $table->timestamps();
         });

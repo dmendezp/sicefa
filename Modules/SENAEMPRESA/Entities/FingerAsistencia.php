@@ -7,11 +7,12 @@ use Modules\SICA\Entities\Person;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\softDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class FingerAsistencia extends Model
+class FingerAsistencia extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     use HasFactory;
-
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];

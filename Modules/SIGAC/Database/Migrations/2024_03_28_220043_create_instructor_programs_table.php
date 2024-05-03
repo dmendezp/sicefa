@@ -21,7 +21,8 @@ class CreateInstructorProgramsTable extends Migration
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
             $table->foreignId('environment_id')->constrained()->onDelete('cascade');
-            $table->foreignId('quarterly_id')->constrained()->onDelete('cascade');
+            $table->foreignId('learning_outcome_id')->constrained()->onDelete('cascade');
+            $table->enum('state', ['Pendiente', 'Evaluado']);
             $table->timestamps();
         });
     }

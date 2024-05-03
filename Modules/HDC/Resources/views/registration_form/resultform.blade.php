@@ -19,7 +19,7 @@
                     <table class="table table-bordered table-hover" id="myTable">
                         <thead class="table-dark">
                             <tr>
-                                <th>ID</th>
+                                <th>#</th>
                                 <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_productive_unit')}}</th>
                                 <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Activities')}}</th>
                                 <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Date')}}</th>
@@ -56,11 +56,11 @@
                                         </ul>
                                     </td>
                                     <td>
-                                        <form action="{{ route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.delete', $dato->id) }}" method="post" id="formEliminar{{ $loop->iteration }}">
+                                        <form action="{{ route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.delete', $dato->id) }}" method="post" id="formEliminar{{ $dato->id }}">
                                             @csrf
                                             @method('DELETE')
 
-                                            <button class="btn btn-danger btnEliminar" type="button" data-form-id="formEliminar{{ $loop->iteration }}">
+                                            <button class="btn btn-danger btnEliminar" type="button" data-form-id="formEliminar{{ $dato->id }}">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </form>

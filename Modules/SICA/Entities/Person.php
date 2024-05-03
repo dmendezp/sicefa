@@ -20,6 +20,8 @@ use Modules\AGROCEFA\Entities\Executor;
 use Modules\SIGAC\Entities\CompetencePerson;
 use Modules\SIGAC\Entities\InstructorProgram;
 use Modules\SIGAC\Entities\Profession;
+use Modules\SIGAC\Entities\AttendanceApprentice;
+use Modules\SIGAC\Entities\EvaluativeJudgment;
 
 class Person extends Model implements Auditable
 {
@@ -121,11 +123,18 @@ class Person extends Model implements Auditable
     public function attendances(){ // Accede a todos aprendices que han sido asociados con esta persona
         return $this->hasMany(Attendance::class);
     }
+    public function attendance_apprentices()
+    {
+        return $this->hasMany(AttendanceApprentice::class);
+    }
     public function authorizeds(){ // Accede a todas los registros de las personas que han sido autorizados para votar
         return $this->hasMany(Authorized::class);
     }
     public function cash_counts(){ // Accede a todas las sesiones de caja asociados a esta persona
         return $this->hasMany(CashCount::class);
+    }
+    public function evaluative_judgments(){ // Accede a todos los juicios evaluativos de esta persona
+        return $this->hasMany(EvaluativeJudgment::class);
     }
     public function learning_outcomes(){ //Accede a todas los resultados de aprendizaje que pertenecen a este perfil (PIVOTE)
         return $this->belongsToMany(LearningOutcome::class, 'learning_outcome_people');

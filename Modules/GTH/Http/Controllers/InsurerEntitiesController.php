@@ -44,7 +44,7 @@ class InsurerEntitiesController extends Controller
         $insurerEntities->save();
 
         // Redirigir a donde quieras después de la actualización
-        return redirect()->route('gth.admin.insurerentities.index')->with('success', 'gth::menu.Insurance Entity successfully updated.');
+        return redirect()->route('gth.admin.insurerentities.index')->with('success', trans('gth::menu.Insurance Entity successfully updated.'));
     }
 
     public function showInsurerEntities($id)
@@ -60,9 +60,9 @@ class InsurerEntitiesController extends Controller
             $insurerEntities = InsurerEntity::findOrFail($id);
             $insurerEntities->delete();
 
-            return redirect()->route('gth.admin.insurerentities.index')->with('success', 'gth::menu.The Insurance Entity has been deleted successfully.');
+            return redirect()->route('gth.admin.insurerentities.index')->with('success', trans('gth::menu.The Insurance Entity has been deleted successfully.'));
         } catch (\Exception $e) {
-            return redirect()->route('gth.admin.insurerentities.index')->with('error', 'gth::menu.The Insurance Entity could not be deleted');
+            return redirect()->route('gth.admin.insurerentities.index')->with('error', trans('gth::menu.The Insurance Entity could not be deleted'));
         }
     }
 

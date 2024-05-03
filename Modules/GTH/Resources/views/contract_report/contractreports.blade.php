@@ -12,7 +12,7 @@
 
                     <!-- Información de la Persona -->
                     <h2>{{ trans('gth::menu.Personal Information') }}</h2>
-
+                    <input type="hidden" name="person_id" id="person_id">
                     <!-- Número de Documento -->
                     <div class="form-group">
                         <label for="document_number">{{ trans('gth::menu.ID number:') }}</label>
@@ -46,16 +46,33 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-3">
+                                    <input type="hidden" name="supervisor_id" id="supervisor_id">
+                                    <!-- Número de Documento -->
                                     <div class="form-group">
-                                        <label for="supervisor_id">{{ trans('gth::menu.Supervisor ID:') }}</label>
-                                        <input type="text" name="supervisor_id" id="supervisor_id"
-                                            class="form-control @error('supervisor_id') is-invalid @enderror"
-                                            value="{{ old('supervisor_id') }}" placeholder='{{ trans('gth::menu.Enter the supervisor ID') }}' required>
-                                        @error('supervisor_id')
+                                        <label for="document_number_supervisor">{{ trans('gth::menu.ID number:') }}</label>
+                                        <input type="number" name="document_number_supervisor" id="document_number_supervisor"
+                                            class="form-control @error('document_number_supervisor') is-invalid @enderror"
+                                            value="{{ old('document_number_supervisor') }}" required>
+                                        @error('document_number_supervisor')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="first_name_supervisor">{{ trans('gth::menu.First Name:') }}</label>
+                                        <input type="text" name="first_name_supervisor" id="first_name_supervisor" class="form-control" readonly>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="first_last_name_supervisor">{{ trans('gth::menu.First Surname:') }}</label>
+                                        <input type="text" name="first_last_name_supervisor" id="first_last_name_supervisor" class="form-control" readonly>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="second_last_name_supervisor">{{ trans('gth::menu.Second Surname:') }}</label>
+                                        <input type="text" name="second_last_name_supervisor" id="second_last_name_supervisor" class="form-control" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -68,7 +85,7 @@
                                     <div class="form-group">
                                         <label for="contract_number">{{ trans('gth::menu.Contract Number:') }}</label>
                                         <input type="text" name="contract_number" id="contract_number"
-                                            class="form-control @error('contract_number') is-invalid @enderror"
+                                            class="required form-control @error('contract_number') is-invalid @enderror"
                                             value="{{ old('contract_number') }}" placeholder="{{ trans('gth::menu.Enter the contract number') }}" required>
                                         @error('contract_number')
                                             <span class="invalid-feedback" role="alert">
@@ -82,7 +99,7 @@
                                     <div class="form-group">
                                         <label for="contract_year">{{ trans('gth::menu.Contract Year:') }}</label>
                                         <input type="text" name="contract_year" id="contract_year"
-                                            class="form-control @error('contract_year') is-invalid @enderror"
+                                            class="required form-control @error('contract_year') is-invalid @enderror"
                                             value="{{ old('contract_year', date('Y')) }}" required>
                                         @error('contract_year')
                                             <span class="invalid-feedback" role="alert">
@@ -96,7 +113,7 @@
                                     <div class="form-group">
                                         <label for="contract_start_date">{{ trans('gth::menu.Contract Start Date:') }}</label>
                                         <input type="date" name="contract_start_date" id="contract_start_date"
-                                            class="form-control @error('contract_start_date') is-invalid @enderror"
+                                            class="required form-control @error('contract_start_date') is-invalid @enderror"
                                             value="{{ old('contract_start_date') }}" required>
                                         @error('contract_start_date')
                                             <span class="invalid-feedback" role="alert">
@@ -109,7 +126,7 @@
                                     <div class="form-group">
                                         <label for="contract_end_date">{{ trans('gth::menu.Contract End Date:') }}</label>
                                         <input type="date" name="contract_end_date" id="contract_end_date"
-                                            class="form-control @error('contract_end_date') is-invalid @enderror"
+                                            class="required form-control @error('contract_end_date') is-invalid @enderror"
                                             value="{{ old('contract_end_date') }}">
                                         @error('contract_end_date')
                                             <span class="invalid-feedback" role="alert">
@@ -128,7 +145,7 @@
                                     <div class="form-group">
                                         <label for="contractor_type_id">{{ trans('gth::menu.Type of Contract:') }}</label>
                                         <select name="contractor_type_id" id="contractor_type_id"
-                                            class="form-control @error('contractor_type_id') is-invalid @enderror" required>
+                                            class="required form-control @error('contractor_type_id') is-invalid @enderror" required>
                                             <option value="">{{ trans('gth::menu.---Choose the Contract Type---') }}</option>
                                             @foreach ($contractorTypes as $contractorType)
                                                 <option value="{{ $contractorType->id }}">{{ $contractorType->name }}
@@ -146,7 +163,7 @@
                                     <div class="form-group">
                                         <label for="employee_type_id">{{ trans('gth::menu.Type of Employee:') }}</label>
                                         <select name="employee_type_id" id="employee_type_id"
-                                            class="form-control @error('employee_type_id') is-invalid @enderror" required>
+                                            class="required form-control @error('employee_type_id') is-invalid @enderror" required>
                                             <option value="">{{ trans('gth::menu.--- Choose the Employee Type ---') }}</option>
                                             @foreach ($employeeTypes as $employeeTypes)
                                                 <option value="{{ $employeeTypes->id }}">{{ $employeeTypes->name }}
@@ -165,7 +182,7 @@
                                     <div class="form-group">
                                         <label for="amount_hours">{{ trans('gth::menu.Hours of Work:') }}</label>
                                         <input type="number" name="amount_hours" id="amount_hours"
-                                            class="form-control @error('amount_hours') is-invalid @enderror"
+                                            class="required form-control @error('amount_hours') is-invalid @enderror"
                                             value="{{ old('amount_hours') }}" placeholder="{{ trans('gth::menu.Enter the working hours') }}" required>
                                         @error('amount_hours')
                                             <span class="invalid-feedback" role="alert">
@@ -178,7 +195,7 @@
                                     <div class="form-group">
                                         <label for="total_contract_value">{{ trans('gth::menu.Total Contract Value:') }}</label>
                                         <input type="number" name="total_contract_value" id="total_contract_value"
-                                            class="form-control @error('total_contract_value') is-invalid @enderror"
+                                            class="required form-control @error('total_contract_value') is-invalid @enderror"
                                             value="{{ old('total_contract_value') }}" placeholder="{{ trans('gth::menu.Enter the total value of the contract') }}" required>
                                         @error('total_contract_value')
                                             <span class="invalid-feedback" role="alert">
@@ -196,7 +213,7 @@
                                     <div class="form-group">
                                         <label for="policy_issue_date">{{ trans('gth::menu.Policy Issuance Date:') }}</label>
                                         <input type="date" name="policy_issue_date" id="policy_issue_date"
-                                            class="form-control @error('policy_issue_date') is-invalid @enderror"
+                                            class="required form-control @error('policy_issue_date') is-invalid @enderror"
                                             value="{{ old('policy_issue_date') }}" required>
                                         @error('policy_issue_date')
                                             <span class="invalid-feedback" role="alert">
@@ -210,7 +227,7 @@
                                     <div class="form-group">
                                         <label for="policy_approval_date">{{ trans('gth::menu.Policy Approval Date:') }}</label>
                                         <input type="date" name="policy_approval_date" id="policy_approval_date"
-                                            class="form-control @error('policy_approval_date') is-invalid @enderror"
+                                            class="required form-control @error('policy_approval_date') is-invalid @enderror"
                                             value="{{ old('policy_approval_date') }}" required>
                                         @error('policy_approval_date')
                                             <span class="invalid-feedback" role="alert">
@@ -224,7 +241,7 @@
                                     <div class="form-group">
                                         <label for="policy_effective_date">{{ trans('gth::menu.Policy Effective Date:') }}</label>
                                         <input type="date" name="policy_effective_date" id="policy_effective_date"
-                                            class="form-control @error('policy_effective_date') is-invalid @enderror"
+                                            class="required form-control @error('policy_effective_date') is-invalid @enderror"
                                             value="{{ old('policy_effective_date') }}" required>
                                         @error('policy_effective_date')
                                             <span class="invalid-feedback" role="alert">
@@ -237,7 +254,7 @@
                                     <div class="form-group">
                                         <label for="policy_expiration_date">{{ trans('gth::menu.Policy Expiration Date:') }}</label>
                                         <input type="date" name="policy_expiration_date" id="policy_expiration_date"
-                                            class="form-control @error('policy_expiration_date') is-invalid @enderror"
+                                            class="required form-control @error('policy_expiration_date') is-invalid @enderror"
                                             value="{{ old('policy_expiration_date') }}" required>
                                         @error('policy_expiration_date')
                                             <span class="invalid-feedback" role="alert">
@@ -256,7 +273,7 @@
                                         <label for="policy_number">{{ trans('gth::menu.Policy Number:') }}</label>
                                         <div class="input-group">
                                             <input type="text" name="policy_number" id="policy_number"
-                                                class="form-control @error('policy_number') is-invalid @enderror"
+                                                class="required form-control @error('policy_number') is-invalid @enderror"
                                                 value="{{ old('policy_number') }}" placeholder="{{ trans('gth::menu.Enter Policy Number') }}">
                                             <div class="input-group-append">
                                             </div>
@@ -272,7 +289,7 @@
                                     <div class="form-group">
                                         <label for="risk_type">{{ trans('gth::menu.Type of Risk:') }}</label>
                                         <select name="risk_type" id="risk_type"
-                                            class="form-control @error('risk_type') is-invalid @enderror"required>
+                                            class="required form-control @error('risk_type') is-invalid @enderror"required>
                                             <option value="">{{ trans('gth::menu.---Choose the Type of Risk---') }}</option>
                                             <option value="I" {{ old('risk_type') == 'I' ? 'selected' : '' }}>I</option>
                                             <option value="II" {{ old('risk_type') == 'II' ? 'selected' : '' }}>II</option>
@@ -292,7 +309,7 @@
                                     <div class="form-group">
                                         <label for="state">{{ trans('gth::menu.Status:') }}</label>
                                         <select name="state" id="state"
-                                            class="form-control @error('state') is-invalid @enderror">
+                                            class="required form-control @error('state') is-invalid @enderror">
                                             <option value="#">{{ trans('gth::menu.--- Choose the contractors status ---') }}</option>
                                             <option value="Activo" {{ old('state') === 'Activo' ? 'selected' : '' }}>
                                                 Activo</option>
@@ -315,7 +332,7 @@
                                     <div class="form-group">
                                         <label for="SIIF_code">{{ trans('gth::menu.SIIF Code:') }}</label>
                                         <input type="number" name="SIIF_code" id="SIIF_code"
-                                            class="form-control @error('SIIF_code') is-invalid @enderror"
+                                            class="required form-control @error('SIIF_code') is-invalid @enderror"
                                             value="{{ old('SIIF_code') }}" placeholder="{{ trans('gth::menu.Enter the assignment value') }}" required>
                                         @error('SIIF_code')
                                             <span class="invalid-feedback" role="alert">
@@ -328,7 +345,7 @@
                                     <div class="form-group">
                                         <label for="assigment_value">{{ trans('gth::menu.Assignment Value:') }}</label>
                                         <input type="number" name="assigment_value" id="assigment_value"
-                                            class="form-control @error('assigment_value') is-invalid @enderror"
+                                            class="required form-control @error('assigment_value') is-invalid @enderror"
                                             value="{{ old('assigment_value') }}" placeholder="{{ trans('gth::menu.Enter the assignment value') }}" required>
                                         @error('assigment_value')
                                             <span class="invalid-feedback" role="alert">
@@ -341,7 +358,7 @@
                                     <div class="form-group">
                                         <label for="insurer_entity_id">{{ trans('gth::menu.Insurance Company:') }}</label>
                                         <select name="insurer_entity_id" id="insurer_entity_id"
-                                            class="form-control @error('insurer_entity_id') is-invalid @enderror" required>
+                                            class="required form-control @error('insurer_entity_id') is-invalid @enderror" required>
                                             <option value="">{{ trans('gth::menu.--- Choose the insurance entity ---') }}</option>
                                             @foreach ($insurerEntity as $insurerEntity)
                                                 <option value="{{ $insurerEntity->id }}">{{ $insurerEntity->name }}
@@ -358,7 +375,7 @@
                                     <div class="form-group">
                                         <label for="contract_object">{{ trans('gth::menu.Contract Object:') }}</label>
                                         <textarea name="contract_object" id="contract_object"
-                                            class="form-control @error('contract_object') is-invalid @enderror" placeholder="{{ trans('gth::menu.Enter the subject of the contract') }}" required>{{ old('contract_object') }}</textarea>
+                                            class="required form-control @error('contract_object') is-invalid @enderror" placeholder="{{ trans('gth::menu.Enter the subject of the contract') }}" required>{{ old('contract_object') }}</textarea>
                                         @error('contract_object')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -374,7 +391,7 @@
                                     <div class="form-group">
                                         <label for="contract_obligations">{{ trans('gth::menu.Contract Obligations:') }}</label>
                                         <textarea name="contract_obligations" id="contract_obligations"
-                                            class="form-control @error('contract_obligations') is-invalid @enderror" placeholder="{{ trans('gth::menu.Enter the obligations of the contract') }}" required>{{ old('contract_obligations') }}</textarea>
+                                            class="required form-control @error('contract_obligations') is-invalid @enderror" placeholder="{{ trans('gth::menu.Enter the obligations of the contract') }}" required>{{ old('contract_obligations') }}</textarea>
                                         @error('contract_obligations')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -407,6 +424,7 @@
                 },
                 success: function(data) {
                     // Rellena los campos con los datos de la persona
+                    $('#person_id').val(data.id);
                     $('#first_name').val(data.first_name);
                     $('#first_last_name').val(data.first_last_name);
                     $('#second_last_name').val(data.second_last_name);
@@ -416,24 +434,29 @@
                 }
             });
         });
-    </script>
- <script>
-    'use strict';
-    var guardarContrato = document.getElementById('guardarContrato');
+        $('#document_number_supervisor').on('change', function() {
+            var numeroDocumento = $(this).val();
 
-    guardarContrato.addEventListener('click', function() {
-        // Simulamos una operación de guardado exitosa (puedes reemplazar esto con tu lógica real de guardado)
-        // Supongamos que aquí tienes tu lógica para guardar datos en el servidor
-
-        // Luego de que se haya completado la operación de guardado, muestra el SweetAlert
-        Swal.fire({
-            title: '{{ trans('gth::menu.Saved successful') }}',
-            text: '{{ trans('gth::menu.The data has been saved correctly.') }}',
-            icon: '{{ trans('gth::menu.success') }}',
-            confirmButtonText: '{{ trans('gth::menu.Accept') }}',
+            // Realiza una solicitud AJAX para obtener los datos de la persona
+            $.ajax({
+                url: '{{ route('cefa.gth.getPersonData') }}', // Utiliza la ruta configurada en web.php
+                method: 'GET',
+                data: {
+                    document_number: numeroDocumento
+                },
+                success: function(data) {
+                    // Rellena los campos con los datos de la persona
+                    $('#supervisor_id').val(data.id);
+                    $('#first_name_supervisor').val(data.first_name);
+                    $('#first_last_name_supervisor').val(data.first_last_name);
+                    $('#second_last_name_supervisor').val(data.second_last_name);
+                },
+                error: function() {
+                    // Maneja errores si es necesario
+                }
+            });
         });
-    });
-</script>
+    </script>
 
 
 

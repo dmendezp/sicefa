@@ -4,7 +4,7 @@
 @endpush
 
 @section('content')
-<h2 class="text-center">Asignar Aspectos Ambientales</h2>
+<h2 class="text-center">{{ trans('hdc::assign_environmental_aspects.ct1') }}</h2>
 <br>
 <div class="">
     <div class="card card-green card-outline shadow col-12">
