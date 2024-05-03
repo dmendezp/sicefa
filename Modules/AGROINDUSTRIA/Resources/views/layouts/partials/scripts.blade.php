@@ -52,49 +52,6 @@ window.onclick = function(event) {
     });
 </script>
 
-
-{{--Script para traer la cedula de la persona que se seleccione--}}
-<script>
-    $(document).ready(function() {
-        // Escucha el evento de cambio en el select
-        $('#coordinator_select').change(function() {
-            // Obtén el valor seleccionado
-            var selectedValue = $(this).val();
-            
-            // Si el valor no está vacío, realiza una solicitud AJAX para obtener la cédula
-            if (selectedValue) {
-                console.log('ID de la persona seleccionada:', selectedValue);
-                $.ajax({
-                    url: {!! json_encode(route('cefa.agroindustria.cedula', ['coordinatorId' => ':coordinatorId'])) !!}.replace(':coordinatorId', selectedValue.toString()), // Convierte a cadena de texto
-                    method: 'GET',
-                    success: function(response) {
-                        if (!isNaN(response.cedula.document_number)) {
-                            // Convierte la cédula a un número antes de establecerla
-                            var cedula = parseFloat(response.cedula.document_number);
-                            $('#document_number_coordinator').val(cedula);
-                        } else {
-                            // Manejar el caso en que la cédula no sea un número válido
-                            console.error('La cédula no es un número válido.');
-                        }
-                    },
-
-
-                    error: function() {
-                        // Maneja errores si es necesario
-                        console.error('Error al obtener la cédula del coordinador.');
-                    }
-                });
-            } else {
-                // Si se selecciona la opción predeterminada, deja el campo de "Cédula" en blanco
-                $('#document_number_coordinator').val('');
-            }
-        });
-    });
-</script>
-
-
-
-
 {{--Script para traer el id del curso seleccionado--}}
 <script>
     $(document).ready(function() {
@@ -127,31 +84,32 @@ window.onclick = function(event) {
  {{-- Busca productos segun el numero de documento --}}
 <script>
     $(document).ready(function() {
-        var baseUrl = '{{ route("agroindustria.instructor.units.element.name", ["name" => ":name"]) }}';
+        var baseUrl = '{{ route("agroindustria.instructor.units.element.name") }}';
           console.log(baseUrl);
-          $('.elementInventory-select').select2({
-            placeholder: '{{trans("agroindustria::deliveries.Search Products")}}',
-            minimumInputLength: 1, // Habilita la búsqueda en tiempo real
+          $('select[name="element[]"]').select2({
+            placeholder: 'Seleccione un elemento',
+            minimumInputLength: 3,
             ajax: {
-              url: function(params) {
-                  // Reemplaza el marcador de posición con el término de búsqueda
-                  var searchUrl = baseUrl.replace(':name', params.term);
-
-                  return searchUrl; // Utiliza la URL actualizada con el término de búsqueda
-              },
-              dataType: 'json',
-              delay: 250, // Retardo antes de iniciar la búsqueda
-              processResults: function(data) {
-                  return {
-                      results: data.id.map(function(element) {
-                          return {
-                              id: element.id,
-                              text: element.name,
-                          };
-                      })
-                  };
-              },
-              cache: true
+                url: baseUrl,
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        element_id: params.term,
+                    };
+                },
+                processResults: function(data) {
+                    var results = data.map(function(item) {
+                        return {
+                            id: item.id,
+                            text: item.name
+                        };
+                    });
+                    return {
+                        results: results
+                    };
+                },
+                cache: true
             }
           });
 

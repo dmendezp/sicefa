@@ -269,7 +269,7 @@ class WarehouseController extends Controller
         $inventoryElement = Inventory::with('element')->where('productive_unit_warehouse_id', $productiveUnitWarehouse)
         ->where('element_id', $elementId)
         ->groupBy('element_id')->select('element_id', \DB::raw('SUM(amount) as totalAmount'), \DB::raw('GROUP_CONCAT(price) as prices') , \DB::raw('MAX(lot_number) as lot'))->get();
-        dd($inventoryElement);
+
         $elementData = $inventoryElement->map(function ($e) {
             $lote = $e->lot;
             $fVto = $e->expiration_date;

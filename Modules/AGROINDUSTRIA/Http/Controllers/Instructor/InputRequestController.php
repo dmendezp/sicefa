@@ -108,18 +108,20 @@ class InputRequestController extends Controller
         return view('agroindustria::instructor.request.form', $data);
     }
 
-    public function element($name){
-        $elements = Element::where('name', $name)->with('measurement_unit')->get();
-        $element = $elements->map(function ($e){
-            $elementId = $e->id;
-            $elementName = $e->name . ' (' . $e->measurement_unit->name . ')';
-            
-            return [
-                'id' => $elementId,
-                'name' => $elementName
+    public function searchProduct(Request $request)
+    {
+        $term = $request->input('element_id');
+
+        $elements = Element::whereRaw("name LIKE ?", ['%' . $term . '%'])->get();
+        $results = [];
+        foreach ($elements as $element) {
+            $results[] = [
+                'id' => $element->id,
+                'name' => $element->name,
             ];
-        });
-        return response()->json(['id' => $element]);
+        }
+
+        return response()->json($results);
     }
  
     public function create(Request $request){  

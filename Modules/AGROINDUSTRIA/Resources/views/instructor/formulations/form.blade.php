@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-md-6">
                             {!! Form::label('element_id', trans('agroindustria::formulations.Product Name')) !!}
-                            {!! Form::select('element_id', $elements, isset($registros) ? $registros->element_id : null, ['id' => 'element_id', 'class' => 'form-control']) !!}
+                            {!! Form::select('element_id', [], isset($registros) ? $registros->element_id : null, ['id' => 'element_id', 'class' => 'form-control']) !!}
                             @error('element_id')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
@@ -154,6 +154,39 @@
     </div>
 </div>
 </div>
+<script>
+    $(document).ready(function() {
+     var baseUrl = '{{ route("agroindustria.instructor.units.formulations.elements") }}';
+          console.log(baseUrl);
+          $('select[name="element_id"]').select2({
+                        placeholder: 'Seleccione un elemento',
+                        minimumInputLength: 3,
+                        ajax: {
+                            url: baseUrl,
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    element_id: params.term,
+                                };
+                            },
+                            processResults: function(data) {
+                                var results = data.map(function(item) {
+                                    return {
+                                        id: item.id,
+                                        text: item.name
+                                    };
+                                });
+
+                                return {
+                                    results: results
+                                };
+                            },
+                            cache: true
+                        }
+                    });
+    });
+</script>
 <script>
     $(document).ready(function() {
         // Aplicar Select2 al campo de selección con el id 'receive_warehouse'
