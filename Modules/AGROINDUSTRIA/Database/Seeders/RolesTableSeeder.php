@@ -35,6 +35,22 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
+        // Registrar o actualizar rol de INSTRUCTOR de carnicos, panaderia, pasteleria, frutas
+        $rol_instructor_chocolateria = Role::updateOrCreate(['slug' => 'agroindustria.instructor.chocolate'], [
+            'name' => 'Instructor - Chocolate',
+            'description' => 'Rol instructor para el area de chocolateria',
+            'description_english' => 'Role instructor for the chocolate area',
+            'app_id' => $app->id
+        ]);
+
+        // Registrar o actualizar rol de INSTRUCTOR de carnicos, panaderia, pasteleria, frutas
+        $rol_instructor_cerveceria = Role::updateOrCreate(['slug' => 'agroindustria.instructor.cerveceria'], [
+            'name' => 'Instructor - Cerveceria',
+            'description' => 'Rol instructor para el area de cerveceria',
+            'description_english' => 'Role instructor for the brewery area',
+            'app_id' => $app->id
+        ]);
+
         // Registrar o actualizar rol de ALMACENISTA
         $rol_storer = Role::updateOrCreate(['slug' => 'agroindustria.almacenista'], [
             'name' => 'Almacenista',

@@ -51,7 +51,7 @@
                         @if (checkRol('agrocefa.trainer') || checkRol('agrocefa.manageragricultural'))
                             @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.notification') && Route::currentRouteName() != 'agrocefa.passant.index' && Route::currentRouteName() != 'agrocefa.trainer.index' && Route::currentRouteName() != 'cefa.agrocefa.index' && Route::currentRouteName() != 'cefa.agrocefa.developers.index' && Route::currentRouteName() != 'cefa.agrocefa.usuario.index')
                                 <li style="width: 60px">
-                                    <a href="{{ route('agrocefa.trainer.movements.notification')}}" id="an" title="Ver Movimientos Pendientes">
+                                    <a href="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.notification')}}" id="an" title="Ver Movimientos Pendientes">
                                         <i class="fa-regular fa-bell fa-flip"></i>
                                         @if (Session::has('notification') && Session::get('notification') > 0)
                                             <span class="notification-badge">{{ Session::get('notification') }}</span>
@@ -62,7 +62,7 @@
 
                             @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.stock') && Route::currentRouteName() != 'agrocefa.passant.index' && Route::currentRouteName() != 'agrocefa.trainer.index' && Route::currentRouteName() != 'cefa.agrocefa.index' && Route::currentRouteName() != 'cefa.agrocefa.developers.index' && Route::currentRouteName() != 'cefa.agrocefa.usuario.index')
                                 <li style="width: 60px">
-                                    <a href="{{ route('agrocefa.trainer.inventory.stock')}}" id="an" title="Ver Elementos por Agotarse">
+                                    <a href="{{ route('agrocefa.manageragricultural.inventory.stock')}}" id="an" title="Ver Elementos por Agotarse">
                                         <i class='bx bx-error-circle' ></i>
                                         @if (Session::has('notificationstock') && Session::get('notificationstock') > 0)
                                             <span class="notification-badge">{{ Session::get('notificationstock') }}</span>
@@ -134,7 +134,7 @@
                         @if (checkRol('agrocefa.trainer') || checkRol('agrocefa.manageragricultural'))
                             @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.notification') && Route::currentRouteName() != 'agrocefa.passant.index' && Route::currentRouteName() != 'agrocefa.trainer.index' && Route::currentRouteName() != 'cefa.agrocefa.index' && Route::currentRouteName() != 'cefa.agrocefa.developers.index' && Route::currentRouteName() != 'cefa.agrocefa.usuario.index')
                                 <li style="width: 60px">
-                                    <a href="{{ route('agrocefa.trainer.movements.notification')}}" id="an" title="Ver Movimientos Pendientes">
+                                    <a href="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.notification')}}" id="an" title="Ver Movimientos Pendientes">
                                         <i class="fa-regular fa-bell fa-flip"></i>
                                         @if (Session::has('notification') && Session::get('notification') > 0)
                                             <span class="notification-badge">{{ Session::get('notification') }}</span>
@@ -145,7 +145,7 @@
 
                             @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.stock') && Route::currentRouteName() != 'agrocefa.passant.index' && Route::currentRouteName() != 'agrocefa.trainer.index' && Route::currentRouteName() != 'cefa.agrocefa.index' && Route::currentRouteName() != 'cefa.agrocefa.developers.index' && Route::currentRouteName() != 'cefa.agrocefa.usuario.index')
                                 <li style="width: 0px">
-                                    <a href="{{ route('agrocefa.trainer.inventory.stock')}}" id="an" title="Ver Elementos por Agotarse">
+                                    <a href="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.stock')}}" id="an" title="Ver Elementos por Agotarse">
                                         <i class='bx bx-error-circle' ></i>
                                         @if (Session::has('notificationstock') && Session::get('notificationstock') > 0)
                                             <span class="notification-badge">{{ Session::get('notificationstock') }}</span>

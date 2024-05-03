@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -353,6 +354,7 @@ class LaborManagementController extends Controller
                         'inventory_id' => $item->id,
                         'name' => $item->element->name,
                         'price' => $item->price,
+                        'created_at' => $item->created_at,
                         'amount' => $item->amount,
                         // Agrega otros atributos relacionados con el elemento si es necesario
                     ];
@@ -902,7 +904,7 @@ class LaborManagementController extends Controller
 
             // Después de realizar la operación de registro con éxito
             return redirect()
-                ->route('agrocefa.trainer.labormanagement.index')
+                ->route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.index')
                 ->with('success', 'Labor Registrada');
         } catch (\Exception $e) {
             // En caso de error, realiza un rollback de la transacción y maneja el error
@@ -916,7 +918,7 @@ class LaborManagementController extends Controller
         
             // O puedes redirigir a una página de error con un mensaje específico
             return redirect()
-                ->route('agrocefa.trainer.labormanagement.index')
+                ->route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.index')
                 ->with('error', 'Error en el registro: ' . $e->getMessage());
         }
     }

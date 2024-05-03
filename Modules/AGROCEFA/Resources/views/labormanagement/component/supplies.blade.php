@@ -167,8 +167,17 @@
 
                         // Iterar sobre la respuesta JSON y agregar las opciones al campo de selección
                         $.each(response, function(index, element) {
-                            // Agregar una nueva opción con el atributo "value" como el ID del elemento y "name" como texto
-                            productNameSelect.append(new Option(element.name, element.inventory_id));
+                            // Obtener solo la parte de la fecha (sin la hora)
+                            var formattedDate = element.created_at.substring(0, 10); // Obtener los primeros 10 caracteres (YYYY-MM-DD)
+
+                            // Crear un grupo de opciones para el elemento actual
+                            var optgroup = $("<optgroup label='" + formattedDate + "'>");
+
+                            // Agregar la fecha como una opción dentro del grupo
+                            optgroup.append(new Option(element.name));
+
+                            // Agregar el grupo al select
+                            productNameSelect.append(optgroup);
                         });
 
                         // Inicializar Select2 en el campo de selección de productos

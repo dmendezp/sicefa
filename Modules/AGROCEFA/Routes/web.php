@@ -100,6 +100,7 @@ Route::middleware(['lang'])->group(function () {
         Route::post('passant/inventory/showWarehouseFilterStock', 'InventoryController@showWarehouseFilterStock')->name('agrocefa.passant.inventory.showWarehouseFilterStock');
         Route::post('manageragricultural/inventory/showWarehouseFilterStock', 'InventoryController@showWarehouseFilterStock')->name('agrocefa.manageragricultural.inventory.showWarehouseFilterStock');
         Route::get('trainer/inventory/low', 'InventoryController@lowentrance')->name('agrocefa.trainer.inventory.low');
+        Route::get('passant/inventory/low', 'InventoryController@lowentrance')->name('agrocefa.passant.inventory.low');
         Route::get('manageragricultural/inventory/low', 'InventoryController@lowentrance')->name('agrocefa.manageragricultural.inventory.low');
         Route::get('trainer/inventory/stock', 'InventoryController@stockview')->name('agrocefa.trainer.inventory.stock');
         Route::get('manageragricultural/inventory/stock', 'InventoryController@stockview')->name('agrocefa.manageragricultural.inventory.stock');
@@ -157,6 +158,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('trainer/labormanagement/culturalwork', 'LaborManagementController@culturalwork')->name('agrocefa.trainer.labormanagement.index');
         Route::get('passant/labormanagement/culturalwork', 'LaborManagementController@culturalwork')->name('agrocefa.passant.labormanagement.index');
         Route::get('manageragricultural/labormanagement/culturalwork', 'LaborManagementController@culturalwork')->name('agrocefa.manageragricultural.labormanagement.index');
+        Route::get('manageragricultural/labormanagement/culturalwork', 'LaborManagementController@culturalwork')->name('agrocefa.manageragricultural.labormanagement.index');
         Route::get('trainer/labormanagement/getresponsability', 'LaborManagementController@obteneresponsability')->name('agrocefa.trainer.labormanagement.getresponsability');
         Route::get('passant/labormanagement/getresponsability', 'LaborManagementController@obteneresponsability')->name('agrocefa.passant.labormanagement.getresponsability');
         Route::get('manageragricultural/labormanagement/getresponsability', 'LaborManagementController@obteneresponsability')->name('agrocefa.manageragricultural.labormanagement.getresponsability');
@@ -207,8 +209,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('passant/reports/labor', 'Reports\LaborController@index')->name('agrocefa.passant.reports.labor.index');
         Route::get('manageragricultural/reports/labor', 'Reports\LaborController@index')->name('agrocefa.manageragricultural.reports.labor.index');
         Route::post('/reports/labor/filter', 'Reports\LaborController@filterlabor')->name('agrocefa.reports.filterlabor');
-        Route::get('trainer/reports/labor/laborDetails', 'Reports\LaborController@getLaborDetails')->name('agrocefa.reports.laborDetails');
-        Route::get('passant/reports/labor/laborDetails', 'Reports\LaborController@getLaborDetails')->name('agrocefa.reports.laborDetails');
+        Route::get('/reports/labor/laborDetails', 'Reports\LaborController@getLaborDetails')->name('agrocefa.reports.laborDetails');
         Route::get('/reports/labor/laborpdf', 'Reports\LaborController@laborpdf')->name('agrocefa.reports.laborpdf');
 
         // Produccion

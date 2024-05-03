@@ -33,11 +33,6 @@ class MovementController extends Controller
     private $pivotId;
     private $pivotReceiveId;
 
-    private function buildDynamicRoute()
-    {
-        return 'agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.index';
-    }
-
     public function viewmovements()
     {
         return view('agrocefa::movements.index');
