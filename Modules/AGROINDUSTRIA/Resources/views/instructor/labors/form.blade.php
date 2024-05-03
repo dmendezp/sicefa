@@ -510,6 +510,7 @@
     });
 </script>
 
+
 <script>
     $(document).ready(function () {
         // Agregar un nuevo campo de consumibles
