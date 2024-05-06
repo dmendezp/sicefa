@@ -76,6 +76,7 @@
                                 <th>{{ trans('agrocefa::movements.1T_Stock') }}</th>
                                 <th>{{ trans('agrocefa::movements.1T_Category') }}</th>
                                 <th>{{ trans('agrocefa::movements.1T_Destination') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Entry') }}</th>
                                 <th>{{ trans('agrocefa::movements.1T_Expiration') }}</th>
                                 <th></th> 
                             </tr>
@@ -96,12 +97,7 @@
 <script>
     console.log("Contenido de  elements:", {!! json_encode($elements) !!});
 </script>
-<style>
-    #productTable th:nth-child(1),
-    #productTable td:nth-child(1) {
-        display: none;
-    }
-</style>
+
 
 <script>
     $(document).ready(function () {
@@ -114,16 +110,17 @@
             var newRow = $('<tr class="product-row">');
             newRow.html('<td><input type="hidden" id="product-name" class="product-name" name="product-name[]"></td>' +
                 '<td class="col-2"><select id="product-id" class="form-control product-id" name="product-id[]" required></select><div class="product-measurement-unit"></div></td>' +
-                '<td class="col-3"><input type="number" id="product-quantity" class="form-control product-quantity" name="product-quantity[]" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
-                '<td class="col-2"><input type="text" id="product-price" class="form-control product-price" name="product-price[]" placeholder="$"></td>' +
-                '<td class="col-2"><input type="text" id="product-lot" class="form-control product-lot" name="product-lot[]" placeholder="Lote #"></td>' +
-                '<td class="col-2"><input type="text" id="product-stock" class="form-control product-stock" name="product-stock[]" placeholder="Stock"></td>' +
-                '<td class="col-2"><input type="text" id="product-category" class="form-control product-category" name="product-category[]" readonly></td>' +
-                '<td class="col-2"><select id="product-destination" class="form-control product-destination" name="product-destination[]" required>' +
+                '<td class="col-3"><input type="number" id="product-quantity" class="form-control product-quantity campo" name="product-quantity[]" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
+                '<td class="col-2"><input type="text" id="product-price" class="form-control product-price campo" name="product-price[]" placeholder="$"></td>' +
+                '<td class="col-2"><input type="text" id="product-lot" class="form-control product-lot campo" name="product-lot[]" placeholder="Lote #"></td>' +
+                '<td class="col-2"><input type="text" id="product-stock" class="form-control product-stock campo" name="product-stock[]" placeholder="Stock"></td>' +
+                '<td class="col-2"><input type="text" id="product-category" class="form-control product-category campo" name="product-category[]" readonly></td>' +
+                '<td class="col-2"><select id="product-destination" class="form-control product-destination campo" name="product-destination[]" required>' +
                 '<option value="Producción">Producción</option>' +
                 '<option value="Formación">Formación</option>' +
                 '</select></td>' +
-                '<td class="col-2"><input type="date" id="product-expiration" class="form-control product-expiration" name="product-expiration[]"></td>' +
+                '<td class="col-1"><input type="date" id="product-entry" class="form-control product-entry" name="product-entry[]"></td>' +
+                '<td class="col-1"><input type="date" id="product-expiration" class="form-control product-expiration" name="product-expiration[]"></td>' +
                 '<td class="col-2"><button type="button" id="button" class="btn btn-danger removeProduct"><i class="fa fa-trash"></i></button></td>'
             );
             // Llenar el select de nombre de producto en la nueva fila
@@ -142,12 +139,10 @@
                         allowClear: true // Esto permite borrar la selección actual
                     });
 
-                // Agregar la fila a la tabla
-                productTable.append(newRow);
-
             // Agregar la fila a la tabla
             productTable.append(newRow);
 
+            
         }
 
         // Llamar a addProductRow al cargar la página para generar la primera fila
@@ -249,6 +244,12 @@
     });
 </script>
 
-
+<style>
+    #productTable th:nth-child(1),
+    #productTable td:nth-child(1) {
+        display: none;
+    }
+    
+</style>
 
 @endsection

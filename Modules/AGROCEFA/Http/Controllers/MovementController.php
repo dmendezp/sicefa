@@ -485,6 +485,7 @@ class MovementController extends Controller
         $productQuantities = $request->input('product-quantity');
         $productPrices = $request->input('product-price');
         $productDestinations = $request->input('product-destination');
+        $productEntries = $request->input('product-entry');
         $productExpirations = $request->input('product-expiration');
         $productLots = $request->input('product-lot');
         $productStocks = $request->input('product-stock');
@@ -529,6 +530,7 @@ class MovementController extends Controller
                     $price = $productPrices[$index];
                     $destination = $productDestinations[$index];
                     $expiration_date = $productExpirations[$index];
+                    $production_date = $productEntries[$index];
                     $lot = $productLots[$index];
                     $stock = $productStocks[$index];
                     
@@ -578,6 +580,7 @@ class MovementController extends Controller
                             'stock' => $stock,
                             'lot_number' => $lot ?: null,
                             'expiration_date' => $expiration_date ?: null,
+                            'production_date' => $production_date ?: null,
                         ]);
 
                         $newInventory->save();

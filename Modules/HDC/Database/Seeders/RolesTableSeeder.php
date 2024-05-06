@@ -45,14 +45,6 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
 
         ]);
-        // Registrar o actualizar rol de administrador
-        $role_userHDC = Role::firstOrCreate(['slug' => 'hdc.userHDC'], [
-            'name' => 'Usuario registrado',
-            'description' => 'Rol Usuario registrado de HDC',
-            'description_english' => 'Role userd register  of HDC',
-            'app_id' => $app->id
-
-        ]);
 
        /*  //Consulta de usuarios
         $user_admin = User::where('nickname', 'aldavi')->first(); //usuario para Mary Luz Aldana Vidarte
