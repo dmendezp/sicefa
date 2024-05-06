@@ -8,8 +8,8 @@
             <div class="col-md-10">
                 <div class="form-group">
                     <label for="">Aprendiz</label>
-                    {!! Form::select('person_id', $apprentices, null, [
-                        'class' => 'form-control',
+                    {!! Form::select('person_id', $apprentices, $resultsperson ?? null, [
+                        'class' => 'form-control person_id',
                         'placeholder' => '-- Seleccione --',
                         'id' => 'person_id',
                         'height' => '38px',
@@ -17,7 +17,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Estado</label>
-                    {!! Form::select('state', ['' => trans('Seleccione el estado'), 'Aprobado' => 'Aprobado', 'Pendiente' => 'Pendiente' ], null, [
+                    {!! Form::select('state', ['' => trans('Seleccione el estado'), 'Aprobado' => 'Aprobado', 'Pendiente' => 'Pendiente' ], $state ?? null, [
                         'class' => 'form-control state',
                         'placeholder' => '-- Seleccione --',
                         'id' => 'state',
@@ -69,7 +69,7 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script>
     $(function() {
-        $('#person_id').select2();
+        $('.person_id').select2();
     })
     $(document).ready(function() {
 
@@ -84,6 +84,26 @@
                         _token: "{{ csrf_token() }}",
                         person_id: person_id,
                         state: state,
+                        course_id: course_id,
+                    },
+                    success: function(data) {
+                        // Actualizar el contenedor con los resultados filtrados
+                        $('#divApprentices').html(data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+        });
+        $('.person_id').on('change', function () {
+            var person_id = $('#person_id').val();
+            var course_id = $('#course_id').val();
+            $.ajax({
+                    type: 'POST',
+                    url: "{{ route('sigac.academic_coordination.curriculum_planning.evaluative_judgment.filter') }}",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        person_id: person_id,
                         course_id: course_id,
                     },
                     success: function(data) {

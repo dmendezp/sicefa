@@ -732,16 +732,25 @@ class CurriculumPlanningController extends Controller
 
 	public function evaluative_judgment_filter(Request $request){
         $person_id = $request->person_id;
-        $state = $request->state;
         $course_id = $request->course_id;
 		if($person_id):
-            $evaluative_judgments = EvaluativeJudgment::where('course_id',$course_id)->where('person_id',$person_id)->where('state',$state)->get();
-            
+            $resultsperson = Person::where('id',$person_id)->pluck('id','first_name');
+            if ($request->state) {
+                $state = $request->state;
+                $evaluative_judgments = EvaluativeJudgment::where('course_id',$course_id)->where('person_id',$person_id)->where('state',$state)->get();
+            } else {
+                $evaluative_judgments = EvaluativeJudgment::where('course_id',$course_id)->where('person_id',$person_id)->get();
+            }
             $apprentices = Person::whereHas('evaluative_judgments', function ($query) use ($course_id) {
                 $query->where('course_id', $course_id);
             })->pluck('first_name','id');
 			$course = Course::with('program')->findOrFail($course_id);
-			$data = ['evaluative_judgments'=>$evaluative_judgments,'course'=>$course,'apprentices'=>$apprentices];
+			$data = ['evaluative_judgments'=>$evaluative_judgments,
+            'course'=>$course,
+            'apprentices'=>$apprentices,
+            'resultsperson'=>$resultsperson,
+            'state'=>$state,
+        ];
             return view('sigac::curriculum_planning.evaluative_judgment.table',$data);
         endif;
 	}
