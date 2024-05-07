@@ -30,7 +30,7 @@
                                 @if ($currentId !== $data['id'])
                                     {{-- Iniciar una nueva fila para un nuevo movimiento --}}
                                     <tr>
-                                        <td>{{ $data['id'] }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $data['date'] }}</td>
                                         <td>{{ $data['respnsibility'] }}</td>
                                         <td>{{ $data['productiveunit'] }}</td>

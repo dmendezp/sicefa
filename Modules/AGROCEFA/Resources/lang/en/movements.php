@@ -33,6 +33,7 @@ return [
     '1T_Stock' => 'Stock',
     '1T_Category' => 'Category',
     '1T_Destination' => 'Destination',
+    '1T_Expiration' => 'Expiration',
     '1T_Actions' => 'Actions',
 
     '2T_Date' => 'Date',

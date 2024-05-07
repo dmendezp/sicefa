@@ -74,6 +74,14 @@
                       <!-- Menú de opciones para administrador -->
                       @if (Route::is('hdc.admin.*'))
                       @if (Auth::user()->havePermission('hdc.admin.resultfromaspects'))
+                                <li class="nav-item">
+                                    <a href="{{ route('hdc.admin.parameter') }}" class="nav-link">
+                                        <i class="nav-icon fa-solid fa-wrench"></i>
+                                        <p>
+                                            {{ trans('hdc::hdcgeneral.Parameters') }}
+                                        </p>
+                                    </a>
+                                </li>
                               <li class="nav-item">
                                   <a href="{{ route('hdc.admin.resultfromaspects') }}" class="nav-link">
                                       <i class="nav-icon fa-solid fa-folder-open"></i>
@@ -116,6 +124,14 @@
 
                       <!-- Menú de opciones para Encargado -->
                       @if (Route::is('hdc.charge.*'))
+                        <li class="nav-item">
+                            <a href="{{ route('hdc.charge.parameter') }}" class="nav-link">
+                                <i class="nav-icon fa-solid fa-wrench"></i>
+                                <p>
+                                    {{ trans('hdc::hdcgeneral.Parameters') }}
+                                </p>
+                            </a>
+                        </li>
                           @if (Auth::user()->havePermission('hdc.charge.table'))
                               <li class="nav-item">
                                   <a href="{{ Route('hdc.charge.table') }}" class="nav-link">
@@ -168,20 +184,18 @@
                               </a>
                           </li>
                       @endif
-@guest
-@else
-                      <hr class="sidebar-divider" style="border-color: white;">
-                      <li class="nav-item">
-                        <a href="{{ route('cefa.hdc.carbonfootprint.persona') }}" class="nav-link">
-                            <i class="nav-icon fas fa-shoe-prints"></i>
-                            <p>
-                                {{ trans('hdc::hdcgeneral.calculatefootprint') }}
-                            </p>
-                        </a>
-                    </li>
-@endguest
-
-
+                    @guest
+                        @else
+                        <hr class="sidebar-divider" style="border-color: white;">
+                        <li class="nav-item">
+                            <a href="{{ route('cefa.hdc.carbonfootprint.persona') }}" class="nav-link">
+                                <i class="nav-icon fas fa-shoe-prints"></i>
+                                <p>
+                                    {{ trans('hdc::hdcgeneral.calculatefootprint') }}
+                                </p>
+                            </a>
+                        </li>
+                    @endguest
                   </ul>
               </nav>
               <!-- /.sidebar-menu -->

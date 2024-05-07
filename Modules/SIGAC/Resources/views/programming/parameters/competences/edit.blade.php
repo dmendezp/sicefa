@@ -1,7 +1,7 @@
 <div class="modal fade" id="editCompetence{{$c->id}}" tabindex="-1" aria-labelledby="editCompetence" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">|
+            <div class="modal-header">
                 <h5 class="modal-title" id="agregarAsistenciaModalLabel">Editar Competencia</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -11,7 +11,7 @@
                 @method('POST')
                 <div class="form-group">
                     {!! Form::label('program_id', 'Programa') !!}
-                    {!! Form::select('program_id', $programs, $c->program_id, ['class' => 'form-control', 'required']) !!}
+                    {!! Form::select('program_id', $programs, $c->program_id, ['class' => 'form-control', 'id' =>'program','required']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::hidden('id', $c->id) !!}
@@ -40,4 +40,10 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        $('#program').select2();
+    });
+</script>
 

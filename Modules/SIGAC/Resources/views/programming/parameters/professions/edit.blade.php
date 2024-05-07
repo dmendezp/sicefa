@@ -16,7 +16,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('level', trans('sigac::profession.Level')) !!}
-                    {!! Form::select('level', ['' => trans('sigac::profession.Select'), 'Operario' => 'Operario', 'Técnico' => 'Técnico', 'Tecnólogo' => 'Tecnólogo'], $p->level, ['class' => 'form-control', 'required'],) !!}
+                    {!! Form::select('level', ['' => trans('sigac::profession.Select'),'Técnico' => 'Técnico', 'Tecnólogo' => 'Tecnólogo', 'Profesion' => 'Profesion', 'Especialidad' => 'Especialidad', 'Maestria' => 'Maestria', 'Doctorado' => 'Doctorado'], $p->level, ['class' => 'form-control', 'required'],) !!}
                 </div>
                 <!-- Otros campos del formulario según tus necesidades -->
                 <br>

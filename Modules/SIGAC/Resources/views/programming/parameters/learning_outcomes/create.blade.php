@@ -9,10 +9,7 @@
                 {!! Form::open(['route' => 'sigac.academic_coordination.learning_outcome.store', 'method' => 'POST']) !!}
                 @csrf
                 @method('POST')
-                <div class="form-group">
-                    {!! Form::label('competencie_id', 'Competencia') !!}
-                    {!! Form::select('competencie_id', $competencies, null, ['class' => 'form-control', 'required']) !!}
-                </div>
+                {!! Form::hidden('competencie_id', $competencie_id ) !!}
                 <div class="form-group">
                     {!! Form::label('name', 'Nombre') !!}
                     {!! Form::text('name', null, ['class' => 'form-control', 'required']) !!}

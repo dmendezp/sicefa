@@ -47,8 +47,6 @@
         @include('sigac::layouts.partials.controlSidebar')
         <!-- /.control-sidebar -->
 
-        <!-- Main Footer -->
-        @include('sigac::layouts.partials.footer')
     </div>
     <!-- ./wrapper -->
 

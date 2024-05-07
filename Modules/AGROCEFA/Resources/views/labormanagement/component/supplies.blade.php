@@ -168,7 +168,7 @@
                         // Iterar sobre la respuesta JSON y agregar las opciones al campo de selección
                         $.each(response, function(index, element) {
                             // Agregar una nueva opción con el atributo "value" como el ID del elemento y "name" como texto
-                            productNameSelect.append(new Option(element.name, element.id));
+                            productNameSelect.append(new Option(element.name, element.inventory_id));
                         });
 
                         // Inicializar Select2 en el campo de selección de productos
@@ -183,8 +183,6 @@
                     }
                 });
             });
-
-
 
 
             // Manejador de eventos para el botón Agregar Producto
@@ -208,42 +206,6 @@
                         true);
 
                 }
-            });
-
-
-            // Manejador de eventos para cambiar la unidad de medida, la cantidad y el precio al seleccionar un elemento
-            suppliesTable.on('change', 'select[name="supplies-id[]"]:last', function() {
-                var currentRow = $(this).closest('tr');
-                var selectedElementId = $(this).val(); // Usar .val() para obtener el valor seleccionado
-
-                // Realizar una solicitud AJAX para obtener los datos del elemento
-                $.ajax({
-                    url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.getinformationelement') }}',
-                    method: 'GET',
-                    data: {
-                        element: selectedElementId
-                    },
-                    success: function(response) {
-                        console.log(response);
-
-                        var measurementUnitField = currentRow.find('#product-measurement-unit');
-                        var nameField = currentRow.find('#product-name');
-
-
-                        measurementUnitField.val(response.unidad_medida ||
-                            'Unidad de medida no encontrada');
-                        nameField.val(response.name || 'Nombre no encontrada');
-
-
-                    },
-                    error: function() {
-                        var measurementUnitField = currentRow.find('#product-measurement-unit');
-                        var nameField = currentRow.find('#product-name');
-
-                        measurementUnitField.val('Error al obtener la unidad de medida');
-                        nameField.val('Error al obtener el nombre');
-                    }
-                });
             });
 
 
@@ -378,29 +340,24 @@
                 });
             }
 
-// Función para formatear un número con separador de miles y decimales
-function formatNumber(number, decimals) {
-    var decimalSeparator = '.';
-    var thousandsSeparator = ',';
+            // Función para formatear un número con separador de miles y decimales
+            function formatNumber(number, decimals) {
+                var decimalSeparator = '.';
+                var thousandsSeparator = ',';
 
-    var numParts = number.toFixed(decimals).split('.');
-    var integerPart = numParts[0];
-    var decimalPart = numParts.length > 1 ? decimalSeparator + numParts[1] : '';
+                var numParts = number.toFixed(decimals).split('.');
+                var integerPart = numParts[0];
+                var decimalPart = numParts.length > 1 ? decimalSeparator + numParts[1] : '';
 
-    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSeparator);
+                integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSeparator);
 
-    return integerPart + decimalPart;
-}
-
-
-
-
+                return integerPart + decimalPart;
+            }
 
             // Manejador de eventos para el cambio en el campo de cantidad y precio
             suppliesTable.on('input', 'input[name="supplies_quantity[]"]', function() {
                 calculateTotal();
             });
-
 
 
             // Funcion para mostrar las alertas

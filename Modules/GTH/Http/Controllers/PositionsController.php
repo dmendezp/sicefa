@@ -60,7 +60,7 @@ class PositionsController extends Controller
             $positions = position::findOrFail($id);
             $positions->delete();
 
-            return redirect()->route('gth.admin.position.index')->with('success', trans('gth::menu.Position successfully updated.'));
+            return redirect()->route('gth.admin.position.index')->with('success', trans('gth::menu.Has been successfully deleted'));
         } catch (\Exception $e) {
             return redirect()->route('gth.admin.position.index')->with('error', trans('gth::menu.The Position could not be deleted.'));
         }

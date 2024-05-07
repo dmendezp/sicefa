@@ -78,54 +78,67 @@
                         {!! Form::select('environment', [], old('environment'), ['class' => 'form-control select2 environments', 'required']) !!}
                     </div>
                 </div>
-                
-                <div class="form-check form-check-inline">
-                    {!! Form::checkbox('days[]', 'Monday', null, false, ['class' => 'form-check-input', 'id' => 'monday']) !!}
-                    {!! Form::label('lunes', 'Lunes', ['class' => 'form-check-label']) !!}
-                </div>
-                <div class="form-check form-check-inline">
-                    {!! Form::checkbox('days[]', 'Tuesday', null, false, ['class' => 'form-check-input', 'id' => 'tuesday']) !!}
-                    {!! Form::label('martes', 'Martes', ['class' => 'form-check-label']) !!}
-                </div>
-                <div class="form-check form-check-inline">
-                    {!! Form::checkbox('days[]', 'Wednesday', null, false, ['class' => 'form-check-input', 'id' => 'wednesday']) !!}
-                    {!! Form::label('miercoles', 'Miercoles', ['class' => 'form-check-label']) !!}
-                </div>
-                <div class="form-check form-check-inline">
-                    {!! Form::checkbox('days[]', 'Thursday', null, false, ['class' => 'form-check-input', 'id' => 'thursday']) !!}
-                    {!! Form::label('jueves', 'Jueves', ['class' => 'form-check-label']) !!}
-                </div>
-                <div class="form-check form-check-inline">
-                    {!! Form::checkbox('days[]', 'Friday', null, false, ['class' => 'form-check-input', 'id' => 'friday']) !!}
-                    {!! Form::label('viernes', 'Viernes', ['class' => 'form-check-label']) !!}
-                </div>
-                <div class="form-check form-check-inline">
-                    {!! Form::checkbox('days[]', 'Saturday', null, false, ['class' => 'form-check-input', 'id' => 'saturday']) !!}
-                    {!! Form::label('sabado', 'Sábado', ['class' => 'form-check-label']) !!}
-                </div>
-                <div class="form-check form-check-inline">
-                    {!! Form::checkbox('days[]', 'Sunday', null, false, ['class' => 'form-check-input', 'id' => 'sunday']) !!}
-                    {!! Form::label('domingo', 'Domingo', ['class' => 'form-check-label']) !!}
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        {!! Form::label('start_date', 'Fecha de inicio') !!}
-                        {!! Form::date('start_date', now(), ['class' => 'form-control']) !!}
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          <b>Seleccion de fechas</b>
+                        </button>
+                      </h2>
+                      <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="form-check form-check-inline">
+                                {!! Form::checkbox('days[]', 'Monday', null, false, ['class' => 'form-check-input', 'id' => 'monday']) !!}
+                                {!! Form::label('lunes', 'Lunes', ['class' => 'form-check-label']) !!}
+                            </div>
+                            <div class="form-check form-check-inline">
+                                {!! Form::checkbox('days[]', 'Tuesday', null, false, ['class' => 'form-check-input', 'id' => 'tuesday']) !!}
+                                {!! Form::label('martes', 'Martes', ['class' => 'form-check-label']) !!}
+                            </div>
+                            <div class="form-check form-check-inline">
+                                {!! Form::checkbox('days[]', 'Wednesday', null, false, ['class' => 'form-check-input', 'id' => 'wednesday']) !!}
+                                {!! Form::label('miercoles', 'Miercoles', ['class' => 'form-check-label']) !!}
+                            </div>
+                            <div class="form-check form-check-inline">
+                                {!! Form::checkbox('days[]', 'Thursday', null, false, ['class' => 'form-check-input', 'id' => 'thursday']) !!}
+                                {!! Form::label('jueves', 'Jueves', ['class' => 'form-check-label']) !!}
+                            </div>
+                            <div class="form-check form-check-inline">
+                                {!! Form::checkbox('days[]', 'Friday', null, false, ['class' => 'form-check-input', 'id' => 'friday']) !!}
+                                {!! Form::label('viernes', 'Viernes', ['class' => 'form-check-label']) !!}
+                            </div>
+                            <div class="form-check form-check-inline">
+                                {!! Form::checkbox('days[]', 'Saturday', null, false, ['class' => 'form-check-input', 'id' => 'saturday']) !!}
+                                {!! Form::label('sabado', 'Sábado', ['class' => 'form-check-label']) !!}
+                            </div>
+                            <div class="form-check form-check-inline">
+                                {!! Form::checkbox('days[]', 'Sunday', null, false, ['class' => 'form-check-input', 'id' => 'sunday']) !!}
+                                {!! Form::label('domingo', 'Domingo', ['class' => 'form-check-label']) !!}
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="form-group">
+                                    {!! Form::label('start_date', 'Fecha de inicio') !!}
+                                    {!! Form::date('start_date', now(), ['class' => 'form-control']) !!}
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::label('end_date', 'Fecha de finalización') !!}
+                                    {!! Form::date('end_date', now(), ['class' => 'form-control']) !!}
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::label('start_time', 'Hora de inicio') !!}
+                                    {!! Form::time('start_time', now()->format('H:i'), ['class' => 'form-control']) !!}
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::label('end_time', 'Hora de finalización') !!}
+                                    {!! Form::time('end_time', now()->format('H:i'), ['class' => 'form-control']) !!}
+                                </div>
+                            </div>
+                        </div>
+                      </div>
                     </div>
-                    <div class="form-group">
-                        {!! Form::label('end_date', 'Fecha de finalización') !!}
-                        {!! Form::date('end_date', now(), ['class' => 'form-control']) !!}
-                    </div>
-                    <div class="form-group">
-                        {!! Form::label('start_time', 'Hora de inicio') !!}
-                        {!! Form::time('start_time', now()->format('H:i'), ['class' => 'form-control']) !!}
-                    </div>
-                    <div class="form-group">
-                        {!! Form::label('end_time', 'Hora de finalización') !!}
-                        {!! Form::time('end_time', now()->format('H:i'), ['class' => 'form-control']) !!}
-                    </div>
-                    
-                </div>
+                  </div>
+                <br>
                 {!! Form::submit('Guardar', ['class'=>'btn btn-primary']) !!}
                 {!! Form::close() !!}
             </div>
@@ -244,6 +257,47 @@
                             });
                         }
                         $('.instructors').select2(); // Inicializa el campo course como select2
+                    },
+                    error: function() {
+                        console.error('Error en la solicitud AJAX');
+                    }
+                });
+
+                $.ajax({
+                    url: '{{ route('sigac.academic_coordination.programming.management.filterstatelearning') }}',
+                    method: 'GET',
+                    data: {
+                        learning_outcome_id: learning_outcome_id,
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if (response.status === 'Programado') {
+                            var scheduledInfo = response.scheduled_info;
+                            var message = '<p>El resultado de aprendizaje está programado. Detalles:</p><ul>';
+                            scheduledInfo.forEach(function(info) {
+                                var startTimeParts = info.start_time.split(':');
+                                var endTimeParts = info.end_time.split(':');
+                                var startHours = parseInt(startTimeParts[0], 10);
+                                var startMinutes = parseInt(startTimeParts[1], 10);
+                                var endHours = parseInt(endTimeParts[0], 10);
+                                var endMinutes = parseInt(endTimeParts[1], 10);
+                                var durationHours = endHours - startHours;
+                                var durationMinutes = endMinutes - startMinutes;
+                                if (durationMinutes < 0) {
+                                    durationHours--;
+                                    durationMinutes += 60;
+                                }
+                                message += '<li><strong>Fecha:</strong> ' + info.date + ', <strong>Duración:</strong> ' + durationHours + ' horas ' + durationMinutes + ' minutos</li>';
+                            });
+                            message += '</ul>';
+                            message += '<p>Observacion: Una hora es de almuerzo</p>';
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Información',
+                                html: message,
+                            });
+                        } else {
+                        }
                     },
                     error: function() {
                         console.error('Error en la solicitud AJAX');

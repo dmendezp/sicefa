@@ -23,6 +23,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">{{ trans('gth::menu.Name') }}</th>
+                                    <th scope="col">{{ trans('gth::menu.Price') }}</th>
                                     <th scope="col">{{ trans('gth::menu.actions') }}</th>
                                 </tr>
                             </thead>
@@ -31,12 +32,14 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $employee->name }}</td>
+                                        <td>{{ $employee->price }}</td>
                                         <td>
                                             <div class="d-flex">
                                                 <a href="#" class="btn btn-warning editar-btn" data-bs-toggle="modal"
                                                     data-bs-target="#editarModal_{{ $employee->id }}"
                                                     data-id="{{ $employee->id }}"
-                                                    data-nombre="{{ $employee->name }}">{{ trans('gth::menu.Edit') }}</a>
+                                                    data-nombre="{{ $employee->name }}"
+                                                    data-precio="{{ $employee->price }}">{{ trans('gth::menu.Edit') }}</a>
                                                 <div style="width: 10px;"></div>
                                                 <form action="{{ route('cefa.gth.employeetypes.delete', $employee->id) }}"
                                                     method="POST" class="btnEliminar" class="d-inline">
@@ -72,6 +75,10 @@
                             <label for="name">{{ trans('gth::menu.Employee Type:') }}</label>
                             <input type="text" name="name" class="form-control" required>
                         </div>
+                        <div class="form-group">
+                            <label for="price">{{ trans('gth::menu.Price') }}:</label>
+                            <input type="number" name="price" class="form-control" required>
+                        </div>
                         <!-- Agrega más campos de formulario según tus necesidades -->
                         <div class="form-group text-center">
                             <button type="submit" class="btn btn-success" id="Guardar">{{ trans('gth::menu.Save') }}</button>
@@ -106,6 +113,14 @@
                                     <input type="text" class="form-control" id="editName" name="name"
                                         value="{{ old('name', $employee->name) }}"> <!-- Cambiado a $employee -->
                                     @error('name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editPrice" class="form-label">{{ trans('gth::menu.Price') }}</label>
+                                    <input type="number" class="form-control" id="editPrice" name="price"
+                                        value="{{ old('price', $employee->price) }}"> <!-- Cambiado a $employee -->
+                                    @error('price')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -224,9 +239,11 @@
             $('.editar-btn').click(function() {
                 var id = $(this).data('id');
                 var nombre = $(this).data('nombre');
+                var precio = $(this).data('precio');
 
                 $('#editId').val(id);
                 $('#editName').val(nombre);
+                $('#editPrecio').val(precio);
 
                 // Obtener la ruta de actualización del formulario de edición
                 var updateRoute = '{{ route('cefa.gth.employeetypes.update', ['id' => ':id']) }}'.replace(

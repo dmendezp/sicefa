@@ -12,9 +12,17 @@ use Modules\SICA\Entities\Course;
 use Modules\SIGAC\Entities\TrainingProject;
 use Modules\SIGAC\Entities\Quarterly;
 use Modules\SICA\Entities\Program;
+use Modules\SICA\Entities\Apprentice;
 use Modules\SIGAC\Entities\Profession;
 use Illuminate\Support\Facades\DB;
 use Modules\SICA\Entities\ClassEnvironment;
+use Modules\SIGAC\Entities\InstructorProgram;
+use Modules\SIGAC\Entities\EvaluativeJudgment;
+use Modules\SICA\Entities\Person;
+use Modules\SICA\Imports\PeopleImport;
+use Modules\SIGAC\Imports\ApprenticeLearningOutcomeImport;
+
+use Excel, Exception;
 
 class CurriculumPlanningController extends Controller
 {
@@ -27,15 +35,15 @@ class CurriculumPlanningController extends Controller
     public function training_project_index()
     {
         $learning_outcomes = LearningOutcome::pluck('name', 'id');
-        $coursesWithTrainingProjects =  Course::has('training_projects')->with('training_projects.quarterlies.instructor_programs')->get();
+        $coursesWithTrainingProjects =  Course::has('training_projects')->with('training_projects.quarterlies.learning_outcome.instructor_programs')->get();
 
         // Contar los resultados de aprendizaje programados para cada proyecto formativo
         $counts = [];
         foreach ($coursesWithTrainingProjects as $course) {
             foreach ($course->training_projects as $trainingProject) {
                 $count = $trainingProject->quarterlies->flatMap(function ($quarterly) {
-                    return $quarterly->instructor_programs;
-                })->unique('quarterly_id')->count();
+                    return $quarterly->learning_outcome->instructor_programs;
+                })->unique('learning_outcome_id')->count();
                 $counts[$trainingProject->id] = $count;
             }
         }
@@ -59,7 +67,8 @@ class CurriculumPlanningController extends Controller
             })
             ->get()
             ->groupBy(function ($quarterly) {
-                return $quarterly->learning_outcome->competencie->name . '-' . $quarterly->quarter_number; // Agrupar por competencia y trimestre
+                $competencieName = $quarterly->learning_outcome->competencie->name;
+                return str_replace('-' . $quarterly->quarter_number, '', $competencieName);
             });
 
         $trainingProject = TrainingProject::findOrFail($training_project_id);
@@ -315,6 +324,18 @@ class CurriculumPlanningController extends Controller
 
         return view('sigac::curriculum_planning.competencie_profession.index', $view);
     }
+    public function competencie_profession_table(Request $request)
+    {
+        $selectedProgram = $request->input('selectedProgram');
+
+
+        $competencies = Competencie::where('program_id',$selectedProgram)->has('professions')->get();
+        $view = [
+            'competencies' => $competencies,
+        ];
+
+        return view('sigac::curriculum_planning.competencie_profession.table', $view);
+    }
 
     public function competencie_profession_search($id)
     {
@@ -360,21 +381,20 @@ class CurriculumPlanningController extends Controller
         }
     }
 
-    public function competencie_profession_destroy($id)
+    public function competencie_profession_destroy($competencieId, $profession_id)
     {
-        $competencie = DB::table('competencie_professions')->where('id', $id)->delete();
+        // Obtener la competencia
+        $competencie = Competencie::findOrFail($profession_id);
 
-        if ($competencie) {
-            return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
-        } else {
-            return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index'))->with(['error' => trans('sigac::profession.Delete_Error')]);
-        }
+        // Eliminar la relación a través de Eloquent
+        $competencie->professions()->detach($profession_id);
+        
+        return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
     }
+    
 
     public function learning_out_people_index()
     {
-        $learningOutcomePeople = DB::table('learning_outcome_people')->get();
-
         $progr = Program::all();
         $programs = $progr->map(function ($p) {
             $id = $p->id;
@@ -391,10 +411,22 @@ class CurriculumPlanningController extends Controller
             'titlePage' => trans('sigac::learning_out_come.AssignLearning'),
             'titleView' => trans('sigac::learning_out_come.AssignLearningOutcomesInstructors'),
             'programs' => $programs,
-            'learningOutcomePeople' => $learningOutcomePeople
         ];
 
         return view('sigac::curriculum_planning.assign_learning_outcomes.index', $view);
+    }
+
+    public function learning_out_people_table(Request $request)
+    {
+        $competencie_id = $request->input('selectedCompetencie');
+
+        $learning_outcomes = LearningOutcome::where('competencie_id',$competencie_id)->has('people')->get();
+ 
+        $view = [
+            'learning_outcomes' => $learning_outcomes,
+        ];
+
+        return view('sigac::curriculum_planning.assign_learning_outcomes.table', $view);
     }
 
     public function learning_out_people_search_competencie($id)
@@ -510,20 +542,19 @@ class CurriculumPlanningController extends Controller
         }
     }
 
-    public function learning_out_people_destroy($id)
+    public function learning_out_people_destroy($learning_id, $person_id)
     {
-        $professionProgram = DB::table('learning_outcome_people')->where('id', $id)->delete();
+        // Obtener la competencia
+        $learning_outcome = LearningOutcome::findOrFail($learning_id);
 
-        if ($professionProgram) {
-            return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
-        } else {
-            return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index'))->with(['error' => trans('sigac::profession.Delete_Error')]);
-        }
+        // Eliminar la relación a través de Eloquent
+        $learning_outcome->people()->detach($person_id);
+        
+        return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
     }
 
     public function course_training_project_index()
     {
-        $course_training_projects = DB::table('course_training_projects')->get();
 
         $course = Course::with('program')->get();
         $courses = $course->map(function ($c) {
@@ -537,8 +568,7 @@ class CurriculumPlanningController extends Controller
         })->prepend(['id' => null, 'name' => trans('sigac::learning_out_come.SelectCourse')])->pluck('name', 'id');
 
         $training_project = TrainingProject::all();
-
-        $training_projects = $training_project->map(function ($t) {
+        $training_project_select = $training_project->map(function ($t) {
             $id = $t->id;
             $name = $t->name;
 
@@ -552,11 +582,23 @@ class CurriculumPlanningController extends Controller
             'titlePage' => 'Curso x Proyecto Formativo',
             'titleView' => 'Curso x Proyecto Formativo',
             'courses' => $courses,
-            'training_projects' => $training_projects,
-            'course_training_projects' => $course_training_projects,
+            'training_project_select' => $training_project_select,
         ];
 
         return view('sigac::curriculum_planning.course_training_project.index', $view);
+    }
+
+    public function course_training_project_table(Request $request)
+    {
+        $training_project = $request->input('training_project');
+
+        $training_projects = TrainingProject::where('id',$training_project)->has('courses')->get();
+ 
+        $view = [
+            'training_projects' => $training_projects,
+        ];
+
+        return view('sigac::curriculum_planning.course_training_project.table', $view);
     }
 
     public function course_training_project_store(Request $request)
@@ -588,31 +630,31 @@ class CurriculumPlanningController extends Controller
         }
     }
 
-    public function course_training_project_destroy($id)
+    public function course_training_project_destroy($training_project_id, $course_id)
     {
-        $course_training_project = DB::table('course_training_projects')->where('id', $id)->delete();
+        // Obtener la competencia
+        $training_project = TrainingProject::findOrFail($training_project_id);
 
-        if ($course_training_project) {
-            return redirect(route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
-        } else {
-            return redirect(route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index'))->with(['error' => trans('sigac::profession.Delete_Error')]);
-        }
+        // Eliminar la relación a través de Eloquent
+        $training_project->courses()->detach($course_id);
+
+        return redirect(route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
     }
 
     // Proyecto formativo
-    public function learning_class_index()
+    public function competencie_class_index()
     {
-        $class_learning = DB::table('class_environment_learning_outcomes')->get();
+        $competencies = Competencie::has('class_environments')->get();
 
-        $proff = LearningOutcome::all();
-        $learningOut = $proff->map(function ($p) {
+        $competencie = Competencie::all();
+        $competencieselect = $competencie->map(function ($p) {
             $id = $p->id;
             $name = $p->name;
             return [
                 'id' => $id,
                 'name' => $name
             ];
-        })->prepend(['id' => null, 'name' => 'Seleccione un resultado de aprendizaje'])->pluck('name', 'id');
+        })->prepend(['id' => null, 'name' => 'Seleccione una competencia'])->pluck('name', 'id');
 
         $prof = ClassEnvironment::all();
         $ClassEnvi = $prof->map(function ($p) {
@@ -625,14 +667,18 @@ class CurriculumPlanningController extends Controller
         })->prepend(['id' => null, 'name' => 'Seleccione una clase de ambiente'])->pluck('name', 'id');
 
 
-        return view('sigac::curriculum_planning.learning_class.index')->with(['titlePage' => 'Resultado por ambiente', 'titleView' => 'Resultado por ambiente', 'learningOut' => $learningOut, 'ClassEnvi' => $ClassEnvi, 'class_environment_learning_outcome' => $class_learning]);
+        return view('sigac::curriculum_planning.competencie_class.index')->with(['titlePage' => 'Competencia por ambiente',
+        'titleView' => 'Competencia por ambiente', 
+        'competencieselect' => $competencieselect, 
+        'ClassEnvi' => $ClassEnvi, 
+        'competencies' => $competencies]);
     }
 
-    public function learning_class_store(Request $request)
+    public function competencie_class_store(Request $request)
     {
         $rules = [
             'class_environment_id' => 'required',
-            'learning_outcome_id' => 'required'
+            'competencie_id' => 'required'
         ];
     
         // Validación de los datos recibidos del formulario
@@ -644,34 +690,180 @@ class CurriculumPlanningController extends Controller
         }
     
         // Obtener el resultado de aprendizaje y verificar si ya existe un registro para ese par de IDs
-        $learning_outcome = LearningOutcome::find($request->learning_outcome_id);
-        $existingRecord = DB::table('class_environment_learning_outcomes')
+        $competencie = Competencie::find($request->competencie_id);
+
+        
+        $existingRecord = DB::table('class_environment_competencies')
             ->where('class_environment_id', $request->class_environment_id)
-            ->where('learning_outcome_id', $request->learning_outcome_id)
+            ->where('competencie_id', $request->competencie_id)
             ->exists();
     
         // Realizar el registro si no existe un registro previo para el par de IDs
         if (!$existingRecord) {
             // SyncWithoutDetaching para asociar los datos en la tabla pivote sin eliminar los registros existentes
-            if ($learning_outcome->class_environments()->syncWithoutDetaching([$request->class_environment_id])) {
-                return redirect(route('sigac.academic_coordination.curriculum_planning.learning_class.index'))->with(['success' => 'Registro exitoso.']);
+            if ($competencie->class_environments()->syncWithoutDetaching([$request->class_environment_id])) {
+                return redirect(route('sigac.academic_coordination.curriculum_planning.competencie_class.index'))->with(['success' => 'Registro exitoso.']);
             } else {
-                return redirect(route('sigac.academic_coordination.curriculum_planning.learning_class.index'))->with(['error' => 'Error al agregar el registro.']);
+                return redirect(route('sigac.academic_coordination.curriculum_planning.competencie_class.index'))->with(['error' => 'Error al agregar el registro.']);
             }
         } else {
-            return redirect(route('sigac.academic_coordination.curriculum_planning.learning_class.index'))->with(['error' => 'Ya existe un registro para este par de IDs.']);
+            return redirect(route('sigac.academic_coordination.curriculum_planning.competencie_class.index'))->with(['error' => 'Ya existe un registro.']);
         }
     }
 
-    public function learning_class_destroy($id){
-        $cl = DB::table('class_environment_learning_outcomes')->where('id', $id)->delete();
+    public function competencie_class_destroy($class_environment_id, $competencie_id)
+    {
+        // Obtener la competencia
+        $class_environment = ClassEnvironment::findOrFail($class_environment_id);
+       
+        // Eliminar la relación a través de Eloquent
+        $class_environment->competencies()->detach($competencie_id);
+        
+        return redirect(route('sigac.academic_coordination.curriculum_planning.competencie_class.index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
+    }
 
-        if($cl){
-            return redirect(route('sigac.academic_coordination.curriculum_planning.learning_class.index'))->with(['success'=> 'Actividad exitosa']);
+    /* Consultar aprendices por titulación */
+
+    public function evaluative_judgment_create(){
+	
+		return view('sigac::curriculum_planning.evaluative_judgment.load')->with(['titlePage' => 'Cargar juicio evaluativo',
+        'titleView' => 'Cargar juicio evaluativo']);
+	}
+
+	public function evaluative_judgment_filter(Request $request){
+        $person_id = $request->person_id;
+        $state = $request->state;
+        $course_id = $request->course_id;
+		if($person_id):
+            $evaluative_judgments = EvaluativeJudgment::where('course_id',$course_id)->where('person_id',$person_id)->where('state',$state)->get();
+            
+            $apprentices = Person::whereHas('evaluative_judgments', function ($query) use ($course_id) {
+                $query->where('course_id', $course_id);
+            })->pluck('first_name','id');
+			$course = Course::with('program')->findOrFail($course_id);
+			$data = ['evaluative_judgments'=>$evaluative_judgments,'course'=>$course,'apprentices'=>$apprentices];
+            return view('sigac::curriculum_planning.evaluative_judgment.table',$data);
+        endif;
+	}
+
+	public function evaluative_judgment_search(Request $request){
+        $course_id = $request->course_id;
+		if($course_id):
+            $evaluative_judgments = EvaluativeJudgment::where('course_id',$course_id)->get();
+            $apprentices = Person::whereHas('evaluative_judgments', function ($query) use ($course_id) {
+                $query->where('course_id', $course_id);
+            })->pluck('first_name','id');
+			$course = Course::with('program')->findOrFail($course_id);
+			$data = ['evaluative_judgments'=>$evaluative_judgments,'course'=>$course,'apprentices'=>$apprentices];
+            return view('sigac::curriculum_planning.evaluative_judgment.table',$data);
+        else:
+            return '<div class="row d-flex justify-content-center"><span class="h5 text-danger">No se encontró registros</span><div>';
+        endif;
+	}
+
+    public function evaluative_judgment_index () 
+    {
+        $courses = Course::orderBy('code','Asc')->get()->mapWithKeys(function ($course) {
+            return [$course->id => $course->program->name . ' - ' . $course->code];
+        });
+        return view('sigac::curriculum_planning.evaluative_judgment.index')->with(['titlePage' => 'Consultar juicio evaluativo',
+        'titleView' => 'Consultar juicio evaluativo',
+        'courses'=>$courses]);
+    }
+
+    /* Registrar aprendices a partir de un archivo */
+    public function evaluative_judgment_store(Request $request){
+        ini_set('max_execution_time', 3000); // Ampliar el tiempo máximo de la ejecución del proceso en el servidor
+        $validator = Validator::make($request->all(),
+            ['archivo'  => 'required'],
+            ['archivo.required'  => 'El archivo es requerido.']
+        );
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
         }else{
-            return redirect(route('sigac.academic_coordination.curriculum_planning.learning_class.index'))->with(['error'=> 'Ups, hubo un fallo']);
-        }
+            $path = $request->file('archivo'); // Obtener ubicación temporal del archivo en el servidor
+            $array = Excel::toArray(new ApprenticeLearningOutcomeImport, $path); // Convertir el contenido del archivo excel en una arreglo de arreglos
+            $program_name = $array[0][4][2]; // Obtener la ficha del curso y el nombre del programa en un arreglo
+            $course_code = $array[0][1][2];
+            $apprentices_data = array_splice($array[0], 12, count($array[0])); // Obtener solo los registros de los datos de los aprendices
+            try {
+                $countstate = 0;
+                // Recorrer datos y relizar registros
+               
+                foreach($apprentices_data as $data){
+                    $document_number = $data[1];
+                    $learning_outcome = explode(" - ", $data[6]); // Dividir la cadena por el guión ('-')
+                    if ($learning_outcome) {
+                        if (count($learning_outcome) > 1) {
+                            // Si hay más de una parte después de dividir por el guión
+                            $name_learning = trim(preg_replace('/^[0-9]+\s*/', '', $learning_outcome[1])); // Eliminar números y espacios al principio de la cadena
+                        } else {
+                            // Si no hay un guión, entonces tomar el nombre completo sin modificar
+                            $name_learning = trim($learning_outcome[0]);
+                        }
+                        $state = $data[7];
+                        $learning_outcome = LearningOutcome::where('name', '=', $name_learning)->first();
+                        
+                        if ($learning_outcome) {
+                            $learning_outcome_id = $learning_outcome->id;
 
+                            $course = Course::where('code',$course_code)->first();
+                            if ($course) {
+                                $course_id = $course->id;
+                                $person = Person::where('document_number',$document_number)->first();
+                                $person_id = $person->id;
+                                $evaluative_judgments = EvaluativeJudgment::where('person_id',$person_id)->where('learning_outcome_id',$learning_outcome_id)->where('course_id',$course_id)->first();
+                                switch ($state) {
+                                    case 'APROBADO':
+                                        $status = 'Aprobado';
+                                        break;
+                                    case 'POR EVALUAR':
+                                        $status = 'Pendiente';
+                                        break;
+                                    case 'NO APROBADO':
+                                        $status = 'No Aprobado';
+                                        break;
+                                    
+                                    default:
+                                        $status = 'Pendiente';
+                                        break;
+                                }
+                                if ($evaluative_judgments) {
+                                    
+                                    $evaluative_judgments->state = $status;
+                                    $evaluative_judgments->save();
+                                } else {
+                                    $evaluative_judgments = new EvaluativeJudgment;
+                                    $evaluative_judgments->person_id = $person_id;
+                                    $evaluative_judgments->course_id = $course_id;
+                                    $evaluative_judgments->learning_outcome_id = $learning_outcome_id;
+                                    $evaluative_judgments->state = $status;
+                                    $evaluative_judgments->save();
+                                }
+                            }
+                            
+                            if ($state = "APROBADO") {
+                                $instructor_programs = InstructorProgram::where('learning_outcome_id',$learning_outcome_id)->get();
+                                
+                                foreach ($instructor_programs as $instructor_program) {
+                                    $instructor_program->state = 2;
+                                    $instructor_program->save();
+                                    $countstate++;
+                                }
+
+
+                            }
+                        }
+                    }
+                }
+                
+                return back()->with('success', 'Archivo excel escaneado coerrectamente. '.$countstate.' Programaciones Actualizados exitosamente.')->with('typealert', 'success');
+            } catch (Exception $e) {
+                DB::rollBack(); // Devolver cambios realizados durante la transacción
+                return back()->with('error', 'Ocurrio un error en la importación y/o registro de datos del archivo excel cargado. <hr> <strong>Error: </strong> ('.$e->getMessage().').')->with('typealert', 'danger');
+             }
+
+        }
     }
     
 }

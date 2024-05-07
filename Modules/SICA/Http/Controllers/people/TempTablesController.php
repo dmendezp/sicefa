@@ -13,9 +13,11 @@ use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\EPS;
 use Modules\SICA\Entities\Line;
 use Modules\SICA\Entities\Network;
+use Modules\SICA\Entities\Municipality;
 use Modules\SICA\Entities\PensionEntity;
 use Modules\SICA\Imports\PeopleImport;
 use Modules\SICA\Imports\ApprenticeImport;
+
 
 use Validator, Excel, Exception;
 
@@ -100,6 +102,8 @@ class TempTablesController extends Controller
             $program_name = $course_code_program_name[1];
             $apprentices_data = array_splice($array[0], 4, count($array[0])); // Obtener solo los registros de los datos de los aprendices
 
+            $municipality = Municipality::where('name','=','Campoalegre')->first(); // Obtener municipio
+
             try {
                 DB::beginTransaction(); // Iniciar transacción
 
@@ -116,11 +120,12 @@ class TempTablesController extends Controller
                     'star_date' => now()->format('Y-m-d'),
                     'end_date' => now()->format('Y-m-d'),
                     'status' => 'Activo',
-                    'program_id' => $program->id
+                    'program_id' => $program->id,
+                    'municipality_id' => $municipality->id
                 ]);
                 $eps = EPS::firstOrCreate(['name' => 'NO REGISTRA']); // Consultar o registrar EPS
                 $population_group = PopulationGroup::firstOrCreate(['name' => 'NINGUNA']); // Consultar o registrar Grupo Poblacional
-                $pension_entity = PensionEntity::firstOrCreate(['name' => 'NINGUNA']); // Consultar o registrar Entidad de pensiones
+                $pension_entity = PensionEntity::firstOrCreate(['name' => 'NO REGISTRA']); // Consultar o registrar Entidad de pensiones
 
                 // Recorrer datos y relizar registros
                 foreach($apprentices_data as $data){
