@@ -376,4 +376,36 @@ class InputRequestController extends Controller
         return redirect()->route('agroindustria.admin.units.view.request')->with(['icon' => $icon, 'message_line' => $message_line]);
     }
 
+    public function cancelRequest(Request $request, $id){
+
+        $rules=[
+            'observation' => 'required',
+        ];
+        $messages = [
+            'observation.required' => trans('agroindustria::deliveries.Required field'),
+        ];
+
+        $validatedData = $request->validate($rules, $messages);
+        $movement = Movement::find($id);
+        if ($movement) {
+            $movement->observation = $validatedData['observation'];
+            $movement->state = 'Anulado';
+            $movement->save();
+        }
+        if($movement->save()){
+            $icon = 'success';
+            $message_line = trans('agroindustria::deliveries.Motion successfully cancelled');
+        }else{
+            $icon = 'error';
+            $message_line = trans('agroindustria::deliveries.Movement Cancel Error');
+        }
+
+        return redirect()->route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.view.request')->with([
+            'icon' => $icon,
+            'message_line' => $message_line,
+        ]);
+
+        
+    }
+
 }
