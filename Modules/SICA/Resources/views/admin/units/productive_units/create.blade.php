@@ -10,7 +10,7 @@
             <div class="d-flex justify-content-center">
                 <div class="card card-orange card-outline shadow col-md-8">
                     <div class="card-header">
-                        <h4>Registro de unidad productiva</h4>
+                        <h4>{{trans('sica::menu.Productive Unit Registration')}}</h4>
                     </div>
                     <form action="{{ route('sica.admin.units.productive_unit.store') }}" method="post">
                         @csrf
@@ -25,14 +25,14 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Nombre:</label>
+                                <label>{{trans('sica::menu.Name')}}:</label>
                                 {!! Form::text('name', null, [
                                     'class'=>'form-control',
                                     'required'
                                 ]) !!}
                             </div>
                             <div class="form-group">
-                                <label>Descripción:</label>
+                                <label>{{trans('sica::menu.Description')}}:</label>
                                 {!! Form::textarea('description', null, [
                                     'class'=>'form-control',
                                     'rows'=>'3',
@@ -60,7 +60,7 @@
                         </div>
                         <div class="card-footer py-2 text-right">
                             <a href="{{ route('sica.admin.units.productive_unit.index') }}" class="btn btn-secondary btn-sm">Cancelar</a>
-                            <button type="submit" class="btn btn-primary btn-sm">Registrar</button>
+                            <button type="submit" class="btn btn-primary btn-sm">{{trans('sica::menu.Register')}}</button>
                         </div>
                     </form>
                 </div>

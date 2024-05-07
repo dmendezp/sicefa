@@ -12,23 +12,28 @@
         <div class="user-panel mt-3 pb-3 mb-1 d-flex">
             <div class="image">
                 @if (isset(Auth::user()->person->avatar))
-                    <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}"class="img-circle elevation-2" alt="User Image">
+                    <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}"class="img-circle elevation-2"
+                        alt="User Image">
                 @else
-                    <img src="{{ asset('modules/sica/images/blanco.png') }}" class="img-circle elevation-2" alt="User Image">
+                    <img src="{{ asset('modules/sica/images/blanco.png') }}" class="img-circle elevation-2"
+                        alt="User Image">
                 @endif
             </div>
             @guest
                 <div class="col info info-user">
-                    <a href="{{ route('login') }}" class="d-block custom-color" style="text-decoration: none">{{ trans('cafeto::general.Session') }}</a>
+                    <a href="{{ route('login') }}" class="d-block custom-color"
+                        style="text-decoration: none">{{ trans('cafeto::general.Session') }}</a>
                 </div>
                 <div class="col-auto info float-right ">
-                    <a href="{{ route('login') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title={{ trans('cafeto::general.InSession') }}>
+                    <a href="{{ route('login') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-title={{ trans('cafeto::general.InSession') }}>
                         <i class="fas fa-sign-in-alt"></i>
                     </a>
                 </div>
             @else
                 <div class="col info info-user">
-                    <div data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">
+                    <div data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">
                         <div style="color:white">{{ Auth::user()->nickname }}</div>
                     </div>
                     <div class="small" style="color:white">
@@ -36,7 +41,9 @@
                     </div>
                 </div>
                 <div class="col-auto info float-right mt-2">
-                    <a href="{{ route('logout') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title={{ trans('cafeto::general.ExitSession') }} onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a href="{{ route('logout') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-title={{ trans('cafeto::general.ExitSession') }}
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 </div>
@@ -60,9 +67,10 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                data-accordion="false">
                 <!-- Menú de opciones públicas -->
-                @if(Route::is('cefa.cafeto.*'))
+                @if (Route::is('cefa.cafeto.*'))
                     <li class="nav-item">
                         <a href="{{ route('cefa.cafeto.index') }}"
                             class="nav-link {{ !Route::is('cefa.cafeto.index*') ?: 'active' }} text-light">
@@ -85,10 +93,10 @@
                         </a>
                     </li>
                 @endif
-                
+
                 <!-- Menú de opciones para administrador -->
-                @if(Route::is('cafeto.admin.*'))
-                    @if(Auth::user()->havePermission('cafeto.admin.index'))
+                @if (Route::is('cafeto.admin.*'))
+                    @if (Auth::user()->havePermission('cafeto.admin.index'))
                         <li class="nav-item">
                             <a href="{{ route('cafeto.admin.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.admin.index') ?: 'active' }} text-light">
@@ -97,7 +105,7 @@
                             </a>
                         </li>
                     @endif
-                    @if(Auth::user()->havePermission('cafeto.admin.inventory.index'))
+                    @if (Auth::user()->havePermission('cafeto.admin.inventory.index'))
                         <li class="nav-item">
                             <a href="{{ route('cafeto.admin.inventory.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.admin.inventory.*') ?: 'active' }} text-light">
@@ -106,7 +114,7 @@
                             </a>
                         </li>
                     @endif
-                    @if(Auth::user()->havePermission('cafeto.admin.sale.index'))
+                    @if (Auth::user()->havePermission('cafeto.admin.sale.index'))
                         <li class="nav-item">
                             <a href="{{ route('cafeto.admin.sale.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.admin.sale.*') ?: 'active' }} text-light">
@@ -115,44 +123,55 @@
                             </a>
                         </li>
                     @endif
-                    @if(Auth::user()->havePermission('cafeto.admin.cash.index'))
+                    @if (Auth::user()->havePermission('cafeto.admin.cash.index'))
                         <li class="nav-item">
-                            <a href="{{ route('cafeto.admin.cash.index') }}" class="nav-link {{ !Route::is('cafeto.admin.cash.*') ?: 'active' }} text-light">
+                            <a href="{{ route('cafeto.admin.cash.index') }}"
+                                class="nav-link {{ !Route::is('cafeto.admin.cash.*') ?: 'active' }} text-light">
                                 <i class="nav-icon fa-solid fa-cash-register"></i>
                                 <p>{{ trans('cafeto::general.Cash Control') }}</p>
                             </a>
                         </li>
                     @endif
-                    @if(Auth::user()->havePermission('cafeto.admin.element.index'))
+                    @if (Auth::user()->havePermission('cafeto.admin.element.index'))
                         <li class="nav-item">
                             <a href="{{ route('cafeto.admin.element.index') }}"
-                                class="nav-link {{ !Route::is('cafeto.element.*') ?: 'active' }} text-light">
+                                class="nav-link {{ !Route::is('cafeto.admin.element.*') ?: 'active' }} text-light">
                                 <i class="nav-icon fas fa-image"></i>
                                 <p>{{ trans('cafeto::general.Products') }}</p>
                             </a>
                         </li>
                     @endif
-                    @if(Auth::user()->havePermission('cafeto.admin.reports.index'))
+                    @if (Auth::user()->havePermission('cafeto.admin.reports.index'))
                         <li class="nav-item">
                             <a href="{{ route('cafeto.admin.reports.index') }}"
-                                class="nav-link {{ !Route::is('cafeto.reports.*') ?: 'active' }}">
+                                class="nav-link {{ !Route::is('cafeto.admin.reports.*') ?: 'active' }}">
                                 <i class="nav-icon fa-solid fa-chart-column"></i>
                                 <p>{{ trans('cafeto::general.Reports Panel') }}</p>
                             </a>
                         </li>
                     @endif
-                    @if(Auth::user()->havePermission('cafeto.admin.movements.index'))
+                    @if (Auth::user()->havePermission('cafeto.admin.movements.index'))
                         <li class="nav-item">
-                            <a href="{{ route('cafeto.admin.movements.index') }}" class="nav-link text-light">
+                            <a href="{{ route('cafeto.admin.movements.index') }}"
+                                class="nav-link {{ !Route::is('cafeto.admin.movements.*') ?: 'active' }}">
                                 <i class="nav-icon fa-solid fa-shuffle"></i>
                                 <p>{{ trans('cafeto::general.Movement History') }}</p>
                             </a>
                         </li>
                     @endif
-                    @if(Auth::user()->havePermission('cafeto.admin.configuration.index'))
+                    @if (Auth::user()->havePermission('cafeto.admin.recipes.index'))
                         <li class="nav-item">
-                            <a href="{{ route('cafeto.admin.configuration.index') }}" 
-                                class="nav-link {{ !Route::is('cefa.cafeto.configuration*') ?: 'active' }} text-light">
+                            <a href="{{ route('cafeto.admin.recipes.index') }}"
+                                class="nav-link {{ !Route::is('cafeto.admin.recipes.*') ?: 'active' }}">
+                                <i class="nav-icon fa-solid fa-kitchen-set"></i>
+                                <p>{{ trans('cafeto::general.Recipes Control') }}</p>
+                            </a>
+                        </li>
+                    @endif
+                    @if (Auth::user()->havePermission('cafeto.admin.configuration.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('cafeto.admin.configuration.index') }}"
+                                class="nav-link {{ !Route::is('cafeto.admin.configuration*') ?: 'active' }} text-light">
                                 <i class="nav-icon fa-solid fa-gears"></i>
                                 <p>{{ trans('cafeto::general.Configuration') }}</p>
                             </a>
@@ -161,8 +180,8 @@
                 @endif
 
                 <!-- Menú de opciones para cajero -->
-                @if(Route::is('cafeto.cashier.*'))
-                    @if(Auth::user()->havePermission('cafeto.cashier.index'))
+                @if (Route::is('cafeto.cashier.*'))
+                    @if (Auth::user()->havePermission('cafeto.cashier.index'))
                         <li class="nav-item">
                             <a href="{{ route('cafeto.cashier.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.cashier.index') ?: 'active' }} text-light">
@@ -171,7 +190,7 @@
                             </a>
                         </li>
                     @endif
-                    @if(Auth::user()->havePermission('cafeto.cashier.inventory.index'))
+                    @if (Auth::user()->havePermission('cafeto.cashier.inventory.index'))
                         <li class="nav-item">
                             <a href="{{ route('cafeto.cashier.inventory.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.cashier.inventory.*') ?: 'active' }} text-light">
@@ -180,7 +199,7 @@
                             </a>
                         </li>
                     @endif
-                    @if(Auth::user()->havePermission('cafeto.cashier.sale.index'))
+                    @if (Auth::user()->havePermission('cafeto.cashier.sale.index'))
                         <li class="nav-item">
                             <a href="{{ route('cafeto.cashier.sale.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.cashier.sale.*') ?: 'active' }} text-light">
@@ -189,35 +208,46 @@
                             </a>
                         </li>
                     @endif
-                    @if(Auth::user()->havePermission('cafeto.cashier.cash.index'))
+                    @if (Auth::user()->havePermission('cafeto.cashier.cash.index'))
                         <li class="nav-item">
-                            <a href="{{ route('cafeto.cashier.cash.index') }}" class="nav-link text-light">
+                            <a href="{{ route('cafeto.cashier.cash.index') }}"
+                                class="nav-link {{ !Route::is('cafeto.cashier.cash.*') ?: 'active' }} text-light">
                                 <i class="nav-icon fa-solid fa-cash-register"></i>
                                 <p>{{ trans('cafeto::general.Cash Control') }}</p>
                             </a>
                         </li>
                     @endif
-                    @if(Auth::user()->havePermission('cafeto.cashier.reports.index'))
+                    @if (Auth::user()->havePermission('cafeto.cashier.reports.index'))
                         <li class="nav-item">
                             <a href="{{ route('cafeto.cashier.reports.index') }}"
-                                class="nav-link {{ !Route::is('cafeto.reports.*') ?: 'active' }}">
+                                class="nav-link {{ !Route::is('cafeto.cashier.reports.*') ?: 'active' }} text-light">
                                 <i class="nav-icon fa-solid fa-chart-column"></i>
                                 <p>{{ trans('cafeto::general.Reports Panel') }}</p>
                             </a>
                         </li>
                     @endif
-                    @if(Auth::user()->havePermission('cafeto.cashier.movements.index'))
+                    @if (Auth::user()->havePermission('cafeto.cashier.movements.index'))
                         <li class="nav-item">
-                            <a href="{{ route('cafeto.cashier.movements.index') }}" class="nav-link text-light">
+                            <a href="{{ route('cafeto.cashier.movements.index') }}"
+                                class="nav-link {{ !Route::is('cafeto.cashier.movements.*') ?: 'active' }} text-light">
                                 <i class="nav-icon fa-solid fa-shuffle"></i>
                                 <p>{{ trans('cafeto::general.Movement History') }}</p>
                             </a>
                         </li>
                     @endif
-                    @if(Auth::user()->havePermission('cafeto.cashier.configuration.index'))
+                    @if (Auth::user()->havePermission('cafeto.cashier.recipes.index'))
                         <li class="nav-item">
-                            <a href="{{ route('cafeto.cashier.configuration.index') }}" 
-                                class="nav-link {{ !Route::is('cefa.cafeto.configuration*') ?: 'active' }} text-light">
+                            <a href="{{ route('cafeto.cashier.recipes.index') }}"
+                                class="nav-link {{ !Route::is('cafeto.cashier.recipes*') ?: 'active' }} text-light">
+                                <i class="nav-icon fa-solid fa-kitchen-set"></i>
+                                <p>{{ trans('cafeto::general.Recipes Control') }}</p>
+                            </a>
+                        </li>
+                    @endif
+                    @if (Auth::user()->havePermission('cafeto.cashier.configuration.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('cafeto.cashier.configuration.index') }}"
+                                class="nav-link {{ !Route::is('cafeto.cashier.configuration*') ?: 'active' }} text-light">
                                 <i class="nav-icon fa-solid fa-gears"></i>
                                 <p>{{ trans('cafeto::general.Configuration') }}</p>
                             </a>

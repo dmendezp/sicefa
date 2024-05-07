@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
+
 class EmployeeType extends Model implements Auditable
 {
 
     use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
         SoftDeletes; // Borrado suave
 
-    protected $fillable = ['name']; // Atributos modificables (asignación masiva)
+    protected $fillable = ['name','price','year']; // Atributos modificables (asignación masiva)
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 
@@ -32,6 +33,9 @@ class EmployeeType extends Model implements Auditable
     }
     public function employees(){ // Accede a todos los registros de empleados que le pertenecen a este tipo de empleado
         return $this->hasMany(Employee::class);
+    }
+    public function executors(){ // Accede a todos los ejecutores que le pertenecen a este tipo de empleado
+        return $this->hasMany(Executor::class);
     }
 
 }

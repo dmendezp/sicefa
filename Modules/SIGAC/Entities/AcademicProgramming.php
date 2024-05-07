@@ -7,9 +7,12 @@ use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\Person;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class AcademicProgramming extends Model
+class AcademicProgramming extends Model implements Auditable
 {
+
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'instructor_id',

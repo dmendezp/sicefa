@@ -16,7 +16,7 @@
                     <div class="card-body">
                         <div class="btns">
                             @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.courses.create'))
-                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.courses.create') }}')" class="btn btn-primary">
+                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.courses.create') }}')" class="btn btn-success">
                                     <i class="fa-solid fa-file-circle-plus"></i>
                                     {{ trans('sica::menu.Add Course') }}
                                 </a>
@@ -50,7 +50,7 @@
                                                 <div class="opts">
                                                     @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.courses.edit'))
                                                         <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.courses.edit', $c->id) }}')">
-                                                            <b class="text-success" data-toggle="tooltip" data-placement="top" title="Actualizar titulada">
+                                                            <b class="text-primary" data-toggle="tooltip" data-placement="top" title="Actualizar titulada">
                                                                 <i class="fas fa-edit"></i>
                                                             </b>
                                                         </a>

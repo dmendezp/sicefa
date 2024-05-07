@@ -19,10 +19,10 @@
             </div>
             @guest
                 <div class="col info info-user">
-                    <a href="{{ route('login') }}" class="d-block custom-color" style="text-decoration: none">{{ trans('cefamaps::general.Session') }}</a>
+                    <a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block custom-color" style="text-decoration: none">{{ trans('cefamaps::general.Session') }}</a>
                 </div>
                 <div class="col-auto info float-right ">
-                    <a href="{{ route('login') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Iniciar Sesion">
+                    <a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Iniciar Sesion">
                         <i class="fas fa-sign-in-alt"></i>
                     </a>
                 </div>
@@ -139,21 +139,22 @@
                               <a href="#" class="nav-link {{ !(Request::url() == url('/cefamaps/sector/view/' . $s->id)) ?: 'active' }}">
                                   <i class="nav-icon fa-solid fa-mountain-city"></i>
                                   <p>
-                                    {{ trans('cefamaps::general.Units') }}
+                                    {{ $s->name }}
                                       <i class="right fa-solid fa-map-pin"></i>
                                   </p>
                               </a>
                               @foreach ($s->productive_units as $u)
-                                  <ul class="nav nav-treeview">
-                                      <li class="nav nav-item">
-                                          <a href="{{ url('/cefamaps/unit/view/' . $u->id) }}"
-                                              class="nav-link {{ !(Request::url() == url('/cefamaps/unit/view/' . $u->id)) ?: 'active' }}">
-                                              <i class="nav-icon {{ $u->icon }}"></i>
-                                              <p>{{ $u->name }}</p>
-                                          </a>
-                                      </li>
-                                  </ul>
-                              @endforeach
+                                <ul class="nav nav-treeview">
+                                    <li class="nav nav-item">
+                                        <a href="{{ route('cefa.cefamaps.environment.viewenvironments', ['id' => $u->id]) }}
+                                            " class="nav-link unit-link" data-unit-id="{{ $u->id }}">
+                                            <i class="nav-icon {{ $u->icon }}"></i>
+                                            <p>{{ $u->name }}</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            @endforeach
+
                           </li>
                       @endforeach
                       <!-- Fin de los sectores y unidades -->
@@ -212,3 +213,4 @@
       </div>
       <!-- /.sidebar -->
   </aside>
+  

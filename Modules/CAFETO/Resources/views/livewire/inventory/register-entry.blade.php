@@ -8,7 +8,8 @@
                     <strong>{{ trans('cafeto::inventory.Title_Responsible') }}</strong>
                 </div>
                 <div class="card-body tex-center pt-0">
-                    <label class="form-label my-0 mt-1">{{ trans('cafeto::inventory.SubTitle_Productive_Warehouse') }}</label>
+                    <label
+                        class="form-label my-0 mt-1">{{ trans('cafeto::inventory.SubTitle_Productive_Warehouse') }}</label>
                     <select class="form-select form-select-sm mb-2" id="dpu_id" wire:model="dpu_id">
                         <option value="">{{ trans('cafeto::inventory.Text_Productive_Unit') }}</option>
                         @foreach ($productive_units as $pw)
@@ -30,7 +31,8 @@
                         'readonly',
                     ]) !!}
                     <hr class="mb-1">
-                    <label class="form-label my-0">{{ trans('cafeto::inventory.SubTitle_Destination_Warehouse') }}</label>
+                    <label
+                        class="form-label my-0">{{ trans('cafeto::inventory.SubTitle_Destination_Warehouse') }}</label>
                     {!! Form::text(null, $puw->warehouse->name, [
                         'class' => 'form-control form-control-sm',
                         'disabled',
@@ -48,45 +50,69 @@
         <div class="col-md-9 h-100">
             <form wire:submit.prevent="addProduct" method="POST">
                 <div class="row mx-3 align-items-end">
-                    <div class="col-md-8">
+                    <div class="col-md-7">
                         <div class="form-group">
                             <label><strong class="text-danger">*
                                 </strong>{{ trans('cafeto::inventory.Title_Form_Product') }}</label>
-                            <select class="form-select" name="product_element_id" id="product_element_id" wire:model.defer="product_element_id" required>
-                                <option value="" data-price="">
-                                    {{ trans('cafeto::inventory.Select_Form_Product') }}</option>
-                                @foreach ($products as $product)
-                                    <option value="{{ $product->id }}"
-                                        data-price="{{ priceFormat($product->price) }}">{{ $product->product_name }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-list"></i>
+                                    </span>
+                                </div>
+                                <select class="form-select" name="product_element_id" id="product_element_id"
+                                    wire:model.defer="product_element_id" required>
+                                    <option value="" data-price="">
+                                        {{ trans('cafeto::inventory.Select_Form_Product') }}</option>
+                                    @foreach ($products as $product)
+                                        <option value="{{ $product->id }}"
+                                            data-price="{{ priceFormat($product->price) }}">
+                                            {{ $product->product_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
+
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label>{{ trans('cafeto::inventory.Title_Form_Price') }}</label>
-                            {!! Form::text('product_price', $product_price, [
-                                'class' => 'form-control text-center',
-                                'wire:model' => 'product_price',
-                                'id' => 'product_price',
-                                'readonly',
-                                'required',
-                            ]) !!}
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fa-solid fa-grip"></i>
+                                    </span>
+                                </div>
+                                {!! Form::text('product_price', $product_price, [
+                                    'class' => 'form-control text-center',
+                                    'wire:model' => 'product_price',
+                                    'id' => 'product_price',
+                                    'readonly',
+                                    'required',
+                                ]) !!}
+                            </div>
                         </div>
                     </div>
                     <div class="col-2">
                         <div class="form-group">
                             <label><strong class="text-danger">*
                                 </strong>{{ trans('cafeto::inventory.Title_Form_Amount') }}</label>
-                            {!! Form::number('product_amount', $product_amount, [
-                                'class' => 'form-control text-center',
-                                'wire:model.defer' => 'product_amount',
-                                'id' => 'product_amount',
-                                'step' => 0,
-                                'min' => 0,
-                                'required',
-                            ]) !!}
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fa-solid fa-keyboard"></i>
+                                    </span>
+                                </div>
+                                {!! Form::number('product_amount', $product_amount, [
+                                    'class' => 'form-control text-center',
+                                    'wire:model.defer' => 'product_amount',
+                                    'id' => 'product_amount',
+                                    'step' => 0,
+                                    'min' => 0,
+                                    'required',
+                                ]) !!}
+                            </div>
                         </div>
                     </div>
                     <div class="col-3">
@@ -110,19 +136,33 @@
                     <div class="col-3">
                         <div class="form-group">
                             <label>{{ trans('cafeto::inventory.Title_Form_Lot_Number') }}</label>
-                            {!! Form::number(null, null, [
-                                'class' => 'form-control',
-                                'wire:model.defer' => 'product_lot_number',
-                            ]) !!}
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fa-solid fa-keyboard"></i>
+                                    </span>
+                                </div>
+                                {!! Form::number(null, null, [
+                                    'class' => 'form-control',
+                                    'wire:model.defer' => 'product_lot_number',
+                                ]) !!}
+                            </div>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <label>{{ trans('cafeto::inventory.Title_Form_Inventory_Code') }}</label>
-                            {!! Form::number(null, null, [
-                                'class' => 'form-control',
-                                'wire:model.defer' => 'product_inventory_code',
-                            ]) !!}
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fa-solid fa-keyboard"></i>
+                                    </span>
+                                </div>
+                                {!! Form::number(null, null, [
+                                    'class' => 'form-control',
+                                    'wire:model.defer' => 'product_inventory_code',
+                                ]) !!}
+                            </div>
                         </div>
                     </div>
                     <div class="col-6">
@@ -143,10 +183,17 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label>{{ trans('cafeto::inventory.Title_Form_Mark') }}</label>
-                                    {!! Form::text(null, null, [
-                                        'class' => 'form-control',
-                                        'wire:model.defer' => 'product_mark',
-                                    ]) !!}
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="far fa-keyboard"></i>
+                                            </span>
+                                        </div>
+                                        {!! Form::text(null, null, [
+                                            'class' => 'form-control',
+                                            'wire:model.defer' => 'product_mark',
+                                        ]) !!}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col">
@@ -155,17 +202,25 @@
                                         <strong class="text-danger">*</strong>
                                         {{ trans('cafeto::inventory.Title_Form_Destination') }}
                                     </label>
-                                    {!! Form::select(null, $destinations, 'null', [
-                                        'class' => 'form-select',
-                                        'placeholder' => trans('cafeto::inventory.Select_Form_Destination'),
-                                        'wire:model.defer' => 'product_destination',
-                                        'required',
-                                    ]) !!}
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-list"></i>
+                                            </span>
+                                        </div>
+                                        {!! Form::select(null, $destinations, 'null', [
+                                            'class' => 'form-select',
+                                            'placeholder' => trans('cafeto::inventory.Select_Form_Destination'),
+                                            'wire:model.defer' => 'product_destination',
+                                            'required',
+                                        ]) !!}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-auto mx-auto">
-                            <button type="submit" class="btn btn-success form-control text-truncate">{{ trans('cafeto::inventory.Btn_Add_Product') }}
+                            <button type="submit"
+                                class="btn btn-success form-control text-truncate">{{ trans('cafeto::inventory.Btn_Add_Product') }}
                                 <i class="fas fa-plus"></i>
                             </button>
                         </div>

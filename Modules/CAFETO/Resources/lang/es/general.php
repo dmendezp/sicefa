@@ -45,6 +45,8 @@ return [
     'Cash Control'     => 'Control de Caja',
     'Reports Panel'    => 'Panel de Reportes',
     'Movement History' => 'Histórico de Movimientos',
+    'Recipes'          => 'Recetas',
+    'Recipes Control'  => 'Control de Recetas',
     'Configuration'    => 'Configuración',
     'Developers'       => 'Desarrolladores',
     'About us'         => 'Acerca de',

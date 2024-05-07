@@ -27,6 +27,11 @@ class ClassEnvironment extends Model implements Auditable
     }
 
     // RELACIONES
+
+    public function competencies(){ //Accede a todos los resultados de aprendizaje que se relacionan con esta clase de ambiente. (PIVOTE)
+        return $this->belongsToMany(Competencie::class,'class_environment_competencies');
+    }
+
     public function environments(){ // Accede a todos los ambientes de formación que pertenecen a esta clase de ambiente de formación
         return $this->hasMany(Environment::class);
     }

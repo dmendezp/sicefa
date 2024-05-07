@@ -1,0 +1,13 @@
+{
+    "name": "HDC",
+    "alias": "hdc",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\HDC\\Providers\\HDCServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

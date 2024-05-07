@@ -21,7 +21,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">{{ $view['titleView'] }}</h1>
+                            <h1 class="m-0">{{ $titleView }}</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -47,14 +47,13 @@
         @include('sigac::layouts.partials.controlSidebar')
         <!-- /.control-sidebar -->
 
-        <!-- Main Footer -->
-        @include('sigac::layouts.partials.footer')
     </div>
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->
     @include('sigac::layouts.partials.scripts')
     @stack('scripts')
+    @section('js') @show
 
 </body>
 

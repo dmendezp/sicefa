@@ -23,7 +23,7 @@ return [
 	// Index - Apprentice
 	'SIGAC_apprentice_dashboard_title_page' => 'Apprentice',
 	'SIGAC_apprentice_dashboard_title_view' => 'Homepage',
-	
+
 	// ------ApprenticeController------
 	// Send Excuses
 	'SIGAC_send_excuses_title_page' => 'Excuses',
@@ -42,6 +42,11 @@ return [
 	// Reports Attendance
 	'SIGAC_reports_attendance_title_page' => 'Attendance',
 	'SIGAC_reports_attendance_title_view' => 'Attendance Reports',
+     // points view
+	'Breadcrumb_Active_PointsApprentice'  => 'Apprentice points',
+    'PointsApprentice' => 'Apprentice Points',
+    'AssignPoints' => 'Assign Points',
+    'generalpointsApprentice'=>  'general pointsApprentice',
 
 	// -----ProgrammeController------
 	// Programming Schedules
@@ -61,4 +66,10 @@ return [
 	// Schedule Apprentice
 	'SIGAC_schedule_apprentice_title_page' => 'Apprentice Schedule',
 	'SIGAC_schedule_apprentice_title_view' => 'Apprentice Schedule',
+    //Schedule points
+    'SIGAC_pointsApprentice_title_page' => 'General points of the trainee',
+    'SIGAC_assignpoints_title_view' => 'Assign Points ',
+
+
+
 ];

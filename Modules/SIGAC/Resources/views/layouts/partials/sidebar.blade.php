@@ -1,4 +1,5 @@
 <div class="sidebar-color">
+    <link rel="stylesheet" href="{{ asset('modules/sigac/css/sidebar.css')}}">
     <aside class="main-sidebar sidebar-dark-blue elevation-4">
         <!-- Bran Logo: Aqui se realiza el ajuste del logo y titulo que esta en el sidebar-->
         <a href="{{ route('cefa.sigac.index') }}" class="brand-link text-decoration-none">
@@ -70,7 +71,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
                     <!-- Menú de opciones públicas -->
-                    @if (Route::is('cefa.sigac.*'))
+                    @if (Route::is('cefa.sigac.index*'))
                         <li class="nav-item">
                             <a href="{{ route('cefa.sigac.index') }}"
                                 class="nav-link {{ !Route::is('cefa.sigac.index*') ?: 'active' }}">
@@ -100,6 +101,29 @@
                     @if (Route::is('sigac.academic_coordination.*'))
                         <li class="nav-item">
                             <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Comites
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice"></i>
+                                        <p>Reporte novedades</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-book-reader"></i>
+                                        <p>Resultado Comite</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
                                 <i class="nav-icon fa-solid fa-clock"></i>
                                 <p>
                                     {{ trans('sigac::general.Programming') }}
@@ -107,166 +131,389 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview" style="display: none;">
-                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming_schedules.index'))
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.academic_coordination.programming.parameters.index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-th-large"></i>
+                                        <p>Parametros</p>
+                                    </a>
+                                </li>
+                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming.index'))
                                     <li class="nav-item">
-                                        <a href="{{ route('sigac.academic_coordination.programming_schedules.index') }}"
-                                            class="nav-link {{ !Route::is('sigac.academic_coordination.programming_schedules.*') ?: 'active' }}">
+                                        <a href="{{ route('sigac.academic_coordination.programming.index') }}"
+                                            class="nav-link {{ !Route::is('sigac.academic_coordination.programming.*') ?: 'active' }}">
                                             <i class="nav-icon far fa-calendar-alt"></i>
                                             <p>{{ trans('sigac::general.Scheduling') }}</p>
                                         </a>
                                     </li>
                                 @endif
-                                @if (Auth::user()->havePermission('sigac.academic_coordination.event_programming.index'))
-                                    <li class="nav-item">
-                                        <a href="{{ route('sigac.academic_coordination.event_programming.index') }}"
-                                            class="nav-link {{ !Route::is('sigac.academic_coordination.event_programming.*') ?: 'active' }}">
-                                            <i class="nav-icon fa-solid fa-calendar-day"></i>
-                                            <p>{{ trans('sigac::general.EventProgramming') }}</p>
-                                        </a>
-                                    </li>
-                                @endif
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.academic_coordination.programming.management.index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-user-tie"></i>
+                                        <p>Gestion</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-graduation-cap"></i>
+                                        <p>Actividades Externas</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-graduation-cap"></i>
+                                        <p>Optativas y Basicos</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
-                        @if (Auth::user()->havePermission('sigac.academic_coordination.reports.attendance.index'))
-                            <li class="nav-item">
-                                <a href="{{ route('sigac.academic_coordination.reports.attendance.index') }}"
-                                    class="nav-link"
-                                    {{ !Route::is('sigac.academic_coordination.reports.attendance.*') ?: 'active' }}>
-                                    <i class="nav-icon fa-solid fa-chart-line"></i>
-                                    <p>{{ trans('sigac::general.AttendanceReports') }}</p>
-                                </a>
-                            </li>
-                        @endif
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tasks"></i>
+                                <p>
+                                    Asistencias
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items" style="display: none;">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-address-card"></i>
+                                        <p>Seguimientos</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-folder-open"></i>
+                                        <p>Excusas</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-paste"></i>
+                                        <p>Reportes</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-people-carry"></i>
+                                <p>
+                                    Talento Humano
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items" style="display: none;">
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-th-large"></i>
+                                        <p>Gestion Instructores</p>
+                                    </a>
+                                </li>
+                            
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon far fa-calendar"></i>
+                                <p>
+                                    Planeacion curricular
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items" style="display: none;">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon far fa-calendar-alt"></i>
+                                        <p>Programacion Titulada</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-tags"></i>
+                                        <p>Profesión x Co</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.competencie_class.index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-square-poll-vertical"></i>
+                                        <p>Ambiente x Co</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index')}}" class="nav-link">
+                                        <i class="nav-icon fas fa-user-plus"></i>
+                                        <p>Instructor x Rap</p>
+                                    </a>
+                                </li>     
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-tags"></i>
+                                        <p>Cu x Proyecto Formativo</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.training_project.index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-users-cog"></i>
+                                        <p>Proyecto formativo</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.evaluative_judgment.index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-address-card"></i>
+                                        <p>Juicio Evaluativo</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                       
+    
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-hand-paper"></i>
+                                <p>
+                                    Control Ambientes
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items" style="display: none;">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-pen-fancy"></i>
+                                        <p>Novedad</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-pen-fancy"></i>
+                                        <p>Verificacion Inventario</p>
+                                    </a>
+                                </li>
+                                
+    
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Reportes
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items">
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.academic_coordination.reports.quartelies.index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice"></i>
+                                        <p>Trimestralización</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     @endif
 
                     <!-- Menú de opciones para Instructor -->
                     @if (Route::is('sigac.instructor.*'))
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fa-solid fa-calendar-days"></i>
+                                <i class="nav-icon fa-solid fa-clock"></i>
                                 <p>
-                                    {{ trans('sigac::general.Schedules') }}
+                                    {{ trans('sigac::general.Programming') }}
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview" style="display: none;">
-                                @if (Auth::user()->havePermission('sigac.instructor.schedule_instructor.index'))
+                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming.index'))
                                     <li class="nav-item">
-                                        <a href="{{ route('sigac.instructor.schedule_instructor.index') }}"
-                                            class="nav-link {{ !Route::is('sigac.instructor.schedule_instructor.*') ?: 'active' }}">
-                                            <i class="nav-icon fas fa-user-clock"></i>
-                                            <p>{{ trans('sigac::general.InstructorSchd') }}</p>
-                                        </a>
-                                    </li>
-                                @endif
-                                @if (Auth::user()->havePermission('sigac.instructor.schedule_titled.index'))
-                                    <li class="nav-item">
-                                        <a href="{{ route('sigac.instructor.schedule_titled.index') }}"
-                                            class="nav-link {{ !Route::is('sigac.instructor.schedule_titled.*') ?: 'active' }}">
-                                            <i class="nav-icon fa-solid fa-book"></i>
-                                            <p>{{ trans('sigac::general.TitledSchd') }}</p>
+                                        <a href="{{ route('sigac.academic_coordination.programming.index') }}"
+                                            class="nav-link {{ !Route::is('sigac.academic_coordination.programming.*') ?: 'active' }}">
+                                            <i class="nav-icon far fa-calendar-alt"></i>
+                                            <p>{{ trans('sigac::general.Scheduling') }}</p>
                                         </a>
                                     </li>
                                 @endif
                             </ul>
                         </li>
-
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fa-solid fa-magnifying-glass"></i>
+                                <i class="nav-icon fas fa-tasks"></i>
                                 <p>
-                                    {{ trans('sigac::general.Consult') }}
+                                    Asistencias
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview" style="display: none;">
-                                @if (Auth::user()->havePermission('sigac.instructor.attendance.excuses'))
+                            <ul class="nav nav-treeview items" style="display: none;">
+                                @if (Auth::user()->havePermission('sigac.instructor.attendance.register'))
                                     <li class="nav-item">
-                                        <a href="{{ route('sigac.instructor.attendance.excuses') }}"
-                                            class="nav-link {{ !Route::is('sigac.instructor.attendance.excuses.*') ?: 'active' }}">
-                                            <i class="nav-icon far fa-folder"></i>
-                                            <p>{{ trans('sigac::general.ExcusesConsult') }}</p>
+                                        <a href="{{ route('sigac.instructor.attendances.attendance.index') }}"
+                                            class="nav-link {{ !Route::is('sigac.instructor.attendance.register*') ?: 'active' }}">
+                                            <i class="nav-icon fas fa-user-check"></i>
+                                            <p>{{ trans('sigac::general.AttendanceRegister') }}</p>
                                         </a>
                                     </li>
                                 @endif
-                                @if (Auth::user()->havePermission('sigac.instructor.attendance.consult'))
-                                    <li class="nav-item">
-                                        <a href="{{ route('sigac.instructor.attendance.consult') }}"
-                                            class="nav-link {{ !Route::is('sigac.instructor.attendance.consult.*') ?: 'active' }}">
-                                            <i class="nav-icon fa-solid fa-folder-tree"></i>
-                                            <p>{{ trans('sigac::general.AttendanceConsult') }}</p>
-                                        </a>
-                                    </li>
-                                @endif
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-address-card"></i>
+                                        <p>Seguimientos</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-folder-open"></i>
+                                        <p>Excusas</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-paste"></i>
+                                        <p>Reportes</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
-
-                        @if (Auth::user()->havePermission('sigac.instructor.attendance.register'))
-                            <li class="nav-item">
-                                <a href="{{ route('sigac.instructor.attendance.register') }}"
-                                    class="nav-link {{ !Route::is('sigac.instructor.attendance.register*') ?: 'active' }}">
-                                    <i class="nav-icon fas fa-user-check"></i>
-                                    <p>{{ trans('sigac::general.AttendanceRegister') }}</p>
-                                </a>
-                            </li>
-                        @endif
-
-                        @if (Auth::user()->havePermission('sigac.instructor.reports.attendance.index'))
-                            <li class="nav-item">
-                                <a href="{{ route('sigac.instructor.reports.attendance.index') }}" class="nav-link"
-                                    {{ !Route::is('sigac.instructor.reports.attendance.*') ?: 'active' }}>
-                                    <i class="nav-icon fa-solid fa-chart-line"></i>
-                                    <p>{{ trans('sigac::general.AttendanceReports') }}</p>
-                                </a>
-                            </li>
-                        @endif
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-hand-paper"></i>
+                                <p>
+                                    Control ambientes
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items" style="display: none;">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-pen-fancy"></i>
+                                        <p>Novedad</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-pen-fancy"></i>
+                                        <p>Verificacion Inventario</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Comites
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice"></i>
+                                        <p>Reporte novedades</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-book-reader"></i>
+                                        <p>Resultado Comite</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     @endif
 
                     <!-- Menú de opciones para Bienestar -->
                     @if (Route::is('sigac.wellness.*'))
-                        @if (Auth::user()->havePermission('sigac.wellness.attendance.consult'))
-                            <li class="nav-item">
-                                <a href="{{ route('sigac.wellness.attendance.consult') }}"
-                                    class="nav-link {{ !Route::is('sigac.wellness.attendance.consult.*') ?: 'active' }}">
-                                    <i class="nav-icon fa-solid fa-folder-tree"></i>
-                                    <p>{{ trans('sigac::general.AttendanceConsult') }}</p>
-                                </a>
-                            </li>
-                        @endif
-
-                        @if (Auth::user()->havePermission('sigac.wellness.reports.attendance.index'))
-                            <li class="nav-item">
-                                <a href="{{ route('sigac.wellness.reports.attendance.index') }}" class="nav-link"
-                                    {{ !Route::is('sigac.wellness.reports.attendance.*') ?: 'active' }}>
-                                    <i class="nav-icon fa-solid fa-chart-line"></i>
-                                    <p>{{ trans('sigac::general.AttendanceReports') }}</p>
-                                </a>
-                            </li>
-                        @endif
-                    @endif
-
-                    <!-- Menú de opciones para Aprendiz -->
-                    @if (Route::is('sigac.apprentice.*'))
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fa-solid fa-calendar-days"></i>
+                                <i class="nav-icon fas fa-book"></i>
                                 <p>
-                                    {{ trans('sigac::general.Schedules') }}
+                                    Comites
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice"></i>
+                                        <p>Reporte novedades</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-book-reader"></i>
+                                        <p>Resultado Comite</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa-solid fa-clock"></i>
+                                <p>
+                                    {{ trans('sigac::general.Programming') }}
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview" style="display: none;">
-                                @if (Auth::user()->havePermission('sigac.apprentice.schedule_apprentice.index'))
+                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming.index'))
                                     <li class="nav-item">
-                                        <a href="{{ route('sigac.apprentice.schedule_apprentice.index') }}"
-                                            class="nav-link {{ !Route::is('sigac.apprentice.schedule_apprentice.index.*') ?: 'active' }}">
-                                            <i class="nav-icon fa-solid fa-book"></i>
-                                            <p>{{ trans('sigac::general.ApprenticeSchd') }}</p>
+                                        <a href="{{ route('sigac.academic_coordination.programming.index') }}"
+                                            class="nav-link {{ !Route::is('sigac.academic_coordination.programming.*') ?: 'active' }}">
+                                            <i class="nav-icon far fa-calendar-alt"></i>
+                                            <p>{{ trans('sigac::general.Scheduling') }}</p>
+                                        </a>
+                                    </li>
+                                @endif
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-graduation-cap"></i>
+                                        <p>Actividades Externas</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tasks"></i>
+                                <p>
+                                    Asistencias
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items" style="display: none;">
+                                @if (Auth::user()->havePermission('sigac.academic_coordination.reports.attendance.index'))
+                                    <li class="nav-item">
+                                        <a href="{{ route('sigac.academic_coordination.reports.attendance.index') }}"
+                                            class="nav-link"
+                                            {{ !Route::is('sigac.academic_coordination.reports.attendance.*') ?: 'active' }}>
+                                            <i class="nav-icon fa-solid fa-chart-line"></i>
+                                            <p>Reportes</p>
                                         </a>
                                     </li>
                                 @endif
                             </ul>
                         </li>
+                    @endif
+
+                    <!-- Menú de opciones para Aprendiz -->
+                    @if (Route::is('sigac.apprentice.*'))
+                        @if (Auth::user()->havePermission('sigac.academic_coordination.programming.index'))
+                            <li class="nav-item">
+                                <a href="{{ route('sigac.academic_coordination.programming.index') }}"
+                                    class="nav-link {{ !Route::is('sigac.academic_coordination.programming.*') ?: 'active' }}">
+                                    <i class="nav-icon far fa-calendar-alt"></i>
+                                    <p>{{ trans('sigac::general.Scheduling') }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if (Auth::user()->havePermission('sigac.apprentice.apprentice'))
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fa-solid fa-star"></i>
+                                    <p>Consultar Asistencia</p>
+                                </a>
+                            </li>
+                        @endif
                         @if (Auth::user()->havePermission('sigac.apprentice.excuses.send'))
                             <li class="nav-item">
                                 <a href="{{ route('sigac.apprentice.excuses.send') }}"
@@ -277,9 +524,42 @@
                             </li>
                         @endif
                     @endif
+                    <!-- Menú de opciones para Aprendiz -->
+                    @if (Route::is('sigac.committee_leader.*'))
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Comites
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice"></i>
+                                        <p>Reporte novedades</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-user-edit"></i>
+                                        <p>Citar comite</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-book-reader"></i>
+                                        <p>Resultado Comite</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
         </div>
     </aside>
 </div>
+

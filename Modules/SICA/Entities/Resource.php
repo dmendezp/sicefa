@@ -9,8 +9,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 class Resource extends Model implements Auditable
 {
 
-    use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
-        SoftDeletes; // Borrado suave
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
 
     protected $fillable = ['name']; // Atributos modificables (asignación masiva)
 
@@ -24,6 +23,18 @@ class Resource extends Model implements Auditable
     // RELACIONES
     public function environmental_aspects(){ // Accede a todos los aspectos ambientales que pertenecen a este recurso
         return $this->hasMany(EnvironmentalAspect::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleted(function ($personEnvironmentalAspect) {
+            $familyPersonFootprint = $personEnvironmentalAspect->familyPersonFootprint;
+            if ($familyPersonFootprint) {
+                $familyPersonFootprint->delete();
+            }
+        });
     }
 
 }

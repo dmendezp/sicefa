@@ -20,11 +20,11 @@
                     <div class="col info info-user">
                         <div>{{ trans('menu.Welcome') }}</div>
                         <div>
-                            <a href="{{ route('login') }}" class="d-block">{{ trans('Auth.Login') }}</a>
+                            <a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block">{{ trans('Auth.Login') }}</a>
                         </div>
                     </div>
                     <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Login') }}">
-                        <a href="{{ route('login') }}" class="d-block">
+                        <a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block">
                             <i class="fas fa-sign-in-alt"></i>
                         </a>
                     </div>
@@ -200,7 +200,7 @@
                                 <li class="nav-item">
                                     <a href="{{ route('sica.admin.academy.holidays.index') }}" class="nav-link {{ !Route::is('sica.admin.academy.holidays.*') ?: 'active' }}">
                                         <i class="fa-solid fa-umbrella-beach"></i>
-                                        <p>Festivos</p>
+                                        <p>{{ trans('sica::menu.Holidays') }}</p>
                                     </a>
                                 </li>
                             @endif
@@ -278,10 +278,10 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            @if (Auth::user()->havePermission('sica.admin.units.areas'))
+                            @if (Auth::user()->havePermission('sica.admin.units.areas.index'))
                                 <li class="nav-item">
-                                    <a href="{{ route('sica.admin.units.areas') }}"
-                                        class="nav-link {{ !Route::is('sica.admin.units.areas*') ?: 'active' }}">
+                                    <a href="{{ route('sica.admin.units.areas.index') }}"
+                                        class="nav-link {{ !Route::is('sica.admin.units.areas.index*') ?: 'active' }}">
                                         <i class="fas fa-sign"></i>
                                         <p>{{ trans('sica::menu.Areas') }}</p>
                                     </a>

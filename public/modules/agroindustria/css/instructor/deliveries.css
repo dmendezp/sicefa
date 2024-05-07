@@ -1,0 +1,160 @@
+.movements{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 700px;
+    margin: 0 auto;  
+}
+
+.elements {
+    display: flex;
+    flex-direction: row; /* Alinea los campos uno al lado del otro */
+    align-items: flex-start;
+}
+
+.form-group {
+    display: inline-block;
+    width: 200px; /* Ancho deseado para cada campo y etiqueta */
+    margin-right: 10px; /* Espacio entre campos */
+    margin-bottom: 10px; /* Espacio entre grupos de campos */
+}
+
+.salida{
+    position: relative;
+    left: 300px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.salida:hover{
+    background-color: #ffbbcb;
+}
+
+#add-element{
+    padding: 10px 0px 10px 0px;
+    width: 100%;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+}
+
+#add-ingredients{
+    color: white;
+    font-weight: bold;
+    border: none;
+    background-color: green;
+    border-radius: 4px;
+}
+
+#add-utencils{
+    color: white;
+    font-weight: bold;
+    border: none;
+    background-color: green;
+    border-radius: 4px;
+}
+
+.remove-element{
+    position: relative;
+    left: 2px;
+    padding: 10px 10px 10px 10px;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: red;
+    border-radius: 4px;
+    border: none;
+}
+
+.disabled-button {
+    background-color: #CCCCCC; /* Color más claro cuando está deshabilitado */
+    cursor: not-allowed; /* Cambiar el cursor a "no permitido" */
+    /* Otros estilos de diseño según tus preferencias */
+}
+#elementInventory{
+    width: 200px;
+}
+
+#movimientos{
+    position: relative;
+    top: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.table-deliveries{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#movement_pending{
+    position: relative;
+    top: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.pending{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.discharge{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.elements_discharge{
+    display: flex;
+    flex-direction: row; /* Alinea los campos uno al lado del otro */
+    align-items: flex-start;
+    max-width: 800px;
+    margin-top: 10px;
+}
+
+.button_discharge{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.baja{
+    background-color: #fa9cb2;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.baja:hover{
+    background-color: #ffbbcb;
+}
+
+#bajas{
+    position: relative;
+    top: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.table_discharge{
+    margin: 20px;
+}
+
+#pedingMovements{
+    position: relative;
+    left: 710px;
+    text-decoration: none;
+}

@@ -10,7 +10,7 @@ class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
+     *6754
      * @return void
      */
     public function run()
@@ -20,14 +20,14 @@ class UsersTableSeeder extends Seeder
         $person = Person::where('document_number',7713344)->first(); // Consultar Persona
         User::updateOrCreate(['nickname' => 'damendez'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
-            'email' => 'ing.diego.mendez@gmail.com',
+            'email' => 'ing.diego.mendez@gmail.com',// Dime3344
         ]);
 
         // Registrar o actualizar usuario para Jesús David Guevara Munar
         $person = Person::where('document_number', 1004494010)->first(); // Consultar Persona
         User::updateOrCreate(['nickname' => 'JDGM0331'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
-            'email' => 'jdguevara01@soy.sena.edu.co',
+            'email' => 'jdguevara01@soy.sena.edu.co',//Jeda4010
         ]);
 
         // Registrar o actualizar usuario para Gloria Maritza Sanchez Alarcón
