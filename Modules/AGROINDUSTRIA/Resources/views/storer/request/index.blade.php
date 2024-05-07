@@ -7,7 +7,6 @@
         <thead>
             <tr>
                 <th>{{trans('agroindustria::request.date')}}</th>
-                <th>{{trans('agroindustria::request.productiveUnit')}}</th>
                 <th>{{trans('agroindustria::request.element')}}</th>
                 <th>{{trans('agroindustria::request.amount')}}</th>
                 <th>{{trans('agroindustria::request.applicant')}}</th>
@@ -18,7 +17,6 @@
             @foreach ($requests as $r)
             <tr data-created-at="{{$r->created_at}}">
                 <td>{{$r->planning_date}}</td>
-                <td>{{$r->activity->productive_unit->name}}</td>
                 <td> 
                     @php
                         $elementQuantities = []; // Array para almacenar la cantidad total por elemento

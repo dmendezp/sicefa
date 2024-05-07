@@ -161,14 +161,6 @@ class WarehouseController extends Controller
         return view('agroindustria::storer.inventory.inventoryAlert',$data);
     }
 
-    public function obtenerelementos(Request $request)
-    {
-        try {
-            
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Error interno del servidor'], 500);
-        }
-    }
     
     public function discharge (){
         $title = "Bajas";
