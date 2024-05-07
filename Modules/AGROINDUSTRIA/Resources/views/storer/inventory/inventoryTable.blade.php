@@ -154,7 +154,7 @@
                                                 '<h1 class="modal-title fs-5" id="dischargeModalLabel' + inventory.id + '">{{trans("agroindustria::deliveries.discharge")}} ' + inventory.element.name + '</h1>' +
                                                 '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
                                             '</div>' +
-                                            '{!! Form::open(["method" => "post", "url" => route("cefa.agroindustria.admin.discharge.create")]) !!}' +
+                                            '{!! Form::open(["method" => "post", "url" => route("agroindustria.admin.units.remove.create")]) !!}' +
                                             '<div class="modal-body">' +
                                                 '<!-- Contenido del cuerpo del modal -->' +
                                                     '<input id="warehouse" name="warehouse" type="hidden" value="' + warehouseId + '">' +
