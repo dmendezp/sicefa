@@ -405,6 +405,16 @@ class PermissionsTableSeeder extends Seeder
 
         $permission_admin[] = $permission->id;
 
+        //Cancelar solicitud (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.units.request.pending.cancelled'], [
+            'name' => 'Cancelar solicitud',
+            'description' => 'Puede cancelar la solicitud (Administrador)',
+            'description_english' => 'You can cancel the request',
+            'app_id' => $app->id
+        ]);
+
+        $permission_admin[] = $permission->id;
+
         //Ver inventario de insumos prontos a agotarse(Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.units.inventory.spent'], [
             'name' => 'Abrir vista de inventario de insumos prontos a agotarse',
@@ -880,6 +890,16 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Buscar insumo por el nombre',
             'description' => 'Puede buscar el insumo por el nombre (Instructor)',
             'description_english' => 'You can search for the input by name',
+            'app_id' => $app->id
+        ]);
+
+        $permission_instructor[] = $permission->id;
+
+         //Cancelar solicitud (Instructor)
+         $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.request.pending.cancelled'], [
+            'name' => 'Cancelar solicitud',
+            'description' => 'Puede cancelar la solicitud (Instructor)',
+            'description_english' => 'You can cancel the request',
             'app_id' => $app->id
         ]);
 
