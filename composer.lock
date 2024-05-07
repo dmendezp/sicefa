@@ -3811,13 +3811,17 @@
         {
             "name": "mpdf/psr-http-message-shim",
             "version": "v2.0.1",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mpdf/psr-http-message-shim.git",
                 "reference": "f25a0153d645e234f9db42e5433b16d9b113920f"
+                "reference": "f25a0153d645e234f9db42e5433b16d9b113920f"
             },
             "dist": {
                 "type": "zip",
+                "url": "https://api.github.com/repos/mpdf/psr-http-message-shim/zipball/f25a0153d645e234f9db42e5433b16d9b113920f",
+                "reference": "f25a0153d645e234f9db42e5433b16d9b113920f",
                 "url": "https://api.github.com/repos/mpdf/psr-http-message-shim/zipball/f25a0153d645e234f9db42e5433b16d9b113920f",
                 "reference": "f25a0153d645e234f9db42e5433b16d9b113920f",
                 "shasum": ""
@@ -3853,7 +3857,9 @@
             "support": {
                 "issues": "https://github.com/mpdf/psr-http-message-shim/issues",
                 "source": "https://github.com/mpdf/psr-http-message-shim/tree/v2.0.1"
+                "source": "https://github.com/mpdf/psr-http-message-shim/tree/v2.0.1"
             },
+            "time": "2023-10-02T14:34:03+00:00"
             "time": "2023-10-02T14:34:03+00:00"
         },
         {
@@ -4224,6 +4230,7 @@
                 "ext-intl": "to use Strings::webalize(), toAscii(), normalize() and compare()",
                 "ext-json": "to use Nette\\Utils\\Json",
                 "ext-mbstring": "to use Strings::lower() etc...",
+                "ext-tokenizer": "to use Nette\\Utils\\Reflection::getUseStatements()"
                 "ext-tokenizer": "to use Nette\\Utils\\Reflection::getUseStatements()"
             },
             "type": "library",
@@ -5042,13 +5049,17 @@
         {
             "name": "psr/http-client",
             "version": "1.0.3",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-client.git",
                 "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90"
+                "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90"
             },
             "dist": {
                 "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-client/zipball/bb5906edc1c324c9a05aa0873d40117941e5fa90",
+                "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90",
                 "url": "https://api.github.com/repos/php-fig/http-client/zipball/bb5906edc1c324c9a05aa0873d40117941e5fa90",
                 "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90",
                 "shasum": ""
@@ -5088,7 +5099,9 @@
             ],
             "support": {
                 "source": "https://github.com/php-fig/http-client"
+                "source": "https://github.com/php-fig/http-client"
             },
+            "time": "2023-09-23T14:17:50+00:00"
             "time": "2023-09-23T14:17:50+00:00"
         },
         {
@@ -8972,13 +8985,17 @@
         {
             "name": "laravel/sail",
             "version": "v1.25.0",
+            "version": "v1.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
                 "reference": "e81a7bd7ac1a745ccb25572830fecf74a89bb48a"
+                "reference": "e81a7bd7ac1a745ccb25572830fecf74a89bb48a"
             },
             "dist": {
                 "type": "zip",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/e81a7bd7ac1a745ccb25572830fecf74a89bb48a",
+                "reference": "e81a7bd7ac1a745ccb25572830fecf74a89bb48a",
                 "url": "https://api.github.com/repos/laravel/sail/zipball/e81a7bd7ac1a745ccb25572830fecf74a89bb48a",
                 "reference": "e81a7bd7ac1a745ccb25572830fecf74a89bb48a",
                 "shasum": ""
@@ -9032,6 +9049,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
+            "time": "2023-09-11T17:37:09+00:00"
             "time": "2023-09-11T17:37:09+00:00"
         },
         {
@@ -9660,6 +9678,7 @@
                 "phar-io/manifest": "^2.0.3",
                 "phar-io/version": "^3.0.2",
                 "php": ">=7.3",
+                "phpunit/php-code-coverage": "^9.2.28",
                 "phpunit/php-code-coverage": "^9.2.28",
                 "phpunit/php-file-iterator": "^3.0.5",
                 "phpunit/php-invoker": "^3.1.1",
@@ -10832,5 +10851,6 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
+    "plugin-api-version": "2.6.0"
     "plugin-api-version": "2.6.0"
 }

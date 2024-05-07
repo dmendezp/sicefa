@@ -1,0 +1,415 @@
+.cardo {
+    width: 10;
+   height: 10;
+   position: relative;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border-radius: 5px;
+   background: #183153;
+   font-family: "Montserrat", sans-serif;
+   box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
+   overflow: hidden;
+   border: none;
+  }
+  
+  .cardo:after {
+   content: " ";
+   width: 10;
+   height: 10;
+   background: #FFD401;
+   position: absolute;
+   transition: all 0.4s ease-in-out;
+   right: 0;
+  }
+  
+  .cardo:hover::after {
+   right: auto;
+   left: 0;
+   width: 10;
+  }
+  
+  .cardo span {
+   text-align: center;
+   text-decoration: none;
+   width: 10;
+   padding: 18px 25px;
+   color: #fff;
+   font-size: 1.125em;
+   font-weight: 700;
+   letter-spacing: 0.3em;
+   z-index: 20;
+   transition: all 0.3s ease-in-out;
+  }
+  
+  .cardo:hover span {
+   color: #183153;
+   animation: scaleUp 0.3s ease-in-out;
+  }
+  .cont{
+    width: 800px;
+      height: 230;
+  }
+  .cardis{
+    width: 700px;
+      height: 230;
+      background-color: white;
+  }
+  section {
+      display: flex;
+      width: 700px;
+      height: 430;
+  }
+  section img {
+  
+      width: 0px;
+      flex-grow: 1;
+      object-fit: cover;
+      opacity: .8;
+      transition: .5s ease;
+      border-style: groove;
+      border-color: white;
+      
+  }
+  
+  section img:hover{
+  cursor: crosshair;
+  width: 300px;
+  opacity: 1;
+  filter: contrast(120%);
+  }
+  
+  button {
+   position: relative;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border-radius: 5px;
+   background: #183153;
+   font-family: "Montserrat", sans-serif;
+   box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
+   overflow: hidden;
+   border: none;
+  }
+  
+  button:after {
+   content: " ";
+   width: 0%;
+   height: 100%;
+   background: #FFD401;
+   position: absolute;
+   transition: all 0.4s ease-in-out;
+   right: 0;
+  }
+  
+  button:hover::after {
+   right: auto;
+   left: 0;
+   width: 100%;
+  }
+  
+  button span {
+   text-align: center;
+   text-decoration: none;
+   width: 100%;
+   padding: 18px 25px;
+   color: #fff;
+   font-size: 1.125em;
+   font-weight: 700;
+   letter-spacing: 0.3em;
+   z-index: 20;
+   transition: all 0.3s ease-in-out;
+  }
+  
+  button:hover span {
+   color: #183153;
+   animation: scaleUp 0.3s ease-in-out;
+  }
+  
+  @keyframes scaleUp {
+   0% {
+    transform: scale(1);
+   }
+  
+   50% {
+    transform: scale(0.95);
+   }
+  
+   100% {
+    transform: scale(1);
+   }
+  }
+  
+  
+  
+  
+  
+  
+  
+  .card-bodyd {
+   width: 190px;
+   height: 254px;
+   border-radius: 20px;
+   background: #f5f5f5;
+   position: relative;
+   padding: 1.8rem;
+   border: 2px solid #c3c6ce;
+   transition: 0.5s ease-out;
+   overflow: visible;
+  }
+  
+  .card-details {
+   color: black;
+   height: 100%;
+   gap: .5em;
+   display: grid;
+   place-content: center;
+  }
+  
+  .card-button {
+   transform: translate(-50%, 125%);
+   width: 60%;
+   border-radius: 1rem;
+   border: none;
+   background-color: #008bf8;
+   color: #fff;
+   font-size: 1rem;
+   padding: .5rem 1rem;
+   position: absolute;
+   left: 50%;
+   bottom: 0;
+   opacity: 0;
+   transition: 0.3s ease-out;
+  }
+  
+  .text-body {
+   color: rgb(134, 134, 134);
+  }
+  
+  /*Text*/
+  .text-title {
+   font-size: 1.5em;
+   font-weight: bold;
+  }
+  
+  /*Hover*/
+  .card-bodyd:hover {
+   border-color: #008bf8;
+   box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+  }
+  
+  .card-bodyd:hover .card-button {
+   transform: translate(-50%, 50%);
+   opacity: 1;
+  }
+  .img-fluid{
+      height: 400px;
+  }
+  .cardss{
+      height: 400px;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  .cardi {
+      width: 390px;
+      height: 554px;
+      background: rgb(236, 236, 236);
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+      margin-top: 25px;
+  }
+  
+  .foto {
+      width: 100px;
+      height: 100px;
+      margin-top: 15px;
+  }
+  
+  .guardar {
+      width: 150px;
+      height: 55px;
+      position: relative;
+  
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      background: #183153;
+      font-family: "Montserrat", sans-serif;
+      box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      border: none;
+     }
+  
+     .guardar:after {
+      content: " ";
+      width: 0%;
+      height: 100%;
+      background: #01ff23;
+      position: absolute;
+      transition: all 0.4s ease-in-out;
+      right: 0;
+     }
+  
+     .guardar:hover::after {
+      right: auto;
+      left: 0;
+      width: 100%;
+     }
+  
+     
+     .guardar span {
+      text-align: center;
+      text-decoration: none;
+      width: 100%;
+      color: #fff;
+      font-size: 1.125em;
+      font-weight: 700;
+      z-index: 20;
+      transition: all 0.3s ease-in-out;
+     }
+     
+     .guardar:hover span {
+      color: #183153;
+      animation: scaleUp 0.3s ease-in-out;
+     }
+     
+     @keyframes scaleUp {
+      0% {
+       transform: scale(1);
+      }
+     
+      50% {
+       transform: scale(0.95);
+      }
+     
+      100% {
+       transform: scale(1);
+      }
+     }
+  
+  
+  
+  
+  
+  
+     .card-client {
+    background: #2cb5a0;
+    width: 25rem;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 4px solid #7cdacc;
+    box-shadow: 0 6px 10px rgba(207, 212, 222, 1);
+    border-radius: 10px;
+    text-align: center;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    transition: all 0.3s ease;
+  }
+  
+  .card-client:hover {
+    transform: translateY(-10px);
+  }
+  
+  .user-picture {
+    overflow: hidden;
+    object-fit: cover;
+    width: 5rem;
+    height: 5rem;
+    border: 4px solid #7cdacc;
+    border-radius: 999px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+  }
+  
+  .user-picture svg {
+    width: 2.5rem;
+    fill: currentColor;
+  }
+  
+  .name-client {
+    margin: 0;
+    margin-top: 20px;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  
+  .name-client span {
+    display: block;
+    font-weight: 200;
+    font-size: 16px;
+  }
+  
+  .social-media:before {
+    content: " ";
+    display: block;
+    width: 100%;
+    height: 2px;
+    margin: 20px 0;
+    background: #7cdacc;
+  }
+  
+  .social-media a {
+    position: relative;
+    margin-right: 15px;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .social-media a:last-child {
+    margin-right: 0;
+  }
+  
+  .social-media a svg {
+    width: 1.1rem;
+    fill: currentColor;
+  }
+  
+  /*-- Tooltip Social Media --*/
+  .tooltip-social {
+    background: #262626;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    padding: 0.5rem 0.4rem;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -90%);
+    transition: all 0.2s ease;
+    z-index: 1;
+  }
+  
+  .tooltip-social:after {
+    content: " ";
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    border: solid;
+    border-width: 10px 10px 0 10px;
+    border-color: transparent;
+    transform: translate(-50%, 100%);
+  }
+  
+  .social-media a .tooltip-social:after {
+    border-top-color: #262626;
+  }
+  
+  .social-media a:hover .tooltip-social {
+    opacity: 1;
+    transform: translate(-50%, -130%);
+  }
+  
