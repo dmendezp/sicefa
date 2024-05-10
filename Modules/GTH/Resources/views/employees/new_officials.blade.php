@@ -24,18 +24,24 @@
                         <label for="full_name">{{ trans('gth::menu.Name') }}</label>
                         <input type="text" name="full_name" id="full_name" class="form-control" readonly>
                     </div>
-                    <input type="hidden" name="person_id" id="person_id" value="">
+                    <input type="hidden" name="person_id" required id="person_id" value="">
+
+                    <div class="form-group">
+                        <label for="contract_number">{{ trans('gth::menu.Contract Number:') }}</label>
+                        <input type="text" class="form-control" id="contract_number" name="contract_number" required
+                            placeholder= {{ trans('gth::menu.Enter the contract number') }}>
+                    </div>
 
                     <div class="form-group">
                         <label for="contract_date">{{ trans('gth::menu.Contract date:') }}</label>
-                        <input type="date" class="form-control" id="contract_date" name="contract_date"
+                        <input type="date" class="form-control" id="contract_date" name="contract_date" required
                             placeholder= {{ trans('gth::menu.Enter the contract date') }}>
                     </div>
 
                     <div class="form-group">
                         <label for="professional_card_number">{{ trans('gth::menu.Professional card number') }}</label>
                         <input type="text" class="form-control" id="professional_card_number"
-                            name="professional_card_number" placeholder="{{ trans('gth::menu.Enter your professional card number') }}">
+                            name="professional_card_number" required placeholder="{{ trans('gth::menu.Enter your professional card number') }}">
                     </div>
                     <div class="form-group">
                         <label for="professional_card_issue_date">{{ trans('gth::menu.Date of issue of professional card') }}</label>
@@ -46,7 +52,7 @@
 
                     <div class="form-group">
                         <label for="employee_type_id">{{ trans('gth::menu.Employee Type') }}</label>
-                        <select class="form-control" id="employee_type_id" name="employee_type_id">
+                        <select class="form-control" id="employee_type_id" name="employee_type_id" required>
                             <option value="">{{ trans('gth::menu.Select employee type') }}</option>
                             @foreach ($employeeTypes as $employeeType)
                                 <option value="{{ $employeeType->id }}">{{ $employeeType->name }}</option>
@@ -56,7 +62,7 @@
 
                     <div class="form-group">
                         <label for="position_id">{{ trans('gth::menu.Position') }}</label>
-                        <select class="form-control" id="position_id" name="position_id">
+                        <select class="form-control" id="position_id" name="position_id" required>
                             <option value="">{{ trans('gth::menu.Select position') }}</option>
                             @foreach ($positions as $position)
                                 <option value="{{ $position->id }}">
@@ -67,7 +73,7 @@
 
                     <div class="form-group">
                         <label for="risk_type">{{ trans('gth::menu.Type of risk') }}</label>
-                        <select class="form-control" id="risk_type" name="risk_type">
+                        <select class="form-control" id="risk_type" name="risk_type" required>
                             <option value="">{{ trans('gth::menu.Select type of risk') }}</option>
                             <option value="I">I</option>
                             <option value="II">II</option>

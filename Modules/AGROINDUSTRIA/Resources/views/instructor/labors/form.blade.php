@@ -26,7 +26,7 @@
                         @if($registros->activity->activity_type->id == 1 && $registros->destination == 'Producción')
                         <div class="col-md-6" id="recipe-field" style="display: none;">
                             {!! Form::label('recipe', trans('agroindustria::labors.recipes')) !!}
-                            {!! Form::select('recipe', [], isset($registros) ? $registros->productions->first()->element->id : old('recipe'), ['class' => 'form-control', 'id' => 'recipe-select', 'style' => 'width:480px']) !!}
+                            {!! Form::select('recipe', $products, isset($registros) ? $registros->productions->first()->element->id : old('recipe'), ['class' => 'form-control', 'id' => 'recipe-select', 'style' => 'width:480px']) !!}
                             @error('recipe')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -479,7 +479,7 @@
 
 <script>
     $(document).ready(function() {
-     var baseUrl = '{{ route("agroindustria.instructor.units.labor.form.elements") }}';
+     var baseUrl = '{{ route("agroindustria.".getRoleRouteName(Route::currentRouteName()).".units.labor.form.elements") }}';
           $('select[name="recipe"]').select2({
             placeholder: 'Seleccione un elemento',
             minimumInputLength: 3,

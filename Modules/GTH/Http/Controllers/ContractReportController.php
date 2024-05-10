@@ -31,11 +31,11 @@ class ContractReportController extends Controller
 
     public function create(Request $request)
     {
-        $person_id = Session::get('person_id');
         // Accede a todos los campos del formulario sin validación
         $formData = $request->all();
 
         // Puedes acceder a cada campo individualmente como sigue:
+        $person_id = $formData['person_id'];
         $supervisor_id = $formData['supervisor_id'];
         $contract_number = $formData['contract_number'];
         $contract_year = $formData['contract_year'];
@@ -145,10 +145,7 @@ return redirect()->route('cefa.contractors.view')->with('success', 'Contrato gua
         $person = Person::where('document_number', $numeroDocumento)->first();
 
         if ($person) {
-
-
             $this->personId = $person->id;
-            Session::put('person_id', $this->personId);
             // Devuelve los datos de la persona en formato JSON
             return response()->json([
                 'id' => $person->id,

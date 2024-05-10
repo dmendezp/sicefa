@@ -36,10 +36,12 @@ Route::middleware(['lang'])->group(function(){
             Route::put('/request/pending/{id}', [InputRequestController::class, 'stateMovement'])->name('agroindustria.admin.units.request.pending.state');
             Route::get('/agroindustria/generar-excel-request/{movementId}', [InputRequestController::class, 'generateExcel'])->name('agroindustria.admin.units.request.excel');
             Route::get('/agroindustria/generar-excel-request-unified', [InputRequestController::class, 'generateExcelUnified'])->name('agroindustria.admin.units.request.excel.unified');
+            Route::put('/request/pending/cancelled/{id}', [InputRequestController::class, 'cancelRequest'])->name('agroindustria.admin.units.request.pending.cancelled');
 
            //Labor
             Route::get('/labor', [LaborController::class, 'index'])->name('agroindustria.admin.units.labor');
             Route::get('/labor/form', [LaborController::class, 'form'])->name('agroindustria.admin.units.labor.form');
+            Route::get('/labor/form/element', [LaborController::class, 'searchProduct'])->name('agroindustria.admin.units.labor.form.elements');
             Route::get('/labor/edit/{id}', [LaborController::class, 'editLabor'])->name('agroindustria.admin.units.labor.edit');
             Route::get('/labor/{activityId}', [LaborController::class, 'responsibilites'])->name('agroindustria.admin.units.labor.responsibilities');
             Route::get('/labor/type/{type}', [LaborController::class, 'activity_type'])->name('agroindustria.admin.units.labor.type');
@@ -96,6 +98,8 @@ Route::middleware(['lang'])->group(function(){
             Route::post('/enviarsolicitud', [InputRequestController::class, 'create'])->name('agroindustria.instructor.units.request.create');
             Route::get('/agroindustria/generar-excel-request/{movementId}', [InputRequestController::class, 'generateExcel'])->name('agroindustria.instructor.units.request.excel');
             Route::get('/request/element', [InputRequestController::class, 'searchProduct'])->name('agroindustria.instructor.units.element.name');
+            Route::put('/request/pending/cancelled/{id}', [InputRequestController::class, 'cancelRequest'])->name('agroindustria.instructor.units.request.pending.cancelled');
+
 
             //Labor
             Route::get('/labor', [LaborController::class, 'index'])->name('agroindustria.instructor.units.labor');
@@ -157,7 +161,7 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/inventory/{id}', [WarehouseController::class ,'inventory'])->name('agroindustria.storer.units.inventory');
             Route::get('/request', [RequestController::class, 'index'])->name('agroindustria.storer.units.view.request');
             Route::get('/inventory/elements/{warehouseId}', [WarehouseController::class ,'elements'])->name('agroindustria.storer.units.inventory.elements');
-            Route::get('/inventory/elements/{waId}', [WarehouseController::class ,'inventoryAlert'])->name('agroindustria.storer.units.inventory.spent'); 
+            Route::get('/inventoryA/{waId}', [WarehouseController::class ,'inventoryAlert'])->name('agroindustria.storer.units.inventory.spent'); 
             Route::get('/Inventoryexp/{wId}', [WarehouseController::class ,'expirationdate'])->name('agroindustria.storer.units.inventory.expire'); 
 
             Route::put('/request/approve/{id}', [LaborController::class, 'approve'])->name('agroindustria.storer.units.request.approve');

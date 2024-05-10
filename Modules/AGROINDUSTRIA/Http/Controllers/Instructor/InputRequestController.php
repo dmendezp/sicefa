@@ -45,6 +45,9 @@ class InputRequestController extends Controller
             $movements = Movement::with(['movement_details.inventory.element', 'movement_responsibilities.person', 'movement_type', 'warehouse_movements'])
             ->whereHas('movement_type', function ($query){
                 $query->where('name', 'Movimiento Entrada');
+            })->whereHas('warehouse_movements', function ($query) use ($productiveUnitWarehouseId) {
+                $query->where('productive_unit_warehouse_id', $productiveUnitWarehouseId)
+                    ->where('role', 'RECIBE');
             })->get();            
         }else{
             $movements = Movement::with(['movement_details.inventory.element', 'movement_responsibilities.person', 'movement_type', 'warehouse_movements'])
@@ -228,8 +231,8 @@ class InputRequestController extends Controller
         $mr->save();
         
         //Registro del WarehouseMovement (entrega)
-        $warehouseDeliver = Warehouse::where('name', 'Externa')->pluck('id');
-        $productiveUnitWarehouseDeliver = ProductiveUnitWarehouse::where('warehouse_id', $warehouseDeliver)->get();
+        $productiveexterna = ProductiveUnit::where('name','=','Almacen Sena')->get()->pluck('id');
+        $productiveUnitWarehouseDeliver = ProductiveUnitWarehouse::where('productive_unit_id',$productiveexterna)->get();
         foreach($productiveUnitWarehouseDeliver as $wd){
             $warehouseDeliverId = $wd->id;
         }
@@ -371,6 +374,38 @@ class InputRequestController extends Controller
         }
 
         return redirect()->route('agroindustria.admin.units.view.request')->with(['icon' => $icon, 'message_line' => $message_line]);
+    }
+
+    public function cancelRequest(Request $request, $id){
+
+        $rules=[
+            'observation' => 'required',
+        ];
+        $messages = [
+            'observation.required' => trans('agroindustria::deliveries.Required field'),
+        ];
+
+        $validatedData = $request->validate($rules, $messages);
+        $movement = Movement::find($id);
+        if ($movement) {
+            $movement->observation = $validatedData['observation'];
+            $movement->state = 'Anulado';
+            $movement->save();
+        }
+        if($movement->save()){
+            $icon = 'success';
+            $message_line = trans('agroindustria::deliveries.Motion successfully cancelled');
+        }else{
+            $icon = 'error';
+            $message_line = trans('agroindustria::deliveries.Movement Cancel Error');
+        }
+
+        return redirect()->route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.view.request')->with([
+            'icon' => $icon,
+            'message_line' => $message_line,
+        ]);
+
+        
     }
 
 }

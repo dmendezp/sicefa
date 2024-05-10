@@ -117,13 +117,11 @@
             var warehouseId = $(this).val();
 
             var url = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.inventory.elements', ['warehouseId' => ':warehouseId'])) !!}.replace(':warehouseId', warehouseId);
-            console.log(url);
             if(warehouseId){
                 $.ajax({
                     url: url,
                     type: 'GET',
                     success: function (data) {
-                        console.log(data);
 
                         let table = new DataTable('#inventory');
                         table.destroy();

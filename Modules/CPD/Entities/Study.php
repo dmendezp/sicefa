@@ -5,10 +5,11 @@ namespace Modules\CPD\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\SICA\Entities\Village;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Study extends Model
+class Study extends Model implements Auditable
 {
-
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     use SoftDeletes;
     protected $fillable = [
         'producer_id','monitoring','village_id','typology',

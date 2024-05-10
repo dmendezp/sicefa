@@ -84,6 +84,16 @@ class PermissionsTableSeeder extends Seeder
 
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
+        //Buscar el elemento a crear por el nombre (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.units.labor.form.elements'], [
+            'name' => 'Buscar elemento a crear por el nombre',
+            'description' => 'Puede buscar el elemento a crear por el nombre (Administrador)',
+            'description_english' => 'You can search for the item to be created by name',
+            'app_id' => $app->id
+        ]);
+
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
          //Buscar el responsable de la actividad (Administrador)
          $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.units.labor.responsibilities'], [
             'name' => 'Buscar el responsable de la actividad',
@@ -390,6 +400,16 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Generar excel unificado de las solicitudes',
             'description' => 'Puede generar excel unificado de las solicitudes (Administrador)',
             'description_english' => 'Can generate unified excel of requests',
+            'app_id' => $app->id
+        ]);
+
+        $permission_admin[] = $permission->id;
+
+        //Cancelar solicitud (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.units.request.pending.cancelled'], [
+            'name' => 'Cancelar solicitud',
+            'description' => 'Puede cancelar la solicitud (Administrador)',
+            'description_english' => 'You can cancel the request',
             'app_id' => $app->id
         ]);
 
@@ -870,6 +890,16 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Buscar insumo por el nombre',
             'description' => 'Puede buscar el insumo por el nombre (Instructor)',
             'description_english' => 'You can search for the input by name',
+            'app_id' => $app->id
+        ]);
+
+        $permission_instructor[] = $permission->id;
+
+         //Cancelar solicitud (Instructor)
+         $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.request.pending.cancelled'], [
+            'name' => 'Cancelar solicitud',
+            'description' => 'Puede cancelar la solicitud (Instructor)',
+            'description_english' => 'You can cancel the request',
             'app_id' => $app->id
         ]);
 

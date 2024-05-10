@@ -142,11 +142,11 @@ class assign_environmental_aspectsController extends Controller
             try {
                 return redirect()
                     ->route('hdc.admin.resultfromaspects')
-                    ->with('success', 'Registro exitoso.');
+                    ->with('success', trans('hdc::assign_environmental_aspects.alertsuccess_assign_environmental_aspects_update'));
             } catch (\Throwable $th) {
                 return redirect()
                     ->back()
-                    ->with('success', 'Error al crear el registro. Por favor, inténtalo de nuevo.');
+                    ->with('error', 'Error al crear el registro. Por favor, inténtalo de nuevo.');
             }
 
     }

@@ -154,3 +154,92 @@
 .select2  {
   z-index: 1030 !important;
 }
+
+/* Asistencia */
+
+/* Estilos para el botón flotante */
+.floating-button-container {
+  position: relative;
+  z-index: 1000; /* Asegura que esté sobre otros elementos */
+}
+
+.floating-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+/* Estilos para el menú de botones */
+.floating-button-menu {
+  position: absolute;
+  bottom: 30%;
+  left: 0px;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.2s linear;
+}
+
+.sub-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+  margin-bottom: 10px;
+}
+
+.sub-button i {
+  font-size: 20px;
+}
+
+/* Mostrar el menú cuando se hace clic en el botón flotante */
+.floating-button-container .floating-button-menu.active {
+  visibility: visible;    
+  opacity: 1;
+}
+
+/* Animación para los botones adicionales */
+.floating-button-menu.active .sub-button {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.sub-button:nth-child(1) {
+  transform: translateY(-70px);
+}
+
+.sub-button:nth-child(2) {
+  transform: translateY(-120px); /* Ajuste para colocar arriba del botón principal */
+}
+
+.sub-button:nth-child(3) {
+  transform: translateY(-170px); /* Ajuste para colocar arriba del segundo botón */
+}
+
+.sub-button:nth-child(4) {
+  transform: translateY(-220px); /* Ajuste para colocar arriba del tercer botón */
+}
+
+.b1{
+  background-color: green;
+}
+.b2{
+  background-color: red;
+}
+.b3{
+  background-color: rgb(255, 230, 0);
+}
+.b4{
+  background-color: orange;
+}
+

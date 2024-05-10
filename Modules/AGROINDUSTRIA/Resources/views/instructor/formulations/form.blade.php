@@ -22,6 +22,15 @@
                             {!! Form::label('person_id', trans('agroindustria::formulations.Owner')) !!}
                             {!! Form::text('person_id', $person, ['class' => 'form-control', 'readonly' => 'readonly']) !!}                        
                         </div>
+                        @if (isset($registros))  
+                        <div class="col-md-6">
+                            {!! Form::label('element_id', trans('agroindustria::formulations.Product Name')) !!}
+                            {!! Form::select('element_id', $products, isset($registros) ? $registros->element_id : null, ['id' => 'element_id', 'class' => 'form-control']) !!}
+                            @error('element_id')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                        @else
                         <div class="col-md-6">
                             {!! Form::label('element_id', trans('agroindustria::formulations.Product Name')) !!}
                             {!! Form::select('element_id', [], isset($registros) ? $registros->element_id : null, ['id' => 'element_id', 'class' => 'form-control']) !!}
@@ -29,6 +38,7 @@
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
+                        @endif
                         <div class="col-md-4">
                             {!! Form::label('date', trans('agroindustria::formulations.Date')) !!}
                             {!! Form::date('date', isset($registros) ? $registros->date : now(), ['class'=>'form-control', 'readonly' => 'readonly']) !!}

@@ -207,7 +207,7 @@
     </div>
   @endforeach
 
-  <!-- Modal devolcer movimiento -->
+  <!-- Modal devolver movimiento -->
   @foreach ($movements as $movement)
   <div class="modal fade" id="devolver{{$movement->id}}" tabindex="-1" aria-labelledby="devolverLabel" aria-hidden="true">
       <div class="modal-dialog">

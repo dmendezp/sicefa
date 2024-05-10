@@ -97,13 +97,16 @@ class FormulationController extends Controller
 
         $registros = null;
 
+        $products = Element::pluck('name', 'id');
+
         $data = [
             'title' => $title,
             'person' => $name,
             'productiveUnits' => $unitName,
             'ingredients' => $ingredient,
             'utencils' => $utencil,
-            'registros' => $registros
+            'registros' => $registros,
+            'products' => $products
         ];
 
         return view('agroindustria::instructor.formulations.form', $data);  
@@ -249,6 +252,8 @@ class FormulationController extends Controller
         
         $registros = Formulation::with('person', 'element', 'utensils.element', 'ingredients.element')->findOrFail($id);
         
+        $products = Element::pluck('name', 'id');
+
         $this->dataAdd = [
             'title' => $title,
             'person' => $name,
@@ -257,6 +262,7 @@ class FormulationController extends Controller
             'elements' => $element,
             'ingredients' => $ingredient,
             'utencils' => $utencil,
+            'products' => $products
         ];
 
         return view('agroindustria::instructor.formulations.form', $this->dataAdd);  

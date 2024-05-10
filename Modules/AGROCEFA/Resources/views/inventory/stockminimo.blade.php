@@ -29,7 +29,7 @@
                                 @if ($currentId !== $item->id)
                                     {{-- Iniciar una nueva fila para un nuevo movimiento --}}
                                     <tr>
-                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->productive_unit_warehouse->warehouse->name }}</td>
                                         <td>{{ $item->element->name }}</td>
                                         <td>{{ $item->element->category->name }}</td>

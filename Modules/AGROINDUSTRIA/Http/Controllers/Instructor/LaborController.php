@@ -148,6 +148,8 @@ class LaborController extends Controller
 
         $registros = null;
 
+        $products = Element::get();
+
         $data = [
             'title' => $title,
             'activity' => $activity,
@@ -156,7 +158,8 @@ class LaborController extends Controller
             'tool' => $tool,
             'consumables' => $consumables,
             'equipment' => $equipment,
-            'registros' => $registros
+            'registros' => $registros,
+            'products' => $products
         ];
         return view('agroindustria::instructor.labors.form', $data);
     }
@@ -777,6 +780,8 @@ class LaborController extends Controller
             ];
         })->prepend(['id' => null, 'name' => trans("agroindustria::labors.selectEnvironmentalAspect")])->pluck('name', 'id');
         
+        $products = Element::pluck('name', 'id');
+
         $data = [
             'title' => $title,
             'activity' => $activity,
@@ -787,7 +792,8 @@ class LaborController extends Controller
             'consumables' => $consumables,
             'equipment' => $equipment,
             'registros' => $registros,
-            'environmental_aspect' => $environmental_aspect
+            'environmental_aspect' => $environmental_aspect,
+            'products' => $products,
         ];
         return view('agroindustria::instructor.labors.form', $data);
     }

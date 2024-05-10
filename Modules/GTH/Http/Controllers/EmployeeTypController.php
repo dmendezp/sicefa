@@ -24,6 +24,7 @@ class EmployeeTypController extends Controller
     {
         $employeeType = new EmployeeType;
         $employeeType->name = $request->input('name');
+        $employeeType->price = $request->input('price');
         $employeeType->save();
 
         return redirect()->route('gth.admin.employeetypes.index');
@@ -34,6 +35,7 @@ class EmployeeTypController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255', // Agrega más reglas según tus necesidades
+            'price' => 'required', // Agrega más reglas según tus necesidades
             // Agrega más campos y reglas según tus necesidades
         ]);
 
@@ -41,6 +43,7 @@ class EmployeeTypController extends Controller
 
         // Actualizar los campos necesarios
         $employeeType->name = $request->input('name');
+        $employeeType->price = $request->input('price');
         // Actualiza otros campos si es necesario
 
         $employeeType->save();
