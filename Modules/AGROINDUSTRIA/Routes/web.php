@@ -2,13 +2,13 @@
 
 //instructor
 use Modules\AGROINDUSTRIA\Http\Controllers\Instructor\FormulationController;
-use Modules\AGROINDUSTRIA\Http\Controllers\instructor\UnitController;
-use Modules\AGROINDUSTRIA\Http\Controllers\instructor\LaborController;
-use Modules\AGROINDUSTRIA\Http\Controllers\instructor\ActivityController;
+use Modules\AGROINDUSTRIA\Http\Controllers\Instructor\UnitController;
+use Modules\AGROINDUSTRIA\Http\Controllers\Instructor\LaborController;
+use Modules\AGROINDUSTRIA\Http\Controllers\Instructor\ActivityController;
 use Modules\AGROINDUSTRIA\Http\Controllers\intern\RequestController;
-use Modules\AGROINDUSTRIA\Http\Controllers\instructor\InputRequestController;
-use Modules\AGROINDUSTRIA\Http\Controllers\instructor\ProductionController;
-use Modules\AGROINDUSTRIA\Http\Controllers\instructor\DeliverController;
+use Modules\AGROINDUSTRIA\Http\Controllers\Instructor\InputRequestController;
+use Modules\AGROINDUSTRIA\Http\Controllers\Instructor\ProductionController;
+use Modules\AGROINDUSTRIA\Http\Controllers\Instructor\DeliverController;
 use Modules\AGROINDUSTRIA\Http\Controllers\Unit\BakeryController;
 use Modules\AGROINDUSTRIA\Http\Controllers\Unit\ChocolateriaController;
 use Modules\AGROINDUSTRIA\Http\Controllers\Intern\WarehouseController;
