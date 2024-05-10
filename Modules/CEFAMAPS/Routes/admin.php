@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\CEFAMAPS\Http\Controllers\config\EnvironmentController;
 use Modules\CEFAMAPS\Http\Controllers\config\UnitController;
+use Modules\CEFAMAPS\Http\Controllers\config\ClassController;
 use Modules\CEFAMAPS\Http\Controllers\config\SectorController;
 use Modules\CEFAMAPS\Http\Controllers\config\CoordinateController;
 use Modules\CEFAMAPS\Http\Controllers\config\PageController;
@@ -64,6 +65,17 @@ Route::middleware(['lang'])->group(function(){
         // para poder borrar una Page
         Route::get('/page/delete/{id}', [PageController::class, 'destroy'])->name('cefamaps.admin.page.delete');
 
+        // Todas la rutas de las Units
+        Route::get('/class/index',[ClassController::class, 'index'])->name('cefamaps.admin.config.class.index');
+        Route::get('/class/view/{id}',[ClassController::class, 'view'])->name('cefa.cefamaps.class.view');
+        // para poder agregar unidades
+        Route::get('/class/add',[ClassController::class, 'add'])->name('cefamaps.admin.config.class.add');
+        Route::post('/class/add',[ClassController::class, 'addpost'])->name('cefamaps.admin.config.class.store');
+        // para poder editar unidades
+        Route::get('/class/edit/{id}',[ClassController::class, 'edit'])->name('cefamaps.admin.config.class.edit');
+        Route::post('/class/edit/',[ClassController::class, 'editpost'])->name('cefamaps.admin.config.class.update');
+        // para poder eliminar unidades
+        Route::get('/class/delete/{id}', [ClassController::class, 'destroy'])->name('cefamaps.admin.class.destroy');
 
 
     });

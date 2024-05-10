@@ -46,8 +46,6 @@ return [
     'Label_Name_Environment'        => 'Nombre del Ambiente',
     'Label_Edit_File'               => 'Editar Archivo',
     'Label_Description_Environment' => 'Descripción del Ambiente',
-    'Label_Length_Environment'      => 'Longitud',
-    'Label_Length_Environment'    => 'Latitud',
     'Label_Productive_Unit'         => 'Unidad Productiva',
     'Label_Environment_Class'       => 'Clase de Ambiente',
     'Label_Farm'                    => 'Finca',

@@ -32,6 +32,10 @@
                                             href="{{ route('cefamaps.admin.config.unit.index') }}">
                                             <i class="fas fa-solid fa-mountain-sun"></i> {{ trans('cefamaps::dashboard.Title_Card_Units') }}
                                         </a>
+                                        <a class="btn btn-app  btn-app-2"
+                                            href="{{ route('cefamaps.admin.config.class.index') }}">
+                                            <i class="fas fa-solid fa-building-wheat"></i> {{ trans('cefamaps::general.Class') }}
+                                        </a>
                                         <a class="btn btn-app btn-app-2"
                                             href="{{ route('cefamaps.admin.config.environment.index') }}">
                                             <i class="fas fa-solid fa-chalkboard-user"></i>

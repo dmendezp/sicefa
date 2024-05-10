@@ -108,6 +108,17 @@
                                   </li>
                               </ul>
                               <!-- Fin para las Unidades del adminitrador -->
+                              <!-- Inicio para las Clases de ambientes del adminitrador -->
+                              <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('cefamaps.admin.config.class.index') }}"
+                                        class="nav-link {{ !Route::is('cefamaps.admin.config.class.*') ?: 'active' }}">
+                                        <i class="nav-icon fa-solid fa-building-wheat"></i>
+                                        <p>{{ trans('cefamaps::general.Class') }}</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- Fin para las Clases de ambientes del adminitrador -->
                               <!-- Inicio para los Ambientes del adminitrador -->
                               <ul class="nav nav-treeview">
                                   <li class="nav-item">
