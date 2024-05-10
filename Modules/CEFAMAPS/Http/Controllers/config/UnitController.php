@@ -56,7 +56,7 @@ class UnitController extends Controller
     public function addpost(Request $request)
     {
         $rules = [
-            "person" => "required|max:5",
+            "person" => "required",
             "icon" => "required"
         ];
         $messages = [
@@ -105,7 +105,7 @@ class UnitController extends Controller
     public function editpost(Request $request)
     {
         $rules = [
-            "person" => "required|max:5",
+            "person" => "required",
             "sector_id" => "required",
             "farm_id" => "required",
         ];

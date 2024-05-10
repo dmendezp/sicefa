@@ -19,6 +19,7 @@ return [
     'Settings'           => 'Settings',
     'Sectors'            => 'Sectors',
     'Units'              => 'Units',
+    'Class'              => 'Class Environmnet',
     'Environments'       => 'Environments',
     'Pages'              => 'Pages',
     // Sidebar - SST
