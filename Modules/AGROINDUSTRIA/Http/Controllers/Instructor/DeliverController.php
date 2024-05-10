@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\AGROINDUSTRIA\Http\Controllers\instructor;
+namespace Modules\AGROINDUSTRIA\Http\Controllers\Instructor;
 
 use Modules\AGROINDUSTRIA\Http\Controllers\AGROINDUSTRIAController;
 use Modules\SICA\Entities\ProductiveUnit;

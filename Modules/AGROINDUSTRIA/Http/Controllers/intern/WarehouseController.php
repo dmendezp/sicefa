@@ -2,8 +2,6 @@
 
 namespace Modules\AGROINDUSTRIA\Http\Controllers\Intern;
 
-use Modules\AGROINDUSTRIA\Http\Controllers\Instructor\DeliverController;
-use Modules\AGROINDUSTRIA\Http\Controllers\AGROINDUSTRIAController;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
@@ -20,7 +18,6 @@ use Modules\SICA\Entities\MovementResponsibility;
 use Modules\SICA\Entities\MovementType;
 use Modules\SICA\Entities\WarehouseMovement;
 use App\Models\User;
-
 use Illuminate\Support\Facades\Auth;
 use Validator, Str;
 
@@ -184,12 +181,6 @@ class WarehouseController extends Controller
                 ];
             });
         })->prepend(['id' => null, 'name' => 'Seleccione una unidad productiva'])->pluck('name', 'id');
-
-        //$ProductiveUnitWarehouse = ProductiveUnitWarehouse::where('warehouse_id', $warehouseId)->get();
-        //$idProductiveUnitWarehouse = $ProductiveUnitWarehouse->pluck('id');
-
-        /*$result = app(DeliverController::class)->deliveries();
-        $elements = $result['elements'];*/
         
         $movements = Movement::with(['movement_details.inventory.element', 'movement_responsibilities.person', 'movement_type', 'warehouse_movements'])
         ->whereHas('movement_responsibilities', function ($query) use ($idPersona) {
