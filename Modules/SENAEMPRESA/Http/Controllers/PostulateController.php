@@ -176,7 +176,7 @@ class PostulateController extends Controller
             'score_total' => $score_total
         ];
 
-        return view('senaempresa::Company.postulate.index', $data);
+        return view('senaempresa::Company.Postulate.index', $data);
     }
 
 

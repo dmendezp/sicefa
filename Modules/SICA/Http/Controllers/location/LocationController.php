@@ -47,7 +47,7 @@ class LocationController extends Controller
 
     /* Vista principal de ambientes de formación */
     public function environments_index(){
-        $productive_units = Productiveunit::get();
+        $productive_units = ProductiveUnit::get();
         $environments = Environment::orderByDesc('updated_at')->get();
         $data = ['title'=>trans('sica::menu.Environments'),
         'environments'=>$environments,

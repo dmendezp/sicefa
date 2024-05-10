@@ -17,11 +17,11 @@
     <div class="row">
         {{-- Columna 1 --}}
         <div class="col-md-12">
-            @include('hdc::parameters.resource')
+            @include('hdc::Parameters.resource')
         </div>
         {{-- Columna 2 --}}
         <div class="col-md-12">
-            @include('hdc::parameters.environment_aspects')
+            @include('hdc::Parameters.environment_aspects')
         </div>
         <br>
     </div>
