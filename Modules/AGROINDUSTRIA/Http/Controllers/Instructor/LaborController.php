@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\AGROINDUSTRIA\Http\Controllers\instructor;
+namespace Modules\AGROINDUSTRIA\Http\Controllers\Instructor;
 
 use Illuminate\Support\Facades\Auth;
 
