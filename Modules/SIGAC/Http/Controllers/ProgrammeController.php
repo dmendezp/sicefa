@@ -702,5 +702,15 @@ class ProgrammeController extends Controller
 
         }
     }
+
+    // Solicitar programa
+    public function program_request_index()
+    {
+        return view('sigac::programming.program_request.index', [
+            'titlePage' => trans('Solictar Programa'),
+            'titleView' => trans('Solictar Programa')
+
+        ]);
+    }
     
 }
