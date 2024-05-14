@@ -210,7 +210,12 @@
                                         <p>Gestion Instructores</p>
                                     </a>
                                 </li>
-                            
+                                <li class="nav-item">
+                                    <a href="{{route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index')}}" class="nav-link">
+                                        <i class="nav-icon fas fa-user-plus"></i>
+                                        <p>Instructor x Rap</p>
+                                    </a>
+                                </li>    
                             </ul>
                         </li>
                         
@@ -240,13 +245,7 @@
                                         <i class="nav-icon fas fa-square-poll-vertical"></i>
                                         <p>Ambiente x Co</p>
                                     </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index')}}" class="nav-link">
-                                        <i class="nav-icon fas fa-user-plus"></i>
-                                        <p>Instructor x Rap</p>
-                                    </a>
-                                </li>     
+                                </li> 
                                 <li class="nav-item">
                                     <a href="{{ route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-tags"></i>
@@ -333,6 +332,12 @@
                                         </a>
                                     </li>
                                 @endif
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.academic_coordination.programming.program_request.index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-user-tie"></i>
+                                        <p>Solicitud Programa</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item">
