@@ -1,0 +1,13 @@
+{
+    "name": "SIGAC",
+    "alias": "sigac",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SIGAC\\Providers\\SIGACServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

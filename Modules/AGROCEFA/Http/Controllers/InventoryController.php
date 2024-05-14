@@ -220,7 +220,7 @@ class InventoryController extends Controller
         $inventory = $query->get();
 
         // Devolver solo la vista parcial en lugar de la vista completa
-        return view('agrocefa::inventory.inventoryPartial', [
+        return view('agrocefa::inventory.InventoryPartial', [
             'inventory' => $inventory,
         ]);
     }
@@ -413,7 +413,7 @@ class InventoryController extends Controller
         $inventory = $query->get();
 
         // Devolver solo la vista parcial en lugar de la vista completa
-        return view('agrocefa::inventory.inventoryPartial', [
+        return view('agrocefa::inventory.InventoryPartial', [
             'inventory' => $inventory,
         ]);
     }
