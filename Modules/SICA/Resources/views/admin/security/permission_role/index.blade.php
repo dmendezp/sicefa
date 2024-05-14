@@ -39,7 +39,7 @@
                                         <th class="text-center">Aplicación</th>
                                         <th class="text-center">Rol</th>
                                         <th>Permiso</th>
-                                        <th>Slug del permiso</th>
+                                        <th>Descripción</th>
                                     </tr>
                                 </thead>
                                     @foreach ($apps as $app)
@@ -54,15 +54,21 @@
                                                     </td>
                                                     <td class="text-center" rowspan="{{ $permissionCount }}">
                                                         <strong>{{ $role->name }}</strong>
+                                                        <br>
+                                                        <a href="{{ route('sica.admin.security.roles.permision_role.create', ['role_id' => $role->id]) }}">
+                                                            <b class="text-success" data-toggle="tooltip" data-placement="top" title="Registrar EPS">
+                                                                <i class="fas fa-plus-circle"></i>
+                                                            </b>
+                                                        </a>
                                                     </td>
                                                     <td>{{ $permissionsSorted[0]->name }}</td>
-                                                    <td>{{ $permissionsSorted[0]->slug }}</td>
+                                                    <td>{{ $permissionsSorted[0]->description }}</td>
                                                 @endif
                                             </tr>
                                             @foreach ($permissionsSorted->splice(1) as $permission)
                                                 <tr>
                                                     <td>{{ $permission->name }}</td>
-                                                    <td>{{ $permission->slug }}</td>
+                                                    <td>{{ $permission->description }}</td>
                                                 </tr>
                                             @endforeach
                                         @endforeach

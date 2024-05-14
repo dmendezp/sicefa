@@ -18,6 +18,8 @@ Route::middleware(['lang'])->group(function(){
         // --------------  Rutas de Roles ---------------------------------
         Route::get('/admin/security/roles', [RoleController::class, 'roles_index'])->name('sica.admin.security.roles.index'); /* Lista de roles disponibles (Administrador) */
         Route::get('/admin/security/roles/permission_role', [RoleController::class, 'roles_permission_role'])->name('sica.admin.security.roles.permision_role.index'); /* Lista de la asociación de roles y permisos (Administrador) */
+        Route::get('/admin/security/roles/permission_role/create/{role_id}', [RoleController::class, 'roles_permission_create'])->name('sica.admin.security.roles.permision_role.create'); /* Vista de la asociación de roles y permisos (Administrador) */
+        Route::post('/admin/security/roles/permission_role/store', [RoleController::class, 'roles_permission_store'])->name('sica.admin.security.roles.permision_role.store'); /* Asociación de roles y permisos (Administrador) */
         // -------------- Rutas de asociación de roles y unidades productivas ---------------------------------
         Route::get('/admin/security/roles/pu_roles', [RoleController::class, 'pu_roles_index'])->name('sica.admin.security.roles.pu_roles.index'); /* Listado de asociaciones de roles y unidades productivas (Administrador) */
         // Registrar permiso (sica.admin.security.roles.pu_roles.store); Registrar asociación de rol y unidad productiva (Administrador) <Función livewire>

@@ -11,8 +11,8 @@ use Modules\AGROINDUSTRIA\Http\Controllers\Instructor\ProductionController;
 use Modules\AGROINDUSTRIA\Http\Controllers\Instructor\DeliverController;
 use Modules\AGROINDUSTRIA\Http\Controllers\Unit\BakeryController;
 use Modules\AGROINDUSTRIA\Http\Controllers\Unit\ChocolateriaController;
-use Modules\AGROINDUSTRIA\Http\Controllers\Intern\WarehouseController;
-use Modules\AGROINDUSTRIA\Http\Controllers\Intern\InventoryController;
+use Modules\AGROINDUSTRIA\Http\Controllers\intern\WarehouseController;
+use Modules\AGROINDUSTRIA\Http\Controllers\intern\InventoryController;
 use Modules\AGROINDUSTRIA\Http\Controllers\ExcelController;
 
 Route::middleware(['lang'])->group(function(){
