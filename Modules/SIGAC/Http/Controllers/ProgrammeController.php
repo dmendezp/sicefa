@@ -9,10 +9,16 @@ use Modules\SICA\Entities\Employee;
 use Modules\SICA\Entities\Contractor;
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\Course;
+use Modules\SICA\Entities\Country;
+use Modules\SICA\Entities\Department;
+use Modules\SICA\Entities\Municipality;
 use Modules\SIGAC\Entities\InstructorProgram;
 use Modules\SIGAC\Entities\ExternalActivity;
 use Modules\SIGAC\Entities\Profession;
 use Modules\SIGAC\Entities\Quarterly;
+use Modules\SIGAC\Entities\SpecialProgram;
+use Modules\SIGAC\Entities\ProgramRequest;
+use Modules\SIGAC\Entities\ProgramRequestDate;
 use DB;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Program;
@@ -706,11 +712,156 @@ class ProgrammeController extends Controller
     // Solicitar programa
     public function program_request_index()
     {
-        return view('sigac::programming.program_request.index', [
-            'titlePage' => trans('Solictar Programa'),
-            'titleView' => trans('Solictar Programa')
+        $program = Program::orderBy('sofia_code','Asc')->get()->mapWithKeys(function ($program) {
+            return [$program->id => $program->name . ' - ' . $program->sofia_code];
+        });
+        $program_especial = SpecialProgram::orderBy('name','Asc')->get()->mapWithKeys(function ($program_especial) {
+            return [$program_especial->id => $program_especial->name];
+        });
 
+        $country_id = Country::where('name','=','Colombia')->pluck('id');
+        $department_id = Department::where('country_id',$country_id)->pluck('id');
+        $municipalities = Municipality::whereIn('department_id',$department_id)->orderBy('name','Asc')->get()->mapWithKeys(function ($munipality) {
+            return [$munipality->id => $munipality->name];
+        });
+        return view('sigac::programming.program_request.index', [
+            'titlePage' => trans('Solicitar Programa'),
+            'titleView' => trans('Solicitar Programa'),
+            'program'=>$program,
+            'program_especial'=>$program_especial,
+            'municipalities'=>$municipalities
         ]);
     }
     
+    // Buscar instructor
+    public function program_request_searchperson(Request $request)
+    {
+        $term = $request->input('name');
+
+        $persons = Person::whereRaw("CONCAT(first_name, ' ', first_last_name, ' ', second_last_name) LIKE ?", ['%' . $term . '%'])->get();
+
+        $results = [];
+        foreach ($persons as $person) {
+            $results[] = [
+                'id' => $person->id,
+                'text' => $person->first_name . ' ' . $person->first_last_name,
+            ];
+        }
+
+        return response()->json($results);
+    }
+
+    public function program_request_searchprofession(Request $request)
+    {
+        try {
+            $person_id = $request->input('person_id');
+
+            $professions = Profession::whereHas('people', function ($query) use ($person_id) {
+                $query->where('people.id', $person_id);
+            })->first();
+
+            $response = [
+                'professions' => $professions ?? null,
+            ];
+
+            return response()->json($response);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error interno del servidor'], 500);
+        }
+    }
+    public function program_request_store(Request $request)
+    {
+        try {
+            $instructor = $request->input('instructor');
+            $program_id = $request->input('program_id');
+            $special_program_id = $request->input('program_especial_id');
+            $quota = $request->input('quota');
+            $start_date = $request->input('start_date');
+            $end_date = $request->input('end_date');
+            $municipality_id = $request->input('municipality_id');
+            $dates = $request->input('dates');
+            $start_times = $request->input('start_time');
+            $end_times = $request->input('end_time');
+            $observation = $request->input('observation');
+            $empresa = $request->input('empresa');
+            $address = $request->input('address');
+            $applicant = $request->input('applicant');
+            $email = $request->input('email');
+            $telephone = $request->input('telephone');
+    
+            DB::beginTransaction();
+    
+            $conflicting_dates = [];
+    
+            foreach ($dates as $index => $date) {
+                $start_time = $start_times[$index];
+                $end_time = $end_times[$index];
+    
+                $existing_program = InstructorProgram::where('date', $date)
+                    ->where(function ($query) use ($start_time, $end_time) {
+                        $query->where(function ($query) use ($start_time) {
+                            $query->where('start_time', '<=', $start_time)
+                                  ->where('end_time', '>=', $start_time);
+                        })->orWhere(function ($query) use ($start_time, $end_time) {
+                            $query->where('start_time', '<=', $end_time)
+                                  ->where('end_time', '>=', $end_time);
+                        })->orWhere(function ($query) use ($start_time, $end_time) {
+                            $query->where('start_time', '>=', $start_time)
+                                  ->where('end_time', '<=', $end_time);
+                        });
+                    })->exists();
+    
+                if ($existing_program) {
+                    $conflicting_dates[] = [
+                        'date' => $date,
+                        'start_time' => $start_time,
+                        'end_time' => $end_time,
+                    ];
+                } else {
+                    $program_request = new ProgramRequest;
+                    $program_request->person_id = $instructor;
+                    $program_request->program_id = $program_id;
+                    $program_request->special_program_id = $special_program_id;
+                    $program_request->municipality_id = $municipality_id;
+                    $program_request->start_date = $start_date;
+                    $program_request->end_date = $end_date ?? null;
+                    $program_request->quotas = $quota;
+                    $program_request->address = $address;
+                    $program_request->observation = $observation ?? null;
+                    $program_request->empresa = $empresa;
+                    $program_request->applicant = $applicant;
+                    $program_request->email = $email;
+                    $program_request->telephone = $telephone;
+                    $program_request->save();
+                    $program_request_id = $program_request->id;
+
+
+                    $program_request_date = new ProgramRequestDate;
+                    $program_request_date->program_request_id = $program_request_id;
+                    $program_request_date->date = $date;
+                    $program_request_date->start_time = $start_time;
+                    $program_request_date->end_time = $end_time;
+                    $program_request_date->save();
+                }
+            }
+    
+            DB::commit();
+    
+            $success_message = 'Solicitud enviada.';
+    
+            if (!empty($conflicting_dates)) {
+                $conflicting_message = ' No se pudieron registrar las siguientes fechas debido a que ya se encuentran programadas: ';
+                foreach ($conflicting_dates as $conflict) {
+                    $conflicting_message .= "\nFecha: " . $conflict['date'] . ", Hora de inicio: " . $conflict['start_time'] . ", Hora de fin: " . $conflict['end_time'];
+                }
+                $success_message .= $conflicting_message;
+            }
+    
+            return redirect()->route('sigac.academic_coordination.programming.program_request.index')->with('success', $success_message);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('Error en el registro: ' . $e->getMessage());
+            return response()->json(['error' => 'Error interno del servidor',$e], 500);
+        }
+    }    
 }
