@@ -81,6 +81,9 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             
             // Solicitud de Programa
             Route::get('instructor/programming/program_request/index', 'program_request_index')->name('sigac.academic_coordination.programming.program_request.index'); // Programación de horarios (Coordinación Académica)
+            Route::get('programming/program_request/searchperson', 'program_request_searchperson')->name('sigac.programming.program_request.searchperson'); // Buscar instructor
+            Route::get('programming/program_request/searchprofession', 'program_request_searchprofession')->name('sigac.programming.program_request.searchprofession'); // Buscar profesion
+            Route::post('instructor/programming/program_request/store', 'program_request_store')->name('sigac.instructor.programming.program_request.store'); // Registrar solicitud del programa (Instructor)
         });
 
         // Rutas para la visualiación de horarios
