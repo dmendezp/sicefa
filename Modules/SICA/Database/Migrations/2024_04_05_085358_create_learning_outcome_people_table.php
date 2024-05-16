@@ -17,6 +17,7 @@ class CreateLearningOutcomePeopleTable extends Migration
             $table->id();
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->foreignId('learning_outcome_id')->constrained()->onDelete('cascade');
+            $table->enum('priority', ['1', '2','3', '4','5']);
             $table->softDeletes();
             $table->timestamps();
         });

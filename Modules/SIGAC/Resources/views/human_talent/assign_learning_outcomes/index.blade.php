@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 pr-3 pb-3">
-                                <form action="{{ route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_store') }}" method="post">
+                                <form action="{{ route('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_store') }}" method="post">
                                     @csrf
                                     <div class="form-group">
                                         {!! Form::label('program', trans('sigac::learning_out_come.Programs')) !!}
@@ -28,6 +28,15 @@
                                         {!! Form::label('instructor', trans('sigac::learning_out_come.Instructor')) !!}
                                         {!! Form::select('instructor', [], old('instructor'), ['class' => 'form-control instructor','required' , 'placeholder' => trans('sigac::learning_out_come.SelectInstructor')],) !!}                                    
                                     </div>
+                                    <div class="form-group">
+                                        {!! Form::label('priority', trans('sigac::learning_out_come.Instructor')) !!}
+                                        {!! Form::select('priority', ['1' => '1', '2' => '2','3' => '3', '4' => '4','5' => '5'], null, [
+                                            'id' => 'priority',
+                                            'class' => 'form-control',
+                                            'placeholder' => trans('Seleccione la prioridad'),
+                                            'required',
+                                        ]) !!}
+                                    </div>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-success">{{ trans('sigac::learning_out_come.Add')}}</button>
                                     </div>
@@ -35,7 +44,7 @@
                             </div>
                             <div class="col-md-8">
                                 <div id="instructors">
-                                    @include('sigac::curriculum_planning.assign_learning_outcomes.table')
+                                    @include('sigac::human_talent.assign_learning_outcomes.table')
                                 </div>
                             </div>
                         </div>
@@ -90,7 +99,7 @@
     $(document).ready(function() {
         $('.program').on('change', function () {
             var selectedProgram = $(this).val();
-            var url = {!! json_encode(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_search_competencie', ['id' => ':id'])) !!}.replace(':id', selectedProgram.toString());
+            var url = {!! json_encode(route('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_search_competencie', ['id' => ':id'])) !!}.replace(':id', selectedProgram.toString());
             // Realizar una solicitud AJAX para obtener los aspectos ambientales
             $.ajax({
                 url: url,
@@ -116,7 +125,7 @@
     $(document).ready(function() {
         $('.competencie').on('change', function () {
             var selectedCompetencie = $(this).val();
-            var url = {!! json_encode(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_search_learning_outcome', ['id' => ':id'])) !!}.replace(':id', selectedCompetencie.toString());
+            var url = {!! json_encode(route('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_search_learning_outcome', ['id' => ':id'])) !!}.replace(':id', selectedCompetencie.toString());
             // Realizar una solicitud AJAX para obtener los aspectos ambientales
             $.ajax({
                 url: url,
@@ -138,7 +147,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "{{ route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.table') }}",
+                url: "{{ route('sigac.academic_coordination.human_talent.assign_learning_outcomes.table') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     selectedCompetencie: selectedCompetencie
@@ -163,7 +172,7 @@
     $(document).ready(function() {
         $('.learningOutCome').on('change', function () {
             var selectedLearningOutCome = $(this).val();
-            var url = {!! json_encode(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_search_instructor', ['id' => ':id'])) !!}.replace(':id', selectedLearningOutCome.toString());
+            var url = {!! json_encode(route('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_search_instructor', ['id' => ':id'])) !!}.replace(':id', selectedLearningOutCome.toString());
 
             // Realizar una solicitud AJAX para obtener los aspectos ambientales
             $.ajax({

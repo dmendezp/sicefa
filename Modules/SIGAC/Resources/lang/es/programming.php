@@ -30,5 +30,11 @@ return [
     'External_Activity_add'   => 'Agregar Actividad Externa',
     'External_Activity_edit'   => 'Editar Actividad Externa',
 
+    // Parametro Programa Especial
+    'Special_Programs'   => 'Programas Especiales',
+    'Special_Program'   => 'Programa Especial',
+    'Special_Program_add'   => 'Agregar Programa Especial',
+    'Special_Program_edit'   => 'Editar Programa Especial',
+
 
 ];

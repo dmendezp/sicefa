@@ -367,6 +367,9 @@ class ProgrammeController extends Controller
         $learning_outcomes = LearningOutcome::with('competencie')->get()->groupBy('competencie.name');
 
         $external_activities = ExternalActivity::get();
+
+        $special_programs = SpecialProgram::get();
+
         $titlePage = 'Parametros';
         $titleView = 'Parametros';
         return view('sigac::programming.parameters.index')->with(['titlePage' => $titlePage,
@@ -376,7 +379,8 @@ class ProgrammeController extends Controller
         'competences' => $Comps, 
         'learning_outcomes' => $learning_outcomes, 
         'programs' => $programs, 
-        'competencies' => $competencies]);
+        'competencies' => $competencies,
+        'special_programs' => $special_programs]);
     }
 
     public function parameter_competencies($program_id)
@@ -515,12 +519,57 @@ class ProgrammeController extends Controller
         return redirect()->back()->with('success', 'Actividad externa eliminada exitosamente');
     }
 
+    // Registrar programa especial
+    public function special_program_store(Request $request)
+    {
+        $rules = [
+            'name' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message' => 'Ocurrió un error con el formulario.', 'typealert' => 'danger']);
+        }
+        // Realizar registro
+        if (SpecialProgram::create($request->all())) {
+            return redirect()->back()->with(['success' => 'Programa especial registrado exitosamente']);
+        } else {
+            return redirect()->back()->with(['error' => 'Error al registrar el Programa especial']);
+        }
+        return redirect()->back()->with(['error' => 'Ocurrio algun error']);
+    }
+
+    // Actualizar programa especial
+    public function special_program_update(Request $request)
+    {
+        $special = SpecialProgram::find($request->input('id'));
+        $special->name = e($request->input('name'));
+        if ($special->save()) {
+            return redirect()->back()->with(['success' => 'Programa especial actualizado exitosamente']);
+        } else {
+            return redirect()->back()->with(['error' => 'Error al actualizar el Programa especial']);
+        }
+        return redirect()->back()->with(['error' => 'Ocurrio algun error']);
+    }
+
+    // Eliminar programa especial
+    public function special_program_destroy($id)
+    {
+        // Obtener el programa especial por su ID
+        $special = SpecialProgram::findOrFail($id);
+
+        // Realizar la eliminación
+        $special->delete();
+
+        return redirect()->back()->with('success', 'Programa especial eliminado exitosamente');
+    }
+
     // Registrar competencia
     public function competence_store(Request $request)
     {
         $rules = [
             'program_id' => 'required',
-            'name' => 'required|string|max:255',
+            'name' => 'required|string',
             'hour' => 'required|numeric',
             'type' => 'required|string',
             'code' => 'required|numeric',
@@ -574,7 +623,7 @@ class ProgrammeController extends Controller
     {
         $rules = [
             'competencie_id' => 'required',
-            'name' => 'required|string|max:255',
+            'name' => 'required|string',
             'hour' => 'required|numeric',
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -676,7 +725,11 @@ class ProgrammeController extends Controller
                             $competencies = new Competencie;
                             $competencies->program_id = $program_id;
                             $competencies->code = $code_competencie;
-                            $competencies->name = ucfirst(strtolower($name_competencia));
+                             // Convierte la frase a minúsculas
+                            $name_competencia = mb_strtolower($name_competencia, 'UTF-8');
+                            // Capitaliza la primera letra
+                            $name_competencia = mb_strtoupper(mb_substr($name_competencia, 0, 1), 'UTF-8') . mb_substr($name_competencia, 1);
+                            $competencies->name = $name_competencia;
                             $competencies->hour = 0;
                             $competencies->type = 'Técnico';
                             $competencies->save();
@@ -692,10 +745,20 @@ class ProgrammeController extends Controller
                         } else {
                             $learning_outcomes = new LearningOutcome;
                             $learning_outcomes->competencie_id = $competencie_id;
-                            $learning_outcomes->name = ucfirst(strtolower($name_learning));
+
+                            // Convierte la frase a minúsculas
+                            $name_learning = mb_strtolower($name_learning, 'UTF-8');
+
+                            // Capitaliza la primera letra
+                            $name_learning = mb_strtoupper(mb_substr($name_learning, 0, 1), 'UTF-8') . mb_substr($name_learning, 1);
+
+                            // Asigna el nombre convertido al campo correspondiente
+                            $learning_outcomes->name = $name_learning;
+
                             $learning_outcomes->hour = 0;
                             $learning_outcomes->save();
                             $count++;
+
                         }
                     }
                 }
@@ -731,6 +794,8 @@ class ProgrammeController extends Controller
             'program_especial'=>$program_especial,
             'municipalities'=>$municipalities
         ]);
+
+
     }
     
     // Buscar instructor
@@ -809,14 +874,25 @@ class ProgrammeController extends Controller
                             $query->where('start_time', '>=', $start_time)
                                   ->where('end_time', '<=', $end_time);
                         });
-                    })->exists();
+                    })
+                    ->where('person_id', $instructor)
+                    ->exists();
     
                 if ($existing_program) {
+                    DB::rollBack();
                     $conflicting_dates[] = [
                         'date' => $date,
                         'start_time' => $start_time,
                         'end_time' => $end_time,
                     ];
+
+                    $conflicting_message = ' No se pudieron registrar las siguientes fechas debido a que ya se encuentran programadas: ';
+                    foreach ($conflicting_dates as $conflict) {
+                        $conflicting_message .= "\nFecha: " . $conflict['date'] . ", Hora de inicio: " . $conflict['start_time'] . ", Hora de fin: " . $conflict['end_time'];
+                    }
+
+                    return redirect()->route('sigac.academic_coordination.programming.program_request.index')->with('success', $conflicting_message);
+                    
                 } else {
                     $program_request = new ProgramRequest;
                     $program_request->person_id = $instructor;
@@ -847,15 +923,7 @@ class ProgrammeController extends Controller
     
             DB::commit();
     
-            $success_message = 'Solicitud enviada.';
-    
-            if (!empty($conflicting_dates)) {
-                $conflicting_message = ' No se pudieron registrar las siguientes fechas debido a que ya se encuentran programadas: ';
-                foreach ($conflicting_dates as $conflict) {
-                    $conflicting_message .= "\nFecha: " . $conflict['date'] . ", Hora de inicio: " . $conflict['start_time'] . ", Hora de fin: " . $conflict['end_time'];
-                }
-                $success_message .= $conflicting_message;
-            }
+            $success_message = 'Solicitud enviada';
     
             return redirect()->route('sigac.academic_coordination.programming.program_request.index')->with('success', $success_message);
         } catch (\Exception $e) {

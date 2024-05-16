@@ -211,7 +211,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index')}}" class="nav-link">
+                                    <a href="{{route('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_index')}}" class="nav-link">
                                         <i class="nav-icon fas fa-user-plus"></i>
                                         <p>Instructor x Rap</p>
                                     </a>
