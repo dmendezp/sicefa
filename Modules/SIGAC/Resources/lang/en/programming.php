@@ -28,4 +28,10 @@ return [
     'External_Activity'   => 'External Activity',
     'External_Activity_add'   => 'Add External Activity',
     'External_Activity_edit'   => 'Edit External Activity',
+
+    // Parametro Programa Especial
+    'Special_Programs'   => 'Special Programs',
+    'Special_Program'   => 'Special Program',
+    'Special_Program_add'   => 'Add Special Program',
+    'Special_Program_edit'   => 'Edit Special Program',
 ];

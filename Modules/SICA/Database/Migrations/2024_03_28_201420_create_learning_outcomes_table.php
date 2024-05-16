@@ -16,7 +16,7 @@ class CreateLearningOutcomesTable extends Migration
         Schema::create('learning_outcomes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('competencie_id')->constrained()->onDelete('cascade');
-            $table->string('name');
+            $table->text('name');
             $table->integer('hour');
             $table->softDeletes();
             $table->timestamps();

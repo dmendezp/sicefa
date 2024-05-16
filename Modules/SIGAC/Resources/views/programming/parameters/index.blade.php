@@ -33,6 +33,16 @@
                         </div>
                     </div>
                 </div> {{-- Fin --}}
+                <div class="col-md-12">
+                    <div class="card card-blue card-outline shadow">
+                        <div class="card-header">
+                            <h3 class="card-title">{{ trans('sigac::programming.Special_Programs')}}</h3>
+                        </div>
+                        <div class="card-body">
+                            @include('sigac::programming.parameters.special_program.table')
+                        </div>
+                    </div>
+                </div> {{-- Fin --}}
             </div>
         </div>
     </div>
@@ -49,6 +59,9 @@
 
         });
         $('#programs').DataTable({
+
+        });
+        $('#special_program').DataTable({
 
         });
         

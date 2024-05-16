@@ -48,12 +48,15 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('academic_coordination/learning_outcomes/load/create/{program_id}', 'learning_outcome_load_create')->name('sigac.academic_coordination.programming.learning_outcome.load.create'); // Eliminar Resultado de aprendizaje (Coordinación Académica)
             Route::post('academic_coordination/learning_outcomes/load/store', 'learning_outcome_load_store')->name('sigac.academic_coordination.programming.learning_outcome.load.store'); // Eliminar Resultado de aprendizaje (Coordinación Académica)
 
-
-
             // Parametro - Actividades Externas
             Route::post('wellbeing/programming/parameters/external_activities/store', 'external_activity_store')->name('sigac.wellbeing.programming.parameters.external_activities.store'); // Registrar actividad externa (Bienestar)
             Route::post('wellbeing/programming/parameters/external_activities/update', 'external_activity_update')->name('sigac.wellbeing.programming.parameters.external_activities.update'); // Actualizar actividad externa (Bienestar)
             Route::delete('wellbeing/programming/parameters/external_activities/destroy/{id}', 'external_activity_destroy')->name('sigac.wellbeing.programming.parameters.external_activities.destroy'); // Eliminar actividad externa (Bienestar)
+
+            // Parametro - Programas Especiales
+            Route::post('academic_coordination/programming/parameters/special_program/store', 'special_program_store')->name('sigac.academic_coordination.programming.parameters.special_program.store'); // Registrar programa especial (Cordinacion Academica)
+            Route::post('academic_coordination/programming/parameters/special_program/update', 'special_program_update')->name('sigac.academic_coordination.programming.parameters.special_program.update'); // Actualizar programa especial (Cordinacion Academica)
+            Route::delete('academic_coordination/programming/parameters/special_program/destroy/{id}', 'special_program_destroy')->name('sigac.academic_coordination.programming.parameters.special_program.destroy'); // Eliminar programa especial (Cordinacion Academica)
 
             // Parametro - Profesiones
             Route::post('academic_coordination/profession/store', 'profession_store')->name('sigac.academic_coordination.profession.store'); // Registrar profesion (Coordinación Académica)
@@ -119,15 +122,6 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
              Route::post('academic_coordination/curriculum_planning/assign_learning_outcomes/competencie_profession_store', 'competencie_profession_store')->name('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_store'); // Index de Gestion de instructores (Coordinación Académica)
              Route::get('academic_coordination/curriculum_planning/assign_learning_outcomes/competencie_profession_search/{id}', 'competencie_profession_search')->name('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_search'); // Index de Gestion de instructores (Coordinación Académica)
              Route::delete('academic_coordination/curriculum_planning/assign_learning_outcomes/competencie_profession_destroy/{competencie_id}/{profession_id}', 'competencie_profession_destroy')->name('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_destroy'); // Index de Gestion de instructores (Coordinación Académica)
-          
-             // Resultados de aprendizaje x instructor
-             Route::get('academic_coordination/curriculum_planning/assign_learning_outcomes/learning_out_people_index', 'learning_out_people_index')->name('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index'); // Index de Gestion de instructores (Coordinación Académica)
-             Route::post('academic_coordination/curriculum_planning/assign_learning_outcomes/table', 'learning_out_people_table')->name('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.table'); // Index de Gestion de instructores (Coordinación Académica)
-             Route::post('academic_coordination/curriculum_planning/assign_learning_outcomes/learning_out_people_store', 'learning_out_people_store')->name('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_store'); // Index de Gestion de instructores (Coordinación Académica)
-             Route::get('academic_coordination/curriculum_planning/assign_learning_outcomes/learning_out_people_search_instructor/{id}', 'learning_out_people_search_instructor')->name('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_search_instructor'); // Index de Gestion de instructores (Coordinación Académica)
-             Route::get('academic_coordination/curriculum_planning/assign_learning_outcomes/learning_out_people_search_competencie/{id}', 'learning_out_people_search_competencie')->name('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_search_competencie'); // Index de Gestion de instructores (Coordinación Académica)
-             Route::get('academic_coordination/curriculum_planning/assign_learning_outcomes/learning_out_people_search_learning_outcome/{id}', 'learning_out_people_search_learning_outcome')->name('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_search_learning_outcome'); // Index de Gestion de instructores (Coordinación Académica)
-             Route::delete('academic_coordination/curriculum_planning/assign_learning_outcomes/learning_out_people_destroy/{learning_id}/{person_id}', 'learning_out_people_destroy')->name('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_destroy'); // Index de Gestion de instructores (Coordinación Académica)
         
              // Curso x Proyecto formativo
              Route::get('academic_coordination/curriculum_planning/course_trainig_project/course_training_project_index', 'course_training_project_index')->name('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index'); // Index de Gestion de instructores (Coordinación Académica)
@@ -174,6 +168,15 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('academic_coordination/human_talent/management_instructor/profession_instructor_index', 'profession_instructor_index')->name('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_index'); // Index de Gestion de instructores (Coordinación Académica)
             Route::post('academic_coordination/human_talent/management_instructor/profession_instructor_store', 'profession_instructor_store')->name('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_store'); // Index de Gestion de instructores (Coordinación Académica)
             Route::delete('academic_coordination/human_talent/management_instructor/profession_instructor_destroy/{id}', 'profession_instructor_destroy')->name('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_destroy'); // Index de Gestion de instructores (Coordinación Académica)
+
+            // Resultados de aprendizaje x instructor
+            Route::get('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_index', 'learning_out_people_index')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_index'); // Index de Gestion de instructores (Coordinación Académica)
+            Route::post('academic_coordination/human_talent/assign_learning_outcomes/table', 'learning_out_people_table')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.table'); // Index de Gestion de instructores (Coordinación Académica)
+            Route::post('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_store', 'learning_out_people_store')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_store'); // Index de Gestion de instructores (Coordinación Académica)
+            Route::get('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_search_instructor/{id}', 'learning_out_people_search_instructor')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_search_instructor'); // Index de Gestion de instructores (Coordinación Académica)
+            Route::get('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_search_competencie/{id}', 'learning_out_people_search_competencie')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_search_competencie'); // Index de Gestion de instructores (Coordinación Académica)
+            Route::get('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_search_learning_outcome/{id}', 'learning_out_people_search_learning_outcome')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_search_learning_outcome'); // Index de Gestion de instructores (Coordinación Académica)
+            Route::delete('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_destroy/{learning_id}/{person_id}', 'learning_out_people_destroy')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_destroy'); // Index de Gestion de instructores (Coordinación Académica)
 
         });
         

@@ -17,6 +17,7 @@ return [
 
    // Formulario asignar proyectos formativos a cursos
    'Courses' => 'Courses',
+   'Priority' => 'Priority',
    'TrainingProject' => 'Training project',
    'SelectCourse' => 'Select a course',
    'SelectTrainingProject' => 'Select a training project',

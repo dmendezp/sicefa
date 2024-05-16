@@ -47,8 +47,10 @@ class LearningOutcome extends Model implements Auditable
     public function quarterlies(){ //Accede a todos los registros de trimestralizacion que pertenecen a este resultado.
         return $this->hasMany(Quarterly::class);
     }
-
     public function people(){ //Accede a todos los perfiles que se relacionan con este resultado de aprendizaje. (PIVOTE)
         return $this->belongsToMany(Person::class, 'learning_outcome_people');
+    }
+    public function learning_outcome_person(){ //Accede a todos los perfiles que se relacionan con este resultado de aprendizaje. (PIVOTE)
+        return $this->hasMany(LearningOutcomePerson::class);
     }
 }
