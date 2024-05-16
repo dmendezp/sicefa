@@ -130,6 +130,7 @@ return [
 	'Formation Program' => 'Formation Program',
 	'Code' => 'Code',
 	'Type' => 'Type',
+	'Quarter' => 'Quarter Number',
 	'Program Type' => 'Program Type',
 	'Add Formation Program' => 'Add Formation Program',
 	'Update Formation Program' => 'Update Formation Program',

@@ -33,6 +33,16 @@
     {!! Form::text('name', isset($program) ? $program->name : null, ['class' => 'form-control', 'required']) !!}
 </div>
 
+{!! Form::label('quarter_number', trans('sica::menu.Quarter'), ['class' => 'mt-3']) !!}
+<div class="input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">
+            <i class="far fa-keyboard"></i>
+        </span>
+    </div>
+    {!! Form::number('quarter_number', isset($program) ? $program->quarter_number : null, ['class' => 'form-control', 'required']) !!}
+</div>
+
 {!! Form::label('network_id', trans('sica::menu.Knowledge Network'), ['class' => 'mt-3']) !!}
 <div class="form-group">
     <div class="input-group-prepend">
