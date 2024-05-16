@@ -6,9 +6,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class RequestController extends Controller
+class TrackingController extends Controller
 {
-
     public function index(){
         $titlePage = 'Seguimiento PQRS';
         $titleView = 'Seguimiento PQRS';
@@ -18,8 +17,6 @@ class RequestController extends Controller
             'titleView' => $titleView,
         ];
 
-        return view('pqrs::requests.index');
+        return view('pqrs::tracking.index', $data);
     }
-
-    
 }

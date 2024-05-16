@@ -69,13 +69,20 @@
                 <!-- MENU PARA HOME (DE ACCESO GENERAL) -->
                 @if (Route::is('*pqrs.home.*'))
                     <li class="nav-item">
-                        <a href="{{ route('cefa.sica.home.index') }}"
+                        <a href="{{ route('cefa.pqrs.home.index') }}"
                             class="nav-link {{ !Route::is('cefa.pqrs.home.index') ?: 'active' }}">
                             <i class="fas fa-home"></i>
                             <p>Inicio</p>
                         </a>
                     </li>
                 @endif    
+
+                <li class="nav-item">
+                    <a href="{{ route('pqrs.tracking.index') }}" class="nav-link {{ !Route::is('pqrs.tracking.index') ?: 'active' }}">
+                        <i class="fas fa-comments"></i>
+                        <p>Seguimiento</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

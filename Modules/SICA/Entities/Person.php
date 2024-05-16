@@ -22,7 +22,7 @@ use Modules\SIGAC\Entities\InstructorProgram;
 use Modules\SIGAC\Entities\Profession;
 use Modules\SIGAC\Entities\AttendanceApprentice;
 use Modules\SIGAC\Entities\EvaluativeJudgment;
-
+use Modules\PQRS\Entities\Pqrs;
 class Person extends Model implements Auditable
 {
 
@@ -189,6 +189,9 @@ class Person extends Model implements Auditable
     }
     public function population_group(){ // Accede al grupo poblacional que pertenece
         return $this->belongsTo(PopulationGroup::class);
+    }
+    public function pqrs(){ // Accede a todos los pqrs que pertenecen a esta persona (PIVOTE)
+        return $this->belongsToMany(Pqrs::class)->withTimestamps();
     }
     public function productive_units(){ // Accede a todas las unidades productivas que lidera esta persona
         return $this->hasMany(ProductiveUnit::class);

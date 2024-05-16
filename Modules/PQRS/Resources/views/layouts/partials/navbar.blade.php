@@ -4,6 +4,9 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
+      <li class="nav-item d-lg-inline-block">
+        <a href="{{ route('cefa.pqrs.home.index') }}" class="nav-link">{{ trans('sica::menu.Home') }}</a>
+    </li>
     </ul>
 
     <!-- Right navbar links -->
