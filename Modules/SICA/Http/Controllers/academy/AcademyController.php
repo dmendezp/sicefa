@@ -194,6 +194,7 @@ class AcademyController extends Controller
         $program->sofia_code = e($request->input('sofia_code'));
         $program->program_type = e($request->input('program_type'));
         $program->name = e($request->input('name'));
+        $program->quarter_number = e($request->input('quarter_number'));
         $program->network()->associate(Network::find($request->input('network_id')));
         if($program->save()){
             $icon = 'success';
@@ -223,6 +224,7 @@ class AcademyController extends Controller
         $program->sofia_code = e($request->input('sofia_code'));
         $program->program_type = e($request->input('program_type'));
         $program->name = e($request->input('name'));
+        $program->quarter_number = e($request->input('quarter_number'));
         $program->network_id = e($request->input('network_id'));
         if($program->save()){
             $icon = 'success';

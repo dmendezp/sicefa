@@ -37,6 +37,7 @@
                                         <th>{{ trans('sica::menu.Code') }}</th>
                                         <th>{{ trans('sica::menu.Type') }}</th>
                                         <th>{{ trans('sica::menu.Name') }}</th>
+                                        <th>{{ trans('sica::menu.Quarter') }}</th>
                                         <th>{{ trans('sica::menu.Knowledge Network') }}</th>
                                         <th class="text-center">{{ trans('sica::menu.Actions') }}
                                             @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.programs.create'))
@@ -56,6 +57,7 @@
                                             <td>{{ $p->sofia_code }}</td>
                                             <td>{{ $p->program_type }}</td>
                                             <td>{{ $p->name }}</td>
+                                            <td>{{ $p->quarter_number }}</td>
                                             <td>{{ $p->network->name }}</td>
                                             <td class="text-center">
                                                 <div class="opts">

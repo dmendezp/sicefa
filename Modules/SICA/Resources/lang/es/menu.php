@@ -131,6 +131,7 @@ return [
 	'Formation Program' => 'Programa de Formación',
 	'Code' => 'Código',
 	'Type' => 'Tipo',
+	'Quarter' => 'Numero de Trimestre',
 	'Program Type' => 'Tipo de Programa',
 	'Add Formation Program' => 'Agregar Programa de Formación',
 	'Update Formation Program' => 'Actualizar Programa de Formación',

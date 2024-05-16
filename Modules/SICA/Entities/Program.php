@@ -20,7 +20,8 @@ class Program extends Model implements Auditable
         'name',
         'network_id',
         'program_type',
-        'sofia_code'
+        'sofia_code',
+        'qurter_number'
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
