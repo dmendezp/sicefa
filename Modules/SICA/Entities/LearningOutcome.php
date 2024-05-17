@@ -51,6 +51,6 @@ class LearningOutcome extends Model implements Auditable
         return $this->belongsToMany(Person::class, 'learning_outcome_people');
     }
     public function learning_outcome_person(){ //Accede a todos los perfiles que se relacionan con este resultado de aprendizaje. (PIVOTE)
-        return $this->hasMany(LearningOutcomePerson::class);
+        return $this->hasMany(LearningOutcomePerson::class, 'learning_outcome_people');
     }
 }

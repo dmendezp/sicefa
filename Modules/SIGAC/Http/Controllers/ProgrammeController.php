@@ -11,6 +11,7 @@ use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\Country;
 use Modules\SICA\Entities\Department;
+use Modules\SICA\Entities\LearningOutcomePerson;
 use Modules\SICA\Entities\Municipality;
 use Modules\SIGAC\Entities\InstructorProgram;
 use Modules\SIGAC\Entities\ExternalActivity;
@@ -88,13 +89,24 @@ class ProgrammeController extends Controller
     public function management_programming_filterinstructor(Request $request)
     {
         $learning_outcome_id = $request->input('learning_outcome_id');
-
-        $instructors = Person::whereHas('professions.competencies.learning_outcomes', function($query) use ($learning_outcome_id) {
-            $query->where('learning_outcomes.id', $learning_outcome_id);
-        })->pluck('first_name','id');
-
-        return response()->json(['instructors' => $instructors->toArray()]);
+    
+        $learningOutcomePeople = LearningOutcomePerson::where('learning_outcome_id', $learning_outcome_id)
+            ->with('person')
+            ->orderBy('priority', 'asc')
+            ->get();
+    
+        $instructors = $learningOutcomePeople->map(function ($learningOutcomePerson) {
+            return [
+                'id' => $learningOutcomePerson->person->id,
+                'name' => $learningOutcomePerson->person->first_name,
+                'priority' => $learningOutcomePerson->priority
+            ];
+        });
+    
+        return response()->json(['instructors' => $instructors]);
     }
+    
+
 
     public function management_programming_filterenvironment(Request $request)
     {
@@ -113,7 +125,7 @@ class ProgrammeController extends Controller
         $learning_outcome_id = $request->input('learning_outcome_id');
 
         // Obtener la lista de programas de instructor asociados al resultado de aprendizaje
-        $instructor_programs = InstructorProgram::whereHas('quarterly.learning_outcome', function($query) use ($learning_outcome_id) {
+        $instructor_programs = InstructorProgram::whereHas('.learning_outcome', function($query) use ($learning_outcome_id) {
             $query->where('id', $learning_outcome_id);
         })->get();
 
