@@ -126,21 +126,21 @@ class InstructorManagementController extends Controller{
     }
 
     public function learning_out_people_table(Request $request)
-    {
-        $competencie_id = $request->input('selectedCompetencie');
-        
-        $learning_outcome_people = LearningOutcomePerson::with('learning_outcome.competencie','person')->whereHas('learning_outcome.competencie', function ($query) use ($competencie_id) {
+{
+    $competencie_id = $request->input('selectedCompetencie');
+    
+    $learning_outcome_people = LearningOutcomePerson::with('learning_outcome.competencie','person')
+        ->whereHas('learning_outcome.competencie', function ($query) use ($competencie_id) {
             $query->where('id', $competencie_id);
         })->get();
 
- 
-   
-        $view = [
-            'learning_outcome_people' => $learning_outcome_people,
-        ];
+    $view = [
+        'learning_outcome_people' => $learning_outcome_people,
+    ];
 
-        return view('sigac::human_talent.assign_learning_outcomes.table', $view);
-    }
+    return view('sigac::human_talent.assign_learning_outcomes.table', $view);
+}
+
 
     public function learning_out_people_search_competencie($id)
     {
@@ -231,21 +231,28 @@ class InstructorManagementController extends Controller{
     {
         $rules = [
             'instructor' => 'required',
-            'learningOutCome' => 'required'
+            'learningOutCome' => 'required',
+            'priority' => 'required'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput()->with(['message' => 'Ocurrió un error con el formulario.', 'typealert' => 'danger']);
         }
         $learning_outcome = LearningOutCome::where('id', $request->learningOutCome)->first();
+
         $existingRecord = DB::table('learning_outcome_people')
             ->where('person_id', $request->instructor)
             ->where('learning_outcome_id', $learning_outcome->id)
+            ->where('priority', $request->priority)
             ->exists();
 
         // Realizar registro
         if (!$existingRecord) {
-            if ($learning_outcome->people()->syncWithoutDetaching($request->instructor)) {
+            $learning_outcome_people =  new LearningOutcomePerson;
+            $learning_outcome_people->learning_outcome_id = $learning_outcome->id; 
+            $learning_outcome_people->person_id = $request->instructor; 
+            $learning_outcome_people->priority = $request->priority; 
+            if ($learning_outcome_people->save()) {
                 return redirect(route('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_index'))->with(['success' => trans('sigac::profession.Successful_Aggregation')]);
             } else {
                 return redirect(route('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_index'))->with(['error' => trans('sigac::profession.Error_Adding')]);
