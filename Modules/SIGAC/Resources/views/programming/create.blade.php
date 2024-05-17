@@ -225,15 +225,18 @@
                     success: function(response) {
                         console.log(response);
                         if (response.instructors) {
-                            
                             var instructorSelect = $('.instructors').last();
                             instructorSelect.empty();
                             instructorSelect.append(new Option('Seleccione el instructor', ''));
-                            $.each(response.instructors, function(id , first_name) {
-                                instructorSelect.append(new Option(first_name, id));
+
+                            // Iterar sobre la lista de instructores
+                            $.each(response.instructors, function(index, instructor) {
+                                instructorSelect.append(new Option(instructor.first_name, instructor.id));
                             });
+
+                            // Inicializa el campo instructor como select2 después de actualizar las opciones
+                            instructorSelect.select2();
                         }
-                        $('.instructors').select2(); // Inicializa el campo course como select2
                     },
                     error: function() {
                         console.error('Error en la solicitud AJAX');

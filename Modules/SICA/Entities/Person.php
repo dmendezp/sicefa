@@ -139,6 +139,9 @@ class Person extends Model implements Auditable
     public function learning_outcomes(){ //Accede a todas los resultados de aprendizaje que pertenecen a este perfil (PIVOTE)
         return $this->belongsToMany(LearningOutcome::class, 'learning_outcome_people');
     }
+    public function learning_outcome_people(){ // Accede a todos los registros de contratistas que le pertenecen a esta persona
+        return $this->hasMany(LearningOutcomePerson::class);
+    }
     public function contractors(){ // Accede a todos los registros de contratistas que le pertenecen a esta persona
         return $this->hasMany(Contractor::class);
     }
