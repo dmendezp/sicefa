@@ -90,23 +90,14 @@ class ProgrammeController extends Controller
     {
         $learning_outcome_id = $request->input('learning_outcome_id');
     
-        $learningOutcomePeople = LearningOutcomePerson::where('learning_outcome_id', $learning_outcome_id)
-            ->with('person')
-            ->orderBy('priority', 'asc')
-            ->get();
-    
-        $instructors = $learningOutcomePeople->map(function ($learningOutcomePerson) {
-            return [
-                'id' => $learningOutcomePerson->person->id,
-                'name' => $learningOutcomePerson->person->first_name,
-                'priority' => $learningOutcomePerson->priority
-            ];
-        });
+        $instructors = Person::join('learning_outcome_people', 'people.id', '=', 'learning_outcome_people.person_id')
+                             ->where('learning_outcome_people.learning_outcome_id', $learning_outcome_id)
+                             ->orderBy('learning_outcome_people.priority', 'asc')
+                             ->get(['people.id', 'people.first_name']);
     
         return response()->json(['instructors' => $instructors]);
     }
     
-
 
     public function management_programming_filterenvironment(Request $request)
     {
@@ -125,7 +116,7 @@ class ProgrammeController extends Controller
         $learning_outcome_id = $request->input('learning_outcome_id');
 
         // Obtener la lista de programas de instructor asociados al resultado de aprendizaje
-        $instructor_programs = InstructorProgram::whereHas('.learning_outcome', function($query) use ($learning_outcome_id) {
+        $instructor_programs = InstructorProgram::whereHas('learning_outcome', function($query) use ($learning_outcome_id) {
             $query->where('id', $learning_outcome_id);
         })->get();
 
