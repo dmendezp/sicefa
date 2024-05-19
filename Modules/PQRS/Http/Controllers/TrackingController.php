@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Modules\SICA\Entities\Person;
 use Modules\PQRS\Entities\Pqrs;
+use Modules\SICA\Entities\Holiday;
 
 class TrackingController extends Controller
 {
@@ -15,7 +16,7 @@ class TrackingController extends Controller
         $titlePage = 'Seguimiento PQRS';
         $titleView = 'Seguimiento PQRS';
 
-        $pqrs = Pqrs::get();
+        $pqrs = Pqrs::with('people')->get();
 
         $data  = [
             'titlePage' => $titlePage,
@@ -49,7 +50,6 @@ class TrackingController extends Controller
             'type_pqrs' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
-            'responsible' => 'required',
             'issue' => 'required',
         ];
 
@@ -60,7 +60,6 @@ class TrackingController extends Controller
             'type_pqrs.required' => 'Debe seleccionar un asunto.',
             'start_date.required' => 'Debe registrar la fecha de llegada de la PQRS.',
             'end_date.required' => 'Debe registrar la fecha limite de respuesta.',
-            'responsible.required' => 'Debe seleccionar un funcionario.',
             'issue.required' => 'Debe registrar una descripción de la PQRS.'
         ];
 
@@ -79,8 +78,6 @@ class TrackingController extends Controller
             $pqrs->issue = $validatedData['issue'];
             $pqrs->save();
 
-            $responsible = 
-
             DB::commit();
 
             return redirect()->route('pqrs.tracking.index'); 
@@ -89,5 +86,15 @@ class TrackingController extends Controller
             DB::rollBack();
             return redirect()->back()->withErrors($validatedData);
         }
+    }
+
+    public function assign (Request $request, $id){
+        $pqrs = Pqrs::find($id);
+        $pqrs->people()->attach($request->responsible, [
+            'consecutive' => 1,
+            'date' => now()->format('Y-m-d')
+        ]);
+
+        return redirect()->route('pqrs.tracking.index'); 
     }
 }

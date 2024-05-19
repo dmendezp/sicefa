@@ -13,8 +13,15 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
+
+     protected $commands = [
+        // Register your custom command here
+        \Modules\PQRS\Console\UpdatePqrsState::class,
+    ];
+
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('pqrs:update-state')->daily();
         // $schedule->command('inspire')->hourly();
     }
 

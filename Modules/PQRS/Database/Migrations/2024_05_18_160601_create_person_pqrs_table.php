@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePeoplePqrsTable extends Migration
+class CreatePersonPqrsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePeoplePqrsTable extends Migration
      */
     public function up()
     {
-        Schema::create('people_pqrs', function (Blueprint $table) {
+        Schema::create('person_pqrs', function (Blueprint $table) {
             $table->id();
             $table->integer('consecutive');
             $table->date('date');
@@ -32,6 +32,6 @@ class CreatePeoplePqrsTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('people_pqrs');
+        Schema::dropIfExists('person_pqrs');
     }
 }

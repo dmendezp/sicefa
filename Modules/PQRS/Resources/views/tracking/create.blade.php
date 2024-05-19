@@ -52,14 +52,7 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="col-6">
-                    {!! Form::label('responsible', 'Funcionario') !!}
-                    {!! Form::select('responsible', [], null ,['class' => 'form-control responsible', 'style' => 'width: 100%;']) !!}
-                    @error('responsible')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="col-6">
+                <div class="col-12">
                     {!! Form::label('issue', 'Descripción') !!}
                     {!! Form::textarea('issue', null, ['class' => 'form-control', 'style' => 'height: calc(2.25rem + 2px)']) !!}
                     @error('issue')
