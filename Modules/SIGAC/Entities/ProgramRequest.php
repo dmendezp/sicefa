@@ -4,6 +4,9 @@ namespace Modules\SIGAC\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\Program;
+use Modules\SICA\Entities\Municipality;
 
 class ProgramRequest extends Model
 {
@@ -36,5 +39,30 @@ class ProgramRequest extends Model
     protected static function newFactory()
     {
         return \Modules\SIGAC\Database\factories\ProgramRequestFactory::new();
+    }
+
+    public function municipality()
+    {
+        return $this->belongsTo(Municipality::class);
+    }
+
+    public function person()
+    {
+        return $this->belongsTo(Person::class);
+    }
+    
+    public function program()
+    {
+        return $this->belongsTo(Program::class);
+    }
+    
+    public function program_request_dates()
+    {
+        return $this->hasMany(ProgramRequestDate::class);
+    }
+
+    public function special_program()
+    {
+        return $this->belongsTo(SpecialProgram::class);
     }
 }

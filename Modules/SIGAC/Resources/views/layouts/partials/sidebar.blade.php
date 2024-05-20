@@ -333,7 +333,7 @@
                                     </li>
                                 @endif
                                 <li class="nav-item">
-                                    <a href="{{ route('sigac.academic_coordination.programming.program_request.index') }}" class="nav-link">
+                                    <a href="{{ route('sigac.instructor.programming.program_request.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-user-tie"></i>
                                         <p>Solicitud Programa</p>
                                     </a>
@@ -528,6 +528,15 @@
                                 </a>
                             </li>
                         @endif
+                    @endif
+                    <!-- Menú de opciones para Aprendiz -->
+                    @if (Route::is('sigac.support.*'))
+                        <li class="nav-item">
+                            <a href="{{ route('sigac.support.programming.program_request.characterization.index') }}" class="nav-link">
+                                <i class="nav-icon fa-solid fa-star"></i>
+                                <p>Caracterización</p>
+                            </a>
+                        </li>
                     @endif
                     <!-- Menú de opciones para Aprendiz -->
                     @if (Route::is('sigac.committee_leader.*'))
