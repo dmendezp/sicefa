@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['route' => 'sigac.academic_coordination.programming.parameters.special_program.store', 'method' => 'POST']) !!}
+                {!! Form::open(['url' => route('sigac.instructor.programming.program_request.characterization.devolution', ['id' => $prom->id]), 'method' => 'POST']) !!}
                 @csrf
                 <div class="form-group">
                     {!! Form::label('observation', trans('agrocefa::labor.Observation')) !!}
@@ -19,6 +19,19 @@
                 <br>
                 {!! Form::submit(trans('sigac::general.Btn_Save'), ['class' => 'btn btn-primary','id' => 'standcolor']) !!}
                 {!! Form::close() !!}
+            </div>
+        </div>
+    </div>  
+</div>
+<div class="modal fade" id="cancel{{$prom->id}}" tabindex="-1" aria-labelledby="cancel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="ModalLabel">{{ trans('Observacion')}}</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>{{ $prom->observation }}</p>
             </div>
         </div>
     </div>  
