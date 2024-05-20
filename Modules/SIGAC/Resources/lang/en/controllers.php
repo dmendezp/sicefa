@@ -23,6 +23,9 @@ return [
 	// Index - Apprentice
 	'SIGAC_apprentice_dashboard_title_page' => 'Apprentice',
 	'SIGAC_apprentice_dashboard_title_view' => 'Homepage',
+	// Index - Support
+	'SIGAC_support_dashboard_title_page' => 'Support',
+	'SIGAC_support_dashboard_title_view' => 'Homepage',
 
 	// ------ApprenticeController------
 	// Send Excuses

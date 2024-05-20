@@ -60,6 +60,14 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
+        // Registrar o actualizar rol de Aprendiz
+        $rol_support = Role::firstOrCreate(['slug' => 'sigac.support'], [
+            'name' => 'Apoyo',
+            'description' => 'Rol Apoyo de la aplicación SIGAC',
+            'description_english' => 'Role support of the SIGAC application',
+            'app_id' => $app->id
+        ]);
+
 
       /*   // Consulta de usuarios
         $user_academic_coordinator = User::where('nickname', 'mgonzalezg')->first(); // Usuario Coordinador Académico (María Antonia Gonzáles Gonzáles)

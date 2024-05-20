@@ -49,7 +49,7 @@
             function updateCheckboxes(associations) {
                 $('.association-checkbox').prop('checked', false);
                 associations.forEach(function(association) {
-                    $('.association-checkbox[data-permission-id="' + association + '"]').prop('checked', true);
+                    $('.association-checkbox[data-course-id="' + association + '"]').prop('checked', true);
                 });
             }
 
@@ -72,7 +72,8 @@
             });
 
             $('.association-checkbox').change(function() {
-                var perissionId = $(this).data('permission-id');
+                var senaempresaId = $('#senaempresa_id').val();
+                var courseId = $(this).data('course-id');
                 var isChecked = $(this).prop('checked');
 
                 $.ajax({

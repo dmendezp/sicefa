@@ -797,8 +797,6 @@ class ProgrammeController extends Controller
             'program_especial'=>$program_especial,
             'municipalities'=>$municipalities
         ]);
-
-
     }
     
     // Buscar instructor
@@ -837,6 +835,8 @@ class ProgrammeController extends Controller
             return response()->json(['error' => 'Error interno del servidor'], 500);
         }
     }
+
+    // Registrar solicitud del programa
     public function program_request_store(Request $request)
     {
         try {
@@ -894,7 +894,7 @@ class ProgrammeController extends Controller
                         $conflicting_message .= "\nFecha: " . $conflict['date'] . ", Hora de inicio: " . $conflict['start_time'] . ", Hora de fin: " . $conflict['end_time'];
                     }
 
-                    return redirect()->route('sigac.academic_coordination.programming.program_request.index')->with('success', $conflicting_message);
+                    return redirect()->route('sigac.instructor.programming.program_request.index')->with('success', $conflicting_message);
                     
                 } else {
                     $program_request = new ProgramRequest;
@@ -928,11 +928,75 @@ class ProgrammeController extends Controller
     
             $success_message = 'Solicitud enviada';
     
-            return redirect()->route('sigac.academic_coordination.programming.program_request.index')->with('success', $success_message);
+            return redirect()->route('sigac.instructor.programming.program_request.index')->with('success', $success_message);
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error('Error en el registro: ' . $e->getMessage());
             return response()->json(['error' => 'Error interno del servidor',$e], 500);
         }
-    }    
+    }
+
+    // Solicitudes de caracterización
+    public function program_request_characterization()
+    {
+        $program_request = ProgramRequest::orderBy('created_at','Asc')->get();
+
+        return view('sigac::programming.program_request.characterization', [
+            'titlePage' => trans('Solicitud | Caracterización'),
+            'titleView' => trans('Solicitud | Caracterización'),
+            'program_request'=>$program_request
+        ]);
+
+
+    }
+
+    // Caracterizar programa
+    public function program_request_characterization_store(Request $request, $id)
+    {
+        try {
+            $code_course = $request->input('code_course');
+            $code_empresa = $request->input('code_empresa');
+            $date_inscription = $request->input('date_inscription');
+            $date_characterization = Carbon::now()->toDateString();
+            DB::beginTransaction();
+    
+            $program_request = ProgramRequest::with('program_request_dates')->findOrFail($id);
+            $program_request->date_inscription = $date_inscription;
+            $program_request->code_empresa = $code_empresa;
+            $program_request->code_course = $code_course;
+            $program_request->date_characterization = $date_characterization;
+            $program_request->save();
+
+            $course = new Course;
+            $course->code = $program_request->code_course;
+            $course->star_date = $program_request->start_date;
+            $course->end_date = $program_request->end_date;
+            $course->status = 'Activo';
+            $course->modality = 'Presencial';
+            $course->program_id = $program_request->program_id;
+            $course->municipality_id = $program_request->municipality_id;
+            $course->save();
+
+            foreach ($program_request->program_request_dates as $dates) {
+                $instructor_program = new InstructorProgram;
+                $instructor_program->date = $dates->date;
+                $instructor_program->start_time = $dates->start_time;
+                $instructor_program->end_time = $dates->end_time;
+                $instructor_program->person_id = $program_request->person_id;
+                $instructor_program->course_id = $course->id;
+                $instructor_program->environment_id = 1;
+                $instructor_program->learning_outcome_id = 1;
+                $instructor_program->state = 'Pendiente';
+                $instructor_program->save();
+            }
+
+            DB::commit();
+    
+            return redirect()->route('sigac.support.programming.program_request.characterization.index')->with('success', 'Caracterizacion confirmada');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('Error en el registro: ' . $e->getMessage());
+            return response()->json(['error' => 'Error interno del servidor',$e], 500);
+        }
+    }
 }

@@ -50,4 +50,10 @@ class SIGACController extends Controller
         $view = ['titlePage'=>trans('sigac::controllers.SIGAC_apprentice_dashboard_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_apprentice_dashboard_title_view')];
         return view('sigac::index_apprentice', $view);
     }
+
+    /* Panel de control de apoyo */
+    public function support_dashboard(){
+        $view = ['titlePage'=>trans('sigac::controllers.SIGAC_support_dashboard_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_support_dashboard_title_view')];
+        return view('sigac::index_wellness', $view);
+    }
 }   

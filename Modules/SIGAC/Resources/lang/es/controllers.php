@@ -39,6 +39,9 @@ return [
 	// Index - Apprentice
 	'SIGAC_apprentice_dashboard_title_page' => 'Aprendiz',
 	'SIGAC_apprentice_dashboard_title_view' => 'Página principal',
+		// Index - Support
+		'SIGAC_support_dashboard_title_page' => 'Apoyo',
+		'SIGAC_support_dashboard_title_view' => 'Página principal',
 
 	// ------ApprenticeController------
 	// Send Excuses
@@ -83,6 +86,7 @@ return [
 	// Schedule Apprentice
 	'SIGAC_schedule_apprentice_title_page' => 'Horario de Aprendiz',
 	'SIGAC_schedule_apprentice_title_view' => 'Horario de Aprendiz',
+
      //Schedule points
     'SIGAC_pointsApprentice_title_page' => 'Puntos generales del aprendiz',
     'SIGAC_assignpoints_title_view' => 'Asignar puntos',
