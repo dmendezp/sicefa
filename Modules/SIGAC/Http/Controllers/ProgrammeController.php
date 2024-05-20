@@ -942,8 +942,8 @@ class ProgrammeController extends Controller
         $program_request = ProgramRequest::orderBy('created_at','Asc')->get();
 
         return view('sigac::programming.program_request.characterization', [
-            'titlePage' => trans('Solicitud | Caracterización'),
-            'titleView' => trans('Solicitud | Caracterización'),
+            'titlePage' => trans('Caracterización'),
+            'titleView' => trans('Caracterización'),
             'program_request'=>$program_request
         ]);
 
@@ -965,6 +965,7 @@ class ProgrammeController extends Controller
             $program_request->code_empresa = $code_empresa;
             $program_request->code_course = $code_course;
             $program_request->date_characterization = $date_characterization;
+            $program_request->state = 'Confirmado';
             $program_request->save();
 
             $course = new Course;
@@ -993,6 +994,28 @@ class ProgrammeController extends Controller
             DB::commit();
     
             return redirect()->route('sigac.support.programming.program_request.characterization.index')->with('success', 'Caracterizacion confirmada');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('Error en el registro: ' . $e->getMessage());
+            return response()->json(['error' => 'Error interno del servidor',$e], 500);
+        }
+    }
+
+    // Devolver solicitud
+    public function program_request_characterization_devolution(Request $request, $id)
+    {
+        try {
+            $observation = $request->input('observation');
+            DB::beginTransaction();
+    
+            $program_request = ProgramRequest::findOrFail($id);
+            $program_request->observation = $observation;
+            $program_request->state = 'Cancelado';
+            $program_request->save();
+
+            DB::commit();
+    
+            return redirect()->route('sigac.support.programming.program_request.characterization.index')->with('success', 'Solicitud cancelada');
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error('Error en el registro: ' . $e->getMessage());

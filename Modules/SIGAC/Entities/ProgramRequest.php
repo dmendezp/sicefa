@@ -29,7 +29,8 @@ class ProgramRequest extends Model
         'date_characterization',
         'code_empresa',
         'code_course',
-        'date_inscription'
+        'date_inscription',
+        'state'
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon

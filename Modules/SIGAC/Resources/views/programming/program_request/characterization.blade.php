@@ -51,7 +51,7 @@
                                                     </td>
                                                     @include('sigac::programming.program_request.dates')
                                                     
-                                                    @if($prom->date_characterization = null)
+                                                    @if($prom->state == 'Pendiente')
                                                         <td width="19%">
                                                             <a  class="btn btn-success" data-bs-toggle="modal" data-bs-target="#characterization{{$prom->id}}">
                                                                 Caracterizar
@@ -60,9 +60,17 @@
                                                                 Devolver
                                                             </a>
                                                         </td>
+                                                    @elseif($prom->state == 'Cancelado')
+                                                        <td class="text-center">
+                                                            <a  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancel{{$prom->id}}">
+                                                                <i class="fas fa-eye"></i> Cancelado
+                                                            </a>
+                                                        </td>
                                                     @else
                                                         <td class="text-center">
-                                                            Caracterizada
+                                                            <a  class="btn btn-secondary">
+                                                                Caracterizado
+                                                            </a>
                                                         </td>
                                                     @endif
 
