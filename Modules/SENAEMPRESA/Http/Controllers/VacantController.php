@@ -161,15 +161,15 @@ class VacantController extends Controller
             // If there is no next quarter, use the current quarter
             $nextQuarter = $currentQuarter;
             // Optionally, you can redirect back with a warning message
-            // return redirect()->back()->with('warning', 'No hay un trimestre siguiente.');
-        }
-
-        // Retrieve the senaempresas for the current or next quarter
-        $senaempresas = DB::table('senaempresas')
+            return redirect()->back()->with('info', 'No hay un trimestre siguiente.');
+        } else {
+            // Retrieve the senaempresas for the current or next quarter
+            $senaempresas = DB::table('senaempresas')
             ->join('quarters', 'senaempresas.quarter_id', '=', 'quarters.id')
             ->where('quarters.id', $nextQuarter->id)
             ->select('senaempresas.*')
             ->get();
+        }
 
         // If no senaempresas are found for the next quarter, use the current quarter
         if ($senaempresas->isEmpty()) {
