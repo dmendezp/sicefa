@@ -16,9 +16,9 @@ class CreateVacanciesTable extends Migration
         Schema::create('vacancies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->text('description_general');
-            $table->string('requirement');
+            $table->string('requirement')->nullable();
             $table->foreignId('senaempresa_id')->constrained()->onDelete('cascade');
             $table->foreignId('position_company_id')->constrained()->onDelete('cascade');
             $table->dateTime('start_datetime');

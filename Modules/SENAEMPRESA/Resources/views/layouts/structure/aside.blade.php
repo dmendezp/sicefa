@@ -5,7 +5,7 @@
         <img src="{{ asset('AdminLTE/dist/img/logo P SENA.png') }}" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
 
-        <span class="brand-text font-weight-light">Sena Empresa</span>
+        <span class="brand-text font-weight-light">SENA Empresa</span>
     </a>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -125,7 +125,7 @@
                             <a href="#"
                                 class="nav-link {{ !Route::is('senaempresa.admin.phases.*') ?: 'active' }}">
                                 <i class="fas fa-chess-rook"></i>
-                                <p>SenaEmpresa
+                                <p>SENA Empresa
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>

@@ -18,8 +18,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="description"
-                                    class="form-label">{{ trans('senaempresa::menu.Requirements') }}</label>
-                                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                                    class="form-label">{{ trans('senaempresa::menu.Description') }}</label>
+                                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="state">{{ trans('senaempresa::menu.Status') }}</label>

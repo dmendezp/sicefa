@@ -19,6 +19,7 @@ class CreateProgramsTable extends Migration
             $table->integer('quarter_number');
             $table->foreignId('network_id')->constrained()->onDelete('cascade');
             $table->enum('program_type', ['Tecnólogo','Técnico','Operario','Sin especificar']);
+            $table->enum('modality',['Presencial','Virtual'])->default('Presencial');
             $table->unsignedInteger('sofia_code');
             $table->softDeletes();
             $table->timestamps();
