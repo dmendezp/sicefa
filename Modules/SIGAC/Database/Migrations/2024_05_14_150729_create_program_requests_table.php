@@ -23,7 +23,7 @@ class CreateProgramRequestsTable extends Migration
             $table->date('end_date')->nullable();
             $table->integer('quotas');
             $table->string('address')->nullable();
-            $table->string('observation')->nullable();
+            $table->text('observation')->nullable();
             $table->string('empresa')->nullable();
             $table->string('applicant')->nullable();
             $table->string('email')->nullable();
