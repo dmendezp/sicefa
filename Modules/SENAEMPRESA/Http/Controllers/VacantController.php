@@ -200,17 +200,18 @@ class VacantController extends Controller
 
     public function saved(Request $request)
     {
+        $image = $request->file('image');
         // Obtener el archivo de imagen del formulario
-        if ($image = $request->file('image')) {
+        if ($image) {
             $extension = $image->getClientOriginalExtension(); // Obtener la extensión del archivo
             $nameWithoutExtension = Str::slug($request->input('name')); // Generar un nombre sin espacios y en minúsculas
-            $name_image = $nameWithoutExtension . '_' . time() . '.' . $extension; // Agregar una marca de tiempo para evitar conflictos de nombre
+            $image = $nameWithoutExtension . '_' . time() . '.' . $extension; // Agregar una marca de tiempo para evitar conflictos de nombre
             $image->move(public_path('modules/senaempresa/images/vacancies/'), $name_image); // Mover la imagen a la ubicación deseada
         }
 
         $vacancy = new Vacancy();
         $vacancy->name = $request->input('name');
-        $vacancy->image = 'modules/senaempresa/images/vacancies/' . $name_image;
+        $vacancy->image = 'modules/senaempresa/images/vacancies/' . $image;
         $vacancy->description_general = $request->input('description_general');
         $vacancy->requirement = $request->input('requirement');
         $vacancy->senaempresa_id = $request->input('senaempresa_id');
