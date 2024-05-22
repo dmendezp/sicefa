@@ -54,7 +54,52 @@
                 <div id="end_time"></div>
                 <div id="municipality"></div>
                 <div id="learning_outcome"></div>
+                
                 <!-- Agrega más detalles del evento según sea necesario -->
+                <br>
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                          Cambiar Programación
+                        </button>
+                      </h2>
+                      <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <br>
+                        {!! Form::open(['route' => 'sigac.academic_coordination.programming.management.change', 'method' => 'POST']) !!}
+                        @csrf
+                        {!! Form::text('instructor_program_id', null, ['id' => 'instructor_program_id']) !!}
+                        <div class="form-group">
+                            {!! Form::label('activity', trans('Tipo de actividad')) !!}
+                            {!! Form::select('activity', ['Formación' => 'Formación',
+                                'Atención medios tecnológicos' => 'Atención medios tecnológicos',
+                                'Investigación' => 'Investigación',
+                                'Investigación' => 'Investigación',
+                                'Permiso' => 'Permiso',
+                                'Compromiso Institucional' => 'Compromiso Institucional'], null, [
+                                'id' => 'priority',
+                                'class' => 'form-control',
+                                'placeholder' => trans('Seleccione el tipo de actividad'),
+                                'required',
+                            ]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('observation', trans('agrocefa::labor.Observation')) !!}
+                            {!! Form::textarea('observation', old('observation'), [
+                                'class' => 'form-control',
+                                'placeholder' => 'Ingrese el motivo',
+                                'style' => 'max-height: 100px;',
+                            ]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('date', 'Fecha') !!}
+                            {!! Form::date('date', now(), ['class' => 'form-control','placeholder' => 'Ingrese la nueva fecha']) !!}
+                        </div>
+                        {!! Form::submit('Cambiar Programación', ['class'=>'btn btn-primary']) !!}
+                        {!! Form::close() !!}
+                      </div>
+                    </div>
+                  </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -72,6 +117,7 @@
         </div>
     </div>
 </div>
+
 @endsection
 
 @push('scripts')
@@ -99,6 +145,7 @@
                 if (option == 1) {
                     $('#environment').text('Ambiente: ' + (eventData.environment ? eventData.environment.name : 'N/A'));
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
+                        $('#instructor_program_id').val(eventData.instructor_program.id);
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
                         $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.modality ? (eventData.course.modality) : 'N/A'));
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name + ' - ' + eventData.course.municipality.department.name) : 'N/A'));
@@ -108,6 +155,7 @@
                 } else if (option == 2) {
                     console.log('paso');
                     $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
+                        $('#instructor_program_id').val(eventData.instructor_program.id);
                         $('#instructor').text('Instructor: ' + (eventData.person ? eventData.person.first_name : 'N/A'));
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
                         $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.modality ? (eventData.course.modality) : 'N/A'));
@@ -118,6 +166,7 @@
                 } else if (option == 3) {
                     $('#environment').text('Ambiente: ' + (eventData.environment ? eventData.environment.name : 'N/A'));
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
+                        $('#instructor_program_id').val(eventData.instructor_program.id);
                         $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.modality ? (eventData.course.modality) : 'N/A'));
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name) : 'N/A'));
                         $('#instructor').text('Instructor: ' + (eventData.person ? eventData.person.first_name : 'N/A'));
@@ -127,6 +176,7 @@
                 } else {
                     $('#environment').text('Ambiente: ' + (eventData.environment ? eventData.environment.name : 'N/A'));
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
+                        $('#instructor_program_id').val(eventData.instructor_program.id);
                         $('#instructor').text('Instructor: ' + (eventData.person ? eventData.person.first_name : 'N/A'));
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
@@ -199,6 +249,7 @@
                             title: titleWithInitials, // Usar el título con las iniciales
                             start: eventData.date + 'T' + eventData.start_time,
                             end: eventData.date + 'T' + eventData.end_time,
+                            instructor_program: eventData,
                             person: eventData.person,
                             course: eventData.course,
                             environment: eventData.environment,
