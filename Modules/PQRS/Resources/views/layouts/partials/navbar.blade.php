@@ -6,7 +6,15 @@
       </li>
       <li class="nav-item d-lg-inline-block">
         <a href="{{ route('cefa.pqrs.home.index') }}" class="nav-link">{{ trans('sica::menu.Home') }}</a>
-    </li>
+      </li>
+      
+      @if (checkRol('official'))
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('pqrs.official.answer.index') }}" role="button">
+            Funcionario
+          </a>
+        </li>
+      @endif
     </ul>
 
     <!-- Right navbar links -->

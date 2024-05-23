@@ -53,7 +53,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column">
                     <li class="nav-item">
                         <a href="{{ route('cefa.welcome') }}" class="nav-link {{ !Route::is('cefa.contact.maps') ?: 'active' }}">
-                            <i class="fas fa-puzzle-piece"></i>
+                            <i class="fas fa-puzzle-piece nav-icon"></i>
                             <p>
                                 {{ trans('sica::menu.Back to') }} SICEFA
                             </p>
@@ -71,18 +71,26 @@
                     <li class="nav-item">
                         <a href="{{ route('cefa.pqrs.home.index') }}"
                             class="nav-link {{ !Route::is('cefa.pqrs.home.index') ?: 'active' }}">
-                            <i class="fas fa-home"></i>
+                            <i class="fas fa-home nav-icon"></i>
                             <p>Inicio</p>
                         </a>
                     </li>
                 @endif    
-
                 <li class="nav-item">
                     <a href="{{ route('pqrs.tracking.index') }}" class="nav-link {{ !Route::is('pqrs.tracking.index') ?: 'active' }}">
-                        <i class="fas fa-comments"></i>
+                        <i class="fas fa-comments nav-icon"></i>
                         <p>Seguimiento</p>
                     </a>
                 </li>
+               
+                @if (Route::is('*official*'))                  
+                    <li class="nav-item">
+                        <a href="{{ route('pqrs.official.answer.index') }}" class="nav-link {{ !Route::is('pqrs.official.answer.index') ?: 'active' }}">
+                            <i class="fas fa-thumbtack nav-icon"></i>
+                            <p>Responder</p>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

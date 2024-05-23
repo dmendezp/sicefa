@@ -42,15 +42,28 @@ class TrackingController extends Controller
         return response()->json($results);
     }
 
+    public function create(){
+        $titlePage = 'Registrar PQRS';
+        $titleView = 'Registrar PQRS';
+
+        $data  = [
+            'titlePage' => $titlePage,
+            'titleView' => $titleView,
+        ];
+
+        return view('pqrs::tracking.create', $data);
+    }
+
     public function store(Request $request){
+        
         $rules = [
             'filing_number' => 'required',
             'nis' => 'required',
             'filing_date' => 'required',
             'type_pqrs' => 'required',
-            'start_date' => 'required',
             'end_date' => 'required',
             'issue' => 'required',
+            'responsible' => 'required'
         ];
 
         $messages =[
@@ -58,13 +71,12 @@ class TrackingController extends Controller
             'nis.required' => 'Debe registrar el NIS.',
             'filing_date.required' => 'Debe registrar la fecha de radicación.',
             'type_pqrs.required' => 'Debe seleccionar un asunto.',
-            'start_date.required' => 'Debe registrar la fecha de llegada de la PQRS.',
             'end_date.required' => 'Debe registrar la fecha limite de respuesta.',
-            'issue.required' => 'Debe registrar una descripción de la PQRS.'
+            'issue.required' => 'Debe registrar una descripción de la PQRS.',
+            'responsible.required' => 'Debe asignar un funcionario'
         ];
 
         $validatedData = $request->validate($rules, $messages);
-
         try {
             DB::beginTransaction();
 
@@ -73,28 +85,24 @@ class TrackingController extends Controller
             $pqrs->filing_number = $validatedData['filing_number'];
             $pqrs->filing_date = $validatedData['filing_date'];
             $pqrs->nis = $validatedData['nis'];
-            $pqrs->start_date = $validatedData['start_date'];
+            $pqrs->start_date = '2024-05-23';
             $pqrs->end_date = $validatedData['end_date'];
             $pqrs->issue = $validatedData['issue'];
             $pqrs->save();
 
+            $pqrs->people()->attach($validatedData['responsible'], [
+                'consecutive' => 1,
+                'date' => now()->format('Y-m-d')
+            ]);
+
+
             DB::commit();
 
-            return redirect()->route('pqrs.tracking.index'); 
+            return redirect()->route('pqrs.tracking.index')->with(['success' => 'Se registro la PQRS exitosamente']); 
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->withErrors($validatedData);
+            return redirect()->back()->withErrors($validatedData)->withInput()->with(['error' => 'Error al registrar la PQRS']);;
         }
-    }
-
-    public function assign (Request $request, $id){
-        $pqrs = Pqrs::find($id);
-        $pqrs->people()->attach($request->responsible, [
-            'consecutive' => 1,
-            'date' => now()->format('Y-m-d')
-        ]);
-
-        return redirect()->route('pqrs.tracking.index'); 
     }
 }
