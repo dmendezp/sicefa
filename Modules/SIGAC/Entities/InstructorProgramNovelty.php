@@ -5,11 +5,16 @@ namespace Modules\SIGAC\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class SpecialProgram extends Model
+class InstructorProgramNovelty extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'instructor_program_id',
+        'date',
+        'activity',
+        'observation'
+    ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 
@@ -20,6 +25,10 @@ class SpecialProgram extends Model
     
     protected static function newFactory()
     {
-        return \Modules\SIGAC\Database\factories\SpecialProgramFactory::new();
+        return \Modules\SIGAC\Database\factories\InstructorProgramNoveltiesFactory::new();
+    }
+
+    public function instructor_program () {
+        return $this->belongsTo(InstructorProgram::class);
     }
 }

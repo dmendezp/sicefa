@@ -95,7 +95,7 @@
                 </div> 
                 <div class="form-group">
                     {!! Form::label('conversion_factor', trans('hdc::parameters.Modal_conversion_factor')) !!}
-                    {!! Form::number('conversion_factor', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el factor de conversión']) !!}
+                    {!! Form::text('conversion_factor', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el factor de conversión']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('personal', trans('hdc::parameters.Modal_consumption_type')) !!}
@@ -141,7 +141,7 @@
                     </div> 
                     <div class="form-group">
                         {!! Form::label('conversion_factor', trans('hdc::parameters.Modal_conversion_factor')) !!}
-                        {!! Form::number('conversion_factor', $e->conversion_factor, ['class' => 'form-control', 'placeholder' => 'Ingrese el factor de conversión']) !!}
+                        {!! Form::text('conversion_factor', $e->conversion_factor, ['class' => 'form-control', 'placeholder' => 'Ingrese el factor de conversión']) !!}
                     </div>
                     <div class="form-group">
                         {!! Form::label('personal', trans('hdc::parameters.Modal_consumption_type')) !!}

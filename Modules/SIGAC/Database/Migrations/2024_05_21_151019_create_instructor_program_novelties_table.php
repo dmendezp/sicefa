@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateChangeInstructorProgramsTable extends Migration
+class CreateInstructorProgramNoveltiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateChangeInstructorProgramsTable extends Migration
      */
     public function up()
     {
-        Schema::create('change_instructor_programs', function (Blueprint $table) {
+        Schema::create('instructor_program_novelties', function (Blueprint $table) {
             $table->id();
             $table->foreignId('instructor_program_id')->constrained()->onDelete('cascade');
-            $table->date('date');
             $table->enum('activity',['Formación','Atención medios tecnológicos','Investigación','Permiso','Compromiso Institucional']);
             $table->text('observation')->nullable();
             $table->softDeletes();
@@ -32,6 +31,6 @@ class CreateChangeInstructorProgramsTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('change_instructor_programs');
+        Schema::dropIfExists('instructor_program_novelties');
     }
 }

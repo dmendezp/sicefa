@@ -18,7 +18,12 @@ class InstructorProgram extends Model implements Auditable
 
     protected $fillable = ['person_id','environment_id','course_id','learning_outcome_id','state','date','start_time','end_time'];
 
-    protected $hidden = ['created_at','updated_at'];
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
+
+    protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
+        'created_at',
+        'updated_at'
+    ];
 
     public function attendances (){
         return $this->hasMany(Attendance::class);
@@ -27,20 +32,20 @@ class InstructorProgram extends Model implements Auditable
     {
         return $this->hasMany(AttendanceApprentice::class);
     }
-    public function person()
-    {
-        return $this->belongsTo(Person::class);
-    }
-    public function environment()
-    {
-        return $this->belongsTo(Environment::class);
-    }
     public function course()
     {
         return $this->belongsTo(Course::class);
     }
-    public function learning_outcome()
+    public function instructor_program_people()
     {
-        return $this->belongsTo(learningOutcome::class);
+        return $this->hasMany(InstructorProgramPerson::class);
+    }
+    public function environment_instructor_programs()
+    {
+        return $this->hasMany(EnvironmentInstructorProgram::class);
+    }
+    public function instructor_program_outcomes()
+    {
+        return $this->hasMany(InstructorProgramOutcome::class);
     }
 }

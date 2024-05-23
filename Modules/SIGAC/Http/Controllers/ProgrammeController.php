@@ -20,6 +20,7 @@ use Modules\SIGAC\Entities\Quarterly;
 use Modules\SIGAC\Entities\SpecialProgram;
 use Modules\SIGAC\Entities\ProgramRequest;
 use Modules\SIGAC\Entities\ProgramRequestDate;
+use Modules\SIGAC\Entities\InstructorProgramNovelty;
 use DB;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Program;
@@ -298,24 +299,27 @@ class ProgrammeController extends Controller
 
         if ($option == 1) {
 
-            $programmingEvents = InstructorProgram::with('person', 'course.program', 'course.municipality.department','environment','learning_outcome')->whereHas('person', function ($query) use ($filter) {
+            $programmingEvents = InstructorProgram::with('instructor_program_people.person', 'course.program', 'course.municipality.department','environment_instructor_programs.environment','instructor_program_outcomes.learning_outcome')->whereHas('instructor_program_people.person', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
                 ->get();
         } elseif ($option == 2) {
-            $programmingEvents = InstructorProgram::with('person', 'course.program', 'course.municipality.department', 'environment','learning_outcome')->whereHas('environment', function ($query) use ($filter) {
+            $programmingEvents = InstructorProgram::with('instructor_program_people.person', 'course.program', 'course.municipality.department', 'environment_instructor_programs.environment','instructor_program_outcomes.learning_outcome')->whereHas('environment_instructor_programs.environment', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
                 ->get();
         } else {
-            $programmingEvents = InstructorProgram::with('person', 'course.program', 'course.municipality.department','environment','learning_outcome')->whereHas('course', function ($query) use ($filter) {
+            $programmingEvents = InstructorProgram::with('instructor_program_people.person', 'course.program', 'course.municipality.department','environment_instructor_programs.environment','instructor_program_outcomes.learning_outcome')->whereHas('course', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
                 ->get();
         }
 
         foreach ($programmingEvents as $programmingEvent) {
-            $name = $programmingEvent->person->fullname;
+            foreach ($programmingEvent->instructor_program_people as $asociacion) {
+                $name = $asociacion->person->fullname;
+            }
+            
             $parts = explode(' ', $name); // Dividir el nombre completo en palabras individuales
             $initials = '';
 
@@ -323,13 +327,19 @@ class ProgrammeController extends Controller
                 $initials .= strtoupper(substr($part, 0, 1)); // Tomar la primera letra de cada palabra y convertirla a mayúsculas
             }
 
-            $programmingEvent->person->initials = $initials; // Agregar las iniciales al objeto de persona en el evento de programación
+            foreach ($programmingEvent->instructor_program_people as $asociacion) {
+                $asociacion->person->initials = $initials; // Agregar las iniciales al objeto de persona en el evento de programación
+            }
+
+            
         }
 
         // Construir una cadena de texto que contenga todas las iniciales
         $allInitials = '';
         foreach ($programmingEvents as $programmingEvent) {
-            $allInitials .= $programmingEvent->person->initials;
+            foreach ($programmingEvent->instructor_program_people as $asociacion) {
+                $allInitials .= $asociacion->person->initials;
+            }
         }
 
         // Devolver las iniciales junto con la respuesta JSON
@@ -1016,6 +1026,34 @@ class ProgrammeController extends Controller
             DB::commit();
     
             return redirect()->route('sigac.support.programming.program_request.characterization.index')->with('success', 'Solicitud cancelada');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('Error en el registro: ' . $e->getMessage());
+            return response()->json(['error' => 'Error interno del servidor',$e], 500);
+        }
+    }
+
+    // Novedad de programación
+    public function management_programming_novelty(Request $request)
+    {
+        try {
+            $instructor_program_id = $request->input('instructor_program_id');
+            $activity = $request->input('activity');
+            $observation = $request->input('observation');
+            $option = $request->input('option');
+            DB::beginTransaction();
+                $instructor_program_novelty = InstructorProgramNovelty::findOrFail($id);
+                $instructor_program_novelty->instructor_program_id = $instructor_program_id;
+                $instructor_program_novelty->activity = $activity;
+                $instructor_program_novelty->observation = $observation;
+                $instructor_program_novelty->save();
+
+                if ($option == true) {
+                    # code...
+                }
+            DB::commit();
+    
+            return redirect()->route('sigac.academic_coordination.programming.management.index')->with('success', 'Novedad Enviada');
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error('Error en el registro: ' . $e->getMessage());

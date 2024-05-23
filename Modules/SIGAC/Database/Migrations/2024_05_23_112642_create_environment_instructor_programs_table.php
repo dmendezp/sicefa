@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInstructorProgramsTable extends Migration
+class CreateEnvironmentInstructorProgramsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateInstructorProgramsTable extends Migration
      */
     public function up()
     {
-        Schema::create('instructor_programs', function (Blueprint $table) {
+        Schema::create('environment_instructor_programs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained()->onDelete('cascade');
-            $table->date('date');
-            $table->time('start_time');
-            $table->time('end_time');
-            $table->enum('state', ['Programado','Cancelado']);
+            $table->foreignId('instructor_program_id')->constrained()->onDelete('cascade');
+            $table->foreignId('environment_id')->constrained()->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateInstructorProgramsTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('instructor_programs');
+        Schema::dropIfExists('environment_instructor_programs');
     }
 }

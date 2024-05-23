@@ -17,6 +17,13 @@ class Profession extends Model implements Auditable
         'name',
         'level'
     ];
+
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
+
+    protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
+        'created_at',
+        'updated_at'
+    ];
     
     protected static function newFactory()
     {
