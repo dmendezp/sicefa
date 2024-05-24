@@ -3,8 +3,16 @@
 @section('stylesheet')
 
 <style>
+    .addPqrs{
+        margin-bottom: 10px;
+    }
+
     .row-yellow{
         background-color: yellow !important;
+    }
+
+    .modal_answer{
+        font-weight: bold;
     }
 </style>
 
@@ -20,7 +28,7 @@
                 </div>
                 <div class="card-body">
                     <a href="{{ route('pqrs.tracking.create') }}">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearPQRS">
+                        <button type="button" class="btn btn-success addPqrs" data-bs-toggle="modal" data-bs-target="#crearPQRS" title="Agregar PQRS">
                             <i class="fas fa-plus-circle fa-fw"></i>
                         </button>
                     </a>
@@ -36,7 +44,7 @@
                                     <th>Asunto</th>
                                     <th>Funcionario</th>
                                     <th>Estado</th>
-                                    <th>Respuesta</th>
+                                    <th>Descripción asunto</th>
                                     <th>Acciones</th>                                    
                                 </tr>
                             </thead>
@@ -50,16 +58,10 @@
                                         <td>{{ $p->type_pqrs->name }}</td>
                                         <td>{{ $p->people->first()->first_name. ' ' . $p->people->first()->first_last_name . ' ' . $p->people->first()->second_last_name}}</td>
                                         <td>{{ $p->state }}</td>
-                                        <td>
-                                            @if($p->answer == null)
-                                                No se ha dado respuesta
-                                            @else
-                                                {{ Str::limit($p->answer, 10) }}                                                                                        
-                                            @endif
-                                        </td>
+                                        <td>{{ $p->issue }}</td>
                                         <td>
                                             @if ($p->state == 'RESPUESTA GENERADA' || $p->state == 'RESPUESTA PARCIAL')
-                                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#info{{ $p->id }}">
+                                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#info{{ $p->id }}" title="Información de la {{ $p->type_pqrs->name }}">
                                                     <i class="fas fa-eye"></i>
                                                 </button>       
                                             @endif

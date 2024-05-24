@@ -19,6 +19,12 @@
                         <p><span class="modal_answer">Respuesta:</span> {{ $p->answer }}</p>
                     </div>
                 </div>
+                <div class="row">
+                    {!! Form::open(['method' => 'post', 'url' => route('pqrs.official.answer.email')]) !!}
+                        {!! Form::hidden('id', $pqrs->first()->id) !!}
+                        {!! Form::submit('Enviar', ['class' => 'btn btn-success']) !!}
+                    {!! Form::close() !!}
+                </div>
             </div>
         </div>
         <div class="modal-footer">

@@ -13,9 +13,12 @@ Route::middleware(['lang'])->group(function(){
 
         Route::controller(AnswerController::class)->group(function () {
             Route::get('/official/answer/index', 'index')->name('pqrs.official.answer.index');
+            Route::get('/official/answer/viewMail', 'viewMail')->name('pqrs.official.answer.viewMail');
             Route::post('/official/answer/store', 'store')->name('pqrs.official.answer.store');
             Route::get('/official/answer/searchOfficial', 'searchOfficial')->name('pqrs.official.answer.searchOfficial');
-            Route::post('/official/answer/reasign', 'store')->name('pqrs.official.answer.reasign');
+            Route::post('/official/answer/reasign', 'reasign')->name('pqrs.official.answer.reasign');
+            Route::post('/official/answer/email', 'email')->name('pqrs.official.answer.email');
+
         });
     });
 });

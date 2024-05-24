@@ -2,10 +2,13 @@
 
 @section('stylesheet')
     <style>
+        .reasign-container{
+            margin-bottom: 10px;
+        }
+
         .modal_answer{
             font-weight: bold;
         }
-
         .row-yellow{
             background-color: yellow !important;
         }
@@ -23,13 +26,13 @@
         <div class="d-flex justify-content-center">
             <div class="card card-blue card-outline shadow col-md-12">
                 <div class="card-header">
-                    <h3 class="card-title">Respuestas PQRS</h3>            
+                    <h3 class="card-title">Mis PQRS</h3>            
                 </div>
                 <div class="card-body">
                     @foreach ($pqrs as $p)
                     <div class="reasign-container" id="reasign-{{ $p->id }}" style="display: none;">
-                        <div class="row">
-                            {!! Form::open(['method' => 'post', 'url' => route('pqrs.official.answer.reasign')]) !!}
+                        {!! Form::open(['method' => 'post', 'url' => route('pqrs.official.answer.reasign')]) !!}
+                            <div class="row">
                                 <div class="col-md-8">
                                     {!! Form::hidden('id', $p->id) !!}
                                     {!! Form::label('responsible', 'Funcionario') !!}
@@ -43,8 +46,8 @@
                                         <i class="fas fa-save"></i>
                                     </button>
                                 </div>
-                            {!! Form::close() !!}
-                        </div>
+                            </div>
+                        {!! Form::close() !!}
                     </div>
                     @endforeach
                     <div class="mtop16">
@@ -57,8 +60,7 @@
                                     <th>Descripción Asunto</th>
                                     <th>Estado</th>
                                     <th>Respuesta</th>
-                                    <th>Radicado Respuesta</th>
-                                    <th>Fecha Respuesta</th>
+                                    <th>Funcionario Reasignado</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -78,31 +80,34 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if($p->filed_response == null)
-                                                No se ha dado respuesta
+                                            @if ($p->people->first()->id == Auth::user()->person_id && $p->people()->max('consecutive') == 1)
+                                                ...
                                             @else
-                                                {{ $p->filed_response }}
+                                                @php
+                                                    $maxConsecutive = $p->people()->max('consecutive');
+                                                    $officialWithMaxConsecutive = $p->people()->where('consecutive', $maxConsecutive)->get();
+                                                @endphp
+                                                @foreach ($officialWithMaxConsecutive as $official)
+                                                   {{ $official->first_name . ' ' .$official->first_last_name . ' ' . $official->second_last_name }}
+                                                @endforeach
                                             @endif
                                         </td>
                                         <td>
-                                            @if($p->response_date == null)
-                                                No se ha dado respuesta
-                                            @else
-                                                {{ $p->response_date }}
+                                            @if ($p->state == 'EN PROCESO' || $p->state == 'PROXIMO A VENCER')
+                                                @if ($p->people->first()->id == Auth::user()->person_id && $p->people()->max('consecutive') <= 1)                                          
+                                                    <button type="button" class="btn btn-primary answer" data-bs-toggle="modal" data-bs-target="#answer{{ $p->id }}" title="Responser {{ $p->type_pqrs->name }}">
+                                                        <i class="fas fa-retweet"></i>
+                                                    </button>
+                                                @endif  
                                             @endif
-                                        </td>
-                                        <td>
-                                            @if ($p->state == 'EN PROCESO' || $p->state == 'PROXIMO A VENCER')                                           
-                                                <button type="button" class="btn btn-primary answer" data-bs-toggle="modal" data-bs-target="#answer{{ $p->id }}">
-                                                    <i class="fas fa-retweet"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-success reasign"  data-id="{{ $p->id }}">
+                                            @if ($p->state == 'EN PROCESO' || $p->state == 'PROXIMO A VENCER' && $p->people()->max('consecutive') == 1)
+                                                <button type="button" class="btn btn-success reasign" data-id="{{ $p->id }}" title="Reasignar {{ $p->type_pqrs->name }}">
                                                     <i class="fas fa-share-square"></i>
                                                 </button>
                                             @endif
                                             @include('pqrs::answer.create')
                                             @if ($p->state == 'RESPUESTA GENERADA' || $p->state == 'RESPUESTA PARCIAL')
-                                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#info{{ $p->id }}">
+                                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#info{{ $p->id }}" title="Información de la {{ $p->type_pqrs->name }}">
                                                     <i class="fas fa-eye"></i>
                                                 </button>       
                                             @endif

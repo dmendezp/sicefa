@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Modules\PQRS\Entities\Pqrs;
 use Modules\SICA\Entities\Person;
 use Illuminate\Support\Facades\DB;
+use Modules\PQRS\Emails\PqrsAlert;
+use Illuminate\Support\Facades\Mail;
 class AnswerController extends Controller
 {
     public function index(){
@@ -31,12 +33,14 @@ class AnswerController extends Controller
     public function store(Request $request){
         $rules = [
             'answer' => 'required',
+            'type_answer' => 'required',
             'filed_response' => 'required',
             'response_date' => 'required',
         ];
 
         $messages = [
             'answer.required' => 'Debe registrar una respuesta',
+            'type_answer.required' => 'Debe seleccionar un tipo de respuesta',
             'filed_response.required' => 'Debe registrar el numero de radicado',
             'response_date' => 'Debe registrar una fecha'
         ];
@@ -46,7 +50,7 @@ class AnswerController extends Controller
             DB::beginTransaction();
 
             $pqrs = Pqrs::find($request->pqrs_id);
-            $pqrs->state = 'RESPUESTA GENERADA';
+            $pqrs->state = $validatedData['type_answer'];
             $pqrs->answer = $validatedData['answer'];
             $pqrs->filed_response = $validatedData['filed_response'];
             $pqrs->response_date = $validatedData['response_date'];
@@ -77,15 +81,40 @@ class AnswerController extends Controller
         return response()->json($results);
     }
 
-    public function reasing(Request $request){
+    public function reasign(Request $request){
         $pqrs = Pqrs::find($request->id);
         
-       
-        $pqrs->people()->attach($validatedData['responsible'], [
-            'consecutive' => 1,
+        $consecutive = $pqrs->people()->max('consecutive');
+                
+        $pqrs->people()->attach($request->responsible, [
+            'consecutive' => $consecutive + 1,
             'date' => now()->format('Y-m-d')
         ]);
 
-        return redirect()->route('pqrs.tracking.index')->with(['success' => 'Se reasigno correctamente la PQRS']); 
+        return redirect()->route('pqrs.official.answer.index')->with(['success' => 'Se reasigno correctamente la PQRS']); 
+    }
+
+    public function viewMail(){
+        $titlePage = 'Respuesta de PQRS';
+        $titleView = 'Respuesta de PQRS';
+
+        $pqrs = Pqrs::get();
+
+        $data = [
+            'titlePage' => $titlePage,
+            'titleView' => $titleView,
+            'pqrs' => $pqrs
+        ];
+        
+        return view('pqrs::emails.pqrs', $data);
+    }
+
+    public function email(Request $request)
+    {
+        $pqrs = Pqrs::findOrFail($request->id);
+ 
+        // Ship the order...
+ 
+        Mail::to('julianjavierramirezdiaz73@gmail.com')->send(new PqrsAlert($pqrs));
     }
 }
