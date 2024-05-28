@@ -75,13 +75,13 @@
         });
 
         // Obtener resultados de aprendizaje por competencia
-    $('.competencies').on('change', function() {
-        // Eliminar todas las filas de resultados de aprendizaje excepto la original
-        $('#learning_outcomes_container .learning_outcomes_row:not(:first)').remove();
-        
-        // Obtener resultados de aprendizaje para la nueva fila
-        getLearningOutcomesForNewRow();
-    });
+        $('.competencies').on('change', function() {
+            // Eliminar todas las filas de resultados de aprendizaje excepto la original
+            $('#learning_outcomes_container .learning_outcomes_row:not(:first)').remove();
+            
+            // Obtener resultados de aprendizaje para la nueva fila
+            getLearningOutcomesForNewRow();
+        });
 
 
         // Función para obtener los resultados de aprendizaje para la nueva fila
@@ -111,8 +111,6 @@
                         console.error('Error en la solicitud AJAX');
                     }
                 });
-            } else {
-                $('#cropsSelectContainer').hide();
             }
         }
     });

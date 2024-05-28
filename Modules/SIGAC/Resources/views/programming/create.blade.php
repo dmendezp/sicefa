@@ -60,22 +60,53 @@
                         {{ session('mensaje') }}
                     </p>
                 @endif
-                <div class="form-group">
-                    {!! Form::label('learning_outcome', 'Resultado de Aprendizaje') !!}
-                    <div class="input-select">
-                        {!! Form::select('learning_outcome', [], old('learning_outcome'), ['class' => 'form-control select2 learning_outcome_select', 'required']) !!}
+                {!! Form::label('learning_outcome', 'Resultado de Aprendizaje') !!}
+                <!-- Resultado de Aprendizaje -->
+                <div id="learning_outcomes_container">
+                    <!-- Campo de selección de resultado de aprendizaje -->
+                    <div class="row align-items-center learning_outcomes_row">
+                        <div class="col-8">
+                            <div class="form-group">
+                                <div class="input-select">
+                                    {!! Form::select('learning_outcome[]', [], old('learning_outcome[]'), ['class' => 'form-control select2 learning_outcome_select le1', 'required']) !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-primary add_learning_outcomes"><i class="fas fa-plus"></i></button>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    {!! Form::label('instructor', 'Instructor') !!}
-                    <div class="input-select">
-                        {!! Form::select('instructor', [], old('instructor'), ['class' => 'form-control select2 instructors', 'required']) !!}
+                {!! Form::label('instructor', 'Instructor') !!}
+                <div id="instructors_container">
+                    <!-- Campo de selección de instructores -->
+                    <div class="row align-items-center instructor_row">
+                        <div class="col-8">
+                            <div class="form-group">
+                                <div class="input-select">
+                                    {!! Form::select('instructor[]', [], old('instructor[]'), ['class' => 'form-control select2 instructors', 'required']) !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-primary add_instructor"><i class="fas fa-plus"></i></button>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    {!! Form::label('environment', 'Ambiente') !!}
-                    <div class="input-select">
-                        {!! Form::select('environment', [], old('environment'), ['class' => 'form-control select2 environments', 'required']) !!}
+                {!! Form::label('environment', 'Ambiente') !!}
+                <div id="environments_container">
+                    <!-- Campo de selección de ambiente -->
+                    <div class="row align-items-center environment_row">
+                        <div class="col-8">
+                            <div class="form-group">
+                                <div class="input-select">
+                                    {!! Form::select('environment[]', [], old('environment[]'), ['class' => 'form-control select2 environments', 'required']) !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-primary add_environment"><i class="fas fa-plus"></i></button>
+                        </div>
                     </div>
                 </div>
                 <div class="accordion" id="accordionExample">
@@ -185,29 +216,8 @@
                         console.error('Error en la solicitud AJAX');
                     }
                 });
-                $.ajax({
-                    url: '{{ route('sigac.academic_coordination.programming.management.filterlearning') }}',
-                    method: 'GET',
-                    data: {
-                        course_id: course_id
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        if (response.learning_outcome) {
-                            
-                            var learning_outcomeSelect = $('.learning_outcome_select').last();
-                            learning_outcomeSelect.empty();
-                            learning_outcomeSelect.append(new Option('Seleccione el resultado de aprendizaje', ''));
-                            $.each(response.learning_outcome, function(id , name) {
-                                learning_outcomeSelect.append(new Option(name, id));
-                            });
-                        }
-                        $('.learning_outcome_select').select2(); // Inicializa el campo course como select2
-                    },
-                    error: function() {
-                        console.error('Error en la solicitud AJAX');
-                    }
-                });
+                // Obtener resultados de aprendizaje para el nuevo select
+                getLearningOutcomesForNewRow();
             } else {
                 
             }
@@ -216,55 +226,12 @@
             var learning_outcome_id = $(this).val();
 
             if (learning_outcome_id) {
-                $.ajax({
-                    url: '{{ route('sigac.academic_coordination.programming.management.filterinstructor') }}',
-                    method: 'GET',
-                    data: {
-                        learning_outcome_id: learning_outcome_id,
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        if (response.instructors) {
-                            var instructorSelect = $('.instructors').last();
-                            instructorSelect.empty();
-                            instructorSelect.append(new Option('Seleccione el instructor', ''));
+                
+                // Obtener instructor para el nuevo select
+                getInstructorForNewRow();
 
-                            // Iterar sobre la lista de instructores
-                            $.each(response.instructors, function(index, instructor) {
-                                instructorSelect.append(new Option(instructor.first_name, instructor.id));
-                            });
-
-                            // Inicializa el campo instructor como select2 después de actualizar las opciones
-                            instructorSelect.select2();
-                        }
-                    },
-                    error: function() {
-                        console.error('Error en la solicitud AJAX');
-                    }
-                });
-                $.ajax({
-                    url: '{{ route('sigac.academic_coordination.programming.management.filterenvironment') }}',
-                    method: 'GET',
-                    data: {
-                        learning_outcome_id: learning_outcome_id,
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        if (response.environments) {
-                            
-                            var environmentsSelect = $('.environments').last();
-                            environmentsSelect.empty();
-                            environmentsSelect.append(new Option('Seleccione el ambiente', ''));
-                            $.each(response.environments, function(id , name) {
-                                environmentsSelect.append(new Option(name, id));
-                            });
-                        }
-                        $('.instructors').select2(); // Inicializa el campo course como select2
-                    },
-                    error: function() {
-                        console.error('Error en la solicitud AJAX');
-                    }
-                });
+                // Obtener ambientes para el nuevo select
+                getEnvironmentForNewRow();
 
                 $.ajax({
                     url: '{{ route('sigac.academic_coordination.programming.management.filterstatelearning') }}',
@@ -311,6 +278,174 @@
                 
             }
         });
+
+        // Función para agregar fila de resultado de aprendizaje
+        $(document).on('click', '.add_learning_outcomes', function() {
+            var newRowHtml = `
+                <div class="row align-items-center learning_outcomes_row">
+                    <div class="col-8">
+                        <div class="form-group">
+                            {!! Form::select('learning_outcome_id[]', [], old('learning_outcome_id[]'), ['class' => 'form-control select2 learning_outcome_select', 'required']) !!}
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn btn-primary add_learning_outcomes"><i class="fas fa-plus"></i></button>
+                        <button type="button" class="btn btn-danger delete-row"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `;
+            $('#learning_outcomes_container').append(newRowHtml); // Agregar nueva fila al contenedor
+            
+            // Obtener resultados de aprendizaje para el nuevo select
+            getLearningOutcomesForNewRow();
+        });
+
+        // Función para eliminar fila de resultado de aprendizaje
+        $(document).on('click', '.delete-row', function() {
+            $(this).closest('.learning_outcomes_row').remove();
+        });
+
+        // Función para obtener los resultados de aprendizaje para la nueva fila
+        function getLearningOutcomesForNewRow() {
+            var course_id = $('#course').val();
+            $.ajax({
+                url: '{{ route('sigac.academic_coordination.programming.management.filterlearning') }}',
+                method: 'GET',
+                data: {
+                    course_id: course_id
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response.learning_outcome) {
+                        
+                        var learning_outcomeSelect = $('.learning_outcome_select').last();
+                        learning_outcomeSelect.empty();
+                        learning_outcomeSelect.append(new Option('Seleccione el resultado de aprendizaje', ''));
+                        $.each(response.learning_outcome, function(id , name) {
+                            learning_outcomeSelect.append(new Option(name, id));
+                        });
+                    }
+                    $('.learning_outcome_select').select2();
+                },
+                error: function() {
+                    console.error('Error en la solicitud AJAX');
+                }
+            });
+        }
+
+        // Función para agregar fila de ambiente
+        $(document).on('click', '.add_environment', function() {
+            var newRowHtml = `
+                <div class="row align-items-center environment_row">
+                    <div class="col-8">
+                        <div class="form-group">
+                            {!! Form::select('environment[]', [], old('environment[]'), ['class' => 'form-control select2 environments', 'required']) !!}
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn btn-primary add_environment"><i class="fas fa-plus"></i></button>
+                        <button type="button" class="btn btn-danger delete_environment-row"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `;
+            $('#environments_container').append(newRowHtml); // Agregar nueva fila al contenedor
+            
+            // Obtener ambientes para el nuevo select
+            getEnvironmentForNewRow();
+        });
+
+        // Función para eliminar fila del ambiente
+        $(document).on('click', '.delete_environment-row', function() {
+            $(this).closest('.environment_row').remove();
+        });
+
+        // Obtener ambientes para el nuevo select
+        function getEnvironmentForNewRow() {
+            var learning_outcome_id = $('.le1').val();
+            console.log(learning_outcome_id);
+            $.ajax({
+                url: '{{ route('sigac.academic_coordination.programming.management.filterenvironment') }}',
+                method: 'GET',
+                data: {
+                    learning_outcome_id: learning_outcome_id,
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response.environments) {
+                        
+                        var environmentsSelect = $('.environments').last();
+                        environmentsSelect.empty();
+                        environmentsSelect.append(new Option('Seleccione el ambiente', ''));
+                        $.each(response.environments, function(id , name) {
+                            environmentsSelect.append(new Option(name, id));
+                        });
+                    }
+                    $('.environments').select2();
+                },
+                error: function() {
+                    console.error('Error en la solicitud AJAX');
+                }
+            });
+        }
+
+
+        // Función para agregar fila de instructor
+        $(document).on('click', '.add_instructor', function() {
+            var newRowHtml = `
+                <div class="row align-items-center instructor_row">
+                    <div class="col-8">
+                        <div class="form-group">
+                            {!! Form::select('instructor[]', [], old('instructor[]'), ['class' => 'form-control select2 instructors', 'required']) !!}
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn btn-primary add_instructor"><i class="fas fa-plus"></i></button>
+                        <button type="button" class="btn btn-danger delete_instructor-row"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `;
+            $('#instructors_container').append(newRowHtml); // Agregar nueva fila al contenedor
+            
+            // Obtener instructor para el nuevo select
+            getInstructorForNewRow();
+        });
+
+        // Función para eliminar fila del instructor
+        $(document).on('click', '.delete_instructor-row', function() {
+            $(this).closest('.instructor_row').remove();
+        });
+
+        // Obtener instructor para el nuevo select
+        function getInstructorForNewRow() {
+            var learning_outcome_id = $('.le1').val();
+            console.log(learning_outcome_id);
+            $.ajax({
+                url: '{{ route('sigac.academic_coordination.programming.management.filterinstructor') }}',
+                method: 'GET',
+                data: {
+                    learning_outcome_id: learning_outcome_id,
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response.instructors) {
+                        var instructorSelect = $('.instructors').last();
+                        instructorSelect.empty();
+                        instructorSelect.append(new Option('Seleccione el instructor', ''));
+
+                        // Iterar sobre la lista de instructores
+                        $.each(response.instructors, function(index, instructor) {
+                            instructorSelect.append(new Option(instructor.first_name, instructor.id));
+                        });
+
+                        // Inicializa el campo instructor como select2 después de actualizar las opciones
+                        instructorSelect.select2();
+                    }
+                },
+                error: function() {
+                    console.error('Error en la solicitud AJAX');
+                }
+            });
+        }
     });
 </script>
 

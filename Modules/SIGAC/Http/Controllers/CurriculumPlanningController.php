@@ -35,14 +35,14 @@ class CurriculumPlanningController extends Controller
     public function training_project_index()
     {
         $learning_outcomes = LearningOutcome::pluck('name', 'id');
-        $coursesWithTrainingProjects =  Course::has('training_projects')->with('training_projects.quarterlies.learning_outcome.instructor_programs')->get();
+        $coursesWithTrainingProjects = Course::has('training_projects')->with('training_projects.quarterlies.learning_outcome.instructor_program_outcomes.instructor_program')->get();
 
         // Contar los resultados de aprendizaje programados para cada proyecto formativo
         $counts = [];
         foreach ($coursesWithTrainingProjects as $course) {
             foreach ($course->training_projects as $trainingProject) {
                 $count = $trainingProject->quarterlies->flatMap(function ($quarterly) {
-                    return $quarterly->learning_outcome->instructor_programs;
+                    return $quarterly->learning_outcome->instructor_program_outcomes;
                 })->unique('learning_outcome_id')->count();
                 $counts[$trainingProject->id] = $count;
             }
@@ -707,7 +707,6 @@ class CurriculumPlanningController extends Controller
                 
                 return back()->with('success', 'Archivo excel escaneado coerrectamente. '.$countstate.' Programaciones Actualizados exitosamente.')->with('typealert', 'success');
             } catch (Exception $e) {
-                DB::rollBack(); // Devolver cambios realizados durante la transacción
                 return back()->with('error', 'Ocurrio un error en la importación y/o registro de datos del archivo excel cargado. <hr> <strong>Error: </strong> ('.$e->getMessage().').')->with('typealert', 'danger');
              }
 

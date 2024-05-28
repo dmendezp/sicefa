@@ -21,4 +21,8 @@ class InstructorProgramOutcome extends Model
     {
         return $this->belongsTo(LearningOutcome::class);
     }
+    public function instructor_program()
+    {
+        return $this->belongsTo(InstructorProgram::class);
+    }
 }

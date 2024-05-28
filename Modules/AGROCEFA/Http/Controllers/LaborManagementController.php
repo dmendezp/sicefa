@@ -913,9 +913,6 @@ class LaborManagementController extends Controller
             \Log::error('Error en el registro: ' . $e->getMessage());
             \Log::error('Error en el registro: ' . $e->getTraceAsString());
         
-            // También puedes imprimir información específica sobre el error
-            dd($e);
-        
             // O puedes redirigir a una página de error con un mensaje específico
             return redirect()
                 ->route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.index')

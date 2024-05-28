@@ -21,6 +21,9 @@ use Modules\SIGAC\Entities\SpecialProgram;
 use Modules\SIGAC\Entities\ProgramRequest;
 use Modules\SIGAC\Entities\ProgramRequestDate;
 use Modules\SIGAC\Entities\InstructorProgramNovelty;
+use Modules\SIGAC\Entities\InstructorProgramPerson;
+use Modules\SIGAC\Entities\EnvironmentInstructorProgram;
+use Modules\SIGAC\Entities\InstructorProgramOutcome;
 use DB;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Program;
@@ -117,8 +120,8 @@ class ProgrammeController extends Controller
         $learning_outcome_id = $request->input('learning_outcome_id');
 
         // Obtener la lista de programas de instructor asociados al resultado de aprendizaje
-        $instructor_programs = InstructorProgram::whereHas('learning_outcome', function($query) use ($learning_outcome_id) {
-            $query->where('id', $learning_outcome_id);
+        $instructor_programs = InstructorProgram::whereHas('instructor_program_outcomes', function($query) use ($learning_outcome_id) {
+            $query->where('learning_outcome_id', $learning_outcome_id);
         })->get();
 
         // Verificar si el resultado de aprendizaje está programado
@@ -148,73 +151,115 @@ class ProgrammeController extends Controller
     // Registrar programacion
     public function management_programming_store(Request $request)
     {
-        $days = $request->days;
-        $fechas = [];
-        $fechaActual = Carbon::parse($request->start_date);
-        while ($fechaActual->lte(Carbon::parse($request->end_date))) {
-            if (in_array($fechaActual->englishDayOfWeek, $days)) {
-                $fechas[] = $fechaActual->toDateString();
-            }
-            $fechaActual->addDay();
-        }
 
-        $course_id = $request->course;
-       
 
-        foreach ($fechas as $f) {
-            $programming = InstructorProgram::where('date', $f)
-            ->where(function ($query) use ($request) {
-                $query->where(function ($q) use ($request) {
-                    $q->where('start_time', '>=', $request->start_time)
-                        ->where('start_time', '<=', $request->end_time);
-                })
-                ->orWhere(function ($q) use ($request) {
-                    $q->where('end_time', '>=', $request->start_time)
-                        ->where('end_time', '<=', $request->end_time);
-                })
-                ->orWhere(function ($q) use ($request) {
-                    $q->where('start_time', '<=', $request->start_time)
-                        ->where('end_time', '>=', $request->end_time);
-                });
-            })
-            ->where('person_id', $request->instructor)
-            ->where('environment_id', $request->environment)
-            ->where('course_id', $course_id)
-            ->exists();
-
-            $holidays = Holiday::where('date', $f)->exists();
-
-            if($programming || $holidays){
-                $fechas_no_registradas[] = $f;
-                continue;
+            $days = $request->days;
+            $fechas = [];
+            $fechaActual = Carbon::parse($request->start_date);
+            while ($fechaActual->lte(Carbon::parse($request->end_date))) {
+                if (in_array($fechaActual->englishDayOfWeek, $days)) {
+                    $fechas[] = $fechaActual->toDateString();
+                }
+                $fechaActual->addDay();
             }
 
-            $quarterlies = Quarterly::with('learning_outcome.competencie','learning_outcome.people.professions')
-            ->where('learning_outcome_id', $request->learning_outcome)
-            ->whereHas('training_project.courses', function ($query) use ($course_id) {
-                $query->where('courses.id', $course_id);
-            })->pluck('id')->first();
+            $course_id = $request->course;
+            $instructors = $request->instructor;
+            $environments = $request->environment;
+            $learning_outcomes = $request->learning_outcome;
 
-            $p = new InstructorProgram;
-            $p->date = $f;
-            $p->start_time = $request->start_time;
-            $p->end_time = $request->end_time;
-            $p->person_id = $request->instructor;
-            $p->course_id = $request->course;
-            $p->environment_id = $request->environment;
-            $p->learning_outcome_id = $request->learning_outcome;
-            $p->save(); 
-        }
+            foreach ($fechas as $f) {
+                $programming = InstructorProgram::where('date', $f)
+                ->where(function ($query) use ($request) {
+                    $query->where(function ($q) use ($request) {
+                        $q->where('start_time', '>=', $request->start_time)
+                            ->where('start_time', '<=', $request->end_time);
+                    })
+                    ->orWhere(function ($q) use ($request) {
+                        $q->where('end_time', '>=', $request->start_time)
+                            ->where('end_time', '<=', $request->end_time);
+                    })
+                    ->orWhere(function ($q) use ($request) {
+                        $q->where('start_time', '<=', $request->start_time)
+                            ->where('end_time', '>=', $request->end_time);
+                    });
+                })
+                ->whereHas('instructor_program_people', function ($query) use ($instructors) {
+                    $query->whereIn('person_id', $instructors);
+                })
+                ->whereHas('environment_instructor_programs', function ($query) use ($environments) {
+                    $query->whereIn('environment_id', $environments);
+                })
+                ->where('course_id', $course_id)
+                ->exists();
 
-        if (!empty($fechas_no_registradas)) {
-            $hora_inicio = $request->start_time;
-            $hora_fin = $request->end_time;
-            $mensaje = 'No se pudieron registrar las siguientes fechas: ' . implode(', ', $fechas_no_registradas) . ', ya hay programación para estas fechas entre estas horas: ' . $hora_inicio . ' - ' . $hora_fin . '.';
-            return redirect(route('sigac.academic_coordination.programming.dates_index'))->with(['error'=> $mensaje]);
-        } else {
-            $mensaje = 'Programación creada con éxito.';
-            return redirect()->back()->with(['success'=> $mensaje]);
-        }
+                $holidays = Holiday::where('date', $f)->exists();
+
+                if($programming || $holidays){
+                    $fechas_no_registradas[] = $f;
+                    continue;
+                }
+
+                $quarterlies = Quarterly::with('learning_outcome.competencie','learning_outcome.people.professions')
+                ->where('learning_outcome_id', $request->learning_outcome)
+                ->whereHas('training_project.courses', function ($query) use ($course_id) {
+                    $query->where('courses.id', $course_id);
+                })->pluck('id')->first();
+
+                try {
+                    DB::beginTransaction();
+
+                    $p = new InstructorProgram;
+                    $p->date = $f;
+                    $p->start_time = $request->start_time;
+                    $p->end_time = $request->end_time;
+                    $p->course_id = $request->course;
+                    $p->state = 'Programado';
+                    $p->save();
+                    $instructor_program_id = $p->id;
+
+                    foreach ($instructors as $index => $instructor_id) {
+                        $instructor_program_people = new InstructorProgramPerson;
+                        $instructor_program_people->instructor_program_id = $instructor_program_id;
+                        $instructor_program_people->person_id = $instructor_id;
+                        $instructor_program_people->save();
+                    }
+                    
+                    foreach ($environments as $index => $environment_id) {
+                        $environment_instructor_programs = new EnvironmentInstructorProgram;
+                        $environment_instructor_programs->instructor_program_id = $instructor_program_id;
+                        $environment_instructor_programs->environment_id = $environment_id;
+                        $environment_instructor_programs->save();
+                    }
+                    foreach ($learning_outcomes as $index => $learning_outcome_id) {
+                        $instructor_program_outcomes = new InstructorProgramOutcome;
+                        $instructor_program_outcomes->instructor_program_id = $instructor_program_id;
+                        $instructor_program_outcomes->learning_outcome_id = $learning_outcome_id;
+                        $instructor_program_outcomes->state = 'Pendiente';
+                        $instructor_program_outcomes->save();
+                    }
+
+                    DB::commit();
+                } catch (\Exception $e) {
+                    // En caso de error, realiza un rollback de la transacción y maneja el error
+                    DB::rollBack();
+                
+                    \Log::error('Error en el registro: ' . $e->getMessage());
+                    \Log::error('Error en el registro: ' . $e->getTraceAsString());
+                }
+            }
+
+        
+
+            if (!empty($fechas_no_registradas)) {
+                $hora_inicio = $request->start_time;
+                $hora_fin = $request->end_time;
+                $mensaje = 'No se pudieron registrar las siguientes fechas: ' . implode(', ', $fechas_no_registradas) . ', ya hay programación para estas fechas entre estas horas: ' . $hora_inicio . ' - ' . $hora_fin . '.';
+                return redirect(route('sigac.academic_coordination.programming.dates_index'))->with(['error'=> $mensaje]);
+            } else {
+                $mensaje = 'Programación creada con éxito.';
+                return redirect()->back()->with(['success'=> $mensaje]);
+            }
 
     }
 
@@ -302,17 +347,20 @@ class ProgrammeController extends Controller
             $programmingEvents = InstructorProgram::with('instructor_program_people.person', 'course.program', 'course.municipality.department','environment_instructor_programs.environment','instructor_program_outcomes.learning_outcome')->whereHas('instructor_program_people.person', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
-                ->get();
+            ->where('state','=','Programado')
+            ->get();
         } elseif ($option == 2) {
             $programmingEvents = InstructorProgram::with('instructor_program_people.person', 'course.program', 'course.municipality.department', 'environment_instructor_programs.environment','instructor_program_outcomes.learning_outcome')->whereHas('environment_instructor_programs.environment', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
-                ->get();
+            ->where('state','=','Programado')
+            ->get();
         } else {
             $programmingEvents = InstructorProgram::with('instructor_program_people.person', 'course.program', 'course.municipality.department','environment_instructor_programs.environment','instructor_program_outcomes.learning_outcome')->whereHas('course', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
-                ->get();
+            ->where('state','=','Programado')
+            ->get();
         }
 
         foreach ($programmingEvents as $programmingEvent) {
@@ -1049,7 +1097,9 @@ class ProgrammeController extends Controller
                 $instructor_program_novelty->save();
 
                 if ($option == true) {
-                    # code...
+                    $instructor_program = InstructorProgram::findOrFail($instructor_program_id);
+                    $instructor_program->state = 'Cancelado';
+                    $instructor_program->save();
                 }
             DB::commit();
     
