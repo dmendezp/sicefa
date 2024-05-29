@@ -82,6 +82,7 @@
                     <!-- Campo de selección de instructores -->
                     <div class="row align-items-center instructor_row">
                         <div class="col-8">
+                            
                             <div class="form-group">
                                 <div class="input-select">
                                     {!! Form::select('instructor[]', [], old('instructor[]'), ['class' => 'form-control select2 instructors', 'required']) !!}

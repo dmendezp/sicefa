@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Modules\SICA\Entities\ClassEnvironment;
 use Modules\SIGAC\Entities\InstructorProgram;
 use Modules\SIGAC\Entities\EvaluativeJudgment;
+use Modules\SIGAC\Entities\InstructorProgramOutcome;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Imports\PeopleImport;
 use Modules\SIGAC\Imports\ApprenticeLearningOutcomeImport;
@@ -689,17 +690,14 @@ class CurriculumPlanningController extends Controller
                                     $evaluative_judgments->save();
                                 }
                             }
-                            
                             if ($state = "APROBADO") {
-                                $instructor_programs = InstructorProgram::where('learning_outcome_id',$learning_outcome_id)->get();
+                                $instructor_program_outcomes = InstructorProgramOutcome::where('learning_outcome_id',$learning_outcome_id)->get();
                                 
-                                foreach ($instructor_programs as $instructor_program) {
-                                    $instructor_program->state = 2;
-                                    $instructor_program->save();
+                                foreach ($instructor_program_outcomes as $instructor_program_outcome) {
+                                    $instructor_program_outcome->state = 'Evaluado';
+                                    $instructor_program_outcome->save();
                                     $countstate++;
                                 }
-
-
                             }
                         }
                     }

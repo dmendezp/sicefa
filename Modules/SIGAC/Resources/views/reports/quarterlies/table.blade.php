@@ -11,9 +11,18 @@
                             <th class="text-center">Competencia</th>
                             <th class="text-center">Resultado de Aprendizaje</th>
                             @for($trimestreNumber = 1; $trimestreNumber <= $courseNumber; $trimestreNumber++)
-                                <th class="text-center">{{ $trimestreNumber }}</th>
+                                <th class="text-center" colspan="2">{{ $trimestreNumber }}</th>
                             @endfor
                             <th class="text-center">Perfil</th>
+                        </tr>
+                        <tr>
+                            <th class="text-center"></th> 
+                            <th class="text-center"></th> 
+                            @for($trimestreNumber = 1; $trimestreNumber <= $courseNumber; $trimestreNumber++)
+                                <th class="text-center">P</th>
+                                <th class="text-center">E</th>
+                            @endfor
+                            <th class="text-center"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,9 +35,21 @@
                                     @endif
                                     @for($i = 1; $i <= $courseNumber; $i++)
                                         @if($i == $trimestre->quarter_number)
-                                            <td class="text-center">{{ $trimestre->learning_outcome->hour }}</td>
+                                            <td>{{ $trimestre->learning_outcome->hour }}</td>
+                                            <td></td>
                                         @else
                                             <td></td>
+                                            @if (isset($trimestre->learning_outcome->instructor_program_outcomes) && $trimestre->learning_outcome->instructor_program_outcomes->count() > 0)
+                                                @foreach($trimestre->learning_outcome->instructor_program_outcomes as $instructor_program_outcome)
+                                                    @if($i == $instructor_program_outcome->instructor_program->quarter_number)
+                                                        <td>E</td>
+                                                    @else
+                                                        <td></td>
+                                                    @endif
+                                                @endforeach
+                                            @else
+                                                <td></td>
+                                            @endif
                                         @endif
                                     @endfor
                                     <td class="text-center">
