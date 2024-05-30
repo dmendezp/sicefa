@@ -156,44 +156,81 @@
                             environmentsHtml += '- ' + eip.environment.name + '<br>' ;
                         });
                         $('#environments').html(environmentsHtml);
+                        var learning_outcomesHtml = 'Resultados : <br>';
+                        eventData.instructor_program_outcomes.forEach(function(le) {
+                            learning_outcomesHtml += '- ' + le.learning_outcome.name + '<br>' ;
+                        });
+                        $('#learning_outcome').html(learning_outcomesHtml);
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
                         $('#instructor_program_id').val(eventData.instructor_program.id);
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
                         $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.modality ? (eventData.course.modality) : 'N/A'));
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name + ' - ' + eventData.course.municipality.department.name) : 'N/A'));
-                        $('#learning_outcome').text('Resultado: ' + (eventData.learning_outcome && eventData.learning_outcome ? (eventData.learning_outcome.name) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
+
                 } else if (option == 2) {
-                    console.log('paso');
-                    $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
+                    
+                        $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
                         $('#instructor_program_id').val(eventData.instructor_program.id);
-                        $('#instructor').text('Instructor: ' + (eventData.person ? eventData.person.first_name : 'N/A'));
+                        var instructorsHtml = 'Instructores : <br>';
+                        eventData.instructor_program_people.forEach(function(pe) {
+                            instructorsHtml += '- ' + pe.person.first_name + '<br>' ;
+                        });
+                        $('#instructor').html(instructorsHtml);
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
                         $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.modality ? (eventData.course.modality) : 'N/A'));
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
-                        $('#learning_outcome').text('Resultado: ' + (eventData.learning_outcome && eventData.learning_outcome ? (eventData.learning_outcome.name) : 'N/A'));
+                        var learning_outcomesHtml = 'Resultados : <br>';
+                        eventData.instructor_program_outcomes.forEach(function(le) {
+                            learning_outcomesHtml += '- ' + le.learning_outcome.name + '<br>' ;
+                        });
+                        $('#learning_outcome').html(learning_outcomesHtml);
                 } else if (option == 3) {
-                    $('#environment').text('Ambiente: ' + (eventData.environment ? eventData.environment.name : 'N/A'));
+                        var environmentsHtml = 'Ambientes: <br>';
+                        eventData.environment_instructor_programs.forEach(function(eip) {
+                            environmentsHtml += '- ' + eip.environment.name + '<br>' ;
+                        });
+                        $('#environments').html(environmentsHtml);
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
                         $('#instructor_program_id').val(eventData.instructor_program.id);
                         $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.modality ? (eventData.course.modality) : 'N/A'));
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name) : 'N/A'));
-                        $('#instructor').text('Instructor: ' + (eventData.person ? eventData.person.first_name : 'N/A'));
+                        var instructorsHtml = 'Instructores : <br>';
+                        eventData.instructor_program_people.forEach(function(pe) {
+                            instructorsHtml += '- ' + pe.person.first_name + '<br>' ;
+                        });
+                        $('#instructor').html(instructorsHtml);
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
-                        $('#learning_outcome').text('Resultado: ' + (eventData.learning_outcome && eventData.learning_outcome ? (eventData.learning_outcome.name) : 'N/A'));
+                        var learning_outcomesHtml = 'Resultados : <br>';
+                        eventData.instructor_program_outcomes.forEach(function(le) {
+                            learning_outcomesHtml += '- ' + le.learning_outcome.name + '<br>' ;
+                        });
+                        $('#learning_outcome').html(learning_outcomesHtml);
                 } else {
-                    $('#environment').text('Ambiente: ' + (eventData.environment ? eventData.environment.name : 'N/A'));
+                        var environmentsHtml = 'Ambientes: <br>';
+                        eventData.environment_instructor_programs.forEach(function(eip) {
+                            environmentsHtml += '- ' + eip.environment.name + '<br>' ;
+                        });
+                        $('#environments').html(environmentsHtml);
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
                         $('#instructor_program_id').val(eventData.instructor_program.id);
-                        $('#instructor').text('Instructor: ' + (eventData.person ? eventData.person.first_name : 'N/A'));
+                        var instructorsHtml = 'Instructores : <br>';
+                        eventData.instructor_program_people.forEach(function(pe) {
+                            instructorsHtml += '- ' + pe.person.first_name + '<br>' ;
+                        });
+                        $('#instructor').html(instructorsHtml);
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
-                        $('#learning_outcome').text('Resultado: ' + (eventData.learning_outcome && eventData.learning_outcome ? (eventData.learning_outcome.name) : 'N/A'));
+                        var learning_outcomesHtml = 'Resultados : <br>';
+                        eventData.instructor_program_outcomes.forEach(function(le) {
+                            learning_outcomesHtml += '- ' + le.learning_outcome.name + '<br>' ;
+                        });
+                        $('#learning_outcome').html(learning_outcomesHtml);
                 }
 
                 $('#eventDetailsModal').modal('show');
@@ -263,10 +300,10 @@
                             start: eventData.date + 'T' + eventData.start_time,
                             end: eventData.date + 'T' + eventData.end_time,
                             instructor_program: eventData,
-                            person: eventData.instructor_program_people[0].person,
+                            instructor_program_people: eventData.instructor_program_people,
                             course: eventData.course,
                             environment_instructor_programs: eventData.environment_instructor_programs,
-                            learning_outcome: eventData.instructor_program_outcomes[0].learning_outcome
+                            instructor_program_outcomes: eventData.instructor_program_outcomes
                         });
                     });
 

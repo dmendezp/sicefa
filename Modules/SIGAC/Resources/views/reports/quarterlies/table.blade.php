@@ -36,20 +36,25 @@
                                     @for($i = 1; $i <= $courseNumber; $i++)
                                         @if($i == $trimestre->quarter_number)
                                             <td>{{ $trimestre->learning_outcome->hour }}</td>
-                                            <td></td>
+                                            <td class="celdae"></td>
                                         @else
                                             <td></td>
                                             @if (isset($trimestre->learning_outcome->instructor_program_outcomes) && $trimestre->learning_outcome->instructor_program_outcomes->count() > 0)
-                                                @foreach($trimestre->learning_outcome->instructor_program_outcomes as $instructor_program_outcome)
-                                                    @if($i == $instructor_program_outcome->instructor_program->quarter_number)
-                                                        <td>E</td>
-                                                    @else
-                                                        <td></td>
-                                                    @endif
-                                                @endforeach
-                                            @else
-                                                <td></td>
-                                            @endif
+                                            @php
+                                                $totalHours = 0;
+                                                foreach ($trimestre->learning_outcome->instructor_program_outcomes as $instructor_program_outcome) {
+                                                    $instructor_program = $instructor_program_outcome->instructor_program;
+                                                    if ($i == $instructor_program->quarter_number) {
+                                                        $start = \Carbon\Carbon::parse($instructor_program->start_time);
+                                                        $end = \Carbon\Carbon::parse($instructor_program->end_time);
+                                                        $totalHours += $end->diffInHours($start);
+                                                    }
+                                                }
+                                            @endphp
+                                            <td class="celdae">{{ $totalHours > 0 ? $totalHours . '' : '' }}</td>
+                                        @else
+                                            <td class="celdae"></td>
+                                        @endif
                                         @endif
                                     @endfor
                                     <td class="text-center">

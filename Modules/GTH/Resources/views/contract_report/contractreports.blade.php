@@ -41,7 +41,7 @@
                         <input type="text" name="second_last_name" id="second_last_name" class="form-control" readonly>
                     </div>
                     <div class="container">
-                        <h2>{{ trans('gth::menu.Personal Information') }}</h2>
+                        <h2>{{ trans('gth::menu.Personal Supervisor') }}</h2>
 
                         <div class="card-header">
                             <div class="row">
