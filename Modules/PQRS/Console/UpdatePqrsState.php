@@ -53,7 +53,7 @@ class UpdatePqrsState extends Command
                 }
                 
                 // Verificar si el estado debe ser actualizado
-                if ($days_remaining == 5) {
+                if ($days_remaining == 5 && $p->state == 'EN PROCESO') {
                     $p->state = 'PROXIMO A VENCER';
                     $p->save();
                 }                 

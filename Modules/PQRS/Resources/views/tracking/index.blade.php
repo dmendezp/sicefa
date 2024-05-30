@@ -3,8 +3,9 @@
 @section('stylesheet')
 
 <style>
-    .addPqrs{
-        margin-bottom: 10px;
+    .email{
+        position: relative;
+        right: 450px;
     }
 
     .row-yellow{
@@ -27,11 +28,22 @@
                     <h3 class="card-title">Seguimiento PQRS</h3>            
                 </div>
                 <div class="card-body">
-                    <a href="{{ route('pqrs.tracking.create') }}">
-                        <button type="button" class="btn btn-success addPqrs" data-bs-toggle="modal" data-bs-target="#crearPQRS" title="Agregar PQRS">
-                            <i class="fas fa-plus-circle fa-fw"></i>
-                        </button>
-                    </a>
+                    <div class="row">
+                        <div class="col">
+                            <a href="{{ route('pqrs.tracking.create') }}">
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearPQRS" title="Agregar PQRS">
+                                    <i class="fas fa-plus-circle fa-fw"></i>
+                                </button>
+                            </a>
+                        </div>
+                        <div class="col">
+                            {!! Form::open(['method' => 'post', 'url' => route('pqrs.official.answer.email')]) !!}
+                                <button type="submit" class="btn btn-info email" title="Enviar correo de alerta">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
                     <br>
                     <div class="mtop16">
                         <table id="tracking" class="table table-striped" style="width: 100%">

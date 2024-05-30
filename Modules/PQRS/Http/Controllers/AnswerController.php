@@ -94,27 +94,29 @@ class AnswerController extends Controller
         return redirect()->route('pqrs.official.answer.index')->with(['success' => 'Se reasigno correctamente la PQRS']); 
     }
 
-    public function viewMail(){
-        $titlePage = 'Respuesta de PQRS';
-        $titleView = 'Respuesta de PQRS';
-
-        $pqrs = Pqrs::get();
-
-        $data = [
-            'titlePage' => $titlePage,
-            'titleView' => $titleView,
-            'pqrs' => $pqrs
-        ];
-        
-        return view('pqrs::emails.pqrs', $data);
-    }
-
-    public function email(Request $request)
+    public function email()
     {
-        $pqrs = Pqrs::findOrFail($request->id);
- 
+        $pqrs = Pqrs::where('state', 'PROXIMO A VENCER')->with(['people' => function ($query) {
+            $query->orderBy('consecutive', 'desc');
+        }])->get();
+
+        
         // Ship the order...
- 
-        Mail::to('julianjavierramirezdiaz73@gmail.com')->send(new PqrsAlert($pqrs));
+        Mail::send('pqrs::emails.pqrs', compact('pqrs'), function ($msg) use ($pqrs) {
+            $emails = [
+                'yaya32erazo@gmail.com'
+            ];
+            
+            $copia = [
+                'julianjavierramirezdiaz73@gmail.com',               
+            ];
+
+            $msg->subject('Alerta temprana de PQRS');
+            $msg->to($emails);
+            $msg->cc($copia);
+        });
+
+        // Redirige a una página de confirmación o de vuelta a la vista original
+        return redirect()->back()->with('success', 'Correo enviado exitosamente.');
     }
 }
