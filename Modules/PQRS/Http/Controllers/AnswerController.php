@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use Modules\PQRS\Entities\Pqrs;
 use Modules\SICA\Entities\Person;
 use Illuminate\Support\Facades\DB;
-use Modules\PQRS\Emails\PqrsAlert;
-use Illuminate\Support\Facades\Mail;
 class AnswerController extends Controller
 {
     public function index(){
@@ -92,31 +90,5 @@ class AnswerController extends Controller
         ]);
 
         return redirect()->route('pqrs.official.answer.index')->with(['success' => 'Se reasigno correctamente la PQRS']); 
-    }
-
-    public function email()
-    {
-        $pqrs = Pqrs::where('state', 'PROXIMO A VENCER')->with(['people' => function ($query) {
-            $query->orderBy('consecutive', 'desc');
-        }])->get();
-
-        
-        // Ship the order...
-        Mail::send('pqrs::emails.pqrs', compact('pqrs'), function ($msg) use ($pqrs) {
-            $emails = [
-                'yaya32erazo@gmail.com'
-            ];
-            
-            $copia = [
-                'julianjavierramirezdiaz73@gmail.com',               
-            ];
-
-            $msg->subject('Alerta temprana de PQRS');
-            $msg->to($emails);
-            $msg->cc($copia);
-        });
-
-        // Redirige a una página de confirmación o de vuelta a la vista original
-        return redirect()->back()->with('success', 'Correo enviado exitosamente.');
     }
 }

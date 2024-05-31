@@ -13,11 +13,12 @@ class PqrsImport implements ToModel, WithStartRow
     {
         if($row[0] != null){
             return new PQRS([
-                'tipo' => ($row[9] == null) ? 0 : $row[9],
+                'responsable' => ($row[3] == null) ? 0 : $row[3],
                 'filing_number' => ($row[4] == null) ? 0 : $row[4],
-                'filing_date' => ($row[6] == null) ? 0 : $row[6],
                 'nis' => ($row[5] == null) ? 0 : $row[5],
+                'filing_date' => ($row[6] == null) ? 0 : $row[6],
                 'end_date' => ($row[7] == null) ? 0 : $row[7],
+                'tipo' => ($row[9] == null) ? 0 : $row[9],
                 'state' => ($row[10] == null) ? 0 : $row[10],
             ]);
         }

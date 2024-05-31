@@ -9,6 +9,9 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/tracking/searchOfficial', 'searchOfficial')->name('pqrs.tracking.searchOfficial');
             Route::get('/tracking/create', 'create')->name('pqrs.tracking.create');
             Route::post('/tracking/store', 'store')->name('pqrs.tracking.store');
+            Route::get('/tracking/excel', 'create_excel')->name('pqrs.tracking.excel');
+            Route::post('/tracking/excel/store', 'store_excel')->name('pqrs.tracking.excel.store');
+            Route::post('/tracking/email', 'email')->name('pqrs.tracking.email');
         });
 
         Route::controller(AnswerController::class)->group(function () {
@@ -17,8 +20,6 @@ Route::middleware(['lang'])->group(function(){
             Route::post('/official/answer/store', 'store')->name('pqrs.official.answer.store');
             Route::get('/official/answer/searchOfficial', 'searchOfficial')->name('pqrs.official.answer.searchOfficial');
             Route::post('/official/answer/reasign', 'reasign')->name('pqrs.official.answer.reasign');
-            Route::post('/official/answer/email', 'email')->name('pqrs.official.answer.email');
-
         });
     });
 });

@@ -20,13 +20,16 @@
         p{
             color: black;
         }
+        .bold{
+            font-weight: bold
+        }
     </style>
 </head>
 <body>
     <div>
         <p>Cordial saludo,</p>
-
-        <p>Adjunto las PQRS que estan proximas a vencer</p>
+        <p>Se da conocimiento del reporte de alerta de las PQRS con el fin de dar respuesta en los tiempos establecidos con el objetivo de no afectar de indicador de gestión de la Regional.</p>
+        <p class="bold">Se recuerda respetuosamente, el cumplimiento de la promesa de servicio de la entidad de ocho (8) días hábiles, para dar respuesta a todas las PQRS.</p>
         
         <table id="email" class="table table-striped" style="width: 100%">
             <thead>
@@ -52,6 +55,7 @@
                 @endforeach
             </tbody>
         </table>
+        <p>Cualquier inquietud comunicarse con Diego Mauricio Cuellar Torres - dmcuellar@sena.edu.co</p>
     </div>
 </body>
 </html>

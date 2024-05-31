@@ -5,7 +5,12 @@
 <style>
     .email{
         position: relative;
-        right: 450px;
+        right: 290px;
+    }
+
+    .excel{
+        position: relative;
+        right: 580px;
     }
 
     .row-yellow{
@@ -37,11 +42,18 @@
                             </a>
                         </div>
                         <div class="col">
-                            {!! Form::open(['method' => 'post', 'url' => route('pqrs.official.answer.email')]) !!}
+                            {!! Form::open(['method' => 'post', 'url' => route('pqrs.tracking.email')]) !!}
                                 <button type="submit" class="btn btn-info email" title="Enviar correo de alerta">
                                     <i class="fas fa-envelope"></i>
                                 </button>
                             {!! Form::close() !!}
+                        </div>
+                        <div class="col">
+                            <a href="{{ route('pqrs.tracking.excel') }}">
+                                <button class="btn btn-success excel" title="Cargar archivo">
+                                    <i class="fas fa-file-excel"></i>
+                                </button>
+                            </a>
                         </div>
                     </div>
                     <br>
@@ -50,7 +62,6 @@
                             <thead>
                                 <tr>
                                     <th>Numero Radicación</th>
-                                    <th>NIS</th>
                                     <th>Fecha Radicación</th>
                                     <th>Fecha Limite Respuesta</th>
                                     <th>Asunto</th>
@@ -64,13 +75,16 @@
                                 @foreach ($pqrs as $p)      
                                     <tr class="{{ $p->state == 'PROXIMO A VENCER' ? 'row-yellow' : '' }}">
                                         <td>{{ $p->filing_number }}</td>
-                                        <td>{{ $p->nis }}</td>
                                         <td>{{ $p->filing_date }}</td>
                                         <td>{{ $p->end_date }}</td>
                                         <td>{{ $p->type_pqrs->name }}</td>
-                                        <td>{{ $p->people->first()->first_name. ' ' . $p->people->first()->first_last_name . ' ' . $p->people->first()->second_last_name}}</td>
+                                        <td>
+                                            @if($p->people->isNotEmpty())
+                                            {{ $p->people->first()->first_name. ' ' . $p->people->first()->first_last_name . ' ' . $p->people->first()->second_last_name}}
+                                            @endif
+                                        </td>
                                         <td>{{ $p->state }}</td>
-                                        <td>{{ $p->issue }}</td>
+                                        <td>{{ Str::limit($p->issue, 10) }}</td>
                                         <td>
                                             @if ($p->state == 'RESPUESTA GENERADA' || $p->state == 'RESPUESTA PARCIAL')
                                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#info{{ $p->id }}" title="Información de la {{ $p->type_pqrs->name }}">
@@ -78,6 +92,11 @@
                                                 </button>       
                                             @endif
                                             @include('pqrs::answer.answer')
+                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#history{{ $p->id }}" title="Historial de la {{ $p->type_pqrs->name }}">
+                                                <i class="fas fa-history"></i>
+                                            </button>    
+                                            @include('pqrs::tracking.history')
+
                                         </td>
                                     </tr>
                                 @endforeach

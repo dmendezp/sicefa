@@ -15,7 +15,6 @@ class CreatePersonPqrsTable extends Migration
     {
         Schema::create('person_pqrs', function (Blueprint $table) {
             $table->id();
-            $table->integer('consecutive');
             $table->date('date');
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->foreignId('pqrs_id')->constrained()->onDelete('cascade');
