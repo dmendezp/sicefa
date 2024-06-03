@@ -33,7 +33,7 @@ class Pqrs extends Model
     
     // RELACIONES
     public function people(){ // Accede todos las personas que pertenecen a esta pqrs (PIVOTE)
-        return $this->belongsToMany(Person::class)->withTimestamps();
+        return $this->belongsToMany(Person::class)->withPivot('date_time')->withTimestamps();
     }
     public function type_pqrs(){ // Accede a la información del tipo de pqrs al que pertenece
         return $this->belongsTo(TypePqrs::class);

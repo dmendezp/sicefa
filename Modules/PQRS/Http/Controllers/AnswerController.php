@@ -17,8 +17,11 @@ class AnswerController extends Controller
 
         $user = Auth::user()->person_id;
         $person = Person::find($user);
-        $pqrs = $person->pqrs()->get();
-        
+
+        $pqrs = Pqrs::with(['people' => function($query) {
+            $query->orderBy('date_time', 'desc');
+        }])->get();
+
         $data = [
             'titlePage' => $titlePage,
             'titleView' => $titleView,
@@ -81,12 +84,9 @@ class AnswerController extends Controller
 
     public function reasign(Request $request){
         $pqrs = Pqrs::find($request->id);
-        
-        $consecutive = $pqrs->people()->max('consecutive');
-                
+                        
         $pqrs->people()->attach($request->responsible, [
-            'consecutive' => $consecutive + 1,
-            'date' => now()->format('Y-m-d')
+            'date_time' => now()->format('Y-m-d H:i:s')
         ]);
 
         return redirect()->route('pqrs.official.answer.index')->with(['success' => 'Se reasigno correctamente la PQRS']); 

@@ -3,14 +3,14 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="history{{ $p->id }}Label">Historial de seguimiento de la PQRS</h1>
+          <h1 class="modal-title fs-5" id="history{{ $p->id }}Label">Historial de asignaciones de la PQRS</h1>
           <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
         </div>
         <div class="modal-body">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <table>
+                        <table class="table table-striped" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Funcionario</th>
@@ -18,10 +18,17 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $peopleSorted = $p->people->sortBy(function($person) {
+                                        return $person->pivot->date_time;
+                                    });
+                                @endphp
+                                @foreach ($peopleSorted as $official)
                                 <tr>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $official->first_name . ' ' . $official->first_last_name . ' ' . $official->second_last_name }}</td>
+                                    <td>{{ $official->pivot->date_time }}</td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

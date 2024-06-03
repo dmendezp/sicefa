@@ -15,6 +15,7 @@ use Modules\PQRS\Imports\PqrsImport;
 use Illuminate\Support\Facades\Validator;
 use Excel, Exception;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use Carbon\Carbon;
 
 class TrackingController extends Controller
 {
@@ -22,7 +23,44 @@ class TrackingController extends Controller
         $titlePage = 'Seguimiento PQRS';
         $titleView = 'Seguimiento PQRS';
 
-        $pqrs = Pqrs::with('people')->get();
+        $pqrs = Pqrs::with(['people' => function($query) {
+            $query->orderBy('date_time', 'desc');
+        }])->get();
+        
+        $holidays = Holiday::pluck('date')->map(function ($date) {
+            return Carbon::parse($date)->format('Y-m-d');
+        })->toArray();
+        
+        foreach ($pqrs as $p) {
+            $end_date = Carbon::parse($p->end_date);
+            $diff = Carbon::now()->diffInDays($end_date, false);
+            
+            $current_date = Carbon::now();
+            $days_remaining = 0;
+            $weekend_days = 0;
+            $holiday_days = 0;
+    
+            // Contar los días excluyendo los días feriados
+            while ($current_date->lessThanOrEqualTo($end_date)) {
+                if ($current_date->isWeekend() || in_array($current_date->format('Y-m-d'), $holidays)) {
+                    if ($current_date->isWeekend()) {
+                        $weekend_days++;
+                    }
+                    if (in_array($current_date->format('Y-m-d'), $holidays)) {
+                        $holiday_days++;
+                    }
+                } else {
+                    $days_remaining++;
+                }
+                $current_date->addDay();
+            }
+            
+            // Verificar si el estado debe ser actualizado
+            if ($days_remaining == 5 && $p->state == 'EN PROCESO') {
+                $p->state = 'PROXIMO A VENCER';
+                $p->save();
+            }                 
+        }
 
         $data  = [
             'titlePage' => $titlePage,
@@ -97,8 +135,7 @@ class TrackingController extends Controller
             $pqrs->save();
 
             $pqrs->people()->attach($validatedData['responsible'], [
-                'consecutive' => 1,
-                'date' => now()->format('Y-m-d')
+                'date_time' => now()->format('Y-m-d H:i:s')
             ]);
 
 
