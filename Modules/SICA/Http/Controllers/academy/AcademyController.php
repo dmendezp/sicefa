@@ -466,6 +466,17 @@ class AcademyController extends Controller
         return view('sica::admin.academy.courses.delete', $data);
     }
 
-    
+    /* Eliminar curso */
+    public function course_destroy(Request $request){
+        $course = Course::findOrFail($request->input('id'));
+        if($course->delete()){
+            $icon = 'success';
+            $message_course = trans('sica::menu.Course successfully removed');
+        }else{
+            $icon = 'error';
+            $message_course = trans('sica::menu.Could not remove the Course');
+        }
+        return redirect()->back()->with(['icon'=>$icon, 'message_course'=>$message_course]);
+    }
 
 }

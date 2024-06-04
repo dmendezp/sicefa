@@ -32,6 +32,7 @@ use Modules\SICA\Entities\LearningOutcome;
 use Modules\SICA\Entities\Holiday;
 use Carbon\Carbon;
 use Modules\SIGAC\Imports\ApprenticeLearningOutcomeImport;
+use Modules\SIGAC\Exports\ProgramCourseExport;
 
 use Excel, Exception;
 class ProgrammeController extends Controller
@@ -42,7 +43,6 @@ class ProgrammeController extends Controller
         $view = [
             'titlePage' => trans('sigac::controllers.SIGAC_programming_schedules_title_page'),
             'titleView' => trans('sigac::controllers.SIGAC_programming_schedules_title_view'),
-            
         ];
 
         return view('sigac::programming.index', $view);
@@ -738,6 +738,118 @@ class ProgrammeController extends Controller
 
     /* Registrar aprendices a partir de un archivo */
     public function learning_outcome_load_store(Request $request){
+        ini_set('max_execution_time', 3000); // Ampliar el tiempo máximo de la ejecución del proceso en el servidor
+        $validator = Validator::make($request->all(),
+            ['archivo'  => 'required'],
+            ['archivo.required'  => 'El archivo es requerido.']
+        );
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }else{
+            $path = $request->file('archivo'); // Obtener ubicación temporal del archivo en el servidor
+            $array = Excel::toArray(new ApprenticeLearningOutcomeImport, $path); // Convertir el contenido del archivo excel en una arreglo de arreglos
+            $program_name = $array[0][4][2]; // Obtener la ficha del curso y el nombre del programa en un arreglo
+            $course_code = $array[0][1][2];
+            $datas = array_splice($array[0], 12, count($array[0])); // Obtener solo los registros de los datos de los aprendices
+            try {
+                $count = 0;
+                // Recorrer datos y relizar registros
+               
+                foreach($datas as $data){
+                    $competencie = explode(" - ", $data[5]);
+                    if ($competencie) {
+                        if (count($competencie) > 1) {
+                            $code_competencie = $competencie[0];
+                            // Si hay más de una parte después de dividir por el guión
+                            $name_competencia = trim(preg_replace('/^[0-9]+\s*/', '', $competencie[1])); // Eliminar números y espacios al principio de la cadena
+                        } else {
+                            // Si no hay un guión, entonces tomar el nombre completo sin modificar
+                            $name_competencia = trim($competencie[0]);
+                        }
+
+                    }
+                    $learning_outcome = explode(" - ", $data[6]); // Dividir la cadena por el guión ('-')
+                    $program_id = $request->program_id;
+                    if ($learning_outcome) {
+                        if (count($learning_outcome) > 1) {
+                            // Si hay más de una parte después de dividir por el guión
+                            $name_learning = trim(preg_replace('/^[0-9]+\s*/', '', $learning_outcome[1])); // Eliminar números y espacios al principio de la cadena
+                        } else {
+                            // Si no hay un guión, entonces tomar el nombre completo sin modificar
+                            $name_learning = trim($learning_outcome[0]);
+                        }
+                        $competenciefind = Competencie::where('name', '=', $name_competencia)->where('program_id',$program_id)->first();
+
+                        if ($competenciefind) {
+                            $competencie_id = $competenciefind->id;
+                        } else {
+                            $competencies = new Competencie;
+                            $competencies->program_id = $program_id;
+                            $competencies->code = $code_competencie;
+                             // Convierte la frase a minúsculas
+                            $name_competencia = mb_strtolower($name_competencia, 'UTF-8');
+                            // Capitaliza la primera letra
+                            $name_competencia = mb_strtoupper(mb_substr($name_competencia, 0, 1), 'UTF-8') . mb_substr($name_competencia, 1);
+                            $competencies->name = $name_competencia;
+                            $competencies->hour = 0;
+                            $competencies->type = 'Técnico';
+                            $competencies->save();
+                            $competencie_id = $competencies->id;
+                        }
+
+                        $learning_outcome = LearningOutcome::where('name', '=', $name_learning)->whereHas('competencie', function($query) use ($program_id) {
+                            $query->where('program_id', $program_id);
+                        })->first();
+                        
+                        if ($learning_outcome) {
+                            $learning_outcome_id = $learning_outcome->id;
+                        } else {
+                            $learning_outcomes = new LearningOutcome;
+                            $learning_outcomes->competencie_id = $competencie_id;
+
+                            // Convierte la frase a minúsculas
+                            $name_learning = mb_strtolower($name_learning, 'UTF-8');
+
+                            // Capitaliza la primera letra
+                            $name_learning = mb_strtoupper(mb_substr($name_learning, 0, 1), 'UTF-8') . mb_substr($name_learning, 1);
+
+                            // Asigna el nombre convertido al campo correspondiente
+                            $learning_outcomes->name = $name_learning;
+
+                            $learning_outcomes->hour = 0;
+                            $learning_outcomes->save();
+                            $count++;
+
+                        }
+                    }
+                }
+                
+                return back()->with('success', 'Archivo excel escaneado coerrectamente. '.$count.' Resultados registrados exitosamente.')->with('typealert', 'success');
+            } catch (Exception $e) {
+                DB::rollBack(); // Devolver cambios realizados durante la transacción
+                return back()->with('error', 'Ocurrio un error en la importación y/o registro de datos del archivo excel cargado. <hr> <strong>Error: </strong> ('.$e->getMessage().').')->with('typealert', 'danger');
+             }
+
+        }
+    }
+
+
+    public function program_load_create(){
+	
+		return view('sigac::programming.parameters.competences.load')->with(['titlePage' => 'Cargar Programas',
+        'titleView' => 'Cargar Programas'
+        ]);
+	}
+
+
+    public function program_export(){
+	
+		return Excel::download(new ProgramCourseExport, 'programs.xlsx');
+
+	}
+
+    /* Registrar aprendices a partir de un archivo */
+    public function program_load_store(Request $request){
         ini_set('max_execution_time', 3000); // Ampliar el tiempo máximo de la ejecución del proceso en el servidor
         $validator = Validator::make($request->all(),
             ['archivo'  => 'required'],

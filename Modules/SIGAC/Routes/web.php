@@ -41,6 +41,10 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::post('academic_coordination/competences/update/{id}', 'competence_update')->name('sigac.academic_coordination.competences.update'); // Actualizar competencia (Coordinación Académica)
             Route::delete('academic_coordination/competences/destroy/{id}', 'competence_destroy')->name('sigac.academic_coordination.competences.destroy'); // Eliminar competencia (Coordinación Académica)
 
+            Route::get('academic_coordination/programming/programs/export', 'program_export')->name('sigac.academic_coordination.prgogramming.programs.export'); // Vista carge de archivo (Coordinación Académica)
+            Route::get('academic_coordination/programming/programs/load/create', 'program_load_create')->name('sigac.academic_coordination.prgogramming.programs.load.create'); // Vista carge de archivo (Coordinación Académica)
+            Route::post('academic_coordination/programming/programs/load/store', 'program_load_store')->name('sigac.academic_coordination.prgogramming.programs.load.store'); // Registro programas por archivo (Coordinación Académica)
+
             //Parametro - Resultados de aprendizaje
             Route::get('academic_coordination/learning_outcomes/index/{competencie_id}', 'parameter_learning_outcomes')->name('sigac.academic_coordination.learning_outcomes.index'); // Registrar competencia (Coordinación Académica)
             Route::post('academic_coordination/learning_outcomes/store', 'learning_outcome_store')->name('sigac.academic_coordination.learning_outcome.store'); // Registrar Resultado de aprendizaje (Coordinación Académica)
