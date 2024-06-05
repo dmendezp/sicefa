@@ -10,7 +10,7 @@ class ProgramCourseExport implements FromCollection
 {
     public function collection()
     {
-        $programs = Program::with('courses')->get();
+        $programs = Program::with('courses')->orderBy('name','Asc')->get();
         $courses = Course::all();
 
         // Agrega la columna de programa a los datos de cursos
@@ -22,7 +22,9 @@ class ProgramCourseExport implements FromCollection
         // Combina los datos de programas y cursos
         $combinedData = $coursesWithProgram;
 
-        return $combinedData;
+        $sortedData = $combinedData->sortBy('program_name');
+
+        return $sortedData;
     }
 }
 

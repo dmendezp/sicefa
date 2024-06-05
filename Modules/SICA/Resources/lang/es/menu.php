@@ -84,18 +84,18 @@ return [
 	'Technological line successfully removed' => 'Línea tecnólogica eliminada exitosamente',
 	'Could not delete technological line' => 'No se pudo eliminar la línea tecnólogica',
 
-	/* Redes de Conocimeinto */
-	'Knowledge Networks' => 'Redes de Conocimento',
-	'Knowledge Network' => 'Red de Conocimento',
-	'Add Knowledge Network' => 'Agregar Red de Conocimento',
-	'Update Knowledge Network' => 'Actualizar Red de Conocimento',
-	'Do you want to remove the following knowledge network?' => '¿Desea eliminar la siguiente red de conocimiento?',
-	'Knowledge Network successfully added' => 'Red de Conocimiento agregada exitosamente',
-	'Could not add Knowledge Network' => 'No se pudo agregar la Red de Conocimiento',
-	'Knowledge Network successfully updated' => 'Red de conocimiento actualizada exitosamente',
-	'Failed to update Knowledge Network' => 'No se pudo actualizar la red de conocimiento',
-	'Knowledge Network successfully removed' => 'Red de conocimiento eliminada exitosamente',
-	'Could not delete Knowledge Network' => 'No se pudo eliminar la red de conocimiento',
+	/* Redes tecnológicas */
+	'Knowledge Networks' => 'Redes Tecnológicas',
+	'Knowledge Network' => 'Red Tecnológica',
+	'Add Knowledge Network' => 'Agregar Red Tecnológica',
+	'Update Knowledge Network' => 'Actualizar Red Tecnológica',
+	'Do you want to remove the following knowledge network?' => '¿Desea eliminar la siguiente red tecnológica?',
+	'Knowledge Network successfully added' => 'Red Tecnológica agregada exitosamente',
+	'Could not add Knowledge Network' => 'No se pudo agregar la Red Tecnológica',
+	'Knowledge Network successfully updated' => 'Red Tecnológica actualizada exitosamente',
+	'Failed to update Knowledge Network' => 'No se pudo actualizar la red tecnológica',
+	'Knowledge Network successfully removed' => 'Red tecnológica eliminada exitosamente',
+	'Could not delete Knowledge Network' => 'No se pudo eliminar la red tecnológica',
 
 	/* Festivos */
 	'Holidays' => 'Festivos',

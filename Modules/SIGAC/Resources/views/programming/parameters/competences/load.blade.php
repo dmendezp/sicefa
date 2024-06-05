@@ -8,7 +8,7 @@
                         <h3 class="card-title">Cargar Programas</h3>
                     </div>
                     <div class="card-body">
-                        {!! Form::open([ 'url' => route('sigac.academic_coordination.programming.learning_outcome.load.store'), 'files' => 'true', 'enctype' => 'multipart/form-data']) !!}
+                        {!! Form::open([ 'url' => route('sigac.academic_coordination.prgogramming.programs.load.store'), 'files' => 'true', 'enctype' => 'multipart/form-data']) !!}
                             <div class="form_load" id="form_load">
                                 <div class="form-group">
                                     <div class="input-group">

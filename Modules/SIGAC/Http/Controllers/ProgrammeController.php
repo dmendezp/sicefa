@@ -860,15 +860,16 @@ class ProgrammeController extends Controller
         }else{
             $path = $request->file('archivo'); // Obtener ubicación temporal del archivo en el servidor
             $array = Excel::toArray(new ApprenticeLearningOutcomeImport, $path); // Convertir el contenido del archivo excel en una arreglo de arreglos
-            $program_name = $array[0][4][2]; // Obtener la ficha del curso y el nombre del programa en un arreglo
-            $course_code = $array[0][1][2];
-            $datas = array_splice($array[0], 12, count($array[0])); // Obtener solo los registros de los datos de los aprendices
+            $datas = array_splice($array[0], 0, count($array[0])); // Obtener solo los registros de los datos de los aprendices
+            
             try {
                 $count = 0;
                 // Recorrer datos y relizar registros
                
                 foreach($datas as $data){
-                    $competencie = explode(" - ", $data[5]);
+                    $code = $data[0];
+                    $name = $data[4];
+                    dd($code);
                     if ($competencie) {
                         if (count($competencie) > 1) {
                             $code_competencie = $competencie[0];
