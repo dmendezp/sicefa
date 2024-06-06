@@ -86,7 +86,8 @@ class AnswerController extends Controller
         $pqrs = Pqrs::find($request->id);
                         
         $pqrs->people()->attach($request->responsible, [
-            'date_time' => now()->format('Y-m-d H:i:s')
+            'date_time' => now()->format('Y-m-d H:i:s'),
+            'type' => $request->type
         ]);
 
         return redirect()->route('pqrs.official.answer.index')->with(['success' => 'Se reasigno correctamente la PQRS']); 

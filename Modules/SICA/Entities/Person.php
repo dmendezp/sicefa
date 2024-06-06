@@ -191,7 +191,7 @@ class Person extends Model implements Auditable
         return $this->belongsTo(PopulationGroup::class);
     }
     public function pqrs(){ // Accede a todos los pqrs que pertenecen a esta persona (PIVOTE)
-        return $this->belongsToMany(Pqrs::class)->withPivot('date_time')->withTimestamps();
+        return $this->belongsToMany(Pqrs::class)->withPivot('date_time', 'type')->withTimestamps();
     }
     public function productive_units(){ // Accede a todas las unidades productivas que lidera esta persona
         return $this->hasMany(ProductiveUnit::class);

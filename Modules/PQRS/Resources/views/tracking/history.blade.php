@@ -10,10 +10,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
+                        <p><strong>Descripción: </strong>{{ $p->issue }}</p>
+                    </div>
+                    <div class="col-12">
                         <table class="table table-striped" style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th>Funcionario</th>
+                                    <th>Nombre</th>
+                                    <th>Tipo</th>
                                     <th>Fecha</th>
                                 </tr>
                             </thead>
@@ -26,6 +30,7 @@
                                 @foreach ($peopleSorted as $official)
                                 <tr>
                                     <td>{{ $official->first_name . ' ' . $official->first_last_name . ' ' . $official->second_last_name }}</td>
+                                    <td>{{ $official->pivot->type }}</td>
                                     <td>{{ $official->pivot->date_time }}</td>
                                 </tr>
                                 @endforeach

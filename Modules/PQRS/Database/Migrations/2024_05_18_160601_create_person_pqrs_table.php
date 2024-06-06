@@ -16,6 +16,7 @@ class CreatePersonPqrsTable extends Migration
         Schema::create('person_pqrs', function (Blueprint $table) {
             $table->id();
             $table->dateTime('date_time');
+            $table->enum('type', ['Funcionario', 'Apoyo']);
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->foreignId('pqrs_id')->constrained()->onDelete('cascade');
             $table->softDeletes();

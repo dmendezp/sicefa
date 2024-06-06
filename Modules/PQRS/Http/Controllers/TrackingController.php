@@ -26,7 +26,7 @@ class TrackingController extends Controller
         $pqrs = Pqrs::with(['people' => function($query) {
             $query->orderBy('date_time', 'desc');
         }])->get();
-        
+
         $holidays = Holiday::pluck('date')->map(function ($date) {
             return Carbon::parse($date)->format('Y-m-d');
         })->toArray();
@@ -124,20 +124,36 @@ class TrackingController extends Controller
         try {
             DB::beginTransaction();
 
-            $pqrs = new Pqrs;
-            $pqrs->type_pqrs_id = $validatedData['type_pqrs'];
-            $pqrs->filing_number = $validatedData['filing_number'];
-            $pqrs->filing_date = $validatedData['filing_date'];
-            $pqrs->nis = $validatedData['nis'];
-            $pqrs->start_date = '2024-05-23';
-            $pqrs->end_date = $validatedData['end_date'];
-            $pqrs->issue = $validatedData['issue'];
-            $pqrs->save();
+            $pqrs_existing = Pqrs::where('filing_number', $validatedData['filing_number'])->exists();
 
-            $pqrs->people()->attach($validatedData['responsible'], [
-                'date_time' => now()->format('Y-m-d H:i:s')
-            ]);
+            if($pqrs_existing){
+                return redirect()->route('pqrs.tracking.index')->with(['error' => 'Ya existe una PQRS con ese número de radicación.']); 
+            }else{
+                $pqrs = new Pqrs;
+                $pqrs->type_pqrs_id = $validatedData['type_pqrs'];
+                $pqrs->filing_number = $validatedData['filing_number'];
+                $pqrs->filing_date = $validatedData['filing_date'];
+                $pqrs->nis = $validatedData['nis'];
+                $pqrs->start_date = '2024-05-23';
+                $pqrs->end_date = $validatedData['end_date'];
+                $pqrs->issue = $validatedData['issue'];
+                $pqrs->save();
 
+                $pqrs->people()->attach($validatedData['responsible'], [
+                    'date_time' => now()->format('Y-m-d H:i:s'),
+                    'type' => 'Funcionario'
+                ]);
+
+                $pqrs->people()->attach($request->assistant_one, [
+                    'date_time' => now()->format('Y-m-d H:i:s'),
+                    'type' => 'Apoyo'
+                ]);
+
+                $pqrs->people()->attach($request->assistant_two, [
+                    'date_time' => now()->format('Y-m-d H:i:s'),
+                    'type' => 'Apoyo'
+                ]);
+            }
 
             DB::commit();
 
@@ -249,6 +265,15 @@ class TrackingController extends Controller
                         // Consultar la base de datos
                         $person = Person::where('first_name', $first_name)->where('first_last_name', $first_last_name)->where('second_last_name', $second_last_name)->pluck('id')->first();
 
+                        $filing_number_int = intval($filing_number);
+
+                        $pqrs_existing = Pqrs::where('filing_number', $filing_number_int)->exists();
+
+                        if($pqrs_existing){
+                            $filing_exists[] = $filing_number_int;
+                            continue;
+                        }
+
                         $pqrs = new Pqrs;
                         $pqrs->type_pqrs_id = $type_pqrs[0];
                         $pqrs->filing_number = $filing_number;
@@ -259,12 +284,13 @@ class TrackingController extends Controller
                         $pqrs->issue = '...';
                         $pqrs->state = $state;
                         $pqrs->save();
-
+    
                         $pqrs->people()->attach($person, [
-                            'date' => now()->format('Y-m-d')
+                            'date_time' => now()->format('Y-m-d H:i:s'),
+                            'type' => 'Funcionario'
                         ]);
 
-                        $countstate++;
+                        $countstate++;                   
                     }else{
                         $filing_number_row = $data[4];
                         preg_match('/"(.*?)"/', $filing_number_row, $matches);
@@ -317,7 +343,6 @@ class TrackingController extends Controller
 
                         // Consultar la base de datos
                         $person = Person::where('first_name', $first_name)->where('first_last_name', $first_last_name)->where('second_last_name', $second_last_name)->pluck('id')->first();
-                        
                         $type_pqrs = new TypePqrs;
                         $type_pqrs->name = $type_pqrs_name;
                         $type_pqrs->save();
@@ -333,16 +358,23 @@ class TrackingController extends Controller
                         $pqrs->state = $state;
                         $pqrs->save();
 
-                        $pqrs->people()->attach($person[0], [
-                            'date' => now()->format('Y-m-d')
+                        $pqrs->people()->attach($person, [
+                            'date_time' => now()->format('Y-m-d H:i:s'),
+                            'type' => 'Funcionario'
                         ]);
 
                         $countstate++;
                     }
                 }
-                
-                return redirect()->route('pqrs.tracking.index')->with(['success' => 'Se registraron '. $countstate.' PQRS exitosamente.']); 
+                if (!empty($filing_exists)) {
+                    $mensaje = 'Los siguientes radicados de las PQRS no se registraron porque ya existen '. implode(', ', $filing_exists) .'.';
+                    return redirect()->route('pqrs.tracking.index')->with(['success' => $mensaje]); 
+                } else {
+                    $mensaje = 'Se registraron '. $countstate .' PQRS con éxito.';
+                    return redirect()->route('pqrs.tracking.index')->with(['success' => $mensaje]); 
+                }     
             } catch (Exception $e) {
+                dd($e);
                 DB::rollBack(); // Devolver cambios realizados durante la transacción
                 return back()->with('error', 'Error al registrar la PQRS')->with('typealert', 'danger');
              }

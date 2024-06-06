@@ -33,9 +33,13 @@
                     <div class="reasign-container" id="reasign-{{ $p->id }}" style="display: none;">
                         {!! Form::open(['method' => 'post', 'url' => route('pqrs.official.answer.reasign')]) !!}
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-4">
+                                    {!! Form::label('type', 'Tipo') !!}
+                                    {!! Form::select('type', ['' => 'Seleccione el tipo de asignación', 'Funcionario' => 'Funcionario', 'Apoyo' => 'Apoyo'], null ,['class' => 'form-control type', 'style' => 'width: 100%;']) !!}
+                                </div>
+                                <div class="col-md-4">
                                     {!! Form::hidden('id', $p->id) !!}
-                                    {!! Form::label('responsible', 'Funcionario') !!}
+                                    {!! Form::label('responsible', 'Nombre de quien se le asigna') !!}
                                     {!! Form::select('responsible', [], null ,['class' => 'form-control responsible', 'style' => 'width: 100%;']) !!}
                                     @error('responsible')
                                         <span class="text-danger">{{ $message }}</span>
@@ -126,7 +130,7 @@
             $('.reasign-container').hide(); // Oculta todos los divs de asignación
             $('#reasign-' + id).show(); // Muestra el div correspondiente
             $('#reasign-' + id).find('.responsible').select2({
-                placeholder: 'Ingrese nombre del funcionario',
+                placeholder: 'Ingrese nombre de la persona que va ha asignar',
                 minimumInputLength: 3,
                 ajax: {
                     url: '{{ route("pqrs.official.answer.searchOfficial") }}',

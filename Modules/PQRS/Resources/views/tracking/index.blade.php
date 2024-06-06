@@ -72,15 +72,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($pqrs as $p)      
+                                @foreach ($pqrs as $p)  
+                                    @php 
+                                        foreach ($p->people as $pi) {
+                                            $type = $pi->pivot->type;
+                                        }
+                                    @endphp
                                     <tr class="{{ $p->state == 'PROXIMO A VENCER' ? 'row-yellow' : '' }}">
                                         <td>{{ $p->filing_number }}</td>
                                         <td>{{ $p->filing_date }}</td>
                                         <td>{{ $p->end_date }}</td>
                                         <td>{{ $p->type_pqrs->name }}</td>
                                         <td>
-                                            @if($p->people->isNotEmpty())
-                                            {{ $p->people->first()->first_name. ' ' . $p->people->first()->first_last_name . ' ' . $p->people->first()->second_last_name}}
+                                            @if($p->people->isNotEmpty() && $type == 'Funcionario')
+                                                {{ $p->people->first()->first_name. ' ' . $p->people->first()->first_last_name . ' ' . $p->people->first()->second_last_name}}
                                             @endif
                                         </td>
                                         <td>{{ $p->state }}</td>

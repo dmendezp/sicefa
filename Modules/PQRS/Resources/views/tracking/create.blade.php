@@ -32,14 +32,14 @@
                         <div class="row">
                             <div class="col-6">
                                 {!! Form::label('filing_number', 'Numero Radicado') !!}
-                                {!! Form::number('filing_number', null, ['class' => 'form-control']) !!}
+                                {!! Form::number('filing_number', null, ['class' => 'form-control', 'placeholder' => 'Ingrese número de radicación']) !!}
                                 @error('filing_number')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="col-6">
                                 {!! Form::label('nis', 'NIS') !!}
-                                {!! Form::number('nis', null, ['class' => 'form-control']) !!}
+                                {!! Form::number('nis', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el NIS']) !!}
                                 @error('nis')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -67,7 +67,7 @@
                             </div>
                             <div class="col-6">
                                 {!! Form::label('issue', 'Descripción') !!}
-                                {!! Form::textarea('issue', null, ['class' => 'form-control', 'style' => 'height: calc(2.25rem + 2px)']) !!}
+                                {!! Form::textarea('issue', null, ['class' => 'form-control', 'style' => 'height: calc(2.25rem + 2px)', 'placeholder' => 'Ingrese la descripción del asunto']) !!}
                                 @error('issue')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -79,7 +79,14 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-
+                            <div class="col-12">
+                                {!! Form::label('assistant_one', 'Apoyo 1') !!}
+                                {!! Form::select('assistant_one', [], null ,['class' => 'form-control assistant_one', 'style' => 'width: 100%;']) !!}
+                            </div>
+                            <div class="col-12">
+                                {!! Form::label('assistant_two', 'Apoyo 2') !!}
+                                {!! Form::select('assistant_two', [], null ,['class' => 'form-control assistant_two', 'style' => 'width: 100%;']) !!}
+                            </div>
                             <div class="save">                           
                                 {!! Form::submit('Guardar', ['class' => 'btn btn-info saveBtn']) !!}
                             </div>
@@ -99,6 +106,60 @@
     $(document).ready(function() {
         $('.responsible').select2({
             placeholder: 'Ingrese nombre del funcionario',
+            minimumInputLength: 3,
+            ajax: {
+                url: '{{ route("pqrs.tracking.searchOfficial") }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        name: params.term,
+                    };
+                },
+                processResults: function(data) {
+                    var results = data.map(function(item) {
+                        return {
+                            id: item.id,
+                            text: item.name
+                        };
+                    });
+
+                    return {
+                        results: results
+                    };
+                },
+                cache: true
+            }
+        });
+        $('.assistant_one').select2({
+            placeholder: 'Ingrese nombre del apoyo',
+            minimumInputLength: 3,
+            ajax: {
+                url: '{{ route("pqrs.tracking.searchOfficial") }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        name: params.term,
+                    };
+                },
+                processResults: function(data) {
+                    var results = data.map(function(item) {
+                        return {
+                            id: item.id,
+                            text: item.name
+                        };
+                    });
+
+                    return {
+                        results: results
+                    };
+                },
+                cache: true
+            }
+        });
+        $('.assistant_two').select2({
+            placeholder: 'Ingrese nombre del apoyo',
             minimumInputLength: 3,
             ajax: {
                 url: '{{ route("pqrs.tracking.searchOfficial") }}',
