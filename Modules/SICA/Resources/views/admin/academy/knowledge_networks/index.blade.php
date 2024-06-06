@@ -10,34 +10,35 @@
             <div class="d-flex justify-content-center">
                 <div class="card card-orange card-outline shadow col-md-12">
                     <div class="card-header">
-                        <h3 class="card-title">{{ trans('sica::menu.Technological lines')}}</h3>
+                        <h3 class="card-title">{{trans('sica::menu.Knowledge Networks')}}</h3>
                         <div class="btns">
-                            @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.networks.index'))
-                                <a href="{{ route('sica.'.$role_name.'.academy.networks.index') }}" class="btn btn-info float-right ml-1">
-                                    <i class="fa-regular fa-angles-left fa-beat-fade"></i>
-                                    {{ trans('sica::menu.Networks')}}
+                            @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.lines.index'))
+                                <a href="{{ route('sica.'.$role_name.'.academy.lines.index') }}" class="btn btn-info float-right ml-1">
+                                    <i class="fa-solid fa-angles-right fa-beat-fade"></i>
+                                    {{trans('sica::menu.Technological lines')}}
                                 </a>
                             @endif
                             @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.programs.index'))
                                 <a href="{{ route('sica.'.$role_name.'.academy.programs.index') }}" class="btn btn-info float-right ml-1">
-                                    <i class="fa-regular fa-angles-left fa-beat-fade"></i>
-                                    {{ trans('sica::menu.Formation Programs')}}
+                                    <i class="fa-solid fa-angles-left fa-beat-fade"></i>
+                                    {{trans('sica::menu.Formation Programs')}}
                                 </a>
                             @endif
                         </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <div class="">
-                            <table id="tableLines" class="table table-bordered table-striped">
+                        <div>
+                            <table id="tableNetworks" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>{{ trans('sica::menu.Name')}}</th>
-                                        <th class="text-center">{{ trans('sica::menu.Actions')}}
-                                            @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.lines.create'))
-                                                <a class="mx-3" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.lines.create') }}')">
-                                                    <b class="text-success" data-toggle="tooltip" data-placement="top" title="Registrar línea tecnológica">
+                                        <th>{{trans('sica::menu.Knowledge Networks')}}</th>
+                                        <th>{{trans('sica::menu.Networks')}}</th>
+                                        <th class="text-center">{{trans('sica::menu.Actions')}}
+                                            @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.networks.create'))
+                                                <a class="mx-3" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.knowledge.networks.create') }}')">
+                                                    <b class="text-success" data-toggle="tooltip" data-placement="top" title="Registrar red de conocimiento">
                                                         <i class="fas fa-plus-circle"></i>
                                                     </b>
                                                 </a>
@@ -46,22 +47,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($lines as $l)
+                                    @foreach ($knowledgenetworks as $knowledgenetwork)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $l->name }}</td>
+                                            <td>{{ $knowledgenetwork->name }}</td>
+                                            <td>{{ $knowledgenetwork->network->name }}</td>
                                             <td class="text-center">
                                                 <div class="opts">
-                                                    @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.lines.edit'))
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.lines.edit', $l->id) }}')">
-                                                            <b class="text-info" data-toggle="tooltip" data-placement="top" title="Actualizar línea tecnológica">
+                                                    @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.networks.edit'))
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.knowledge.networks.edit', $knowledgenetwork->id) }}')">
+                                                            <b class="text-info" data-toggle="tooltip" data-placement="top" title="Actualizar red de conocimiento">
                                                                 <i class="fas fa-edit"></i>
                                                             </b>
                                                         </a>
                                                     @endif
-                                                    @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.lines.delete'))
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.lines.delete', $l->id) }}')">
-                                                            <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar línea tecnológica">
+                                                    @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.networks.delete'))
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.knowledge.networks.delete', $knowledgenetwork->id) }}')">
+                                                            <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar red de conocimiento">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </b>
                                                         </a>
@@ -80,7 +82,8 @@
         </div>
     </div>
     <!-- General modal -->
-    <div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered" role="document">
             <div class="modal-content" id="modal-content"></div>
         </div>
@@ -94,14 +97,15 @@
         </div>
     </div>
 @endsection
+
 @section('script')
     <script>
-        @if (Session::get('message_line'))
+        @if (Session::get('message_network'))
             /* Show the message */
             @if (Session::get('icon') == 'success')
-                toastr.success("{{ Session::get('message_line') }}");
+                toastr.success("{{ Session::get('message_network') }}");
             @elseif (Session::get('icon') == 'error')
-                toastr.error("{{ Session::get('message_line') }}");
+                toastr.error("{{ Session::get('message_network') }}");
             @endif
         @endif
 
@@ -132,10 +136,10 @@
     <script>
         $(document).ready(function() {
             /* Initialización of Datatables Lines */
-            $('#tableLines').DataTable({
+            $('#tableNetworks').DataTable({
                 columnDefs: [{
                     orderable: false,
-                    targets: 2
+                    targets: 3
                 }]
             });
         });

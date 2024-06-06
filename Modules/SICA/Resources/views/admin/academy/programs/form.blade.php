@@ -49,6 +49,6 @@
         <span class="input-group-text">
             <i class="far fa-list"></i>
         </span>
-        {!! Form::select('network_id', $network, isset($program) ? $program->network_id : null, ['class' => 'form-control', 'required']) !!}
+        {!! Form::select('network_id', $network, isset($program) ? $program->knowledge_network_id : null, ['class' => 'form-control', 'required']) !!}
     </div>
 </div>

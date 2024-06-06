@@ -13,6 +13,7 @@ use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\EPS;
 use Modules\SICA\Entities\Line;
 use Modules\SICA\Entities\Network;
+use Modules\SICA\Entities\KnowledgeNetwork;
 use Modules\SICA\Entities\Municipality;
 use Modules\SICA\Entities\PensionEntity;
 use Modules\SICA\Imports\PeopleImport;
@@ -108,7 +109,7 @@ class TempTablesController extends Controller
                 DB::beginTransaction(); // Iniciar transacción
 
                 $line = Line::firstOrCreate(['name' => '---------- (SELECCIONE OTRA LÍNEA) ----------']); // Consultar o registrar línea tecnológica temporal
-                $network = Network::firstOrCreate(['name' => '---------- (SELECCIONE OTRA RED) ----------'],[ // Consultar o registrar red de conocimiento temporal
+                $network = KnowledgeNetwork::firstOrCreate(['name' => 'No Registra'],[ // Consultar o registrar red de conocimiento temporal
                     'line_id' => $line->id
                 ]);
                 $program = Program::firstOrCreate(['name' => $program_name],[ // Consultar o registrar programa de formación

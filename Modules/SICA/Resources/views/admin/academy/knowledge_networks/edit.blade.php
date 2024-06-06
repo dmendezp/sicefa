@@ -5,15 +5,15 @@
 <div id="content-config">
     <div class="modal-header py-2">
         <h5 class="modal-title" id="exampleModalLabel">
-            <b>{{trans('sica::menu.Update Network')}}</b>
+            <b>{{trans('sica::menu.Update Knowledge Network')}}</b>
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    {!! Form::open(['route'=>'sica.'.$role_name.'.academy.networks.update', 'method'=>'POST', 'id'=>'form-config']) !!}
+    {!! Form::open(['route'=>'sica.'.$role_name.'.academy.knowledge.networks.update', 'method'=>'POST', 'id'=>'form-config']) !!}
         <div class="modal-body px-4 pt-0">
-            @include('sica::admin.academy.networks.form')
+            @include('sica::admin.academy.knowledge_networks.form')
         </div>
         <div class="modal-footer py-1">
             <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">{{trans('sica::menu.Cancel')}}</button>

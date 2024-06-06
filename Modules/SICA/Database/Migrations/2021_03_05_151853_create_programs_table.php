@@ -18,13 +18,13 @@ class CreateProgramsTable extends Migration
             $table->unsignedInteger('sofia_code');
             $table->integer('version');
             $table->enum('training_type',['Complementaria','Titulada','Sin especificar'])->default('Sin especificar');
-            $table->text('name');
+            $table->string('name');
             $table->integer('quarter_number');
             $table->foreignId('knowledge_network_id')->constrained()->onDelete('cascade');
-            $table->enum('program_type', ['Auxiliar','Complementaria Virtual','Curso Especial','Especialización Tecnologica','Operario','Profundización Técnica','Técnico','Tecnólogo','Sin especificar']);
+            $table->enum('program_type', ['Auxiliar','Complementaria virtual','Curso especial','Especialización tecnologica','Operario','Profundización técnica','Técnico','Tecnólogo','Sin especificar'])->default('Sin especificar');
             $table->integer('maximum_duration');
-            $table->enum('modality',['A Distancia','A Distancia/Presencial','Presencial','Virtual','Virtual/Presencial'])->default('Presencial');
-            $table->enum('priority_bets',['Apuesta del Sector','CampeSENA','Economia Popular','Fortalecimiento en Programas TIC','Transicón Energetica','Sin especificar'])->default('Sin especificar');
+            $table->enum('modality',['A Distancia','A Distancia/Presencial','Presencial','Virtual','Virtual/Presencial','Sin especificar'])->default('Sin especificar');
+            $table->enum('priority_bets',['Apuesta del sector','CampeSENA','Economia popular','Fortalecimiento en programas TIC','Transición energetica','Sin especificar'])->default('Sin especificar');
             $table->enum('fic',['Si','No'])->default('No');
             $table->softDeletes();
             $table->timestamps();

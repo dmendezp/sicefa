@@ -83,6 +83,19 @@ return [
 	'Technological line successfully removed' => 'Technological line successfully removed',
 	'Could not delete technological line' => 'Could not delete technological line',
 
+	/* Redes tecnológicas */
+	'Networks' => 'Networks',
+	'Network' => 'Network',
+	'Add Network' => 'Add Network',
+	'Update Network' => 'Update Network',
+	'Do you want to remove the following network?' => 'Do you want to remove the following network?',
+	'Network successfully added' => 'Network successfully added',
+	'Could not add Network' => 'Could not add Network',
+	'Network successfully updated' => 'Network successfully updated',
+	'Failed to update Network' => 'Failed to update Network',
+	'Network successfully removed' => 'Network successfully removed',
+	'Could not delete Network' => 'Could not delete Network',
+
 	/* Redes de Conocimeinto */
 	'Knowledge Networks' => 'Knowledge Networks',
 	'Knowledge Network' => 'Knowledge Network',
