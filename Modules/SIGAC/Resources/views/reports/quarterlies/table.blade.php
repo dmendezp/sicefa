@@ -35,7 +35,7 @@
                                     @endif
                                     @for($i = 1; $i <= $courseNumber; $i++)
                                         @if($i == $trimestre->quarter_number)
-                                            <td>{{ $trimestre->learning_outcome->hour }}</td>
+                                            <td>{{ $trimestre->hour }}</td>
                                             <td class="celdae"></td>
                                         @else
                                             <td></td>

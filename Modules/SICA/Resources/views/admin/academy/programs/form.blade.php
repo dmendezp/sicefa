@@ -83,6 +83,26 @@
     {!! Form::number('maximum_duration', isset($program) ? $program->maximum_duration : null, ['class' => 'form-control', 'required']) !!}
 </div>
 
+{!! Form::label('months_lectiva', trans('sica::menu.Months Lectiva'), ['class' => 'mt-3']) !!}
+<div class="input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">
+            <i class="far fa-keyboard"></i>
+        </span>
+    </div>
+    {!! Form::number('months_lectiva', isset($program) ? $program->months_lectiva : null, ['class' => 'form-control', 'required']) !!}
+</div>
+
+{!! Form::label('months_productiva', trans('sica::menu.Months Productiva'), ['class' => 'mt-3']) !!}
+<div class="input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">
+            <i class="far fa-keyboard"></i>
+        </span>
+    </div>
+    {!! Form::number('months_productiva', isset($program) ? $program->months_productiva : null, ['class' => 'form-control', 'required']) !!}
+</div>
+
 {!! Form::label('modality', trans('sica::menu.Modality'), ['class' => 'mt-3']) !!}
 <div class="input-group">
     <div class="input-group-prepend">

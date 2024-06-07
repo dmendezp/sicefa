@@ -30,8 +30,12 @@ use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Competencie;
 use Modules\SICA\Entities\LearningOutcome;
 use Modules\SICA\Entities\Holiday;
+use Modules\SICA\Entities\KnowledgeNetwork;
+use Modules\SICA\Entities\Network;
+use Modules\SICA\Entities\Line;
 use Carbon\Carbon;
 use Modules\SIGAC\Imports\ApprenticeLearningOutcomeImport;
+use Modules\SIGAC\Imports\ProgramImport;
 use Modules\SIGAC\Exports\ProgramCourseExport;
 
 use Excel, Exception;
@@ -859,87 +863,114 @@ class ProgrammeController extends Controller
             return back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
         }else{
             $path = $request->file('archivo'); // Obtener ubicación temporal del archivo en el servidor
-            $array = Excel::toArray(new ApprenticeLearningOutcomeImport, $path); // Convertir el contenido del archivo excel en una arreglo de arreglos
-            $datas = array_splice($array[0], 0, count($array[0])); // Obtener solo los registros de los datos de los aprendices
-            
+            // Usar el importador personalizado para obtener los datos
+            $import = new ProgramImport();
+            $array = Excel::toArray($import, $path);
+            $datas = array_splice($array[0], 1, count($array[0]));
             try {
                 $count = 0;
                 // Recorrer datos y relizar registros
                
+                DB::beginTransaction();
+
                 foreach($datas as $data){
-                    $code = $data[0];
-                    $name = $data[4];
-                    dd($code);
-                    if ($competencie) {
-                        if (count($competencie) > 1) {
-                            $code_competencie = $competencie[0];
-                            // Si hay más de una parte después de dividir por el guión
-                            $name_competencia = trim(preg_replace('/^[0-9]+\s*/', '', $competencie[1])); // Eliminar números y espacios al principio de la cadena
+                    $sofia_code = $data[0];
+                    $version = $data[1];
+                    $training_type = $data[3];
+                    $name_file = explode(".", $data[4]); // Dividir la cadena por el guión ('.')
+                    $name = $name_file[0];
+                    $maximum_duration = $data[6];
+                    $program_type = $data[5];
+                    $name_line = $data[19];
+                    $name_network = $data[20];
+                    $name_knowledge_network = $data[21];
+                    $modality = $data[22];
+                    $priority_bets = $data[23];
+                    $fic = $data[24];
+                    $file_meses_lectiva = explode(".", $data[25]);
+                    $meses_lectiva = $file_meses_lectiva[0];
+                    $file_meses_productiva = explode(".", $data[26]);
+                    $meses_productiva = $file_meses_productiva[0];
+                    $file_quarter_number = explode(".", $data[27]);
+                    $quarter_number = $file_quarter_number[0];
+                    $knowledge_network = KnowledgeNetwork::where('name', '=', $name_knowledge_network)->first();
+
+                    
+
+                    if ($knowledge_network) {
+                        $knowledge_network_id = $knowledge_network->id;
+                    } else {
+
+                        $network = Network::where('name', '=', $name_network)->first();
+
+                        if ($network) {
+                            $network_id = $network->id;
                         } else {
-                            // Si no hay un guión, entonces tomar el nombre completo sin modificar
-                            $name_competencia = trim($competencie[0]);
+                            $line = Line::where('name', '=', $name_line)->first();
+
+                            if ($line) {
+                                $line_id = $line->id;
+                            } else {
+                                $l = new Line;
+                                $l->name = $name_line;
+                                $l->save();
+                                $line_id = $l->id;
+                            }
+                            $networ = new Network;
+                            $networ->name = $name_network;
+                            $networ->line_id = $line_id;
+                            $networ->save();
+                            $network_id = $networ->id;
                         }
 
+                        $knowledge = new KnowledgeNetwork;
+                        $knowledge->name = $name_knowledge_network;
+                        $knowledge->network_id = $network_id;
+                        $knowledge->save();
+                        $knowledge_network_id = $knowledge->id;
                     }
-                    $learning_outcome = explode(" - ", $data[6]); // Dividir la cadena por el guión ('-')
-                    $program_id = $request->program_id;
-                    if ($learning_outcome) {
-                        if (count($learning_outcome) > 1) {
-                            // Si hay más de una parte después de dividir por el guión
-                            $name_learning = trim(preg_replace('/^[0-9]+\s*/', '', $learning_outcome[1])); // Eliminar números y espacios al principio de la cadena
-                        } else {
-                            // Si no hay un guión, entonces tomar el nombre completo sin modificar
-                            $name_learning = trim($learning_outcome[0]);
-                        }
-                        $competenciefind = Competencie::where('name', '=', $name_competencia)->where('program_id',$program_id)->first();
 
-                        if ($competenciefind) {
-                            $competencie_id = $competenciefind->id;
-                        } else {
-                            $competencies = new Competencie;
-                            $competencies->program_id = $program_id;
-                            $competencies->code = $code_competencie;
-                             // Convierte la frase a minúsculas
-                            $name_competencia = mb_strtolower($name_competencia, 'UTF-8');
-                            // Capitaliza la primera letra
-                            $name_competencia = mb_strtoupper(mb_substr($name_competencia, 0, 1), 'UTF-8') . mb_substr($name_competencia, 1);
-                            $competencies->name = $name_competencia;
-                            $competencies->hour = 0;
-                            $competencies->type = 'Técnico';
-                            $competencies->save();
-                            $competencie_id = $competencies->id;
-                        }
+                    $program = Program::where('name', '=', $name)->where('program_type', '=', $program_type)->first();
 
-                        $learning_outcome = LearningOutcome::where('name', '=', $name_learning)->whereHas('competencie', function($query) use ($program_id) {
-                            $query->where('program_id', $program_id);
-                        })->first();
-                        
-                        if ($learning_outcome) {
-                            $learning_outcome_id = $learning_outcome->id;
-                        } else {
-                            $learning_outcomes = new LearningOutcome;
-                            $learning_outcomes->competencie_id = $competencie_id;
-
-                            // Convierte la frase a minúsculas
-                            $name_learning = mb_strtolower($name_learning, 'UTF-8');
-
-                            // Capitaliza la primera letra
-                            $name_learning = mb_strtoupper(mb_substr($name_learning, 0, 1), 'UTF-8') . mb_substr($name_learning, 1);
-
-                            // Asigna el nombre convertido al campo correspondiente
-                            $learning_outcomes->name = $name_learning;
-
-                            $learning_outcomes->hour = 0;
-                            $learning_outcomes->save();
-                            $count++;
-
-                        }
+                    if ($program) {
+                        $program->sofia_code = $sofia_code;
+                        $program->version = $version;
+                        $program->training_type = $training_type;
+                        $program->maximum_duration = $maximum_duration;
+                        $program->modality = $modality;
+                        $program->priority_bets = $priority_bets;
+                        $program->fic = $fic;
+                        $program->knowledge_network_id = $knowledge_network_id;
+                        $program->months_lectiva = $meses_lectiva;
+                        $program->months_productiva = $meses_productiva;
+                        $program->quarter_number = $quarter_number;
+                        $program->save();
+                    } else {
+                        $program = new Program;
+                        $program->sofia_code = $sofia_code;
+                        $program->version = $version;
+                        $program->training_type = $training_type;
+                        $program->name = $name;
+                        $program->quarter_number = $quarter_number;
+                        $program->knowledge_network_id = $knowledge_network_id;
+                        $program->program_type = $program_type;
+                        $program->maximum_duration = $maximum_duration;
+                        $program->modality = $modality;
+                        $program->priority_bets = $priority_bets;
+                        $program->fic = $fic;
+                        $program->months_lectiva = $meses_lectiva;
+                        $program->months_productiva = $meses_productiva;
+                        $program->save();
+                        $count++;
                     }
                 }
+
+                DB::commit();
                 
-                return back()->with('success', 'Archivo excel escaneado coerrectamente. '.$count.' Resultados registrados exitosamente.')->with('typealert', 'success');
+                return back()->with('success', 'Archivo excel escaneado coerrectamente. '.$count.' Programas registrados exitosamente.')->with('typealert', 'success');
             } catch (Exception $e) {
                 DB::rollBack(); // Devolver cambios realizados durante la transacción
+                \Log::error('Error en el registro: ' . $e->getMessage());
                 return back()->with('error', 'Ocurrio un error en la importación y/o registro de datos del archivo excel cargado. <hr> <strong>Error: </strong> ('.$e->getMessage().').')->with('typealert', 'danger');
              }
 

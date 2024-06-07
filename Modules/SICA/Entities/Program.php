@@ -26,7 +26,9 @@ class Program extends Model implements Auditable
         'program_type',
         'maximum_duration',
         'modality',
-        'fic'
+        'fic',
+        'months_lectiva',
+        'months_productiva'
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon

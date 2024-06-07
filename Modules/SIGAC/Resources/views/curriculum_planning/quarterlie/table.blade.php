@@ -27,10 +27,10 @@
                         @foreach($trimestres->where('quarter_number', $trimestreNumber) as $trimestre)
                             <tr>
                                 @if($loop->first)
-                                    <td rowspan="{{ $trimestres->count() }}" class="text-center">{{ $competency }}</td>
+                                    <td class="text-center">{{ $competency }}</td>
                                 @endif
                                 <td class="">{{ $trimestre->learning_outcome->name }}</td>
-                                <td class="text-center">{{ $trimestre->learning_outcome->hour }}</td>
+                                <td class="text-center">{{ $trimestre->hour }}</td>
                                 @if (count($trimestre->learning_outcome->people) > 0)
                                 <td class="text-center">
                                     @foreach($trimestre->learning_outcome->competencie->professions as $profession)

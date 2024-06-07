@@ -12,7 +12,7 @@ class Quarterly extends Model implements Auditable
     use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     use HasFactory;
 
-    protected $fillable = ['quarter_number','training_project_id','learning_outcome_id'];
+    protected $fillable = ['hour','quarter_number','training_project_id','learning_outcome_id'];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 

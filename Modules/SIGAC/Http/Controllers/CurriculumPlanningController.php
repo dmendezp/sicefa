@@ -88,6 +88,8 @@ class CurriculumPlanningController extends Controller
             $query->where('id', $programId);
         })->pluck('name', 'id');
 
+
+
         return view('sigac::curriculum_planning.quarterlie.index')->with([
             'titlePage' => trans('Trimestralización'),
             'titleView' => trans('Trimestralización'),
@@ -185,6 +187,7 @@ class CurriculumPlanningController extends Controller
     public function quarterlie_store(Request $request)
     {
         $rules = [
+            'hour' => 'required',
             'quarter_number' => 'required|numeric',
             'training_project_id' => 'required',
             'learning_outcome_id' => 'required|array',
@@ -195,9 +198,11 @@ class CurriculumPlanningController extends Controller
         }
 
         $learning_outcome_Ids = $request->input('learning_outcome_id');
+        $hours = $request->input('hour');
         foreach ($learning_outcome_Ids as $index => $learning_outcome_id) {
-
+            $hour = $hours[$index];
             $quarterly = new Quarterly([
+                'hour' => $hour,
                 'quarter_number' => $request->quarter_number,
                 'training_project_id' => $request->training_project_id,
                 'learning_outcome_id' => $learning_outcome_id,
@@ -237,6 +242,7 @@ class CurriculumPlanningController extends Controller
     public function quarterlie_update(Request $request, $id)
     {
         $rules = [
+            'hour' => 'required|numeric',
             'quarter_number' => 'required|numeric',
             'training_project_id' => 'required',
             'learning_outcome_id' => 'required|array',
@@ -252,6 +258,7 @@ class CurriculumPlanningController extends Controller
         $competencie_id = $quarterly->learning_outcome->competencie->id;
 
         // Actualizar el trimestre actual con los datos proporcionados
+        $quarterly->hour = $request->hour;
         $quarterly->quarter_number = $request->quarter_number;
         $quarterly->training_project_id = $request->training_project_id;
         $quarterly->save();

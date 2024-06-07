@@ -26,9 +26,11 @@ class CreateProgramsTable extends Migration
             $table->enum('modality',['Sin especificar','A Distancia','A Distancia/Presencial','Presencial','Virtual','Virtual/Presencial'])->default('Sin especificar');
             $table->enum('priority_bets',['Sin especificar','Apuesta del sector','CampeSENA','Economia popular','Fortalecimiento en programas TIC','Transición energetica'])->default('Sin especificar');
             $table->enum('fic',['No','Si'])->default('No');
+            $table->integer('months_lectiva')->default(0);
+            $table->integer('months_productiva')->default(0);
             $table->softDeletes();
             $table->timestamps();
-            $table->unique(['name', 'sofia_code']); // Generar llave única entre la columnas name y sofia_code
+            $table->unique(['sofia_code']); // Generar llave única entre la columnas name y sofia_code
         });
     }
 

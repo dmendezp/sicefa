@@ -202,6 +202,8 @@ class AcademyController extends Controller
         $program->modality = e($request->input('modality'));
         $program->priority_bets = e($request->input('priority_bets'));
         $program->fic = e($request->input('fic'));
+        $program->months_lectiva = e($request->input('months_lectiva'));
+        $program->months_productiva = e($request->input('months_productiva'));
         $program->knowledge_network()->associate(KnowledgeNetwork::find($request->input('knowledge_network_id')));
         if($program->save()){
             $icon = 'success';
@@ -238,6 +240,8 @@ class AcademyController extends Controller
         $program->modality = e($request->input('modality'));
         $program->priority_bets = e($request->input('priority_bets'));
         $program->fic = e($request->input('fic'));
+        $program->months_lectiva = e($request->input('months_lectiva'));
+        $program->months_productiva = e($request->input('months_productiva'));
         $program->knowledge_network_id = e($request->input('knowledge_network_id'));
         if($program->save()){
             $icon = 'success';

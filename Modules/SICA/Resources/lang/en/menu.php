@@ -147,6 +147,8 @@ return [
 	'Maximum Duration' => 'Maximum Duration',
 	'Modality' => 'Modality',
 	'Priority Bets' => 'Priority Bets',
+	'Months Lectiva' => 'Months Lectiva',
+	'Months Productiva' => 'Months Productiva',
 	'Type' => 'Type',
 	'Quarter' => 'Quarter Number',
 	'Program Type' => 'Program Type',

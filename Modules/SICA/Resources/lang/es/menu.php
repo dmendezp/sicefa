@@ -148,6 +148,8 @@ return [
 	'Maximum Duration' => 'Maxima Duración',
 	'Modality' => 'Modalidad',
 	'Priority Bets' => 'Apuesta Prioritaria',
+	'Months Lectiva' => 'Meses Lectiva',
+	'Months Productiva' => 'Meses Productiva',
 	'Type' => 'Tipo',
 	'Quarter' => 'Numero de Trimestre',
 	'Program Type' => 'Tipo de Programa',

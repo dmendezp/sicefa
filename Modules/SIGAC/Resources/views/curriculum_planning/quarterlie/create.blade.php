@@ -29,6 +29,10 @@
                             <div class="form-group">
                                 {!! Form::select('learning_outcome_id[]', [], old('learning_outcome_id[]'), ['class' => 'form-control select2 learning_outcome_select', 'required']) !!}
                             </div>
+                            <div class="form-group">
+                                {!! Form::label('hour', 'Horas') !!}
+                                {!! Form::number('hour[]', null, ['class' => 'form-control','placeholder' => 'Ingrese el número horas', 'required']) !!}
+                            </div>
                         </div>
                         <div class="col-4">
                             <button type="button" class="btn btn-primary add_learning_outcomes"><i class="fas fa-plus"></i></button>
@@ -36,6 +40,7 @@
                     </div>
                 </div>
                 <br>
+                
                 {!! Form::submit(trans('sigac::general.Btn_Save'), ['class' => 'btn btn-primary','id' => 'standcolor']) !!}
                 {!! Form::close() !!}
             </div>
@@ -54,6 +59,10 @@
                     <div class="col-8">
                         <div class="form-group">
                             {!! Form::select('learning_outcome_id[]', [], old('learning_outcome_id[]'), ['class' => 'form-control select2 learning_outcome_select', 'required']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('hour', 'Horas') !!}
+                            {!! Form::number('hour[]', null, ['class' => 'form-control','placeholder' => 'Ingrese el número horas', 'required']) !!}
                         </div>
                     </div>
                     <div class="col-4">
