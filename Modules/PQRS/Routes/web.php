@@ -12,6 +12,8 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/tracking/excel', 'create_excel')->name('pqrs.tracking.excel');
             Route::post('/tracking/excel/store', 'store_excel')->name('pqrs.tracking.excel.store');
             Route::post('/tracking/email', 'email')->name('pqrs.tracking.email');
+            Route::post('/tracking/filed_response', 'filed_response')->name('pqrs.tracking.filed_response');
+
         });
 
         Route::controller(AnswerController::class)->group(function () {

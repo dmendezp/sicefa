@@ -34,7 +34,7 @@
         icon: 'success',
         title: '{{ session('success') }}',
         showConfirmButton: false,
-        timer: 3500,
+        timer: 5000,
         customClass: {
             popup: 'my-custom-popup-class',
         },

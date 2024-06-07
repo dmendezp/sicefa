@@ -3,7 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="history{{ $p->id }}Label">Historial de asignaciones de la PQRS</h1>
+          <h1 class="modal-title fs-5" id="history{{ $p->id }}Label">Historial de asignaciones de la {{ $p->type_pqrs->name }}</h1>
           <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
         </div>
         <div class="modal-body">

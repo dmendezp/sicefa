@@ -35,14 +35,12 @@ class AnswerController extends Controller
         $rules = [
             'answer' => 'required',
             'type_answer' => 'required',
-            'filed_response' => 'required',
             'response_date' => 'required',
         ];
 
         $messages = [
             'answer.required' => 'Debe registrar una respuesta',
             'type_answer.required' => 'Debe seleccionar un tipo de respuesta',
-            'filed_response.required' => 'Debe registrar el numero de radicado',
             'response_date' => 'Debe registrar una fecha'
         ];
 
@@ -53,7 +51,6 @@ class AnswerController extends Controller
             $pqrs = Pqrs::find($request->pqrs_id);
             $pqrs->state = $validatedData['type_answer'];
             $pqrs->answer = $validatedData['answer'];
-            $pqrs->filed_response = $validatedData['filed_response'];
             $pqrs->response_date = $validatedData['response_date'];
             $pqrs->save();
 

@@ -20,6 +20,10 @@
     .modal_answer{
         font-weight: bold;
     }
+
+    .filing_response{
+        margin-top: 10px;
+    }
 </style>
 
 @endsection
@@ -50,7 +54,7 @@
                         </div>
                         <div class="col">
                             <a href="{{ route('pqrs.tracking.excel') }}">
-                                <button class="btn btn-success excel" title="Cargar archivo">
+                                <button class="btn btn-success excel" title="Cargar excel de la regional">
                                     <i class="fas fa-file-excel"></i>
                                 </button>
                             </a>
@@ -73,20 +77,26 @@
                             </thead>
                             <tbody>
                                 @foreach ($pqrs as $p)  
-                                    @php 
-                                        foreach ($p->people as $pi) {
-                                            $type = $pi->pivot->type;
-                                        }
-                                    @endphp
                                     <tr class="{{ $p->state == 'PROXIMO A VENCER' ? 'row-yellow' : '' }}">
                                         <td>{{ $p->filing_number }}</td>
                                         <td>{{ $p->filing_date }}</td>
                                         <td>{{ $p->end_date }}</td>
                                         <td>{{ $p->type_pqrs->name }}</td>
-                                        <td>
-                                            @if($p->people->isNotEmpty() && $type == 'Funcionario')
-                                                {{ $p->people->first()->first_name. ' ' . $p->people->first()->first_last_name . ' ' . $p->people->first()->second_last_name}}
-                                            @endif
+                                        <td>     
+                                            @php
+                                                $filtered = $p->people->filter(function($person) {
+                                                    return $person->pivot->type == 'Funcionario' && !is_null($person->pivot->date_time);
+                                                });
+                                                $maxDate = $filtered->max('pivot.date_time');
+
+                                                // Encontrar la persona que tiene la fecha mayor
+                                                $personWithMaxDate = $filtered->first(function($person) use ($maxDate) {
+                                                    return $person->pivot->date_time == $maxDate;
+                                                });                                             
+                                            @endphp                                     
+                                            @if($personWithMaxDate)
+                                                {{ $personWithMaxDate->first_name. ' ' . $personWithMaxDate->first_last_name . ' ' . $personWithMaxDate->second_last_name}}
+                                            @endif                  
                                         </td>
                                         <td>{{ $p->state }}</td>
                                         <td>{{ Str::limit($p->issue, 10) }}</td>
@@ -94,14 +104,18 @@
                                             @if ($p->state == 'RESPUESTA GENERADA' || $p->state == 'RESPUESTA PARCIAL')
                                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#info{{ $p->id }}" title="Información de la {{ $p->type_pqrs->name }}">
                                                     <i class="fas fa-eye"></i>
-                                                </button>       
+                                                </button>     
+                                                @include('pqrs::answer.answer')
+                                                <button class="btn btn-info filing_response" data-bs-toggle="modal" data-bs-target="#filing{{ $p->id }}" title="Radicado de respuesta de la {{ $p->type_pqrs->name }}">
+                                                    <i class="fas fa-archive"></i>
+                                                </button>
+                                                @include('pqrs::tracking.filing_response')  
                                             @endif
-                                            @include('pqrs::answer.answer')
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#history{{ $p->id }}" title="Historial de la {{ $p->type_pqrs->name }}">
                                                 <i class="fas fa-history"></i>
                                             </button>    
                                             @include('pqrs::tracking.history')
-
+                                           
                                         </td>
                                     </tr>
                                 @endforeach
@@ -119,6 +133,7 @@
 <script>
    $("#tracking").DataTable({
     'responsive' : true,
+    'ordering' : false,
    });
 </script>
 

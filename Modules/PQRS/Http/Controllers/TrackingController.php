@@ -23,9 +23,7 @@ class TrackingController extends Controller
         $titlePage = 'Seguimiento PQRS';
         $titleView = 'Seguimiento PQRS';
 
-        $pqrs = Pqrs::with(['people' => function($query) {
-            $query->orderBy('date_time', 'desc');
-        }])->get();
+        $pqrs = Pqrs::with('people')->orderBy('end_date', 'asc')->get();
 
         $holidays = Holiday::pluck('date')->map(function ($date) {
             return Carbon::parse($date)->format('Y-m-d');
@@ -134,7 +132,6 @@ class TrackingController extends Controller
                 $pqrs->filing_number = $validatedData['filing_number'];
                 $pqrs->filing_date = $validatedData['filing_date'];
                 $pqrs->nis = $validatedData['nis'];
-                $pqrs->start_date = '2024-05-23';
                 $pqrs->end_date = $validatedData['end_date'];
                 $pqrs->issue = $validatedData['issue'];
                 $pqrs->save();
@@ -188,8 +185,9 @@ class TrackingController extends Controller
         }else{
             $path = $request->file('excel'); // Obtener ubicación temporal del archivo en el servidor
             $array = Excel::toArray(new PqrsImport, $path); // Convertir el contenido del archivo excel en una arreglo de arreglos
-            
+
             $regional = [];
+            $proximo_vencer = [];
 
             //Accede a los codigos del responsable
             foreach($array[0] as $row){
@@ -199,11 +197,20 @@ class TrackingController extends Controller
                     $regional[] = $row;
                 }
             }
+                    
+            foreach ($array[1] as $row) {
+                if (isset($row[1]) && strpos($row[1], '419116' ) !== false && strpos($row[10], 'PROXIMA A VENCER')) {
+                    
+                    // Agregar el valor de la columna 2 al arreglo si contiene '419116' y esta EN PROCESO
+                    $proximo_vencer[] = $row;
+                }
+            }
+
             try {
                 $countstate = 0;
                 // Recorrer datos y relizar registros
                
-                foreach($regional as $data){
+                foreach($regional as $data){    
                     $type_pqrs_row = $data[9];
                     // Realizar la búsqueda y almacenar el resultado en $matches
                     preg_match('/"(.*?)"/', $type_pqrs_row, $matches);
@@ -269,28 +276,53 @@ class TrackingController extends Controller
 
                         $pqrs_existing = Pqrs::where('filing_number', $filing_number_int)->exists();
 
-                        if($pqrs_existing){
-                            $filing_exists[] = $filing_number_int;
-                            continue;
+                        foreach ($proximo_vencer as $p) {
+                            $filing_number_expite_row = $p[4];
+                            preg_match('/"(.*?)"/', $filing_number_expite_row, $matches);
+                            $filing_number_expire = $matches[1];
+                            
+                            $state_row_expirate = $p[10];
+                            preg_match('/"(.*?)"/', $state_row_expirate, $matches);
+                            $state_expirate = $matches[1];   
+        
+                            $filing_number_expire_int = intval($filing_number_expire);
+                            $filing_exists_expirate[] = $filing_number_expire_int;  
+                            $pqrs_expirate_exists = Pqrs::whereIn('filing_number', $filing_exists_expirate)->get();
+                            
+                                                  
+                        }          
+
+                        if($pqrs_expirate_exists){
+                            foreach ($pqrs_expirate_exists as $pee){
+                                $pqrs_id = $pee->id;
+                                $new_pqrs_expirate = Pqrs::find($pqrs_id);
+                                $new_pqrs_expirate->state = 'PROXIMO A VENCER';
+                                $new_pqrs_expirate->save();
+                            }  
                         }
+
+                        if($pqrs_existing){
+                            $filing_exists[] = $filing_number_int;      
+                            continue;                                    
+                        } 
 
                         $pqrs = new Pqrs;
                         $pqrs->type_pqrs_id = $type_pqrs[0];
                         $pqrs->filing_number = $filing_number;
                         $pqrs->filing_date = $filing_date;
                         $pqrs->nis = $nis;
-                        $pqrs->start_date = '2024-05-31';
                         $pqrs->end_date = $end_date;
                         $pqrs->issue = '...';
                         $pqrs->state = $state;
                         $pqrs->save();
-    
+        
                         $pqrs->people()->attach($person, [
                             'date_time' => now()->format('Y-m-d H:i:s'),
                             'type' => 'Funcionario'
                         ]);
 
-                        $countstate++;                   
+                        $countstate++;  
+                                                                          
                     }else{
                         $filing_number_row = $data[4];
                         preg_match('/"(.*?)"/', $filing_number_row, $matches);
@@ -352,7 +384,6 @@ class TrackingController extends Controller
                         $pqrs->filing_number = $filing_number;
                         $pqrs->filing_date = $filing_date;
                         $pqrs->nis = $nis;
-                        $pqrs->start_date = '2024-05-31';
                         $pqrs->end_date = $end_date;
                         $pqrs->issue = '...';
                         $pqrs->state = $state;
@@ -366,6 +397,9 @@ class TrackingController extends Controller
                         $countstate++;
                     }
                 }
+
+                DB::commit();
+
                 if (!empty($filing_exists)) {
                     $mensaje = 'Los siguientes radicados de las PQRS no se registraron porque ya existen '. implode(', ', $filing_exists) .'.';
                     return redirect()->route('pqrs.tracking.index')->with(['success' => $mensaje]); 
@@ -384,9 +418,7 @@ class TrackingController extends Controller
 
     public function email()
     {
-        $pqrs = Pqrs::where('state', 'PROXIMO A VENCER')->with(['people' => function ($query) {
-            $query->orderBy('consecutive', 'desc');
-        }])->get();
+        $pqrs = Pqrs::where('state', 'PROXIMO A VENCER')->get();
 
         
         // Ship the order...
@@ -401,5 +433,13 @@ class TrackingController extends Controller
 
         // Redirige a una página de confirmación o de vuelta a la vista original
         return redirect()->back()->with('success', 'Correo enviado exitosamente.');
+    }
+
+    public function filed_response (Request $request){
+        $pqrs = Pqrs::find($request->pqrs_id);
+        $pqrs->filed_response = $request->filed_response;
+        $pqrs->save();
+
+        return redirect()->back()->with('success', 'Número de radicación registrado exitosamente.');
     }
 }

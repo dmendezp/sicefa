@@ -19,10 +19,9 @@ class CreatePqrsTable extends Migration
             $table->unsignedBigInteger('filing_number');
             $table->date('filing_date');
             $table->unsignedBigInteger('nis');
-            $table->date('start_date');
             $table->date('end_date');
             $table->text('issue');
-            $table->enum('state', ['ARCHIVADO', 'EN PROCESO', 'PROXIMO A VENCER', 'RESPUESTA GENERADA', 'RESPUESTA PARCIAL'])->default('EN PROCESO');
+            $table->enum('state', ['ARCHIVADO', 'EN PROCESO', 'PROXIMA A VENCER', 'RESPUESTA GENERADA', 'RESPUESTA PARCIAL'])->default('EN PROCESO');
             $table->text('answer')->nullable();
             $table->bigInteger('filed_response')->nullable();
             $table->date('response_date')->nullable();
