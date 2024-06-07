@@ -193,10 +193,16 @@ class AcademyController extends Controller
     public function programs_store(Request $request){
         $program = new Program();
         $program->sofia_code = e($request->input('sofia_code'));
-        $program->program_type = e($request->input('program_type'));
+        $program->version = e($request->input('version'));
+        $program->training_type = e($request->input('training_type'));
         $program->name = e($request->input('name'));
         $program->quarter_number = e($request->input('quarter_number'));
-        $program->knowledge_network()->associate(KnowledgeNetwork::find($request->input('network_id')));
+        $program->program_type = e($request->input('program_type'));
+        $program->maximum_duration = e($request->input('maximum_duration'));
+        $program->modality = e($request->input('modality'));
+        $program->priority_bets = e($request->input('priority_bets'));
+        $program->fic = e($request->input('fic'));
+        $program->knowledge_network()->associate(KnowledgeNetwork::find($request->input('knowledge_network_id')));
         if($program->save()){
             $icon = 'success';
             $message_program = trans('sica::menu.Formation Program successfully added');
@@ -223,10 +229,16 @@ class AcademyController extends Controller
     public function programs_update(Request $request){
         $program = Program::find($request->input('id'));
         $program->sofia_code = e($request->input('sofia_code'));
-        $program->program_type = e($request->input('program_type'));
+        $program->version = e($request->input('version'));
+        $program->training_type = e($request->input('training_type'));
         $program->name = e($request->input('name'));
         $program->quarter_number = e($request->input('quarter_number'));
-        $program->network_id = e($request->input('network_id'));
+        $program->program_type = e($request->input('program_type'));
+        $program->maximum_duration = e($request->input('maximum_duration'));
+        $program->modality = e($request->input('modality'));
+        $program->priority_bets = e($request->input('priority_bets'));
+        $program->fic = e($request->input('fic'));
+        $program->knowledge_network_id = e($request->input('knowledge_network_id'));
         if($program->save()){
             $icon = 'success';
             $message_program = trans('sica::menu.Formation Program successfully updated');
@@ -290,7 +302,7 @@ class AcademyController extends Controller
         $network = Network::find($id);
         $lines = Line::orderBy('name', 'ASC')->pluck('name', 'id');
         $data = [
-            'title' => 'Editar Red de Conocimiento',
+            'title' => 'Editar Red Tecnológica',
             'network' => $network,
             'lines' => $lines
         ];
@@ -315,7 +327,7 @@ class AcademyController extends Controller
     /* Formulario de eliminación de red de conocimiento */
     public function networks_delete($id){
         $network = Network::find($id);
-        $data = [ 'title' => 'Eliminar Red de Conocimiento', 'network' => $network,];
+        $data = [ 'title' => 'Eliminar Red Tecnológica', 'network' => $network,];
         return view('sica::admin.academy.networks.delete', $data);
     }
 
@@ -350,13 +362,13 @@ class AcademyController extends Controller
     public function knowledgenetworks_store(Request $request){
         $network = new KnowledgeNetwork();
         $network->name = e($request->input('name'));
-        $network->network()->associate(Network::find($request->input('line_id')));
+        $network->network()->associate(Network::find($request->input('network_id')));
         if($network->save()){
             $icon = 'success';
-            $message_network = trans('sica::menu.Network successfully added');
+            $message_network = trans('sica::menu.Knowledge Network successfully added');
         }else{
             $icon = 'error';
-            $message_network = trans('sica::menu.Could not add Network');
+            $message_network = trans('sica::menu.Could not add Knowledge Network');
         }
         return back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
     }
@@ -375,35 +387,35 @@ class AcademyController extends Controller
 
     /* Actualizar red de conocimiento */
     public function knowledgenetworks_update(Request $request){
-        $network = Network::find($request->input('id'));
-        $network->name = e($request->input('name'));
-        $network->line_id = e($request->input('line_id'));
-        if($network->save()){
+        $knowledgenetworks = KnowledgeNetwork::find($request->input('id'));
+        $knowledgenetworks->name = e($request->input('name'));
+        $knowledgenetworks->network_id = e($request->input('network_id'));
+        if($knowledgenetworks->save()){
             $icon = 'success';
-            $message_network = trans('sica::menu.Network successfully updated');
+            $message_network = trans('sica::menu.Knowledge Network successfully updated');
         }else{
             $icon = 'error';
-            $message_network = trans('sica::menu.Failed to update Network');
+            $message_network = trans('sica::menu.Failed to update Knowledge Network');
         }
         return redirect()->back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
     }
 
     /* Formulario de eliminación de red de conocimiento */
     public function knowledgenetworks_delete($id){
-        $knowledgenetwork = Network::find($id);
+        $knowledgenetwork = KnowledgeNetwork::find($id);
         $data = [ 'title' => 'Eliminar Red de Conocimiento', 'knowledgenetwork' => $knowledgenetwork,];
         return view('sica::admin.academy.knowledge_networks.delete', $data);
     }
 
     /* Eliminar red de conocimiento */
     public function knowledgenetworks_destroy(Request $request){
-        $knowledgenetwork = Network::findOrFail($request->input('id'));
+        $knowledgenetwork = KnowledgeNetwork::findOrFail($request->input('id'));
         if($knowledgenetwork->delete()){
             $icon = 'success';
-            $message_network = trans('sica::menu.Network successfully removed');
+            $message_network = trans('sica::menu.Knowledge Network successfully removed');
         }else{
             $icon = 'error';
-            $message_network = trans('sica::menu.Could not delete Network');
+            $message_network = trans('sica::menu.Could not delete Knowledge Network');
         }
         return redirect()->back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
     }

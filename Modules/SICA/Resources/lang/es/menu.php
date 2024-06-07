@@ -107,7 +107,7 @@ return [
 	'Could not add Knowledge Network' => 'No se pudo agregar la Red de Conocimiento',
 	'Knowledge Network successfully updated' => 'Red de Conocimiento actualizada exitosamente',
 	'Failed to update Knowledge Network' => 'No se pudo actualizar la red de conocimiento',
-	'Knowledge Network successfully removed' => 'Red tecnológica eliminada exitosamente',
+	'Knowledge Network successfully removed' => 'Red de conocimiento eliminada exitosamente',
 	'Could not delete Knowledge Network' => 'No se pudo eliminar la red de conocimiento',
 
 	/* Festivos */
@@ -143,6 +143,11 @@ return [
 	'Formation Programs' => 'Programas de Formación',
 	'Formation Program' => 'Programa de Formación',
 	'Code' => 'Código',
+	'Version' => 'Version',
+	'Training Type' => 'Tipo Formación',
+	'Maximum Duration' => 'Maxima Duración',
+	'Modality' => 'Modalidad',
+	'Priority Bets' => 'Apuesta Prioritaria',
 	'Type' => 'Tipo',
 	'Quarter' => 'Numero de Trimestre',
 	'Program Type' => 'Tipo de Programa',

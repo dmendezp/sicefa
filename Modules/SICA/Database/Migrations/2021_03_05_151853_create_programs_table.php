@@ -17,15 +17,15 @@ class CreateProgramsTable extends Migration
             $table->id();
             $table->unsignedInteger('sofia_code');
             $table->integer('version');
-            $table->enum('training_type',['Complementaria','Titulada','Sin especificar'])->default('Sin especificar');
+            $table->enum('training_type',['Sin especificar','Complementaria','Titulada'])->default('Sin especificar');
             $table->string('name');
             $table->integer('quarter_number');
             $table->foreignId('knowledge_network_id')->constrained()->onDelete('cascade');
-            $table->enum('program_type', ['Auxiliar','Complementaria virtual','Curso especial','Especialización tecnologica','Operario','Profundización técnica','Técnico','Tecnólogo','Sin especificar'])->default('Sin especificar');
+            $table->enum('program_type', ['Sin especificar','Auxiliar','Complementaria virtual','Curso especial','Especialización tecnologica','Operario','Profundización técnica','Técnico','Tecnólogo'])->default('Sin especificar');
             $table->integer('maximum_duration');
-            $table->enum('modality',['A Distancia','A Distancia/Presencial','Presencial','Virtual','Virtual/Presencial','Sin especificar'])->default('Sin especificar');
-            $table->enum('priority_bets',['Apuesta del sector','CampeSENA','Economia popular','Fortalecimiento en programas TIC','Transición energetica','Sin especificar'])->default('Sin especificar');
-            $table->enum('fic',['Si','No'])->default('No');
+            $table->enum('modality',['Sin especificar','A Distancia','A Distancia/Presencial','Presencial','Virtual','Virtual/Presencial'])->default('Sin especificar');
+            $table->enum('priority_bets',['Sin especificar','Apuesta del sector','CampeSENA','Economia popular','Fortalecimiento en programas TIC','Transición energetica'])->default('Sin especificar');
+            $table->enum('fic',['No','Si'])->default('No');
             $table->softDeletes();
             $table->timestamps();
             $table->unique(['name', 'sofia_code']); // Generar llave única entre la columnas name y sofia_code

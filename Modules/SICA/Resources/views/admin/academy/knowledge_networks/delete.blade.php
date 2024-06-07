@@ -19,7 +19,7 @@
                 <div class="col-8">{{ $knowledgenetwork->name }}</div>
             </div>
             <div class="row">
-                <div class="col-4 text-right"><b>{{trans('sica::menu.Technological line')}}</b></div>
+                <div class="col-4 text-right"><b>{{trans('sica::menu.Network')}}</b></div>
                 <div class="col-8">{{ $knowledgenetwork->network->name }}</div>
             </div>
         </div>

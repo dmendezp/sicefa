@@ -10,12 +10,12 @@
     </div>
     {!! Form::text('name', isset($knowledgenetworks) ? $knowledgenetworks->name : null, ['class' => 'form-control', 'required']) !!}
 </div>
-{!! Form::label('line_id', trans('sica::menu.Technological line'), ['class' => 'mt-3']) !!}
+{!! Form::label('network_id', trans('sica::menu.Network'), ['class' => 'mt-3']) !!}
 <div class="form-group">
     <div class="input-group-prepend">
         <span class="input-group-text">
             <i class="far fa-list"></i>
         </span>
-        {!! Form::select('line_id', $networks, isset($knowledgenetworks) ? $knowledgenetworks->line_id : null, ['class' => 'form-control', 'required']) !!}
+        {!! Form::select('network_id', $networks, isset($knowledgenetworks) ? $knowledgenetworks->line_id : null, ['class' => 'form-control', 'required']) !!}
     </div>
 </div>
