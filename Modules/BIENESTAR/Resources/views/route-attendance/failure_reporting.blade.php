@@ -6,46 +6,39 @@
         <div class="row justify-content-md-center pt-4">
             <div class="card shadow col-md-12">
                 <div class="card-body">
-                <a href="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.transportation.view.transportation_assistance_lists')}}" class="btn btn-secondary"><i class="far fa-arrow-alt-circle-left"></i></a>                
+                <a href="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.transportation.view.transportation_assistance_lists')}}" class="btn btn-secondary"><i class="far fa-arrow-alt-circle-left"></i></a>
+                <hr>
+                <a href="{{ route('cefa.register_failures') }}" class="btn btn-primary" method="get">Registrar Fallas</a>                
                     <div class="table-responsive">
                         <table class="table mt-4 table-bordered rounded-table" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Apprentice</th>
-                                    <th>Code</th>
-                                    <th>Route Number</th>
-                                    <th>Bus Driver Name</th>
-                                    <th>Date</th>
-                                    <th>Assistance Status</th>
+                                    <th>{{ trans('bienestar::failure_report.Apprentice') }}</th>
+                                    <th>{{ trans('bienestar::failure_report.Code') }}</th>
+                                    <th>{{ trans('bienestar::failure_report.Route_number') }}</th>
+                                    <th>{{ trans('bienestar::failure_report.Bus_driver_name') }}</th>
+                                    <th>{{ trans('bienestar::failure_report.Date') }}</th>
+                                    <th>{{ trans('bienestar::failure_report.Assistance_Status') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <!-- Filas de la tabla -->
-                                @foreach($resultados as $key => $resultado)
-                                <tr>
-                                    <td style="font-weight: bold;">{{ $resultado->first_name }} {{ $resultado->first_last_name }} {{ $resultado->second_last_name }}</td>
-                                    <td>{{ $resultado->code }}</td>
-                                    <td>{{ $resultado->route_number }} {{ $resultado->name_route }}</td>
-                                    <td>{{ $resultado->name }} - {{ $resultado->plate }}</td>
-                                    <td>{{ $resultado->date_time }}</td>
-                                    <td style="
-            background-color: {{ $resultado->assistance_status == 'Falla' ? 'red' : 'inherit' }};
-            color: {{ $resultado->assistance_status == 'Falla' ? 'white' : 'inherit' }};
-            font-weight: {{ $resultado->assistance_status == 'Falla' ? 'bold' : 'normal' }};
-        ">
-                                        {{ $resultado->assistance_status }}
-                                    </td>
-                                </tr>
-                                @if ($key < count($resultados) - 1 && $resultado->first_name != $resultados[$key + 1]->first_name)
+                                @foreach($resultados as $resultado)
                                     <tr>
-                                        <td colspan="9">
-                                            <br>
-                                        </td>
+                                        <td>{{ $resultado->apprentice->person->document_number }}</td>
+                                        <td>{{ $resultado->apprentice->person->first_name }}</td>
+                                        <td>{{ $resultado->apprentice->person->first_last_name }}</td>
+                                        <td>{{ $resultado->apprentice->person->second_last_name }}</td>
+                                        <td>{{ $resultado->apprentice->course->code }}</td>
+                                        <td>{{ $resultado->apprentice->course->program->name }}</td>
+                                        <td>{{ $resultado->assingTransportRoute->routeTransportation->route_number }}</td>
+                                        <td>{{ $resultado->assingTransportRoute->routeTransportation->name_route }}</td>
+                                        <td>{{ $resultado->busDriver->name }}</td>
+                                        <td>{{ $resultado->bus->plate }}</td>
+                                        <td>{{ $resultado->date_time }}</td>
+                                        <td>{{ $resultado->assistance_status }}</td>
                                     </tr>
-                                    @endif
-                                    @endforeach
-
-
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

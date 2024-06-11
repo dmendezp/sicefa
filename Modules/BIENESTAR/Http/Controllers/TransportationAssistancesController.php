@@ -384,4 +384,24 @@ class TransportationAssistancesController extends Controller
             return response()->json($response, 400);
         }
     }
+
+    public function Failure_register()
+    {
+        // Obtener los resultados de las asistencias con fallas de la semana actual usando Eloquent
+        $resultados = RouteTransportation::with([
+                'assingTransportRoutes.transportationAssistances' => function ($query) {
+                    $query->where('assistance_status', 'Falla')
+                    ->whereRaw('WEEK(date_time) = WEEK(NOW())')
+                    ->with(['apprentice.person', 'bus_id', 'busDriver_id']);
+                }])->get();
+
+        // Verificar si hay resultados
+        if ($resultados->isEmpty()) {
+            // Manejar el caso en que no se encuentren registros
+            return redirect()->back()->with('error', 'No se encontraron asistencias con fallas para esta semana');
+        }
+
+        // Redirigir a la vista con los resultados
+        return view('bienestar::route-attendance.failure_reporting', ['resultados' => $resultados]);
+    }
 } 

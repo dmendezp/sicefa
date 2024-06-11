@@ -43,7 +43,7 @@
                                 Aprendiz no encontrado
                             @endif
                         </td>
-                        <td>{{ $asignacion->routes_trasportantion->name_route }}</td>
+                        <td>{{ $asignacion->route_transportation_id->name_route }}</td>
                         
                         <!-- Agrega más columnas según tus campos -->
                     </tr>
