@@ -25,7 +25,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                     </div>
                     <div class="col-md-2">
                         <a href="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.failure_reporting.transportation_assistance_lists.consult')}}" class="btn btn-danger ml-2">
-                        <h5>Reporte de Fallas</h5>
+                        <h5>{{ trans('bienestar::failure_report.Failure_Report') }}</h5>
                         </a>                        
                     </div>
                 </div>

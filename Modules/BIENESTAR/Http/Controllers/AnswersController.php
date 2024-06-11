@@ -6,11 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-<<<<<<<< HEAD:Modules/BIENESTAR/Http/Controllers/PermissionsController.php
-class PermissionsController extends Controller
-========
 class AnswersController extends Controller
->>>>>>>> BIENESTAR:Modules/BIENESTAR/Http/Controllers/AnswersController.php
 {
     /**
      * Display a listing of the resource.
@@ -18,11 +14,8 @@ class AnswersController extends Controller
      */
     public function index()
     {
-<<<<<<<< HEAD:Modules/BIENESTAR/Http/Controllers/PermissionsController.php
         return view('sigac::index');
-========
         return view('bienestar::index');
->>>>>>>> BIENESTAR:Modules/BIENESTAR/Http/Controllers/AnswersController.php
     }
 
     /**

@@ -9,11 +9,7 @@ use Modules\SICA\Entities\Role;
 
 class RolesTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     public function run()
     {
 
@@ -68,20 +64,11 @@ class RolesTableSeeder extends Seeder
         ]);
 
         // Consulta de usuarios|
-        $user_admin = User::where('nickname','BrayanL')->firstOrFail(); // Usuario Administrador (Brayan David Lizcano)
-        $user_superadmin = User::where('nickname','damendez')->firstOrFail(); // Usuario Super Administrador (Jesús David Guevara Munar)
-        $user_transportation_benefits_leader = User::where('nickname','DianaFit')->firstOrFail(); // Usuario Cajero (Manuel Steven Ossa Lievano)
-        $user_food_benefits_leader = User::where('nickname','LenadraDD')->firstOrFail(); // Usuario Cajero (Manuel Steven Ossa Lievano)
-        $user_feeding_assistant = User::where('nickname','Morricito')->firstOrFail(); // Usuario Cajero (Manuel Steven Ossa Lievano)
-        $user_route_leader = User::where('nickname','SairaGS')->firstOrFail(); // Usuario Cajero (Manuel Steven Ossa Lievano)
+        $user_food_benefits_leader = User::where('nickname','LenadraDD')->firstOrFail();
 
         // Asignación de ROLES para los USUARIOS de la aplicación BIENESTAR (Sincronización de las relaciones sin eliminar las relaciones existentes)
-        $user_admin->roles()->syncWithoutDetaching([$rol_admin->id]);
-        $user_transportation_benefits_leader->roles()->syncWithoutDetaching([$rol_transportation_benefits_leader->id]);
         $user_food_benefits_leader->roles()->syncWithoutDetaching([$rol_food_benefits_leader->id]);
-        $user_feeding_assistant->roles()->syncWithoutDetaching([$rol_feeding_assistant->id]);
-        $user_route_leader->roles()->syncWithoutDetaching([$rol_route_leader->id]);
-        $user_superadmin->roles()->syncWithoutDetaching([$rol_superadmin->id]);
+
 
     }
 }
