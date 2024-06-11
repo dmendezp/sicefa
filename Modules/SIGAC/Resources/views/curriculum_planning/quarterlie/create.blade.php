@@ -58,6 +58,7 @@
                 <div class="row align-items-center learning_outcomes_row">
                     <div class="col-8">
                         <div class="form-group">
+                            {!! Form::label('learning_outcome',  trans('Resultados de Aprendizaje')) !!}
                             {!! Form::select('learning_outcome_id[]', [], old('learning_outcome_id[]'), ['class' => 'form-control select2 learning_outcome_select', 'required']) !!}
                         </div>
                         <div class="form-group">

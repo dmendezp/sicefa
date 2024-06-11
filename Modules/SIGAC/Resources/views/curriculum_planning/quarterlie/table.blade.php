@@ -26,9 +26,7 @@
                     @foreach($quarterlies as $competency => $trimestres)
                         @foreach($trimestres->where('quarter_number', $trimestreNumber) as $trimestre)
                             <tr>
-                                @if($loop->first)
-                                    <td class="text-center">{{ $competency }}</td>
-                                @endif
+                                <td class="text-center">{{ $competency }}</td>
                                 <td class="">{{ $trimestre->learning_outcome->name }}</td>
                                 <td class="text-center">{{ $trimestre->hour }}</td>
                                 @if (count($trimestre->learning_outcome->people) > 0)

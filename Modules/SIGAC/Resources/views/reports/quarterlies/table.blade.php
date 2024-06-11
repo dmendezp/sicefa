@@ -31,8 +31,8 @@
                                 <tr>
                                     @if($loop->first)
                                         <td rowspan="{{ $trimestres->count() }}" class="text-center">{{ $competency }}</td>
-                                        <td rowspan="{{ $trimestres->count() }}">{{ $trimestre->learning_outcome->name }}</td>
-                                    @endif
+                                        @endif
+                                        <td >{{ $trimestre->learning_outcome->name }}</td>
                                     @for($i = 1; $i <= $courseNumber; $i++)
                                         @if($i == $trimestre->quarter_number)
                                             <td>{{ $trimestre->hour }}</td>
@@ -48,10 +48,14 @@
                                                         $start = \Carbon\Carbon::parse($instructor_program->start_time);
                                                         $end = \Carbon\Carbon::parse($instructor_program->end_time);
                                                         $totalHours += $end->diffInHours($start);
+
+                                                        foreach ($instructor_program->instructor_program_people as $instructor){
+                                                            $person = $instructor->person->fullname;
+                                                        }
                                                     }
                                                 }
                                             @endphp
-                                            <td class="celdae">{{ $totalHours > 0 ? $totalHours . '' : '' }}</td>
+                                            <td class="celdae" title="{{ $person }}">{{ $totalHours > 0 ? $totalHours . '' : '' }}</td>
                                         @else
                                             <td class="celdae"></td>
                                         @endif

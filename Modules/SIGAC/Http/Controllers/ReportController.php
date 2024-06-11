@@ -29,7 +29,7 @@ class ReportController extends Controller
      public function report_quarterlie_search(Request $request)
     {
         $course_id = $request->input('course_id');
-        $quarterlies = Quarterly::with('training_project.courses.program', 'learning_outcome.competencie', 'learning_outcome.people.professions','learning_outcome.instructor_program_outcomes.instructor_program')
+        $quarterlies = Quarterly::with('training_project.courses.program', 'learning_outcome.competencie', 'learning_outcome.people.professions','learning_outcome.instructor_program_outcomes.instructor_program.instructor_program_people.person')
             ->whereHas('training_project.courses', function ($query) use ($course_id) {
                 $query->where('courses.id', $course_id);
             })
@@ -50,6 +50,9 @@ class ReportController extends Controller
         $competences_select = Competencie::whereHas('program', function ($query) use ($programId) {
             $query->where('id', $programId);
         })->pluck('name', 'id');
+
+        
+        
         
         return view('sigac::reports.quarterlies.table')->with([
             'titlePage' => trans('Trimestralización'),

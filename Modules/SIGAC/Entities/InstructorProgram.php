@@ -16,7 +16,7 @@ class InstructorProgram extends Model implements Auditable
     use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     use HasFactory;
 
-    protected $fillable = ['person_id','environment_id','course_id','learning_outcome_id','state','date','start_time','end_time'];
+    protected $fillable = ['course_id','state','date','quarter_number','start_time','end_time'];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 

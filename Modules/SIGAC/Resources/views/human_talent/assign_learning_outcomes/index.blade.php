@@ -29,7 +29,7 @@
                                         {!! Form::select('instructor', [], old('instructor'), ['class' => 'form-control instructor','required' , 'placeholder' => trans('sigac::learning_out_come.SelectInstructor')],) !!}                                    
                                     </div>
                                     <div class="form-group">
-                                        {!! Form::label('priority', trans('sigac::learning_out_come.Instructor')) !!}
+                                        {!! Form::label('priority', trans('Prioridad')) !!}
                                         {!! Form::select('priority', ['1' => '1', '2' => '2','3' => '3', '4' => '4','5' => '5'], null, [
                                             'id' => 'priority',
                                             'class' => 'form-control',
