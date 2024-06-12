@@ -219,11 +219,9 @@ class CurriculumPlanningController extends Controller
             $course= Course::findOrFail($course_id);
             $program_id = $course->program_id;
             
-            $competencias = Competencie::with('learning_outcomes')->where('program_id',$program_id)->get();
-            foreach ($competencias as $competencia) {
-                $learning_outcomes = $competencia->learning_outcomes->count();
-            }
-            dd($learning_outcomes);
+            $competencias = Competencie::where('program_id',$program_id)->pluck('id');
+            $learning_outcome_Ids = LearningOutcome::whereIn('competencie_id',$competencias)->get();
+            $countlearning = $learning_outcome_Ids->count();
             
             try {
                 $count = 0;
@@ -232,75 +230,81 @@ class CurriculumPlanningController extends Controller
                 DB::beginTransaction();
 
                 foreach($datas as $data){
-                    $name_learning_file = explode(" - ", $data[0]); 
-                    if (count($name_learning_file) > 1) {
-                        // Si hay más de una parte después de dividir por el guión
-                        $name_learning = trim(preg_replace('/^[0-9]+\s*/', '', $name_learning_file[1])); // Eliminar números y espacios al principio de la cadena
-                    } else {
-                        // Si no hay un guión, entonces tomar el nombre completo sin modificar
-                        $name_learning = trim($name_learning_file[0]);
-                    }
-
-                    $hour = $data[1];
-                    $quarter_number = $data[2];
-                    
-                    $training_project = TrainingProject::where('name', '=', $name_training_project)->first();
-                    $training_projectc = TrainingProject::where('code', '=', $code)->first();
-
-                    $learning_outcome = LearningOutcome::where('name', '=', $name_learning)->first();
-
-
-                    if ($training_project) {
-
-                        $training_project_id = $training_project->id;
-                        
-                        if ($learning_outcome) {
-                            $learning_outcome_id = $learning_outcome->id;
-
-                            $quarterlie = new Quarterly;
-                            $quarterlie->training_project_id = $training_project_id;
-                            $quarterlie->learning_outcome_id = $learning_outcome_id;
-                            $quarterlie->hour = $hour;
-                            $quarterlie->quarter_number = $quarter_number;
-                            $quarterlie->save();
-                            $count++;
-
-                        }  else {
-                            DB::rollBack(); // Devolver cambios realizados durante la transacción
-                            return back()->with('error', 'Un resultado no fue encontrado')->with('typealert', 'error');
-                        }
-
-                    } elseif ($training_projectc) {
-                        $training_project_id = $training_projectc->id;
-
-                        if ($learning_outcome) {
-                            $learning_outcome_id = $learning_outcome->id;
-
-                            $quarterlie = new Quarterly;
-                            $quarterlie->training_project_id = $training_project_id;
-                            $quarterlie->learning_outcome_id = $learning_outcome_id;
-                            $quarterlie->hour = $hour;
-                            $quarterlie->quarter_number = $quarter_number;
-                            $quarterlie->save();
-                            $count++;
-                            
+                    $name_learning_file = explode(" - ", $data[0]);
+                    if ($data[0] != null) {
+                        if (count($name_learning_file) > 1) {
+                            // Si hay más de una parte después de dividir por el guión
+                            $name_learning = trim(preg_replace('/^[0-9]+\s*/', '', $name_learning_file[1])); // Eliminar números y espacios al principio de la cadena
                         } else {
-                            DB::rollBack(); // Devolver cambios realizados durante la transacción
-                            return back()->with('error', 'Un resultado no fue encontrado')->with('typealert', 'error');
+                            // Si no hay un guión, entonces tomar el nombre completo sin modificar
+                            $name_learning = trim($name_learning_file[0]);
                         }
-
-                    } else {
-                        
-                        return back()->with('error', 'El proyecto formativo no existe')->with('typealert', 'error');
-
+                        $hour = $data[1];
+                        $quarter_number = $data[2];
+    
+                        $learning_outcome = LearningOutcome::where('name', '=', $name_learning)->first();
+    
+                        $training_project = TrainingProject::where('name', '=', $name_training_project)->first();
+                        if (!$training_project) {
+                            $training_projectc = TrainingProject::where('code', '=', $code)->first();
+    
+                            if (!$training_projectc) {
+                                DB::rollBack(); // Devolver cambios realizados durante la transacción
+                                return back()->with('error', 'El proyecto formativo no existe')->with('typealert', 'error');
+                            }
+                            $training_project_id = $training_projectc->id;
+                            if ($learning_outcome) {
+                               
+                                $learning_outcome_id = $learning_outcome->id;
+    
+                                $quarterlie = new Quarterly;
+                                $quarterlie->training_project_id = $training_project_id;
+                                $quarterlie->learning_outcome_id = $learning_outcome_id;
+                                $quarterlie->hour = $hour;
+                                $quarterlie->quarter_number = $quarter_number;
+                                $quarterlie->save();
+                                $count++;
+                                
+                            } else {
+                                DB::rollBack(); // Devolver cambios realizados durante la transacción
+                                return back()->with('error', 'Un resultado no fue encontrado')->with('typealert', 'error');
+                            }
+                        } else {
+                            $training_project_id = $training_project->id;
+                            
+                            if ($learning_outcome) {
+                                
+                                $learning_outcome_id = $learning_outcome->id;
+    
+                                $quarterlie = new Quarterly;
+                                $quarterlie->training_project_id = $training_project_id;
+                                $quarterlie->learning_outcome_id = $learning_outcome_id;
+                                $quarterlie->hour = $hour;
+                                $quarterlie->quarter_number = $quarter_number;
+                                $quarterlie->save();
+                                $count++;
+    
+                            }  else {
+                                DB::rollBack(); // Devolver cambios realizados durante la transacción
+                                return back()->with('error', 'Un resultado no fue encontrado')->with('typealert', 'error');
+                            }
+    
+                        }
                     }
-
+                    
                 }
 
+                $quarterlie = Quarterly::where('training_project_id',$training_project_id)->get()->groupBy('learning_outcome_id');
+                $countquarterly = $quarterlie->count();
 
-                DB::commit();
-                
-                return back()->with('success', 'Archivo excel escaneado coerrectamente. '.$count.' Trimestralizaciones registradas exitosamente.')->with('typealert', 'success');
+                if ($countlearning == $countquarterly) {
+                    DB::commit();
+                    return back()->with('success', 'Archivo excel escaneado coerrectamente. '.$count.' Trimestralizaciones registradas exitosamente.')->with('typealert', 'success');
+                } else {
+                    DB::rollBack();
+                    return back()->with('error', 'Debe enviar la trimestralización completa, se requieren '.$countlearning .' resultados con trimestralización')->with('typealert', 'error');
+                }
+
             } catch (Exception $e) {
                 DB::rollBack(); // Devolver cambios realizados durante la transacción
                 \Log::error('Error en el registro: ' . $e->getMessage());
@@ -449,8 +453,8 @@ class CurriculumPlanningController extends Controller
         })->prepend(['id' => null, 'name' => trans('sigac::profession.Select_Program')])->pluck('name', 'id');
 
         $view = [
-            'titlePage' => trans('sigac::profession.Instructor_Management'),
-            'titleView' => trans('sigac::profession.Instructor_Management'),
+            'titlePage' => trans('Competencia por Profesión'),
+            'titleView' => trans('Competencia por Profesión'),
             'professions' => $proffesions,
             'programs' => $programs,
             'competencieProfession' => $competencieProfession
@@ -552,8 +556,8 @@ class CurriculumPlanningController extends Controller
         })->prepend(['id' => null, 'name' => trans('sigac::learning_out_come.SelectTrainingProject')])->pluck('name', 'id');
 
         $view = [
-            'titlePage' => 'Curso x Proyecto Formativo',
-            'titleView' => 'Curso x Proyecto Formativo',
+            'titlePage' => 'Curso por Proyecto Formativo',
+            'titleView' => 'Curso por Proyecto Formativo',
             'courses' => $courses,
             'training_project_select' => $training_project_select,
         ];
