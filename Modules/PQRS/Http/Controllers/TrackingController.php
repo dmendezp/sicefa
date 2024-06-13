@@ -19,6 +19,37 @@ use Carbon\Carbon;
 
 class TrackingController extends Controller
 {
+    public function type_pqrs_index(){
+        $type_pqrs = TypePqrs::all();
+
+        $data = [
+            'titlePage' => 'Tipo de PQRS',
+            'titleView' => 'Tipo de PQRS',
+            'type_pqrs' => $type_pqrs
+        ];
+
+        return view('pqrs::tracking.type_pqrs.index', $data);
+    }
+
+    public function type_pqrs_store(Request $request){
+        $type_pqrs = new TypePqrs;
+        $type_pqrs->name = strtoupper($request->name);
+        $type_pqrs->save();
+
+        return redirect()->route('pqrs.tracking.type_pqrs_index')->with(['success' => 'Se registro el tipo de PQRS exitosamente']); 
+    }
+
+    public function type_pqrs_delete($id){
+        $type_pqrs = TypePqrs::findOrFail($id);
+        $type_pqrs->delete();
+
+        if($type_pqrs->delete()){
+                return redirect()->route('pqrs.tracking.type_pqrs_index')->with(['success' => 'Se elimino el tipo de PQRS exitosamente']); 
+        }else{
+            return redirect()->route('pqrs.tracking.type_pqrs_index')->with(['error' => 'Ocurrio un error']); 
+        }
+    }
+
     public function index(){
         $titlePage = 'Seguimiento PQRS';
         $titleView = 'Seguimiento PQRS';
@@ -87,10 +118,12 @@ class TrackingController extends Controller
     public function create(){
         $titlePage = 'Registrar PQRS';
         $titleView = 'Registrar PQRS';
+        $type_pqrs = TypePqrs::pluck('name', 'id');
 
         $data  = [
             'titlePage' => $titlePage,
             'titleView' => $titleView,
+            'type_pqrs' => $type_pqrs
         ];
 
         return view('pqrs::tracking.create', $data);
@@ -174,7 +207,7 @@ class TrackingController extends Controller
         return view('pqrs::tracking.excel', $data);
     }
 
-    public function store_excel(Request $request){
+    public function store_excel_regional(Request $request){
         ini_set('max_execution_time', 3000); // Ampliar el tiempo máximo de la ejecución del proceso en el servidor
         $validator = Validator::make($request->all(),
             ['excel'  => 'required'],
@@ -416,19 +449,293 @@ class TrackingController extends Controller
         }
     }
 
+    public function store_excel_centro(Request $request){
+        ini_set('max_execution_time', 3000); // Ampliar el tiempo máximo de la ejecución del proceso en el servidor
+        $validator = Validator::make($request->all(),
+            ['excel'  => 'required'],
+            ['excel.required'  => 'Debes cargar un archivo Excel.']
+        );
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }else{
+            $path = $request->file('excel'); // Obtener ubicación temporal del archivo en el servidor
+            $array = Excel::toArray(new PqrsImport, $path); // Convertir el contenido del archivo excel en una arreglo de arreglos
+
+            $centro = [];
+
+            //Accede a los codigos del responsable
+            foreach($array[0] as $row){
+                // Verificar si la fila tiene al menos 2 columnas y si el valor contiene '419116'
+                if (isset($row[2]) && strpos($row[2], '419116' ) !== false) {
+                    // Agregar el valor de la columna 2 al arreglo si contiene '419116' y esta EN PROCESO
+                    $centro[] = $row;
+                }
+            }
+
+            try {
+                $countstate = 0;
+                // Recorrer datos y relizar registros
+               
+                foreach($centro as $data){    
+                    $type_pqrs_row = $data[7];
+                    // Realizar la búsqueda y almacenar el resultado en $matches
+                    preg_match('/"(.*?)"/', $type_pqrs_row, $matches);
+
+                    // El texto entre comillas estará en $matches[1]
+                    $type_pqrs_name = $matches[1];
+
+                    $type_pqrs = TypePqrs::where('name', $type_pqrs_name)->pluck('id');
+                    if ($type_pqrs->isNotEmpty()) {
+                        $filing_number_row = $data[0];
+                        preg_match('/"(.*?)"/', $filing_number_row, $matches);
+                        $filing_number = $matches[1];
+
+                        $filing_date_row = $data[1];
+                        preg_match('/\d{2}\/\d{2}\/\d{4}/', $filing_date_row, $matches);
+                        $filing_date = $matches[0];
+
+                        $date_object = \DateTime::createFromFormat('d/m/Y', $filing_date);
+
+                        $filing_date_format = $date_object->format('Y-m-d');
+                        
+                        // Obtener los días festivos de la base de datos
+                        $holidays = Holiday::pluck('date')->map(function ($date) {
+                            return Carbon::parse($date)->format('Y-m-d');
+                        })->toArray();
+
+                        $start_date = Carbon::parse($filing_date_format);
+                        
+                        $valid_days_count = 0;
+
+                        while ($valid_days_count < 8) {
+                            // Incrementar la fecha en un día
+                            $start_date->addDay();
+                            
+                            // Comprobar si el día es un fin de semana o un día festivo
+                            if ($start_date->isWeekend() || in_array($start_date->format('Y-m-d'), $holidays)) {
+                                continue; // Saltar al siguiente día
+                            }
+                            
+                            // Incrementar el contador de días válidos
+                            $valid_days_count++;
+                        }
+
+                        $end_date =  $start_date->format('Y-m-d');
+
+                        $issue_row = $data[8];
+                        preg_match('/"([^"]+)"/', $issue_row, $matches);
+                        $issue = $matches[1];
+                                            
+                        $state = 'EN PROCESO';
+
+                        $official_row = $data[4];
+                        // Usar expresión regular para extraer el nombre dentro de las comillas
+                        preg_match('/"([^"]+)"/', $official_row, $matches);
+                        if (isset($matches[1])) {
+                            $official = $matches[1];
+                            
+                        } else {
+                            // Si no se encuentran comillas, extraer después de =T(
+                            $official = preg_replace('/^=T\("([^"]*)"\)/', '$1', $official_row);
+                        }
+
+                        // Eliminar cualquier carácter no deseado (como "* (E) ")
+                        $official = preg_replace('/^\*\s?/', '', $official);
+
+                        // Dividir el nombre en partes
+                        $official_explode = preg_split('/\s+/', trim($official));
+                        
+                        $first_name = $official_explode[0] . ' ' . $official_explode[1];
+                        $first_last_name = $official_explode[2];
+                        $second_last_name = isset($official_explode[3]) ? $official_explode[3] : '';
+
+                        // Consultar la base de datos
+                        $person = Person::where('first_name', $first_name)->where('first_last_name', $first_last_name)->where('second_last_name', $second_last_name)->pluck('id')->first();
+
+                        $filing_number_int = intval($filing_number);
+
+                        $pqrs_existing = Pqrs::where('filing_number', $filing_number_int)->exists();
+
+                        if($pqrs_existing){
+                            $filing_exists[] = $filing_number_int;      
+                            continue;                                    
+                        } 
+
+                        $pqrs = new Pqrs;
+                        $pqrs->type_pqrs_id = $type_pqrs[0];
+                        $pqrs->filing_number = $filing_number;
+                        $pqrs->filing_date = $filing_date_format;
+                        $pqrs->nis = 0;
+                        $pqrs->end_date = $end_date;
+                        $pqrs->issue = $issue;
+                        $pqrs->state = $state;
+                        $pqrs->save();
+        
+                        $pqrs->people()->attach($person, [
+                            'date_time' => now()->format('Y-m-d H:i:s'),
+                            'type' => 'Funcionario'
+                        ]);
+
+                        $countstate++;  
+                                                                          
+                    }else{
+                        $filing_number_row = $data[0];
+                        preg_match('/"(.*?)"/', $filing_number_row, $matches);
+                        $filing_number = $matches[1];
+
+                        $filing_date_row = $data[1];
+                        preg_match('/\d{2}\/\d{2}\/\d{4}/', $filing_date_row, $matches);
+                        $filing_date = $matches[0];
+
+                        $date_object = \DateTime::createFromFormat('d/m/Y', $filing_date);
+
+                        $filing_date_format = $date_object->format('Y-m-d');
+                        
+                        // Obtener los días festivos de la base de datos
+                        $holidays = Holiday::pluck('date')->map(function ($date) {
+                            return Carbon::parse($date)->format('Y-m-d');
+                        })->toArray();
+
+                        $start_date = Carbon::parse($filing_date_format);
+                        
+                        $valid_days_count = 0;
+
+                        while ($valid_days_count < 8) {
+                            // Incrementar la fecha en un día
+                            $start_date->addDay();
+                            
+                            // Comprobar si el día es un fin de semana o un día festivo
+                            if ($start_date->isWeekend() || in_array($start_date->format('Y-m-d'), $holidays)) {
+                                continue; // Saltar al siguiente día
+                            }
+                            
+                            // Incrementar el contador de días válidos
+                            $valid_days_count++;
+                        }
+
+                        $end_date =  $start_date->format('Y-m-d');
+
+                        $issue_row = $data[8];
+                        preg_match('/"([^"]+)"/', $issue_row, $matches);
+                        $issue = $matches[1];
+
+                        $state = 'EN PROCESO';
+
+                        $official_row = $data[4];
+                        // Usar expresión regular para extraer el nombre dentro de las comillas
+                        preg_match('/"([^"]+)"/', $official_row, $matches);
+                        if (isset($matches[1])) {
+                            $official = $matches[1];
+                            
+                        } else {
+                            // Si no se encuentran comillas, extraer después de =T(
+                            $official = preg_replace('/^=T\("([^"]*)"\)/', '$1', $official_row);
+                        }
+
+                        // Eliminar cualquier carácter no deseado (como "* (E) ")
+                        $official = preg_replace('/^\*\s?/', '', $official);
+
+                        // Dividir el nombre en partes
+                        $official_explode = preg_split('/\s+/', trim($official));
+                        
+                        $first_name = $official_explode[0] . ' ' . $official_explode[1];
+                        $first_last_name = $official_explode[2];
+                        $second_last_name = isset($official_explode[3]) ? $official_explode[3] : '';
+
+                        // Consultar la base de datos
+                        $person = Person::where('first_name', $first_name)->where('first_last_name', $first_last_name)->where('second_last_name', $second_last_name)->pluck('id')->first();
+                                                               
+                        $type_pqrs = new TypePqrs;
+                        $type_pqrs->name = $type_pqrs_name;
+                        $type_pqrs->save();
+
+                        $pqrs = new Pqrs;
+                        $pqrs->type_pqrs_id = $type_pqrs->id;
+                        $pqrs->filing_number = $filing_number;
+                        $pqrs->filing_date = $filing_date;
+                        $pqrs->nis = $nis;
+                        $pqrs->end_date = $end_date;
+                        $pqrs->issue = $issue;
+                        $pqrs->state = $state;
+                        $pqrs->save();
+
+                        $pqrs->people()->attach($person, [
+                            'date_time' => now()->format('Y-m-d H:i:s'),
+                            'type' => 'Funcionario'
+                        ]);
+
+                        $countstate++;
+                    }
+                }
+
+                DB::commit();
+
+                if (!empty($filing_exists)) {
+                    $mensaje = 'Los siguientes radicados de las PQRS no se registraron porque ya existen '. implode(', ', $filing_exists) .'.';
+                    return redirect()->route('pqrs.tracking.index')->with(['success' => $mensaje]); 
+                } else {
+                    $mensaje = 'Se registraron '. $countstate .' PQRS con éxito.';
+                    return redirect()->route('pqrs.tracking.index')->with(['success' => $mensaje]); 
+                }     
+            } catch (Exception $e) {
+                dd($e);
+                DB::rollBack(); // Devolver cambios realizados durante la transacción
+                return back()->with('error', 'Error al registrar la PQRS')->with('typealert', 'danger');
+             }
+
+        }
+    }
+
     public function email()
     {
-        $pqrs = Pqrs::where('state', 'PROXIMO A VENCER')->get();
+        $pqrs = Pqrs::with('people')->where('state', 'PROXIMO A VENCER')->get();
 
-        
         // Ship the order...
         Mail::send('pqrs::emails.pqrs', compact('pqrs'), function ($msg) use ($pqrs) {
-            $emails = [
-                'julianjavierramirezdiaz73@gmail.com',
-            ];
+            $emails = [];
+            $cc_emails = [];
+            $valid_emails = [];
+            $cc_valid_emails = [];
+
+            foreach ($pqrs as $p){
+                foreach ($p->people as $person){
+                    if ($person->pivot->type == 'Funcionario'){
+                        $emails[] = $person->sena_email;
+                    }else{
+                        if ($person->pivot->type == 'Apoyo'){
+                            $cc_emails[] = $person->sena_email;
+                        }
+                    }
+                }
+            }
+
+            foreach ($emails as $email) {
+                // Eliminar espacios en blanco alrededor de la dirección de correo electrónico
+                $clean_email = trim($email);
+                
+                // Validar la dirección de correo electrónico
+                if (filter_var($clean_email, FILTER_VALIDATE_EMAIL)) {
+                    $valid_emails[] = $clean_email;
+                }else{
+                    return redirect()->back()->with('error', 'La dirección de correo no es valida.');
+                }
+            }
+            
+            foreach ($cc_emails as $cc_email) {
+                // Eliminar espacios en blanco alrededor de la dirección de correo electrónico
+                $clean_email = trim($cc_email);
+                
+                // Validar la dirección de correo electrónico
+                if (filter_var($clean_email, FILTER_VALIDATE_EMAIL)) {
+                    $cc_valid_emails[] = $clean_email;
+                }else{
+                    return redirect()->back()->with('error', 'La dirección de correo no es valida.');
+                }
+            }
 
             $msg->subject('Alerta temprana de PQRS');
-            $msg->to($emails);
+            $msg->to($valid_emails);
+            $msg->cc($cc_valid_emails);
         });
 
         // Redirige a una página de confirmación o de vuelta a la vista original

@@ -10,7 +10,13 @@
             <div class="container">
                 <div class="row">
                     <div class="col-6">
-                        <p><span class="modal_answer"># Radicado:</span> {{ $p->filed_response }}</p>
+                        <p><span class="modal_answer"># Radicado:</span> 
+                            @if (isset($p->filed_response))
+                                {{ $p->filed_response }}
+                            @else
+                                No se ha radicado la respuesta.
+                            @endif
+                        </p>
                     </div>
                     <div class="col-6">
                         <p><span class="modal_answer">Fecha respuesta:</span> {{ $p->response_date }}</p>

@@ -75,13 +75,22 @@
                             <p>Inicio</p>
                         </a>
                     </li>
-                @endif    
+                @endif 
+                
+                @if (Route::is('*tracking*'))     
+                <li class="nav-item">
+                    <a href="{{ route('pqrs.tracking.type_pqrs_index') }}" class="nav-link {{ !Route::is('pqrs.tracking.type_pqrs_index') ?: 'active' }}">
+                        <i class="fas fa-list nav-icon"></i>
+                        <p>Tipo de PQRS</p>
+                    </a>
+                </li> 
                 <li class="nav-item">
                     <a href="{{ route('pqrs.tracking.index') }}" class="nav-link {{ !Route::is('pqrs.tracking.index') ?: 'active' }}">
                         <i class="fas fa-comments nav-icon"></i>
                         <p>Seguimiento</p>
                     </a>
                 </li>
+                @endif
                
                 @if (Route::is('*official*'))                  
                     <li class="nav-item">

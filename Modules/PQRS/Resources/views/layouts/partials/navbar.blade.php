@@ -7,6 +7,14 @@
       <li class="nav-item d-lg-inline-block">
         <a href="{{ route('cefa.pqrs.home.index') }}" class="nav-link">{{ trans('sica::menu.Home') }}</a>
       </li>
+
+      @if (checkRol('tracking'))
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('pqrs.tracking.index') }}" role="button">
+            Seguimiento
+          </a>
+        </li>
+      @endif
       
       @if (checkRol('official'))
         <li class="nav-item">
@@ -24,5 +32,19 @@
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
+       <!-- languaje Dropdown Menu-->
+       <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+            {{ session('lang') }} <i class="fas fa-globe"></i>
+        </a>
+        <div class="dropdown-menu p-0">
+            <a href="{{ url('lang', ['es']) }}" class="dropdown-item">
+                Español
+            </a>
+            <a href="{{ url('lang', ['en']) }}" class="dropdown-item">
+                Inglés
+            </a>
+        </div>
+    </li>
     </ul>
 </nav>

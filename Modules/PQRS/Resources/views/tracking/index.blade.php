@@ -21,6 +21,10 @@
         font-weight: bold;
     }
 
+    .info{
+        margin-bottom: 10px;
+    }
+
     .filing_response{
         margin-top: 10px;
     }
@@ -34,27 +38,27 @@
         <div class="d-flex justify-content-center">
             <div class="card card-blue card-outline shadow col-md-12">
                 <div class="card-header">
-                    <h3 class="card-title">Seguimiento PQRS</h3>            
+                    <h3 class="card-title">{{ trans('pqrs::tracking.pqrs_monitoring') }}</h3>            
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
                             <a href="{{ route('pqrs.tracking.create') }}">
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearPQRS" title="Agregar PQRS">
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearPQRS" title="{{ trans('pqrs::tracking.add_pqrs') }}">
                                     <i class="fas fa-plus-circle fa-fw"></i>
                                 </button>
                             </a>
                         </div>
                         <div class="col">
                             {!! Form::open(['method' => 'post', 'url' => route('pqrs.tracking.email')]) !!}
-                                <button type="submit" class="btn btn-info email" title="Enviar correo de alerta">
+                                <button type="submit" class="btn btn-info email" title="{{ trans('pqrs::tracking.send_alert_email') }}">
                                     <i class="fas fa-envelope"></i>
                                 </button>
                             {!! Form::close() !!}
                         </div>
                         <div class="col">
                             <a href="{{ route('pqrs.tracking.excel') }}">
-                                <button class="btn btn-success excel" title="Cargar excel de la regional">
+                                <button class="btn btn-success excel" title="{{ trans('pqrs::tracking.load_excel') }}">
                                     <i class="fas fa-file-excel"></i>
                                 </button>
                             </a>
@@ -65,14 +69,14 @@
                         <table id="tracking" class="table table-striped" style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th>Numero Radicación</th>
-                                    <th>Fecha Radicación</th>
-                                    <th>Fecha Limite Respuesta</th>
-                                    <th>Asunto</th>
-                                    <th>Funcionario</th>
-                                    <th>Estado</th>
-                                    <th>Descripción asunto</th>
-                                    <th>Acciones</th>                                    
+                                    <th>{{ trans('pqrs::tracking.filing_number') }}</th>
+                                    <th>{{ trans('pqrs::tracking.filing_date') }}</th>
+                                    <th>{{ trans('pqrs::tracking.response_deadline') }}</th>
+                                    <th>{{ trans('pqrs::tracking.issue') }}</th>
+                                    <th>{{ trans('pqrs::tracking.official') }}</th>
+                                    <th>{{ trans('pqrs::tracking.state') }}</th>
+                                    <th>{{ trans('pqrs::tracking.description_subject') }}</th>
+                                    <th>{{ trans('pqrs::tracking.actions') }}</th>                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -102,16 +106,19 @@
                                         <td>{{ Str::limit($p->issue, 10) }}</td>
                                         <td>
                                             @if ($p->state == 'RESPUESTA GENERADA' || $p->state == 'RESPUESTA PARCIAL')
-                                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#info{{ $p->id }}" title="Información de la {{ $p->type_pqrs->name }}">
+                                                <button type="button" class="btn btn-warning info" data-bs-toggle="modal" data-bs-target="#info{{ $p->id }}" title="{{ trans('pqrs::tracking.information_of_the') }} {{ $p->type_pqrs->name }}">
                                                     <i class="fas fa-eye"></i>
                                                 </button>     
                                                 @include('pqrs::answer.answer')
-                                                <button class="btn btn-info filing_response" data-bs-toggle="modal" data-bs-target="#filing{{ $p->id }}" title="Radicado de respuesta de la {{ $p->type_pqrs->name }}">
+                                                @if(isset($p->filed_response))
+                                                @else
+                                                <button class="btn btn-info filing_response" data-bs-toggle="modal" data-bs-target="#filing{{ $p->id }}" title="{{ trans('pqrs::tracking.response_filing_of_the') }} {{ $p->type_pqrs->name }}">
                                                     <i class="fas fa-archive"></i>
                                                 </button>
                                                 @include('pqrs::tracking.filing_response')  
+                                                @endif
                                             @endif
-                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#history{{ $p->id }}" title="Historial de la {{ $p->type_pqrs->name }}">
+                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#history{{ $p->id }}" title="{{ trans('pqrs::tracking.history_of_the') }} {{ $p->type_pqrs->name }}">
                                                 <i class="fas fa-history"></i>
                                             </button>    
                                             @include('pqrs::tracking.history')
