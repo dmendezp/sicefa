@@ -1,7 +1,7 @@
 
 <div>
     <div class="table-responsive">
-        <table id="quarterlies" class="table">
+        <table id="" class="table">
             <thead>
                 <tr>
                     <th class="text-center">Competencia</th>

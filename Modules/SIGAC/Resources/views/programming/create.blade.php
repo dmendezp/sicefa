@@ -16,20 +16,20 @@
                 {!! Form::open(['route' => 'sigac.academic_coordination.programming.management.store', 'method' => 'POST']) !!}
                 @csrf
                 <div class="form-group">
-                    {!! Form::label('querter_number', 'Trimestre') !!}
+                    {!! Form::label('course', 'Curso') !!}
                     <div class="input-select">
-                        {!! Form::select('querter_number', ['' => trans('Seleccione el trimestre'), '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7'], null, ['class' => 'form-control', 'required' , 'id' => 'quarter_number']) !!}
+                        {!! Form::select('course', $courses->pluck('program.name', 'id')->map(function ($item, $key) use ($courses) {
+                            return $item . ' - ' . $courses->find($key)->code;
+                        }), null, ['class' => 'form-select', 'placeholder' => 'Seleccione el curso','id'=> 'course']) !!}
                     </div>
                     @error('course')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="form-group">
-                    {!! Form::label('course', 'Curso') !!}
+                    {!! Form::label('querter_number', 'Trimestre') !!}
                     <div class="input-select">
-                        {!! Form::select('course', $courses->pluck('program.name', 'id')->map(function ($item, $key) use ($courses) {
-                            return $item . ' - ' . $courses->find($key)->code;
-                        }), null, ['class' => 'form-select', 'placeholder' => 'Seleccione el curso','id'=> 'course']) !!}
+                        {!! Form::select('querter_number', ['' => trans('Seleccione el trimestre'), '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7'], null, ['class' => 'form-control quarter_number', 'required' , 'id' => 'quarter_number']) !!}
                     </div>
                     @error('course')
                         <span class="text-danger">{{ $message }}</span>
@@ -185,9 +185,36 @@
         $('#course').select2(); // Inicializa el campo course como select2
         $('#quaterlie').hide(); // Ocultar trimestralizacion
 
+        $('#course').change(function() {
+            var course_id = $('#course').val();
 
-        $('#course').on('change', function() {
-            var course_id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('sigac.academic_coordination.programming.management.search_quarter_number') }}",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    course_id: course_id
+                },
+                success: function(data) {   
+                    var quarter_number = $('#quarter_number');
+
+                    quarter_number.empty();
+                    quarter_number.append(new Option('Seleccionar el trimestre', ''));
+
+                    $.each(data.results, function(index, result) {
+                        quarter_number.append(new Option(result, result));
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+
+        });
+
+
+        $('#quarter_number').on('change', function() {
+            var course_id = $('#course').val();
             var quarter_number = $('#quarter_number').val();
 
             if (quarter_number) {

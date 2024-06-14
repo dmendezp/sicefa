@@ -78,6 +78,7 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('academic_coordination/programming/management/filterstatelearning', 'management_programming_filterstatelearning')->name('sigac.academic_coordination.programming.management.filterstatelearning'); // Gestion de la programacion (Coordinación Académica)
             Route::post('academic_coordination/programming/management/store', 'management_programming_store')->name('sigac.academic_coordination.programming.management.store'); // Registrar programacion (Coordinación Académica)
             Route::post('academic_coordination/programming/management/novelty', 'management_programming_novelty')->name('sigac.academic_coordination.programming.management.novelty'); // Novedad de programacion (Coordinación Académica)
+            Route::get('academic_coordination/programming/management/search_quarter_number', 'management_search_quarter_number')->name('sigac.academic_coordination.programming.management.search_quarter_number'); // Novedad de programacion (Coordinación Académica)
 
 
             // Horarios

@@ -50,7 +50,9 @@
 
 <script>
     $(document).ready(function() {
-        $('.select2').select2(); // Inicializa el campo resultado de aprendizaje como select2
+        $('.select2').select2({
+           
+        });
 
         // Función para agregar fila de resultado de aprendizaje
         $(document).on('click', '.add_learning_outcomes', function() {
