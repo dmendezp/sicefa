@@ -23,8 +23,8 @@ class TrackingController extends Controller
         $type_pqrs = TypePqrs::all();
 
         $data = [
-            'titlePage' => 'Tipo de PQRS',
-            'titleView' => 'Tipo de PQRS',
+            'titlePage' => trans('pqrs::tracking.type_of_pqrs'),
+            'titleView' => trans('pqrs::tracking.type_of_pqrs'),
             'type_pqrs' => $type_pqrs
         ];
 
@@ -36,7 +36,7 @@ class TrackingController extends Controller
         $type_pqrs->name = strtoupper($request->name);
         $type_pqrs->save();
 
-        return redirect()->route('pqrs.tracking.type_pqrs_index')->with(['success' => 'Se registro el tipo de PQRS exitosamente']); 
+        return redirect()->route('pqrs.tracking.type_pqrs_index')->with(['success' => trans('pqrs::tracking.the_type_of_pqrs_was_successfully_registered')]); 
     }
 
     public function type_pqrs_delete($id){
@@ -44,15 +44,15 @@ class TrackingController extends Controller
         $type_pqrs->delete();
 
         if($type_pqrs->delete()){
-                return redirect()->route('pqrs.tracking.type_pqrs_index')->with(['success' => 'Se elimino el tipo de PQRS exitosamente']); 
+                return redirect()->route('pqrs.tracking.type_pqrs_index')->with(['success' => trans('pqrs::tracking.pqrs_type_deleted_successfully')]); 
         }else{
-            return redirect()->route('pqrs.tracking.type_pqrs_index')->with(['error' => 'Ocurrio un error']); 
+            return redirect()->route('pqrs.tracking.type_pqrs_index')->with(['error' => trans('pqrs::tracking.an_error_occurred')]); 
         }
     }
 
     public function index(){
-        $titlePage = 'Seguimiento PQRS';
-        $titleView = 'Seguimiento PQRS';
+        $titlePage = trans('pqrs::tracking.pqrs_monitoring');
+        $titleView = trans('pqrs::tracking.pqrs_monitoring');
 
         $pqrs = Pqrs::with('people')->orderBy('end_date', 'asc')->get();
 
@@ -116,8 +116,8 @@ class TrackingController extends Controller
     }
 
     public function create(){
-        $titlePage = 'Registrar PQRS';
-        $titleView = 'Registrar PQRS';
+        $titlePage = trans('pqrs::tracking.register_pqrs');
+        $titleView = trans('pqrs::tracking.register_pqrs');
         $type_pqrs = TypePqrs::pluck('name', 'id');
 
         $data  = [
@@ -142,13 +142,13 @@ class TrackingController extends Controller
         ];
 
         $messages =[
-            'filing_number.required' => 'Debe registrar el numero de radicación.',
-            'nis.required' => 'Debe registrar el NIS.',
-            'filing_date.required' => 'Debe registrar la fecha de radicación.',
-            'type_pqrs.required' => 'Debe seleccionar un asunto.',
-            'end_date.required' => 'Debe registrar la fecha limite de respuesta.',
-            'issue.required' => 'Debe registrar una descripción de la PQRS.',
-            'responsible.required' => 'Debe asignar un funcionario'
+            'filing_number.required' => trans('pqrs::tracking.you_must_register_the_filing_number'),
+            'nis.required' => trans('pqrs::tracking.you_must_register_the_nis'),
+            'filing_date.required' => trans('pqrs::tracking.you_must_record_the_date_of_filing'),
+            'type_pqrs.required' => trans('pqrs::tracking.you_must_select_a_subject'),
+            'end_date.required' => trans('pqrs::tracking.you_must_record_the_response_deadline'),
+            'issue.required' => trans('pqrs::tracking.you_must_record_a_description_of_the_pqrs'),
+            'responsible.required' => trans('pqrs::tracking.you_must_assign_an_official')
         ];
 
         $validatedData = $request->validate($rules, $messages);
@@ -158,7 +158,7 @@ class TrackingController extends Controller
             $pqrs_existing = Pqrs::where('filing_number', $validatedData['filing_number'])->exists();
 
             if($pqrs_existing){
-                return redirect()->route('pqrs.tracking.index')->with(['error' => 'Ya existe una PQRS con ese número de radicación.']); 
+                return redirect()->route('pqrs.tracking.index')->with(['error' => trans('pqrs::tracking.there_is_already_a_pqrs_with_that_filing_number')]); 
             }else{
                 $pqrs = new Pqrs;
                 $pqrs->type_pqrs_id = $validatedData['type_pqrs'];
@@ -187,17 +187,17 @@ class TrackingController extends Controller
 
             DB::commit();
 
-            return redirect()->route('pqrs.tracking.index')->with(['success' => 'Se registro la PQRS exitosamente']); 
+            return redirect()->route('pqrs.tracking.index')->with(['success' => trans('pqrs::tracking.pqrs_was_successfully_registered')]); 
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->withErrors($validatedData)->withInput()->with(['error' => 'Error al registrar la PQRS']);;
+            return redirect()->back()->withErrors($validatedData)->withInput()->with(['error' => trans('pqrs::tracking.error_registering_the_pqrs')]);;
         }
     }
 
     public function create_excel(){
-        $titlePage = 'Cargar archivo';
-        $titleView = 'Cargar archivo';
+        $titlePage = trans('pqrs::tracking.file_upload');
+        $titleView = trans('pqrs::tracking.file_upload');
 
         $data = [
             'titlePage' => $titlePage,
@@ -211,17 +211,16 @@ class TrackingController extends Controller
         ini_set('max_execution_time', 3000); // Ampliar el tiempo máximo de la ejecución del proceso en el servidor
         $validator = Validator::make($request->all(),
             ['excel'  => 'required'],
-            ['excel.required'  => 'Debes cargar un archivo Excel.']
+            ['excel.required'  => trans('pqrs::tracking.you_must_upload_an_excel_file')]
         );
         if($validator->fails()){
-            return back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+            return back()->withErrors($validator)->withInput()->with(['message' => trans('pqrs::tracking.you_must_upload_an_excel_file'), 'typealert'=>'danger']);
         }else{
             $path = $request->file('excel'); // Obtener ubicación temporal del archivo en el servidor
             $array = Excel::toArray(new PqrsImport, $path); // Convertir el contenido del archivo excel en una arreglo de arreglos
-
             $regional = [];
             $proximo_vencer = [];
-
+            
             //Accede a los codigos del responsable
             foreach($array[0] as $row){
                 // Verificar si la fila tiene al menos 2 columnas y si el valor contiene '419116'
@@ -230,15 +229,18 @@ class TrackingController extends Controller
                     $regional[] = $row;
                 }
             }
-                    
-            foreach ($array[1] as $row) {
-                if (isset($row[1]) && strpos($row[1], '419116' ) !== false && strpos($row[10], 'PROXIMA A VENCER')) {
-                    
-                    // Agregar el valor de la columna 2 al arreglo si contiene '419116' y esta EN PROCESO
-                    $proximo_vencer[] = $row;
+            
+            if(isset($array[1])){
+                foreach ($array[1] as $row) {
+                    if (isset($row[1]) && strpos($row[1], '419116' ) !== false && strpos($row[10], 'PROXIMA A VENCER')) {
+                        
+                        // Agregar el valor de la columna 2 al arreglo si contiene '419116' y esta EN PROCESO
+                        $proximo_vencer[] = $row;
+                    }
                 }
             }
-
+            
+            
             try {
                 $countstate = 0;
                 // Recorrer datos y relizar registros
@@ -434,16 +436,15 @@ class TrackingController extends Controller
                 DB::commit();
 
                 if (!empty($filing_exists)) {
-                    $mensaje = 'Los siguientes radicados de las PQRS no se registraron porque ya existen '. implode(', ', $filing_exists) .'.';
+                    $mensaje = trans('pqrs::tracking.the_following_pqrs_filings_were_not_registered_because_they_already_exist'). implode(', ', $filing_exists) .'.';
                     return redirect()->route('pqrs.tracking.index')->with(['success' => $mensaje]); 
                 } else {
-                    $mensaje = 'Se registraron '. $countstate .' PQRS con éxito.';
+                    $mensaje = trans('pqrs::tracking.they_registered'). $countstate .trans('pqrs::tracking.pqrs_successfully');
                     return redirect()->route('pqrs.tracking.index')->with(['success' => $mensaje]); 
                 }     
             } catch (Exception $e) {
-                dd($e);
                 DB::rollBack(); // Devolver cambios realizados durante la transacción
-                return back()->with('error', 'Error al registrar la PQRS')->with('typealert', 'danger');
+                return back()->with('error', trans('pqrs::tracking.error_registering_the_pqrs'))->with('typealert', 'danger');
              }
 
         }
@@ -453,10 +454,10 @@ class TrackingController extends Controller
         ini_set('max_execution_time', 3000); // Ampliar el tiempo máximo de la ejecución del proceso en el servidor
         $validator = Validator::make($request->all(),
             ['excel'  => 'required'],
-            ['excel.required'  => 'Debes cargar un archivo Excel.']
+            ['excel.required'  => trans('pqrs::tracking.you_must_upload_an_excel_file')]
         );
         if($validator->fails()){
-            return back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+            return back()->withErrors($validator)->withInput()->with(['message' => trans('pqrs::tracking.an_error_occurred_with_the_form'), 'typealert'=>'danger']);
         }else{
             $path = $request->file('excel'); // Obtener ubicación temporal del archivo en el servidor
             $array = Excel::toArray(new PqrsImport, $path); // Convertir el contenido del archivo excel en una arreglo de arreglos
@@ -507,16 +508,10 @@ class TrackingController extends Controller
                         
                         $valid_days_count = 0;
 
-                        while ($valid_days_count < 8) {
+                        while ($valid_days_count < 7) {
                             // Incrementar la fecha en un día
                             $start_date->addDay();
                             
-                            // Comprobar si el día es un fin de semana o un día festivo
-                            if ($start_date->isWeekend() || in_array($start_date->format('Y-m-d'), $holidays)) {
-                                continue; // Saltar al siguiente día
-                            }
-                            
-                            // Incrementar el contador de días válidos
                             $valid_days_count++;
                         }
 
@@ -598,22 +593,10 @@ class TrackingController extends Controller
 
                         $start_date = Carbon::parse($filing_date_format);
                         
-                        $valid_days_count = 0;
-
-                        while ($valid_days_count < 8) {
-                            // Incrementar la fecha en un día
-                            $start_date->addDay();
-                            
-                            // Comprobar si el día es un fin de semana o un día festivo
-                            if ($start_date->isWeekend() || in_array($start_date->format('Y-m-d'), $holidays)) {
-                                continue; // Saltar al siguiente día
-                            }
-                            
-                            // Incrementar el contador de días válidos
-                            $valid_days_count++;
-                        }
+                        $start_date->addDay();
 
                         $end_date =  $start_date->format('Y-m-d');
+                        dd($end_date);
 
                         $issue_row = $data[8];
                         preg_match('/"([^"]+)"/', $issue_row, $matches);
@@ -671,16 +654,15 @@ class TrackingController extends Controller
                 DB::commit();
 
                 if (!empty($filing_exists)) {
-                    $mensaje = 'Los siguientes radicados de las PQRS no se registraron porque ya existen '. implode(', ', $filing_exists) .'.';
+                    $mensaje = trans('pqrs::tracking.the_following_pqrs_filings_were_not_registered_because_they_already_exist'). implode(', ', $filing_exists) .'.';
                     return redirect()->route('pqrs.tracking.index')->with(['success' => $mensaje]); 
                 } else {
-                    $mensaje = 'Se registraron '. $countstate .' PQRS con éxito.';
+                    $mensaje = trans('pqrs::tracking.they_registered'). $countstate .trans('pqrs::tracking.pqrs_successfully');
                     return redirect()->route('pqrs.tracking.index')->with(['success' => $mensaje]); 
                 }     
             } catch (Exception $e) {
-                dd($e);
                 DB::rollBack(); // Devolver cambios realizados durante la transacción
-                return back()->with('error', 'Error al registrar la PQRS')->with('typealert', 'danger');
+                return back()->with('error', trans('pqrs::tracking.error_registering_the_pqrs'))->with('typealert', 'danger');
              }
 
         }
@@ -688,58 +670,61 @@ class TrackingController extends Controller
 
     public function email()
     {
-        $pqrs = Pqrs::with('people')->where('state', 'PROXIMO A VENCER')->get();
+        try {
+            $pqrs = Pqrs::with('people')->where('state', 'PROXIMO A VENCER')->get();
 
-        // Ship the order...
-        Mail::send('pqrs::emails.pqrs', compact('pqrs'), function ($msg) use ($pqrs) {
-            $emails = [];
-            $cc_emails = [];
-            $valid_emails = [];
-            $cc_valid_emails = [];
+            Mail::send('pqrs::emails.pqrs', compact('pqrs'), function ($msg) use ($pqrs) {
+                $emails = [];
+                $cc_emails = [];
+                $valid_emails = [];
+                $cc_valid_emails = [];
 
-            foreach ($pqrs as $p){
-                foreach ($p->people as $person){
-                    if ($person->pivot->type == 'Funcionario'){
-                        $emails[] = $person->sena_email;
-                    }else{
-                        if ($person->pivot->type == 'Apoyo'){
+                foreach ($pqrs as $p) {
+                    foreach ($p->people as $person) {
+                        if ($person->pivot->type == 'Funcionario') {
+                            $emails[] = $person->sena_email;
+                        } else if ($person->pivot->type == 'Apoyo') {
                             $cc_emails[] = $person->sena_email;
                         }
                     }
                 }
-            }
 
-            foreach ($emails as $email) {
-                // Eliminar espacios en blanco alrededor de la dirección de correo electrónico
-                $clean_email = trim($email);
-                
-                // Validar la dirección de correo electrónico
-                if (filter_var($clean_email, FILTER_VALIDATE_EMAIL)) {
-                    $valid_emails[] = $clean_email;
-                }else{
-                    return redirect()->back()->with('error', 'La dirección de correo no es valida.');
+                foreach ($emails as $email) {
+                    // Eliminar espacios en blanco alrededor de la dirección de correo electrónico
+                    $clean_email = trim($email);
+
+                    // Validar la dirección de correo electrónico
+                    if (filter_var($clean_email, FILTER_VALIDATE_EMAIL)) {
+                        $valid_emails[] = $clean_email;
+                    } else {
+                        throw new \Exception(trans('pqrs::tracking.the_email_address_is_not_valid'));
+                    }
                 }
-            }
-            
-            foreach ($cc_emails as $cc_email) {
-                // Eliminar espacios en blanco alrededor de la dirección de correo electrónico
-                $clean_email = trim($cc_email);
-                
-                // Validar la dirección de correo electrónico
-                if (filter_var($clean_email, FILTER_VALIDATE_EMAIL)) {
-                    $cc_valid_emails[] = $clean_email;
-                }else{
-                    return redirect()->back()->with('error', 'La dirección de correo no es valida.');
+
+                foreach ($cc_emails as $cc_email) {
+                    // Eliminar espacios en blanco alrededor de la dirección de correo electrónico
+                    $clean_email = trim($cc_email);
+
+                    // Validar la dirección de correo electrónico
+                    if (filter_var($clean_email, FILTER_VALIDATE_EMAIL)) {
+                        $cc_valid_emails[] = $clean_email;
+                    } else {
+                        throw new \Exception(trans('pqrs::tracking.the_email_address_is_not_valid'));
+                    }
                 }
-            }
 
-            $msg->subject('Alerta temprana de PQRS');
-            $msg->to($valid_emails);
-            $msg->cc($cc_valid_emails);
-        });
+                $msg->subject('Alerta temprana de PQRS');
+                $msg->to($valid_emails);
+                $msg->cc($cc_valid_emails);
+            });
 
-        // Redirige a una página de confirmación o de vuelta a la vista original
-        return redirect()->back()->with('success', 'Correo enviado exitosamente.');
+            // Redirige a una página de confirmación o de vuelta a la vista original
+            return redirect()->back()->with('success', trans('pqrs::tracking.email_sent_successfully'));
+        } catch (\Exception $e) {
+            dd($e);
+            // Manejar la excepción y redirigir con un mensaje de error
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     public function filed_response (Request $request){
@@ -747,6 +732,6 @@ class TrackingController extends Controller
         $pqrs->filed_response = $request->filed_response;
         $pqrs->save();
 
-        return redirect()->back()->with('success', 'Número de radicación registrado exitosamente.');
+        return redirect()->back()->with('success', trans('pqrs::tracking.filing_number_successfully_registered'));
     }
 }

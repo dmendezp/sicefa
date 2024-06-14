@@ -7,13 +7,13 @@
         <div class="d-flex justify-content-center">
             <div class="card card-blue card-outline shadow col-md-12">
                 <div class="card-header">
-                    <h3 class="card-title">Cargar Excel de PQRS</h3>            
+                    <h3 class="card-title">{{ trans('pqrs::tracking.load_excel_from_pqrs') }}</h3>            
                 </div>
                 <div class="card-body">
                     <select name="type_excel" id="type_excel" class="form-control">
-                        <option value="">Seleccione el Excel que va a cargar</option>
-                        <option value="regional">Seguimiento Regional</option>
-                        <option value="centro">Seguimiento del Centro</option>
+                        <option value="">{{ trans('pqrs::tracking.select_the_excel_to_load') }}</option>
+                        <option value="regional">{{ trans('pqrs::tracking.regional_monitoring') }}</option>
+                        <option value="centro">{{ trans('pqrs::tracking.center_monitoring') }}</option>
                     </select>
                     <br>
                     <div class="form_load_regional" id="form_load_regional" style="display: none">
@@ -22,13 +22,15 @@
                                 <div class="input-group">
                                     {{ Form::input('file', 'excel', @$_REQUEST['excel'], [
                                         'id' => 'excel',
-                                        'class' => 'form-control',
-                                        'required',
+                                        'class' => 'form-control',                                     
                                         'aria-describedby' => 'inputGroupFile',
                                         'aria-label' => 'Upload'
                                     ]) }}
+                                    @error('excel')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                     
-                                    {!! Form::submit('Cargar Excel Regional', ['id' => 'inputGroupFile', 'class' => 'btn btn-outline-secondary']) !!}
+                                    {!! Form::submit(trans('pqrs::tracking.load_regional_excel'), ['id' => 'inputGroupFile', 'class' => 'btn btn-outline-secondary']) !!}
                                     
                                 </div>
                             </div>
@@ -41,12 +43,13 @@
                                     {{ Form::input('file', 'excel', @$_REQUEST['excel'], [
                                         'id' => 'excel',
                                         'class' => 'form-control',
-                                        'required',
                                         'aria-describedby' => 'inputGroupFile',
                                         'aria-label' => 'Upload'
                                     ]) }}
-                                    
-                                    {!! Form::submit('Cargar Excel de Centro', ['id' => 'inputGroupFile', 'class' => 'btn btn-outline-secondary']) !!}
+                                    @error('excel')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                    {!! Form::submit(trans('pqrs::tracking.load_excel_from_center'), ['id' => 'inputGroupFile', 'class' => 'btn btn-outline-secondary']) !!}
                                     
                                 </div>
                             </div>
@@ -67,9 +70,12 @@
             if (type_excel == 'regional'){
                 $('#form_load_centro').hide();
                 $('#form_load_regional').show();
-            }else{
+            }else if (type_excel == 'centro'){
                 $('#form_load_regional').hide();
                 $('#form_load_centro').show();
+            }else{
+                $('#form_load_centro').hide();
+                $('#form_load_regional').hide();
             }
         });
         

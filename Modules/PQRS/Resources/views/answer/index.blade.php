@@ -26,21 +26,21 @@
         <div class="d-flex justify-content-center">
             <div class="card card-blue card-outline shadow col-md-12">
                 <div class="card-header">
-                    <h3 class="card-title">Mis PQRS</h3>            
+                    <h3 class="card-title">{{ trans('pqrs::answer.my_pqrs') }}</h3>            
                 </div>
                 <div class="card-body">
                     @foreach ($pqrs as $p)
                     <div class="reasign-container" id="reasign-{{ $p->id }}" style="display: none;">
                         {!! Form::open(['method' => 'post', 'url' => route('pqrs.official.answer.reasign')]) !!}
-                        <p> <strong>Número Radicación: </strong> {{ $p->filing_number }} </p>
+                        <p> <strong>{{ trans('pqrs::answer.filing_number') }}: </strong> {{ $p->filing_number }} </p>
                             <div class="row">
                                 <div class="col-md-4">
-                                    {!! Form::label('type', 'Tipo') !!}
-                                    {!! Form::select('type', ['' => 'Seleccione el tipo de asignación', 'Funcionario' => 'Funcionario', 'Apoyo' => 'Apoyo'], null ,['class' => 'form-control type', 'style' => 'width: 100%;']) !!}
+                                    {!! Form::label('type', trans('pqrs::answer.type')) !!}
+                                    {!! Form::select('type', ['' => trans('pqrs::answer.select_the_type_of_assignment'), 'Funcionario' => trans('pqrs::answer.official'), 'Apoyo' => trans('pqrs::answer.assistant')], null ,['class' => 'form-control type', 'style' => 'width: 100%;']) !!}
                                 </div>
                                 <div class="col-md-4">
                                     {!! Form::hidden('id', $p->id) !!}
-                                    {!! Form::label('responsible', 'Nombre de quien se le asigna') !!}
+                                    {!! Form::label('responsible', trans('pqrs::answer.name_of_who_is_assigned')) !!}
                                     {!! Form::select('responsible', [], null ,['class' => 'form-control responsible', 'style' => 'width: 100%;']) !!}
                                     @error('responsible')
                                         <span class="text-danger">{{ $message }}</span>
@@ -59,13 +59,13 @@
                         <table id="answers" class="table table-striped" style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th>Numero Radicación</th>
-                                    <th>Fecha Limite Respuesta</th>
-                                    <th>Asunto</th>
-                                    <th>Descripción Asunto</th>
-                                    <th>Estado</th>
-                                    <th>Respuesta</th>
-                                    <th>Acciones</th>
+                                    <th>{{ trans('pqrs::answer.filing_number') }}</th>
+                                    <th>{{ trans('pqrs::answer.response_deadline') }}</th>
+                                    <th>{{ trans('pqrs::answer.issue') }}</th>
+                                    <th>{{ trans('pqrs::answer.description_subject') }}</th>
+                                    <th>{{ trans('pqrs::answer.state') }}</th>
+                                    <th>{{ trans('pqrs::answer.answer') }}</th>
+                                    <th>{{ trans('pqrs::answer.actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -80,7 +80,7 @@
                                                 <td>{{ $p->state }}</td>
                                                 <td>
                                                     @if($p->answer == null)
-                                                        No se ha dado respuesta
+                                                        {{ trans('pqrs::answer.no_response_has_been_given') }}
                                                     @else
                                                         {{ Str::limit($p->answer, 10) }} 
                                                     @endif
@@ -88,19 +88,19 @@
                                                 <td>
                                                     @if ($p->state == 'EN PROCESO' || $p->state == 'PROXIMO A VENCER')
                                                         @if ($person->id == Auth::user()->person_id)                                          
-                                                            <button type="button" class="btn btn-primary answer" data-bs-toggle="modal" data-bs-target="#answer{{ $p->id }}" title="Responser {{ $p->type_pqrs->name }}">
+                                                            <button type="button" class="btn btn-primary answer" data-bs-toggle="modal" data-bs-target="#answer{{ $p->id }}" title="{{ trans('pqrs::answer.reply') }} {{ $p->type_pqrs->name }}">
                                                                 <i class="fas fa-retweet"></i>
                                                             </button>
                                                         @endif  
                                                     @endif
                                                     @if ($p->state == 'EN PROCESO' || $p->state == 'PROXIMO A VENCER')
-                                                        <button type="button" class="btn btn-success reasign" data-id="{{ $p->id }}" title="Reasignar {{ $p->type_pqrs->name }}">
+                                                        <button type="button" class="btn btn-success reasign" data-id="{{ $p->id }}" title="{{ trans('pqrs::answer.reasign') }} {{ $p->type_pqrs->name }}">
                                                             <i class="fas fa-share-square"></i>
                                                         </button>
                                                     @endif
                                                     @include('pqrs::answer.create')
                                                     @if ($p->state == 'RESPUESTA GENERADA' || $p->state == 'RESPUESTA PARCIAL')
-                                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#info{{ $p->id }}" title="Información de la {{ $p->type_pqrs->name }}">
+                                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#info{{ $p->id }}" title="{{ trans('pqrs::answer.information_of_the') }} {{ $p->type_pqrs->name }}">
                                                             <i class="fas fa-eye"></i>
                                                         </button>       
                                                     @endif
@@ -132,7 +132,7 @@
             $('.reasign-container').hide(); // Oculta todos los divs de asignación
             $('#reasign-' + id).show(); // Muestra el div correspondiente
             $('#reasign-' + id).find('.responsible').select2({
-                placeholder: 'Ingrese nombre de la persona que va ha asignar',
+                placeholder: '{{ trans("pqrs::answer.enter_the_name_of_the_person_you_are_going_to_assign") }}',
                 minimumInputLength: 3,
                 ajax: {
                     url: '{{ route("pqrs.official.answer.searchOfficial") }}',

@@ -8,15 +8,15 @@
         <a href="{{ route('cefa.pqrs.home.index') }}" class="nav-link">{{ trans('sica::menu.Home') }}</a>
       </li>
 
-      @if (checkRol('tracking'))
+      @if (checkRol('pqrs.tracking'))
         <li class="nav-item">
           <a class="nav-link" href="{{ route('pqrs.tracking.index') }}" role="button">
-            Seguimiento
+            {{ trans('pqrs::tracking.tracking') }}
           </a>
         </li>
       @endif
       
-      @if (checkRol('official'))
+      @if (checkRol('pqrs.official'))
         <li class="nav-item">
           <a class="nav-link" href="{{ route('pqrs.official.answer.index') }}" role="button">
             Funcionario

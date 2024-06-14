@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\DB;
 class AnswerController extends Controller
 {
     public function index(){
-        $titlePage = 'Respuesta de PQRS';
-        $titleView = 'Respuesta de PQRS';
+        $titlePage = trans('pqrs::answer.pqrs_response');
+        $titleView = trans('pqrs::answer.pqrs_response');
 
         $user = Auth::user()->person_id;
         $person = Person::find($user);
@@ -39,9 +39,9 @@ class AnswerController extends Controller
         ];
 
         $messages = [
-            'answer.required' => 'Debe registrar una respuesta',
-            'type_answer.required' => 'Debe seleccionar un tipo de respuesta',
-            'response_date' => 'Debe registrar una fecha'
+            'answer.required' => trans('pqrs::answer.you_must_register_a_response'),
+            'type_answer.required' => trans('pqrs::answer.you_must_select_a_response_type'),
+            'response_date' => trans('pqrs::answer.you_must_register_a_date')
         ];
 
         $validatedData = $request->validate($rules, $messages);
@@ -56,11 +56,11 @@ class AnswerController extends Controller
 
             DB::commit();
 
-            return redirect()->route('pqrs.official.answer.index')->with(['success' => 'Se registro la respuesta exitosamente']); 
+            return redirect()->route('pqrs.official.answer.index')->with(['success' => trans('pqrs::answer.the_response_was_registered_successfully')]); 
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->withErrors($validatedData)->withInput()->with(['error' => 'Error al registrar la respuesta']);;
+            return redirect()->back()->withErrors($validatedData)->withInput()->with(['error' => trans('pqrs::answer.error_registering_response')]);;
         }
     }
 
@@ -87,6 +87,6 @@ class AnswerController extends Controller
             'type' => $request->type
         ]);
 
-        return redirect()->route('pqrs.official.answer.index')->with(['success' => 'Se reasigno correctamente la PQRS']); 
+        return redirect()->route('pqrs.official.answer.index')->with(['success' => trans('pqrs::answer.the_pqrs_was_correctly_reassigned')]); 
     }
 }
