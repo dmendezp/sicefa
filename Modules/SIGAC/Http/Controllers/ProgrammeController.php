@@ -849,7 +849,6 @@ class ProgrammeController extends Controller
         }
     }
 
-
     public function program_load_create(){
 	
 		return view('sigac::programming.parameters.competences.load')->with(['titlePage' => 'Cargar Programas',
