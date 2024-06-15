@@ -21,6 +21,12 @@
                             @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.networks.index'))
                                 <a href="{{ route('sica.'.$role_name.'.academy.networks.index') }}" class="btn btn-info float-right ml-1">
                                     <i class="fa-solid fa-angles-right fa-beat-fade"></i>
+                                    {{ trans('sica::menu.Networks') }}
+                                </a>
+                            @endif
+                            @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.lines.index'))
+                                <a href="{{ route('sica.'.$role_name.'.academy.knowledge.networks.index') }}"class="btn btn-info float-right ml-1">
+                                    <i class="fa-solid fa-angles-right fa-beat-fade"></i>
                                     {{ trans('sica::menu.Knowledge Networks') }}
                                 </a>
                             @endif
@@ -33,7 +39,7 @@
                             <table id="tablePrograms" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
+                                        <th>#</th>
                                         <th>{{ trans('sica::menu.Code') }}</th>
                                         <th>{{ trans('sica::menu.Type') }}</th>
                                         <th>{{ trans('sica::menu.Name') }}</th>
@@ -58,7 +64,7 @@
                                             <td>{{ $p->program_type }}</td>
                                             <td>{{ $p->name }}</td>
                                             <td>{{ $p->quarter_number }}</td>
-                                            <td>{{ $p->network->name }}</td>
+                                            <td>{{ $p->knowledge_network->name }}</td>
                                             <td class="text-center">
                                                 <div class="opts">
                                                     @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.programs.edit'))

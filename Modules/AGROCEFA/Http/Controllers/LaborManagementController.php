@@ -354,7 +354,7 @@ class LaborManagementController extends Controller
                         'inventory_id' => $item->id,
                         'name' => $item->element->name,
                         'price' => $item->price,
-                        'created_at' => $item->created_at,
+                        'production_date' => $item->production_date,
                         'amount' => $item->amount,
                         // Agrega otros atributos relacionados con el elemento si es necesario
                     ];
@@ -912,9 +912,6 @@ class LaborManagementController extends Controller
         
             \Log::error('Error en el registro: ' . $e->getMessage());
             \Log::error('Error en el registro: ' . $e->getTraceAsString());
-        
-            // También puedes imprimir información específica sobre el error
-            dd($e);
         
             // O puedes redirigir a una página de error con un mensaje específico
             return redirect()

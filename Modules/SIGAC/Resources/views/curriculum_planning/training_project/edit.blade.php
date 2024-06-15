@@ -14,6 +14,10 @@
                     {!! Form::text('name', $t->name, ['class' => 'form-control','placeholder' => 'Ingrese el nombre', 'required']) !!}
                 </div>
                 <div class="form-group">
+                    {!! Form::label('code', 'Codigo') !!}
+                    {!! Form::number('code', $t->code, ['class' => 'form-control','placeholder' => 'Ingrese el codigo', 'required']) !!}
+                </div>
+                <div class="form-group">
                     {!! Form::label('execution_time', 'Tiempo de ejecucion (Meses)') !!}
                     {!! Form::number('execution_time', $t->execution_time, ['class' => 'form-control','placeholder' => 'Ingrese el número de meses de ejecucion', 'required']) !!}
                 </div>

@@ -13,6 +13,13 @@ class AttendanceApprentice extends Model implements Auditable
     use HasFactory;
 
     protected $fillable = ['date','state','person_id','instructor_program_id'];
+
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
+
+    protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
+        'created_at',
+        'updated_at'
+    ];
     
     protected static function newFactory()
     {

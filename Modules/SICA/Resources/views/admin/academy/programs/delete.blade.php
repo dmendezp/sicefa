@@ -28,7 +28,7 @@
             </div>
             <div class="row">
                 <div class="col-6 text-right"><b>{{trans('sica::menu.Knowledge Network')}} </b></div>
-                <div class="col">{{ $program->network->name }}</div>
+                <div class="col">{{ $program->knowledge_network->name }}</div>
             </div>
         </div>
         <div class="modal-footer py-1">

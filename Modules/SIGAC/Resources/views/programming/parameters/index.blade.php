@@ -7,6 +7,8 @@
                     <div class="card card-blue card-outline shadow">
                         <div class="card-header">
                             <h3 class="card-title">Programas</h3>
+                            <a class="btn btn-outline-secondary float-right ml-1" href="{{ route('sigac.academic_coordination.prgogramming.programs.export') }}">Exportar Programas y Titulaciones</a>
+                            <a class="btn btn-outline-secondary float-right ml-1" href="{{ route('sigac.academic_coordination.prgogramming.programs.load.create') }}">Cargar Programas</a>
                         </div>
                         <div class="card-body">
                         @include('sigac::programming.parameters.competences.table_programs')

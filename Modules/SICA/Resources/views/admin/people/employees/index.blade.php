@@ -23,8 +23,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($employees as $employee)
                                     <tr>
-                                        @foreach ($employees as $employee)
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td class="text-center">{{ $employee->person->document_number }}</td>
                                         <td class="text-center">{{ $employee->person->fullname }}</td>
@@ -39,9 +39,8 @@
                                                 </b>
                                               </a>  
                                         </td>
-                                        @endforeach
-                                        
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
