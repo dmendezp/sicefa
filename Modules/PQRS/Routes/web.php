@@ -3,6 +3,7 @@
 Route::middleware(['lang'])->group(function(){
     Route::prefix('pqrs')->group(function() {
         Route::get('/index', 'PQRSController@index')->name('cefa.pqrs.home.index');
+        Route::get('/manual', 'PQRSController@manual')->name('cefa.pqrs.home.manual');
 
         Route::controller(TrackingController::class)->group(function () {
             Route::get('/tracking/type_pqrs_index', 'type_pqrs_index')->name('pqrs.tracking.type_pqrs_index');

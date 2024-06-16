@@ -8,7 +8,7 @@
         <a href="{{ route('cefa.pqrs.home.index') }}" class="nav-link">{{ trans('sica::menu.Home') }}</a>
       </li>
 
-      @if (checkRol('pqrs.tracking'))
+      @if (auth()->check() && checkRol('pqrs.tracking'))
         <li class="nav-item">
           <a class="nav-link" href="{{ route('pqrs.tracking.index') }}" role="button">
             {{ trans('pqrs::tracking.tracking') }}
@@ -16,7 +16,7 @@
         </li>
       @endif
       
-      @if (checkRol('pqrs.official'))
+      @if (auth()->check() && checkRol('pqrs.official'))
         <li class="nav-item">
           <a class="nav-link" href="{{ route('pqrs.official.answer.index') }}" role="button">
             Funcionario
@@ -27,6 +27,9 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+      <a href="{{ route ('cefa.pqrs.home.manual')}}" class="nav-link" id="question">
+        <i class="fas fa-question-circle"></i>
+      </a>   
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
