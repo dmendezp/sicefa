@@ -255,7 +255,7 @@ class ProgrammeController extends Controller
             $hora_inicio = $request->start_time;
             $hora_fin = $request->end_time;
             $mensaje = 'No se pudieron registrar las siguientes fechas: ' . implode(', ', $fechas_no_registradas) . ', ya hay programación para estas fechas entre estas horas: ' . $hora_inicio . ' - ' . $hora_fin . '.';
-            return redirect(route('sigac.academic_coordination.programming.dates_index'))->with(['error'=> $mensaje]);
+            return redirect()->back()->with(['success'=> $mensaje]);
         } else {
             $mensaje = 'Programación creada con éxito.';
             return redirect()->back()->with(['success'=> $mensaje]);
