@@ -134,7 +134,6 @@ class CurriculumPlanningController extends Controller
         $training_project->name = e($request->input('name'));
         $training_project->code = e($request->input('code'));
         $training_project->execution_time = e($request->input('execution_time'));
-        $training_project->total_result = e($request->input('total_result'));
         $training_project->objective = e($request->input('objective'));
         if ($training_project->save()) {
             return redirect()->back()->with(['success' => 'Proyecto formativo actualizado exitosamente']);
