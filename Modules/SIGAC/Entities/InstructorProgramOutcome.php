@@ -4,7 +4,7 @@ namespace Modules\SIGAC\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\SICA\Entities\learningOutcome;
+use Modules\SICA\Entities\LearningOutcome;
 
 class InstructorProgramOutcome extends Model
 {

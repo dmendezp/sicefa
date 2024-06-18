@@ -67,9 +67,10 @@
                 <option value="Stock">Stock Minimo</option>
             </select>
         </form>
+        
         <br>
         <div id="filteredResults">
-            @include('agrocefa::inventory.inventoryPartial')
+            @include('agrocefa::inventory.InventoryPartial')
         </div>
     </div>
 

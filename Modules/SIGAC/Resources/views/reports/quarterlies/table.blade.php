@@ -55,7 +55,7 @@
                                                     }
                                                 }
                                             @endphp
-                                            <td class="celdae" title="{{ $person }}">{{ $totalHours > 0 ? $totalHours . '' : '' }}</td>
+                                            <td class="celdae" title="{{ $person ?? '' }} ">{{ $totalHours > 0 ? $totalHours . '' : '' }}</td>
                                         @else
                                             <td class="celdae"></td>
                                         @endif
