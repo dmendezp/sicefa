@@ -11,9 +11,18 @@
                             <th class="text-center">Competencia</th>
                             <th class="text-center">Resultado de Aprendizaje</th>
                             @for($trimestreNumber = 1; $trimestreNumber <= $courseNumber; $trimestreNumber++)
-                                <th class="text-center">{{ $trimestreNumber }}</th>
+                                <th class="text-center" colspan="2">{{ $trimestreNumber }}</th>
                             @endfor
                             <th class="text-center">Perfil</th>
+                        </tr>
+                        <tr>
+                            <th class="text-center"></th> 
+                            <th class="text-center"></th> 
+                            @for($trimestreNumber = 1; $trimestreNumber <= $courseNumber; $trimestreNumber++)
+                                <th class="text-center">P</th>
+                                <th class="text-center">E</th>
+                            @endfor
+                            <th class="text-center"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -22,13 +31,34 @@
                                 <tr>
                                     @if($loop->first)
                                         <td rowspan="{{ $trimestres->count() }}" class="text-center">{{ $competency }}</td>
-                                        <td rowspan="{{ $trimestres->count() }}">{{ $trimestre->learning_outcome->name }}</td>
-                                    @endif
+                                        @endif
+                                        <td >{{ $trimestre->learning_outcome->name }}</td>
                                     @for($i = 1; $i <= $courseNumber; $i++)
                                         @if($i == $trimestre->quarter_number)
-                                            <td class="text-center">{{ $trimestre->learning_outcome->hour }}</td>
+                                            <td>{{ $trimestre->hour }}</td>
+                                            <td class="celdae"></td>
                                         @else
                                             <td></td>
+                                            @if (isset($trimestre->learning_outcome->instructor_program_outcomes) && $trimestre->learning_outcome->instructor_program_outcomes->count() > 0)
+                                            @php
+                                                $totalHours = 0;
+                                                foreach ($trimestre->learning_outcome->instructor_program_outcomes as $instructor_program_outcome) {
+                                                    $instructor_program = $instructor_program_outcome->instructor_program;
+                                                    if ($i == $instructor_program->quarter_number) {
+                                                        $start = \Carbon\Carbon::parse($instructor_program->start_time);
+                                                        $end = \Carbon\Carbon::parse($instructor_program->end_time);
+                                                        $totalHours += $end->diffInHours($start);
+
+                                                        foreach ($instructor_program->instructor_program_people as $instructor){
+                                                            $person = $instructor->person->fullname;
+                                                        }
+                                                    }
+                                                }
+                                            @endphp
+                                            <td class="celdae" title="{{ $person ?? '' }} ">{{ $totalHours > 0 ? $totalHours . '' : '' }}</td>
+                                        @else
+                                            <td class="celdae"></td>
+                                        @endif
                                         @endif
                                     @endfor
                                     <td class="text-center">

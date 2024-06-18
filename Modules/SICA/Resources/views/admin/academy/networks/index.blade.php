@@ -10,7 +10,7 @@
             <div class="d-flex justify-content-center">
                 <div class="card card-orange card-outline shadow col-md-12">
                     <div class="card-header">
-                        <h3 class="card-title">{{trans('sica::menu.Knowledge Networks')}}</h3>
+                        <h3 class="card-title">{{trans('sica::menu.Networks')}}</h3>
                         <div class="btns">
                             @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.lines.index'))
                                 <a href="{{ route('sica.'.$role_name.'.academy.lines.index') }}" class="btn btn-info float-right ml-1">
@@ -33,7 +33,7 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>{{trans('sica::menu.Knowledge Networks')}}</th>
+                                        <th>{{trans('sica::menu.Networks')}}</th>
                                         <th>{{trans('sica::menu.Technological line')}}</th>
                                         <th class="text-center">{{trans('sica::menu.Actions')}}
                                             @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.networks.create'))

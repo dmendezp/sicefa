@@ -17,7 +17,7 @@
                         <td class="text-center">{{ $loop->iteration }}</td>
                         <td class="text-center">{{ $p->name }}</td>
                         <td class="text-center">{{ $p->quarter_number }}</td>
-                        <td class="text-center">{{ $p->network->name }}</td>
+                        <td class="text-center">{{ $p->knowledge_network->name }}</td>
                         <td class="text-center">{{ $p->program_type }}</td>
                         <td class="text-center">
                             <a class="btn btn-primary" href="{{ route('sigac.academic_coordination.competences.index', ['program_id' => $p->id]) }}">

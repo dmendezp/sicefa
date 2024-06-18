@@ -54,8 +54,8 @@ class InstructorManagementController extends Controller{
         })->prepend(['id' => null, 'name' => trans('sigac::profession.SelectAnInstructor')])->pluck('name', 'id');
 
         $view = [
-            'titlePage'=> 'Instructor x Profesión', 
-            'titleView'=> 'Instructor x Profesión', 
+            'titlePage'=> 'Instructor por Profesión', 
+            'titleView'=> 'Instructor por Profesión', 
             'professions' => $proffesions, 
             'instructors' => $instructors,
             'person_profession' => $person_profession

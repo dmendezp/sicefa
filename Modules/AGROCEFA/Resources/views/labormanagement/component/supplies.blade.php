@@ -167,14 +167,18 @@
 
                         // Iterar sobre la respuesta JSON y agregar las opciones al campo de selección
                         $.each(response, function(index, element) {
-                            // Obtener solo la parte de la fecha (sin la hora)
-                            var formattedDate = element.created_at.substring(0, 10); // Obtener los primeros 10 caracteres (YYYY-MM-DD)
 
                             // Crear un grupo de opciones para el elemento actual
-                            var optgroup = $("<optgroup label='" + formattedDate + "'>");
+                            var optgroup = $("<optgroup>");
+                            if (element.production_date === null) { 
+                                optgroup.attr("label", "No tiene fecha");
+                            } else {
+                                optgroup.attr("label", element.production_date);
+                            }
+
 
                             // Agregar la fecha como una opción dentro del grupo
-                            optgroup.append(new Option(element.name));
+                            optgroup.append(new Option(element.name,element.inventory_id));
 
                             // Agregar el grupo al select
                             productNameSelect.append(optgroup);

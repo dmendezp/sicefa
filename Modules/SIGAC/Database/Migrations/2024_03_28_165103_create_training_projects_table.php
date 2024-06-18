@@ -16,6 +16,7 @@ class CreateTrainingProjectsTable extends Migration
         Schema::create('training_projects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('code')->unique();
             $table->integer('execution_time');
             $table->string('objective');
             $table->softDeletes();

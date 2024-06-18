@@ -69,6 +69,35 @@
                         'style' => 'max-height: 100px;',
                     ]) !!}
                 </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5><b>Datos del Solicitante</b></h5>
+                        <div class="form-group">
+                            {!! Form::label('applicant', trans('Nombre Completo')) !!}
+                            {!! Form::text('applicant', old('applicant'), [
+                                'class' => 'form-control',
+                                'placeholder' => 'Ingrese el nombre completo',
+                                'required'
+                            ]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('email', trans('Correo')) !!}
+                            {!! Form::email('email', old('email'), [
+                                'class' => 'form-control',
+                                'placeholder' => 'Ingrese el correo',
+                                'required'
+                            ]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('telephone', trans('Telefono')) !!}
+                            {!! Form::number('telephone', old('telephone'), [
+                                'class' => 'form-control',
+                                'placeholder' => 'Ingrese el numero de telefono',
+                                'required'
+                            ]) !!}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -117,35 +146,6 @@
                     ]) !!}
                 </div>
                 <br>
-                <div class="card">
-                    <div class="card-body">
-                        <h5><b>Datos del Solicitante</b></h5>
-                        <div class="form-group">
-                            {!! Form::label('applicant', trans('Nombre Completo')) !!}
-                            {!! Form::text('applicant', old('applicant'), [
-                                'class' => 'form-control',
-                                'placeholder' => 'Ingrese el nombre completo',
-                                'required'
-                            ]) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('email', trans('Correo')) !!}
-                            {!! Form::email('email', old('email'), [
-                                'class' => 'form-control',
-                                'placeholder' => 'Ingrese el correo',
-                                'required'
-                            ]) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('telephone', trans('Telefono')) !!}
-                            {!! Form::number('telephone', old('telephone'), [
-                                'class' => 'form-control',
-                                'placeholder' => 'Ingrese el numero de telefono',
-                                'required'
-                            ]) !!}
-                        </div>
-                    </div>
-                </div>
                 {!! Form::submit('Guardar', ['class'=>'btn btn-primary']) !!}
                 {!! Form::close() !!}
             </div>

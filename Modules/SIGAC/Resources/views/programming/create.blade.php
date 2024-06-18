@@ -16,20 +16,20 @@
                 {!! Form::open(['route' => 'sigac.academic_coordination.programming.management.store', 'method' => 'POST']) !!}
                 @csrf
                 <div class="form-group">
-                    {!! Form::label('querter_number', 'Trimestre') !!}
+                    {!! Form::label('course', 'Curso') !!}
                     <div class="input-select">
-                        {!! Form::select('querter_number', ['' => trans('Seleccione el trimestre'), '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7'], null, ['class' => 'form-control', 'required' , 'id' => 'quarter_number']) !!}
+                        {!! Form::select('course', $courses->pluck('program.name', 'id')->map(function ($item, $key) use ($courses) {
+                            return $item . ' - ' . $courses->find($key)->code;
+                        }), null, ['class' => 'form-select', 'placeholder' => 'Seleccione el curso','id'=> 'course']) !!}
                     </div>
                     @error('course')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="form-group">
-                    {!! Form::label('course', 'Curso') !!}
+                    {!! Form::label('querter_number', 'Trimestre') !!}
                     <div class="input-select">
-                        {!! Form::select('course', $courses->pluck('program.name', 'id')->map(function ($item, $key) use ($courses) {
-                            return $item . ' - ' . $courses->find($key)->code;
-                        }), null, ['class' => 'form-select', 'placeholder' => 'Seleccione el curso','id'=> 'course']) !!}
+                        {!! Form::select('querter_number', ['' => trans('Seleccione el trimestre'), '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7'], null, ['class' => 'form-control quarter_number', 'required' , 'id' => 'quarter_number']) !!}
                     </div>
                     @error('course')
                         <span class="text-danger">{{ $message }}</span>
@@ -60,22 +60,54 @@
                         {{ session('mensaje') }}
                     </p>
                 @endif
-                <div class="form-group">
-                    {!! Form::label('learning_outcome', 'Resultado de Aprendizaje') !!}
-                    <div class="input-select">
-                        {!! Form::select('learning_outcome', [], old('learning_outcome'), ['class' => 'form-control select2 learning_outcome_select', 'required']) !!}
+                {!! Form::label('learning_outcome', 'Resultado de Aprendizaje') !!}
+                <!-- Resultado de Aprendizaje -->
+                <div id="learning_outcomes_container">
+                    <!-- Campo de selección de resultado de aprendizaje -->
+                    <div class="row align-items-center learning_outcomes_row">
+                        <div class="col-8">
+                            <div class="form-group">
+                                <div class="input-select">
+                                    {!! Form::select('learning_outcome[]', [], old('learning_outcome[]'), ['class' => 'form-control select2 learning_outcome_select le1', 'required']) !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-primary add_learning_outcomes"><i class="fas fa-plus"></i></button>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    {!! Form::label('instructor', 'Instructor') !!}
-                    <div class="input-select">
-                        {!! Form::select('instructor', [], old('instructor'), ['class' => 'form-control select2 instructors', 'required']) !!}
+                {!! Form::label('instructor', 'Instructor') !!}
+                <div id="instructors_container">
+                    <!-- Campo de selección de instructores -->
+                    <div class="row align-items-center instructor_row">
+                        <div class="col-8">
+                            
+                            <div class="form-group">
+                                <div class="input-select">
+                                    {!! Form::select('instructor[]', [], old('instructor[]'), ['class' => 'form-control select2 instructors', 'required']) !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-primary add_instructor"><i class="fas fa-plus"></i></button>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    {!! Form::label('environment', 'Ambiente') !!}
-                    <div class="input-select">
-                        {!! Form::select('environment', [], old('environment'), ['class' => 'form-control select2 environments', 'required']) !!}
+                {!! Form::label('environment', 'Ambiente') !!}
+                <div id="environments_container">
+                    <!-- Campo de selección de ambiente -->
+                    <div class="row align-items-center environment_row">
+                        <div class="col-8">
+                            <div class="form-group">
+                                <div class="input-select">
+                                    {!! Form::select('environment[]', [], old('environment[]'), ['class' => 'form-control select2 environments', 'required']) !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-primary add_environment"><i class="fas fa-plus"></i></button>
+                        </div>
                     </div>
                 </div>
                 <div class="accordion" id="accordionExample">
@@ -153,9 +185,36 @@
         $('#course').select2(); // Inicializa el campo course como select2
         $('#quaterlie').hide(); // Ocultar trimestralizacion
 
+        $('#course').change(function() {
+            var course_id = $('#course').val();
 
-        $('#course').on('change', function() {
-            var course_id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('sigac.academic_coordination.programming.management.search_quarter_number') }}",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    course_id: course_id
+                },
+                success: function(data) {   
+                    var quarter_number = $('#quarter_number');
+
+                    quarter_number.empty();
+                    quarter_number.append(new Option('Seleccionar el trimestre', ''));
+
+                    $.each(data.results, function(index, result) {
+                        quarter_number.append(new Option(result, result));
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+
+        });
+
+
+        $('#quarter_number').on('change', function() {
+            var course_id = $('#course').val();
             var quarter_number = $('#quarter_number').val();
 
             if (quarter_number) {
@@ -185,29 +244,8 @@
                         console.error('Error en la solicitud AJAX');
                     }
                 });
-                $.ajax({
-                    url: '{{ route('sigac.academic_coordination.programming.management.filterlearning') }}',
-                    method: 'GET',
-                    data: {
-                        course_id: course_id
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        if (response.learning_outcome) {
-                            
-                            var learning_outcomeSelect = $('.learning_outcome_select').last();
-                            learning_outcomeSelect.empty();
-                            learning_outcomeSelect.append(new Option('Seleccione el resultado de aprendizaje', ''));
-                            $.each(response.learning_outcome, function(id , name) {
-                                learning_outcomeSelect.append(new Option(name, id));
-                            });
-                        }
-                        $('.learning_outcome_select').select2(); // Inicializa el campo course como select2
-                    },
-                    error: function() {
-                        console.error('Error en la solicitud AJAX');
-                    }
-                });
+                // Obtener resultados de aprendizaje para el nuevo select
+                getLearningOutcomesForNewRow();
             } else {
                 
             }
@@ -216,55 +254,12 @@
             var learning_outcome_id = $(this).val();
 
             if (learning_outcome_id) {
-                $.ajax({
-                    url: '{{ route('sigac.academic_coordination.programming.management.filterinstructor') }}',
-                    method: 'GET',
-                    data: {
-                        learning_outcome_id: learning_outcome_id,
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        if (response.instructors) {
-                            var instructorSelect = $('.instructors').last();
-                            instructorSelect.empty();
-                            instructorSelect.append(new Option('Seleccione el instructor', ''));
+                
+                // Obtener instructor para el nuevo select
+                getInstructorForNewRow();
 
-                            // Iterar sobre la lista de instructores
-                            $.each(response.instructors, function(index, instructor) {
-                                instructorSelect.append(new Option(instructor.first_name, instructor.id));
-                            });
-
-                            // Inicializa el campo instructor como select2 después de actualizar las opciones
-                            instructorSelect.select2();
-                        }
-                    },
-                    error: function() {
-                        console.error('Error en la solicitud AJAX');
-                    }
-                });
-                $.ajax({
-                    url: '{{ route('sigac.academic_coordination.programming.management.filterenvironment') }}',
-                    method: 'GET',
-                    data: {
-                        learning_outcome_id: learning_outcome_id,
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        if (response.environments) {
-                            
-                            var environmentsSelect = $('.environments').last();
-                            environmentsSelect.empty();
-                            environmentsSelect.append(new Option('Seleccione el ambiente', ''));
-                            $.each(response.environments, function(id , name) {
-                                environmentsSelect.append(new Option(name, id));
-                            });
-                        }
-                        $('.instructors').select2(); // Inicializa el campo course como select2
-                    },
-                    error: function() {
-                        console.error('Error en la solicitud AJAX');
-                    }
-                });
+                // Obtener ambientes para el nuevo select
+                getEnvironmentForNewRow();
 
                 $.ajax({
                     url: '{{ route('sigac.academic_coordination.programming.management.filterstatelearning') }}',

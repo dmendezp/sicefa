@@ -5,7 +5,7 @@ namespace Modules\SICA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\SIGAC\Entities\Quarterly;
-use Modules\SIGAC\Entities\InstructorProgram;
+use Modules\SIGAC\Entities\InstructorProgramOutcome;
 use Modules\SIGAC\Entities\EvaluativeJudgment;
 use OwenIt\Auditing\Contracts\Auditable;
 
@@ -41,8 +41,8 @@ class LearningOutcome extends Model implements Auditable
     public function evaluative_judgments(){ // Accede a todos los juicios evaluativos de este resultado
         return $this->hasMany(EvaluativeJudgment::class);
     }
-    public function instructor_programs(){ //Accede a todos los registros de trimestralizacion que pertenecen a este resultado.
-        return $this->hasMany(InstructorProgram::class);
+    public function instructor_program_outcomes(){ //Accede a todos los registros de trimestralizacion que pertenecen a este resultado.
+        return $this->hasMany(InstructorProgramOutcome::class);
     }
     public function quarterlies(){ //Accede a todos los registros de trimestralizacion que pertenecen a este resultado.
         return $this->hasMany(Quarterly::class);

@@ -45,7 +45,7 @@ return [
     //sidebar
 	'GTH' => 'GTH',
 	'Contracts' => 'Contratos',
-	'Employment Contract' => 'Contrato Laboral',
+	'Employment Contract' => 'Contratista',
 	'Contract Report' => 'Reporte Contrato',
 	'Contract Certificate' => 'Certificado Contractual',
 	'Configuration' => 'Configuración',
@@ -117,13 +117,14 @@ return [
 	'Error' => 'Error',
 
 	//Contratreporst
-	'Employment Contract Record' => ' Registro de Contrato Laboral',
-	'Personal Information' => 'Información  Personal',
+	'Employment Contract Record' => 'Registro de Contrato Prestación de Servicios',
+	'Personal Information' => 'Información del Contratista',
+	'Personal Supervisor' => 'Información del Supervisor',
 	'ID number:' => 'Número de Documento:',
 	'First Name:' => 'Primer Nombre:',
 	'First Surname:' => 'Primer Apellido:',
 	'Second Surname:' => 'Segundo Apellido:',
-	'Personal Information' => 'Información Personal',
+
 	'Supervisor ID:' => 'Supervisor ID:',
 	'Enter the supervisor ID' => 'Digite el id del supervisor',
 	'Contract Number:' => 'Número de Contrato:',

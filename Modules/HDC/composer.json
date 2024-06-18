@@ -1,5 +1,9 @@
 {
+<<<<<<<< HEAD:Modules/HDC/composer.json
     "name": "nwidart/hdc",
+========
+    "name": "nwidart/bienestar",
+>>>>>>>> BIENESTAR:Modules/BIENESTAR/composer.json
     "description": "",
     "authors": [
         {
@@ -17,7 +21,11 @@
     },
     "autoload": {
         "psr-4": {
+<<<<<<<< HEAD:Modules/HDC/composer.json
             "Modules\\HDC\\": ""
+========
+            "Modules\\BIENESTAR\\": ""
+>>>>>>>> BIENESTAR:Modules/BIENESTAR/composer.json
         }
     }
 }

@@ -13,7 +13,8 @@ use Modules\SENAEMPRESA\Entities\Loan;
 use Modules\SENAEMPRESA\Entities\Postulate;
 use Modules\SIGAC\Entities\Attendance;
 use Modules\SIGAC\Entities\AcademicProgramming;
-
+use Modules\BIENESTAR\Entities\Postulation;
+use Modules\BIENESTAR\Entities\AssignTransportRoute;
 
 class Apprentice extends Model implements Auditable
 {
@@ -79,6 +80,12 @@ class Apprentice extends Model implements Auditable
     public function loans()
     { // Accede a los datos de los prestamos
         return $this->hasMany(Loan::class);
+    }
+    public function postulations(){// Accede a los datos del aprendiz al que pertenece
+        return $this->hasMany(Postulation::class);
+    }
+    public function assigntransoportroutes(){
+        return $this->hasMany(AssignTransportRoute::class);
     }
 
     // Configuración de factory para la generación de datos de pruebas
