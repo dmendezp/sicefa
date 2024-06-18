@@ -6,7 +6,7 @@
                 <div class="col-md-12"> {{-- Inicio competencia --}}
                     <div class="card card-blue card-outline shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Resultados de Aprendizaje</h3>
+                            <h3 class="card-title">Resultados de Aprendizaje - Competencia:  {{ $namecompetencie }}</h3>
                             <div class="btns">
                                 <a href="{{ route('sigac.academic_coordination.competences.index', ['program_id' => $program_id]) }}"class="btn btn-primary float-right ml-1">
                                     <i class="fa-solid fa-angles-left fa-beat-fade"></i>
