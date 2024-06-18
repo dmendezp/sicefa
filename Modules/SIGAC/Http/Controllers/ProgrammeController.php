@@ -4,6 +4,7 @@ namespace Modules\SIGAC\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Modules\SICA\Entities\Employee;
 use Modules\SICA\Entities\Contractor;
@@ -428,7 +429,15 @@ class ProgrammeController extends Controller
     public function parameter()
     {
         $programs = Program::all();
-
+        $programsselect = $programs->map(function ($p) {
+            $id = $p->id;
+            $name = $p->name;
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione un programa'])->pluck('name', 'id');
+        Session::put('programs', $programsselect);
         $Comps = Competencie::all();
         $competencies = $Comps->map(function ($c) {
             $id = $c->id;
@@ -462,22 +471,17 @@ class ProgrammeController extends Controller
 
     public function parameter_competencies($program_id)
     {
-        $prof = Program::all();
-        $programs = $prof->map(function ($p) {
-            $id = $p->id;
-            $name = $p->name;
-            return [
-                'id' => $id,
-                'name' => $name
-            ];
-        })->prepend(['id' => null, 'name' => 'Seleccione un programa'])->pluck('name', 'id');
+        $programs = Session::get('programs');
+        $program = Program::findOrFail($program_id);
+        $name = $program->name;
         $competencies = Competencie::where('program_id',$program_id)->get();
         $titlePage = 'Parametros - Competencia';
         $titleView = 'Parametros - Competencia';
         return view('sigac::programming.parameters.competences.table')->with(['titlePage' => $titlePage,
         'titleView' => $titleView, 
         'program_id' => $program_id,
-        'programs' => $programs, 
+        'programs' => $programs,
+        'nameprogram' => $name,
         'competencies' => $competencies]);
     }
 
@@ -492,6 +496,8 @@ class ProgrammeController extends Controller
                 'name' => $name
             ];
         })->prepend(['id' => null, 'name' => 'Seleccione una competencia'])->pluck('name', 'id');
+        $competencie = Competencie::findOrFail($competencie_id);
+        $name_competencia = $competencie->name;
         $learning_outcomes = LearningOutcome::where('competencie_id',$competencie_id)->get();
         foreach ($learning_outcomes as $l) {
            $program_id = $l->competencie->program_id;
@@ -503,6 +509,7 @@ class ProgrammeController extends Controller
         'competencie_id' => $competencie_id,
         'learning_outcomes' => $learning_outcomes, 
         'program_id' => $program_id,
+        'namecompetencie' => $name_competencia,
         'competencies' => $competencies]);
     }
 
