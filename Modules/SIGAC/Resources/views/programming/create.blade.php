@@ -313,7 +313,7 @@
                 <div class="row align-items-center learning_outcomes_row">
                     <div class="col-8">
                         <div class="form-group">
-                            {!! Form::select('learning_outcome_id[]', [], old('learning_outcome_id[]'), ['class' => 'form-control select2 learning_outcome_select', 'required']) !!}
+                            {!! Form::select('learning_outcome[]', [], old('learning_outcome[]'), ['class' => 'form-control select2 learning_outcome_select', 'required']) !!}
                         </div>
                     </div>
                     <div class="col-4">
