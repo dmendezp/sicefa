@@ -233,13 +233,13 @@ class ProgrammeController extends Controller
                 ->join('employee_types', 'employees.employee_type_id', '=', 'employee_types.id')
                 ->join('people', 'employees.person_id', '=', 'people.id')
                 ->whereIn('employee_types.name', $employeeTypeNames)
-                ->select('people.id', 'people.first_name as name', 'people.first_last_name', 'people.document_number', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
+                ->select('people.id', DB::raw('CONCAT(people.first_name, " ", people.first_last_name, " ", people.second_last_name) as name'))
                 ->union(
                     DB::table('contractors')
                         ->join('employee_types', 'contractors.employee_type_id', '=', 'employee_types.id')
                         ->join('people', 'contractors.person_id', '=', 'people.id')
                         ->whereIn('employee_types.name', $employeeTypeNames)
-                        ->select('people.id', 'people.first_name as name', 'people.first_last_name', 'people.document_number', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
+                        ->select('people.id', DB::raw('CONCAT(people.first_name, " ", people.first_last_name) as name'))
                 )
                 ->get();
         } elseif ($filter == 2) {
