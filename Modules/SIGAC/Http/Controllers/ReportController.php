@@ -52,8 +52,6 @@ class ReportController extends Controller
         })->pluck('name', 'id');
 
         
-        
-        
         return view('sigac::reports.quarterlies.table')->with([
             'titlePage' => trans('Trimestralización'),
             'titleView' => trans('Trimestralización'),

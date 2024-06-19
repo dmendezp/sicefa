@@ -14,7 +14,7 @@
                 <div class="form-group">
                     {!! Form::label('instructor', 'Instructor') !!}
                     <div class="input-select">
-                        {!! Form::select('instructor', [], old('instructor'), ['class' => 'form-control instructor', 'required']) !!}
+                        {!! Form::select('instructor', $instructors, old('instructor'), ['class' => 'form-control instructor'],) !!}                                    
                     </div>
                 </div>
                 <b id="titulo"></b>
@@ -58,6 +58,22 @@
                         'placeholder' => '-- Seleccione --',
                         'id' => 'munipality',
                         'height' => '50px',
+                        'required'
+                    ]) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('empresa', trans('Nombre Empresa')) !!}
+                    {!! Form::text('empresa', old('empresa'), [
+                        'class' => 'form-control',
+                        'placeholder' => 'Ingrese el nombre de la empresa',
+                        'required'
+                    ]) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('address', trans('Dirección')) !!}
+                    {!! Form::text('address', old('address'), [
+                        'class' => 'form-control',
+                        'placeholder' => 'Ingrese la dirección',
                         'required'
                     ]) !!}
                 </div>
@@ -129,22 +145,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    {!! Form::label('empresa', trans('Nombre Empresa')) !!}
-                    {!! Form::text('empresa', old('empresa'), [
-                        'class' => 'form-control',
-                        'placeholder' => 'Ingrese el nombre de la empresa',
-                        'required'
-                    ]) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::label('address', trans('Dirección')) !!}
-                    {!! Form::text('address', old('address'), [
-                        'class' => 'form-control',
-                        'placeholder' => 'Ingrese la dirección',
-                        'required'
-                    ]) !!}
-                </div>
                 <br>
                 {!! Form::submit('Guardar', ['class'=>'btn btn-primary']) !!}
                 {!! Form::close() !!}
@@ -170,39 +170,12 @@
 @push('scripts')
 <script>
     $(function() {
+        $('.instructor').select2();
         $('#program').select2();
         $('#munipality').select2();
     })
    
     $(document).ready(function() {
-        // Inicializar Select2 en campos de selección de instructor
-        $('.instructor').select2({
-            placeholder: 'Seleccione una persona',
-            minimumInputLength: 3,
-            ajax: {
-                url: '{{ route('sigac.programming.program_request.searchperson') }}',
-                dataType: 'json',
-                delay: 250,
-                data: function(params) {
-                    return {
-                        name: params.term,
-                    };
-                },
-                processResults: function(data) {
-                    var results = data.map(function(item) {
-                        return {
-                            id: item.id,
-                            text: item.text
-                        };
-                    });
-
-                    return {
-                        results: results
-                    };
-                },
-                cache: true
-            }
-        });
 
         // Manejador de eventos para el cambio en el campo "Unidad Productiva"
         $('.instructor').on('change', function() {

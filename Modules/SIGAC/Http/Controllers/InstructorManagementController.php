@@ -228,39 +228,39 @@ class InstructorManagementController extends Controller{
     }
 
     public function learning_out_people_store(Request $request)
-    {
-        $rules = [
-            'instructor' => 'required',
-            'learningOutCome' => 'required',
-            'priority' => 'required'
-        ];
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput()->with(['message' => 'Ocurrió un error con el formulario.', 'typealert' => 'danger']);
-        }
-        $learning_outcome = LearningOutCome::where('id', $request->learningOutCome)->first();
-
-        $existingRecord = DB::table('learning_outcome_people')
-            ->where('person_id', $request->instructor)
-            ->where('learning_outcome_id', $learning_outcome->id)
-            ->where('priority', $request->priority)
-            ->exists();
-
-        // Realizar registro
-        if (!$existingRecord) {
-            $learning_outcome_people =  new LearningOutcomePerson;
-            $learning_outcome_people->learning_outcome_id = $learning_outcome->id; 
-            $learning_outcome_people->person_id = $request->instructor; 
-            $learning_outcome_people->priority = $request->priority; 
-            if ($learning_outcome_people->save()) {
-                return redirect(route('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_index'))->with(['success' => trans('sigac::profession.Successful_Aggregation')]);
-            } else {
-                return redirect(route('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_index'))->with(['error' => trans('sigac::profession.Error_Adding')]);
-            }
-        } else {
-            return redirect(route('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_index'))->with(['error' => trans('sigac::learning_out_come.RecordAlreadyExistsWithDataSent')]);
-        }
+{
+    $rules = [
+        'instructor' => 'required',
+        'learningOutCome' => 'required',
+        'priority' => 'required'
+    ];
+    $validator = Validator::make($request->all(), $rules);
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
     }
+
+    $learning_outcome = LearningOutCome::where('id', $request->learningOutCome)->first();
+
+    $existingRecord = DB::table('learning_outcome_people')
+        ->where('person_id', $request->instructor)
+        ->where('learning_outcome_id', $learning_outcome->id)
+        ->where('priority', $request->priority)
+        ->exists();
+
+    if (!$existingRecord) {
+        $learning_outcome_people = new LearningOutcomePerson;
+        $learning_outcome_people->learning_outcome_id = $learning_outcome->id; 
+        $learning_outcome_people->person_id = $request->instructor; 
+        $learning_outcome_people->priority = $request->priority; 
+        if ($learning_outcome_people->save()) {
+            return response()->json(['success' => trans('sigac::profession.Successful_Aggregation')], 200);
+        } else {
+            return response()->json(['error' => trans('sigac::profession.Error_Adding')], 500);
+        }
+    } else {
+        return response()->json(['error' => trans('sigac::learning_out_come.RecordAlreadyExistsWithDataSent')], 409);
+    }
+}
 
     public function learning_out_people_destroy($learning_id, $person_id)
     {

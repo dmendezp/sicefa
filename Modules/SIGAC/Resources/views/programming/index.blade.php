@@ -295,16 +295,34 @@
                         
                         console.log(titleWithInitials);
 
-                        calendar.addEvent({
-                            title: titleWithInitials, // Usar el título con las iniciales
-                            start: eventData.date + 'T' + eventData.start_time,
-                            end: eventData.date + 'T' + eventData.end_time,
-                            instructor_program: eventData,
-                            instructor_program_people: eventData.instructor_program_people,
-                            course: eventData.course,
-                            environment_instructor_programs: eventData.environment_instructor_programs,
-                            instructor_program_outcomes: eventData.instructor_program_outcomes
+                        calendar.addEventSource([
+                            {
+                                title: titleWithInitials,
+                                start: eventData.date + 'T' + eventData.start_time,
+                                end: eventData.date + 'T' + eventData.end_time,
+                                extendedProps: {
+                                    timeRange: `(${formatTime(eventData.start_time)} - ${formatTime(eventData.end_time)})`,
+                                    instructor_program: eventData,
+                                    instructor_program_people: eventData.instructor_program_people,
+                                    course: eventData.course,
+                                    environment_instructor_programs: eventData.environment_instructor_programs,
+                                    instructor_program_outcomes: eventData.instructor_program_outcomes
+                                }
+                            }
+                        ]);
+
+                        calendar.setOption('eventContent', function(arg) {
+                            return { 
+                                html: `<div><b><center>${arg.event.extendedProps.timeRange}<br>${arg.event.title}</center></b></div>`
+                            }
                         });
+
+                        function formatTime(timeString) {
+                            const [hours, minutes] = timeString.split(':');
+                            const formattedTime = `${hours}:${minutes}`;
+                            return formattedTime;
+                        }
+
                     });
 
                     calendar.refetchEvents();

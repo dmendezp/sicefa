@@ -44,6 +44,7 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('academic_coordination/programming/programs/export', 'program_export')->name('sigac.academic_coordination.prgogramming.programs.export'); // Vista carge de archivo (Coordinación Académica)
             Route::get('academic_coordination/programming/programs/load/create', 'program_load_create')->name('sigac.academic_coordination.prgogramming.programs.load.create'); // Vista carge de archivo (Coordinación Académica)
             Route::post('academic_coordination/programming/programs/load/store', 'program_load_store')->name('sigac.academic_coordination.prgogramming.programs.load.store'); // Registro programas por archivo (Coordinación Académica)
+            Route::get('academic_coordination/programming/programs/search', 'program_search')->name('sigac.academic_coordination.prgogramming.programs.search'); // Vista carge de archivo (Coordinación Académica)
 
             //Parametro - Resultados de aprendizaje
             Route::get('academic_coordination/learning_outcomes/index/{competencie_id}', 'parameter_learning_outcomes')->name('sigac.academic_coordination.learning_outcomes.index'); // Registrar competencia (Coordinación Académica)
@@ -126,7 +127,7 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::post('academic_coordination/curriculum_planning/quarterlie/update/{id}', 'quarterlie_update')->name('sigac.academic_coordination.curriculum_planning.quarterlie.update'); // Registrar Trimestralización (Coordinación Académica)
             Route::post('academic_coordination/curriculum_planning/quarterlie/destroy/{id}', 'quarterlie_destroy')->name('sigac.academic_coordination.curriculum_planning.quarterlie.destroy'); // Registrar Trimestralización (Coordinación Académica)
 
-            Route::get('academic_coordination/curriculum_planning/quarterlie/load/create/{course_id}', 'quarterlie_load_create')->name('sigac.academic_coordination.curriculum_planning.quarterlie.load.create'); // Fromulario de registro (Coordinación Académica)
+            Route::get('academic_coordination/curriculum_planning/quarterlie/load/create/{course_id}/{training_project_id}', 'quarterlie_load_create')->name('sigac.academic_coordination.curriculum_planning.quarterlie.load.create'); // Fromulario de registro (Coordinación Académica)
             Route::post('academic_coordination/curriculum_planning/quarterlie/load/store', 'quarterlie_load_store')->name('sigac.academic_coordination.curriculum_planning.quarterlie.load.store'); // Fromulario de registro (Coordinación Académica)            
             
              //Profession x Program 

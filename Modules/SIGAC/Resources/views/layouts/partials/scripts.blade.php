@@ -46,7 +46,7 @@
     Swal.fire({
         icon: 'success',
         title: '{{ session('success') }}',
-        showConfirmButton: false,
+        showConfirmButton: true,
         timer: 1500,
         customClass: {
             popup: 'my-custom-popup-class',
@@ -60,7 +60,7 @@
         Swal.fire({
             icon: 'error',
             title: '{{ session('error') }}',
-            showConfirmButton: false,
+            showConfirmButton: true,
             timer: 15000,
             customClass: {
                 popup: 'my-custom-popup-class',

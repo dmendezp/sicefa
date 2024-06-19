@@ -5,7 +5,7 @@ namespace Modules\SICA\Http\Controllers\location;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Municipality;
 use Modules\SICA\Entities\Environment;
-use Modules\SICA\Entities\Productiveunit;
+use Modules\SICA\Entities\ProductiveUnit;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;

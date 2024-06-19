@@ -112,11 +112,11 @@ class TempTablesController extends Controller
                 $network = KnowledgeNetwork::firstOrCreate(['name' => 'No Registra'],[ // Consultar o registrar red de conocimiento temporal
                     'line_id' => $line->id
                 ]);
-                $program = Program::firstOrCreate(['name' => $program_name],[ // Consultar o registrar programa de formación
-                    'network_id' => $network->id,
-                    'program_type' => 'Sin especificar',
-                    'sofia_code' => 0
-                ]);
+                $program = Program::where('name', $program_name)->first();
+                if (!$program) {
+                    DB::rollBack(); // Devolver cambios realizados durante la transacción
+                    return back()->with('message', 'El programa no existe. <hr> <strong>Error: </strong> ('.$e->getMessage().').')->with('typealert', 'danger');
+                }
                 $course = Course::firstOrCreate(['code' => $course_code],[ // Consultar o registrar curso
                     'star_date' => now()->format('Y-m-d'),
                     'end_date' => now()->format('Y-m-d'),
