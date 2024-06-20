@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Response;
 class PQRSController extends Controller
 {
     public function index(){
-        $titlePage = 'Inicio';
-        $titleView = 'Inicio';
+        $titlePage = trans("sica::menu.Home");
+        $titleView = trans("sica::menu.Home");
 
         $data = [
             'titlePage' => $titlePage,
@@ -19,6 +19,18 @@ class PQRSController extends Controller
         ];
 
         return view('pqrs::index', $data);
+    }
+
+    public function developers(){
+        $titlePage = trans("sica::menu.Developers");
+        $titleView = trans("sica::menu.Developers");
+
+        $data = [
+            'titlePage' => $titlePage,
+            'titleView' => $titleView
+        ];
+
+        return view('pqrs::developers', $data);
     }
 
     public function manual()

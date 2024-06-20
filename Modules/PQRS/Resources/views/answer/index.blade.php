@@ -16,6 +16,11 @@
         .answer{
             margin-bottom: 10px;
         }
+
+        .info{
+            margin-bottom: 10px;
+        }
+        
     </style>
 @endsection
 
@@ -93,18 +98,23 @@
                                                             </button>
                                                         @endif  
                                                     @endif
-                                                    @if ($p->state == 'EN PROCESO' || $p->state == 'PROXIMO A VENCER')
+                                                    @if ($person->pivot->type == 'Funcionario' && $p->state == 'EN PROCESO' || $p->state == 'PROXIMO A VENCER')
                                                         <button type="button" class="btn btn-success reasign" data-id="{{ $p->id }}" title="{{ trans('pqrs::answer.reasign') }} {{ $p->type_pqrs->name }}">
                                                             <i class="fas fa-share-square"></i>
                                                         </button>
                                                     @endif
                                                     @include('pqrs::answer.create')
                                                     @if ($p->state == 'RESPUESTA GENERADA' || $p->state == 'RESPUESTA PARCIAL')
-                                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#info{{ $p->id }}" title="{{ trans('pqrs::answer.information_of_the') }} {{ $p->type_pqrs->name }}">
+                                                        <button type="button" class="btn btn-warning info" data-bs-toggle="modal" data-bs-target="#info{{ $p->id }}" title="{{ trans('pqrs::answer.information_of_the') }} {{ $p->type_pqrs->name }}">
                                                             <i class="fas fa-eye"></i>
                                                         </button>       
                                                     @endif
                                                     @include('pqrs::answer.answer')
+
+                                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#history{{ $p->id }}" title="{{ trans('pqrs::tracking.history_of_the') }} {{ $p->type_pqrs->name }}">
+                                                        <i class="fas fa-history"></i>
+                                                    </button>    
+                                                    @include('pqrs::tracking.history')
                                                 </td>
                                             </tr>   
                                         @endif       

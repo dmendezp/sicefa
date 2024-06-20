@@ -22,6 +22,10 @@ class TypePqrs extends Model implements Auditable
         'updated_at'
     ];
 
+    public function setNameAttribute($value){ // Convierte el primer carácter en mayúscula del dato name (MUTADOR)
+        $this->attributes['name'] = strtoupper($value);
+    }
+
     
     // RELACIONES
     public function pqrs(){ // Accede a todas las pqrs que pertenecen a este tipo de pqrs

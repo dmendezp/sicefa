@@ -19,7 +19,7 @@
       @if (auth()->check() && checkRol('pqrs.official'))
         <li class="nav-item">
           <a class="nav-link" href="{{ route('pqrs.official.answer.index') }}" role="button">
-            Funcionario
+            {{ trans('pqrs::tracking.official') }}
           </a>
         </li>
       @endif

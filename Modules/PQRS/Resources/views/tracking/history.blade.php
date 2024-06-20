@@ -10,6 +10,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
+                        <p><strong>NIS: </strong>{{ $p->nis }}</p>
                         <p><strong>{{ trans('pqrs::tracking.description') }}: </strong>{{ $p->issue }}</p>
                     </div>
                     <div class="col-12">

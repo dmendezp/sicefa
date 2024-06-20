@@ -72,7 +72,14 @@
                         <a href="{{ route('cefa.pqrs.home.index') }}"
                             class="nav-link {{ !Route::is('cefa.pqrs.home.index') ?: 'active' }}">
                             <i class="fas fa-home nav-icon"></i>
-                            <p>Inicio</p>
+                            <p>{{ trans('sica::menu.Home') }}</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('cefa.pqrs.home.developers') }}"
+                            class="nav-link {{ !Route::is('cefa.pqrs.home.developers') ?: 'active' }}">
+                            <i class="fas fa-users nav-icon"></i>
+                            <p>{{ trans('sica::menu.Developers') }}</p>
                         </a>
                     </li>
                 @endif 
