@@ -59,7 +59,7 @@
     <script>
         Swal.fire({
             icon: 'error',
-            title: '{{ session('error') }}',
+            title: '!! addslashes(session('error')) !!}',
             showConfirmButton: true,
             timer: 15000,
             customClass: {

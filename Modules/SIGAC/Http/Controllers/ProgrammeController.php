@@ -429,10 +429,7 @@ class ProgrammeController extends Controller
     // Parametros de programacion
     public function parameter()
     {
-        $programs = Program::limit(10)->get();
-
         $external_activities = ExternalActivity::get();
-        
         $special_programs = SpecialProgram::get();
 
         $titlePage = 'Parametros';
@@ -441,13 +438,21 @@ class ProgrammeController extends Controller
         'titleView' => $titleView, 
         'external_activities' => $external_activities, 
         'professions' => Profession::all(), 
-        'programs' => $programs, 
         'special_programs' => $special_programs]);
     }
 
     /* Consultar programas de manera asincrónica*/
     public function program_search(){
         $data = Program::with('knowledge_network')->latest()->get();
+        $programsselect = $data->map(function ($p) {
+            $id = $p->id;
+            $name = $p->name;
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione un programa'])->pluck('name', 'id');
+        Session::put('programs', $programsselect);
         return Datatables::of($data)->addIndexColumn()
                 ->addColumn('action', function($row){
                     $id = $row->id;

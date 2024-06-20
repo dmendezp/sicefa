@@ -43,9 +43,7 @@ class CurriculumPlanningController extends Controller
         $counts = [];
         foreach ($coursesWithTrainingProjects as $course) {
             foreach ($course->training_projects as $trainingProject) {
-                $count = $trainingProject->quarterlies->flatMap(function ($quarterly) {
-                    return $quarterly->learning_outcome->instructor_program_outcomes;
-                })->unique('learning_outcome_id')->count();
+                $count = $trainingProject->quarterlies->unique('learning_outcome_id')->count();
                 $counts[$trainingProject->id] = $count;
             }
         }
@@ -225,7 +223,7 @@ class CurriculumPlanningController extends Controller
             $learning_outcome_Ids = LearningOutcome::whereIn('competencie_id',$competencias)->get();
             $countlearning = $learning_outcome_Ids->count();
             if ($countlearning == 0) {
-                return back()->with('error', 'No se encontraron resultados de aprendizaje para este programa.')->with('typealert', 'error');
+                return redirect()->back()->with('error', 'No se encontraron resultados de aprendizaje para este programa.')->with('typealert', 'error');
             }
 
             $training_project_id = $request->training_project_id;
@@ -234,7 +232,7 @@ class CurriculumPlanningController extends Controller
             if($nametraining_projectselected != $name_training_project ){
                 $codeselected = TrainingProject::where('code','=',$code)->pluck('name')->first();
                 if ($codeselected != $code) {
-                    return back()->with('error', 'El proyecto formativo ingresado ('.$name_training_project.') para el registro de la trimestralización no coincide con el seleccionado ('.$nametraining_projectselected.').')->with('typealert', 'error');
+                    return redirect()->back()->with('error', 'El proyecto formativo ingresado ('.$name_training_project.') para el registro de la trimestralización no coincide con el seleccionado ('.$nametraining_projectselected.').')->with('typealert', 'error');
                 }
             }            
             try {
@@ -264,7 +262,7 @@ class CurriculumPlanningController extends Controller
     
                             if (!$training_projectc) {
                                 DB::rollBack(); // Devolver cambios realizados durante la transacción
-                                return back()->with('error', 'El proyecto formativo no existe')->with('typealert', 'error');
+                                return redirect()->back()->with('error', 'El proyecto formativo no existe')->with('typealert', 'error');
                             }
                             $training_project_id = $training_projectc->id;
                             if ($learning_outcome) {
@@ -281,7 +279,7 @@ class CurriculumPlanningController extends Controller
                                 
                             } else {
                                 DB::rollBack(); // Devolver cambios realizados durante la transacción
-                                return back()->with('error', "El resultado de aprendizaje '{$name_learning}' no fue encontrado")->with('typealert', 'error');
+                                return redirect()->back()->with('error', "El resultado de aprendizaje '{$name_learning}' no fue encontrado")->with('typealert', 'error');
                             }
                         } else {
                             $training_project_id = $training_project->id;
@@ -300,7 +298,7 @@ class CurriculumPlanningController extends Controller
     
                             }  else {
                                 DB::rollBack(); // Devolver cambios realizados durante la transacción
-                                return back()->with('error', "El resultado de aprendizaje '{$name_learning}' no fue encontrado")->with('typealert', 'error');
+                                return redirect()->back()->with('error', "El resultado de aprendizaje '{$name_learning}' no fue encontrado")->with('typealert', 'error');
                             }
     
                         }
@@ -313,16 +311,16 @@ class CurriculumPlanningController extends Controller
 
                 if ($countlearning == $countquarterly) {
                     DB::commit();
-                    return back()->with('success', 'Archivo excel escaneado coerrectamente. '.$count.' Trimestralizaciones registradas exitosamente.')->with('typealert', 'success');
+                    return redirect()->back()->with('success', 'Archivo excel escaneado coerrectamente. '.$count.' Trimestralizaciones registradas exitosamente.')->with('typealert', 'success');
                 } else {
                     DB::rollBack();
-                    return back()->with('error', 'Debe enviar la trimestralización completa, se requieren '.$countlearning .' resultados con trimestralización y se enviaron '.$countquarterly.'.')->with('typealert', 'error');
+                    return redirect()->back()->with('error', 'Debe enviar la trimestralización completa, se requieren '.$countlearning .' resultados con trimestralización y se enviaron '.$countquarterly.'.')->with('typealert', 'error');
                 }
 
             } catch (Exception $e) {
                 DB::rollBack(); // Devolver cambios realizados durante la transacción
                 \Log::error('Error en el registro: ' . $e->getMessage());
-                return back()->with('error', 'Ocurrio un error en la importación y/o registro de datos del archivo excel cargado. <hr> <strong>Error: </strong> ('.$e->getMessage().').')->with('typealert', 'danger');
+                return redirect()->back()->with('error', 'Ocurrio un error en la importación y/o registro de datos del archivo excel cargado. <hr> <strong>Error: </strong> ('.$e->getMessage().').')->with('typealert', 'danger');
              }
 
         }
