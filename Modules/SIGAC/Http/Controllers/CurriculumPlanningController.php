@@ -246,7 +246,7 @@ class CurriculumPlanningController extends Controller
                     if ($data[0] != null) {
                         if (count($name_learning_file) > 1) {
                             // Si hay más de una parte después de dividir por el guión
-                            $name_learning = trim(preg_replace('/^[0-9]+\s*/', '', $name_learning_file[1])); // Eliminar números y espacios al principio de la cadena
+                            $name_learning = trim(preg_replace('/^[0-9\s\-\x{2022}\x{0095}\t]+/u', '', $name_learning_file[1])); // Eliminar números y espacios al principio de la cadena
                         } else {
                             // Si no hay un guión, entonces tomar el nombre completo sin modificar
                             $name_learning = trim($name_learning_file[0]);
@@ -795,7 +795,7 @@ class CurriculumPlanningController extends Controller
                     if ($learning_outcome) {
                         if (count($learning_outcome) > 1) {
                             // Si hay más de una parte después de dividir por el guión
-                            $name_learning = trim(preg_replace('/^[0-9]+\s*/', '', $learning_outcome[1])); // Eliminar números y espacios al principio de la cadena
+                            $name_learning = trim(preg_replace('/^[0-9\s\-\x{2022}\x{0095}\t]+/u', '', $learning_outcome[1])); // Eliminar números y espacios al principio de la cadena
                         } else {
                             // Si no hay un guión, entonces tomar el nombre completo sin modificar
                             $name_learning = trim($learning_outcome[0]);

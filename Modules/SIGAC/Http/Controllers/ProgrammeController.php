@@ -100,10 +100,34 @@ class ProgrammeController extends Controller
     {
         $learning_outcome_id = $request->input('learning_outcome_id');
     
-        $instructors = Person::join('learning_outcome_people', 'people.id', '=', 'learning_outcome_people.person_id')
+        /* $instructors = Person::join('learning_outcome_people', 'people.id', '=', 'learning_outcome_people.person_id')
                              ->where('learning_outcome_people.learning_outcome_id', $learning_outcome_id)
                              ->orderBy('learning_outcome_people.priority', 'asc')
-                             ->get(['people.id', 'people.first_name']);
+                             ->get(['people.id', 'people.first_name']); */
+
+        $getInstructor = DB::table('employees')
+        ->join('employee_types', 'employees.employee_type_id', '=', 'employee_types.id')
+        ->join('people', 'employees.person_id', '=', 'people.id')
+        ->where('state', 'Activo')
+        ->where('employee_types.name', 'Instructor')
+        ->select('people.id','people.first_name', 'people.first_last_name', 'people.second_last_name', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
+        ->union(
+            DB::table('contractors')
+            ->join('employee_types', 'contractors.employee_type_id', '=', 'employee_types.id')
+            ->join('people', 'contractors.person_id', '=', 'people.id')
+            ->where('state', 'Activo')
+            ->where('employee_types.name', 'Instructor')
+            ->select('people.id','people.first_name', 'people.first_last_name', 'people.second_last_name', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
+        )->get();
+        $instructors = $getInstructor->map(function ($i) {
+            $id = $i->id;
+            $name = $i->first_name . ' ' . $i->first_last_name . ' ' . $i->second_last_name;
+
+            return [
+                'id' => $id,
+                'first_name' => $name
+            ];
+        });
     
         return response()->json(['instructors' => $instructors]);
     }
@@ -114,9 +138,7 @@ class ProgrammeController extends Controller
         $learning_outcome = LearningOutcome::findOrfail($request->input('learning_outcome_id')) ;
         $competencie_id = $learning_outcome->competencie->id;
 
-        $environments = Environment::whereHas('class_environment.competencies', function($query) use ($competencie_id) {
-            $query->where('competencies.id', $competencie_id);
-        })->pluck('name','id');
+        $environments = Environment::get()->pluck('name','id');
 
         return response()->json(['environments' => $environments->toArray()]);
     }
@@ -795,7 +817,8 @@ class ProgrammeController extends Controller
                         if (count($competencie) > 1) {
                             $code_competencie = $competencie[0];
                             // Si hay más de una parte después de dividir por el guión
-                            $name_competencia = trim(preg_replace('/^[0-9]+\s*/', '', $competencie[1])); // Eliminar números y espacios al principio de la cadena
+                            $name_competencia = trim(preg_replace('/^[0-9\s\-\x{2022}\x{0095}\t]+/u', '', $competencie[1])); // Eliminar números y espacios al principio de la cadena
+                            
                         } else {
                             // Si no hay un guión, entonces tomar el nombre completo sin modificar
                             $name_competencia = trim($competencie[0]);
@@ -806,7 +829,7 @@ class ProgrammeController extends Controller
                     if ($learning_outcome) {
                         if (count($learning_outcome) > 1) {
                             // Si hay más de una parte después de dividir por el guión
-                            $name_learning = trim(preg_replace('/^[0-9]+\s*/', '', $learning_outcome[1])); // Eliminar números y espacios al principio de la cadena
+                            $name_learning = trim(preg_replace('/^[0-9\s\-\x{2022}\x{0095}\t]+/u', '', $learning_outcome[1]));
                         } else {
                             // Si no hay un guión, entonces tomar el nombre completo sin modificar
                             $name_learning = trim($learning_outcome[0]);
