@@ -99,35 +99,39 @@ class ProgrammeController extends Controller
     public function management_programming_filterinstructor(Request $request)
     {
         $learning_outcome_id = $request->input('learning_outcome_id');
-    
-        /* $instructors = Person::join('learning_outcome_people', 'people.id', '=', 'learning_outcome_people.person_id')
-                             ->where('learning_outcome_people.learning_outcome_id', $learning_outcome_id)
-                             ->orderBy('learning_outcome_people.priority', 'asc')
-                             ->get(['people.id', 'people.first_name']); */
+        $admin = $request->input('admin');
+        
 
-        $getInstructor = DB::table('employees')
-        ->join('employee_types', 'employees.employee_type_id', '=', 'employee_types.id')
-        ->join('people', 'employees.person_id', '=', 'people.id')
-        ->where('state', 'Activo')
-        ->where('employee_types.name', 'Instructor')
-        ->select('people.id','people.first_name', 'people.first_last_name', 'people.second_last_name', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
-        ->union(
-            DB::table('contractors')
-            ->join('employee_types', 'contractors.employee_type_id', '=', 'employee_types.id')
-            ->join('people', 'contractors.person_id', '=', 'people.id')
+        if ($admin == 'true') {
+            $getInstructor = DB::table('employees')
+            ->join('employee_types', 'employees.employee_type_id', '=', 'employee_types.id')
+            ->join('people', 'employees.person_id', '=', 'people.id')
             ->where('state', 'Activo')
             ->where('employee_types.name', 'Instructor')
             ->select('people.id','people.first_name', 'people.first_last_name', 'people.second_last_name', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
-        )->get();
-        $instructors = $getInstructor->map(function ($i) {
-            $id = $i->id;
-            $name = $i->first_name . ' ' . $i->first_last_name . ' ' . $i->second_last_name;
-
-            return [
-                'id' => $id,
-                'first_name' => $name
-            ];
-        });
+            ->union(
+                DB::table('contractors')
+                ->join('employee_types', 'contractors.employee_type_id', '=', 'employee_types.id')
+                ->join('people', 'contractors.person_id', '=', 'people.id')
+                ->where('state', 'Activo')
+                ->where('employee_types.name', 'Instructor')
+                ->select('people.id','people.first_name', 'people.first_last_name', 'people.second_last_name', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
+            )->get();
+            $instructors = $getInstructor->map(function ($i) {
+                $id = $i->id;
+                $name = $i->first_name . ' ' . $i->first_last_name . ' ' . $i->second_last_name;
+    
+                return [
+                    'id' => $id,
+                    'first_name' => $name
+                ];
+            });
+        } else {
+            $instructors = Person::join('learning_outcome_people', 'people.id', '=', 'learning_outcome_people.person_id')
+            ->where('learning_outcome_people.learning_outcome_id', $learning_outcome_id)
+            ->orderBy('learning_outcome_people.priority', 'asc')
+            ->get(['people.id', 'people.first_name']);
+        }
     
         return response()->json(['instructors' => $instructors]);
     }
@@ -135,10 +139,19 @@ class ProgrammeController extends Controller
 
     public function management_programming_filterenvironment(Request $request)
     {
+        $admin = $request->input('admin');
         $learning_outcome = LearningOutcome::findOrfail($request->input('learning_outcome_id')) ;
         $competencie_id = $learning_outcome->competencie->id;
 
-        $environments = Environment::get()->pluck('name','id');
+        if ($admin == 'true') {
+            $environments = Environment::get()->pluck('name','id');
+        } else {
+            $environments = Environment::whereHas('class_environment.competencies', function($query) use ($competencie_id) {
+                $query->where('competencies.id', $competencie_id);
+            })->pluck('name','id');
+            
+        }
+
 
         return response()->json(['environments' => $environments->toArray()]);
     }
@@ -193,6 +206,7 @@ class ProgrammeController extends Controller
         $instructors = $request->instructor;
         $environments = $request->environment;
         $learning_outcomes = $request->learning_outcome;
+        $hours = $request->hour;
 
         foreach ($fechas as $f) {
             $programming = InstructorProgram::where('date', $f)
@@ -258,9 +272,11 @@ class ProgrammeController extends Controller
                     $environment_instructor_programs->save();
                 }
                 foreach ($learning_outcomes as $index => $learning_outcome_id) {
+                    $hour = $hours[$index];
                     $instructor_program_outcomes = new InstructorProgramOutcome;
                     $instructor_program_outcomes->instructor_program_id = $instructor_program_id;
                     $instructor_program_outcomes->learning_outcome_id = $learning_outcome_id;
+                    $instructor_program_outcomes->hour = $hour;
                     $instructor_program_outcomes->state = 'Pendiente';
                     $instructor_program_outcomes->save();
                 }

@@ -242,15 +242,16 @@ class CurriculumPlanningController extends Controller
                 DB::beginTransaction();
 
                 foreach($datas as $data){
-                    $name_learning_file = explode(" - ", $data[0]);
+                    $name_learning_file = $data[0];
                     if ($data[0] != null) {
-                        if (count($name_learning_file) > 1) {
+                        if ($name_learning_file) {
                             // Si hay más de una parte después de dividir por el guión
-                            $name_learning = trim(preg_replace('/^[0-9\s\-\x{2022}\x{0095}\t]+/u', '', $name_learning_file[1])); // Eliminar números y espacios al principio de la cadena
+                            $name_learning = trim(preg_replace('/^[0-9\s\-\x{2022}\x{0095}\t]+/u', '', $name_learning_file)); // Eliminar números y espacios al principio de la cadena
                         } else {
                             // Si no hay un guión, entonces tomar el nombre completo sin modificar
                             $name_learning = trim($name_learning_file[0]);
                         }
+                        
                         $hour = $data[1];
                         $quarter_number = $data[2];
     
