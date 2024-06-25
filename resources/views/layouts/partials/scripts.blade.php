@@ -14,11 +14,11 @@
 <!-- Admin LTE -->
   <script src="{{ asset('AdminLTE/dist/js/adminlte.js') }}"></script>
   {{-- pantalla de carga --}}
-<script>
+{{-- <script>
 	window.onload = function(){
 		var contenedor = document.getElementById('contenedor_carga');
 
 		contenedor.style.visibility = 'hidden';
 		contenedor.style.opacity = 	'0';
 	}
-</script>
+</script> --}}

@@ -92,7 +92,7 @@
                             ]) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('checkbox_label', trans('Desea el')) !!}
+                            {!! Form::label('checkbox_label', trans('Desea cancelar la programación')) !!}
                             <div>
                                 {!! Form::radio('option', 'yes', false, ['id' => 'option_yes']) !!}
                                 {!! Form::label('option_yes', 'Sí') !!}

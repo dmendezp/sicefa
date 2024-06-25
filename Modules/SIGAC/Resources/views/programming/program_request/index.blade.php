@@ -63,8 +63,9 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('empresa', trans('Nombre Empresa')) !!}
-                    {!! Form::text('empresa', old('empresa'), [
+                    {!! Form::select('empresa', [], null, [
                         'class' => 'form-control',
+                        'id' => 'empresa-select',
                         'placeholder' => 'Ingrese el nombre de la empresa',
                         'required'
                     ]) !!}
@@ -73,6 +74,7 @@
                     {!! Form::label('address', trans('Dirección')) !!}
                     {!! Form::text('address', old('address'), [
                         'class' => 'form-control',
+                        'id' => 'address-field',
                         'placeholder' => 'Ingrese la dirección',
                         'required'
                     ]) !!}
@@ -89,17 +91,21 @@
                     <div class="card-body">
                         <h5><b>Datos del Solicitante</b></h5>
                         <div class="form-group">
-                            {!! Form::label('applicant', trans('Nombre Completo')) !!}
-                            {!! Form::text('applicant', old('applicant'), [
-                                'class' => 'form-control',
-                                'placeholder' => 'Ingrese el nombre completo',
-                                'required'
-                            ]) !!}
+                            <div class="form-group">
+                                {!! Form::label('applicant', trans('Nombre Completo')) !!}
+                                {!! Form::select('applicant', [], null, [
+                                    'class' => 'form-control',
+                                    'id' => 'applicant-select',
+                                    'placeholder' => 'Ingrese el nombre completo',
+                                    'required'
+                                ]) !!}
+                            </div>
                         </div>
                         <div class="form-group">
                             {!! Form::label('email', trans('Correo')) !!}
                             {!! Form::email('email', old('email'), [
                                 'class' => 'form-control',
+                                'id' => 'email-field',
                                 'placeholder' => 'Ingrese el correo',
                                 'required'
                             ]) !!}
@@ -108,6 +114,7 @@
                             {!! Form::label('telephone', trans('Telefono')) !!}
                             {!! Form::number('telephone', old('telephone'), [
                                 'class' => 'form-control',
+                                'id' => 'telephone-field',
                                 'placeholder' => 'Ingrese el numero de telefono',
                                 'required'
                             ]) !!}
@@ -235,6 +242,102 @@
             $(this).closest('.datesrow').remove();
             $('#hr').remove();
         });
+
+        $('#empresa-select').select2({
+            tags: true,
+            placeholder: 'Ingrese el nombre de la empresa',
+            ajax: {
+                url: '{{ route('sigac.programming.program_request.searchempresa') }}', // URL para buscar empresas
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term // Término de búsqueda
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            createTag: function(params) {
+                var term = $.trim(params.term);
+
+                if (term === '') {
+                    return null;
+                }
+
+                return {
+                    id: term,
+                    text: term,
+                    newTag: true // Añadir esta opción para distinguir nuevas entradas
+                };
+            }
+        });
+
+        // Manejar la selección de una empresa
+        $('#empresa-select').on('select2:select', function(e) {
+            var data = e.params.data;
+            if (data.newTag) {
+
+                $('#address-field').val(''); // Limpia el campo de dirección
+            } else {
+                // Si la empresa ya existe, rellenar el campo de dirección
+                $('#address-field').val(data.address);
+            }
+        });
+
+        $('#applicant-select').select2({
+            tags: true,
+            placeholder: 'Ingrese el nombre del solicitante',
+            ajax: {
+                url: '{{ route('sigac.programming.program_request.searchapplicant') }}', // URL para buscar solicitantes
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term // Término de búsqueda
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            createTag: function(params) {
+                var term = $.trim(params.term);
+
+                if (term === '') {
+                    return null;
+                }
+
+                return {
+                    id: term,
+                    text: term,
+                    newTag: true // Añadir esta opción para distinguir nuevas entradas
+                };
+            }
+        });
+
+        // Manejar la selección del solicitante
+        $('#applicant-select').on('select2:select', function(e) {
+            var data = e.params.data;
+            if (data.newTag) {
+
+                $('#email-field').val(''); // Limpia el campo de correo
+                $('#telephone-field').val(''); // Limpia el campo de telefono
+            } else {
+                // Si la empresa ya existe, rellenar el campo de dirección
+                $('#email-field').val(data.email);
+
+                $('#telephone-field').val(data.telephone);
+            }
+        });
+        
     });
 </script>
 @endpush

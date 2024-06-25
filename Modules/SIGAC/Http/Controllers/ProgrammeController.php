@@ -1116,6 +1116,27 @@ class ProgrammeController extends Controller
         }
     }
 
+    public function program_request_searchempresa(Request $request)
+    {
+        $term = $request->get('q');
+        $empresas = ProgramRequest::where('empresa', 'LIKE', '%' . $term . '%')
+            ->select('id', 'empresa as text', 'address') // selecciona solo los campos necesarios
+            ->get();
+
+        return response()->json($empresas);
+    }
+
+    public function program_request_searchapplicant(Request $request)
+    {
+        $term = $request->get('q');
+        $applicants = ProgramRequest::where('applicant', 'LIKE', '%' . $term . '%')
+            ->select('id', 'applicant as text', 'email','telephone') // selecciona solo los campos necesarios
+            ->get();
+
+        return response()->json($applicants);
+    }
+
+
     // Registrar solicitud del programa
     public function program_request_store(Request $request)
     {
@@ -1158,7 +1179,9 @@ class ProgrammeController extends Controller
                                   ->where('end_time', '<=', $end_time);
                         });
                     })
-                    ->where('person_id', $instructor)
+                    ->whereHas('instructor_program_people', function ($query) use ($instructor) {
+                        $query->where('person_id', $instructor);
+                    })
                     ->exists();
     
                 if ($existing_program) {
