@@ -27,15 +27,39 @@
                     </thead>
                     <tbody>
                         @foreach($quarterlies as $competency => $learningOutcomes)
-                            @php $firstRowCompetency = true; @endphp
+                            @php
+                                $firstRowCompetency = true;
+                                $totalHoursCompetency = 0;
+                                $totalExecutedHoursCompetency = 0;
+                                
+                                // Calcular horas planeadas y ejecutadas por competencia
+                                foreach($learningOutcomes as $trimestres) {
+                                    foreach($trimestres as $trimestre) {
+                                        $totalHoursCompetency += $trimestre->hour;
+                                        
+                                        // Calcular horas ejecutadas
+                                        if (isset($trimestre->learning_outcome->instructor_program_outcomes)) {
+                                            foreach ($trimestre->learning_outcome->instructor_program_outcomes as $instructor_program_outcome) {
+                                                $instructor_program = $instructor_program_outcome->instructor_program;
+                                                $start = \Carbon\Carbon::parse($instructor_program->start_time);
+                                                $end = \Carbon\Carbon::parse($instructor_program->end_time);
+                                                $totalExecutedHoursCompetency += $end->diffInHours($start);
+                                            }
+                                        }
+                                    }
+                                }
+                            @endphp
                             @foreach($learningOutcomes as $learningOutcome => $trimestres)
                                 <tr>
-                                    @if($firstRowCompetency)
-                                        <td rowspan="{{ count($learningOutcomes) }}" class="text-center">{{ $competency }}</td>
+                                    @if($firstRowCompet7ency)
+                                        <td rowspan="{{ count($learningOutcomes) }}" class="text-center">
+                                            {{ $competency }}<br>
+                                            <strong>Planeadas: {{ $totalHoursCompetency }}</strong><br>
+                                            <strong>Ejecutadas: {{ $totalExecutedHoursCompetency }}</strong>
+                                        </td>
                                         @php $firstRowCompetency = false; @endphp
                                     @endif
                                     <td>{{ $learningOutcome }}</td>
-
                                     @for($i = 1; $i <= $courseNumber; $i++)
                                         @php
                                             $trimestre = $trimestres->firstWhere('quarter_number', $i);
@@ -45,30 +69,26 @@
                                             <td class="celdae"></td>
                                         @else
                                             <td></td>
-                                                @if(isset($trimestre->learning_outcome->instructor_program_outcomes) && $trimestre->learning_outcome->instructor_program_outcomes->count() > 0)
-                                                    @php
-                                                        $totalHours = 0;
-                                                        $person = ''; // Initialize $person variable
-                                                        foreach ($trimestre->learning_outcome->instructor_program_outcomes as $instructor_program_outcome) {
-                                                            $instructor_program = $instructor_program_outcome->instructor_program;
-                                                            if ($i == $instructor_program->quarter_number) {
-                                                                $start = \Carbon\Carbon::parse($instructor_program->start_time);
-                                                                $end = \Carbon\Carbon::parse($instructor_program->end_time);
-                                                                $totalHours += $end->diffInHours($start);
+                                            @php
+                                                $totalHours = 0;
+                                                $person = ''; // Initialize $person variable
+                                                if (isset($trimestres->first()->learning_outcome->instructor_program_outcomes) && $trimestres->first()->learning_outcome->instructor_program_outcomes->count() > 0) {
+                                                    foreach ($trimestres->first()->learning_outcome->instructor_program_outcomes as $instructor_program_outcome) {
+                                                        $instructor_program = $instructor_program_outcome->instructor_program;
+                                                        if ($i == $instructor_program->quarter_number) {
+                                                            $start = \Carbon\Carbon::parse($instructor_program->start_time);
+                                                            $end = \Carbon\Carbon::parse($instructor_program->end_time);
+                                                            $totalHours += $end->diffInHours($start);
 
-                                                                // Assign the person's name
-                                                                $person = $instructor_program->instructor_program_people->first()->person->fullname ?? '';
-                                                            }
+                                                            // Assign the person's name
+                                                            $person = $instructor_program->instructor_program_people->first()->person->fullname ?? '';
                                                         }
-                                                    @endphp
-                                                    <td class="celdae" title="{{ $person }}">{{ $totalHours > 0 ? $totalHours : '' }}</td>
-                                                @else
-                                                    <td class="celdae"></td>
-                                                @endif
-                                            </td>
+                                                    }
+                                                }
+                                            @endphp
+                                            <td class="celdae" title="{{ $person }}">{{ $totalHours > 0 ? $totalHours : '' }}</td>
                                         @endif
                                     @endfor
-
                                     <td>
                                         @if(isset($trimestres->first()->learning_outcome->competencie->professions) && count($trimestres->first()->learning_outcome->competencie->professions) > 0)
                                             @foreach($trimestres->first()->learning_outcome->competencie->professions as $profession)
