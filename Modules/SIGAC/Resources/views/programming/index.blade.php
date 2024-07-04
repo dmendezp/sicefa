@@ -175,7 +175,7 @@
                         $('#instructor_program_id').val(eventData.instructor_program.id);
                         var instructorsHtml = 'Instructores : <br>';
                         eventData.instructor_program_people.forEach(function(pe) {
-                            instructorsHtml += '- ' + pe.person.first_name + '<br>' ;
+                            instructorsHtml += '- ' + pe.person.first_name + ' ' + pe.person.first_last_name + ' ' + pe.person.second_last_name +'<br>' ;
                         });
                         $('#instructor').html(instructorsHtml);
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
@@ -200,7 +200,7 @@
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name) : 'N/A'));
                         var instructorsHtml = 'Instructores : <br>';
                         eventData.instructor_program_people.forEach(function(pe) {
-                            instructorsHtml += '- ' + pe.person.first_name + '<br>' ;
+                            instructorsHtml += '- ' + pe.person.first_name + ' ' + pe.person.first_last_name + ' ' + pe.person.second_last_name +'<br>' ;
                         });
                         $('#instructor').html(instructorsHtml);
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
@@ -220,7 +220,7 @@
                         $('#instructor_program_id').val(eventData.instructor_program.id);
                         var instructorsHtml = 'Instructores : <br>';
                         eventData.instructor_program_people.forEach(function(pe) {
-                            instructorsHtml += '- ' + pe.person.first_name + '<br>' ;
+                            instructorsHtml += '- ' + pe.person.first_name + ' ' + pe.person.first_last_name + ' ' + pe.person.second_last_name +'<br>' ;
                         });
                         $('#instructor').html(instructorsHtml);
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));

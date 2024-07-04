@@ -207,6 +207,7 @@ class ProgrammeController extends Controller
         $environments = $request->environment;
         $learning_outcomes = $request->learning_outcome;
         $hours = $request->hour;
+        $querter_number = $request->querter_number;
 
         foreach ($fechas as $f) {
             $programming = InstructorProgram::where('date', $f)
@@ -254,6 +255,7 @@ class ProgrammeController extends Controller
                 $p->start_time = $request->start_time;
                 $p->end_time = $request->end_time;
                 $p->course_id = $request->course;
+                $p->quarter_number = $querter_number;
                 $p->state = 'Programado';
                 $p->save();
                 $instructor_program_id = $p->id;
