@@ -5,7 +5,7 @@ namespace Modules\SICA\Http\Controllers\location;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Municipality;
 use Modules\SICA\Entities\Environment;
-use Modules\SICA\Entities\Productiveunit;
+use Modules\SICA\Entities\ProductiveUnit;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -47,7 +47,7 @@ class LocationController extends Controller
 
     /* Vista principal de ambientes de formación */
     public function environments_index(){
-        $productive_units = Productiveunit::get();
+        $productive_units = ProductiveUnit::get();
         $environments = Environment::orderByDesc('updated_at')->get();
         $data = ['title'=>trans('sica::menu.Environments'),
         'environments'=>$environments,

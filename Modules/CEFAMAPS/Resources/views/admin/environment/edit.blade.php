@@ -151,13 +151,13 @@
                                                 <div class="row align-items-end">
                                                     <div class="col-md-5">
                                                         <div class="form-group">
-                                                            <label for="lengthcoor">{{ trans('cefamaps::environment.Label_Length_Environment') }}</label>
+                                                            <label for="lengthcoor">{{ trans('cefamaps::environment.1M_Label_Length_Environment') }}</label>
                                                             <input type="text" class="form-control m-input" name="lengthcoor[]" value="{{ $c->length }}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-5">
                                                         <div class="form-group">
-                                                            <label for="latitudecoor">{{ trans('cefamaps::environment.Label_Latitude_Environment') }}</label>
+                                                            <label for="latitudecoor">{{ trans('cefamaps::environment.1M_Label_Latitude_Environment') }}</label>
                                                             <input type="text" class="form-control m-input" name="latitudecoor[]" value="{{ $c->latitude }}">
                                                         </div>
                                                     </div>
@@ -222,13 +222,13 @@
             html += '<div class="row align-items-end">';
             html += '<div class="col-md-5">';
             html += '<div class="form-group">';
-            html += '<label for="lengthcoor">{{ trans('cefamaps::environment.Label_Length_Environment') }}</label>';
+            html += '<label for="lengthcoor">{{ trans('cefamaps::environment.1M_Label_Length_Environment') }}</label>';
             html += '<input type="text" class="form-control m-input" id="lengthcoor" name="lengthcoor[]">';
             html += '</div>';
             html += '</div>';
             html += '<div class="col-md-5">';
             html += '<div class="form-group">';
-            html += '<label for="latitudecoor">{{ trans('cefamaps::environment.Label_Latitude_Environment') }}</label>';
+            html += '<label for="latitudecoor">{{ trans('cefamaps::environment.1M_Label_Latitude_Environment') }}</label>';
             html += '<input type="text" class="form-control m-input" id="latitudecoor" name="latitudecoor[]">';
             html += '</div>';
             html += '</div>';

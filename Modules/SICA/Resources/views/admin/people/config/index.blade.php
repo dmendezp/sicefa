@@ -62,65 +62,7 @@
                         </div>
                     </div>
                 </div> {{-- Fin de la sección de la tabla eps --}}
-                <div class="col-md-6"> {{-- Inicio de la sección de la tabla fondo de pensiones --}}
-                    <div class="card card-orange card-outline shadow">
-                        <div class="card-header">
-                            <h3 class="card-title">Fondo pensiones</h3>
-                        </div>
-                        <div class="card-body">
-                            <div>
-                                <table id="pensions_table" class="display table table-bordered table-striped table-sm">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">#</th>
-                                            <th class="text-center">Nombre</th>
-                                            <th>Descripción</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($pension_entities as $pe)
-                                            <tr>
-                                                <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td class="text-center">{{ $pe->name }}</td>
-                                                <td>{{ $pe->description }}</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div> {{-- Fin de la sección de la tabla fondo de pensiones --}}
-                <div class="col-md-6"> {{-- Inicio de la sección de la tabla aseguradoras --}}
-                    <div class="card card-orange card-outline shadow">
-                        <div class="card-header">
-                            <h3 class="card-title">Aseguradoras</h3>
-                        </div>
-                        <div class="card-body">
-                            <div>
-                                <table id="insurancers_table" class="display table table-bordered table-striped table-sm">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">#</th>
-                                            <th class="text-center">Nombre</th>
-                                            <th>Descripción</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($insurer_entities as $ie)
-                                            <tr>
-                                                <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td class="text-center">{{ $ie->name }}</td>
-                                                <td>{{ $ie->description }}</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div> {{-- Fin de la sección de la tabla aseguradoras --}}
-                <div class="col-md-6" id="population-groups-card"> {{-- Inicio de la tabla de grupos poblacionales --}}
+                <div class="col-md-6"> {{-- Inicio de la tabla de grupos poblacionales --}}
                     <div class="card card-orange card-outline shadow">
                         <div class="card-header">
                             <h3 class="card-title">Grupos poblacionales</h3>

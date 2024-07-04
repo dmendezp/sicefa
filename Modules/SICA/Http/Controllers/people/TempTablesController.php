@@ -13,6 +13,7 @@ use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\EPS;
 use Modules\SICA\Entities\Line;
 use Modules\SICA\Entities\Network;
+use Modules\SICA\Entities\KnowledgeNetwork;
 use Modules\SICA\Entities\Municipality;
 use Modules\SICA\Entities\PensionEntity;
 use Modules\SICA\Imports\PeopleImport;
@@ -108,14 +109,14 @@ class TempTablesController extends Controller
                 DB::beginTransaction(); // Iniciar transacción
 
                 $line = Line::firstOrCreate(['name' => '---------- (SELECCIONE OTRA LÍNEA) ----------']); // Consultar o registrar línea tecnológica temporal
-                $network = Network::firstOrCreate(['name' => '---------- (SELECCIONE OTRA RED) ----------'],[ // Consultar o registrar red de conocimiento temporal
+                $network = KnowledgeNetwork::firstOrCreate(['name' => 'No Registra'],[ // Consultar o registrar red de conocimiento temporal
                     'line_id' => $line->id
                 ]);
-                $program = Program::firstOrCreate(['name' => $program_name],[ // Consultar o registrar programa de formación
-                    'network_id' => $network->id,
-                    'program_type' => 'Sin especificar',
-                    'sofia_code' => 0
-                ]);
+                $program = Program::where('name', $program_name)->first();
+                if (!$program) {
+                    DB::rollBack(); // Devolver cambios realizados durante la transacción
+                    return back()->with('message', 'El programa no existe. <hr> <strong>Error: </strong> ('.$e->getMessage().').')->with('typealert', 'danger');
+                }
                 $course = Course::firstOrCreate(['code' => $course_code],[ // Consultar o registrar curso
                     'star_date' => now()->format('Y-m-d'),
                     'end_date' => now()->format('Y-m-d'),

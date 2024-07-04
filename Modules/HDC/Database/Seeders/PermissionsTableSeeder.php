@@ -368,18 +368,136 @@ class PermissionsTableSeeder extends Seeder
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
 
+        //VISTA DE REGISTRO PARAMETROS: RECURSOS Y ASPECTOS AMBIEMTALES
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.parameter'], [ // Registro o actualización de permiso
+            'name' => 'Registro del recurso(Administrador)',
+            'description' => 'Registro del recurso',
+            'description_english' => "Resource registration",
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        //VISTA DE REGISTRO PARAMETROS: RECURSOS Y ASPECTOS AMBIEMTALES
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.parameter'], [ // Registro o actualización de permiso
+            'name' => 'Registro del recurso(Encargado)',
+            'description' => 'Registro del recurso',
+            'description_english' => "Resource registration",
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
 
+        //RUTA DEL BOTON AGREGAR RECURSO
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.parameters.resource.store'], [ // Registro o actualización de permiso
+            'name' => 'Agregar recurso(Administrador)',
+            'description' => 'Agregar Recurso',
+            'description_english' => "Add Resource",
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        //RUTA DEL BOTON ACTUALIZAR RECURSO
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.parameters.resource.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar recurso(Administrador)',
+            'description' => 'Actualizar Recurso',
+            'description_english' => "Resource Update",
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        //RUTA DEL BOTON ELIMINAR RECURSO
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.parameters.resource.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar recurso(Administrador)',
+            'description' => 'Eliminar Recurso',
+            'description_english' => "Delete Resource",
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        //RUTA DEL BOTON AGREGAR RECURSO
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.parameters.resource.store'], [ // Registro o actualización de permiso
+            'name' => 'Agregar recurso(Encargado)',
+            'description' => 'Agregar Recurso',
+            'description_english' => "Add Resource",
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        //RUTA DEL BOTON ACTUALIZAR RECURSO
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.parameters.resource.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar recurso(Encargado)',
+            'description' => 'Actualizar Recurso',
+            'description_english' => "Resource Update",
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        //RUTA DEL BOTON ELIMINAR RECURSO
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.parameters.resource.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar recurso(Encargado)',
+            'description' => 'Eliminar Recurso',
+            'description_english' => "Delete Resource",
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        //RUTA DEL BOTON AGREGAR ASPECTO AMBIENTAL
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.parameters.environment_aspects.store'], [ // Registro o actualización de permiso
+            'name' => 'Agregar Aspecto Ambiental(Administrador)',
+            'description' => 'Agregar Aspecto Ambiental',
+            'description_english' => "Add Enviromental Aspect",
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        //RUTA DEL BOTON ACTUALIZAR ASPECTO AMBIENTAL
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.parameters.environment_aspects.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar Aspecto Ambiental(Administrador)',
+            'description' => 'Actualizar Aspecto Ambiental',
+            'description_english' => "Evironmental Aspect Update",
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        //RUTA DEL BOTON ELIMINAR ASPECTO AMBIENTAL
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.parameters.environment_aspects.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar Aspecto Ambiental(Administrador)',
+            'description' => 'Eliminar Aspecto Ambiental',
+            'description_english' => "Delete Enviromental Aspect",
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        //RUTA DEL BOTON AGREGAR ASPECTO AMBIENTAL
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.parameters.environment_aspects.store'], [ // Registro o actualización de permiso
+            'name' => 'Agregar Aspecto Ambiental(Encargado)',
+            'description' => 'Agregar Aspecto Ambiental',
+            'description_english' => "Add Environmental Aspect",
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        //RUTA DEL BOTON ACTUALIZAR ASPECTO AMBIENTAL
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.parameters.environment_aspects.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar Aspecto Ambiental(Encargado)',
+            'description' => 'Actualizar Aspecto Ambiental',
+            'description_english' => "Environmental Aspect Update",
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        //RUTA DEL BOTON ELIMINAR ASPECTO AMBIENTAL
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.parameters.environment_aspects.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar Aspecto Ambiental(Encargado)',
+            'description' => 'Eliminar Aspecto Ambiental',
+            'description_english' => "Delete Environmental Aspect",
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
 
         $rol_admin = Role::where('slug', 'hdc.admin')->first();
         $rol_charge = Role::where('slug', 'hdc.charge')->first();
 
         $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
-        $rol_admin->permissions()->syncWithoutDetaching($permissions_userHDC);
         $rol_charge->permissions()->syncWithoutDetaching($permissions_charge);
-        $rol_charge->permissions()->syncWithoutDetaching($permissions_userHDC);
     }
 }

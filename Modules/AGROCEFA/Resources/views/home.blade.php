@@ -21,9 +21,7 @@
             @endif 
         </div>
     </section>
-    
     <br>
-
     <!--Footer-->
     @include('agrocefa::partials.footer')
 </body>

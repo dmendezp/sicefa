@@ -18,7 +18,7 @@
                                         <th class="text-center">Documento</th>
                                         <th class="text-center">Correo</th>
                                         <th class="text-center">Telefono</th>
-                                        <th class="text-center">Tipo de Empleado</th>
+                                        <th class="text-center">Vinculacion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -29,7 +29,7 @@
                                         <td class="text-center">{{ $instructor->document_number }}</td>
                                         <td class="text-center">{{ $instructor->misena_email }}</td>
                                         <td class="text-center">{{ $instructor->telephone1 }}</td>
-                                        <td class="text-center">{{ $instructor->employee_type_name }}</td>
+                                        <td class="text-center">{{ $instructor->vinculacion }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

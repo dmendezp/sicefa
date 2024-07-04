@@ -52,6 +52,19 @@ input:hover  {
 
 }
 
+/* class input */
+.input {
+    width: 96%;
+    background-color: #fff2f1;
+    border-radius: 8px;
+    padding: 8px 17px;
+    font-size: 13px;
+    border: 1px solid #f5f0ef;
+}
+.input:hover  {
+    border: 1px solid #e0726c;
+
+}
 
 
 input {
@@ -142,4 +155,19 @@ h3 {
 
   .forgot {
     margin-left: 50px;
+  }
+
+  .btlogin{
+    width: 45%;
+    height: 35px;
+    background-color: #ff4133;
+    border: 1px solid rgb(300, 200, 200);
+    border-radius: 7px;
+    font-size: 14px;
+    margin-top: 5px;
+
+  }
+
+  .btlogin:hover{
+    background-color: #ff4133;
   }

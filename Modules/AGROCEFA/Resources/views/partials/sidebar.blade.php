@@ -255,12 +255,13 @@
                     </a>
                 </li>
             @else
-                <li style="margin-top: 70px" class="">
-                    <a href="{{ route('login') }}">
-                        <i class='bx bx-lock-open icon'></i>
-                        <span class="text nav-text">Iniciar Sesion</span>
-                    </a>
-                </li>
+            <li style="margin-top: 70px" class="">
+                <a href="{{ route('login', ['redirect' => url()->current()]) }}">
+                    <i class='bx bx-lock-open icon'></i>
+                    <span class="text nav-text">Iniciar Sesión</span>
+                </a>
+            </li>
+            
                 <li class="">
                     <a href="{{ route('cefa.welcome') }}">
                         <i class='bx bx-log-out icon'></i>

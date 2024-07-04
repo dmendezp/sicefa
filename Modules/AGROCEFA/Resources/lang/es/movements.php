@@ -31,6 +31,8 @@ return [
     '1T_Stock' => 'Stock',
     '1T_Category' => 'Categoria',
     '1T_Destination' => 'Destino',
+    '1T_Expiration' => 'Vencimiento',
+    '1T_Entry' => 'Ingreso',
     '1T_Actions' => 'Acciones',
 
     '2T_Date' => 'Fecha',

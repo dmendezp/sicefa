@@ -16,7 +16,7 @@ class CreatePositionCompaniesTable extends Migration
         Schema::create('position_companies', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->enum('state', [
                 'activo',
                 'inactivo'

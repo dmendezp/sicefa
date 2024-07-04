@@ -8,11 +8,12 @@
     "CPD": true,
     "AGROINDUSTRIA": true,
     "AGROCEFA": true,
+    "BIENESTAR": true,
     "PTVENTA": true,
     "SIGAC": true,
+    "CAFETO": true,
+    "HANGARAUTO": false,
     "GTH": true,
-    "HDC": false,
-    "CAFETO": true
+    "HDC": true
 }
-
 

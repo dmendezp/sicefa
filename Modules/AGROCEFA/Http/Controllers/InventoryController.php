@@ -220,7 +220,7 @@ class InventoryController extends Controller
         $inventory = $query->get();
 
         // Devolver solo la vista parcial en lugar de la vista completa
-        return view('agrocefa::inventory.inventoryPartial', [
+        return view('agrocefa::inventory.InventoryPartial', [
             'inventory' => $inventory,
         ]);
     }
@@ -372,7 +372,7 @@ class InventoryController extends Controller
                 DB::commit();
 
                 // Después de realizar la operación de registro con éxito
-                return redirect()->route('agrocefa.trainer.inventory.low')->with('success', 'Baja Registrada');
+                return redirect()->route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.low')->with('success', 'Baja Registrada');
 
             } catch (\Exception $e) {
                 // En caso de error, realiza un rollback de la transacción y maneja el error
@@ -413,7 +413,7 @@ class InventoryController extends Controller
         $inventory = $query->get();
 
         // Devolver solo la vista parcial en lugar de la vista completa
-        return view('agrocefa::inventory.inventoryPartial', [
+        return view('agrocefa::inventory.InventoryPartial', [
             'inventory' => $inventory,
         ]);
     }

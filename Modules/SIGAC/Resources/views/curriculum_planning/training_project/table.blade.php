@@ -3,13 +3,14 @@
         <table id="training_project" class="display table table-bordered table-striped table-sm">
             <thead>
                 <tr>
-                    <th class="text-center">#</th>
                     <th class="text-center">Titulada</th>
+                    <th class="text-center">Codigo</th>
                     <th class="text-center">{{ trans('sigac::general.T_Name')}}</th>
                     <th class="text-center">Tiempo de ejecucion (Meses)</th>
                     <th class="text-center">Total de resultados</th>
                     <th class="text-center">Objetivo</th>
                     <th class="text-center">Trimestralizacion</th>
+                    <th class="text-center">Cargar Trimestralizacion</th>
                     <th class="text-center">
                         <a data-bs-toggle="modal" data-bs-target="#crearproyecto">
                             <b class="text-success" data-toggle="tooltip" data-placement="top" title="">
@@ -23,8 +24,8 @@
                 @foreach($coursesWithTrainingProjects as $course)
                     @foreach($course->training_projects as $t)
                         <tr>
-                            <td class="text-center">{{ $loop->iteration }}</td>
                             <td class="text-center">{{ $course->program->name }} - {{ $course->code }}</td>
+                            <td class="text-center">{{ $t->code }}</td>
                             <td class="text-center">{{ $t->name }}</td>
                             <td class="text-center">{{ $t->execution_time }}</td>
                             <td class="text-center">{{ $counts[$t->id] ?? 0 }} de {{ $course->program->competencies->flatMap(function ($competency) {
@@ -40,6 +41,9 @@
                                 <a class="btn btn-primary" href="{{ route('sigac.academic_coordination.curriculum_planning.training_project.quarterlie.index', ['training_project_id' => $t->id, 'course_id' => $course->id]) }}">
                                     <i class="fa-solid fa-outdent"></i>
                                 </a>
+                            </td>
+                            <td class="text-center">
+                                <a class="btn btn-outline-secondary" href="{{ route('sigac.academic_coordination.curriculum_planning.quarterlie.load.create', ['course_id' => $course->id ,'training_project_id' => $t->id]) }}">Cargar Trimestralización</a>
                             </td>
                             <td class="text-center col-1">
                                 <div class="opts">

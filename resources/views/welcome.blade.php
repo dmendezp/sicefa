@@ -15,7 +15,7 @@
 </head>
 <body class="antialiased">
 
-    @include('layouts/partials/PntCarg')
+    {{-- @include('layouts/partials/PntCarg') --}}
         
     @include('layouts/partials/header')
 

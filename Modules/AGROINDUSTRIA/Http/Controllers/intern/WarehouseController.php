@@ -2,8 +2,6 @@
 
 namespace Modules\AGROINDUSTRIA\Http\Controllers\Intern;
 
-use Modules\AGROINDUSTRIA\Http\Controllers\Instructor\DeliverController;
-use Modules\AGROINDUSTRIA\Http\Controllers\AGROINDUSTRIAController;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
@@ -20,7 +18,6 @@ use Modules\SICA\Entities\MovementResponsibility;
 use Modules\SICA\Entities\MovementType;
 use Modules\SICA\Entities\WarehouseMovement;
 use App\Models\User;
-
 use Illuminate\Support\Facades\Auth;
 use Validator, Str;
 
@@ -161,14 +158,6 @@ class WarehouseController extends Controller
         return view('agroindustria::storer.inventory.inventoryAlert',$data);
     }
 
-    public function obtenerelementos(Request $request)
-    {
-        try {
-            
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Error interno del servidor'], 500);
-        }
-    }
     
     public function discharge (){
         $title = "Bajas";
@@ -192,12 +181,6 @@ class WarehouseController extends Controller
                 ];
             });
         })->prepend(['id' => null, 'name' => 'Seleccione una unidad productiva'])->pluck('name', 'id');
-
-        //$ProductiveUnitWarehouse = ProductiveUnitWarehouse::where('warehouse_id', $warehouseId)->get();
-        //$idProductiveUnitWarehouse = $ProductiveUnitWarehouse->pluck('id');
-
-        /*$result = app(DeliverController::class)->deliveries();
-        $elements = $result['elements'];*/
         
         $movements = Movement::with(['movement_details.inventory.element', 'movement_responsibilities.person', 'movement_type', 'warehouse_movements'])
         ->whereHas('movement_responsibilities', function ($query) use ($idPersona) {
@@ -269,7 +252,7 @@ class WarehouseController extends Controller
         $inventoryElement = Inventory::with('element')->where('productive_unit_warehouse_id', $productiveUnitWarehouse)
         ->where('element_id', $elementId)
         ->groupBy('element_id')->select('element_id', \DB::raw('SUM(amount) as totalAmount'), \DB::raw('GROUP_CONCAT(price) as prices') , \DB::raw('MAX(lot_number) as lot'))->get();
-        dd($inventoryElement);
+
         $elementData = $inventoryElement->map(function ($e) {
             $lote = $e->lot;
             $fVto = $e->expiration_date;

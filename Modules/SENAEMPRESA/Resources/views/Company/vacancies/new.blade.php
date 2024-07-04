@@ -20,22 +20,22 @@
                             <div class="mb-3">
                                 <label for="image"
                                     class="form-label">{{ trans('senaempresa::menu.Presentation') }}</label><br>
-                                <input type="file" id="image" name="image" required>
+                                <input type="file" id="image" name="image">
                             </div>
                             <div class="mb-3">
                                 <label for="description_general"
                                     class="form-label">{{ trans('senaempresa::menu.General Description') }}</label>
-                                <textarea class="form-control" id="description_general" name="description_general" rows="3" required></textarea>
+                                <textarea class="form-control" id="description_general" name="description_general" rows="3"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="requirement"
                                     class="form-label">{{ trans('senaempresa::menu.Requirements') }}</label><br>
                                 <input type="text" class="form-control" id="requirement" name="requirement"
-                                    placeholder="{{ trans('senaempresa::menu.Requirements') }}" required>
+                                    placeholder="{{ trans('senaempresa::menu.Requirements') }}">
                             </div>
                             <div class="mb-3">
                                 <label for="senaempresa_id"
-                                    class="form-label">SENAEmpresa</label>
+                                    class="form-label">SENA Empresa</label>
                                 <select class="form-control" name="senaempresa_id" required>
                                     <option value="" selected>{{ trans('senaempresa::menu.Select SENAEmpresa') }}
                                     </option>

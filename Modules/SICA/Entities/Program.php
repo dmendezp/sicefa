@@ -17,10 +17,18 @@ class Program extends Model implements Auditable
         HasFactory; // Generación de datos de prueba
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
+        'sofia_code',
+        'version',
+        'training_type',
         'name',
-        'network_id',
+        'qurter_number',
+        'knowledge_network_id',
         'program_type',
-        'sofia_code'
+        'maximum_duration',
+        'modality',
+        'fic',
+        'months_lectiva',
+        'months_productiva'
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
@@ -39,8 +47,8 @@ class Program extends Model implements Auditable
     public function courses(){ // Accede a todos los cursos asociados a este programa de formación
         return $this->hasMany(Course::class);
     }
-    public function network(){ // Accede a la red de conocimiento al que pertenece
-        return $this->belongsTo(Network::class);
+    public function knowledge_network(){ // Accede a la red de conocimiento al que pertenece
+        return $this->belongsTo(KnowledgeNetwork::class);
     }
 
     public function competencies(){ //Accede a todas las competencias asociadas a este programa.

@@ -11,6 +11,8 @@ use Modules\EVS\Entities\Authorized;
 use App\Models\User;
 use Modules\HDC\Entities\FamilyPersonFootprint;
 use Modules\SICA\Entities\Event;
+use Modules\HANGARAUTO\Entities\Tecnomecanic;
+use Modules\SIGAC\Entities\AcademicProgramming;
 use Modules\SIGAC\Entities\Attendance;
 use Modules\AGROINDUSTRIA\Entities\Formulation;
 use Modules\AGROINDUSTRIA\Entities\RequestExternal;
@@ -137,6 +139,9 @@ class Person extends Model implements Auditable
     public function learning_outcomes(){ //Accede a todas los resultados de aprendizaje que pertenecen a este perfil (PIVOTE)
         return $this->belongsToMany(LearningOutcome::class, 'learning_outcome_people');
     }
+    public function learning_outcome_people(){ // Accede a todos los registros de contratistas que le pertenecen a esta persona
+        return $this->hasMany(LearningOutcomePerson::class);
+    }
     public function contractors(){ // Accede a todos los registros de contratistas que le pertenecen a esta persona
         return $this->hasMany(Contractor::class);
     }
@@ -197,6 +202,9 @@ class Person extends Model implements Auditable
     public function request_externals(){ // Accede a todas las solicitudes externas que le pertenecen esta persona
         return $this->hasMany(RequestExternal::class);
     }
+    public function tecnomecanics(){ // Accede a todas las unidades productivas que lidera esta persona
+         return $this->hasMany(Tecnomecanic::class);
+     }
     public function users(){ // Accede a todos los usuarios registrados con esta persona
         return $this->hasMany(User::class);
     }

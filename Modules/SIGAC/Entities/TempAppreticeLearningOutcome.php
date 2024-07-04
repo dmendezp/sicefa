@@ -21,7 +21,9 @@ class TempAppreticeLearningOutcome extends Model implements Auditable
         'juicio'
     ];
 
-    protected $hidden = [ // Datos para ocultar en una respuesta array o JSON
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
+
+    protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
         'created_at',
         'updated_at'
     ];

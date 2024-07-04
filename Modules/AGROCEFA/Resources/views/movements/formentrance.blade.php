@@ -7,7 +7,7 @@
 <div class="container" style="margin-left: 5px">
     <!-- Div para mostrar notificaciones -->
     <div id="notification" class="alert alert-danger" style="display: none;"></div>
-    <div class="card" style="width: 105%">
+    <div class="card" style="width: 110%">
         <div class="card-body">
             {!! Form::open(['route' => 'agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.entry.store', 'method' => 'POST']) !!}
             @csrf
@@ -64,25 +64,28 @@
             <!-- Agregar la tabla dinámica -->
             <div class="form-group">
                 <h3>{{ trans('agrocefa::movements.Elements')}}</h3>
-                <table id="productTable" class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>{{ trans('agrocefa::movements.1T_Name_Of_The_Element') }}</th>
-                            <th>{{ trans('agrocefa::movements.1T_Measurement_Unit') }}</th>
-                            <th>{{ trans('agrocefa::movements.1T_Amount') }}</th>
-                            <th>{{ trans('agrocefa::movements.1T_Price') }}</th>
-                            <th>{{ trans('agrocefa::movements.1T_Lot') }}</th>
-                            <th>{{ trans('agrocefa::movements.1T_Stock') }}</th>
-                            <th>{{ trans('agrocefa::movements.1T_Category') }}</th>
-                            <th>{{ trans('agrocefa::movements.1T_Destination') }}</th>
-                            <th>{{ trans('agrocefa::movements.1T_Actions') }}</th> 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Filas de la tabla se agregarán dinámicamente aquí -->
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table id="productTable" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>{{ trans('agrocefa::movements.1T_Name_Of_The_Element') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Amount') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Price') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Lot') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Stock') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Category') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Destination') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Entry') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Expiration') }}</th>
+                                <th></th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Filas de la tabla se agregarán dinámicamente aquí -->
+                        </tbody>
+                    </table>
+            </div>
                 <button type="button" class="btn btn-primary" id="addProduct">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>
             </div>
             <br>
@@ -94,12 +97,7 @@
 <script>
     console.log("Contenido de  elements:", {!! json_encode($elements) !!});
 </script>
-<style>
-    #productTable th:nth-child(1),
-    #productTable td:nth-child(1) {
-        display: none;
-    }
-</style>
+
 
 <script>
     $(document).ready(function () {
@@ -110,21 +108,21 @@
         // Función para agregar una nueva fila de producto
         function addProductRow() {
             var newRow = $('<tr class="product-row">');
-                newRow.html('<td><input type="hidden" id="product-name" class="product-name" name="product-name[]"></td>' +
-                    '<td class="col-2"><select id="product-id" class="form-control product-id" name="product-id[]" required></select></td>' +
-                    '<td><input type="text" id="product-measurement-unit" class="form-control product-measurement-unit" name="product-measurement-unit[]" readonly></td>' +
-                    '<td class="col-1.5"><input type="number" id="product-quantity" class="form-control product-quantity" name="product-quantity[]" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
-                    '<td><input type="text" id="product-price" class="form-control product-price" name="product-price[]" placeholder="$"></td>' +
-                    '<td><input type="text" id="product-lot" class="form-control product-lot" name="product-lot[]" placeholder="Lote #"></td>' +
-                    '<td><input type="text" id="product-stock" class="form-control product-stock" name="product-stock[]" placeholder="Stock"></td>' +
-                    '<td><input type="text" id="product-category" class="form-control product-category" name="product-category[]" readonly></td>' +
-                    '<td class="col-1"><select id="product-destination" class="form-control product-destination" name="product-destination[]" required>' +
-                    '<option value="Producción">Producción</option>' +
-                    '<option value="Formación">Formación</option>' +
-                    '</select></td>' +
-                    '<td><button type="button" id="button" class="btn btn-danger removeProduct"><i class="fa fa-trash"></i></button>'
-                );
-
+            newRow.html('<td><input type="hidden" id="product-name" class="product-name" name="product-name[]"></td>' +
+                '<td class="col-2"><select id="product-id" class="form-control product-id" name="product-id[]" required></select><div class="product-measurement-unit"></div></td>' +
+                '<td class="col-3"><input type="number" id="product-quantity" class="form-control product-quantity campo" name="product-quantity[]" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
+                '<td class="col-2"><input type="text" id="product-price" class="form-control product-price campo" name="product-price[]" placeholder="$"></td>' +
+                '<td class="col-2"><input type="text" id="product-lot" class="form-control product-lot campo" name="product-lot[]" placeholder="Lote #"></td>' +
+                '<td class="col-2"><input type="text" id="product-stock" class="form-control product-stock campo" name="product-stock[]" placeholder="Stock"></td>' +
+                '<td class="col-2"><input type="text" id="product-category" class="form-control product-category campo" name="product-category[]" readonly></td>' +
+                '<td class="col-2"><select id="product-destination" class="form-control product-destination campo" name="product-destination[]" required>' +
+                '<option value="Producción">Producción</option>' +
+                '<option value="Formación">Formación</option>' +
+                '</select></td>' +
+                '<td class="col-1"><input type="date" id="product-entry" class="form-control product-entry" name="product-entry[]"></td>' +
+                '<td class="col-1"><input type="date" id="product-expiration" class="form-control product-expiration" name="product-expiration[]"></td>' +
+                '<td class="col-2"><button type="button" id="button" class="btn btn-danger removeProduct"><i class="fa fa-trash"></i></button></td>'
+            );
             // Llenar el select de nombre de producto en la nueva fila
             var productNameSelect = newRow.find('.product-id');
             productNameSelect.append('<option value="">{{trans('agrocefa::movements.Placeholder_Element')}}</option>');
@@ -141,12 +139,10 @@
                         allowClear: true // Esto permite borrar la selección actual
                     });
 
-                // Agregar la fila a la tabla
-                productTable.append(newRow);
-
             // Agregar la fila a la tabla
             productTable.append(newRow);
 
+            
         }
 
         // Llamar a addProductRow al cargar la página para generar la primera fila
@@ -156,7 +152,7 @@
         $('#addProduct').click(function () {
             var lastRow = productTable.find('tr.product-row:last');
 
-            if (lastRow.find('#product-name').val() && lastRow.find('#product-measurement-unit').val() && lastRow.find('#product-quantity').val() && lastRow.find('#product-price').val() && lastRow.find('#product-category').val() && lastRow.find('#product-destination').val()) {
+            if (lastRow.find('#product-name').val() && lastRow.find('#product-quantity').val() && lastRow.find('#product-price').val() && lastRow.find('#product-category').val() && lastRow.find('#product-destination').val()) {
                 addProductRow();
             } else {
                 showNotification("Por favor, complete todos los campos de la fila actual antes de agregar otra.", true);
@@ -176,13 +172,13 @@
                 data: { element: selectedElementId },
                 success: function (response) {
                     console.log(response);
-                    var measurementUnitField = currentRow.find('#product-measurement-unit');
+                    var measurementUnitField = $('.product-measurement-unit');
                     var categoryField = currentRow.find('#product-category');
                     var nameField = currentRow.find('#product-name');
                     var destinationField = currentRow.find('#product-destination');
 
 
-                    measurementUnitField.val(response.unidad_medida ||
+                    measurementUnitField.text('Unidad de medida : ' + response.unidad_medida ||
                         'Unidad de medida no encontrada');
                     categoryField.val(response.categoria || 'Categoría no encontrada');
                     nameField.val(response.name || 'Nombre no encontrada');
@@ -191,12 +187,12 @@
 
                 },
                 error: function() {
-                    var measurementUnitField = currentRow.find('#product-measurement-unit');
+                    var measurementUnitField = $('.product-measurement-unit');
                     var categoryField = currentRow.find('#product-category');
                     var nameField = currentRow.find('#product-name');
                     var destinationField = currentRow.find('#product-name');
 
-                    measurementUnitField.val('Error al obtener la unidad de medida');
+                    measurementUnitField.text('Error al obtener la unidad de medida');
                     categoryField.val('Error al obtener la categoría');
                     nameField.val('Error al obtener el nombre');
                 }
@@ -220,9 +216,11 @@
                 if (result.isConfirmed) {
                     // Si el usuario confirma, eliminar la fila y actualizar los datos
                     currentRow.remove();
-                    updateProductsData();
+                    $('.product-id').select2({
+                    });
                 }
             });
+            
         });
 
         // Funcion para mostrar las alertas
@@ -246,6 +244,12 @@
     });
 </script>
 
-
+<style>
+    #productTable th:nth-child(1),
+    #productTable td:nth-child(1) {
+        display: none;
+    }
+    
+</style>
 
 @endsection

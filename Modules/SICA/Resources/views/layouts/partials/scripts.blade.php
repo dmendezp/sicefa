@@ -37,7 +37,6 @@
 <script src="{{ asset('AdminLTE/plugins/toastr/toastr.min.js') }}"></script>
 
 
-
 <!-- Highcharts -->
 <script src="{{ asset('Highcharts/code/highcharts.js') }}"></script>
 <script src="{{ asset('Highcharts/code/highcharts-3d.js') }}"></script>

@@ -7,6 +7,7 @@ return [
 	'Instructor'           => 'Instructor',
     'Wellness'             => 'Bienestar',
     'Apprentice'           => 'Aprendiz',
+    'Support'              => 'Apoyo',
     'Log In'               => 'Iniciar Sesión',
     'Internacionalization' => 'Internacionalización',
     'English'              => 'Inglés',

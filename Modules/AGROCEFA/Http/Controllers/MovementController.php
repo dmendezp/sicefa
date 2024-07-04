@@ -33,11 +33,6 @@ class MovementController extends Controller
     private $pivotId;
     private $pivotReceiveId;
 
-    private function buildDynamicRoute()
-    {
-        return 'agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.index';
-    }
-
     public function viewmovements()
     {
         return view('agrocefa::movements.index');
@@ -274,21 +269,21 @@ class MovementController extends Controller
 
         // Iterar a través de los elementos del movimiento
         foreach ($movement->movement_details as $detail) {
-            $elementId = $detail->inventory->element_id;
+            $Id = $detail->inventory->element_id;
+            $elementId = $detail->inventory_id;
             $destination = $detail->inventory->destination;
             $amount = $detail->amount;
             $price = $detail->price;
         
             
             // Obtener el inventario existente o crear uno nuevo
-
             $inventory = Inventory::where([
                 'productive_unit_warehouse_id' => $movement->warehouse_movements[1]->productive_unit_warehouse_id,
-                'element_id' => $elementId,
+                'id' => $elementId,
                 'lot_number' => $lot,
             ])->first();
-            
             if ($inventory) {
+                
                 // Obtener el factor de conversión
                 $measurement_unit = $inventory->element->measurement_unit->conversion_factor;
                 // Calcular la cantidad ajustada utilizando el factor de conversión
@@ -299,7 +294,7 @@ class MovementController extends Controller
                 $inventory->save();
             } else {
                 $elememt = Element::where([
-                    'id' => $elementId,
+                    'id' => $Id,
                 ])->first();
                 
                 // Si el elemento no existe, crea un nuevo registro en 'inventories'
@@ -311,7 +306,7 @@ class MovementController extends Controller
                 $inventory = new Inventory([
                     'person_id' => $personid,
                     'productive_unit_warehouse_id' => $movement->warehouse_movements[1]->productive_unit_warehouse_id,
-                    'element_id' => $elementId,
+                    'element_id' => $Id,
                     'destination' => $destination,
                     'price' => $price,
                     'amount' => $adjustedAmount,
@@ -323,7 +318,7 @@ class MovementController extends Controller
             }
             $inventoryexist = Inventory::where([
                 'productive_unit_warehouse_id' => $movement->warehouse_movements[0]->productive_unit_warehouse_id,
-                'element_id' => $elementId,
+                'id' => $elementId,
                 'lot_number' => $lot,
             ])->first();    
 
@@ -447,9 +442,6 @@ class MovementController extends Controller
                     // Obtén los elementos con sus IDs
                     $elements = Element::select('id', 'name')->get();
 
-
-
-
                 // ---------------- Retorno a vista y funciones -----------------------
 
                 return view('agrocefa::movements.formentrance', [
@@ -474,7 +466,7 @@ class MovementController extends Controller
 
         // Obtener los datos del formulario
         $date = $request->input('date');
-        $observation = $request->input('observation');
+        $observation = $request->input('observation');                                                                                                                                                                                                                                                                                                                                                             
         $user_id = $request->input('user_id');
         $deliverywarehouse = $request->input('deliverywarehouse');
         $receivewarehouse = $request->input('receivewarehouse');
@@ -493,6 +485,8 @@ class MovementController extends Controller
         $productQuantities = $request->input('product-quantity');
         $productPrices = $request->input('product-price');
         $productDestinations = $request->input('product-destination');
+        $productEntries = $request->input('product-entry');
+        $productExpirations = $request->input('product-expiration');
         $productLots = $request->input('product-lot');
         $productStocks = $request->input('product-stock');
 
@@ -535,6 +529,8 @@ class MovementController extends Controller
                     $quantity = $productQuantities[$index];
                     $price = $productPrices[$index];
                     $destination = $productDestinations[$index];
+                    $expiration_date = $productExpirations[$index];
+                    $production_date = $productEntries[$index];
                     $lot = $productLots[$index];
                     $stock = $productStocks[$index];
                     
@@ -583,6 +579,8 @@ class MovementController extends Controller
                             'amount' => $adjustedAmount,
                             'stock' => $stock,
                             'lot_number' => $lot ?: null,
+                            'expiration_date' => $expiration_date ?: null,
+                            'production_date' => $production_date ?: null,
                         ]);
 
                         $newInventory->save();
@@ -598,7 +596,7 @@ class MovementController extends Controller
                     $movement_details = new MovementDetail([
                         'movement_id' => $movementId, // Asociar al movimiento actual
                         'inventory_id' => $existingInventoryId, // Asociar al inventario actual
-                        'amount' => $quantity, // Cantidad del elemento actual
+                        'amount' => $adjustedAmount, // Cantidad del elemento actual
                         'price' => $price, // Precio del elemento actual
                     ]);
 
@@ -685,8 +683,9 @@ class MovementController extends Controller
             $elementId = $request->input('element');
             
             // Realiza la lógica para obtener los datos del elemento en una sola consulta
-            $elementData = Element::with(['measurement_unit', 'category'])
-                ->where('id', $elementId)
+            $elementData = Element::whereHas('inventories', function ($query) use ($elementId) {
+                    $query->where('id', $elementId);
+                })->with(['measurement_unit', 'category'])
                 ->first();
             
             if ($elementData) {
@@ -716,7 +715,7 @@ class MovementController extends Controller
             $elementId = $request->input('element');
             
             // Realiza la lógica para obtener los datos del elemento en una sola consulta
-            $dataelement = Inventory::where('element_id', $elementId)->first();
+            $dataelement = Inventory::where('id', $elementId)->where('amount','>',0)->first();
             
             if ($dataelement) {
                 $measurement_unit = $dataelement->element->measurement_unit->conversion_factor;
@@ -779,8 +778,6 @@ class MovementController extends Controller
     }
 
 
-
-
     public function obtenerelement(Request $request) 
     {
         try {
@@ -793,16 +790,17 @@ class MovementController extends Controller
             \Log::info('Bodega IDs:', $warehouseIds->toArray());
 
             // Obtener los elementos de las bodegas
-            $inventory = Inventory::whereIn('productive_unit_warehouse_id', $warehouseIds)->get();
+            $inventory = Inventory::whereIn('productive_unit_warehouse_id', $warehouseIds)->where('amount','>',0)->get();
 
             if ($inventory) {
                 // Mapear los datos para incluir ID y nombre del elemento
                 $elementsData = $inventory->map(function ($item) {
                     return [
-                        'id' => $item->element->id,
+                        'id' => $item->id,
+                        'element_id' => $item->element->id,
                         'name' => $item->element->name,
-                        'price' => $item->element->price,
-                        'amount' => $item->element->amount,
+                        'price' => $item->price,
+                        'amount' => $item->amount,
                         'stock' => $item->stock,
                         // Agrega otros atributos relacionados con el elemento si es necesario
                     ];
@@ -844,10 +842,6 @@ class MovementController extends Controller
          $this->selectedUnitId= Session::get('selectedUnitId');
         
 
-        // ---------------- Filtro para responsable -----------------------
-        
-        
-
         // ---------------- Filtro para Bodega de Entrega -----------------------
 
         // Intenta encontrar la unidad productiva por su ID y verifica si se encuentra
@@ -877,21 +871,11 @@ class MovementController extends Controller
 
 
         // ---------------- Filtro para unidades -----------------------
-
-
         $productunits = ProductiveUnit::all();
     
 
-
-        
         // ---------------- Filtro para Elementos -----------------------
-
-
         $elements = Element::select('id', 'name')->get();
-
-
-
-        
 
 
         // ---------------- Retorno a vista y funciones -----------------------
@@ -939,6 +923,7 @@ class MovementController extends Controller
         
 
         // Obtén los datos de los campos de la tabla con llaves [ ]
+        $productIds = $request->input('product-element');
         $productElementIds = $request->input('product-id');
         $productNames = $request->input('product-name');
         $productQuantities = $request->input('product-quantity');
@@ -975,6 +960,7 @@ class MovementController extends Controller
 
             foreach ($productElementIds as $index => $productElementId) {
                 // Accede a los datos de cada elemento de la tabla
+                $productId = $productIds[$index];
                 $name = $productNames[$index];
                 $quantity = $productQuantities[$index];
                 $price = $productPrices[$index];
@@ -986,7 +972,7 @@ class MovementController extends Controller
                 // Buscar si el elemento ya existe en 'inventories' de la unidad que entrega
                 $existingInventory = Inventory::where([
                     'productive_unit_warehouse_id' => $productiveWarehousedeliveryId,
-                    'element_id' => $productElementId,
+                    'id' => $productElementId,
                     'lot_number' => $lot,
                 ])->first();
             
@@ -1004,7 +990,7 @@ class MovementController extends Controller
                     $newInventory = new Inventory([
                         'person_id' => $user_id,
                         'productive_unit_warehouse_id' => $productiveWarehousedeliveryId,
-                        'element_id' => $productElementId,
+                        'element_id' => $productId,
                         'price' => $price,
                         'amount' => $quantity,
                         'stock' => $stock,

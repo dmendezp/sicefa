@@ -60,6 +60,15 @@ class PermissionsTableSeeder extends Seeder
     ]);
     $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
+    // Editar Ambientes (Admin)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.admin.config.environment.edit'], [ // Registro o actualizacion de permiso
+      'name' => 'Actuallizar un Ambiente',
+      'description' => 'Puede actualizar ambientes',
+      'description_english' => "You can update environments",
+      'app_id' => $app->id
+    ]);
+    $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
     // Borrar Ambiente (Admin)
     $permission = Permission::updateOrCreate(['slug' => 'cefamaps.admin.environment.delete'], [
       'name' => 'Eliminar un Ambiente',
@@ -92,6 +101,15 @@ class PermissionsTableSeeder extends Seeder
       'name' => 'Editar una aunidad',
       'description' => 'Puede editar unidades',
       'description_english' => "You can edit units",
+      'app_id' => $app->id
+    ]);
+    $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+    // Editar Unidades (Admin)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.admin.unit.edit'], [ // Registro o actualizacion de permiso
+      'name' => 'Actualizar una unidad',
+      'description' => 'Puede actualizar unidades',
+      'description_english' => "You can update units",
       'app_id' => $app->id
     ]);
     $permission_admin[] = $permission->id; // Almacenar permiso para rol
@@ -141,6 +159,15 @@ class PermissionsTableSeeder extends Seeder
     ]);
     $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
+    // Editar Sector (Admin)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.admin.sector.edit'], [ // Registro o actualizacion de permiso
+      'name' => 'Actualizar un sector',
+      'description' => 'Puede actualizar sectores',
+      'description_english' => "You can update sectors",
+      'app_id' => $app->id
+    ]);
+    $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
     // Borrar Sector (Admin)
     $permission = Permission::updateOrCreate(['slug' => 'cefamaps.admin.sector.delete'], [
       'name' => 'Eliminar un sector',
@@ -182,6 +209,59 @@ class PermissionsTableSeeder extends Seeder
       'name' => 'Eliminar una pagina',
       'description' => 'Puede eliminar paginas',
       'description_english' => "You can delete pages",
+      'app_id' => $app->id
+    ]);
+    $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+    // Administrara vista de sector (Admin)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.admin.config.class.index'], [ // Registro o actualización de permiso
+      'name' => 'Administrar datos de las clases de ambientes',
+      'description' => 'Puede gestionar la información de las clases de ambientes',
+      'description_english' => "You can manage the information of the class environment",
+      'app_id' => $app->id
+    ]);
+    $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+    // Agregar Sector (Admin)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.admin.config.class.add'], [ // Registro o actualizacion de permiso
+      'name' => 'Vista Agregar clase de ambiente',
+      'description' => 'Puede agregar clase de ambiente',
+      'description_english' => "You can add class environment",
+      'app_id' => $app->id
+    ]);
+    $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+    // Agregar Sector (Admin)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.admin.config.class.store'], [ // Registro o actualizacion de permiso
+      'name' => 'Agregar clase de ambiente',
+      'description' => 'Puede agregar clase de ambiente',
+      'description_english' => "You can add class environment",
+      'app_id' => $app->id
+    ]);
+    $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+    // Editar Sector (Admin)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.admin.config.class.edit'], [ // Registro o actualizacion de permiso
+      'name' => 'Vista Editar clase de ambiente',
+      'description' => 'Puede editar sectores',
+      'description_english' => "You can edit class environment",
+      'app_id' => $app->id
+    ]);
+    $permission_admin[] = $permission->id; // Almacenar permiso para rol
+    // Editar Sector (Admin)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.admin.config.class.update'], [ // Registro o actualizacion de permiso
+      'name' => 'Editar clase de ambiente',
+      'description' => 'Puede editar sectores',
+      'description_english' => "You can edit class environment",
+      'app_id' => $app->id
+    ]);
+    $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+    // Borrar Sector (Admin)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.admin.class.destroy'], [
+      'name' => 'Eliminar clase de ambiente',
+      'description' => 'Puede eliminar sectores',
+      'description_english' => "You can delete class environment",
       'app_id' => $app->id
     ]);
     $permission_admin[] = $permission->id; // Almacenar permiso para rol

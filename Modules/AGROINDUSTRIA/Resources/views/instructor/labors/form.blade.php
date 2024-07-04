@@ -7,9 +7,9 @@
                 <div class="form-header">{{trans('agroindustria::labors.laborRegistration')}}</div>
                 <div class="form-body">
                     @if (Route::is('*form*'))
-                    {!! Form::open(['url' => route('cefa.agroindustria.units.instructor.labor.register'),'method' => 'post']) !!}
+                    {!! Form::open(['url' => route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.register'),'method' => 'post']) !!}
                     @else
-                    {!! Form::open(['url' => route('cefa.agroindustria.units.instructor.labor.update'),'method' => 'post']) !!}
+                    {!! Form::open(['url' => route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.update'),'method' => 'post']) !!}
                     @endif
                     <div class="row">
                         <div class="col-md-6">
@@ -26,7 +26,7 @@
                         @if($registros->activity->activity_type->id == 1 && $registros->destination == 'Producción')
                         <div class="col-md-6" id="recipe-field" style="display: none;">
                             {!! Form::label('recipe', trans('agroindustria::labors.recipes')) !!}
-                            {!! Form::select('recipe', $recipe, isset($registros) ? $registros->productions->first()->element->id : old('recipe'), ['class' => 'form-control', 'id' => 'recipe-select']) !!}
+                            {!! Form::select('recipe', [], isset($registros) ? $registros->productions->first()->element->id : old('recipe'), ['class' => 'form-control', 'id' => 'recipe-select', 'style' => 'width: 480px']) !!}
                             @error('recipe')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -35,7 +35,7 @@
                         @else
                         <div class="col-md-6" id="recipe-field" style="display: none;">
                             {!! Form::label('recipe', trans('agroindustria::labors.recipes')) !!}
-                            {!! Form::select('recipe', $recipe, isset($registros) ? $registros->productions->first()->element->id : old('recipe'), ['class' => 'form-control', 'id' => 'recipe-select']) !!}
+                            {!! Form::select('recipe', [], isset($registros) ? $registros->productions->first()->element->id : old('recipe'), ['class' => 'form-control', 'id' => 'recipe-select', 'style' => 'width: 480px']) !!}
                             @error('recipe')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -478,6 +478,40 @@
 @endsection
 
 <script>
+    $(document).ready(function() {
+     var baseUrl = '{{ route("agroindustria.".getRoleRouteName(Route::currentRouteName()).".units.labor.form.elements") }}';
+          $('select[name="recipe"]').select2({
+            placeholder: 'Seleccione un elemento',
+            minimumInputLength: 3,
+            ajax: {
+                url: baseUrl,
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        element_id: params.term,
+                    };
+                },
+                processResults: function(data) {
+                    var results = data.map(function(item) {
+                        return {
+                            id: item.id,
+                            text: item.name
+                        };
+                    });
+
+                    return {
+                        results: results
+                    };
+                },
+                cache: true
+            }
+        });
+    });
+</script>
+
+
+<script>
     $(document).ready(function () {
         // Agregar un nuevo campo de consumibles
         $('.element-select').select2();
@@ -504,11 +538,10 @@
         @if(Route::is('*form*'))
         function updateConsumables() {
             var amount = $('#amount_production').val(); // Obtener la cantidad actual
-            var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.consumables', ['id' => ':id'])) !!}.replace(':id', $('#recipe-select').val().toString());
-
+            var url = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.consumables', ['id' => ':id'])) !!}.replace(':id', $('#recipe-select').val().toString());
             // Realiza una solicitud AJAX para obtener los ingredientes de la receta
             $.ajax({
-                url: '{!! route('cefa.agroindustria.units.instructor.labor.consumables', ['id' => ':id']) !!}'.replace(':id', $('#recipe-select').val().toString()),
+                url: '{!! route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.consumables', ['id' => ':id']) !!}'.replace(':id', $('#recipe-select').val().toString()),
                 type: 'GET',
                 success: function (data) {
                     // Limpia el contenedor de consumibles
@@ -593,13 +626,12 @@
 
                         // Inicializa los campos de selección de consumibles con Select2 dentro del contexto de esta iteración
                         (function (currentCounter) {
-                            var urlElemets = '{{ route("cefa.agroindustria.units.instructor.labor.elements", ["name" => ":name"]) }}';
                             $('#element-select-' + currentCounter).select2({
                                 placeholder: '{{trans("agroindustria::labors.searchConsumables")}}',
                                 minimumInputLength: 1,
                                 ajax: {
                                     url: function (params) {
-                                        var searchUrlElement = urlElemets.replace(':name', params.term);
+                                        var searchUrlElement = '{!! route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.elements', ["name" => ":name"]) !!}'.replace(':name', params.term);
                                         return searchUrlElement;
                                     },
                                     dataType: 'json',
@@ -655,7 +687,9 @@
     
             $('.employement_type:last').select2();
        
-            var baseUrl = '{{ route("cefa.agroindustria.units.instructor.labor.executors", ["document_number" => ":document_number"]) }}';
+            var baseUrl = '{{ route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.executors', ["document_number" => ":document_number"]) }}';
+           
+
             $('.personSearch-select:last').select2({
                 placeholder: '{{trans("agroindustria::labors.searchPerson")}}',
                 minimumInputLength: 1, // Habilita la búsqueda en tiempo real
@@ -691,6 +725,39 @@
             });
             
         });
+
+        $('.personSearch-select').select2({
+                placeholder: '{{trans("agroindustria::labors.searchPerson")}}',
+                minimumInputLength: 1, // Habilita la búsqueda en tiempo real
+                ajax: {
+                    url: function(params) {
+                        // Reemplaza el marcador de posición con el término de búsqueda
+                        var searchUrl = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.executors', ["document_number" => ":document_number"])) !!}.replace(':document_number', params.term);
+    
+                        return searchUrl; // Utiliza la URL actualizada con el término de búsqueda
+                    },
+                    dataType: 'json',
+                    delay: 250, // Retardo antes de iniciar la búsqueda
+                    processResults: function(data) {
+                        return {
+                            results: data.id.map(function(person) {
+                                return {
+                                    id: person.id,
+                                    text: person.name,
+                                };
+                            })
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $('.personSearch-select').on('select2:select', function(e) {
+                var selectedPerson = e.params.data;
+                // Actualizar el contenido de la etiqueta con el nombre de la persona seleccionada
+                $('.executors_id').val(selectedPerson.id);
+                $('.collaborator_executors').val(selectedPerson.text);
+            });
         
         // Detecta cambios en el primer campo de selección (Receiver)
         $('#form-executors').on('change', '.employement_type', function() {
@@ -698,7 +765,8 @@
             var parentElement = $(this).closest('.collaborators');
             var priceEmployementField = parentElement.find('input#price');
             var priceEmployement = parentElement.find('.price-executor');
-            var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.price', ['id' => ':id'])) !!}.replace(':id', selectedEmployement.toString());
+            var url = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.price', ['id' => ':id'])) !!}.replace(':id', selectedEmployement.toString());
+            console.log('role:' + url);
            
             if(selectedEmployement){
                 // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
@@ -829,7 +897,7 @@
 
             if (selectedTool) {
                 // Realiza una solicitud AJAX para obtener el precio de la herramienta seleccionada
-                var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.tools.price', ['id' => ':id'])) !!}.replace(':id', selectedTool.toString());
+                var url = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.tools.price', ['id' => ':id'])) !!}.replace(':id', selectedTool.toString());
 
                 $.ajax({
                     url: url,
@@ -975,7 +1043,7 @@
             var availableQuantity = parentProduct.find('.quantity');
             if (selectedElement) {
                 $.ajax({
-                    url: {!! json_encode(route('cefa.agroindustria.units.instructor.labor.consumables.amount', ['consumables' => ':consumables'])) !!}.replace(':consumables', selectedElement.toString()),
+                    url: {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.consumables.amount', ['consumables' => ':consumables'])) !!}.replace(':consumables', selectedElement.toString()),
                     method: 'GET',
                     success: function(response) {
                         if (response.elements.length > 0) {
@@ -1097,7 +1165,7 @@
                 var availableTotal = $(this).find('input#price_unit_consumable_total');
                 var availableAmount = $(this).find('input#amount_consumables');
                 var priceField = $(this).find('input#price_unit_consumable');
-                var amount = parseInt(availableAmount.val()) || 0;
+                var amount = parseFloat(availableAmount.val()) || 0;
                 var price = parseFloat(priceField.val()) || 0;
                 var totalPrice = price * amount;
                 availableTotal.val(totalPrice);
@@ -1125,7 +1193,7 @@
             var quantityField = parentElement.find('.quantity-equipment');
             if (selectedEquipment) {
                 // Realiza una solicitud AJAX para obtener el precio de la herramienta seleccionada
-                var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.equipments.amounteq', ['equipments' => ':equipments'])) !!}.replace(':equipments', selectedEquipment.toString());
+                var url = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.equipments.amounteq', ['equipments' => ':equipments'])) !!}.replace(':equipments', selectedEquipment.toString());
                 console.log('Ruta: ' + url);
                 $.ajax({
                     url: url,
@@ -1290,36 +1358,60 @@
             $("#form-resources").append(newResource);
 
             // Inicializar Select2 para el nuevo campo
-            $('.environmental_aspect_select').select2();
-
-            var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.resource', ['activity_id' => ':activity_id'])) !!}.replace(':activity_id', selectedActivity.toString());
-            console.log(url);
-
+            $('.environmental_aspect_select').select2();            
             // Realizar una solicitud AJAX para obtener los aspectos ambientales
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function (response) {
-                    var options = '<option value="">' + '{{trans("agroindustria::labors.selectEnvironmentalAspect")}}' + '</option>';
-                    $.each(response.aspect, function (index, aspect) {
-                        options += '<option value="' + aspect.id + '">' + aspect.name + '</option>';
-                    });
-                    // Actualizar las opciones del campo de aspecto ambiental actual
-                    $('.environmental_aspect_select').last().html(options);
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
+            environmental();
         });
 
         function environmental() {
             // Asignar evento change una vez
             $('#activity-selected').on('change', function () {
                 var selectedActivity = $(this).val();
+                var url = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.responsibilities', ['activityId' => ':activityId'])) !!}.replace(':activityId', selectedActivity.toString());
+                $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {
+                    var personId = response.id[0].id;
+                    var personName = response.id[0].name;
+
+                    // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
+                    $('#responsible').val(personName);
+                    $('#responsibleId').val(personId);
+                    
+                    // Añade aquí el código para consultar el tipo de actividad
+                    var activityType = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.type', ['type' => ':type'])) !!}.replace(':type', selectedActivity.toString());
+                    $.ajax({
+                        url: activityType,
+                        type: 'GET',
+                        success: function(typeResponse) {
+                            if (typeResponse.type.length > 0) {
+                               
+                                $('#total-labor').removeClass('col-md-6').addClass('col-md-12');
+                                $('#recipe-field').show();
+                                $('#date-expiration-field').show();
+                                $('#lot-field').show();
+                                $('#amount-production-field').show();
+                            } else {
+                                $('#total-labor').removeClass('col-md-12').addClass('col-md-6');
+                                $('#recipe-field').hide();
+                                $('#date-expiration-field').hide();
+                                $('#lot-field').hide();
+                                $('#amount-production-field').hide();
+                            }
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
                 // Actualizar todas las opciones para cada elemento .environmental_aspect_select
                 $('.environmental_aspect_select').each(function () {
-                    var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.resource', ['activity_id' => ':activity_id'])) !!}.replace(':activity_id', selectedActivity.toString());
+                    var url = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.labor.resource', ['activity_id' => ':activity_id'])) !!}.replace(':activity_id', selectedActivity.toString());
                     console.log(url);
                     // Realizar una solicitud AJAX para obtener los aspectos ambientales
                     $.ajax({

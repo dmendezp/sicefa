@@ -1,7 +1,7 @@
 
 <div>
     <div class="table-responsive">
-        <table id="quarterlies" class="table">
+        <table id="" class="table">
             <thead>
                 <tr>
                     <th class="text-center">Competencia</th>
@@ -26,11 +26,9 @@
                     @foreach($quarterlies as $competency => $trimestres)
                         @foreach($trimestres->where('quarter_number', $trimestreNumber) as $trimestre)
                             <tr>
-                                @if($loop->first)
-                                    <td rowspan="{{ $trimestres->count() }}" class="text-center">{{ $competency }}</td>
-                                @endif
+                                <td class="text-center">{{ $competency }}</td>
                                 <td class="">{{ $trimestre->learning_outcome->name }}</td>
-                                <td class="text-center">{{ $trimestre->learning_outcome->hour }}</td>
+                                <td class="text-center">{{ $trimestre->hour }}</td>
                                 @if (count($trimestre->learning_outcome->people) > 0)
                                 <td class="text-center">
                                     @foreach($trimestre->learning_outcome->competencie->professions as $profession)

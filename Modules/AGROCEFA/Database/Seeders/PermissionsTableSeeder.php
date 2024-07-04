@@ -534,6 +534,15 @@ class PermissionsTableSeeder extends Seeder
         $permissions_manageragricultural[] = $permission->id; // Almacenar permiso para rol
 
         // Realizar baja de inventario
+        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.passant.inventory.low'], [
+            'name' => 'Movimiento baja del elemento (Pasante)',
+            'description' => 'Dar de baja el elemento',
+            'description_english' => 'Delete the item',
+            'app_id' => $app->id
+        ]);
+        $permissions_passant[] = $permission->id; // Almacenar permiso para rol
+
+        // Realizar baja de inventario
         $permission = Permission::updateOrCreate(['slug' => 'agrocefa.trainer.inventory.movementlow'], [
             'name' => 'Movimiento baja del elemento',
             'description' => 'Dar de baja el elemento',
@@ -1315,32 +1324,18 @@ class PermissionsTableSeeder extends Seeder
         $permissions_manageragricultural[] = $permission->id;
 
          // Obtener detalle de la labor
-         $permission = Permission::updateOrCreate(['slug' => 'agrocefa.trainer.reports.labor.laborDetails'], [
+         $permission = Permission::updateOrCreate(['slug' => 'agrocefa.reports.laborDetails'], [
             'name' => 'Obtener detalles labor',
             'description' => 'Obtener detalles de la labor',
             'description_english' => 'Get job details',
             'app_id' => $app->id
         ]);
         $permissions_trainer[] = $permission->id;
-
-        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.passant.reports.labor.laborDetails'], [
-            'name' => 'Obtener detalles labor',
-            'description' => 'Obtener detalles de la labor',
-            'description_english' => 'Get job details',
-            'app_id' => $app->id
-        ]);
         $permissions_passant[] = $permission->id;
-
-        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.manageragricultural.reports.labor.laborDetails'], [
-            'name' => 'Obtener detalles labor',
-            'description' => 'Obtener detalles de la labor',
-            'description_english' => 'Get job details',
-            'app_id' => $app->id
-        ]);
         $permissions_manageragricultural[] = $permission->id;
 
         // Generar reporte labor
-        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.labormanagement.warehouseUnits'], [
+        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.reports.laborpdf'], [
             'name' => 'Generar pdf reporte labor',
             'description' => 'Generar y descargar pdf de reporte labor',
             'description_english' => 'Generate and download pdf of labor report',

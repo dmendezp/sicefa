@@ -5,7 +5,7 @@
 @endpush
 
 @section('content')
-<h2 class="text-center">Consultar Aspectos Ambientales</h2>
+<h2 class="text-center">{{ trans('hdc::assign_environmental_aspects.Consult_environmental_aspects')}}</h2>
 <br>
 <div class="content">
     <div class="container-fluid mt">

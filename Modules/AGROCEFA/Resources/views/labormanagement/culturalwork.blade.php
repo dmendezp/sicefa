@@ -54,16 +54,17 @@
             <!-- Div para mostrar notificaciones -->
             <div id="notification" class="alert alert-danger" style="display: none;"></div>
             <div class="card">
-                <div class="card-header">
+                
                     <!-- Agrega un div para contener el botón de detalles del cultivo -->
-                    <div id="cultivoDetailsButton" class="cultivo-details-button"
-                        style="text-align: right; padding-right: 20px;">
-                        <button type="button" id="cultivoDetails" class="btn standcolor btn-sm">
-                            <span id="cultivoNameSpan" style="margin-right: 10px;"></span>
-                            <i class="bx bx-show-alt" style="font-size: 24px; vertical-align: middle;"></i>
-                        </button>
+                    <div id="cultivoDetailsButton" class="cultivo-details-button" style="text-align: right; padding-right: 20px;width:1075px;">
+                        <div class="card-header">
+                            <button type="button" id="cultivoDetails" class="btn standcolor btn-sm">
+                                <span id="cultivoNameSpan" style="margin-right: 10px;"></span>
+                                <i class="bx bx-show-alt" style="font-size: 24px; vertical-align: middle;"></i>
+                            </button>
+                        </div>  
                     </div>
-                </div>
+               
 
 
                 <div class="card-body">

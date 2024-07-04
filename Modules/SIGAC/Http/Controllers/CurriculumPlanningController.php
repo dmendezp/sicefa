@@ -18,9 +18,11 @@ use Illuminate\Support\Facades\DB;
 use Modules\SICA\Entities\ClassEnvironment;
 use Modules\SIGAC\Entities\InstructorProgram;
 use Modules\SIGAC\Entities\EvaluativeJudgment;
+use Modules\SIGAC\Entities\InstructorProgramOutcome;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Imports\PeopleImport;
 use Modules\SIGAC\Imports\ApprenticeLearningOutcomeImport;
+use Modules\SIGAC\Imports\ProgramImport;
 
 use Excel, Exception;
 
@@ -35,15 +37,13 @@ class CurriculumPlanningController extends Controller
     public function training_project_index()
     {
         $learning_outcomes = LearningOutcome::pluck('name', 'id');
-        $coursesWithTrainingProjects =  Course::has('training_projects')->with('training_projects.quarterlies.learning_outcome.instructor_programs')->get();
+        $coursesWithTrainingProjects = Course::has('training_projects')->with('training_projects.quarterlies.learning_outcome.instructor_program_outcomes.instructor_program')->get();
 
         // Contar los resultados de aprendizaje programados para cada proyecto formativo
         $counts = [];
         foreach ($coursesWithTrainingProjects as $course) {
             foreach ($course->training_projects as $trainingProject) {
-                $count = $trainingProject->quarterlies->flatMap(function ($quarterly) {
-                    return $quarterly->learning_outcome->instructor_programs;
-                })->unique('learning_outcome_id')->count();
+                $count = $trainingProject->quarterlies->unique('learning_outcome_id')->count();
                 $counts[$trainingProject->id] = $count;
             }
         }
@@ -87,6 +87,8 @@ class CurriculumPlanningController extends Controller
             $query->where('id', $programId);
         })->pluck('name', 'id');
 
+
+
         return view('sigac::curriculum_planning.quarterlie.index')->with([
             'titlePage' => trans('Trimestralización'),
             'titleView' => trans('Trimestralización'),
@@ -104,6 +106,7 @@ class CurriculumPlanningController extends Controller
     {
         $rules = [
             'name' => 'required|string',
+            'code' => 'required|numeric',
             'execution_time' => 'required|numeric',
             'objective' => 'required|string',
         ];
@@ -114,6 +117,7 @@ class CurriculumPlanningController extends Controller
 
         $training_project =  new TrainingProject;
         $training_project->name = $request->name;
+        $training_project->code = $request->code;
         $training_project->execution_time = $request->execution_time;
         $training_project->objective = $request->objective;
         $training_project->save();
@@ -126,8 +130,8 @@ class CurriculumPlanningController extends Controller
     {
         $training_project = TrainingProject::find($request->input('id'));
         $training_project->name = e($request->input('name'));
+        $training_project->code = e($request->input('code'));
         $training_project->execution_time = e($request->input('execution_time'));
-        $training_project->total_result = e($request->input('total_result'));
         $training_project->objective = e($request->input('objective'));
         if ($training_project->save()) {
             return redirect()->back()->with(['success' => 'Proyecto formativo actualizado exitosamente']);
@@ -181,9 +185,152 @@ class CurriculumPlanningController extends Controller
         return response()->json(['learning_outcome' => $learning_outcome->toArray()]);
     }
 
+
+    public function quarterlie_load_create($course_id, $training_project_id){
+
+        $nametraining_projectselected = TrainingProject::where('id','=',$training_project_id)->pluck('name')->first();
+		return view('sigac::curriculum_planning.training_project.load')->with(['titlePage' => 'Cargar Trimestralización',
+        'titleView' => 'Cargar Trimestralización',
+        'course_id' => $course_id,
+        'training_project_id' => $training_project_id,
+        'nametraining_projectselected' => $nametraining_projectselected
+        ]);
+	}
+
+    /* Registrar aprendices a partir de un archivo */
+    public function quarterlie_load_store(Request $request){
+        ini_set('max_execution_time', 3000); // Ampliar el tiempo máximo de la ejecución del proceso en el servidor
+        $validator = Validator::make($request->all(),
+            ['archivo'  => 'required'],
+            ['archivo.required'  => 'El archivo es requerido.']
+        );
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }else{
+            $path = $request->file('archivo'); // Obtener ubicación temporal del archivo en el servidor
+            // Usar el importador personalizado para obtener los datos
+            $import = new ProgramImport();
+            $array = Excel::toArray($import, $path);
+            $datas = array_splice($array[0], 3, count($array[0]));
+            $fila = $array[0];
+            $code = $fila[0][1];
+            $name_training_project = $fila[1][1];
+            $course_id = $request->course_id;
+            $course= Course::findOrFail($course_id);
+            $program_id = $course->program_id;
+            
+            $competencias = Competencie::where('program_id',$program_id)->pluck('id');
+            $learning_outcome_Ids = LearningOutcome::whereIn('competencie_id',$competencias)->get();
+            $countlearning = $learning_outcome_Ids->count();
+            if ($countlearning == 0) {
+                return redirect()->back()->with('error', 'No se encontraron resultados de aprendizaje para este programa.')->with('typealert', 'error');
+            }
+
+            $training_project_id = $request->training_project_id;
+            $nametraining_projectselected = TrainingProject::where('id','=',$training_project_id)->pluck('name')->first();
+            
+            if($nametraining_projectselected != $name_training_project ){
+                $codeselected = TrainingProject::where('code','=',$code)->pluck('name')->first();
+                if ($codeselected != $code) {
+                    return redirect()->back()->with('error', 'El proyecto formativo ingresado ('.$name_training_project.') para el registro de la trimestralización no coincide con el seleccionado ('.$nametraining_projectselected.').')->with('typealert', 'error');
+                }
+            }            
+            try {
+                $count = 0;
+                // Recorrer datos y relizar registros
+                
+                DB::beginTransaction();
+
+                foreach($datas as $data){
+                    $name_learning_file = $data[0];
+                    if ($data[0] != null) {
+                        if ($name_learning_file) {
+                            // Si hay más de una parte después de dividir por el guión
+                            $name_learning = trim(preg_replace('/^[0-9\s\-\x{2022}\x{0095}\t]+/u', '', $name_learning_file)); // Eliminar números y espacios al principio de la cadena
+                        } else {
+                            // Si no hay un guión, entonces tomar el nombre completo sin modificar
+                            $name_learning = trim($name_learning_file[0]);
+                        }
+                        
+                        $hour = $data[1];
+                        $quarter_number = $data[2];
+    
+                        $learning_outcome = LearningOutcome::where('name', '=', $name_learning)->first();
+    
+                        $training_project = TrainingProject::where('name', '=', $name_training_project)->first();
+                        if (!$training_project) {
+                            $training_projectc = TrainingProject::where('code', '=', $code)->first();
+    
+                            if (!$training_projectc) {
+                                DB::rollBack(); // Devolver cambios realizados durante la transacción
+                                return redirect()->back()->with('error', 'El proyecto formativo no existe')->with('typealert', 'error');
+                            }
+                            $training_project_id = $training_projectc->id;
+                            if ($learning_outcome) {
+                               
+                                $learning_outcome_id = $learning_outcome->id;
+    
+                                $quarterlie = new Quarterly;
+                                $quarterlie->training_project_id = $training_project_id;
+                                $quarterlie->learning_outcome_id = $learning_outcome_id;
+                                $quarterlie->hour = $hour;
+                                $quarterlie->quarter_number = $quarter_number;
+                                $quarterlie->save();
+                                $count++;
+                                
+                            } else {
+                                DB::rollBack(); // Devolver cambios realizados durante la transacción
+                                return redirect()->back()->with('error', "El resultado de aprendizaje '{$name_learning}' no fue encontrado")->with('typealert', 'error');
+                            }
+                        } else {
+                            $training_project_id = $training_project->id;
+                            
+                            if ($learning_outcome) {
+                                
+                                $learning_outcome_id = $learning_outcome->id;
+    
+                                $quarterlie = new Quarterly;
+                                $quarterlie->training_project_id = $training_project_id;
+                                $quarterlie->learning_outcome_id = $learning_outcome_id;
+                                $quarterlie->hour = $hour;
+                                $quarterlie->quarter_number = $quarter_number;
+                                $quarterlie->save();
+                                $count++;
+    
+                            }  else {
+                                DB::rollBack(); // Devolver cambios realizados durante la transacción
+                                return redirect()->back()->with('error', "El resultado de aprendizaje '{$name_learning}' no fue encontrado")->with('typealert', 'error');
+                            }
+    
+                        }
+                    }
+                    
+                }
+
+                $quarterlie = Quarterly::where('training_project_id',$training_project_id)->get()->groupBy('learning_outcome_id');
+                $countquarterly = $quarterlie->count();
+
+                if ($countlearning == $countquarterly) {
+                    DB::commit();
+                    return redirect()->back()->with('success', 'Archivo excel escaneado coerrectamente. '.$count.' Trimestralizaciones registradas exitosamente.')->with('typealert', 'success');
+                } else {
+                    DB::rollBack();
+                    return redirect()->back()->with('error', 'Debe enviar la trimestralización completa, se requieren '.$countlearning .' resultados con trimestralización y se enviaron '.$countquarterly.'.')->with('typealert', 'error');
+                }
+
+            } catch (Exception $e) {
+                DB::rollBack(); // Devolver cambios realizados durante la transacción
+                \Log::error('Error en el registro: ' . $e->getMessage());
+                return redirect()->back()->with('error', 'Ocurrio un error en la importación y/o registro de datos del archivo excel cargado. <hr> <strong>Error: </strong> ('.$e->getMessage().').')->with('typealert', 'danger');
+             }
+
+        }
+    }
+
     public function quarterlie_store(Request $request)
     {
         $rules = [
+            'hour' => 'required',
             'quarter_number' => 'required|numeric',
             'training_project_id' => 'required',
             'learning_outcome_id' => 'required|array',
@@ -194,9 +341,11 @@ class CurriculumPlanningController extends Controller
         }
 
         $learning_outcome_Ids = $request->input('learning_outcome_id');
+        $hours = $request->input('hour');
         foreach ($learning_outcome_Ids as $index => $learning_outcome_id) {
-
+            $hour = $hours[$index];
             $quarterly = new Quarterly([
+                'hour' => $hour,
                 'quarter_number' => $request->quarter_number,
                 'training_project_id' => $request->training_project_id,
                 'learning_outcome_id' => $learning_outcome_id,
@@ -236,6 +385,7 @@ class CurriculumPlanningController extends Controller
     public function quarterlie_update(Request $request, $id)
     {
         $rules = [
+            'hour' => 'required|numeric',
             'quarter_number' => 'required|numeric',
             'training_project_id' => 'required',
             'learning_outcome_id' => 'required|array',
@@ -251,6 +401,7 @@ class CurriculumPlanningController extends Controller
         $competencie_id = $quarterly->learning_outcome->competencie->id;
 
         // Actualizar el trimestre actual con los datos proporcionados
+        $quarterly->hour = $request->hour;
         $quarterly->quarter_number = $request->quarter_number;
         $quarterly->training_project_id = $request->training_project_id;
         $quarterly->save();
@@ -315,8 +466,8 @@ class CurriculumPlanningController extends Controller
         })->prepend(['id' => null, 'name' => trans('sigac::profession.Select_Program')])->pluck('name', 'id');
 
         $view = [
-            'titlePage' => trans('sigac::profession.Instructor_Management'),
-            'titleView' => trans('sigac::profession.Instructor_Management'),
+            'titlePage' => trans('Competencia por Profesión'),
+            'titleView' => trans('Competencia por Profesión'),
             'professions' => $proffesions,
             'programs' => $programs,
             'competencieProfession' => $competencieProfession
@@ -354,32 +505,33 @@ class CurriculumPlanningController extends Controller
     }
 
     public function competencie_profession_store(Request $request)
-    {
-        $rules = [
-            'profession' => 'required',
-            'competencie' => 'required'
-        ];
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput()->with(['message' => 'Ocurrió un error con el formulario.', 'typealert' => 'danger']);
-        }
-        // Realizar registro
-        $competencie = Competencie::where('id', $request->competencie)->first();
-        $existingRecord = DB::table('competencie_professions')
-            ->where('competencie_id', $competencie->id)
-            ->where('profession_id', $request->profession)
-            ->exists();
-
-        if (!$existingRecord) {
-            if ($competencie->professions()->syncWithoutDetaching($request->profession)) {
-                return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index'))->with(['success' => trans('sigac::profession.Successful_Aggregation')]);
-            } else {
-                return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index'))->with(['error' => trans('sigac::profession.Error_Adding')]);
-            }
-        } else {
-            return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index'))->with(['error' => trans('sigac::learning_out_come.RecordAlreadyExistsWithDataSent')]);
-        }
+{
+    $rules = [
+        'profession' => 'required',
+        'competencie' => 'required'
+    ];
+    $validator = Validator::make($request->all(), $rules);
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
     }
+
+    $competencie = Competencie::where('id', $request->competencie)->first();
+    $existingRecord = DB::table('competencie_professions')
+        ->where('competencie_id', $competencie->id)
+        ->where('profession_id', $request->profession)
+        ->exists();
+
+    if (!$existingRecord) {
+        if ($competencie->professions()->syncWithoutDetaching($request->profession)) {
+            return response()->json(['success' => trans('sigac::profession.Successful_Aggregation')], 200);
+        } else {
+            return response()->json(['error' => trans('sigac::profession.Error_Adding')], 500);
+        }
+    } else {
+        return response()->json(['error' => trans('sigac::learning_out_come.RecordAlreadyExistsWithDataSent')], 409);
+    }
+}
+
 
     public function competencie_profession_destroy($competencieId, $profession_id)
     {
@@ -390,167 +542,6 @@ class CurriculumPlanningController extends Controller
         $competencie->professions()->detach($profession_id);
         
         return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
-    }
-    
-
-    public function learning_out_people_index()
-    {
-        $progr = Program::all();
-        $programs = $progr->map(function ($p) {
-            $id = $p->id;
-            $name = $p->name;
-
-            return [
-                'id' => $id,
-                'name' => $name
-            ];
-        })->prepend(['id' => null, 'name' => trans('sigac::learning_out_come.SelectProgram')])->pluck('name', 'id');
-
-
-        $view = [
-            'titlePage' => trans('sigac::learning_out_come.AssignLearning'),
-            'titleView' => trans('sigac::learning_out_come.AssignLearningOutcomesInstructors'),
-            'programs' => $programs,
-        ];
-
-        return view('sigac::curriculum_planning.assign_learning_outcomes.index', $view);
-    }
-
-    public function learning_out_people_table(Request $request)
-    {
-        $competencie_id = $request->input('selectedCompetencie');
-
-        $learning_outcomes = LearningOutcome::where('competencie_id',$competencie_id)->has('people')->get();
- 
-        $view = [
-            'learning_outcomes' => $learning_outcomes,
-        ];
-
-        return view('sigac::curriculum_planning.assign_learning_outcomes.table', $view);
-    }
-
-    public function learning_out_people_search_competencie($id)
-    {
-        $comp = Competencie::where('program_id', $id)->get();
-        $competencies = $comp->map(function ($c) {
-            $id = $c->id;
-            $name = $c->name;
-
-            return [
-                'id' => $id,
-                'name' => $name
-            ];
-        });
-
-        return response()->json(['competencies' => $competencies]);
-    }
-
-    public function learning_out_people_search_learning_outcome($id)
-    {
-        $lear = LearningOutCome::where('competencie_id', $id)->get();
-        $learning_outcomes = $lear->map(function ($l) {
-            $id = $l->id;
-            $name = $l->name;
-
-            return [
-                'id' => $id,
-                'name' => $name
-            ];
-        });
-
-        return response()->json(['learning_outcomes' => $learning_outcomes]);
-    }
-
-    public function learning_out_people_search_instructor($id)
-    {
-        $learningOutCome = LearningOutCome::with('competencie.professions')->where('id', $id)->get();
-        $professions = [];
-
-        foreach ($learningOutCome as $l) {
-            foreach ($l->competencie->professions as $p) {
-                $profession = $p->id;
-                $professions[] = $profession;
-            }
-        }
-
-        $people = Profession::with('people')->whereIn('id', $professions)->get();
-        $person = [];
-
-        foreach ($people as $p) {
-            foreach ($p->people as $pp) {
-                $person_id = $pp->id;
-                $person[] = $person_id;
-            }
-        }
-
-        // Obtener tanto empleados como contratistas que sean de los tipos especificados
-        $getInstructor = DB::table('employees')
-            ->join('employee_types', 'employees.employee_type_id', '=', 'employee_types.id')
-            ->join('people', 'employees.person_id', '=', 'people.id')
-            ->where('state', 'Activo')
-            ->where('employee_types.name', 'Instructor')
-            ->whereIn('person_id', $person)
-            ->select('people.id', 'people.first_name', 'people.first_last_name', 'people.second_last_name')
-            ->union(
-                DB::table('contractors')
-                    ->join('employee_types', 'contractors.employee_type_id', '=', 'employee_types.id')
-                    ->join('people', 'contractors.person_id', '=', 'people.id')
-                    ->where('state', 'Activo')
-                    ->where('employee_types.name', 'Instructor')
-                    ->whereIn('person_id', $person)
-                    ->select('people.id', 'people.first_name', 'people.first_last_name', 'people.second_last_name')
-            )->get();
-
-        $instructors = $getInstructor->map(function ($i) {
-            $id = $i->id;
-            $name = $i->first_name . ' ' . $i->first_last_name . ' ' . $i->second_last_name;
-
-            return [
-                'id' => $id,
-                'name' => $name
-            ];
-        });
-
-        return response()->json(['instructors' => $instructors]);
-    }
-
-    public function learning_out_people_store(Request $request)
-    {
-        $rules = [
-            'instructor' => 'required',
-            'learningOutCome' => 'required'
-        ];
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput()->with(['message' => 'Ocurrió un error con el formulario.', 'typealert' => 'danger']);
-        }
-        $learning_outcome = LearningOutCome::where('id', $request->learningOutCome)->first();
-        $existingRecord = DB::table('learning_outcome_people')
-            ->where('person_id', $request->instructor)
-            ->where('learning_outcome_id', $learning_outcome->id)
-            ->exists();
-
-        // Realizar registro
-        if (!$existingRecord) {
-            if ($learning_outcome->people()->syncWithoutDetaching($request->instructor)) {
-                return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index'))->with(['success' => trans('sigac::profession.Successful_Aggregation')]);
-            } else {
-                return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index'))->with(['error' => trans('sigac::profession.Error_Adding')]);
-            }
-        } else {
-            return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index'))->with(['error' => trans('sigac::learning_out_come.RecordAlreadyExistsWithDataSent')]);
-        }
-    }
-
-    public function learning_out_people_destroy($learning_id, $person_id)
-    {
-        // Obtener la competencia
-        $learning_outcome = LearningOutcome::findOrFail($learning_id);
-
-        // Eliminar la relación a través de Eloquent
-        $learning_outcome->people()->detach($person_id);
-        
-        return redirect(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.learning_out_people_index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
     }
 
     public function course_training_project_index()
@@ -579,8 +570,8 @@ class CurriculumPlanningController extends Controller
         })->prepend(['id' => null, 'name' => trans('sigac::learning_out_come.SelectTrainingProject')])->pluck('name', 'id');
 
         $view = [
-            'titlePage' => 'Curso x Proyecto Formativo',
-            'titleView' => 'Curso x Proyecto Formativo',
+            'titlePage' => 'Curso por Proyecto Formativo',
+            'titleView' => 'Curso por Proyecto Formativo',
             'courses' => $courses,
             'training_project_select' => $training_project_select,
         ];
@@ -805,7 +796,7 @@ class CurriculumPlanningController extends Controller
                     if ($learning_outcome) {
                         if (count($learning_outcome) > 1) {
                             // Si hay más de una parte después de dividir por el guión
-                            $name_learning = trim(preg_replace('/^[0-9]+\s*/', '', $learning_outcome[1])); // Eliminar números y espacios al principio de la cadena
+                            $name_learning = trim(preg_replace('/^[0-9\s\-\x{2022}\x{0095}\t]+/u', '', $learning_outcome[1])); // Eliminar números y espacios al principio de la cadena
                         } else {
                             // Si no hay un guión, entonces tomar el nombre completo sin modificar
                             $name_learning = trim($learning_outcome[0]);
@@ -850,17 +841,14 @@ class CurriculumPlanningController extends Controller
                                     $evaluative_judgments->save();
                                 }
                             }
-                            
                             if ($state = "APROBADO") {
-                                $instructor_programs = InstructorProgram::where('learning_outcome_id',$learning_outcome_id)->get();
+                                $instructor_program_outcomes = InstructorProgramOutcome::where('learning_outcome_id',$learning_outcome_id)->get();
                                 
-                                foreach ($instructor_programs as $instructor_program) {
-                                    $instructor_program->state = 2;
-                                    $instructor_program->save();
+                                foreach ($instructor_program_outcomes as $instructor_program_outcome) {
+                                    $instructor_program_outcome->state = 'Evaluado';
+                                    $instructor_program_outcome->save();
                                     $countstate++;
                                 }
-
-
                             }
                         }
                     }
@@ -868,7 +856,6 @@ class CurriculumPlanningController extends Controller
                 
                 return back()->with('success', 'Archivo excel escaneado coerrectamente. '.$countstate.' Programaciones Actualizados exitosamente.')->with('typealert', 'success');
             } catch (Exception $e) {
-                DB::rollBack(); // Devolver cambios realizados durante la transacción
                 return back()->with('error', 'Ocurrio un error en la importación y/o registro de datos del archivo excel cargado. <hr> <strong>Error: </strong> ('.$e->getMessage().').')->with('typealert', 'danger');
              }
 

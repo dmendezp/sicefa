@@ -1,8 +1,9 @@
 <?php
 
-namespace Modules\AGROINDUSTRIA\Http\Controllers\instructor;
+namespace Modules\AGROINDUSTRIA\Http\Controllers\Instructor;
 
 use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -77,18 +78,6 @@ class LaborController extends Controller
             'Producción' => 'Producción'
         ];
 
-        $products = Category::where('name', 'Productos')->first();
-        $elementProduct = Element::whereIn('category_id', $products)->get();
-        $recipe = $elementProduct->map(function ($f){
-            $id = $f->id;
-            $name = $f->name;
-
-            return [
-                'id' => $id,
-                'name' => $name
-            ];
-        })->prepend(['id' => null, 'name' => trans('agroindustria::labors.selectRecipe')])->pluck('name', 'id');
-
         $employee = EmployeeType::get();
         $nameEmployee = $employee->map(function ($e){
             $id = $e->id;
@@ -120,7 +109,7 @@ class LaborController extends Controller
             ];
         })->prepend(['id' => null, 'name' => trans('agroindustria::labors.selectInstrument')])->pluck('name', 'id');
 
-        $categoryEquipments = Category::where('name', 'Equipos')->pluck('id');
+        $categoryEquipments = Category::where('name', 'Maquinaria')->pluck('id');
         $elementEquipment = Element::whereIn('category_id', $categoryEquipments)->pluck('id');
 
         $equipments = Inventory::where('productive_unit_warehouse_id', $productive_unit_warehouse)->whereIn('element_id', $elementEquipment)
@@ -162,7 +151,6 @@ class LaborController extends Controller
         $data = [
             'title' => $title,
             'activity' => $activity,
-            'recipe' => $recipe,
             'destination' => $destination,
             'employee' => $nameEmployee,
             'tool' => $tool,
@@ -171,6 +159,22 @@ class LaborController extends Controller
             'registros' => $registros
         ];
         return view('agroindustria::instructor.labors.form', $data);
+    }
+
+    public function searchProduct(Request $request)
+    {
+        $term = $request->input('element_id');
+
+        $elements = Element::whereRaw("name LIKE ?", ['%' . $term . '%'])->get();
+        $results = [];
+        foreach ($elements as $element) {
+            $results[] = [
+                'id' => $element->id,
+                'name' => $element->name,
+            ];
+        }
+
+        return response()->json($results);
     }
 
     public function responsibilites ($activityId){
@@ -484,13 +488,13 @@ class LaborController extends Controller
             $tools = $request->input('tools');
             $amount_tools = $request->input('amount_tools');
             $price_tools = $request->input('price_tools');
-
-            $elementTool = Element::whereIn('id', $tools)->pluck('measurement_unit_id');
+            
             foreach ($tools as $key => $tool){ 
                 if($tool != null){
                     $requiredAmount = $amount_tools[$key]; // Cantidad requerida para el elemento
-                    $measurement_unit = MeasurementUnit::whereIn('id', $elementTool)->pluck('conversion_factor');
-                    $conversion = $requiredAmount*$measurement_unit[$key];
+                    $elementTool = Element::where('id', $tool)->pluck('measurement_unit_id');
+                    $measurement_unit = MeasurementUnit::where('id', $elementTool)->pluck('conversion_factor')->first();
+                    $conversion = $requiredAmount*$measurement_unit;
 
                     $selectedUnit = session('viewing_unit');
                     $warehouse = Warehouse::where('name', 'Agroindustria')->pluck('id');
@@ -509,7 +513,7 @@ class LaborController extends Controller
                             
                         // Calcula cuánto se puede consumir de este lote
                         $consumeFromThisLot = min($availableAmount, max(0, $conversion - $consumedAmount));
-                        $intAmount = $consumeFromThisLot/$measurement_unit[$key];
+                        $intAmount = $consumeFromThisLot/$measurement_unit;
                         $price = $intAmount*$priceInventory;
                         if ($consumeFromThisLot > 0) {
                             // Registra el consumo para este lote
@@ -539,8 +543,8 @@ class LaborController extends Controller
             foreach ($equipments as $key => $equipment){ 
                 if($equipment != null){
                     $requiredAmount = $amount_equipments[$key]; // Cantidad requerida para el elemento
-                    $measurement_unit = MeasurementUnit::whereIn('id', $elementEquipment)->pluck('conversion_factor');
-                    $conversion = $requiredAmount*$measurement_unit[$key];
+                    $measurement_unit = MeasurementUnit::whereIn('id', $elementEquipment)->pluck('conversion_factor')->first();
+                    $conversion = $requiredAmount*$measurement_unit;
 
                     $selectedUnit = session('viewing_unit');
                     $warehouse = Warehouse::where('name', 'Agroindustria')->pluck('id');
@@ -558,7 +562,7 @@ class LaborController extends Controller
                             
                         // Calcula cuánto se puede consumir de este lote
                         $consumeFromThisLot = min($availableAmount, max(0, $conversion - $consumedAmount));
-                        $intAmount = $consumeFromThisLot/$measurement_unit[$key];
+                        $intAmount = $consumeFromThisLot/$measurement_unit;
                         $price = $intAmount*$priceInventory;
                         if ($consumeFromThisLot > 0) {
                             // Registra el consumo para este lote
@@ -763,7 +767,6 @@ class LaborController extends Controller
         $activity_id = Labor::where('id', $id)->pluck('activity_id');
 
         $activities = Activity::with('environmental_aspects')->whereIn('id', $activity_id)->get();
-        
         $environmental_aspect = $activities->map(function ($a) {
             $id = $a->environmental_aspects->first()->id; // Obtén el id del lote más antiguo
             $name = $a->environmental_aspects->first()->name . ' (' . $a->environmental_aspects->first()->measurement_unit->abbreviation . ')';

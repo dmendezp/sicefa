@@ -45,7 +45,7 @@ return [
 
 	 //sidebar
 	 'GTH' => 'GTH',
-	 'Contracts' => 'Contracts',
+	 'Contracts' => 'Contractor',
 	 'Employment Contract' => 'Employment Contract',
 	 'Contract Report' => 'Contract Report',
 	 'Contract Certificate' => 'Contract Certificate',
@@ -116,13 +116,14 @@ return [
 	'Error' => 'Error',
 
 	//Contratreporst
-	'Employment Contract Record' => 'Employment Contract Record',
-	'Personal Information' => 'Personal Information',
+	'Employment Contract Record' => 'Registration of Contract for the Provision of Services',
+	'Personal Information' => 'Contractor Information',
+	'Personal Supervisor' => 'Supervisor Information',
 	'ID number:' => 'ID number:',
 	'First Name:' => 'First Name:',
 	'First Surname:' => 'First Surname:',
 	'Second Surname:' => 'Second Surname:',
-	'Personal Information' => 'Personal Information',
+
 	'Supervisor ID:' => 'Supervisor ID:',
 	'Enter the supervisor ID' => 'Enter the supervisor ID',
 	'Contract Number:' => 'Contract Number:',
@@ -173,6 +174,7 @@ return [
 	'Create Contract Type' => 'Create Contract Type',
 	'ID' => 'ID',
 	'Name' => 'Name',
+	'Price' => 'Price',
 	'actions' => 'actions',
 	'Edit' => 'Edit',
 	'Delete' => 'Delete',

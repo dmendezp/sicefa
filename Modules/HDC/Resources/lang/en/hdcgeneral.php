@@ -13,6 +13,7 @@ return [
     'carbonfootprint' => 'Carbon Footprint',
     'login' => 'Login',
     'BacktoSICEFA' => 'Back To SICEFA',
+    'Parameters' => 'Parameters',
     'RegisterConsumption' => 'Register Consumption',
     'consumptionconsultation' => 'Consumption Consultation',
     'instructions' => 'instructions',

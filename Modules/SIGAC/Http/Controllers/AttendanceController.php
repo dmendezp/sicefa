@@ -23,12 +23,12 @@ class AttendanceController extends Controller
         $currentTime = $dateactual->toTimeString();
         
         $list = InstructorProgram::with('course.apprentices.person.attendance_apprentices')
-            ->where('person_id', $instructor)
+            ->whereHas('instructor_program_people', function ($query) use ($instructor) {
+                $query->where('person_id', $instructor);
+            })
             ->where('date', $date)
             ->get();
 
-            
-    
         return view('sigac::attendances.attendance.index')->with(['instructor_programs'=> $list,
         'titlePage'=>trans('Registro de Asistencia'), 
         'titleView'=>trans('Registro de Asistencia'),
@@ -42,7 +42,9 @@ class AttendanceController extends Controller
         $date = $request->input('date');
         
         $list = InstructorProgram::with('course.apprentices.person.attendance_apprentices')
-            ->where('person_id', $instructor)
+            ->whereHas('instructor_program_people', function ($query) use ($instructor) {
+                $query->where('person_id', $instructor);
+            })
             ->where('date', $date)
             ->get();
 

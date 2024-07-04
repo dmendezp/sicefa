@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\AGROINDUSTRIA\Http\Controllers\Intern;
+namespace Modules\AGROINDUSTRIA\Http\Controllers\intern;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;

@@ -21,7 +21,7 @@
               @auth
               <a href="{{ route('cefa.home') }}">{{ Auth::user()->nickname }}</a>
               <div class="dropdown-menu">
-                  <a href="{{ route('password.change.index') }}">Cambiar contraseña</a>
+                  <a href="{{ route('cefa.password.change.index') }}">Cambiar contraseña</a>
                   <a href="{{ route('logout') }}" class="d-block" onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();">Salir</a>
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -29,7 +29,7 @@
                   </form>
               </div>
               @else
-              <a href="{{ route('login') }}">Log in</a>
+              <a href="{{ route('login', ['redirect' => url()->current()]) }}">Log in</a>
               @endauth
           </div>
           <div class="dropdown lang d-lg-none">
@@ -51,7 +51,7 @@
             @auth
                 <a href="{{ route('cefa.home') }}">{{ Auth::user()->nickname }}</a>
               <ul>
-                <li><a href="{{ route('password.change.index') }}">Cambiar contraseña</a></li>
+                <li><a href="{{ route('cefa.password.change.index') }}">Cambiar contraseña</a></li>
                 <li>
                   
               <a href="{{ route('logout') }}" class="d-block" onclick="event.preventDefault();
@@ -63,7 +63,7 @@
                 </li>
               </ul>              
             @else
-                <a href="{{ route('login') }}">Log in</a>
+                <a href="{{ route('login', ['redirect' => url()->current()]) }}">Log in</a>
             @endauth            
 
         </li>

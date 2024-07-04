@@ -60,8 +60,16 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
+        // Registrar o actualizar rol de Aprendiz
+        $rol_support = Role::firstOrCreate(['slug' => 'sigac.support'], [
+            'name' => 'Apoyo',
+            'description' => 'Rol Apoyo de la aplicación SIGAC',
+            'description_english' => 'Role support of the SIGAC application',
+            'app_id' => $app->id
+        ]);
 
-        // Consulta de usuarios
+
+      /*   // Consulta de usuarios
         $user_academic_coordinator = User::where('nickname', 'mgonzalezg')->first(); // Usuario Coordinador Académico (María Antonia Gonzáles Gonzáles)
         $user_instructor = User::where('nickname', 'rudelgadoc')->first(); // Usuario Instructor (Diego Andrés Mendez Pastrana)
         $user_wellness = User::where('nickname', 'epascuasp')->first(); // Usuario Bienestar (Esperanza Pascuas Perdomo)
@@ -73,6 +81,6 @@ class RolesTableSeeder extends Seeder
         $user_instructor->roles()->syncWithoutDetaching([$rol_instructor->id]);
         $user_wellness->roles()->syncWithoutDetaching([$rol_wellness->id]);
         $user_apprentice->roles()->syncWithoutDetaching([$rol_apprentice->id]);
-        $user_superadmin->roles()->syncWithoutDetaching([$role_super_admin->id]);
+        $user_superadmin->roles()->syncWithoutDetaching([$role_super_admin->id]); */
     }
 }

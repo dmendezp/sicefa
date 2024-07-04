@@ -7,9 +7,9 @@
                 <div class="form-header">{{trans('agroindustria::formulations.Recipes')}}</div>
                 <div class="form-body">
                     @if (Route::is('*formulario*'))
-                    {!! Form::open(['url' => route('cefa.agroindustria.units.instructor.formulations.create'),'method' => 'post']) !!}
+                    {!! Form::open(['url' => route('agroindustria.instructor.units.formulations.create'),'method' => 'post']) !!}
                     @else
-                    {!! Form::open(['url' => route('cefa.agroindustria.units.instructor.formulations.update'),'method' => 'post']) !!}
+                    {!! Form::open(['url' => route('agroindustria.instructor.units.formulations.update'),'method' => 'post']) !!}
                     @endif
                     <div class="row">
                         <div class="col-md-6">
@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-md-6">
                             {!! Form::label('element_id', trans('agroindustria::formulations.Product Name')) !!}
-                            {!! Form::select('element_id', $elements, isset($registros) ? $registros->element_id : null, ['id' => 'element_id', 'class' => 'form-control']) !!}
+                            {!! Form::select('element_id', [], isset($registros) ? $registros->element_id : null, ['id' => 'element_id', 'class' => 'form-control']) !!}
                             @error('element_id')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
@@ -90,7 +90,7 @@
                                         </div>
                                         <div class="form-group">
                                             {!! Form::label('amount' , trans('agroindustria::menu.Amount')) !!}
-                                            {!! Form::number('amount_ingredients[]', null, ['class'=>'form-control amount-select']) !!}
+                                            {!! Form::number('amount_ingredients[]', null, ['class'=>'form-control amount-select', 'step' => '0.01']) !!}
                                             @error('amount')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror        
@@ -154,6 +154,39 @@
     </div>
 </div>
 </div>
+<script>
+    $(document).ready(function() {
+     var baseUrl = '{{ route("agroindustria.instructor.units.formulations.elements") }}';
+          console.log(baseUrl);
+          $('select[name="element_id"]').select2({
+                        placeholder: 'Seleccione un elemento',
+                        minimumInputLength: 3,
+                        ajax: {
+                            url: baseUrl,
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    element_id: params.term,
+                                };
+                            },
+                            processResults: function(data) {
+                                var results = data.map(function(item) {
+                                    return {
+                                        id: item.id,
+                                        text: item.name
+                                    };
+                                });
+
+                                return {
+                                    results: results
+                                };
+                            },
+                            cache: true
+                        }
+                    });
+    });
+</script>
 <script>
     $(document).ready(function() {
         // Aplicar Select2 al campo de selección con el id 'receive_warehouse'

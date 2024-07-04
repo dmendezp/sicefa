@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Apprentice;
-use Modules\senaempresa\Entities\vacancy;
-use Modules\senaempresa\Entities\senaempresa;
+use Modules\SENAEMPRESA\Entities\Vacancy;
+use Modules\SENAEMPRESA\Entities\Senaempresa;
 use Modules\AGROINDUSTRIA\Entities\RequestExternal;
 use Modules\SIGAC\Entities\CourseTrainingProject;
 use Modules\SIGAC\Entities\InstructorProgram;
@@ -75,7 +75,7 @@ class Course extends Model implements Auditable
 
     public function senaempresa()
     { //Accede a senaempresa registrados
-        return $this->belongsToMany(senaempresa::class);
+        return $this->belongsToMany(Senaempresa::class);
     }
 
     // Configuración de factory para la generación de datos de pruebas

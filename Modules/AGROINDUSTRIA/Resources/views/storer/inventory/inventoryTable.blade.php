@@ -102,32 +102,13 @@
         var selectedWarehouseId = this.value;
 
         // Construir la URL con el parámetro warehouse_id
-        @if(auth()->check() && (checkRol('agroindustria.admin')))
-        var urlAlert = {!! json_encode(route('agroindustria.admin.units.inventory.spent', ['waId' => ':waId'])) !!}.replace(':waId', selectedWarehouseId);
-        var urlExp = {!! json_encode(route('agroindustria.admin.units.inventory.expire', ['wId' => ':wId'])) !!}.replace(':wId', selectedWarehouseId);
+        var urlAlert = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.inventory.spent', ['waId' => ':waId'])) !!}.replace(':waId', selectedWarehouseId);
+        var urlExp = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.inventory.expire', ['wId' => ':wId'])) !!}.replace(':wId', selectedWarehouseId);
 
         // Actualizar el atributo href del enlace
         document.getElementById('inventoryAlertLink').href = urlAlert;
         document.getElementById('inventoryAlertExpLink').href = urlExp;
-        @endif
 
-        @if(auth()->check() && (checkRol('agroindustria.instructor.vilmer') || checkRol('agroindustria.instructor.chocolate') || checkRol('agroindustria.instructor.cerveceria')))
-        var urlAlert = {!! json_encode(route('agroindustria.instructor.units.inventory.spent', ['waId' => ':waId'])) !!}.replace(':waId', selectedWarehouseId);
-        var urlExp = {!! json_encode(route('agroindustria.instructor.units.inventory.expire', ['wId' => ':wId'])) !!}.replace(':wId', selectedWarehouseId);
-
-        // Actualizar el atributo href del enlace
-        document.getElementById('inventoryAlertLink').href = urlAlert;
-        document.getElementById('inventoryAlertExpLink').href = urlExp;
-        @endif
-
-        @if(auth()->check() && (checkRol('agroindustria.almacenista')))
-        var urlAlert = {!! json_encode(route('agroindustria.storer.units.inventory.spent', ['waId' => ':waId'])) !!}.replace(':waId', selectedWarehouseId);
-        var urlExp = {!! json_encode(route('agroindustria.storer.units.inventory.expire', ['wId' => ':wId'])) !!}.replace(':wId', selectedWarehouseId);
-
-        // Actualizar el atributo href del enlace
-        document.getElementById('inventoryAlertLink').href = urlAlert;
-        document.getElementById('inventoryAlertExpLink').href = urlExp;
-        @endif
     });
     
     $(document).ready(function () {
@@ -135,14 +116,12 @@
         $('#warehouseSelect').on('change', function() {
             var warehouseId = $(this).val();
 
-            var url = {!! json_encode(route('cefa.agroindustria.instructor.units.inventory.elements', ['warehouseId' => ':warehouseId'])) !!}.replace(':warehouseId', warehouseId);
-            console.log(url);
+            var url = {!! json_encode(route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.inventory.elements', ['warehouseId' => ':warehouseId'])) !!}.replace(':warehouseId', warehouseId);
             if(warehouseId){
                 $.ajax({
                     url: url,
                     type: 'GET',
                     success: function (data) {
-                        console.log(data);
 
                         let table = new DataTable('#inventory');
                         table.destroy();
@@ -175,7 +154,7 @@
                                                 '<h1 class="modal-title fs-5" id="dischargeModalLabel' + inventory.id + '">{{trans("agroindustria::deliveries.discharge")}} ' + inventory.element.name + '</h1>' +
                                                 '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
                                             '</div>' +
-                                            '{!! Form::open(["method" => "post", "url" => route("cefa.agroindustria.admin.discharge.create")]) !!}' +
+                                            '{!! Form::open(["method" => "post", "url" => route("agroindustria.admin.units.remove.create")]) !!}' +
                                             '<div class="modal-body">' +
                                                 '<!-- Contenido del cuerpo del modal -->' +
                                                     '<input id="warehouse" name="warehouse" type="hidden" value="' + warehouseId + '">' +

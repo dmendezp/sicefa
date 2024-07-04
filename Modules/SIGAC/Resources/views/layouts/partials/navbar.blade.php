@@ -28,6 +28,11 @@
                     <a href="{{ route('sigac.apprentice.dashboard') }}" class="nav-link @if(Route::is('sigac.apprentice.*')) active @endif">{{ trans('sigac::general.Apprentice') }}</a>
                 </li>
             @endif
+            @if (checkRol('sigac.support'))
+                <li class="nav-item d-none d-sm-inline-block mx-1">
+                    <a href="{{ route('sigac.support.dashboard') }}" class="nav-link @if(Route::is('sigac.support.*')) active @endif">{{ trans('sigac::general.Support') }}</a>
+                </li>
+            @endif
         @endauth
     </ul>
 

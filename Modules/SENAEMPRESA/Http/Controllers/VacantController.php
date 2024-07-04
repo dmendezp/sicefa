@@ -161,15 +161,15 @@ class VacantController extends Controller
             // If there is no next quarter, use the current quarter
             $nextQuarter = $currentQuarter;
             // Optionally, you can redirect back with a warning message
-            // return redirect()->back()->with('warning', 'No hay un trimestre siguiente.');
-        }
-
-        // Retrieve the senaempresas for the current or next quarter
-        $senaempresas = DB::table('senaempresas')
+            return redirect()->back()->with('info', 'No hay un trimestre siguiente.');
+        } else {
+            // Retrieve the senaempresas for the current or next quarter
+            $senaempresas = DB::table('senaempresas')
             ->join('quarters', 'senaempresas.quarter_id', '=', 'quarters.id')
             ->where('quarters.id', $nextQuarter->id)
             ->select('senaempresas.*')
             ->get();
+        }
 
         // If no senaempresas are found for the next quarter, use the current quarter
         if ($senaempresas->isEmpty()) {
@@ -200,17 +200,18 @@ class VacantController extends Controller
 
     public function saved(Request $request)
     {
+        $image = $request->file('image');
         // Obtener el archivo de imagen del formulario
-        if ($image = $request->file('image')) {
+        if ($image) {
             $extension = $image->getClientOriginalExtension(); // Obtener la extensión del archivo
             $nameWithoutExtension = Str::slug($request->input('name')); // Generar un nombre sin espacios y en minúsculas
-            $name_image = $nameWithoutExtension . '_' . time() . '.' . $extension; // Agregar una marca de tiempo para evitar conflictos de nombre
+            $image = $nameWithoutExtension . '_' . time() . '.' . $extension; // Agregar una marca de tiempo para evitar conflictos de nombre
             $image->move(public_path('modules/senaempresa/images/vacancies/'), $name_image); // Mover la imagen a la ubicación deseada
         }
 
         $vacancy = new Vacancy();
         $vacancy->name = $request->input('name');
-        $vacancy->image = 'modules/senaempresa/images/vacancies/' . $name_image;
+        $vacancy->image = 'modules/senaempresa/images/vacancies/' . $image;
         $vacancy->description_general = $request->input('description_general');
         $vacancy->requirement = $request->input('requirement');
         $vacancy->senaempresa_id = $request->input('senaempresa_id');

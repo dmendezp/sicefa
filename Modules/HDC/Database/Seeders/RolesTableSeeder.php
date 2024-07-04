@@ -45,16 +45,8 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
 
         ]);
-        // Registrar o actualizar rol de administrador
-        $role_userHDC = Role::firstOrCreate(['slug' => 'hdc.userHDC'], [
-            'name' => 'Usuario registrado',
-            'description' => 'Rol Usuario registrado de HDC',
-            'description_english' => 'Role userd register  of HDC',
-            'app_id' => $app->id
 
-        ]);
-
-        //Consulta de usuarios
+       /*  //Consulta de usuarios
         $user_admin = User::where('nickname', 'aldavi')->first(); //usuario para Mary Luz Aldana Vidarte
         $user_charge = User::where('nickname', 'jitaco')->first(); //usuario para Magaly Jimena Tafur Campos
 
@@ -63,7 +55,7 @@ class RolesTableSeeder extends Seeder
         $user_admin->roles()->syncWithoutDetaching([$role_admin->id]);
         $user_admin->roles()->syncWithoutDetaching([$role_userHDC->id]);
         $user_charge->roles()->syncWithoutDetaching([$role_charge->id]);
-        $user_charge->roles()->syncWithoutDetaching([$role_userHDC->id]);
+        $user_charge->roles()->syncWithoutDetaching([$role_userHDC->id]); */
 
     }
 }

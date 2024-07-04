@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -339,6 +340,7 @@ class LaborManagementController extends Controller
 
             // Obtener los elementos de las bodegas
             $inventory = Inventory::whereIn('productive_unit_warehouse_id', $warehouseIds)
+                ->where('amount','>',0)
                 ->whereHas('element.category', function ($query) use ($categoryId) {
                     $query->where('name', $categoryId);
                 })
@@ -349,9 +351,11 @@ class LaborManagementController extends Controller
                 $elementsData = $inventory->map(function ($item) {
                     return [
                         'id' => $item->element->id,
+                        'inventory_id' => $item->id,
                         'name' => $item->element->name,
-                        'price' => $item->element->price,
-                        'amount' => $item->element->amount,
+                        'price' => $item->price,
+                        'production_date' => $item->production_date,
+                        'amount' => $item->amount,
                         // Agrega otros atributos relacionados con el elemento si es necesario
                     ];
                 });
@@ -456,7 +460,7 @@ class LaborManagementController extends Controller
             $elementId = $request->input('element');
 
             // Realiza la lógica para obtener los datos del elemento en una sola consulta
-            $dataelement = Inventory::where('element_id', $elementId)->first();
+            $dataelement = Inventory::where('id', $elementId)->where('amount','>',0)->first();
 
             if ($dataelement) {
                 $measurement_unit = $dataelement->element->measurement_unit->conversion_factor;
@@ -808,12 +812,13 @@ class LaborManagementController extends Controller
                     // Accede a los datos de cada elemento de la tabla
                     $suppliesQuantitie = $suppliesQuantities[$index];
                     $suppliesPrice = $suppliesPrices[$index];
+                    $suppliesPrice = str_replace('.', '', $suppliesPrice);
                     $suppliesAplication = $suppliesAplications[$index];
                     $suppliesObjective = $suppliesObjectives[$index];
 
                     $existingInventory = Inventory::where([
                         'productive_unit_warehouse_id' => $ProductiveUnitWarehousesId,
-                        'element_id' => $suppliesId,
+                        'id' => $suppliesId,
                     ])->first();
 
                     if (!empty($suppliesAplications) && !empty($suppliesObjectives) && is_array($suppliesAplications) && is_array($suppliesObjectives) && count(array_filter($suppliesAplications)) > 0 && count(array_filter($suppliesObjectives)) > 0) {
@@ -845,7 +850,6 @@ class LaborManagementController extends Controller
                             $factor = $existingInventory->element->measurement_unit->conversion_factor;
                         }
                         $amountentero = $suppliesQuantitie * (int) $factor;
-
                         // Restar la cantidad solicitada del inventario existente
                         $existingInventory->amount -= $amountentero;
                         $existingInventory->save();
@@ -900,7 +904,7 @@ class LaborManagementController extends Controller
 
             // Después de realizar la operación de registro con éxito
             return redirect()
-                ->route('agrocefa.trainer.labormanagement.index')
+                ->route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.index')
                 ->with('success', 'Labor Registrada');
         } catch (\Exception $e) {
             // En caso de error, realiza un rollback de la transacción y maneja el error
@@ -909,12 +913,9 @@ class LaborManagementController extends Controller
             \Log::error('Error en el registro: ' . $e->getMessage());
             \Log::error('Error en el registro: ' . $e->getTraceAsString());
         
-            // También puedes imprimir información específica sobre el error
-            dd($e);
-        
             // O puedes redirigir a una página de error con un mensaje específico
             return redirect()
-                ->route('agrocefa.trainer.labormanagement.index')
+                ->route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.index')
                 ->with('error', 'Error en el registro: ' . $e->getMessage());
         }
     }

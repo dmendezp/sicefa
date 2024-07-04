@@ -5,11 +5,18 @@ namespace Modules\SICA\Http\Controllers\security;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use Modules\SICA\Entities\Person;
 use App\Models\User;
 use App\Rules\AtLeastOneRoleSelected;
 use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\Role;
+use Modules\SICA\Entities\Employee;
+use Modules\SICA\Entities\EmployeeType;
+use Modules\SICA\Entities\Contractor;
+use Modules\SICA\Entities\Apprentice;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -137,6 +144,19 @@ class UserController extends Controller
 
     public function change(Request $request)
     {
+        if (Auth::check()) {
+            $user = Auth::user();
+            $user_id = $user->person->id;
+            
+            // Verificar si hay una contraseña guardada en la sesión para este usuario
+            if (Session::has('passwords.' . $user_id)) {
+                $session_password = Session::get('passwords.' . $user_id);
+
+                $first_change = 1;
+                return view('auth.passwords.change')->with(['firstchange' => $first_change]);
+            }
+        }
+
         return view('auth.passwords.change');
     }
  
@@ -166,9 +186,112 @@ class UserController extends Controller
  
         $user =  User::find($auth->id);
         $user->password =  Hash::make($request->new_password);
+        if ($nickname = $request->input('nickname')) {
+            $user->nickname =  $nickname;
+        }
+        
         $user->save();
+
+        // Eliminar la contraseña de la sesión
+        Session::forget('passwords.' . $user->person->id);
+
         return back()->with('success', "Contraseña cambiada exitosamente");
     }
+
+    public function user_register()
+    {
+        return view('auth.passwords.request_user');
+    }
+
+    public function user_search_person(Request $request)
+    {
+        $document_number = $request->input('document_number');
+        $employee_type = EmployeeType::where('name','=','Instructor')->pluck('id');
+        $person = Person::where('document_number',$document_number)->first();
+
+        if ($person) {
+            $user = User::where('person_id', $person->id)->first();
+
+            if ($user) {
+                return response()->json(['error' => 'Esta persona ya cuenta con un usuario']);
+            }
+            $employee = Employee::where('person_id',$person->id)->where('employee_type_id',$employee_type)->first();
+            $contractor = Contractor::where('person_id',$person->id)->where('employee_type_id',$employee_type)->first();
+            $apprentice = Apprentice::where('person_id',$person->id)->first();
+            if ($employee || $contractor) {
+                $rol = 'Instructor';
+            } elseif ($apprentice) {
+                $rol = 'Aprendiz';
+            } else {
+                $rol = 'Ninguno';
+            }
+
+            return response()->json(['person' => $person,'rol' => $rol], 200);
+        } else {
+            return response()->json(['error' => 'Persona no encontrada']);
+        }
+    }
+
+    public function user_register_store(Request $request){
+        $document_number = $request->input('document_number');
+        $role = $request->input('role');
+        $person = Person::where('document_number', $document_number)->first();
+
+        // Verificar si se encontró una persona con el número de documento proporcionado
+        if ($person) {
+            // Crear un nuevo usuario con la información de esa persona
+            $user = User::create([
+                'nickname' => $person->first_name,
+                'person_id' => $person->id,
+                'email' => $person->misena_email,
+            ]);
+
+            if ($role === 'Instructor') {
+                
+                $rolesinstructor = Role::where('name','LIKE','%instructor%')->get();
+                
+                $user->roles()->sync($rolesinstructor);
+
+            }
+
+            if ($role === 'Aprendiz') {
+            
+                $roles = Role::where('slug','LIKE','%.apprentice%')->get();
+
+                $user->roles()->sync($roles);
+
+            }
+
+            // Obtener el correo electrónico y la contraseña desencriptada del usuario recién creado
+            $email = $person->misena_email;
+            $first_name = Str::ascii($user->person->first_name); // Eliminar caracteres especiales del nombre
+            $first_last_name = Str::ascii($user->person->first_last_name); // Eliminar caracteres especiales del primer apellido
+            $password =
+                ucfirst( // Convertir el primer caracter en mayúscula
+                    strtolower( // Convertir todo en minúsculas
+                        substr($first_name, 0, 2) // Extraer los dos primeros caracteres del nombre
+                        .substr($first_last_name, 0, 2) // Extraer los dos primeros caracteres del primer apellido
+                        .substr($user->person->document_number, -4) // Extraer los cuatro últimos caracteres del número de documento
+                    )
+                );
+
+
+            // Enviar un correo electrónico con esta información
+            $asunto = "Solicitud de Usuario";
+            Mail::send('auth.passwords.content_email', compact('asunto', 'email', 'password'), function ($msg) use ($asunto, $email) {
+                $msg->from($email);
+                $msg->subject($asunto);
+                $msg->to($email);
+            });
+
+            return redirect(route('cefa.home'));
+        } else {
+            // No se encontró ninguna persona con el número de documento proporcionado
+            // Redireccionar o mostrar un mensaje de error
+        }
+    }
+
+
 
     /* Registrar usuario google */
     public function storer_usergoogle(Request $request){ 

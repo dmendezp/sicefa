@@ -4,7 +4,7 @@
     <div class="form">
       <div class="form-header">Solicitud de Insumos</div>
       <div class="form-body">
-        {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.enviarsolicitud')]) !!}
+        {!! Form::open(['method' => 'post', 'url' => route('agroindustria.instructor.units.request.create')]) !!}
         <div class="row">
           <div class="col-md-6">
             {!! Form::label('fecha', trans('agroindustria::deliveries.Date Time')) !!}
@@ -31,7 +31,7 @@
           </div>
           <div class="col-md-12">
             {!! Form::label('observation', trans('agroindustria::deliveries.Observations')) !!}
-            {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'id' => 'textarea'] ) !!}
+            {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'id' => 'textarea', 'style' => 'height: 0px'] ) !!}
           </div>
           <div class="col-md-12">
             <div id="products">
@@ -41,12 +41,7 @@
                 <div class="elements">
                   <div class="form-group">
                     {!! Form::label('elementInventory' , trans('agroindustria::deliveries.Search Products')) !!}
-                    {!! Form::text('search', null, ['class' => 'elementInventory-select']) !!}
-                  </div>
-                  <div class="form-group">
-                    {!! Form::label('element', trans('agroindustria::menu.Element')) !!}
-                    {!! Form::hidden('element[]', null, ['class' => 'element_id']) !!}
-                    {!! Form::text('element_name', null, ['class'=>'form-control element_name', 'readonly' => 'readonly']) !!}
+                    {!! Form::select('element[]', [], null,['class' => 'form-control elementInventory-select']) !!}
                     @if ($errors->has('element'))
                       <span class="text-danger">{{ $errors->first('element') }}</span>
                     @endif
@@ -75,44 +70,46 @@
   
   @section('script')
   @endsection
-  
+
   
   <script>
     $(document).ready(function() {
       // Agregar un nuevo campo de producto
       $("#add-element").click(function() {
-          var newProduct = '<div class="elements"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::deliveries.Search Products")) !!} {!! Form::text("search", null, ["readonly" => "readonly", "id" => "elementInventory-select"]) !!} </div> <div class="form-group">{!! Form::label("element" , trans("agroindustria::deliveries.Element")) !!} {!! Form::hidden("element[]", null, ["id" => "element_id"]) !!} {!! Form::text("element_name", null, ["class"=>"form-control", "id" => "element_name", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::deliveries.Amount")) !!} {!! Form::number("amount[]", NULL, ["class" => "form-control", "id" => "amount"]) !!}</div>{!! Form::hidden("available[]", null, ["class" => "form-control", "id" => "available", "readonly" => "readonly"]) !!}{!! Form::hidden("price[]", null, ["class" => "form-control", "id" => "price", "readonly" => "readonly"]) !!}<button type="button" class="remove-element">{{trans("agroindustria::deliveries.Delete")}}</button></div>';
+          var newProduct = '<div class="elements"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::deliveries.Search Products")) !!} {!! Form::select("element[]", [], null,["class" => "form-control"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::deliveries.Amount")) !!} {!! Form::number("amount[]", NULL, ["class" => "form-control", "id" => "amount"]) !!}</div>{!! Form::hidden("available[]", null, ["class" => "form-control", "id" => "available", "readonly" => "readonly"]) !!}{!! Form::hidden("price[]", null, ["class" => "form-control", "id" => "price", "readonly" => "readonly"]) !!}<button type="button" class="remove-element">{{trans("agroindustria::deliveries.Delete")}}</button></div>';
   
           // Agregar el nuevo campo al DOM
           $("#products").append(newProduct);
   
-          var baseUrl = '{{ route("cefa.agroindustria.units.instructor.element.name", ["name" => ":name"]) }}';
+          var baseUrl = '{{ route("agroindustria.instructor.units.element.name") }}';
           console.log(baseUrl);
-          $('#elementInventory-select:last').select2({
-            placeholder: '{{trans("agroindustria::deliveries.Search Products")}}',
-            minimumInputLength: 1, // Habilita la búsqueda en tiempo real
+          $('select[name="element[]"]').select2({
+            placeholder: 'Seleccione un elemento',
+            minimumInputLength: 3,
             ajax: {
-              url: function(params) {
-                  // Reemplaza el marcador de posición con el término de búsqueda
-                  var searchUrl = baseUrl.replace(':name', params.term);
-
-                  return searchUrl; // Utiliza la URL actualizada con el término de búsqueda
-              },
-              dataType: 'json',
-              delay: 250, // Retardo antes de iniciar la búsqueda
-              processResults: function(data) {
-                  return {
-                      results: data.id.map(function(element) {
-                          return {
-                              id: element.id,
-                              text: element.name,
-                          };
-                      })
-                  };
-              },
-              cache: true
+                url: baseUrl,
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        element_id: params.term,
+                    };
+                },
+                processResults: function(data) {
+                    var results = data.map(function(item) {
+                        return {
+                            id: item.id,
+                            text: item.name
+                        };
+                    });
+                    return {
+                        results: results
+                    };
+                },
+                cache: true
             }
           });
+
 
           // Manejar la selección de una persona en el campo de búsqueda
           $('#elementInventory-select:last').on('select2:select', function(e) {
@@ -140,7 +137,7 @@
           // Realizar una petición AJAX para obtener la cantidad disponible
           if (elementoSeleccionado) {
               $.ajax({
-                  url: {!! json_encode(route('cefa.agroindustria.units.instructor.movements.id', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString()),
+                  url: {!! json_encode(route('agroindustria.instructor.units.movements.id', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString()),
                   method: 'GET',
                   success: function(response) {
                       if (Array.isArray(response.id)) {
@@ -178,7 +175,7 @@
       $('#receiveUnit-selected').on('change', function() {
           var selectedReceiver = $(this).val();
   
-          var url = {!! json_encode(route('cefa.agroindustria.units.instructor.movements.warehouse', ['id' => ':id'])) !!}.replace(':id', selectedReceiver.toString());
+          var url = {!! json_encode(route('agroindustria.instructor.units.movements.warehouse', ['id' => ':id'])) !!}.replace(':id', selectedReceiver.toString());
   
           // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
           $.ajax({

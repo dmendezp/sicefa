@@ -29,6 +29,10 @@
                             <div class="form-group">
                                 {!! Form::select('learning_outcome_id[]', [], old('learning_outcome_id[]'), ['class' => 'form-control select2 learning_outcome_select', 'required']) !!}
                             </div>
+                            <div class="form-group">
+                                {!! Form::label('hour', 'Horas') !!}
+                                {!! Form::number('hour[]', null, ['class' => 'form-control','placeholder' => 'Ingrese el número horas', 'required']) !!}
+                            </div>
                         </div>
                         <div class="col-4">
                             <button type="button" class="btn btn-primary add_learning_outcomes"><i class="fas fa-plus"></i></button>
@@ -36,6 +40,7 @@
                     </div>
                 </div>
                 <br>
+                
                 {!! Form::submit(trans('sigac::general.Btn_Save'), ['class' => 'btn btn-primary','id' => 'standcolor']) !!}
                 {!! Form::close() !!}
             </div>
@@ -45,7 +50,9 @@
 
 <script>
     $(document).ready(function() {
-        $('.select2').select2(); // Inicializa el campo resultado de aprendizaje como select2
+        $('.select2').select2({
+           
+        });
 
         // Función para agregar fila de resultado de aprendizaje
         $(document).on('click', '.add_learning_outcomes', function() {
@@ -53,7 +60,12 @@
                 <div class="row align-items-center learning_outcomes_row">
                     <div class="col-8">
                         <div class="form-group">
+                            {!! Form::label('learning_outcome',  trans('Resultados de Aprendizaje')) !!}
                             {!! Form::select('learning_outcome_id[]', [], old('learning_outcome_id[]'), ['class' => 'form-control select2 learning_outcome_select', 'required']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('hour', 'Horas') !!}
+                            {!! Form::number('hour[]', null, ['class' => 'form-control','placeholder' => 'Ingrese el número horas', 'required']) !!}
                         </div>
                     </div>
                     <div class="col-4">
@@ -75,13 +87,13 @@
         });
 
         // Obtener resultados de aprendizaje por competencia
-    $('.competencies').on('change', function() {
-        // Eliminar todas las filas de resultados de aprendizaje excepto la original
-        $('#learning_outcomes_container .learning_outcomes_row:not(:first)').remove();
-        
-        // Obtener resultados de aprendizaje para la nueva fila
-        getLearningOutcomesForNewRow();
-    });
+        $('.competencies').on('change', function() {
+            // Eliminar todas las filas de resultados de aprendizaje excepto la original
+            $('#learning_outcomes_container .learning_outcomes_row:not(:first)').remove();
+            
+            // Obtener resultados de aprendizaje para la nueva fila
+            getLearningOutcomesForNewRow();
+        });
 
 
         // Función para obtener los resultados de aprendizaje para la nueva fila
@@ -111,8 +123,6 @@
                         console.error('Error en la solicitud AJAX');
                     }
                 });
-            } else {
-                $('#cropsSelectContainer').hide();
             }
         }
     });

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\AGROINDUSTRIA\Http\Controllers\instructor;
+namespace Modules\AGROINDUSTRIA\Http\Controllers\Instructor;
 
 use Modules\AGROINDUSTRIA\Http\Controllers\AGROINDUSTRIAController;
 use Modules\SICA\Entities\ProductiveUnit;
@@ -22,9 +22,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
 use Modules\AGROINDUSTRIA\Emails\MovementApproved;
-
-
 use Validator, Str;
 
 
@@ -354,28 +353,16 @@ class DeliverController extends Controller
 
             DB::commit();
 
-            
-            if(Auth::check()){
-                $user = Auth::user();
-                if($user->roles->contains('slug', 'agroindustria.instructor.vilmer') || $user->roles->contains('slug', 'agroindustria.instructor.chocolate') || $user->roles->contains('slug', 'agroindustria.instructor.cerveceria')){
-                    // Redirige a la página de éxito
-                    return redirect()->route('agroindustria.instructor.units.movements.table')->with([
-                        'icon' => 'success',
-                        'message_line' => trans('agroindustria::deliveries.Successful check out'),
-                    ]);
-                }else{
-                    return redirect()->route('agroindustria.admin.units.movements.table')->with([
-                        'icon' => 'success',
-                        'message_line' => trans('agroindustria::deliveries.Successful check out'),
-                    ]); 
-                }
-            }
+            return redirect()->route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.movements.table')->with([
+                'icon' => 'success',
+                'message_line' => trans('agroindustria::deliveries.Successful check out'),
+            ]);
         } catch (\Exception $e) {
             // Si ocurre algún error durante la transacción, se revierten todas las operaciones
             DB::rollBack();
 
             // Redirige de vuelta con un mensaje de error
-            return redirect()->route('agroindustria.instructor.units.movements.table')->with([
+            return redirect()->route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.movements.table')->with([
                 'icon' => 'error',
                 'message_line' => trans('agroindustria::deliveries.Check out error'),
             ]);
@@ -531,21 +518,12 @@ class DeliverController extends Controller
             $message_line = trans('agroindustria::deliveries.Movement Cancel Error');
         }
 
-        if(Auth::check()){
-            $user = Auth::user();
-            if($user->roles->contains('slug', 'agroindustria.instructor.vilmer') || $user->roles->contains('slug', 'agroindustria.instructor.chocolate') || $user->roles->contains('slug', 'agroindustria.instructor.cerveceria')){
-                // Redirige a la página de éxito
-                return redirect()->route('agroindustria.instructor.units.movements.table')->with([
-                    'icon' => $icon,
-                    'message_line' => $message_line,
-                ]);
-            }else{
-                return redirect()->route('agroindustria.admin.units.movements.table')->with([
-                    'icon' => $icon,
-                    'message_line' => $message_line,
-                ]); 
-            }
-        }
+        return redirect()->route('agroindustria.'.getRoleRouteName(Route::currentRouteName()).'.units.movements.table')->with([
+            'icon' => $icon,
+            'message_line' => $message_line,
+        ]);
+
+        
     }
 
     public function devolverMovimiento(Request $request, $id){

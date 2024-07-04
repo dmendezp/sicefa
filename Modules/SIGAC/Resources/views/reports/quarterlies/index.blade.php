@@ -49,6 +49,7 @@
                     },
                     success: function(data) {
                         // Actualizar el contenedor con los resultados filtrados
+                        console.log(data);
                         $('#divApprentices').html(data);
                         $('#table').DataTable({
 

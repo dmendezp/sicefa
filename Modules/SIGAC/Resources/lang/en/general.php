@@ -7,6 +7,7 @@ return [
 	'Instructor'           => 'Instructor',
 	'Wellness'             => 'Wellness',
 	'Apprentice'           => 'Apprentice',
+    'Support'              => 'Support',
     'Log In'               => 'Log In',
     'Internacionalization' => 'Internacionalization',
     'English'              => 'English',

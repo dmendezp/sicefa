@@ -5,7 +5,7 @@
 <div id="content-config">
     <div class="modal-header py-2">
         <h5 class="modal-title" id="exampleModalLabel">
-            <b>{{trans('sica::menu.Update Knowledge Network')}}</b>
+            <b>{{trans('sica::menu.Update Network')}}</b>
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>

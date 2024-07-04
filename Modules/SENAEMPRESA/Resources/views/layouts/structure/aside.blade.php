@@ -5,7 +5,7 @@
         <img src="{{ asset('AdminLTE/dist/img/logo P SENA.png') }}" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
 
-        <span class="brand-text font-weight-light">Sena Empresa</span>
+        <span class="brand-text font-weight-light">SENA Empresa</span>
     </a>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -24,10 +24,10 @@
                 @guest
                     <div class="col info info-user">
                         <div>{{ trans('senaempresa::menu.Welcome') }}</div>
-                        <div><a href="{{ route('login') }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
+                        <div><a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
                     </div>
                     <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right"
-                        title="{{ trans('Auth.Login') }}"><a href="{{ route('login') }}" class="d-block"><i
+                        title="{{ trans('Auth.Login') }}"><a href="{{ route('login', ['redirect' => url()->current()]) }}" class="d-block"><i
                                 class="fas fa-sign-in-alt"></i></a>
                     </div>
                 @else
@@ -125,7 +125,7 @@
                             <a href="#"
                                 class="nav-link {{ !Route::is('senaempresa.admin.phases.*') ?: 'active' }}">
                                 <i class="fas fa-chess-rook"></i>
-                                <p>SenaEmpresa
+                                <p>SENA Empresa
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>

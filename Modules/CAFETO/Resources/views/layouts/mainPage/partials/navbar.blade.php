@@ -136,6 +136,21 @@
 
                                         <!-- Column #4 -->
                                         <div class="col-md-3">
+                                            <a href="#">{{ trans('cafeto::general.Recipes') }}</a>
+                                            <ul>
+                                                @if (Auth::user()->havePermission('cafeto.admin.recipes.index'))
+                                                    <li>
+                                                        <a href="{{ route('cafeto.admin.recipes.index') }}">
+                                                            <i class="fa-solid fa-kitchen-set"></i>{{ trans('cafeto::general.Recipes Control') }}
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            </ul>
+                                        </div>
+                                        <!-- .col-md-3 end -->
+
+                                        <!-- Column #5 -->
+                                        <div class="col-md-3">
                                             <a href="#">{{ trans('cafeto::general.Configuration') }}</a>
                                             <ul>
                                                 @if (Auth::user()->havePermission('cafeto.admin.configuration.index'))
@@ -228,6 +243,21 @@
 
                                         <!-- Column #4 -->
                                         <div class="col-md-3">
+                                            <a href="#">Recetario</a>
+                                            <ul>
+                                                @if (Auth::user()->havePermission('cafeto.cashier.recipes.index'))
+                                                    <li>
+                                                        <a href="{{ route('cafeto.cashier.recipes.index') }}">
+                                                            <i class="fa-solid fa-kitchen-set"></i>{{ trans('cafeto::general.Recipes Control') }}
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            </ul>
+                                        </div>
+                                        <!-- .col-md-3 end -->
+
+                                        <!-- Column #5 -->
+                                        <div class="col-md-3">
                                             <a href="#">{{ trans('cafeto::general.Configuration') }}</a>
                                             <ul>
                                                 @if (Auth::user()->havePermission('cafeto.cashier.configuration.index'))
@@ -281,7 +311,7 @@
                     <ul class="dropdown-menu">
                         @guest
                             <li>
-                                <a class="menu-item" href="{{ route('login') }}">
+                                <a class="menu-item" href="{{ route('login', ['redirect' => url()->current()]) }}">
                                     <i class="fa-solid fa-right-to-bracket"></i> {{ trans('cafeto::general.Log In') }}
                                 </a>
                             </li>

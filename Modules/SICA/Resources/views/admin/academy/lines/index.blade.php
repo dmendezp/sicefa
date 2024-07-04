@@ -15,7 +15,7 @@
                             @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.networks.index'))
                                 <a href="{{ route('sica.'.$role_name.'.academy.networks.index') }}" class="btn btn-info float-right ml-1">
                                     <i class="fa-regular fa-angles-left fa-beat-fade"></i>
-                                    {{ trans('sica::menu.Knowledge Networks')}}
+                                    {{ trans('sica::menu.Networks')}}
                                 </a>
                             @endif
                             @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.programs.index'))

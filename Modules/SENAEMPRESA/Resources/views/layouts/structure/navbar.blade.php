@@ -47,7 +47,7 @@
         @guest
         <li>
             <div type="button" class="button-login">
-                <a href="{{ route('login') }}" class="text-decoration-none" style="color: black; cursor: pointer;">
+                <a href="{{ route('login', ['redirect' => url()->current()]) }}" class="text-decoration-none" style="color: black; cursor: pointer;">
                     <span>{{ trans('senaempresa::menu.Login') }}</span>
                 </a>
             </div>

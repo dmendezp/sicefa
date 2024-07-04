@@ -114,7 +114,7 @@ return [
     'Close' => 'Close',
     'Registration' => 'Registration', //Postulate
     'Presentation' => 'Presentation',
-    'Id Position' => 'Id Position',
+    'Id Position' => 'Position',
     'Select a position' => 'Select a position',
     'Start Date and Time' => 'Start Date and Time',
     'Date and Time End' => 'Date and Time End',

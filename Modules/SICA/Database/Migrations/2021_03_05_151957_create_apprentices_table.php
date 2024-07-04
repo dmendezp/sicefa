@@ -17,7 +17,7 @@ class CreateApprenticesTable extends Migration
             $table->id();
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
-            $table->enum('apprentice_status', ['NO REGISTRA','CERTIFICADO','EN FORMACIÓN','RETIRO VOLUNTARIO','CANCELADO','TRASLADADO','APLAZADO','INDUCCIÓN']);
+            $table->enum('apprentice_status', ['NO REGISTRA','CERTIFICADO','EN FORMACIÓN','RETIRO VOLUNTARIO','CANCELADO','TRASLADADO','APLAZADO','INDUCCIÓN','CONDICIONADO']);
             $table->string('guardian')->nullable();
             $table->unsignedInteger('guardian_telephone')->nullable();
             $table->softDeletes();

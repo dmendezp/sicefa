@@ -1,0 +1,13 @@
+{
+    "name": "HANGARAUTO",
+    "alias": "hangarauto",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\HANGARAUTO\\Providers\\HANGARAUTOServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

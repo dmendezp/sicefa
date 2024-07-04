@@ -38,3 +38,32 @@
 <script src="{{ asset('modules/sica/js/scripts.js') }}"></script>  --}}
 
 
+@if (session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: '{{ session('success') }}',
+        showConfirmButton: false,
+        timer: 1500,
+        customClass: {
+            popup: 'my-custom-popup-class',
+        },
+    });
+</script>
+@endif
+
+@if (session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: '{{ session('error') }}',
+            showConfirmButton: false,
+            timer: 15000,
+            customClass: {
+                popup: 'my-custom-popup-class',
+            },
+        });
+    </script>
+@endif
+
+
