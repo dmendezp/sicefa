@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SIGAC\Entities\Quarterly;
+use Modules\SIGAC\Entities\InstructorProgram;
 use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\LearningOutcome;
 use Modules\SICA\Entities\Competencie;
@@ -71,68 +72,70 @@ class ReportController extends Controller
         ]);
     }
 
-    public function index()
-    {
-        return view('sigac::index');
+    public function instructors_index(){
+        return view('sigac::reports.instructors.index')->with([
+            'titlePage' => 'Consultar datos de instructores',
+            'titleView' => 'Consultar datos de instructores',          
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('sigac::create');
+    public function instructors_search(Request $request){
+        $day = $request->day;
+
+        $instructor_program = InstructorProgram::with('instructor_program_people.person', 'environment_instructor_programs.environment')
+        ->where('date', $day)
+        ->get()
+        ->groupBy(function ($instructor_name) {
+                foreach ($instructor_name->instructor_program_people as $ip) {
+                        return $ip->person->first_name . ' ' . $ip->person->first_last_name. ' '. $ip->person->second_last_name;
+                }
+        });
+
+        $instructor_emails = $instructor_program->map(function ($programs) {
+            foreach ($programs as $program) {
+                foreach ($program->instructor_program_people as $ip) {
+                    $emails[] = $ip->person->sena_email;
+                }
+            }
+            return array_unique($emails);
+        });
+
+        $instructor_telephones = $instructor_program->map(function ($programs) {
+            foreach ($programs as $program) {
+                foreach ($program->instructor_program_people as $ip) {
+                    $telephones[] = $ip->person->telephone1 . "\n" . $ip->person->telephone2;
+                }
+            }
+            return array_unique($telephones);
+        });
+
+
+        return view('sigac::reports.instructors.table')->with([
+            'titlePage' => 'Consultar datos de instructores',
+            'titleView' => 'Consultar datos de instructores',        
+            'instructor_program' => $instructor_program,
+            'instructor_emails' => $instructor_emails,
+            'instructor_telephones' => $instructor_telephones
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
+    public function environments_index(){
+        return view('sigac::reports.environments.index')->with([
+            'titlePage' => 'Consultar disponibilidad de ambientes',
+            'titleView' => 'Consultar disponibilidad de ambientes',          
+        ]);
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('sigac::show');
+    public function environments_search(Request $request){
+        $day = $request->day;
+
+        $instructor_program = InstructorProgram::with('environment_instructor_programs.environment')
+        ->where('date', $day)
+        ->get();
+
+        return view('sigac::reports.environments.table')->with([
+            'instructor_program' => $instructor_program        
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('sigac::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

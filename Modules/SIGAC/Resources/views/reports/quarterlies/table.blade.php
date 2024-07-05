@@ -51,7 +51,7 @@
                             @endphp
                             @foreach($learningOutcomes as $learningOutcome => $trimestres)
                                 <tr>
-                                    @if($firstRowCompet7ency)
+                                    @if($firstRowCompetency)
                                         <td rowspan="{{ count($learningOutcomes) }}" class="text-center">
                                             {{ $competency }}<br>
                                             <strong>Planeadas: {{ $totalHoursCompetency }}</strong><br>
