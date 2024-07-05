@@ -40,6 +40,9 @@
     $(document).ready(function() {
         $('#course_id').on('change', function () {
             var course_id = $('#course_id').val();
+            var url = {!! json_encode(route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.reports.quartelies.search', ['course_id' => ':course_id'])) !!}.replace(':course_id', course_id);
+            
+            console.log(url);
             $.ajax({
                     type: 'POST',
                     url: "{{ route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.reports.quartelies.search') }}",

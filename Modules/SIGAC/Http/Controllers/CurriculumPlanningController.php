@@ -812,6 +812,13 @@ class CurriculumPlanningController extends Controller
             $path = $request->file('archivo'); // Obtener ubicación temporal del archivo en el servidor
             $array = Excel::toArray(new ApprenticeLearningOutcomeImport, $path); // Convertir el contenido del archivo excel en una arreglo de arreglos
             $course_code = $array[0][1][2];
+            $course_start_l = $array[0][6][2];
+            $start_l = date('Y-m-d', strtotime('1899-12-30 + '. $course_start_l . 'days'));
+            $course_end_p = $array[0][7][2];
+            $end_p = date('Y-m-d', strtotime('1899-12-30 + '. $course_end_p . 'days'));
+            
+            $course_start_p = "fin productiva menos 6 meses";
+            $course_end_l = "inicio productiva menos 1 dia";
             $apprentices_data = array_splice($array[0], 12, count($array[0])); // Obtener solo los registros de los datos de los aprendices
             try {
                 
@@ -835,6 +842,8 @@ class CurriculumPlanningController extends Controller
                             $learning_outcome_id = $learning_outcome->id;
 
                             $course = Course::where('code',$course_code)->first();
+                            // Modificar fechas del curso
+                            // guardar curso
                             if ($course) {
                                 $course_id = $course->id;
                                 $person = Person::where('document_number',$document_number)->first();

@@ -1563,12 +1563,22 @@ class ProgrammeController extends Controller
     // Solicitudes de caracterización
     public function program_request_characterization()
     {
-        $program_request = ProgramRequest::orderBy('created_at','Asc')->get();
+        $program_requests = ProgramRequest::with(['program_request_dates' => function ($query) {
+            $query->orderBy('date', 'asc');
+        }])->orderBy('created_at', 'Asc')->get();
+
+        // Agrupar las fechas por hora de inicio y fin
+        foreach ($program_requests as $program_request) {
+            $groupedDates = $program_request->program_request_dates->groupBy(function ($date) {
+                return $date->start_time . '-' . $date->end_time;
+            });
+            $program_request->groupedDates = $groupedDates;
+        }
 
         return view('sigac::programming.program_request.characterization', [
             'titlePage' => trans('Caracterización'),
             'titleView' => trans('Caracterización'),
-            'program_request'=>$program_request
+            'program_request'=>$program_requests
         ]);
 
 

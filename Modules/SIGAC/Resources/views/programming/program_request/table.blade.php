@@ -17,6 +17,7 @@
                         <th class="text-center">#</th>
                         <th class="text-center">Instructor</th>
                         <th class="text-center">Programa</th>
+                        <th class="text-center">Horas del Programa</th>
                         <th class="text-center">Programa Especial</th>
                         <th class="text-center">Municipio</th>
                         <th class="text-center">Cupo</th>
@@ -32,8 +33,13 @@
                     @foreach($program_requests as $prom)
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
-                            <td class="text-center">{{ $prom->person->full_name }}</td>
-                            <td class="text-center">{{ $prom->program->sofia_code }} - {{ $prom->program->name }}</td>
+                            <td class="text-center">{{ $prom->person->full_name }} - 
+                                @foreach($prom->person->professions as $p)
+                                    {{ $p->name }}
+                                @endforeach
+                            </td>
+                            <td class="text-center">{{ $prom->program->sofia_code }} - {{ $prom->program->version }} - {{ $prom->program->name }}</td>
+                            <td class="text-center">{{ $prom->program->maximum_duration }}</td>
                             <td class="text-center">{{ $prom->special_program->name }}</td>
                             <td class="text-center">{{ $prom->municipality->name }} - {{ $prom->municipality->department->name }}</td>
                             <td class="text-center">{{ $prom->quotas }}</td>

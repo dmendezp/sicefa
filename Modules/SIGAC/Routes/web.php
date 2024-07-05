@@ -244,6 +244,13 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::post('academic_coordination/reports/quarterlies/search', 'report_quarterlie_search')->name('sigac.academic_coordination.reports.quartelies.search'); // Consultar trimestralización del curso (Coordinación Académica)
             Route::post('instructor/reports/quarterlies/search', 'report_quarterlie_search')->name('sigac.instructor.reports.quartelies.search'); // Consultar trimestralización del curso (Coordinación Académica)
 
+            // ---------------- Consultar datos de instructores --------------------
+            Route::get('academic_coordination/reports/instructors/index', 'instructors_index')->name('sigac.academic_coordination.reports.instructors.index'); // Reporte de instructores (Coordinación Académica)
+            Route::post('academic_coordination/reports/instructors/search', 'instructors_search')->name('sigac.academic_coordination.reports.instructors.search'); // Consultar datos de instructores (Coordinación Académica)
+
+            // ---------------- Consultar disponibilidad de ambientes --------------------
+            Route::get('academic_coordination/reports/environments/index', 'environments_index')->name('sigac.academic_coordination.reports.environments.index'); // Ambientes (Coordinación Académica)
+            Route::post('academic_coordination/reports/environments/search', 'environments_search')->name('sigac.academic_coordination.reports.environments.search'); // Consultar datos de instructores (Coordinación Académica)
         });
 
     });

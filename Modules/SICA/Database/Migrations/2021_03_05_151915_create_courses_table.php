@@ -18,6 +18,8 @@ class CreateCoursesTable extends Migration
             $table->unsignedInteger('code')->unique();
             $table->date('star_date');
             $table->date('end_date');
+            $table->date('star_production_date')->nullable();
+            $table->date('school_end_date')->nullable();
             $table->enum('status',['Activo','Inactivo'])->default('Activo');
             $table->foreignId('program_id')->constrained()->onDelete('cascade');
             $table->foreignId('municipality_id')->constrained()->onDelete('cascade');
