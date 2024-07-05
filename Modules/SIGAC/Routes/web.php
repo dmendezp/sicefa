@@ -11,8 +11,8 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('index', 'index')->name('cefa.sigac.index'); // Vista principal y pública de la aplicación.
             Route::get('information', 'info')->name('cefa.sigac.info'); // Vista mas info sobre SIGAC y pública de la aplicación (Pública)
             Route::get('developers', 'devs')->name('cefa.sigac.devs'); // Vista sobre desarrolladores y creditos sobre SIGAC y pública de la aplicación (Pública)
-            Route::get('academic', 'academic_coordination_dashboard')->name('sigac.academic_coordination.dashboard'); // Panel de control de coordinación académica (Coordinación Académica)
-            Route::get('instructors', 'instructor_dashboards')->name('sigac.instructor.dashboards'); // Panel de control del instructor (Instructor)
+            Route::get('academic_coordination', 'academic_coordination_dashboard')->name('sigac.academic_coordination.dashboard'); // Panel de control de coordinación académica (Coordinación Académica)
+            Route::get('instructor', 'instructor_dashboards')->name('sigac.instructor.dashboard'); // Panel de control del instructor (Instructor)
             Route::get('wellness', 'wellness_dashboard')->name('sigac.wellness.dashboard'); // Panel de control de bienestar (Bienestar)
             Route::get('apprentice', 'apprentice_dashboard')->name('sigac.apprentice.dashboard'); // Panel de control de aprendiz (Aprendiz)
             Route::get('support', 'support_dashboard')->name('sigac.support.dashboard'); // Panel de control de apoyo (Apoyo)
@@ -25,34 +25,32 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
         // Rutas para la programacion de eventos y horarios
         Route::controller(ProgrammeController::class)->group(function () {
             //  ---------- Progamacion de instructor ------------------
-            Route::get('academic_coordination/program', 'programming')->name('sigac.academic_coordination.programming.index'); // Programación de horarios (Coordinación Académica)
-            Route::get('academic_coordination/program/get', 'programming_get')->name('sigac.academic_coordination.programming.get'); // Programación de horarios (Coordinación Académica)
+            Route::get('academic_coordination/programming', 'programming')->name('sigac.academic_coordination.programming.index'); // Programación de horarios (Coordinación Académica)
+            Route::get('academic_coordination/programming/get', 'programming_get')->name('sigac.academic_coordination.programming.get'); // Programación de horarios (Coordinación Académica)
             Route::get('academic_coordination/events', 'event_programming')->name('sigac.academic_coordination.event_programming.index'); // Programación de eventos (Coordinación Académica)
-
-
 
             // Parametros
             Route::get('academic_coordination/programming/parameters/index', 'parameter')->name('sigac.academic_coordination.programming.parameters.index'); // Parametros de programacion (Coordinación Académica)
             Route::get('wellbeing/programming/parameters/index', 'parameter')->name('sigac.wellbeing.programming.parameters.index'); // Parametros de programacion (Bienestar)
 
             //Parametro - Competencias
-            Route::get('academic_coordination/competences/index/{program_id}', 'parameter_competencies')->name('sigac.academic_coordination.competences.index'); // Registrar competencia (Coordinación Académica)
-            Route::post('academic_coordination/competences/store', 'competence_store')->name('sigac.academic_coordination.competences.store'); // Registrar competencia (Coordinación Académica)
-            Route::post('academic_coordination/competences/update/{id}', 'competence_update')->name('sigac.academic_coordination.competences.update'); // Actualizar competencia (Coordinación Académica)
-            Route::delete('academic_coordination/competences/destroy/{id}', 'competence_destroy')->name('sigac.academic_coordination.competences.destroy'); // Eliminar competencia (Coordinación Académica)
+            Route::get('academic_coordination/competences/index/{program_id}', 'parameter_competencies')->name('sigac.academic_coordination.programming.competence.index'); // Vista Competencias del programa (Coordinación Académica)
+            Route::post('academic_coordination/competences/store', 'competence_store')->name('sigac.academic_coordination.programming.competence.store'); // Registrar competencia (Coordinación Académica)
+            Route::post('academic_coordination/competences/update/{id}', 'competence_update')->name('sigac.academic_coordination.programming.competence.update'); // Actualizar competencia (Coordinación Académica)
+            Route::delete('academic_coordination/competences/destroy/{id}', 'competence_destroy')->name('sigac.academic_coordination.programming.competence.destroy'); // Eliminar competencia (Coordinación Académica)
 
-            Route::get('academic_coordination/programming/programs/export', 'program_export')->name('sigac.academic_coordination.prgogramming.programs.export'); // Vista carge de archivo (Coordinación Académica)
-            Route::get('academic_coordination/programming/programs/load/create', 'program_load_create')->name('sigac.academic_coordination.prgogramming.programs.load.create'); // Vista carge de archivo (Coordinación Académica)
-            Route::post('academic_coordination/programming/programs/load/store', 'program_load_store')->name('sigac.academic_coordination.prgogramming.programs.load.store'); // Registro programas por archivo (Coordinación Académica)
-            Route::get('academic_coordination/programming/programs/search', 'program_search')->name('sigac.academic_coordination.prgogramming.programs.search'); // Vista carge de archivo (Coordinación Académica)
+            Route::get('academic_coordination/programming/programs/export', 'program_export')->name('sigac.academic_coordination.programming.programs.export'); // Vista carge de archivo (Coordinación Académica)
+            Route::get('academic_coordination/programming/programs/load/create', 'program_load_create')->name('sigac.academic_coordination.programming.programs.load.create'); // Vista carge de archivo (Coordinación Académica)
+            Route::post('academic_coordination/programming/programs/load/store', 'program_load_store')->name('sigac.academic_coordination.programming.programs.load.store'); // Registro programas por archivo (Coordinación Académica)
+            Route::get('academic_coordination/programming/programs/search', 'program_search')->name('sigac.academic_coordination.programming.programs.search'); // Vista carge de archivo (Coordinación Académica)
 
             //Parametro - Resultados de aprendizaje
-            Route::get('academic_coordination/learning_outcomes/index/{competencie_id}', 'parameter_learning_outcomes')->name('sigac.academic_coordination.learning_outcomes.index'); // Registrar competencia (Coordinación Académica)
-            Route::post('academic_coordination/learning_outcomes/store', 'learning_outcome_store')->name('sigac.academic_coordination.learning_outcome.store'); // Registrar Resultado de aprendizaje (Coordinación Académica)
-            Route::post('academic_coordination/learning_outcomes/update/{id}', 'learning_outcome_update')->name('sigac.academic_coordination.learning_outcome.update'); // Actualizar Resultado de aprendizaje (Coordinación Académica)
-            Route::delete('academic_coordination/learning_outcomes/destroy/{id}', 'learning_outcome_destroy')->name('sigac.academic_coordination.learning_outcome.destroy'); // Eliminar Resultado de aprendizaje (Coordinación Académica)
-            Route::get('academic_coordination/learning_outcomes/load/create/{program_id}', 'learning_outcome_load_create')->name('sigac.academic_coordination.programming.learning_outcome.load.create'); // Eliminar Resultado de aprendizaje (Coordinación Académica)
-            Route::post('academic_coordination/learning_outcomes/load/store', 'learning_outcome_load_store')->name('sigac.academic_coordination.programming.learning_outcome.load.store'); // Eliminar Resultado de aprendizaje (Coordinación Académica)
+            Route::get('academic_coordination/learning_outcomes/index/{competencie_id}/{program_id}', 'parameter_learning_outcomes')->name('sigac.academic_coordination.programming.learning_outcome.index'); // Vista resultados de aprendizaje de la competencia (Coordinación Académica)
+            Route::post('academic_coordination/learning_outcomes/store', 'learning_outcome_store')->name('sigac.academic_coordination.programming.learning_outcome.store'); // Registrar resultado de aprendizaje (Coordinación Académica)
+            Route::post('academic_coordination/learning_outcomes/update/{id}', 'learning_outcome_update')->name('sigac.academic_coordination.programming.learning_outcome.update'); // Actualizar resultado de aprendizaje (Coordinación Académica)
+            Route::delete('academic_coordination/learning_outcomes/destroy/{id}', 'learning_outcome_destroy')->name('sigac.academic_coordination.programming.learning_outcome.destroy'); // Eliminar resultado de aprendizaje (Coordinación Académica)
+            Route::get('academic_coordination/learning_outcomes/load/create/{program_id}', 'learning_outcome_load_create')->name('sigac.academic_coordination.programming.learning_outcome.load.create'); // Vista carge de resultado de aprendizaje (Coordinación Académica)
+            Route::post('academic_coordination/learning_outcomes/load/store', 'learning_outcome_load_store')->name('sigac.academic_coordination.programming.learning_outcome.load.store'); // Registrar resultados de aprendizaje cargados (Coordinación Académica)
 
             // Parametro - Actividades Externas
             Route::post('wellbeing/programming/parameters/external_activities/store', 'external_activity_store')->name('sigac.wellbeing.programming.parameters.external_activities.store'); // Registrar actividad externa (Bienestar)

@@ -497,7 +497,7 @@ class ProgrammeController extends Controller
                 ->addColumn('action', function($row){
                     $id = $row->id;
                     $actionBtn = '
-                        <a class="btn btn-primary" href="'.route('sigac.academic_coordination.competences.index', ['program_id' => $id]).'" data-toggle="tooltip" data-placement="top" title="Ver competencias">
+                        <a class="btn btn-primary" href="'.route('sigac.academic_coordination.programming.competence.index', ['program_id' => $id]).'" data-toggle="tooltip" data-placement="top" title="Ver competencias">
                         <i class="fa-solid fa-outdent"></i>
                         </a>
                     ';
@@ -524,7 +524,7 @@ class ProgrammeController extends Controller
         'competencies' => $competencies]);
     }
 
-    public function parameter_learning_outcomes($competencie_id)
+    public function parameter_learning_outcomes($competencie_id, $program_id)
     {
         $Comps = Competencie::all();
         $competencies = $Comps->map(function ($c) {
@@ -538,9 +538,6 @@ class ProgrammeController extends Controller
         $competencie = Competencie::findOrFail($competencie_id);
         $name_competencia = $competencie->name;
         $learning_outcomes = LearningOutcome::where('competencie_id',$competencie_id)->get();
-        foreach ($learning_outcomes as $l) {
-           $program_id = $l->competencie->program_id;
-        }
         $titlePage = 'Parametros - Resultado de aprendizaje';
         $titleView = 'Parametros - Resultado de aprendizaje';
         return view('sigac::programming.parameters.learning_outcomes.table')->with(['titlePage' => $titlePage,
@@ -762,7 +759,7 @@ class ProgrammeController extends Controller
             $icon = 'error';
             $message_profession = 'Error al añadir el resultado de aprendizaje.';
         }
-        return redirect(route('sigac.academic_coordination.programming.parameters.index'))->with(['icon' => $icon, 'message_profession' => $message_profession]);
+        return redirect()->back()->with(['icon' => $icon, 'message_profession' => $message_profession]);
     }
 
     // Actualizar resultado de aprendizaje

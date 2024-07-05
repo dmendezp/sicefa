@@ -7,8 +7,8 @@
                     <div class="card card-blue card-outline shadow">
                         <div class="card-header">
                             <h3 class="card-title">Programas</h3>
-                            <a class="btn btn-outline-secondary float-right ml-1" href="{{ route('sigac.academic_coordination.prgogramming.programs.export') }}">Exportar Programas y Titulaciones</a>
-                            <a class="btn btn-outline-secondary float-right ml-1" href="{{ route('sigac.academic_coordination.prgogramming.programs.load.create') }}">Cargar Programas</a>
+                            <a class="btn btn-outline-secondary float-right ml-1" href="{{ route('sigac.academic_coordination.programming.programs.export') }}">Exportar Programas y Titulaciones</a>
+                            <a class="btn btn-outline-secondary float-right ml-1" href="{{ route('sigac.academic_coordination.programming.programs.load.create') }}">Cargar Programas</a>
                         </div>
                         <div class="card-body">
                         @include('sigac::programming.parameters.competences.table_programs')
@@ -66,7 +66,7 @@
         var table = $('#programs').DataTable({
             "processing": true,
             "serverSide": false,
-            "ajax": "{{ route('sigac.academic_coordination.prgogramming.programs.search') }}",
+            "ajax": "{{ route('sigac.academic_coordination.programming.programs.search') }}",
             "columns": [{
                     "data": 'DT_RowIndex',
                     "name": 'DT_RowIndex'
