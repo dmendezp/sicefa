@@ -19,6 +19,7 @@ use Modules\AGROINDUSTRIA\Entities\RequestExternal;
 use Modules\AGROCEFA\Entities\Executor;
 use Modules\SIGAC\Entities\CompetencePerson;
 use Modules\SIGAC\Entities\InstructorProgram;
+use Modules\SIGAC\Entities\InstitucionalRequest;
 use Modules\SIGAC\Entities\Profession;
 use Modules\SIGAC\Entities\AttendanceApprentice;
 use Modules\SIGAC\Entities\EvaluativeJudgment;
@@ -171,6 +172,9 @@ class Person extends Model implements Auditable
     }
     public function inventories(){ // Accede a todos los registros de inventarios que estan a cargo de esta persona
         return $this->hasMany(Inventory::class);
+    }
+    public function institucional_requests(){
+        return $this->hasMany(InstitucionalRequest::class);
     }
     public function instructor_programs(){ // Accede a todas las programaciones de este instructor
         return $this->hasMany(InstructorProgram::class);

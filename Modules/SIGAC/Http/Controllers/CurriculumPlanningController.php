@@ -816,9 +816,10 @@ class CurriculumPlanningController extends Controller
             $start_l = date('Y-m-d', strtotime('1899-12-30 + '. $course_start_l . 'days'));
             $course_end_p = $array[0][7][2];
             $end_p = date('Y-m-d', strtotime('1899-12-30 + '. $course_end_p . 'days'));
-            
-            $course_start_p = "fin productiva menos 6 meses";
-            $course_end_l = "inicio productiva menos 1 dia";
+
+            $course_start_p = date('Y-m-d', strtotime('-6 months', strtotime($end_p)));
+            $course_end_l = date('Y-m-d', strtotime('-1 days', strtotime($course_start_p)));
+
             $apprentices_data = array_splice($array[0], 12, count($array[0])); // Obtener solo los registros de los datos de los aprendices
             try {
                 
@@ -842,6 +843,9 @@ class CurriculumPlanningController extends Controller
                             $learning_outcome_id = $learning_outcome->id;
 
                             $course = Course::where('code',$course_code)->first();
+                            $course->star_production_date = $course_start_p;
+                            $course->school_end_date = $course_end_l;
+                            $course->save();
                             // Modificar fechas del curso
                             // guardar curso
                             if ($course) {

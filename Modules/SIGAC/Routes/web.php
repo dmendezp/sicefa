@@ -251,6 +251,7 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             // ---------------- Consultar disponibilidad de ambientes --------------------
             Route::get('academic_coordination/reports/environments/index', 'environments_index')->name('sigac.academic_coordination.reports.environments.index'); // Ambientes (Coordinación Académica)
             Route::post('academic_coordination/reports/environments/search', 'environments_search')->name('sigac.academic_coordination.reports.environments.search'); // Consultar datos de instructores (Coordinación Académica)
+            Route::get('academic_coordination/reports/environments/search_person', 'search_person')->name('sigac.academic_coordination.reports.environments.search_person'); // Consultar datos de instructores (Coordinación Académica)
         });
 
     });

@@ -10,6 +10,7 @@ use Modules\SIGAC\Entities\InstructorProgram;
 use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\LearningOutcome;
 use Modules\SICA\Entities\Competencie;
+use Modules\SICA\Entities\Person;
 
 class ReportController extends Controller
 {
@@ -128,13 +129,34 @@ class ReportController extends Controller
     public function environments_search(Request $request){
         $day = $request->day;
 
-        $instructor_program = InstructorProgram::with('environment_instructor_programs.environment')
+        $instructor_program = InstructorProgram::with('environment_instructor_programs.environment', 'instructor_program_people.person')
         ->where('date', $day)
+        ->orderBy('created_at', 'Asc')
         ->get();
 
         return view('sigac::reports.environments.table')->with([
             'instructor_program' => $instructor_program        
         ]);
+    }
+
+    public function search_person (Request $request){
+        $term = $request->input('applicant');
+        $persons = Person::whereRaw("CONCAT(first_name, ' ', first_last_name, ' ', second_last_name) LIKE ?", ['%' . $term . '%'])->get();
+
+        
+        $results = [];
+        foreach ($persons as $person) {
+            $results[] = [
+                'id' => $person->id,
+                'text' => $person->first_name . ' ' . $person->first_last_name . ' ' . $person->second_last_name,
+            ];
+        }
+
+        return response()->json($results);
+    }
+
+    public function institucional_request_store(Request $request){
+
     }
 
 }

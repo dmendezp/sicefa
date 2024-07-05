@@ -336,6 +336,18 @@
                                             <p>Trimestralización</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('sigac.academic_coordination.reports.environments.index') }}" class="nav-link">
+                                            <i class="nav-icon fas fa-file-invoice"></i>
+                                            <p>Ambientes</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('sigac.academic_coordination.reports.instructors.index') }}" class="nav-link">
+                                            <i class="nav-icon fas fa-file-invoice"></i>
+                                            <p>Instructores</p>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         @endif

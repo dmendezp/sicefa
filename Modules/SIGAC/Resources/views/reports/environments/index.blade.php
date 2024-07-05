@@ -2,10 +2,6 @@
 
 @section('content')
 
-@extends('sigac::layouts.master')
-
-@section('content')
-
 <div class="content">
     <div class="container-fluid">
         <div class="row d-flex justify-content-center">
@@ -32,10 +28,11 @@
 </div>
 @endsection
 
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+@push('scripts')
 <script>
     $(document).ready(function() {
         var nowDay = $('#day').val();
+        // Escuchar el cambio en el checkbox
         
         $.ajax({
             type: 'POST',
@@ -46,7 +43,6 @@
             },
             success: function(data) {
                 // Actualizar el contenedor con los resultados filtrados
-                console.log(data);
                 $('#divEnvironments').html(data);
                 $('#table').DataTable({});
             },
@@ -77,3 +73,4 @@
         });
     });
 </script>
+@endpush
