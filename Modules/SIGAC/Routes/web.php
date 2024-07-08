@@ -90,10 +90,14 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             
             // Solicitud de Programa
             Route::get('instructor/programming/program_request/index', 'program_request_index')->name('sigac.instructor.programming.program_request.index'); // Programación de horarios (Coordinación Académica)
-            Route::get('programming/program_request/searchperson', 'program_request_searchperson')->name('sigac.programming.program_request.searchperson'); // Buscar instructor
-            Route::get('programming/program_request/searchprofession', 'program_request_searchprofession')->name('sigac.programming.program_request.searchprofession'); // Buscar profesion
-            Route::get('programming/program_request/searchempresa', 'program_request_searchempresa')->name('sigac.programming.program_request.searchempresa'); // Buscar profesion
-            Route::get('programming/program_request/searchapplicant', 'program_request_searchapplicant')->name('sigac.programming.program_request.searchapplicant'); // Buscar profesion
+            Route::get('instructor/programming/program_request/index', 'program_request_index')->name('sigac.academic_coordination.programming.program_request.index'); // Programación de horarios (Coordinación Académica)
+            Route::get('instructor/programming/program_request/searchperson', 'program_request_searchperson')->name('sigac.programming.program_request.searchperson'); // Buscar instructor
+            Route::get('instructor/programming/program_request/searchperson', 'program_request_searchperson')->name('sigac.academic_coordination.programming.program_request.searchperson'); // Buscar instructor
+            Route::get('instructor/programming/program_request/searchprofession', 'program_request_searchprofession')->name('sigac.programming.program_request.searchprofession'); // Buscar profesion
+            Route::get('instructor/programming/program_request/searchprofession', 'program_request_searchprofession')->name('sigac.academic_coordination.programming.program_request.searchprofession'); // Buscar profesion
+            Route::get('instructor/programming/program_request/searchempresa', 'program_request_searchempresa')->name('sigac.programming.program_request.searchempresa'); // Buscar profesion
+            Route::get('instructor/programming/program_request/searchempresa', 'program_request_searchempresa')->name('sigac.academic_coordination.programming.program_request.searchempresa'); // Buscar profesion
+            Route::get('instructor/programming/program_request/searchapplicant', 'program_request_searchapplicant')->name('sigac.programming.program_request.searchapplicant'); // Buscar profesion
             Route::post('instructor/programming/program_request/store', 'program_request_store')->name('sigac.instructor.programming.program_request.store'); // Registrar solicitud del programa (Instructor)
             Route::get('support/programming/program_request/characterization/index', 'program_request_characterization')->name('sigac.support.programming.program_request.characterization.index'); // Solicitudes de caracterización (Apoyo)
             Route::post('support/programming/program_request/characterization/store/{id}', 'program_request_characterization_store')->name('sigac.instructor.programming.program_request.characterization.store'); // Caracterizar programa (Apoyo)
@@ -138,16 +142,16 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
              Route::delete('academic_coordination/curriculum_planning/assign_learning_outcomes/competencie_profession_destroy/{competencie_id}/{profession_id}', 'competencie_profession_destroy')->name('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_destroy'); // Index de Gestion de instructores (Coordinación Académica)
         
              // Curso x Proyecto formativo
-             Route::get('academic_coordination/curriculum_planning/course_trainig_project/course_training_project_index', 'course_training_project_index')->name('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index'); // Index de Gestion de instructores (Coordinación Académica)
-             Route::post('academic_coordination/curriculum_planning/course_trainig_project/table', 'course_training_project_table')->name('sigac.academic_coordination.course_trainig_project.course_trainig_project.table'); // Index de Gestion de instructores (Coordinación Académica)
-             Route::post('academic_coordination/curriculum_planning/course_trainig_project/course_training_project_store', 'course_training_project_store')->name('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_store'); // Index de Gestion de instructores (Coordinación Académica)
-             Route::delete('academic_coordination/curriculum_planning/course_trainig_project/course_training_project_destroy/{training_project_id}/{course_id}', 'course_training_project_destroy')->name('sigac.academic_coordination.curriculum_planning.course_trainig_project.course_training_project_destroy'); // Index de Gestion de instructores (Coordinación Académica)
+             Route::get('academic_coordination/curriculum_planning/course_trainig_project/course_training_project_index', 'course_training_project_index')->name('sigac.academic_coordination.curriculum_planning.course_trainig_project.index'); // Vista asociacion de curso por proyecto formativo (Coordinación Académica)
+             Route::post('academic_coordination/curriculum_planning/course_trainig_project/table', 'course_training_project_table')->name('sigac.academic_coordination.curriculum_planning.course_trainig_project.table'); // Consulta de los cursos por proyecto formativo (Coordinación Académica)
+             Route::post('academic_coordination/curriculum_planning/course_trainig_project/course_training_project_store', 'course_training_project_store')->name('sigac.academic_coordination.curriculum_planning.course_trainig_project.store'); // Asociar curso al proyecto formativo (Coordinación Académica)
+             Route::delete('academic_coordination/curriculum_planning/course_trainig_project/course_training_project_destroy/{training_project_id}/{course_id}', 'course_training_project_destroy')->name('sigac.academic_coordination.curriculum_planning.course_trainig_project.destroy'); // Eliminar asociacion del curso con el proyecto formativo (Coordinación Académica)
  
 
-            // ---------------- Resultado de aprendizaje por clase de ambiente ---------------------------
-            Route::get('academic_coordination/curriculum_planning/learning_class/index', 'competencie_class_index')->name('sigac.academic_coordination.curriculum_planning.competencie_class.index'); // Proyecto formativo (Coordinación Académica)
-            Route::post('academic_coordination/curriculum_planning/learning_class/learning_outcome/learning_class_store', 'competencie_class_store')->name('sigac.academic_coordination.curriculum_planning.competencie_class.store'); // Index de Gestion de instructores (Coordinación Académica)
-            Route::delete('academic_coordination/curriculum_planning/learning_class/destroy/{class_environment_id}/{competencie_id}', 'competencie_class_destroy')->name('sigac.academic_coordination.curriculum_planning.competencie_class.destroy'); // Index de Gestion de instructores (Coordinación Académica)
+            // Competencia por calse de ambiente
+            Route::get('academic_coordination/curriculum_planning/learning_class/index', 'competencie_class_index')->name('sigac.academic_coordination.curriculum_planning.competencie_class.index'); // Vista asociacion de competencia por clase de ambiente (Coordinación Académica)
+            Route::post('academic_coordination/curriculum_planning/learning_class/learning_outcome/learning_class_store', 'competencie_class_store')->name('sigac.academic_coordination.curriculum_planning.competencie_class.store'); // Asociar la competencia a la clase de ambiente (Coordinación Académica)
+            Route::delete('academic_coordination/curriculum_planning/learning_class/destroy/{class_environment_id}/{competencie_id}', 'competencie_class_destroy')->name('sigac.academic_coordination.curriculum_planning.competencie_class.destroy'); // Eliminar asociacion de la competencia con la clase de ambiente (Coordinación Académica)
 
             // ---------------- Cargar Juicio Evaluativo ---------------------------
             Route::get('academic_coordination/curriculum_planning/evaluative_judgment/index', 'evaluative_judgment_index')->name('sigac.academic_coordination.curriculum_planning.evaluative_judgment.index'); // Proyecto formativo (Coordinación Académica)
@@ -159,16 +163,16 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
 
         // Rutas para la administración de asistencias
         Route::controller(AttendanceController::class)->group(function () {
-            Route::get('instructor/attendances/attendance/index', 'attendance_index')->name('sigac.instructor.attendances.attendance.index'); // Consultar excusas de aprendiz (Instructor)
-            Route::get('instructor/attendances/attendance/search', 'attendance_search')->name('sigac.instructor.attendances.attendance.search'); // Consultar excusas de aprendiz (Instructor)
-            Route::get('instructor/attendances/attendance/store', 'attendance_store')->name('sigac.instructor.attendances.attendance.store'); // Consultar excusas de aprendiz (Instructor)
-            Route::get('instructor/consult/excuses', 'consult_excuses')->name('sigac.instructor.attendance.excuses'); // Consultar excusas de aprendiz (Instructor)
-            Route::get('instructor/consult/attendance', 'consult_attendance')->name('sigac.instructor.attendance.consult'); // Consultar asistencia por aprendiz o tituladas (Instructor)
-            Route::get('instructor/register', 'index')->name('sigac.instructor.attendance.register'); // Registrar asistencia de aprendiz por titulada (Instructor)
-            Route::get('wellness/consult/attendance', 'consult_attendance')->name('sigac.wellness.attendance.consult'); // Consultar asistencia por aprendiz o tituladas (Bienestar)
+            Route::get('instructor/attendances/attendance/index', 'attendance_index')->name('sigac.instructor.attendances.attendance.index'); // Vista registro de asistencia (Instructor)
+            Route::get('instructor/attendances/attendance/search', 'attendance_search')->name('sigac.instructor.attendances.attendance.search'); // Consultar asistencia (Instructor)
+            Route::get('instructor/attendances/attendance/store', 'attendance_store')->name('sigac.instructor.attendances.attendance.store'); // Registra asistencia del aprendiz (Instructor)
+            /* Route::get('instructor/consult/excuses', 'consult_excuses')->name('sigac.instructor.attendance.excuses'); // Consultar excusas de aprendiz (Instructor) */
+            /* Route::get('instructor/consult/attendance', 'consult_attendance')->name('sigac.instructor.attendance.consult'); // Consultar asistencia por aprendiz o tituladas (Instructor) */
+            /* Route::get('instructor/register', 'index')->name('sigac.instructor.attendance.register'); // Registrar asistencia de aprendiz por titulada (Instructor) */
+            /* Route::get('wellness/consult/attendance', 'consult_attendance')->name('sigac.wellness.attendance.consult'); // Consultar asistencia por aprendiz o tituladas (Bienestar) */
             Route::get('academic_coordination/reports/attendance', 'reports_attendance')->name('sigac.academic_coordination.reports.attendance.index'); // Vista principal de la sección de reportes de asistencia (Coordinación Académica)
-            Route::get('instructor/reports/attendance', 'reports_attendance')->name('sigac.instructor.reports.attendance.index'); // Vista principal de la sección de reportes de asistencia (Instructor)
-            Route::get('wellness/reports/attendance', 'reports_attendance')->name('sigac.wellness.reports.attendance.index'); // Vista principal de la sección de reportes de asistencia (Bienestar)
+            /* Route::get('instructor/reports/attendance', 'reports_attendance')->name('sigac.instructor.reports.attendance.index'); // Vista principal de la sección de reportes de asistencia (Instructor) */
+            /* Route::get('wellness/reports/attendance', 'reports_attendance')->name('sigac.wellness.reports.attendance.index'); // Vista principal de la sección de reportes de asistencia (Bienestar) */
         });
 
         // Rutas para la administración de funcionalidades de aprendiz
@@ -179,26 +183,26 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
         // Rutas para la programacion de eventos y horarios
         Route::controller(InstructorManagementController::class)->group(function () {
             // Gestion de Instructores
-            Route::get('academic_coordination/human_talent/management_instructor/profession_instructor_index', 'profession_instructor_index')->name('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_index'); // Index de Gestion de instructores (Coordinación Académica)
-            Route::post('academic_coordination/human_talent/management_instructor/profession_instructor_store', 'profession_instructor_store')->name('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_store'); // Index de Gestion de instructores (Coordinación Académica)
-            Route::delete('academic_coordination/human_talent/management_instructor/profession_instructor_destroy/{id}', 'profession_instructor_destroy')->name('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_destroy'); // Index de Gestion de instructores (Coordinación Académica)
+            Route::get('academic_coordination/human_talent/management_instructor/profession_instructor_index', 'profession_instructor_index')->name('sigac.academic_coordination.human_talent.management_instructor.profession_instructor.index'); // Vista asociacion de instructores por profesion (Coordinación Académica)
+            Route::post('academic_coordination/human_talent/management_instructor/profession_instructor_store', 'profession_instructor_store')->name('sigac.academic_coordination.human_talent.management_instructor.profession_instructor.store'); // Asociar profesion al instructor (Coordinación Académica)
+            Route::delete('academic_coordination/human_talent/management_instructor/profession_instructor_destroy/{id}', 'profession_instructor_destroy')->name('sigac.academic_coordination.human_talent.management_instructor.profession_instructor.destroy'); // Eliminar asociación de la profesion y el instructor (Coordinación Académica)
 
             // Resultados de aprendizaje x instructor
-            Route::get('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_index', 'learning_out_people_index')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_index'); // Index de Gestion de instructores (Coordinación Académica)
-            Route::post('academic_coordination/human_talent/assign_learning_outcomes/table', 'learning_out_people_table')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.table'); // Index de Gestion de instructores (Coordinación Académica)
-            Route::post('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_store', 'learning_out_people_store')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_store'); // Index de Gestion de instructores (Coordinación Académica)
-            Route::get('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_search_instructor/{id}', 'learning_out_people_search_instructor')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_search_instructor'); // Index de Gestion de instructores (Coordinación Académica)
-            Route::get('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_search_competencie/{id}', 'learning_out_people_search_competencie')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_search_competencie'); // Index de Gestion de instructores (Coordinación Académica)
-            Route::get('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_search_learning_outcome/{id}', 'learning_out_people_search_learning_outcome')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_search_learning_outcome'); // Index de Gestion de instructores (Coordinación Académica)
-            Route::delete('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_destroy/{learning_id}/{person_id}', 'learning_out_people_destroy')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_destroy'); // Index de Gestion de instructores (Coordinación Académica)
+            Route::get('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_index', 'learning_out_people_index')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.index'); // Vista asociacion de resultado de aprendizaje por instructor (Coordinación Académica)
+            Route::post('academic_coordination/human_talent/assign_learning_outcomes/table', 'learning_out_people_table')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.table'); // Consultar asociacion de instructores por resultado de aprendizaje (Coordinación Académica)
+            Route::post('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_store', 'learning_out_people_store')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.store'); // Asociar resultado de aprendizaje al instructor (Coordinación Académica)
+            Route::get('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_search_instructor/{id}', 'learning_out_people_search_instructor')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.search_instructor'); // Consultar instructor apto para el resultado de aprendizaje (Coordinación Académica)
+            Route::get('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_search_competencie/{id}', 'learning_out_people_search_competencie')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.search_competencie'); // Consultar competencias del programa (Coordinación Académica)
+            Route::get('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_search_learning_outcome/{id}', 'learning_out_people_search_learning_outcome')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.search_learning_outcome'); // Consultar resultado de aprendizaje (Coordinación Académica)
+            Route::delete('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_destroy/{learning_id}/{person_id}', 'learning_out_people_destroy')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.destroy'); // Eliminar asociación del resultado de aprendizaje al instructor (Coordinación Académica)
 
         });
         
-        // Rutas para la programacion de eventos y horarios
         Route::controller(ReportController::class)->group(function () {
-            // Gestion de Instructores
-            Route::get('academic_coordination/reports/quarterlies/index', 'report_quarterlie_index')->name('sigac.academic_coordination.reports.quartelies.index'); // Index de Gestion de instructores (Coordinación Académica)
-            Route::post('academic_coordination/reports/quarterlies/search', 'report_quarterlie_search')->name('sigac.academic_coordination.reports.quartelies.search'); // Index de Gestion de instructores (Coordinación Académica)
+            
+            // Reporte trimestralización
+            Route::get('academic_coordination/reports/quarterlies/index', 'report_quarterlie_index')->name('sigac.academic_coordination.reports.quartelies.index'); // Vista reporte trimestralización (Coordinación Académica)
+            Route::post('academic_coordination/reports/quarterlies/search', 'report_quarterlie_search')->name('sigac.academic_coordination.reports.quartelies.search'); // Consultar trimestralización del curso (Coordinación Académica)
 
         });
 

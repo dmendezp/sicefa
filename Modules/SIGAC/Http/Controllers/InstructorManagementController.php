@@ -83,12 +83,12 @@ class InstructorManagementController extends Controller{
         // Realizar registro
         if(!$existingRecord){
             if ($professions->people()->syncWithoutDetaching($request->instructor)){
-                return redirect(route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_index'))->with(['success'=> trans('sigac::profession.Successful_Aggregation')]);
+                return redirect(route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor.index'))->with(['success'=> trans('sigac::profession.Successful_Aggregation')]);
             } else {
-                return redirect(route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_index'))->with(['error'=> trans('sigac::profession.Error_Adding')]);
+                return redirect(route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor.index'))->with(['error'=> trans('sigac::profession.Error_Adding')]);
             }
         }else{
-            return redirect(route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_index'))->with(['error'=> trans('sigac::learning_out_come.RecordAlreadyExistsWithDataSent')]);
+            return redirect(route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor.index'))->with(['error'=> trans('sigac::learning_out_come.RecordAlreadyExistsWithDataSent')]);
         }
     }
 
@@ -96,9 +96,9 @@ class InstructorManagementController extends Controller{
         $professionProgram = DB::table('person_professions')->where('id', $id)->delete();
 
         if($professionProgram){
-            return redirect(route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_index'))->with(['success'=> trans('sigac::profession.Successful_Removal')]);
+            return redirect(route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor.index'))->with(['success'=> trans('sigac::profession.Successful_Removal')]);
         }else{
-            return redirect(route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_index'))->with(['error'=> trans('sigac::profession.Delete_Error')]);
+            return redirect(route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor.index'))->with(['error'=> trans('sigac::profession.Delete_Error')]);
         }
     }
 
@@ -270,6 +270,6 @@ class InstructorManagementController extends Controller{
         // Eliminar la relación a través de Eloquent
         $learning_outcome->people()->detach($person_id);
         
-        return redirect(route('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
+        return redirect(route('sigac.academic_coordination.human_talent.assign_learning_outcomes.index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
     }
 }

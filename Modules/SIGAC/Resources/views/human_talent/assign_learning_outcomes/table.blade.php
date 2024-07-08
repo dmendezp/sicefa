@@ -34,7 +34,7 @@
                         <td class="text-center">
                             @foreach($people as $learning_outcome_person)
                                 <form id="delete-assignlearning-form-{{ $learning_outcome_person->id }}{{ $learning_outcome_person->person->id }}"
-                                    action="{{ route('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_destroy', ['learning_id' => $learning_outcome_person->id, 'person_id' => $learning_outcome_person->person->id]) }}"
+                                    action="{{ route('sigac.academic_coordination.human_talent.assign_learning_outcomes.destroy', ['learning_id' => $learning_outcome_person->id, 'person_id' => $learning_outcome_person->person->id]) }}"
                                     method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')

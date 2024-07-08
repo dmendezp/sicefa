@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 pr-3 pb-3">
-                                <form action="{{ route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_store') }}" method="post">
+                                <form action="{{ route('sigac.academic_coordination.curriculum_planning.course_trainig_project.store') }}" method="post">
                                     @csrf
                                     <div class="form-group">
                                         {!! Form::label('training_project', trans('sigac::learning_out_come.TrainingProject')) !!}
@@ -98,7 +98,7 @@
             
             $.ajax({
                 type: 'POST',
-                url: "{{ route('sigac.academic_coordination.course_trainig_project.course_trainig_project.table') }}",
+                url: "{{ route('sigac.academic_coordination.curriculum_planning.course_trainig_project.table') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     training_project: training_project

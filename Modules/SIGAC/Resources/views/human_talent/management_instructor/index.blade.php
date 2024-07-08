@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 pr-3 pb-3">
-                                <form action="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_store') }}" method="post">
+                                <form action="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor.store') }}" method="post">
                                     @csrf
                                     <div class="form-group">
                                         {!! Form::label('instructor',  trans('sigac::profession.Instructor')) !!}
@@ -52,7 +52,7 @@
                                                     </a>
                                                 </td>
                                                 <form id="delete-person_profession-form-{{ $p->id }}"
-                                                    action="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_destroy', ['id' => $p->id]) }}"
+                                                    action="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor.destroy', ['id' => $p->id]) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')

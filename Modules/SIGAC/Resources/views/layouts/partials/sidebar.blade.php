@@ -205,13 +205,13 @@
                             </a>
                             <ul class="nav nav-treeview items" style="display: none;">
                                 <li class="nav-item">
-                                    <a href="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_index') }}" class="nav-link">
+                                    <a href="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-th-large"></i>
                                         <p>Gestion Instructores</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_index')}}" class="nav-link">
+                                    <a href="{{route('sigac.academic_coordination.human_talent.assign_learning_outcomes.index')}}" class="nav-link">
                                         <i class="nav-icon fas fa-user-plus"></i>
                                         <p>Instructor x Rap</p>
                                     </a>
@@ -247,7 +247,7 @@
                                     </a>
                                 </li> 
                                 <li class="nav-item">
-                                    <a href="{{ route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index') }}" class="nav-link">
+                                    <a href="{{ route('sigac.academic_coordination.curriculum_planning.course_trainig_project.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-tags"></i>
                                         <p>Cu x Proyecto Formativo</p>
                                     </a>
@@ -349,10 +349,10 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview items" style="display: none;">
-                                @if (Auth::user()->havePermission('sigac.instructor.attendance.register'))
+                                @if (Auth::user()->havePermission('sigac.instructor.attendances.attendance.index'))
                                     <li class="nav-item">
                                         <a href="{{ route('sigac.instructor.attendances.attendance.index') }}"
-                                            class="nav-link {{ !Route::is('sigac.instructor.attendance.register*') ?: 'active' }}">
+                                            class="nav-link {{ !Route::is('sigac.instructor.attendances.attendance.index*') ?: 'active' }}">
                                             <i class="nav-icon fas fa-user-check"></i>
                                             <p>{{ trans('sigac::general.AttendanceRegister') }}</p>
                                         </a>
