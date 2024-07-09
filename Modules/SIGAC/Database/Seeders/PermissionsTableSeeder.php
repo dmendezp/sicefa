@@ -810,15 +810,6 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
 
-        // Registra asistencia del aprendiz (Instructor)
-        $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.attendances.attendance.index'], [ // Registro o actualización de permiso
-            'name' => 'Registra asistencia del aprendiz (Instructor)',
-            'description' => 'Realizar el registro de la asistencia del aprendiz',
-            'description_english' => "Record the apprentice's attendance",
-            'app_id' => $app->id
-        ]);
-        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
-
         // Consultar empresa (Instructor)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.programming.program_request.searchempresa'], [ // Registro o actualización de permiso
             'name' => 'Consultar empresa (Instructor)',
@@ -934,6 +925,83 @@ class PermissionsTableSeeder extends Seeder
         $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
         $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
         $permissions_wellness[] = $permission->id; // Almacenar permiso para rol
+
+        // Registra asistencia del aprendiz (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.attendances.attendance.store'], [ // Registro o actualización de permiso
+            'name' => 'Registra asistencia del aprendiz (Instructor)',
+            'description' => 'Realizar el registro de la asistencia del aprendiz',
+            'description_english' => "Record the apprentice's attendance",
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol 
+
+        // SOLICITAR PROGRAMA -- COORDINADOR ACADEMICO
+
+        // Vista solicitar programa (Coordiandor Academico)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.program_request.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista solicitar programa (Coordiandor Academico)',
+            'description' => 'Acceder a la vista de la solicitud de programas de formaciòn',
+            'description_english' => "Access the view of the application for training programs",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar profesion del instructor (Coordiandor Academico)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.program_request.searchprofession'], [ // Registro o actualización de permiso
+            'name' => 'Consultar profesion del instructor (Coordiandor Academico)',
+            'description' => 'Consultar profesion del instructor',
+            'description_english' => "Consult the instructor's profession",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+
+        // Consultar empresa (Coordiandor Academico)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.program_request.searchempresa'], [ // Registro o actualización de permiso
+            'name' => 'Consultar empresa (Coordiandor Academico)',
+            'description' => 'Consultar la empresa',
+            'description_english' => "Consult the company",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar solicitador (Coordiandor Academico)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.program_request.searchapplicant'], [ // Registro o actualización de permiso
+            'name' => 'Consultar solicitador (Coordiandor Academico)',
+            'description' => 'Consultar el solicitador',
+            'description_english' => "Consult the requester",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar solicitud del programa (Coordiandor Academico)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.program_request.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar solicitud del programa (Coordiandor Academico)',
+            'description' => 'Realizar el registro de la solicitud del programa',
+            'description_english' => "Register the program application",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // REPORTE TRIMESTRALIZACON -- INSTRUCTOR
+
+        // Vista reporte trimestralización (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.reports.quartelies.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista reporte trimestralización (Instructor)',
+            'description' => 'Acceder a la vista para consultar el reporte de trimestralización',
+            'description_english' => "Access the view to consult the quarterly report",
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar trimestralización del curso (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.reports.quartelies.search'], [ // Registro o actualización de permiso
+            'name' => 'Consultar trimestralización del curso (Instructor)',
+            'description' => 'Consultar trimestralización del curso',
+            'description_english' => "Consult course trimester",
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
 
 
         // Consulta de ROLES

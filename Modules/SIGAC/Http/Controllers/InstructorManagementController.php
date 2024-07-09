@@ -262,14 +262,12 @@ class InstructorManagementController extends Controller{
     }
 }
 
-    public function learning_out_people_destroy($learning_id, $person_id)
-    {
-        // Obtener la competencia
-        $learning_outcome = LearningOutcome::findOrFail($learning_id);
+    public function learning_out_people_destroy($learning_outcome_person_id)
+{
+    $learning_outcome_people = DB::table('learning_outcome_people')->where('id', $learning_outcome_person_id)->delete();
+    
+    return redirect()->route('sigac.academic_coordination.human_talent.assign_learning_outcomes.index')
+    ->with(['success' => trans('sigac::profession.Successful_Removal')]);
+}
 
-        // Eliminar la relación a través de Eloquent
-        $learning_outcome->people()->detach($person_id);
-        
-        return redirect(route('sigac.academic_coordination.human_talent.assign_learning_outcomes.index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
-    }
 }

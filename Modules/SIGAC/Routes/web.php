@@ -93,14 +93,16 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             // Solicitud de Programa
             Route::get('instructor/programming/program_request/index', 'program_request_index')->name('sigac.instructor.programming.program_request.index'); // Programación de horarios (Coordinación Académica)
             Route::get('academic_coordination/programming/program_request/index', 'program_request_index')->name('sigac.academic_coordination.programming.program_request.index'); // Programación de horarios (Coordinación Académica)
-            Route::get('instructor/programming/program_request/searchperson', 'program_request_searchperson')->name('sigac.programming.program_request.searchperson'); // Buscar instructor
+            Route::get('instructor/programming/program_request/searchperson', 'program_request_searchperson')->name('sigac.instructor.programming.program_request.searchperson'); // Buscar instructor
             Route::get('academic_coordination/programming/program_request/searchperson', 'program_request_searchperson')->name('sigac.academic_coordination.programming.program_request.searchperson'); // Buscar instructor
-            Route::get('instructor/programming/program_request/searchprofession', 'program_request_searchprofession')->name('sigac.programming.program_request.searchprofession'); // Buscar profesion
+            Route::get('instructor/programming/program_request/searchprofession', 'program_request_searchprofession')->name('sigac.instructor.programming.program_request.searchprofession'); // Buscar profesion
             Route::get('academic_coordination/programming/program_request/searchprofession', 'program_request_searchprofession')->name('sigac.academic_coordination.programming.program_request.searchprofession'); // Buscar profesion
-            Route::get('instructor/programming/program_request/searchempresa', 'program_request_searchempresa')->name('sigac.programming.program_request.searchempresa'); // Buscar profesion
+            Route::get('instructor/programming/program_request/searchempresa', 'program_request_searchempresa')->name('sigac.instructor.programming.program_request.searchempresa'); // Buscar profesion
             Route::get('academic_coordination/programming/program_request/searchempresa', 'program_request_searchempresa')->name('sigac.academic_coordination.programming.program_request.searchempresa'); // Buscar profesion
-            Route::get('instructor/programming/program_request/searchapplicant', 'program_request_searchapplicant')->name('sigac.programming.program_request.searchapplicant'); // Buscar profesion
+            Route::get('instructor/programming/program_request/searchapplicant', 'program_request_searchapplicant')->name('sigac.instructor.programming.program_request.searchapplicant'); // Buscar profesion
+            Route::get('academic_coordination/programming/program_request/searchapplicant', 'program_request_searchapplicant')->name('sigac.academic_coordination.programming.program_request.searchapplicant'); // Buscar profesion
             Route::post('instructor/programming/program_request/store', 'program_request_store')->name('sigac.instructor.programming.program_request.store'); // Registrar solicitud del programa (Instructor)
+            Route::post('academic_coordination/programming/program_request/store', 'program_request_store')->name('sigac.academic_coordination.programming.program_request.store'); // Registrar solicitud del programa (Instructor)
             Route::get('support/programming/program_request/characterization/index', 'program_request_characterization')->name('sigac.support.programming.program_request.characterization.index'); // Solicitudes de caracterización (Apoyo)
             Route::post('support/programming/program_request/characterization/store/{id}', 'program_request_characterization_store')->name('sigac.instructor.programming.program_request.characterization.store'); // Caracterizar programa (Apoyo)
             Route::post('support/programming/program_request/characterization/devolution/{id}', 'program_request_characterization_devolution')->name('sigac.instructor.programming.program_request.characterization.devolution'); // Devolver solicitud (Apoyo)
@@ -191,7 +193,7 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_search_instructor/{id}', 'learning_out_people_search_instructor')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.search_instructor'); // Consultar instructor apto para el resultado de aprendizaje (Coordinación Académica)
             Route::get('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_search_competencie/{id}', 'learning_out_people_search_competencie')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.search_competencie'); // Consultar competencias del programa (Coordinación Académica)
             Route::get('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_search_learning_outcome/{id}', 'learning_out_people_search_learning_outcome')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.search_learning_outcome'); // Consultar resultado de aprendizaje (Coordinación Académica)
-            Route::delete('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_destroy/{learning_id}/{person_id}', 'learning_out_people_destroy')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.destroy'); // Eliminar asociación del resultado de aprendizaje al instructor (Coordinación Académica)
+            Route::delete('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_destroy/{learning_outcome_person_id}', 'learning_out_people_destroy')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.destroy'); // Eliminar asociación del resultado de aprendizaje al instructor (Coordinación Académica)
 
         });
         
@@ -199,7 +201,9 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             
             // Reporte trimestralización
             Route::get('academic_coordination/reports/quarterlies/index', 'report_quarterlie_index')->name('sigac.academic_coordination.reports.quartelies.index'); // Vista reporte trimestralización (Coordinación Académica)
+            Route::get('instructor/reports/quarterlies/index', 'report_quarterlie_index')->name('sigac.instructor.reports.quartelies.index'); // Vista reporte trimestralización (Coordinación Académica)
             Route::post('academic_coordination/reports/quarterlies/search', 'report_quarterlie_search')->name('sigac.academic_coordination.reports.quartelies.search'); // Consultar trimestralización del curso (Coordinación Académica)
+            Route::post('instructor/reports/quarterlies/search', 'report_quarterlie_search')->name('sigac.instructor.reports.quartelies.search'); // Consultar trimestralización del curso (Coordinación Académica)
 
         });
 

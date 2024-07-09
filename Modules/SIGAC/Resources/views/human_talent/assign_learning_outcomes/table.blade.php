@@ -24,7 +24,6 @@
                             </ul>
                         </td>
                         <td class="text-center">
-                            <!-- Mostrar prioridad si es necesario. De lo contrario, eliminar esta columna si no se necesita -->
                             @foreach($people as $learning_outcome_person)
                                 {{ $learning_outcome_person->priority }}
                                 <br>
@@ -33,13 +32,12 @@
                         </td>
                         <td class="text-center">
                             @foreach($people as $learning_outcome_person)
-                                <form id="delete-assignlearning-form-{{ $learning_outcome_person->id }}{{ $learning_outcome_person->person->id }}"
-                                    action="{{ route('sigac.academic_coordination.human_talent.assign_learning_outcomes.destroy', ['learning_id' => $learning_outcome_person->id, 'person_id' => $learning_outcome_person->person->id]) }}"
+                                <form id="delete-assignlearning-form-{{ $learning_outcome_person->id }}"
+                                    action="{{ route('sigac.academic_coordination.human_talent.assign_learning_outcomes.destroy', ['learning_outcome_person_id' => $learning_outcome_person->id]) }}"
                                     method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <a form="delete-assignlearning-form-{{ $learning_outcome_person->id }}{{ $learning_outcome_person->person->id }}"
-                                       onclick="confirmDelete(event);" style="margin-right: 10px;">
+                                    <a href="#" onclick="confirmDelete(event, '{{ $learning_outcome_person->id }}');" style="margin-right: 10px;">
                                         <b class="text-danger" data-toggle="tooltip" data-placement="top" title="{{ trans('sigac::profession.Eliminate') }}">
                                             <i class="fas fa-trash-alt"></i>
                                         </b>
@@ -56,25 +54,20 @@
     </table>
 </div>
 <script>
-    $(document).ready(function() {
-        $('.delete-person_profession').on('click', function(event) {
-            var profession_program_id = $(this).data('person_profession-id');
-
-            // Mostrar SweetAlert para confirmar la eliminación
-            Swal.fire({
-                title: '{{trans('sigac::profession.You_Sure')}}',
+    function confirmDelete(event, learning_outcome_person_id) {
+        event.preventDefault();
+        Swal.fire({
+            title: '{{trans('sigac::profession.You_Sure')}}',
                 text: '{{trans('sigac::profession.This_Action_Can_Undone')}}',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
                 confirmButtonText: '{{trans('sigac::profession.Yes_Delete')}}'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Si el usuario confirma, enviar el formulario de eliminación
-                    document.getElementById('delete-person_profession-form-' + profession_program_id).submit();
-                }
-            });
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-assignlearning-form-' + learning_outcome_person_id).submit();
+            }
         });
-    });
+    }
 </script>
