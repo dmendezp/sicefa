@@ -88,7 +88,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "{{ route('sigac.academic_coordination.curriculum_planning.competencie_profession.table') }}",
+                url: "{{ route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession.table') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     selectedProgram: selectedProgram

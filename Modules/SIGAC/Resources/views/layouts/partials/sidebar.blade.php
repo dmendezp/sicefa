@@ -137,9 +137,9 @@
                                         <p>Parametros</p>
                                     </a>
                                 </li>
-                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming.index'))
+                                @if (Auth::user()->havePermission('sigac.programming.index'))
                                     <li class="nav-item">
-                                        <a href="{{ route('sigac.academic_coordination.programming.index') }}"
+                                        <a href="{{ route('sigac.programming.index') }}"
                                             class="nav-link {{ !Route::is('sigac.academic_coordination.programming.*') ?: 'active' }}">
                                             <i class="nav-icon far fa-calendar-alt"></i>
                                             <p>{{ trans('sigac::general.Scheduling') }}</p>
@@ -323,9 +323,9 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview" style="display: none;">
-                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming.index'))
+                                @if (Auth::user()->havePermission('sigac.programming.index'))
                                     <li class="nav-item">
-                                        <a href="{{ route('sigac.academic_coordination.programming.index') }}"
+                                        <a href="{{ route('sigac.programming.index') }}"
                                             class="nav-link {{ !Route::is('sigac.academic_coordination.programming.*') ?: 'active' }}">
                                             <i class="nav-icon far fa-calendar-alt"></i>
                                             <p>{{ trans('sigac::general.Scheduling') }}</p>
@@ -460,9 +460,9 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview" style="display: none;">
-                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming.index'))
+                                @if (Auth::user()->havePermission('sigac.programming.index'))
                                     <li class="nav-item">
-                                        <a href="{{ route('sigac.academic_coordination.programming.index') }}"
+                                        <a href="{{ route('sigac.programming.index') }}"
                                             class="nav-link {{ !Route::is('sigac.academic_coordination.programming.*') ?: 'active' }}">
                                             <i class="nav-icon far fa-calendar-alt"></i>
                                             <p>{{ trans('sigac::general.Scheduling') }}</p>
@@ -502,9 +502,9 @@
 
                     <!-- Menú de opciones para Aprendiz -->
                     @if (Route::is('sigac.apprentice.*'))
-                        @if (Auth::user()->havePermission('sigac.academic_coordination.programming.index'))
+                        @if (Auth::user()->havePermission('sigac.programming.index'))
                             <li class="nav-item">
-                                <a href="{{ route('sigac.academic_coordination.programming.index') }}"
+                                <a href="{{ route('sigac.programming.index') }}"
                                     class="nav-link {{ !Route::is('sigac.academic_coordination.programming.*') ?: 'active' }}">
                                     <i class="nav-icon far fa-calendar-alt"></i>
                                     <p>{{ trans('sigac::general.Scheduling') }}</p>

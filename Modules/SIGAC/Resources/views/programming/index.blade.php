@@ -66,7 +66,7 @@
                       </h2>
                       <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                         <br>
-                        {!! Form::open(['route' => 'sigac.academic_coordination.programming.management.novelty', 'method' => 'POST']) !!}
+                        {!! Form::open(['route' => 'sigac.academic_coordination.programming.management.novelty.store', 'method' => 'POST']) !!}
                         @csrf
                         {!! Form::hidden('instructor_program_id', null, ['id' => 'instructor_program_id']) !!}
                         <div class="form-group">
@@ -272,7 +272,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "{{ route('sigac.academic_coordination.programming.management.search') }}",
+                url: "{{ route('sigac.programming.management.search') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     search: $(this).val(),
@@ -364,7 +364,7 @@
             $('#titulo').text(titulo);
             $.ajax({
                 type: 'POST',
-                url: "{{ route('sigac.academic_coordination.programming.management.filter') }}",
+                url: "{{ route('sigac.programming.management.filter') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     filter: filter

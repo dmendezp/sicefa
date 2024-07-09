@@ -55,3 +55,26 @@
         </tbody>
     </table>
 </div>
+<script>
+    $(document).ready(function() {
+        $('.delete-person_profession').on('click', function(event) {
+            var profession_program_id = $(this).data('person_profession-id');
+
+            // Mostrar SweetAlert para confirmar la eliminación
+            Swal.fire({
+                title: '{{trans('sigac::profession.You_Sure')}}',
+                text: '{{trans('sigac::profession.This_Action_Can_Undone')}}',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: '{{trans('sigac::profession.Yes_Delete')}}'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Si el usuario confirma, enviar el formulario de eliminación
+                    document.getElementById('delete-person_profession-form-' + profession_program_id).submit();
+                }
+            });
+        });
+    });
+</script>

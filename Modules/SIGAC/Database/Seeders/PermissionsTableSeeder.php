@@ -21,6 +21,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_instructor = []; // Permisos para el Instructor
         $permissions_wellness = []; // Permisos para Bienestar
         $permissions_apprentice = []; // Permisos para Aprendiz
+        $permissions_support = []; // Permisos para Aprendiz
 
         // Consultar aplicación SICA para registrar los roles
         $app = App::where('name', 'SIGAC')->firstOrFail();
@@ -47,6 +48,9 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+
+        // ¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬ MODULO PARAMETROS ¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬
 
         // Vista Parametros (Coordinación Académica)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.parameters.index'], [ // Registro o actualización de permiso
@@ -189,6 +193,324 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
 
+            
+        // ACTIVIDADES EXTERNAS
+
+        // Registrar actividad externa (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.parameters.external_activities.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar actividad externa (Coordinación Académica)',
+            'description' => 'Realizar el registro de la actividad externa',
+            'description_english' => "Record external activity",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar actividad externa (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.parameters.external_activities.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar actividad externa (Coordinación Académica)',
+            'description' => 'Realizar la actualización de la actividad externa',
+            'description_english' => "Perform external activity update",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar actividad externa (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.parameters.external_activities.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar actividad externa (Coordinación Académica)',
+            'description' => 'Eliminar la actividad externa',
+            'description_english' => "Eliminate external activity",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // PROFESION
+
+        // Registrar profesion (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.profession.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar profesion (Coordinación Académica)',
+            'description' => 'Realizar el registro de la profesion',
+            'description_english' => "Record profession",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar profesion (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.profession.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar profesion (Coordinación Académica)',
+            'description' => 'Realizar la actualización de la profesion',
+            'description_english' => "Perform profession update",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar profesion (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.profession.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar profesion (Coordinación Académica)',
+            'description' => 'Eliminar la profesion',
+            'description_english' => "Eliminate profession",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // PROGRAMA ESPECIAL
+
+        // Registrar programa especial (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.parameters.special_program.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar programa especial (Coordinación Académica)',
+            'description' => 'Realizar el registro de la programa especial',
+            'description_english' => "Record special program",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar programa especial (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.parameters.special_program.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar programa especial (Coordinación Académica)',
+            'description' => 'Realizar la actualización de la programa especial',
+            'description_english' => "Perform special program update",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar programa especial (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.parameters.special_program.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar programa especial (Coordinación Académica)',
+            'description' => 'Eliminar la programa especial',
+            'description_english' => "Eliminate special program",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+
+        // ¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬ MODULO GESTION DE LA PROGRAMACION ¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬
+
+        // Vista gestionar la programación (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.management.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista gestionar la programación (Coordinación Académica)',
+            'description' => 'Acceder a la vista para la gesion de la programación',
+            'description_english' => "Access the view for scheduling management",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar numero de trimestres (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.management.search_quarter_number'], [ // Registro o actualización de permiso
+            'name' => 'Consultar numero de trimestres (Coordinación Académica)',
+            'description' => 'Consultar numero de trimestres del curso',
+            'description_english' => "Check the number of quarters of the course",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar trimestralización (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.management.filterquarterlie'], [ // Registro o actualización de permiso
+            'name' => 'Consultar trimestralización (Coordinación Académica)',
+            'description' => 'Consultar la trimestralización del curso',
+            'description_english' => "Consult the course quarterly",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar resultados de aprendizaje (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.management.filterlearning'], [ // Registro o actualización de permiso
+            'name' => 'Consultar resultados de aprendizaje (Coordinación Académica)',
+            'description' => 'Consultar los resultados de aprendizaje del curso',
+            'description_english' => "View course learning outcomes",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar instructores (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.management.filterinstructor'], [ // Registro o actualización de permiso
+            'name' => 'Consultar instructores (Coordinación Académica)',
+            'description' => 'Consultar instructores enfocados en el resultado de aprendizaje',
+            'description_english' => "Consult instructors focused on learning outcomes",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar ambientes (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.management.filterenvironment'], [ // Registro o actualización de permiso
+            'name' => 'Consultar ambientes (Coordinación Académica)',
+            'description' => 'Consultar ambientes aptos para la formacion de la competencia',
+            'description_english' => "Consult environments suitable for training competition",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar estado del resultado de prendizaje (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.management.filterstatelearning'], [ // Registro o actualización de permiso
+            'name' => 'Consultar estado del resultado de prendizaje (Coordinación Académica)',
+            'description' => 'Consultar si el resultado de aprendizaje ya esta programado',
+            'description_english' => "Check if the learning result is already programmed",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar programación del instructor (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.management.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar programación del instructor (Coordinación Académica)',
+            'description' => 'Realizar el registro de la programación del instructor',
+            'description_english' => "Record instructor programming",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar novedad de la programación (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.management.novelty.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar novedad de la programación (Coordinación Académica)',
+            'description' => 'Realizar el registro de la novedad de la programación del instructor',
+            'description_english' => "Record the newness of the instructor's programming",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+
+        // ¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬ MODULO PLANEACION CURRICULAR ¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬
+
+
+        // PROYECTO FORMATIVO
+
+        // Vista proyectos formativos y cursos (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.training_project.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista proyectos formativos y cursos (Coordinación Académica)',
+            'description' => 'Acceder a la vista de los proyectos formativos y cursos',
+            'description_english' => "Access the view of training projects and courses",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar proyecto formativo (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.training_project.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar proyecto formativo (Coordinación Académica)',
+            'description' => 'Registrar proyecto formativo',
+            'description_english' => "Register training project",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar proyecto formativo (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.training_project.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar proyecto formativo (Coordinación Académica)',
+            'description' => 'Actualizar proyecto formativo',
+            'description_english' => "Update training project",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar proyecto formativo (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.training_project.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar proyecto formativo (Coordinación Académica)',
+            'description' => 'Eliminar proyecto formativo',
+            'description_english' => "Delete training project",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+
+        // TRIMESTRALIZACIÓN
+
+        // Vista trimestralización del curso (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.training_project.quarterlie.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista trimestralización del curso (Coordinación Académica)',
+            'description' => 'Acceder a la vista de la trimestralización del curso',
+            'description_english' => "Access the course quarterly view",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar resultados de aprendizaje por competencia (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.quarterlie.filterlearning'], [ // Registro o actualización de permiso
+            'name' => 'Consultar resultados de aprendizaje por competencia (Coordinación Académica)',
+            'description' => 'Consultar resultados de aprendizaje por competencia',
+            'description_english' => "Consult learning results by competency",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+        
+        // Registrar trimestralizaciòn (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.quarterlie.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar trimestralizaciòn (Coordinación Académica)',
+            'description' => 'Registrar trimestralizaciòn',
+            'description_english' => "Register quarterly",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar trimestralizaciòn (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.quarterlie.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar trimestralizaciòn (Coordinación Académica)',
+            'description' => 'Eliminar trimestralizaciòn',
+            'description_english' => "Delete quarterly",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista carge de trimestralizaciòn (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.quarterlie.load.create'], [ // Registro o actualización de permiso
+            'name' => 'Vista carge de trimestralizaciòn (Coordinación Académica)',
+            'description' => 'Acceder a la vista para cargar la trimestralizaciòn',
+            'description_english' => "Access the view to load the quarterly",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar trimestralizaciones cargadas (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.quarterlie.load.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar trimestralizaciones cargadas (Coordinación Académica)',
+            'description' => 'Realizar el registro de las trimestralizaciones cargadas',
+            'description_english' => "Register the quarterly payments uploaded",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // PROFESION X COMPETENCIA
+
+        // Vista asignacion de profesion por competencia (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index'], [ // Registro o actualización de permiso
+            'name' => 'Vista asignacion de profesion por competencia (Coordinación Académica)',
+            'description' => 'Acceder a la vista de asignacion de profesion por competencia',
+            'description_english' => "Access the profession assignment view by competency",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar profesiones asignadas por programa (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession.table'], [ // Registro o actualización de permiso
+            'name' => 'Consultar profesiones asignadas por programa (Coordinación Académica)',
+            'description' => 'Consultar profesiones asignadas por programa',
+            'description_english' => "Consult professions assigned by program",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Asignar profesion a la competencia (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_store'], [ // Registro o actualización de permiso
+            'name' => 'Asignar profesion a la competencia (Coordinación Académica)',
+            'description' => 'Asignar profesion a la competencia',
+            'description_english' => "Assign profession to competition",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar la consulta profesiones asignadas (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_search'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar la consulta profesiones asignadas (Coordinación Académica)',
+            'description' => 'Actualizar la consulta profesiones asignadas',
+            'description_english' => "Update the assigned professions query",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar asociación de la profesion asignada con la competencia (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar asociación de la profesion asignada con la competencia (Coordinación Académica)',
+            'description' => 'Eliminar asociación de la profesion asignada con la competencia',
+            'description_english' => "Eliminate association of the assigned profession with the competition",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
         // CURSO X PROYECTO FORMATIVO
 
         // Vista asociacion de curso por proyecto formativo (Coordinación Académica)
@@ -208,12 +530,30 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+        
+        // Consultar profesiones asignadas por programa (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession.table'], [ // Registro o actualización de permiso
+            'name' => 'Consultar profesiones asignadas por programa (Coordinación Académica)',
+            'description' => 'Consultar profesiones asignadas por programa',
+            'description_english' => "Consult professions assigned by program",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
 
         // Asociar curso al proyecto formativo (Coordinación Académica)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.course_trainig_project.store'], [ // Registro o actualización de permiso
             'name' => 'Asociar curso al proyecto formativo (Coordinación Académica)',
             'description' => 'Asociación curso al proyecto formativo',
             'description_english' => "Associated course to the training project",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+        
+        // Asignar profesion a la competencia (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_store'], [ // Registro o actualización de permiso
+            'name' => 'Asignar profesion a la competencia (Coordinación Académica)',
+            'description' => 'Asignar profesion a la competencia',
+            'description_english' => "Assign profession to competition",
             'app_id' => $app->id
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
@@ -226,6 +566,7 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+        
 
         // COMPETENCIA POR CALSE DE AMBIENTE
 
@@ -382,7 +723,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
 
         // Consultar resultado de aprendizaje (Coordinación Académica)
-        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.human_talent.assign_learning_outcomes.search_competencie'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.human_talent.assign_learning_outcomes.search_learning_outcome'], [ // Registro o actualización de permiso
             'name' => 'Consultar resultado de aprendizaje (Coordinación Académica)',
             'description' => 'Consultar resultados de aprendizajes de la competencia',
             'description_english' => "Consult competition learning results",
@@ -390,11 +731,11 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
 
-        // Eliminar asociación del resultado de aprendizaje al instructor (Coordinación Académica)
-        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.human_talent.assign_learning_outcomes.search_competencie'], [ // Registro o actualización de permiso
-            'name' => 'Eliminar asociación del resultado de aprendizaje al instructor (Coordinación Académica)',
-            'description' => 'Eliminar asociación del resultado de aprendizaje al instructor',
-            'description_english' => "Remove association from learning outcome to instructor",
+        // Eliminar asociación de la profesion asignada con la competencia (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.human_talent.assign_learning_outcomes.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar asociación de la profesion asignada con la competencia (Coordinación Académica)',
+            'description' => 'Eliminar asociación de la profesion asignada con la competencia',
+            'description_english' => "Eliminate association of the assigned profession with the competition",
             'app_id' => $app->id
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
@@ -441,12 +782,30 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
+        
+        // Vista solicitar programa (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.programming.program_request.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista solicitar programa (Instructor)',
+            'description' => 'Acceder a la vista de la solicitud de programas de formaciòn',
+            'description_english' => "Access the view of the application for training programs",
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
 
         // Consultar asistencia (Instructor)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.attendances.attendance.search'], [ // Registro o actualización de permiso
             'name' => 'Consultar asistencia (Instructor)',
             'description' => 'Consultar asistencia por fecha',
             'description_english' => "Check attendance by date",
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
+        
+        // Consultar profesion del instructor (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.programming.program_request.searchprofession'], [ // Registro o actualización de permiso
+            'name' => 'Consultar profesion del instructor (Instructor)',
+            'description' => 'Consultar profesion del instructor',
+            'description_english' => "Consult the instructor's profession",
             'app_id' => $app->id
         ]);
         $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
@@ -460,6 +819,32 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
 
+        // Consultar empresa (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.programming.program_request.searchempresa'], [ // Registro o actualización de permiso
+            'name' => 'Consultar empresa (Instructor)',
+            'description' => 'Consultar la empresa',
+            'description_english' => "Consult the company",
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar solicitador (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.programming.program_request.searchapplicant'], [ // Registro o actualización de permiso
+            'name' => 'Consultar solicitador (Instructor)',
+            'description' => 'Consultar el solicitador',
+            'description_english' => "Consult the requester",
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar solicitud del programa (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.programming.program_request.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar solicitud del programa (Instructor)',
+            'description' => 'Realizar el registro de la solicitud del programa',
+            'description_english' => "Register the program application",
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
 
         //  ----------------------------------- ROL BIENESTAR ------------------------------------------
 
@@ -483,16 +868,86 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
 
+        //  ----------------------------------- ROL APOYO ------------------------------------------
+
+        // Vista solicitude de programas (Apoyo)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.support.programming.program_request.characterization.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista solicitude de programas (Apoyo)',
+            'description' => 'Acceder a la vista de las solicitudes de programas',
+            'description_english' => "Access the program request view",
+            'app_id' => $app->id
+        ]);
+        $permissions_support[] = $permission->id; // Almacenar permiso para rol
+
+        // Caracterizar programa (Apoyo)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.support.programming.program_request.characterization.store'], [ // Registro o actualización de permiso
+            'name' => 'Caracterizar programa (Apoyo)',
+            'description' => 'Caracterizar el programa de formaciòn solicitado',
+            'description_english' => "Characterize the requested training program",
+            'app_id' => $app->id
+        ]);
+        $permissions_support[] = $permission->id; // Almacenar permiso para rol
+
+        // Devolver solicitud del programa (Apoyo)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.programming.program_request.characterization.devolution'], [ // Registro o actualización de permiso
+            'name' => 'Devolver solicitud del programa (Apoyo)',
+            'description' => 'Devolver solicitud del programa de formaciòn',
+            'description_english' => "Return training program request",
+            'app_id' => $app->id
+        ]);
+        $permissions_support[] = $permission->id; // Almacenar permiso para rol
+
+        //  ------------------------------------ ROLES ------------------------------------------
+
+        // Programación de horarios
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.programming.index'], [ // Registro o actualización de permiso
+            'name' => 'Programación de horarios',
+            'description' => 'Programación de horarios',
+            'description_english' => "Programming schedules",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
+        $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
+        $permissions_wellness[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar filtro de horario
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.programming.management.filter'], [ // Registro o actualización de permiso
+            'name' => 'Consultar filtro de horario',
+            'description' => 'Consultar filtro de horario',
+            'description_english' => "Check schedule filter",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
+        $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
+        $permissions_wellness[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar programaciones del instructor
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.programming.management.search'], [ // Registro o actualización de permiso
+            'name' => 'Consultar programaciones del instructor',
+            'description' => 'Consultar programaciones del instructor',
+            'description_english' => "Consult instructor schedules",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
+        $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
+        $permissions_wellness[] = $permission->id; // Almacenar permiso para rol
+
 
         // Consulta de ROLES
         $rol_academic_coordination = Role::where('slug', 'sigac.academic_coordinator')->firstOrFail(); // Rol Coordinador Académico
         $rol_instructor = Role::where('slug', 'sigac.instructor')->firstOrFail(); // Rol Instructor
         $rol_wellness = Role::where('slug', 'sigac.wellbeing')->firstOrFail(); // Rol Bienestar
         $rol_apprentice = Role::where('slug', 'sigac.apprentice')->firstOrFail(); // Rol Aprendiz
+        $rol_support = Role::where('slug', 'sigac.support')->firstOrFail(); // Rol Apoyo
 
         // Asignación de PERMISOS para los ROLES de la aplicación SIGAC (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_academic_coordination->permissions()->syncWithoutDetaching($permissions_academic_coordination);
         $rol_instructor->permissions()->syncWithoutDetaching($permissions_instructor);
         $rol_apprentice->permissions()->syncWithoutDetaching($permissions_apprentice);
+        $rol_wellness->permissions()->syncWithoutDetaching($permissions_wellness);
+        $rol_support->permissions()->syncWithoutDetaching($permissions_support);
     }
 }
