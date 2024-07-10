@@ -5,6 +5,7 @@ namespace Modules\SICA\Http\Controllers\unit;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\ProductiveUnit;
+use Illuminate\Support\Facades\Route;
 use Modules\SICA\Entities\Sector;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
@@ -62,7 +63,7 @@ class UnitController extends Controller
             $icon = 'error';
             $message_productive_unit = trans('sica::menu.Could not add Productive Unit');
         }
-        return redirect(route('sica.admin.units.productive_unit.index'))->with(['icon'=>$icon, 'message_productive_unit'=>$message_productive_unit]);
+        return redirect(route('sica.' . getRoleRouteName(Route::currentRouteName()) . '.units.productive_unit.index'))->with(['icon'=>$icon, 'message_productive_unit'=>$message_productive_unit]);
     }
 
     /* Consultar unidad productiva para su actualización (Administrador) */
@@ -99,7 +100,7 @@ class UnitController extends Controller
             $icon = 'error';
             $message_productive_unit = trans('sica::menu.Failed to update Product Unit');
         }
-        return redirect(route('sica.admin.units.productive_unit.index'))->with(['icon'=>$icon, 'message_productive_unit'=>$message_productive_unit]);
+        return redirect(route('sica.' . getRoleRouteName(Route::currentRouteName()) . '.units.productive_unit.index'))->with(['icon'=>$icon, 'message_productive_unit'=>$message_productive_unit]);
     }
 
     /* Formulario de eliminación de unidad productiva */
@@ -161,7 +162,7 @@ class UnitController extends Controller
         } else {
             $message = ['message' => 'Ya existe un registro con los datos enviados.', 'typealert' => 'warning'];
         }
-        return redirect(route('sica.admin.units.productive_units.environment_pus.index'))->with($message);
+        return redirect(route('sica.' . getRoleRouteName(Route::currentRouteName()) . '.units.productive_units.environment_pus.index'))->with($message);
     }
 
     /* Eliminar asociación de ambiente y unidad productiva */
@@ -171,7 +172,7 @@ class UnitController extends Controller
         } else {
             $message = ['message'=>'No se pudo eliminar la asociación de ambiente y unidad productiva.', 'typealert'=>'danger'];
         }
-        return redirect(route('sica.admin.units.productive_units.environment_pus.index'))->with($message);
+        return redirect(route('sica.' . getRoleRouteName(Route::currentRouteName()) . '.units.productive_units.environment_pus.index'))->with($message);
     }
 
     /* Listado de unidades productivas y bodegas asociadas */
@@ -211,7 +212,7 @@ class UnitController extends Controller
         } else {
             $message = ['message' => 'Ya existe un registro con los datos enviados.', 'typealert' => 'warning'];
         }
-        return redirect(route('sica.admin.units.pu_warehouses.index'))->with($message);
+        return redirect(route('sica.' . getRoleRouteName(Route::currentRouteName()) . '.units.pu_warehouses.index'))->with($message);
     }
 
 

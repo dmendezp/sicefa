@@ -7,7 +7,7 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    {!! Form::open(['route'=>'sica.admin.units.pu_warehouses.destroy', 'method'=>'POST', 'id'=>'form-config']) !!}
+    {!! Form::open(['route'=>'sica.' . getRoleRouteName(Route::currentRouteName()) . '.units.pu_warehouses.destroy', 'method'=>'POST', 'id'=>'form-config']) !!}
         <div class="modal-body px-4 pt-3" style="font-size: 20px;">
             {!! Form::hidden('id', $puw->id) !!}
             <div class="row">
@@ -20,7 +20,7 @@
             </div>
         <div class="modal-footer py-1">
             <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">{{trans('sica::menu.Cancel')}}</button>
-            @if (Auth::user()->havePermission('sica.admin.units.pu_warehouses.destroy'))
+            @if (Auth::user()->havePermission('sica.' . getRoleRouteName(Route::currentRouteName()) . '.units.pu_warehouses.destroy'))
                 {!! Form::submit(trans('sica::menu.Delete'), ['class'=>'btn btn-danger btn-md py-0']) !!}
             @endif
         </div>

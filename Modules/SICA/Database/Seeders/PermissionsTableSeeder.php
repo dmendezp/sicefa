@@ -21,6 +21,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_admin = []; // Permisos para el Administrador
         $permissions_academic_coordinator = []; // Permisos para el Coordinador académico
         $permissions_attendance = []; // Permisos para el rol Asistencia
+        $permissions_unitmanager = []; // Permisos para el rol Gestor de unidades
 
 
         // Consultar aplicación SICA para registrar los roles
@@ -28,7 +29,7 @@ class PermissionsTableSeeder extends Seeder
 
 
         // ===================== Registro de todos los permisos de la aplicación SICA ==================
-        // Panel de control del administrador (Administrador)
+        /* // Panel de control del administrador (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.dashboard'], [ // Registro o actualización de permiso
             'name' => 'Panel de control del administrador (Administrador)',
             'description' => 'Panel de control del administrador',
@@ -1431,20 +1432,159 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'Delete course',
             'app_id' => $app->id
         ]);
-        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol */
+
+
+
+        // Listado de unidades productivas disponibles (Gestor Unidades)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.unitmanager.units.productive_unit.index'], [ // Registro o actualización de permiso
+            'name' => 'Listado de unidades productivas disponibles (Gestor Unidades)',
+            'description' => 'Listado de unidades productivas disponibles',
+            'description_english' => 'List of available productive units',
+            'app_id' => $app->id
+        ]);
+        $permissions_unitmanager[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de unidad productiva (Gestor Unidades)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.unitmanager.units.productive_unit.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de unidad productiva (Gestor Unidades)',
+            'description' => 'Formulario de registro de unidad productiva',
+            'description_english' => 'Production unit registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_unitmanager[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar unidad productiva (Gestor Unidades)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.unitmanager.units.productive_unit.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar unidad productiva (Gestor Unidades)',
+            'description' => 'Registrar unidad productiva',
+            'description_english' => 'Register productive unit',
+            'app_id' => $app->id
+        ]);
+        $permissions_unitmanager[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar unidad productiva para su actualización (Gestor Unidades)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.unitmanager.units.productive_unit.edit'], [ // Registro o actualización de permiso
+            'name' => 'Consultar unidad productiva para su actualización (Gestor Unidades)',
+            'description' => 'Consultar unidad productiva para su actualización',
+            'description_english' => 'Consult productive unit for update',
+            'app_id' => $app->id
+        ]);
+        $permissions_unitmanager[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar unidad productiva (Gestor Unidades)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.unitmanager.units.productive_unit.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar unidad productiva (Gestor Unidades)',
+            'description' => 'Actualizar unidad productiva',
+            'description_english' => 'Update productive unit',
+            'app_id' => $app->id
+        ]);
+        $permissions_unitmanager[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de eliminacion de la unidad productiva (Gestor Unidades)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.unitmanager.units.productive_unit.delete'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de eliminacion de la unidad productiva (Gestor Unidades)',
+            'description' => 'Formulario de eliminacion de la unidad productiva',
+            'description_english' => 'Productive unit elimination form',
+            'app_id' => $app->id
+        ]);
+        $permissions_unitmanager[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar unidad productiva (Gestor Unidades)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.unitmanager.units.productive_unit.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar unidad productiva (Gestor Unidades)',
+            'description' => 'Eliminar unidad productiva',
+            'description_english' => 'Delete productive unit',
+            'app_id' => $app->id
+        ]);
+        $permissions_unitmanager[] = $permission->id; // Almacenar permiso para rol
+
+        // Listado de unidades productivas y bodegas asociadas (Gestor Unidades)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.unitmanager.units.pu_warehouses.index'], [ // Registro o actualización de permiso
+            'name' => 'Listado de unidades productivas y bodegas asociadas (Gestor Unidades)',
+            'description' => 'Listado de unidades productivas y bodegas asociadas',
+            'description_english' => 'List of productive units and associated warehouses',
+            'app_id' => $app->id
+        ]);
+        $permissions_unitmanager[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar asociación de unidad productiva y bodega (Gestor Unidades)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.unitmanager.units.pu_warehouses.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar asociación de unidad productiva y bodega (Gestor Unidades)',
+            'description' => 'Registrar asociación de unidad productiva y bodega',
+            'description_english' => 'Register association of productive unit and warehouse',
+            'app_id' => $app->id
+        ]);
+        $permissions_unitmanager[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de eliminacion de la asociación de unidad productiva y bodega (Gestor Unidades)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.unitmanager.units.pu_warehouses.delete'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de eliminacion de la asociación de unidad productiva y bodega (Gestor Unidades)',
+            'description' => 'Formulario de eliminacion de la asociación de unidad productiva y bodega',
+            'description_english' => 'Form for elimination of the association of productive unit and warehouse',
+            'app_id' => $app->id
+        ]);
+        $permissions_unitmanager[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar asociación de unidad productiva y bodega (Gestor Unidades)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.unitmanager.units.pu_warehouses.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar asociación de unidad productiva y bodega (Gestor Unidades)',
+            'description' => 'Eliminar asociación de unidad productiva y bodega',
+            'description_english' => 'Delete association of productive unit and warehouse',
+            'app_id' => $app->id
+        ]);
+        $permissions_unitmanager[] = $permission->id; // Almacenar permiso para rol
+
+        // Listado de ambientes y unidades productivas asociadas (Gestor Unidades)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.unitmanager.units.productive_units.environment_pus.index'], [ // Registro o actualización de permiso
+            'name' => 'Listado de ambientes y unidades productivas asociadas (Gestor Unidades)',
+            'description' => 'Listado de ambientes y unidades productivas asociadas',
+            'description_english' => 'List of environments and associated productive units',
+            'app_id' => $app->id
+        ]);
+        $permissions_unitmanager[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar asociación de ambiente y unidad productiva (Gestor Unidades)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.unitmanager.units.productive_units.environment_pus.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar asociación de ambiente y unidad productiva (Gestor Unidades)',
+            'description' => 'Registrar asociación de ambiente y unidad productiva',
+            'description_english' => 'Register environment association and productive unit',
+            'app_id' => $app->id
+        ]);
+        $permissions_unitmanager[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar asociación de ambiente y unidad productiva (Gestor Unidades)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.unitmanager.units.productive_units.environment_pus.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar asociación de ambiente y unidad productiva (Gestor Unidades)',
+            'description' => 'Eliminar asociación de ambiente y unidad productiva',
+            'description_english' => 'Delete association of environment and productive unit',
+            'app_id' => $app->id
+        ]);
+        $permissions_unitmanager[] = $permission->id; // Almacenar permiso para rol
+
+        // Panel de control gestor de unidades (Gestor Unidades)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.unitmanager.dashboard'], [ // Registro o actualización de permiso
+            'name' => 'Panel de control gestor de unidades (Gestor Unidades)',
+            'description' => 'Panel de control gestor de unidades',
+            'description_english' => 'Unit manager control panel',
+            'app_id' => $app->id
+        ]);
+        $permissions_unitmanager[] = $permission->id; // Almacenar permiso para rol
 
 
 
 
         // Consulta de ROLES
-        $rol_admin = Role::where('slug', 'sica.admin')->first(); // Rol Administrador
+        /* $rol_admin = Role::where('slug', 'sica.admin')->first(); // Rol Administrador
         $rol_coordinator = Role::where('slug', 'sica.academic_coordinator')->first(); // Rol Coordinado Académico
-        $rol_attendance = Role::where('slug', 'sica.attendance')->first(); // Rol Registro Asistencia
+        $rol_attendance = Role::where('slug', 'sica.attendance')->first(); // Rol Registro Asistencia */
+        $rol_unitmanager = Role::where('slug', 'sica.unitmanager')->first(); // Rol Registro Asistencia
 
-        // Asignación de PERMISOS para los ROLES de la aplicación SICA (Sincronización de las relaciones sin eliminar las relaciones existentes)
+        /* // Asignación de PERMISOS para los ROLES de la aplicación SICA (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_admin->permissions()-> syncWithoutDetaching($permissions_admin);
         $rol_coordinator->permissions()->syncWithoutDetaching($permissions_academic_coordinator);
-        $rol_attendance->permissions()->syncWithoutDetaching($permissions_attendance);
+        $rol_attendance->permissions()->syncWithoutDetaching($permissions_attendance); */
+        $rol_unitmanager->permissions()->syncWithoutDetaching($permissions_unitmanager);
 
     }
 }
