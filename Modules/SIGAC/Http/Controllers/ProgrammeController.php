@@ -1212,7 +1212,7 @@ class ProgrammeController extends Controller
                         $conflicting_message .= "\nFecha: " . $conflict['date'] . ", Hora de inicio: " . $conflict['start_time'] . ", Hora de fin: " . $conflict['end_time'];
                     }
 
-                    return redirect()->route('sigac.instructor.programming.program_request.index')->with('success', $conflicting_message);
+                    return redirect()->route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.index')->with('success', $conflicting_message);
                     
                 } else {
                     $program_request = new ProgramRequest;
@@ -1246,7 +1246,7 @@ class ProgrammeController extends Controller
     
             $success_message = 'Solicitud enviada';
     
-            return redirect()->route('sigac.instructor.programming.program_request.index')->with('success', $success_message);
+            return redirect()->route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.index')->with('success', $success_message);
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error('Error en el registro: ' . $e->getMessage());
