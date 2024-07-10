@@ -1,9 +1,9 @@
 @extends('cefamaps::layouts.master')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i>
+    <li class="breadcrumb-item"><a href="{{ route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i>
             {{ trans('cefamaps::environment.Breadcrumb_Environment') }}</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.environment.index') }}"><i
+    <li class="breadcrumb-item"><a href="{{ route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.config.environment.index') }}"><i
                 class="nav-icon fas fa-solid fa-chalkboard-user"></i> {{ trans('cefamaps::environment.Breadcrumb_Active_Environment') }}</a>
     </li>
 @endsection
@@ -18,7 +18,7 @@
                             <h3 class="m-0">{{ trans('cefamaps::environment.Title_Card_Environments') }}</h3>
                         </div>
                         <div class="card-body">
-                            <div class="content">
+                            <div class="content table-responsive">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -33,7 +33,7 @@
                                             <th >{{ trans('cefamaps::environment.1T_Environment_Class') }}</th>
                                             <th>{{ trans('cefamaps::environment.1T_Environment_Page') }}</th>
                                             <th>
-                                                <a href="{{ route('cefamaps.admin.config.environment.add') }}"
+                                                <a href="{{ route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.config.environment.add') }}"
                                                     class="btn btn-success">
                                                     <i class="fa-solid fa-square-plus"></i>
                                                 </a>
@@ -146,14 +146,14 @@
                                                 <!-- Fin del ID para el filtro de las paginas -->
                                                 <!-- Inico para Editar y Eliminar -->
                                                 <td>
-                                                    <a href="{{ url('/cefamaps/environment/edit/' . $env->id) }}"
+                                                    <a href="{{ url('/cefamaps/' . getRoleRouteName(Route::currentRouteName()) . '/environment/edit/' . $env->id) }}"
                                                         class="btn btn-warning">
                                                         <i class="fas fa-map-signs"></i>
                                                     </a>
                                                     <a class="btn btn-danger delete-environment" href="#"
                                                         type="submit" data-action="delete"
                                                         data-object="{{ $env->id }}"
-                                                        data-path="/cefamaps/environment/delete/">
+                                                        data-path="/cefamaps/' . getRoleRouteName(Route::currentRouteName()) . '/environment/delete/">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </a>
                                                 </td>
@@ -189,10 +189,9 @@
         $(document).ready(function() {
             $(document).on("click", ".delete-environment", function() {
                 var id = $(this).data('object');
-                var url = "{{ url('/cefamaps/environment/delete/') }}/" + id;
+                var url = "{{ url('/cefamaps/' . getRoleRouteName(Route::currentRouteName()) . '/environment/delete/') }}/" + id;
                 Swal.fire({
-                    title: '{{ trans('cefamaps::environment.Title_Alert') }}' +
-                        id,
+                    title: '{{ trans('cefamaps::environment.Title_Alert') }}',
                     text: '{{ trans('cefamaps::environment.Text_Alert') }}',
                     icon: 'warning',
                     showCancelButton: true,

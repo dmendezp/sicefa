@@ -1,8 +1,8 @@
 @extends('cefamaps::layouts.master')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i> {{ trans('cefamaps::environment.Breadcrumb_Environment') }}</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.environment.index') }}"><i class="nav-icon fas fa-solid fa-chalkboard-user"></i> {{ trans('cefamaps::environment.Breadcrumb_Active_Environment') }}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i> {{ trans('cefamaps::environment.Breadcrumb_Environment') }}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.config.environment.index') }}"><i class="nav-icon fas fa-solid fa-chalkboard-user"></i> {{ trans('cefamaps::environment.Breadcrumb_Active_Environment') }}</a></li>
     <li class="breadcrumb-item"><a href="#"><i class="fas fa-map-signs"></i> {{ trans('cefamaps::environment.Breadcrumb_Active_Edit_Environment') }}</a></li>
     <li class="breadcrumb-item"><a href="#"><img src="{{ asset('modules/cefamaps/images/uploads/' . $editenviron->picture) }}" width="25" height="25">{{ $editenviron->name }}</a></li>
 @endsection
@@ -17,7 +17,7 @@
                             <h3 class="m-0">{{ trans('cefamaps::environment.Title_Card_Edit_Environment') }} : <em>{{ $editenviron->name }}</em></h3>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('cefamaps.admin.environment.edit') }}" enctype="multipart/form-data">
+                            <form method="post" action="{{ route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.environment.edit') }}" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $editenviron->id }}">
                                 <!-- Inicio del nombre -->

@@ -1,9 +1,9 @@
 @extends('cefamaps::layouts.master')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i>
+    <li class="breadcrumb-item"><a href="{{ route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i>
             {{ trans('cefamaps::environment.Breadcrumb_Environment') }}</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.environment.index') }}"><i
+    <li class="breadcrumb-item"><a href="{{ route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.config.environment.index') }}"><i
                 class="nav-icon fas fa-solid fa-chalkboard-user"></i>
             {{ trans('cefamaps::environment.Breadcrumb_Active_Environment') }}</a>
     </li>
@@ -21,7 +21,7 @@
                             <h3 class="m-0">{{ trans('cefamaps::environment.Title_Card_Add_Environment') }}</h3>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('cefamaps.admin.config.environment.add') }}"
+                            <form method="post" action="{{ route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.config.environment.add') }}"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <!-- inicio del nombre -->

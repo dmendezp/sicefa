@@ -2,13 +2,13 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item">
-        <a href="{{ route('cefamaps.admin.dashboard') }}">
+        <a href="{{ route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.dashboard') }}">
             <i class="fas fa-solid fa-user-tie"></i>
                 {{ trans('cefamaps::class.Breadcrumb_Class') }}
         </a>
     </li>
     <li class="breadcrumb-item">
-        <a href="{{ route('cefamaps.admin.config.class.index') }}">
+        <a href="{{ route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.config.class.index') }}">
             <i class="fas fa-solid fa-vector-square"></i> {{ trans('cefamaps::class.Breadcrumb_Active_Class') }}
         </a>
     </li>
@@ -31,7 +31,7 @@
                                             <th>{{ trans('cefamaps::class.1T_Number') }}</th>
                                             <th>{{ trans('cefamaps::class.1T_Name') }}</th>
                                             <th>
-                                                <a href="{{ route('cefamaps.admin.config.class.add') }}"
+                                                <a href="{{ route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.config.class.add') }}"
                                                     class="btn btn-success">
                                                     <i class="fa-solid fa-square-plus"></i>
                                                 </a>
@@ -44,7 +44,7 @@
                                                 <td>{{ $s->id }}</td>
                                                 <td>{{ $s->name }}</td>
                                                 <td>
-                                                    <a href="{{ url('/cefamaps/class/edit/' . $s->id) }}"
+                                                    <a href="{{ url('/cefamaps/' . getRoleRouteName(Route::currentRouteName()) . '/class/edit/' . $s->id) }}"
                                                         class="btn btn-warning">
                                                         <i class="fas fa-map-signs"></i>
                                                     </a>
@@ -72,7 +72,7 @@
         $(document).ready(function() {
             $(document).on("click", ".delete-class", function() {
                 var id = $(this).data('object');
-                var url = "{{ url('/cefamaps/class/delete/') }}/" + id;
+                var url = "{{ url('/cefamaps/' . getRoleRouteName(Route::currentRouteName()) . '/class/delete/') }}/" + id;
                 Swal.fire({
                     title: '{{ trans('cefamaps::class.delete_alert_title') }}',
                     text: '{{ trans('cefamaps::class.delete_alert_text') }}',

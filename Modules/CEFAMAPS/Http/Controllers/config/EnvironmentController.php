@@ -5,6 +5,7 @@ namespace Modules\CEFAMAPS\Http\Controllers\config;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Route;
 // Para validar las imagenes
 use Validator, Str;
 //Para hacer los crud del administrador
@@ -95,7 +96,7 @@ class EnvironmentController extends Controller
                     $addcoor->save();
                 }
             }
-            return redirect(route('cefamaps.admin.config.environment.index'));
+            return redirect(route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.config.environment.index'));
         }
     }
 }
@@ -209,7 +210,7 @@ class EnvironmentController extends Controller
                 ['productive_unit_id' => $request->input('productive_unit_id')[0]]
             );
     
-            return redirect()->route('cefamaps.admin.config.environment.index');
+            return redirect()->route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.config.environment.index');
         }
     }
 
