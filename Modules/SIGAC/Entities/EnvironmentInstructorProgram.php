@@ -21,4 +21,9 @@ class EnvironmentInstructorProgram extends Model
     {
         return $this->belongsTo(Environment::class);
     }
+
+    public function instructor_program()
+    {
+        return $this->belongsTo(InstructorProgram::class);
+    }
 }
