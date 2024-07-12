@@ -5,8 +5,9 @@ namespace Modules\SIGAC\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\SICA\Entities\LearningOutcome;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class InstructorProgramOutcome extends Model
+class InstructorProgramOutcome extends Model implements Auditable
 {
     use HasFactory;
 

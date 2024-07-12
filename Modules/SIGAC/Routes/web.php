@@ -6,7 +6,7 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
 
     Route::prefix('sigac')->group(function () {  // agrega el prefijo en la url (sicefa.test/sigac/...)
 
-        // Rutas generales para el modulo SIGAC
+        // RUTAS GENERALES
         Route::controller(SIGACController::class)->group(function () { // Agregar por única vez el controlodaar para posteriormente solo definir rutas con el formato (url, método_controlador)->name(nombre_de_ruta)
             Route::get('index', 'index')->name('cefa.sigac.index'); // Vista principal y pública de la aplicación.
             Route::get('information', 'info')->name('cefa.sigac.info'); // Vista mas info sobre SIGAC y pública de la aplicación (Pública)
@@ -17,13 +17,11 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('apprentice', 'apprentice_dashboard')->name('sigac.apprentice.dashboard'); // Panel de control de aprendiz (Aprendiz)
             Route::get('support', 'support_dashboard')->name('sigac.support.dashboard'); // Panel de control de apoyo (Apoyo)
 
-            //Rutas para el menu de prueba
-            Route::get('proof', 'proof')->name('cefa.sigac.proof'); // Vista principal y pública de la aplicación.
-
         });
 
-        // Rutas para la programacion de eventos y horarios
+        // RUTAS PROGRAMACION DE INSTRUCTORES
         Route::controller(ProgrammeController::class)->group(function () {
+
             //  ---------- Progamacion de instructor ------------------
             Route::get('academic_coordination/programming/get', 'programming_get')->name('sigac.academic_coordination.programming.get'); // Programación de horarios (Coordinación Académica)
             Route::get('academic_coordination/events', 'event_programming')->name('sigac.academic_coordination.event_programming.index'); // Programación de eventos (Coordinación Académica)
@@ -108,7 +106,7 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::post('support/programming/program_request/characterization/devolution/{id}', 'program_request_characterization_devolution')->name('sigac.instructor.programming.program_request.characterization.devolution'); // Devolver solicitud (Apoyo)
         });
 
-        // Rutas para la planeacion curricular
+        // RUTAS PLANEACION CURRICULAR
         Route::controller(CurriculumPlanningController::class)->group(function () {
 
             // ---------------- Proyecto Formatrivo ---------------------------
@@ -152,7 +150,7 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
            Route::post('academic_coordination/curriculum_planning/learning_class/learning_outcome/learning_class_store', 'competencie_class_store')->name('sigac.academic_coordination.curriculum_planning.competencie_class.store'); // Asociar la competencia a la clase de ambiente (Coordinación Académica)
            Route::delete('academic_coordination/curriculum_planning/learning_class/destroy/{class_environment_id}/{competencie_id}', 'competencie_class_destroy')->name('sigac.academic_coordination.curriculum_planning.competencie_class.destroy'); // Eliminar asociacion de la competencia con la clase de ambiente (Coordinación Académica)
 
-            // ---------------- Cargar Juicio Evaluativo ---------------------------
+            // ---------------- Juicio Evaluativo ---------------------------
             Route::get('academic_coordination/curriculum_planning/evaluative_judgment/index', 'evaluative_judgment_index')->name('sigac.academic_coordination.curriculum_planning.evaluative_judgment.index'); // Proyecto formativo (Coordinación Académica)
             Route::get('academic_coordination/curriculum_planning/evaluative_judgment/load/create', 'evaluative_judgment_create')->name('sigac.academic_coordination.curriculum_planning.evaluative_judgment.load.create'); // Proyecto formativo (Coordinación Académica)
             Route::post('academic_coordination/curriculum_planning/evaluative_judgment/load/store', 'evaluative_judgment_store')->name('sigac.academic_coordination.curriculum_planning.evaluative_judgment.load.store'); // Proyecto formativo (Coordinación Académica)
@@ -160,27 +158,30 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::post('academic_coordination/curriculum_planning/evaluative_judgment/filter', 'evaluative_judgment_filter')->name('sigac.academic_coordination.curriculum_planning.evaluative_judgment.filter'); // Proyecto formativo (Coordinación Académica)
         });
 
-        // Rutas para la administración de asistencias
+        // RUTAS GESTION DE ASISTENCIAS
         Route::controller(AttendanceController::class)->group(function () {
+            // ---------------- Asistencia ---------------------------
             Route::get('instructor/attendances/attendance/index', 'attendance_index')->name('sigac.instructor.attendances.attendance.index'); // Vista registro de asistencia (Instructor)
             Route::get('instructor/attendances/attendance/search', 'attendance_search')->name('sigac.instructor.attendances.attendance.search'); // Consultar asistencia (Instructor)
             Route::get('instructor/attendances/attendance/store', 'attendance_store')->name('sigac.instructor.attendances.attendance.store'); // Registra asistencia del aprendiz (Instructor)
+            Route::get('academic_coordination/reports/attendance', 'reports_attendance')->name('sigac.academic_coordination.reports.attendance.index'); // Vista principal de la sección de reportes de asistencia (Coordinación Académica)
+
             /* Route::get('instructor/consult/excuses', 'consult_excuses')->name('sigac.instructor.attendance.excuses'); // Consultar excusas de aprendiz (Instructor) */
             /* Route::get('instructor/consult/attendance', 'consult_attendance')->name('sigac.instructor.attendance.consult'); // Consultar asistencia por aprendiz o tituladas (Instructor) */
             /* Route::get('instructor/register', 'index')->name('sigac.instructor.attendance.register'); // Registrar asistencia de aprendiz por titulada (Instructor) */
             /* Route::get('wellness/consult/attendance', 'consult_attendance')->name('sigac.wellness.attendance.consult'); // Consultar asistencia por aprendiz o tituladas (Bienestar) */
-            Route::get('academic_coordination/reports/attendance', 'reports_attendance')->name('sigac.academic_coordination.reports.attendance.index'); // Vista principal de la sección de reportes de asistencia (Coordinación Académica)
             /* Route::get('instructor/reports/attendance', 'reports_attendance')->name('sigac.instructor.reports.attendance.index'); // Vista principal de la sección de reportes de asistencia (Instructor) */
             /* Route::get('wellness/reports/attendance', 'reports_attendance')->name('sigac.wellness.reports.attendance.index'); // Vista principal de la sección de reportes de asistencia (Bienestar) */
         });
 
-        // Rutas para la administración de funcionalidades de aprendiz
+        // RUTAS GESTION DE APRENDICES
         Route::controller(ApprenticeController::class)->group(function () {
             Route::get('apprentice/excuses', 'send_excuses')->name('sigac.apprentice.excuses.send'); // Enviar excusa para justificación de inasistencia (Aprendiz)
         });
 
-        // Rutas para la programacion de eventos y horarios
+        // RUTAS GESTION DE INSTRUCTORES
         Route::controller(InstructorManagementController::class)->group(function () {
+
             // Gestion de Instructores
             Route::get('academic_coordination/human_talent/management_instructor/profession_instructor_index', 'profession_instructor_index')->name('sigac.academic_coordination.human_talent.management_instructor.profession_instructor.index'); // Vista asociacion de instructores por profesion (Coordinación Académica)
             Route::post('academic_coordination/human_talent/management_instructor/profession_instructor_store', 'profession_instructor_store')->name('sigac.academic_coordination.human_talent.management_instructor.profession_instructor.store'); // Asociar profesion al instructor (Coordinación Académica)
@@ -196,7 +197,27 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::delete('academic_coordination/human_talent/assign_learning_outcomes/learning_out_people_destroy/{learning_outcome_person_id}', 'learning_out_people_destroy')->name('sigac.academic_coordination.human_talent.assign_learning_outcomes.destroy'); // Eliminar asociación del resultado de aprendizaje al instructor (Coordinación Académica)
 
         });
+
+        // RUTAS CONTROL DE AMBIENTES
+        Route::controller(EnvironmentControlController::class)->group(function () {
+            
+            // Entrada inventario
+            Route::get('instructor/environmentcontrol/environment_inventory_movement/entrance/index', 'entrance_index')->name('sigac.instructor.environmentcontrol.environment_inventory_movement.entrance.index'); // Vista reporte trimestralización (Coordinación Académica)
+            Route::post('instructor/environmentcontrol/environment_inventory_movement/entrance/store', 'entrance_store')->name('sigac.instructor.environmentcontrol.environment_inventory_movement.entrance.store'); // Vista reporte trimestralización (Coordinación Académica)
+
+            // Movimiento interno de inventario
+            Route::get('instructor/environmentcontrol/environment_inventory_movement/exit/index', 'exit_index')->name('sigac.instructor.environmentcontrol.environment_inventory_movement.exit.index'); // Vista reporte trimestralización (Coordinación Académica)
+            Route::get('instructor/environmentcontrol/environment_inventory_movement/exit/searchelement', 'exit_searchelement')->name('sigac.instructor.environmentcontrol.environment_inventory_movement.exit.searchelement'); // Vista reporte trimestralización (Coordinación Académica)
+            Route::post('instructor/environmentcontrol/environment_inventory_movement/exit/store', 'exit_store')->name('sigac.instructor.environmentcontrol.environment_inventory_movement.exit.store'); // Vista reporte trimestralización (Coordinación Académica)
+
+            // Asignacion de bodegas a ambientes
+            Route::get('instructor/environmentcontrol/assign_environment_warehouse/index', 'assign_environment_warehouse_index')->name('sigac.instructor.environmentcontrol.assign_environment_warehouse.index'); // Vista reporte trimestralización (Coordinación Académica)
+            Route::post('instructor/environmentcontrol/assign_environment_warehouse/store', 'assign_environment_warehouse_store')->name('sigac.instructor.environmentcontrol.assign_environment_warehouse.store'); // Vista reporte trimestralización (Coordinación Académica)
+            Route::delete('instructor/environmentcontrol/assign_environment_warehouse/{environment_id}/{warehouse_id}', 'assign_environment_warehouse_destroy')->name('sigac.instructor.environmentcontrol.assign_environment_warehouse.destroy'); // Eliminar asociación de la profesion a
+
+        });
         
+        // RUTAS GESTION DE REPORTES
         Route::controller(ReportController::class)->group(function () {
             
             // Reporte trimestralización

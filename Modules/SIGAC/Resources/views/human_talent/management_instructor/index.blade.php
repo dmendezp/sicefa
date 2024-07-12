@@ -82,8 +82,8 @@
             ]
         });
 
-        $('.instructor').select2();
-        $('.learningOutCome').select2();
+            $('.instructor').select2();
+            $('.learningOutCome').select2();
 
         // Usar la delegación de eventos en lugar de eventos directos
         $(document).on('click', '.delete-person_profession', function(event) {

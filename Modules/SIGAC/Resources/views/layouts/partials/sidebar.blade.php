@@ -417,6 +417,24 @@
                             </a>
                             <ul class="nav nav-treeview items" style="display: none;">
                                 <li class="nav-item">
+                                    <a href="{{ route('sigac.instructor.environmentcontrol.assign_environment_warehouse.index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-pen-fancy"></i>
+                                        <p>Bodega x Ambiente</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.instructor.environmentcontrol.environment_inventory_movement.entrance.index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-pen-fancy"></i>
+                                        <p>Entrada Inventario</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.instructor.environmentcontrol.environment_inventory_movement.exit.index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-pen-fancy"></i>
+                                        <p>Movimiento Inventario</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="" class="nav-link">
                                         <i class="nav-icon fas fa-pen-fancy"></i>
                                         <p>Novedad</p>

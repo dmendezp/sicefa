@@ -4,8 +4,9 @@ namespace Modules\SIGAC\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class InstructorProgramNovelty extends Model
+class InstructorProgramNovelty extends Model implements Auditable
 {
     use HasFactory;
 

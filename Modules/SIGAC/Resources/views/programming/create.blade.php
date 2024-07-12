@@ -272,7 +272,7 @@
                     var quarter_number = $('#quarter_number');
 
                     quarter_number.empty();
-                    quarter_number.append(new Option('Seleccionar el trimestre', ''));
+                    quarter_number.append(new Option('Seleccione el trimestre', ''));
 
                     $.each(data.results, function(index, result) {
                         quarter_number.append(new Option(result, result));
