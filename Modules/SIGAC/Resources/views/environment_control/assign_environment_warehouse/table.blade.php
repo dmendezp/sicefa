@@ -13,9 +13,9 @@
             @if(isset($assigns))
             @foreach($assigns as $assign)
                 <tr>
-                    <td>{{ $assign->environment->name }}</td>
-                    <td>{{ $assign->warehouse->name }}</td>
-                    <td>{{ $assign->person->fullname }}</td>
+                    <td class="text-center">{{ $assign->environment->name }}</td>
+                    <td class="text-center">{{ $assign->warehouse->name }}</td>
+                    <td class="text-center">{{ $assign->person->fullname }}</td>
                     <td class="text-center">
                         <form id="delete-professionprogram-form-{{ $assign->environment_id }}{{ $assign->warehouse_id }}"
                             action="{{ route('sigac.instructor.environmentcontrol.assign_environment_warehouse.destroy', ['environment_id' => $assign->environment_id, 'warehouse_id' => $assign->warehouse_id]) }}"

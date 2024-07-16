@@ -11,7 +11,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class ProgramRequest extends Model implements Auditable
 {
-    use HasFactory;
+    use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'person_id',

@@ -8,7 +8,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class InstructorProgramNovelty extends Model implements Auditable
 {
-    use HasFactory;
+    use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'instructor_program_id',

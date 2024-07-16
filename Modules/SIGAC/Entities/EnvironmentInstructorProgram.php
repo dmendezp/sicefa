@@ -9,7 +9,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class EnvironmentInstructorProgram extends Model implements Auditable
 {
-    use HasFactory;
+    use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [];
     

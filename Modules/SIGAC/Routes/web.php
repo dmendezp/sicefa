@@ -215,6 +215,11 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::post('instructor/environmentcontrol/assign_environment_warehouse/store', 'assign_environment_warehouse_store')->name('sigac.instructor.environmentcontrol.assign_environment_warehouse.store'); // Vista reporte trimestralización (Coordinación Académica)
             Route::delete('instructor/environmentcontrol/assign_environment_warehouse/{environment_id}/{warehouse_id}', 'assign_environment_warehouse_destroy')->name('sigac.instructor.environmentcontrol.assign_environment_warehouse.destroy'); // Eliminar asociación de la profesion a
 
+            Route::get('instructor/environmentcontrol/environment_inventory_movement/check/index', 'check_index')->name('sigac.instructor.environmentcontrol.environment_inventory_movement.check.index'); // Vista reporte trimestralización (Coordinación Académica)
+            Route::get('instructor/environmentcontrol/environment_inventory_movement/check/searchelement', 'check_searchinventory')->name('sigac.instructor.environmentcontrol.environment_inventory_movement.check.searchinventory'); // Vista reporte trimestralización (Coordinación Académica)
+            Route::get('instructor/environmentcontrol/environment_inventory_movement/check/searchperson', 'check_searchperson')->name('sigac.instructor.environmentcontrol.environment_inventory_movement.check.searchperson'); // Vista reporte trimestralización (Coordinación Académica)
+            Route::post('instructor/environmentcontrol/environment_inventory_movement/check/store', 'check_store')->name('sigac.instructor.environmentcontrol.environment_inventory_movement.check.store'); // Vista reporte trimestralización (Coordinación Académica)
+
         });
         
         // RUTAS GESTION DE REPORTES

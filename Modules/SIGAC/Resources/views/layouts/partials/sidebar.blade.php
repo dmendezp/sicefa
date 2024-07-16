@@ -441,7 +441,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="{{ route('sigac.instructor.environmentcontrol.environment_inventory_movement.check.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-pen-fancy"></i>
                                         <p>Verificacion Inventario</p>
                                     </a>
