@@ -21,6 +21,8 @@ use Modules\SICA\Entities\WarehouseMovement;
 use Modules\SICA\Entities\MovementResponsibility;
 use Modules\SICA\Entities\Environment;
 use Modules\SIGAC\Entities\EnvironmentWarehouse;
+use Modules\SIGAC\Entities\EnvironmentCheck;
+use Modules\SIGAC\Entities\NoveltyCheck;
 use Carbon\Carbon;
 
 
@@ -693,179 +695,50 @@ class EnvironmentControlController extends Controller
         $datenow = Carbon::now()->toDateString();
         $timenow = Carbon::now()->toTimeString();
         
-        $observation = $request->input('observation');                                                                                                                                                                                                                                                                                                                                                             
-        $user_id = $request->input('user_id');
-        $deliverywarehouse = $request->input('deliverywarehouse');
-        $receiveenvironment = $request->input('receivewarehouse');
-
-        $receivenvironment_warehouse = EnvironmentWarehouse::where('environment_id', $receiveenvironment)->first();
-        $warehouse_id = $receivenvironment_warehouse->warehouse_id;
-
-        $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id',$warehouse_id)->first();
-        $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
-
-        $productiveexterna = ProductiveUnit::where('name','=','Almacen Sena')->get()->pluck('id');
-        
-        $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('productive_unit_id',$productiveexterna)->first();
-        $productiveWarehousedeliveryId = $deliveryproductive_warehouse->id;
-        
-        // Obtén los datos de los campos de la tabla con llaves [ ]
-        $productElementIds = $request->input('product-id');
-        $productNames = $request->input('product-name');
-        $productQuantities = $request->input('product-quantity');
-        $productPrices = $request->input('product-price');
-        $productDestinations = $request->input('product-destination');
-        $productEntries = $request->input('product-entry');
-        $productExpirations = $request->input('product-expiration');
-        $productLots = $request->input('product-lot');
-        $productStocks = $request->input('product-stock');
-        $productCodes = $request->input('product-code');
-
-
-        // Inicializa un arreglo para almacenar los datos de los productos
-        $productsData = [];
-
-        // Inicializa el precio total en 0
-        $totalPrice = 0;
+        $user = Auth::user();
+        $responsibility = $user->person->id;
+        $security = $request->input('security');
+        $environment = $request->input('environment');
+        $inventories = $request->input('inventory');
 
             // Inicia una transacción de base de datos
             DB::beginTransaction();
 
-            try {
-                $movementId = null;
-
-                // Generar el voucher como consecutivo simple sin ceros adicionales
-                $voucher = $this->getNextVoucherNumber();
-                
-                
+            
+                $checktId = null;
+                 
                 // Registra un solo movimiento con el precio total calculado
-                $movement = new Movement([
-                    'registration_date' => $date,
-                    'movement_type_id' => $movementType->id,
-                    'voucher_number' => $voucher,
-                    'price' => $totalPrice,
-                    'observation' => $observation,
-                    'state' => 'Aprobado',
+                $check = new EnvironmentCheck([
+                    'security_id' => $security,
+                    'responsability_id' => $responsibility,
+                    'environment_id' => $environment,
+                    'date' => $datenow,
+                    'start_time' => $timenow,
+                    'state' => 'Verificado Entrada',
                     ]);
         
-                $movement->save();
-                $movementId = $movement->id;
+                $check->save();
+                $checktId = $check->id;
 
                 
                 
                 // Procesar cada elemento
-                foreach ($productElementIds as $index => $productElementId) {
-                    // Accede a los datos de cada elemento de la tabla
-                    
-                    $quantity = $productQuantities[$index];
-                    $price = $productPrices[$index];
-                    $destination = $productDestinations[$index];
-                    $expiration_date = $productExpirations[$index];
-                    $production_date = $productEntries[$index];
-                    $lot = $productLots[$index];
-                    $stock = $productStocks[$index];
-                    $inventory_code = $productCodes[$index];
-                    
-                    
+                foreach ($inventories as $inventory) {
+                    $inventoryId = $inventory['id'];
+                    $isChecked = $inventory['checked'];
+                    $observation = $inventory['observation'];
+            
+                    if ($isChecked == 0 || $observation != null) {
+
+                        $noveltycheck = new NoveltyCheck([
+                            'inventory_id' => $inventoryId,
+                            'environment_check_id' => $checktId,
+                            'observation' => $observation,
+                            ]);
                 
-                    // Buscar si el elemento ya existe en 'inventories' de la unidad que entrega
-                    $existingInventory = Inventory::where([
-                        'productive_unit_warehouse_id' => $productiveWarehousereceiveId,
-                        'element_id' => $productElementId,
-                        'lot_number' => $lot,
-                        
-                    ])->first();
-                    
-     
-
-                    if ($existingInventory) {
-                        
-                        // Si el elemento existe, actualiza el precio y la cantidad
-                        // Obtener el factor de conversión
-                        $measurement_unit = $existingInventory->element->measurement_unit->conversion_factor;
-                        // Calcular la cantidad ajustada utilizando el factor de conversión
-                        $adjustedAmount = $quantity * $measurement_unit;
-                        // Actualizar el precio y la cantidad en la existencia existente
-                        $existingInventory->amount += $adjustedAmount;
-                        $existingInventory->price = $price;
-                        $existingInventory->save();
-                        $existingInventoryId = $existingInventory->id;
-                        
-                    } else {
-                        $elememt = Element::where([
-                            'id' => $productElementId,
-                        ])->first();
-                        
-                        // Si el elemento no existe, crea un nuevo registro en 'inventories'
-                        $measurement_unit = $elememt->measurement_unit->conversion_factor;
-                        
-                        // Calcular la cantidad ajustada utilizando el factor de conversión
-                        $adjustedAmount = $quantity * $measurement_unit;
-
-                        $newInventory = new Inventory([
-                            'person_id' => $user_id,
-                            'productive_unit_warehouse_id' => $productiveWarehousereceiveId,
-                            'element_id' => $productElementId,
-                            'destination' => $destination,
-                            'price' => $price,
-                            'amount' => $adjustedAmount,
-                            'stock' => $stock,
-                            'inventory_code' => $inventory_code ?: null,
-                            'lot_number' => $lot ?: null,
-                            'expiration_date' => $expiration_date ?: null,
-                            'production_date' => $production_date ?: null,
-                        ]);
-
-                        $newInventory->save();
-                        $existingInventoryId = $newInventory->id;
-                        
+                        $noveltycheck->save();
                     }
-
-                     // Calcula el precio total para este elemento y agrégalo al precio total general
-                    $totalPrice += ($quantity * $price);
-                    
-                    
-                    // Registrar detalle del movimiento para cada elemento
-                    $movement_details = new MovementDetail([
-                        'movement_id' => $movementId, // Asociar al movimiento actual
-                        'inventory_id' => $existingInventoryId, // Asociar al inventario actual
-                        'amount' => $adjustedAmount, // Cantidad del elemento actual
-                        'price' => $price, // Precio del elemento actual
-                    ]);
-
-                    $movement_details->save();
                 }
-
-                // Actualiza el precio total en el movimiento principal
-                $movement->price = $totalPrice;
-                $movement->save();
-                
-
-                // Registrar las bodegas y rol del movimiento
-                $warehouse_movement_entrega = new WarehouseMovement([
-                    'productive_unit_warehouse_id' => $productiveWarehousedeliveryId,
-                    'movement_id' => $movementId,
-                    'role' => 'Entrega', 
-                ]);
-
-                $warehouse_movement_recibe = new WarehouseMovement([
-                    'productive_unit_warehouse_id' => $productiveWarehousereceiveId,
-                    'movement_id' => $movementId,
-                    'role' => 'Recibe', 
-                ]);
-
-                $warehouse_movement_entrega->save();
-                $warehouse_movement_recibe->save();
-
-                // Registrar el responsable del movimiento
-                $movement_responsabilities = new MovementResponsibility([
-                    'person_id' => $user_id, // Usar la variable $person_id
-                    'movement_id' => $movementId,
-                    'role' => 'REGISTRO',
-                    'date' => $date,
-                ]);
-
-                $movement_responsabilities->save();
 
                 // Registra datos en otras tablas utilizando $inventoryIds y otros valores (si es necesario)
 
@@ -873,14 +746,19 @@ class EnvironmentControlController extends Controller
                 DB::commit();
 
                 // Después de realizar la operación de registro con éxito
-                return redirect()->route('sigac.instructor.environmentcontrol.environment_inventory_movement.entrance.index')->with('success', 'Movimiento Registrado');
-
+                return redirect()->route('sigac.instructor.environmentcontrol.environment_inventory_movement.check.index')->with('success', 'Ambiente Verificado');
+                try {
             } catch (\Exception $e) {
                 // En caso de error, realiza un rollback de la transacción y maneja el error
                 DB::rollBack();
-
+                return redirect()->route('sigac.instructor.environmentcontrol.environment_inventory_movement.check.index')->with('success', 'Hubo un inconveniente en la verificación');
                 \Log::error('Error en el registro: ' . $e->getMessage());
             }
+    }
+
+    public function check_pending_index (){
+        $titlePage = 'Verificar Ambiente';
+        $titleView = 'Verificar Ambiente';
     }
 
     /**

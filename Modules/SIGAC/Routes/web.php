@@ -13,9 +13,10 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('developers', 'devs')->name('cefa.sigac.devs'); // Vista sobre desarrolladores y creditos sobre SIGAC y pública de la aplicación (Pública)
             Route::get('academic_coordination', 'academic_coordination_dashboard')->name('sigac.academic_coordination.dashboard'); // Panel de control de coordinación académica (Coordinación Académica)
             Route::get('instructor', 'instructor_dashboards')->name('sigac.instructor.dashboard'); // Panel de control del instructor (Instructor)
-            Route::get('wellness', 'wellness_dashboard')->name('sigac.wellness.dashboard'); // Panel de control de bienestar (Bienestar)
+            Route::get('wellbeing', 'wellness_dashboard')->name('sigac.wellbeing.dashboard'); // Panel de control de bienestar (Bienestar)
             Route::get('apprentice', 'apprentice_dashboard')->name('sigac.apprentice.dashboard'); // Panel de control de aprendiz (Aprendiz)
             Route::get('support', 'support_dashboard')->name('sigac.support.dashboard'); // Panel de control de apoyo (Apoyo)
+            Route::get('securitystaff', 'securitystaff_dashboard')->name('sigac.securitystaff.dashboard'); // Panel de control de apoyo (Apoyo)
 
         });
 
@@ -80,7 +81,10 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
 
 
             // Horarios
-            Route::get('programming', 'programming')->name('sigac.programming.index'); // Programación de horarios
+            Route::get('academic_coordination/programming', 'programming')->name('sigac.academic_coordination.programming.index'); // Programación de horarios
+            Route::get('instructor/programming', 'programming')->name('sigac.instructor.programming.index'); // Programación de horarios
+            Route::get('apprentice/programming', 'programming')->name('sigac.apprentice.programming.index'); // Programación de horarios
+            Route::get('wellbeing/programming', 'programming')->name('sigac.wellbeing.programming.index'); // Programación de horarios
             Route::post('programming/management/filter', 'management_filter')->name('sigac.programming.management.filter'); // Consultar filtro de horario
             Route::post('programming/management/search', 'management_search')->name('sigac.programming.management.search'); // Consultar programaciones del instructor
        
@@ -219,6 +223,11 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('instructor/environmentcontrol/environment_inventory_movement/check/searchelement', 'check_searchinventory')->name('sigac.instructor.environmentcontrol.environment_inventory_movement.check.searchinventory'); // Vista reporte trimestralización (Coordinación Académica)
             Route::get('instructor/environmentcontrol/environment_inventory_movement/check/searchperson', 'check_searchperson')->name('sigac.instructor.environmentcontrol.environment_inventory_movement.check.searchperson'); // Vista reporte trimestralización (Coordinación Académica)
             Route::post('instructor/environmentcontrol/environment_inventory_movement/check/store', 'check_store')->name('sigac.instructor.environmentcontrol.environment_inventory_movement.check.store'); // Vista reporte trimestralización (Coordinación Académica)
+
+            Route::get('securitystaff/environmentcontrol/environment_inventory_movement/check_pending/index', 'check_pending_index')->name('sigac.securitystaff.environmentcontrol.environment_inventory_movement.check.index'); // Vista reporte trimestralización (Coordinación Académica)
+            Route::get('securitystaff/environmentcontrol/environment_inventory_movement/check_pending/searchelement', 'check_searchinventory')->name('sigac.securitystaff.environmentcontrol.environment_inventory_movement.check.searchinventory'); // Vista reporte trimestralización (Coordinación Académica)
+            Route::get('securitystaff/environmentcontrol/environment_inventory_movement/check_pending/searchperson', 'check_searchperson')->name('sigac.securitystaff.environmentcontrol.environment_inventory_movement.check.searchperson'); // Vista reporte trimestralización (Coordinación Académica)
+            Route::post('securitystaff/environmentcontrol/environment_inventory_movement/check_pending/store', 'check_store')->name('sigac.securitystaff.environmentcontrol.environment_inventory_movement.check.store'); // Vista reporte trimestralización (Coordinación Académica)
 
         });
         

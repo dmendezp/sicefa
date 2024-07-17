@@ -141,9 +141,9 @@
                                         </a>
                                     </li>
                                 @endif
-                                @if (Auth::user()->havePermission('sigac.programming.index'))
+                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming.index'))
                                     <li class="nav-item">
-                                        <a href="{{ route('sigac.programming.index') }}"
+                                        <a href="{{ route('sigac.academic_coordination.programming.index') }}"
                                             class="nav-link {{ !Route::is('sigac.academic_coordination.programming.*') ?: 'active' }}">
                                             <i class="nav-icon far fa-calendar-alt"></i>
                                             <p>{{ trans('sigac::general.Scheduling') }}</p>
@@ -342,7 +342,7 @@
                     @endif
 
                     <!-- Menú de opciones para Instructor -->
-                    @if (Route::is('sigac.instructor.*') || Route::is('sigac.programming.index'))
+                    @if (Route::is('sigac.instructor.*'))
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa-solid fa-clock"></i>
@@ -352,9 +352,9 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview" style="display: none;">
-                                @if (Auth::user()->havePermission('sigac.programming.index'))
+                                @if (Auth::user()->havePermission('sigac.instructor.programming.index'))
                                     <li class="nav-item">
-                                        <a href="{{ route('sigac.programming.index') }}"
+                                        <a href="{{ route('sigac.instructor.programming.index') }}"
                                             class="nav-link {{ !Route::is('sigac.instructor.programming.*') ?: 'active' }}">
                                             <i class="nav-icon far fa-calendar-alt"></i>
                                             <p>{{ trans('sigac::general.Scheduling') }}</p>
@@ -491,7 +491,7 @@
                     @endif
 
                     <!-- Menú de opciones para Bienestar -->
-                    @if (Route::is('sigac.wellness.*'))
+                    @if (Route::is('sigac.wellbeing.*'))
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-book"></i>
@@ -524,10 +524,10 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview" style="display: none;">
-                                @if (Auth::user()->havePermission('sigac.programming.index'))
+                                @if (Auth::user()->havePermission('sigac.wellbeing.programming.index'))
                                     <li class="nav-item">
-                                        <a href="{{ route('sigac.programming.index') }}"
-                                            class="nav-link {{ !Route::is('sigac.academic_coordination.programming.*') ?: 'active' }}">
+                                        <a href="{{ route('sigac.wellbeing.programming.index') }}"
+                                            class="nav-link {{ !Route::is('sigac.wellbeing.programming.*') ?: 'active' }}">
                                             <i class="nav-icon far fa-calendar-alt"></i>
                                             <p>{{ trans('sigac::general.Scheduling') }}</p>
                                         </a>
@@ -568,8 +568,8 @@
                     @if (Route::is('sigac.apprentice.*'))
                         @if (Auth::user()->havePermission('sigac.programming.index'))
                             <li class="nav-item">
-                                <a href="{{ route('sigac.programming.index') }}"
-                                    class="nav-link {{ !Route::is('sigac.programming.*') ?: 'active' }}">
+                                <a href="{{ route('sigac.apprentice.programming.index') }}"
+                                    class="nav-link {{ !Route::is('sigac.apprentice.programming.*') ?: 'active' }}">
                                     <i class="nav-icon far fa-calendar-alt"></i>
                                     <p>{{ trans('sigac::general.Scheduling') }}</p>
                                 </a>
@@ -602,8 +602,27 @@
                             </a>
                         </li>
                     @endif
+                    @if (Route::is('sigac.securitystaff.*'))
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Control Ambientes
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items">
+                                <li class="nav-item">
+                                    <a href="{{  route('sigac.securitystaff.environmentcontrol.environment_inventory_movement.check.index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice"></i>
+                                        <p>Verificar Ambiente</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
                     <!-- Menú de opciones para Aprendiz -->
-                    @if (Route::is('sigac.committee_leader.*'))
+                    @if (Route::is('sgac.committee_leader.*'))
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-book"></i>
