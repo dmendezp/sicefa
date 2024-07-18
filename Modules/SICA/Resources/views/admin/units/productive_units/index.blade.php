@@ -13,7 +13,7 @@
                                 <h4>{{trans('sica::menu.Productive Units')}}</h4>
                             </div>
                             <div class="col-md">
-                                <a href="{{ route('sica.admin.units.productive_units.environment_pus.index') }}" class="btn btn-info float-right ml-1">
+                                <a href="{{ route('sica.'.$role_name.'.units.productive_units.environment_pus.index') }}" class="btn btn-info float-right ml-1">
                                   <i class="fa-solid fa-angles-right fa-beat-fade mr-1"></i> Relación de ambientes y unidades productivas
                                 </a>
                             </div>

@@ -28,4 +28,12 @@ class AdminController extends Controller
         $data = ['titlePage'=>trans('cefamaps::controllers.CEFAMAPS_dashboard_title_page'), 'roles'=>$roles, 'unit'=>$unit, 'sector'=>$sector, 'environ'=>$environ, 'classenviron'=>$classenviron];
         return view('cefamaps::admin.dashboard',$data);
     }
+
+    public function environmentmanager_dashboard(Request $request)
+    {
+        $environ = Environment::get();
+        $classenviron = ClassEnvironment::get();
+        $data = ['titlePage'=>trans('cefamaps::controllers.CEFAMAPS_dashboard_title_page'),'environ'=>$environ, 'classenviron'=>$classenviron];
+        return view('cefamaps::environmentmanager_dashboard',$data);
+    }
 }

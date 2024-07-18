@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['route' => 'sigac.academic_coordination.profession.store', 'method' => 'POST']) !!}
+                {!! Form::open(['route' => 'sigac.academic_coordination.programming.profession.store', 'method' => 'POST']) !!}
                 @csrf
                 @method('POST')
                 <div class="form-group">

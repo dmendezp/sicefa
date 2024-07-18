@@ -42,13 +42,14 @@
             var course_id = $('#course_id').val();
             $.ajax({
                     type: 'POST',
-                    url: "{{ route('sigac.academic_coordination.reports.quartelies.search') }}",
+                    url: "{{ route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.reports.quartelies.search') }}",
                     data: {
                         _token: "{{ csrf_token() }}",
                         course_id: course_id
                     },
                     success: function(data) {
                         // Actualizar el contenedor con los resultados filtrados
+                        console.log(data);
                         $('#divApprentices').html(data);
                         $('#table').DataTable({
 

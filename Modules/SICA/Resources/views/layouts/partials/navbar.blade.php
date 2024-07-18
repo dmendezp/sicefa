@@ -33,6 +33,13 @@
                     </a>
                 </li>
             @endif
+            @if (checkRol('sica.unitmanager'))
+            <li class="nav-item d-none d-lg-inline-block mr-1 {{ !Route::is('*.unitmanager.*') ?: 'active' }}">
+                <a href="{{ route('sica.unitmanager.dashboard') }}" class="nav-link">
+                    {{ trans('sica::menu.Unitmanager') }}
+                </a>
+            </li>
+            @endif
         @endguest
         
         @guest
@@ -52,6 +59,9 @@
                     @endif
                     @if (checkRol('sica.academic_coordinator'))
                         <a class="dropdown-item" href="{{ route('sica.academic_coordinator.dashboard') }}">{{ trans('sica::menu.academic_coordinator') }}</a>
+                    @endif
+                    @if (checkRol('sica.unitmanager'))
+                        <a class="dropdown-item" href="{{ route('sica.unitmanager.dashboard') }}">{{ trans('sica::menu.Unitmanager') }}</a>
                     @endif
                
             </div>
@@ -81,6 +91,13 @@
                     </a>
                 </li>
             @endif
+            @if (checkRol('sica.unitmanager'))
+            <li class="nav-item d-none d-lg-inline-block mr-1 {{ !Route::is('*.unitmanager.*') ?: 'active' }}">
+                <a href="{{ route('sica.unitmanager.dashboard') }}" class="nav-link">
+                    {{ trans('sica::menu.Unitmanager') }}
+                </a>
+            </li>
+            @endif
         @endguest
         
         @guest  
@@ -95,6 +112,9 @@
             @endif
             @if (checkRol('sica.academic_coordinator'))
             <a class="nav-link" style="height: 60px;" href="{{ route('sica.academic_coordinator.dashboard') }}">{{ trans('sica::menu.academic_coordinator') }}</a>
+            @endif
+            @if (checkRol('sica.academic_coordinator'))
+            <a class="nav-link" style="height: 60px;" href="{{ route('sica.unitmanager.dashboard') }}">{{ trans('sica::menu.Unitmanager') }}</a>
             @endif
         </li>
         @endguest

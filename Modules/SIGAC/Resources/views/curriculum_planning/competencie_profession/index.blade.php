@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 pr-3 pb-3">
-                                <form action="{{ route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_store') }}" method="post">
+                                <form id="competencieProfessionForm" action="{{ route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_store') }}" method="post">
                                     @csrf
                                     <div class="form-group">
                                         {!! Form::label('program',  trans('sigac::profession.Programs')) !!}
@@ -54,64 +54,46 @@
         $('.profession').select2();
         $('.program').select2();
         $('.competencie').select2();
-    });
-</script>
-<script>
-    function confirmDelete(event) {
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: '¡No podrás revertir esto!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Sí, eliminarlo'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Evitar que el formulario se envíe automáticamente
-                event.preventDefault();
-                
-                // Enviar el formulario manualmente
-                event.target.closest('form').submit();
-            }
-        });
-    }
-</script>
 
-<script>
-    $(document).ready(function() {
-        $('.program').on('change', function () {
-            var selectedProgram = $(this).val();
-            var url = {!! json_encode(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_search', ['id' => ':id'])) !!}.replace(':id', selectedProgram.toString());
+        // Enviar el formulario por AJAX
+        $('#competencieProfessionForm').on('submit', function(e) {
+            e.preventDefault(); // Evita el envío del formulario
 
-            // Realizar una solicitud AJAX para obtener los aspectos ambientales
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function (response) {
-                    var options = '<option value="">' + '{{ trans("sigac::profession.SelectCompetition") }}' + '</option>';
-                        $.each(response.competencie, function (index, competencie) {
-                            options += '<option value="' + competencie.id + '">' + competencie.name + '</option>';
-                        });
-                        // Actualizar las opciones del campo de aspecto ambiental actual
-                        $('.competencie').last().html(options);
-                },
-                error: function (error) {
-                    var options = '<option value="">' + '{{ trans("sigac::profession.SelectCompetition") }}' + '</option>';
-                    $('.competencie').last().html(options);
-                    console.log(error);
-                }
-            });
-            
             $.ajax({
                 type: 'POST',
-                url: "{{ route('sigac.academic_coordination.curriculum_planning.competencie_profession.table') }}",
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(response) {
+                    Swal.fire(
+                        '¡Hecho!',
+                        'El registro se ha guardado correctamente.',
+                        'success'
+                    );
+                    // Actualizar la tabla de profesiones después del registro
+                    updateProfessionsTable();
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire(
+                        'Error',
+                        'Hubo un problema al guardar el registro.',
+                        'error'
+                    );
+                }
+            });
+        });
+
+        // Actualizar la tabla de profesiones
+        function updateProfessionsTable() {
+            var selectedProgram = $('.program').val();
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession.table') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     selectedProgram: selectedProgram
                 },
                 success: function(data) {
-                    // Actualizar el contenedor con los resultados filtrados
                     $('#professions').html(data);
                     $('#professionxprogram').DataTable({
                         columnDefs: [
@@ -123,6 +105,30 @@
                     console.error(error);
                 }
             });
+        }
+
+        $('.program').on('change', function () {
+            var selectedProgram = $(this).val();
+            var url = {!! json_encode(route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_search', ['id' => ':id'])) !!}.replace(':id', selectedProgram.toString());
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (response) {
+                    var options = '<option value="">' + '{{ trans("sigac::profession.SelectCompetition") }}' + '</option>';
+                    $.each(response.competencie, function (index, competencie) {
+                        options += '<option value="' + competencie.id + '">' + competencie.name + '</option>';
+                    });
+                    $('.competencie').html(options);
+                },
+                error: function (error) {
+                    var options = '<option value="">' + '{{ trans("sigac::profession.SelectCompetition") }}' + '</option>';
+                    $('.competencie').html(options);
+                    console.log(error);
+                }
+            });
+
+            updateProfessionsTable();
         });
-    });  
+    });
 </script>

@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Municipality;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class ProgramRequest extends Model
+class ProgramRequest extends Model implements Auditable
 {
-    use HasFactory;
+    use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'person_id',

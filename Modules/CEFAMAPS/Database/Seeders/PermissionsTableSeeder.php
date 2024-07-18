@@ -19,11 +19,12 @@ class PermissionsTableSeeder extends Seeder
 
     // Definir arreglos de PERMISOS que van ser asignados a los ROLES
     $permission_admin = []; // Permisos para Administrador
+    $permission_environmentmanager = []; // Permisos para Gestor Ambientes
 
-    // Consultar aplicación CEFAMAPS para registrar los roles
+     // Consultar aplicación CEFAMAPS para registrar los roles
     $app = App::where('name','CEFAMAPS')->first();
 
-    // ===================== Registro de todos los permisos de la aplicación CEFAMAPS ==================
+    /* // ===================== Registro de todos los permisos de la aplicación CEFAMAPS ==================
     // Dashboard de administrador
     $permission = Permission::updateOrCreate(['slug' => 'cefamaps.admin.dashboard'], [ // Registro o actualización de permiso
       'name' => 'Admin Dashboard CEFAMAPS',
@@ -264,13 +265,128 @@ class PermissionsTableSeeder extends Seeder
       'description_english' => "You can delete class environment",
       'app_id' => $app->id
     ]);
-    $permission_admin[] = $permission->id; // Almacenar permiso para rol
+    $permission_admin[] = $permission->id; // Almacenar permiso para rol */
+
+
+    // Administrara vista de ambientes (Gestor Ambientes)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.environmentmanager.config.environment.index'], [ // Registro o actualización de permiso
+      'name' => 'Administrar datos del ambiente (Gestor Ambientes)',
+      'description' => 'Puede gestionar la información de los ambientes',
+      'description_english' => "You can manage the information of the environments",
+      'app_id' => $app->id
+    ]);
+    $permission_environmentmanager[] = $permission->id; // Almacenar permiso para rol
+
+    // Agregar Ambientes (Gestor Ambientes)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.environmentmanager.config.environment.add'], [ // Registro o actualizacion de permiso
+      'name' => 'Agregar un Ambiente (Gestor Ambientes)',
+      'description' => 'Puede agregar ambientes',
+      'description_english' => "You can add environments",
+      'app_id' => $app->id
+    ]);
+    $permission_environmentmanager[] = $permission->id; // Almacenar permiso para rol
+
+    // Editar Ambientes (Gestor Ambientes)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.environmentmanager.environment.edit'], [ // Registro o actualizacion de permiso
+      'name' => 'Editar un Ambiente (Gestor Ambientes)',
+      'description' => 'Puede editar ambientes',
+      'description_english' => "You can edit environments",
+      'app_id' => $app->id
+    ]);
+    $permission_environmentmanager[] = $permission->id; // Almacenar permiso para rol
+
+    // Editar Ambientes (Gestor Ambientes)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.environmentmanager.config.environment.edit'], [ // Registro o actualizacion de permiso
+      'name' => 'Actuallizar un Ambiente (Gestor Ambientes)',
+      'description' => 'Puede actualizar ambientes',
+      'description_english' => "You can update environments",
+      'app_id' => $app->id
+    ]);
+    $permission_environmentmanager[] = $permission->id; // Almacenar permiso para rol
+
+    // Borrar Ambiente (Gestor Ambientes)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.environmentmanager.environment.delete'], [
+      'name' => 'Eliminar un Ambiente (Gestor Ambientes)',
+      'description' => 'Puede eliminar ambientes',
+      'description_english' => "You can delete environments",
+      'app_id' => $app->id
+    ]);
+    $permission_environmentmanager[] = $permission->id; // Almacenar permiso para rol
+
+    
+
+
+    // Administrara vista de clase de ambientes (Gestor Ambientes)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.environmentmanager.config.class.index'], [ // Registro o actualización de permiso
+      'name' => 'Administrara vista de clase de ambientes (Gestor Ambientes)',
+      'description' => 'Puede gestionar la información de las clase de ambientes',
+      'description_english' => "You can manage the information of the environment classes",
+      'app_id' => $app->id
+    ]);
+    $permission_environmentmanager[] = $permission->id; // Almacenar permiso para rol
+
+    // Vista agregar Clase de Ambiente (Gestor Ambientes)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.environmentmanager.config.class.add'], [ // Registro o actualizacion de permiso
+      'name' => 'Vista agregar Clase de Ambiente',
+      'description' => 'Vista agregar Clase de Ambiente',
+      'description_english' => "View add Environment Class",
+      'app_id' => $app->id
+    ]);
+    $permission_environmentmanager[] = $permission->id; // Almacenar permiso para rol
+
+    // Registrar Clase de Ambiente (Gestor Ambientes)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.environmentmanager.config.class.store'], [ // Registro o actualizacion de permiso
+      'name' => 'Registrar Clase de Ambiente (Gestor Ambientes)',
+      'description' => 'Registrar Clase de Ambiente',
+      'description_english' => "Register Environment Class",
+      'app_id' => $app->id
+    ]);
+    $permission_environmentmanager[] = $permission->id; // Almacenar permiso para rol
+
+    // Vista editar Clase de Ambiente (Gestor Ambientes)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.environmentmanager.config.class.edit'], [ // Registro o actualizacion de permiso
+      'name' => 'Vista editar Clase de Ambiente (Gestor Ambientes)',
+      'description' => 'Vista editar Clase de Ambiente',
+      'description_english' => "View edit Environment Class",
+      'app_id' => $app->id
+    ]);
+    $permission_environmentmanager[] = $permission->id; // Almacenar permiso para rol
+
+    // Actualizar Clase de Ambiente (Gestor Ambientes)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.environmentmanager.config.class.update'], [
+      'name' => 'Actualizar Clase de Ambiente (Gestor Ambientes)',
+      'description' => 'Actualizar Clase de Ambiente',
+      'description_english' => "Update Environment Class",
+      'app_id' => $app->id
+    ]);
+    $permission_environmentmanager[] = $permission->id; // Almacenar permiso para rol
+
+    // Eliminar Clase de Ambiente (Gestor Ambientes)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.environmentmanager.class.destroy'], [
+      'name' => 'Eliminar Clase de Ambiente (Gestor Ambientes)',
+      'description' => 'Eliminar Clase de Ambiente',
+      'description_english' => "Delete Environment Class",
+      'app_id' => $app->id
+    ]);
+    $permission_environmentmanager[] = $permission->id; // Almacenar permiso para rol
+
+    // Panel de control Gestor de Ambientes (Gestor Ambientes)
+    $permission = Permission::updateOrCreate(['slug' => 'cefamaps.environmentmanager.dashboard'], [
+      'name' => 'Panel de control Gestor de Ambientes (Gestor Ambientes)',
+      'description' => 'Panel de control Gestor de Ambientes',
+      'description_english' => "Environment Manager Control Panel",
+      'app_id' => $app->id
+    ]);
+    $permission_environmentmanager[] = $permission->id; // Almacenar permiso para rol
+
 
     // Consulta de ROLES
     $rol_admin = Role::where('slug', 'cefamaps.admin')->first(); // Rol Administrador
+    $rol_environmentmanager = Role::where('slug', 'cefamaps.environmentmanager')->first(); // Rol Gesto Ambientes
 
     // Asignación de PERMISOS para los ROLES de la aplicación CEFAMAPS (Sincronización de las relaciones sin eliminar las relaciones existentes)
-    $rol_admin->permissions()-> syncWithoutDetaching($permission_admin);
+/*     $rol_admin->permissions()-> syncWithoutDetaching($permission_admin); */
+    $rol_environmentmanager->permissions()-> syncWithoutDetaching($permission_environmentmanager);
 
   }
 }

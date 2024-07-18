@@ -13,6 +13,7 @@ Route::middleware(['lang'])->group(function(){ // Middleware para la internzaci�
             Route::get('admin', 'admin_dashboard')->name('sica.admin.dashboard'); /* Panel de control del administrador (Administrador) */
             Route::get('academic_coordinator', 'academic_coordinator_dashboard')->name('sica.academic_coordinator.dashboard'); /* Panel de control del coordinador académico (Coordinador acádemico) */
             Route::get('attendance', 'attendance_dashboard')->name('sica.attendance.dashboard'); /* Panel de control de asistencias a eventos (Asistencia) */
+            Route::get('unitmanager', 'unitmanager_dashboard')->name('sica.unitmanager.dashboard'); /* Panel de control gestor de unidades (Gestor Unidades) */
         });
 
     });

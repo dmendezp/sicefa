@@ -591,6 +591,29 @@
                 @endif
                 <!-- CIERRA MENU PARA ASISTENCIA -->
 
+                <!-- MENU PARA GESTOR DE UNIDADES -->
+                @if (Route::is('*sica.unitmanager.*'))
+                    @if (Auth::user()->havePermission('sica.unitmanager.units.productive_unit.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('sica.unitmanager.units.productive_unit.index') }}"
+                                class="nav-link {{ !Route::is('sica.unitmanager.units.productive_unit.*') ?: 'active' }}">
+                                <i class="fas fa-layer-group"></i>
+                                <p>U. Productivas</p>
+                            </a>
+                        </li>
+                    @endif
+                    @if (Auth::user()->havePermission('sica.unitmanager.units.pu_warehouses.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('sica.unitmanager.units.pu_warehouses.index') }}"
+                                class="nav-link {{ !Route::is('sica.unitmanager.units.pu_warehouses.*') ?: 'active' }}">
+                                <i class="fa-solid fa-boxes-stacked"></i>
+                                <p>Bodegas U.P.</p>
+                            </a>
+                        </li>
+                    @endif
+                @endif
+                <!-- CIERRA MENU PARA GESTOR DE UNIDADES -->
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

@@ -11,7 +11,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 pr-3 pb-3">
-                                <form action="{{ route('sica.admin.units.pu_warehouses.store') }}" method="post">
+                                <form action="{{ route('sica.' . getRoleRouteName(Route::currentRouteName()) . '.units.pu_warehouses.store') }}" method="post">
                                     @csrf
                                     <div class="form-group">
                                         <label>Unidad productiva:</label>
@@ -64,7 +64,7 @@
                                             @endif
                                                 <td>{{ $puw->warehouse->name }}</td>
                                                 <td class="text-center">
-                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.units.pu_warehouses.delete', $puw->id) }}')">
+                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.' . getRoleRouteName(Route::currentRouteName()) . '.units.pu_warehouses.delete', $puw->id) }}')">
                                                         <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar asociación">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </b>

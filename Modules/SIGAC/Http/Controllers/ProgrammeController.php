@@ -3,6 +3,7 @@
 namespace Modules\SIGAC\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -98,11 +99,39 @@ class ProgrammeController extends Controller
     public function management_programming_filterinstructor(Request $request)
     {
         $learning_outcome_id = $request->input('learning_outcome_id');
+        $admin = $request->input('admin');
+        
+
+        if ($admin == 'true') {
+            $getInstructor = DB::table('employees')
+            ->join('employee_types', 'employees.employee_type_id', '=', 'employee_types.id')
+            ->join('people', 'employees.person_id', '=', 'people.id')
+            ->where('state', 'Activo')
+            ->where('employee_types.name', 'Instructor')
+            ->select('people.id','people.first_name', 'people.first_last_name', 'people.second_last_name', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
+            ->union(
+                DB::table('contractors')
+                ->join('employee_types', 'contractors.employee_type_id', '=', 'employee_types.id')
+                ->join('people', 'contractors.person_id', '=', 'people.id')
+                ->where('state', 'Activo')
+                ->where('employee_types.name', 'Instructor')
+                ->select('people.id','people.first_name', 'people.first_last_name', 'people.second_last_name', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
+            )->get();
+            $instructors = $getInstructor->map(function ($i) {
+                $id = $i->id;
+                $name = $i->first_name . ' ' . $i->first_last_name . ' ' . $i->second_last_name;
     
-        $instructors = Person::join('learning_outcome_people', 'people.id', '=', 'learning_outcome_people.person_id')
-                             ->where('learning_outcome_people.learning_outcome_id', $learning_outcome_id)
-                             ->orderBy('learning_outcome_people.priority', 'asc')
-                             ->get(['people.id', 'people.first_name']);
+                return [
+                    'id' => $id,
+                    'first_name' => $name
+                ];
+            });
+        } else {
+            $instructors = Person::join('learning_outcome_people', 'people.id', '=', 'learning_outcome_people.person_id')
+            ->where('learning_outcome_people.learning_outcome_id', $learning_outcome_id)
+            ->orderBy('learning_outcome_people.priority', 'asc')
+            ->get(['people.id', 'people.first_name']);
+        }
     
         return response()->json(['instructors' => $instructors]);
     }
@@ -110,12 +139,19 @@ class ProgrammeController extends Controller
 
     public function management_programming_filterenvironment(Request $request)
     {
+        $admin = $request->input('admin');
         $learning_outcome = LearningOutcome::findOrfail($request->input('learning_outcome_id')) ;
         $competencie_id = $learning_outcome->competencie->id;
 
-        $environments = Environment::whereHas('class_environment.competencies', function($query) use ($competencie_id) {
-            $query->where('competencies.id', $competencie_id);
-        })->pluck('name','id');
+        if ($admin == 'true') {
+            $environments = Environment::get()->pluck('name','id');
+        } else {
+            $environments = Environment::whereHas('class_environment.competencies', function($query) use ($competencie_id) {
+                $query->where('competencies.id', $competencie_id);
+            })->pluck('name','id');
+            
+        }
+
 
         return response()->json(['environments' => $environments->toArray()]);
     }
@@ -170,6 +206,8 @@ class ProgrammeController extends Controller
         $instructors = $request->instructor;
         $environments = $request->environment;
         $learning_outcomes = $request->learning_outcome;
+        $hours = $request->hour;
+        $querter_number = $request->querter_number;
 
         foreach ($fechas as $f) {
             $programming = InstructorProgram::where('date', $f)
@@ -217,6 +255,7 @@ class ProgrammeController extends Controller
                 $p->start_time = $request->start_time;
                 $p->end_time = $request->end_time;
                 $p->course_id = $request->course;
+                $p->quarter_number = $querter_number;
                 $p->state = 'Programado';
                 $p->save();
                 $instructor_program_id = $p->id;
@@ -235,9 +274,11 @@ class ProgrammeController extends Controller
                     $environment_instructor_programs->save();
                 }
                 foreach ($learning_outcomes as $index => $learning_outcome_id) {
+                    $hour = $hours[$index];
                     $instructor_program_outcomes = new InstructorProgramOutcome;
                     $instructor_program_outcomes->instructor_program_id = $instructor_program_id;
                     $instructor_program_outcomes->learning_outcome_id = $learning_outcome_id;
+                    $instructor_program_outcomes->hour = $hour;
                     $instructor_program_outcomes->state = 'Pendiente';
                     $instructor_program_outcomes->save();
                 }
@@ -428,32 +469,7 @@ class ProgrammeController extends Controller
     // Parametros de programacion
     public function parameter()
     {
-        $programs = Program::all();
-        $programsselect = $programs->map(function ($p) {
-            $id = $p->id;
-            $name = $p->name;
-            return [
-                'id' => $id,
-                'name' => $name
-            ];
-        })->prepend(['id' => null, 'name' => 'Seleccione un programa'])->pluck('name', 'id');
-        Session::put('programs', $programsselect);
-        $Comps = Competencie::all();
-        $competencies = $Comps->map(function ($c) {
-            $id = $c->id;
-            $name = $c->name;
-            return [
-                'id' => $id,
-                'name' => $name
-            ];
-        })->prepend(['id' => null, 'name' => 'Seleccione una competencia'])->pluck('name', 'id');
-
-        $Comps = Competencie::with('program')->get()->groupBy('program.name');
-
-        $learning_outcomes = LearningOutcome::with('competencie')->get()->groupBy('competencie.name');
-
         $external_activities = ExternalActivity::get();
-
         $special_programs = SpecialProgram::get();
 
         $titlePage = 'Parametros';
@@ -462,11 +478,33 @@ class ProgrammeController extends Controller
         'titleView' => $titleView, 
         'external_activities' => $external_activities, 
         'professions' => Profession::all(), 
-        'competences' => $Comps, 
-        'learning_outcomes' => $learning_outcomes, 
-        'programs' => $programs, 
-        'competencies' => $competencies,
         'special_programs' => $special_programs]);
+    }
+  
+    /* Consultar programas de manera asincrónica*/
+    public function program_search(){
+        $data = Program::with('knowledge_network')->latest()->get();
+        $programsselect = $data->map(function ($p) {
+            $id = $p->id;
+            $name = $p->name;
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione un programa'])->pluck('name', 'id');
+        Session::put('programs', $programsselect);
+        return Datatables::of($data)->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $id = $row->id;
+                    $actionBtn = '
+                        <a class="btn btn-primary" href="'.route('sigac.academic_coordination.programming.competence.index', ['program_id' => $id]).'" data-toggle="tooltip" data-placement="top" title="Ver competencias">
+                        <i class="fa-solid fa-outdent"></i>
+                        </a>
+                    ';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
     }
 
     public function parameter_competencies($program_id)
@@ -485,7 +523,7 @@ class ProgrammeController extends Controller
         'competencies' => $competencies]);
     }
 
-    public function parameter_learning_outcomes($competencie_id)
+    public function parameter_learning_outcomes($competencie_id, $program_id)
     {
         $Comps = Competencie::all();
         $competencies = $Comps->map(function ($c) {
@@ -499,9 +537,6 @@ class ProgrammeController extends Controller
         $competencie = Competencie::findOrFail($competencie_id);
         $name_competencia = $competencie->name;
         $learning_outcomes = LearningOutcome::where('competencie_id',$competencie_id)->get();
-        foreach ($learning_outcomes as $l) {
-           $program_id = $l->competencie->program_id;
-        }
         $titlePage = 'Parametros - Resultado de aprendizaje';
         $titleView = 'Parametros - Resultado de aprendizaje';
         return view('sigac::programming.parameters.learning_outcomes.table')->with(['titlePage' => $titlePage,
@@ -723,7 +758,7 @@ class ProgrammeController extends Controller
             $icon = 'error';
             $message_profession = 'Error al añadir el resultado de aprendizaje.';
         }
-        return redirect(route('sigac.academic_coordination.programming.parameters.index'))->with(['icon' => $icon, 'message_profession' => $message_profession]);
+        return redirect()->back()->with(['icon' => $icon, 'message_profession' => $message_profession]);
     }
 
     // Actualizar resultado de aprendizaje
@@ -753,10 +788,12 @@ class ProgrammeController extends Controller
     }
 
     public function learning_outcome_load_create($program_id){
-	
+        $nameprogram = Program::where('id','=',$program_id)->pluck('name')->first();
 		return view('sigac::programming.parameters.learning_outcomes.load')->with(['titlePage' => 'Cargar Resultados de Aprendizaje',
-        'titleView' => 'Cargar Resultados de Aprendizaje',
-        'program_id' => $program_id]);
+            'titleView' => 'Cargar Resultados de Aprendizaje',
+            'program_id' => $program_id,
+            'nameprogram' => $nameprogram
+        ]);
 	}
 
     /* Registrar aprendices a partir de un archivo */
@@ -776,7 +813,17 @@ class ProgrammeController extends Controller
             $datas = array_splice($array[0], 12, count($array[0])); // Obtener solo los registros de los datos de los aprendices
             try {
                 $count = 0;
+
+                DB::beginTransaction();
                 // Recorrer datos y relizar registros
+                $program_id = $request->program_id;
+                $program = Program::findOrFail($program_id);
+                $nameprogramselected = $program->name;
+
+                if ($nameprogramselected != $program_name) {
+                    DB::rollBack(); // Devolver cambios realizados durante la transacción
+                    return back()->with('error', 'El programa ingresado ('. $program_name.') para el registro de los resultados no coincide con el seleccionado ('.$nameprogramselected.').')->with('typealert', 'danger');
+                }
                
                 foreach($datas as $data){
                     $competencie = explode(" - ", $data[5]);
@@ -784,7 +831,8 @@ class ProgrammeController extends Controller
                         if (count($competencie) > 1) {
                             $code_competencie = $competencie[0];
                             // Si hay más de una parte después de dividir por el guión
-                            $name_competencia = trim(preg_replace('/^[0-9]+\s*/', '', $competencie[1])); // Eliminar números y espacios al principio de la cadena
+                            $name_competencia = trim(preg_replace('/^[0-9\s\-\x{2022}\x{0095}\t]+/u', '', $competencie[1])); // Eliminar números y espacios al principio de la cadena
+                            
                         } else {
                             // Si no hay un guión, entonces tomar el nombre completo sin modificar
                             $name_competencia = trim($competencie[0]);
@@ -792,11 +840,10 @@ class ProgrammeController extends Controller
 
                     }
                     $learning_outcome = explode(" - ", $data[6]); // Dividir la cadena por el guión ('-')
-                    $program_id = $request->program_id;
                     if ($learning_outcome) {
                         if (count($learning_outcome) > 1) {
                             // Si hay más de una parte después de dividir por el guión
-                            $name_learning = trim(preg_replace('/^[0-9]+\s*/', '', $learning_outcome[1])); // Eliminar números y espacios al principio de la cadena
+                            $name_learning = trim(preg_replace('/^[0-9\s\-\x{2022}\x{0095}\t]+/u', '', $learning_outcome[1]));
                         } else {
                             // Si no hay un guión, entonces tomar el nombre completo sin modificar
                             $name_learning = trim($learning_outcome[0]);
@@ -846,6 +893,8 @@ class ProgrammeController extends Controller
                         }
                     }
                 }
+
+                DB::commit();
                 
                 return back()->with('success', 'Archivo excel escaneado coerrectamente. '.$count.' Resultados registrados exitosamente.')->with('typealert', 'success');
             } catch (Exception $e) {
@@ -1004,6 +1053,31 @@ class ProgrammeController extends Controller
             return [$program_especial->id => $program_especial->name];
         });
 
+        // Obtener tanto empleados como contratistas que sean de los tipos especificados
+        $getInstructor = DB::table('employees')
+                        ->join('employee_types', 'employees.employee_type_id', '=', 'employee_types.id')
+                        ->join('people', 'employees.person_id', '=', 'people.id')
+                        ->where('state', 'Activo')
+                        ->where('employee_types.name', 'Instructor')
+                        ->select('people.id','people.first_name', 'people.first_last_name', 'people.second_last_name', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
+                        ->union(
+                            DB::table('contractors')
+                            ->join('employee_types', 'contractors.employee_type_id', '=', 'employee_types.id')
+                            ->join('people', 'contractors.person_id', '=', 'people.id')
+                            ->where('state', 'Activo')
+                            ->where('employee_types.name', 'Instructor')
+                            ->select('people.id','people.first_name', 'people.first_last_name', 'people.second_last_name', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
+                        )->get();
+        $instructors = $getInstructor->map(function ($i) {
+            $id = $i->id;
+            $name = $i->first_name . ' ' . $i->first_last_name . ' ' . $i->second_last_name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => trans('sigac::profession.SelectAnInstructor')])->pluck('name', 'id');
+
         $country_id = Country::where('name','=','Colombia')->pluck('id');
         $department_id = Department::where('country_id',$country_id)->pluck('id');
         $municipalities = Municipality::whereIn('department_id',$department_id)->orderBy('name','Asc')->get()->mapWithKeys(function ($munipality) {
@@ -1013,6 +1087,7 @@ class ProgrammeController extends Controller
             'titlePage' => trans('Solicitar Programa'),
             'titleView' => trans('Solicitar Programa'),
             'program'=>$program,
+            'instructors' => $instructors,
             'program_especial'=>$program_especial,
             'municipalities'=>$municipalities
         ]);
@@ -1054,6 +1129,27 @@ class ProgrammeController extends Controller
             return response()->json(['error' => 'Error interno del servidor'], 500);
         }
     }
+
+    public function program_request_searchempresa(Request $request)
+    {
+        $term = $request->get('q');
+        $empresas = ProgramRequest::where('empresa', 'LIKE', '%' . $term . '%')
+            ->select('id', 'empresa as text', 'address') // selecciona solo los campos necesarios
+            ->get();
+
+        return response()->json($empresas);
+    }
+
+    public function program_request_searchapplicant(Request $request)
+    {
+        $term = $request->get('q');
+        $applicants = ProgramRequest::where('applicant', 'LIKE', '%' . $term . '%')
+            ->select('id', 'applicant as text', 'email','telephone') // selecciona solo los campos necesarios
+            ->get();
+
+        return response()->json($applicants);
+    }
+
 
     // Registrar solicitud del programa
     public function program_request_store(Request $request)
@@ -1097,7 +1193,9 @@ class ProgrammeController extends Controller
                                   ->where('end_time', '<=', $end_time);
                         });
                     })
-                    ->where('person_id', $instructor)
+                    ->whereHas('instructor_program_people', function ($query) use ($instructor) {
+                        $query->where('person_id', $instructor);
+                    })
                     ->exists();
     
                 if ($existing_program) {
@@ -1113,7 +1211,7 @@ class ProgrammeController extends Controller
                         $conflicting_message .= "\nFecha: " . $conflict['date'] . ", Hora de inicio: " . $conflict['start_time'] . ", Hora de fin: " . $conflict['end_time'];
                     }
 
-                    return redirect()->route('sigac.instructor.programming.program_request.index')->with('success', $conflicting_message);
+                    return redirect()->route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.index')->with('success', $conflicting_message);
                     
                 } else {
                     $program_request = new ProgramRequest;
@@ -1147,7 +1245,7 @@ class ProgrammeController extends Controller
     
             $success_message = 'Solicitud enviada';
     
-            return redirect()->route('sigac.instructor.programming.program_request.index')->with('success', $success_message);
+            return redirect()->route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.index')->with('success', $success_message);
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error('Error en el registro: ' . $e->getMessage());
