@@ -480,7 +480,7 @@ class ProgrammeController extends Controller
         'professions' => Profession::all(), 
         'special_programs' => $special_programs]);
     }
-
+  
     /* Consultar programas de manera asincrónica*/
     public function program_search(){
         $data = Program::with('knowledge_network')->latest()->get();
@@ -509,7 +509,6 @@ class ProgrammeController extends Controller
 
     public function parameter_competencies($program_id)
     {
-        
         $programs = Session::get('programs');
         $program = Program::findOrFail($program_id);
         $name = $program->name;
