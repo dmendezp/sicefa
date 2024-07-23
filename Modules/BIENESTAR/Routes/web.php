@@ -211,6 +211,7 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/admin/search/filter', 'TransportationAssistancesController@search')->name('bienestar.admin.view.transportation_assistance_lists.consult');
         Route::get('/admin/attendance_report', 'TransportationAssistancesController@Attendance_failures')->name('bienestar.admin.attendance_report.transportation_assistance_lists.consult');
         Route::get('/admin/failure_reporting', 'TransportationAssistancesController@Failure_reporting')->name('bienestar.admin.failure_reporting.transportation_assistance_lists.consult');
+        Route::get('/admin/failure_reporting/store', 'TransportationAssistancesController@Failure_reporting_store')->name('bienestar.admin.failure_reporting.transportation_assistance_lists.store');
         //vista de listado lista de asistencia de transporte(LIDER BENEFICIO DE TRANSPORTE)
         route::get('/transportation_benefits_leader/transportation_assistance_list', 'TransportationAssistancesController@index')->name('bienestar.transportation_benefits_leader.transportation.view.transportation_assistance_lists');
         Route::post('/transportation_benefits_leader/busqueda/documentos', 'TransportationAssistancesController@search')->name('bienestar.transportation_benefits_leader.view.transportation_assistance_lists.consult');

@@ -84,7 +84,7 @@ class Apprentice extends Model implements Auditable
     public function postulations(){// Accede a los datos del aprendiz al que pertenece
         return $this->hasMany(Postulation::class);
     }
-    public function assigntransoportroutes(){
+    public function assigntransportroutes(){
         return $this->hasMany(AssignTransportRoute::class);
     }
 

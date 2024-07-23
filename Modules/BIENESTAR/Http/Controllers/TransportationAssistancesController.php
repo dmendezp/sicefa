@@ -6,12 +6,14 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\Apprentice;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Modules\BIENESTAR\Entities\AssignTransportRoute;
 use Modules\BIENESTAR\Entities\TransportationAssistance;
 use Modules\BIENESTAR\Entities\RouteTransportation;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class TransportationAssistancesController extends Controller
 {
@@ -27,12 +29,12 @@ class TransportationAssistancesController extends Controller
                 'people.document_number',
                 'programs.name as program_name',
                 'courses.code',
-                'routes_transportations.route_number',
-                'routes_transportations.name_route',
+                'routes_trasportantion.route_number',
+                'routes_trasportantion.name_route',
                 'transportation_assistances.date_time'
             )
             ->join('assing_transport_routes', 'transportation_assistances.assing_transport_route_id', '=', 'assing_transport_routes.id')
-            ->join('routes_transportations', 'assing_transport_routes.route_transportation_id', '=', 'routes_transportations.id')
+            ->join('routes_trasportantion', 'assing_transport_routes.route_transportation_id', '=', 'routes_trasportantion.id')
             ->join('apprentices', 'transportation_assistances.apprentice_id', '=', 'apprentices.id')
             ->join('people', 'apprentices.person_id', '=', 'people.id')
             ->join('courses', 'apprentices.course_id', '=', 'courses.id')
@@ -204,34 +206,8 @@ class TransportationAssistancesController extends Controller
 
     public function Failure_reporting()
     {
-        $resultados = DB::table('transportation_assistances')
-            ->select(
-                'people.document_number',
-                'people.first_name',
-                'people.first_last_name',
-                'people.second_last_name',
-                'courses.code',
-                'programs.name',
-                'routes_transportations.route_number',
-                'routes_transportations.name_route',
-                'bus_drivers.name',
-                'buses.plate',
-                DB::raw('DATE(transportation_assistances.date_time) as date_time'),
-                'transportation_assistances.assistance_status'
-            )
-            ->join('apprentices', 'transportation_assistances.apprentice_id', '=', 'apprentices.id')
-            ->join('people', 'apprentices.person_id', '=', 'people.id')
-            ->join('courses', 'apprentices.course_id', '=', 'courses.id')
-            ->join('programs', 'courses.program_id', '=', 'programs.id')
-            ->join('assing_transport_routes', 'transportation_assistances.assing_transport_route_id', '=', 'assing_transport_routes.id')
-            ->join('routes_transportations', 'assing_transport_routes.route_transportation_id', '=', 'routes_transportations.id')
-            ->join('buses', 'transportation_assistances.bus_id', '=', 'buses.id')
-            ->join('bus_drivers', 'transportation_assistances.bus_driver_id', '=', 'bus_drivers.id')
-            ->where('transportation_assistances.assistance_status', '=', 'Falla')
-            ->whereRaw('WEEK(transportation_assistances.date_time) = WEEK(NOW())')
-            ->orderBy('transportation_assistances.apprentice_id')
-            ->orderByDesc('transportation_assistances.date_time')
-            ->get();
+        $resultados = TransportationAssistance::with('assigntransportroute.routes_trasportantion')->where('assistance_status','=','Falla')
+        ->get();
 
         return view('bienestar::route-attendance.failure_reporting', ['resultados' => $resultados]);
     }
@@ -385,23 +361,49 @@ class TransportationAssistancesController extends Controller
         }
     }
 
-    public function Failure_register()
+    public function Failure_reporting_store()
     {
-        // Obtener los resultados de las asistencias con fallas de la semana actual usando Eloquent
-        $resultados = RouteTransportation::with([
-                'assingTransportRoutes.transportationAssistances' => function ($query) {
-                    $query->where('assistance_status', 'Falla')
-                    ->whereRaw('WEEK(date_time) = WEEK(NOW())')
-                    ->with(['apprentice.person', 'bus_id', 'busDriver_id']);
-                }])->get();
+        $fechaactual = Carbon::today(); // Obtener la fecha actual sin la hora
 
-        // Verificar si hay resultados
-        if ($resultados->isEmpty()) {
-            // Manejar el caso en que no se encuentren registros
-            return redirect()->back()->with('error', 'No se encontraron asistencias con fallas para esta semana');
+        // Obtener los IDs de los aprendices que tienen asistencias para el día actual
+        $apprentices_con_asistencia = TransportationAssistance::whereDate('date_time', '=', $fechaactual)
+        ->pluck('apprentice_id')
+        ->unique(); // Obtener IDs únicos
+
+        // Obtener los aprendices que tienen asignadas rutas de transporte
+        $apprentices_con_asistencia = Apprentice::whereHas('assigntransportroutes', function ($query) {
+            $query->orderBy('created_at', 'desc'); // Ordenar por created_at descendente
+        })
+        ->whereIn('id', $apprentices_con_asistencia)
+        ->pluck('id');
+
+        // Obtener todos los IDs de los aprendices que tienen asignadas rutas de transporte
+        $todos_apprentices = Apprentice::whereHas('assigntransportroutes', function ($query) {
+            $query->orderBy('created_at', 'desc'); // Ordenar por created_at descendente
+        })
+        ->pluck('id');
+
+        // Filtrar los aprendices que no están en $apprentices_con_asistencia
+        $apprentices_sin_asistencia = $todos_apprentices->diff($apprentices_con_asistencia);
+
+        // Obtener los detalles completos de los aprendices que no tienen asistencia para el día actual
+        $apprentices_sin_asistencia_detalles = Apprentice::whereIn('id', $apprentices_sin_asistencia)
+        ->whereHas('assigntransportroutes', function ($query) {
+            $query->orderBy('created_at', 'desc'); // Ordenar por created_at descendente
+        })
+        ->get();
+
+        foreach ($apprentices_sin_asistencia_detalles as $apprentice){
+
+            $falla = new TransportationAssistance;
+            $falla->apprentice_id = $apprentice->id;
+            $falla->assing_transport_route_id = $apprentice->assigntransportroutes->first()->id;
+            $falla->date_time = $fechaactual;
+            $falla->assistance_status = 'Falla';
+            $falla->save();
         }
 
         // Redirigir a la vista con los resultados
-        return view('bienestar::route-attendance.failure_reporting', ['resultados' => $resultados]);
+        return redirect()->back()->with('success', 'Fallas registradas');
     }
 } 
