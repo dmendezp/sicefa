@@ -27,7 +27,7 @@ class AssistancesFoodsController extends Controller
     public function index()
 {
     $AssistancesFoods = DB::table('postulations_benefits')
-        ->select('people.first_name', 'people.first_last_name', 'people.document_number', 'courses.code', 'programs.name', 'benefits.name', 'benefits.porcentage')
+        ->select('people.first_name', 'people.first_last_name', 'people.document_number', 'courses.code', 'programs.name', 'benefits.name', 'benefits.porcentege')
         ->join('postulations', 'postulations_benefits.postulation_id', '=', 'postulations.id')
         ->join('apprentices', 'postulations.apprentice_id', '=', 'apprentices.id')
         ->join('people', 'apprentices.person_id', '=', 'people.id')

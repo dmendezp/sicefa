@@ -29,12 +29,12 @@ class TransportationAssistancesController extends Controller
                 'people.document_number',
                 'programs.name as program_name',
                 'courses.code',
-                'routes_trasportantion.route_number',
-                'routes_trasportantion.name_route',
+                'routes_transportations.route_number',
+                'routes_transportations.name_route',
                 'transportation_assistances.date_time'
             )
             ->join('assing_transport_routes', 'transportation_assistances.assing_transport_route_id', '=', 'assing_transport_routes.id')
-            ->join('routes_trasportantion', 'assing_transport_routes.route_transportation_id', '=', 'routes_trasportantion.id')
+            ->join('routes_transportations', 'assing_transport_routes.route_transportation_id', '=', 'routes_transportations.id')
             ->join('apprentices', 'transportation_assistances.apprentice_id', '=', 'apprentices.id')
             ->join('people', 'apprentices.person_id', '=', 'people.id')
             ->join('courses', 'apprentices.course_id', '=', 'courses.id')
