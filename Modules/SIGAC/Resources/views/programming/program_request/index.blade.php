@@ -9,7 +9,7 @@
     <div class="col-6">
         <div class="card">
             <div class="card-body">
-                {!! Form::open(['route' => 'sigac.instructor.programming.program_request.store', 'method' => 'POST']) !!}
+                {!! Form::open(['route' => 'sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.store', 'method' => 'POST']) !!}
                 @csrf
                 <div class="form-group">
                     {!! Form::label('instructor', 'Instructor') !!}
@@ -190,7 +190,7 @@
 
             // Realizar una solicitud AJAX para enviar el ID seleccionado a la ruta o función de Laravel
             $.ajax({
-                url: '{{ route('sigac.programming.program_request.searchprofession') }}',
+                url: '{{ route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.searchprofession') }}',
                 method: 'GET',
                 data: {
                     person_id: person_id
@@ -247,7 +247,7 @@
             tags: true,
             placeholder: 'Ingrese el nombre de la empresa',
             ajax: {
-                url: '{{ route('sigac.programming.program_request.searchempresa') }}', // URL para buscar empresas
+                url: '{{ route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.searchempresa') }}', // URL para buscar empresas
                 dataType: 'json',
                 delay: 250,
                 data: function(params) {
@@ -293,7 +293,7 @@
             tags: true,
             placeholder: 'Ingrese el nombre del solicitante',
             ajax: {
-                url: '{{ route('sigac.programming.program_request.searchapplicant') }}', // URL para buscar solicitantes
+                url: '{{ route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.searchapplicant') }}', // URL para buscar solicitantes
                 dataType: 'json',
                 delay: 250,
                 data: function(params) {

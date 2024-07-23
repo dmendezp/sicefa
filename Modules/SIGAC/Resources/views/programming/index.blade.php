@@ -66,7 +66,7 @@
                       </h2>
                       <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                         <br>
-                        {!! Form::open(['route' => 'sigac.academic_coordination.programming.management.novelty', 'method' => 'POST']) !!}
+                        {!! Form::open(['route' => 'sigac.academic_coordination.programming.management.novelty.store', 'method' => 'POST']) !!}
                         @csrf
                         {!! Form::hidden('instructor_program_id', null, ['id' => 'instructor_program_id']) !!}
                         <div class="form-group">
@@ -164,7 +164,7 @@
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
                         $('#instructor_program_id').val(eventData.instructor_program.id);
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
-                        $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.modality ? (eventData.course.modality) : 'N/A'));
+                        $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.program.modality ? (eventData.course.program.modality) : 'N/A'));
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name + ' - ' + eventData.course.municipality.department.name) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
@@ -175,11 +175,11 @@
                         $('#instructor_program_id').val(eventData.instructor_program.id);
                         var instructorsHtml = 'Instructores : <br>';
                         eventData.instructor_program_people.forEach(function(pe) {
-                            instructorsHtml += '- ' + pe.person.first_name + '<br>' ;
+                            instructorsHtml += '- ' + pe.person.first_name + ' ' + pe.person.first_last_name + ' ' + pe.person.second_last_name +'<br>' ;
                         });
                         $('#instructor').html(instructorsHtml);
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
-                        $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.modality ? (eventData.course.modality) : 'N/A'));
+                        $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.program.modality ? (eventData.course.program.modality) : 'N/A'));
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
@@ -196,11 +196,11 @@
                         $('#environments').html(environmentsHtml);
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
                         $('#instructor_program_id').val(eventData.instructor_program.id);
-                        $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.modality ? (eventData.course.modality) : 'N/A'));
+                        $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.program.modality ? (eventData.course.program.modality) : 'N/A'));
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name) : 'N/A'));
                         var instructorsHtml = 'Instructores : <br>';
                         eventData.instructor_program_people.forEach(function(pe) {
-                            instructorsHtml += '- ' + pe.person.first_name + '<br>' ;
+                            instructorsHtml += '- ' + pe.person.first_name + ' ' + pe.person.first_last_name + ' ' + pe.person.second_last_name +'<br>' ;
                         });
                         $('#instructor').html(instructorsHtml);
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
@@ -220,7 +220,7 @@
                         $('#instructor_program_id').val(eventData.instructor_program.id);
                         var instructorsHtml = 'Instructores : <br>';
                         eventData.instructor_program_people.forEach(function(pe) {
-                            instructorsHtml += '- ' + pe.person.first_name + '<br>' ;
+                            instructorsHtml += '- ' + pe.person.first_name + ' ' + pe.person.first_last_name + ' ' + pe.person.second_last_name +'<br>' ;
                         });
                         $('#instructor').html(instructorsHtml);
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
@@ -272,7 +272,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "{{ route('sigac.academic_coordination.programming.management.search') }}",
+                url: "{{ route('sigac.programming.management.search') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     search: $(this).val(),
@@ -364,7 +364,7 @@
             $('#titulo').text(titulo);
             $.ajax({
                 type: 'POST',
-                url: "{{ route('sigac.academic_coordination.programming.management.filter') }}",
+                url: "{{ route('sigac.programming.management.filter') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     filter: filter

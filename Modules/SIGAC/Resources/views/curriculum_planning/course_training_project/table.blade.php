@@ -23,7 +23,7 @@
                     <td class="text-center">
                         @foreach($training_project->courses as $course)
                         <form id="delete-training_project-form-{{ $training_project->id }}{{ $course->id }}"
-                            action="{{ route('sigac.academic_coordination.curriculum_planning.course_trainig_project.course_training_project_destroy', ['training_project_id' => $training_project->id, 'course_id' => $course->id]) }}"
+                            action="{{ route('sigac.academic_coordination.curriculum_planning.course_trainig_project.destroy', ['training_project_id' => $training_project->id, 'course_id' => $course->id]) }}"
                             method="POST">
                             @csrf
                             @method('DELETE')

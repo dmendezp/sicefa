@@ -5,10 +5,11 @@ namespace Modules\SIGAC\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\SICA\Entities\Environment;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class EnvironmentInstructorProgram extends Model
+class EnvironmentInstructorProgram extends Model implements Auditable
 {
-    use HasFactory;
+    use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [];
     

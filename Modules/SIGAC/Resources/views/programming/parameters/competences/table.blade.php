@@ -44,7 +44,7 @@
                                                 <td class="text-center">{{ $c->hour }}</td>
                                                 <td class="text-center">{{ $c->type }}</td>
                                                 <td class="text-center">
-                                                    <a class="btn btn-primary" href="{{ route('sigac.academic_coordination.learning_outcomes.index', ['competencie_id' => $c->id]) }}">
+                                                    <a class="btn btn-primary" href="{{ route('sigac.academic_coordination.programming.learning_outcome.index', ['competencie_id' => $c->id , 'program_id' => $program_id]) }}">
                                                         <i class="fa-solid fa-outdent"></i>
                                                     </a>
                                                 </td>
@@ -65,7 +65,7 @@
                                                 </td>
                                                 @include('sigac::programming.parameters.competences.edit')
                                                 <form id="delete-competence-form-{{ $c->id }}"
-                                                    action="{{ route('sigac.academic_coordination.competences.destroy', ['id' => $c->id]) }}"
+                                                    action="{{ route('sigac.academic_coordination.programming.competence.destroy', ['id' => $c->id]) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')

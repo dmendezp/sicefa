@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 pr-3 pb-3">
-                                <form id="learningOutPeopleForm" action="{{ route('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_store') }}" method="post">
+                                <form id="learningOutPeopleForm" action="{{ route('sigac.academic_coordination.human_talent.assign_learning_outcomes.store') }}" method="post">
                                     @csrf
                                     <div class="form-group">
                                         {!! Form::label('program', trans('sigac::learning_out_come.Programs')) !!}
@@ -119,7 +119,7 @@
 
         $('.program').on('change', function() {
             var selectedProgram = $(this).val();
-            var url = {!! json_encode(route('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_search_competencie', ['id' => ':id'])) !!}.replace(':id', selectedProgram.toString());
+            var url = {!! json_encode(route('sigac.academic_coordination.human_talent.assign_learning_outcomes.search_competencie', ['id' => ':id'])) !!}.replace(':id', selectedProgram.toString());
 
             $.ajax({
                 url: url,
@@ -141,7 +141,7 @@
 
         $('.competencie').on('change', function() {
             var selectedCompetencie = $(this).val();
-            var url = {!! json_encode(route('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_search_learning_outcome', ['id' => ':id'])) !!}.replace(':id', selectedCompetencie.toString());
+            var url = {!! json_encode(route('sigac.academic_coordination.human_talent.assign_learning_outcomes.search_learning_outcome', ['id' => ':id'])) !!}.replace(':id', selectedCompetencie.toString());
 
             $.ajax({
                 url: url,
@@ -165,7 +165,7 @@
 
         $('.learningOutCome').on('change', function() {
             var selectedLearningOutCome = $(this).val();
-            var url = {!! json_encode(route('sigac.academic_coordination.human_talent.assign_learning_outcomes.learning_out_people_search_instructor', ['id' => ':id'])) !!}.replace(':id', selectedLearningOutCome.toString());
+            var url = {!! json_encode(route('sigac.academic_coordination.human_talent.assign_learning_outcomes.search_instructor', ['id' => ':id'])) !!}.replace(':id', selectedLearningOutCome.toString());
 
             $.ajax({
                 url: url,

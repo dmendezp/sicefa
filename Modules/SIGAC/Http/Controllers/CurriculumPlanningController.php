@@ -612,12 +612,12 @@ class CurriculumPlanningController extends Controller
         // Realizar registro
         if (!$existingRecord) {
             if ($course->training_projects()->syncWithoutDetaching($request->training_project)) {
-                return redirect(route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index'))->with(['success' => trans('sigac::profession.Successful_Aggregation')]);
+                return redirect(route('sigac.academic_coordination.curriculum_planning.course_trainig_project.index'))->with(['success' => trans('sigac::profession.Successful_Aggregation')]);
             } else {
-                return redirect(route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index'))->with(['error' => trans('sigac::profession.Error_Adding')]);
+                return redirect(route('sigac.academic_coordination.curriculum_planning.course_trainig_project.index'))->with(['error' => trans('sigac::profession.Error_Adding')]);
             }
         } else {
-            return redirect(route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index'))->with(['error' => trans('sigac::learning_out_come.RecordAlreadyExistsWithDataSent')]);
+            return redirect(route('sigac.academic_coordination.curriculum_planning.course_trainig_project.index'))->with(['error' => trans('sigac::learning_out_come.RecordAlreadyExistsWithDataSent')]);
         }
     }
 
@@ -629,7 +629,7 @@ class CurriculumPlanningController extends Controller
         // Eliminar la relación a través de Eloquent
         $training_project->courses()->detach($course_id);
 
-        return redirect(route('sigac.academic_coordination.course_trainig_project.course_trainig_project.course_training_project_index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
+        return redirect(route('sigac.academic_coordination.curriculum_planning.course_trainig_project.index'))->with(['success' => trans('sigac::profession.Successful_Removal')]);
     }
 
     // Proyecto formativo

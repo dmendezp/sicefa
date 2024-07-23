@@ -200,4 +200,14 @@ class SICAController extends Controller
         return view('sica::attendance_dashboard', $data);
     }
 
+    /* Panel de control del gestor de unidades */
+    public function unitmanager_dashboard(){
+        $data = [
+            'title' => trans('sica::menu.unitmanager_dashboard'),
+            'environments' => Environment::count(),
+            'productive_units' => ProductiveUnit::count(),
+        ];
+        return view('sica::unitmanager_dashboard', $data);
+    }
+
 }

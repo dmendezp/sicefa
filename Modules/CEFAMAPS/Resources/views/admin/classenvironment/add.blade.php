@@ -1,9 +1,9 @@
 @extends('cefamaps::layouts.master')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i>
+    <li class="breadcrumb-item"><a href="{{ route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i>
             {{ trans('cefamaps::class.Breadcrumb_Class') }}</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.class.index') }}"><i
+    <li class="breadcrumb-item"><a href="{{ route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.config.class.index') }}"><i
                 class="fas fa-solid fa-vector-square"></i> {{ trans('cefamaps::class.Breadcrumb_Active_Class') }}</a></li>
     <li class="breadcrumb-item"><a href="#"><i class="fas fa-solid fa-square-plus"></i> {{ trans('cefamaps::class.Breadcrumb_Active_Add_Class') }}</a></li>
 @endsection
@@ -19,7 +19,7 @@
                         </div>
                         <div class="card-body">
                             <div class="content">
-                                <form action="{{ route('cefamaps.admin.config.class.add') }}" method="post">
+                                <form action="{{ route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.config.class.add') }}" method="post">
                                     @csrf
                                     <!-- inicio del nombre -->
                                     <div class="form-group">

@@ -207,6 +207,7 @@ class ProgrammeController extends Controller
         $environments = $request->environment;
         $learning_outcomes = $request->learning_outcome;
         $hours = $request->hour;
+        $querter_number = $request->querter_number;
 
         foreach ($fechas as $f) {
             $programming = InstructorProgram::where('date', $f)
@@ -254,6 +255,7 @@ class ProgrammeController extends Controller
                 $p->start_time = $request->start_time;
                 $p->end_time = $request->end_time;
                 $p->course_id = $request->course;
+                $p->quarter_number = $querter_number;
                 $p->state = 'Programado';
                 $p->save();
                 $instructor_program_id = $p->id;
@@ -478,7 +480,7 @@ class ProgrammeController extends Controller
         'professions' => Profession::all(), 
         'special_programs' => $special_programs]);
     }
-
+  
     /* Consultar programas de manera asincrónica*/
     public function program_search(){
         $data = Program::with('knowledge_network')->latest()->get();
@@ -495,7 +497,7 @@ class ProgrammeController extends Controller
                 ->addColumn('action', function($row){
                     $id = $row->id;
                     $actionBtn = '
-                        <a class="btn btn-primary" href="'.route('sigac.academic_coordination.competences.index', ['program_id' => $id]).'" data-toggle="tooltip" data-placement="top" title="Ver competencias">
+                        <a class="btn btn-primary" href="'.route('sigac.academic_coordination.programming.competence.index', ['program_id' => $id]).'" data-toggle="tooltip" data-placement="top" title="Ver competencias">
                         <i class="fa-solid fa-outdent"></i>
                         </a>
                     ';
@@ -507,7 +509,6 @@ class ProgrammeController extends Controller
 
     public function parameter_competencies($program_id)
     {
-        
         $programs = Session::get('programs');
         $program = Program::findOrFail($program_id);
         $name = $program->name;
@@ -522,7 +523,7 @@ class ProgrammeController extends Controller
         'competencies' => $competencies]);
     }
 
-    public function parameter_learning_outcomes($competencie_id)
+    public function parameter_learning_outcomes($competencie_id, $program_id)
     {
         $Comps = Competencie::all();
         $competencies = $Comps->map(function ($c) {
@@ -536,9 +537,6 @@ class ProgrammeController extends Controller
         $competencie = Competencie::findOrFail($competencie_id);
         $name_competencia = $competencie->name;
         $learning_outcomes = LearningOutcome::where('competencie_id',$competencie_id)->get();
-        foreach ($learning_outcomes as $l) {
-           $program_id = $l->competencie->program_id;
-        }
         $titlePage = 'Parametros - Resultado de aprendizaje';
         $titleView = 'Parametros - Resultado de aprendizaje';
         return view('sigac::programming.parameters.learning_outcomes.table')->with(['titlePage' => $titlePage,
@@ -760,7 +758,7 @@ class ProgrammeController extends Controller
             $icon = 'error';
             $message_profession = 'Error al añadir el resultado de aprendizaje.';
         }
-        return redirect(route('sigac.academic_coordination.programming.parameters.index'))->with(['icon' => $icon, 'message_profession' => $message_profession]);
+        return redirect()->back()->with(['icon' => $icon, 'message_profession' => $message_profession]);
     }
 
     // Actualizar resultado de aprendizaje
@@ -1213,7 +1211,7 @@ class ProgrammeController extends Controller
                         $conflicting_message .= "\nFecha: " . $conflict['date'] . ", Hora de inicio: " . $conflict['start_time'] . ", Hora de fin: " . $conflict['end_time'];
                     }
 
-                    return redirect()->route('sigac.instructor.programming.program_request.index')->with('success', $conflicting_message);
+                    return redirect()->route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.index')->with('success', $conflicting_message);
                     
                 } else {
                     $program_request = new ProgramRequest;
@@ -1247,7 +1245,7 @@ class ProgrammeController extends Controller
     
             $success_message = 'Solicitud enviada';
     
-            return redirect()->route('sigac.instructor.programming.program_request.index')->with('success', $success_message);
+            return redirect()->route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.index')->with('success', $success_message);
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error('Error en el registro: ' . $e->getMessage());
