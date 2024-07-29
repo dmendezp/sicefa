@@ -10,7 +10,10 @@ class InstructorProgramPerson extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'instructor_program_id',
+        'person_id'
+    ];
     
     protected static function newFactory()
     {
@@ -21,4 +24,11 @@ class InstructorProgramPerson extends Model
     {
         return $this->belongsTo(Person::class);
     }
+
+    public function instructor_program()
+    {
+        return $this->belongsTo(InstructorProgram::class);
+    }
+
+    
 }

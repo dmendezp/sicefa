@@ -10,7 +10,10 @@ class EnvironmentInstructorProgram extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'instructor_program_id',
+        'environment_id'
+    ];
     
     protected static function newFactory()
     {
@@ -20,5 +23,9 @@ class EnvironmentInstructorProgram extends Model
     public function environment()
     {
         return $this->belongsTo(Environment::class);
+    }
+
+    public function instructor_program(){ // Accede a todas las programaciones de este ambiente
+        return $this->belongsTo(InstructorProgram::class);
     }
 }

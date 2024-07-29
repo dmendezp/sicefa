@@ -18,10 +18,11 @@ use Modules\AGROINDUSTRIA\Entities\Formulation;
 use Modules\AGROINDUSTRIA\Entities\RequestExternal;
 use Modules\AGROCEFA\Entities\Executor;
 use Modules\SIGAC\Entities\CompetencePerson;
-use Modules\SIGAC\Entities\InstructorProgram;
+use Modules\SIGAC\Entities\InstructorProgramPerson;
 use Modules\SIGAC\Entities\Profession;
 use Modules\SIGAC\Entities\AttendanceApprentice;
 use Modules\SIGAC\Entities\EvaluativeJudgment;
+use Modules\SIGAC\Entities\Key;
 
 class Person extends Model implements Auditable
 {
@@ -172,8 +173,9 @@ class Person extends Model implements Auditable
     public function inventories(){ // Accede a todos los registros de inventarios que estan a cargo de esta persona
         return $this->hasMany(Inventory::class);
     }
-    public function instructor_programs(){ // Accede a todas las programaciones de este instructor
-        return $this->hasMany(InstructorProgram::class);
+    public function instructor_program_people()
+    {
+        return $this->hasMany(InstructorProgramPerson::class);
     }
     public function juries(){ // Accede a todos los jurados que están registrados con esta persona
         return $this->hasMany(Jury::class);
@@ -208,7 +210,13 @@ class Person extends Model implements Auditable
     public function users(){ // Accede a todos los usuarios registrados con esta persona
         return $this->hasMany(User::class);
     }
-    
+    public function roles(){ 
+        return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+    public function keys(){ 
+        return $this->belongsToMany(Key::class, 'issued_at', 'returned_at')->withTimestamps();
+    }
+
 
 
     // Configuración de factory para la generación de datos de pruebas

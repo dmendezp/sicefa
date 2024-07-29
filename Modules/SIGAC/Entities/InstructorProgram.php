@@ -48,4 +48,5 @@ class InstructorProgram extends Model implements Auditable
     {
         return $this->hasMany(InstructorProgramOutcome::class);
     }
+    
 }
