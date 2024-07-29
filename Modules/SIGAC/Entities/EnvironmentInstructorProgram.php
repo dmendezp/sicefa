@@ -5,10 +5,11 @@ namespace Modules\SIGAC\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\SICA\Entities\Environment;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class EnvironmentInstructorProgram extends Model
+class EnvironmentInstructorProgram extends Model implements Auditable
 {
-    use HasFactory;
+    use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'instructor_program_id',
@@ -25,7 +26,8 @@ class EnvironmentInstructorProgram extends Model
         return $this->belongsTo(Environment::class);
     }
 
-    public function instructor_program(){ // Accede a todas las programaciones de este ambiente
+    public function instructor_program()
+    {
         return $this->belongsTo(InstructorProgram::class);
     }
 }

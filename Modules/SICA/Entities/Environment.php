@@ -8,8 +8,9 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Modules\CEFAMAPS\Entities\Coordinate;
 use Modules\CEFAMAPS\Entities\Page;
 use Modules\AGROCEFA\Entities\Crop;
-use Modules\SIGAC\Entities\EnvironmentInstructorProgram;
 use Modules\SIGAC\Entities\Key;
+use Modules\SIGAC\Entities\InstructorProgram;
+use Modules\SIGAC\Entities\EnvironmentInstructorProgram;
 
 class Environment extends Model implements Auditable
 {
@@ -54,15 +55,15 @@ class Environment extends Model implements Auditable
     public function coordinates(){ // Accede a la información del coordinate al que pertenece
         return $this->hasMany(Coordinate::class);
     }
+    public function environment_instructor_programs()
+    {
+        return $this->hasMany(EnvironmentInstructorProgram::class);
+    }
     public function environment_productive_units(){ // Accede a todos los registros de las asociaciones de ambientes y unidades productivas que pertenecen a este ambiente
         return $this->hasMany(EnvironmentProductiveUnit::class);
     }
     public function farm(){ // Accede a la información de la granja al que pertenece
         return $this->belongsTo(Farm::class);
-    }
-    public function environment_instructor_programs()
-    {
-        return $this->hasMany(EnvironmentInstructorProgram::class);
     }
     public function pages(){ // Accede a la información del page al que pertenece
         return $this->hasMany(Page::class);

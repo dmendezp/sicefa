@@ -43,7 +43,7 @@
                                 </a>
                             </td>
                             <td class="text-center">
-                                <a class="btn btn-outline-secondary" href="{{ route('sigac.academic_coordination.curriculum_planning.quarterlie.load.create', ['course_id' => $course->id]) }}">Cargar Trimestralización</a>
+                                <a class="btn btn-outline-secondary" href="{{ route('sigac.academic_coordination.curriculum_planning.quarterlie.load.create', ['course_id' => $course->id ,'training_project_id' => $t->id]) }}">Cargar Trimestralización</a>
                             </td>
                             <td class="text-center col-1">
                                 <div class="opts">

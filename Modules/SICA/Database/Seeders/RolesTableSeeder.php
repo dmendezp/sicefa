@@ -21,7 +21,7 @@ class RolesTableSeeder extends Seeder
         $app = App::where('name','SICA')->first();
 
 
-        // Registrar o actualizar rol de SUPERADMINISTRADOR
+       /*  // Registrar o actualizar rol de SUPERADMINISTRADOR
         $role_super_admin = Role::updateOrCreate(['slug' => 'superadmin'], [
             'name' => 'Super Administrador',
             'description' => 'Rol Superadministrador de SICEFA',
@@ -53,9 +53,17 @@ class RolesTableSeeder extends Seeder
             'description_english' => 'Role for the attendance record of the SICA application',
             'app_id' => $app->id
         ]);
+ */
+        // Registrar o actualizar rol de GESTOR DE UNIDADES
+        $role_attendance = Role::updateOrCreate(['slug' => 'sica.unitmanager'], [
+            'name' => 'Gestor de unidades',
+            'description' => 'Rol para la gestion de las unidades productivas de la aplicación SICA',
+            'description_english' => 'Role for the management of the productive units of the SICA application',
+            'app_id' => $app->id
+        ]);
 
 
-        // Consulta de usuarios
+/*         // Consulta de usuarios
         $user_super_admin = User::where('nickname','damendez')->first(); // Usuario Administrador con full-access (Diego Andrés Mendéz Pastrana)
         $user_super_admin_1 = User::where('nickname','JDGM0331')->first(); // Usuario Administrador con full-access (Jesús David Guevara Munar)
         $user_admin = User::where('nickname','Resmerveilons')->first(); // Usuario Administrador (Manuel Steven Ossa Lievano)
@@ -68,7 +76,7 @@ class RolesTableSeeder extends Seeder
         $user_super_admin_1->roles()->syncWithoutDetaching([$role_super_admin->id]);
         $user_admin->roles()->syncWithoutDetaching([$role_admin->id]);
         $user_coordinator->roles()->syncWithoutDetaching([$role_coordinator->id]);
-        $user_attendance->roles()->syncWithoutDetaching([$role_attendance->id]);
+        $user_attendance->roles()->syncWithoutDetaching([$role_attendance->id]); */
 
     }
 }

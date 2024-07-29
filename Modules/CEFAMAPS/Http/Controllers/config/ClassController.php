@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\ClassEnvironment;
 use Modules\SICA\Entities\Sector;
+use Illuminate\Support\Facades\Route;
 
 class ClassController extends Controller
 {
@@ -39,7 +40,7 @@ class ClassController extends Controller
     $add = new ClassEnvironment;
     $add -> name = e ($request->input('name'));
     if($add -> save()){
-      return redirect(route('cefamaps.admin.config.class.index'));
+      return redirect(route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.config.class.index'));
     }
   }
 
@@ -65,7 +66,7 @@ class ClassController extends Controller
     $edit = ClassEnvironment::findOrFail($request->input('id'));
     $edit -> name = e ($request->input('name'));
     if($edit -> save()){
-      return redirect(route('cefamaps.admin.config.class.index'));
+      return redirect(route('cefamaps.' . getRoleRouteName(Route::currentRouteName()) . '.config.class.index'));
     }
   }
 

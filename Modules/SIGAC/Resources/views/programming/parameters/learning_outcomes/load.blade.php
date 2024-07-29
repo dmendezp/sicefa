@@ -5,7 +5,7 @@
             <div class="row d-flex justify-content-center">
                 <div class="card card-blue card-outline shadow col-md-6">
                     <div class="card-header">
-                        <h3 class="card-title">Cargar Resultados</h3>
+                        <h3 class="card-title">Cargar Resultados - {{ $nameprogram }}</h3>
                     </div>
                     <div class="card-body">
                         {!! Form::open([ 'url' => route('sigac.academic_coordination.programming.learning_outcome.load.store'), 'files' => 'true', 'enctype' => 'multipart/form-data']) !!}

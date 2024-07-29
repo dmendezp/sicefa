@@ -11,7 +11,7 @@
                                 <h4>Asociación de ambientes y unidades productivas</h4>
                             </div>
                             <div class="col-md">
-                                <a href="{{ route('sica.admin.units.productive_unit.index') }}" class="btn btn-info float-right ml-1">
+                                <a href="{{ route('sica.' . getRoleRouteName(Route::currentRouteName()) . '.units.productive_unit.index') }}" class="btn btn-info float-right ml-1">
                                   <i class="fa-solid fa-angles-left fa-beat-fade mr-1"></i> Unidades productivas
                                 </a>
                             </div>
@@ -20,7 +20,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 pr-3 pb-3">
-                                <form action="{{ route('sica.admin.units.productive_units.environment_pus.store') }}" method="post">
+                                <form action="{{ route('sica.' . getRoleRouteName(Route::currentRouteName()) . '.units.productive_units.environment_pus.store') }}" method="post">
                                     @csrf
                                     <div class="form-group">
                                         <label>Unidad productiva:</label>
@@ -73,7 +73,7 @@
                                                         <a href="#" onclick="event.preventDefault(); if(confirm('¿Estás seguro de que deseas eliminar la asociación de la unidad productiva {{ $epu->productive_unit->name }} y el ambiente {{ $epu->environment->name }}?')) { document.getElementById('delete-form-epu{{ $epu->id }}').submit(); }" data-toggle='tooltip' data-placement="top" title="Eliminar asociación">
                                                             <i class="fas fa-trash-alt text-danger"></i>
                                                         </a>
-                                                        <form id="delete-form-epu{{ $epu->id }}" action="{{ route('sica.admin.units.productive_units.environment_pus.destroy', $epu) }}" method="POST" style="display: none;">
+                                                        <form id="delete-form-epu{{ $epu->id }}" action="{{ route('sica.' . getRoleRouteName(Route::currentRouteName()) . '.units.productive_units.environment_pus.destroy', $epu) }}" method="POST" style="display: none;">
                                                             @csrf
                                                             @method('DELETE')
                                                         </form>

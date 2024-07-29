@@ -8,7 +8,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Resultados de Aprendizaje - Competencia:  {{ $namecompetencie }}</h3>
                             <div class="btns">
-                                <a href="{{ route('sigac.academic_coordination.competences.index', ['program_id' => $program_id]) }}"class="btn btn-primary float-right ml-1">
+                                <a href="{{ route('sigac.academic_coordination.programming.competence.index', ['program_id' => $program_id]) }}"class="btn btn-primary float-right ml-1">
                                     <i class="fa-solid fa-angles-left fa-beat-fade"></i>
                                     Competencias
                                 </a>
@@ -53,7 +53,7 @@
                                             </td>
                                             @include('sigac::programming.parameters.learning_outcomes.edit')
                                             <form id="delete-learning-form-{{ $l->id }}"
-                                                action="{{ route('sigac.academic_coordination.learning_outcome.destroy', ['id' => $l->id]) }}"
+                                                action="{{ route('sigac.academic_coordination.programming.learning_outcome.destroy', ['id' => $l->id]) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('DELETE')
@@ -72,6 +72,7 @@
     @include('sigac::programming.parameters.learning_outcomes.create')
 @endsection
 
+@push('scripts')
 <script>
     $(document).ready(function() {
 
@@ -99,3 +100,4 @@
     });
 
 </script>
+@endpush

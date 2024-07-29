@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['url' => route('sigac.instructor.programming.program_request.characterization.store', ['id' => $prom->id]), 'method' => 'POST']) !!}
+                {!! Form::open(['url' => route('sigac.support.programming.program_request.characterization.store', ['id' => $prom->id]), 'method' => 'POST']) !!}
                 @csrf
                 <div class="form-group">
                     {!! Form::label('code_course', trans('Codigo del curso')) !!}

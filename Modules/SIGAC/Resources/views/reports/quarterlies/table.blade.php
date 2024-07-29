@@ -16,8 +16,8 @@
                             <th class="text-center">Perfil</th>
                         </tr>
                         <tr>
-                            <th class="text-center"></th> 
-                            <th class="text-center"></th> 
+                            <th class="text-center"></th>
+                            <th class="text-center"></th>
                             @for($trimestreNumber = 1; $trimestreNumber <= $courseNumber; $trimestreNumber++)
                                 <th class="text-center">P</th>
                                 <th class="text-center">E</th>
@@ -26,45 +26,86 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($quarterlies as $competency => $trimestres)
-                            @foreach($trimestres as $trimestre)
+                        @php
+                            $totalHoursByQuarter = array_fill(1, $courseNumber, 0);
+                            $totalExecutedHoursByQuarter = array_fill(1, $courseNumber, 0);
+                        @endphp
+
+                        @foreach($quarterlies as $competency => $learningOutcomes)
+                            @php
+                                $firstRowCompetency = true;
+                                $totalHoursCompetency = 0;
+                                $totalExecutedHoursCompetency = 0;
+                            @endphp
+
+                            @foreach($learningOutcomes as $learningOutcome => $trimestres)
+                                @foreach($trimestres as $trimestre)
+                                    @php
+                                        // Calcular horas planeadas por competencia
+                                        $totalHoursCompetency += $trimestre->hour;
+
+                                        // Calcular horas ejecutadas por competencia
+                                        if (isset($trimestre->learning_outcome->instructor_program_outcomes)) {
+                                            foreach ($trimestre->learning_outcome->instructor_program_outcomes as $instructor_program_outcome) {
+                                                $instructor_program = $instructor_program_outcome->instructor_program;
+                                                $start = \Carbon\Carbon::parse($instructor_program->start_time);
+                                                $end = \Carbon\Carbon::parse($instructor_program->end_time);
+                                                $totalExecutedHoursCompetency += $end->diffInHours($start);
+                                            }
+                                        }
+                                    @endphp
+                                @endforeach
+                            @endforeach
+
+                            @foreach($learningOutcomes as $learningOutcome => $trimestres)
                                 <tr>
-                                    @if($loop->first)
-                                        <td rowspan="{{ $trimestres->count() }}" class="text-center">{{ $competency }}</td>
-                                        @endif
-                                        <td >{{ $trimestre->learning_outcome->name }}</td>
+                                    @if($firstRowCompetency)
+                                        <td rowspan="{{ count($learningOutcomes) }}" class="text-center">
+                                            {{ $competency }}<br>
+                                            <strong>Planeadas: {{ $totalHoursCompetency }}</strong><br>
+                                            <strong>Ejecutadas: {{ $totalExecutedHoursCompetency }}</strong>
+                                        </td>
+                                        @php $firstRowCompetency = false; @endphp
+                                    @endif
+                                    <td>{{ $learningOutcome }}</td>
                                     @for($i = 1; $i <= $courseNumber; $i++)
-                                        @if($i == $trimestre->quarter_number)
-                                            <td>{{ $trimestre->hour }}</td>
+                                        @php
+                                            $trimestre = $trimestres->firstWhere('quarter_number', $i);
+                                            $trimestreHours = 0;
+                                            $trimestreExecutedHours = 0;
+                                            $person = '';
+                                        @endphp
+                                        @if($trimestre)
+                                            @php
+                                                $trimestreHours = $trimestre->hour;
+                                                $totalHoursByQuarter[$i] += $trimestreHours;
+                                            @endphp
+                                            <td>{{ $trimestreHours }}</td>
                                             <td class="celdae"></td>
                                         @else
                                             <td></td>
-                                            @if (isset($trimestre->learning_outcome->instructor_program_outcomes) && $trimestre->learning_outcome->instructor_program_outcomes->count() > 0)
-                                            @php
-                                                $totalHours = 0;
-                                                foreach ($trimestre->learning_outcome->instructor_program_outcomes as $instructor_program_outcome) {
-                                                    $instructor_program = $instructor_program_outcome->instructor_program;
-                                                    if ($i == $instructor_program->quarter_number) {
-                                                        $start = \Carbon\Carbon::parse($instructor_program->start_time);
-                                                        $end = \Carbon\Carbon::parse($instructor_program->end_time);
-                                                        $totalHours += $end->diffInHours($start);
-
-                                                        foreach ($instructor_program->instructor_program_people as $instructor){
-                                                            $person = $instructor->person->fullname;
+                                            @if (isset($trimestres->first()->learning_outcome->instructor_program_outcomes))
+                                                @foreach ($trimestres->first()->learning_outcome->instructor_program_outcomes as $instructor_program_outcome)
+                                                    @php
+                                                        $instructor_program = $instructor_program_outcome->instructor_program;
+                                                        if ($i == $instructor_program->quarter_number) {
+                                                            $start = \Carbon\Carbon::parse($instructor_program->start_time);
+                                                            $end = \Carbon\Carbon::parse($instructor_program->end_time);
+                                                            $trimestreExecutedHours += $end->diffInHours($start);
                                                         }
-                                                    }
-                                                }
-                                            @endphp
-                                            <td class="celdae" title="{{ $person ?? '' }} ">{{ $totalHours > 0 ? $totalHours . '' : '' }}</td>
-                                        @else
-                                            <td class="celdae"></td>
-                                        @endif
+                                                    @endphp
+                                                @endforeach
+                                                @php
+                                                    $totalExecutedHoursByQuarter[$i] += $trimestreExecutedHours;
+                                                @endphp
+                                            @endif
+                                            <td class="celdae" title="{{ $person }}">{{ $trimestreExecutedHours > 0 ? $trimestreExecutedHours : '' }}</td>
                                         @endif
                                     @endfor
-                                    <td class="text-center">
-                                        @if (count($trimestre->learning_outcome->people) > 0)
-                                            @foreach($trimestre->learning_outcome->competencie->professions as $profession)
-                                                {{ $profession->name }} <br>
+                                    <td>
+                                        @if(isset($trimestres->first()->learning_outcome->competencie->professions) && count($trimestres->first()->learning_outcome->competencie->professions) > 0)
+                                            @foreach($trimestres->first()->learning_outcome->competencie->professions as $profession)
+                                                {{ $profession->name }}<br>
                                             @endforeach
                                         @else
                                             -
@@ -74,6 +115,20 @@
                             @endforeach
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th class="text-center" colspan="2">Total por Trimestre</th>
+                            @for($i = 1; $i <= $courseNumber; $i++)
+                                <th class="text-center" colspan="1">
+                                    <div>{{ $totalHoursByQuarter[$i] }}</div>
+                                </th>
+                                <th class="text-center celdae" colspan="1">
+                                    <div>{{ $totalExecutedHoursByQuarter[$i] }}</div>
+                                </th>
+                            @endfor
+                            <th></th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

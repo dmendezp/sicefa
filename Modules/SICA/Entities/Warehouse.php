@@ -5,6 +5,7 @@ namespace Modules\SICA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use Modules\SIGAC\Entities\EnvironmentWarehouse;
 
 class Warehouse extends Model implements Auditable
 {
@@ -39,6 +40,10 @@ class Warehouse extends Model implements Auditable
     }
     public function productive_unit_warehouses(){ // Accede a todos los registros de unidad productiva y bodega que pertenecen a esta bodega
         return $this->hasMany(ProductiveUnitWarehouse::class);
+    }
+
+    public function environment_warehouses(){ // Accede a todos los registros de unidad productiva y bodega que pertenecen a esta bodega
+        return $this->hasMany(EnvironmentWarehouse::class);
     }
 
 }

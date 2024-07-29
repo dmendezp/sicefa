@@ -42,25 +42,25 @@
 <script src='{{ asset('libs/fullcalendar-6.1.8/dist/index.global.min.js') }}'></script>
 
 @if (session('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: '{{ session('success') }}',
-        showConfirmButton: false,
-        timer: 1500,
-        customClass: {
-            popup: 'my-custom-popup-class',
-        },
-    });
-</script>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: '{{ session('success') }}',
+            showConfirmButton: true,
+            timer: 1500,
+            customClass: {
+                popup: 'my-custom-popup-class',
+            },
+        });
+    </script>
 @endif
 
-@if (session('error'))
+@if(session('error'))
     <script>
         Swal.fire({
             icon: 'error',
-            title: '{{ session('error') }}',
-            showConfirmButton: false,
+            title: {!! json_encode(session('error')) !!},
+            showConfirmButton: true,
             timer: 15000,
             customClass: {
                 popup: 'my-custom-popup-class',

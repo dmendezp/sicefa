@@ -38,7 +38,7 @@
                         </td>
                         @include('sigac::programming.parameters.professions.edit')
                         <form id="delete-profession-form-{{ $p->id }}"
-                            action="{{ route('sigac.academic_coordination.profession.destroy', ['id' => $p->id]) }}"
+                            action="{{ route('sigac.academic_coordination.programming.profession.destroy', ['id' => $p->id]) }}"
                             method="POST">
                             @csrf
                             @method('DELETE')

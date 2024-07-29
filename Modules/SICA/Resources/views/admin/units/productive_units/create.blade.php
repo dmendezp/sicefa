@@ -12,7 +12,7 @@
                     <div class="card-header">
                         <h4>{{trans('sica::menu.Productive Unit Registration')}}</h4>
                     </div>
-                    <form action="{{ route('sica.admin.units.productive_unit.store') }}" method="post">
+                    <form action="{{ route('sica.' . getRoleRouteName(Route::currentRouteName()) . '.units.productive_unit.store') }}" method="post">
                         @csrf
                         <div class="card-body pb-1">
                             <div class="form-group">
@@ -59,7 +59,7 @@
 
                         </div>
                         <div class="card-footer py-2 text-right">
-                            <a href="{{ route('sica.admin.units.productive_unit.index') }}" class="btn btn-secondary btn-sm">Cancelar</a>
+                            <a href="{{ route('sica.' . getRoleRouteName(Route::currentRouteName()) . '.units.productive_unit.index') }}" class="btn btn-secondary btn-sm">Cancelar</a>
                             <button type="submit" class="btn btn-primary btn-sm">{{trans('sica::menu.Register')}}</button>
                         </div>
                     </form>

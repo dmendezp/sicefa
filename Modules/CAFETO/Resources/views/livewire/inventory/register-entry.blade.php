@@ -1,4 +1,4 @@
-<div>
+dpu_id<div>
     <!-- Seleccionar y agregar producto -->
     <div class="row mx-3">
         <!-- Responsables y bodegas -->

@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 pr-3 pb-3">
-                                <form action="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_store') }}" method="post">
+                                <form action="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor.store') }}" method="post">
                                     @csrf
                                     <div class="form-group">
                                         {!! Form::label('instructor',  trans('sigac::profession.Instructor')) !!}
@@ -52,7 +52,7 @@
                                                     </a>
                                                 </td>
                                                 <form id="delete-person_profession-form-{{ $p->id }}"
-                                                    action="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor_destroy', ['id' => $p->id]) }}"
+                                                    action="{{ route('sigac.academic_coordination.human_talent.management_instructor.profession_instructor.destroy', ['id' => $p->id]) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -69,9 +69,10 @@
             </div>
         </div>
     </div>
-
 @endsection
+
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
 
 <script>
     $(document).ready(function() {
@@ -80,14 +81,12 @@
                 { orderable: false, targets: 2 }
             ]
         });
-    });
-</script>
 
-<script>
-    $(document).ready(function() {
-        $('.instructor').select2();
-        $('.learningOutCome').select2();
-        $('.delete-person_profession').on('click', function(event) {
+            $('.instructor').select2();
+            $('.learningOutCome').select2();
+
+        // Usar la delegación de eventos en lugar de eventos directos
+        $(document).on('click', '.delete-person_profession', function(event) {
             var profession_program_id = $(this).data('person_profession-id');
 
             // Mostrar SweetAlert para confirmar la eliminación
