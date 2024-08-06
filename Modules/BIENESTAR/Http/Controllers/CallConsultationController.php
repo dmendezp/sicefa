@@ -24,7 +24,6 @@ class CallConsultationController extends Controller
     public function search(Request $request)
     {
         $documentNumber = json_decode($_POST['data']);
-
         $result = DB::select("
         WITH RankedBenefits AS (
             SELECT 

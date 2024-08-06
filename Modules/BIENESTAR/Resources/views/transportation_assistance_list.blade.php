@@ -5,7 +5,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
 
 @section('content')
 <div class="container-fluid">
-    <h1>{{ trans('Registro de Asistencia de Transporte')}} <i class="fas fa-bus"></i></h1>
+    <h1>{{ trans('bienestar::menu.Transportation_Assistance_Record')}} <i class="fas fa-bus"></i></h1>
     <div class="row justify-content-md-center pt-4">
         <div class="card shadow col-md-10">
             <div class="card-body">
