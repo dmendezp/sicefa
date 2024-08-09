@@ -782,6 +782,15 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
+
+        // Table solicitar programa (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.programming.program_request.table'], [ // Registro o actualización de permiso
+            'name' => 'Tabla solicitar programa (Instructor)',
+            'description' => 'Acceder a la tabla de la solicitud de programas de formaciòn',
+            'description_english' => "Access the table of the application for training programs",
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
         
         // Vista solicitar programa (Instructor)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.programming.program_request.index'], [ // Registro o actualización de permiso
@@ -936,6 +945,15 @@ class PermissionsTableSeeder extends Seeder
         $permissions_instructor[] = $permission->id; // Almacenar permiso para rol 
 
         // SOLICITAR PROGRAMA -- COORDINADOR ACADEMICO
+
+        // Tabla solicitar programa (Coordiandor Academico)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.program_request.table'], [ // Registro o actualización de permiso
+            'name' => 'Tabla solicitar programa (Coordiandor Academico)',
+            'description' => 'Acceder a la tabla de la solicitud de programas de formaciòn',
+            'description_english' => "Access the table of the application for training programs",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
 
         // Vista solicitar programa (Coordiandor Academico)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.program_request.index'], [ // Registro o actualización de permiso

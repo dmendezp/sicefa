@@ -24,6 +24,7 @@
                                                 <th class="text-center">Fecha fin</th>
                                                 <th class="text-center">Informacion Solicitante</th>
                                                 <th class="text-center">Programación</th>
+                                                <th class="text-center">Documentos</th>
                                                 <th class="text-center">Acciones</th>
                                             </tr>
                                         </thead>
@@ -50,6 +51,12 @@
                                                         </a>
                                                     </td>
                                                     @include('sigac::programming.program_request.dates')
+
+                                                    <td class="text-center">
+                                                        <a href="{{ route('sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.program_request.program_request_download', ['id' => $prom->id]) }}" target="_blank">
+                                                            Descargar documentos
+                                                        </a>
+                                                    </td>
                                                     
                                                     @if($prom->state == 'Pendiente')
                                                         <td width="19%">

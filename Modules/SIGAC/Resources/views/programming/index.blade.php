@@ -125,6 +125,8 @@
     </div>
 </div>
 
+@include('sigac::programming.delete')
+
 @endsection
 
 @push('scripts')
@@ -134,10 +136,54 @@
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
             headerToolbar: {
-                left: 'prev,next today',
+                left: 'prev,next today myCustomButton',
                 center: 'title',
                 right: 'dayGridMonth,timeGridWeek,listWeek'
             },
+            customButtons: {
+                myCustomButton: {
+                    text: 'Borrar programación',
+                    click: function() {
+                        var personId = $('#search').val(); // Obtener el ID seleccionado
+                        if (personId) {
+                            $('#deleteModal').attr('id', 'delete' + personId);
+                            $('#person_id').val(personId);
+                            $('#delete' + personId).modal('show'); // Abrir el modal con la ID concatenada
+
+                            $('#delete' + personId).on('shown.bs.modal', function() {
+                                $('#code_course').on('input', function() {
+                                    var codeCourse = $('#code_course').val();
+                                    var url = {!! json_encode(route('sigac.academic_coordination.programming.management.search_course')) !!};
+                                    
+                                    if(codeCourse){
+                                        $.ajax({
+                                            type: 'GET',
+                                            url: url,
+                                            data: { code_course: codeCourse },
+                                            success: function(response) {
+                                                // Manejar la respuesta aquí
+                                                if (response && response.program && response.program.length > 0) {
+                                                    $('#program_name').html('<strong>Programa:</strong> ' + response.program).show();
+                                                }else{
+                                                    $('#program_name').hide();
+                                                }
+                                                // Puedes hacer algo con los datos recibidos
+                                            },
+                                            error: function(xhr) {
+                                                
+                                            }
+                                        });
+                                    }else{
+                                        $('#program_name').hide();
+                                    }
+                                });
+                            });
+                        } else {
+                            alert('Por favor selecciona una opción primero.');
+                        }
+                    }
+                }
+            }, 
             height: 'auto',
             aspectRatio: 1.0,
             editable: false,

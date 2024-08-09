@@ -176,7 +176,7 @@
                                 @endif
                                 @if (Auth::user()->havePermission('sigac.academic_coordination.programming.management.index'))
                                     <li class="nav-item">
-                                        <a href="{{ route('sigac.academic_coordination.programming.program_request.index') }}" class="nav-link">
+                                        <a href="{{ route('sigac.academic_coordination.programming.program_request.table') }}" class="nav-link">
                                             <i class="nav-icon fas fa-user-tie"></i>
                                             <p>Solicitud Programa</p>
                                         </a>
@@ -362,7 +362,7 @@
                                     </li>
                                 @endif
                                 <li class="nav-item">
-                                    <a href="{{ route('sigac.instructor.programming.program_request.index') }}" class="nav-link">
+                                    <a href="{{ route('sigac.instructor.programming.program_request.table') }}" class="nav-link">
                                         <i class="nav-icon fas fa-user-tie"></i>
                                         <p>Solicitud Programa</p>
                                     </a>
