@@ -85,7 +85,7 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('programming', 'programming')->name('sigac.programming.index'); // Programación de horarios
             Route::post('programming/management/filter', 'management_filter')->name('sigac.programming.management.filter'); // Consultar filtro de horario
             Route::post('programming/management/search', 'management_search')->name('sigac.programming.management.search'); // Consultar programaciones del instructor
-       
+
             // Fechas
             Route::get('academic_coordination/programming/dates', 'dates_index')->name('sigac.academic_coordination.programming.dates_index'); // Programación de horarios (Coordinación Académica)
             Route::post('academic_coordination/programming/dates/store_dates', 'store_dates')->name('sigac.academic_coordination.profession.dates_index.store_dates'); // Eliminar profesion (Coordinación Académica)

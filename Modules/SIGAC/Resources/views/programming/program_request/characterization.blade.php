@@ -51,13 +51,11 @@
                                                         </a>
                                                     </td>
                                                     @include('sigac::programming.program_request.dates')
-
                                                     <td class="text-center">
-                                                        <a href="{{ route('sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.program_request.program_request_download', ['id' => $prom->id]) }}" target="_blank">
-                                                            Descargar documentos
-                                                        </a>
+                                                        <a class="btn btn-warning" href="{{ route('sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.program_request.program_request_download', ['id' => $prom->id]) }}" target="_blank" style="color: white;">
+                                                            <i class="fas fa-file-download"></i>
+                                                        </a>  
                                                     </td>
-                                                    
                                                     @if($prom->state == 'Pendiente')
                                                         <td width="19%">
                                                             <a  class="btn btn-success" data-bs-toggle="modal" data-bs-target="#characterization{{$prom->id}}">

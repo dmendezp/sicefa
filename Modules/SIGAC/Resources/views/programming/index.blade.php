@@ -2,6 +2,13 @@
 
 @push('head')
     <link rel="stylesheet" href="{{ asset('modules/sigac/css/customStyles.css') }}">
+    <style>
+        .event-no-environment {
+            background-color: #ff5733 !important; /* Color de fondo para eventos sin ambiente */
+            color: #FFFFFF !important; /* Color del texto si es necesario */
+            border: 1px solid #FF5733 !important; /* Borde opcional */
+        }
+    </style>
 @endpush
 
 @push('breadcrumbs')
@@ -133,6 +140,19 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
+        var holidays = {!! $holidays !!};
+
+        
+        var events = holidays.map(function(holiday) {
+
+            return {
+                title: holiday.issue,
+                start: holiday.date,
+                display: 'background',
+                backgroundColor: '#ff0000', // Color de fondo para los días festivos
+                borderColor: '#ff0000'
+            };
+        });
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
             headerToolbar: {
@@ -188,12 +208,22 @@
             aspectRatio: 1.0,
             editable: false,
             droppable: true,
+            events: events,
+
+            eventDidMount: function(info) {
+                var eventData = info.event.extendedProps;
+                console.log(eventData);
+
+                // Verifica si `environment_instructor_programs` existe y es un array
+                if (eventData && Array.isArray(eventData.environment_instructor_programs) && eventData.environment_instructor_programs.length === 0) {
+                    info.el.classList.add('event-no-environment');
+                }
+            },
+
 
             eventClick: function(info) {
                 var eventData = info.event.extendedProps;
                 var option = $('#option').val();
-                console.log(option);
-                console.log(eventData);
 
                 if (option == 1) {
                     // Mostrar información de los ambientes
@@ -325,37 +355,33 @@
                     option: option
                 },
                 success: function(response) {
-                    console.log(response);
                     calendar.removeAllEvents();
                     response.programmingEvents.forEach(function(eventData) {
-                        // Concatenar las iniciales al principio del título del evento
-                        if (option == 1) {
-                            var titleWithInitials = eventData.course.code + ' - ' + eventData.environment_instructor_programs[0].environment.name;
-                        } else if (option == 2) {
-                            var titleWithInitials = eventData.instructor_program_people[0].person.initials + ' - ' + eventData.course.code;
-                        } else if (option == 3) {
-                            var titleWithInitials = eventData.instructor_program_people[0].person.initials + ' - ' + eventData.environment_instructor_programs[0].environment.name;
-                        } else {
-                            var titleWithInitials = eventData.instructor_program_people[0].person.initials + ' - ' + eventData.course.code;
-                        }
+                        var environmentName = Array.isArray(eventData.environment_instructor_programs) && eventData.environment_instructor_programs.length > 0
+                            ? eventData.environment_instructor_programs[0].environment.name
+                            : 'Complementaria';
+                        var titleWithInitials = option == 1
+                            ? eventData.course.code + ' - ' + environmentName
+                            : option == 2
+                            ? eventData.instructor_program_people[0].person.initials + ' - ' + eventData.course.code
+                            : option == 3
+                            ? eventData.instructor_program_people[0].person.initials + ' - ' + environmentName
+                            : eventData.instructor_program_people[0].person.initials + ' - ' + eventData.course.code;
                         
-                        console.log(titleWithInitials);
-
-                        calendar.addEventSource([
-                            {
-                                title: titleWithInitials,
-                                start: eventData.date + 'T' + eventData.start_time,
-                                end: eventData.date + 'T' + eventData.end_time,
-                                extendedProps: {
-                                    timeRange: `(${formatTime(eventData.start_time)} - ${formatTime(eventData.end_time)})`,
-                                    instructor_program: eventData,
-                                    instructor_program_people: eventData.instructor_program_people,
-                                    course: eventData.course,
-                                    environment_instructor_programs: eventData.environment_instructor_programs,
-                                    instructor_program_outcomes: eventData.instructor_program_outcomes
-                                }
+                        calendar.addEvent({
+                            title: titleWithInitials,
+                            start: eventData.date + 'T' + eventData.start_time,
+                            end: eventData.date + 'T' + eventData.end_time,
+                            extendedProps: {
+                                timeRange: `(${formatTime(eventData.start_time)} - ${formatTime(eventData.end_time)})`,
+                                instructor_program: eventData,
+                                instructor_program_people: eventData.instructor_program_people,
+                                course: eventData.course,
+                                environment_instructor_programs: eventData.environment_instructor_programs || [],
+                                instructor_program_outcomes: eventData.instructor_program_outcomes
                             }
-                        ]);
+                        });
+
 
                         calendar.setOption('eventContent', function(arg) {
                             return { 
@@ -369,6 +395,20 @@
                             return formattedTime;
                         }
 
+                    });
+
+                    // Agregar días festivos como eventos de fondo
+                    holidays.forEach(function(holiday) {
+                        calendar.addEvent({
+                            title: holiday.issue,
+                            start: holiday.date,
+                            extendedProps: { 
+                                timeRange: '',
+                            },
+                            display: 'background',
+                            backgroundColor: '#ff0000', // Color de fondo para los días festivos
+                            borderColor: '#ff0000'
+                        });
                     });
 
                     calendar.refetchEvents();

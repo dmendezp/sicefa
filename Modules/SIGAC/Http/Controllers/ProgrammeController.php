@@ -15,6 +15,7 @@ use Modules\SICA\Entities\Country;
 use Modules\SICA\Entities\Department;
 use Modules\SICA\Entities\LearningOutcomePerson;
 use Modules\SICA\Entities\Municipality;
+use Modules\SICA\Entities\Holiday;
 use Modules\SIGAC\Entities\InstructorProgram;
 use Modules\SIGAC\Entities\ExternalActivity;
 use Modules\SIGAC\Entities\Profession;
@@ -32,7 +33,6 @@ use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Competencie;
 use Modules\SICA\Entities\LearningOutcome;
-use Modules\SICA\Entities\Holiday;
 use Modules\SICA\Entities\KnowledgeNetwork;
 use Modules\SICA\Entities\Network;
 use Modules\SICA\Entities\Line;
@@ -43,7 +43,8 @@ use Modules\SIGAC\Exports\ProgramCourseExport;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Carbon\CarbonPeriod;
-
+use Illuminate\Support\Facades\Storage;
+use ZipArchive;
 use Excel, Exception;
 class ProgrammeController extends Controller
 {
@@ -70,15 +71,20 @@ class ProgrammeController extends Controller
             '7' => '7',
         ];
 
+        $holidays = Holiday::get();
+
         $view = [
             'titlePage' => trans('sigac::controllers.SIGAC_programming_schedules_title_page'),
             'titleView' => trans('sigac::controllers.SIGAC_programming_schedules_title_view'),
             'days' => $days,
-            'quarter' => $quarter
+            'quarter' => $quarter,
+            'holidays' => json_encode($holidays)
         ];
+
 
         return view('sigac::programming.index', $view);
     }
+    
 
     // Gestion de la programacion
     public function management_programming()
@@ -390,10 +396,15 @@ class ProgrammeController extends Controller
                     $query->where('id', $instructor);
                 })->pluck('id'); // Obtener solo los IDs
 
+                if($instructor_program_ids->isEmpty()){
+                    return redirect()->back()->with(['error'=> 'No existe programación del trimestre '. $quarter .' para el día '. $daysSelected .'.']);
+                }else{
+                    InstructorProgram::whereIn('id', $instructor_program_ids)->delete();
+                    $mensaje = 'Programación eliminada con éxito.';
+                    return redirect()->back()->with(['success'=> $mensaje]);
+                }
+
                 // Eliminar los registros usando los IDs obtenidos
-                InstructorProgram::whereIn('id', $instructor_program_ids)->delete();
-                $mensaje = 'Programación eliminada con éxito.';
-                return redirect()->back()->with(['success'=> $mensaje]);
             } else {
                 return redirect()->back()->with(['error'=> 'Error al eliminar la programación']);
             }
@@ -1431,7 +1442,6 @@ class ProgrammeController extends Controller
     
             return redirect()->route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.table')->with('success', $success_message);
         } catch (\Exception $e) {
-            dd($e);
             DB::rollBack();
             \Log::error('Error en el registro: ' . $e->getMessage());
             return response()->json(['error' => 'Error interno del servidor',$e], 500);
@@ -1468,7 +1478,6 @@ class ProgrammeController extends Controller
     
             return redirect()->route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.table')->with('success', $success_message);
         } catch (\Exception $e) {
-            dd($e);
             DB::rollBack();
             \Log::error('Error en el registro: ' . $e->getMessage());
             return response()->json(['error' => 'Error interno del servidor',$e], 500);
@@ -1478,19 +1487,41 @@ class ProgrammeController extends Controller
     public function program_request_download($id)
     {
         $documents = ProgramRequestDocument::where('program_request_id', $id)->get();
-        
-        if ($documents) {
-            foreach ($documents as $d) {
-                $name = $d->name;
-                $file_path = $d->path;
-                $path = storage_path('app/' . $file_path);
-                if (file_exists($path)) {
-                    return response()->download($path, $name);
+
+        if ($documents->isEmpty()) {
+            return redirect()->back()->with('error', 'No existen archivos para este programa.');
+        }
+    
+        $zip = new ZipArchive;
+        $zipFileName = 'documents.zip';
+        $zipFilePath = storage_path('app/' . $zipFileName);
+    
+        if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+            foreach ($documents as $document) {
+                $filePath = storage_path('app/' . $document->path);
+    
+                if (file_exists($filePath)) {
+                    $filename = $document->name;
+    
+                    // Evitar nombres duplicados en el ZIP
+                    $i = 1;
+                    while ($zip->locateName($filename) !== false) {
+                        $filename = pathinfo($document->name, PATHINFO_FILENAME) . "_$i." . pathinfo($document->name, PATHINFO_EXTENSION);
+                        $i++;
+                    }
+    
+                    // Añadir el archivo al ZIP
+                    $zip->addFile($filePath, $filename);
                 }
             }
+    
+            $zip->close();
+    
+            // Descargar el archivo ZIP y eliminarlo después de la descarga
+            return response()->download($zipFilePath)->deleteFileAfterSend(true);
+        } else {
+            return redirect()->back()->with('error', 'No se pudo crear el archivo ZIP.');
         }
-
-        return redirect()->back()->with('error', 'El archivo no existe.');
     }
 
     // Solicitudes de caracterización
@@ -1530,7 +1561,6 @@ class ProgrammeController extends Controller
             $course->star_date = $program_request->start_date;
             $course->end_date = $program_request->end_date;
             $course->status = 'Activo';
-            $course->modality = 'Presencial';
             $course->program_id = $program_request->program_id;
             $course->municipality_id = $program_request->municipality_id;
             $course->save();
@@ -1540,18 +1570,21 @@ class ProgrammeController extends Controller
                 $instructor_program->date = $dates->date;
                 $instructor_program->start_time = $dates->start_time;
                 $instructor_program->end_time = $dates->end_time;
-                $instructor_program->person_id = $program_request->person_id;
                 $instructor_program->course_id = $course->id;
-                $instructor_program->environment_id = 1;
-                $instructor_program->learning_outcome_id = 1;
-                $instructor_program->state = 'Pendiente';
+                $instructor_program->state = 'Programado';
                 $instructor_program->save();
+
+                $instructor_program_people = new InstructorProgramPerson;
+                $instructor_program_people->instructor_program_id = $instructor_program->id;
+                $instructor_program_people->person_id = $program_request->person_id;
+                $instructor_program_people->save();
             }
 
             DB::commit();
     
             return redirect()->route('sigac.support.programming.program_request.characterization.index')->with('success', 'Caracterizacion confirmada');
         } catch (\Exception $e) {
+            dd($e);
             DB::rollBack();
             \Log::error('Error en el registro: ' . $e->getMessage());
             return response()->json(['error' => 'Error interno del servidor',$e], 500);
@@ -1588,6 +1621,7 @@ class ProgrammeController extends Controller
             $activity = $request->input('activity');
             $observation = $request->input('observation');
             $option = $request->input('option');
+
             DB::beginTransaction();
                 $instructor_program_novelty = new InstructorProgramNovelty;
                 $instructor_program_novelty->instructor_program_id = $instructor_program_id;
@@ -1595,7 +1629,7 @@ class ProgrammeController extends Controller
                 $instructor_program_novelty->observation = $observation;
                 $instructor_program_novelty->save();
 
-                if ($option == true) {
+                if ($option == 'yes') {
                     $instructor_program = InstructorProgram::findOrFail($instructor_program_id);
                     $instructor_program->state = 'Cancelado';
                     $instructor_program->save();

@@ -52,15 +52,9 @@
                             </td>
                             @include('sigac::programming.program_request.dates')
                             <td class="text-center">
-                                @foreach($prom->program_request_documents as $d)
-                                <ul>
-                                    <li>
-                                        <a href="{{ route('sigac.instructor.programming.program_request.program_request_download', ['filename' => basename($d->name)]) }}" target="_blank">
-                                            {{ $d->name }}
-                                        </a>
-                                    </li>              
-                                </ul>
-                                @endforeach
+                                <a class="btn btn-warning" href="{{ route('sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.program_request.program_request_download', ['id' => $prom->id]) }}" target="_blank" style="color: white;">
+                                    <i class="fas fa-file-download"></i>
+                                </a>  
                             </td>
                             <td class="text-center">
                                 @if($prom->state == 'Cancelado')
