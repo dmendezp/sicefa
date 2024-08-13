@@ -332,9 +332,17 @@
             var endMinutes = endTime.split(':')[1];
             
             var hoursDiff = (endHours - startHours) + (endMinutes - startMinutes) / 60;
-            var totalHours = parseFloat($('#total_hours').val()) - hoursDiff;
-            
-            $('#total_hours').val(totalHours.toFixed(2));
+            var totalHours = $('#total_hours').val();
+
+            if (totalHours !== hoursDiff) {
+                $(':submit').prop('disabled', true); // Deshabilitar botón de submit
+                $('#hours-error-message').show();
+            } else {
+                $(':submit').prop('disabled', false); // Habilitar botón de submit
+                $('#hours-error-message').hide(); 
+            }
+
+            $('#total_hours').val(totalHours);
             row.remove();
             $('#hr').remove();
         });

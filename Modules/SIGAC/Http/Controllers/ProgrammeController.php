@@ -24,6 +24,7 @@ use Modules\SIGAC\Entities\SpecialProgram;
 use Modules\SIGAC\Entities\ProgramRequest;
 use Modules\SIGAC\Entities\ProgramRequestDate;
 use Modules\SIGAC\Entities\InstructorProgramNovelty;
+use Modules\SIGAC\Entities\ProgramNovelty;
 use Modules\SIGAC\Entities\InstructorProgramPerson;
 use Modules\SIGAC\Entities\EnvironmentInstructorProgram;
 use Modules\SIGAC\Entities\InstructorProgramOutcome;
@@ -513,7 +514,7 @@ class ProgrammeController extends Controller
 
         if ($option == 1) {
 
-            $programmingEvents = InstructorProgram::with('instructor_program_people.person', 'course.program', 'course.municipality.department','environment_instructor_programs.environment','instructor_program_outcomes.learning_outcome')->whereHas('instructor_program_people.person', function ($query) use ($filter) {
+            $programmingEvents = InstructorProgram::with('instructor_program_people.person', 'course.program', 'course.municipality.department','environment_instructor_programs.environment','instructor_program_outcomes.learning_outcome','instructor_program_novelties')->whereHas('instructor_program_people.person', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
             ->where('state','=','Programado')
@@ -531,6 +532,7 @@ class ProgrammeController extends Controller
             ->where('state','=','Programado')
             ->get();
         }
+
 
         foreach ($programmingEvents as $programmingEvent) {
             foreach ($programmingEvent->instructor_program_people as $asociacion) {
@@ -1622,9 +1624,12 @@ class ProgrammeController extends Controller
             $observation = $request->input('observation');
             $option = $request->input('option');
 
+            $date = InstructorProgram::where('id', $instructor_program_id)->pluck('date')->first();
+
             DB::beginTransaction();
                 $instructor_program_novelty = new InstructorProgramNovelty;
                 $instructor_program_novelty->instructor_program_id = $instructor_program_id;
+                $instructor_program_novelty->date = $date;
                 $instructor_program_novelty->activity = $activity;
                 $instructor_program_novelty->observation = $observation;
                 $instructor_program_novelty->save();

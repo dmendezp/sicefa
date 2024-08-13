@@ -8,6 +8,12 @@
             color: #FFFFFF !important; /* Color del texto si es necesario */
             border: 1px solid #FF5733 !important; /* Borde opcional */
         }
+
+        .event-novelty {
+            background-color: #00e1ff !important; /* Color de fondo para eventos sin ambiente */
+            color: #FFFFFF !important; /* Color del texto si es necesario */
+            border: 1px solid #00e1ff !important; /* Borde opcional */
+        }
     </style>
 @endpush
 
@@ -61,7 +67,6 @@
                 <div id="end_time"></div>
                 <div id="municipality"></div>
                 <div id="learning_outcome"></div>
-                
                 <!-- Agrega más detalles del evento según sea necesario -->
                 <br>
                 <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -114,6 +119,27 @@
                       </div>
                     </div>
                   </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="eventProgramDetailsModal" tabindex="-1" role="dialog" aria-labelledby="eventProgramDetailsModalModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventProgramDetailsModalModalLabela"></h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="date_eventely"></div>
+                <div id="observation_eventely"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -212,33 +238,55 @@
 
             eventDidMount: function(info) {
                 var eventData = info.event.extendedProps;
-                console.log(eventData);
 
                 // Verifica si `environment_instructor_programs` existe y es un array
                 if (eventData && Array.isArray(eventData.environment_instructor_programs) && eventData.environment_instructor_programs.length === 0) {
                     info.el.classList.add('event-no-environment');
+                }
+
+                // Verifica si hay una novedad basada en la propiedad personalizada
+                if (eventData.hasNovelty) {
+                    info.el.classList.add('event-novelty');
                 }
             },
 
 
             eventClick: function(info) {
                 var eventData = info.event.extendedProps;
+
+                // Verifica si el evento es un día festivo (evento de fondo)
+                if (info.event.display === 'background') {
+                    return; // No hacer nada si es un evento de fondo
+                }
+                
                 var option = $('#option').val();
 
                 if (option == 1) {
                     // Mostrar información de los ambientes
                         var environmentsHtml = 'Ambientes: <br>';
-                        eventData.environment_instructor_programs.forEach(function(eip) {
-                            environmentsHtml += '- ' + eip.environment.name + '<br>' ;
-                        });
+                        if (Array.isArray(eventData.environment_instructor_programs)) {
+                            eventData.environment_instructor_programs.forEach(function(eip) {
+                                environmentsHtml += '- ' + (eip.environment && eip.environment.name ? eip.environment.name : 'N/A') + '<br>';
+                            });
+                        } else {
+                            environmentsHtml += '- N/A<br>';
+                        }
                         $('#environments').html(environmentsHtml);
                         var learning_outcomesHtml = 'Resultados : <br>';
-                        eventData.instructor_program_outcomes.forEach(function(le) {
-                            learning_outcomesHtml += '- ' + le.learning_outcome.name + '<br>' ;
-                        });
+                        if (Array.isArray(eventData.instructor_program_outcomes)) {
+                            eventData.instructor_program_outcomes.forEach(function(le) {
+                                learning_outcomesHtml += '- ' + (le.learning_outcome && le.learning_outcome.name ? le.learning_outcome.name : 'N/A') + '<br>';
+                            });
+                        } else {
+                            learning_outcomesHtml += '- N/A<br>';
+                        }
                         $('#learning_outcome').html(learning_outcomesHtml);
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
-                        $('#instructor_program_id').val(eventData.instructor_program.id);
+                        if (eventData.instructor_program && eventData.instructor_program.id) {
+                            $('#instructor_program_id').val(eventData.instructor_program.id);
+                        } else {
+                            $('#instructor_program_id').val(''); // O un valor por defecto si no hay instructor_program
+                        }
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
                         $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.program.modality ? (eventData.course.program.modality) : 'N/A'));
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name + ' - ' + eventData.course.municipality.department.name) : 'N/A'));
@@ -308,10 +356,21 @@
                         });
                         $('#learning_outcome').html(learning_outcomesHtml);
                 }
-
-                $('#eventDetailsModal').modal('show');
+                
+                if (eventData.hasNovelty) {
+                    console.log(eventData.instructor_program_novelties);
+                    if (Array.isArray(eventData.instructor_program_novelties) && eventData.instructor_program_novelties.length > 0) {
+                        $('#eventProgramDetailsModalModalLabela').text((eventData.instructor_program_novelties[0].activity));
+                        $('#date_eventely').text('Fecha: ' + (eventData.instructor_program_novelties[0].date));
+                        $('#observation_eventely').text('Observación: ' + (eventData.instructor_program_novelties[0].observation));
+                        // Muestra el modal con los detalles de la novedad
+                        $('#eventProgramDetailsModal').modal('show');
+                    }
+                } else {
+                    // Si no hay novedad, mostrar el modal normal
+                    $('#eventDetailsModal').modal('show');
+                }
             }
-
         });
 
         // Inicializa el calendario
@@ -368,6 +427,19 @@
                             ? eventData.instructor_program_people[0].person.initials + ' - ' + environmentName
                             : eventData.instructor_program_people[0].person.initials + ' - ' + eventData.course.code;
                         
+                        if (Array.isArray(eventData.instructor_program_novelties) && eventData.instructor_program_novelties.length > 0) {
+                            calendar.addEvent({
+                                title: eventData.instructor_program_novelties[0].activity,
+                                start: eventData.instructor_program_novelties[0].date,
+                                extendedProps: {
+                                    timeRange : 'Novedad',
+                                    hasNovelty: true, // Propiedad personalizada para indicar la existencia de una novedad
+                                    instructor_program_novelties: eventData.instructor_program_novelties
+                                }
+                            });
+                        } 
+
+                           
                         calendar.addEvent({
                             title: titleWithInitials,
                             start: eventData.date + 'T' + eventData.start_time,
@@ -381,7 +453,6 @@
                                 instructor_program_outcomes: eventData.instructor_program_outcomes
                             }
                         });
-
 
                         calendar.setOption('eventContent', function(arg) {
                             return { 
