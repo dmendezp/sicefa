@@ -361,7 +361,13 @@
                 },
                 processResults: function(data) {
                     return {
-                        results: data
+                        results: $.map(data, function(item){
+                            return {
+                                text: item.text,
+                                id: item.text,
+                                address: item.address,
+                            };
+                        })
                     };
                 },
                 cache: true
@@ -407,7 +413,14 @@
                 },
                 processResults: function(data) {
                     return {
-                        results: data
+                        results: $.map(data, function(item){
+                            return {
+                                text: item.text,
+                                id: item.text,
+                                email: item.email,
+                                telephone: item.telephone
+                            };
+                        })
                     };
                 },
                 cache: true
@@ -418,7 +431,6 @@
                 if (term === '') {
                     return null;
                 }
-
                 return {
                     id: term,
                     text: term,
@@ -430,6 +442,7 @@
         // Manejar la selección del solicitante
         $('#applicant-select').on('select2:select', function(e) {
             var data = e.params.data;
+            console.log(data);
             if (data.newTag) {
 
                 $('#email-field').val(''); // Limpia el campo de correo

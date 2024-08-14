@@ -41,17 +41,38 @@ use Carbon\Carbon;
 use Modules\SIGAC\Imports\ApprenticeLearningOutcomeImport;
 use Modules\SIGAC\Imports\ProgramImport;
 use Modules\SIGAC\Exports\ProgramCourseExport;
+use Modules\SICA\Entities\App;
+use Modules\SICA\Entities\Role;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 use Excel, Exception;
+use Illuminate\Support\Str;
+
 class ProgrammeController extends Controller
 {
     // Programación de horarios
     public function programming()
     {
+        $app = App::where('name', 'SIGAC')->pluck('id')->first();
+
+        $user = Auth::user();
+
+        $slug  = Role::where('app_id', $app)
+        ->whereHas('users', function ($query) use ($user) {
+            $query->where('users.id', $user->id);
+        })->pluck('slug')->first();
+
+        
+
+        if($slug == 'sigac.academic_coordinator'){
+            $roles = 'academic_coordination';
+        }else{
+            $roles = Str::replaceFirst('sigac.', '', $slug);
+        }
+
         $days = [
             'Monday' => 'Lunes',
             'Tuesday' => 'Martes',
@@ -79,7 +100,8 @@ class ProgrammeController extends Controller
             'titleView' => trans('sigac::controllers.SIGAC_programming_schedules_title_view'),
             'days' => $days,
             'quarter' => $quarter,
-            'holidays' => json_encode($holidays)
+            'holidays' => json_encode($holidays),
+            'role' => $roles
         ];
 
 
@@ -1255,6 +1277,7 @@ class ProgrammeController extends Controller
         if($user){
             $idPersona = $user->person->id;
             $name = $user->person->first_name . ' ' . $user->person->first_last_name . ' ' . $user->person->second_last_name;
+            
         }
 
         return view('sigac::programming.program_request.index', [
@@ -1311,7 +1334,7 @@ class ProgrammeController extends Controller
     {
         $term = $request->get('q');
         $empresas = ProgramRequest::where('empresa', 'LIKE', '%' . $term . '%')
-            ->select('id', 'empresa as text', 'address') // selecciona solo los campos necesarios
+            ->select('empresa as text', 'address') // selecciona solo los campos necesarios
             ->get();
 
         return response()->json($empresas);
@@ -1321,7 +1344,7 @@ class ProgrammeController extends Controller
     {
         $term = $request->get('q');
         $applicants = ProgramRequest::where('applicant', 'LIKE', '%' . $term . '%')
-            ->select('id', 'applicant as text', 'email','telephone') // selecciona solo los campos necesarios
+            ->select('applicant as text', 'email','telephone') // selecciona solo los campos necesarios
             ->get();
 
         return response()->json($applicants);
@@ -1350,11 +1373,19 @@ class ProgrammeController extends Controller
             $applicant = $request->input('applicant');
             $email = $request->input('email');
             $telephone = $request->input('telephone');
-    
+
             DB::beginTransaction();
 
             $program_request = new ProgramRequest;
-            $program_request->person_id = $instructor;
+            if(checkRol('sigac.academic_coordinator')){
+                $program_request->person_id = $instructor;
+            }else{
+                $user = Auth::user();
+                if($user){
+                    $idPersona = $user->person->id;
+                    $program_request->person_id = $idPersona;
+                }
+            }
             $program_request->program_id = $program_id;
             $program_request->special_program_id = $special_program_id;
             $program_request->municipality_id = $municipality_id;
@@ -1444,6 +1475,7 @@ class ProgrammeController extends Controller
     
             return redirect()->route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.table')->with('success', $success_message);
         } catch (\Exception $e) {
+            dd($e);
             DB::rollBack();
             \Log::error('Error en el registro: ' . $e->getMessage());
             return response()->json(['error' => 'Error interno del servidor',$e], 500);
