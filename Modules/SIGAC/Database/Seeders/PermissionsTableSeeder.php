@@ -14,8 +14,8 @@ class PermissionsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
+    public function run(){
+    
         // Definir arreglos de PERMISOS que van ser asignados a los ROLES
         $permissions_academic_coordination = []; // Permisos para Coordinación Académica
         $permissions_instructor = []; // Permisos para el Instructor
@@ -356,6 +356,24 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
 
+        // Buscar nombre del programa (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.management.search_course'], [ // Registro o actualización de permiso
+            'name' => 'Buscar nombre del programa (Coordinación Académica)',
+            'description' => 'Buscar nombre del programa',
+            'description_english' => 'Search for program name',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar la programacion (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.management.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar la programacion (Coordinación Académica)',
+            'description' => 'Eliminar la programación de un trimestre en el dia especifico',
+            'description_english' => 'Delete the schedule of a quarter on the specific day',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
         // Registrar novedad de la programación (Coordinación Académica)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.management.novelty.store'], [ // Registro o actualización de permiso
             'name' => 'Registrar novedad de la programación (Coordinación Académica)',
@@ -364,6 +382,33 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar novedad de la programación (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.programming.management.novelty.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar novedad de la programación (Instructor)',
+            'description' => 'Realizar el registro de la novedad de la programación del instructor',
+            'description_english' => "Record the newness of the instructor's programming",
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
+
+        // Buscar nombre del programa (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.programming.management.search_course'], [ // Registro o actualización de permiso
+            'name' => 'Buscar nombre del programa (Instructor)',
+            'description' => 'Buscar nombre del programa',
+            'description_english' => 'Search for program name',
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar la programacion (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.programming.management.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar la programacion (Instructor)',
+            'description' => 'Eliminar la programación de un trimestre en el dia especifico',
+            'description_english' => 'Delete the schedule of a quarter on the specific day',
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
 
 
         // ¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬ MODULO PLANEACION CURRICULAR ¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬
@@ -870,6 +915,15 @@ class PermissionsTableSeeder extends Seeder
 
         //  ----------------------------------- ROL APOYO ------------------------------------------
 
+        // Panel de control de apoyo (Apoyo)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.support.dashboard'], [ // Registro o actualización de permiso
+            'name' => 'Panel de control de apoyo (Apoyo)',
+            'description' => 'Panel de control de apoyo',
+            'description_english' => "Support control panel",
+            'app_id' => $app->id
+        ]);
+        $permissions_support[] = $permission->id; // Almacenar permiso para rol
+
         // Vista solicitude de programas (Apoyo)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.support.programming.program_request.characterization.index'], [ // Registro o actualización de permiso
             'name' => 'Vista solicitude de programas (Apoyo)',
@@ -893,6 +947,15 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Devolver solicitud del programa (Apoyo)',
             'description' => 'Devolver solicitud del programa de formaciòn',
             'description_english' => "Return training program request",
+            'app_id' => $app->id
+        ]);
+        $permissions_support[] = $permission->id; // Almacenar permiso para rol
+
+        // Descargar los documentos de la solicitud del programa (Apoyo)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.support.programming.program_request.program_request_download'], [ // Registro o actualización de permiso
+            'name' => 'Descargar los documentos de la solicitud del programa (Apoyo)',
+            'description' => 'Descargar los documentos de la solicitud del programa',
+            'description_english' => 'Download the program application documents',
             'app_id' => $app->id
         ]);
         $permissions_support[] = $permission->id; // Almacenar permiso para rol
@@ -1000,6 +1063,44 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Descargar los documentos de la solicitud del programa (Coordiandor Academico)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.program_request.program_request_download'], [ // Registro o actualización de permiso
+            'name' => 'Descargar los documentos de la solicitud del programa (Coordiandor Academico)',
+            'description' => 'Descargar los documentos de la solicitud del programa',
+            'description_english' => 'Download the program application documents',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+        
+        // Cargar documentos para la solicitud del programa (Coordiandor Academico)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.program_request.document_store'], [ // Registro o actualización de permiso
+            'name' => 'Cargar los documentos de la solicitud del programa (Coordiandor Academico)',
+            'description' => 'Cargar los documentos de la solicitud del programa',
+            'description_english' => 'Upload your program application documents',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Cargar documentos para la solicitud del programa (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.programming.program_request.document_store'], [ // Registro o actualización de permiso
+            'name' => 'Cargar los documentos de la solicitud del programa (Instructor)',
+            'description' => 'Cargar los documentos de la solicitud del programa',
+            'description_english' => 'Upload your program application documents',
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
+
+        // Descargar los documentos de la solicitud del programa (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.programming.program_request.program_request_download'], [ // Registro o actualización de permiso
+            'name' => 'Descargar los documentos de la solicitud del programa (Instructor)',
+            'description' => 'Descargar los documentos de la solicitud del programa',
+            'description_english' => 'Download the program application documents',
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
+
+        
 
         // REPORTE TRIMESTRALIZACON -- INSTRUCTOR
 

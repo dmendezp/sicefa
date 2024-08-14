@@ -79,6 +79,9 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('academic_coordination/programming/management/search_course', 'management_programming_search_course')->name('sigac.academic_coordination.programming.management.search_course'); // Vista gestionar la programación (Coordinación Académica)
             Route::post('academic_coordination/programming/management/destroy', 'management_programming_destroy')->name('sigac.academic_coordination.programming.management.destroy'); // Eliminar programación de un dia especifico del trimestre (Coordinación Académica)
             Route::post('academic_coordination/programming/management/novelty/store', 'management_programming_novelty')->name('sigac.academic_coordination.programming.management.novelty.store'); // Registrar novedad de la programación (Coordinación Académica)
+            Route::post('instructor/programming/management/novelty/store', 'management_programming_novelty')->name('sigac.instructor.programming.management.novelty.store'); // Registrar novedad de la programación (Coordinación Académica)
+            Route::post('instructor/programming/management/destroy', 'management_programming_destroy')->name('sigac.instructor.programming.management.destroy'); // Eliminar programación de un dia especifico del trimestre (Coordinación Académica)
+            Route::get('instructor/programming/management/search_course', 'management_programming_search_course')->name('sigac.instructor.programming.management.search_course'); // Vista gestionar la programación (Coordinación Académica)
 
 
             // Horarios
@@ -105,10 +108,10 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('academic_coordination/programming/program_request/searchapplicant', 'program_request_searchapplicant')->name('sigac.academic_coordination.programming.program_request.searchapplicant'); // Buscar profesion
             Route::post('instructor/programming/program_request/store', 'program_request_store')->name('sigac.instructor.programming.program_request.store'); // Registrar solicitud del programa (Instructor)
             Route::post('academic_coordination/programming/program_request/store', 'program_request_store')->name('sigac.academic_coordination.programming.program_request.store'); // Registrar solicitud del programa (Instructor)
-            Route::get('instructor/programming/program_request/download/{id}', 'program_request_download')->name('sigac.instructor.programming.program_request.program_request_download'); // Buscar profesion
             Route::get('academic_coordination/programming/program_request/download/{id}', 'program_request_download')->name('sigac.academic_coordination.programming.program_request.program_request_download'); // Buscar profesion
-            Route::post('instructor/programming/program_request/document_store/{id}', 'program_request_document_store')->name('sigac.instructor.programming.program_request.document_store'); // Registrar solicitud del programa (Instructor)
+            Route::get('instructor/programming/program_request/download/{id}', 'program_request_download')->name('sigac.instructor.programming.program_request.program_request_download'); // Buscar profesion
             Route::post('academic_coordination/programming/program_request/document_store/{id}', 'program_request_document_store')->name('sigac.academic_coordination.programming.program_request.document_store'); // Registrar solicitud del programa (Instructor)
+            Route::post('instructor/programming/program_request/document_store/{id}', 'program_request_document_store')->name('sigac.instructor.programming.program_request.document_store'); // Registrar solicitud del programa (Instructor)
             Route::get('support/programming/program_request/characterization/index', 'program_request_characterization')->name('sigac.support.programming.program_request.characterization.index'); // Solicitudes de caracterización (Apoyo)
             Route::post('support/programming/program_request/characterization/store/{id}', 'program_request_characterization_store')->name('sigac.support.programming.program_request.characterization.store'); // Caracterizar programa (Apoyo)
             Route::post('support/programming/program_request/characterization/devolution/{id}', 'program_request_characterization_devolution')->name('sigac.instructor.programming.program_request.characterization.devolution'); // Devolver solicitud (Apoyo)

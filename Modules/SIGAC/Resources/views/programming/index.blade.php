@@ -78,7 +78,7 @@
                       </h2>
                       <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                         <br>
-                        {!! Form::open(['route' => 'sigac.academic_coordination.programming.management.novelty.store', 'method' => 'POST']) !!}
+                        {!! Form::open(['route' => 'sigac.'. $role .'.programming.management.novelty.store', 'method' => 'POST']) !!}
                         @csrf
                         {!! Form::hidden('instructor_program_id', null, ['id' => 'instructor_program_id']) !!}
                         <div class="form-group">
@@ -199,7 +199,7 @@
                             $('#delete' + personId).on('shown.bs.modal', function() {
                                 $('#code_course').on('input', function() {
                                     var codeCourse = $('#code_course').val();
-                                    var url = {!! json_encode(route('sigac.academic_coordination.programming.management.search_course')) !!};
+                                    var url = {!! json_encode(route('sigac.'. $role .'.programming.management.search_course')) !!};
                                     
                                     if(codeCourse){
                                         $.ajax({
