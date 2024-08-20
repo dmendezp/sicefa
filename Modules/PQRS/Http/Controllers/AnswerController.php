@@ -1,0 +1,92 @@
+<?php
+
+namespace Modules\PQRS\Http\Controllers;
+
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Modules\PQRS\Entities\Pqrs;
+use Modules\SICA\Entities\Person;
+use Illuminate\Support\Facades\DB;
+class AnswerController extends Controller
+{
+    public function index(){
+        $titlePage = trans('pqrs::answer.pqrs_response');
+        $titleView = trans('pqrs::answer.pqrs_response');
+
+        $user = Auth::user()->person_id;
+        $person = Person::find($user);
+
+        $pqrs = Pqrs::with(['people' => function($query) {
+            $query->orderBy('date_time', 'desc');
+        }])->get();
+
+        $data = [
+            'titlePage' => $titlePage,
+            'titleView' => $titleView,
+            'pqrs' => $pqrs
+        ];
+        
+        return view('pqrs::answer.index', $data);
+    }
+
+    public function store(Request $request){
+        $rules = [
+            'answer' => 'required',
+            'type_answer' => 'required',
+            'response_date' => 'required',
+        ];
+
+        $messages = [
+            'answer.required' => trans('pqrs::answer.you_must_register_a_response'),
+            'type_answer.required' => trans('pqrs::answer.you_must_select_a_response_type'),
+            'response_date' => trans('pqrs::answer.you_must_register_a_date')
+        ];
+
+        $validatedData = $request->validate($rules, $messages);
+        try {
+            DB::beginTransaction();
+
+            $pqrs = Pqrs::find($request->pqrs_id);
+            $pqrs->state = $validatedData['type_answer'];
+            $pqrs->answer = $validatedData['answer'];
+            $pqrs->response_date = $validatedData['response_date'];
+            $pqrs->save();
+
+            DB::commit();
+
+            return redirect()->route('pqrs.official.answer.index')->with(['success' => trans('pqrs::answer.the_response_was_registered_successfully')]); 
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors($validatedData)->withInput()->with(['error' => trans('pqrs::answer.error_registering_response')]);;
+        }
+    }
+
+    public function searchOfficial(Request $request){
+        $term = $request->input('name');
+
+        $people = Person::whereRaw("CONCAT(first_name, ' ', first_last_name, ' ', second_last_name) LIKE ?", ['%' . $term . '%'])->get();
+        $results = [];
+        foreach ($people as $person) {
+            $results[] = [
+                'id' => $person->id,
+                'name' => $person->first_name . ' ' . $person->first_last_name . ' ' . $person->second_last_name,
+            ];
+        }
+
+        return response()->json($results);
+    }
+
+    public function reasign(Request $request){
+        $pqrs = Pqrs::find($request->id);
+                        
+        $pqrs->people()->attach($request->responsible, [
+            'date_time' => now()->format('Y-m-d H:i:s'),
+            'type' => $request->type
+        ]);
+
+        return redirect()->route('pqrs.official.answer.index')->with(['success' => trans('pqrs::answer.the_pqrs_was_correctly_reassigned')]); 
+    }
+}
