@@ -2,53 +2,62 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="ModalLabel">Subir documentos faltantes</h4>
+                <h4 class="modal-title" id="ModalLabel">Reasignar ambientes</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                @csrf
-                <div class="form-group">
-                    {!! Form::checkbox('institucional_request', false) !!}
-                    {!! Form::label('institucional_request', 'Solicitud institucional') !!}
-                </div>
-                <div class="form-applicant" style="display: none">
                     <div class="form-group">
-                        {!! Form::label('applicant', 'Solicitante') !!}
-                        {!! Form::select('applicant', [], ['class' => 'form-control', 'id' => 'applicant']) !!}
-                        <div id="applicant-list" class="list-group"></div>                    
+                        {!! Form::hidden('program_id', $programId, ['id' => 'programId']) !!}
+                        {!! Form::checkbox('institucional_request', 1, null, ['id' => 'institucional_request']) !!}
+                        {!! Form::label('institucional_request', 'Solicitud institucional') !!}
                     </div>
-                    <div class="form-group">
-                        <div class="row">      
-                            <div class="col-6">
-                                {!! Form::label('start_time', 'Hora inicio') !!}
-                                {!! Form::time('start_time', null, ['class' => 'form-control']) !!}</div>
-                            <div class="col-6">
-                                {!! Form::label('end_time', 'Hora fin') !!}
-                                {!! Form::time('end_time', null, ['class' => 'form-control']) !!}
+                    <div class="form-applicant" style="display: none">
+                        <div class="form-group">
+                            {!! Form::label('applicant', 'Solicitante') !!}
+                            {!! Form::select('applicant', [], ['class' => 'form-control', 'id' => 'applicant']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('reason', 'Motivo') !!}
+                            {!! Form::textarea('reason', null, ['class' => 'form-control', 'style' => 'height: 10px']) !!}
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-6">
+                                    {!! Form::label('start_time', 'Hora inicio') !!}
+                                    {!! Form::time('start_time', null, ['class' => 'form-control']) !!}
+                                </div>
+                                <div class="col-6">
+                                    {!! Form::label('end_time', 'Hora fin') !!}
+                                    {!! Form::time('end_time', null, ['class' => 'form-control']) !!}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                @php              
-                    use Modules\SICA\Entities\Environment;
-     
-                    $programmedEnvironmentIds = $programs->environment_instructor_programs->pluck('environment_id')->toArray();
-
-                    // Obtener los ambientes que NO están programados
-                    $unprogrammedEnvironments = Environment::whereNotIn('id', $programmedEnvironmentIds)->pluck('name', 'id');
-                @endphp
-                <div class="form-group">
-                    {!! Form::label('change_environment', 'Cambio de ambiente') !!}
-                    {!! Form::select('environment', $unprogrammedEnvironments, null, ['class' => 'form-control', 'id' => 'environment', 'placeholder' => 'Buscar ambiente']) !!}
-                </div>
-                <br>
-                {!! Form::submit(trans('sigac::general.Btn_Save'), ['class' => 'btn btn-primary','id' => 'standcolor']) !!}
+                    <div class="form-group">
+                        {!! Form::label('change_environment', 'Cambio de ambiente') !!}
+                        {!! Form::select('environment', $unprogrammedEnvironments, null, ['class' => 'form-control', 'id' => 'environment', 'placeholder' => 'Buscar ambiente']) !!}
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                {!! Form::label('start_time_environment', 'Hora inicio') !!}
+                                {!! Form::time('start_time_environment', null, ['class' => 'form-control']) !!}
+                            </div>
+                            <div class="col-6">
+                                {!! Form::label('end_time_environment', 'Hora fin') !!}
+                                {!! Form::time('end_time_environment', null, ['class' => 'form-control']) !!}
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    {!! Form::submit(trans('sigac::general.Btn_Save'), ['class' => 'btn btn-primary', 'id' => 'standcolor']) !!}
             </div>
         </div>
-    </div>  
+    </div>
 </div>
 <script>
     $(document).ready(function() {
+       
         $('.modal').on('shown.bs.modal', function () {
             var modal = $(this);
             var programId = modal.attr('id').replace('reschedule', ''); // Obtener el ID del programa desde el ID del modal
@@ -108,6 +117,59 @@
         // Prevenir que el modal se cierre al interactuar con Select2
         $('.modal').on('click', '.select2-selection', function (e) {
             e.stopPropagation();
+        });
+        
+
+        $('#standcolor').on('click', function(event) {
+            event.preventDefault(); // Prevenir el envío estándar del formulario
+
+            // Capturar los datos del formulario
+            var institucionalRequest = $('#institucional_request').is(':checked') ? 1 : 0;
+            var applicant = $('#applicant').val();
+            var reason = $('#reason').val();
+            var date = $('#day').val();
+            var startTime = $('#start_time').val();
+            var endTime = $('#end_time').val();
+            var programId = $('#programId').val();
+            var environment = $('#environment').val();
+            var startTimeEnvironment = $('#start_time_environment').val();
+            var endTimeEnvironment = $('#end_time_environment').val();
+
+            // Crear el objeto de datos
+            var formData = {
+                institucional_request: institucionalRequest,
+                applicant: applicant,
+                date: date,
+                reason: reason,
+                start_time: startTime,
+                end_time: endTime,
+                program_id: programId,
+                environment: environment,
+                start_time_environment: startTimeEnvironment,
+                end_time_environment: endTimeEnvironment,
+            };
+
+            console.log(formData);
+
+            // Enviar los datos con AJAX
+            $.ajax({
+                url: '{{ route('sigac.academic_coordination.reports.environments.institucional_request_store') }}', // La ruta a la que se enviarán los datos
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: formData,
+                success: function(response) {
+                    // Manejar la respuesta del servidor aquí
+                    console.log('Datos enviados correctamente:', response);
+                    // Puedes cerrar el modal aquí si lo deseas
+                    $('#reschedule' + programId).modal('hide');
+                },
+                error: function(xhr) {
+                    // Manejar los errores aquí
+                    console.log('Error al enviar los datos:', xhr.responseText);
+                }
+            });
         });
     });
 </script>

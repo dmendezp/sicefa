@@ -9,6 +9,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class InstitucionalRequest extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     use HasFactory;
 
     protected $fillable = [

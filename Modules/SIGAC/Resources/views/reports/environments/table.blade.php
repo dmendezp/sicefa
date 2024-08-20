@@ -35,7 +35,7 @@
                                 <td class="text-center">
                                     <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#reschedule{{$programs->id}}"><i class="fas fa-edit"></i></button>
                                 </td>
-                                @include('sigac::reports.environments.reschedule')
+                                @include('sigac::reports.environments.reschedule', ['programId' => $programs->id])
                             </tr>
                         @endforeach
                     </tbody>

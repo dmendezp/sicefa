@@ -11,6 +11,9 @@ use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\LearningOutcome;
 use Modules\SICA\Entities\Competencie;
 use Modules\SICA\Entities\Person;
+use Modules\SIGAC\Entities\EnvironmentInstructorProgram;
+use Modules\SICA\Entities\Environment;
+use Modules\SIGAC\Entities\InstitucionalRequest;
 
 class ReportController extends Controller
 {
@@ -134,8 +137,18 @@ class ReportController extends Controller
         ->orderBy('created_at', 'Asc')
         ->get();
 
+        foreach ($instructor_program as $p) {
+            $id[] = $p->id;
+        
+            $programmedEnvironmentIds = EnvironmentInstructorProgram::whereIn('instructor_program_id', $id)->pluck('environment_id')->toArray();
+
+            // Obtener los ambientes que NO están programados
+            $unprogrammedEnvironments = Environment::whereNotIn('id', $programmedEnvironmentIds)->pluck('name', 'id');
+        }
+
         return view('sigac::reports.environments.table')->with([
-            'instructor_program' => $instructor_program        
+            'instructor_program' => $instructor_program,
+            'unprogrammedEnvironments' => $unprogrammedEnvironments    
         ]);
     }
 
@@ -156,7 +169,49 @@ class ReportController extends Controller
     }
 
     public function institucional_request_store(Request $request){
+        try {
+            $institucional_request = $request->has('institucional_request') ? 1 : 0;
+            $applicant = $request->input('applicant');
+            $reason = $request->input('reason');
+            $date = $request->input('date');
+            $start_time = $request->input('start_time');
+            $end_time = $request->input('end_time');
+            $instructor_program_id = $request->input('program_id');
+            $environment = $request->input('environment');
+            $start_time_environment = $request->input('start_time_environment');
+            $end_time_environment = $request->input('end_time_environment');
 
+            if($institucional_request == 1){
+                $i = new InstitucionalRequest;
+                $i->person_id = $applicant;
+                $i->reason = $reason;
+                $i->date = $date;
+                $i->start_time = $start_time;
+                $i->end_time = $end_time;
+                $i->save();
+
+                $environment_instructor_program = EnvironmentInstructorProgram::where('instructor_program_id', $instructor_program_id)->first();
+                $environment_instructor_program->environment_id = $environment;
+                $environment_instructor_program->save();
+
+                $mensaje = 'Se reasigno el ambiente correctamente';
+                return redirect()->back()->with(['success'=> $mensaje]);
+            }else{
+                $environment_instructor_program = EnvironmentInstructorProgram::where('instructor_program_id', $instructor_program_id)->get();
+                $environment_instructor_program->environment_id = $environment;
+                $environment_instructor_program->save();
+
+                $mensaje = 'Se reasigno el ambiente correctamente';
+                return redirect()->back()->with(['success'=> $mensaje]);
+            }
+            
+            
+        } catch(\Exception $e){
+            dd($e);
+            DB::rollBack();
+            return redirect()->back()->with(['error'=> 'Error al eliminar la programación']);
+
+        }
     }
 
 }
