@@ -52,9 +52,29 @@ class TrackingController extends Controller
 
     public function index(){
         $titlePage = trans('pqrs::tracking.pqrs_monitoring');
-        $titleView = trans('pqrs::tracking.pqrs_monitoring');
+        $titleView = trans('pqrs::tracking.pqrs_monitoring');        
 
-        $pqrs = Pqrs::with('people')->orderBy('end_date', 'asc')->get();
+        $options = [
+            '' => 'Seleccione una opción',
+            'EN PROCESO' => 'En proceso',
+            'PROXIMA A VENCER' => 'Proxima a vencer',
+            'RESPUESTA GENERADA' => 'Respuesta generada',
+            'RESPUESTA PARCIAL' => 'Respuesta parcial',
+        ];
+
+        $data  = [
+            'titlePage' => $titlePage,
+            'titleView' => $titleView,
+            'options' => $options
+        ];
+
+        return view('pqrs::tracking.index', $data);
+    }
+
+    public function search(Request $request){
+        $option = $request->input('option');
+
+        $pqrs = Pqrs::with('people')->where('state', $option)->orderBy('end_date', 'asc')->get();
 
         $holidays = Holiday::pluck('date')->map(function ($date) {
             return Carbon::parse($date)->format('Y-m-d');
@@ -86,18 +106,15 @@ class TrackingController extends Controller
             
             // Verificar si el estado debe ser actualizado
             if ($days_remaining == 5 && $p->state == 'EN PROCESO') {
-                $p->state = 'PROXIMO A VENCER';
+                $p->state = 'PROXIMA A VENCER';
                 $p->save();
             }                 
         }
-
-        $data  = [
-            'titlePage' => $titlePage,
-            'titleView' => $titleView,
+        $data = [
             'pqrs' => $pqrs
         ];
 
-        return view('pqrs::tracking.index', $data);
+        return view('pqrs::tracking.table', $data);
     }
 
     public function searchOfficial(Request $request){
@@ -524,11 +541,12 @@ class TrackingController extends Controller
                         $state = 'EN PROCESO';
 
                         $official_row = $data[4];
+                        
+
                         // Usar expresión regular para extraer el nombre dentro de las comillas
                         preg_match('/"([^"]+)"/', $official_row, $matches);
                         if (isset($matches[1])) {
                             $official = $matches[1];
-                            
                         } else {
                             // Si no se encuentran comillas, extraer después de =T(
                             $official = preg_replace('/^=T\("([^"]*)"\)/', '$1', $official_row);
@@ -544,8 +562,15 @@ class TrackingController extends Controller
                         $first_last_name = $official_explode[2];
                         $second_last_name = isset($official_explode[3]) ? $official_explode[3] : '';
 
+                        $support_row = $data[9];
+                        $support_explode = preg_split('/\s+/', trim($support_row));
+                        $support_first_name = $support_explode[0] . ' ' . $support_explode[1];
+                        $support_first_last_name = $support_explode[2];
+                        $support_second_last_name = isset($support_explode[3]) ? $support_explode[3] : '';
+
                         // Consultar la base de datos
                         $person = Person::where('first_name', $first_name)->where('first_last_name', $first_last_name)->where('second_last_name', $second_last_name)->pluck('id')->first();
+                        $support = Person::where('first_name', $support_first_name)->where('first_last_name', $support_first_last_name)->where('second_last_name', $support_second_last_name)->pluck('id');
 
                         $filing_number_int = intval($filing_number);
 
@@ -569,6 +594,11 @@ class TrackingController extends Controller
                         $pqrs->people()->attach($person, [
                             'date_time' => now()->format('Y-m-d H:i:s'),
                             'type' => 'Funcionario'
+                        ]);
+
+                        $pqrs->people()->attach($support, [
+                            'date_time' => now()->format('Y-m-d H:i:s'),
+                            'type' => 'Apoyo'
                         ]);
 
                         $countstate++;  
@@ -596,7 +626,6 @@ class TrackingController extends Controller
                         $start_date->addDay();
 
                         $end_date =  $start_date->format('Y-m-d');
-                        dd($end_date);
 
                         $issue_row = $data[8];
                         preg_match('/"([^"]+)"/', $issue_row, $matches);
@@ -625,9 +654,16 @@ class TrackingController extends Controller
                         $first_last_name = $official_explode[2];
                         $second_last_name = isset($official_explode[3]) ? $official_explode[3] : '';
 
+                        $support_row = $data[9];
+                        $support_explode = preg_split('/\s+/', trim($support_row));
+                        $support_first_name = $support_explode[0] . ' ' . $support_explode[1];
+                        $support_first_last_name = $support_explode[2];
+                        $support_second_last_name = isset($support_explode[3]) ? $support_explode[3] : '';
+
                         // Consultar la base de datos
                         $person = Person::where('first_name', $first_name)->where('first_last_name', $first_last_name)->where('second_last_name', $second_last_name)->pluck('id')->first();
-                                                               
+                        $support = Person::where('first_name', $support_first_name)->where('first_last_name', $support_first_last_name)->where('second_last_name', $support_second_last_name)->pluck('id');
+
                         $type_pqrs = new TypePqrs;
                         $type_pqrs->name = $type_pqrs_name;
                         $type_pqrs->save();
@@ -645,6 +681,11 @@ class TrackingController extends Controller
                         $pqrs->people()->attach($person, [
                             'date_time' => now()->format('Y-m-d H:i:s'),
                             'type' => 'Funcionario'
+                        ]);
+
+                        $pqrs->people()->attach($support, [
+                            'date_time' => now()->format('Y-m-d H:i:s'),
+                            'type' => 'Apoyo'
                         ]);
 
                         $countstate++;
@@ -671,7 +712,7 @@ class TrackingController extends Controller
     public function email()
     {
         try {
-            $pqrs = Pqrs::with('people')->where('state', 'PROXIMO A VENCER')->get();
+            $pqrs = Pqrs::with('people')->where('state', 'PROXIMA A VENCER')->get();
 
             Mail::send('pqrs::emails.pqrs', compact('pqrs'), function ($msg) use ($pqrs) {
                 $emails = [];
@@ -721,7 +762,6 @@ class TrackingController extends Controller
             // Redirige a una página de confirmación o de vuelta a la vista original
             return redirect()->back()->with('success', trans('pqrs::tracking.email_sent_successfully'));
         } catch (\Exception $e) {
-            dd($e);
             // Manejar la excepción y redirigir con un mensaje de error
             return redirect()->back()->with('error', $e->getMessage());
         }

@@ -11,9 +11,13 @@
             {!! Form::open(['method' => 'post', 'url' => route('pqrs.official.answer.store')]) !!}
                 <div class="row">
                     {!! Form::hidden('pqrs_id', $p->id) !!}
-                    <div class="col-12">
+                    <div class="col-6">
+                      {!! Form::label('filed_response', trans('pqrs::tracking.response_filing_number')) !!}
+                      {!! Form::number('filed_response', null, ['class' => 'form-control', 'placeholder' => trans('pqrs::tracking.enter_the_response_file'), 'style' => 'height: 40px']) !!}
+                    </div>
+                    <div class="col-6">
                         {!! Form::label('answer', trans('pqrs::answer.answer')) !!}
-                        {!! Form::textarea('answer', null, ['class' => 'form-control', 'placeholder' => trans('pqrs::answer.enter_your_answer'), 'style' => 'height: 40px']) !!}
+                        {!! Form::textarea('answer', null, ['class' => 'form-control', 'style' => 'height: 40px']) !!}
                         @error('answer')
                           <span class="text-danger">{{ $message }}</span>
                         @enderror

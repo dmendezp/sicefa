@@ -11,6 +11,7 @@ Route::middleware(['lang'])->group(function(){
             Route::post('/tracking/type_pqrs_store', 'type_pqrs_store')->name('pqrs.tracking.type_pqrs_store');
             Route::delete('/tracking/type_pqrs_delete/{id}', 'type_pqrs_delete')->name('pqrs.tracking.type_pqrs_delete');
             Route::get('/tracking/index', 'index')->name('pqrs.tracking.index');
+            Route::post('/tracking/search', 'search')->name('pqrs.tracking.search');
             Route::get('/tracking/searchOfficial', 'searchOfficial')->name('pqrs.tracking.searchOfficial');
             Route::get('/tracking/create', 'create')->name('pqrs.tracking.create');
             Route::post('/tracking/store', 'store')->name('pqrs.tracking.store');
