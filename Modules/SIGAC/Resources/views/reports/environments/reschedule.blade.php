@@ -1,4 +1,4 @@
-<div class="modal fade" id="reschedule{{$programs->id}}" tabindex="-1" aria-labelledby="dates" aria-hidden="true">
+<div class="modal fade" id="rescheduleModal" tabindex="-1" aria-labelledby="dates" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                     <div class="form-group">
-                        {!! Form::hidden('program_id', $programId, ['id' => 'programId']) !!}
+                        {!! Form::hidden('program_id', null, ['id' => 'programId']) !!}
                         {!! Form::checkbox('institucional_request', 1, null, ['id' => 'institucional_request']) !!}
                         {!! Form::label('institucional_request', 'Solicitud institucional') !!}
                     </div>
@@ -70,7 +70,7 @@
 
             // Base URL para la búsqueda AJAX
             var baseUrl = '{{ route("sigac.academic_coordination.reports.environments.search_person") }}';
-
+            
             // Inicializar Select2 para el campo applicant
             modal.find('#applicant').select2({
                 dropdownParent: modal,
@@ -135,41 +135,108 @@
             var startTimeEnvironment = $('#start_time_environment').val();
             var endTimeEnvironment = $('#end_time_environment').val();
 
-            // Crear el objeto de datos
-            var formData = {
-                institucional_request: institucionalRequest,
-                applicant: applicant,
-                date: date,
-                reason: reason,
-                start_time: startTime,
-                end_time: endTime,
-                program_id: programId,
-                environment: environment,
-                start_time_environment: startTimeEnvironment,
-                end_time_environment: endTimeEnvironment,
-            };
 
-            console.log(formData);
-
-            // Enviar los datos con AJAX
-            $.ajax({
-                url: '{{ route('sigac.academic_coordination.reports.environments.institucional_request_store') }}', // La ruta a la que se enviarán los datos
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: formData,
-                success: function(response) {
-                    // Manejar la respuesta del servidor aquí
-                    console.log('Datos enviados correctamente:', response);
-                    // Puedes cerrar el modal aquí si lo deseas
-                    $('#reschedule' + programId).modal('hide');
-                },
-                error: function(xhr) {
-                    // Manejar los errores aquí
-                    console.log('Error al enviar los datos:', xhr.responseText);
+            if (institucionalRequest == 1){
+                if (!applicant || !reason || !date || !startTime || !endTime || !environment || !startTimeEnvironment || !endTimeEnvironment) {
+                    // Mostrar alerta si algún campo está vacío
+                    alert('Por favor, complete todos los campos obligatorios antes de enviar.');
+                    return; // Detener la ejecución si hay campos vacíos
                 }
-            });
+
+                var formData = {
+                    institucional_request: institucionalRequest,
+                    applicant: applicant,
+                    date: date,
+                    reason: reason,
+                    start_time: startTime,
+                    end_time: endTime,
+                    program_id: programId,
+                    environment: environment,
+                    start_time_environment: startTimeEnvironment,
+                    end_time_environment: endTimeEnvironment,
+                };
+
+                $.ajax({
+                    url: '{{ route('sigac.academic_coordination.reports.environments.institucional_request_store') }}', // La ruta a la que se enviarán los datos
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: formData,
+                    success: function(response) {
+                        // Manejar la respuesta del servidor aquí
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000);
+
+                        if(response.success){
+                            Swal.fire({
+                                icon: 'success',
+                                title: response.success,
+                                showConfirmButton: true,
+                                timer: 1500,
+                                customClass: {
+                                    popup: 'my-custom-popup-class',
+                                },
+                            });
+                        }
+                        // Puedes cerrar el modal aquí si lo deseas
+                        $('#rescheduleModal').modal('hide');
+                    },
+                    error: function(xhr) {
+                        // Manejar los errores aquí
+                        console.log('Error al enviar los datos:', xhr.responseText);
+                    }
+                });
+            }else if(institucionalRequest == 0){
+                if (!environment || !startTimeEnvironment || !endTimeEnvironment) {
+                    // Mostrar alerta si algún campo está vacío
+                    alert('Por favor, complete todos los campos obligatorios antes de enviar.');
+                    return; // Detener la ejecución si hay campos vacíos
+                }
+
+                var formData = {
+                    program_id: programId,
+                    environment: environment,
+                    start_time_environment: startTimeEnvironment,
+                    end_time_environment: endTimeEnvironment,
+                };
+
+                $.ajax({
+                    url: '{{ route('sigac.academic_coordination.reports.environments.institucional_request_store') }}', // La ruta a la que se enviarán los datos
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: formData,
+                    success: function(response) {
+                        // Manejar la respuesta del servidor aquí
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000);
+
+                        if(response.success){
+                            Swal.fire({
+                                icon: 'success',
+                                title: response.success,
+                                showConfirmButton: true,
+                                timer: 1500,
+                                customClass: {
+                                    popup: 'my-custom-popup-class',
+                                },
+                            });
+                        }
+
+                        // Puedes cerrar el modal aquí si lo deseas
+                        $('#rescheduleModal').modal('hide');
+
+                    },
+                    error: function(xhr) {
+                        // Manejar los errores aquí
+                        console.log('Error al enviar los datos:', xhr.responseText);
+                    }
+                });
+            }
         });
     });
 </script>

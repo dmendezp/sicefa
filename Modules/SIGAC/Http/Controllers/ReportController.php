@@ -195,19 +195,18 @@ class ReportController extends Controller
                 $environment_instructor_program->save();
 
                 $mensaje = 'Se reasigno el ambiente correctamente';
-                return redirect()->back()->with(['success'=> $mensaje]);
+                return response()->json(['success' => $mensaje]);
             }else{
-                $environment_instructor_program = EnvironmentInstructorProgram::where('instructor_program_id', $instructor_program_id)->get();
+                $environment_instructor_program = EnvironmentInstructorProgram::where('instructor_program_id', $instructor_program_id)->first();
                 $environment_instructor_program->environment_id = $environment;
                 $environment_instructor_program->save();
 
                 $mensaje = 'Se reasigno el ambiente correctamente';
-                return redirect()->back()->with(['success'=> $mensaje]);
+                return response()->json(['success' => $mensaje]);            
             }
             
             
         } catch(\Exception $e){
-            dd($e);
             DB::rollBack();
             return redirect()->back()->with(['error'=> 'Error al eliminar la programación']);
 

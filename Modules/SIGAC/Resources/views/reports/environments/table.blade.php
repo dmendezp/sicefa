@@ -33,11 +33,11 @@
                                 <td class="text-center">{{ $programs->start_time }} - {{ $programs->end_time }}</td>
                                 <td class="text-center">{{ $programs->state }}</td>
                                 <td class="text-center">
-                                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#reschedule{{$programs->id}}"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-info openModal" data-program-id="{{ $programs->id }}" data-bs-toggle="modal" data-bs-target="#rescheduleModal"><i class="fas fa-edit"></i></button>
                                 </td>
-                                @include('sigac::reports.environments.reschedule', ['programId' => $programs->id])
                             </tr>
                         @endforeach
+                        @include('sigac::reports.environments.reschedule')
                     </tbody>
                 </table>
             </div>
@@ -45,5 +45,16 @@
     </div>
 </div>
 
-@push('script')
-@endpush
+<script>
+    $(document).ready(function() {
+        // Al hacer clic en el botón "openModal"
+        $('.openModal').on('click', function() {
+            var programId = $(this).data('program-id'); // Obtén el ID del programa desde el botón
+
+            // Actualiza el valor del campo oculto del formulario con el ID del programa
+            $('#rescheduleModal').find('#programId').val(programId);
+
+            // Puedes agregar más código aquí para actualizar otros campos si es necesario
+        });
+    });
+</script>

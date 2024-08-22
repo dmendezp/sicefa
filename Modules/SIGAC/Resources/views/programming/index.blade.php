@@ -182,54 +182,10 @@
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
             headerToolbar: {
-                left: 'prev,next today myCustomButton',
+                left: 'prev,next today',
                 center: 'title',
                 right: 'dayGridMonth,timeGridWeek,listWeek'
             },
-            customButtons: {
-                myCustomButton: {
-                    text: 'Borrar programación',
-                    click: function() {
-                        var personId = $('#search').val(); // Obtener el ID seleccionado
-                        if (personId) {
-                            $('#deleteModal').attr('id', 'delete' + personId);
-                            $('#person_id').val(personId);
-                            $('#delete' + personId).modal('show'); // Abrir el modal con la ID concatenada
-
-                            $('#delete' + personId).on('shown.bs.modal', function() {
-                                $('#code_course').on('input', function() {
-                                    var codeCourse = $('#code_course').val();
-                                    var url = {!! json_encode(route('sigac.'. $role .'.programming.management.search_course')) !!};
-                                    
-                                    if(codeCourse){
-                                        $.ajax({
-                                            type: 'GET',
-                                            url: url,
-                                            data: { code_course: codeCourse },
-                                            success: function(response) {
-                                                // Manejar la respuesta aquí
-                                                if (response && response.program && response.program.length > 0) {
-                                                    $('#program_name').html('<strong>Programa:</strong> ' + response.program).show();
-                                                }else{
-                                                    $('#program_name').hide();
-                                                }
-                                                // Puedes hacer algo con los datos recibidos
-                                            },
-                                            error: function(xhr) {
-                                                
-                                            }
-                                        });
-                                    }else{
-                                        $('#program_name').hide();
-                                    }
-                                });
-                            });
-                        } else {
-                            alert('Por favor selecciona una opción primero.');
-                        }
-                    }
-                }
-            }, 
             height: 'auto',
             aspectRatio: 1.0,
             editable: false,
@@ -404,6 +360,65 @@
 
         $('#search').change(function() {
             var option = $('#option').val();
+            
+            if (option == 1) {
+                calendar.setOption('customButtons', {
+                    myCustomButton: {
+                        text: 'Borrar programación',
+                        click: function() {
+                            var personId = $('#search').val(); // Obtener el ID seleccionado
+                            if (personId) {
+                                $('#deleteModal').attr('id', 'delete' + personId);
+                                $('#person_id').val(personId);
+                                $('#delete' + personId).modal('show'); // Abrir el modal con la ID concatenada
+
+                                $('#delete' + personId).on('shown.bs.modal', function() {
+                                    $('#code_course').on('input', function() {
+                                        var codeCourse = $('#code_course').val();
+                                        var url = {!! json_encode(route('sigac.'. $role .'.programming.management.search_course')) !!};
+                                        
+                                        if (codeCourse) {
+                                            $.ajax({
+                                                type: 'GET',
+                                                url: url,
+                                                data: { code_course: codeCourse },
+                                                success: function(response) {
+                                                    // Manejar la respuesta aquí
+                                                    if (response && response.program && response.program.length > 0) {
+                                                        $('#program_name').html('<strong>Programa:</strong> ' + response.program).show();
+                                                    } else {
+                                                        $('#program_name').hide();
+                                                    }
+                                                },
+                                                error: function(xhr) {
+                                                    // Manejar el error aquí si es necesario
+                                                }
+                                            });
+                                        } else {
+                                            $('#program_name').hide();
+                                        }
+                                    });
+                                });
+                            } else {
+                                alert('Por favor selecciona una opción primero.');
+                            }
+                        }
+                    }
+                });
+
+                calendar.setOption('headerToolbar', {
+                    left: 'prev,next today myCustomButton',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                });
+            }else{
+                calendar.setOption('headerToolbar', {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                });
+            }
+
 
             $.ajax({
                 type: 'POST',
