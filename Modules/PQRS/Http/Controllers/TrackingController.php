@@ -289,10 +289,23 @@ class TrackingController extends Controller
                         // Extraer solo el número de días
                         $patron = '/\d+/'; // Expresión regular para encontrar números
                         preg_match($patron, $end_date_row, $matches);
-                        $days = $matches[0];
+                        if (isset($matches[0])) {
+                            $days = $matches[0];
+                            
+                            try {
+                                // Intentar convertir la fecha extraída en un objeto Carbon
+                                $end_date_obj = Date::excelToDateTimeObject($days);
 
-                        // Convertir el número de días a fecha
-                        $end_date_obj = Date::excelToDateTimeObject($days);
+                                } catch (\Exception $e) {
+                                // Si la conversión falla, manejar el error
+                                $mensaje = 'Error al convertir la fecha.';
+                                return redirect()->route('pqrs.tracking.index')->with(['error' => $mensaje]); 
+    
+                            }
+                        } else {
+                            $mensaje = 'Algunas fechas contienen texto o no estan en el formato correcto.';
+                            return redirect()->route('pqrs.tracking.index')->with(['error' => $mensaje]); 
+                        }
 
                         // Formatear la fecha como 'Y-m-d'
                         $end_date = $end_date_obj->format('Y-m-d');

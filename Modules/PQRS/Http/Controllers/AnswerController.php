@@ -122,7 +122,6 @@ class AnswerController extends Controller
             // Redirige a una página de confirmación o de vuelta a la vista original
             return redirect()->back()->with('success', trans('pqrs::tracking.email_sent_successfully'));
         } catch (\Exception $e) {
-            dd($e);
             // Manejar la excepción y redirigir con un mensaje de error
             return redirect()->back()->with('error', $e->getMessage());
         }
