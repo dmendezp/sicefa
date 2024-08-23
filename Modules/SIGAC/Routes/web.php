@@ -85,9 +85,22 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
 
 
             // Horarios
-            Route::get('programming', 'programming')->name('sigac.programming.index'); // Programación de horarios
-            Route::post('programming/management/filter', 'management_filter')->name('sigac.programming.management.filter'); // Consultar filtro de horario
-            Route::post('programming/management/search', 'management_search')->name('sigac.programming.management.search'); // Consultar programaciones del instructor
+            Route::get('academic_coordination/programming/index', 'programming')->name('sigac.academic_coordination.programming.index'); // Programación de horarios
+            Route::get('instructor/programming/index', 'programming')->name('sigac.instructor.programming.index'); // Programación de horarios
+            Route::get('support/programming/index', 'programming')->name('sigac.support.programming.index'); // Programación de horarios
+            Route::get('apprentice/programming/index', 'programming')->name('sigac.apprentice.programming.index'); // Programación de horarios
+            Route::get('wellness/programming/index', 'programming')->name('sigac.wellness.programming.index'); // Programación de horarios
+      
+            Route::post('academic_coordination/programming/management/filter', 'management_filter')->name('sigac.academic_coordination.programming.management.filter'); // Consultar filtro de horario
+            Route::post('academic_coordination/programming/management/search', 'management_search')->name('sigac.academic_coordination.programming.management.search'); // Consultar programaciones del instructor
+            Route::post('instructor/programming/management/filter', 'management_filter')->name('sigac.instructor.programming.management.filter'); // Consultar filtro de horario
+            Route::post('instructor/programming/management/search', 'management_search')->name('sigac.instructor.programming.management.search'); // Consultar programaciones del instructor
+            Route::post('support/programming/management/filter', 'management_filter')->name('sigac.support.programming.management.filter'); // Consultar filtro de horario
+            Route::post('support/programming/management/search', 'management_search')->name('sigac.support.programming.management.search'); // Consultar programaciones del instructor
+            Route::post('apprentice/programming/management/filter', 'management_filter')->name('sigac.apprentice.programming.management.filter'); // Consultar filtro de horario
+            Route::post('apprentice/programming/management/search', 'management_search')->name('sigac.apprentice.programming.management.search'); // Consultar programaciones del instructor
+            Route::post('wellness/programming/management/filter', 'management_filter')->name('sigac.wellness.programming.management.filter'); // Consultar filtro de horario
+            Route::post('wellness/programming/management/search', 'management_search')->name('sigac.wellness.programming.management.search'); // Consultar programaciones del instructor
 
             // Fechas
             Route::get('academic_coordination/programming/dates', 'dates_index')->name('sigac.academic_coordination.programming.dates_index'); // Programación de horarios (Coordinación Académica)
@@ -250,9 +263,9 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
 
             // ---------------- Consultar disponibilidad de ambientes --------------------
             Route::get('academic_coordination/reports/environments/index', 'environments_index')->name('sigac.academic_coordination.reports.environments.index'); // Ambientes (Coordinación Académica)
-            Route::post('academic_coordination/reports/environments/search', 'environments_search')->name('sigac.academic_coordination.reports.environments.search'); // Consultar datos de instructores (Coordinación Académica)
-            Route::get('academic_coordination/reports/environments/search_person', 'search_person')->name('sigac.academic_coordination.reports.environments.search_person'); // Consultar datos de instructores (Coordinación Académica)
-            Route::post('academic_coordination/reports/environments/institucional_request_store', 'institucional_request_store')->name('sigac.academic_coordination.reports.environments.institucional_request_store'); // Consultar datos de instructores (Coordinación Académica)
+            Route::post('academic_coordination/reports/environments/search', 'environments_search')->name('sigac.academic_coordination.reports.environments.search'); // Consultar ambientes (Coordinación Académica)
+            Route::get('academic_coordination/reports/environments/search_person', 'search_person')->name('sigac.academic_coordination.reports.environments.search_person'); // Buscar personas (Coordinación Académica)
+            Route::post('academic_coordination/reports/environments/institucional_request_store', 'institucional_request_store')->name('sigac.academic_coordination.reports.environments.institucional_request_store'); // Guardar reprogramacion (Coordinación Académica)
             
         });
 

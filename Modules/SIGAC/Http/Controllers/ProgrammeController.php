@@ -250,6 +250,7 @@ class ProgrammeController extends Controller
     public function management_programming_store(Request $request)
     {
         $days = $request->days;
+        $modality = $request->has('modality') ? 1 : 0;
         $fechas = [];
         $fechaActual = Carbon::parse($request->start_date);
         while ($fechaActual->lte(Carbon::parse($request->end_date))) {
@@ -265,31 +266,54 @@ class ProgrammeController extends Controller
         $learning_outcomes = $request->learning_outcome;
         $hours = $request->hour;
         $querter_number = $request->querter_number;
-
+        
         foreach ($fechas as $f) {
-            $programming = InstructorProgram::where('date', $f)
-            ->where(function ($query) use ($request) {
-                $query->where(function ($q) use ($request) {
-                    $q->where('start_time', '>=', $request->start_time)
-                        ->where('start_time', '<=', $request->end_time);
+            if($modality == 0){
+                $programming = InstructorProgram::where('date', $f)
+                ->where(function ($query) use ($request) {
+                    $query->where(function ($q) use ($request) {
+                        $q->where('start_time', '>=', $request->start_time)
+                            ->where('start_time', '<=', $request->end_time);
+                    })
+                    ->orWhere(function ($q) use ($request) {
+                        $q->where('end_time', '>=', $request->start_time)
+                            ->where('end_time', '<=', $request->end_time);
+                    })
+                    ->orWhere(function ($q) use ($request) {
+                        $q->where('start_time', '<=', $request->start_time)
+                            ->where('end_time', '>=', $request->end_time);
+                    });
                 })
-                ->orWhere(function ($q) use ($request) {
-                    $q->where('end_time', '>=', $request->start_time)
-                        ->where('end_time', '<=', $request->end_time);
+                ->whereHas('instructor_program_people', function ($query) use ($instructors) {
+                    $query->whereIn('person_id', $instructors);
                 })
-                ->orWhere(function ($q) use ($request) {
-                    $q->where('start_time', '<=', $request->start_time)
-                        ->where('end_time', '>=', $request->end_time);
-                });
-            })
-            ->whereHas('instructor_program_people', function ($query) use ($instructors) {
-                $query->whereIn('person_id', $instructors);
-            })
-            ->whereHas('environment_instructor_programs', function ($query) use ($environments) {
-                $query->whereIn('environment_id', $environments);
-            })
-            ->where('course_id', $course_id)
-            ->exists();
+                ->whereHas('environment_instructor_programs', function ($query) use ($environments) {
+                    $query->whereIn('environment_id', $environments);
+                })
+                ->where('course_id', $course_id)
+                ->exists();
+            }else{
+                $programming = InstructorProgram::where('date', $f)
+                ->where(function ($query) use ($request) {
+                    $query->where(function ($q) use ($request) {
+                        $q->where('start_time', '>=', $request->start_time)
+                            ->where('start_time', '<=', $request->end_time);
+                    })
+                    ->orWhere(function ($q) use ($request) {
+                        $q->where('end_time', '>=', $request->start_time)
+                            ->where('end_time', '<=', $request->end_time);
+                    })
+                    ->orWhere(function ($q) use ($request) {
+                        $q->where('start_time', '<=', $request->start_time)
+                            ->where('end_time', '>=', $request->end_time);
+                    });
+                })
+                ->whereHas('instructor_program_people', function ($query) use ($instructors) {
+                    $query->whereIn('person_id', $instructors);
+                })
+                ->where('course_id', $course_id)
+                ->exists();
+            }
 
             $holidays = Holiday::where('date', $f)->exists();
 
@@ -307,15 +331,36 @@ class ProgrammeController extends Controller
             try {
                 DB::beginTransaction();
 
-                $p = new InstructorProgram;
-                $p->date = $f;
-                $p->start_time = $request->start_time;
-                $p->end_time = $request->end_time;
-                $p->course_id = $request->course;
-                $p->quarter_number = $querter_number;
-                $p->state = 'Programado';
-                $p->save();
-                $instructor_program_id = $p->id;
+                if($modality == 1){
+                    $p = new InstructorProgram;
+                    $p->date = $f;
+                    $p->start_time = $request->start_time;
+                    $p->end_time = $request->end_time;
+                    $p->course_id = $request->course;
+                    $p->quarter_number = $querter_number;
+                    $p->state = 'Programado';
+                    $p->modality = 'Medios Tecnologicos';
+                    $p->save();
+                    $instructor_program_id = $p->id;
+                }else{
+                    $p = new InstructorProgram;
+                    $p->date = $f;
+                    $p->start_time = $request->start_time;
+                    $p->end_time = $request->end_time;
+                    $p->course_id = $request->course;
+                    $p->quarter_number = $querter_number;
+                    $p->state = 'Programado';
+                    $p->modality = 'Titulada';
+                    $p->save();
+                    $instructor_program_id = $p->id;
+                    
+                    foreach ($environments as $index => $environment_id) {
+                        $environment_instructor_programs = new EnvironmentInstructorProgram;
+                        $environment_instructor_programs->instructor_program_id = $instructor_program_id;
+                        $environment_instructor_programs->environment_id = $environment_id;
+                        $environment_instructor_programs->save();
+                    }
+                }
 
                 foreach ($instructors as $index => $instructor_id) {
                     $instructor_program_people = new InstructorProgramPerson;
@@ -324,12 +369,6 @@ class ProgrammeController extends Controller
                     $instructor_program_people->save();
                 }
                 
-                foreach ($environments as $index => $environment_id) {
-                    $environment_instructor_programs = new EnvironmentInstructorProgram;
-                    $environment_instructor_programs->instructor_program_id = $instructor_program_id;
-                    $environment_instructor_programs->environment_id = $environment_id;
-                    $environment_instructor_programs->save();
-                }
                 foreach ($learning_outcomes as $index => $learning_outcome_id) {
                     $hour = $hours[$index];
                     $instructor_program_outcomes = new InstructorProgramOutcome;
@@ -1618,6 +1657,7 @@ class ProgrammeController extends Controller
                 $instructor_program->end_time = $dates->end_time;
                 $instructor_program->course_id = $course->id;
                 $instructor_program->state = 'Programado';
+                $instructor_program->modality = 'Complementaria';
                 $instructor_program->save();
 
                 $instructor_program_people = new InstructorProgramPerson;

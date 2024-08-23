@@ -159,11 +159,12 @@
                             </div>
                         </div>
                     </div>
+                    
                     {!! Form::label('environmentlabel', 'Ambiente') !!}
                     <div id="environments_container">
                         <!-- Campo de selección de ambiente -->
                         <div class="row align-items-center environment_row">
-                            <div class="col-8">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <div class="input-select">
                                         {!! Form::select('environment[]', [], old('environment[]'), [
@@ -173,14 +174,21 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-2">
                                 <div class="form-group">
                                     <button type="button" class="btn btn-primary add_environment"><i
                                             class="fas fa-plus"></i></button>
                                 </div>
                             </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    {!! Form::checkbox('modality', 1, null, ['id' => 'modality']) !!}
+                                    {!! Form::label('modality', 'Medios tecnologicos') !!}
+                                </div>
+                            </div>
                         </div>
                     </div>
+                        
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
@@ -257,6 +265,16 @@
     $(document).ready(function() {
         $('#course').select2(); // Inicializa el campo course como select2
         $('#quaterlie').hide(); // Ocultar trimestralizacion
+
+        $('#modality').on('change', function(){
+            var modality = $(this).is(':checked');
+
+            if (modality) {
+                $('.environments').prop('disabled', true);
+            } else {
+                $('.environments').prop('disabled', false);
+            }
+        });
 
         $('#course').change(function() {
             var course_id = $('#course').val();

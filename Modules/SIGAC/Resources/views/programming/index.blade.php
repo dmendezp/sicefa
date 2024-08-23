@@ -3,10 +3,16 @@
 @push('head')
     <link rel="stylesheet" href="{{ asset('modules/sigac/css/customStyles.css') }}">
     <style>
-        .event-no-environment {
+        .complementaria {
             background-color: #ff5733 !important; /* Color de fondo para eventos sin ambiente */
             color: #FFFFFF !important; /* Color del texto si es necesario */
             border: 1px solid #FF5733 !important; /* Borde opcional */
+        }
+
+        .medios_tecnologicos {
+            background-color: #ebd40af3 !important; /* Color de fondo para eventos sin ambiente */
+            color: #FFFFFF !important; /* Color del texto si es necesario */
+            border: 1px solid #ebd40af3 !important; /* Borde opcional */
         }
 
         .event-novelty {
@@ -66,60 +72,63 @@
                 <div id="start_time"></div>
                 <div id="end_time"></div>
                 <div id="municipality"></div>
+                <div id="quartelie"></div>
                 <div id="learning_outcome"></div>
                 <!-- Agrega más detalles del evento según sea necesario -->
                 <br>
-                <div class="accordion accordion-flush" id="accordionFlushExample">
-                    <div class="accordion-item">
-                      <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                          Cambiar Programación
-                        </button>
-                      </h2>
-                      <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                        <br>
-                        {!! Form::open(['route' => 'sigac.'. $role .'.programming.management.novelty.store', 'method' => 'POST']) !!}
-                        @csrf
-                        {!! Form::hidden('instructor_program_id', null, ['id' => 'instructor_program_id']) !!}
-                        <div class="form-group">
-                            {!! Form::label('activity', trans('Tipo de actividad')) !!}
-                            {!! Form::select('activity', ['Formación' => 'Formación',
-                                'Atención medios tecnológicos' => 'Atención medios tecnológicos',
-                                'Investigación' => 'Investigación',
-                                'Investigación' => 'Investigación',
-                                'Permiso' => 'Permiso',
-                                'Compromiso Institucional' => 'Compromiso Institucional'], null, [
-                                'id' => 'priority',
-                                'class' => 'form-control',
-                                'placeholder' => trans('Seleccione el tipo de actividad'),
-                                'required',
-                            ]) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('observation', trans('agrocefa::labor.Observation')) !!}
-                            {!! Form::textarea('observation', old('observation'), [
-                                'class' => 'form-control',
-                                'placeholder' => 'Ingrese el motivo',
-                                'style' => 'max-height: 100px;',
-                            ]) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('checkbox_label', trans('Desea cancelar la programación')) !!}
-                            <div>
-                                {!! Form::radio('option', 'yes', false, ['id' => 'option_yes']) !!}
-                                {!! Form::label('option_yes', 'Sí') !!}
+                @if(checkRol('sigac.academic_coordinator'))
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            Cambiar Programación
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                            <br>
+                            {!! Form::open(['route' => 'sigac.'. $role .'.programming.management.novelty.store', 'method' => 'POST']) !!}
+                            @csrf
+                            {!! Form::hidden('instructor_program_id', null, ['id' => 'instructor_program_id']) !!}
+                            <div class="form-group">
+                                {!! Form::label('activity', trans('Tipo de actividad')) !!}
+                                {!! Form::select('activity', ['Formación' => 'Formación',
+                                    'Atención medios tecnológicos' => 'Atención medios tecnológicos',
+                                    'Investigación' => 'Investigación',
+                                    'Investigación' => 'Investigación',
+                                    'Permiso' => 'Permiso',
+                                    'Compromiso Institucional' => 'Compromiso Institucional'], null, [
+                                    'id' => 'priority',
+                                    'class' => 'form-control',
+                                    'placeholder' => trans('Seleccione el tipo de actividad'),
+                                    'required',
+                                ]) !!}
                             </div>
-                            <div>
-                                {!! Form::radio('option', 'no', true, ['id' => 'option_no']) !!}
-                                {!! Form::label('option_no', 'No') !!}
+                            <div class="form-group">
+                                {!! Form::label('observation', trans('agrocefa::labor.Observation')) !!}
+                                {!! Form::textarea('observation', old('observation'), [
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Ingrese el motivo',
+                                    'style' => 'max-height: 100px;',
+                                ]) !!}
                             </div>
+                            <div class="form-group">
+                                {!! Form::label('checkbox_label', trans('Desea cancelar la programación')) !!}
+                                <div>
+                                    {!! Form::radio('option', 'yes', false, ['id' => 'option_yes']) !!}
+                                    {!! Form::label('option_yes', 'Sí') !!}
+                                </div>
+                                <div>
+                                    {!! Form::radio('option', 'no', true, ['id' => 'option_no']) !!}
+                                    {!! Form::label('option_no', 'No') !!}
+                                </div>
+                            </div>
+                            {!! Form::submit('Enviar Novedad', ['class'=>'btn btn-primary']) !!}
+                            {!! Form::close() !!}
                         </div>
-                        {!! Form::submit('Enviar Novedad', ['class'=>'btn btn-primary']) !!}
-                        {!! Form::close() !!}
-                      </div>
+                        </div>
                     </div>
-                  </div>
-            </div>
+                    @endif
+                </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
             </div>
@@ -162,6 +171,10 @@
 
 @endsection
 
+@php
+    $rol  = checkRol('sigac.academic_coordinator');
+@endphp
+
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -194,10 +207,12 @@
 
             eventDidMount: function(info) {
                 var eventData = info.event.extendedProps;
-
+                console.log(eventData.instructor_program && eventData.instructor_program.modality);
                 // Verifica si `environment_instructor_programs` existe y es un array
-                if (eventData && Array.isArray(eventData.environment_instructor_programs) && eventData.environment_instructor_programs.length === 0) {
-                    info.el.classList.add('event-no-environment');
+                if (eventData.instructor_program && eventData.instructor_program.modality == 'Complementaria') {
+                    info.el.classList.add('complementaria');
+                }else if(eventData.instructor_program && eventData.instructor_program.modality == 'Medios Tecnologicos'){
+                    info.el.classList.add('medios_tecnologicos');
                 }
 
                 // Verifica si hay una novedad basada en la propiedad personalizada
@@ -209,6 +224,7 @@
 
             eventClick: function(info) {
                 var eventData = info.event.extendedProps;
+                
 
                 // Verifica si el evento es un día festivo (evento de fondo)
                 if (info.event.display === 'background') {
@@ -219,6 +235,7 @@
 
                 if (option == 1) {
                     // Mostrar información de los ambientes
+                    if(eventData.instructor_program.modality == 'Titulada'){
                         var environmentsHtml = 'Ambientes: <br>';
                         if (Array.isArray(eventData.environment_instructor_programs)) {
                             eventData.environment_instructor_programs.forEach(function(eip) {
@@ -227,6 +244,7 @@
                         } else {
                             environmentsHtml += '- N/A<br>';
                         }
+                    }
                         $('#environments').html(environmentsHtml);
                         var learning_outcomesHtml = 'Resultados : <br>';
                         if (Array.isArray(eventData.instructor_program_outcomes)) {
@@ -248,6 +266,9 @@
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name + ' - ' + eventData.course.municipality.department.name) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
+                        if(eventData.instructor_program.modality == 'Titulada' || eventData.instructor_program.modality == 'Medios Tecnologicos'){
+                            $('#quartelie').text('Trimestre: ' + eventData.instructor_program.quarter_number);
+                        }
 
                 } else if (option == 2) {
                     
@@ -262,6 +283,7 @@
                         $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.program.modality ? (eventData.course.program.modality) : 'N/A'));
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
+                        $('#quartelie').text('Trimestre: ' + eventData.instructor_program.quarter_number);
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
                         var learning_outcomesHtml = 'Resultados : <br>';
                         eventData.instructor_program_outcomes.forEach(function(le) {
@@ -269,14 +291,12 @@
                         });
                         $('#learning_outcome').html(learning_outcomesHtml);
                 } else if (option == 3) {
-                        var environmentsHtml = 'Ambientes: <br>';
-                        eventData.environment_instructor_programs.forEach(function(eip) {
-                            environmentsHtml += '- ' + eip.environment.name + '<br>' ;
-                        });
-                        $('#environments').html(environmentsHtml);
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
                         $('#instructor_program_id').val(eventData.instructor_program.id);
                         $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.program.modality ? (eventData.course.program.modality) : 'N/A'));
+                        if(eventData.instructor_program.modality == 'Titulada' || eventData.instructor_program.modality == 'Medios Tecnologicos'){
+                            $('#quartelie').text('Trimestre: ' + eventData.instructor_program.quarter_number);
+                        }
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name) : 'N/A'));
                         var instructorsHtml = 'Instructores : <br>';
                         eventData.instructor_program_people.forEach(function(pe) {
@@ -325,43 +345,40 @@
                 } else {
                     // Si no hay novedad, mostrar el modal normal
                     $('#eventDetailsModal').modal('show');
+                    
                 }
+
+                $('#eventDetailsModal').on('hidden.bs.modal', function () {
+                    // Limpiar el contenido del modal
+                    $('#environments').html('');
+                    $('#instructor').html('');
+                    $('#course').text('');
+                    $('#modality').text('');
+                    $('#date').text('');
+                    $('#start_time').text('');
+                    $('#end_time').text('');
+                    $('#municipality').text('');
+                    $('#quartelie').text('');
+                    $('#learning_outcome').html('');
+                                    
+                    // Restablecer los valores del formulario
+                    $('#instructor_program_id').val('');
+                    $('#priority').val('');
+                    $('textarea[name="observation"]').val('');
+                    $('input[name="option"]').prop('checked', false);  // Restablecer los radios
+                });
+
             }
         });
 
         // Inicializa el calendario
         calendar.render();
 
-        /* // Cargar todas las programaciones al cargar la página
-        $.ajax({
-            type: 'GET',
-            url: "{{ route('sigac.academic_coordination.programming.get') }}",
-            success: function(response) {
-                response.programmingEvents.forEach(function(eventData) {
-                    // Concatenar las iniciales al principio del título del evento
-                    var titleWithInitials = eventData.person.initials + ' - ' + eventData.course.code;
-
-                    calendar.addEvent({
-                        title: titleWithInitials, // Usar el título con las iniciales
-                        start: eventData.date + 'T' + eventData.start_time,
-                        end: eventData.date + 'T' + eventData.end_time,
-                        person: eventData.person,
-                        course: eventData.course,
-                        environment: eventData.environment
-                    });
-                });
-
-                calendar.refetchEvents();
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        }); */
-
         $('#search').change(function() {
             var option = $('#option').val();
-            
-            if (option == 1) {
+            var userHasRole = <?= json_encode($rol); ?>;
+
+            if (option == 1 && userHasRole) {
                 calendar.setOption('customButtons', {
                     myCustomButton: {
                         text: 'Borrar programación',
@@ -422,7 +439,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "{{ route('sigac.programming.management.search') }}",
+                url: "{{ route('sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.management.search') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     search: $(this).val(),
@@ -431,9 +448,11 @@
                 success: function(response) {
                     calendar.removeAllEvents();
                     response.programmingEvents.forEach(function(eventData) {
-                        var environmentName = Array.isArray(eventData.environment_instructor_programs) && eventData.environment_instructor_programs.length > 0
-                            ? eventData.environment_instructor_programs[0].environment.name
-                            : 'Complementaria';
+                        var environmentName = eventData.modality == 'Complementaria'
+                            ? 'Complementaria'
+                            : eventData.modality == 'Medios Tecnologicos'
+                                ? 'Medios Tecnologicos'
+                                : eventData.environment_instructor_programs[0].environment.name;
                         var titleWithInitials = option == 1
                             ? eventData.course.code + ' - ' + environmentName
                             : option == 2
@@ -536,7 +555,7 @@
             $('#titulo').text(titulo);
             $.ajax({
                 type: 'POST',
-                url: "{{ route('sigac.programming.management.filter') }}",
+                url: "{{ route('sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.management.filter') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     filter: filter
