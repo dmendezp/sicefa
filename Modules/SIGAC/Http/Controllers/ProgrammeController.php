@@ -266,9 +266,32 @@ class ProgrammeController extends Controller
         $learning_outcomes = $request->learning_outcome;
         $hours = $request->hour;
         $querter_number = $request->querter_number;
-        
+
+        $c_modality = Course::findOrFail($course_id);
+
         foreach ($fechas as $f) {
-            if($modality == 0){
+            if($modality == 1 || $c_modality->deschooling == 'Virtual'){
+                $programming = InstructorProgram::where('date', $f)
+                ->where(function ($query) use ($request) {
+                    $query->where(function ($q) use ($request) {
+                        $q->where('start_time', '>=', $request->start_time)
+                            ->where('start_time', '<=', $request->end_time);
+                    })
+                    ->orWhere(function ($q) use ($request) {
+                        $q->where('end_time', '>=', $request->start_time)
+                            ->where('end_time', '<=', $request->end_time);
+                    })
+                    ->orWhere(function ($q) use ($request) {
+                        $q->where('start_time', '<=', $request->start_time)
+                            ->where('end_time', '>=', $request->end_time);
+                    });
+                })
+                ->whereHas('instructor_program_people', function ($query) use ($instructors) {
+                    $query->whereIn('person_id', $instructors);
+                })
+                ->where('course_id', $course_id)
+                ->exists();
+            }else{
                 $programming = InstructorProgram::where('date', $f)
                 ->where(function ($query) use ($request) {
                     $query->where(function ($q) use ($request) {
@@ -292,27 +315,6 @@ class ProgrammeController extends Controller
                 })
                 ->where('course_id', $course_id)
                 ->exists();
-            }else{
-                $programming = InstructorProgram::where('date', $f)
-                ->where(function ($query) use ($request) {
-                    $query->where(function ($q) use ($request) {
-                        $q->where('start_time', '>=', $request->start_time)
-                            ->where('start_time', '<=', $request->end_time);
-                    })
-                    ->orWhere(function ($q) use ($request) {
-                        $q->where('end_time', '>=', $request->start_time)
-                            ->where('end_time', '<=', $request->end_time);
-                    })
-                    ->orWhere(function ($q) use ($request) {
-                        $q->where('start_time', '<=', $request->start_time)
-                            ->where('end_time', '>=', $request->end_time);
-                    });
-                })
-                ->whereHas('instructor_program_people', function ($query) use ($instructors) {
-                    $query->whereIn('person_id', $instructors);
-                })
-                ->where('course_id', $course_id)
-                ->exists();
             }
 
             $holidays = Holiday::where('date', $f)->exists();
@@ -331,7 +333,7 @@ class ProgrammeController extends Controller
             try {
                 DB::beginTransaction();
 
-                if($modality == 1){
+                if($modality == 1 || $c_modality->deschooling == 'Virtual'){
                     $p = new InstructorProgram;
                     $p->date = $f;
                     $p->start_time = $request->start_time;
@@ -350,7 +352,7 @@ class ProgrammeController extends Controller
                     $p->course_id = $request->course;
                     $p->quarter_number = $querter_number;
                     $p->state = 'Programado';
-                    $p->modality = 'Titulada';
+                    $p->modality = 'Presencial';
                     $p->save();
                     $instructor_program_id = $p->id;
                     
@@ -383,7 +385,9 @@ class ProgrammeController extends Controller
             } catch (\Exception $e) {
                 // En caso de error, realiza un rollback de la transacción y maneja el error
                 DB::rollBack();
-            
+                $mensaje = 'Ocurrio un error al registrar la programación.';
+                return redirect()->back()->with(['error'=> $mensaje]);
+    
                 \Log::error('Error en el registro: ' . $e->getMessage());
                 \Log::error('Error en el registro: ' . $e->getTraceAsString());
             }
@@ -480,13 +484,14 @@ class ProgrammeController extends Controller
         }  
     }
 
-    public function management_search_quarter_number(Request $request)
-    {
+    public function management_search_quarter_number(Request $request){
 
         $course_id = $request->input('course_id');
 
         $course = Course::findOrFail($course_id);
         $quarter_number = $course->program->quarter_number;
+
+        $modality = $course->deschooling;
 
         // Crear una colección con números desde 1 hasta quarter_number
         $results = collect(range(1, $quarter_number));
@@ -494,11 +499,11 @@ class ProgrammeController extends Controller
 
         return response()->json([
             'results' => $results,
+            'modality' => $modality
         ]);
     }
 
-    public function management_filter(Request $request)
-    {
+    public function management_filter(Request $request){
 
         $filter = $request->input('filter');
 

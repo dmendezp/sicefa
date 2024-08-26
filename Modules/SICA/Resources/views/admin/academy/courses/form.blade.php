@@ -19,7 +19,7 @@
         <span class="input-group-text">
             <i class="far fa-list"></i>
         </span>
-        {!! Form::select('program_id', $program, isset($course) ? $course->program_id : null, ['class' => 'form-control', 'required']) !!}
+        {!! Form::select('program_id', $program, isset($course) ? $course->program_id : null, ['class' => 'form-control', 'required', 'placeholder' => 'Seleccione un programa de formación']) !!}
     </div>
 </div>
 
@@ -50,15 +50,15 @@
             <i class="far fa-keyboard"></i>
         </span>
     </div>
-    {!! Form::select('status', getEnumValues('courses','status'), isset($course) ? $course->status : null, ['class' => 'form-control', 'required']) !!}
+    {!! Form::select('status', getEnumValues('courses','status'), isset($course) ? $course->status : null, ['class' => 'form-control', 'required', 'placeholder' => 'Seleccione un estado']) !!}
 </div>
 
-{!! Form::label('deschooling', trans('sica::menu.Deschooling'), ['class' => 'mt-3']) !!}
+{!! Form::label('deschooling', trans('sica::menu.Modality'), ['class' => 'mt-3']) !!}
 <div class="input-group">
     <div class="input-group-prepend">
         <span class="input-group-text">
             <i class="far fa-keyboard"></i>
         </span>
     </div>
-    {!! Form::select('deschooling', getEnumValues('courses','deschooling'), isset($course) ? $course->deschooling : null, ['class' => 'form-control', 'required']) !!}
+    {!! Form::select('deschooling', getEnumValues('courses','deschooling'), isset($course) ? $course->deschooling : null, ['class' => 'form-control', 'required', 'placeholder' => 'Seleccione una modalidad']) !!}
 </div>

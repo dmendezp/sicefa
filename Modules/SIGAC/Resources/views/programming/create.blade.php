@@ -160,16 +160,15 @@
                         </div>
                     </div>
                     
-                    {!! Form::label('environmentlabel', 'Ambiente') !!}
                     <div id="environments_container">
+                        {!! Form::label('environmentlabel', 'Ambiente') !!}
                         <!-- Campo de selección de ambiente -->
                         <div class="row align-items-center environment_row">
                             <div class="col-6">
                                 <div class="form-group">
                                     <div class="input-select">
                                         {!! Form::select('environment[]', [], old('environment[]'), [
-                                            'class' => 'form-control select2 environments',
-                                            'required',
+                                            'class' => 'form-control select2 environments'
                                         ]) !!}
                                     </div>
                                 </div>
@@ -263,6 +262,7 @@
     crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() {
+
         $('#course').select2(); // Inicializa el campo course como select2
         $('#quaterlie').hide(); // Ocultar trimestralizacion
 
@@ -288,6 +288,7 @@
                 },
                 success: function(data) {
                     var quarter_number = $('#quarter_number');
+                    console.log(data.modality);
 
                     quarter_number.empty();
                     quarter_number.append(new Option('Seleccione el trimestre', ''));
@@ -295,6 +296,13 @@
                     $.each(data.results, function(index, result) {
                         quarter_number.append(new Option(result, result));
                     });
+
+                    if(data.modality == 'Virtual'){
+                        $('#environments_container').hide();
+                    }else{
+                        $('#environments_container').show();
+                    }
+
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
