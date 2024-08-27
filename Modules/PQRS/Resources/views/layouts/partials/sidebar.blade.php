@@ -30,10 +30,10 @@
                     @else
                     <div class="col info info-user">
                         <div data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">
-                            {{ Auth::user()->nickname }}
+                            <div style="color:white">{{ Auth::user()->nickname }}</div>
                         </div>
-                        <div class="small">
-                            <em> {{ Auth::user()->roles->count() > 0 ? Auth::user()->roles[0]->name : 'Sin rol asignado' }} </em>
+                        <div class="small" style="color:white">
+                            <em> {{ Auth::user()->roles[0]->name }}</em>
                         </div>
                     </div>
                     <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Logout') }}">

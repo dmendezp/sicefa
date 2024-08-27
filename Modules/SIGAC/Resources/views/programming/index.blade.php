@@ -392,7 +392,7 @@
                                 $('#delete' + personId).on('shown.bs.modal', function() {
                                     $('#code_course').on('input', function() {
                                         var codeCourse = $('#code_course').val();
-                                        var url = {!! json_encode(route('sigac.'. $role .'.programming.management.search_course')) !!};
+                                        var url = {!! json_encode(route('sigac.academic_coordination.programming.management.search_course')) !!};
                                         
                                         if (codeCourse) {
                                             $.ajax({

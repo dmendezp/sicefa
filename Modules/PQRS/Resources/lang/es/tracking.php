@@ -89,7 +89,7 @@ return [
 
     //Seguimiento - Radicado de la respuesta
     'filing_number_of_the' => 'Número de radicación de la',
-    'response_filing_number' => 'Número Radicación de la Respuesta',
+    'response_filing_number' => 'Radicado Respuesta',
     'enter_the_response_file' => 'Ingrese radicado de la respuesta',
     
     //Seguimiento - Excel

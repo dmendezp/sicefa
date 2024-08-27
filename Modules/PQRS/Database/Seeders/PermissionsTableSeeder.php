@@ -62,6 +62,16 @@ class PermissionsTableSeeder extends Seeder
 
         $permission_tracking[] = $permission->id;
 
+        // Buscar pqrs (Monitor)
+        $permission = Permission::updateOrCreate(['slug' => 'pqrs.tracking.search'], [
+            'name' => 'Buscar pqrs por estado',
+            'description' => 'Puede Buscar pqrs por estado (Monitor).',
+            'description_english' => 'You can search pqrs for status (Monitor).',
+            'app_id' => $app->id
+         ]);
+ 
+         $permission_tracking[] = $permission->id; // Almacenar permiso para rol
+
         // Buscar funcionario o apoyo (Monitor)
         $permission = Permission::updateOrCreate(['slug' => 'pqrs.tracking.searchOfficial'], [
            'name' => 'Buscar funcionario o apoyo',

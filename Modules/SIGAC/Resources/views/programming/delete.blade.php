@@ -6,7 +6,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['url' => route('sigac.'. $role .'.programming.management.destroy'), 'method' => 'post']) !!}
+
+                {!! Form::open(['url' => route('sigac.academic_coordination.programming.management.destroy'), 'method' => 'post']) !!}
                 @csrf
                 @method('POST')
                 <div class="form-group">
