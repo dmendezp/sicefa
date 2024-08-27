@@ -20,7 +20,7 @@
             @endif
             @if (checkRol('sigac.wellness'))
                 <li class="nav-item d-none d-sm-inline-block mx-1">
-                    <a href="{{ route('sigac.wellness.dashboard') }}" class="nav-link @if(Route::is('sigac.wellness.*')) active @endif">{{ trans('sigac::general.Wellness') }}</a>
+                    <a href="{{ route('sigac.wellbeing.dashboard') }}" class="nav-link @if(Route::is('sigac.wellbeing.*')) active @endif">{{ trans('sigac::general.Wellness') }}</a>
                 </li>
             @endif
             @if (checkRol('sigac.apprentice'))
@@ -31,6 +31,11 @@
             @if (checkRol('sigac.support'))
                 <li class="nav-item d-none d-sm-inline-block mx-1">
                     <a href="{{ route('sigac.support.dashboard') }}" class="nav-link @if(Route::is('sigac.support.*')) active @endif">{{ trans('sigac::general.Support') }}</a>
+                </li>
+            @endif
+            @if (checkRol('sigac.securitystaff'))
+                <li class="nav-item d-none d-sm-inline-block mx-1">
+                    <a href="{{ route('sigac.securitystaff.dashboard') }}" class="nav-link @if(Route::is('sigac.securitystaff.*')) active @endif">{{ trans('sigac::general.Securitystaff') }}</a>
                 </li>
             @endif
         @endauth
