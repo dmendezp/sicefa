@@ -77,24 +77,41 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('academic_coordination/programming/management/filterenvironment', 'management_programming_filterenvironment')->name('sigac.academic_coordination.programming.management.filterenvironment'); // Consultar ambientes (Coordinación Académica)
             Route::get('academic_coordination/programming/management/filterstatelearning', 'management_programming_filterstatelearning')->name('sigac.academic_coordination.programming.management.filterstatelearning'); // Consultar estado del resultado de prendizaje (Coordinación Académica)
             Route::post('academic_coordination/programming/management/store', 'management_programming_store')->name('sigac.academic_coordination.programming.management.store'); // Registrar programación del instructor (Coordinación Académica)
+            Route::get('academic_coordination/programming/management/search_course', 'management_programming_search_course')->name('sigac.academic_coordination.programming.management.search_course'); // Vista gestionar la programación (Coordinación Académica)
+            Route::post('academic_coordination/programming/management/destroy', 'management_programming_destroy')->name('sigac.academic_coordination.programming.management.destroy'); // Eliminar programación de un dia especifico del trimestre (Coordinación Académica)
             Route::post('academic_coordination/programming/management/novelty/store', 'management_programming_novelty')->name('sigac.academic_coordination.programming.management.novelty.store'); // Registrar novedad de la programación (Coordinación Académica)
+            Route::post('instructor/programming/management/novelty/store', 'management_programming_novelty')->name('sigac.instructor.programming.management.novelty.store'); // Registrar novedad de la programación (Coordinación Académica)
+            Route::post('instructor/programming/management/destroy', 'management_programming_destroy')->name('sigac.instructor.programming.management.destroy'); // Eliminar programación de un dia especifico del trimestre (Coordinación Académica)
+            Route::get('instructor/programming/management/search_course', 'management_programming_search_course')->name('sigac.instructor.programming.management.search_course'); // Vista gestionar la programación (Coordinación Académica)
 
 
             // Horarios
-            Route::get('academic_coordination/programming', 'programming')->name('sigac.academic_coordination.programming.index'); // Programación de horarios
-            Route::get('instructor/programming', 'programming')->name('sigac.instructor.programming.index'); // Programación de horarios
-            Route::get('apprentice/programming', 'programming')->name('sigac.apprentice.programming.index'); // Programación de horarios
-            Route::get('wellbeing/programming', 'programming')->name('sigac.wellbeing.programming.index'); // Programación de horarios
-            Route::post('programming/management/filter', 'management_filter')->name('sigac.programming.management.filter'); // Consultar filtro de horario
-            Route::post('programming/management/search', 'management_search')->name('sigac.programming.management.search'); // Consultar programaciones del instructor
-       
+            Route::get('academic_coordination/programming/index', 'programming')->name('sigac.academic_coordination.programming.index'); // Programación de horarios
+            Route::get('instructor/programming/index', 'programming')->name('sigac.instructor.programming.index'); // Programación de horarios
+            Route::get('support/programming/index', 'programming')->name('sigac.support.programming.index'); // Programación de horarios
+            Route::get('apprentice/programming/index', 'programming')->name('sigac.apprentice.programming.index'); // Programación de horarios
+            Route::get('wellness/programming/index', 'programming')->name('sigac.wellness.programming.index'); // Programación de horarios
+      
+            Route::post('academic_coordination/programming/management/filter', 'management_filter')->name('sigac.academic_coordination.programming.management.filter'); // Consultar filtro de horario
+            Route::post('academic_coordination/programming/management/search', 'management_search')->name('sigac.academic_coordination.programming.management.search'); // Consultar programaciones del instructor
+            Route::post('instructor/programming/management/filter', 'management_filter')->name('sigac.instructor.programming.management.filter'); // Consultar filtro de horario
+            Route::post('instructor/programming/management/search', 'management_search')->name('sigac.instructor.programming.management.search'); // Consultar programaciones del instructor
+            Route::post('support/programming/management/filter', 'management_filter')->name('sigac.support.programming.management.filter'); // Consultar filtro de horario
+            Route::post('support/programming/management/search', 'management_search')->name('sigac.support.programming.management.search'); // Consultar programaciones del instructor
+            Route::post('apprentice/programming/management/filter', 'management_filter')->name('sigac.apprentice.programming.management.filter'); // Consultar filtro de horario
+            Route::post('apprentice/programming/management/search', 'management_search')->name('sigac.apprentice.programming.management.search'); // Consultar programaciones del instructor
+            Route::post('wellness/programming/management/filter', 'management_filter')->name('sigac.wellness.programming.management.filter'); // Consultar filtro de horario
+            Route::post('wellness/programming/management/search', 'management_search')->name('sigac.wellness.programming.management.search'); // Consultar programaciones del instructor
+
             // Fechas
             Route::get('academic_coordination/programming/dates', 'dates_index')->name('sigac.academic_coordination.programming.dates_index'); // Programación de horarios (Coordinación Académica)
             Route::post('academic_coordination/programming/dates/store_dates', 'store_dates')->name('sigac.academic_coordination.profession.dates_index.store_dates'); // Eliminar profesion (Coordinación Académica)
             
             // Solicitud de Programa
-            Route::get('instructor/programming/program_request/index', 'program_request_index')->name('sigac.instructor.programming.program_request.index'); // Programación de horarios (Coordinación Académica)
-            Route::get('academic_coordination/programming/program_request/index', 'program_request_index')->name('sigac.academic_coordination.programming.program_request.index'); // Programación de horarios (Coordinación Académica)
+            Route::get('instructor/programming/program_request/table', 'program_request_table')->name('sigac.instructor.programming.program_request.table'); // Solicitud de programa (Instructor)
+            Route::get('academic_coordination/programming/program_request/table', 'program_request_table')->name('sigac.academic_coordination.programming.program_request.table'); // Solicitud de programa (Coordinación Académica)
+            Route::get('instructor/programming/program_request/index', 'program_request_index')->name('sigac.instructor.programming.program_request.index'); // Solicitud de programa (Coordinación Académica)
+            Route::get('academic_coordination/programming/program_request/index', 'program_request_index')->name('sigac.academic_coordination.programming.program_request.index'); // Solicitud de programa (Coordinación Académica)
             Route::get('instructor/programming/program_request/searchperson', 'program_request_searchperson')->name('sigac.instructor.programming.program_request.searchperson'); // Buscar instructor
             Route::get('academic_coordination/programming/program_request/searchperson', 'program_request_searchperson')->name('sigac.academic_coordination.programming.program_request.searchperson'); // Buscar instructor
             Route::get('instructor/programming/program_request/searchprofession', 'program_request_searchprofession')->name('sigac.instructor.programming.program_request.searchprofession'); // Buscar profesion
@@ -105,9 +122,15 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('academic_coordination/programming/program_request/searchapplicant', 'program_request_searchapplicant')->name('sigac.academic_coordination.programming.program_request.searchapplicant'); // Buscar profesion
             Route::post('instructor/programming/program_request/store', 'program_request_store')->name('sigac.instructor.programming.program_request.store'); // Registrar solicitud del programa (Instructor)
             Route::post('academic_coordination/programming/program_request/store', 'program_request_store')->name('sigac.academic_coordination.programming.program_request.store'); // Registrar solicitud del programa (Instructor)
+            Route::get('academic_coordination/programming/program_request/download/{id}', 'program_request_download')->name('sigac.academic_coordination.programming.program_request.program_request_download'); // Buscar profesion
+            Route::get('instructor/programming/program_request/download/{id}', 'program_request_download')->name('sigac.instructor.programming.program_request.program_request_download'); // Buscar profesion
+            Route::post('academic_coordination/programming/program_request/document_store/{id}', 'program_request_document_store')->name('sigac.academic_coordination.programming.program_request.document_store'); // Registrar solicitud del programa (Instructor)
+            Route::post('instructor/programming/program_request/document_store/{id}', 'program_request_document_store')->name('sigac.instructor.programming.program_request.document_store'); // Registrar solicitud del programa (Instructor)
             Route::get('support/programming/program_request/characterization/index', 'program_request_characterization')->name('sigac.support.programming.program_request.characterization.index'); // Solicitudes de caracterización (Apoyo)
-            Route::post('support/programming/program_request/characterization/store/{id}', 'program_request_characterization_store')->name('sigac.instructor.programming.program_request.characterization.store'); // Caracterizar programa (Apoyo)
+            Route::post('support/programming/program_request/characterization/store/{id}', 'program_request_characterization_store')->name('sigac.support.programming.program_request.characterization.store'); // Caracterizar programa (Apoyo)
             Route::post('support/programming/program_request/characterization/devolution/{id}', 'program_request_characterization_devolution')->name('sigac.instructor.programming.program_request.characterization.devolution'); // Devolver solicitud (Apoyo)
+            Route::get('support/programming/program_request/download/{id}', 'program_request_download')->name('sigac.support.programming.program_request.program_request_download'); // Buscar profesion
+
         });
 
         // RUTAS PLANEACION CURRICULAR
@@ -240,6 +263,16 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::post('academic_coordination/reports/quarterlies/search', 'report_quarterlie_search')->name('sigac.academic_coordination.reports.quartelies.search'); // Consultar trimestralización del curso (Coordinación Académica)
             Route::post('instructor/reports/quarterlies/search', 'report_quarterlie_search')->name('sigac.instructor.reports.quartelies.search'); // Consultar trimestralización del curso (Coordinación Académica)
 
+            // ---------------- Consultar datos de instructores --------------------
+            Route::get('academic_coordination/reports/instructors/index', 'instructors_index')->name('sigac.academic_coordination.reports.instructors.index'); // Reporte de instructores (Coordinación Académica)
+            Route::post('academic_coordination/reports/instructors/search', 'instructors_search')->name('sigac.academic_coordination.reports.instructors.search'); // Consultar datos de instructores (Coordinación Académica)
+
+            // ---------------- Consultar disponibilidad de ambientes --------------------
+            Route::get('academic_coordination/reports/environments/index', 'environments_index')->name('sigac.academic_coordination.reports.environments.index'); // Ambientes (Coordinación Académica)
+            Route::post('academic_coordination/reports/environments/search', 'environments_search')->name('sigac.academic_coordination.reports.environments.search'); // Consultar ambientes (Coordinación Académica)
+            Route::get('academic_coordination/reports/environments/search_person', 'search_person')->name('sigac.academic_coordination.reports.environments.search_person'); // Buscar personas (Coordinación Académica)
+            Route::post('academic_coordination/reports/environments/institucional_request_store', 'institucional_request_store')->name('sigac.academic_coordination.reports.environments.institucional_request_store'); // Guardar reprogramacion (Coordinación Académica)
+            
         });
 
     });

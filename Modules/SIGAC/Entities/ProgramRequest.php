@@ -18,6 +18,7 @@ class ProgramRequest extends Model implements Auditable
         'program_id',
         'special_program_id',
         'municipality_id',
+        'hours',
         'start_date',
         'end_date',
         'quotas',
@@ -61,6 +62,11 @@ class ProgramRequest extends Model implements Auditable
     public function program_request_dates()
     {
         return $this->hasMany(ProgramRequestDate::class);
+    }
+
+    public function program_request_documents()
+    {
+        return $this->hasMany(ProgramRequestDocument::class);
     }
 
     public function special_program()

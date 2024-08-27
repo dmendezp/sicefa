@@ -725,7 +725,16 @@ class CurriculumPlanningController extends Controller
         $person_id = $request->person_id;
         $course_id = $request->course_id;
 		if($person_id):
-            $resultsperson = Person::where('id',$person_id)->pluck('id','first_name');
+            $resultsperson = Person::where('id',$person_id)->get();
+            $rperson = $resultsperson->map(function ($p){
+                $personId = $p->id;
+                $personName = $p->first_name . ' ' . $p->first_last_name . ' ' . $p->second_last_name;
+    
+                return [
+                    'id' => $personId,
+                    'name' => $personName
+                ];
+            })->pluck('name', 'id');
             if ($request->state) {
                 $state = $request->state;
                 $evaluative_judgments = EvaluativeJudgment::where('course_id',$course_id)->where('person_id',$person_id)->where('state',$state)->get();
@@ -734,12 +743,21 @@ class CurriculumPlanningController extends Controller
             }
             $apprentices = Person::whereHas('evaluative_judgments', function ($query) use ($course_id) {
                 $query->where('course_id', $course_id);
-            })->pluck('first_name','id');
+            })->get();
+            $rapprentices = $apprentices->map(function ($p){
+                $personId = $p->id;
+                $personName = $p->first_name . ' ' . $p->first_last_name . ' ' . $p->second_last_name;
+    
+                return [
+                    'id' => $personId,
+                    'name' => $personName
+                ];
+            })->pluck('name', 'id');
 			$course = Course::with('program')->findOrFail($course_id);
 			$data = ['evaluative_judgments'=>$evaluative_judgments,
             'course'=>$course,
-            'apprentices'=>$apprentices,
-            'resultsperson'=>$resultsperson,
+            'apprentices'=>$rapprentices,
+            'resultsperson'=>$rperson,
             'state'=>$state,
         ];
             return view('sigac::curriculum_planning.evaluative_judgment.table',$data);
@@ -752,9 +770,19 @@ class CurriculumPlanningController extends Controller
             $evaluative_judgments = EvaluativeJudgment::where('course_id',$course_id)->get();
             $apprentices = Person::whereHas('evaluative_judgments', function ($query) use ($course_id) {
                 $query->where('course_id', $course_id);
-            })->pluck('first_name','id');
+            })->get();
+            
+            $rapprentices = $apprentices->map(function ($p){
+                $personId = $p->id;
+                $personName = $p->first_name . ' ' . $p->first_last_name . ' ' . $p->second_last_name;
+    
+                return [
+                    'id' => $personId,
+                    'name' => $personName
+                ];
+            })->pluck('name', 'id');
 			$course = Course::with('program')->findOrFail($course_id);
-			$data = ['evaluative_judgments'=>$evaluative_judgments,'course'=>$course,'apprentices'=>$apprentices];
+			$data = ['evaluative_judgments'=>$evaluative_judgments,'course'=>$course,'apprentices'=>$rapprentices];
             return view('sigac::curriculum_planning.evaluative_judgment.table',$data);
         else:
             return '<div class="row d-flex justify-content-center"><span class="h5 text-danger">No se encontró registros</span><div>';
@@ -783,13 +811,20 @@ class CurriculumPlanningController extends Controller
         }else{
             $path = $request->file('archivo'); // Obtener ubicación temporal del archivo en el servidor
             $array = Excel::toArray(new ApprenticeLearningOutcomeImport, $path); // Convertir el contenido del archivo excel en una arreglo de arreglos
-            $program_name = $array[0][4][2]; // Obtener la ficha del curso y el nombre del programa en un arreglo
             $course_code = $array[0][1][2];
+            $course_start_l = $array[0][6][2];
+            $start_l = date('Y-m-d', strtotime('1899-12-30 + '. $course_start_l . 'days'));
+            $course_end_p = $array[0][7][2];
+            $end_p = date('Y-m-d', strtotime('1899-12-30 + '. $course_end_p . 'days'));
+
+            $course_start_p = date('Y-m-d', strtotime('-6 months', strtotime($end_p)));
+            $course_end_l = date('Y-m-d', strtotime('-1 days', strtotime($course_start_p)));
+
             $apprentices_data = array_splice($array[0], 12, count($array[0])); // Obtener solo los registros de los datos de los aprendices
             try {
-                $countstate = 0;
+                
                 // Recorrer datos y relizar registros
-               
+                $countstate = 0;
                 foreach($apprentices_data as $data){
                     $document_number = $data[1];
                     $learning_outcome = explode(" - ", $data[6]); // Dividir la cadena por el guión ('-')
@@ -808,6 +843,11 @@ class CurriculumPlanningController extends Controller
                             $learning_outcome_id = $learning_outcome->id;
 
                             $course = Course::where('code',$course_code)->first();
+                            $course->star_production_date = $course_start_p;
+                            $course->school_end_date = $course_end_l;
+                            $course->save();
+                            // Modificar fechas del curso
+                            // guardar curso
                             if ($course) {
                                 $course_id = $course->id;
                                 $person = Person::where('document_number',$document_number)->first();
@@ -846,15 +886,15 @@ class CurriculumPlanningController extends Controller
                                 
                                 foreach ($instructor_program_outcomes as $instructor_program_outcome) {
                                     $instructor_program_outcome->state = 'Evaluado';
-                                    $instructor_program_outcome->save();
-                                    $countstate++;
+                                    $instructor_program_outcome->save();                                
                                 }
                             }
                         }
                     }
+                    $countstate++;
                 }
                 
-                return back()->with('success', 'Archivo excel escaneado coerrectamente. '.$countstate.' Programaciones Actualizados exitosamente.')->with('typealert', 'success');
+                return back()->with('success', 'Se cargaron '.$countstate.' juicios evaluativos exitosamente.')->with('typealert', 'success');
             } catch (Exception $e) {
                 return back()->with('error', 'Ocurrio un error en la importación y/o registro de datos del archivo excel cargado. <hr> <strong>Error: </strong> ('.$e->getMessage().').')->with('typealert', 'danger');
              }

@@ -2,7 +2,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link" style="text-decoration: none; display: flex; align-items: center;">
+    <a href="{{ route('cefa.bienestar.home') }}" class="brand-link" style="text-decoration: none; display: flex; align-items: center;">
       <i class="fas fa-hand-holding-heart" style="color: #ffffff; font-size: 60px; margin-right: 10px;"></i>
       <div>
         <span class="brand-text font-weight-dark" id="logo">{{ trans('bienestar::menu.Welfare')}}</span><br>

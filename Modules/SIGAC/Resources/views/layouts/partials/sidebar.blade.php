@@ -176,7 +176,7 @@
                                 @endif
                                 @if (Auth::user()->havePermission('sigac.academic_coordination.programming.management.index'))
                                     <li class="nav-item">
-                                        <a href="{{ route('sigac.academic_coordination.programming.program_request.index') }}" class="nav-link">
+                                        <a href="{{ route('sigac.academic_coordination.programming.program_request.table') }}" class="nav-link">
                                             <i class="nav-icon fas fa-user-tie"></i>
                                             <p>Solicitud Programa</p>
                                         </a>
@@ -336,6 +336,18 @@
                                             <p>Trimestralización</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('sigac.academic_coordination.reports.environments.index') }}" class="nav-link">
+                                            <i class="nav-icon fas fa-file-invoice"></i>
+                                            <p>Ambientes</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('sigac.academic_coordination.reports.instructors.index') }}" class="nav-link">
+                                            <i class="nav-icon fas fa-file-invoice"></i>
+                                            <p>Instructores</p>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         @endif
@@ -362,7 +374,7 @@
                                     </li>
                                 @endif
                                 <li class="nav-item">
-                                    <a href="{{ route('sigac.instructor.programming.program_request.index') }}" class="nav-link">
+                                    <a href="{{ route('sigac.instructor.programming.program_request.table') }}" class="nav-link">
                                         <i class="nav-icon fas fa-user-tie"></i>
                                         <p>Solicitud Programa</p>
                                     </a>
@@ -524,10 +536,10 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview" style="display: none;">
-                                @if (Auth::user()->havePermission('sigac.wellbeing.programming.index'))
+                                @if (Auth::user()->havePermission('sigac.wellness.programming.index'))
                                     <li class="nav-item">
-                                        <a href="{{ route('sigac.wellbeing.programming.index') }}"
-                                            class="nav-link {{ !Route::is('sigac.wellbeing.programming.*') ?: 'active' }}">
+                                        <a href="{{ route('sigac.wellness.programming.index') }}"
+                                            class="nav-link {{ !Route::is('sigac.wellness.programming.*') ?: 'active' }}">
                                             <i class="nav-icon far fa-calendar-alt"></i>
                                             <p>{{ trans('sigac::general.Scheduling') }}</p>
                                         </a>
@@ -566,7 +578,7 @@
 
                     <!-- Menú de opciones para Aprendiz -->
                     @if (Route::is('sigac.apprentice.*'))
-                        @if (Auth::user()->havePermission('sigac.programming.index'))
+                        @if (Auth::user()->havePermission('sigac.apprentice.programming.index'))
                             <li class="nav-item">
                                 <a href="{{ route('sigac.apprentice.programming.index') }}"
                                     class="nav-link {{ !Route::is('sigac.apprentice.programming.*') ?: 'active' }}">
@@ -595,12 +607,23 @@
                     @endif
                     <!-- Menú de opciones para Aprendiz -->
                     @if (Route::is('sigac.support.*'))
-                        <li class="nav-item">
-                            <a href="{{ route('sigac.support.programming.program_request.characterization.index') }}" class="nav-link">
-                                <i class="nav-icon fa-solid fa-star"></i>
-                                <p>Caracterización</p>
-                            </a>
-                        </li>
+                        @if (Auth::user()->havePermission('sigac.support.programming.program_request.characterization.index'))
+                            <li class="nav-item">
+                                <a href="{{ route('sigac.support.programming.program_request.characterization.index') }}" class="nav-link">
+                                    <i class="nav-icon fa-solid fa-star"></i>
+                                    <p>Caracterización</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if (Auth::user()->havePermission('sigac.support.programming.index'))
+                            <li class="nav-item">
+                                <a href="{{ route('sigac.support.programming.index') }}"
+                                    class="nav-link {{ !Route::is('sigac.programming.*') ?: 'active' }}">
+                                    <i class="nav-icon far fa-calendar-alt"></i>
+                                    <p>{{ trans('sigac::general.Scheduling') }}</p>
+                                </a>
+                            </li>
+                        @endif
                     @endif
                     @if (Route::is('sigac.securitystaff.*'))
                         <li class="nav-item">

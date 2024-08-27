@@ -2,6 +2,25 @@
 
 @push('head')
     <link rel="stylesheet" href="{{ asset('modules/sigac/css/customStyles.css') }}">
+    <style>
+        .complementaria {
+            background-color: #ff5733 !important; /* Color de fondo para eventos sin ambiente */
+            color: #FFFFFF !important; /* Color del texto si es necesario */
+            border: 1px solid #FF5733 !important; /* Borde opcional */
+        }
+
+        .medios_tecnologicos {
+            background-color: #ebd40af3 !important; /* Color de fondo para eventos sin ambiente */
+            color: #FFFFFF !important; /* Color del texto si es necesario */
+            border: 1px solid #ebd40af3 !important; /* Borde opcional */
+        }
+
+        .event-novelty {
+            background-color: #00e1ff !important; /* Color de fondo para eventos sin ambiente */
+            color: #FFFFFF !important; /* Color del texto si es necesario */
+            border: 1px solid #00e1ff !important; /* Borde opcional */
+        }
+    </style>
 @endpush
 
 @push('breadcrumbs')
@@ -53,60 +72,83 @@
                 <div id="start_time"></div>
                 <div id="end_time"></div>
                 <div id="municipality"></div>
+                <div id="quartelie"></div>
                 <div id="learning_outcome"></div>
-                
                 <!-- Agrega más detalles del evento según sea necesario -->
                 <br>
-                <div class="accordion accordion-flush" id="accordionFlushExample">
-                    <div class="accordion-item">
-                      <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                          Cambiar Programación
-                        </button>
-                      </h2>
-                      <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                        <br>
-                        {!! Form::open(['route' => 'sigac.academic_coordination.programming.management.novelty.store', 'method' => 'POST']) !!}
-                        @csrf
-                        {!! Form::hidden('instructor_program_id', null, ['id' => 'instructor_program_id']) !!}
-                        <div class="form-group">
-                            {!! Form::label('activity', trans('Tipo de actividad')) !!}
-                            {!! Form::select('activity', ['Formación' => 'Formación',
-                                'Atención medios tecnológicos' => 'Atención medios tecnológicos',
-                                'Investigación' => 'Investigación',
-                                'Investigación' => 'Investigación',
-                                'Permiso' => 'Permiso',
-                                'Compromiso Institucional' => 'Compromiso Institucional'], null, [
-                                'id' => 'priority',
-                                'class' => 'form-control',
-                                'placeholder' => trans('Seleccione el tipo de actividad'),
-                                'required',
-                            ]) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('observation', trans('agrocefa::labor.Observation')) !!}
-                            {!! Form::textarea('observation', old('observation'), [
-                                'class' => 'form-control',
-                                'placeholder' => 'Ingrese el motivo',
-                                'style' => 'max-height: 100px;',
-                            ]) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('checkbox_label', trans('Desea cancelar la programación')) !!}
-                            <div>
-                                {!! Form::radio('option', 'yes', false, ['id' => 'option_yes']) !!}
-                                {!! Form::label('option_yes', 'Sí') !!}
+                @if(checkRol('sigac.academic_coordinator'))
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            Cambiar Programación
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                            <br>
+                            {!! Form::open(['route' => 'sigac.'. $role .'.programming.management.novelty.store', 'method' => 'POST']) !!}
+                            @csrf
+                            {!! Form::hidden('instructor_program_id', null, ['id' => 'instructor_program_id']) !!}
+                            <div class="form-group">
+                                {!! Form::label('activity', trans('Tipo de actividad')) !!}
+                                {!! Form::select('activity', ['Formación' => 'Formación',
+                                    'Atención medios tecnológicos' => 'Atención medios tecnológicos',
+                                    'Investigación' => 'Investigación',
+                                    'Investigación' => 'Investigación',
+                                    'Permiso' => 'Permiso',
+                                    'Compromiso Institucional' => 'Compromiso Institucional'], null, [
+                                    'id' => 'priority',
+                                    'class' => 'form-control',
+                                    'placeholder' => trans('Seleccione el tipo de actividad'),
+                                    'required',
+                                ]) !!}
                             </div>
-                            <div>
-                                {!! Form::radio('option', 'no', true, ['id' => 'option_no']) !!}
-                                {!! Form::label('option_no', 'No') !!}
+                            <div class="form-group">
+                                {!! Form::label('observation', trans('agrocefa::labor.Observation')) !!}
+                                {!! Form::textarea('observation', old('observation'), [
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Ingrese el motivo',
+                                    'style' => 'max-height: 100px;',
+                                ]) !!}
                             </div>
+                            <div class="form-group">
+                                {!! Form::label('checkbox_label', trans('Desea cancelar la programación')) !!}
+                                <div>
+                                    {!! Form::radio('option', 'yes', false, ['id' => 'option_yes']) !!}
+                                    {!! Form::label('option_yes', 'Sí') !!}
+                                </div>
+                                <div>
+                                    {!! Form::radio('option', 'no', true, ['id' => 'option_no']) !!}
+                                    {!! Form::label('option_no', 'No') !!}
+                                </div>
+                            </div>
+                            {!! Form::submit('Enviar Novedad', ['class'=>'btn btn-primary']) !!}
+                            {!! Form::close() !!}
                         </div>
-                        {!! Form::submit('Enviar Novedad', ['class'=>'btn btn-primary']) !!}
-                        {!! Form::close() !!}
-                      </div>
+                        </div>
                     </div>
-                  </div>
+                    @endif
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="eventProgramDetailsModal" tabindex="-1" role="dialog" aria-labelledby="eventProgramDetailsModalModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventProgramDetailsModalModalLabela"></h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="date_eventely"></div>
+                <div id="observation_eventely"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -125,12 +167,31 @@
     </div>
 </div>
 
+@include('sigac::programming.delete')
+
 @endsection
+
+@php
+    $rol  = checkRol('sigac.academic_coordinator');
+@endphp
 
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
+        var holidays = {!! $holidays !!};
+
+        
+        var events = holidays.map(function(holiday) {
+
+            return {
+                title: holiday.issue,
+                start: holiday.date,
+                display: 'background',
+                backgroundColor: '#ff0000', // Color de fondo para los días festivos
+                borderColor: '#ff0000'
+            };
+        });
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
             headerToolbar: {
@@ -142,32 +203,72 @@
             aspectRatio: 1.0,
             editable: false,
             droppable: true,
+            events: events,
+
+            eventDidMount: function(info) {
+                var eventData = info.event.extendedProps;
+                console.log(eventData.instructor_program && eventData.instructor_program.modality);
+                // Verifica si `environment_instructor_programs` existe y es un array
+                if (eventData.instructor_program && eventData.instructor_program.modality == 'Complementaria') {
+                    info.el.classList.add('complementaria');
+                }else if(eventData.instructor_program && eventData.instructor_program.modality == 'Medios Tecnologicos'){
+                    info.el.classList.add('medios_tecnologicos');
+                }
+
+                // Verifica si hay una novedad basada en la propiedad personalizada
+                if (eventData.hasNovelty) {
+                    info.el.classList.add('event-novelty');
+                }
+            },
+
 
             eventClick: function(info) {
                 var eventData = info.event.extendedProps;
+                
+
+                // Verifica si el evento es un día festivo (evento de fondo)
+                if (info.event.display === 'background') {
+                    return; // No hacer nada si es un evento de fondo
+                }
+                
                 var option = $('#option').val();
-                console.log(option);
-                console.log(eventData);
 
                 if (option == 1) {
                     // Mostrar información de los ambientes
+                    if(eventData.instructor_program.modality == 'Titulada'){
                         var environmentsHtml = 'Ambientes: <br>';
-                        eventData.environment_instructor_programs.forEach(function(eip) {
-                            environmentsHtml += '- ' + eip.environment.name + '<br>' ;
-                        });
+                        if (Array.isArray(eventData.environment_instructor_programs)) {
+                            eventData.environment_instructor_programs.forEach(function(eip) {
+                                environmentsHtml += '- ' + (eip.environment && eip.environment.name ? eip.environment.name : 'N/A') + '<br>';
+                            });
+                        } else {
+                            environmentsHtml += '- N/A<br>';
+                        }
+                    }
                         $('#environments').html(environmentsHtml);
                         var learning_outcomesHtml = 'Resultados : <br>';
-                        eventData.instructor_program_outcomes.forEach(function(le) {
-                            learning_outcomesHtml += '- ' + le.learning_outcome.name + '<br>' ;
-                        });
+                        if (Array.isArray(eventData.instructor_program_outcomes)) {
+                            eventData.instructor_program_outcomes.forEach(function(le) {
+                                learning_outcomesHtml += '- ' + (le.learning_outcome && le.learning_outcome.name ? le.learning_outcome.name : 'N/A') + '<br>';
+                            });
+                        } else {
+                            learning_outcomesHtml += '- N/A<br>';
+                        }
                         $('#learning_outcome').html(learning_outcomesHtml);
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
-                        $('#instructor_program_id').val(eventData.instructor_program.id);
+                        if (eventData.instructor_program && eventData.instructor_program.id) {
+                            $('#instructor_program_id').val(eventData.instructor_program.id);
+                        } else {
+                            $('#instructor_program_id').val(''); // O un valor por defecto si no hay instructor_program
+                        }
                         $('#course').text('Curso: ' + (eventData.course && eventData.course.program ? (eventData.course.program.name + ' - ' + eventData.course.code) : 'N/A'));
                         $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.program.modality ? (eventData.course.program.modality) : 'N/A'));
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name + ' - ' + eventData.course.municipality.department.name) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
+                        if(eventData.instructor_program.modality == 'Titulada' || eventData.instructor_program.modality == 'Medios Tecnologicos'){
+                            $('#quartelie').text('Trimestre: ' + eventData.instructor_program.quarter_number);
+                        }
 
                 } else if (option == 2) {
                     
@@ -182,6 +283,7 @@
                         $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.program.modality ? (eventData.course.program.modality) : 'N/A'));
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
+                        $('#quartelie').text('Trimestre: ' + eventData.instructor_program.quarter_number);
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
                         var learning_outcomesHtml = 'Resultados : <br>';
                         eventData.instructor_program_outcomes.forEach(function(le) {
@@ -189,14 +291,12 @@
                         });
                         $('#learning_outcome').html(learning_outcomesHtml);
                 } else if (option == 3) {
-                        var environmentsHtml = 'Ambientes: <br>';
-                        eventData.environment_instructor_programs.forEach(function(eip) {
-                            environmentsHtml += '- ' + eip.environment.name + '<br>' ;
-                        });
-                        $('#environments').html(environmentsHtml);
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
                         $('#instructor_program_id').val(eventData.instructor_program.id);
                         $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.program.modality ? (eventData.course.program.modality) : 'N/A'));
+                        if(eventData.instructor_program.modality == 'Titulada' || eventData.instructor_program.modality == 'Medios Tecnologicos'){
+                            $('#quartelie').text('Trimestre: ' + eventData.instructor_program.quarter_number);
+                        }
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name) : 'N/A'));
                         var instructorsHtml = 'Instructores : <br>';
                         eventData.instructor_program_people.forEach(function(pe) {
@@ -232,84 +332,161 @@
                         });
                         $('#learning_outcome').html(learning_outcomesHtml);
                 }
+                
+                if (eventData.hasNovelty) {
+                    console.log(eventData.instructor_program_novelties);
+                    if (Array.isArray(eventData.instructor_program_novelties) && eventData.instructor_program_novelties.length > 0) {
+                        $('#eventProgramDetailsModalModalLabela').text((eventData.instructor_program_novelties[0].activity));
+                        $('#date_eventely').text('Fecha: ' + (eventData.instructor_program_novelties[0].date));
+                        $('#observation_eventely').text('Observación: ' + (eventData.instructor_program_novelties[0].observation));
+                        // Muestra el modal con los detalles de la novedad
+                        $('#eventProgramDetailsModal').modal('show');
+                    }
+                } else {
+                    // Si no hay novedad, mostrar el modal normal
+                    $('#eventDetailsModal').modal('show');
+                    
+                }
 
-                $('#eventDetailsModal').modal('show');
+                $('#eventDetailsModal').on('hidden.bs.modal', function () {
+                    // Limpiar el contenido del modal
+                    $('#environments').html('');
+                    $('#instructor').html('');
+                    $('#course').text('');
+                    $('#modality').text('');
+                    $('#date').text('');
+                    $('#start_time').text('');
+                    $('#end_time').text('');
+                    $('#municipality').text('');
+                    $('#quartelie').text('');
+                    $('#learning_outcome').html('');
+                                    
+                    // Restablecer los valores del formulario
+                    $('#instructor_program_id').val('');
+                    $('#priority').val('');
+                    $('textarea[name="observation"]').val('');
+                    $('input[name="option"]').prop('checked', false);  // Restablecer los radios
+                });
+
             }
-
         });
 
         // Inicializa el calendario
         calendar.render();
 
-        /* // Cargar todas las programaciones al cargar la página
-        $.ajax({
-            type: 'GET',
-            url: "{{ route('sigac.academic_coordination.programming.get') }}",
-            success: function(response) {
-                response.programmingEvents.forEach(function(eventData) {
-                    // Concatenar las iniciales al principio del título del evento
-                    var titleWithInitials = eventData.person.initials + ' - ' + eventData.course.code;
-
-                    calendar.addEvent({
-                        title: titleWithInitials, // Usar el título con las iniciales
-                        start: eventData.date + 'T' + eventData.start_time,
-                        end: eventData.date + 'T' + eventData.end_time,
-                        person: eventData.person,
-                        course: eventData.course,
-                        environment: eventData.environment
-                    });
-                });
-
-                calendar.refetchEvents();
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        }); */
-
         $('#search').change(function() {
             var option = $('#option').val();
+            var userHasRole = <?= json_encode($rol); ?>;
+
+            if (option == 1 && userHasRole) {
+                calendar.setOption('customButtons', {
+                    myCustomButton: {
+                        text: 'Borrar programación',
+                        click: function() {
+                            var personId = $('#search').val(); // Obtener el ID seleccionado
+                            if (personId) {
+                                $('#deleteModal').attr('id', 'delete' + personId);
+                                $('#person_id').val(personId);
+                                $('#delete' + personId).modal('show'); // Abrir el modal con la ID concatenada
+
+                                $('#delete' + personId).on('shown.bs.modal', function() {
+                                    $('#code_course').on('input', function() {
+                                        var codeCourse = $('#code_course').val();
+                                        var url = {!! json_encode(route('sigac.academic_coordination.programming.management.search_course')) !!};
+                                        
+                                        if (codeCourse) {
+                                            $.ajax({
+                                                type: 'GET',
+                                                url: url,
+                                                data: { code_course: codeCourse },
+                                                success: function(response) {
+                                                    // Manejar la respuesta aquí
+                                                    if (response && response.program && response.program.length > 0) {
+                                                        $('#program_name').html('<strong>Programa:</strong> ' + response.program).show();
+                                                    } else {
+                                                        $('#program_name').hide();
+                                                    }
+                                                },
+                                                error: function(xhr) {
+                                                    // Manejar el error aquí si es necesario
+                                                }
+                                            });
+                                        } else {
+                                            $('#program_name').hide();
+                                        }
+                                    });
+                                });
+                            } else {
+                                alert('Por favor selecciona una opción primero.');
+                            }
+                        }
+                    }
+                });
+
+                calendar.setOption('headerToolbar', {
+                    left: 'prev,next today myCustomButton',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                });
+            }else{
+                calendar.setOption('headerToolbar', {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                });
+            }
+
 
             $.ajax({
                 type: 'POST',
-                url: "{{ route('sigac.programming.management.search') }}",
+                url: "{{ route('sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.management.search') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     search: $(this).val(),
                     option: option
                 },
                 success: function(response) {
-                    console.log(response);
                     calendar.removeAllEvents();
                     response.programmingEvents.forEach(function(eventData) {
-                        // Concatenar las iniciales al principio del título del evento
-                        if (option == 1) {
-                            var titleWithInitials = eventData.course.code + ' - ' + eventData.environment_instructor_programs[0].environment.name;
-                        } else if (option == 2) {
-                            var titleWithInitials = eventData.instructor_program_people[0].person.initials + ' - ' + eventData.course.code;
-                        } else if (option == 3) {
-                            var titleWithInitials = eventData.instructor_program_people[0].person.initials + ' - ' + eventData.environment_instructor_programs[0].environment.name;
-                        } else {
-                            var titleWithInitials = eventData.instructor_program_people[0].person.initials + ' - ' + eventData.course.code;
-                        }
+                        var environmentName = eventData.modality == 'Complementaria'
+                            ? 'Complementaria'
+                            : eventData.modality == 'Medios Tecnologicos'
+                                ? 'Medios Tecnologicos'
+                                : eventData.environment_instructor_programs[0].environment.name;
+                        var titleWithInitials = option == 1
+                            ? eventData.course.code + ' - ' + environmentName
+                            : option == 2
+                            ? eventData.instructor_program_people[0].person.initials + ' - ' + eventData.course.code
+                            : option == 3
+                            ? eventData.instructor_program_people[0].person.initials + ' - ' + environmentName
+                            : eventData.instructor_program_people[0].person.initials + ' - ' + eventData.course.code;
                         
-                        console.log(titleWithInitials);
-
-                        calendar.addEventSource([
-                            {
-                                title: titleWithInitials,
-                                start: eventData.date + 'T' + eventData.start_time,
-                                end: eventData.date + 'T' + eventData.end_time,
+                        if (Array.isArray(eventData.instructor_program_novelties) && eventData.instructor_program_novelties.length > 0) {
+                            calendar.addEvent({
+                                title: eventData.instructor_program_novelties[0].activity,
+                                start: eventData.instructor_program_novelties[0].date,
                                 extendedProps: {
-                                    timeRange: `(${formatTime(eventData.start_time)} - ${formatTime(eventData.end_time)})`,
-                                    instructor_program: eventData,
-                                    instructor_program_people: eventData.instructor_program_people,
-                                    course: eventData.course,
-                                    environment_instructor_programs: eventData.environment_instructor_programs,
-                                    instructor_program_outcomes: eventData.instructor_program_outcomes
+                                    timeRange : 'Novedad',
+                                    hasNovelty: true, // Propiedad personalizada para indicar la existencia de una novedad
+                                    instructor_program_novelties: eventData.instructor_program_novelties
                                 }
+                            });
+                        } 
+
+                           
+                        calendar.addEvent({
+                            title: titleWithInitials,
+                            start: eventData.date + 'T' + eventData.start_time,
+                            end: eventData.date + 'T' + eventData.end_time,
+                            extendedProps: {
+                                timeRange: `(${formatTime(eventData.start_time)} - ${formatTime(eventData.end_time)})`,
+                                instructor_program: eventData,
+                                instructor_program_people: eventData.instructor_program_people,
+                                course: eventData.course,
+                                environment_instructor_programs: eventData.environment_instructor_programs || [],
+                                instructor_program_outcomes: eventData.instructor_program_outcomes
                             }
-                        ]);
+                        });
 
                         calendar.setOption('eventContent', function(arg) {
                             return { 
@@ -323,6 +500,20 @@
                             return formattedTime;
                         }
 
+                    });
+
+                    // Agregar días festivos como eventos de fondo
+                    holidays.forEach(function(holiday) {
+                        calendar.addEvent({
+                            title: holiday.issue,
+                            start: holiday.date,
+                            extendedProps: { 
+                                timeRange: '',
+                            },
+                            display: 'background',
+                            backgroundColor: '#ff0000', // Color de fondo para los días festivos
+                            borderColor: '#ff0000'
+                        });
                     });
 
                     calendar.refetchEvents();
@@ -364,7 +555,7 @@
             $('#titulo').text(titulo);
             $.ajax({
                 type: 'POST',
-                url: "{{ route('sigac.programming.management.filter') }}",
+                url: "{{ route('sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.management.filter') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     filter: filter

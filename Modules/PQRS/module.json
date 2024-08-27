@@ -1,0 +1,13 @@
+{
+    "name": "PQRS",
+    "alias": "pqrs",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\PQRS\\Providers\\PQRSServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

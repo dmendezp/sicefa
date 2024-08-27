@@ -45,7 +45,7 @@ $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a pa
                                     <td>{{ $result->first_name }} {{ $result->first_last_name }} {{ $result->second_last_name }}</td>
                                     <td>{{ $result->code }}</td>
                                     <td>{{ $result->program_name }}</td>
-                                    <td>{{ $result->benefit_name }} - {{ $result->porcentege }}</td>
+                                    <td>{{ $result->benefit_name }} - {{ $result->porcentage }}</td>
                                     <td>{{ ($result->date_time) }}</td>
                                 </tr>
                                 @endforeach

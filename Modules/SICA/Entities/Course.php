@@ -27,6 +27,8 @@ class Course extends Model implements Auditable
         'code',
         'star_date',
         'end_date',
+        'star_production_date',
+        'school_end_date',
         'status',
         'modality',
         'program_id',

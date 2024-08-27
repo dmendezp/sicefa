@@ -9,12 +9,12 @@
                 {!! Form::open(['url' => route('sigac.support.programming.program_request.characterization.store', ['id' => $prom->id]), 'method' => 'POST']) !!}
                 @csrf
                 <div class="form-group">
-                    {!! Form::label('code_course', trans('Codigo del curso')) !!}
-                    {!! Form::number('code_course', null, ['class' => 'form-control','placeholder' => 'Ingrese el codigo de la ficha', 'required']) !!}
-                </div>
-                <div class="form-group">
                     {!! Form::label('code_empresa', trans('Codigo de la empresa')) !!}
                     {!! Form::number('code_empresa', null, ['class' => 'form-control','placeholder' => 'Ingrese el codigo de la empresa', 'required']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('code_course', trans('No. Ficha')) !!}
+                    {!! Form::number('code_course', null, ['class' => 'form-control','placeholder' => 'Ingrese el codigo de la ficha', 'required']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('date_inscription', trans('Fecha de inscripción del curso')) !!}

@@ -19,10 +19,11 @@ use Modules\AGROINDUSTRIA\Entities\RequestExternal;
 use Modules\AGROCEFA\Entities\Executor;
 use Modules\SIGAC\Entities\CompetencePerson;
 use Modules\SIGAC\Entities\InstructorProgram;
+use Modules\SIGAC\Entities\InstitucionalRequest;
 use Modules\SIGAC\Entities\Profession;
 use Modules\SIGAC\Entities\AttendanceApprentice;
 use Modules\SIGAC\Entities\EvaluativeJudgment;
-
+use Modules\PQRS\Entities\Pqrs;
 class Person extends Model implements Auditable
 {
 
@@ -172,6 +173,9 @@ class Person extends Model implements Auditable
     public function inventories(){ // Accede a todos los registros de inventarios que estan a cargo de esta persona
         return $this->hasMany(Inventory::class);
     }
+    public function institucional_requests(){
+        return $this->hasMany(InstitucionalRequest::class);
+    }
     public function instructor_programs(){ // Accede a todas las programaciones de este instructor
         return $this->hasMany(InstructorProgram::class);
     }
@@ -192,6 +196,9 @@ class Person extends Model implements Auditable
     }
     public function population_group(){ // Accede al grupo poblacional que pertenece
         return $this->belongsTo(PopulationGroup::class);
+    }
+    public function pqrs(){ // Accede a todos los pqrs que pertenecen a esta persona (PIVOTE)
+        return $this->belongsToMany(Pqrs::class)->withPivot('date_time', 'type')->withTimestamps();
     }
     public function productive_units(){ // Accede a todas las unidades productivas que lidera esta persona
         return $this->hasMany(ProductiveUnit::class);

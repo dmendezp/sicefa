@@ -36,6 +36,9 @@ class InstructorProgram extends Model implements Auditable
     {
         return $this->belongsTo(Course::class);
     }
+    public function instructor_program_novelties(){
+        return $this->hasMany(InstructorProgramNovelty::class);
+    }
     public function instructor_program_people()
     {
         return $this->hasMany(InstructorProgramPerson::class);

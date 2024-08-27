@@ -8,15 +8,16 @@
                 <div class="card-body">
                 <a href="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.transportation.view.transportation_assistance_lists')}}" class="btn btn-secondary"><i class="far fa-arrow-alt-circle-left"></i></a>
                 <hr>
-                <a href="{{ route('cefa.register_failures') }}" class="btn btn-primary" method="get">Registrar Fallas</a>                
+                <a href="{{ route('bienestar.admin.failure_reporting.transportation_assistance_lists.store')}}" class="btn btn-primary">Registrar Fallas</a>                
                     <div class="table-responsive">
                         <table class="table mt-4 table-bordered rounded-table" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>{{ trans('Documento') }}</th>
                                     <th>{{ trans('bienestar::failure_report.Apprentice') }}</th>
                                     <th>{{ trans('bienestar::failure_report.Code') }}</th>
-                                    <th>{{ trans('bienestar::failure_report.Route_number') }}</th>
-                                    <th>{{ trans('bienestar::failure_report.Bus_driver_name') }}</th>
+                                    <th>{{ trans('Numero ruta') }}</th>
+                                    <th>{{ trans('Ruta') }}</th>
                                     <th>{{ trans('bienestar::failure_report.Date') }}</th>
                                     <th>{{ trans('bienestar::failure_report.Assistance_Status') }}</th>
                                 </tr>
@@ -26,15 +27,10 @@
                                 @foreach($resultados as $resultado)
                                     <tr>
                                         <td>{{ $resultado->apprentice->person->document_number }}</td>
-                                        <td>{{ $resultado->apprentice->person->first_name }}</td>
-                                        <td>{{ $resultado->apprentice->person->first_last_name }}</td>
-                                        <td>{{ $resultado->apprentice->person->second_last_name }}</td>
-                                        <td>{{ $resultado->apprentice->course->code }}</td>
-                                        <td>{{ $resultado->apprentice->course->program->name }}</td>
-                                        <td>{{ $resultado->assingTransportRoute->routeTransportation->route_number }}</td>
-                                        <td>{{ $resultado->assingTransportRoute->routeTransportation->name_route }}</td>
-                                        <td>{{ $resultado->busDriver->name }}</td>
-                                        <td>{{ $resultado->bus->plate }}</td>
+                                        <td>{{ $resultado->apprentice->person->fullname }}</td>
+                                        <td>{{ $resultado->apprentice->course->program->name}} - {{$resultado->apprentice->course->code }}</td>
+                                        <td>{{ $resultado->assigntransportroute->routes_trasportantion->route_number }}</td>
+                                        <td>{{ $resultado->assigntransportroute->routes_trasportantion->name_route }}</td>
                                         <td>{{ $resultado->date_time }}</td>
                                         <td>{{ $resultado->assistance_status }}</td>
                                     </tr>

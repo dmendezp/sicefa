@@ -18,8 +18,10 @@ class EnvironmentInstructorProgram extends Model implements Auditable
         return \Modules\SIGAC\Database\factories\EnvironmentInstructorProgramFactory::new();
     }
 
-    public function environment()
-    {
+    public function environment(){
         return $this->belongsTo(Environment::class);
+    }
+    public function instructor_program(){
+        return $this->belongsTo(InstructorProgram::class);
     }
 }
