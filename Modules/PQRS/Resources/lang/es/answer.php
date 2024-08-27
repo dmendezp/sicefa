@@ -15,7 +15,7 @@ return [
     'the_pqrs_was_correctly_reassigned' => 'Se reasigno correctamente la PQRS.',
 
     //Respuesta - Reasignar PQRS
-    'filing_number' => 'Número Radicación',
+    'filing_number' => 'Radicado Solicitud',
     'type' => 'Tipo',
     'select_the_type_of_assignment' => 'Seleccione el tipo de asignación',
     'official' => 'Funcionario',
@@ -28,7 +28,7 @@ return [
     'issue' => 'Asunto',
     'description_subject' => 'Descripción Asunto',
     'state' => 'Estado',
-    'answer' => 'Respuesta',
+    'answer' => 'Observaciones',
     'actions' => 'Acciones',
     'no_response_has_been_given' => 'No se ha dado respuesta',
 

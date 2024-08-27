@@ -9,20 +9,17 @@
         <div class="modal-body">
             <div class="container">
                 <div class="row">
-                    <div class="col-6">
-                        <p><span class="modal_answer"># {{ trans('pqrs::answer.filed') }}:</span> 
-                            @if (isset($p->filed_response))
-                                {{ $p->filed_response }}
-                            @else
-                                No se ha radicado la respuesta.
-                            @endif
-                        </p>
-                    </div>
-                    <div class="col-6">
+                    <div class="col-12">
                         <p><span class="modal_answer">{{ trans('pqrs::answer.response_date') }}:</span> {{ $p->response_date }}</p>
                     </div>
                     <div class="col-12">
-                        <p><span class="modal_answer">{{ trans('pqrs::answer.answer') }}:</span> {{ $p->answer }}</p>
+                        <p><span class="modal_answer">{{ trans('pqrs::answer.answer') }}:</span> 
+                            @if (isset($p->answer))
+                                {{ $p->answer }}
+                            @else
+                                Sin observaciones.
+                            @endif
+                        </p>
                     </div>
                 </div>
             </div>
