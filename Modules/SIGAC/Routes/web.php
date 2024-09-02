@@ -267,6 +267,9 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('academic_coordination/reports/environments/search_person', 'search_person')->name('sigac.academic_coordination.reports.environments.search_person'); // Buscar personas (Coordinación Académica)
             Route::post('academic_coordination/reports/environments/institucional_request_store', 'institucional_request_store')->name('sigac.academic_coordination.reports.environments.institucional_request_store'); // Guardar reprogramacion (Coordinación Académica)
             
+            Route::get('academic_coordination/reports/active_courses/index', 'active_courses_index')->name('sigac.academic_coordination.reports.active_courses.index'); // Ambientes (Coordinación Académica)
+            Route::post('academic_coordination/reports/active_courses/search', 'active_courses_search')->name('sigac.academic_coordination.reports.active_courses.search'); // Consultar ambientes (Coordinación Académica)
+
         });
 
     });

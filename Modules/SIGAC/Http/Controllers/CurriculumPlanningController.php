@@ -843,7 +843,7 @@ class CurriculumPlanningController extends Controller
                             $learning_outcome_id = $learning_outcome->id;
 
                             $course = Course::where('code',$course_code)->first();
-                            $course->star_production_date = $course_start_p;
+                            $course->start_production_date = $course_start_p;
                             $course->school_end_date = $course_end_l;
                             $course->save();
                             // Modificar fechas del curso
