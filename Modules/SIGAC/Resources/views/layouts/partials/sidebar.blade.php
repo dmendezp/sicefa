@@ -509,7 +509,7 @@
                     @endif
 
                     <!-- Menú de opciones para Bienestar -->
-                    @if (Route::is('sigac.wellness.*'))
+                    @if (Route::is('sigac.wellbeing.*'))
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-book"></i>
@@ -545,7 +545,7 @@
                                 @if (Auth::user()->havePermission('sigac.wellness.programming.index'))
                                     <li class="nav-item">
                                         <a href="{{ route('sigac.wellness.programming.index') }}"
-                                            class="nav-link {{ !Route::is('sigac.academic_coordination.programming.*') ?: 'active' }}">
+                                            class="nav-link {{ !Route::is('sigac.wellness.programming.*') ?: 'active' }}">
                                             <i class="nav-icon far fa-calendar-alt"></i>
                                             <p>{{ trans('sigac::general.Scheduling') }}</p>
                                         </a>
@@ -587,7 +587,7 @@
                         @if (Auth::user()->havePermission('sigac.apprentice.programming.index'))
                             <li class="nav-item">
                                 <a href="{{ route('sigac.apprentice.programming.index') }}"
-                                    class="nav-link {{ !Route::is('sigac.programming.*') ?: 'active' }}">
+                                    class="nav-link {{ !Route::is('sigac.apprentice.programming.*') ?: 'active' }}">
                                     <i class="nav-icon far fa-calendar-alt"></i>
                                     <p>{{ trans('sigac::general.Scheduling') }}</p>
                                 </a>
@@ -631,8 +631,27 @@
                             </li>
                         @endif
                     @endif
+                    @if (Route::is('sigac.securitystaff.*'))
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Control Ambientes
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items">
+                                <li class="nav-item">
+                                    <a href="{{  route('sigac.securitystaff.environmentcontrol.environment_inventory_movement.check.index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice"></i>
+                                        <p>Verificar Ambiente</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
                     <!-- Menú de opciones para Aprendiz -->
-                    @if (Route::is('sigac.committee_leader.*'))
+                    @if (Route::is('sgac.committee_leader.*'))
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-book"></i>
