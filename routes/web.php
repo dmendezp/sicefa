@@ -50,8 +50,17 @@ Route::middleware(['lang'])->group(function(){
     });
 
     Route::prefix('filemanager')->group(function() {
-     \UniSharp\LaravelFilemanager\Lfm::routes();
- });
+        \UniSharp\LaravelFilemanager\Lfm::routes();
+    });
+
+    Route::get('/check-session', function () {
+        if (auth()->check()) {
+            return response()->json(['status' => 'active'], 200);
+        }
+    
+        return response()->json(['status' => 'inactive'], 403);
+    });
+    
 
 });
 

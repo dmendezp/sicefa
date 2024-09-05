@@ -81,14 +81,14 @@
                                                 
                                             @endphp
                                             <td>{{ $trimestreHours }}</td>
+                                            
                                             @if (isset($trimestre->learning_outcome->instructor_program_outcomes))
-                                                @foreach ($trimestre->learning_outcome->instructor_program_outcomes as $instructor_program_outcome)
-                                                    @php
-                                                        $instructor_program = $instructor_program_outcome->instructor_program;
-                                                        if ($instructor_program->course_id == $course_id && $i == $instructor_program->quarter_number) {
-                                                            $start = \Carbon\Carbon::parse($instructor_program->start_time);
-                                                            $end = \Carbon\Carbon::parse($instructor_program->end_time);
-                                                            $trimestreExecutedHours += $end->diffInHours($start);
+                                                @foreach ($instructor_programs as $ins)
+                                                    @php 
+                                                        if ($ins->course_id == $course_id && $i == $ins->quarter_number) {
+                                                            foreach ($ins->instructor_program_outcomes as $instructor_program_outcome) {
+                                                                $trimestreExecutedHours = $instructor_program_outcome->hour;
+                                                            }
                                                         }
                                                     @endphp
                                                 @endforeach

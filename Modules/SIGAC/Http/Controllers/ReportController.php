@@ -14,6 +14,7 @@ use Modules\SICA\Entities\Person;
 use Modules\SIGAC\Entities\EnvironmentInstructorProgram;
 use Modules\SICA\Entities\Environment;
 use Modules\SIGAC\Entities\InstitucionalRequest;
+use Modules\SIGAC\Entities\InstructorProgramOutcome;
 
 class ReportController extends Controller
 {
@@ -50,7 +51,11 @@ class ReportController extends Controller
                     return $item->learning_outcome->name;
                 });
             });
-            
+
+        $instructor_programs = InstructorProgram::with('instructor_program_outcomes.learning_outcome')
+        ->where('course_id', $course_id)
+        ->get();
+    
         $course = Course::findOrFail($course_id);
         $courseNumber = $course->program->quarter_number;
         $programId = $course->program->id;
@@ -72,7 +77,8 @@ class ReportController extends Controller
             'programId' => $programId,
             'learning_outcomes_select' => $learning_outcomes_select,
             'competences_select' => $competences_select,
-            'course_id' => $course_id
+            'course_id' => $course_id,
+            'instructor_programs' => $instructor_programs
         ]);
     }
 
