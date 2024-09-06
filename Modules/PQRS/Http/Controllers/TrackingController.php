@@ -685,7 +685,7 @@ class TrackingController extends Controller
                         $pqrs->type_pqrs_id = $type_pqrs->id;
                         $pqrs->filing_number = $filing_number;
                         $pqrs->filing_date = $filing_date;
-                        $pqrs->nis = $nis;
+                        $pqrs->nis = 0;
                         $pqrs->end_date = $end_date;
                         $pqrs->issue = $issue;
                         $pqrs->state = $state;
@@ -731,7 +731,7 @@ class TrackingController extends Controller
                 $emails = [];
                 $cc_emails = [];
                 $valid_emails = [];
-                $cc_valid_emails = [];
+                $cc_valid_emails = ['dmcuellar@sena.edu.co'];
 
                 foreach ($pqrs as $p) {
                     foreach ($p->people as $person) {

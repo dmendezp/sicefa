@@ -46,7 +46,7 @@
                 @foreach ($pqrs as $p)   
                     <tr>
                         <td>{{ $p->filing_number }}</td>
-                        <td>{{ $p->end_date }}</td>
+                        <td>{{ \Carbon\Carbon::parse($p->end_date)->format('d-m-Y')}}</td>
                         <td>{{ $p->type_pqrs->name }}</td>
                         <td>{{ $p->issue }}</td>
                         <td>{{ $p->state }}</td>

@@ -14,6 +14,7 @@ use Modules\SICA\Entities\Person;
 use Modules\SIGAC\Entities\EnvironmentInstructorProgram;
 use Modules\SICA\Entities\Environment;
 use Modules\SIGAC\Entities\InstitucionalRequest;
+use Modules\SIGAC\Entities\InstructorProgramOutcome;
 
 class ReportController extends Controller
 {
@@ -50,7 +51,11 @@ class ReportController extends Controller
                     return $item->learning_outcome->name;
                 });
             });
-            
+
+        $instructor_programs = InstructorProgram::with('instructor_program_outcomes.learning_outcome')
+        ->where('course_id', $course_id)
+        ->get();
+    
         $course = Course::findOrFail($course_id);
         $courseNumber = $course->program->quarter_number;
         $programId = $course->program->id;
@@ -71,7 +76,9 @@ class ReportController extends Controller
             'courseNumber' => $courseNumber,
             'programId' => $programId,
             'learning_outcomes_select' => $learning_outcomes_select,
-            'competences_select' => $competences_select
+            'competences_select' => $competences_select,
+            'course_id' => $course_id,
+            'instructor_programs' => $instructor_programs
         ]);
     }
 
@@ -137,18 +144,31 @@ class ReportController extends Controller
         ->orderBy('created_at', 'Asc')
         ->get();
 
+        $id = [];
+
         foreach ($instructor_program as $p) {
             $id[] = $p->id;
-        
-            $programmedEnvironmentIds = EnvironmentInstructorProgram::whereIn('instructor_program_id', $id)->pluck('environment_id')->toArray();
-
-            // Obtener los ambientes que NO están programados
-            $unprogrammedEnvironments = Environment::whereNotIn('id', $programmedEnvironmentIds)->pluck('name', 'id');
         }
+
+        $programmedEnvironmentIds = EnvironmentInstructorProgram::whereIn('instructor_program_id', $id)->pluck('environment_id')->toArray();
+
+        // Obtener los ambientes que NO están programados
+        $unprogrammedEnvironments = Environment::whereNotIn('id', $programmedEnvironmentIds)->get();
+
+        $d = $unprogrammedEnvironments->map(function ($u){
+            $id = $u->id;
+            $name = $u->name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione un ambiente'])->pluck('name', 'id');
 
         return view('sigac::reports.environments.table')->with([
             'instructor_program' => $instructor_program,
-            'unprogrammedEnvironments' => $unprogrammedEnvironments    
+            'unprogrammedEnvironments' => $d,
+            'environments' => $unprogrammedEnvironments
         ]);
     }
 
@@ -213,4 +233,33 @@ class ReportController extends Controller
         }
     }
 
+    public function active_courses_index(){
+        return view('sigac::reports.active_courses.index')->with([
+            'titlePage' => 'Fichas activas',
+            'titleView' => 'Fichas Activas'        
+        ]);
+    }
+
+    public function active_courses_search(Request $request){
+
+        $quarterlie = $request->input('quarterlie');
+
+        if (isset($quarterlie)) {
+            $active_courses = Course::where('status', 'Activo')->whereHas('instructor_programs', function ($query) use ($quarterlie) {
+                $query->where('quarter_number', $quarterlie);
+            })->with('program', 'instructor_programs', 'person')->get();
+    
+            return view('sigac::reports.active_courses.table')->with([
+                'courses' => $active_courses
+            ]);
+        }else{
+            $active_courses = Course::where('status', 'Activo')->with('program', 'instructor_programs', 'person')->get();
+            return view('sigac::reports.active_courses.table')->with([
+                'courses' => $active_courses    
+            ]);
+        }
+
+
+       
+    }
 }

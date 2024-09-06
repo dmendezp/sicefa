@@ -348,6 +348,12 @@
                                             <p>Instructores</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('sigac.academic_coordination.reports.active_courses.index') }}" class="nav-link">
+                                            <i class="nav-icon fas fa-file-invoice"></i>
+                                            <p>Fichas Activas</p>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         @endif

@@ -45,6 +45,8 @@
                 // Actualizar el contenedor con los resultados filtrados
                 $('#divEnvironments').html(data);
                 $('#table').DataTable({});
+                $('#table_available').DataTable({});
+
             },
             error: function(xhr, status, error) {
                 console.error(error);
@@ -65,6 +67,8 @@
                     // Actualizar el contenedor con los resultados filtrados
                     $('#divEnvironments').html(data);
                     $('#table').DataTable({});
+                    $('#table_available').DataTable({});
+
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
