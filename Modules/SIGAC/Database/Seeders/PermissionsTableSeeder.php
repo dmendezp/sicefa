@@ -1027,6 +1027,36 @@ class PermissionsTableSeeder extends Seeder
 
         $permissions_wellness[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista actividades externas (Bienestar)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.wellness.programming.external_activities.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista actividades externas (Bienestar)',
+            'description' => 'Puede ingresar a la vista de actividades externas',
+            'description_english' => "You can enter the external activities view",
+            'app_id' => $app->id
+        ]);
+
+        $permissions_wellness[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar cursos (Bienestar)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.wellness.programming.external_activities.external_activities_search_course'], [ // Registro o actualización de permiso
+            'name' => 'Consultar cursos (Bienestar)',
+            'description' => 'Puede consultar los cursos',
+            'description_english' => "You can check the courses",
+            'app_id' => $app->id
+        ]);
+
+        $permissions_wellness[] = $permission->id; // Almacenar permiso para rol
+
+        // Guardar programacion de actividades externas (Bienestar)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.wellness.programming.external_activities.external_activities_store'], [ // Registro o actualización de permiso
+            'name' => 'Guardar programacion de actividades externas (Bienestar)',
+            'description' => 'Puede guardar la programacion de actividades externas',
+            'description_english' => "You can save the schedule of external activities",
+            'app_id' => $app->id
+        ]);
+
+        $permissions_wellness[] = $permission->id; // Almacenar permiso para rol
+
         //  ------------------------------------ ROL APRENDIZ ------------------------------------------
 
         // Panel de control de aprendiz (Aprendiz)

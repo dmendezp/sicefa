@@ -216,11 +216,14 @@ class ProgrammeController extends Controller
     public function management_programming_filterstatelearning(Request $request)
     {
         $learning_outcome_id = $request->input('learning_outcome_id');
+        $course_id = $request->input('course_id');
 
         // Obtener la lista de programas de instructor asociados al resultado de aprendizaje
         $instructor_programs = InstructorProgram::whereHas('instructor_program_outcomes', function($query) use ($learning_outcome_id) {
             $query->where('learning_outcome_id', $learning_outcome_id);
-        })->get();
+        })
+        ->where('course_id', $course_id)
+        ->get();
 
         // Verificar si el resultado de aprendizaje está programado
         if ($instructor_programs->isEmpty()) {
@@ -232,11 +235,24 @@ class ProgrammeController extends Controller
             // Recorrer los programas de instructor para obtener la información de fecha y hora
             $scheduled_info = [];
             foreach ($instructor_programs as $program) {
-                $scheduled_info[] = [
-                    'date' => $program->date,
-                    'start_time' => $program->start_time,
-                    'end_time' => $program->end_time
-                ];
+                foreach ($program->instructor_program_outcomes as $outcome) {
+                    // Verificamos que sea el resultado de aprendizaje seleccionado
+                    if ($outcome->learning_outcome_id == $learning_outcome_id) {
+                        // Sumamos las horas de este resultado de aprendizaje
+                        $hours = $outcome->hour;
+            
+                        // Guardamos la información programada para este resultado de aprendizaje
+                        $scheduled_info[] = [
+                            'date' => $program->date,
+                            'hours' => $hours,
+                            'start_time' => $program->start_time,
+                            'end_time' => $program->end_time
+                        ];
+            
+                        // Rompemos el ciclo porque solo necesitamos registrar una vez el resultado de aprendizaje seleccionado
+                        break;
+                    }
+                }
             }
         }
 
@@ -1732,10 +1748,80 @@ class ProgrammeController extends Controller
     
             return redirect()->route('sigac.programming.index')->with('success', 'Novedad Enviada');
         } catch (\Exception $e) {
-            dd($e);
             DB::rollBack();
             \Log::error('Error en el registro: ' . $e->getMessage());
             return response()->json(['error' => 'Error interno del servidor',$e], 500);
+        }
+    }
+
+    public function external_activities_index(){
+        $courses = Course::where('status', 'Activo')->where('deschooling', 'Presencial')->get();
+
+        $course = $courses->map(function($c){
+            $id = $c->id;
+            $name = $c->code . ' - ' . $c->program->name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        });
+
+        return view('sigac::programming.external_activities.index', [
+            'titlePage' => 'Actividades externas',
+            'titleView' => 'Actividades externas',
+            'course' => $course
+        ]);
+    }
+
+    public function external_activities_search_course(Request $request){
+        $name = $request->input('name');
+
+        $courses = Course::where('status', 'Activo')
+        ->where('deschooling', 'Presencial')
+        ->whereHas('program', function($query) use ($name){
+            $query->where('name', 'LIKE', '%'. $name . '%');
+        })->get();
+
+        $output = '';
+        foreach ($courses as $course) {
+            $output .= '<div class="form-check">';
+            $output .= '<input type="checkbox" class="form-check-input courses" name="courses[]" value="' . $course->id . '">';
+            $output .= '<label class="form-check-label">'. $course->code . ' - ' . $course->program->name . '</label>';
+            $output .= '</div>';
+        }
+
+        return response()->json($output);
+    }
+
+    public function external_activities_store(Request $request){
+        $courses = $request->courses;
+        $date = $request->date;
+        $start_time = $request->start_time;
+        $end_time = $request->end_time;
+        $activity_name = $request->activity;
+        $activity_description = $request->description;
+
+        try {
+            DB::beginTransaction();
+
+            foreach($courses as $c){
+                $instructor_program = new InstructorProgram;
+                $instructor_program->course_id = $c;
+                $instructor_program->activity_name = $activity_name;
+                $instructor_program->activity_description = $activity_description;
+                $instructor_program->date = $date;
+                $instructor_program->start_time = $start_time;
+                $instructor_program->end_time = $end_time;
+                $instructor_program->state = 'Programado';
+                $instructor_program->save();
+            }
+            DB::commit();
+                
+            return back()->with('success', 'Actividad externa registrada exitosamente')->with('typealert', 'success');
+        } catch (\Exception $e){
+            DB::rollBack();
+            return response()->json(['error' => 'Error interno del servidor'], 500);
         }
     }
 }

@@ -13,7 +13,7 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('developers', 'devs')->name('cefa.sigac.devs'); // Vista sobre desarrolladores y creditos sobre SIGAC y pública de la aplicación (Pública)
             Route::get('academic_coordination', 'academic_coordination_dashboard')->name('sigac.academic_coordination.dashboard'); // Panel de control de coordinación académica (Coordinación Académica)
             Route::get('instructor', 'instructor_dashboards')->name('sigac.instructor.dashboard'); // Panel de control del instructor (Instructor)
-            Route::get('wellbeing', 'wellness_dashboard')->name('sigac.wellbeing.dashboard'); // Panel de control de bienestar (Bienestar)
+            Route::get('wellness', 'wellness_dashboard')->name('sigac.wellness.dashboard'); // Panel de control de bienestar (Bienestar)
             Route::get('apprentice', 'apprentice_dashboard')->name('sigac.apprentice.dashboard'); // Panel de control de aprendiz (Aprendiz)
             Route::get('support', 'support_dashboard')->name('sigac.support.dashboard'); // Panel de control de apoyo (Apoyo)
             Route::get('securitystaff', 'securitystaff_dashboard')->name('sigac.securitystaff.dashboard'); // Panel de control de apoyo (Apoyo)
@@ -131,6 +131,10 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::post('support/programming/program_request/characterization/devolution/{id}', 'program_request_characterization_devolution')->name('sigac.instructor.programming.program_request.characterization.devolution'); // Devolver solicitud (Apoyo)
             Route::get('support/programming/program_request/download/{id}', 'program_request_download')->name('sigac.support.programming.program_request.program_request_download'); // Buscar profesion
 
+            //Actividades externas
+            Route::get('wellness/programming/external_activities/index', 'external_activities_index')->name('sigac.wellness.programming.external_activities.index'); // Buscar profesion
+            Route::get('wellness/programming/external_activities/search_course', 'external_activities_search_course')->name('sigac.wellness.programming.external_activities.external_activities_search_course'); // Buscar profesion
+            Route::post('wellness/programming/external_activities/store', 'external_activities_store')->name('sigac.wellness.programming.external_activities.external_activities_store'); // Buscar profesion
         });
 
         // RUTAS PLANEACION CURRICULAR
