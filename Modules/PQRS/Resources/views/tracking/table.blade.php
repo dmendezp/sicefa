@@ -78,6 +78,19 @@
                                             @endif
                                         </td>
                                         <td>
+                                            @if ($p->state == 'EN PROCESO' || $p->state == 'PROXIMA A VENCER' || $p->state == 'RESPUESTA PARCIAL')
+                                                <button type="button" class="btn btn-primary answer" data-bs-toggle="modal" data-bs-target="#answer{{ $p->id }}" title="{{ trans('pqrs::answer.reply') }} {{ $p->type_pqrs->name }}">
+                                                    <i class="fas fa-retweet"></i>
+                                                </button>    
+                                                @if(isset($p->filed_response))
+                                                @else
+                                                    <button class="btn btn-info filing_response" data-bs-toggle="modal" data-bs-target="#filing{{ $p->id }}" title="{{ trans('pqrs::tracking.response_filing_of_the') }} {{ $p->type_pqrs->name }}">
+                                                        <i class="fas fa-archive"></i>
+                                                    </button>
+                                                    @include('pqrs::tracking.filing_response')  
+                                                @endif      
+                                            @endif
+                                            @include('pqrs::answer.create')
                                             @if ($p->state == 'RESPUESTA GENERADA' || $p->state == 'RESPUESTA PARCIAL')
                                                 <button type="button" class="btn btn-warning info" data-bs-toggle="modal" data-bs-target="#info{{ $p->id }}" title="{{ trans('pqrs::tracking.information_of_the') }} {{ $p->type_pqrs->name }}">
                                                     <i class="fas fa-eye"></i>

@@ -64,7 +64,7 @@
                                                 @endif
                                             </td>                                 
                                             <td>
-                                                @if ($p->state == 'EN PROCESO' || $p->state == 'PROXIMA A VENCER')
+                                                @if ($p->state == 'EN PROCESO' || $p->state == 'PROXIMA A VENCER' || $p->state == 'RESPUESTA PARCIAL')
                                                     @if ($person->id == Auth::user()->person_id)                                          
                                                         <button type="button" class="btn btn-primary answer" data-bs-toggle="modal" data-bs-target="#answer{{ $p->id }}" title="{{ trans('pqrs::answer.reply') }} {{ $p->type_pqrs->name }}">
                                                             <i class="fas fa-retweet"></i>
