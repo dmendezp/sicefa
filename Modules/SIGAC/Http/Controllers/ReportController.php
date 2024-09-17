@@ -15,6 +15,7 @@ use Modules\SIGAC\Entities\EnvironmentInstructorProgram;
 use Modules\SICA\Entities\Environment;
 use Modules\SIGAC\Entities\InstitucionalRequest;
 use Modules\SIGAC\Entities\InstructorProgramOutcome;
+use Carbon\Carbon;
 
 class ReportController extends Controller
 {
@@ -32,8 +33,7 @@ class ReportController extends Controller
         'courses'=>$courses]);
     }
      
-     public function report_quarterlie_search(Request $request)
-    {
+    public function report_quarterlie_search(Request $request){
         $course_id = $request->input('course_id');
         $quarterlies = Quarterly::with('training_project.courses.program', 'learning_outcome.competencie', 'learning_outcome.people.professions', 'learning_outcome.instructor_program_outcomes.instructor_program.instructor_program_people.person')
             ->whereHas('training_project.courses', function ($query) use ($course_id) {
@@ -52,9 +52,63 @@ class ReportController extends Controller
                 });
             });
 
-        $instructor_programs = InstructorProgram::with('instructor_program_outcomes.learning_outcome')
-        ->where('course_id', $course_id)
-        ->get();
+            
+        $instructor_programs = InstructorProgram::where('course_id', $course_id)->get();
+    
+        $executedHours = [];
+        $executedHoursCompetency = [];
+
+        $uniqueHours = [];
+        $uniqueHoursCompetencie = [];
+
+        foreach ($instructor_programs as $ins) {
+            foreach ($ins->instructor_program_outcomes as $outcome) {
+                $quarterNumber = intval($ins->quarter_number); // El trimestre al que pertenece el instructor_program
+                $learningOutcome = $outcome->learning_outcome_id;
+                $learningOutcomeName = $outcome->learning_outcome->name;
+                $competencie = $outcome->learning_outcome->competencie->name;
+                $outcomeHours = $outcome->hour;
+        
+                // Inicializa la entrada para el trimestre si no existe
+                if (!isset($executedHours[$quarterNumber])) {
+                    $executedHours[$quarterNumber] = [];
+                }
+
+                 // Inicializa la entrada para el trimestre si no existe
+                 if (!isset($executedHoursCompetency[$quarterNumber])) {
+                    $executedHoursCompetency[$quarterNumber] = [];
+                }
+        
+                // Inicializa la entrada para el resultado de aprendizaje si no existe
+                if (!isset($executedHours[$quarterNumber][$learningOutcomeName])) {
+                    $executedHours[$quarterNumber][$learningOutcomeName] = 0;
+                }
+        
+                // Inicializa la entrada para la competencia si no existe
+                if (!isset($executedHoursCompetency[$quarterNumber][$learningOutcome][$competencie])) {
+                    $executedHoursCompetency[$quarterNumber][$learningOutcome][$competencie] = 0;
+                }
+        
+                // Crea un identificador único para la combinación de resultado de aprendizaje y horas
+                $uniqueKey = $quarterNumber . '-' . $learningOutcomeName . '-' . $outcomeHours;
+                $uniqueCompetencie = $quarterNumber . '-' . $competencie . '-' . $learningOutcome . '-' . $outcomeHours;
+        
+                // Solo suma si esta combinación de horas no ha sido procesada previamente
+                if (!isset($uniqueHours[$uniqueKey])) {
+                    // Suma la hora y marca esta combinación como procesada
+                    $executedHours[$quarterNumber][$learningOutcomeName] += $outcomeHours;
+                    
+                    // Marca esta combinación como ya sumada
+                    $uniqueHours[$uniqueKey] = true;
+                }
+
+                if (!isset($uniqueHoursCompetencie[$uniqueCompetencie])) {
+                    // Suma la hora y marca esta combinación como procesada
+                    $executedHoursCompetency[$quarterNumber][$learningOutcome][$competencie] += $outcomeHours;
+                    $uniqueHoursCompetencie[$uniqueCompetencie] = true;
+                }                
+            }
+        }
     
         $course = Course::findOrFail($course_id);
         $courseNumber = $course->program->quarter_number;
@@ -78,7 +132,9 @@ class ReportController extends Controller
             'learning_outcomes_select' => $learning_outcomes_select,
             'competences_select' => $competences_select,
             'course_id' => $course_id,
-            'instructor_programs' => $instructor_programs
+            'instructor_programs' => $instructor_programs,
+            'executedHours' => $executedHours,
+            'executedHoursCompetency' => $executedHoursCompetency
         ]);
     }
 

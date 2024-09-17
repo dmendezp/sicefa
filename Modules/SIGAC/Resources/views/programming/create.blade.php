@@ -126,7 +126,7 @@
 
                             <div class="col-2">
                                 <div class="form-group">
-                                    {!! Form::number('hour[]', null, ['class' => 'form-control', 'required']) !!}
+                                    {!! Form::number('hour[]', null, ['class' => 'form-control', 'id' => 'hour', 'required']) !!}
                                 </div>
                             </div>
                             <div class="col-2">
@@ -311,6 +311,8 @@
 
         });
 
+        var plannedHoursMap = {};
+        var learningOutcomeMap = {};
 
         $('#quarter_number').on('change', function() {
             var course_id = $('#course').val();
@@ -331,8 +333,10 @@
                         $.each(response.quarterlie, function(competencie, results) {
                             html += '<h6><b>' + competencie + '</b></h6><ul>';
                             $.each(results, function(index, result) {
-                                html += '<li>' + result.learning_outcome
-                                    .name + '</li>';
+                                console.log(result);
+                                html += '<li>' + result.learning_outcome.name + '<strong> Horas: </strong>' + result.hour + '</li>';
+                                plannedHoursMap[result.learning_outcome.id] = result.hour;
+                                learningOutcomeMap[result.learning_outcome.id] = result.learning_outcome.name;
                             });
                             html += '</ul>';
                         });
@@ -350,61 +354,27 @@
 
             }
         });
-        $('.learning_outcome_select').on('change', function() {
-            var learning_outcome_id = $(this).val();
+
+        $('#learning_outcomes_container').on('input', 'input[name="hour[]"]', function() {
+            var inputHour = $(this).val(); // Obtener la hora ingresada
+            var row = $(this).closest('.learning_outcomes_row'); // Obtener la fila asociada al input
+            var learning_outcome_id = row.find('.learning_outcome_select').val(); // Obtener el resultado de aprendizaje seleccionado
+            
             if (learning_outcome_id) {
+                var plannedHour = plannedHoursMap[learning_outcome_id]; // Obtener la hora planeada del mapa
+                var learningOutcome = learningOutcomeMap[learning_outcome_id];
 
-                // Obtener instructor para el nuevo select
-                getInstructorForNewRow();
-
-                // Obtener ambientes para el nuevo select
-                getEnvironmentForNewRow();
-
-                $.ajax({
-                    url: '{{ route('sigac.academic_coordination.programming.management.filterstatelearning') }}',
-                    method: 'GET',
-                    data: {
-                        learning_outcome_id: learning_outcome_id,
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        if (response.status === 'Programado') {
-                            var scheduledInfo = response.scheduled_info;
-                            var message =
-                                '<p>El resultado de aprendizaje está programado. Detalles:</p><ul>';
-                            scheduledInfo.forEach(function(info) {
-                                var startTimeParts = info.start_time.split(':');
-                                var endTimeParts = info.end_time.split(':');
-                                var startHours = parseInt(startTimeParts[0], 10);
-                                var startMinutes = parseInt(startTimeParts[1], 10);
-                                var endHours = parseInt(endTimeParts[0], 10);
-                                var endMinutes = parseInt(endTimeParts[1], 10);
-                                var durationHours = endHours - startHours;
-                                var durationMinutes = endMinutes - startMinutes;
-                                if (durationMinutes < 0) {
-                                    durationHours--;
-                                    durationMinutes += 60;
-                                }
-                                message += '<li><strong>Fecha:</strong> ' + info
-                                    .date + ', <strong>Duración:</strong> ' +
-                                    durationHours + ' horas ' + durationMinutes +
-                                    ' minutos</li>';
-                            });
-                            message += '</ul>';
-                            Swal.fire({
-                                icon: 'info',
-                                title: 'Información',
-                                html: message,
-                            });
-                        } else {}
-                    },
-                    error: function() {
-                        console.error('Error en la solicitud AJAX');
-                    }
-                });
-
-            } else {
-
+                // Comparar las horas ingresadas con las horas planeadas
+                if (inputHour && plannedHour && inputHour > plannedHour) {
+                    var message = '<p>La hora registrada es mayor que la programada para el resultado de aprendizaje seleccionado.</p>';
+                    message += '<p><strong>'+ learningOutcome +'</strong></p>'
+                    message += '<p><strong>Horas planeadas: </strong>' + plannedHour + ' <strong>Horas registradas: </strong> ' + inputHour + '</p>';
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Advertencia',
+                        html: message,
+                    });
+                }
             }
         });
 
@@ -422,7 +392,7 @@
                     </div>
                     <div class="col-2">
                             <div class="form-group">
-                                {!! Form::number('hour[]', null, ['class' => 'form-control', 'required']) !!}
+                                {!! Form::number('hour[]', null, ['class' => 'form-control', 'id' => 'hour', 'required']) !!}
                             </div>
                         </div>
                     <div class="col-2">
@@ -437,6 +407,77 @@
 
             // Obtener resultados de aprendizaje para el nuevo select
             getLearningOutcomesForNewRow();
+        });
+
+
+        $('.learning_outcome_select').off('change', '.learning_outcome_select').on('change', '.learning_outcome_select', function() {
+            var learning_outcome_id = $(this).val();
+            var course_id = $('#course').val();
+
+            if (learning_outcome_id) {
+
+                // Obtener instructor para el nuevo select
+                getInstructorForNewRow();
+
+                // Obtener ambientes para el nuevo select
+                getEnvironmentForNewRow();
+
+                $.ajax({
+                    url: '{{ route('sigac.academic_coordination.programming.management.filterstatelearning') }}',
+                    method: 'GET',
+                    data: {
+                        learning_outcome_id: learning_outcome_id,
+                        course_id: course_id,
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if (response.status === 'Programado') {
+                            var scheduledInfo = response.scheduled_info;
+
+                            var totalHours = 0;
+                            var totalMinutes = 0;
+                            var message =
+                                '<p>El resultado de aprendizaje está programado. Detalles:</p><ul>';
+                            scheduledInfo.forEach(function(info) {
+                                var startTimeParts = info.start_time.split(':');
+                                var endTimeParts = info.end_time.split(':');
+                                var startHours = parseInt(startTimeParts[0], 10);
+                                var startMinutes = parseInt(startTimeParts[1], 10);
+                                var endHours = parseInt(endTimeParts[0], 10);
+                                var endMinutes = parseInt(endTimeParts[1], 10);
+                                var durationHours = endHours - startHours;
+                                var durationMinutes = endMinutes - startMinutes;
+                                
+                                totalHours += durationHours;
+                                totalMinutes += durationMinutes;
+
+                                if (durationMinutes < 0) {
+                                    durationHours--;
+                                    durationMinutes += 60;
+                                    
+                                }
+                                message += '<li><strong>Fecha:</strong> ' + info
+                                    .date + ', <strong>Duración:</strong> ' +
+                                    durationHours + ' horas ' + durationMinutes +
+                                    ' minutos</li>';
+                            });
+                            message += '</ul>';
+                            message += '<p><strong>Total horas: </strong>'+ totalHours +' horas '+ totalMinutes +' minutos</p>'
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Información',
+                                html: message,
+                            });
+                        } else {}
+                    },
+                    error: function() {
+                        console.error('Error en la solicitud AJAX');
+                    }
+                });
+
+            } else {
+
+            }
         });
 
         // Función para eliminar fila de resultado de aprendizaje
@@ -458,6 +499,7 @@
                     if (response.learning_outcome) {
 
                         var learning_outcomeSelect = $('.learning_outcome_select').last();
+
                         learning_outcomeSelect.empty();
                         learning_outcomeSelect.append(new Option(
                             'Seleccione el resultado de aprendizaje', ''));
@@ -466,6 +508,67 @@
                         });
                     }
                     $('.learning_outcome_select').select2();
+
+                    learning_outcomeSelect.on('change', function() {
+                        var learning_outcome_id = $(this).val();
+                        var course_id = $('#course').val();
+
+                        if (learning_outcome_id) {
+                            $.ajax({
+                                url: '{{ route('sigac.academic_coordination.programming.management.filterstatelearning') }}',
+                                method: 'GET',
+                                data: {
+                                    learning_outcome_id: learning_outcome_id,
+                                    course_id: course_id,
+                                },
+                                success: function(response) {
+                                    if (response.status === 'Programado') {
+                                        var scheduledInfo = response.scheduled_info;
+
+                                        var totalHours = 0;
+                                        var totalMinutes = 0;
+                                        var message = '<p>El resultado de aprendizaje está programado. Detalles:</p><ul>';
+                                        scheduledInfo.forEach(function(info) {
+                                            var startTimeParts = info.start_time.split(':');
+                                            var endTimeParts = info.end_time.split(':');
+                                            var startHours = parseInt(startTimeParts[0], 10);
+                                            var startMinutes = parseInt(startTimeParts[1], 10);
+                                            var endHours = parseInt(endTimeParts[0], 10);
+                                            var endMinutes = parseInt(endTimeParts[1], 10);
+                                            var durationHours = endHours - startHours;
+                                            var durationMinutes = endMinutes - startMinutes;
+
+                                            var hours = info.hours; 
+
+                                            totalHours = hours;
+                                            totalMinutes += durationMinutes;
+
+                                            if (durationMinutes < 0) {
+                                                durationHours--;
+                                                durationMinutes += 60;
+                                            }
+                                            message += '<li><strong>Fecha:</strong> ' + info.date + ', <strong>Duración:</strong> ' + durationHours + ' horas ' + durationMinutes + ' minutos</li>';
+                                        });
+                                        message += '</ul>';
+
+                                        message += '<p><strong>'+ totalHours +'</strong> Horas programadas.</p>';
+                                        
+                                        // Mostrar alerta
+                                        Swal.fire({
+                                            icon: 'info',
+                                            title: 'Información',
+                                            html: message,
+                                        });
+                                    }
+                                },
+                                error: function() {
+                                    console.error('Error en la solicitud AJAX');
+                                }
+                            });
+                        }
+                    });
+
+                    
                 },
                 error: function() {
                     console.error('Error en la solicitud AJAX');

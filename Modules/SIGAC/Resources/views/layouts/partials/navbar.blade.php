@@ -20,7 +20,7 @@
             @endif
             @if (checkRol('sigac.wellness'))
                 <li class="nav-item d-none d-sm-inline-block mx-1">
-                    <a href="{{ route('sigac.wellbeing.dashboard') }}" class="nav-link @if(Route::is('sigac.wellbeing.*')) active @endif">{{ trans('sigac::general.Wellness') }}</a>
+                    <a href="{{ route('sigac.wellness.dashboard') }}" class="nav-link @if(Route::is('sigac.wellness.*')) active @endif">{{ trans('sigac::general.Wellness') }}</a>
                 </li>
             @endif
             @if (checkRol('sigac.apprentice'))

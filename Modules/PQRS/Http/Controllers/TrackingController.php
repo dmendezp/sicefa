@@ -105,7 +105,7 @@ class TrackingController extends Controller
             }
             
             // Verificar si el estado debe ser actualizado
-            if ($days_remaining == 5 && $p->state == 'EN PROCESO') {
+            if ($days_remaining <= 5 && $p->state == 'EN PROCESO') {
                 $p->state = 'PROXIMA A VENCER';
                 $p->save();
             }                 
@@ -780,11 +780,35 @@ class TrackingController extends Controller
         }
     }
 
-    public function filed_response (Request $request){
-        $pqrs = Pqrs::find($request->pqrs_id);
-        $pqrs->filed_response = $request->filed_response;
-        $pqrs->save();
+    public function answer_store(Request $request){
+        $rules = [
+            'type_answer' => 'required',
+            'response_date' => 'required',
+        ];
 
-        return redirect()->back()->with('success', trans('pqrs::tracking.filing_number_successfully_registered'));
+        $messages = [
+            'type_answer.required' => trans('pqrs::answer.you_must_select_a_response_type'),
+            'response_date.required' => trans('pqrs::answer.you_must_register_a_date')
+        ];
+
+        $validatedData = $request->validate($rules, $messages);
+        try {
+            DB::beginTransaction();
+
+            $pqrs = Pqrs::find($request->pqrs_id);
+            $pqrs->state = $validatedData['type_answer'];
+            $pqrs->answer = $request->input('answer');
+            $pqrs->filed_response = $request->input('filed_response');
+            $pqrs->response_date = $validatedData['response_date'];
+            $pqrs->save();
+
+            DB::commit();
+
+            return redirect()->route('pqrs.tracking.index')->with(['success' => trans('pqrs::answer.the_response_was_registered_successfully')]); 
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors($validatedData)->withInput()->with(['error' => trans('pqrs::answer.error_registering_response')]);;
+        }
     }
 }

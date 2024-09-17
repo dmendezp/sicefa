@@ -20,6 +20,13 @@
             color: #FFFFFF !important; /* Color del texto si es necesario */
             border: 1px solid #00e1ff !important; /* Borde opcional */
         }
+
+        .bienestar{
+            background-color: #2bff00 !important; /* Color de fondo para eventos sin ambiente */
+            color: #FFFFFF !important; /* Color del texto si es necesario */
+            border: 1px solid #2bff00 !important; /* Borde opcional */
+ 
+        }
     </style>
 @endpush
 
@@ -157,6 +164,26 @@
     </div>
 </div>
 
+<div class="modal fade" id="externalActivityDetailsModal" tabindex="-1" role="dialog" aria-labelledby="externalActivityDetailsModalModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ExternalActivityDetailsModalModalLabela"></h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="date_external_activity"></div>
+                <div id="description_external_activity"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="card">
     <div class="card-body">
         <div class="row">
@@ -207,12 +234,16 @@
 
             eventDidMount: function(info) {
                 var eventData = info.event.extendedProps;
-                console.log(eventData.instructor_program && eventData.instructor_program.modality);
+
                 // Verifica si `environment_instructor_programs` existe y es un array
                 if (eventData.instructor_program && eventData.instructor_program.modality == 'Complementaria') {
                     info.el.classList.add('complementaria');
                 }else if(eventData.instructor_program && eventData.instructor_program.modality == 'Medios Tecnologicos'){
                     info.el.classList.add('medios_tecnologicos');
+                }
+                
+                if(eventData.hasExternalActivity){
+                    info.el.classList.add('bienestar');
                 }
 
                 // Verifica si hay una novedad basada en la propiedad personalizada
@@ -224,7 +255,6 @@
 
             eventClick: function(info) {
                 var eventData = info.event.extendedProps;
-                
 
                 // Verifica si el evento es un día festivo (evento de fondo)
                 if (info.event.display === 'background') {
@@ -269,9 +299,7 @@
                         if(eventData.instructor_program.modality == 'Titulada' || eventData.instructor_program.modality == 'Medios Tecnologicos'){
                             $('#quartelie').text('Trimestre: ' + eventData.instructor_program.quarter_number);
                         }
-
-                } else if (option == 2) {
-                    
+                } else if (option == 2) {      
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
                         $('#instructor_program_id').val(eventData.instructor_program.id);
                         var instructorsHtml = 'Instructores : <br>';
@@ -292,24 +320,32 @@
                         $('#learning_outcome').html(learning_outcomesHtml);
                 } else if (option == 3) {
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
-                        $('#instructor_program_id').val(eventData.instructor_program.id);
+                        if(eventData.instructor_program && eventData.instructor_program.id){
+                            $('#instructor_program_id').val(eventData.instructor_program.id);
+                        }else{
+                            $('#instructor_program_id').val('');
+                        }
                         $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.program.modality ? (eventData.course.program.modality) : 'N/A'));
                         if(eventData.instructor_program.modality == 'Titulada' || eventData.instructor_program.modality == 'Medios Tecnologicos'){
                             $('#quartelie').text('Trimestre: ' + eventData.instructor_program.quarter_number);
                         }
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name) : 'N/A'));
-                        var instructorsHtml = 'Instructores : <br>';
-                        eventData.instructor_program_people.forEach(function(pe) {
-                            instructorsHtml += '- ' + pe.person.first_name + ' ' + pe.person.first_last_name + ' ' + pe.person.second_last_name +'<br>' ;
-                        });
-                        $('#instructor').html(instructorsHtml);
+                        if (Array.isArray(eventData.instructor_program_people) && eventData.instructor_program_people.length > 0){
+                            var instructorsHtml = 'Instructores : <br>';
+                            eventData.instructor_program_people.forEach(function(pe) {
+                                instructorsHtml += '- ' + pe.person.first_name + ' ' + pe.person.first_last_name + ' ' + pe.person.second_last_name +'<br>' ;
+                            });
+                            $('#instructor').html(instructorsHtml);
+                        }
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
-                        var learning_outcomesHtml = 'Resultados : <br>';
-                        eventData.instructor_program_outcomes.forEach(function(le) {
-                            learning_outcomesHtml += '- ' + le.learning_outcome.name + '<br>' ;
-                        });
-                        $('#learning_outcome').html(learning_outcomesHtml);
+                        if (Array.isArray(eventData.instructor_program_outcomes) && eventData.instructor_program_outcomes.length > 0){
+                            var learning_outcomesHtml = 'Resultados : <br>';
+                            eventData.instructor_program_outcomes.forEach(function(le) {
+                                learning_outcomesHtml += '- ' + le.learning_outcome.name + '<br>' ;
+                            });
+                            $('#learning_outcome').html(learning_outcomesHtml);
+                        }
                 } else {
                         var environmentsHtml = 'Ambientes: <br>';
                         eventData.environment_instructor_programs.forEach(function(eip) {
@@ -334,7 +370,6 @@
                 }
                 
                 if (eventData.hasNovelty) {
-                    console.log(eventData.instructor_program_novelties);
                     if (Array.isArray(eventData.instructor_program_novelties) && eventData.instructor_program_novelties.length > 0) {
                         $('#eventProgramDetailsModalModalLabela').text((eventData.instructor_program_novelties[0].activity));
                         $('#date_eventely').text('Fecha: ' + (eventData.instructor_program_novelties[0].date));
@@ -342,10 +377,17 @@
                         // Muestra el modal con los detalles de la novedad
                         $('#eventProgramDetailsModal').modal('show');
                     }
-                } else {
+                }
+
+                if(eventData.hasExternalActivity){
+                    $('#ExternalActivityDetailsModalModalLabela').text((eventData.instructor_program.activity_name));
+                    $('#date_external_activity').text('Fecha: ' + info.event.start.toLocaleDateString());
+                    $('#description_external_activity').text('Descripción: ' + (eventData.instructor_program.activity_description));
+
+                    $('#externalActivityDetailsModal').modal('show');
+                }else {
                     // Si no hay novedad, mostrar el modal normal
-                    $('#eventDetailsModal').modal('show');
-                    
+                    $('#eventDetailsModal').modal('show'); 
                 }
 
                 $('#eventDetailsModal').on('hidden.bs.modal', function () {
@@ -448,19 +490,42 @@
                 success: function(response) {
                     calendar.removeAllEvents();
                     response.programmingEvents.forEach(function(eventData) {
-                        var environmentName = eventData.modality == 'Complementaria'
-                            ? 'Complementaria'
-                            : eventData.modality == 'Medios Tecnologicos'
-                                ? 'Medios Tecnologicos'
-                                : eventData.environment_instructor_programs[0].environment.name;
-                        var titleWithInitials = option == 1
-                            ? eventData.course.code + ' - ' + environmentName
-                            : option == 2
-                            ? eventData.instructor_program_people[0].person.initials + ' - ' + eventData.course.code
-                            : option == 3
-                            ? eventData.instructor_program_people[0].person.initials + ' - ' + environmentName
-                            : eventData.instructor_program_people[0].person.initials + ' - ' + eventData.course.code;
+                        var modality = eventData.modality;
+                        var environmentName;
+                        switch(modality){
+                            case 'Complementaria':
+                                environmentName = 'Complementaria';
+                                break;
+                            case 'Medios Tecnologicos':
+                                environmentName = 'Medios Tecnologicos'; 
+                                break;
+                            case null: // Si la modalidad es nula
+                            case undefined: // Si no existe la modalidad
+                                environmentName = eventData.activity_name;
+                                break;
+                            default:
+                            environmentName = eventData.environment_instructor_programs[0].environment.name;
+                        }
                         
+                        var titleWithInitials;
+                        switch(option) {
+                            case 1:
+                                titleWithInitials = eventData.course.code + ' - ' + environmentName;
+                                break;
+                            case 2:
+                                titleWithInitials = eventData.instructor_program_people[0].person.initials + ' - ' + eventData.course.code;
+                                break;
+                            case 3:
+                                titleWithInitials = eventData.instructor_program_people[0].person.initials + ' - ' + environmentName;                               
+                                break;
+                            default:
+                                if (eventData.instructor_program_people.length > 0) {
+                                    titleWithInitials = eventData.instructor_program_people[0].person.initials + ' - ' + eventData.course.code;
+                                }  else {
+                                    titleWithInitials = eventData.activity_name; // Si no hay persona, solo muestra el nombre de la actividad
+                                }
+                        }
+                                                
                         if (Array.isArray(eventData.instructor_program_novelties) && eventData.instructor_program_novelties.length > 0) {
                             calendar.addEvent({
                                 title: eventData.instructor_program_novelties[0].activity,
@@ -473,20 +538,31 @@
                             });
                         } 
 
-                           
-                        calendar.addEvent({
-                            title: titleWithInitials,
-                            start: eventData.date + 'T' + eventData.start_time,
-                            end: eventData.date + 'T' + eventData.end_time,
-                            extendedProps: {
-                                timeRange: `(${formatTime(eventData.start_time)} - ${formatTime(eventData.end_time)})`,
-                                instructor_program: eventData,
-                                instructor_program_people: eventData.instructor_program_people,
-                                course: eventData.course,
-                                environment_instructor_programs: eventData.environment_instructor_programs || [],
-                                instructor_program_outcomes: eventData.instructor_program_outcomes
-                            }
-                        });
+                        if(eventData.activity_name){
+                            calendar.addEvent({
+                                title: eventData.activity_name,
+                                start: eventData.date,
+                                extendedProps: {
+                                    timeRange : `(${formatTime(eventData.start_time)} - ${formatTime(eventData.end_time)})`,
+                                    hasExternalActivity: true, // Propiedad personalizada para indicar la existencia de una novedad
+                                    instructor_program: eventData
+                                }
+                            });
+                        }else {
+                            calendar.addEvent({
+                                title: titleWithInitials,
+                                start: eventData.date + 'T' + eventData.start_time,
+                                end: eventData.date + 'T' + eventData.end_time,
+                                extendedProps: {
+                                    timeRange: `(${formatTime(eventData.start_time)} - ${formatTime(eventData.end_time)})`,
+                                    instructor_program: eventData,
+                                    instructor_program_people: eventData.instructor_program_people,
+                                    course: eventData.course,
+                                    environment_instructor_programs: eventData.environment_instructor_programs || [],
+                                    instructor_program_outcomes: eventData.instructor_program_outcomes
+                                }
+                            });
+                        }
 
                         calendar.setOption('eventContent', function(arg) {
                             return { 

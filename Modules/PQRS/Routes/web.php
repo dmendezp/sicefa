@@ -19,8 +19,7 @@ Route::middleware(['lang'])->group(function(){
             Route::post('/tracking/excel/store_excel_regional', 'store_excel_regional')->name('pqrs.tracking.excel.store_excel_regional');
             Route::post('/tracking/excel/store_excel_centro', 'store_excel_centro')->name('pqrs.tracking.excel.store_excel_centro');
             Route::post('/tracking/email', 'email')->name('pqrs.tracking.email');
-            Route::post('/tracking/filed_response', 'filed_response')->name('pqrs.tracking.filed_response');
-
+            Route::post('/tracking/answer/store', 'answer_store')->name('pqrs.tracking.answer.store');
         });
 
         Route::controller(AnswerController::class)->group(function () {

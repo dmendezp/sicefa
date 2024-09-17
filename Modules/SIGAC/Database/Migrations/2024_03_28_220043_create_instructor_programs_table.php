@@ -16,6 +16,8 @@ class CreateInstructorProgramsTable extends Migration
         Schema::create('instructor_programs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->string('activity_name', 10)->nullable();
+            $table->string('activity_description')->nullable();
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time');

@@ -158,9 +158,9 @@
                                         </a>
                                     </li>
                                 @endif
-                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming.management.index'))
+                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming.external_activities.index'))
                                     <li class="nav-item">
-                                        <a href="" class="nav-link">
+                                        <a href="{{ route('sigac.academic_coordination.programming.external_activities.index') }}" class="nav-link">
                                             <i class="nav-icon fas fa-graduation-cap"></i>
                                             <p>Actividades Externas</p>
                                         </a>
@@ -509,7 +509,7 @@
                     @endif
 
                     <!-- Menú de opciones para Bienestar -->
-                    @if (Route::is('sigac.wellbeing.*'))
+                    @if (Route::is('sigac.wellness.*'))
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-book"></i>
@@ -522,7 +522,7 @@
                                 <li class="nav-item">
                                     <a href="" class="nav-link">
                                         <i class="nav-icon fas fa-file-invoice"></i>
-                                        <p>Reporte novedades</p>
+                                        <p>Reporte Novedades</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -551,12 +551,14 @@
                                         </a>
                                     </li>
                                 @endif
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="nav-icon fas fa-graduation-cap"></i>
-                                        <p>Actividades Externas</p>
-                                    </a>
-                                </li>
+                                @if(Auth::user()->havePermission('sigac.wellness.programming.external_activities.index'))
+                                    <li class="nav-item">
+                                        <a href="{{ route('sigac.wellness.programming.external_activities.index') }}" class="nav-link">
+                                            <i class="nav-icon fas fa-graduation-cap"></i>
+                                            <p>Actividades Externas</p>
+                                        </a>
+                                    </li>
+                                @endif
                             </ul>
                         </li>
                         <li class="nav-item">
