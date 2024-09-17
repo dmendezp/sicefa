@@ -21,7 +21,7 @@
                         <h3 class="card-title">Actividades externas</h3>
                     </div>
                     <div class="card-body">
-                        {!! Form::open(['route' => 'sigac.wellness.programming.external_activities.external_activities_store', 'method' => 'POST']) !!}
+                        {!! Form::open(['route' => 'sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.external_activities.external_activities_store', 'method' => 'POST']) !!}
                             @csrf
                             <div class="form-group">
                                 <div class="row">
@@ -106,7 +106,7 @@
         $('#search').on('keyup', function() {
             var name = $(this).val();
             $.ajax({
-                url: "{{ route('sigac.wellness.programming.external_activities.external_activities_search_course') }}", // Ruta que procesará la búsqueda en el servidor
+                url: "{{ route('sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.external_activities.external_activities_search_course') }}", // Ruta que procesará la búsqueda en el servidor
                 method: 'GET',
                 data: { name: name },
                 success: function(data) {

@@ -158,9 +158,9 @@
                                         </a>
                                     </li>
                                 @endif
-                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming.management.index'))
+                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming.external_activities.index'))
                                     <li class="nav-item">
-                                        <a href="" class="nav-link">
+                                        <a href="{{ route('sigac.academic_coordination.programming.external_activities.index') }}" class="nav-link">
                                             <i class="nav-icon fas fa-graduation-cap"></i>
                                             <p>Actividades Externas</p>
                                         </a>

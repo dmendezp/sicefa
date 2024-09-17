@@ -899,6 +899,36 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista actividades externas (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.external_activities.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista actividades externas (Coordinación Académica)',
+            'description' => 'Puede ingresar a la vista de actividades externas',
+            'description_english' => "You can enter the external activities view",
+            'app_id' => $app->id
+        ]);
+
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar cursos (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.external_activities.external_activities_search_course'], [ // Registro o actualización de permiso
+            'name' => 'Consultar cursos (Coordinación Académica)',
+            'description' => 'Puede consultar los cursos',
+            'description_english' => "You can check the courses",
+            'app_id' => $app->id
+        ]);
+
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Guardar programacion de actividades externas (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.external_activities.external_activities_store'], [ // Registro o actualización de permiso
+            'name' => 'Guardar programacion de actividades externas (Coordinación Académica)',
+            'description' => 'Puede guardar la programacion de actividades externas',
+            'description_english' => "You can save the schedule of external activities",
+            'app_id' => $app->id
+        ]);
+
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
         
 
         //  ----------------------------------- ROL INSTRUCTOR ------------------------------------------

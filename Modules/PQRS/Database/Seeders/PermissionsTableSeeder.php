@@ -152,6 +152,16 @@ class PermissionsTableSeeder extends Seeder
 
         $permission_tracking[] = $permission->id; // Almacenar permiso para rol
 
+        // Registrar respuesta (Monitor)
+        $permission = Permission::updateOrCreate(['slug' => 'pqrs.tracking.answer.store'], [
+            'name' => 'Registrar respuesta',
+            'description' => 'Puede registrar la respuesta (Monitor).',
+            'description_english' => 'You can record the response (Monitor).',
+            'app_id' => $app->id
+        ]);
+
+        $permission_tracking[] = $permission->id;
+
         // Vista PQRS del funcionario (Funcionario)
         $permission = Permission::updateOrCreate(['slug' => 'pqrs.official.answer.index'], [
             'name' => 'Vista PQRS del funcionario',
