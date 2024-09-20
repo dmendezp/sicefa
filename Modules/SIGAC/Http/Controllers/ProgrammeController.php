@@ -1794,34 +1794,85 @@ class ProgrammeController extends Controller
         return response()->json($output);
     }
 
-    public function external_activities_store(Request $request){
+    public function external_activities_search_person(Request $request){
+        $term = $request->get('term');
+        $persons = Person::whereRaw("CONCAT(first_name, ' ', first_last_name, ' ', second_last_name) LIKE ?", ['%' . $term . '%'])->get();
+
+        $results = [];
+        foreach ($persons as $person) {
+            $results[] = [
+                'id' => $person->id,
+                'text' => $person->full_name,
+            ];
+        }
+
+        return response()->json($results);
+    }
+
+    public function external_activities_store(Request $request){   
         $courses = $request->courses;
         $date = $request->date;
         $start_time = $request->start_time;
         $end_time = $request->end_time;
-        $activity_name = $request->activity;
         $activity_description = $request->description;
+        $responsible = $request->responsible;
+        $app_id = App::where('name', 'SIGAC')->pluck('id')->first();
 
+        $user = Auth::user();
+  
+        $slug  = Role::where('app_id', $app_id)
+        ->whereHas('users', function ($query) use ($user) {
+            $query->where('users.id', $user->id);
+        })->pluck('slug')->first();  
+        
+        $roles = Str::replaceFirst('sigac.', '', $slug);
+
+        $route = getRoleRouteName(Route::currentRouteName());
         try {
+
             DB::beginTransaction();
 
-            foreach($courses as $c){
-                $instructor_program = new InstructorProgram;
-                $instructor_program->course_id = $c;
-                $instructor_program->activity_name = $activity_name;
-                $instructor_program->activity_description = $activity_description;
-                $instructor_program->date = $date;
-                $instructor_program->start_time = $start_time;
-                $instructor_program->end_time = $end_time;
-                $instructor_program->state = 'Programado';
-                $instructor_program->save();
+            if($route == 'academic_coordination' || $roles == 'academic_coordinator'){
+                foreach($courses as $c){
+                    $instructor_program = new InstructorProgram;
+                    $instructor_program->course_id = $c;
+                    $instructor_program->activity_name = 'Coordinación Académica';
+                    $instructor_program->activity_description = $activity_description;
+                    $instructor_program->date = $date;
+                    $instructor_program->start_time = $start_time;
+                    $instructor_program->end_time = $end_time;
+                    $instructor_program->state = 'Programado';
+                    $instructor_program->save();
+
+                    $instructor_program_people = new InstructorProgramPerson;
+                    $instructor_program_people->instructor_program_id = $instructor_program->id;
+                    $instructor_program_people->person_id = $responsible;
+                    $instructor_program_people->save();
+                }
+            }else if ($route == 'wellness' || $roles == 'wellness'){
+                foreach($courses as $c){
+                    $instructor_program = new InstructorProgram;
+                    $instructor_program->course_id = $c;
+                    $instructor_program->activity_name = 'Bienestar';
+                    $instructor_program->activity_description = $activity_description;
+                    $instructor_program->date = $date;
+                    $instructor_program->start_time = $start_time;
+                    $instructor_program->end_time = $end_time;
+                    $instructor_program->state = 'Programado';
+                    $instructor_program->save();
+
+                    $instructor_program_people = new InstructorProgramPerson;
+                    $instructor_program_people->instructor_program_id = $instructor_program->id;
+                    $instructor_program_people->person_id = $responsible;
+                    $instructor_program_people->save();
+                }
             }
             DB::commit();
                 
             return back()->with('success', 'Actividad externa registrada exitosamente')->with('typealert', 'success');
         } catch (\Exception $e){
             DB::rollBack();
-            return response()->json(['error' => 'Error interno del servidor'], 500);
+            return back()->with(['error' => 'Error interno del servidor.'], 500);
         }
     }
 }

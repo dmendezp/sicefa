@@ -40,8 +40,16 @@
                                 @endif
                             </td>
                             <td class="text-center">{{ \Carbon\Carbon::parse($c->star_date)->format('d-m-y') }}</td>
-                            <td class="text-center">{{ \Carbon\Carbon::parse($c->school_end_date)->format('d-m-y') }}</td>
-                            <td class="text-center">{{ \Carbon\Carbon::parse($c->start_production_date)->format('d-m-y') }}</td>
+                            <td class="text-center">
+                                @if($c->school_end_date)
+                                    {{ \Carbon\Carbon::parse($c->school_end_date)->format('d-m-y') }}
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                @if($c->start_production_date)
+                                    {{ \Carbon\Carbon::parse($c->start_production_date)->format('d-m-y') }}
+                                @endif
+                            </td>
                             <td class="text-center">{{ Carbon\Carbon::parse($c->end_date)->format('d-m-y') }}</td>
                         </tr>
                     @endforeach

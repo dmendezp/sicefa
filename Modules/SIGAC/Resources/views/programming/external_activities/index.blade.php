@@ -37,16 +37,16 @@
                                         {!! Form::label('end_time', 'Hora fin') !!}
                                         {!! Form::time('end_time', null, ['class' => 'form-control']) !!}
                                     </div>
-                                </div>    
-                                <div class="col-12">
-                                    {!! Form::label('activity', 'Actividad') !!}
-                                    {!! Form::text('activity', null, ['class' => 'form-control', 'placeholder' => 'Ingrese un nombre maximo de 10 caracteres', 'maxlength' => 10]) !!}
-                                </div>   
-                                <div class="col-12">
-                                    {!! Form::label('description', 'Descripción') !!}
-                                    {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Descripción de la actividad', 'style' => 'height: 10px']) !!}
+                                    
+                                    <div class="col-6">
+                                        {!! Form::label('description', 'Descripción') !!}
+                                        {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Descripción de la actividad', 'style' => 'height: 10px']) !!}
+                                    </div>
+                                    <div class="col-6">
+                                        {!! Form::label('responsible', 'Encargado') !!}
+                                        {!! Form::select('responsible', [], null, ['class' => 'form-control', 'id' => 'responsible', 'placeholder' => 'Buscar persona']) !!}
+                                    </div>   
                                 </div>
-                                
                             </div>
                             <div class="form-group">
                                 <div class="col-12">
@@ -114,6 +114,33 @@
                     $('#course-list').html(data);
                 }
             });
+        });
+
+        $('select[name="responsible"]:last').select2({
+            placeholder: 'Buscar persona',
+            minimumInputLength: 3,
+            ajax: {
+                url: '{{ route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.external_activities.external_activities_search_person') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        term: params.term,
+                    };
+                },
+                processResults: function(data) {
+                    var results = data.map(function(item) {
+                        return {
+                            id: item.id,
+                            text: item.text
+                        };
+                    });
+                    return {
+                        results: results
+                    };
+                },
+                cache: true
+            }
         });
     });
 </script>
