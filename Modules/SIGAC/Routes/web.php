@@ -135,10 +135,12 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('academic_coordination/programming/external_activities/index', 'external_activities_index')->name('sigac.academic_coordination.programming.external_activities.index'); // Buscar profesion
             Route::get('academic_coordination/programming/external_activities/search_course', 'external_activities_search_course')->name('sigac.academic_coordination.programming.external_activities.external_activities_search_course'); // Buscar profesion
             Route::post('academic_coordination/programming/external_activities/store', 'external_activities_store')->name('sigac.academic_coordination.programming.external_activities.external_activities_store'); // Buscar profesion
-            
+            Route::get('academic_coordination/programming/external_activities/searchperson', 'external_activities_search_person')->name('sigac.academic_coordination.programming.external_activities.external_activities_search_person');
+
             Route::get('wellness/programming/external_activities/index', 'external_activities_index')->name('sigac.wellness.programming.external_activities.index'); // Buscar profesion
             Route::get('wellness/programming/external_activities/search_course', 'external_activities_search_course')->name('sigac.wellness.programming.external_activities.external_activities_search_course'); // Buscar profesion
             Route::post('wellness/programming/external_activities/store', 'external_activities_store')->name('sigac.wellness.programming.external_activities.external_activities_store'); // Buscar profesion
+            Route::get('wellness/programming/external_activities/searchperson', 'external_activities_search_person')->name('sigac.wellness.programming.external_activities.external_activities_search_person');
         });
 
         // RUTAS PLANEACION CURRICULAR

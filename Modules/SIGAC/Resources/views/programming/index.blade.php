@@ -174,6 +174,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div id="responsible"></div>
                 <div id="date_external_activity"></div>
                 <div id="description_external_activity"></div>
             </div>
@@ -380,7 +381,12 @@
                 }
 
                 if(eventData.hasExternalActivity){
-                    $('#ExternalActivityDetailsModalModalLabela').text((eventData.instructor_program.activity_name));
+                    $('#ExternalActivityDetailsModalModalLabela').text('Actividad externa');
+                    var responsible = 'Responsable: ';
+                    eventData.instructor_program.instructor_program_people.forEach(function(pe) {
+                        responsible += pe.person.first_name + ' ' + pe.person.first_last_name + ' ' + pe.person.second_last_name;
+                    });
+                    $('#responsible').html(responsible);
                     $('#date_external_activity').text('Fecha: ' + info.event.start.toLocaleDateString());
                     $('#description_external_activity').text('Descripción: ' + (eventData.instructor_program.activity_description));
 

@@ -23,7 +23,7 @@
                                         '5' => '5',
                                         '6' => '6',
                                         '7' => '7'
-                                    ],  null, ['class' => 'form-control', 'id' => 'quarterlie', 'height' => '50px', 'placeholder' => 'Seleccione un trimestre']) !!}
+                                    ],  null, ['class' => 'form-control', 'id' => 'quarterlie', 'height' => '50px', 'placeholder' => 'Seleccione trimestre actual de formación']) !!}
                                 </div>
                             </div>
                         </div>
