@@ -132,7 +132,7 @@
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview" style="display: none;">
+                            <ul class="nav nav-treeview items" style="display: none;">
                                 @if (Auth::user()->havePermission('sigac.academic_coordination.programming.parameters.index'))
                                     <li class="nav-item">
                                         <a href="{{ route('sigac.academic_coordination.programming.parameters.index') }}" class="nav-link">
@@ -145,7 +145,7 @@
                                     <li class="nav-item">
                                         <a href="{{ route('sigac.academic_coordination.programming.index') }}"
                                             class="nav-link {{ !Route::is('sigac.academic_coordination.programming.*') ?: 'active' }}">
-                                            <i class="nav-icon far fa-calendar-alt"></i>
+                                            <i class="nav-icon fas fa-calendar-alt"></i>
                                             <p>{{ trans('sigac::general.Scheduling') }}</p>
                                         </a>
                                     </li>
@@ -163,14 +163,6 @@
                                         <a href="{{ route('sigac.academic_coordination.programming.external_activities.index') }}" class="nav-link">
                                             <i class="nav-icon fas fa-graduation-cap"></i>
                                             <p>Actividades Externas</p>
-                                        </a>
-                                    </li>
-                                @endif
-                                @if (Auth::user()->havePermission('sigac.academic_coordination.programming.management.index'))
-                                    <li class="nav-item">
-                                        <a href="" class="nav-link">
-                                            <i class="nav-icon fas fa-graduation-cap"></i>
-                                            <p>Optativas y Basicos</p>
                                         </a>
                                     </li>
                                 @endif
@@ -255,12 +247,6 @@
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview items" style="display: none;">
-                                    <li class="nav-item">
-                                        <a href="" class="nav-link">
-                                            <i class="nav-icon far fa-calendar-alt"></i>
-                                            <p>Programacion Titulada</p>
-                                        </a>
-                                    </li>
                                     <li class="nav-item">
                                         <a href="{{ route('sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_index') }}" class="nav-link">
                                             <i class="nav-icon fas fa-tags"></i>
@@ -369,7 +355,7 @@
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview" style="display: none;">
+                            <ul class="nav nav-treeview items" style="display: none;">
                                 @if (Auth::user()->havePermission('sigac.instructor.programming.index'))
                                     <li class="nav-item">
                                         <a href="{{ route('sigac.instructor.programming.index') }}"
@@ -541,7 +527,7 @@
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview" style="display: none;">
+                            <ul class="nav nav-treeview items" style="display: none;">
                                 @if (Auth::user()->havePermission('sigac.wellness.programming.index'))
                                     <li class="nav-item">
                                         <a href="{{ route('sigac.wellness.programming.index') }}"

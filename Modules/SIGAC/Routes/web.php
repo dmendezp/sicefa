@@ -133,11 +133,15 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
 
             //Actividades externas
             Route::get('academic_coordination/programming/external_activities/index', 'external_activities_index')->name('sigac.academic_coordination.programming.external_activities.index'); // Buscar profesion
+            Route::get('academic_coordination/programming/external_activities/create', 'external_activities_create')->name('sigac.academic_coordination.programming.external_activities.external_activities_create'); // Buscar profesion
             Route::get('academic_coordination/programming/external_activities/search_course', 'external_activities_search_course')->name('sigac.academic_coordination.programming.external_activities.external_activities_search_course'); // Buscar profesion
             Route::post('academic_coordination/programming/external_activities/store', 'external_activities_store')->name('sigac.academic_coordination.programming.external_activities.external_activities_store'); // Buscar profesion
             Route::get('academic_coordination/programming/external_activities/searchperson', 'external_activities_search_person')->name('sigac.academic_coordination.programming.external_activities.external_activities_search_person');
-
+            Route::post('academic_coordination/programming/external_activities/approved_external_activities', 'approved_external_activities')->name('sigac.academic_coordination.programming.external_activities.approved_external_activities'); // Buscar profesion
+            Route::post('academic_coordination/programming/external_activities/cancel_external_activities', 'cancel_external_activities')->name('sigac.academic_coordination.programming.external_activities.cancel_external_activities'); // Buscar profesion
+ 
             Route::get('wellness/programming/external_activities/index', 'external_activities_index')->name('sigac.wellness.programming.external_activities.index'); // Buscar profesion
+            Route::get('wellness/programming/external_activities/create', 'external_activities_create')->name('sigac.wellness.programming.external_activities.external_activities_create'); // Buscar profesion
             Route::get('wellness/programming/external_activities/search_course', 'external_activities_search_course')->name('sigac.wellness.programming.external_activities.external_activities_search_course'); // Buscar profesion
             Route::post('wellness/programming/external_activities/store', 'external_activities_store')->name('sigac.wellness.programming.external_activities.external_activities_store'); // Buscar profesion
             Route::get('wellness/programming/external_activities/searchperson', 'external_activities_search_person')->name('sigac.wellness.programming.external_activities.external_activities_search_person');

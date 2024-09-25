@@ -19,74 +19,57 @@
                 <div class="card card-blue card-outline shadow">
                     <div class="card-header">
                         <h3 class="card-title">Actividades externas</h3>
+                        <a class="btn btn-outline-success float-right ml-1" href="{{ route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.external_activities.external_activities_create') }}">Solicitar actividad</a>
                     </div>
                     <div class="card-body">
-                        {!! Form::open(['route' => 'sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.external_activities.external_activities_store', 'method' => 'POST']) !!}
-                            @csrf
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-4">
-                                        {!! Form::label('date', 'Fecha') !!}
-                                        {!! Form::date('date', null, ['class' => 'form-control']) !!}
-                                    </div>
-                                    <div class="col-4">
-                                        {!! Form::label('start_time', 'Hora inicio') !!}
-                                        {!! Form::time('start_time', null, ['class' => 'form-control']) !!}
-                                    </div>
-                                    <div class="col-4">
-                                        {!! Form::label('end_time', 'Hora fin') !!}
-                                        {!! Form::time('end_time', null, ['class' => 'form-control']) !!}
-                                    </div>
-                                    
-                                    <div class="col-6">
-                                        {!! Form::label('description', 'Descripción') !!}
-                                        {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Descripción de la actividad', 'style' => 'height: 10px']) !!}
-                                    </div>
-                                    <div class="col-6">
-                                        {!! Form::label('responsible', 'Encargado') !!}
-                                        {!! Form::select('responsible', [], null, ['class' => 'form-control', 'id' => 'responsible', 'placeholder' => 'Buscar persona']) !!}
-                                    </div>   
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-12">
-                                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                                        <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingOne">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                            <b>Fichas</b>
-                                            </button>
-                                        </h2>
-                                        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                            <div class="accordion-body">
-                                                <div class="input-group">
-                                                    {!! Form::text('search', null, ['class' => 'form-control', 'placeholder' => 'Buscar ficha', 'id' => 'search', 'autocomplete' => 'off']) !!}
-                                                    <span class="input-group-text bg-white border-0">
-                                                        <i class="fas fa-search"></i> <!-- Aquí va el icono -->
-                                                    </span>
-                                                </div>
-                                                <div class="form-check">
-                                                    {!! Form::checkbox('all', null, false, ['class' => 'form-check-input', 'id' => 'all']) !!}
-                                                    {!! Form::label('all', 'Todas') !!}
-                                                </div>
-                                                <div id="course-list">
-                                                    @foreach($course as $c)
-                                                        <div class="form-check">
-                                                            {!! Form::checkbox('courses[]', $c['id'], false, ['class' => 'form-check-input courses', 'id' => 'courses']) !!}
-                                                            {!! Form::label('course_' . $c['id'], $c['name'], ['class' => 'form-check-label']) !!}
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
-                            </div>
-                        {!! Form::close() !!}
+                        <div class="table-responsive">
+                            <table id="table" class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Descripción</th>
+                                        <th class="text-center">Encargado</th>
+                                        <th class="text-center">Fecha</th>
+                                        <th class="text-center">Desde - Hasta</th>
+                                        <th class="text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($external_activities as $activity_name => $group) <!-- Agrupado por nombre de actividad -->
+                                        @php
+                                            foreach ($group as $programming) {
+                                                $ids = $programming->id;
+                                            }
+                                        @endphp
+                                        <tr>                            
+                                            <td class="text-center">{{ $group->first()->activity_description }}</td>
+                                            <td class="text-center">
+                                                @foreach($group->first()->instructor_program_people as $p)
+                                                    {{ $p->person->full_name }} <!-- Ajustar según si hay varios nombres -->
+                                                @endforeach
+                                            </td>
+                                            <td class="text-center">{{ \Carbon\Carbon::parse($group->first()->date)->format('d-m-Y') }}</td>  
+                                            <td class="text-center">{{ $group->first()->start_time . ' - ' . $group->first()->end_time }}</td>                          
+                                            <td class="text-center">
+                                                <a  class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#info{{$programming->id}}">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                @if(checkRol('sigac.academic_coordinator'))
+                                                    <a  class="btn btn-success" data-bs-toggle="modal" data-bs-target="#approve{{$programming->id}}">
+                                                        <i class="fas fa-check"></i>
+                                                    </a>
+                                                    <a  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancel{{$programming->id}}">
+                                                        <i class="fas fa-times"></i>
+                                                    </a>
+                                                @endif
+                                            </td>
+                                            @include('sigac::programming.external_activities.info') 
+                                            @include('sigac::programming.external_activities.approve')
+                                            @include('sigac::programming.external_activities.cancel')
+                                        </tr>
+                                    @endforeach
+                                </tbody>                                 
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -97,50 +80,6 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() {
-        // Cuando el checkbox "all" cambia de estado
-        $('#all').change(function() {
-            // Selecciona o deselecciona todos los checkboxes de cursos
-            $('.courses').prop('checked', $(this).prop('checked'));
-        });
-
-        $('#search').on('keyup', function() {
-            var name = $(this).val();
-            $.ajax({
-                url: "{{ route('sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.external_activities.external_activities_search_course') }}", // Ruta que procesará la búsqueda en el servidor
-                method: 'GET',
-                data: { name: name },
-                success: function(data) {
-                    // Actualizar el contenedor de cursos con los resultados filtrados
-                    $('#course-list').html(data);
-                }
-            });
-        });
-
-        $('select[name="responsible"]:last').select2({
-            placeholder: 'Buscar persona',
-            minimumInputLength: 3,
-            ajax: {
-                url: '{{ route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.external_activities.external_activities_search_person') }}',
-                dataType: 'json',
-                delay: 250,
-                data: function(params) {
-                    return {
-                        term: params.term,
-                    };
-                },
-                processResults: function(data) {
-                    var results = data.map(function(item) {
-                        return {
-                            id: item.id,
-                            text: item.text
-                        };
-                    });
-                    return {
-                        results: results
-                    };
-                },
-                cache: true
-            }
-        });
+        $('#table').DataTable();
     });
 </script>

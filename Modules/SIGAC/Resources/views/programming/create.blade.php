@@ -330,10 +330,20 @@
                         // Construye el HTML con la información recibida
                         $('#quaterlie').show(); // Mostrar trimestralizacion
                         var html = '';
+
+                        $.each(response.outcomes_not_programming, function(competencie_pass, results_pass) {
+                            html += '<h6><b>' + competencie_pass + ' - No programado</b></h6><ul>';
+                            $.each(results_pass, function(index, result_pass) {
+                                html += '<li>' + result_pass.learning_outcome.name + '<strong> Horas: </strong>' + result_pass.hour + ' - <strong>Trimestre: </strong>'+ result_pass.quarter_number +'</li>';
+                                plannedHoursMap[result_pass.learning_outcome.id] = result_pass.hour;
+                                learningOutcomeMap[result_pass.learning_outcome.id] = result_pass.learning_outcome.name;
+                            });
+                            html += '</ul>';
+                        });
+
                         $.each(response.quarterlie, function(competencie, results) {
                             html += '<h6><b>' + competencie + '</b></h6><ul>';
                             $.each(results, function(index, result) {
-                                console.log(result);
                                 html += '<li>' + result.learning_outcome.name + '<strong> Horas: </strong>' + result.hour + '</li>';
                                 plannedHoursMap[result.learning_outcome.id] = result.hour;
                                 learningOutcomeMap[result.learning_outcome.id] = result.learning_outcome.name;
@@ -410,12 +420,12 @@
         });
 
 
-        $('.learning_outcome_select').off('change', '.learning_outcome_select').on('change', '.learning_outcome_select', function() {
+        $('.learning_outcome_select').on('change', function() {
             var learning_outcome_id = $(this).val();
             var course_id = $('#course').val();
 
             if (learning_outcome_id) {
-
+                
                 // Obtener instructor para el nuevo select
                 getInstructorForNewRow();
 

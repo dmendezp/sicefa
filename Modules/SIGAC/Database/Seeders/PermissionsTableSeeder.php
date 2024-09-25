@@ -909,6 +909,16 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+    
+        // Formulario de solicitud de actividad externa
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.external_activities.external_activities_create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de solicitud de actividad externa (Coordinación Académica)',
+            'description' => 'Puede ver el formulario de solicitud de actividad externa',
+            'description_english' => "You can see the external activity application form",
+            'app_id' => $app->id
+        ]);
+
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
 
         // Consultar cursos (Coordinación Académica)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.external_activities.external_activities_search_course'], [ // Registro o actualización de permiso
@@ -925,6 +935,36 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Guardar programacion de actividades externas (Coordinación Académica)',
             'description' => 'Puede guardar la programacion de actividades externas',
             'description_english' => "You can save the schedule of external activities",
+            'app_id' => $app->id
+        ]);
+
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Buscar persona para la actividad externa
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.external_activities.external_activities_search_person'], [ // Registro o actualización de permiso
+            'name' => 'Buscar persona para la actividad externa',
+            'description' => 'Puede buscar la persona que va a estar encargada de la actividad',
+            'description_english' => "You can search for the person who will be in charge of the activity",
+            'app_id' => $app->id
+        ]);
+
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Aprobar actividad externa
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.external_activities.approved_external_activities'], [ // Registro o actualización de permiso
+            'name' => 'Aprobar actividad externa',
+            'description' => 'Puede aprobar la actividad externa',
+            'description_english' => "You can approve the external activity",
+            'app_id' => $app->id
+        ]);
+
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // No aprobar actividad externa
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.external_activities.cancel_external_activities'], [ // Registro o actualización de permiso
+            'name' => 'No aprobar actividad externa',
+            'description' => 'Puede no aprobar la actividad externa',
+            'description_english' => "May not approve outside activity",
             'app_id' => $app->id
         ]);
 
@@ -1062,6 +1102,16 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Vista actividades externas (Bienestar)',
             'description' => 'Puede ingresar a la vista de actividades externas',
             'description_english' => "You can enter the external activities view",
+            'app_id' => $app->id
+        ]);
+
+        $permissions_wellness[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de solicitud de actividad externa
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.wellness.programming.external_activities.external_activities_create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de solicitud de actividad externa (Bienestar)',
+            'description' => 'Puede ver el formulario de solicitud de actividad externa',
+            'description_english' => "You can see the external activity application form",
             'app_id' => $app->id
         ]);
 
