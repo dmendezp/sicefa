@@ -34,6 +34,7 @@ class Course extends Model implements Auditable
         'modality',
         'program_id',
         'municipality_id',
+        'person_id',
         'deschooling'
     ];
 

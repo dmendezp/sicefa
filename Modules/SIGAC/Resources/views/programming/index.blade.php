@@ -266,7 +266,7 @@
 
                 if (option == 1) {
                     // Mostrar información de los ambientes
-                    if(eventData.instructor_program.modality == 'Titulada'){
+                    if(eventData.instructor_program.modality == 'Presencial'){
                         var environmentsHtml = 'Ambientes: <br>';
                         if (Array.isArray(eventData.environment_instructor_programs)) {
                             eventData.environment_instructor_programs.forEach(function(eip) {
@@ -297,7 +297,7 @@
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name + ' - ' + eventData.course.municipality.department.name) : 'N/A'));
                         $('#start_time').text('Hora de inicio: ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
                         $('#end_time').text('Hora fin: ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
-                        if(eventData.instructor_program.modality == 'Titulada' || eventData.instructor_program.modality == 'Medios Tecnologicos'){
+                        if(eventData.instructor_program.modality == 'Presencial' || eventData.instructor_program.modality == 'Medios Tecnologicos'){
                             $('#quartelie').text('Trimestre: ' + eventData.instructor_program.quarter_number);
                         }
                 } else if (option == 2) {      
@@ -320,6 +320,17 @@
                         });
                         $('#learning_outcome').html(learning_outcomesHtml);
                 } else if (option == 3) {
+                    if(eventData.instructor_program.modality == 'Presencial'){
+                        var environmentsHtml = 'Ambientes: <br>';
+                        if (Array.isArray(eventData.environment_instructor_programs)) {
+                            eventData.environment_instructor_programs.forEach(function(eip) {
+                                environmentsHtml += '- ' + (eip.environment && eip.environment.name ? eip.environment.name : 'N/A') + '<br>';
+                            });
+                        } else {
+                            environmentsHtml += '- N/A<br>';
+                        }
+                    }
+                        $('#environments').html(environmentsHtml);
                         $('#date').text('Fecha: ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
                         if(eventData.instructor_program && eventData.instructor_program.id){
                             $('#instructor_program_id').val(eventData.instructor_program.id);
@@ -327,7 +338,7 @@
                             $('#instructor_program_id').val('');
                         }
                         $('#modality').text('Modalidad: ' + (eventData.course && eventData.course.program.modality ? (eventData.course.program.modality) : 'N/A'));
-                        if(eventData.instructor_program.modality == 'Titulada' || eventData.instructor_program.modality == 'Medios Tecnologicos'){
+                        if(eventData.instructor_program.modality == 'Presencial' || eventData.instructor_program.modality == 'Medios Tecnologicos'){
                             $('#quartelie').text('Trimestre: ' + eventData.instructor_program.quarter_number);
                         }
                         $('#municipality').text('Municipio: ' + (eventData.course && eventData.course ? (eventData.course.municipality.name) : 'N/A'));

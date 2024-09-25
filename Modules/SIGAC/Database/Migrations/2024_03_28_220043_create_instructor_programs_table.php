@@ -22,7 +22,7 @@ class CreateInstructorProgramsTable extends Migration
             $table->time('start_time');
             $table->time('end_time');
             $table->enum('quarter_number', ['1','2','3','4','5','6','7']);
-            $table->enum('state', ['Programado','Cancelado']);
+            $table->enum('state', ['Programado','Cancelado', 'Pendiente']);
             $table->enum('modality', ['Titulada', 'Medios Tecnologicos', 'Complementaria']);
             $table->timestamps();
         });

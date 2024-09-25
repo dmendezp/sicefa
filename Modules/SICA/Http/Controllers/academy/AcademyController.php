@@ -13,6 +13,7 @@ use Modules\SICA\Entities\Network;
 use Modules\SICA\Entities\KnowledgeNetwork;
 use Modules\SICA\Entities\Line;
 use Modules\SICA\Entities\Quarter;
+use Illuminate\Support\Facades\DB;
 
 class AcademyController extends Controller
 {
@@ -491,7 +492,7 @@ class AcademyController extends Controller
 
     /* Listado de cursos registados */
     public function courses_index(){
-        $courses = Course::with('program')->orderByDesc('updated_at')->get();
+        $courses = Course::with('program', 'person')->orderByDesc('updated_at')->get();
         $data = ['title'=>trans('sica::menu.Courses'),'courses'=>$courses];
         return view('sica::admin.academy.courses.index',$data);
     }
@@ -499,14 +500,48 @@ class AcademyController extends Controller
     /* Formulario de registro de curso */
     public function courses_create(){
         $program = Program::orderBy('name', 'ASC')->pluck('name','id');
-        return view('sica::admin.academy.courses.create', compact('program'));
+
+        $getInstructor = DB::table('employees')
+        ->join('employee_types', 'employees.employee_type_id', '=', 'employee_types.id')
+        ->join('people', 'employees.person_id', '=', 'people.id')
+        ->where('state', 'Activo')
+        ->where('employee_types.name', 'Instructor')
+        ->select('people.id','people.first_name', 'people.first_last_name', 'people.second_last_name', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
+        ->union(
+            DB::table('contractors')
+            ->join('employee_types', 'contractors.employee_type_id', '=', 'employee_types.id')
+            ->join('people', 'contractors.person_id', '=', 'people.id')
+            ->where('state', 'Activo')
+            ->where('employee_types.name', 'Instructor')
+            ->select('people.id','people.first_name', 'people.first_last_name', 'people.second_last_name', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
+        )->get();
+
+        $instructors = $getInstructor->map(function ($i) {
+            $id = $i->id;
+            $name = $i->first_name . ' ' . $i->first_last_name . ' ' . $i->second_last_name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => trans('sigac::profession.SelectAnInstructor')])->pluck('name', 'id');
+
+        $data = [
+            'program' => $program,
+            'instructors' => $instructors
+        ];
+
+        return view('sica::admin.academy.courses.create', $data);
     }
 
     /* Registrar curso */
     public function courses_store(Request $request){
         $course = new Course();
         $course->code = e($request->input('code'));
+        $course->person_id = e($request->input('person_id'));
         $course->star_date = e($request->input('star_date'));
+        $course->school_end_date = e($request->input('school_end_date'));
+        $course->star_production_date = e($request->input('star_production_date'));
         $course->end_date = e($request->input('end_date'));
         $course->status = e($request->input('status'));
         $course->program()->associate(Program::find($request->input('program_id')));
@@ -525,10 +560,37 @@ class AcademyController extends Controller
     public function courses_edit($id){
         $course = Course::find($id);
         $program = Program::orderBy('name', 'ASC')->pluck('name','id');
+
+        $getInstructor = DB::table('employees')
+        ->join('employee_types', 'employees.employee_type_id', '=', 'employee_types.id')
+        ->join('people', 'employees.person_id', '=', 'people.id')
+        ->where('state', 'Activo')
+        ->where('employee_types.name', 'Instructor')
+        ->select('people.id','people.first_name', 'people.first_last_name', 'people.second_last_name', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
+        ->union(
+            DB::table('contractors')
+            ->join('employee_types', 'contractors.employee_type_id', '=', 'employee_types.id')
+            ->join('people', 'contractors.person_id', '=', 'people.id')
+            ->where('state', 'Activo')
+            ->where('employee_types.name', 'Instructor')
+            ->select('people.id','people.first_name', 'people.first_last_name', 'people.second_last_name', 'people.misena_email', 'people.telephone1', 'employee_types.name as employee_type_name')
+        )->get();
+
+        $instructors = $getInstructor->map(function ($i) {
+            $id = $i->id;
+            $name = $i->first_name . ' ' . $i->first_last_name . ' ' . $i->second_last_name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => trans('sigac::profession.SelectAnInstructor')])->pluck('name', 'id');
+        
         $data = [
             'title' => 'Editar titulada',
             'course' => $course,
-            'program' => $program
+            'program' => $program,
+            'instructors' => $instructors
         ];
         return view('sica::admin.academy.courses.edit', $data);
     }
@@ -538,7 +600,10 @@ class AcademyController extends Controller
         $course = Course::find($request->input('id'));
         $course->code = e($request->input('code'));
         $course->program_id = e($request->input('program_id'));
+        $course->person_id = e($request->input('person_id'));
         $course->star_date = e($request->input('star_date'));
+        $course->school_end_date = e($request->input('school_end_date'));
+        $course->star_production_date = e($request->input('star_production_date'));
         $course->end_date = e($request->input('end_date'));
         $course->status = e($request->input('status'));
         $course->deschooling = e($request->input('deschooling'));

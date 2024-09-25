@@ -325,7 +325,10 @@ class TrackingController extends Controller
                         }
 
                         // Eliminar cualquier carácter no deseado (como "* (E) ")
-                        $official = preg_replace('/^\*?\s?\(E\)\s?/', '', $official);
+                        $official = preg_replace('/^\*\s*/', '', $official);
+
+                        // Eliminar "(E)" si está presente
+                        $official = preg_replace('/\(E\)\s*/', '', $official);
 
                         // Dividir el nombre en partes
                         $official_explode = preg_split('/\s+/', trim($official));
@@ -340,31 +343,6 @@ class TrackingController extends Controller
                         $filing_number_int = intval($filing_number);
 
                         $pqrs_existing = Pqrs::where('filing_number', $filing_number_int)->exists();
-
-                        foreach ($proximo_vencer as $p) {
-                            $filing_number_expite_row = $p[4];
-                            preg_match('/"(.*?)"/', $filing_number_expite_row, $matches);
-                            $filing_number_expire = $matches[1];
-                            
-                            $state_row_expirate = $p[10];
-                            preg_match('/"(.*?)"/', $state_row_expirate, $matches);
-                            $state_expirate = $matches[1];   
-        
-                            $filing_number_expire_int = intval($filing_number_expire);
-                            $filing_exists_expirate[] = $filing_number_expire_int;  
-                            $pqrs_expirate_exists = Pqrs::whereIn('filing_number', $filing_exists_expirate)->get();
-                            
-                                                  
-                        }          
-
-                        if($pqrs_expirate_exists){
-                            foreach ($pqrs_expirate_exists as $pee){
-                                $pqrs_id = $pee->id;
-                                $new_pqrs_expirate = Pqrs::find($pqrs_id);
-                                $new_pqrs_expirate->state = 'PROXIMO A VENCER';
-                                $new_pqrs_expirate->save();
-                            }  
-                        }
 
                         if($pqrs_existing){
                             $filing_exists[] = $filing_number_int;      
@@ -429,7 +407,10 @@ class TrackingController extends Controller
                         }
 
                         // Eliminar cualquier carácter no deseado (como "* (E) ")
-                        $official = preg_replace('/^\*?\s?\(E\)\s?/', '', $official);
+                        $official = preg_replace('/^\*\s*/', '', $official);
+
+                        // Eliminar "(E)" si está presente
+                        $official = preg_replace('/\(E\)\s*/', '', $official);
 
                         // Dividir el nombre en partes
                         $official_explode = preg_split('/\s+/', trim($official));
@@ -443,6 +424,8 @@ class TrackingController extends Controller
                         $type_pqrs = new TypePqrs;
                         $type_pqrs->name = $type_pqrs_name;
                         $type_pqrs->save();
+
+                        $filing_number_int = intval($filing_number);
 
                         $pqrs = new Pqrs;
                         $pqrs->type_pqrs_id = $type_pqrs->id;
@@ -461,6 +444,107 @@ class TrackingController extends Controller
 
                         $countstate++;
                     }
+                }
+
+                foreach ($proximo_vencer as $p) {
+                    $type_pqrs_expirate_row = $p[9];
+                    preg_match('/"(.*?)"/', $type_pqrs_expirate_row, $matches);
+                    $type_pqrs_name_expire = $matches[1];
+                    
+                    $type_pqrs_expire = TypePqrs::where('name', $type_pqrs_name_expire)->pluck('id');
+
+                    $filing_number_expirate_row = $p[4];
+                    preg_match('/"(.*?)"/', $filing_number_expirate_row, $matches);
+                    $filing_number_expire = $matches[1];
+
+                    $filing_date_expirate_row = $p[6];
+                    preg_match('/"(.*?)"/', $filing_date_expirate_row, $matches);
+                    $filing_date_expire = $matches[1];
+                    
+                    $nis_row_expirate = $p[5];
+                    preg_match('/"(.*?)"/', $nis_row_expirate, $matches);
+                    $nis_expire = $matches[1];  
+
+                    $end_date_row_expirate = $p[7];
+                    
+
+                    $patron = '/\d{2}\/\d{2}\/\d{4}/'; // Expresión regular para encontrar números
+                    preg_match($patron, $end_date_row_expirate, $matches);
+                    if (isset($matches[0])) {
+                        $days = $matches[0];
+                        try {
+                            // Intentar convertir la fecha extraída en un objeto Carbon
+                            $end_date_row_expirate_obj = Carbon::createFromFormat('d/m/Y', $days);
+                        } catch (\Exception $e) {
+                            // Si la conversión falla, manejar el error
+                            $mensaje = 'Error al convertir la fecha.';
+                            return redirect()->route('pqrs.tracking.index')->with(['error' => $mensaje]); 
+                        }
+                    } else {
+                        $mensaje = 'Algunas fechas contienen texto o no estan en el formato correcto.';
+                        return redirect()->route('pqrs.tracking.index')->with(['error' => $mensaje]); 
+                    }
+
+                    // Formatear la fecha como 'Y-m-d'
+                    $end_date_expire = $end_date_row_expirate_obj->format('Y-m-d');
+                    
+                    $state_row_expirate = $p[10];
+                    preg_match('/"(.*?)"/', $state_row_expirate, $matches);
+                    $state_expire = $matches[1];   
+                    
+                    $filing_number_expire_int = intval($filing_number_expire);
+
+                    $pqrs_expirate_exists = Pqrs::where('filing_number', $filing_number_expire_int)->exists();
+
+                    $official_row_expirate = $p[3];
+                    // Usar expresión regular para extraer el nombre dentro de las comillas
+                    preg_match('/"([^"]+)"/', $official_row_expirate, $matches);
+                    if (isset($matches[1])) {
+                        $official_expire = $matches[1];
+                    } else {
+                        // Si no se encuentran comillas, extraer después de =T(
+                        $official_expire = preg_replace('/^=T\("([^"]*)"\)/', '$1', $official_row_expirate);
+                    }
+
+                    // Eliminar cualquier carácter no deseado (como "* (E) ")
+                    $official_expire = preg_replace('/^\*\s*/', '', $official_expire);
+
+                    // Eliminar "(E)" si está presente
+                    $official_expire = preg_replace('/\(E\)\s*/', '', $official_expire);
+
+                    // Dividir el nombre en partes
+                    $official__expire_explode = preg_split('/\s+/', trim($official_expire));
+                        
+                    $first_name_expire = $official__expire_explode[0] . ' ' . $official__expire_explode[1];
+                    $first_last_name_expire = $official__expire_explode[2];
+                    $second_last_name_expire = isset($official__expire_explode[3]) ? $official__expire_explode[3] : '';
+
+                    // Consultar la base de datos
+                    $person_expire = Person::where('first_name', $first_name_expire)->where('first_last_name', $first_last_name_expire)->where('second_last_name', $second_last_name_expire)->pluck('id')->first();
+                    
+                    if($pqrs_expirate_exists){
+                        $filing_exists[] = $filing_number_expire_int;      
+                        continue;  
+
+                    }
+
+                    $pqrs_expire = new Pqrs;
+                    $pqrs_expire->type_pqrs_id = $type_pqrs_expire[0];
+                    $pqrs_expire->filing_number = $filing_number_expire;
+                    $pqrs_expire->filing_date = $filing_date_expire;
+                    $pqrs_expire->nis = $nis_expire;
+                    $pqrs_expire->end_date = $end_date_expire;
+                    $pqrs_expire->issue = '...';
+                    $pqrs_expire->state = $state_expire;
+                    $pqrs_expire->save();
+
+                    $pqrs_expire->people()->attach($person_expire, [
+                        'date_time' => now()->format('Y-m-d H:i:s'),
+                        'type' => 'Funcionario'
+                    ]);
+
+                    $countstate++;
+                                                              
                 }
 
                 DB::commit();
@@ -577,13 +661,12 @@ class TrackingController extends Controller
 
                         $support_row = $data[9];
                         $support_explode = preg_split('/\s+/', trim($support_row));
-                        $support_first_name = $support_explode[0] . ' ' . $support_explode[1];
-                        $support_first_last_name = $support_explode[2];
-                        $support_second_last_name = isset($support_explode[3]) ? $support_explode[3] : '';
-
+                        $support_second_last_name = isset($support_explode[3]) ? $support_explode[3] : null;
+                        $full_name = trim($support_explode[0] . ' ' . $support_explode[1] . ' ' . $support_explode[2] . ' ' . $support_second_last_name);
+                        
                         // Consultar la base de datos
                         $person = Person::where('first_name', $first_name)->where('first_last_name', $first_last_name)->where('second_last_name', $second_last_name)->pluck('id')->first();
-                        $support = Person::where('first_name', $support_first_name)->where('first_last_name', $support_first_last_name)->where('second_last_name', $support_second_last_name)->pluck('id');
+                        $support = Person::whereRaw("CONCAT(first_name, ' ', first_last_name, ' ', second_last_name) LIKE ?", [$full_name . '%'])->get();
 
                         $filing_number_int = intval($filing_number);
 

@@ -128,6 +128,34 @@ class ProgrammeController extends Controller
     {
         $course_id = $request->input('course_id');
         $quarter_number =$request->input('quarter_number');
+
+        $executed_programming = InstructorProgramOutcome::whereHas('instructor_program', function($query) use ($course_id){
+            $query->where('instructor_programs.course_id', $course_id);
+        })
+        ->select('learning_outcome_id', \DB::raw('SUM(hour) as total_executed_hours'))
+        ->groupBy('learning_outcome_id')
+        ->pluck('total_executed_hours', 'learning_outcome_id')
+        ->toArray();
+
+        $outcomes_not_programming = Quarterly::with('learning_outcome.competencie')
+        ->whereHas('training_project.courses', function($query) use ($course_id) {
+            $query->where('courses.id', $course_id);
+        })
+        ->where('quarter_number', '<', $quarter_number)
+        ->get() // Obtener todos los resultados relevantes
+        ->filter(function ($quarterly) use ($executed_programming) {
+            $learning_outcome_id = $quarterly->learning_outcome_id;
+            $planned_hours = $quarterly->hour; // Horas planeadas en 'Quarterly'
+            $executed_hours = $executed_programming[$learning_outcome_id] ?? 0; // Horas ejecutadas o 0 si no existe
+
+            // Incluir si el resultado no ha sido ejecutado o si las horas ejecutadas son menores a las horas planeadas
+            return $executed_hours < $planned_hours;
+        })
+        ->groupBy(function ($quarterly) use ($quarter_number) {
+            $competencieName = $quarterly->learning_outcome->competencie->name;
+            return str_replace('-' . $quarter_number, '', $competencieName); // Agrupar por nombre de competencia
+        });
+    
         $quarterlie = Quarterly::with('learning_outcome.competencie')
         ->where('quarter_number', $quarter_number)
         ->whereHas('training_project.courses', function($query) use ($course_id) {
@@ -139,7 +167,7 @@ class ProgrammeController extends Controller
             return str_replace('-' . $quarter_number, '', $competencieName);
         });
     
-        return response()->json(['quarterlie' => $quarterlie]);
+        return response()->json(['quarterlie' => $quarterlie, 'outcomes_not_programming' => $outcomes_not_programming]);
     }
 
     public function management_programming_filterlearning(Request $request)
@@ -1755,6 +1783,20 @@ class ProgrammeController extends Controller
     }
 
     public function external_activities_index(){
+        $external_activities = InstructorProgram::with('instructor_program_people.person', 'course')
+        ->whereNotNull('activity_name')
+        ->where('state', 'Pendiente')
+        ->get()
+        ->groupBy('activity_name');
+
+        return view('sigac::programming.external_activities.index', [
+            'titlePage' => 'Actividades externas',
+            'titleView' => 'Actividades externas',
+            'external_activities' => $external_activities
+        ]);
+    }
+
+    public function external_activities_create(){
         $courses = Course::where('status', 'Activo')->where('deschooling', 'Presencial')->get();
 
         $course = $courses->map(function($c){
@@ -1767,9 +1809,9 @@ class ProgrammeController extends Controller
             ];
         });
 
-        return view('sigac::programming.external_activities.index', [
-            'titlePage' => 'Actividades externas',
-            'titleView' => 'Actividades externas',
+        return view('sigac::programming.external_activities.create', [
+            'titlePage' => 'Crear actividades externas',
+            'titleView' => 'Crear actividades externas',
             'course' => $course
         ]);
     }
@@ -1841,7 +1883,7 @@ class ProgrammeController extends Controller
                     $instructor_program->date = $date;
                     $instructor_program->start_time = $start_time;
                     $instructor_program->end_time = $end_time;
-                    $instructor_program->state = 'Programado';
+                    $instructor_program->state = 'Pendiente';
                     $instructor_program->save();
 
                     $instructor_program_people = new InstructorProgramPerson;
@@ -1858,7 +1900,7 @@ class ProgrammeController extends Controller
                     $instructor_program->date = $date;
                     $instructor_program->start_time = $start_time;
                     $instructor_program->end_time = $end_time;
-                    $instructor_program->state = 'Programado';
+                    $instructor_program->state = 'Pendiente';
                     $instructor_program->save();
 
                     $instructor_program_people = new InstructorProgramPerson;
@@ -1869,10 +1911,49 @@ class ProgrammeController extends Controller
             }
             DB::commit();
                 
-            return back()->with('success', 'Actividad externa registrada exitosamente')->with('typealert', 'success');
+            
+            return redirect()->route('sigac.'. $route .'.programming.external_activities.index')->with('success', 'Actividad externa registrada exitosamente')->with('typealert', 'success');
         } catch (\Exception $e){
             DB::rollBack();
             return back()->with(['error' => 'Error interno del servidor.'], 500);
         }
+    }
+
+    public function approved_external_activities(Request $request){
+        $ids = $request->input('id'); // Puede ser un único ID o un array de IDs
+
+        // Si es un solo ID, convertirlo en un array
+        if (!is_array($ids)) {
+            $ids = [$ids];
+        }
+
+        // Encontrar todas las actividades con esos IDs
+        $instructorPrograms = InstructorProgram::whereIn('id', $ids)->get();
+
+        foreach ($instructorPrograms as $i) {
+            $i->state = 'Programado';
+            $i->save(); // Guardar cada actividad actualizada
+        }
+
+        return redirect()->route('sigac.academic_coordination.programming.external_activities.index')->with('success', 'Actividad externa aprobada exitosamente')->with('typealert', 'success');
+    }
+
+    public function cancel_external_activities(Request $request){
+        $ids = $request->input('id'); // Puede ser un único ID o un array de IDs
+
+        // Si es un solo ID, convertirlo en un array
+        if (!is_array($ids)) {
+            $ids = [$ids];
+        }
+
+        // Encontrar todas las actividades con esos IDs
+        $instructorPrograms = InstructorProgram::whereIn('id', $ids)->get();
+
+        foreach ($instructorPrograms as $i) {
+            $i->state = 'Cancelado';
+            $i->save(); // Guardar cada actividad actualizada
+        }
+
+        return redirect()->route('sigac.academic_coordination.programming.external_activities.index')->with('success', 'Actividad externa no aprobada exitosamente')->with('typealert', 'success');
     }
 }

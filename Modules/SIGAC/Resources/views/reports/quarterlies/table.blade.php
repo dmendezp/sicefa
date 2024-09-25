@@ -4,7 +4,7 @@
         </div>
         <div class="card-body">
             <div>
-                <div class="table-responsive">
+                <div class="table-responsive" style="overflow-y: auto; max-height: 400px;">
                     <table id="table" class="table">
                         <thead>
                             <tr>

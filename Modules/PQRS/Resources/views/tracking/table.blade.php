@@ -49,8 +49,8 @@
                                 @foreach ($pqrs as $p)  
                                     <tr class="{{ $p->state == 'PROXIMA A VENCER' ? 'row-yellow' : '' }}">
                                         <td>{{ $p->filing_number }}</td>
-                                        <td>{{ $p->filing_date }}</td>
-                                        <td>{{ $p->end_date }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($p->filing_date)->format('d-m-y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($p->end_date)->format('d-m-y') }}</td>
                                         <td>{{ $p->type_pqrs->name }}</td>
                                         <td>     
                                             @php

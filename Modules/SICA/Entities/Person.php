@@ -134,6 +134,9 @@ class Person extends Model implements Auditable
     public function cash_counts(){ // Accede a todas las sesiones de caja asociados a esta persona
         return $this->hasMany(CashCount::class);
     }
+    public function courses(){ // Accede a todos los cursos que han sido asociados con esta persona
+        return $this->hasMany(Course::class);
+    }
     public function evaluative_judgments(){ // Accede a todos los juicios evaluativos de esta persona
         return $this->hasMany(EvaluativeJudgment::class);
     }

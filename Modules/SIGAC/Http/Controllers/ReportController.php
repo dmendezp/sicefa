@@ -15,6 +15,7 @@ use Modules\SIGAC\Entities\EnvironmentInstructorProgram;
 use Modules\SICA\Entities\Environment;
 use Modules\SIGAC\Entities\InstitucionalRequest;
 use Modules\SIGAC\Entities\InstructorProgramOutcome;
+use Modules\SICA\Entities\ClassEnvironment;
 use Carbon\Carbon;
 
 class ReportController extends Controller
@@ -208,8 +209,10 @@ class ReportController extends Controller
 
         $programmedEnvironmentIds = EnvironmentInstructorProgram::whereIn('instructor_program_id', $id)->pluck('environment_id')->toArray();
 
+        $extern = ClassEnvironment::where('name', 'Externo')->pluck('id')->toArray();
+
         // Obtener los ambientes que NO están programados
-        $unprogrammedEnvironments = Environment::whereNotIn('id', $programmedEnvironmentIds)->get();
+        $unprogrammedEnvironments = Environment::whereNotIn('id', $programmedEnvironmentIds)->whereNotIn('class_environment_id', $extern)->get();
 
         $d = $unprogrammedEnvironments->map(function ($u){
             $id = $u->id;
