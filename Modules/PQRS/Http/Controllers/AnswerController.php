@@ -117,6 +117,7 @@ class AnswerController extends Controller
 
                 $msg->subject('Reasignación de la PQRS');
                 $msg->to($valid_email);
+                $msg->cc('dmcuellar@sena.edu.co');
             });
 
             // Redirige a una página de confirmación o de vuelta a la vista original

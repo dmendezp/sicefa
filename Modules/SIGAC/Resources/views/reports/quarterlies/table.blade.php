@@ -107,21 +107,63 @@
                                                 @php
                                                     $trimestreHours = $trimestre->hour;
                                                     $totalHoursByQuarter[$i] += $trimestreHours;
+                                                    $personList = []; // Array para almacenar los nombres de las personas
+                                                    foreach ($trimestre->learning_outcome->instructor_program_outcomes as $outcome) {
+                                                        if ($outcome->instructor_program->course_id == $course_id) {
+                                                            foreach ($outcome->instructor_program->instructor_program_people as $p) {
+                                                                // Añadir la persona a la lista si no está ya en ella
+                                                                if (!in_array($p->person->full_name, $personList)) {
+                                                                    $personList[] = $p->person->full_name;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
 
+                                                    // Verificamos si hay más de una persona para el resultado correspondiente
+                                                    if (count($personList) > 1) {
+                                                        // Convertimos el array de personas en una cadena separada por comas
+                                                        $person = implode(', ', $personList);
+                                                    } else {
+                                                        // Si solo hay una persona, mostramos solo esa
+                                                        $person = count($personList) == 1 ? $personList[0] : 'No hay personas asignadas';
+                                                    }
+                                                    debug($person);
                                                     // Horas ejecutadas, si existen, independientemente del trimestre
                                                     $trimestreExecutedHours = isset($executedHours[$i][$learningOutcome]) ? $executedHours[$i][$learningOutcome] : 0;
                                                     $totalExecutedHoursByQuarter[$i] += $trimestreExecutedHours;
                                                 @endphp
                                                 <td>{{ $trimestreHours }}</td>
-                                                <td class="celdae">{{ $trimestreExecutedHours > 0 ? $trimestreExecutedHours : '' }}</td>
+                                                <td class="celdae" title="{{ $person }}">{{ $trimestreExecutedHours > 0 ? $trimestreExecutedHours : '' }}</td>
                                             @else
                                                 <td></td>
                                                 @php
+                                                    $personList = []; // Array para almacenar los nombres de las personas
+                                                    foreach ($instructor_programs as $program) {
+                                                        foreach ($program->instructor_program_outcomes as $outcome) {
+                                                            if ($program->course_id == $course_id && $outcome->learning_outcome->name == $learningOutcome) {
+                                                                foreach ($program->instructor_program_people as $p) {
+                                                                    // Añadir la persona a la lista si no está ya en ella
+                                                                    if (!in_array($p->person->full_name, $personList)) {
+                                                                        $personList[] = $p->person->full_name;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+
+                                                    // Verificamos si hay más de una persona para el resultado correspondiente
+                                                    if (count($personList) > 1) {
+                                                        // Convertimos el array de personas en una cadena separada por comas
+                                                        $person = implode(', ', $personList);
+                                                    } else {
+                                                        // Si solo hay una persona, mostramos solo esa
+                                                        $person = count($personList) == 1 ? $personList[0] : 'No hay personas asignadas';
+                                                    }
                                                     $trimestreExecutedHours = isset($executedHours[$i][$learningOutcome]) ? $executedHours[$i][$learningOutcome] : 0;
                                                     $totalExecutedHoursByQuarter[$i] += $trimestreExecutedHours;
                                                 @endphp
                                                 
-                                                <td class="celdae">{{ $trimestreExecutedHours > 0 ? $trimestreExecutedHours : '' }}</td>
+                                                <td class="celdae" title="{{ $person }}">{{ $trimestreExecutedHours > 0 ? $trimestreExecutedHours : '' }}</td>
                                             @endif
                                         @endfor
                                         <td>

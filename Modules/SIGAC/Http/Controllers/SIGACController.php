@@ -4,16 +4,23 @@ namespace Modules\SIGAC\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Apprentice;
+use Modules\SICA\Entities\Employee;
+use Modules\SICA\Entities\Contractor;
 
 class SIGACController extends Controller
 {
 
     public function index(){
+        $employees = Employee::where('employee_type_id', 2)->where('state', 'Activo')->get();
+        $contractors = Contractor::where('contract_end_date', '>=', now())->where('employee_type_id', 2)->get();
         $apprentices = Apprentice::where('apprentice_status', 'EN FORMACIÓN')->get();
+
         $view = [
             'titlePage'=>trans('sigac::controllers.SIGAC_index_title_page'), 
             'titleView'=>trans('sigac::controllers.SIGAC_index_title_view'),
-            'apprentices' => $apprentices
+            'apprentices' => $apprentices,
+            'employees' => $employees,
+            'contractors' => $contractors
         ];
         return view('sigac::index', $view);
     }

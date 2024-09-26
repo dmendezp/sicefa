@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+@extends('layouts.emails') 
+@section('stylesheet')
+  
     <style>
         table {
             font-family: Arial, sans-serif;
@@ -24,8 +24,8 @@
             font-weight: bold
         }
     </style>
-</head>
-<body>
+@endsection 
+@section('content')
     <div>
         <p>Cordial saludo,</p>
         <p>Se da conocimiento del reporte de alerta de las PQRS con el fin de dar respuesta en los tiempos establecidos con el objetivo de no afectar de indicador de gestión de la Regional.</p>
@@ -57,5 +57,4 @@
         </table>
         <p>Cualquier inquietud comunicarse con Diego Mauricio Cuellar Torres - dmcuellar@sena.edu.co</p>
     </div>
-</body>
-</html>
+@endsection
