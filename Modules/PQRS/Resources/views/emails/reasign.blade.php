@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+@extends('layouts.emails')
+@section('stylesheet')
     <style>
         table {
             font-family: Arial, sans-serif;
@@ -24,8 +23,8 @@
             font-weight: bold
         }
     </style>
-</head>
-<body>
+@endsection
+@section('content')
     <div>
         <p>Cordial saludo,</p>
         <p>Se da conocimiento de reasignación de la PQRS.</p>
@@ -64,5 +63,5 @@
         </table>
         <p>Cualquier inquietud comunicarse con Diego Mauricio Cuellar Torres - dmcuellar@sena.edu.co</p>
     </div>
-</body>
-</html>
+@endsection
+

@@ -21,7 +21,7 @@
                     <div class="col-md-6 col-6">
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h4>65</h4>
+                                <h4>{{ $employees->count() }}</h4>
                                 <p>{{ trans('sigac::index.SmallBox_Plant_Instructors') }}</p>
                             </div>
                             <div class="icon">
@@ -32,7 +32,7 @@
                     <div class="col-md-6 col-6">
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h4>65</h4>
+                                <h4>{{ $contractors->count() }}</h4>
                                 <p>{{ trans('sigac::index.SmallBox_Contract_Instructors') }}</p>
                             </div>
                             <div class="icon">
