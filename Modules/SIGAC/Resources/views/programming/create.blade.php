@@ -334,7 +334,29 @@
                         $.each(response.outcomes_not_programming, function(competencie_pass, results_pass) {
                             html += '<h6><b>' + competencie_pass + ' - No programado</b></h6><ul>';
                             $.each(results_pass, function(index, result_pass) {
-                                html += '<li>' + result_pass.learning_outcome.name + '<strong> Horas: </strong>' + result_pass.hour + ' - <strong>Trimestre: </strong>'+ result_pass.quarter_number +'</li>';
+                                var totalHours = 0;
+                                if (result_pass.learning_outcome.instructor_program_outcomes.length > 0) {
+                                    // Asumimos que si hay outcomes, estamos verificando si ha sido "ejecutado"
+                                    let ejecutado = false;
+                                    result_pass.learning_outcome.instructor_program_outcomes.forEach((outcome) => {
+                                        // Verificamos si instructor_program existe y si coincide con el course_id
+                                        if (outcome.instructor_program && outcome.instructor_program.course_id == course_id) {
+                                            ejecutado = true;  // Marcamos que ha sido ejecutado
+                                            totalHours = result_pass.hour - outcome.hour; // Restamos horas planeadas menos ejecutadas
+                                        }
+                                    });
+
+                                    // Si no se encuentra ningún resultado ejecutado
+                                    if (!ejecutado) {
+                                        totalHours = result_pass.hour;  // Si no ha sido ejecutado, mostramos horas planeadas
+                                    }
+                                } else {
+                                    // Si no hay resultados de aprendizaje ejecutados, ponemos las horas planeadas
+                                    totalHours = result_pass.hour;
+                                }
+                                console.log(totalHours);
+
+                                html += '<li>' + result_pass.learning_outcome.name + '<strong> Horas restantes: </strong>' + totalHours + ' - <strong>Trimestre: </strong>'+ result_pass.quarter_number +'</li>';
                                 plannedHoursMap[result_pass.learning_outcome.id] = result_pass.hour;
                                 learningOutcomeMap[result_pass.learning_outcome.id] = result_pass.learning_outcome.name;
                             });

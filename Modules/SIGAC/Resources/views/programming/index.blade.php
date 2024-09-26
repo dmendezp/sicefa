@@ -83,7 +83,7 @@
                 <div id="learning_outcome"></div>
                 <!-- Agrega más detalles del evento según sea necesario -->
                 <br>
-                @if(checkRol('sigac.academic_coordinator'))
+                @if(auth()->check() && checkRol('sigac.academic_coordinator'))
                     <div class="accordion accordion-flush" id="accordionFlushExample">
                         <div class="accordion-item">
                         <h2 class="accordion-header">
@@ -200,7 +200,11 @@
 @endsection
 
 @php
-    $rol  = checkRol('sigac.academic_coordinator');
+    $rol = '';
+    $user = Auth::user();
+    if(auth()->check()){
+        $rol  = checkRol('sigac.academic_coordinator');
+    }
 @endphp
 
 @push('scripts')
@@ -495,10 +499,17 @@
                 });
             }
 
+            var authUser = <?= json_encode($user); ?>;
+
+            @if(auth()->check())
+                var url = "{{ route('sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.management.search') }}";
+            @else  
+                var url = "{{ route('cefa.sigac.programming.management.search') }}";
+            @endif
 
             $.ajax({
                 type: 'POST',
-                url: "{{ route('sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.management.search') }}",
+                url: url,
                 data: {
                     _token: "{{ csrf_token() }}",
                     search: $(this).val(),
@@ -646,9 +657,14 @@
 
             // Actualizar el título del <h4>
             $('#titulo').text(titulo);
+            @if(auth()->check())
+                var url = "{{ route('sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.management.filter') }}";
+            @else  
+                var url = "{{ route('cefa.sigac.programming.management.filter') }}";
+            @endif
             $.ajax({
                 type: 'POST',
-                url: "{{ route('sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.management.filter') }}",
+                url: url,
                 data: {
                     _token: "{{ csrf_token() }}",
                     filter: filter

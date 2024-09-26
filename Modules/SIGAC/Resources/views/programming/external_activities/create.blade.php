@@ -51,14 +51,14 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-12">
-                                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                                    <div class="accordion" id="accordionExample">
                                         <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingOne">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                             <b>Fichas</b>
                                             </button>
                                         </h2>
-                                        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                             <div class="accordion-body">
                                                 <div class="input-group">
                                                     {!! Form::text('search', null, ['class' => 'form-control', 'placeholder' => 'Buscar ficha', 'id' => 'search', 'autocomplete' => 'off']) !!}

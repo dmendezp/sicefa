@@ -63,17 +63,20 @@ class ProgrammeController extends Controller
         }
 
         $user = Auth::user();
-
-        $slug  = Role::whereIn('app_id', $app_id)
-        ->whereHas('users', function ($query) use ($user) {
-            $query->where('users.id', $user->id);
-        })->pluck('slug')->first();        
-
-        if($slug == 'sigac.academic_coordinator' || $slug == 'superadmin'){
-            $roles = 'academic_coordination';
-        }else{
-            $roles = Str::replaceFirst('sigac.', '', $slug);
+        $roles = '';
+        if($user){
+            $slug  = Role::whereIn('app_id', $app_id)
+            ->whereHas('users', function ($query) use ($user) {
+                $query->where('users.id', $user->id);
+            })->pluck('slug')->first();        
+    
+            if($slug == 'sigac.academic_coordinator' || $slug == 'superadmin'){
+                $roles = 'academic_coordination';
+            }else{
+                $roles = Str::replaceFirst('sigac.', '', $slug);
+            }
         }
+        
 
         $days = [
             'Monday' => 'Lunes',
@@ -132,12 +135,14 @@ class ProgrammeController extends Controller
         $executed_programming = InstructorProgramOutcome::whereHas('instructor_program', function($query) use ($course_id){
             $query->where('instructor_programs.course_id', $course_id);
         })
-        ->select('learning_outcome_id', \DB::raw('SUM(hour) as total_executed_hours'))
-        ->groupBy('learning_outcome_id')
+        ->select('learning_outcome_id', \DB::raw('hour as total_executed_hours'))
+        ->groupBy('hour', 'learning_outcome_id')
         ->pluck('total_executed_hours', 'learning_outcome_id')
         ->toArray();
 
-        $outcomes_not_programming = Quarterly::with('learning_outcome.competencie')
+        
+
+        $outcomes_not_programming = Quarterly::with('learning_outcome.competencie', 'learning_outcome.instructor_program_outcomes.instructor_program')
         ->whereHas('training_project.courses', function($query) use ($course_id) {
             $query->where('courses.id', $course_id);
         })
@@ -156,6 +161,8 @@ class ProgrammeController extends Controller
             return str_replace('-' . $quarter_number, '', $competencieName); // Agrupar por nombre de competencia
         });
     
+        debug($outcomes_not_programming);
+
         $quarterlie = Quarterly::with('learning_outcome.competencie')
         ->where('quarter_number', $quarter_number)
         ->whereHas('training_project.courses', function($query) use ($course_id) {
@@ -166,6 +173,7 @@ class ProgrammeController extends Controller
             $competencieName = $quarterly->learning_outcome->competencie->name;
             return str_replace('-' . $quarter_number, '', $competencieName);
         });
+
     
         return response()->json(['quarterlie' => $quarterlie, 'outcomes_not_programming' => $outcomes_not_programming]);
     }

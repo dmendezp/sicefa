@@ -3,12 +3,18 @@
 namespace Modules\SIGAC\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\Apprentice;
 
 class SIGACController extends Controller
 {
 
     public function index(){
-        $view = ['titlePage'=>trans('sigac::controllers.SIGAC_index_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_index_title_view')];
+        $apprentices = Apprentice::where('apprentice_status', 'EN FORMACIÓN')->get();
+        $view = [
+            'titlePage'=>trans('sigac::controllers.SIGAC_index_title_page'), 
+            'titleView'=>trans('sigac::controllers.SIGAC_index_title_view'),
+            'apprentices' => $apprentices
+        ];
         return view('sigac::index', $view);
     }
 

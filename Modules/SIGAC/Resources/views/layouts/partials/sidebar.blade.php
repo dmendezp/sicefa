@@ -71,7 +71,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
                     <!-- Menú de opciones públicas -->
-                    @if (Route::is('cefa.sigac.index*'))
+                    @if (Route::is('cefa.sigac*'))
                         <li class="nav-item">
                             <a href="{{ route('cefa.sigac.index') }}"
                                 class="nav-link {{ !Route::is('cefa.sigac.index*') ?: 'active' }}">
@@ -87,12 +87,18 @@
                                 <p>{{ trans('sigac::general.About us') }}</p>
                             </a>
                         </li>
-
                         <li class="nav-item">
                             <a href="{{ route('cefa.sigac.devs') }}"
                                 class="nav-link {{ !Route::is('cefa.sigac.devs*') ?: 'active' }}">
                                 <i class="nav-icon fa-solid fa-code"></i>
                                 <p>{{ trans('sigac::general.Developers') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('cefa.sigac.programming.index') }}"
+                                class="nav-link {{ !Route::is('cefa.sigac.programming.index*') ?: 'active' }}">
+                                <i class="nav-icon fas fa-calendar-alt"></i>
+                                <p>{{ trans('sigac::general.Scheduling') }}</p>
                             </a>
                         </li>
                     @endif
