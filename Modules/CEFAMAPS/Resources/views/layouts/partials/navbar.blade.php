@@ -7,22 +7,23 @@
           <li class="nav-item d-none d-sm-inline-block {{ !Route::is('*cefa.*') ?: 'active' }}">
               <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link">{{ trans('cefamaps::general.Home') }}</a>
           </li>
-          @if (checkRol('cefamaps.sst'))
-            <li class="nav-item d-none d-sm-inline-block {{ !Route::is('*sst.*') ?: 'active' }}">
-                <a href="{{ route('cefamaps.sst.index') }}" class="nav-link">{{ trans('cefamaps::general.SST') }}</a>
-            </li>
-          @endif
-          @if (checkRol('cefamaps.environmentmanager'))
-            <li class="nav-item d-none d-sm-inline-block {{ !Route::is('*environmentmanager.*') ?: 'active' }}">
-                <a href="{{ route('cefamaps.environmentmanager.dashboard') }}" class="nav-link">{{ trans('Gestor Ambientes') }}</a>
-            </li>
-          @endif
+          
           @guest
           @else
             @if (checkRol('cefamaps.admin'))
                 <li class="nav-item d-none d-sm-inline-block {{ !Route::is('*admin.*') ?: 'active' }}">
                     <a href="{{ route('cefamaps.admin.dashboard') }}"
                         class="nav-link">{{ trans('cefamaps::general.Admin') }}</a>
+                </li>
+            @endif
+            @if (checkRol('cefamaps.sst'))
+                <li class="nav-item d-none d-sm-inline-block {{ !Route::is('*sst.*') ?: 'active' }}">
+                    <a href="{{ route('cefamaps.sst.index') }}" class="nav-link">{{ trans('cefamaps::general.SST') }}</a>
+                </li>
+            @endif
+            @if (checkRol('cefamaps.environmentmanager'))
+                <li class="nav-item d-none d-sm-inline-block {{ !Route::is('*environmentmanager.*') ?: 'active' }}">
+                    <a href="{{ route('cefamaps.environmentmanager.dashboard') }}" class="nav-link">{{ trans('Gestor Ambientes') }}</a>
                 </li>
             @endif
           @endguest

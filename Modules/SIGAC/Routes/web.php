@@ -86,6 +86,7 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
 
 
             // Horarios
+            Route::get('programming/index', 'programming')->name('cefa.sigac.programming.index'); // Programación de horarios
             Route::get('academic_coordination/programming/index', 'programming')->name('sigac.academic_coordination.programming.index'); // Programación de horarios
             Route::get('instructor/programming/index', 'programming')->name('sigac.instructor.programming.index'); // Programación de horarios
             Route::get('support/programming/index', 'programming')->name('sigac.support.programming.index'); // Programación de horarios
@@ -102,6 +103,8 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::post('apprentice/programming/management/search', 'management_search')->name('sigac.apprentice.programming.management.search'); // Consultar programaciones del instructor
             Route::post('wellness/programming/management/filter', 'management_filter')->name('sigac.wellness.programming.management.filter'); // Consultar filtro de horario
             Route::post('wellness/programming/management/search', 'management_search')->name('sigac.wellness.programming.management.search'); // Consultar programaciones del instructor
+            Route::post('programming/management/search', 'management_search')->name('cefa.sigac.programming.management.search'); // Consultar programaciones del instructor
+            Route::post('programming/management/filter', 'management_filter')->name('cefa.sigac.programming.management.filter'); // Consultar filtro de horario
 
             // Fechas
             Route::get('academic_coordination/programming/dates', 'dates_index')->name('sigac.academic_coordination.programming.dates_index'); // Programación de horarios (Coordinación Académica)

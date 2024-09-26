@@ -44,6 +44,14 @@ class RolesTableSeeder extends Seeder
       'app_id' => $app->id
     ]);
 
+    // Registrar o actualizar rol de SST (Segurida y Salud en el Trabajo)
+    $rol_admin = Role::updateOrCreate(['slug' => 'cefamaps.sst'], [
+      'name' => 'SST CEFAMAPS',
+      'description' => 'Rol SST de la aplicacion CEFAMAPS',
+      'description_english' => 'SST role of the CEFAMAPS application',
+      'app_id' => $app->id
+    ]);
+
 /*     // Consulta de usuarios
     $user_super_admin = User::where('nickname','damendez')->first(); // Usuario Administrador con full-access (Diego Andrés Mendéz Pastrana)
     $user_admin = User::where('nickname','LolaFernanda')->first(); // Usuario Administrador (Neythan Sabogal Gaitan)
