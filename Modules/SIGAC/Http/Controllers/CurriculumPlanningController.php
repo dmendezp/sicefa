@@ -841,9 +841,11 @@ class CurriculumPlanningController extends Controller
                         
                         if ($learning_outcome) {
                             $learning_outcome_id = $learning_outcome->id;
-
+                            
                             $course = Course::where('code',$course_code)->first();
-                            $course->start_production_date = $course_start_p;
+                            $course->star_date = $start_l;
+                            $course->end_date = $end_p;
+                            $course->star_production_date = $course_start_p;
                             $course->school_end_date = $course_end_l;
                             $course->save();
                             // Modificar fechas del curso
@@ -851,34 +853,36 @@ class CurriculumPlanningController extends Controller
                             if ($course) {
                                 $course_id = $course->id;
                                 $person = Person::where('document_number',$document_number)->first();
-                                $person_id = $person->id;
-                                $evaluative_judgments = EvaluativeJudgment::where('person_id',$person_id)->where('learning_outcome_id',$learning_outcome_id)->where('course_id',$course_id)->first();
-                                switch ($state) {
-                                    case 'APROBADO':
-                                        $status = 'Aprobado';
-                                        break;
-                                    case 'POR EVALUAR':
-                                        $status = 'Pendiente';
-                                        break;
-                                    case 'NO APROBADO':
-                                        $status = 'No Aprobado';
-                                        break;
-                                    
-                                    default:
-                                        $status = 'Pendiente';
-                                        break;
-                                }
-                                if ($evaluative_judgments) {
-                                    
-                                    $evaluative_judgments->state = $status;
-                                    $evaluative_judgments->save();
-                                } else {
-                                    $evaluative_judgments = new EvaluativeJudgment;
-                                    $evaluative_judgments->person_id = $person_id;
-                                    $evaluative_judgments->course_id = $course_id;
-                                    $evaluative_judgments->learning_outcome_id = $learning_outcome_id;
-                                    $evaluative_judgments->state = $status;
-                                    $evaluative_judgments->save();
+                                if($person){
+                                    $person_id = $person->id;
+                                    $evaluative_judgments = EvaluativeJudgment::where('person_id',$person_id)->where('learning_outcome_id',$learning_outcome_id)->where('course_id',$course_id)->first();
+                                    switch ($state) {
+                                        case 'APROBADO':
+                                            $status = 'Aprobado';
+                                            break;
+                                        case 'POR EVALUAR':
+                                            $status = 'Pendiente';
+                                            break;
+                                        case 'NO APROBADO':
+                                            $status = 'No Aprobado';
+                                            break;
+                                        
+                                        default:
+                                            $status = 'Pendiente';
+                                            break;
+                                    }
+                                    if ($evaluative_judgments) {
+                                        
+                                        $evaluative_judgments->state = $status;
+                                        $evaluative_judgments->save();
+                                    } else {
+                                        $evaluative_judgments = new EvaluativeJudgment;
+                                        $evaluative_judgments->person_id = $person_id;
+                                        $evaluative_judgments->course_id = $course_id;
+                                        $evaluative_judgments->learning_outcome_id = $learning_outcome_id;
+                                        $evaluative_judgments->state = $status;
+                                        $evaluative_judgments->save();
+                                    }
                                 }
                             }
                             if ($state = "APROBADO") {
@@ -896,6 +900,7 @@ class CurriculumPlanningController extends Controller
                 
                 return back()->with('success', 'Se cargaron '.$countstate.' juicios evaluativos exitosamente.')->with('typealert', 'success');
             } catch (Exception $e) {
+                dd($e);
                 return back()->with('error', 'Ocurrio un error en la importación y/o registro de datos del archivo excel cargado. <hr> <strong>Error: </strong> ('.$e->getMessage().').')->with('typealert', 'danger');
              }
 

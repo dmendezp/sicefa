@@ -39,7 +39,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">{{ trans('cefamaps::page.Page') }}</h4>
+                        <h4 class="modal-title">{{ trans('cefamaps::page.1T_Page') }}</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover"
                                 colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
@@ -47,12 +47,18 @@
                     </div>
                     <div class="modal-body">
                         <div class="row align-items-start">
-                            @foreach ($v->pages as $p)
-                                <div class="col-4">
-                                    <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal"
+                            @if($v->pages->isNotEmpty())                     
+                                @foreach ($v->pages as $p)
+                                    <div class="col-4">
+                                        <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal"
                                         data-target="#modal{{ $p->id }}">{{ $p->name }}</button>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="col-4">
+                                    No existen páginas.
                                 </div>
-                            @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -106,10 +112,12 @@
 
                 // The marker, positioned at Uluru
                 const marker{{ $e->id }} = new google.maps.Marker({
-                    position: {
-                        lat: {{ $e->latitude }},
-                        lng: {{ $e->length }}
-                    },
+                    @if(isset($e->latitude) && isset($e->length) && $e->latitude !== null && $e->length !== null)
+                        position: {
+                            lat: {{ $e->latitude }},
+                            lng: {{ $e->length }}
+                        },
+                    @endif
                     map: map,
                     tittle: "{{ $e->name }}",
                     icon: iconBase,
@@ -118,14 +126,20 @@
 
                 const infoCultivo{{ $e->id }} = new google.maps.InfoWindow();
 
+                @if(isset($e->picture) && $e->picture !== null && file_exists(public_path('modules/cefamaps/images/uploads/' . $e->picture)))
+                    var img = '<img src="{{ isset($e->picture) && $e->picture !== null ? asset("modules/cefamaps/images/uploads/" . $e->picture) : '' }}" alt="Imagen de la tarjeta" class="image">';
+                @else
+                    var img = '<img src="{{ asset("modules/sica/images/sinImagen.png") }}" alt="Imagen de la tarjeta" class="image">';
+                @endif
+
                 infoCultivo{{ $e->id }}.setContent(
                     '<div class="card-content">' +
                     '<div class="button-container">' +
-                    '<h2>{{ trans('cefamaps::page.Page') }}</h2>' +
+                    '<h2>{{ trans('cefamaps::page.1T_Page') }}</h2>' +
                     '<button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#modal-lg">{{ $e->name }}</button>' +
                     '</div>' +
                     '<div class="image-container">' +
-                    '<img src="{{ asset('modules/cefamaps/images/uploads/' . $e->picture) }}" alt="Imagen de la tarjeta" class="image">' +
+                    img +
                     '<div class="image-text">' +
                     '<p>{{ $e->description }}</p>' +
                     '</div>' +
@@ -140,10 +154,12 @@
                 // Define the LatLng coordinates for the polygon's path.
                 const Coords{{ $e->id }} = [
                     @foreach ($e->coordinates as $c)
-                        {
-                            lat: {{ $c->latitude }},
-                            lng: {{ $c->length }}
-                        },
+                        @if(isset($c->latitude) && isset($c->length) && $c->latitude !== null && $c->length !== null)
+                            {
+                                lat: {{ $c->latitude }},
+                                lng: {{ $c->length }}
+                            },
+                        @endif
                     @endforeach
                 ];
 

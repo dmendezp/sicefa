@@ -54,7 +54,7 @@
                     <div class="col-md-6 col-6">
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h4>44</h4>
+                                <h4>{{ $school->count() }}</h4>
                                 <p>{{ trans('sigac::index.SmallBox_Tecnology_Stage') }}</p>
                             </div>
                             <div class="icon">
@@ -65,7 +65,7 @@
                     <div class="col-md-6 col-6">
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h4>10</h4>
+                                <h4>{{ $productive->count() }}</h4>
                                 <p>{{ trans('sigac::index.SmallBox_Practical_Technologists') }}</p>
                             </div>
                             <div class="icon">
