@@ -20,8 +20,8 @@ class SIGACController extends Controller
         ->where('status', 'Activo')
         ->get();
 
-        $productive = Course::where('star_production_date', '>=', today())
-        ->where('school_end_date', '>=', today())
+        $productive = Course::where('star_production_date', '<=', today())
+        ->where('school_end_date', '<=', today())
         ->where('status', 'Activo')
         ->get();
 

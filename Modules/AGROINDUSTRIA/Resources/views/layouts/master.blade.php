@@ -1,15 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+    <head>
         @include('agroindustria::layouts.partials.head')
-    <body class="hold-transition">
-        <!-- navbar -->
-        @include('agroindustria::layouts.partials.navbar')
+        @stack('head')
+    </head>
+    <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
+        <div class="wrapper">
+            <!-- Navbar -->
+            @include('agroindustria::layouts.partials.navbar')
+            <!-- /.navbar -->
 
-        <!-- contenido -->
-        @section('content')
-        @show
+            <!-- Main Sidebar Container -->
+            @include('agroindustria::layouts.partials.sidebar')
 
-        <!-- scripts -->
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0">{{ $title }}</h1>
+                            </div><!-- /.col -->
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    @stack('breadcrumbs')
+                                </ol>
+                            </div><!-- /.col -->
+                        </div><!-- /.row -->
+                    </div><!-- /.container-fluid -->
+                </div>
+                <!-- /.content-header -->
+
+                <!-- Main content -->
+                <div class="content">
+                    <div class="container-fluid">
+                        @section('content') @show
+                    </div><!-- /.container-fluid -->
+                </div>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+
+            <!-- Control Sidebar -->
+            @include('sigac::layouts.partials.controlSidebar')
+            <!-- /.control-sidebar -->
+
+        </div>
+        <!-- ./wrapper -->
+
+        <!-- REQUIRED SCRIPTS -->
         @include('agroindustria::layouts.partials.scripts')
+        @stack('scripts')
+        @section('js') @show
+
     </body>
 </html>

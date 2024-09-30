@@ -40,7 +40,7 @@ class AGROINDUSTRIAController extends Controller
 
                 if (checkRol('superadmin')) {
                     // Obtiene las unidades productivas a partir de los IDs obtenidos
-                    $productiveUnits = ProductiveUnit::get();
+                    $productiveUnits = ProductiveUnit::where('sector_id', 4)->get();
                 } else {
                     // Obtiene las unidades productivas a partir de los IDs obtenidos
                     $productiveUnits = ProductiveUnit::whereIn('id', $productiveUnitsid)

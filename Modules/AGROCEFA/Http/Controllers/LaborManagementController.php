@@ -75,17 +75,18 @@ class LaborManagementController extends Controller
 
         // Inicializa un array para almacenar los nombres y IDs de los ambientes
         $environmentData = [];
-
         // Recorre la colección y obtén los nombres y IDs de los ambientes
         foreach ($lotData as $item) {
-            $environmentId = $item->environment->id;
-            $environmentName = $item->environment->name;
+            if ($item && $item->environment) {
+                $environmentId = $item->environment->id;
+                $environmentName = $item->environment->name;
 
-            // Agrega un array asociativo con el ID y el nombre del ambiente al array de datos
-            $environmentData[] = [
-                'id' => $environmentId,
-                'name' => $environmentName,
-            ];
+                // Agrega un array asociativo con el ID y el nombre del ambiente al array de datos
+                $environmentData[] = [
+                    'id' => $environmentId,
+                    'name' => $environmentName,
+                ];
+            }
         }
 
         // Intenta encontrar la unidad productiva por su ID y verifica si se encuentra
