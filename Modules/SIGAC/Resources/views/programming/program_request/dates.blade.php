@@ -6,27 +6,21 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                @foreach($prom->groupedDates as $timeRange => $datesGroup)
-                    <h4><b>Programación : {{ $loop->iteration }}</b></h4>
-                    <ul>
-                        <li>
-                            <h5><b>Fechas :</b></h5>
-                            <p>
-                                @foreach($datesGroup as $date)
-                                    {{ \Carbon\Carbon::parse($date->date)->format('d-m-y') }}<br>
-                                @endforeach
-                            </p>
-                        </li>
-                        <li>
-                            <h5><b>Hora de inicio :</b></h5>
-                            <p>{{ $datesGroup->first()->start_time }}</p>
-                        </li>
-                        <li>
-                            <h5><b>Hora fin :</b></h5>
-                            <p>{{ $datesGroup->first()->end_time }}</p>
-                        </li>
-                    </ul>
-                @endforeach
+                @if($prom->groupedDates->isNotEmpty())
+                    @foreach($prom->groupedDates as $date => $sessions)
+                        <h5><b>Fecha: {{ \Carbon\Carbon::parse($date)->format('d-m-Y') }}</b></h5>
+                        <ul>
+                            @foreach($sessions as $session)
+                                <li>
+                                    <h6><b>Hora de inicio:</b> {{ \Carbon\Carbon::parse($session->start_time)->format('h:i A') }}</h6>
+                                    <h6><b>Hora fin:</b> {{ \Carbon\Carbon::parse($session->end_time)->format('h:i A') }}</h6>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endforeach
+                @else
+                    <p>No hay fechas programadas.</p>
+                @endif
             </div>
         </div>
     </div>  

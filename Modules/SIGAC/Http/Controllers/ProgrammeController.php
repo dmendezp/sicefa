@@ -1283,17 +1283,19 @@ class ProgrammeController extends Controller
             $rol = $u->slug;
         }
         if ($rol == 'sigac.instructor') {
-            $program_request = ProgramRequest::with('person', 'program', 'special_program', 'program_request_documents')
+            $program_request = ProgramRequest::with('person', 'program', 'special_program', 'program_request_documents','program_request_dates')
             ->where('person_id', $person_id)
             ->where('state', 'Pendiente')
             ->orWhere('state', 'Cancelado')
             ->get();
         }elseif ($rol == 'sigac.academic_coordinator' || checkRol('superadmin')) {
-            $program_request = ProgramRequest::with('person', 'program', 'special_program', 'program_request_documents')
+            $program_request = ProgramRequest::with('person', 'program', 'special_program', 'program_request_documents','program_request_dates')
             ->where('state', 'Pendiente')
             ->orWhere('state', 'Cancelado')
             ->get();
         }
+
+        
         return view('sigac::programming.program_request.table', [
             'titlePage' => trans('Solicitudes de programa'),
             'titleView' => trans('Solicitudes de programa'),

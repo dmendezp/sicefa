@@ -44,6 +44,11 @@ class ProgramRequest extends Model implements Auditable
         return \Modules\SIGAC\Database\factories\ProgramRequestFactory::new();
     }
 
+    public function getGroupedDatesAttribute()
+    {
+        return $this->program_request_dates->groupBy('date');
+    }    
+
     public function municipality()
     {
         return $this->belongsTo(Municipality::class);
