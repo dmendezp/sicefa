@@ -1,0 +1,249 @@
+.title_labor{
+    text-align: center;
+}
+
+.table-labors{
+    max-width: 90%;
+    position: relative;
+    left: 55px;
+}
+
+#toggle-form{
+    margin-top: 10px;
+    margin-left: 2px;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: green;
+    color: white;
+}
+
+#toggle-form-tools{
+    margin-top: 10px;
+    margin-left: 2px;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: green;
+    color: white;
+}
+
+#toggle-form-equipment{
+    margin-top: 10px;
+    margin-left: 2px;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: green;
+    color: white;
+}
+
+#toggle-form-consumables{
+    margin-top: 10px;
+    margin-left: 2px;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: green;
+    color: white;
+}
+
+#toggle-form-resources{
+    margin-top: 10px;
+    margin-left: 2px;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: green;
+    color: white;
+}
+
+.red-button {
+    background-color: red;
+    color: white; /* Cambia el color del texto para que sea legible */
+}
+
+#title_executor{
+    margin-top: 5px;
+}
+
+#title_tools{
+    margin-top: 5px;
+}
+
+#add-executor{
+    position: relative;
+    width: 73px;
+    padding: 5px 0px 5px 0px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+}
+
+#add-tools{
+    position: relative;
+    width: 73px;
+    padding: 5px 0px 5px 0px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+}
+
+#add-equipments{
+    position: relative;
+    width: 73px;
+    padding: 5px 0px 5px 0px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+}
+
+#add-consumables{
+    position: relative;
+    width: 73px;
+    padding: 5px 0px 5px 0px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+}
+
+#add-resources{
+    position: relative;
+    width: 73px;
+    padding: 5px 0px 5px 0px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+}
+
+.remove-executor{
+    position: relative;
+    left: 2px;
+    padding: 10px 5px 10px 5px;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: red;
+    border-radius: 4px;
+    border: none;
+}
+
+.remove-tools{
+    position: relative;
+    left: 2px;
+    padding: 10px 5px 10px 5px;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: red;
+    border-radius: 4px;
+    border: none;
+}
+
+.remove-equipments{
+    position: relative;
+    left: 2px;
+    padding: 10px 5px 10px 5px;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: red;
+    border-radius: 4px;
+    border: none;
+}
+
+.remove-consumables{
+    position: relative;
+    left: 2px;
+    padding: 10px 5px 10px 5px;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: red;
+    border-radius: 4px;
+    border: none;
+}
+
+.remove-resources{
+    position: relative;
+    left: 2px;
+    padding: 10px 5px 10px 5px;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: red;
+    border-radius: 4px;
+    border: none;
+}
+
+#executors{
+    background-color: #f0f0f0; /* Cambia este valor al color de fondo que desees */
+}
+
+.quantity{
+    position: absolute;
+    color: #666; 
+    font-size: 14px; 
+    margin-top: 60px;
+}
+
+.price-executor{
+    position: absolute;
+    color: #666; 
+    font-size: 14px; 
+    margin-top: 54px;
+}
+
+.quantity-equipment{
+    position: absolute;
+    color: #666; 
+    font-size: 14px; 
+    margin-top: 59px;
+}
+
+.total-executor{
+    position: absolute;
+    color: #666; 
+    font-size: 14px; 
+    margin-top: 60px;
+}
+.price_unit{
+    position: absolute;
+    color: #666; 
+    font-size: 14px; 
+    margin-top: 60px;
+}
+
+.form-group-consumables{
+    display: inline-block;
+    width: 200px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.form-group-tools{
+    display: inline-block;
+    width: 200px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.form-group-collaborators{
+    display: inline-block;
+    width: 200px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.form-group-equipments{
+    display: inline-block;
+    width: 200px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.disabled-button {
+    background-color: #CCCCCC; /* Color más claro cuando está deshabilitado */
+    cursor: not-allowed; /* Cambiar el cursor a "no permitido" */
+    /* Otros estilos de diseño según tus preferencias */
+}

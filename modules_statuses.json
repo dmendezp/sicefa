@@ -1,0 +1,20 @@
+{
+    "SICA": true,
+    "EVS": true,
+    "BOLMETEOR": true,
+    "CEFAMAPS": true,
+    "TILABS": true,
+    "SENAEMPRESA": true,
+    "CPD": true,
+    "AGROINDUSTRIA": true,
+    "AGROCEFA": true,
+    "BIENESTAR": true,
+    "PTVENTA": true,
+    "SIGAC": true,
+    "CAFETO": true,
+    "HANGARAUTO": false,
+    "GTH": true,
+    "HDC": true,
+    "PQRS": true
+}
+

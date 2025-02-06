@@ -1,0 +1,13 @@
+{
+    "name": "AGROCEFA",
+    "alias": "agrocefa",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AGROCEFA\\Providers\\AGROCEFAServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

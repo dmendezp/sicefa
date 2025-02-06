@@ -1,0 +1,1292 @@
+[16-Nov-2022 06:40:45 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[16-Nov-2022 06:43:23 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[16-Nov-2022 06:43:24 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[16-Nov-2022 06:44:51 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:44:51 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:44:53 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:44:53 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:44:58 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:44:58 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:44:59 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:44:59 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:45:00 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:45:00 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:46:02 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:46:02 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:46:03 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:46:03 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:46:04 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:46:04 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:50:50 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:50:50 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:50:52 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:50:52 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:57:57 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 06:57:57 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:00:38 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:00:38 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:12:25 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:12:25 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:12:27 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:12:27 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:17:19 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:17:19 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:18:33 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:18:33 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:19:29 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:19:29 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:19:32 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:19:32 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:20:30 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:20:30 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:21:14 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:21:14 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:21:17 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:21:17 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:21:19 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:21:19 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:23:00 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:23:00 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:23:05 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:23:05 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:23:07 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:23:07 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:27:24 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:27:24 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:27:54 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:27:54 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:28:48 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:28:48 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:32:33 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:32:33 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:32:35 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[16-Nov-2022 07:32:35 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:09:13 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:09:13 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:09:18 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:09:18 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:10:15 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:10:15 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:10:16 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:10:16 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:10:21 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:10:21 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:14:36 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[22-Nov-2022 22:15:35 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:15:35 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:15:39 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:15:39 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:15:41 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:15:41 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:15:41 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:15:41 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:15:43 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:15:43 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:16:49 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:16:49 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:16:50 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:16:50 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:17:02 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:17:02 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:29 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:29 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:30 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:30 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:31 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:31 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:32 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:32 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:32 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:32 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:43 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:43 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:45 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:45 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:46 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:46 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:50 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:50 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:52 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:52 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:52 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:52 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:53 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:53 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:57 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:57 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:58 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:58 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:59 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:18:59 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:19:01 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:19:01 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:20:09 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:20:09 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:20:10 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:20:10 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:20:11 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:20:11 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:20:13 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:20:13 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:20:20 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:20:20 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:22:52 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:22:52 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:24:00 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:24:00 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:24:07 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:24:07 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:24:08 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:24:08 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:24:56 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:24:56 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:24:58 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:24:58 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:24:59 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:24:59 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:24:59 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:24:59 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:25:00 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:25:00 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:25:00 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:25:00 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:25:00 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:25:00 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:25:01 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:25:01 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:25:59 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:25:59 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:26:00 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:26:00 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:26:00 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:26:00 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:26:01 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:26:01 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:26:47 America/Bogota] PHP Warning:  require(/home3/lasestil/public_html/sicefa_public/../../sicefa10/vendor/autoload.php): Failed to open stream: No such file or directory in /home3/lasestil/public_html/sicefa_public/index.php on line 34
+[22-Nov-2022 22:26:47 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/public_html/sicefa_public/../../sicefa10/vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/public_html/sicefa_public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home3/lasestil/public_html/sicefa_public/index.php on line 34
+[22-Nov-2022 22:26:48 America/Bogota] PHP Warning:  require(/home3/lasestil/public_html/sicefa_public/../../sicefa10/vendor/autoload.php): Failed to open stream: No such file or directory in /home3/lasestil/public_html/sicefa_public/index.php on line 34
+[22-Nov-2022 22:26:48 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/public_html/sicefa_public/../../sicefa10/vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/public_html/sicefa_public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home3/lasestil/public_html/sicefa_public/index.php on line 34
+[22-Nov-2022 22:26:51 America/Bogota] PHP Warning:  require(/home3/lasestil/public_html/sicefa_public/../../sicefa10/vendor/autoload.php): Failed to open stream: No such file or directory in /home3/lasestil/public_html/sicefa_public/index.php on line 34
+[22-Nov-2022 22:26:51 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/public_html/sicefa_public/../../sicefa10/vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/public_html/sicefa_public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home3/lasestil/public_html/sicefa_public/index.php on line 34
+[22-Nov-2022 22:26:52 America/Bogota] PHP Warning:  require(/home3/lasestil/public_html/sicefa_public/../../sicefa10/vendor/autoload.php): Failed to open stream: No such file or directory in /home3/lasestil/public_html/sicefa_public/index.php on line 34
+[22-Nov-2022 22:26:52 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/public_html/sicefa_public/../../sicefa10/vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/public_html/sicefa_public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home3/lasestil/public_html/sicefa_public/index.php on line 34
+[22-Nov-2022 22:26:52 America/Bogota] PHP Warning:  require(/home3/lasestil/public_html/sicefa_public/../../sicefa10/vendor/autoload.php): Failed to open stream: No such file or directory in /home3/lasestil/public_html/sicefa_public/index.php on line 34
+[22-Nov-2022 22:26:52 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/public_html/sicefa_public/../../sicefa10/vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/public_html/sicefa_public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home3/lasestil/public_html/sicefa_public/index.php on line 34
+[22-Nov-2022 22:26:52 America/Bogota] PHP Warning:  require(/home3/lasestil/public_html/sicefa_public/../../sicefa10/vendor/autoload.php): Failed to open stream: No such file or directory in /home3/lasestil/public_html/sicefa_public/index.php on line 34
+[22-Nov-2022 22:26:52 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/public_html/sicefa_public/../../sicefa10/vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/public_html/sicefa_public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home3/lasestil/public_html/sicefa_public/index.php on line 34
+[22-Nov-2022 22:30:08 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:30:08 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:32:43 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:32:43 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:36:18 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:36:18 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:36:20 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:36:20 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:36:20 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:36:20 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:36:21 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:36:21 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:36:21 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:36:21 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:38:29 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:38:29 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:38:31 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:38:31 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:38:31 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:38:31 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:38:32 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:38:32 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:40:10 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:40:10 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:40:12 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:40:12 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:43:28 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:43:28 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:43:45 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:43:45 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:44:12 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:44:12 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:45:45 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:45:45 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:47:33 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:47:33 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:48:20 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:48:20 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:54:43 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:54:43 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:54:54 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[22-Nov-2022 22:54:54 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa8/vendor/composer/../../app/http/Function.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php:71
+Stack trace:
+#0 /home3/lasestil/sicefa8/vendor/composer/autoload_real.php(61): composerRequireb949b1652fec1066507fab67c99e9443('1f8fcf888cbcf6a...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa8/vendor/autoload.php(7): ComposerAutoloaderInitb949b1652fec1066507fab67c99e9443::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa8/vendor/composer/autoload_real.php on line 71
+[03-Feb-2023 01:39:47 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[03-Feb-2023 01:39:56 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[03-Feb-2023 01:40:09 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[03-Feb-2023 01:40:11 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[03-Feb-2023 02:22:18 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[03-Feb-2023 02:25:17 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[03-Feb-2023 04:12:06 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[03-Feb-2023 04:14:29 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[03-Feb-2023 04:24:19 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[03-Feb-2023 04:24:19 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[03-Feb-2023 07:10:17 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[03-Feb-2023 08:55:57 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[03-Feb-2023 08:55:58 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[03-Feb-2023 08:55:59 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[03-Feb-2023 12:36:05 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[03-Feb-2023 12:41:35 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[03-Feb-2023 12:45:16 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[03-Feb-2023 12:53:13 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[03-Feb-2023 13:32:12 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[04-Feb-2023 01:04:40 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[04-Feb-2023 01:04:41 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[04-Feb-2023 01:04:41 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[04-Feb-2023 01:04:42 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[04-Feb-2023 01:04:57 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[04-Feb-2023 01:04:57 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[04-Feb-2023 01:04:57 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[04-Feb-2023 01:04:57 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[04-Feb-2023 01:04:57 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[04-Feb-2023 01:04:58 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[04-Feb-2023 08:31:06 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[04-Feb-2023 09:08:16 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[04-Feb-2023 15:12:11 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[05-Feb-2023 00:25:29 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[05-Feb-2023 00:25:30 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[05-Feb-2023 00:25:45 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[05-Feb-2023 00:25:48 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[05-Feb-2023 00:25:49 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[05-Feb-2023 00:25:49 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[05-Feb-2023 00:25:49 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[05-Feb-2023 00:25:49 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[05-Feb-2023 00:25:49 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[05-Feb-2023 03:50:40 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[05-Feb-2023 11:41:35 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[05-Feb-2023 11:42:36 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[05-Feb-2023 12:36:35 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[05-Feb-2023 12:52:10 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[05-Feb-2023 12:53:41 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[05-Feb-2023 12:54:56 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[05-Feb-2023 13:56:47 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[06-Feb-2023 05:12:02 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[06-Feb-2023 05:12:58 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[06-Feb-2023 06:55:41 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[06-Feb-2023 08:13:17 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[06-Feb-2023 08:13:17 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[06-Feb-2023 09:35:28 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Feb-2023 00:27:31 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Feb-2023 00:27:38 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Feb-2023 00:27:44 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Feb-2023 00:27:44 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Feb-2023 00:27:45 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Feb-2023 00:27:45 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Feb-2023 00:27:45 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Feb-2023 00:27:45 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Feb-2023 00:27:45 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Feb-2023 01:45:55 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Feb-2023 01:46:13 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Feb-2023 02:32:26 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Feb-2023 12:52:07 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Feb-2023 15:51:39 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Feb-2023 23:01:18 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[08-Feb-2023 02:45:31 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[08-Feb-2023 06:35:08 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[08-Feb-2023 06:41:09 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[08-Feb-2023 12:35:53 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[08-Feb-2023 12:42:29 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[08-Feb-2023 12:43:55 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[08-Feb-2023 12:46:52 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[08-Feb-2023 12:49:57 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[08-Feb-2023 12:51:14 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[08-Feb-2023 12:54:55 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[08-Feb-2023 12:55:08 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[08-Feb-2023 12:55:12 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[09-Feb-2023 12:46:57 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[09-Feb-2023 16:00:41 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[10-Feb-2023 00:27:11 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[10-Feb-2023 09:38:40 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[10-Feb-2023 12:23:21 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[10-Feb-2023 12:34:41 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[10-Feb-2023 12:36:47 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[10-Feb-2023 12:36:51 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[10-Feb-2023 12:53:16 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[10-Feb-2023 12:53:19 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[11-Feb-2023 00:49:25 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[11-Feb-2023 01:28:17 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[11-Feb-2023 01:28:25 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[11-Feb-2023 03:42:48 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[11-Feb-2023 07:13:41 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[11-Feb-2023 08:26:06 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[11-Feb-2023 12:15:24 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[11-Feb-2023 12:15:27 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[11-Feb-2023 12:18:53 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[11-Feb-2023 12:22:02 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[11-Feb-2023 12:23:16 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[11-Feb-2023 12:25:49 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[11-Feb-2023 12:29:32 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[11-Feb-2023 12:31:33 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[11-Feb-2023 12:33:15 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[11-Feb-2023 12:33:48 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[12-Feb-2023 01:38:22 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[12-Feb-2023 12:18:43 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[12-Feb-2023 12:24:15 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[12-Feb-2023 12:25:08 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[12-Feb-2023 12:25:11 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[12-Feb-2023 12:33:48 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-Feb-2023 04:45:44 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-Feb-2023 12:16:11 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-Feb-2023 12:20:28 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-Feb-2023 12:24:36 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-Feb-2023 12:26:35 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-Feb-2023 12:29:47 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-Feb-2023 12:35:14 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-Feb-2023 12:39:09 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-Feb-2023 12:39:58 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-Feb-2023 13:01:21 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-Feb-2023 14:27:02 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-Feb-2023 23:06:52 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-Feb-2023 02:22:59 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-Feb-2023 02:24:53 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-Feb-2023 11:01:19 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-Feb-2023 12:02:40 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-Feb-2023 12:15:46 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-Feb-2023 12:45:24 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-Feb-2023 12:56:42 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-Feb-2023 13:29:14 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-Feb-2023 14:40:46 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-Feb-2023 15:21:02 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-Feb-2023 15:42:30 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-Feb-2023 16:20:56 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-Feb-2023 19:32:14 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-Feb-2023 20:09:21 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-Feb-2023 20:11:00 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[15-Feb-2023 00:29:50 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[15-Feb-2023 12:34:18 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[15-Feb-2023 12:39:34 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[15-Feb-2023 12:42:38 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[15-Feb-2023 12:52:09 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[15-Feb-2023 12:53:23 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[15-Feb-2023 12:53:44 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[16-Feb-2023 09:07:56 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[16-Feb-2023 12:55:47 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[16-Feb-2023 14:58:57 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[16-Feb-2023 16:27:46 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[16-Feb-2023 20:50:41 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[29-Mar-2023 12:12:14 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[29-Mar-2023 12:13:25 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[29-Mar-2023 12:13:39 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[29-Mar-2023 12:13:42 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[29-Mar-2023 12:13:47 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[29-Mar-2023 12:13:56 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[29-Mar-2023 12:14:00 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[29-Mar-2023 12:14:05 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[29-Mar-2023 12:14:14 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[29-Mar-2023 12:14:24 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[06-Apr-2023 02:29:23 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[06-Apr-2023 02:32:09 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[06-Apr-2023 07:14:58 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[06-Apr-2023 12:31:51 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[06-Apr-2023 12:31:53 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[06-Apr-2023 19:16:26 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Apr-2023 05:43:00 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Apr-2023 06:26:12 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Apr-2023 09:07:53 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Apr-2023 12:40:02 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Apr-2023 15:19:51 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[07-Apr-2023 17:33:19 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[08-Apr-2023 10:11:34 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[08-Apr-2023 23:38:36 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[09-Apr-2023 23:51:50 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[10-Apr-2023 11:26:39 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[10-Apr-2023 11:38:17 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[10-Apr-2023 13:48:28 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[10-Apr-2023 13:48:30 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[10-Apr-2023 16:18:34 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[10-Apr-2023 18:37:28 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[12-Apr-2023 00:12:13 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[12-Apr-2023 12:49:00 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-Apr-2023 00:41:53 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-Apr-2023 00:41:53 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-Apr-2023 00:41:54 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-Apr-2023 00:41:54 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-Apr-2023 01:03:13 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[20-Apr-2023 07:32:05 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[20-Apr-2023 07:36:14 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[20-Apr-2023 08:14:52 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[21-Apr-2023 02:20:55 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[21-Apr-2023 09:49:39 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[21-Apr-2023 23:31:08 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[22-Apr-2023 01:06:48 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[22-Apr-2023 22:23:24 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[23-Apr-2023 01:56:43 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[23-Apr-2023 10:53:35 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[24-Apr-2023 05:03:55 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[24-Apr-2023 05:03:55 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[24-Apr-2023 05:03:56 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[24-Apr-2023 05:03:56 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[24-Apr-2023 05:03:56 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[24-Apr-2023 05:03:56 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[24-Apr-2023 05:03:56 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[24-Apr-2023 05:03:57 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[24-Apr-2023 05:03:57 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[24-Apr-2023 05:03:57 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[24-Apr-2023 05:03:57 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[24-Apr-2023 11:41:48 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[24-Apr-2023 13:26:46 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[25-Apr-2023 09:44:51 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[25-Apr-2023 10:20:04 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[25-Apr-2023 10:20:08 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[25-Apr-2023 10:20:11 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[25-Apr-2023 10:20:19 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[25-Apr-2023 10:20:27 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[25-Apr-2023 10:20:27 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[25-Apr-2023 10:20:28 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[25-Apr-2023 10:20:28 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[25-Apr-2023 10:20:28 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[25-Apr-2023 10:20:28 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[25-Apr-2023 10:20:28 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[26-Apr-2023 01:24:07 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[11-May-2023 11:57:11 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-May-2023 09:26:28 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-May-2023 16:18:23 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-May-2023 16:18:24 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-May-2023 16:18:24 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-May-2023 16:18:25 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[13-May-2023 23:33:35 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-May-2023 16:21:56 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-May-2023 16:21:56 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-May-2023 16:21:57 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[14-May-2023 16:21:58 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[15-May-2023 08:10:39 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[15-May-2023 08:10:50 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[15-May-2023 08:11:28 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[15-May-2023 08:11:35 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[15-May-2023 08:11:49 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[15-May-2023 08:21:43 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[15-May-2023 19:52:16 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[15-May-2023 19:52:30 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[15-May-2023 19:52:46 America/Bogota] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home3/lasestil/sicefa8/vendor/composer/platform_check.php on line 24
+[16-Jul-2024 23:01:05 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:05 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:09 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:09 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:11 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:11 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:13 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:13 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:15 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:15 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:16 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:16 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:17 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:17 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:17 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:17 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:18 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:18 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:18 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:18 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:18 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:18 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:18 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:18 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:19 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:19 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:22 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:01:22 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:06:46 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:06:46 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:06:57 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:06:57 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:06:59 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:06:59 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:07:00 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:07:00 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:07:01 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:07:01 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:07:02 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:07:02 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:07:03 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:07:03 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:22:43 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:22:43 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:51:47 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:51:47 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:52:01 America/Bogota] PHP Warning:  require(/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Jul-2024 23:52:01 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/sicefa.com.co/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php(38): composerRequireeffff14531458134a015fab27f83fe63('23c18046f52bef3...', '/home3/lasestil...')
+#1 /home3/lasestil/sicefa.com.co/vendor/autoload.php(12): ComposerAutoloaderIniteffff14531458134a015fab27f83fe63::getLoader()
+#2 /home3/lasestil/public_html/sicefa_public/index.php(34): require('/home3/lasestil...')
+#3 {main}
+  thrown in /home3/lasestil/sicefa.com.co/vendor/composer/autoload_real.php on line 55
+[16-Aug-2024 09:33:53 America/Bogota] PHP Fatal error:  Maximum execution time of 60 seconds exceeded in /home3/lasestil/sicefa.com.co/vendor/laravel/framework/src/Illuminate/Support/Str.php on line 235
+[20-Sep-2024 20:23:18 America/Bogota] PHP Warning:  require(/home3/lasestil/public_html/sicefa_public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home3/lasestil/public_html/sicefa_public/index.php on line 34
+[20-Sep-2024 20:23:18 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/public_html/sicefa_public/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/public_html/sicefa_public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home3/lasestil/public_html/sicefa_public/index.php on line 34
+[20-Sep-2024 20:23:24 America/Bogota] PHP Warning:  require(/home3/lasestil/public_html/sicefa_public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home3/lasestil/public_html/sicefa_public/index.php on line 34
+[20-Sep-2024 20:23:24 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/lasestil/public_html/sicefa_public/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home3/lasestil/public_html/sicefa_public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home3/lasestil/public_html/sicefa_public/index.php on line 34

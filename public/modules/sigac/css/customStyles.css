@@ -1,0 +1,191 @@
+/* Estilos para el boton del perfil en el navbar */
+
+.button-name {
+    align-items: center;
+    appearance: none;
+    background-color: #FCFCFD;
+    border-radius: 4px;
+    border-width: 0;
+    box-shadow: rgba(45, 35, 66, 0.2) 0 2px 4px,rgba(45, 35, 66, 0.15) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #36395A;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "JetBrains Mono",monospace;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s,transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow,transform;
+    font-size: 18px;
+   }
+   
+   .button-name:focus {
+    box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+   }
+   
+   .button-name:hover {
+    box-shadow: rgba(45, 35, 66, 0.3) 0 4px 8px, rgba(45, 35, 66, 0.2) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    transform: translateY(-2px);
+   }
+   
+   .button-name:active {
+    box-shadow: #D6D6E7 0 3px 7px inset;
+    transform: translateY(2px);
+   }
+
+/* Estilos para el boton de las redes sociales */
+.social-links, .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-btn {
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    font-family: 'Titillium Web', sans-serif;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+    background: white;
+    margin: 5px;
+    transition: 0.3s;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-btn i {
+    font-size: 24px;
+}
+
+.social-btn span {
+    width: 0px;
+    overflow: hidden;
+    transition: 0.3s;
+    text-align: center;
+    margin-left: 5px;
+}
+
+.social-btn:hover {
+    width: 150px;
+    border-radius: 5px;
+}
+
+.social-btn:hover span {
+    padding: 2px;
+    width: 80px;
+}
+
+#blog i {
+    color: #FF5722;
+}
+
+#facebook i {
+    color: #1877F2; /* Cambiado a color de Facebook */
+}
+
+#instagram i {
+    color: #E4405F;
+}
+
+/* Estilos personalizados para los eventos de fullcalendar */
+
+.fc-event {
+    background-color: #007BFF; /* Color de fondo */
+    color: #FFFFFF; /* Color del texto */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+    padding: 2px; /* Espacio interno */
+    display: flex;
+    flex-direction: column;
+    margin-top: 0px;
+}
+
+a[id^="fc-dom-"] {
+  position: absolute !important;
+  top: 5px !important;
+  right: 5px !important;
+  padding: 2px !important;
+  border-radius: 4px !important;
+  background-color: rgb(255, 255, 255) !important;
+  z-index: 999 !important; /* Asegura que esté encima del resto del contenido */
+  text-decoration: none;
+}
+
+
+
+
+
+/* Estilos personalizados para las cards de consulta de asitencia */
+
+.card-custom {
+    width: 190px;
+    height: 254px;
+    background: #07182E;
+    position: relative;
+    display: flex;
+    place-content: center;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+  
+  .card-custom h2 {
+    z-index: 1;
+    color: white;
+    font-size: 2em;
+  }
+  
+  .card-custom::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    background-image: linear-gradient(180deg, rgb(0, 183, 255), rgb(10, 36, 114));
+    height: 130%;
+    animation: rotBGimg 3s linear infinite;
+    transition: all 0.2s linear;
+  }
+  
+  @keyframes rotBGimg {
+    from {
+      transform: rotate(0deg);
+    }
+  
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .card-custom::after {
+    content: '';
+    position: absolute;
+    background: #07182E;
+    inset: 5px;
+    border-radius: 15px;
+  }
+
+  .celdae{
+    background-color:#e6e6e6 !important;
+  }
+  
+  .fc-myCustomButton-button.fc-button.fc-button-primary {
+    background-color: red !important;
+    border-color: red !important;
+    color: white !important;
+  }
+
+
+
+  

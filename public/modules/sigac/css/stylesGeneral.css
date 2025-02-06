@@ -1,0 +1,295 @@
+/* ---- Personalizacion de estilos de cada boton del sidebar ---- */
+
+.content-wrapper {
+  background-image: url('/modules/sigac/images/backgrounds/books.webp');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Estilos del navbar personalizados: En caso de no quererlos solo borre la clase CSS */
+/* Color de la barra de navegacion superior, donde se agregan los botones como iniciar sesion, entre otros */
+.navbar {
+  background-color: #ffffff;
+}
+
+/* Color de los iconos, botones o links que se agreguen a la barra de navegacion superior */
+.navbar-nav  .nav-link {
+  color: #0a2472a0 !important;
+}
+
+/* Color del texto o icono al pasar el mouse sobre el, va ajuntado con el  */
+.navbar-nav .nav-item .nav-link:hover {
+  color: #ffffff !important;
+}
+
+/* Similar al estilo anterior solo que este es cuanto el boton se quede activado */
+.navbar-nav .active {
+  background-color: #CCDDD3 !important;
+  border-radius: 5px;
+}
+
+/* Color para el boton o icono del navbar al pasar el mouse */
+.navbar-nav .nav-item:hover {
+  background-color: #0a2472cd !important;
+  border-radius: 5px;
+}
+
+/* Estilos del sidebar personalizados: En caso de no quererlos solo borre la clase CSS */
+/* Color del sidebar */
+.sidebar-dark-blue {
+  background: #0A2472 !important;
+}
+
+.sidebar-mini.sidebar-collapse .info {
+  animation-name: fadeOut;
+  animation-duration: .3s;
+  animation-fill-mode: both;
+  display: none;
+}
+
+
+.sidebar-collapse .main-sidebar:hover .info {
+  animation-name: fadeIn;
+  animation-duration: .1s;
+  display: block !important;
+}
+
+/* Al ir a una funcion del sidebar este quedara activo mientras se esta en el grupo de vistas de las rutas especificadas */
+.nav-item .active {
+  background-color: #07194e !important;
+  color: #ffffff !important;
+}
+
+/* Al pasar el Mouse se aplicara el color asigando */
+.nav-item:hover {
+  background-color: #07194e !important;
+  color: #fff !important;
+  border-radius: 5px;
+}
+
+/* Color de los botones que se encuentran en el sidebar */
+.nav-link {
+  color: #ffffff !important;
+}
+
+/* Al pasar el Mouse por el boton */
+.nav-item .active:hover {
+  color: #fff !important;
+  border-radius: 5px;
+}
+
+/* Borde del siderbar que separa el nombre y el logo del las opciones del sidebar */
+.brand-link {
+  border-bottom: 1px solid #ffffff83 !important;
+  box-shadow: 0px 2px 3px rgba(191, 191, 191, 0.3);
+}
+
+/* Estilos varios personalizados: En caso de no quererlos solo borre la clase CSS */
+
+/* Al navegar por las vistas la primera en la guia del breadcrum tendra un tono mas claro */
+.breadcrumb-item a{
+  color: #009afa !important;
+  text-decoration: none;
+}
+
+.breadcrumb-color{
+  color: #ffffff !important;
+}
+
+/* Tamaño del texto de la pantalla inicial */
+
+
+/* Clase que aplica la propiedad de tamaño de la imagen que este dentro de la card de la pagina principal */
+.custom-img {
+  width: 80px !important;
+  height: auto !important;
+}
+
+/* Seccion de acceso rapido a aplicaciones */
+/* Ajusta el tamano de la caja donde se encuentra el icono de la aplicacion y a la vez se realizan los ajustes personalizables de bordes, tamaño, alto y ancho especifico */
+.services .icon-box {
+  box-shadow: 0px 0 25px 0 rgba(0, 0, 0, 0.1);
+  padding: 15px 20px 10px 20px;
+  border-radius: 10px;
+  transition: all ease-in-out 0.4s;
+  background: #fff;
+  min-width: 80px;
+  /* Ancho fijo deseado */
+}
+
+/* Ajusta el tamaño y color que tiene en el primer momento de mostra la seccion de aplicaciones, aqui se puede ajustar el tamaño del icono y a la vez el color que tiene por defecto si pasar el mouse aun sobre el */
+.services .icon-box .icon i {
+  color: rgba(0, 0, 0);
+  font-size: 30px;
+  transition: 0.3s;
+}
+
+.services .icon-box h4 a {
+  color: #4B4B4B;
+  transition: ease-in-out 0.3s;
+}
+
+.services .icon-box:hover {
+  transform: translateY(-5px);
+}
+
+/* Estilos Trimestralización */
+
+.quarter {
+  background-color: #bebebea0 !important; 
+}
+
+/* Asegúrate de que el z-index del modal sea inferior al del select2 */
+.modal {
+  z-index: 1050; 
+}
+
+/* Ajusta el z-index del contenedor del select2 para que esté por encima del modal */
+.select2-container {
+  z-index: 1060; 
+}
+
+/* Ajustar posicion z-index de los select2 */
+.select2  {
+  z-index: 1030 !important;
+}
+
+/* Asistencia */
+
+/* Estilos para el botón flotante */
+.floating-button-container {
+  position: relative;
+  z-index: 1000; /* Asegura que esté sobre otros elementos */
+}
+
+.floating-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+/* Estilos para el menú de botones */
+.floating-button-menu {
+  position: absolute;
+  bottom: 30%;
+  left: 0px;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.2s linear;
+}
+
+.sub-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+  margin-bottom: 10px;
+}
+
+.sub-button i {
+  font-size: 20px;
+}
+
+/* Mostrar el menú cuando se hace clic en el botón flotante */
+.floating-button-container .floating-button-menu.active {
+  visibility: visible;    
+  opacity: 1;
+}
+
+/* Animación para los botones adicionales */
+.floating-button-menu.active .sub-button {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.sub-button:nth-child(1) {
+  transform: translateY(-70px);
+}
+
+.sub-button:nth-child(2) {
+  transform: translateY(-120px); /* Ajuste para colocar arriba del botón principal */
+}
+
+.sub-button:nth-child(3) {
+  transform: translateY(-170px); /* Ajuste para colocar arriba del segundo botón */
+}
+
+.sub-button:nth-child(4) {
+  transform: translateY(-220px); /* Ajuste para colocar arriba del tercer botón */
+}
+
+.b1{
+  background-color: green;
+}
+.b2{
+  background-color: red;
+}
+.b3{
+  background-color: rgb(255, 230, 0);
+}
+.b4{
+  background-color: orange;
+}
+
+/* Boton cambio programacion */
+#lock {
+  display: none;
+}
+.lock-label {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(80, 80, 80);
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.lock-wrapper {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-10deg);
+}
+.shackle {
+  background-color: transparent;
+  height: 9px;
+  width: 14px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top: 3px solid white;
+  border-left: 3px solid white;
+  border-right: 3px solid white;
+  transition: all 0.3s;
+}
+.lock-body {
+  width: 15px;
+}
+#lock:checked + .lock-label .lock-wrapper .shackle {
+  transform: rotateY(150deg) translateX(3px);
+  transform-origin: right;
+}
+#lock:checked + .lock-label {
+  background-color: rgb(56, 87, 225);
+}
+.lock-label:active {
+  transform: scale(0.9);
+}
+
+
