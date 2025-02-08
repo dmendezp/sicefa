@@ -20,6 +20,28 @@
                     {!! Form::label('card','Carta') !!}
                     {!! Form::file('documents[]', ['class' => 'form-control', 'accept' => 'application/pdf']) !!}
                 </div>
+
+                <h5><b>Fechas Programadas</b></h5>
+                <div id="edit_dates_container{{$prom->id}}">
+                    @foreach($prom->program_request_dates as $date)
+                        <input type="hidden" name="date_id[]" value="{{ $date->id }}">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <div class="form-group">
+                                <label for="edit_date">Fecha</label>
+                                <input type="date" name="dates[]" class="form-control" value="{{ $date->date }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_start_time">Hora de inicio</label>
+                                <input type="time" name="start_time[]" class="form-control" value="{{ $date->start_time }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_end_time">Hora fin</label>
+                                <input type="time" name="end_time[]" class="form-control" value="{{ $date->end_time }}" required>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
                 <br>
                 {!! Form::submit(trans('sigac::general.Btn_Save'), ['class' => 'btn btn-primary','id' => 'standcolor']) !!}
                 {!! Form::close() !!}

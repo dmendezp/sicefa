@@ -33,7 +33,7 @@ class CreateProgramRequestsTable extends Migration
             $table->integer('code_empresa')->nullable();
             $table->integer('code_course')->nullable();
             $table->date('date_inscription')->nullable();
-            $table->enum('state',['Confirmado','Pendiente','Cancelado']);
+            $table->enum('state',['Confirmado','Pendiente','Cancelado','Modificado']);
             $table->softDeletes();
             $table->timestamps();
         });

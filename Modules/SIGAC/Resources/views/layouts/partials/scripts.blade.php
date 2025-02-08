@@ -68,3 +68,24 @@
         });
     </script>
 @endif
+
+<script>
+    function confirmDelete(event, url) {
+        event.preventDefault();
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-form').action = url;
+                document.getElementById('delete-form').submit();
+            }
+        });
+    }
+  </script>

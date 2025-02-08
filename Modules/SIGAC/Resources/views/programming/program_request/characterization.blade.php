@@ -64,27 +64,49 @@
                                                     </td>
                                                     @if($prom->state == 'Pendiente')
                                                         <td width="19%">
-                                                            <a  class="btn btn-success" data-bs-toggle="modal" data-bs-target="#characterization{{$prom->id}}">
+                                                            <a  class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#characterization{{$prom->id}}">
                                                                 Caracterizar
                                                             </a>
-                                                            <a  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#devolution{{$prom->id}}">
+                                                            <a  class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#devolution{{$prom->id}}">
                                                                 Devolver
+                                                            </a>
+                                                            <a href="#" class="btn btn-danger" onclick="confirmDelete(event, '{{ route('sigac.support.programming.program_request.destory', $prom->id) }}')">
+                                                                <i class="fas fa-trash-alt"></i> Eliminar
                                                             </a>
                                                         </td>
                                                     @elseif($prom->state == 'Cancelado')
                                                         <td class="text-center">
-                                                            <a  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancel{{$prom->id}}">
-                                                                <i class="fas fa-eye"></i> Cancelado
+                                                            <a  class="btn btn-warning mb-1" data-bs-toggle="modal" data-bs-target="#cancel{{$prom->id}}">
+                                                                <i class="fas fa-eye"></i> Devuelto
+                                                            </a>
+                                                            <a href="#" class="btn btn-danger" onclick="confirmDelete(event, '{{ route('sigac.support.programming.program_request.destory', $prom->id) }}')">
+                                                                <i class="fas fa-trash-alt"></i> Eliminar
+                                                            </a>
+                                                        </td>
+                                                    @elseif($prom->state == 'Modificado')
+                                                        <td class="text-center">
+                                                            <a  class="btn btn-warning mb-1" data-bs-toggle="modal" data-bs-target="#cancel{{$prom->id}}">
+                                                                <i class="fas fa-eye"></i> Modificado
+                                                            </a>
+                                                            <a  class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#characterization{{$prom->id}}">
+                                                                Caracterizar
+                                                            </a>
+                                                            <a href="#" class="btn btn-danger" onclick="confirmDelete(event, '{{ route('sigac.support.programming.program_request.destory', $prom->id) }}')">
+                                                                <i class="fas fa-trash-alt"></i> Eliminar
                                                             </a>
                                                         </td>
                                                     @else
                                                         <td class="text-center">
-                                                            <a  class="btn btn-secondary">
+                                                            <a  class="btn btn-secondary mb-1">
                                                                 Caracterizado
                                                             </a>
                                                         </td>
                                                     @endif
-
+                                                    <!-- Botón o enlace de eliminación -->
+                                                    <form id="delete-form" action="{{ route('sigac.support.programming.program_request.destory', $prom->id) }}" method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
                                                     @include('sigac::programming.program_request.confirmation')
                                                     @include('sigac::programming.program_request.devolution')
                                                 </tr>

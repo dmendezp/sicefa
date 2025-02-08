@@ -1253,6 +1253,15 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_support[] = $permission->id; // Almacenar permiso para rol
 
+        // Eliminar solicitud del programa (Apoyo)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.support.programming.program_request.destory'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar la solicitud del programa (Apoyo)',
+            'description' => 'Eliminar por completo la solicitud del programa',
+            'description_english' => 'Completely remove the application from the program',
+            'app_id' => $app->id
+        ]);
+        $permissions_support[] = $permission->id; // Almacenar permiso para rol
+
         //  ------------------------------------ ROLES ------------------------------------------
 
         // Registra asistencia del aprendiz (Instructor)

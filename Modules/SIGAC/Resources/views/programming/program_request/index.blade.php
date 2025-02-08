@@ -238,6 +238,7 @@
                 
                 var hoursDiff = (endHours - startHours) + (endMinutes - startMinutes) / 60;
                 totalHours += hoursDiff;
+                console.log(totalHours);
             });
             
             $('#total_hours_calculated').val(totalHours.toFixed(2));
@@ -249,7 +250,7 @@
         function compareHours() {
             var calculatedHours = parseFloat($('#total_hours_calculated').val());
             var enteredHours = parseFloat($('#total_hours').val());
-
+            console.log(enteredHours, calculatedHours);
             if (enteredHours !== calculatedHours) {
                 $(':submit').prop('disabled', true); // Deshabilitar botón de submit
                 $('#hours-error-message').show();

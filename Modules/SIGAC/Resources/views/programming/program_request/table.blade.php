@@ -63,10 +63,10 @@
                                 </a>  
                             </td>
                             <td class="text-center">
-                                @if($prom->state == 'Cancelado')
+                                @if($prom->state == 'Cancelado' || $prom->state == 'Modificado' )
                                 <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#documents{{$prom->id}}"><i class="fas fa-edit"></i></button>
-                                <a  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancel{{$prom->id}}" style="margin: 5px;">
-                                    <i class="fas fa-eye"></i> Cancelado
+                                <a  class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#cancel{{$prom->id}}" style="margin: 5px;">
+                                    <i class="fas fa-eye"></i>
                                 </a>
                                 @include('sigac::programming.program_request.documents')
                                 @include('sigac::programming.program_request.devolution')
