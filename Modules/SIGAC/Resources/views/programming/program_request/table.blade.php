@@ -68,6 +68,14 @@
                                 <a  class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#cancel{{$prom->id}}" style="margin: 5px;">
                                     <i class="fas fa-eye"></i>
                                 </a>
+                                <a href="#" class="btn btn-danger" onclick="confirmDelete(event, '{{ route('sigac.academic_coordination.programming.program_request.destory', $prom->id) }}')">
+                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                </a>
+                                 <!-- Botón o enlace de eliminación -->
+                                 <form id="delete-form" action="{{ route('sigac.academic_coordination.programming.program_request.destory', $prom->id) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
                                 @include('sigac::programming.program_request.documents')
                                 @include('sigac::programming.program_request.devolution')
                             </td>

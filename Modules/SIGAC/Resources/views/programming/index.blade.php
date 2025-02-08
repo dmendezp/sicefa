@@ -501,11 +501,16 @@
 
             var authUser = <?= json_encode($user); ?>;
 
-            @if(auth()->check())
-                var url = "{{ route('sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.management.search') }}";
+            @if(auth()->check()) 
+            @if(Route::currentRouteName() === 'cefa.sigac.programming.index')
+                    var url = "{{ route('cefa.sigac.programming.management.search') }}";
+                @else
+                    var url = "{{ route('sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.management.search') }}";
+                @endif
             @else  
-                var url = "{{ route('cefa.sigac.programming.management.search') }}";
+                var url = "{{ route('cefa.sigac.programming.management.search') }}"; 
             @endif
+
 
             $.ajax({
                 type: 'POST',
@@ -520,63 +525,74 @@
                     response.programmingEvents.forEach(function(eventData) {
                         var modality = eventData.modality;
                         var environmentName;
-                        switch(modality){
+                        
+                        switch (modality) {
                             case 'Complementaria':
                                 environmentName = 'Complementaria';
                                 break;
                             case 'Medios Tecnologicos':
-                                environmentName = 'Medios Tecnologicos'; 
+                                environmentName = 'Medios Tecnologicos';
                                 break;
-                            case null: // Si la modalidad es nula
-                            case undefined: // Si no existe la modalidad
+                            case null: 
+                            case undefined: 
                                 environmentName = eventData.activity_name;
                                 break;
                             default:
-                            environmentName = eventData.environment_instructor_programs[0].environment.name;
+                                environmentName = eventData.environment_instructor_programs?.[0]?.environment?.name || 'Desconocido';
                         }
-                        
+
                         var titleWithInitials;
-                        switch(option) {
-                            case 1:
-                                titleWithInitials = eventData.course.code + ' - ' + environmentName;
-                                break;
-                            case 2:
-                                titleWithInitials = eventData.instructor_program_people[0].person.initials + ' - ' + eventData.course.code;
-                                break;
-                            case 3:
-                                titleWithInitials = eventData.instructor_program_people[0].person.initials + ' - ' + environmentName;                               
-                                break;
-                            default:
-                                if (eventData.instructor_program_people.length > 0) {
-                                    titleWithInitials = eventData.instructor_program_people[0].person.initials + ' - ' + eventData.course.code;
-                                }  else {
-                                    titleWithInitials = eventData.activity_name; // Si no hay persona, solo muestra el nombre de la actividad
-                                }
+
+                        if (eventData.instructor_program_people.length > 0) {
+                            let initialsList = eventData.instructor_program_people.map(instructorObj => {
+                                let instructor = instructorObj.person;
+                                let isLeader = eventData.course && instructor.id === eventData.course.person_id;
+
+                                return isLeader 
+                                    ? `<b style="font-style: italic; color: yellow;">${instructor.initials}</b>` 
+                                    : instructor.initials;
+                            }).join(", ");
+
+                            switch (option) {
+                                case 1:
+                                    titleWithInitials = `${eventData.course?.code || 'Sin Código'} - ${environmentName}`;
+                                    break;
+                                case 2:
+                                    titleWithInitials = `${initialsList} - ${eventData.course?.code || 'Sin Código'}`;
+                                    break;
+                                case 3:
+                                    titleWithInitials = `${initialsList} - ${environmentName}`;
+                                    break;
+                                default:
+                                    titleWithInitials = `${initialsList} - ${eventData.course?.code || 'Sin Código'}`;
+                            }
+                        } else {
+                            titleWithInitials = eventData.activity_name;
                         }
-                                                
+
                         if (Array.isArray(eventData.instructor_program_novelties) && eventData.instructor_program_novelties.length > 0) {
                             calendar.addEvent({
                                 title: eventData.instructor_program_novelties[0].activity,
                                 start: eventData.instructor_program_novelties[0].date,
                                 extendedProps: {
-                                    timeRange : 'Novedad',
-                                    hasNovelty: true, // Propiedad personalizada para indicar la existencia de una novedad
+                                    timeRange: 'Novedad',
+                                    hasNovelty: true, 
                                     instructor_program_novelties: eventData.instructor_program_novelties
                                 }
                             });
                         } 
 
-                        if(eventData.activity_name){
+                        if (eventData.activity_name) {
                             calendar.addEvent({
                                 title: eventData.activity_name,
                                 start: eventData.date,
                                 extendedProps: {
-                                    timeRange : `(${formatTime(eventData.start_time)} - ${formatTime(eventData.end_time)})`,
-                                    hasExternalActivity: true, // Propiedad personalizada para indicar la existencia de una novedad
+                                    timeRange: `(${formatTime(eventData.start_time)} - ${formatTime(eventData.end_time)})`,
+                                    hasExternalActivity: true, 
                                     instructor_program: eventData
                                 }
                             });
-                        }else {
+                        } else {
                             calendar.addEvent({
                                 title: titleWithInitials,
                                 start: eventData.date + 'T' + eventData.start_time,
@@ -600,10 +616,8 @@
 
                         function formatTime(timeString) {
                             const [hours, minutes] = timeString.split(':');
-                            const formattedTime = `${hours}:${minutes}`;
-                            return formattedTime;
+                            return `${hours}:${minutes}`;
                         }
-
                     });
 
                     // Agregar días festivos como eventos de fondo
@@ -615,7 +629,7 @@
                                 timeRange: '',
                             },
                             display: 'background',
-                            backgroundColor: '#ff0000', // Color de fondo para los días festivos
+                            backgroundColor: '#ff0000',
                             borderColor: '#ff0000'
                         });
                     });
@@ -626,6 +640,7 @@
                     console.error(error);
                 }
             });
+
         });
 
         $('#filter').change(function() {
@@ -656,11 +671,16 @@
             }
 
             // Actualizar el título del <h4>
-            $('#titulo').text(titulo);
-            @if(auth()->check())
-                var url = "{{ route('sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.management.filter') }}";
+            $('#titulo').text(titulo);  
+
+            @if(auth()->check()) 
+            @if(Route::currentRouteName() === 'cefa.sigac.programming.index')
+                    var url = "{{ route('cefa.sigac.programming.management.filter') }}"; // Ajusta esta ruta según tu lógica
+                @else
+                    var url = "{{ route('sigac.'. getRoleRouteName(Route::currentRouteName()) .'.programming.management.filter') }}";
+                @endif
             @else  
-                var url = "{{ route('cefa.sigac.programming.management.filter') }}";
+                var url = "{{ route('cefa.sigac.programming.management.filter') }}"; 
             @endif
             $.ajax({
                 type: 'POST',

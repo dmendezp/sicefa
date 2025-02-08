@@ -89,8 +89,11 @@
 </div>
 <script>
     $(document).ready(function() {
-        $('.instructor_program').DataTable( {
-            paging: false
-        } );
+    $('.instructor_program').each(function() {
+        if (!$.fn.DataTable.isDataTable(this)) {
+            $(this).DataTable();
+        }
     });
+});
+
 </script>

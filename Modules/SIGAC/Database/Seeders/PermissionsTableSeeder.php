@@ -969,6 +969,15 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar solicitud del programa (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.program_request.destory'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar la solicitud del programa (Coordinación Académica)',
+            'description' => 'Eliminar por completo la solicitud del programa',
+            'description_english' => 'Completely remove the application from the program',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
         
 
         //  ----------------------------------- ROL INSTRUCTOR ------------------------------------------
