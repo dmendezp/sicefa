@@ -4,9 +4,9 @@
 
 <div class="card card-blue card-outline shadow">
     <div class="card-header">
-        <h3 class="card-title">Solicitudes de programas</h3>
+        <h3 class="card-title">Solicitudes de cursos</h3>
         @if(Auth::user()->havePermission('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.index'))
-            <a class="btn btn-outline-success float-right ml-1" href="{{ route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.index') }}">Solicitar Programa</a>
+            <a class="btn btn-outline-success float-right ml-1" href="{{ route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.index') }}">Solicitar Curso</a>
         @endif
     </div>
     <div class="card-body">
@@ -70,16 +70,26 @@
                                 </a>
                                 <a href="#" class="btn btn-danger" onclick="confirmDelete(event, '{{ route('sigac.academic_coordination.programming.program_request.destory', $prom->id) }}')">
                                     <i class="fas fa-trash-alt"></i> Eliminar
-                                </a>
+                                </a>    
                                  <!-- Botón o enlace de eliminación -->
                                  <form id="delete-form" action="{{ route('sigac.academic_coordination.programming.program_request.destory', $prom->id) }}" method="POST" style="display: none;">
                                     @csrf
                                     @method('DELETE')
                                 </form>
+                                @elseif ($prom->state == 'Pendiente')
+                                    <a  class="btn btn-success mb-1">
+                                        Pendiente
+                                    </a>
+                                @elseif ($prom->state == 'Confirmado')
+                                    <a  class="btn btn-secondary mb-1">
+                                        Caracterizado
+                                    </a>
+                                @endif
                                 @include('sigac::programming.program_request.documents')
                                 @include('sigac::programming.program_request.devolution')
+                                
                             </td>
-                            @endif
+                           
                         </tr>
                     @endforeach
                 </tbody>

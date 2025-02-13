@@ -161,7 +161,6 @@ class ProgrammeController extends Controller
             return str_replace('-' . $quarter_number, '', $competencieName); // Agrupar por nombre de competencia
         });
     
-        debug($outcomes_not_programming);
 
         $quarterlie = Quarterly::with('learning_outcome.competencie')
         ->where('quarter_number', $quarter_number)
@@ -1296,20 +1295,16 @@ class ProgrammeController extends Controller
         if ($rol == 'sigac.instructor') {
             $program_request = ProgramRequest::with('person', 'program', 'special_program', 'program_request_documents','program_request_dates')
             ->where('person_id', $person_id)
-            ->where('state', 'Modificado')
-            ->orWhere('state', 'Cancelado')
             ->get();
         }elseif ($rol == 'sigac.academic_coordinator' || checkRol('superadmin')) {
             $program_request = ProgramRequest::with('person', 'program', 'special_program', 'program_request_documents','program_request_dates')
-            ->where('state', 'Modificado')
-            ->orWhere('state', 'Cancelado')
             ->get();
         }
 
         
         return view('sigac::programming.program_request.table', [
-            'titlePage' => trans('Solicitudes de programa'),
-            'titleView' => trans('Solicitudes de programa'),
+            'titlePage' => trans('Solicitudes de curso'),
+            'titleView' => trans('Solicitudes de curso'),
             'program_requests' => $program_request
         ]);
     }
@@ -1349,11 +1344,16 @@ class ProgrammeController extends Controller
             ];
         })->prepend(['id' => null, 'name' => trans('sigac::profession.SelectAnInstructor')])->pluck('name', 'id');
 
-        $country_id = Country::where('name','=','Colombia')->pluck('id');
-        $department_id = Department::where('country_id',$country_id)->pluck('id');
-        $municipalities = Municipality::whereIn('department_id',$department_id)->orderBy('name','Asc')->get()->mapWithKeys(function ($munipality) {
-            return [$munipality->id => $munipality->name];
-        });
+        $country_id = Country::where('name', 'Colombia')->pluck('id');
+        $department_id = Department::where('country_id', $country_id)->pluck('id');
+
+        $municipalities = Municipality::whereIn('department_id', $department_id)
+            ->join('departments', 'municipalities.department_id', '=', 'departments.id')
+            ->orderBy('municipalities.name', 'Asc')
+            ->get(['municipalities.id', 'municipalities.name as municipality_name', 'departments.name as department_name'])
+            ->mapWithKeys(function ($municipality) {
+                return [$municipality->id => $municipality->municipality_name . ' - ' . $municipality->department_name];
+            });
 
         $today = Carbon::today();
 
@@ -1739,7 +1739,6 @@ class ProgrammeController extends Controller
             return response()->json(['error' => 'Error interno del servidor', $e], 500);
         }
     }
-
 
     public function program_request_destroy($id)
     {
