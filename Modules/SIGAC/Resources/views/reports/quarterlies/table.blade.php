@@ -127,7 +127,6 @@
                                                         // Si solo hay una persona, mostramos solo esa
                                                         $person = count($personList) == 1 ? $personList[0] : 'No hay personas asignadas';
                                                     }
-                                                    debug($person);
                                                     // Horas ejecutadas, si existen, independientemente del trimestre
                                                     $trimestreExecutedHours = isset($executedHours[$i][$learningOutcome]) ? $executedHours[$i][$learningOutcome] : 0;
                                                     $totalExecutedHoursByQuarter[$i] += $trimestreExecutedHours;
