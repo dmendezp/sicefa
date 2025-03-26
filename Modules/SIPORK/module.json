@@ -1,0 +1,13 @@
+{
+    "name": "SIPORK",
+    "alias": "sipork",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SIPORK\\Providers\\SIPORKServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
