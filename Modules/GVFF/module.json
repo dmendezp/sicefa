@@ -1,0 +1,13 @@
+{
+    "name": "GVFF",
+    "alias": "gvff",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\GVFF\\Providers\\GVFFServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
