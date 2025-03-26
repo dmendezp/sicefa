@@ -1,0 +1,13 @@
+{
+    "name": "GDSENA",
+    "alias": "gdsena",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\GDSENA\\Providers\\GDSENAServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
