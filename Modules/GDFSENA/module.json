@@ -1,0 +1,13 @@
+{
+    "name": "GDFSENA",
+    "alias": "gdfsena",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\GDFSENA\\Providers\\GDFSENAServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
