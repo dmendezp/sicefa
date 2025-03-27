@@ -1,0 +1,13 @@
+{
+    "name": "LOMBRISOFT",
+    "alias": "lombrisoft",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\LOMBRISOFT\\Providers\\LOMBRISOFTServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
