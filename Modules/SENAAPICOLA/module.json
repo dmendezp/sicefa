@@ -1,0 +1,13 @@
+{
+    "name": "SENAAPICOLA",
+    "alias": "senaapicola",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SENAAPICOLA\\Providers\\SENAAPICOLAServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
