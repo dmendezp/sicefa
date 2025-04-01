@@ -887,59 +887,71 @@ class EnvironmentControlController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function authorized_index()
     {
-        return view('sigac::create');
+        $titlePage = trans('sigac::environment.Environ_Control');
+        $titleView = trans('sigac::environment.Personnel_Authorization');
+
+        $authorizedPersonnels = DB::table('authorized_personnels')->get();
+        $roles = DB::table('roles')->pluck('name', 'id');
+
+        $data = [
+            'titlePage' => $titlePage,
+            'titleView' => $titleView,
+            'authorizedPersonnels' => $authorizedPersonnels,
+            'roles' => $roles,
+        ];
+
+        return view('sigac::environment_control.authorized_personnels.index', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
+    public function searchperson(Request $request)
     {
-        //
+        $term = $request->input('q');
+
+        $persons = Person::whereRaw("CONCAT(first_name, ' ', first_last_name, ' ', second_last_name) LIKE ?", ['%' . $term . '%'])->get();
+
+        $results = [];
+        foreach ($persons as $person) {
+            $results[] = [
+                'id' => $person->id,
+                'text' => $person->first_name . ' ' . $person->first_last_name. ' ' . $person->second_last_name,
+            ];
+        }
+
+        return response()->json($results);
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
+
+    // Función para agregar un nuevo registro
+    public function authorized_store(Request $request)
     {
-        return view('sigac::show');
+        $request->validate([
+            'person_id' => 'required|integer|exists:people,id',
+            'role_id' => 'required|integer|exists:roles,id',
+        ]);
+
+        DB::table('authorized_personnels')->insert([
+            'person_id' => $request->person_id,
+            'role_id' => $request->role_id,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->route('sigac.academic_coordination.environment_control.authorized_personnels.authorized_index')->with('success', 'Registro agregado exitosamente');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
+    // Función para eliminar un registro por ID
+    public function authorized_destroy($id)
     {
-        return view('sigac::edit');
-    }
+        $authorizedPersonnel = DB::table('authorized_personnels')->where('id', $id)->first();
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        if (!$authorizedPersonnel) {
+            return redirect()->route('sigac.academic_coordination.environment_control.authorized_personnels.authorized_index')->with('error', 'Registro no encontrado');
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        DB::table('authorized_personnels')->where('id', $id)->delete();
+
+        return redirect()->route('sigac.academic_coordination.environment_control.authorized_personnels.authorized_index')->with('success', 'Registro eliminado exitosamente');
     }
 }

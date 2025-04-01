@@ -87,7 +87,7 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             // Fechas
             Route::get('academic_coordination/programming/dates', 'dates_index')->name('sigac.academic_coordination.programming.dates_index'); // Programación de horarios (Coordinación Académica)
             Route::post('academic_coordination/programming/dates/store_dates', 'store_dates')->name('sigac.academic_coordination.profession.dates_index.store_dates'); // Eliminar profesion (Coordinación Académica)
-            
+
             // Solicitud de Programa
             Route::get('instructor/programming/program_request/index', 'program_request_index')->name('sigac.instructor.programming.program_request.index'); // Programación de horarios (Coordinación Académica)
             Route::get('academic_coordination/programming/program_request/index', 'program_request_index')->name('sigac.academic_coordination.programming.program_request.index'); // Programación de horarios (Coordinación Académica)
@@ -267,5 +267,14 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::post('academic_coordination/committee/report/result', 'committee_result')->name('sigac.academic_coordination.committee.report.result'); // Buscar aprendiz
         });
 
+        // Rutas para control de ambientes
+        Route::controller(EnvironmentControlController::class)->group(function () {
+            // 
+            Route::get('academic_coordination/environment_control/authorized_personnels/index', 'authorized_index')->name('sigac.academic_coordination.environment_control.authorized_personnels.authorized_index');
+            Route::post('academic_coordination/environment_control/authorized_personnels/store', 'authorized_store')->name('sigac.academic_coordination.environment_control.authorized_personnels.authorized_store');
+            Route::delete('academic_coordination/environment_control/authorized_personnels/delete/{id}', 'authorized_destroy')->name('sigac.academic_coordination.environment_control.authorized_personnels.authorized_destroy');
+            Route::get('academic_coordination/environment_control/authorized_personnels/search', 'searchperson')->name('sigac.academic_coordination.environment_control.authorized_personnels.searchperson');
+
+        });
     });
 });

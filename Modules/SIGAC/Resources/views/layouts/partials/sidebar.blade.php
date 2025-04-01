@@ -323,6 +323,12 @@
                                         <p>Verificacion Inventario</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.academic_coordination.environment_control.authorized_personnels.authorized_index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-pen-fancy"></i>
+                                        <p>Autorizacion personal</p>
+                                    </a>
+                                </li>
                                 
     
                             </ul>
