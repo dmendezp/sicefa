@@ -14,3 +14,4 @@ yarn-error.log
 /.vscode
 composer.lock
 composer.json
+.qodo
