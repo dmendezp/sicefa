@@ -1,0 +1,13 @@
+{
+    "name": "SIBAF",
+    "alias": "sibaf",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SIBAF\\Providers\\SIBAFServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
