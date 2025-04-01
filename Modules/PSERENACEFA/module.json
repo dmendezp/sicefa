@@ -1,0 +1,13 @@
+{
+    "name": "PSERENACEFA",
+    "alias": "pserenacefa",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\PSERENACEFA\\Providers\\PSERENACEFAServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
