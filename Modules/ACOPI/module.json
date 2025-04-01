@@ -1,0 +1,13 @@
+{
+    "name": "ACOPI",
+    "alias": "acopi",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ACOPI\\Providers\\ACOPIServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
