@@ -19,6 +19,9 @@ class GDFDatabaseSeeder extends Seeder
 
         DB::beginTransaction();
         $this->call(AppTableSeeder::class); //Conectando Seeder de APP
+        $this->call(PeopleTableSeeder::class); // Ejecutar Seeder de personas
+        $this->call(UsersTableSeeder::class); // Ejecutar Seeder de usuarios
+
 
         DB::commit();
     }

@@ -20,7 +20,7 @@ class AppTableSeeder extends Seeder
             [
             'url'=> '/gdf/index',
             'color'=> '#FF5733',
-            'icon' => 'fa fa-piggy-bank',
+            'icon' => 'fa fa-car',
             'description' => 'Gestion de Desplazamiento de Funcionarios',
             'description_english'=> 'Management of civil servant travel',
             ],

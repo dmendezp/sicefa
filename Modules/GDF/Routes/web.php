@@ -12,5 +12,5 @@
 */
 
 Route::prefix('gdf')->group(function() {
-    Route::get('/', 'GDFController@index');
+    Route::get('/index', 'GDFController@index')->name('cefa.gdf.index');
 });
