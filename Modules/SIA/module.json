@@ -1,0 +1,13 @@
+{
+    "name": "SIA",
+    "alias": "sia",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SIA\\Providers\\SIAServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
