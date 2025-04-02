@@ -1,9 +1,13 @@
 <?php
 
+
+
 namespace Modules\SIPORK\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
 
 class SIPORKDatabaseSeeder extends Seeder
 {
@@ -14,8 +18,13 @@ class SIPORKDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        DB::beginTransaction(); // Iniciar transacción
 
-        // $this->call("OthersTableSeeder");
+        $this->call(AppTableSeeder::class); // Ejecutar Seeder de aplicación
+        $this->call(PeopleTableSeeder::class); // Ejecutar Seeder de personas
+        $this->call(UsersTableSeeder::class); // Ejecutar Seeder de usuarios
+
+    
+        DB::commit(); // Finalizar transacción
     }
 }

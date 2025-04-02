@@ -12,5 +12,5 @@
 */
 
 Route::prefix('sipork')->group(function() {
-    Route::get('/', 'SIPORKController@index');
+    Route::get('/index', 'SIPORKController@index')->name('cefa.sipork.index');
 });
