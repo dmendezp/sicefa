@@ -12,5 +12,5 @@
 */
 
 Route::prefix('sg')->group(function() {
-    Route::get('/', 'SGController@index');
+    Route::get('/index', 'SGController@index')->name('cefa.sg.index');
 });
