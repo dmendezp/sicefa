@@ -1,0 +1,13 @@
+{
+    "name": "GDF",
+    "alias": "gdf",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\GDF\\Providers\\GDFServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
