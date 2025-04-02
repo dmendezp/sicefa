@@ -110,13 +110,19 @@
                                 </a>
                                 <ul class="nav nav-treeview items">
                                     <li class="nav-item">
-                                        <a href="" class="nav-link">
+                                        <a href="{{ route('sigac.academic_coordination.committee.missing.index') }}" class="nav-link">
                                             <i class="nav-icon fas fa-file-invoice"></i>
-                                            <p>Reporte novedades</p>
+                                            <p>Faltas Cometidas</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="" class="nav-link">
+                                        <a href="{{ route('sigac.academic_coordination.committee.novelty.index') }}" class="nav-link">
+                                            <i class="nav-icon fas fa-file-invoice"></i>
+                                            <p>Gestion Novedades</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('sigac.academic_coordination.committee.report.consult') }}" class="nav-link">
                                             <i class="nav-icon fas fa-book-reader"></i>
                                             <p>Resultado Comite</p>
                                         </a>
@@ -295,7 +301,6 @@
                             </li>
                         @endif
                        
-<<<<<<< HEAD
     
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -357,52 +362,6 @@
                                 </li>
                             </ul>
                         </li>
-=======
-                        @if (Auth::user()->havePermission('sigac.academic_coordination.curriculum_planning.training_project.index'))
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-hand-paper"></i>
-                                    <p>
-                                        Control Ambientes
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview items" style="display: none;">
-                                    <li class="nav-item">
-                                        <a href="" class="nav-link">
-                                            <i class="nav-icon fas fa-pen-fancy"></i>
-                                            <p>Novedad</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="" class="nav-link">
-                                            <i class="nav-icon fas fa-pen-fancy"></i>
-                                            <p>Verificacion Inventario</p>
-                                        </a>
-                                    </li>
-                                    
-        
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-book"></i>
-                                    <p>
-                                        Reportes
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview items">
-                                    <li class="nav-item">
-                                        <a href="{{ route('sigac.academic_coordination.reports.quartelies.index') }}" class="nav-link">
-                                            <i class="nav-icon fas fa-file-invoice"></i>
-                                            <p>Trimestralización</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
->>>>>>> 803238444b6ffab2ba2f69c42735496ba77709ac
                     @endif
 
                     <!-- Menú de opciones para Instructor -->
@@ -522,13 +481,13 @@
                             </a>
                             <ul class="nav nav-treeview items">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="{{ route('sigac.instructor.committee.novelty.create') }}" class="nav-link">
                                         <i class="nav-icon fas fa-file-invoice"></i>
-                                        <p>Reporte novedades</p>
+                                        <p>Reportar Novedad</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="{{ route('sigac.instructor.committee.report.consult') }}" class="nav-link">
                                         <i class="nav-icon fas fa-book-reader"></i>
                                         <p>Resultado Comite</p>
                                     </a>
@@ -566,7 +525,7 @@
                             </a>
                             <ul class="nav nav-treeview items">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="{{ route('sigac.academic_coordination.committee.novelty.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-file-invoice"></i>
                                         <p>Reporte novedades</p>
                                     </a>
