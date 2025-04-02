@@ -1,0 +1,13 @@
+{
+    "name": "SG",
+    "alias": "sg",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SG\\Providers\\SGServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
