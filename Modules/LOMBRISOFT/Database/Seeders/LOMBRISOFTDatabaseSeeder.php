@@ -4,6 +4,7 @@ namespace Modules\LOMBRISOFT\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class LOMBRISOFTDatabaseSeeder extends Seeder
 {
@@ -14,8 +15,13 @@ class LOMBRISOFTDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        DB::beginTransaction();
 
-        // $this->call("OthersTableSeeder");
+        $this->call(AppTableSeeder::class);
+        $this->call(PeopleTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+
+
+        DB::commit();
     }
 }

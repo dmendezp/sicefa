@@ -12,5 +12,5 @@
 */
 
 Route::prefix('lombrisoft')->group(function() {
-    Route::get('/', 'LOMBRISOFTController@index');
+    Route::get('/index', 'LOMBRISOFTController@index')->name('cefa.lombrisoft.index');
 });
