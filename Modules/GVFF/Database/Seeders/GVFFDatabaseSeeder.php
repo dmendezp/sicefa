@@ -2,8 +2,12 @@
 
 namespace Modules\GVFF\Database\Seeders;
 
+
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
+
 
 class GVFFDatabaseSeeder extends Seeder
 {
@@ -14,8 +18,13 @@ class GVFFDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        DB::beginTransaction();
 
-        // $this->call("OthersTableSeeder");
+         $this->call(AppTableSeeder::class);
+         $this->call(PeopleTableSeeder::class);
+         $this->call(UsersTableSeeder::class);
+
+         DB::commit();
+        
     }
 }
