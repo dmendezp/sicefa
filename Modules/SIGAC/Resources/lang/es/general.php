@@ -9,6 +9,7 @@ return [
     'Apprentice'           => 'Aprendiz',
     'Support'              => 'Apoyo',
     'Securitystaff'        => 'Personal Seguridad',
+    'Directory'            => 'Directorio',
     'Log In'               => 'Iniciar Sesión',
     'Internacionalization' => 'Internacionalización',
     'English'              => 'Inglés',

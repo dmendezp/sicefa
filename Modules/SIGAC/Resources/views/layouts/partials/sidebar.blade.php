@@ -101,6 +101,13 @@
                                 <p>{{ trans('sigac::general.Scheduling') }}</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('cefa.sigac.directory_dashboard') }}"
+                                class="nav-link {{ !Route::is('cefa.sigac.directory_dashboard*') ?: 'active' }}">
+                                <i class="nav-icon fa fa-address-book"></i>
+                                <p>{{ trans('sigac::general.Directory') }}</p>
+                            </a>
+                        </li>
                     @endif
 
                     <!-- Menú de opciones para coordinación académica -->

@@ -8,6 +8,9 @@ return [
 	// Info
 	'SIGAC_info_title_page' => 'Information',
 	'SIGAC_info_title_view' => 'Information',
+	// Directory
+	'SIGAC_directory_title_page' => 'Directory',
+	'SIGAC_directory_title_view' => 'Directory',
 	// Developers and Credits
 	'SIGAC_devs_title_page' => 'Developers',
 	'SIGAC_devs_title_view' => 'Developers and Credits',

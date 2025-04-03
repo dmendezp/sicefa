@@ -9,6 +9,7 @@ return [
 	'Apprentice'           => 'Apprentice',
     'Support'              => 'Support',
     'Securitystaff'        => 'Security Staff',
+    'Directory'            => 'Directory',
     'Log In'               => 'Log In',
     'Internacionalization' => 'Internacionalization',
     'English'              => 'English',

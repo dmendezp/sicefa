@@ -24,6 +24,9 @@ return [
 	// Info
 	'SIGAC_info_title_page' => 'Información',
 	'SIGAC_info_title_view' => 'Información',
+	// Directory
+	'SIGAC_directory_title_page' => 'Directorio',
+	'SIGAC_directory_title_view' => 'Directorio',
 	// Developers and Credits
 	'SIGAC_devs_title_page' => 'Desarrolladores',
 	'SIGAC_devs_title_view' => 'Desarrolladores y Créditos',

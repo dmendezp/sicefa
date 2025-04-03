@@ -17,7 +17,9 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('apprentice', 'apprentice_dashboard')->name('sigac.apprentice.dashboard'); // Panel de control de aprendiz (Aprendiz)
             Route::get('support', 'support_dashboard')->name('sigac.support.dashboard'); // Panel de control de apoyo (Apoyo)
             Route::get('securitystaff', 'securitystaff_dashboard')->name('sigac.securitystaff.dashboard'); // Panel de control de apoyo (Apoyo)
-
+            
+            Route::get('directory', 'directory_dashboard')->name('cefa.sigac.directory_dashboard'); // Panel del directorio
+            Route::post('directory/search', 'directory_search')->name('cefa.sigac.directory_search'); // Consultar directorio
         });
 
         // RUTAS PROGRAMACION DE INSTRUCTORES
