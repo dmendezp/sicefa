@@ -12,5 +12,5 @@
 */
 
 Route::prefix('senaapicola')->group(function() {
-    Route::get('/', 'SENAAPICOLAController@index');
+    Route::get('/index', 'SENAAPICOLAController@index')->name('cefa.senaapicola.index');
 });
