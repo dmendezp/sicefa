@@ -1,0 +1,13 @@
+{
+    "name": "LSCEFA",
+    "alias": "lscefa",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\LSCEFA\\Providers\\LSCEFAServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
