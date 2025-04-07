@@ -16,6 +16,14 @@ class SGController extends Controller
     {
         return view('sg::index');
     }
+    public function welcome()
+    {
+        return view('sg::welcome');
+    }
+    public function admin()
+    {
+        return view('sg::welcome');
+    }
 
     /**
      * Show the form for creating a new resource.

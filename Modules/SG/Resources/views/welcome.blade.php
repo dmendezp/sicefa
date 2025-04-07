@@ -1,4 +1,4 @@
-@extends('sg::layouts.masterusers')
+@extends('sg::layouts.master')
 
 @section('content')
     <h1>Hello World</h1>
