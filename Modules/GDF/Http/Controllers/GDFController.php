@@ -16,6 +16,14 @@ class GDFController extends Controller
     {
         return view('gdf::index');
     }
+    public function welcome()
+    {
+        return view('gdf::welcome');
+    }
+    public function admin()
+    {
+        return view('gdf::welcome');
+    }
 
     /**
      * Show the form for creating a new resource.

@@ -15,14 +15,14 @@ class GDFDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
 
         DB::beginTransaction();
         $this->call(AppTableSeeder::class); //Conectando Seeder de APP
         $this->call(PeopleTableSeeder::class); // Ejecutar Seeder de personas
         $this->call(UsersTableSeeder::class); // Ejecutar Seeder de usuarios
-
-
+        $this->call(RolesTableSeeder::class); // Ejecutar Seeder de roles
+        $this->call(PermissionsTableSeeder::class); // Ejecutar Seeder de permisos
+    
         DB::commit();
     }
 }

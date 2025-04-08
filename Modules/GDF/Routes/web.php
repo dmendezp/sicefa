@@ -1,4 +1,5 @@
 <?php
+use illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -10,7 +11,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::prefix('gdf')->group(function() {
-    Route::get('/index', 'GDFController@index')->name('cefa.gdf.index');
+Route::middleware(['lang'])->group(function () {
+    Route::prefix('gdf')->group(function () {
+        Route::get('/index', 'GDFController@index')->name('cefa.gdf.index');
+        Route::get('/admin/welcome', 'GDFController@admin')->name('cefa.admin.welcome');
+    });
 });
+

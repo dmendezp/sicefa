@@ -1,4 +1,4 @@
-@extends('gdf::layouts.masterusers')
+@extends('gdf::layouts.master')
 
 @section('content')
     <h1>Hello World</h1>
