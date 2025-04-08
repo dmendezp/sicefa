@@ -17,6 +17,16 @@ class PSERENACEFAController extends Controller
         return view('pserenacefa::index');
     }
 
+    public function welcome()
+    {
+        return view('pserenacefa::welcome');
+    }
+
+    public function admin()
+    {
+        return view('pserenacefa::welcome');
+    }
+
     /**
      * Show the form for creating a new resource.
      * @return Renderable

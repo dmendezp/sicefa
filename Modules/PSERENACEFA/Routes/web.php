@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +12,10 @@
 |
 */
 
-Route::prefix('pserenacefa')->group(function() {
-    Route::get('/', 'PSERENACEFAController@index');
+Route::middleware(['lang'])->group(function(){
+    Route::prefix('pserenacefa')->group(function() {
+        Route::get('/index', 'PSERENACEFAController@index')->name('cefa.pserenacefa.index');
+        Route::get('/admin/welcome', 'PSERENACEFAController@admin')->name('pserenacefa.admin.welcome');
+        
+    });
 });

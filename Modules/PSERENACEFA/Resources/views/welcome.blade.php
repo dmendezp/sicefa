@@ -1,4 +1,4 @@
-@extends('pserenacefa::layouts.masterusers')
+@extends('pserenacefa::layouts.master')
 
 @section('content')
     <h1>Hello World</h1>
