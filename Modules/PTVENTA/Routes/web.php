@@ -27,6 +27,10 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::get('cashier/configuration', 'configuration')->name('ptventa.cashier.configuration.index'); // Vista de configuracion, como generar un ticket o factura de prueba y verificar la conexion de la impresora, etc. (Cajero)
         });
 
+        Route::controller(ShoppingController::class)->group(function(){
+            Route::get('shopping', 'index')->name('cefa.ptventa.shopping'); // Vista de la tienda (Pública)
+        });
+
         // Rutas para Inventario
         Route::controller(InventoryController::class)->group(function(){
             Route::get('admin/inventory/index', 'index')->name('ptventa.admin.inventory.index'); // Inventario actual (Administrador)

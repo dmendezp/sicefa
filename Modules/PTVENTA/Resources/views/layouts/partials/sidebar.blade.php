@@ -71,6 +71,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('cefa.ptventa.shopping') }}"
+                                class="nav-link {{ !Route::is('cefa.ptventa.shopping') ?: 'active' }}">
+                                <i class="nav-icon fas fa-shopping-cart"></i>
+                                <p>Store</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('cefa.ptventa.devs') }}"
                                 class="nav-link {{ !Route::is('cefa.ptventa.devs') ?: 'active' }}">
                                 <i class="nav-icon fas fa-code"></i>
