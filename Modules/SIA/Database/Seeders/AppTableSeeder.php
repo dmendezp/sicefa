@@ -21,7 +21,7 @@ class AppTableSeeder extends Seeder
             [
                 'name' => 'SIA',
                 'color' => '#7fc722',
-            'icon' => 'fas fa-lightbulb',
+            'icon' => 'fas fa-flask fas fa-users',
             'description' => 'Semillero de investigación la angostura.',
             'description_english' => 'Angostura research seedbed.',
             'url' => '/sia/welcome', // Agrega un valor para el campo 'url'
