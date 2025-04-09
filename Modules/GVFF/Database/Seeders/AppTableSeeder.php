@@ -15,7 +15,7 @@ class AppTableSeeder extends Seeder
         App::updateOrCreate(
             ['name' => 'GVFF'],
             [
-            'url' => '/GVFF/index',
+            'url' => '/gvff/index',
             'color' => '#FF5733',
             'icon' => 'fas fa-frog',
             'description' => 'Sistema de gestion de vivero fauna y flora',

@@ -15,6 +15,15 @@ class GVFFController extends Controller
     public function index()
     {
         return view('gvff::index');
+
+    }
+    public function welcome()
+    {
+        return view('gvff::welcome');
+    }
+    public function admin()
+    {
+        return view('gvff::welcome');
     }
 
     /**
