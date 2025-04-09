@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
         User::updateOrCreate(['nickname' => 'Dquiza'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
             'email' => 'davidqzr.09@gmail.com',
+            
         ]);
-
     }
 }
