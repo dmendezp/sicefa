@@ -1,0 +1,13 @@
+{
+    "name": "INTERNADOCEFA",
+    "alias": "internadocefa",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\INTERNADOCEFA\\Providers\\INTERNADOCEFAServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
