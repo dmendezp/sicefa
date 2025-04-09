@@ -38,7 +38,10 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
                 </li>
+<<<<<<< HEAD
                 
+=======
+>>>>>>> 27ad373a888877dd7dc3c1e308cdf0244659f34c
             </ul>
 
             <!-- Right navbar links -->

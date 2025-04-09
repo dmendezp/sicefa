@@ -16,6 +16,7 @@ class GVFFController extends Controller
     {
         return view('gvff::index');
 
+
     }
     public function welcome()
     {
@@ -24,6 +25,8 @@ class GVFFController extends Controller
     public function admin()
     {
         return view('gvff::welcome');
+
+
     }
 
     /**
