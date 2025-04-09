@@ -1,0 +1,13 @@
+{
+    "name": "Acuicola",
+    "alias": "acuicola",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Acuicola\\Providers\\AcuicolaServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
