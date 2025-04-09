@@ -28,7 +28,7 @@ class SIADatabaseSeeder extends Seeder
         /* $this->call(ProjectsTableSeeder::class); // Ejecutar Seeder de proyectos
         $this->call(EventsTableSeeder::class); // Ejecutar Seeder de eventos
         $this->call(ResourcesTableSeeder::class); // Ejecutar Seeder de recursos */
-
+    
         DB::commit(); // Finalizar transacción
     }
 }
