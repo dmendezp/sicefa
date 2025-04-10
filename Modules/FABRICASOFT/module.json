@@ -1,0 +1,13 @@
+{
+    "name": "FABRICASOFT",
+    "alias": "fabricasoft",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\FABRICASOFT\\Providers\\FABRICASOFTServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
