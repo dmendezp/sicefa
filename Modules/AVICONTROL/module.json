@@ -1,0 +1,13 @@
+{
+    "name": "AVICONTROL",
+    "alias": "avicontrol",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AVICONTROL\\Providers\\AVICONTROLServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
