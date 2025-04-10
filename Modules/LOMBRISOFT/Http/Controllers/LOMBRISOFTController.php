@@ -16,6 +16,14 @@ class LOMBRISOFTController extends Controller
     {
         return view('lombrisoft::index');
     }
+    public function welcome()
+    {
+        return view('lombrisoft::welcome');
+    }
+    public function admin()
+    {
+        return view('lombrisoft::welcome');
+    }
 
     /**
      * Show the form for creating a new resource.

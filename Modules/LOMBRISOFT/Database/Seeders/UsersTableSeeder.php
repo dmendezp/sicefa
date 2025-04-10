@@ -8,19 +8,14 @@ use Modules\SICA\Entities\Person;
 
 
 
-class UsersTableSeeder extends Seeder 
+class UsersTableSeeder extends Seeder
 {
- public function run()
+    public function run()
     {
-        $person = Person::where('document_number', '1079172956')->first();
+        $person = Person::where('document_number', 1079172956)->first();
         User::updateOrCreate(['nickname' => 'Nardila'], [
             'person_id' => $person->id,
             'email' => 'ardilanicolas71@gmail.com'            //Password: Niar2956
         ]);
-
-        
-
     }
-
-
 }
