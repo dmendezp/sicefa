@@ -24,7 +24,7 @@ class AppTableSeeder extends Seeder
             'icon' => 'fas fa-flask fas fa-users',
             'description' => 'Semillero de investigación la angostura.',
             'description_english' => 'Angostura research seedbed.',
-            'url' => '/sia/welcome', // Agrega un valor para el campo 'url'
+            'url' => '/sia/index'
             ],
         ]);
 
