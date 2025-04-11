@@ -1,0 +1,13 @@
+{
+    "name": "COPYSENAEMPRESA",
+    "alias": "copysenaempresa",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\COPYSENAEMPRESA\\Providers\\COPYSENAEMPRESAServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
