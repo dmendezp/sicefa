@@ -19,9 +19,6 @@ class RolesTableSeeder extends Seeder
         // Consultar aplicación SIA para registrar los roles
         $app = App::where('name', 'SIA')->firstOrFail();
 
-        // Consultar rol de superadministrador
-        $rol_superadmin = Role::where('slug', 'superadmin')->firstOrFail();
-
         // Registrar o actualizar rol de INSTRUCTOR INVESTIGADOR
         $rol_instructor = Role::updateOrCreate(['slug' => 'sia.inst.inv'], [
             'name' => 'Instructor Investigador',
@@ -50,18 +47,14 @@ class RolesTableSeeder extends Seeder
         ]);
 
         // Consulta de usuarios
-        $user_instructor = User::where('nickname', 'CAPerez')->firstOrFail(); // Usuario Instructor Investigador (Carlos Andrés Pérez)
-        $user_apprentice = User::where('nickname', 'NESoriano')->firstOrFail(); // Usuario Aprendiz Investigador (Nicolas Estiven Soriano Polania)
-        $user_superadmin = User::where('nickname', 'JDGM0331')->firstOrFail(); // Usuario Super Administrador (Jesús David Guevara Munar)
-        $user_admin = User::updateOrCreate(['nickname' => 'NewAdmin'], [ // Nuevo usuario administrador
-            'email' => 'newadmin@example.com',
-            'password' => bcrypt('password123') // Cambia la contraseña según sea necesario
+        $user_instructor = User::where('nickname', 'LFHerre')->firstOrFail(); // Usuario Instructor Investigador (Lola Fernanda Herrera Hernandez)
+        $user_apprentice = User::where('nickname', 'NESoriano')->firstOrFail(); // Usuario Aprendiz Investigador (Nicolas Estiven Soriano Polania) 
+        $user_admin = User::updateOrCreate(['nickname' => 'ydmoreno'], [ // Usuario administrador (Yoly Dayana Moreno Ortega)
         ]);
 
         // Asignación de ROLES para los USUARIOS de la aplicación SIA (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $user_instructor->roles()->syncWithoutDetaching([$rol_instructor->id]);
         $user_apprentice->roles()->syncWithoutDetaching([$rol_apprentice->id]);
-        $user_superadmin->roles()->syncWithoutDetaching([$rol_superadmin->id]);
-        $user_admin->roles()->syncWithoutDetaching([$rol_admin->id]); // Asignar rol de administrador al nuevo usuario
+        $user_admin->roles()->syncWithoutDetaching([$rol_admin->id]); 
     }
 }
