@@ -25,6 +25,10 @@ class ToolhubController extends Controller
     {
         return view('toolhub::welcome');
     }
+    public function superadmin()
+    {
+        return view('toolhub::welcomesuper');
+    }
 
 
     /**

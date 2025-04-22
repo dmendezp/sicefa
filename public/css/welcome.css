@@ -1,0 +1,241 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f3f4f6;
+    color: #333;
+    height: 100vh;
+  }
+  
+  /* Layout */
+  .flex {
+    display: flex;
+  }
+  
+  .h-screen {
+    height: 100vh;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 16rem;
+    background-color: #166534; /* green-800 */
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 20;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4rem;
+    padding: 0 1rem;
+    border-bottom: 1px solid #15803d; /* green-700 */
+  }
+  
+  .sidebar-brand {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .sidebar-close {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+  }
+  
+  .sidebar-close:hover {
+    background-color: #15803d; /* green-700 */
+  }
+  
+  .sidebar-content {
+    padding: 1rem 0;
+  }
+  
+  .sidebar-nav {
+    list-style: none;
+    padding: 0 0.5rem;
+  }
+  
+  .sidebar-nav li {
+    margin-bottom: 0.25rem;
+  }
+  
+  .sidebar-nav a, .sidebar-nav button {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    color: #e5e7eb; /* gray-200 */
+    text-decoration: none;
+    border-radius: 0.5rem;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .sidebar-nav a:hover, .sidebar-nav button:hover {
+    background-color: #15803d; /* green-700 */
+  }
+  
+  .sidebar-nav svg {
+    margin-right: 0.75rem;
+  }
+  
+  .submenu {
+    list-style: none;
+    margin-top: 0.25rem;
+    padding-left: 2.75rem;
+    display: none;
+  }
+  
+  .submenu.open {
+    display: block;
+  }
+  
+  /* Main content */
+  .main-content {
+    flex: 1;
+    margin-left: 16rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4rem;
+    padding: 0 1rem;
+    background-color: white;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+  }
+  
+  .menu-toggle:hover {
+    background-color: #f3f4f6;
+  }
+  
+  .user-profile {
+    display: flex;
+    align-items: center;
+    background-color: #e5e7eb;
+    padding: 0.25rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+  }
+  
+  .user-profile img {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 9999px;
+    margin-right: 0.5rem;
+  }
+  
+  /* Main */
+  .main {
+    flex: 1;
+    overflow: auto;
+    padding: 1rem;
+  }
+  
+  .container {
+    max-width: 80rem;
+    margin: 0 auto;
+  }
+  
+  .page-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+  
+  .card {
+    background-color: white;
+    border-radius: 0.5rem;
+    border: 1px solid #e5e7eb;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-title {
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  
+  .card-text {
+    color: #6b7280;
+  }
+  
+  /* Backdrop */
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    display: none;
+  }
+  
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .sidebar {
+      transform: translateX(-100%);
+    }
+    
+    .sidebar.open {
+      transform: translateX(0);
+    }
+    
+    .sidebar-close {
+      display: block;
+    }
+    
+    .main-content {
+      margin-left: 0;
+    }
+    
+    .menu-toggle {
+      display: block;
+    }
+    
+    .backdrop.show {
+      display: block;
+    }
+  }
+  
+  /* Icon rotation */
+  .chevron-icon {
+    transition: transform 0.2s;
+  }
+  
+  .rotate-180 {
+    transform: rotate(180deg);
+  }
+  

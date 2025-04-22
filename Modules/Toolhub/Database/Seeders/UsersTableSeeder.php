@@ -21,6 +21,12 @@ class UsersTableSeeder extends Seeder
             'person_id' => $person->id,
             'email' => 'pedro@gmail.com' //Pelo2306
         ]);
+          // Registrar o actualizar usuario para Lola Fernanda Herrera Hernandez
+          $person = Person::where('document_number', 1039683816)->first(); // Consultar Persona
+          User::updateOrCreate(['nickname' => 'Marlon'], [ // Actualizar o crear usuario
+              'person_id' => $person->id,
+              'email' => 'marlon@gmail.com' //Mape3816
+          ]);
 
     
     }

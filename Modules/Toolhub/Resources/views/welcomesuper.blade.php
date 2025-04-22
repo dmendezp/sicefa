@@ -1,4 +1,4 @@
-@extends('toolhub::layouts.master')
+@extends('toolhub::layouts.mastersuper')
 
 @section('content')
    

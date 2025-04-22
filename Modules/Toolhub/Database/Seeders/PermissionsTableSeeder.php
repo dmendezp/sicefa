@@ -41,5 +41,31 @@ class PermissionsTableSeeder extends Seeder
         // Asignación de PERMISOS para los ROLES de la aplicación AGROSOFT (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
       
+
+        //empiezo el rol de super administrador
+
+        $permissions_superadmin = []; // Lista de permisos para el rol de administrador
+        
+        // Consultar aplicación SICA para registrar los roles
+        $app = App::where('name', 'Toolhub')->first();
+
+
+        // Vista de configuración (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'toolhub.superadmin.welcomesuper'], [ // Registro o actualización de permiso
+            'name' => 'Acceso al Rol de Super Administrador',
+            'description' => 'Acceso al Rol de Super Administrador',
+            'description_english' => 'Access to the Super Administrator Role',
+            'app_id' => $app->id
+        ]);
+        $permissions_superadmin[] = $permission->id; // Almacenar permiso para rol
+
+     
+
+        // Consulta de ROLES
+        $rol_superadmin = Role::where('slug', 'toolhub.superadmin')->first(); // Rol Administrador
+       
+
+        // Asignación de PERMISOS para los ROLES de la aplicación AGROSOFT (Sincronización de las relaciones sin eliminar las relaciones existentes)
+        $rol_superadmin->permissions()->syncWithoutDetaching($permissions_superadmin);
     }
 }

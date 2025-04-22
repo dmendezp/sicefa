@@ -20,6 +20,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <!-- Navbar -->
     <nav class="navbar navbar-expand navbar-dark">
@@ -40,6 +41,19 @@
                 @endif
             @endauth
         </li>
+    </li>
+    <li class="nav-item d-none d-sm-inline-block">
+    @auth
+        @if(checkRol('toolhub.superadmin'))
+            <li class="nav-item d-none d-sm-inline-block" style="margin-right: 80px;">
+                <a href="{{ route('toolhub.superadmin.welcomesuper') }}" 
+                   class="nav-link @if(Route::is('toolhub.superadmin.*')) active @endif">
+                    Super Administrador
+                </a>
+            </li>
+        @endif
+    @endauth
+</li>
         </ul>
         
     </nav>
