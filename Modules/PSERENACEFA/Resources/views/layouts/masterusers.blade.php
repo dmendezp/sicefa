@@ -43,6 +43,18 @@
                 @endif
             @endauth
             </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                @auth
+                    @if(checkRol('pserenacefa.pasante'))
+                        <li class="nav-item d-none d-sm-inline-block" style="margin-right: 80px;">
+                            <a href="{{ route('pserenacefa.pasante.welcomepasante') }}" 
+                            class="nav-link text-white @if(Route::is('pserenacefa.pasante.*')) active @endif">
+                                Pasante
+                            </a>
+                        </li>
+                    @endif
+                @endauth
+                </li>
         </ul>
     </nav>
 

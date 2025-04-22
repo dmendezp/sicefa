@@ -18,6 +18,8 @@ class PermissionsTableSeeder extends Seeder
     {
         // Crear una lista de permisos para el rol 
         $permissions_admin = []; // Lista de permisos para el rol de administrador
+
+        $permissions_pasante = []; // Lista de permisos para el rol de pasante
         
         // Consultar aplicación SICA para registrar los roles
         $app = App::where('name', 'PSERENACEFA')->first();
@@ -40,6 +42,27 @@ class PermissionsTableSeeder extends Seeder
 
         // Asignación de PERMISOS para los ROLES de la aplicación AGROSOFT (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
+
+
+        //Pasante
+
+        $permission = Permission::updateOrCreate(['slug' => 'pserenacefa.pasante.welcomepasante'], [ // Registro o actualización de permiso
+            'name' => 'Acceso al Rol de Pasante',
+            'description' => 'Acceso al Rol de Pasante',
+            'description_english' => 'Access to the intern Role',
+            'app_id' => $app->id
+        ]);
+        $permissions_pasante[] = $permission->id; // Almacenar permiso para rol
+
+     
+
+        // Consulta de ROLES
+        $rol_pasante = Role::where('slug', 'pserenacefa.pasante')->first(); // Rol Administrador
+       
+
+        // Asignación de PERMISOS para los ROLES de la aplicación AGROSOFT (Sincronización de las relaciones sin eliminar las relaciones existentes)
+        $rol_pasante->permissions()->syncWithoutDetaching($permissions_pasante);
+
       
     }
 }
