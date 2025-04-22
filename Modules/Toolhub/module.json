@@ -1,0 +1,13 @@
+{
+    "name": "Toolhub",
+    "alias": "toolhub",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Toolhub\\Providers\\ToolhubServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
