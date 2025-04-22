@@ -1,0 +1,75 @@
+:root {
+    --primary-color: #28a745;
+    --secondary-color: #dc3545;
+    --hover-color: #218838;
+}
+
+.main-sidebar {
+    background-color: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+}
+
+.sidebar .nav-link {
+    color: #333;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.sidebar .nav-link:hover {
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+.sidebar .nav-link.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.sidebar .nav-treeview .nav-link {
+    padding-left: 2.5rem;
+    font-size: 0.9rem;
+}
+
+.sidebar-logo {
+    text-align: center;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.main-header {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.nav-icon {
+    margin-right: 0.5rem;
+}
+
+.text-success {
+    color: var(--primary-color) !important;
+}
+
+.text-danger {
+    color: var(--secondary-color) !important;
+}
+
+.nav-item.has-treeview > .nav-link {
+    border-left: 3px solid transparent;
+}
+
+.nav-item.has-treeview > .nav-link:hover {
+    border-left: 3px solid var(--primary-color);
+}
+
+.content-wrapper {
+    background-color: #f4f6f9;
+    padding: 1.5rem;
+}
+
+.dropdown-menu {
+    border-radius: 0.25rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-item:hover {
+    background-color: rgba(40, 167, 69, 0.1);
+}
