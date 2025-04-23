@@ -1,0 +1,13 @@
+{
+    "name": "AGROSOFT",
+    "alias": "agrosoft",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AGROSOFT\\Providers\\AGROSOFTServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
