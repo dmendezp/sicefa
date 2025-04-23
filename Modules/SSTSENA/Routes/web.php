@@ -13,4 +13,5 @@
 
 Route::prefix('SSTSENA')->group(function() {
     Route::get('/index', 'SSTSENAController@index')->name('cefa.sstsena.index');
+    Route::get('/welcome', 'SSTSENAController@admin')->name('sstsena.admin.welcome');
 });

@@ -15,6 +15,15 @@ class SSTSENAController extends Controller
     public function index()
     {
         return view('sstsena::index');
+        // Para direccionar los roles
+    }
+    public function welcome()
+    {
+        return view('sstsena::welcome');
+    }
+    public function admin()
+    {
+        return view('sstsena::welcome');
     }
 
     /**

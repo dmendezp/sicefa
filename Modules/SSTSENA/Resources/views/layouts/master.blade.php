@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="{{ asset('images/Favicon2.png') }}" type="image/x-icon">
-    <title>Gestion de Unidad de Procina</title>
+    <title>Gestion de Unidad de SST</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="{{ asset('AdminLTE/https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback') }}">
@@ -37,12 +37,13 @@
                             class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Home</a>
+                    <a href="#" class="nav-link">William</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
                 </li>
             </ul>
+            
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">

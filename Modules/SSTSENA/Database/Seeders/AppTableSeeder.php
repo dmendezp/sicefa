@@ -14,7 +14,7 @@ class AppTableSeeder extends Seeder
     public function run()
     {
         App::updateOrCreate(
-            ['name' => 'SST'],
+            ['name' => 'SSTSENA'],
             [
 
                 'url' => 'SSTSENA/index',
