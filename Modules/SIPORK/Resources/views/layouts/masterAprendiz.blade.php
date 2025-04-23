@@ -165,7 +165,7 @@
                                 <p>Gestión de Cerdos <i class="right fas fa-angle-left"></i></p>
                             </a>
                             <ul class="nav nav-treeview">
-                            <li class="nav-item">
+                                <li class="nav-item">
                                     <a href="{{ route('sipork.admin.sipork.pigs.create') }}" class="nav-link">
                                         <i class="fas fa-plus-circle nav-icon"></i>
                                         <p>Añadir cerdo</p>
@@ -175,58 +175,6 @@
                                     <a href="" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Listado de Cerdos</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Ciclos Reproductivos</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Seguimiento del crecimiento</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Registros de Salud</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <!-- Gestión de lotes -->
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-layer-group"></i>
-                                <p>Lotes <i class="right fas fa-angle-left"></i></p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Listado de Lotes</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Agregar lote</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Asignar cerdos a lotes</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Brotes Sanitarios</p>
                                     </a>
                                 </li>
                             </ul>
@@ -251,90 +199,7 @@
                                         <p>Registros de alimentación</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Suministros en la alimentación</p>
-                                    </a>
-                                </li>
                             </ul>
-                        </li>
-
-                        <!--Gestión de recursos -->
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tools"></i>
-                                <p>Recursos <i class="right fas fa-angle-left"></i></p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Añadir suministro</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Lista de suministros</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Agregar herramienta</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Lista de Herramientas</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Almacenes</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Uso de herramientas</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <!-- Gestión Ambiental y de Bioseguridad -->
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-leaf"></i>
-                                <i class="right fas fa-angle-left"></i>
-                                <p>Ambiente/Bioseguridad </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Condiciones ambientales</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Medidas de bioseguridad</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <!-- Costos operativos -->
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="nav-icon fas fa-dollar-sign"></i>
-                                <p>Costos operativos</p>
-                            </a>
                         </li>
                     </ul>
                 </nav>

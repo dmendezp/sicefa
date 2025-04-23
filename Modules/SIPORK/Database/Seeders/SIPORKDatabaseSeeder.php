@@ -23,6 +23,9 @@ class SIPORKDatabaseSeeder extends Seeder
         $this->call(AppTableSeeder::class); // Ejecutar Seeder de aplicación
         $this->call(PeopleTableSeeder::class); // Ejecutar Seeder de personas
         $this->call(UsersTableSeeder::class); // Ejecutar Seeder de usuarios
+        $this->call(RolesTableSeeder::class); // Ejecutar Seeder de usuarios
+        $this->call(PermissionsTableSeeder::class); // Ejecutar Seeder de usuarios
+        
 
     
         DB::commit(); // Finalizar transacción

@@ -5,8 +5,9 @@ namespace Modules\SIPORK\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SIPORK\Entities\Pig;
 
-class SIPORKController extends Controller
+class PigController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,34 +18,17 @@ class SIPORKController extends Controller
         return view('sipork::index');
     }
 
-    public function welcome()
-    {
-        return view('sipork::welcome');
-    }
-
-    public function admin()
-    {
-        return view('sipork::welcome');
-    }
-
-    public function liderDeUnidad()
-    {
-        return view('sipork::panelLider');
-    }
-
-    public function aprendiz()
-    {
-        return view('sipork::panelAprendiz');
-    }
     /**
      * Show the form for creating a new resource.
      * @return Renderable
      */
     public function create()
     {
-        return view('sipork::create');
+        $mothers = []; // Fetch or define $mothers data, e.g., from a model
+        return view('sipork::admin.create', ['mothers' => $mothers]);
+        
     }
-
+    
 
     /**
      * Store a newly created resource in storage.

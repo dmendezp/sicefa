@@ -305,37 +305,6 @@
                                 </li>
                             </ul>
                         </li>
-
-                        <!-- Gestión Ambiental y de Bioseguridad -->
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-leaf"></i>
-                                <i class="right fas fa-angle-left"></i>
-                                <p>Ambiente/Bioseguridad </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Condiciones ambientales</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Medidas de bioseguridad</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <!-- Costos operativos -->
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="nav-icon fas fa-dollar-sign"></i>
-                                <p>Costos operativos</p>
-                            </a>
-                        </li>
                     </ul>
                 </nav>
             </div>

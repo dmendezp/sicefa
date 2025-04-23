@@ -6,36 +6,27 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class SIPORKController extends Controller
+class LanguageController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
+    public function setLanguage($locale)
+    {
+        if (in_array($locale, ['en', 'es', 'fr'])) { // Asegúrate de incluir los idiomas soportados
+            session()->put('locale', $locale);
+            app()->setLocale($locale);
+        }
+        return redirect()->back();
+    }
+    
+
     public function index()
     {
         return view('sipork::index');
     }
 
-    public function welcome()
-    {
-        return view('sipork::welcome');
-    }
-
-    public function admin()
-    {
-        return view('sipork::welcome');
-    }
-
-    public function liderDeUnidad()
-    {
-        return view('sipork::panelLider');
-    }
-
-    public function aprendiz()
-    {
-        return view('sipork::panelAprendiz');
-    }
     /**
      * Show the form for creating a new resource.
      * @return Renderable
@@ -44,7 +35,6 @@ class SIPORKController extends Controller
     {
         return view('sipork::create');
     }
-
 
     /**
      * Store a newly created resource in storage.
