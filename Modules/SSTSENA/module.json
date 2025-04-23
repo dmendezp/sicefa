@@ -1,0 +1,13 @@
+{
+    "name": "SSTSENA",
+    "alias": "sstsena",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SSTSENA\\Providers\\SSTSENAServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
