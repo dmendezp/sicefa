@@ -1,0 +1,126 @@
+body {
+    background: linear-gradient(135deg, #f4f4f4, #e0f2f1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    animation: fadeInBody 1s ease-in;
+}
+
+@keyframes fadeInBody {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.cert-container {
+    max-width: 1100px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    animation: fadeInUp 1s ease forwards;
+    transform: translateY(20px);
+    opacity: 0;
+}
+
+@keyframes fadeInUp {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.titulo {
+    text-align: center;
+    font-size: 2rem;
+    color: #004d28;
+    margin-bottom: 20px;
+    animation: fadeIn 1.2s ease;
+}
+
+.btn-back {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #006633;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: 0.3s ease;
+    animation: fadeInLeft 1s ease;
+}
+
+.btn-back:hover {
+    background-color: #004d28;
+    transform: scale(1.05);
+}
+
+@keyframes fadeInLeft {
+    from {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    animation: fadeIn 1.5s ease;
+}
+
+.custom-table th {
+    background-color: #004d28;
+    color: white;
+    padding: 12px 15px;
+    text-align: center;
+}
+
+.custom-table td {
+    padding: 12px 15px;
+    background-color: #556f7cd6;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.custom-table tr:hover td {
+    background-color: #24d02a;
+}
+
+.btn-action {
+    padding: 6px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin: 2px;
+    font-weight: bold;
+    display: inline-block;
+    transition: 0.3s ease;
+}
+
+.btn-action.edit {
+    background-color: #2e7d32;
+    color: white;
+}
+
+.btn-action.edit:hover {
+    background-color: #1b5e20;
+    transform: scale(1.05);
+}
+
+.btn-action.delete {
+    background-color: #c62828;
+    color: white;
+}
+
+.btn-action.delete:hover {
+    background-color: #8e0000;
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

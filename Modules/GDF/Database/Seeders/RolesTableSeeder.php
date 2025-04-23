@@ -24,5 +24,19 @@ class RolesTableSeeder extends Seeder
         $useradministrador = User::where('nickname', 'Fabian')->firstOrFail();
 
         $useradministrador->roles()->syncWithoutDetaching([$roladmin->id]);
+
+        $app = App::where('name', 'GDF')->firstOrFail();
+
+        $roladmin = Role::updateOrCreate(['slug' => 'gdf.funcionario'], [
+            'name' => 'Funcionario',
+            'description' => 'Rol funcionario de la aplicación GDF',
+            'description_english' => 'GDF application Employee role',
+            'full_access' => 'No',
+            'app_id' => $app->id
+        ]);
+
+        $useradministrador = User::where('nickname', 'Andrey')->firstOrFail();
+
+        $useradministrador->roles()->syncWithoutDetaching([$roladmin->id]);
     }
 }

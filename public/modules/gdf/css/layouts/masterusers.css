@@ -1,0 +1,116 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #e8f5e9, #ffffff);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    background-color: #006633;
+    padding: 10px 20px;
+}
+
+.navbar .nav-link {
+    color: white !important;
+    font-weight: bold;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+    color: #e0f2f1 !important;
+}
+
+.hero {
+    flex: 1;
+    padding: 80px 20px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    margin: 40px auto;
+    border-radius: 16px;
+    max-width: 1000px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    color: #004d28;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: #333;
+    max-width: 850px;
+    margin: 0 auto 25px;
+    line-height: 1.6;
+}
+
+.hero .btn-primary {
+    background-color: #006633;
+    color: #fff;
+    border: none;
+    padding: 14px 32px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.hero .btn-primary:hover {
+    background-color: #004d28;
+}
+
+footer {
+    background-color: #004d28;
+    color: white;
+    padding: 12px 20px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+footer a {
+    color: #a5d6a7;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.navbar {
+    background-color: #006633;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar .nav-link {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .nav-link i {
+    margin-right: 8px;
+    font-size: 1.2rem;
+}
+
+.navbar .nav-link:hover {
+    color: #a5d6a7;
+    transform: translateY(-2px);
+}

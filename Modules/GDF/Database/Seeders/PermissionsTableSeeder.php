@@ -23,19 +23,20 @@ class PermissionsTableSeeder extends Seeder
         $app = App::where('name', 'GDF')->first();
 
 
-        // Vista de configuración (Administrador)
-        $permission = Permission::updateOrCreate(['slug' => 'gdf.admin.welcome'], [ // Registro o actualización de permiso
-            'name' => 'Acceso al Rol de Administrador',
-            'description' => 'Acceso al Rol de Administrador',
-            'description_english' => 'Access to the Administrator Role',
+        // Vista de configuración (Funcionario)
+        $permission = Permission::updateOrCreate(['slug' => 'gdf.funcionario.welcome'], [ // Registro o actualización de permiso
+            'name' => 'Acceso al Rol de Funcionario',
+            'description' => 'Acceso al Rol de Funcionario',
+            'description_english' => 'Access to the Employee Role',
             'app_id' => $app->id
         ]);
+
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
      
 
         // Consulta de ROLES
-        $rol_admin = Role::where('slug', 'gdf.admin')->first(); // Rol Administrador
+        $rol_admin = Role::where('slug', 'gdf.funcionario')->first(); // Rol Funcionario
        
 
         // Asignación de PERMISOS para los ROLES de la aplicación GDF (Sincronización de las relaciones sin eliminar las relaciones existentes)
