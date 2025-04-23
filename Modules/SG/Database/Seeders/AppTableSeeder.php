@@ -22,7 +22,7 @@ class AppTableSeeder extends Seeder
             [
                 'url' => '/sg/index',
                 'color' => '#FF5733',
-                'icon' => 'fa-solid fa-bull',
+                'icon' => 'fas-fa-cow',
                 'description' => 'sistema de gestion ganadero',
                 'description_english' => 'manage cow system',
 

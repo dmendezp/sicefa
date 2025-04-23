@@ -1,317 +1,247 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="{{ asset('images/Favicon2.png') }}" type="image/x-icon">
-    <title>Gestion de Unidad de Procina</title>
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="{{ asset('AdminLTE/https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback') }}">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/adminlte.min.css') }}">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+    <title>Software Ganadero - @yield('title')</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f2e9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow-x: hidden;
+        }
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #2d4739;
+            padding-top: 20px;
+            transition: all 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .sidebar .nav-link {
+            color: #e6e9d8;
+            padding: 15px 25px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: #3d5a45;
+            color: #ffffff;
+            padding-left: 35px;
+        }
+
+        .sidebar .dropdown-menu {
+            background-color: #3d5a45;
+            border: none;
+            width: 100%;
+        }
+
+        .sidebar .dropdown-item {
+            color: #e6e9d8;
+            padding: 10px 40px;
+        }
+
+        .sidebar .dropdown-item:hover {
+            background-color: #4a6b52;
+            color: #ffffff;
+        }
+
+        .top-navbar {
+            margin-left: 250px;
+            padding: 15px 2vw;
+            background-color: #8da960;
+            width: calc(100% - 250px);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .welcome-message {
+            color: #ffffff;
+            font-size: 24px; /* Tamaño más grande */
+            font-weight: bold;
+            text-align: center;
+            flex-grow: 1; /* Para centrarlo */
+        }
+
+        .content-wrapper {
+            margin-left: 250px;
+            padding: 80px 2vw 2vw; /* Aumentamos el padding-top para dejar espacio al navbar */
+            min-height: 100vh;
+            width: calc(100% - 250px);
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .main-container {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(141, 169, 96, 0.3);
+            min-height: calc(100vh - 120px); /* Ajustamos la altura para que no se corte */
+            overflow-y: auto;
+        }
+
+        .main-container:hover {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 200px; }
+            .content-wrapper { margin-left: 200px; width: calc(100% - 200px); padding: 70px 15px 15px; }
+            .top-navbar { margin-left: 200px; width: calc(100% - 200px); }
+            .main-container { padding: 15px; min-height: calc(100vh - 100px); }
+            .welcome-message { font-size: 20px; }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar { width: 100%; height: auto; position: relative; }
+            .content-wrapper { margin-left: 0; width: 100%; padding: 60px 10px 10px; }
+            .top-navbar { margin-left: 0; width: 100%; }
+            .main-container { min-height: calc(100vh - 80px); }
+            .welcome-message { font-size: 18px; }
+        }
+    </style>
 </head>
-
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-    <div class="wrapper">
-        <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__wobble" src="{{ asset('images/images.png') }}" alt="AdminLTELogo" height="100"
-                width="150">
-        </div>
-
-        <nav class="main-header navbar navbar-expand navbar-dark">
-            <!-- Left navbar links -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
-                            class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
-                </li>
-            </ul>
-
-            <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
-                <!-- Navbar Search -->
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                        <i class="fas fa-search"></i>
-                    </a>
-                    <div class="navbar-search-block">
-                        <form class="form-inline">
-                            <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                                    aria-label="Search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-navbar" type="submit">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </li>
-
-                <!-- Messages Dropdown Menu -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-comments"></i>
-                        <span class="badge badge-danger navbar-badge">3</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="#" class="dropdown-item">
-                            <div class="media">
-                                <img src="{{ asset('AdminLTE-3.2.0/dist/img/user1-128x128.jpg') }}" alt="User Avatar"
-                                    class="img-size-50 mr-3 img-circle">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Brad Diesel
-                                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">Call me whenever you can...</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <div class="media">
-                                <img src="{{ asset('AdminLTE-3.2.0/dist/img/user8-128x128.jpg') }}" alt="User Avatar"
-                                    class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        John Pierce
-                                        <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">I got your message bro</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <div class="media">
-                                <img src="{{ asset('AdminLTE-3.2.0/dist/img/user3-128x128.jpg') }}" alt="User Avatar"
-                                    class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Nora Silvester
-                                        <span class="float-right text-sm text-warning"><i
-                                                class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">The subject goes here</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                    </div>
-                </li>
-                <!-- Notifications Dropdown Menu -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-bell"></i>
-                        <span class="badge badge-warning navbar-badge">15</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header">15 Notifications</span>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-envelope mr-2"></i> 4 new messages
-                            <span class="float-right text-muted text-sm">3 mins</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-users mr-2"></i> 8 friend requests
-                            <span class="float-right text-muted text-sm">12 hours</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-file mr-2"></i> 3 new reports
-                            <span class="float-right text-muted text-sm">2 days</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();">
-                            Cerrar Sesión
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                </li>
-            </ul>
-        </nav>
-
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
-                <img src="{{ asset('AdminLTE-3.2.0/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
-                    class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">GDF</span>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Animales -->
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Animales
             </a>
-
-            <div class="sidebar">
-                <!-- Sidebar user panel -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="{{ asset('AdminLTE-3.2.0/dist/img/user2-160x160.jpg') }}"
-                            class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block"></a>
-                    </div>
-                </div>
-
-                <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                            aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
-
-                        <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon "></i>
-                                <p>
-
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
-
-
-                        <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon"></i>
-                                <p>
-
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-
-                                <li class="nav-item">
-
-                                    <i class="far fa-circle nav-icon"></i>
-
-                                    </a>
-                                </li>
-
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-hourglass-half"></i>
-                                <p>Estado de Solitudes</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-clipboard-list"></i>
-                                <p>Historial de Solicitudes</p>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </aside>
-
-        <div class="content-wrapper">
-            @yield('content')
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Agregar Animales</a></li>
+                <li><a class="dropdown-item" href="#">Lista de Animales</a></li>
+            </ul>
         </div>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
+        <!-- Lechería -->
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Lechería
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Agregar Leche</a></li>
+                <li><a class="dropdown-item" href="#">Visualizar Leche</a></li>
+                <li><a class="dropdown-item" href="#">Reportes</a></li>
+            </ul>
+        </div>
 
-        <footer class="main-footer"
-            style="width: 100%; position: fixed; bottom: 0; left: 0; background-color: #343a40; color: white; padding: 10px 20px;">
-            <strong>Copyright © 2023-2025
-                <a href="#" style="color: #3c8dbc;">GDF</a>.
-            </strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.2.0
-            </div>
-        </footer>
+        <!-- Salud Animal -->
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Salud Animal
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Accidentes</a></li>
+                <li><a class="dropdown-item" href="#">Tratamientos</a></li>
+                <li><a class="dropdown-item" href="#">Vacunacion</a></li>
+
+            </ul>
+        </div>
+
+        <!-- Bodega -->
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Bodega
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Agregar Insumo</a></li>
+                <li><a class="dropdown-item" href="#">Agregar Herramientas</a></li>
+                <li><a class="dropdown-item" href="#">Visualizar</a></li>
+            </ul>
+        </div>
+
+        <!-- Potreros -->
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Potreros
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Agregar Potreros</a></li>
+                <li><a class="dropdown-item" href="#">Gestión de Potreros</a></li>
+            </ul>
+        </div>
+
+        <!-- Partos -->
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Partos
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Seguimientos de Partos</a></li>
+            </ul>
+        </div>
+
+        <!-- Reportes -->
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Reportes
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Reportes Personalizados</a></li>
+            </ul>
+        </div>
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Historial
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Historial animal</a></li>
+            </ul>
+        </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="{{ asset('AdminLTE/plugins/jquery/jquery.min.js') }}"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('AdminLTE/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- overlayScrollbars -->
-    <script src="{{ asset('AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('AdminLTE/dist/js/adminlte.js') }}"></script>
-    <!-- PAGE PLUGINS -->
-    <!-- jQuery Mapael -->
-    <script src="{{ asset('AdminLTE/plugins/jquery-mousewheel/jquery.mousewheel.js') }}"></script>
-    <script src="{{ asset('AdminLTE-/plugins/raphael/raphael.min.js') }}"></script>
-    <script src="{{ asset('AdminLTE/plugins/jquery-mapael/jquery.mapael.min.js') }}"></script>
-    <script src="{{ asset('AdminLTE/plugins/jquery-mapael/maps/usa_states.min.js') }}"></script>
-    <!-- ChartJS -->
-    <script src="{{ asset('AdminLTE/plugins/chart.js/Chart.min.js') }}"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('AdminLTE/dist/js/demo.js') }}"></script>
-    <!-- AdminLTE dashboard demo -->
-    <script src="{{ asset('AdminLTE/dist/js/pages/dashboard2.js') }}"></script>
-</body>
+    <!-- Navbar superior con bienvenida y logout -->
+    <nav class="top-navbar">
+        <span class="welcome-message">
+            Bienvenido {{ Auth::user()->roles->first()->name ?? 'sin rol' }}
+        </span>
+        <ul class="navbar-nav d-flex align-items-center">
+            <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" 
+                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->nickname }}
+                </a>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        {{ __('Cerrar Sesión') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </nav>
 
+    <!-- Contenido principal -->
+    <div class="content-wrapper">
+        <div class="main-container">
+            @yield('content')
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

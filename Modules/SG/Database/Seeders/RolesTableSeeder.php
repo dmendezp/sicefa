@@ -21,7 +21,7 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
-        $useradministrador = User::where('nickname', 'kevin')->firstOrFail();
+        $useradministrador = User::where('nickname', 'Kevin')->firstOrFail();
 
         $useradministrador->roles()->syncWithoutDetaching([$roladmin->id]);
     }

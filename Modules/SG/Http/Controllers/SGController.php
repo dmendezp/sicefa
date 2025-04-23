@@ -22,8 +22,9 @@ class SGController extends Controller
     }
     public function admin()
     {
-        return view('sg::welcome');
+        return view('sg::admin.welcome'); // Asegúrate que esta vista existe
     }
+    
 
     /**
      * Show the form for creating a new resource.
