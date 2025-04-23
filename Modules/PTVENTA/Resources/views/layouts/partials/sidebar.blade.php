@@ -131,6 +131,24 @@
                                 </a>
                             </li>
                         @endif
+                         @if(Auth::user()->havePermission('ptventa.admin.notifications'))
+                         <li class="nav-item">
+                            <a href="{{ route('ptventa.admin.notifications') }}"
+                                class="nav-link {{ request()->routeIs('ptventa.admin.notifications') ? 'active' : '' }}">
+                                <i class="nav-icon fa-solid fa-bell"></i>
+                                <p>
+                                    Notificaciones
+                                    @php
+                                        $unread = Auth::user()->unreadNotifications->count();
+                                    @endphp
+                                    @if($unread > 0)
+                                        <span class="badge badge-danger right">{{ $unread }}</span>
+                                    @endif
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+
                         @if(Auth::user()->havePermission('ptventa.admin.cash.index'))
                             <li class="nav-item">
                                 <a href="{{ route('ptventa.admin.cash.index') }}"

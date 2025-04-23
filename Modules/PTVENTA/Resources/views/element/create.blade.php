@@ -19,7 +19,7 @@
                                 {{ trans('ptventa::element.Title_Card_Image') }}
                             </div>
                             <div class="card-body text-center">
-                                <img src="{{ asset('modules/sica/images/sinImagen.png') }}" id="imagenSeleccionada" class="img-fluid img-thumbnail" style="max-height: 200px; max-width:300px float: left;">
+                                <img src="{{ asset('modules/sica/images/sinImagen.png') }}" id="imagenSeleccionada" class="img-fluid img-thumbnail" style="max-height: 200px; max-width:300px; float: left;">
                                 <hr>
                                 <div class="my-0 text-left">
                                     <label for="formFile" class="form-label">{{ trans('ptventa::element.Title_Form_Image') }}</label>

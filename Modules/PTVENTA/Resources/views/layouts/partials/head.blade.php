@@ -3,7 +3,7 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <link rel="shortcut icon" href="{{ asset('modules/ptventa/images/logo-sidebar.ico') }}">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>PTVENTA | {{ $view['titlePage'] }}</title>
+<title>PTVENTA | {{ $view ['titlePage'] }}</title>
 
 <!--  Iconos de Font Awesome versión 6 -->
 <link rel="stylesheet" href="{{ asset('libs/Fontawesome6/css/all.min.css') }}">

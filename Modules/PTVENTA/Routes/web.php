@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\NotificacionController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -110,6 +112,30 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::post('admin/movement/consult', 'consult')->name('ptventa.admin.movements.consult'); // Consultar movimientos por fecha y actor (Administrador)
             Route::post('cashier/movement/consult', 'consult')->name('ptventa.cashier.movements.consult'); // Consultar movimientos por fecha y actor (Cajero)
         });
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        //prueba
+
+        Route::get('/ptventa/admin/notificaciones', [NotificacionController::class, 'index']);
+
+
+        Route::prefix('admin')->middleware(['auth'])->group(function () {
+            Route::get('/notificaciones', [NotificacionController::class, 'index'])->name('ptventa.admin.notificacion');
+        });
+
+        
+
+
+        // guardar los registros de la factura
+        Route::post('/guardar-notificacion', [NotificacionController::class, 'guardar'])->name('ptventa.guardar.notificacion');
+        
+        //Ruta del sidebar para acceder a las notificaciones ADMIN
+        Route::get('/admin/notificaciones', function () {
+            return view('ptventa::admin.notifications');
+        })->name('ptventa.admin.notifications')
+          ->middleware(['auth']);
+        
 
     });
 });
