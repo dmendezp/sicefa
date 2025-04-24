@@ -1,5 +1,7 @@
+
+
 <!-- Modules/GVFF/Resources/views/users.blade.php -->
-@extends('gvff::layouts.master')
+@extends('gvff::layouts.masterusers')
 
 @section('content')
     <h1>Bienvenido, Usuario</h1>

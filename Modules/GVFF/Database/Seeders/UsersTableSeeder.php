@@ -18,15 +18,15 @@ class UsersTableSeeder extends Seeder
         $person = Person::where('document_number', 1077224582)->first(); // Consultar Persona
         User::updateOrCreate(['nickname' => 'Dquiza'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
-            'email' => 'davidqzr.09@gmail.com',
+            'email' => 'davidqzr.09@gmail.com', //Jequ4582
         ]);
+
+        
 
         $person = Person::where('document_number', 1077224957)->first(); // Consultar la persona recién creada
         User::updateOrCreate(['nickname' => 'Mpenagos'], [
        'person_id' => $person->id,
-        'email' => 'maria.penagos@example.com',
-]);
-
-        
+        'email' => 'maria.penagos@example.com', //Mape4957
+]);   
     }
 }

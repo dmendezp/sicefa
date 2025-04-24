@@ -44,7 +44,7 @@
             @auth
             @if(checkRol('gvff.users'))
                 <li class="nav-item d-none d-sm-inline-block" style="margin-right: 80px;">
-                    <a href="{{ route('gvff.users.welcome') }}" 
+                    
                        class="nav-link @if(Route::is('gvff.users.*')) active @endif">
                         usuario
                     </a>

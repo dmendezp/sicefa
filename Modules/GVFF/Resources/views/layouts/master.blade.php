@@ -73,6 +73,8 @@
                 <a href="#plantas" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition" onclick="toggleSubmenu(event, 'plantas-submenu')">
                     <i class="fa-solid fa-seedling mr-2"></i> Plantas
                 </a>
+
+
                 <div class="submenu" id="plantas-submenu">
                     <a href="#plantas-floral" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
                         <i class="fa-solid fa-flower mr-2"></i> Floral
@@ -85,6 +87,7 @@
                     </a>
                 </div>
             </div>
+            
             <a href="#fauna" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
                 <i class="fa-solid fa-paw mr-2"></i> Fauna
             </a>
@@ -398,6 +401,26 @@
                 </div>
             </div>
         </section>
+        @auth
+                @if(checkRol('gvff.admin'))
+                    <li class="nav-item d-none d-sm-inline-block" style="margin-right: 80px;">
+                        <a href="{{ route('gvff.admin.welcome') }}" 
+                           class="nav-link @if(Route::is('gvff.admin.*')) active @endif">
+                            Administrador
+                        </a>
+                    </li>
+                @endif
+            @endauth
+            @auth
+            @if(checkRol('gvff.users'))
+                <li class="nav-item d-none d-sm-inline-block" style="margin-right: 80px;">
+                    <a href="{{ route('gvff.users.users') }}" 
+                       class="nav-link @if(Route::is('gvff.users.*')) active @endif">
+                        usuario
+                    </a>
+                </li>
+            @endif
+        @endauth
 
         <!-- Fauna Section -->
         <section id="fauna" class="mt-12">

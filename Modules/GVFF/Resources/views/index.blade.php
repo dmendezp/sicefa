@@ -1,5 +1,5 @@
 
-@extends('gvff::layouts.masterusers')
+@extends('gvff::layouts.master')
 
 
 

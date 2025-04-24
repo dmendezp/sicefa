@@ -14,6 +14,7 @@ class GVFFController extends Controller
      */
     public function index()
     {
+        
         return view('gvff::index');
     }
 
@@ -24,8 +25,10 @@ class GVFFController extends Controller
 
     public function users()
     {
-        return view('gvff::users.users'); // Apunta a users/users.blade.php
+        return view('gvff::welcome'); // Apunta a users/users.blade.php
     }
+
+ 
     
     /**
      * Show the form for creating a new resource.

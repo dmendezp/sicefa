@@ -26,9 +26,9 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
+        
         // Permiso para el rol de usuario
-        $permission = Permission::updateOrCreate(['slug' => 'gvff.user.users'], [
+        $permission = Permission::updateOrCreate(['slug' => 'gvff.users/users/'], [
             'name' => 'Acceso al Panel de Usuarios',
             'description' => 'Permite acceder al panel de usuarios',
             'description_english' => 'Allows access to the users panel',
@@ -38,7 +38,7 @@ class PermissionsTableSeeder extends Seeder
 
         // Consultar roles
         $rol_admin = Role::where('slug', 'gvff.admin')->first();
-        $rol_user = Role::where('slug', 'gvff.user')->first();
+        $rol_user = Role::where('slug', 'gvff.users')->first();
 
         // Asignar permisos a los roles
         if ($rol_admin) {
