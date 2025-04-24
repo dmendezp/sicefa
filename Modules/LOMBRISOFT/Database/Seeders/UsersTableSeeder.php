@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $person = Person::where('document_number', 1079172956)->first();
-        User::updateOrCreate(['nickname' => 'Nardila'], [
+        User::updateOCrreate(['nickname' => 'Nardila'], [
             'person_id' => $person->id,
             'email' => 'ardilanicolas71@gmail.com'            //Password: Niar2956
         ]);
