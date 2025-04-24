@@ -1,304 +1,471 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="{{ asset('images/Favicon2.png')}}" type="image/x-icon">
-    <title>Gestion de Unidad de Procina</title>
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="{{ asset('AdminLTE/https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback') }}">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/adminlte.min.css') }}">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-    
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Sistema de Gestión de Viveros</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom styles for elegance and nature theme */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+        }
+        .sidebar {
+            background: linear-gradient(180deg, #2f855a, #1a4731);
+            transition: all 0.3s ease;
+        }
+        .sidebar a:hover {
+            background-color: #38a169;
+            transform: translateX(5px);
+        }
+        .card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(to right, #38a169, #68d391);
+        }
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Submenu styles */
+        .submenu {
+            display: none;
+            margin-left: 1rem;
+        }
+        .submenu.active {
+            display: block;
+        }
+    </style>
 </head>
-
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-    <div class="wrapper">
-        <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__wobble" src="{{ asset('images/images.png') }}" alt="AdminLTELogo" height="100" width="150">
+<body class="min-h-screen flex">
+    <!-- Sidebar -->
+    <aside class="sidebar w-64 h-screen fixed text-white flex flex-col shadow-lg">
+        <div class="p-6 text-2xl font-bold border-b border-green-700">
+            <i class="fa-solid fa-leaf mr-2"></i> GVFF
         </div>
-
-        <nav class="main-header navbar navbar-expand navbar-dark">
-            <!-- Left navbar links -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
-                </li>
-
-                
-
-            </ul>
-
-            <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
-                <!-- Navbar Search -->
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                        <i class="fas fa-search"></i>
-                    </a>
-                    <div class="navbar-search-block">
-                        <form class="form-inline">
-                            <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-navbar" type="submit">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </li>
-
-                <!-- Messages Dropdown Menu -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-comments"></i>
-                        <span class="badge badge-danger navbar-badge">3</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="#" class="dropdown-item">
-                            <div class="media">
-                                <img src="{{ asset('AdminLTE-3.2.0/dist/img/user1-128x128.jpg') }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Brad Diesel
-                                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">Call me whenever you can...</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <div class="media">
-                                <img src="{{ asset('AdminLTE-3.2.0/dist/img/user8-128x128.jpg') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        John Pierce
-                                        <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">I got your message bro</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <div class="media">
-                                <img src="{{ asset('AdminLTE-3.2.0/dist/img/user3-128x128.jpg') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Nora Silvester
-                                        <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">The subject goes here</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                    </div>
-                </li>
-                <!-- Notifications Dropdown Menu -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-bell"></i>
-                        <span class="badge badge-warning navbar-badge">15</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header">15 Notifications</span>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-envelope mr-2"></i> 4 new messages
-                            <span class="float-right text-muted text-sm">3 mins</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-users mr-2"></i> 8 friend requests
-                            <span class="float-right text-muted text-sm">12 hours</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-file mr-2"></i> 3 new reports
-                            <span class="float-right text-muted text-sm">2 days</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();">
-                            Cerrar Sesión
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                </li>
-            </ul>
-        </nav>
-
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
-                <img src="{{ asset('AdminLTE-3.2.0/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">GDF</span>
+        <nav class="flex-1 p-4">
+            <a href="#dashboard" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                <i class="fa-solid fa-home mr-2"></i> Dashboard
             </a>
-
-            <div class="sidebar">
-                <!-- Sidebar user panel -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="{{ asset('AdminLTE-3.2.0/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block"></a>
-                    </div>
+            <div>
+                <a href="#viveros" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition" onclick="toggleSubmenu(event, 'viveros-submenu')">
+                    <i class="fa-solid fa-tree mr-2"></i> Viveros
+                </a>
+                <div class="submenu" id="viveros-submenu">
+                    <a href="#viveros-ornamental" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                        <i class="fa-solid fa-flower mr-2"></i> Ornamental
+                    </a>
+                    <a href="#viveros-forestal" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                        <i class="fa-solid fa-tree mr-2"></i> Forestal
+                    </a>
                 </div>
-
-                <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                
-                                <li class="nav-item menu-open">
-                                    <a href="#" class="nav-link active">
-                                        <i class="nav-icon "></i>
-                                        <p>
-                                        
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                      
-                                                <li class="nav-item">
-                                                    <a href="" class="nav-link">
-                                                        <i class="far fa-circle nav-icon"></i>
-                                                     
-                                                    </a>
-                                                </li>
-                                           
-                                    </ul>
-                                </li>
-                     
-                       
-                                <li class="nav-item menu-open">
-                                    <a href="#" class="nav-link active">
-                                        <i class="nav-icon"></i>
-                                        <p>
-                                         
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                     
-                                            <li class="nav-item">
-                                           
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                  
-                                                </a>
-                                            </li>
-                                
-                                </li>
-                      
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-hourglass-half"></i>
-                                <p>Estado de Solitudes</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-clipboard-list"></i>
-                                <p>Historial de Solicitudes</p>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
-        </aside>
-
-        <div class="content-wrapper">
-            @yield('content')
+            <div>
+                <a href="#plantas" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition" onclick="toggleSubmenu(event, 'plantas-submenu')">
+                    <i class="fa-solid fa-seedling mr-2"></i> Plantas
+                </a>
+                <div class="submenu" id="plantas-submenu">
+                    <a href="#plantas-floral" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                        <i class="fa-solid fa-flower mr-2"></i> Floral
+                    </a>
+                    <a href="#plantas-medicinales" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                        <i class="fa-solid fa-mortar-pestle mr-2"></i> Plantas Medicinales
+                    </a>
+                    <a href="#plantas-venta" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                        <i class="fa-solid fa-shopping-cart mr-2"></i> Plantas en Venta
+                    </a>
+                </div>
+            </div>
+            <a href="#fauna" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                <i class="fa-solid fa-paw mr-2"></i> Fauna
+            </a>
+            <a href="#compras" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                <i class="fa-solid fa-receipt mr-2"></i> Compras
+            </a>
+            <a href="#suministros" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                <i class="fa-solid fa-box mr-2"></i> Suministros
+            </a>
+            <a href="#herramientas" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                <i class="fa-solid fa-hammer mr-2"></i> Herramientas
+            </a>
+            <a href="#registros" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                <i class="fa-solid fa-book mr-2"></i> Registros
+            </a>
+            <a href="#seguimientos" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                <i class="fa-solid fa-chart-line mr-2"></i> Seguimientos
+            </a>
+        </nav>
+        <div class="p-4 border-t border-green-700">
+            <a href= "{{ route('login') }}" class="block py-2 px-4 rounded-lg hover:bg-red-600 transition">
+                <i class="fa-solid fa-sign-out-alt mr-2"></i> Cerrar Sesión
+            </a>
         </div>
+    </aside>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
+    <!-- Main Content -->
+    <main class="flex-1 ml-64 p-8">
+        <!-- Header -->
+        <header class="header p-6 rounded-lg shadow-lg mb-8 text-white">
+            <h1 class="text-3xl font-bold">Sistema de Gestión de Viveros</h1>
+            <p class="mt-2">Administra viveros, plantas, ventas y más con facilidad.</p>
+        </header>
 
-        <footer class="main-footer" style="width: 100%; position: fixed; bottom: 0; left: 0; background-color: #343a40; color: white; padding: 10px 20px;">
-            <strong>Copyright © 2023-2025
-                <a href="#" style="color: #3c8dbc;">GDF</a>.
-            </strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.2.0
+        <!-- Dashboard Section -->
+        <section id="dashboard">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800">Resumen General</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="card bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-lg font-semibold text-gray-700">Total Viveros</h3>
+                    <p class="text-3xl font-bold text-green-600">5</p>
+                    <p class="text-sm text-gray-500">Públicos: 3 | Privados: 2</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="card bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-lg font-semibold text-gray-700">Plantas en Inventario</h3>
+                    <p class="text-3xl font-bold text-green-600">1,245</p>
+                    <p class="text-sm text-gray-500">Árboles: 600 | Arbustos: 645</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="card bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-lg font-semibold text-gray-700">Ventas Totales</h3>
+                    <p class="text-3xl font-bold text-green-600">$12,500</p>
+                    <p class="text-sm text-gray-500">Este mes: $3,200</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="card bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-lg font-semibold text-gray-700">Especies en Seguimiento</h3>
+                    <p class="text-3xl font-bold text-green-600">320</p>
+                    <p class="text-sm text-gray-500">Sanas: 300 | En peligro: 20</p>
+                </div>
             </div>
-        </footer>
-    </div>
+        </section>
 
-    <!-- jQuery -->
-    <script src="{{ asset('AdminLTE/plugins/jquery/jquery.min.js') }}"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('AdminLTE/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <!-- Viveros Section -->
+        <section id="viveros" class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800">Viveros</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">Gestión de Viveros</h3>
+                <p class="text-gray-600 mb-4">Selecciona una categoría de viveros para gestionar:</p>
+                <div class="flex space-x-4">
+                    <a href="#viveros-ornamental" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                        Viveros Ornamentales
+                    </a>
+                    <a href="#viveros-forestal" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                        Viveros Forestales
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Viveros Ornamental Subsection -->
+        <section id="viveros-ornamental" class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800">Viveros Ornamentales</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-gray-600">Gestión de viveros ornamentales, incluyendo plantas decorativas, flores y arbustos para jardinería.</p>
+                <!-- Sample Table -->
+                <div class="overflow-x-auto mt-4">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="p-4">Nombre</th>
+                                <th class="p-4">Tipo</th>
+                                <th class="p-4">Inventario</th>
+                                <th class="p-4">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="p-4">Rosa</td>
+                                <td class="p-4">Flor</td>
+                                <td class="p-4">100</td>
+                                <td class="p-4">
+                                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
+                                    <button class="text-red-600 hover:underline">Eliminar</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="p-4">Lavanda</td>
+                                <td class="p-4">Arbusto</td>
+                                <td class="p-4">80</td>
+                                <td class="p-4">
+                                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
+                                    <button class="text-red-600 hover:underline">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Viveros Forestal Subsection -->
+        <section id="viveros-forestal" class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800">Viveros Forestales</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-gray-600">Gestión de viveros forestales, incluyendo árboles y especies para reforestación y conservación.</p>
+                <!-- Sample Table -->
+                <div class="overflow-x-auto mt-4">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="p-4">Nombre</th>
+                                <th class="p-4">Especie</th>
+                                <th class="p-4">Inventario</th>
+                                <th class="p-4">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="p-4">Pino</td>
+                                <td class="p-4">Pinus sylvestris</td>
+                                <td class="p-4">200</td>
+                                <td class="p-4">
+                                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
+                                    <button class="text-red-600 hover:underline">Eliminar</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="p-4">Roble</td>
+                                <td class="p-4">Quercus robur</td>
+                                <td class="p-4">150</td>
+                                <td class="p-4">
+                                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
+                                    <button class="text-red-600 hover:underline">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plantas Section -->
+        <section id="plantas" class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800">Plantas</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">Gestión de Plantas</h3>
+                <p class="text-gray-600 mb-4">Selecciona una categoría de plantas para gestionar:</p>
+                <div class="flex space-x-4">
+                    <a href="#plantas-floral" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                        Plantas Florales
+                    </a>
+                    <a href="#plantas-medicinales" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                        Plantas Medicinales
+                    </a>
+                    <a href="#plantas-venta" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                        Plantas en Venta
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plantas Floral Subsection -->
+        <section id="plantas-floral" class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800">Plantas Florales</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-gray-600">Gestión de plantas florales, incluyendo especies decorativas y de jardinería.</p>
+                <!-- Sample Table -->
+                <div class="overflow-x-auto mt-4">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="p-4">Nombre</th>
+                                <th class="p-4">Especie</th>
+                                <th class="p-4">Inventario</th>
+                                <th class="p-4">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="p-4">Tulipán</td>
+                                <td class="p-4">Tulipa spp.</td>
+                                <td class="p-4">120</td>
+                                <td class="p-4">
+                                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
+                                    <button class="text-red-600 hover:underline">Eliminar</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="p-4">Girasol</td>
+                                <td class="p-4">Helianthus annuus</td>
+                                <td class="p-4">90</td>
+                                <td class="p-4">
+                                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
+                                    <button class="text-red-600 hover:underline">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plantas Medicinales Subsection -->
+        <section id="plantas-medicinales" class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800">Plantas Medicinales</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-gray-600">Gestión de plantas medicinales, incluyendo especies con propiedades terapéuticas.</p>
+                <!-- Sample Table -->
+                <div class="overflow-x-auto mt-4">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="p-4">Nombre</th>
+                                <th class="p-4">Especie</th>
+                                <th class="p-4">Inventario</th>
+                                <th class="p-4">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="p-4">Manzanilla</td>
+                                <td class="p-4">Matricaria chamomilla</td>
+                                <td class="p-4">70</td>
+                                <td class="p-4">
+                                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
+                                    <button class="text-red-600 hover:underline">Eliminar</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="p-4">Aloe Vera</td>
+                                <td class="p-4">Aloe barbadensis</td>
+                                <td class="p-4">60</td>
+                                <td class="p-4">
+                                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
+                                    <button class="text-red-600 hover:underline">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plantas en Venta Subsection -->
+        <section id="plantas-venta" class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800">Plantas en Venta</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-gray-700">Listado de Plantas</h3>
+                    <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                        <i class="fa-solid fa-plus mr-2"></i> Agregar Planta
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="p-4">Nombre</th>
+                                <th class="p-4">Especie</th>
+                                <th class="p-4">Inventario</th>
+                                <th class="p-4">Precio</th>
+                                <th class="p-4">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="p-4">Rosa</td>
+                                <td class="p-4">Rosa spp.</td>
+                                <td class="p-4">50</td>
+                                <td class="p-4">$10.00</td>
+                                <td class="p-4">
+                                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
+                                    <button class="text-red-600 hover:underline">Eliminar</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="p-4">Pino</td>
+                                <td class="p-4">Pinus sylvestris</td>
+                                <td class="p-4">30</td>
+                                <td class="p-4">$25.00</td>
+                                <td class="p-4">
+                                    <button class="text-blue-600 hover:underline mr-2">Editar</button>
+                                    <button class="text-red-600 hover:underline">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fauna Section -->
+        <section id="fauna" class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800">Fauna</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-gray-600">Aquí se mostrará la gestión de fauna.</p>
+            </div>
+        </section>
+
+        <!-- Compras Section -->
+        <section id="compras" class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800">Compras</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-gray-600">Aquí se mostrará la gestión de compras.</p>
+            </div>
+        </section>
+
+        <!-- Suministros Section -->
+        <section id="suministros" class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800">Suministros</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-gray-600">Aquí se mostrará la gestión de suministros.</p>
+            </div>
+        </section>
+
+        <!-- Herramientas Section -->
+        <section id="herramientas" class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800">Herramientas</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-gray-600">Aquí se mostrará la gestión de herramientas.</p>
+            </div>
+        </section>
+
+        <!-- Registros Section -->
+        <section id="registros" class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800">Registros</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-gray-600">Aquí se mostrará la gestión de registros.</p>
+            </div>
+        </section>
+
+        <!-- Seguimientos Section -->
+        <section id="seguimientos" class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800">Seguimientos</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-gray-600">Aquí se mostrará la gestión de seguimientos.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- JavaScript for Submenu Toggle -->
     <script>
-        $.widget.bridge('uibutton', $.ui.button)
+        function toggleSubmenu(event, submenuId) {
+            event.preventDefault();
+            const submenu = document.getElementById(submenuId);
+            const isActive = submenu.classList.contains('active');
+            // Close all submenus
+            document.querySelectorAll('.submenu').forEach(sub => sub.classList.remove('active'));
+            // Toggle the clicked submenu
+            if (!isActive) {
+                submenu.classList.add('active');
+            }
+            // Navigate to the parent section if submenu is closed
+            const parentSection = submenuId.split('-')[0];
+            if (!submenu.classList.contains('active')) {
+                window.location.hash = #${parentSection};
+            }
+        }
     </script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- overlayScrollbars -->
-    <script src="{{ asset('AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('AdminLTE/dist/js/adminlte.js') }}"></script>
-    <!-- PAGE PLUGINS -->
-    <!-- jQuery Mapael -->
-    <script src="{{ asset('AdminLTE/plugins/jquery-mousewheel/jquery.mousewheel.js') }}"></script>
-    <script src="{{ asset('AdminLTE-/plugins/raphael/raphael.min.js') }}"></script>
-    <script src="{{ asset('AdminLTE/plugins/jquery-mapael/jquery.mapael.min.js') }}"></script>
-    <script src="{{ asset('AdminLTE/plugins/jquery-mapael/maps/usa_states.min.js') }}"></script>
-    <!-- ChartJS -->
-    <script src="{{ asset('AdminLTE/plugins/chart.js/Chart.min.js') }}"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('AdminLTE/dist/js/demo.js') }}"></script>
-    <!-- AdminLTE dashboard demo -->
-    <script src="{{ asset('AdminLTE/dist/js/pages/dashboard2.js') }}"></script>
 </body>
 </html>

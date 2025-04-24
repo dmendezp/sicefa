@@ -41,6 +41,7 @@ class RolesTableSeeder extends Seeder
         ]);
 
         // Consulta de usuarios
+        $user_superadmin = User::where('nickname', 'Maarisua')->firstOrFail();
         $user_admin = User::where('nickname', 'LFHerre')->firstOrFail(); // Usuario Administrador (Lola Fernanda Herrera Hernandez)
         $user_cashier = User::where('nickname', 'Resmerveilons')->firstOrFail(); // Usuario Cajero (Manuel Steven Ossa Lievano)
         $user_superadmin = User::where('nickname', 'JDGM0331')->firstOrFail(); // Usuario Super Administrador (Jesús David Guevara Munar)

@@ -9,37 +9,43 @@ use Modules\SICA\Entities\Role;
 
 class PermissionsTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        // Crear una lista de permisos para el rol 
-        $permissions_admin = []; // Lista de permisos para el rol de administrador
-        
-        // Consultar aplicación SICA para registrar los roles
-        $app = App::where('name', 'GVFF')->first();
+        // Listas de permisos
+        $permissions_admin = [];
+        $permissions_user = [];
 
+        // Consultar aplicación GVFF
+        $app = App::where('name', 'GVFF')->firstOrFail();
 
-        // Vista de configuración (Administrador)
-        $permission = Permission::updateOrCreate(['slug' => 'gvff.admin.welcome'], [ // Registro o actualización de permiso
-            'name' => 'Acceso al Rol de Administrador',
-            'description' => 'Acceso al Rol de Administrador',
-            'description_english' => 'Access to the Administrator Role',
+        // Permiso para el rol de administrador
+        $permission = Permission::updateOrCreate(['slug' => 'gvff.index'], [
+            'name' => 'Acceso al Panel de Administrador',
+            'description' => 'Permite acceder al panel de bienvenida de administrador',
+            'description_english' => 'Allows access to the administrator welcome panel',
             'app_id' => $app->id
         ]);
-        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_admin[] = $permission->id;
 
-     
+        // Permiso para el rol de usuario
+        $permission = Permission::updateOrCreate(['slug' => 'gvff.user.users'], [
+            'name' => 'Acceso al Panel de Usuarios',
+            'description' => 'Permite acceder al panel de usuarios',
+            'description_english' => 'Allows access to the users panel',
+            'app_id' => $app->id
+        ]);
+        $permissions_user[] = $permission->id;
 
-        // Consulta de ROLES
-        $rol_admin = Role::where('slug', 'gvff.admin')->first(); // Rol Administrador
-       
+        // Consultar roles
+        $rol_admin = Role::where('slug', 'gvff.admin')->first();
+        $rol_user = Role::where('slug', 'gvff.user')->first();
 
-        // Asignación de PERMISOS para los ROLES de la aplicación AGROSOFT (Sincronización de las relaciones sin eliminar las relaciones existentes)
-        $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
-      
+        // Asignar permisos a los roles
+        if ($rol_admin) {
+            $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
+        }
+        if ($rol_user) {
+            $rol_user->permissions()->syncWithoutDetaching($permissions_user);
+        }
     }
 }

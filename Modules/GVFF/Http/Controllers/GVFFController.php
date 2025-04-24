@@ -15,20 +15,18 @@ class GVFFController extends Controller
     public function index()
     {
         return view('gvff::index');
-
-
     }
-    public function welcome()
-    {
-        return view('gvff::welcome');
-    }
+
     public function admin()
     {
-        return view('gvff::welcome');
-
-
+        return view('gvff::welcome'); // Cambiado de 'admin.welcome' a 'welcome'
     }
 
+    public function users()
+    {
+        return view('gvff::users.users'); // Apunta a users/users.blade.php
+    }
+    
     /**
      * Show the form for creating a new resource.
      * @return Renderable
