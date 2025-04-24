@@ -15,15 +15,16 @@ class CreateEventsSiaTable extends Migration
     {
         Schema::create('events_sia', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Nombre del evento
-            $table->text('description')->nullable(); // Descripción del evento
-            $table->string('location'); // Ubicación del evento
-            $table->date('start_date'); // Fecha de inicio del evento
-            $table->date('end_date')->nullable(); // Fecha de finalización del evento
-            $table->string('organizer')->nullable(); // Organizador del evento
-            $table->string('contact_email')->nullable(); // Correo de contacto
-            $table->string('contact_phone')->nullable(); // Teléfono de contacto
-            $table->enum('status', ['scheduled', 'ongoing', 'completed', 'cancelled'])->default('scheduled'); // Estado del evento
+            $table->foreignId('user_id')->constrained('users')->onDelete('set null'); 
+            $table->string('name'); 
+            $table->string('imagen_evento')->nullable(); // Ruta de la imagen del evento
+            $table->string('location')->nullable(); 
+            $table->date('start_date'); 
+            $table->date('end_date'); 
+            $table->string('organizer')->nullable(); 
+            $table->string('contact_email'); 
+            $table->string('contact_phone')->nullable(); 
+            $table->enum('status', ['scheduled', 'ongoing', 'completed', 'cancelled'])->default('scheduled'); 
             $table->timestamps(); // created_at y updated_at
         });
     }

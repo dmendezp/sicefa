@@ -21,7 +21,7 @@ class CreatePublicationsTable extends Migration
             $table->longText('content'); 
             $table->string('location')->nullable(); 
             $table->date('publication_date')->nullable(); 
-            $table->enum('status', ['pending', 'approved', 'published', 'rejected'])->default('pending'); // Status of the publication
+            $table->enum('status', ['pending', 'published', 'rejected'])->default('pending'); // Status of the publication
             $table->date('review_date')->nullable(); 
             $table->text('reviewer_comments')->nullable(); 
             $table->timestamps();
