@@ -147,6 +147,11 @@
                         <a href="{{ route('lombrisoft.admin.welcome') }}" class="nav-link @if (Route::is('lombrisoft.admin.*')) active @endif">Administración</a>
                     </li>
                     @endif
+                    @if(Auth::check() && checkRol('lombrisoft.intern'))
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <a href="{{ route('lombrisoft.intern.paneli') }}" class="nav-link @if (Route::is('lombrisoft.intern.*')) active @endif">Pasante</a>
+                    </li>
+                    @endif
                 </ul>
             </div>
 

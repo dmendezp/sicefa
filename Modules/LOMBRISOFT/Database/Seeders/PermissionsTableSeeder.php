@@ -45,5 +45,39 @@ class PermissionsTableSeeder extends Seeder
 
         // Asignación de PERMISOS para los ROLES de la aplicación CAFETO (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
+
+
+
+
+
+
+        // Definir arreglos de PERMISOS que van ser asignados a los ROLES
+        $permissions_intern = []; // Permisos para pasante
+
+
+        // Consultar aplicación SICA para registrar los roles
+        $app = App::where('name', 'LOMBRISOFT')->first();
+
+
+        // ===================== Registro de todos los permisos de la aplicación CAFETO ==================
+        // Vista principal del Pasante
+     
+
+        // Vista de configuración (Pasante)
+        $permission = Permission::updateOrCreate(['slug' => 'lombrisoft.intern.paneli'], [ // Registro o actualización de permiso
+            'name' => 'Acceso al Rol de Pasante',
+            'description' => 'Acceso al Rol de Pasante',
+            'description_english' => 'Access to the Intern Role',
+            'app_id' => $app->id,
+        ]);
+        $permissions_intern[] = $permission->id; // Almacenar permiso para rol
+
+     
+
+        // Consulta de ROLES
+        $rol_intern = Role::where('slug', 'lombrisoft.intern')->first(); // Rol Pasante
+
+        // Asignación de PERMISOS para los ROLES de la aplicación CAFETO (Sincronización de las relaciones sin eliminar las relaciones existentes)
+        $rol_intern->permissions()->syncWithoutDetaching($permissions_intern);
     }
 }
