@@ -1,22 +1,30 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateInstructorResearchersTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('instructor_researchers', function (Blueprint $table) {
-            $table->id();
-
-            $table->timestamps();
+            $table->id(); // Clave primaria (BIGINT UNSIGNED, autoincremental)
+            $table->foreignId('user_id')->unique()->constrained('users')->onDelete('cascade'); // Relación uno a uno con users
+            $table->foreignId('person_id')->nullable()->unique()->constrained('people')->onDelete('set null'); // Relación uno a uno con people
+            $table->foreignId('profession_id')->nullable()->constrained('professions')->onDelete('set null'); // Relación con professions
+            $table->text('specialization_areas'); // Áreas de especialización
+            $table->text('research_skills'); // Habilidades de investigación
+            $table->timestamps(); // created_at y updated_at para auditoría (fecha_registro)
+            $table->softDeletes(); // deleted_at para eliminación lógica
+            $table->index('user_id'); // Índice para consultas por user_id
+            $table->index('person_id'); // Índice para consultas por person_id
+            $table->index('profession_id'); // Índice para consultas por profession_id
         });
     }
 
@@ -25,8 +33,8 @@ class CreateInstructorResearchersTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('instructor_researchers');
     }
-}
+};
