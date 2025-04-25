@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->string('name');
-            $table->string('imagen_evento')->nullable();
+            $table->string('imagen_evento');
             $table->string('location')->nullable();
             $table->date('start_date');
             $table->date('end_date');

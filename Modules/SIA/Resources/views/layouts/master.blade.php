@@ -48,11 +48,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 text-center mt-5">
-                <h1 class="display-4">Bienvenido a Gestión de Unidad de Cultivos</h1>
+                <h1 class="display-4">Bienvenid@ al semillero de investigacion la angostura</h1>
                 <p class="lead">
-                    Una solución integral para la administración eficiente de tus cultivos. 
-                    Optimiza tus procesos, incrementa la productividad y toma decisiones informadas 
-                    con nuestra plataforma diseñada para el éxito agrícola.
+                   
                 </p>
                 @auth
                     <a href="{{ route('login') }}" class="btn btn-primary btn-lg mt-3">

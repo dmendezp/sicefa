@@ -2,7 +2,7 @@
 
 @push('head')
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMt23cez/3paNdF+Zl5Y5z5F5F5F5F5F5F5F5F5F5" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMt23cez/3paNdF+Zl5Y5z5F5F5F5F5F5F5F5F5F5F5F5" crossorigin="anonymous">
 @endpush
 
 @push('breadcrumbs')
@@ -10,6 +10,59 @@
 @endpush
 
 @section('content')
+    <!-- Carrusel integrado -->
+    <section id="slider" class="slider slide-overlay-dark">
+        <div class="rev_slider_wrapper">
+            <div id="slider1" class="rev_slider" data-version="5.0">
+                <ul>
+                    <!-- Slide 1 -->
+                    <li data-transition="zoomin" data-slotamount="default" data-easein="Power4.easeInOut"
+                        data-easeout="Power4.easeInOut" data-masterspeed="2000">
+                        <img src="{{ asset('modules/cafeto/images/index/coffee.webp') }}" alt="Slide Background Image"
+                            width="1920" height="1280" />
+                        <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="-130"
+                            data-whitespace="nowrap" data-width="none" data-height="none"
+                            data-frames='[{"delay":1500,"speed":1000,"frame":"0","from":"y:-50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'>
+                            <div class="slide--subheadline">{{ trans('cafeto::mainPage.TitleWelcomeApp') }}</div>
+                        </div>
+                        <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="-65"
+                            data-whitespace="nowrap" data-width="none" data-height="none"
+                            data-frames='[{"delay":1750,"speed":1000,"frame":"0","from":"x:-50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'>
+                            <div class="slide--headline">{{ trans('cafeto::mainPage.TitleWelcome') }}</div>
+                        </div>
+                        <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="100"
+                            data-width="none" data-height="none" data-whitespace="nowrap"
+                            data-frames='[{"delay":2000,"speed":1500,"frame":"0","from":"y:bottom;rX:-20deg;rY:-20deg;rZ:0deg;","to":"o:1;","ease":"Power3.easeOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'>
+                            <div class="slide-action">
+                                <a class="btn btn--white btn--bordered btn--rounded btn--lg" href="#espresso-section"
+                                    id="scroll-to-section">{{ trans('cafeto::mainPage.ViewProducts') }}</a>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- Slide 2 -->
+                    <li data-transition="slideoverdown" data-slotamount="default" data-easein="Power4.easeInOut"
+                        data-easeout="Power4.easeInOut" data-masterspeed="2000">
+                        <img src="{{ asset('modules/cafeto/images/index/coffee-2.webp') }}" alt="Slide Background Image"
+                            width="1920" height="1280" />
+                        <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="-130"
+                            data-whitespace="nowrap" data-width="none" data-height="none"
+                            data-frames='[{"delay":1500,"speed":1500,"frame":"0","from":"z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'>
+                            <div class="slide--subheadline">{{ trans('cafeto::mainPage.TitleInfoS2') }}</div>
+                        </div>
+                        <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="-65"
+                            data-whitespace="nowrap" data-width="none" data-height="none"
+                            data-frames='[{"delay":1750,"speed":1000,"frame":"0","from":"z:0;rX:0deg;rY:0;rZ:0;sX:2;sY:2;skX:0;skY:0;opacity:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'>
+                            <div class="slide--headline extend">
+                                {{ trans('cafeto::mainPage.TextInfoS2') }}
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- Fin del carrusel -->
+
     <h5 class="display-5">{{ trans('sia::mainPage.Title_General') }}</h5>
     <h5 data-aos="fade-down">{{ trans('sia::mainPage.Description_General') }}</h5>
 
@@ -155,12 +208,14 @@
 @endsection
 
 @push('scripts')
+    <!-- Animación de scroll -->
     <script>
-        document.getElementById("scrollButton").addEventListener("click", function() {
-            var scrollHeight = 500; // Altura de desplazamiento deseada (ajusta este valor según tus necesidades)
-            window.scrollTo({
-                top: scrollHeight,
-                behavior: "smooth"
+        $(document).ready(function() {
+            $("#scroll-to-section").click(function() {
+                $("html, body").animate({
+                    scrollTop: $("#espresso-section").offset().top
+                }, 1000);
+                return false;
             });
         });
     </script>
