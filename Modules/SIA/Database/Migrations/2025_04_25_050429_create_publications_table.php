@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePublicationsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -15,15 +15,15 @@ class CreatePublicationsTable extends Migration
     {
         Schema::create('publications', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('author_id'); 
-            $table->unsignedBigInteger('reviewer_id')->nullable(); 
-            $table->string('title'); 
-            $table->longText('content'); 
-            $table->string('location')->nullable(); 
-            $table->date('publication_date')->nullable(); 
-            $table->enum('status', ['pending', 'published', 'rejected'])->default('pending'); // Status of the publication
-            $table->date('review_date')->nullable(); 
-            $table->text('reviewer_comments')->nullable(); 
+            $table->unsignedBigInteger('author_id');
+            $table->unsignedBigInteger('reviewer_id')->nullable();
+            $table->string('title');
+            $table->longText('content');
+            $table->string('location')->nullable();
+            $table->date('publication_date')->nullable();
+            $table->enum('status', ['pending', 'published', 'rejected'])->default('pending');
+            $table->date('review_date')->nullable();
+            $table->text('reviewer_comments')->nullable();
             $table->timestamps();
 
             // Foreign keys
@@ -41,4 +41,4 @@ class CreatePublicationsTable extends Migration
     {
         Schema::dropIfExists('publications');
     }
-}
+};
