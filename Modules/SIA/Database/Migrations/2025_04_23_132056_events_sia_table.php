@@ -25,7 +25,9 @@ class CreateEventsSiaTable extends Migration
             $table->string('contact_email'); 
             $table->string('contact_phone')->nullable(); 
             $table->enum('status', ['scheduled', 'ongoing', 'completed', 'cancelled'])->default('scheduled'); 
-            $table->timestamps(); // created_at y updated_at
+            $table->timestamps(); 
+            $table->softDeletes(); 
+            $table->index(['user_id', 'start_date']);
         });
     }
 
