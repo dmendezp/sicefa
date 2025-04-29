@@ -11,14 +11,13 @@ class PermissionsTableSeeder extends Seeder
 {
     public function run()
     {
-        // Listas de permisos
+        // Lista de permisos
         $permissions_admin = [];
-        $permissions_user = [];
 
         // Consultar aplicación GVFF
         $app = App::where('name', 'GVFF')->firstOrFail();
 
-        // Permiso para el rol de administrador
+        // Permiso para el panel de administrador
         $permission = Permission::updateOrCreate(['slug' => 'gvff.index'], [
             'name' => 'Acceso al Panel de Administrador',
             'description' => 'Permite acceder al panel de bienvenida de administrador',
@@ -26,26 +25,53 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-        
-        // Permiso para el rol de usuario
-        $permission = Permission::updateOrCreate(['slug' => 'gvff.users/users/'], [
-            'name' => 'Acceso al Panel de Usuarios',
-            'description' => 'Permite acceder al panel de usuarios',
-            'description_english' => 'Allows access to the users panel',
-            'app_id' => $app->id
-        ]);
-        $permissions_user[] = $permission->id;
 
-        // Consultar roles
+        // Permisos para el CRUD de Viveros
+        $viveros_permissions = [
+            [
+                'slug' => 'gvff.admin.viveros.index',
+                'name' => 'Ver lista de viveros',
+                'description' => 'Permite ver la lista de viveros',
+                'description_english' => 'Allows viewing the list of viveros',
+            ],
+            [
+                'slug' => 'gvff.admin.viveros.create',
+                'name' => 'Crear viveros',
+                'description' => 'Permite crear nuevos viveros',
+                'description_english' => 'Allows creating new viveros',
+            ],
+            [
+                'slug' => 'gvff.admin.viveros.edit',
+                'name' => 'Editar viveros',
+                'description' => 'Permite editar viveros existentes',
+                'description_english' => 'Allows editing existing viveros',
+            ],
+            [
+                'slug' => 'gvff.admin.viveros.delete',
+                'name' => 'Eliminar viveros',
+                'description' => 'Permite eliminar viveros',
+                'description_english' => 'Allows deleting viveros',
+            ],
+        ];
+
+        // Crear permisos para Viveros y añadirlos a la lista de permisos del administrador
+        foreach ($viveros_permissions as $perm) {
+            $permission = Permission::updateOrCreate(['slug' => $perm['slug']], [
+                'name' => $perm['name'],
+                'description' => $perm['description'],
+                'description_english' => $perm['description_english'],
+                'app_id' => $app->id
+            ]);
+            $permissions_admin[] = $permission->id;
+        }
+
+        // Consultar rol de administrador
         $rol_admin = Role::where('slug', 'gvff.admin')->first();
-        $rol_user = Role::where('slug', 'gvff.users')->first();
 
-        // Asignar permisos a los roles
+        // Asignar permisos al rol administrador
         if ($rol_admin) {
             $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
         }
-        if ($rol_user) {
-            $rol_user->permissions()->syncWithoutDetaching($permissions_user);
-        }
     }
 }
+

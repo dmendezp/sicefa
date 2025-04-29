@@ -2,33 +2,26 @@
 
 namespace Modules\GVFF\Http\Controllers;
 
-use Auth;
+use Gate;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\GVFF\Entities\Vivero;
 
-class GVFFController extends Controller
+
+class GVFFViverosController extends Controller
 {
-    //funcion para el administrador
+    /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
     public function index()
     {
-        return view('gvff::index');
-    }
-
-
-    //Funcion para los aprensices que no necesitan autenticacion
-    public function welcome()
-    {
-        if (Auth::check()) {
-            // Si el usuario está autenticado, redirigir a la ruta del administrador
-            return redirect()->route('gvff.index');
-        }
         
-        return view('gvff::welcome');
+        $viveros = Vivero::all();
+        return view('gvff::admin.viveros.index', compact('viveros'));
     }
 
- 
-    
     /**
      * Show the form for creating a new resource.
      * @return Renderable

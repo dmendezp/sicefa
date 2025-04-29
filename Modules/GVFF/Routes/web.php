@@ -1,12 +1,27 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\GVFF\Http\Controllers\GVFFViverosController;
+use Modules\GVFF\Http\Controllers\ViverosController;
 
 Route::middleware(['lang'])->group(function () {
     Route::prefix('gvff')->group(function () {
-        
+        //Rutas para el administrador
         Route::get('/index', 'GVFFController@index')->name('gvff.index');
-        Route::get('/admin/welcome', 'GVFFController@admin')->name('gvff.admin.welcome');
-        Route::get('/users', 'GVFFController@users')->name('gvff.welcome');
+        Route::get('/viveros', 'GVFFViverosController@index')->name('gvff.admin.viveros.index');
     });
 });
+
+
+
+
+
+
+Route::prefix('gvff')->group(function () {
+    //Rura para los aprendices
+    Route::get('/welcome', 'GVFFController@welcome')->name('gvff.welcome');
+});
+    
+
+
+

@@ -28,18 +28,7 @@ class RolesTableSeeder extends Seeder
         $user_admin = User::where('nickname', 'Dquiza')->firstOrFail();
         $user_admin->roles()->syncWithoutDetaching([$rol_admin->id]);
 
-        // Crear o actualizar el rol de Usuario
-        $rol_user = Role::updateOrCreate(['slug' => 'gvff.users/users'], [
-            'name' => 'Usuario',
-            'description' => 'Rol usuario de la aplicación GVFF',
-            'description_english' => 'GVFF application user role',
-            'full_access' => 'No',
-            'app_id' => $app->id
-        ]);
-
-        // Asignar el rol de Usuario al usuario Mgomez
-        $user_mgomez = User::where('nickname', 'Mpenagos')->firstOrFail();
-        $user_mgomez->roles()->syncWithoutDetaching([$rol_user->id]);
+        
 
         
     }

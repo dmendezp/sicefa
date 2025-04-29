@@ -31,26 +31,7 @@
 
             
             <li class="nav-item d-none d-sm-inline-block">
-            @auth
-                @if(checkRol('gvff.admin'))
-                    <li class="nav-item d-none d-sm-inline-block" style="margin-right: 80px;">
-                        <a href="{{ route('gvff.admin.welcome') }}" 
-                           class="nav-link @if(Route::is('gvff.admin.*')) active @endif">
-                            Administrador
-                        </a>
-                    </li>
-                @endif
-            @endauth
-            @auth
-            @if(checkRol('gvff.users'))
-                <li class="nav-item d-none d-sm-inline-block" style="margin-right: 80px;">
-                    
-                       class="nav-link @if(Route::is('gvff.users.*')) active @endif">
-                        usuario
-                    </a>
-                </li>
-            @endif
-        @endauth
+            
         </li>
         </ul>
         
@@ -76,7 +57,6 @@
                     </div>
                 </div>
             </div>
-    
 
     <!-- Footer -->
     <footer style="width: 100%; position: fixed; bottom: 0; left: 0; background-color: #343a40; color: white; padding: 10px 20px;">
@@ -97,3 +77,5 @@
     <script src="{{ asset('AdminLTE/dist/js/adminlte.js') }}"></script>
 </body>
 </html>
+
+ 
