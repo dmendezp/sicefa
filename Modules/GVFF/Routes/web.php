@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\GVFF\Http\Controllers\GVFFViverosController;
-use Modules\GVFF\Http\Controllers\ViverosController;
+
+
 
 Route::middleware(['lang'])->group(function () {
     Route::prefix('gvff')->group(function () {
