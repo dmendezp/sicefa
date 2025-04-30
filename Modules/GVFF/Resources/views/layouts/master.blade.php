@@ -62,10 +62,7 @@
         <nav class="flex items-center justify-end space-x-4">
             @auth
                 @if(checkRol('gvff.admin'))
-                    <a href="{{ route('gvff.welcome') }}" 
-                       class="nav-link hover:text-gray-200 @if(Route::is('gvff.admin.*')) font-bold @endif">
                         Administrador
-                    </a>
                 @endif
                 @if(checkRol('gvff.users'))
                     <a href="{{ route('gvff.users.users') }}" 
@@ -77,7 +74,7 @@
         </nav>
     </header>
             <nav class="flex-1 p-4">
-                <a href="#dashboard" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                <a href="{{ route('gvff.index') }}" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
                     <i class="fa-solid fa-home mr-2"></i> Dashboard
                 </a>
                 <div>
