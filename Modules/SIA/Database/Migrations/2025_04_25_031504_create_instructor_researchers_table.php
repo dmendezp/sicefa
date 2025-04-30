@@ -14,17 +14,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('instructor_researchers', function (Blueprint $table) {
-            $table->id(); // Clave primaria (BIGINT UNSIGNED, autoincremental)
+            $table->id(); 
             $table->foreignId('user_id')->unique()->constrained('users')->onDelete('cascade'); // Relación uno a uno con users
             $table->foreignId('person_id')->nullable()->unique()->constrained('people')->onDelete('set null'); // Relación uno a uno con people
             $table->foreignId('profession_id')->nullable()->constrained('professions')->onDelete('set null'); // Relación con professions
             $table->text('specialization_areas'); // Áreas de especialización
             $table->text('research_skills'); // Habilidades de investigación
-            $table->timestamps(); // created_at y updated_at para auditoría (fecha_registro)
+            $table->timestamps(); // created_at y updated_at 
             $table->softDeletes(); // deleted_at para eliminación lógica
             $table->index('user_id'); // Índice para consultas por user_id
             $table->index('person_id'); // Índice para consultas por person_id
-            $table->index('profession_id'); // Índice para consultas por profession_id
         });
     }
 

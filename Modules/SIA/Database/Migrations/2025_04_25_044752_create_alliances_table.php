@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('alliances', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description')->nullable();
+            $table->text('description');
             $table->string('organization');
-            $table->string('email')->nullable();
+            $table->string('email');
             $table->string('phone')->nullable();
             $table->date('start_date');
             $table->date('end_date')->nullable();

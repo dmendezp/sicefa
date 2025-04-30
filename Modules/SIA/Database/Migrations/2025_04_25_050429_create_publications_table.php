@@ -19,8 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('reviewer_id')->nullable();
             $table->string('title');
             $table->longText('content');
-            $table->string('location')->nullable();
-            $table->date('publication_date')->nullable();
+            $table->string('location');
+            $table->date('publication_date');
             $table->enum('status', ['pending', 'published', 'rejected'])->default('pending');
             $table->date('review_date')->nullable();
             $table->text('reviewer_comments')->nullable();

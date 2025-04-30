@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('events_sia', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('role_user_id')->nullable()->constrained('role_user')->onDelete('set null');
             $table->string('name');
             $table->string('imagen_evento');
             $table->string('location')->nullable();
@@ -26,7 +26,6 @@ return new class extends Migration
             $table->enum('status', ['scheduled', 'ongoing', 'completed', 'cancelled'])->default('scheduled');
             $table->timestamps();
             $table->softDeletes();
-            $table->index(['user_id', 'start_date']);
         });
     }
 

@@ -15,9 +15,9 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id(); 
-            $table->foreignId('leader_id')->nullable()->constrained('users')->onDelete('set null'); // Líder del proyecto, nullable
+            $table->foreignId('leader_id')->nullable()->constrained('role_user')->onDelete('set null'); // Líder del proyecto, nullable
             $table->string('title', 100); 
-            $table->text('description')->nullable(); 
+            $table->text('description'); 
             $table->dateTime('start_date'); 
             $table->dateTime('end_date')->nullable(); 
             $table->string('document_path', 255)->nullable(); 
@@ -27,7 +27,6 @@ class CreateProjectsTable extends Migration
             $table->text('expected_outcomes'); // Resultados esperados
             $table->timestamps(); // created_at y updated_at 
             $table->softDeletes(); // deleted_at 
-            $table->unique(['leader_id', 'title']); // Evitar títulos duplicados por líder
             $table->index('leader_id'); // Índice para consultas por líder
         });
     
