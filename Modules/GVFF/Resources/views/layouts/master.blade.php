@@ -81,7 +81,7 @@
                     <i class="fa-solid fa-home mr-2"></i> Dashboard
                 </a>
                 <div>
-                    <a href="{{ route('gvff.admin.viveros.index') }}" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                    <a href="{{ route('gvff.admin.nurseries.index') }}" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
                         <i class="fa-solid fa-leaf mr-2"></i> Viveros
                     </a>
                     <div class="submenu" id="viveros-submenu">

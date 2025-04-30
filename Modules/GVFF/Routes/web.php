@@ -8,7 +8,7 @@ Route::middleware(['lang'])->group(function () {
     Route::prefix('gvff')->group(function () {
         //Rutas para el administrador
         Route::get('/index', 'GVFFController@index')->name('gvff.index');
-        Route::get('/viveros', 'GVFFViverosController@index')->name('gvff.admin.viveros.index');
+        Route::get('/viveros', 'GVFFNurseriesController@index')->name('gvff.admin.nurseries.index');
     });
 });
 

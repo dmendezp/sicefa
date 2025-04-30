@@ -27,27 +27,27 @@ class PermissionsTableSeeder extends Seeder
         $permissions_admin[] = $permission->id;
 
         // Permisos para el CRUD de Viveros
-        $viveros_permissions = [
+        $nurseries_permissions = [
             [
-                'slug' => 'gvff.admin.viveros.index',
+                'slug' => 'gvff.admin.nurseries.index',
                 'name' => 'Ver lista de viveros',
                 'description' => 'Permite ver la lista de viveros',
                 'description_english' => 'Allows viewing the list of viveros',
             ],
             [
-                'slug' => 'gvff.admin.viveros.create',
+                'slug' => 'gvff.admin.nurseries.create',
                 'name' => 'Crear viveros',
                 'description' => 'Permite crear nuevos viveros',
                 'description_english' => 'Allows creating new viveros',
             ],
             [
-                'slug' => 'gvff.admin.viveros.edit',
+                'slug' => 'gvff.admin.nurseries.edit',
                 'name' => 'Editar viveros',
                 'description' => 'Permite editar viveros existentes',
                 'description_english' => 'Allows editing existing viveros',
             ],
             [
-                'slug' => 'gvff.admin.viveros.delete',
+                'slug' => 'gvff.admin.nurseries.delete',
                 'name' => 'Eliminar viveros',
                 'description' => 'Permite eliminar viveros',
                 'description_english' => 'Allows deleting viveros',
@@ -55,7 +55,7 @@ class PermissionsTableSeeder extends Seeder
         ];
 
         // Crear permisos para Viveros y añadirlos a la lista de permisos del administrador
-        foreach ($viveros_permissions as $perm) {
+        foreach ($nurseries_permissions as $perm) {
             $permission = Permission::updateOrCreate(['slug' => $perm['slug']], [
                 'name' => $perm['name'],
                 'description' => $perm['description'],
