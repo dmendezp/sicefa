@@ -8,6 +8,8 @@
 @section('content')
 <div class="container mt-5">
     <h1 class="mb-4">Gestion de vivero</h1>
+    <a href="{{ route('gvff.admin.nurseries.create') }}" class="btn btn-primary btn-sm">Crear nuevo vivero</a>
+
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
@@ -16,9 +18,10 @@
     @endif
 
 
-
     <table class="table table-striped table-bordered">
+
         <thead class="table-dark">
+
             <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Location</th>
@@ -45,7 +48,16 @@
                         @endif
                     </td>
                     <td>
-                       
+                  
+                        <a href="{{ route('gvff.admin.nurseries.edit', $nursery) }}" class="btn btn-warning btn-sm">Edit</a>
+                  
+                        <form action="{{ route('gvff.admin.nurseries.destroy', $nursery) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to delete this nursery?');">
+                            
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        
+                       </form> 
                     </td>
                 </tr>
             @empty
