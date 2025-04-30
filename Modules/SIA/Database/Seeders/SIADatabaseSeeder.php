@@ -5,6 +5,7 @@ namespace Modules\SIA\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Modules\SIA\Database\Seeders\PeopleTableSeeder;
 
 class SIADatabaseSeeder extends Seeder
 {

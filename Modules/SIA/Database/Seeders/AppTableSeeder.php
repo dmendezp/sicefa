@@ -5,7 +5,7 @@ namespace Modules\SIA\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Modules\SIA\Entities\App;
+use Modules\SICA\Entities\App;
 
 class AppTableSeeder extends Seeder
 {

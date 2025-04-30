@@ -4,10 +4,10 @@ namespace Modules\SIA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use Modules\SIA\Entities\EPS;
-use Modules\SIA\Entities\PensionEntity;
-use Modules\SIA\Entities\Person;
-use Modules\SIA\Entities\PopulationGroup;
+use Modules\SICA\Entities\EPS;
+use Modules\SICA\Entities\PensionEntity;
+use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\PopulationGroup;
 
 class PeopleTableSeeder extends Seeder
 {
