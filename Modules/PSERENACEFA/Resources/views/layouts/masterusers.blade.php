@@ -131,6 +131,24 @@
                     </a>
                 </div>
             </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3 class="card-title">Solicitud y Seguimiento de Espacios</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text" style="text-align: justify;">
+                        Solicita y administra espacios para tus actividades fácilmente. Consulta la disponibilidad en tiempo real, evita conflictos de horarios y recibe notificaciones sobre el estado de tu solicitud..
+                    </p>
+                    <a href="#" class="card-link">
+                        Conocer más <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
         </div>
 
         <div class="why-use-section">
@@ -176,7 +194,10 @@
                     <i class="fas fa-building"></i>
                     <span>SENA - La Angostura</span>
                     <i class="fas fa-map-marker-alt ml-4"></i>
-                    <span>Cra. 4 #24, Puerto Rondón, Arauca</span>
+                    <span>Km 38 via al Sur Neiva
+                        Campoalegre - Huila
+                        Colombia
+                    </span>
                 </div>
                 <div class="footer-version">
                     Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})

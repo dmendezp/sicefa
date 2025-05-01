@@ -44,7 +44,7 @@
                     </a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('cefa.pserenacefa.index') }}" class="nav-link">Inicio</a>
+                    <a href="#" class="nav-link">Inicio</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     @if(Auth::check())
@@ -52,6 +52,8 @@
                 <li style="margin-right:80px">
                     <a href="{{ route('pserenacefa.admin.welcome') }}" id="an"
                         class="nav-link @if (Route::is('pserenacefa.admin.*')) active @endif">Administrador</a>
+                        <a href="{{ route('pserenacefa.pasante.welcomepasante') }}" id="an"
+                        class="nav-link @if (Route::is('pserenacefa.pasante.*')) active @endif">Pasante</a>
                 </li>
                 @endif
                 @endif
@@ -60,18 +62,23 @@
         
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logout') }}"
-                       title="Cerrar sesión"
-                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                <li class="nav-item dropdown">
+                    <!-- Icono principal visible en el navbar -->
+                    <a class="nav-link" data-toggle="dropdown" href="#" title="Cerrar sesión">
+                        <i class="fas fa-door-open"></i> 
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </li>
+                    <!-- Menú desplegable -->
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="fas fa-sign-out-alt mr-2"></i> Cerrar Sesión
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
             </ul>
-        </nav>
         </nav>
         <!-- /.navbar -->
         
@@ -96,17 +103,17 @@
                                 <p>
                                     Gestion De Ambientes
                                     <i class="fas fa-angle-left right"></i>
-                                </p> 
+                                </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route('psernacefa.admin.admin.create')}}" class="nav-link">
+                                    <a href="" class="nav-link">
                                         <i class="fas fa-edit nav-icon"></i>
                                         <p>Ingreso</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('psernacefa.admin.admin.index')}}" class="nav-link">                  
+                                    <a href="" class="nav-link">                  
                                         <i class="fas fa-clipboard-list nav-icon"></i>
                                         <p>Listas</p>
                                     </a>

@@ -32,18 +32,31 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'Access to the Administrator Role (Coordinator)',
             'app_id' => $app->id
         ]);
+
+        $permission = Permission::updateOrCreate(['slug' => 'pserenacefa.admin.admin.create'], [ // Registro o actualización de permiso
+            'name' => 'Registro de ambientes',
+            'description' => 'Acceso a registar ambientes',
+            'description_english' => 'Access to register environments',
+            'app_id' => $app->id
+        ]);
+
+        $permission = Permission::updateOrCreate(['slug' => 'pserenacefa.admin.admin.index'], [ // Registro o actualización de permiso
+            'name' => 'Lista de ambientes',
+            'description' => 'Acceso a mirar ambientes',
+            'description_english' => 'Access to view environments',
+            'app_id' => $app->id
+        ]);
+
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-     
-
-        // Consulta de ROLES
+    
         $rol_admin = Role::where('slug', 'pserenacefa.admin')->first(); // Rol Administrador
        
 
         // Asignación de PERMISOS para los ROLES de la aplicación AGROSOFT (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
 
-
+        
         //Pasante
 
         $permission = Permission::updateOrCreate(['slug' => 'pserenacefa.pasante.welcomepasante'], [ // Registro o actualización de permiso
