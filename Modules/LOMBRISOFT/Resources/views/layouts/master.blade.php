@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +15,10 @@
     <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-    
+    <!-- Asegúrate de tener esto en tu layout principal (por ejemplo, en el footer o antes de cerrar el body) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
@@ -23,6 +27,7 @@
             --sena-dark-green: #2E8B3E;
             --sena-light-green: #D1E7DD;
         }
+
         .main-sidebar {
             height: 100vh;
             position: fixed;
@@ -31,51 +36,64 @@
             background-color: white;
             border-right: 1px solid #dee2e6;
         }
+
         .content-wrapper {
             margin-left: 250px;
             background-color: #f8f9fa;
         }
+
         .hover-green:hover {
             color: var(--sena-green) !important;
             transition: color 0.3s ease-in-out;
         }
+
         .brand-link {
             border-bottom: 3px solid var(--sena-green);
         }
+
         .brand-text {
             color: var(--sena-dark-green) !important;
             font-weight: bold !important;
         }
-        .nav-sidebar .nav-item > .nav-link {
+
+        .nav-sidebar .nav-item>.nav-link {
             color: #495057;
         }
-        .nav-sidebar .nav-item > .nav-link.active, 
-        .nav-sidebar .nav-item > .nav-link:hover {
+
+        .nav-sidebar .nav-item>.nav-link.active,
+        .nav-sidebar .nav-item>.nav-link:hover {
             background-color: var(--sena-light-green);
             color: var(--sena-dark-green);
         }
+
         .navbar-dark {
             background-color: var(--sena-dark-green) !important;
         }
+
         .main-footer {
             background-color: var(--sena-dark-green) !important;
             color: white !important;
         }
-        .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active {
+
+        .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active {
             background-color: var(--sena-green);
             color: white;
         }
+
         .card {
             border-top: 3px solid var(--sena-green);
         }
+
         .btn-primary {
             background-color: var(--sena-green);
             border-color: var(--sena-dark-green);
         }
+
         .btn-primary:hover {
             background-color: var(--sena-dark-green);
             border-color: var(--sena-dark-green);
         }
+
         .bg-primary {
             background-color: var(--sena-green) !important;
         }
@@ -112,7 +130,7 @@
         <aside class="main-sidebar sidebar-light-primary elevation-4">
             <!-- Brand Logo -->
             <a href="#" class="brand-link">
-                
+
                 <span class="brand-text font-weight-light">Lombrisoft</span>
             </a>
 
@@ -127,35 +145,35 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('lombrisoft.admin.welcome') }}"" class="nav-link">
                                 <i class="nav-icon fas fa-home text-green"></i>
                                 <p>Inicio</p>
                             </a>
                         </li>
 
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-box text-green"></i>
-                                <p>
-                                    Camas Lombricultivo
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="fas fa-edit nav-icon text-green"></i>
-                                        <p>Ingreso</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="fas fa-clipboard-list nav-icon text-green"></i>
-                                        <p>Listas</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+    <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-box text-green"></i>
+        <p>
+            Camas Lombricultivo
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{{ route('camas.create') }}" class="nav-link">
+                <i class="fas fa-edit nav-icon text-green"></i>
+                <p>Ingreso</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('lombrisoft.admin.camas') }}" class="nav-link">
+                <i class="fas fa-clipboard-list nav-icon text-green"></i>
+                <p>Listas</p>
+            </a>
+        </li>
+    </ul>
+</li>
 
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
@@ -364,4 +382,5 @@
     <!-- AdminLTE dashboard demo -->
     <script src="{{ asset('AdminLTE/dist/js/pages/dashboard2.js') }}"></script>
 </body>
+
 </html>

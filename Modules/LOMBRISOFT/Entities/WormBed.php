@@ -8,11 +8,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class WormBed extends Model
 {
     use HasFactory;
+protected $table = 'wormsBeds';
+    protected $fillable = [
+        'number',
+        'status',
+        'start_date'
+    ];
 
-    protected $fillable = [];
-    
     protected static function newFactory()
     {
         return \Modules\LOMBRISOFT\Database\factories\WormBedFactory::new();
     }
 }
+

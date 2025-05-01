@@ -9,75 +9,105 @@ use Modules\SICA\Entities\Role;
 
 class PermissionsTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-
-        // Definir arreglos de PERMISOS que van ser asignados a los ROLES
-        $permissions_admin = []; // Permisos para Administrador
-
-
-        // Consultar aplicación SICA para registrar los roles
+        // Obtener aplicación LOMBRISOFT
         $app = App::where('name', 'LOMBRISOFT')->first();
 
+        /** ============================================
+         *  PERMISOS PARA ADMINISTRADOR
+         *  ============================================ */
+        $permissions_admin = [];
 
-        // ===================== Registro de todos los permisos de la aplicación CAFETO ==================
-        // Vista principal del administrador
-     
+        // Acceso al panel de administrador
+        $permissions_admin[] = Permission::updateOrCreate(
+            ['slug' => 'lombrisoft.admin.welcome'],
+            [
+                'name' => 'Acceso al Rol de Administrador',
+                'description' => 'Acceso al Rol de Administrador',
+                'description_english' => 'Access to the Administrator Role',
+                'app_id' => $app->id,
+            ]
+        )->id;
 
-        // Vista de configuración (Administrador)
-        $permission = Permission::updateOrCreate(['slug' => 'lombrisoft.admin.welcome'], [ // Registro o actualización de permiso
-            'name' => 'Acceso al Rol de Administrador',
-            'description' => 'Acceso al Rol de Administrador',
-            'description_english' => 'Access to the Administrator Role',
-            'app_id' => $app->id,
-        ]);
-        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+        // Acceso a la lista de camas
+        $permissions_admin[] = Permission::updateOrCreate(
+            ['slug' => 'lombrisoft.admin.camas'],
+            [
+                'name' => 'Acceso a la lista de camas',
+                'description' => 'Permite acceder a la lista de camas del administrador',
+                'description_english' => 'Allows access to the administrator worm bed list',
+                'app_id' => $app->id,
+            ]
+        )->id;
 
-     
+        // Crear camas
+        $permissions_admin[] = Permission::updateOrCreate(
+            ['slug' => 'lombrisoft.admin.camas.create'],
+            [
+                'name' => 'Crear camas',
+                'description' => 'Permite crear nuevas camas',
+                'description_english' => 'Allows creating new worm beds',
+                'app_id' => $app->id,
+            ]
+        )->id;
 
-        // Consulta de ROLES
-        $rol_admin = Role::where('slug', 'lombrisoft.admin')->first(); // Rol Administrador
+        // Editar camas
+        $permissions_admin[] = Permission::updateOrCreate(
+            ['slug' => 'lombrisoft.admin.camas.edit'],
+            [
+                'name' => 'Editar camas',
+                'description' => 'Permite editar la información de las camas',
+                'description_english' => 'Allows editing worm beds',
+                'app_id' => $app->id,
+            ]
+        )->id;
 
-        // Asignación de PERMISOS para los ROLES de la aplicación CAFETO (Sincronización de las relaciones sin eliminar las relaciones existentes)
+        // Guardar cambios (actualizar camas)
+        $permissions_admin[] = Permission::updateOrCreate(
+            ['slug' => 'lombrisoft.admin.camas.update'],
+            [
+                'name' => 'Guardar cambios de camas',
+                'description' => 'Permite guardar los cambios realizados en las camas',
+                'description_english' => 'Allows saving worm bed changes',
+                'app_id' => $app->id,
+            ]
+        )->id;
+
+        // Eliminar camas
+        $permissions_admin[] = Permission::updateOrCreate(
+            ['slug' => 'lombrisoft.admin.camas.destroy'],
+            [
+                'name' => 'Eliminar camas',
+                'description' => 'Permite eliminar camas',
+                'description_english' => 'Allows deleting worm beds',
+                'app_id' => $app->id,
+            ]
+        )->id;
+
+        // Asignar permisos al rol administrador
+        $rol_admin = Role::where('slug', 'lombrisoft.admin')->first();
         $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
 
 
+        /** ============================================
+         *  PERMISOS PARA PASANTE
+         *  ============================================ */
+        $permissions_intern = [];
 
+        // Acceso al panel del pasante
+        $permissions_intern[] = Permission::updateOrCreate(
+            ['slug' => 'lombrisoft.intern.paneli'],
+            [
+                'name' => 'Acceso al Rol de Pasante',
+                'description' => 'Acceso al Rol de Pasante',
+                'description_english' => 'Access to the Intern Role',
+                'app_id' => $app->id,
+            ]
+        )->id;
 
-
-
-        // Definir arreglos de PERMISOS que van ser asignados a los ROLES
-        $permissions_intern = []; // Permisos para pasante
-
-
-        // Consultar aplicación SICA para registrar los roles
-        $app = App::where('name', 'LOMBRISOFT')->first();
-
-
-        // ===================== Registro de todos los permisos de la aplicación CAFETO ==================
-        // Vista principal del Pasante
-     
-
-        // Vista de configuración (Pasante)
-        $permission = Permission::updateOrCreate(['slug' => 'lombrisoft.intern.paneli'], [ // Registro o actualización de permiso
-            'name' => 'Acceso al Rol de Pasante',
-            'description' => 'Acceso al Rol de Pasante',
-            'description_english' => 'Access to the Intern Role',
-            'app_id' => $app->id,
-        ]);
-        $permissions_intern[] = $permission->id; // Almacenar permiso para rol
-
-     
-
-        // Consulta de ROLES
-        $rol_intern = Role::where('slug', 'lombrisoft.intern')->first(); // Rol Pasante
-
-        // Asignación de PERMISOS para los ROLES de la aplicación CAFETO (Sincronización de las relaciones sin eliminar las relaciones existentes)
+        // Asignar permisos al rol pasante
+        $rol_intern = Role::where('slug', 'lombrisoft.intern')->first();
         $rol_intern->permissions()->syncWithoutDetaching($permissions_intern);
     }
 }
