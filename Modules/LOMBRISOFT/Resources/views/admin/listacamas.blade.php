@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="mb-3 text-end">
-                <a href="{{ route('camas.create') }}" class="btn btn-primary">Crear Nueva Cama</a>
+                <a href="{{ route('lombrisoft.admin.camas.create') }}" class="btn btn-primary">Crear Nueva Cama</a>
             </div>
             <div class="card shadow-lg rounded">
                 <div class="card-header bg-success text-white text-center">
@@ -13,48 +13,48 @@
                 </div>
                 <div class="card-body">
                     @if ($camas->isEmpty())
-                        <div class="alert alert-info text-center">
-                            No hay camas registradas.
-                        </div>
+                    <div class="alert alert-info text-center">
+                        No hay camas registradas.
+                    </div>
                     @else
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
-                                <thead class="table-dark text-center">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Número de Cama</th>
-                                        <th>Estado</th>
-                                        <th>Fecha de Inicio</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($camas as $cama)
-                                        <tr>
-                                            <td>{{ $cama->id }}</td>
-                                            <td>{{ $cama->number }}</td>
-                                            <td>{{ $cama->status }}</td>
-                                            <td>{{ $cama->start_date }}</td>
-                                            <td class="text-center">
-    <!-- Botón para abrir el modal de edición -->
-    <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editModal" 
-        data-id="{{ $cama->id }}" 
-        data-number="{{ $cama->number }}" 
-        data-status="{{ $cama->status }}" 
-        data-start_date="{{ $cama->start_date }}">
-        Editar
-    </button>
-    <form action="{{ route('camas.destroy', $cama->id) }}" method="POST" class="d-inline">
-        @csrf
-        @method('DELETE')
-        <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminacion(this)">Eliminar</button>
-    </form>
-</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead class="table-dark text-center">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Número de Cama</th>
+                                    <th>Estado</th>
+                                    <th>Fecha de Inicio</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($camas as $cama)
+                                <tr>
+                                    <td>{{ $cama->id }}</td>
+                                    <td>{{ $cama->number }}</td>
+                                    <td>{{ $cama->status }}</td>
+                                    <td>{{ $cama->start_date }}</td>
+                                    <td class="text-center">
+                                        <!-- Botón para abrir el modal de edición -->
+                                        <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editModal"
+                                            data-id="{{ $cama->id }}"
+                                            data-number="{{ $cama->number }}"
+                                            data-status="{{ $cama->status }}"
+                                            data-start_date="{{ $cama->start_date }}">
+                                            Editar
+                                        </button>
+                                        <form action="{{ route('lombrisoft.admin.camas.destroy', $cama->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminacion(this)">Eliminar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                     @endif
                 </div>
             </div>
@@ -100,10 +100,10 @@
     </div>
 </div>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const editModal = document.getElementById('editModal');
 
-        editModal.addEventListener('show.bs.modal', function (event) {
+        editModal.addEventListener('show.bs.modal', function(event) {
             const button = event.relatedTarget;
             const id = button.getAttribute('data-id');
             const number = button.getAttribute('data-number');
@@ -117,6 +117,7 @@
             document.getElementById('editFechaInicio').value = startDate;
         });
     });
+
     function confirmarEliminacion(element) {
         Swal.fire({
             title: '¿Estás seguro?',

@@ -9,7 +9,7 @@
                     <h4>Crear Nueva Cama</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('camas.store') }}" method="POST">
+                    <form action="{{ route('lombrisoft.admin.camas.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label for="numero" class="form-label">Número de la Cama</label>
@@ -28,7 +28,7 @@
                             <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
                         </div>
                         <button type="submit" class="btn btn-success">Crear</button>
-                        <a href="{{ route('lombrisoft.admin.camas') }}" class="btn btn-secondary">Cancelar</a>
+                        <a href="{{ route('lombrisoft.admin.camas.store') }}" class="btn btn-secondary">Cancelar</a>
                     </form>
                 </div>
             </div>

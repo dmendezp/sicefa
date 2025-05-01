@@ -16,7 +16,7 @@
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Asegúrate de tener esto en tu layout principal (por ejemplo, en el footer o antes de cerrar el body) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -145,35 +145,35 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item">
-                            <a href="{{ route('lombrisoft.admin.welcome') }}"" class="nav-link">
+                            <a href="{{ route('lombrisoft.admin.welcome') }}"" class=" nav-link">
                                 <i class="nav-icon fas fa-home text-green"></i>
                                 <p>Inicio</p>
                             </a>
                         </li>
 
                         <li class="nav-item has-treeview">
-    <a href="#" class="nav-link">
-        <i class="nav-icon fas fa-box text-green"></i>
-        <p>
-            Camas Lombricultivo
-            <i class="right fas fa-angle-left"></i>
-        </p>
-    </a>
-    <ul class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="{{ route('camas.create') }}" class="nav-link">
-                <i class="fas fa-edit nav-icon text-green"></i>
-                <p>Ingreso</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('lombrisoft.admin.camas') }}" class="nav-link">
-                <i class="fas fa-clipboard-list nav-icon text-green"></i>
-                <p>Listas</p>
-            </a>
-        </li>
-    </ul>
-</li>
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-box text-green"></i>
+                                <p>
+                                    Camas Lombricultivo
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('lombrisoft.admin.camas.create') }}" class="nav-link">
+                                        <i class="fas fa-edit nav-icon text-green"></i>
+                                        <p>Ingreso</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('lombrisoft.admin.camas.index') }}" class="nav-link">
+                                        <i class="fas fa-clipboard-list nav-icon text-green"></i>
+                                        <p>Listas</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
 
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">

@@ -30,9 +30,9 @@ class PermissionsTableSeeder extends Seeder
             ]
         )->id;
 
-        // Acceso a la lista de camas
+        // Acceso a la lista de camas (index)
         $permissions_admin[] = Permission::updateOrCreate(
-            ['slug' => 'lombrisoft.admin.camas'],
+            ['slug' => 'lombrisoft.admin.camas.index'],
             [
                 'name' => 'Acceso a la lista de camas',
                 'description' => 'Permite acceder a la lista de camas del administrador',
@@ -41,7 +41,7 @@ class PermissionsTableSeeder extends Seeder
             ]
         )->id;
 
-        // Crear camas
+        // Crear camas (create)
         $permissions_admin[] = Permission::updateOrCreate(
             ['slug' => 'lombrisoft.admin.camas.create'],
             [
@@ -51,8 +51,28 @@ class PermissionsTableSeeder extends Seeder
                 'app_id' => $app->id,
             ]
         )->id;
+        $permissions_admin[] = Permission::updateOrCreate(
+            ['slug' => 'lombrisoft.admin.camas.store'],
+            [
+                'name' => 'Crear camas',
+                'description' => 'Permite crear nuevas camas',
+                'description_english' => 'Allows creating new worm beds',
+                'app_id' => $app->id,
+            ]
+        )->id;
 
-        // Editar camas
+        // Ver detalles de cama (show)
+        $permissions_admin[] = Permission::updateOrCreate(
+            ['slug' => 'lombrisoft.admin.camas.show'],
+            [
+                'name' => 'Ver detalles de cama',
+                'description' => 'Permite ver los detalles de una cama',
+                'description_english' => 'Allows viewing worm bed details',
+                'app_id' => $app->id,
+            ]
+        )->id;
+
+        // Editar camas (edit)
         $permissions_admin[] = Permission::updateOrCreate(
             ['slug' => 'lombrisoft.admin.camas.edit'],
             [
@@ -63,7 +83,7 @@ class PermissionsTableSeeder extends Seeder
             ]
         )->id;
 
-        // Guardar cambios (actualizar camas)
+        // Guardar cambios (actualizar camas - update)
         $permissions_admin[] = Permission::updateOrCreate(
             ['slug' => 'lombrisoft.admin.camas.update'],
             [
@@ -74,7 +94,7 @@ class PermissionsTableSeeder extends Seeder
             ]
         )->id;
 
-        // Eliminar camas
+        // Eliminar camas (destroy)
         $permissions_admin[] = Permission::updateOrCreate(
             ['slug' => 'lombrisoft.admin.camas.destroy'],
             [
