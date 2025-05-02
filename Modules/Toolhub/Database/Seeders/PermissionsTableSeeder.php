@@ -18,11 +18,10 @@ class PermissionsTableSeeder extends Seeder
     {
         // Crear una lista de permisos para el rol 
         $permissions_admin = []; // Lista de permisos para el rol de administrador
-        
+    
         // Consultar aplicación SICA para registrar los roles
         $app = App::where('name', 'Toolhub')->first();
-
-
+    
         // Vista de configuración (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'toolhub.admin.welcome'], [ // Registro o actualización de permiso
             'name' => 'Acceso al Rol de Administrador',
@@ -31,24 +30,56 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+    
+        $permission = Permission::updateOrCreate(['slug' => 'toolhub.admin.admin.indextools'], [ // Registro o actualización de permiso
+            'name' => 'Acceso al Rol de Administrador',
+            'description' => 'Acceso al Rol de Administrador',
+            'description_english' => 'Access to the Administrator Role',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // <<< ESTA ES LA LÍNEA AGREGADA
 
      
+        $permission = Permission::updateOrCreate(['slug' => 'toolhub.admin.admin.store'], [ // Registro Cultivos
+            'name' => 'Insertar Herramientas',
+            'description' => 'Insertar Herramientas',// Descripción del permiso
+            'description_english' => 'Insert Herramientas', // Descripción en inglés del permiso
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id;
 
+        
+        $permission = Permission::updateOrCreate(['slug' => 'toolhub.admin.admin.update'], [ // Registro Cultivos
+            'name' => 'Actualizar Herramientas',
+            'description' => 'Actualizar Herramientas',// Descripción del permiso
+            'description_english' => 'Actualizar Herramientas', // Descripción en inglés del permiso
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id;
+
+           
+        $permission = Permission::updateOrCreate(['slug' => 'toolhub.admin.admin.destroy'], [ // Registro Cultivos
+            'name' => 'Eliminar Herramientas',
+            'description' => 'Eliminar Herramientas',// Descripción del permiso
+            'description_english' => 'Eliminar Herramientas', // Descripción en inglés del permiso
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id;
+
+    
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'toolhub.admin')->first(); // Rol Administrador
-       
-
+    
         // Asignación de PERMISOS para los ROLES de la aplicación AGROSOFT (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
-      
+    
+    
 
-        //empiezo el rol de super administrador
-
+        // Empiezo el rol de super administrador
         $permissions_superadmin = []; // Lista de permisos para el rol de administrador
-        
+
         // Consultar aplicación SICA para registrar los roles
         $app = App::where('name', 'Toolhub')->first();
-
 
         // Vista de configuración (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'toolhub.superadmin.welcomesuper'], [ // Registro o actualización de permiso
@@ -59,11 +90,8 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_superadmin[] = $permission->id; // Almacenar permiso para rol
 
-     
-
         // Consulta de ROLES
         $rol_superadmin = Role::where('slug', 'toolhub.superadmin')->first(); // Rol Administrador
-       
 
         // Asignación de PERMISOS para los ROLES de la aplicación AGROSOFT (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_superadmin->permissions()->syncWithoutDetaching($permissions_superadmin);
