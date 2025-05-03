@@ -26,5 +26,15 @@ class PeopleTableSeeder extends Seeder
             'population_group_id' => $population_group->id,
             'pension_entity_id' => $pension_entity->id,
         ]);
+
+        Person::firstOrCreate(['document_number' => 36347022], [
+            'document_type' => 'Cedula de Ciudadania',
+            'first_name' => 'Leida Yisela',
+            'first_last_name' => 'Yara',
+            'second_last_name' => 'Cruz',
+            'eps_id' => $eps->id,
+            'population_group_id' => $population_group->id,
+            'pension_entity_id' => $pension_entity->id,
+        ]);
     }
 }

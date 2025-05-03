@@ -22,7 +22,8 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
-        //
-    }
+{
+    // Agrega esta línea para registrar el namespace de vistas
+    view()->addNamespace('senaapicola', base_path('Modules/SENAAPICOLA/Resources/views'));
+}
 }

@@ -10,7 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Support\Facades\Route;
 
-Route::prefix('senaapicola')->group(function() {
-    Route::get('/index', 'SENAAPICOLAController@index')->name('cefa.senaapicola.index');
+Route::middleware(['lang'])->group(function(){
+    Route::prefix('senaapicola')->group(function () {
+        Route::get('/index', 'SENAAPICOLAController@index')->name('cefa.senaapicola.index');
+        Route::get('/admin/welcome', 'SENAAPICOLAController@admin')->name('senaapicola.admin.welcome');
+        Route::get('/intern/welcome', 'SENAAPICOLAController@intern')->name('senaapicola.intern.panelpas');
+
+});
 });

@@ -19,11 +19,12 @@ class AppTableSeeder extends Seeder
 
         // $this->call("OthersTableSeeder");
 
-    $app = App::updateOrcreate([
-            'name' => 'SENAAPICOLA'],[
+        $app = App::updateOrcreate([
+            'name' => 'SENAAPICOLA'
+        ], [
             'url' => '/senaapicola/index',
             'color' => '#FF0000',
-            'icon' => 'fa-solid fa-bee',
+            'icon' => 'fas fa-warehouse',
             'description' => 'Sistema de Gestion Apícola del SENA',
             'description_english' => 'SENAApicola management system',
         ]);

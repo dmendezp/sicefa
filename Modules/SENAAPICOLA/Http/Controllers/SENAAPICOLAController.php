@@ -17,6 +17,28 @@ class SENAAPICOLAController extends Controller
         return view('senaapicola::index');
     }
 
+    public function welcome()
+    {
+        return view('senaapicola::welcome');
+    }
+    
+    public function admin()
+    {
+        return view('senaapicola::welcome');
+    }
+
+
+
+    public function intern()
+    {
+        return view('senaapicola::panelpas');
+    }
+
+    public function panelpas()
+    {
+        return view('senaapicola::panelpas');
+    }
+
     /**
      * Show the form for creating a new resource.
      * @return Renderable

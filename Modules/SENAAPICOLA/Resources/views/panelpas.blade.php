@@ -1,4 +1,4 @@
-@extends('senaapicola::layouts.masterusers')
+@extends('senaapicola::layouts.masterpas')
 @section('content')
     <h1>Hello World</h1>
 

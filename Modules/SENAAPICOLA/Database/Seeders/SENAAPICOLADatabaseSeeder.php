@@ -18,8 +18,10 @@ class SENAAPICOLADatabaseSeeder extends Seeder
         DB::beginTransaction();
 
         $this->call(AppTableSeeder::class);
-        $this->call(peopleTableSeeder::class);
+        $this->call(PeopleTableSeeder::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
 
         DB::commit();
     }

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="{{ asset('images/Favicon2.png')}}" type="image/x-icon">
-    <title>Gestion de Unidad de Procina</title>
+    <title>Gestion de Unidad Apicola</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="{{ asset('AdminLTE/https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback') }}">
     <!-- Font Awesome -->
@@ -14,237 +15,265 @@
     <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        :root {
+            --sena-green: #39B54A;
+            --sena-dark-green: #2E8B3E;
+            --sena-light-green: #D1E7DD;
+        }
+
+        .main-sidebar {
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            background-color: white;
+            border-right: 1px solid #dee2e6;
+        }
+
+        .content-wrapper {
+            margin-left: 250px;
+            background-color: rgba(255, 255, 255, 0);
+
+        }
+
+        .hover-green:hover {
+            color: var(--sena-green) !important;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .brand-link {
+            border-bottom: 3px solid var(--sena-green);
+        }
+
+        .brand-text {
+            color: var(--sena-dark-green) !important;
+            font-weight: bold !important;
+        }
+
+        .nav-sidebar .nav-item>.nav-link {
+            color: #495057;
+        }
+
+        .nav-sidebar .nav-item>.nav-link.active,
+        .nav-sidebar .nav-item>.nav-link:hover {
+            background-color: var(--sena-light-green);
+            color: var(--sena-dark-green);
+        }
+
+        .navbar-dark {
+            background-color: var(--sena-dark-green) !important;
+        }
+
+        .main-footer {
+            background-color: var(--sena-dark-green) !important;
+            color: white !important;
+        }
+
+        .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active {
+            background-color: var(--sena-green);
+            color: white;
+        }
+
+        .card {
+            border-top: 3px solid var(--sena-green);
+        }
+
+        .btn-primary {
+            background-color: var(--sena-green);
+            border-color: var(--sena-dark-green);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--sena-dark-green);
+            border-color: var(--sena-dark-green);
+        }
+
+        .bg-primary {
+            background-color: var(--sena-green) !important;
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .text-green {
+            color: #28a745;
+        }
+    </style>
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
-        <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__wobble" src="{{ asset('images/images.png') }}" alt="AdminLTELogo" height="100" width="150">
-        </div>
-
-        <nav class="main-header navbar navbar-expand navbar-dark">
+        <nav class="main-header navbar navbar-expand navbar-dark bg-dark">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                        <i class="fas fa-bars"></i>
+                    </a>
                 </li>
             </ul>
 
-            <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
-                <!-- Navbar Search -->
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                        <i class="fas fa-search"></i>
+            <!-- Right navbar user dropdown with welcome message -->
+            <ul class="navbar-nav ml-auto align-items-center">
+                <li class="nav-item dropdown d-flex align-items-center">
+                    <a class="nav-link d-flex align-items-center" data-toggle="dropdown" href="#" role="button">
+                        <i class="fas fa-user-circle fa-3x mr-2 text-white"></i>
+                        <span class="font-weight-bold text-white">BIENVENIDO ADMINISTRADOR</span>
                     </a>
-                    <div class="navbar-search-block">
-                        <form class="form-inline">
-                            <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-navbar" type="submit">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </li>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                        </a>
 
-                <!-- Messages Dropdown Menu -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-comments"></i>
-                        <span class="badge badge-danger navbar-badge">3</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="#" class="dropdown-item">
-                            <div class="media">
-                                <img src="{{ asset('AdminLTE/dist/img/user1-128x128.jpg') }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Brad Diesel
-                                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">Call me whenever you can...</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <div class="media">
-                                <img src="{{ asset('AdminLTE/dist/img/user8-128x128.jpg') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        John Pierce
-                                        <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">I got your message bro</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <div class="media">
-                                <img src="{{ asset('AdminLTE/dist/img/user3-128x128.jpg') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Nora Silvester
-                                        <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">The subject goes here</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                    </div>
-                </li>
-                <!-- Notifications Dropdown Menu -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-bell"></i>
-                        <span class="badge badge-warning navbar-badge">15</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header">15 Notifications</span>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-envelope mr-2"></i> 4 new messages
-                            <span class="float-right text-muted text-sm">3 mins</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-users mr-2"></i> 8 friend requests
-                            <span class="float-right text-muted text-sm">12 hours</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-file mr-2"></i> 3 new reports
-                            <span class="float-right text-muted text-sm">2 days</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();">
-                            Cerrar Sesión
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
                     </div>
                 </li>
             </ul>
         </nav>
 
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+
+        <aside class="main-sidebar sidebar-light-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
-                <img src="{{ asset('AdminLTE/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">GDF</span>
+            <a href="#" class="brand-link">
+                <span class="brand-text font-weight-light">SenaApicola</span>
             </a>
 
             <div class="sidebar">
-                <!-- Sidebar user panel -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="{{ asset('AdminLTE/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block"></a>
-                    </div>
-                </div>
-
-                <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                
-                                <li class="nav-item menu-open">
-                                    <a href="#" class="nav-link active">
-                                        <i class="nav-icon "></i>
-                                        <p>
-                                        
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                      
-                                                <li class="nav-item">
-                                                    <a href="" class="nav-link">
-                                                        <i class="far fa-circle nav-icon"></i>
-                                                     
-                                                    </a>
-                                                </li>
-                                           
-                                    </ul>
-                                </li>
-                     
-                       
-                                <li class="nav-item menu-open">
-                                    <a href="#" class="nav-link active">
-                                        <i class="nav-icon"></i>
-                                        <p>
-                                         
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                     
-                                            <li class="nav-item">
-                                           
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                  
-                                                </a>
-                                            </li>
-                                
-                                </li>
-                      
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-hourglass-half"></i>
-                                <p>Estado de Solitudes</p>
+                                <i class="nav-icon fas fa-home text-success"></i>
+                                <p>Inicio</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+
+                        <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-clipboard-list"></i>
-                                <p>Historial de Solicitudes</p>
+                                <i class="nav-icon fas fa-archway text-warning"></i>
+                                <p>
+                                    Apiario
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="fas fa-plus-circle nav-icon text-info"></i>
+                                        <p>Registrar Apiario</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="fas fa-list-ul nav-icon text-primary"></i>
+                                        <p>Listado</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-boxes text-warning"></i> <!-- Alternativa para Colmena -->
+                                <p>
+                                    Colmena
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="fas fa-plus-circle nav-icon text-info"></i>
+                                        <p>Ingreso</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="fas fa-list-ul nav-icon text-primary"></i>
+                                        <p>Listas</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-wine-bottle text-warning"></i> <!-- Alternativa para Producción -->
+                                <p>
+                                    Producción
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="fas fa-plus-circle nav-icon text-info"></i>
+                                        <p>Ingreso</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="fas fa-list-ul nav-icon text-primary"></i>
+                                        <p>Listas</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-user-plus text-success"></i>
+                                <p>
+                                    Agregar Usuario
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="fas fa-user-edit nav-icon text-info"></i>
+                                        <p>Registro</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="fas fa-users nav-icon text-primary"></i>
+                                        <p>Usuarios</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-clipboard-check text-info"></i>
+                                <p>
+                                    Seguimiento
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="fas fa-edit nav-icon text-info"></i>
+                                        <p>Registro</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="fas fa-chart-line nav-icon text-primary"></i>
+                                        <p>Reportes</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </nav>
@@ -252,7 +281,14 @@
         </aside>
 
         <div class="content-wrapper">
-            @yield('content')
+            <H2>Bienvenido Administrador</H2>
+            <br>
+            <h4>Funciones del apartado de Administrador:</h4>
+            <br>
+            <h5>Este módulo permite al administrador agregar y listar información del apiario, <br>
+                colmenas, producción (registrando entradas y salidas de miel), usuarios del sistema y <br>
+                realizar el seguimiento del estado y actividad de cada colmena.
+            </h5>
         </div>
 
         <!-- Control Sidebar -->
@@ -260,15 +296,18 @@
             <!-- Control sidebar content goes here -->
         </aside>
 
-        <footer class="main-footer" style="width: 100%; position: fixed; bottom: 0; left: 0; background-color: #343a40; color: white; padding: 10px 20px;">
-            <strong>Copyright © 2023-2025
-                <a href="#" style="color: #3c8dbc;">GDF</a>.
-            </strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.2.0
-            </div>
-        </footer>
+        <center>
+            <footer class="main-footer" style="width: 100%; position: fixed; bottom: 0; left: 0;">
+                <strong>Copyright © 2024-2025
+                    <a href="#" style="color: white;">SenaApicola - SENA</a>.
+                </strong>
+                Todos los derechos reservados.
+                <div class="float-right d-none d-sm-inline-block">
+                    <b>Versión</b> 1.0.0
+                </div>
+            </footer>
+        </center>
+
     </div>
 
     <!-- jQuery -->
@@ -298,4 +337,5 @@
     <!-- AdminLTE dashboard demo -->
     <script src="{{ asset('AdminLTE/dist/js/pages/dashboard2.js') }}"></script>
 </body>
+
 </html>
