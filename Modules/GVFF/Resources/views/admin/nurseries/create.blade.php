@@ -1,5 +1,5 @@
 <!-- Modules/GVFF/Resources/views/admin/viveros/create.blade.php -->
-@extends('layouts.app')
+@extends('gvff::layouts.master')
 
 @section('content')
     <div class="container">

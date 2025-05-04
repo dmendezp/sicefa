@@ -6,15 +6,25 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['lang'])->group(function () {
     Route::prefix('gvff')->group(function () {
-        //Rutas para el administrador
         Route::get('/index', 'GVFFController@index')->name('gvff.index');
         Route::get('/viveros', 'GVFFNurseriesController@index')->name('gvff.admin.nurseries.index');
         Route::get('/viveros/create', 'GVFFNurseriesController@create')->name('gvff.admin.nurseries.create');
         Route::post('/viveros/store', 'GVFFNurseriesController@store')->name('gvff.admin.nurseries.store');
         Route::get('/viveros/{nurseries}/edit', 'GVFFNurseriesController@edit')->name('gvff.admin.nurseries.edit');
         Route::put('/viveros/{nurseries}', 'GVFFNurseriesController@update')->name('gvff.admin.nurseries.update');
-        Route::delete('/viveros/{nurseriers}', 'GVFFNurseriesController@destroy')->name('gvff.admin.nurseries.destroy');
+        Route::delete('/viveros/{nurseries}', 'GVFFNurseriesController@destroy')->name('gvff.admin.nurseries.destroy');
+
+        // Nuevas rutas para plantas
+    Route::get('/plantas', 'GVFFPlantsController@index')->name('gvff.admin.plants.index');
+    Route::get('/plantas/create', 'GVFFPlantsController@create')->name('gvff.admin.plants.create');
+    Route::post('/plantas/store', 'GVFFPlantsController@store')->name('gvff.admin.plants.store');
+    Route::get('/plantas/{plants}/edit', 'GVFFPlantsController@edit')->name('gvff.admin.plants.edit');
+    Route::put('/plantas/{plants}', 'GVFFPlantsController@update')->name('gvff.admin.plants.update');
+    Route::delete('/plantas/{plants}', 'GVFFPlantsController@destroy')->name('gvff.admin.plants.destroy');
     });
+
+    
+
 });
 
 
