@@ -26,6 +26,7 @@ return new class extends Migration
             $table->enum('status', ['scheduled', 'ongoing', 'completed', 'cancelled'])->default('scheduled');
             $table->timestamps();
             $table->softDeletes();
+            $table->index(['start_date', 'end_date']);
         });
     }
 
