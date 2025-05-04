@@ -13,6 +13,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/viveros/{nurseries}/edit', 'GVFFNurseriesController@edit')->name('gvff.admin.nurseries.edit');
         Route::put('/viveros/{nurseries}', 'GVFFNurseriesController@update')->name('gvff.admin.nurseries.update');
         Route::delete('/viveros/{nurseries}', 'GVFFNurseriesController@destroy')->name('gvff.admin.nurseries.destroy');
+        Route::get('/viveros/{nurseries}/plants', 'GVFFNurseriesController@showPlants')->name('gvff.admin.nurseries.showPlants');
 
         // Nuevas rutas para plantas
     Route::get('/plantas', 'GVFFPlantsController@index')->name('gvff.admin.plants.index');

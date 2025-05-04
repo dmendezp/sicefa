@@ -61,11 +61,10 @@ class GVFFNurseriesController extends Controller
     
         return redirect()->route('gvff.admin.nurseries.index')->with('success', 'Vivero creado con éxito.');
     }
-
-    // Mostrar los detalles de un vivero
-    public function show(Nurseries $nursery)
+    public function showPlants(Nurseries $nurseries)
 {
-    return view('gvff::admin.nurseries.show', compact('nursery'));
+    $plants = $nurseries->plants()->get();
+    return view('gvff::admin.nurseries.plants', compact('nurseries', 'plants'));
 }
 
     // Mostrar el formulario para editar un vivero

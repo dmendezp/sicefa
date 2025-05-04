@@ -64,6 +64,15 @@ class PermissionsTableSeeder extends Seeder
                 'description' => 'Permite eliminar viveros',
                 'description_english' => 'Allows deleting viveros',
             ],
+            [
+                'slug' => 'gvff.admin.nurseries.showPlants',
+                'name' => 'Mostrar las plantas',
+                'description' => 'Permite mostrar la splantas',
+                'description_english' => 'Allows deleting plants',
+            ],
+
+
+            
         ];
 
         // Crear permisos para Viveros y añadirlos a la lista de permisos del administrador

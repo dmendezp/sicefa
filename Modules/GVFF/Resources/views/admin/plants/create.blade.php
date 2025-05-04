@@ -43,6 +43,7 @@
                 @error('plant_type')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+                <div id="plant-type-message" class="mt-2 text-info font-weight-bold"></div>
             </div>
             <div class="form-group">
                 <label for="structure_type">Tipo de Estructura</label>
@@ -110,9 +111,12 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-group">
+            <div class="form-group" id="price-field" style="display: none;">
                 <label for="price">Precio</label>
-                <input type="number" name="price" id="price" class="form-control  value="{{ old('price') }}">
+                <input type="number" step="0.01" name="price" id="price" class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}">
+                @error('price')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="location">Ubicación</label>
@@ -143,4 +147,59 @@
             <a href="{{ route('gvff.admin.plants.index') }}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
+
+    @push('scripts')
+        <script>
+            console.log('Script de planta cargado'); // Depuración: confirmar que el script se ejecuta
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // Obtener elementos del DOM
+                const plantTypeSelect = document.getElementById('plant_type');
+                const priceField = document.getElementById('price-field');
+                const priceInput = document.getElementById('price');
+                const plantTypeMessage = document.getElementById('plant-type-message');
+
+                // Verificar que los elementos existen
+                if (!plantTypeSelect || !priceField || !priceInput || !plantTypeMessage) {
+                    console.error('Error: Uno o más elementos del DOM no se encontraron');
+                    return;
+                }
+
+                function actualizarEstadoFormulario() {
+                    const tipoSeleccionado = plantTypeSelect.value;
+                    console.log('Tipo de planta seleccionado:', tipoSeleccionado); // Depuración
+
+                    // Mostrar u ocultar el campo de precio
+                    if (tipoSeleccionado === 'venta') {
+                        priceField.style.display = 'block';
+                        priceInput.setAttribute('required', 'required');
+                    } else {
+                        priceField.style.display = 'none';
+                        priceInput.removeAttribute('required');
+                        priceInput.value = ''; // Limpiar el campo precio
+                    }
+
+                    // Mostrar mensaje con el tipo seleccionado
+                    const etiquetasTipos = {
+                        'ornamental': 'Ornamental',
+                        'forestal': 'Forestal',
+                        'medicinal': 'Medicinal',
+                        'venta': 'Venta'
+                    };
+                    plantTypeMessage.textContent = tipoSeleccionado 
+                        ? `Tipo seleccionado: ${etiquetasTipos[tipoSeleccionado] || 'Desconocido'}`
+                        : '';
+                }
+
+                // Ejecutar al cargar la página
+                actualizarEstadoFormulario();
+
+                // Escuchar cambios en el selector de tipo de planta
+                plantTypeSelect.addEventListener('change', function () {
+                    console.log('Evento change disparado'); // Depuración
+                    actualizarEstadoFormulario();
+                });
+            });
+        </script>
+    @endpush
 @endsection

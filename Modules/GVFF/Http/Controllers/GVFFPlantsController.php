@@ -23,7 +23,7 @@ class GVFFPlantsController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $rules = [
             'nurseries_id' => 'required|exists:nurseries,id',
             'scientific_name' => 'required|string|max:255|unique:plants,scientific_name',
             'common_name' => 'required|string|max:255',
@@ -36,12 +36,20 @@ class GVFFPlantsController extends Controller
             'traditional_uses' => 'nullable|string',
             'status' => 'nullable|in:healthy,endangered,critical',
             'inventory' => 'required|integer|min:0',
-            'price' => 'nullable|numeric|min:0',
             'location' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'available' => 'boolean',
             'observations' => 'nullable|string',
-        ]);
+        ];
+
+        // Validación condicional para el precio
+        if ($request->input('plant_type') === 'venta') {
+            $rules['price'] = 'required|numeric|min:0';
+        } else {
+            $rules['price'] = 'nullable|numeric|min:0';
+        }
+
+        $request->validate($rules);
 
         $plant = new Plants();
         $plant->nurseries_id = $request->input('nurseries_id');
@@ -73,7 +81,7 @@ class GVFFPlantsController extends Controller
 
         return redirect()->route('gvff.admin.plants.index')->with('success', 'Planta creada con éxito.');
     }
-
+    
     public function edit(Plants $plants)
     {
         $nurseries = nurseries::all();
