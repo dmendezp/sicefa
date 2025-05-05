@@ -1,7 +1,8 @@
 /node_modules
+Modules/GVFF/node_modules
+/vendor
 /public/hot
 /public/storage
-/vendor
 .env
 .env.backup
 .phpunit.result.cache
@@ -12,5 +13,3 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-composer.lock
-composer.json

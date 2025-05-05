@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class GVFFController extends Controller
+
 {
     //funcion para el administrador
     public function index()

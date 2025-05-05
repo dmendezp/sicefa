@@ -7,7 +7,7 @@
 
 @section('content')
 <div class="container mt-5">
-    <h1 class="mb-4">Gestion de vivero</h1>
+    <h1 class="mb-4">Gestión de vivero</h1>
     <a href="{{ route('gvff.admin.nurseries.create') }}" class="btn btn-primary btn-sm">Crear nuevo vivero</a>
 
     @if (session('success'))
@@ -17,19 +17,16 @@
         </div>
     @endif
 
-
     <table class="table table-striped table-bordered">
-
         <thead class="table-dark">
-
             <tr>
                 <th scope="col">Nombre</th>
-                <th scope="col">Location</th>
-                <th scope="col">Max Capacity</th>
-                <th scope="col">Clasificacion</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col">Image</th>
-                <th scope="col">Actions</th>
+                <th scope="col">Ubicación</th>
+                <th scope="col">Capacidad Máxima</th>
+                <th scope="col">Clasificación</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Imagen</th>
+                <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -39,30 +36,27 @@
                     <td>{{ $nursery->location }}</td>
                     <td>{{ $nursery->max_capacity }}</td>
                     <td>{{ ucfirst($nursery->classification) }}</td>
-                    <td>{{ $nursery->description ?? 'No description' }}</td>
+                    <td>{{ $nursery->description ?? 'Sin descripción' }}</td>
                     <td>
                         @if ($nursery->image)
                             <img src="{{ asset('storage/' . $nursery->image) }}" alt="{{ $nursery->name }}" class="img-thumbnail" style="max-width: 100px;">
                         @else
-                            No image
+                            Sin imagen
                         @endif
                     </td>
                     <td>
-                  
-                        <a href="{{ route('gvff.admin.nurseries.edit', $nursery) }}" class="btn btn-warning btn-sm">Edit</a>
-                  
-                        <form action="{{ route('gvff.admin.nurseries.destroy', $nursery) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to delete this nursery?');">
-                            
+                        <a href="{{ route('gvff.admin.nurseries.showPlants', $nursery) }}" class="btn btn-info btn-sm">Ver</a>
+                        <a href="{{ route('gvff.admin.nurseries.edit', $nursery) }}" class="btn btn-warning btn-sm">Editar</a>
+                        <form action="{{ route('gvff.admin.nurseries.destroy', $nursery) }}" method="POST" class="d-inline-block" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este vivero?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                        
-                       </form> 
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
                     </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" class="text-center">No nurseries registered.</td>
+                    <td colspan="7" class="text-center">No hay viveros registrados.</td>
                 </tr>
             @endforelse
         </tbody>

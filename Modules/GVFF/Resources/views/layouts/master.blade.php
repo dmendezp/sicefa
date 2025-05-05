@@ -93,11 +93,11 @@
                     </div>
                 </div>
                 <div>
-                    <a href="#plantas" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition" onclick="toggleSubmenu(event, 'plantas-submenu')">
+                    <a href="{{ route('gvff.admin.plants.index') }}"  class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition" onclick="toggleSubmenu(event, 'plantas-submenu')">
                         <i class="fa-solid fa-seedling mr-2"></i> Plantas
                     </a>
                     <div class="submenu" id="plantas-submenu">
-                        <a href="#plantas-floral" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                        <a href="{{ route('gvff.admin.plants.index') }}"class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
                             <i class="fa-solid fa-flower mr-2"></i> Floral
                         </a>
                         <a href="#plantas-medicinales" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
@@ -162,4 +162,5 @@
         }
     </script>
 </body>
+@stack('scripts')
 </html>
