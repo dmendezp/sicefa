@@ -18,15 +18,13 @@ Route::middleware(['lang'])->group(function () {
 });
 
 
-
-
-
-
 Route::prefix('gvff')->group(function () {
     //Rura para los aprendices
     Route::get('/welcome', 'GVFFController@welcome')->name('gvff.welcome');
 });
-    
+
+
+
 
 
 
