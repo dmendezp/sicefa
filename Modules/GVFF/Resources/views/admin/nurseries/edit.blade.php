@@ -1,5 +1,42 @@
 @extends('gvff::layouts.master')
 
+@section('title', 'Edit Nursery')
+
+@push('styles')
+    <style>
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #2f855a; /* Match the green theme */
+        }
+        .form-control {
+            transition: border-color 0.2s ease;
+        }
+        .form-control:focus {
+            border-color: #38a169;
+            box-shadow: 0 0 0 0.2rem rgba(56, 161, 105, 0.25);
+        }
+        .btn-primary {
+            background-color: #38a169;
+            border-color: #38a169;
+        }
+        .btn-primary:hover {
+            background-color: #2f855a;
+            border-color: #2f855a;
+        }
+        .btn-secondary {
+            background-color: #6b7280;
+            border-color: #6b7280;
+        }
+        .btn-secondary:hover {
+            background-color: #4b5563;
+            border-color: #4b5563;
+        }
+    </style>
+@endpush
+
 @section('content')
 
 <div class="container mt-4">

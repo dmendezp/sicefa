@@ -38,7 +38,6 @@
                     <option value="ornamental" {{ old('plant_type') == 'ornamental' ? 'selected' : '' }}>Ornamental</option>
                     <option value="forestal" {{ old('plant_type') == 'forestal' ? 'selected' : '' }}>Forestal</option>
                     <option value="medicinal" {{ old('plant_type') == 'medicinal' ? 'selected' : '' }}>Medicinal</option>
-                    <option value="venta" {{ old('plant_type') == 'venta' ? 'selected' : '' }}>Venta</option>
                 </select>
                 @error('plant_type')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -108,13 +107,6 @@
                 <label for="inventory">Inventario</label>
                 <input type="number" name="inventory" id="inventory" class="form-control @error('inventory') is-invalid @enderror" value="{{ old('inventory', 0) }}" required>
                 @error('inventory')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="form-group" id="price-field" style="display: none;">
-                <label for="price">Precio</label>
-                <input type="number" step="0.01" name="price" id="price" class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}">
-                @error('price')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>

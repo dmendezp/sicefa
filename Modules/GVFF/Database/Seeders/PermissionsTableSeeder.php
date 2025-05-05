@@ -129,6 +129,19 @@ class PermissionsTableSeeder extends Seeder
                 'description' => 'Permite eliminar plantas',
                 'description_english' => 'Allows deleting plants',
             ],
+        
+            [
+                'slug' => 'gvff.admin.plants.sell',
+                'name' => 'Vender plantas',
+                'description' => 'Permite vender plantas',
+                'description_english' => 'Allows selling plants',
+            ],
+            [
+                'slug' => 'gvff.admin.plants.processSell',
+                'name' => 'Procesar venta de plantas',
+                'description' => 'Permite procesar la venta de plantas',
+                'description_english' => 'Allows processing the sale of plants',
+            ],
         ];
 
         // Crear permisos para Plantas y añadirlos a la lista de permisos del administrador
