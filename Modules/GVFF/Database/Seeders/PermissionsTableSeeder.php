@@ -89,6 +89,8 @@ class PermissionsTableSeeder extends Seeder
             $permissions_admin[] = $permission->id;
         }
 
+        
+
         // Permisos para el CRUD de Plantas
         $plants_permissions = [
             [

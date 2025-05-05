@@ -66,6 +66,9 @@
             <button type="submit" class="btn btn-primary">Update Nursery</button>
             <a href="{{ route('gvff.admin.nurseries.index') }}" class="btn btn-secondary">Cancelar</a>
         </div>
+
     </form>
+
 </div>
+
 @endsection

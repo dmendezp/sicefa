@@ -15,6 +15,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        
         $person = Person::where('document_number', 1077224582)->first(); // Consultar Persona
         User::updateOrCreate(['nickname' => 'Dquiza'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
