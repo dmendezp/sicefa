@@ -1,0 +1,13 @@
+{
+    "name": "GDMF",
+    "alias": "gdmf",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\GDMF\\Providers\\GDMFServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
