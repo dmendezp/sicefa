@@ -22,6 +22,9 @@ Route::middleware(['lang'])->group(function () {
     Route::get('/plantas/{plants}/edit', 'GVFFPlantsController@edit')->name('gvff.admin.plants.edit');
     Route::put('/plantas/{plants}', 'GVFFPlantsController@update')->name('gvff.admin.plants.update');
     Route::delete('/plantas/{plants}', 'GVFFPlantsController@destroy')->name('gvff.admin.plants.destroy');
+    Route::get('/plantas/{plants}/sell', 'GVFFPlantsController@sell')->name('gvff.admin.plants.sell');
+    Route::post('/plantas/{plants}/sell', 'GVFFPlantsController@processSell')->name('gvff.admin.plants.processSell');
+    
     });
 
     

@@ -39,7 +39,6 @@
                     <option value="ornamental" {{ old('plant_type', $plants->plant_type) == 'ornamental' ? 'selected' : '' }}>Ornamental</option>
                     <option value="forestal" {{ old('plant_type', $plants->plant_type) == 'forestal' ? 'selected' : '' }}>Forestal</option>
                     <option value="medicinal" {{ old('plant_type', $plants->plant_type) == 'medicinal' ? 'selected' : '' }}>Medicinal</option>
-                    <option value="venta" {{ old('plant_type', $plants->plant_type) == 'venta' ? 'selected' : '' }}>Venta</option>
                 </select>
                 @error('plant_type')
                     <div class="invalid-feedback">{{ $message }}</div>

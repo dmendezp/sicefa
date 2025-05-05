@@ -31,14 +31,22 @@
                         <td>{{ $plant->plant_type }}</td>
                         <td>{{ $plant->inventory }}</td>
                         <td>{{ $plant->available ? 'Sí' : 'No' }}</td>
-                        <td>{{$plant->image}}</td>
                         <td>
-                            <a href="{{ route('gvff.admin.plants.edit', $plant) }}" class="btn btn-warning btn-sm">Editar</a>
-                            <form action="{{ route('gvff.admin.plants.destroy', $plant) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
-                            </form>
+        <img src="{{ asset($plant->image) }}" alt="{{ $plant->common_name }}" width="80">
+</td>
+
+                       
+                        <td>
+                        
+                        <a href="{{ route('gvff.admin.plants.edit', $plant) }}" class="btn btn-warning btn-sm">Editar</a>
+
+<form action="{{ route('gvff.admin.plants.destroy', $plant) }}" method="POST" style="display:inline;">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+</form>
+
+<a href="{{ route('gvff.admin.plants.sell', $plant) }}" class="btn btn-success btn-sm">Vender</a> <!-- NUEVO BOTÓN -->
                         </td>
                     </tr>
                 @endforeach
