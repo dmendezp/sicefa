@@ -14,16 +14,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('apprentice_researchers', function (Blueprint $table) {
-            $table->id(); 
+            $table->id();
             $table->foreignId('user_id')->unique()->constrained('users')->onDelete('cascade'); // Relación uno a uno con users
-            $table->foreignId('person_id')->nullable()->unique()->constrained('people')->onDelete('set null'); // Relación uno a uno con people
+            $table->foreignId('person_id')->nullable()->unique()->constrained('people')->onDelete('set null'); 
             $table->foreignId('program_id')->constrained('programs')->onDelete('cascade'); 
+            $table->foreignId('project_id')->nullable()->constrained('projects')->onDelete('set null'); 
             $table->string('institution', 100)->nullable(); 
             $table->date('start_date'); 
-            $table->timestamps(); // created_at y updated_at 
+            $table->timestamps(); // created_at y updated_at
             $table->softDeletes(); // deleted_at para eliminación lógica
-            $table->index('user_id'); // Índice para consultas por user_id
-            $table->index('person_id'); // Índice para consultas por person_id
+            $table->index('user_id', 'apprentice_researchers_user_id_index'); 
+            $table->index('person_id', 'apprentice_researchers_person_id_index');
+            $table->index('project_id', 'apprentice_researchers_project_id_index'); // Índice para consultas por project_id
         });
     }
 
