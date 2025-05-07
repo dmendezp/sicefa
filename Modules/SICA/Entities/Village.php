@@ -4,6 +4,7 @@ namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\CPD\Entities\Study;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Municipality;
 
@@ -41,5 +42,7 @@ class Village extends Model implements Auditable
     public function studies(){
         return $this->hasMany(Study::class);
     }
+
+    
 
 }

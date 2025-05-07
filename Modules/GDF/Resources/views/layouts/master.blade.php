@@ -34,7 +34,6 @@
             <img class="animation__wobble" src="{{ asset('modules/gdf/images/Contacto/images.png') }}"
                 alt="AdminLTELogo" height="100" width="150">
         </div>
-
         <nav class="main-header navbar navbar-expand navbar-dark">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
@@ -42,25 +41,17 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
                             class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
-                </li>
+                
             </ul>
-
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 @auth
-
-                    <div class="dropdown" id="userDropdown">
-                        <button class="dropdown-toggle" onclick="toggleDropdown()">👤
-                            {{ Auth::user()->nickname }}</button>
-                        <div class="dropdown-menu">
-                            <a href="{{ route('logout') }}"
+                    <div class="dropdown" id="userDropdownContainer" style="margin-left: auto; margin-right: 30px;">
+                        <button class="dropdown-toggle" onclick="toggleDropdown()">👤 {{ Auth::user()->nickname }}</button>
+                        <div class="dropdown-menu" id="userDropdown">
+                            <a href="{{ route('logout') }}" class="nav-link"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                Cerrar Sesión
+                                <i class="fas fa-lock"></i> Cerrar Sesión
                             </a>
                         </div>
                     </div>
@@ -68,28 +59,21 @@
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
-
-
                 @endauth
-
-
             </ul>
         </nav>
-
-
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
-                <img src="{{ asset('AdminLTE/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+            <a href="#" class="brand-link">
+                <img src="{{ asset('modules/gdf/images/log/gdf.png') }}" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">GDF</span>
             </a>
-
             <div class="sidebar">
                 <!-- Sidebar user panel -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ asset('AdminLTE/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
+                        <img src="{{ asset('modules/gdf/images/Contacto/Mamacita.jpg') }}" class="img-circle elevation-2"
                             alt="User Image">
                     </div>
                     <div class="info">
@@ -97,7 +81,6 @@
                     </div>
                     <h6 class="">{{ Auth::user()->nickname }}</h6>
                 </div>
-
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
@@ -110,259 +93,257 @@
                         </div>
                     </div>
                 </div>
-
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        <li class="nav-item menu">
-                            <a href="#" class="nav-link active">
-                                <i class="fas fa-user"></i>&nbsp;
-                                <p>
-                                    Funcionarios
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon">
-                                        </i>
-                                        <p>Añadir Funcionario</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="nav-icon fas fa-clipboard-list">
-                                        </i>
-                                        <p>Lista de Funcionarios</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item menu">
-                            <a href="#" class="nav-link active">
-                                <i class="fas fa-dollar-sign"></i>&nbsp;
-                                <p>
-                                    Precios
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon">
-                                        </i>
-                                        <p>Añadir Precios</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="nav-icon fas fa-clipboard-list">
-                                        </i>
-                                        <p>Lista de Precios</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item menu">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon fas fa-certificate "></i>&nbsp;
-                                <p>
-                                    Certificados
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('cefa.gdf.create_certificate') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon">
-                                        </i>
-                                        <p>Añadir Certificado</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('cefa.gdf.index_certificate') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-clipboard-list">
-                                        </i>
-                                        <p>Lista de Certificados</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item menu">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon  fas fa-car "></i>&nbsp;
-                                <p>
-                                    Desplazamientos
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon">
-                                        </i>
-                                        <p>Añadir Desplazamiento</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="nav-icon fas fa-clipboard-list">
-                                        </i>
-                                        <p>Lista de Desplazamiento</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon fas fa-file-alt"></i>
-                                <p>Reportes</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item menu">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon fas fa-money-bill-wave"></i>&nbsp;
-                                <p>
-                                    Viaticos
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon">
-                                        </i>
-                                        <p>Añadir Viatico</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="nav-icon fas fa-clipboard-list">
-                                        </i>
-                                        <p>Lista de Viaticos</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item menu">
-                            <a href="#" class="nav-link active">
-                                <i class="fas fa-warehouse"></i>&nbsp;
-                                <p>
-                                    Gastos
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-car"></i>
-                                        <p>Gastos de Transporte</p>
+                        {{-- ============================ --}}
+                        {{-- 🛡️ RUTAS PARA SUPER ADMINISTRADOR --}}
+                        {{-- ============================ --}}
+                        @if (checkRol('gdf.superadmin'))
+                            <li class="nav-item menu">
+                                <a href="#" class="nav-link active">
+                                    <i class="fas fa-users-cog"></i>&nbsp;
+                                    <p>
+                                        Usuarios
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Añadir Usuario</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="fas fa-list nav-icon"></i>
+                                            <p>Lista de Usuarios</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link active">
+                                    <i class="fas fa-globe"></i>
+                                    <p>Ciudades</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link active">
+                                    <i class="fas fa-bus-alt"></i>
+                                    <p>Rutas de Transporte</p>
+                                </a>
+                            </li>
+                        @endif
+                        {{-- ============================ --}}
+                        {{-- 🛡️ RUTAS PARA ADMINISTRADOR --}}
+                        {{-- ============================ --}}
+                        @if (checkRol('gdf.admin'))
+                            <li class="nav-item menu">
+                                <a href="#" class="nav-link active">
+                                    <i class="fas fa-dollar-sign"></i>&nbsp;
+                                    <p>
+                                        Precios
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Añadir Precios</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="" class="nav-link">
+                                            <i class="nav-icon fas fa-clipboard-list"></i>
+                                            <p>Lista de Precios</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link active">
+                                    <i class="nav-icon fas fa-file-alt"></i>
+                                    <p>Reportes</p>
+                                </a>
+                            </li>
+                            <li class="nav-item menu">
+                                <a href="#" class="nav-link active">
+                                    <i class="nav-icon fas fa-money-bill-wave"></i>&nbsp;
+                                    <p>
+                                        Viaticos
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Añadir Viatico</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="" class="nav-link">
+                                            <i class="nav-icon fas fa-clipboard-list"></i>
+                                            <p>Lista de Viaticos</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item menu">
+                                <a href="#" class="nav-link active">
+                                    <i class="fas fa-warehouse"></i>&nbsp;
+                                    <p>
+                                        Gastos
                                         <i class="fas fa-angle-left right"></i>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Añadir Gastos</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="nav-icon fas fa-clipboard-list"></i>
-                                                <p>Listas de Gastos</p>
-
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link ">
-                                        <i class="nav-icon fas fa-wallet"></i>
-                                        <p>Otros Gastos</p>
-                                        <i class="fas fa-angle-left right"></i>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link ">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Añadir Otros Gastos</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="nav-icon fas fa-clipboard-list"></i>
-                                                <p>Listas de Otros Gastos</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        </li>
-                        <li class="nav-item menu">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon fas fa-file-signature"></i>&nbsp;
-                                <p>
-                                    Solicitudes
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="nav-icon fas fa-clipboard-list">
-                                        </i>
-                                        <p>Revisión de Solicitudes</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-hourglass-half"></i>
-                                <p>Estado de Solitudes</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-clipboard-list"></i>
-                                <p>Historial de Solicitudes</p>
-                            </a>
-                        </li>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="nav-icon fas fa-car"></i>
+                                            <p>Gastos de Transporte</p>
+                                            <i class="fas fa-angle-left right"></i>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Añadir Gastos</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="nav-icon fas fa-clipboard-list"></i>
+                                                    <p>Listas de Gastos</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link ">
+                                            <i class="nav-icon fas fa-wallet"></i>
+                                            <p>Otros Gastos</p>
+                                            <i class="fas fa-angle-left right"></i>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link ">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Añadir Otros Gastos</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="nav-icon fas fa-clipboard-list"></i>
+                                                    <p>Listas de Otros Gastos</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item menu">
+                                <a href="#" class="nav-link active">
+                                    <i class="nav-icon fas fa-file-signature"></i>&nbsp;
+                                    <p>
+                                        Solicitudes
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="" class="nav-link">
+                                            <i class="nav-icon fas fa-tasks"></i>
+                                            <p>Revisión de Solicitudes</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="nav-icon fas fa-clipboard-list"></i>
+                                            <p>Historial de Solicitudes</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
+                        {{-- ============================ --}}
+                        {{-- 🛡️ RUTAS PARA FUNCIONARIO --}}
+                        {{-- ============================ --}}
+                        @if (checkRol('gdf.funcionario'))
+                            <li class="nav-item menu">
+                                <a href="#" class="nav-link active">
+                                    <i class="fas fa-tasks"></i>&nbsp;
+                                    <p>
+                                        Actividades
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Añadir Actividad</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="fas fa-list nav-icon"></i>
+                                            <p>Lista de Actividades</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item menu">
+                                <a href="#" class="nav-link active">
+                                    <i class="fas fa-money-check-alt"></i>&nbsp;
+                                    <p>
+                                        Viáticos
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Añadir Viático</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="fas fa-list nav-icon"></i>
+                                            <p>Lista de Viáticos</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
                     </ul>
                 </nav>
             </div>
         </aside>
-
         <div class="content-wrapper">
             @yield('content')
         </div>
-
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
-
         <footer class="main-footer"
             style="width: 100%; position: fixed; bottom: 0; left: 0; background-color: #343a40; color: white; padding: 10px 20px;">
             <strong>Copyright © 2023-2025
                 <a href="#" style="color: #3c8dbc;">GDF</a>.
             </strong>
-            All rights reserved.
+            <strong>Aprendices SENA de la Tecnología de Desarrollo de Software
+                <a href="#" style="color: #D2160DFF;">Ficha: 2847386.</a>.
+            </strong>
             <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 3.2.0
             </div>
         </footer>
     </div>
-
     <!-- jQuery -->
     <script src="{{ asset('AdminLTE/plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
@@ -391,20 +372,18 @@
     <script src="{{ asset('AdminLTE/dist/js/pages/dashboard2.js') }}"></script>
     <script>
         function toggleDropdown() {
-            document.getElementById("userDropdown").classList.toggle("show");
+            const dropdown = document.getElementById("userDropdownContainer");
+            dropdown.classList.toggle("show");
         }
-
-        // Cierra el dropdown si haces clic fuera de él
-        window.addEventListener('click', function(e) {
-            const dropdown = document.getElementById("userDropdown");
-            if (!dropdown.contains(e.target)) {
-                dropdown.classList.remove('show');
+    
+        // Cerrar el dropdown si se hace clic fuera
+        window.addEventListener("click", function (e) {
+            if (!document.getElementById("userDropdownContainer").contains(e.target)) {
+                document.getElementById("userDropdownContainer").classList.remove("show");
             }
         });
-
-
-        
     </script>
+    
 </body>
 
 </html>

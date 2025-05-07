@@ -27,7 +27,7 @@
 @endif
 
 <div class="cert-container mt-5 mb-5">
-    <h1 class="titulo">📑 Lista de Certificados</h1>
+    <h1 class="titulo">📑 Lista de Actividades</h1>
     <a href="{{ route('cefa.gdf.admin.welcome') }}" class="btn-back">← Regresar</a>
 
     <div class="table-responsive mt-3" style="animation: fadeInUp 1.5s ease;">
@@ -44,39 +44,39 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($certificates as $certificate)
+                @foreach ( as )
                 <tr>
-                    <td>{{ $certificate ->id }}</td>
-                    <td>{{ $certificate ->certified_code }}</td>
-                    <td>{{ $certificate ->issue_date }}</td>
-                    <td>{{ $certificate ->official_id }}</td>
-                    <td>{{ $certificate ->description }}</td>
+                    <td>{{  -> }}</td>
+                    <td>{{  -> }}</td>
+                    <td>{{  -> }}</td>
+                    <td>{{  -> }}</td>
+                    <td>{{  -> }}</td>
                     <td>
-                        @if ($certificate->state == 'aprobado')
+                        @if (-> == 'aprobado')
                             <span class="text-green-600 font-bold">✅ Aprobado</span>
-                        @elseif ($certificate->state == 'rechazado')
+                        @elseif (-> == 'rechazado')
                             <span class="text-red-600 font-bold">❌ Rechazado</span>
                         @else
                             <span class="text-yellow-500">⏳ Pendiente</span>
                         @endif
                     </td>
                     <td>
-                        @if ($certificate->state === 'pendiente')
-                            <form action="{{ route('cefa.gdf.aprobar_certificate', $certificate->id) }}" method="POST" style="display:inline;">
+                        @if (-> === 'pendiente')
+                            <form action="{{ route('cefa.gdf.aprobar_certificate', ->) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('PUT')
                                 <button type="submit" class="btn-action edit">✅ Aprobado</button>
                             </form>
                     
-                            <form action="{{ route('cefa.gdf.rechazar_certificate', $certificate->id) }}" method="POST" style="display:inline;">
+                            <form action="{{ route('cefa.gdf.rechazar_certificate', ->) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('PUT')
                                 <button type="submit" class="btn-action delete">❌ Rechazado</button>
                             </form>
                         @else
-                            @if ($certificate->state === 'aprobado')
+                            @if (-> === 'aprobado')
                                 <span class="text-green-600 font-bold">✅ Certificado Aprobado</span>
-                            @elseif ($certificate->state === 'rechazado')
+                            @elseif (-> === 'rechazado')
                                 <span class="text-red-600 font-bold">❌ Certificado Rechazado</span>
                             @endif
                         @endif

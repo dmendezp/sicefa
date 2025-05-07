@@ -41,5 +41,16 @@ class PeopleTableSeeder extends Seeder
             'pension_entity_id' => $pension_entity->id,
             'avatar'=> 'modules/gdf/images/Contacto/Mamacita.jpg'
         ]);
+
+        Person::firstOrCreate(['document_number' => 1874523699], [ // Consulta o registra Persona
+            'document_type' => 'Cédula de ciudadanía',
+            'first_name' => 'LEONEL ',
+            'first_last_name' => 'ZUÑIGA',
+            'second_last_name' => 'ALVAREZ',
+            'eps_id' => $eps->id,
+            'population_group_id' => $population_group->id,
+            'pension_entity_id' => $pension_entity->id,
+            'avatar'=> 'modules/gdf/images/Contacto/Mamacita.jpg'
+        ]);
     }
 }

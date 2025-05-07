@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCertificatesTable extends Migration
+class CreateTravelExpensesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateCertificatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('certificates', function (Blueprint $table) {
+        Schema::create('travel_expenses', function (Blueprint $table) {
             $table->id();
-            $table->integer('certified_code');
-            $table->date('issue_date');
-            $table->integer('official_id');
-            $table->text('description');
+            $table->enum('category', ['A', 'B', 'C']);
+            $table->enum('level', ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']);
+            $table->integer('price');
+
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateCertificatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('certificates');
+        Schema::dropIfExists('travel_expenses');
     }
 }

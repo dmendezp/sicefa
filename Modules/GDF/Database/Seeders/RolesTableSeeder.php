@@ -11,6 +11,7 @@ class RolesTableSeeder extends Seeder
 {
     public function run()
     {
+        /// Crear una lista para el rol
         $app = App::where('name', 'GDF')->firstOrFail();
 
         $roladmin = Role::updateOrCreate(['slug' => 'gdf.admin'], [
@@ -21,10 +22,12 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
-        $useradministrador = User::where('nickname', 'Fabian')->firstOrFail();
+        $useradministrador = User::where('nickname', 'FABIAN')->firstOrFail();
 
         $useradministrador->roles()->syncWithoutDetaching([$roladmin->id]);
 
+
+        /// Crear una lista para el rol
         $app = App::where('name', 'GDF')->firstOrFail();
 
         $roladmin = Role::updateOrCreate(['slug' => 'gdf.funcionario'], [
@@ -35,7 +38,23 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
-        $useradministrador = User::where('nickname', 'Andrey')->firstOrFail();
+        $useradministrador = User::where('nickname', 'ANDREY')->firstOrFail();
+
+        $useradministrador->roles()->syncWithoutDetaching([$roladmin->id]);
+
+        /// Crear una lista para el rol
+        $app = App::where('name', 'GDF')->firstOrFail();
+
+        $roladmin = Role::updateOrCreate(['slug' => 'gdf.superadmin'], [
+            'name' => 'Super Administrador',
+            'description' => 'Rol super administrador de la aplicación GDF',
+            'description' => 'Rol super administrador de la aplicación GDF',
+            'description_english' => 'GDF application super administrator role',
+            'full_access' => 'No',
+            'app_id' => $app->id
+        ]);
+
+        $useradministrador = User::where('nickname', 'LEONEL')->firstOrFail();
 
         $useradministrador->roles()->syncWithoutDetaching([$roladmin->id]);
     }

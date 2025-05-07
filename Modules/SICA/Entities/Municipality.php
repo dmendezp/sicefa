@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Department;
 use Modules\SICA\Entities\Village;
+use Modules\GDF\Entities\Rate;
 
 class Municipality extends Model implements Auditable
 {
@@ -47,6 +48,10 @@ class Municipality extends Model implements Auditable
     }
     public function villages(){ // Accede a todos los registros de veredas que le pertenecen a este municipio
         return $this->hasMany(Village::class);
+    }
+
+    public function rates(){ // Accede a todos los registros de veredas que le pertenecen a este municipio
+        return $this->hasMany(Rate::class);
     }
 
 }

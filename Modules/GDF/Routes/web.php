@@ -16,15 +16,23 @@ Route::middleware(['lang'])->group(function () {
     Route::prefix('gdf')->group(function () {
         Route::get('/index', 'GDFController@index')->name('cefa.gdf.index');
         Route::get('/funcionario/welcome', 'GDFController@funcionario')->name('cefa.gdf.funcionario.welcome');
+        Route::get('/superadmin/welcome', 'GDFController@superadmin')->name('cefa.gdf.superadmin.welcome');
         Route::get('/admin/welcome', 'GDFController@admin')->name('cefa.gdf.admin.welcome');
 
         Route::controller(GDFController::class)->group(function () { //Agrega por única vez el controlador, para que seguidamente sea solo.
-            Route::get('/admin/certificate/index', 'GDFController@index_certificate')->name('cefa.gdf.index_certificate'); 
-            Route::get('/admin/certificate/create', 'GDFController@create_certificate')->name('cefa.gdf.create_certificate');
-            Route::post('/admin/certificate/store', 'GDFController@store_certificate')->name('cefa.gdf.store_certificate'); 
-            Route::get('/admin/certificate/edit/{id}', 'GDFController@edit_certificate')->name('cefa.gdf.edit_certificate'); 
-            Route::post('/admin/certificate/update/{id}', 'GDFController@update_certificate')->name('cefa.gdf.update_certificate'); 
-            Route::get('/admin/certificate/destroy/{id}', 'GDFController@destroy_certificate')->name('cefa.gdf.destroy_certificate'); 
+
+            //Atividades
+            Route::get('/admin/activities/index', 'GDFController@index_activities')->name('cefa.gdf.index_activities'); 
+            Route::get('/funcionario/activities/index', 'GDFController@index_activities')->name('cefa.gdf.index_activities'); 
+            Route::get('/admin/activities/create', 'GDFController@create_activities')->name('cefa.gdf.create_activities');
+            Route::post('/admin/activities/store', 'GDFController@store_activities')->name('cefa.gdf.store_activities'); 
+            Route::put('/admin/activities/aprobar/{id}', 'GDFController@aprobar_activities')->name('cefa.gdf.aprobar_activities'); 
+            Route::put('/admin/activities/rechazar/{id}', 'GDFController@rechazar_activities')->name('cefa.gdf.rechazar_activities'); 
+
+            //Precios
+            Route::get('/admin/budget/index', 'GDFController@index_budget')->name('cefa.gdf.index_budget');
+            Route::get('/admin/budget/create', 'GDFController@create_budget')->name('cefa.gdf.create_budget');
+            Route::post('/admin/budget/store', 'GDFController@store_budget')->name('cefa.gdf.store_budget');
         });
 
     });

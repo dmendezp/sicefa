@@ -53,7 +53,6 @@ class User extends Authenticatable implements Auditable
     public function roles(){ // Accede a todos los roles que pertenecen a este usuario (PIVOTE)
         return $this->belongsToMany(Role::class)->withTimestamps();
     }
-
     // CONFIGURACIONES PREESTABLECIDAS PARA MÉTODOS ELOQUENT
     /**
      * The "booting" method of the model.
