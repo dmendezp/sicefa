@@ -112,17 +112,15 @@ class EventSiaController extends Controller
         $event->delete();
 
         return redirect()->route('events.index')->with('success', 'Evento eliminado con éxito');
-    }
 }
 
 
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
+/**
+ * Show the specified resource.
+ * @param int $id
+ * @return Renderable
+ */
+public function show($id)
     {
         return view('sia::show');
     }
@@ -137,24 +135,5 @@ class EventSiaController extends Controller
         return view('sia::edit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
