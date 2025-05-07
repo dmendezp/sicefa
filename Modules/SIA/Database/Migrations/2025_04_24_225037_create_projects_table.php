@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreignId('leader_id')->constrained('users')->onDelete('cascade'); // Relación con el líder del proyecto (usuario)
             $table->timestamps(); // created_at y updated_at
             $table->softDeletes(); // deleted_at para eliminación lógica
-            $table->index('updated_at', 'projects_updated_at_index'); // Índice para consultas por updated_at
+            $table->index('updated_at', 'proejcts_updated_at_index'); // Índice para consultas por updated_at
         });
 
         Schema::create('project_user', function (Blueprint $table) {
