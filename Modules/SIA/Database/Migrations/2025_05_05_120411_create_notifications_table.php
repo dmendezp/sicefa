@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('contact_id')->constrained('contacts')->onDelete('cascade');
+            $table->foreignId('role_user_id')->constrained('role_user')->onDelete('cascade');
             $table->enum('type', ['inactivity_warning'])->default('inactivity_warning');
             $table->timestamp('sent_at')->nullable();
             $table->enum('status', ['pending', 'sent', 'failed'])->default('pending');
