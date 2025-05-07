@@ -32,12 +32,9 @@
                         <td>{{ $plant->inventory }}</td>
                         <td>{{ $plant->available ? 'Sí' : 'No' }}</td>
                         <td>
-        <img src="{{ asset($plant->image) }}" alt="{{ $plant->common_name }}" width="80">
-</td>
-
-                       
+                        <img src="{{ asset($plant->image) }}" alt="{{ $plant->common_name }}" width="80">
+                        </td>
                         <td>
-                        
                         <a href="{{ route('gvff.admin.plants.edit', $plant) }}" class="btn btn-warning btn-sm">Editar</a>
 
 <form action="{{ route('gvff.admin.plants.destroy', $plant) }}" method="POST" style="display:inline;">

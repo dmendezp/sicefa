@@ -142,6 +142,55 @@ class PermissionsTableSeeder extends Seeder
                 'description' => 'Permite procesar la venta de plantas',
                 'description_english' => 'Allows processing the sale of plants',
             ],
+            // Nuevos permisos para rutas de creación por tipo
+            [
+                'slug' => 'gvff.admin.plants.ornamental.create',
+                'name' => 'Crear planta ornamental',
+                'description' => 'Permite mostrar el formulario para crear plantas ornamentales',
+                'description_english' => 'Allows displaying the form to create ornamental plants',
+            ],
+            [
+                'slug' => 'gvff.admin.plants.ornamental.store',
+                'name' => 'Almacenar planta ornamental',
+                'description' => 'Permite guardar una nueva planta ornamental',
+                'description_english' => 'Allows storing a new ornamental plant',
+            ],
+            [
+                'slug' => 'gvff.admin.plants.medicinal.create',
+                'name' => 'Crear planta medicinal',
+                'description' => 'Permite mostrar el formulario para crear plantas medicinales',
+                'description_english' => 'Allows displaying the form to create medicinal plants',
+            ],
+            [
+                'slug' => 'gvff.admin.plants.medicinal.store',
+                'name' => 'Almacenar planta medicinal',
+                'description' => 'Permite guardar una nueva planta medicinal',
+                'description_english' => 'Allows storing a new medicinal plant',
+            ],
+            [
+                'slug' => 'gvff.admin.plants.venta.create',
+                'name' => 'Crear planta en venta',
+                'description' => 'Permite mostrar el formulario para crear plantas en venta',
+                'description_english' => 'Allows displaying the form to create plants for sale',
+            ],
+            [
+                'slug' => 'gvff.admin.plants.venta.store',
+                'name' => 'Almacenar planta en venta',
+                'description' => 'Permite guardar una nueva planta en venta',
+                'description_english' => 'Allows storing a new plant for sale',
+            ],
+            [
+                'slug' => 'gvff.admin.plants.forestal.create',
+                'name' => 'Crear planta forestal',
+                'description' => 'Permite mostrar el formulario para crear plantas forestales',
+                'description_english' => 'Allows displaying the form to create forestal plants',
+            ],
+            [
+                'slug' => 'gvff.admin.plants.forestal.store',
+                'name' => 'Almacenar planta forestal',
+                'description' => 'Permite guardar una nueva planta forestal',
+                'description_english' => 'Allows storing a new forestal plant',
+            ],
         ];
 
         // Crear permisos para Plantas y añadirlos a la lista de permisos del administrador

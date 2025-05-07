@@ -97,16 +97,42 @@
                         <i class="fa-solid fa-seedling mr-2"></i> Plantas
                     </a>
                     <div class="submenu" id="plantas-submenu">
-                        <a href="{{ route('gvff.admin.plants.index') }}"class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
-                            <i class="fa-solid fa-flower mr-2"></i> Floral
+                        <a href="{{ route('gvff.admin.plants.index') }}" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                            <i class="fa-solid fa-flower mr-2"></i> plantas
                         </a>
-                        <a href="#plantas-medicinales" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
-                            <i class="fa-solid fa-mortar-pestle mr-2"></i> Plantas Medicinales
+                        <a href="{{ route('gvff.admin.plants.ornamental.create') }}" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                            <i class="fa-solid fa-flower mr-2"></i> Crear Planta Ornamental
                         </a>
-                        <a href="#plantas-venta" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
-                            <i class="fa-solid fa-shopping-cart mr-2"></i> Plantas en Venta
+                        <a href="{{ route('gvff.admin.plants.medicinal.create') }}" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                            <i class="fa-solid fa-mortar-pestle mr-2"></i> Crear Planta Medicinal
+                        </a>
+                        <a href="{{ route('gvff.admin.plants.venta.create') }}" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                            <i class="fa-solid fa-shopping-cart mr-2"></i> Crear Planta en Venta
+                        </a>
+                        <a href="{{ route('gvff.admin.plants.forestal.create') }}" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
+                            <i class="fa-solid fa-tree mr-2"></i> Crear Planta Forestal
                         </a>
                     </div>
+                    
+                    <script>
+                        function toggleSubmenu(event, submenuId) {
+                            const submenu = document.getElementById(submenuId);
+                        
+                            if (!submenu) return;
+                        
+                            const isVisible = submenu.style.display === "block";
+                        
+                            // Si el submenú NO está visible, lo mostramos y prevenimos navegación
+                            if (!isVisible) {
+                                event.preventDefault();
+                                submenu.style.display = "block";
+                            } else {
+                                // Si ya está visible, permitimos navegación (no se hace preventDefault)
+                                // Opcional: podrías cerrarlo aquí si quieres
+                                // submenu.style.display = "none";
+                            }
+                        }
+                        </script>
                 </div>
                 <a href="#fauna" class="block py-2 px-4 rounded-lg mb-2 hover:bg-green-600 transition">
                     <i class="fa-solid fa-paw mr-2"></i> Fauna
