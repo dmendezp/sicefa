@@ -29,13 +29,43 @@ Route::middleware(['lang'])->group(function () {
 // rutas para las funciones de los cerdos
 Route::middleware(['auth'])->group(function () {
         Route::prefix('sipork')->group(function () {
-            Route::get('/pigs', 'PigController@index')->name('sipork.admin.sipork.pigs.index');
-            Route::get('/pigs/create', 'PigController@create')->name('sipork.admin.sipork.pigs.create');
-            Route::get('/pigs/{id}/edit', 'PigController@edit')->name('sipork.pigs.edit');
-            Route::get('/pigs/{id}', 'PigController@show')->name('sipork.pigs.show');
-            Route::post('/pigs/store', 'PigController@store')->name('sipork.pigs.store');
-            Route::put('/pigs/{id}', 'PigController@update')->name('sipork.pigs.update');
-            Route::delete('/pigs/{id}', 'PigController@destroy')->name('sipork.pigs.destroy');
+
+            // rutas para el administrador
+            Route::get('/admin', 'PigController@index')->name('sipork.admin.sipork.admin.index');
+            Route::get('/admin/create', 'PigController@create')->name('sipork.admin.sipork.admin.create');
+            Route::get('/admin/{id}/edit', 'PigController@edit')->name('sipork.admin.sipork.admin.edit');
+            Route::get('/admin/{id}', 'PigController@show')->name('sipork.admin.sipork.admin.show');
+            Route::post('/admin/store', 'PigController@store')->name('sipork.admin.sipork.admin.store');
+            Route::put('/admin/{id}', 'PigController@update')->name('sipork.admin.sipork.admin.update');
+            Route::delete('/admin/{id}', 'PigController@destroy')->name('sipork.admin.sipork.admin.destroy');
+
+
+            // rutas para los siclos reproductivos
+            Route::get('/ciclos_reproductivos', 'ReproductiveCycleController@index')->name('sipork.admin.sipork.ciclos_reproductivos.index');
+            Route::get('/ciclos_reproductivos/create', 'ReproductiveCycleController@create')->name('sipork.admin.sipork.ciclos_reproductivos.create');
+            Route::post('/ciclos_reproductivos/store', 'ReproductiveCycleController@store')->name('sipork.admin.sipork.ciclos_reproductivos.store');
+            Route::get('/ciclos_reproductivos/{id}/edit', 'ReproductiveCycleController@edit')->name('sipork.admin.sipork.ciclos_reproductivos.edit');
+            Route::put('/ciclos_reproductivos/{id}', 'ReproductiveCycleController@update')->name('sipork.admin.sipork.ciclos_reproductivos.update');
+            Route::delete('/ciclos_reproductivos/{id}', 'ReproductiveCycleController@destroy')->name('sipork.admin.sipork.ciclos_reproductivos.destroy');
+
+            // rutas para el seguimiento del crecimiento
+            Route::get('/seguimiento_del_crecimiento', 'GrowthTrackingController@index')->name('sipork.admin.sipork.seguimiento_del_crecimiento.index');
+            Route::get('/seguimiento_del_crecimiento/create', 'GrowthTrackingController@create')->name('sipork.admin.sipork.seguimiento_del_crecimiento.create');
+
+            // rutas para los registros de salud
+            Route::get('/registros_de_salud', 'HealthRecordController@index')->name('sipork.admin.sipork.registros_de_salud.index');
+            Route::get('/registros_de_salud/create', 'HealthRecordController@create')->name('sipork.admin.sipork.registros_de_salud.create');
+
+
+            // rutas para los lideres de unidad
+            Route::get('/liderDeUnidad', 'PigController@index')->name('sipork.liderDeUnidad.sipork.liderDeUnidad.index');
+            Route::get('/liderDeUnidad/create', 'PigController@create')->name('sipork.liderDeUnidad.sipork.liderDeUnidad.create');
+
+            // rutas para los aprendices
+            Route::get('/aprendiz', 'PigController@index')->name('sipork.aprendiz.sipork.aprendiz.index');
+            Route::get('/aprendiz/create', 'PigController@create')->name('sipork.aprendiz.sipork.aprendiz.create');
+
+            // rutas para el lenguaje
             Route::get('/set-language/{locale}', 'LanguageController@setLanguage')->name('sipork.setLanguage');
             
         });

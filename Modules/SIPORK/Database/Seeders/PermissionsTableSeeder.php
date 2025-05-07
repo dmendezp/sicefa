@@ -104,7 +104,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'Access to the liderDeUnidad Role',
             'app_id' => $app->id
         ]);
-        $permissions_admin[] = $permission_liderDeUnidad->id; // Almacenar permiso para rol
+        $permissions_liderDeUnidad[] = $permission_liderDeUnidad->id; // Almacenar permiso para rol
 
         // Vista de configuración (Aprendiz)
         $permission_aprendiz = Permission::updateOrCreate(['slug' => 'sipork.aprendiz.panelAprendiz'], [ // Registro o actualización de permiso
@@ -113,7 +113,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'Access to the Apprentice Role',
             'app_id' => $app->id
         ]);
-        $permissions_admin[] = $permission_aprendiz->id; // Almacenar permiso para rol
+        $permissions_aprendiz[] = $permission_aprendiz->id; // Almacenar permiso para rol
         
 
 
@@ -125,8 +125,8 @@ class PermissionsTableSeeder extends Seeder
 
         // Asignación de PERMISOS para los ROLES de la aplicación SIPORK (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
-        $rol_liderDeUnidad->permissions()->syncWithoutDetaching($permissions_admin); // Asignar permisos al rol de liderDeUnidad
-        $rol_aprendiz->permissions()->syncWithoutDetaching($permissions_admin); // Asignar permisos al rol de aprendiz
+        $rol_liderDeUnidad->permissions()->syncWithoutDetaching($permissions_liderDeUnidad); // Asignar permisos al rol de liderDeUnidad
+        $rol_aprendiz->permissions()->syncWithoutDetaching($permissions_aprendiz); // Asignar permisos al rol de aprendiz
       
     }
 }

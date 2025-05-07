@@ -111,7 +111,7 @@
                     <div class="card-header">
                         <h3 class="card-title mb-0">Formulario de registro de cerdos</h3>
                     </div>
-                    <form action="{{ route('sipork.admin.sipork.admin.store') }}" method="POST">
+                    <form action="  " method="POST">
                         @csrf
                         <div class="card-body">
                             <div class="row">
@@ -125,7 +125,7 @@
                                     @enderror
                                 </div>
 
-                                <!-- Peso inicial -->
+                                <!-- Initial Weight -->
                                 <div class="col-md-6 form-group">
                                     <input type="number" step="0.01" name="initial_weight" id="initial_weight" class="form-control @error('initial_weight') is-invalid @enderror" value="{{ old('initial_weight') }}" required placeholder=" ">
                                     <label for="initial_weight" class="floating-label">Peso inicial (kg) <span class="text-danger">*</span></label>
@@ -135,45 +135,45 @@
                                     @enderror
                                 </div>
 
-                                <!-- Género -->
+                                <!-- Gender -->
                                 <div class="col-md-6 form-group">
                                     <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror" required>
-                                        <option value="" disabled selected>Seleccionar género</option>
-                                        <option value="M" {{ old('gender') == 'Macho' ? 'selected' : '' }}>Macho</option>
-                                        <option value="F" {{ old('gender') == 'Hembra' ? 'selected' : '' }}>Hembra</option>
+                                        <option value="" disabled selected>Seleccionar genero</option>
+                                        <option value="M" {{ old('gender') == 'M' ? 'selected' : '' }}>Macho</option>
+                                        <option value="F" {{ old('gender') == 'F' ? 'selected' : '' }}>Hembra</option>
                                     </select>
-                                    <label for="gender" class="floating-label">Género <span class="text-danger">*</span></label>
+                                    <label for="gender" class="floating-label">Genero <span class="text-danger">*</span></label>
                                     <span class="form-icon"><i class="fas fa-venus-mars"></i></span>
                                     @error('gender')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
 
-                                <!-- Raza -->
+                                <!-- Mother ID -->
                                 <div class="col-md-6 form-group">
-                                    <select name="breed" id="breed" class="form-control @error('breed') is-invalid @enderror" required>
-                                        <option value="" disabled selected>Seleccionar raza</option>
-                                        <option value="Pietrain" {{ old('breed') == 'Pietrain' ? 'selected' : '' }}>Pietrain</option>
-                                        <option value="Duroc" {{ old('breed') == 'Duroc' ? 'selected' : '' }}>Duroc</option>
-                                        <option value="Landrace" {{ old('breed') == 'Landrace' ? 'selected' : '' }}>Landrace</option>
-                                        <option value="Hampshire" {{ old('breed') == 'Hampshire' ? 'selected' : '' }}>Hampshire</option>
-                                        <option value="Large-White" {{ old('breed') == 'Large-White' ? 'selected' : '' }}>Large White</option>
+                                    <select name="mother_id" id="mother_id" class="form-control @error('mother_id') is-invalid @enderror">
+                                        <option value="">Seleccionar madre</option>
+                                        @foreach($mothers as $mother)
+                                            <option value="{{ $mother->id_pig }}" {{ old('mother_id') == $mother->id_pig ? 'selected' : '' }}>
+                                                Pig #{{ $mother->id_pig }} (Born: {{ $mother->birth_date }})
+                                            </option>
+                                        @endforeach
                                     </select>
-                                    <label for="breed" class="floating-label">Raza <span class="text-danger">*</span></label>
-                                    <span class="form-icon"><i class="fas fa-dna"></i></span>
-                                    @error('breed')
+                                    <label for="mother_id" class="floating-label">Madre (Opcional)</label>
+                                    <span class="form-icon"><i class="fas fa-piggy-bank"></i></span>
+                                    @error('mother_id')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
 
-                                <!-- Estado -->
+                                <!-- Status -->
                                 <div class="col-md-6 form-group">
                                     <select name="status" id="status" class="form-control @error('status') is-invalid @enderror" required>
                                         <option value="" disabled selected>Seleccionar estado</option>
                                         <option value="Active" {{ old('status') == 'Active' ? 'selected' : '' }}>Activo</option>
-                                        <option value="Weaned" {{ old('status') == 'Weaned' ? 'selected' : '' }}>Destetado</option>
+                                        <option value="Weaned" {{ old('status') == 'Weaned' ? 'selected' : '' }}>Decantado</option>
                                         <option value="Sold" {{ old('status') == 'Sold' ? 'selected' : '' }}>Vendido</option>
-                                        <option value="Deceased" {{ old('status') == 'Deceased' ? 'selected' : '' }}>Fallecido</option>
+                                        <option value="Deceased" {{ old('status') == 'Deceased' ? 'selected' : '' }}>Engañados</option>
                                     </select>
                                     <label for="status" class="floating-label">Estado <span class="text-danger">*</span></label>
                                     <span class="form-icon"><i class="fas fa-info-circle"></i></span>
@@ -182,7 +182,7 @@
                                     @enderror
                                 </div>
 
-                                <!-- Fecha de destete -->
+                                <!-- Weaning Date -->
                                 <div class="col-md-6 form-group">
                                     <input type="date" name="weaning_date" id="weaning_date" class="form-control @error('weaning_date') is-invalid @enderror" value="{{ old('weaning_date') }}" placeholder=" ">
                                     <label for="weaning_date" class="floating-label">Fecha de destete (Opcional)</label>
@@ -192,7 +192,7 @@
                                     @enderror
                                 </div>
 
-                                <!-- Fecha de venta -->
+                                <!-- Sale Date -->
                                 <div class="col-md-6 form-group">
                                     <input type="date" name="sale_date" id="sale_date" class="form-control @error('sale_date') is-invalid @enderror" value="{{ old('sale_date') }}" placeholder=" ">
                                     <label for="sale_date" class="floating-label">Fecha de venta (Opcional)</label>
