@@ -47,6 +47,13 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
+        $permission = Permission::updateOrCreate(['slug' => 'pserenacefa.admin.admin.createhorarios'], [ // Registro o actualización de permiso
+            'name' => 'Lista de ambientes',
+            'description' => 'Acceso a mirar ambientes',
+            'description_english' => 'Access to view environments',
+            'app_id' => $app->id
+        ]);
+
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
     

@@ -32,3 +32,15 @@ Route::controller(Environment1Controller::class)->group(function(){
     Route::delete('/admin/admin/destroy/{id}', 'destroy')->name('pserenacefa.admin.admin.destroy');
 });
 
+Route::controller(CourseController::class)->group(function(){
+    Route::get('/admin/course/index', 'index')->name('pserenacefa.admin.course.index');
+});
+
+Route::controller(ScheduleEnvironmentController::class)->group(function(){
+    Route::get('/admin/horarios/create', 'create')->name('pserenacefa.admin.admin.createhorarios');
+    Route::post('/admin/horarios/store', 'store')->name('pserenacefa.admin.admin.storehorarios');
+    /*Route::get('/admin/horarios/index', 'index')->name('pserenacefa.admin.admin.indexambie');
+    Route::get('/admin/admin/edit/{id}', 'edit')->name('pserenacefa.admin.admin.edit');
+    Route::put('/admin/admin/update/{id}', 'update')->name('pserenacefa.admin.admin.update');
+    Route::delete('/admin/admin/destroy/{id}', 'destroy')->name('pserenacefa.admin.admin.destroy');*/
+});

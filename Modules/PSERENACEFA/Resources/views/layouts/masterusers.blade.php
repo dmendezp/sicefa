@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="{{ asset('images/Favicon2.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('img/serena.png') }}" type="image/x-icon">
     <title>Gestión de Espacios Y Recursos</title>
     
     <!-- Google Font: Source Sans Pro -->
@@ -67,7 +67,7 @@
                 <p class="hero-subtitle">Optimiza la administración de espacios y recursos en tu centro de formación con nuestra plataforma intuitiva y eficiente</p>
                 @if (Route::has('login'))
                     @auth
-                        <a href="{{ url('/home') }}" class="btn btn-primary">Ir a Mi Panel</a>
+                        <a href="{{ route('pserenacefa.admin.welcome') }}" class="btn btn-primary">Ir a Mi Panel</a>
                     @else
                         <a href="{{ route('login') }}" class="btn btn-primary">Comenzar Ahora</a>
                     @endauth
@@ -131,7 +131,7 @@
                     </a>
                 </div>
             </div>
-            
+
             <div class="card">
                 <div class="card-header">
                     <div class="icon-wrapper">

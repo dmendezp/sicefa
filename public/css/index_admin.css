@@ -1,0 +1,280 @@
+:root {
+    --primary-color: #3A5A8A;
+    --primary-light: #4d6ea3;
+    --primary-dark: #2d4870;
+    --white: #ffffff;
+    --light-gray: #f8f9fa;
+    --danger: #dc3545;
+    --danger-dark: #bd2130;
+    --success: #28a745;
+    --success-dark: #218838;
+}
+
+/* Animaciones generales */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(58, 90, 138, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(58, 90, 138, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(58, 90, 138, 0); }
+}
+
+/* Estilos del contenedor principal */
+.ambiente-container {
+    animation: fadeIn 0.6s ease-in-out;
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Estilos del título */
+.ambiente-title {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-left: 2rem;
+    animation: slideInUp 0.5s ease-out;
+}
+
+.ambiente-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.5rem;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+}
+
+/* Estilos de la alerta */
+.alert-custom {
+    border-left: 4px solid var(--success);
+    background-color: rgba(40, 167, 69, 0.1);
+    color: var(--success-dark);
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    animation: slideInUp 0.4s ease-out;
+}
+
+/* Estilos de la tabla */
+.table-ambientes {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.table-ambientes thead th {
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+    border: none;
+    vertical-align: middle;
+}
+
+.table-ambientes tbody tr {
+    transition: all 0.3s ease;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.table-ambientes tbody tr:nth-child(odd) {
+    background-color: rgba(58, 90, 138, 0.03);
+}
+
+.table-ambientes tbody tr:hover {
+    background-color: rgba(58, 90, 138, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.table-ambientes td {
+    padding: 0.85rem 1rem;
+    vertical-align: middle;
+    border-color: #edf2f9;
+}
+
+/* Estilos para el estado */
+.badge-estado {
+    padding: 0.5em 0.75em;
+    font-weight: 500;
+    font-size: 0.75rem;
+    border-radius: 30px;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.badge-disponible {
+    background-color: rgba(40, 167, 69, 0.15);
+    color: var(--success);
+}
+
+.badge-no-disponible {
+    background-color: rgba(220, 53, 69, 0.15);
+    color: var(--danger);
+}
+
+/* Estilos para los botones */
+.action-buttons {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.btn-action {
+    border-radius: 4px;
+    font-weight: 500;
+    padding: 0.4rem 0.75rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-action i {
+    margin-right: 0.4rem;
+    font-size: 0.85rem;
+}
+
+.btn-edit {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-edit:hover, .btn-edit:focus {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(58, 90, 138, 0.3);
+}
+
+.btn-delete {
+    background-color: var(--danger);
+    border-color: var(--danger);
+}
+
+.btn-delete:hover, .btn-delete:focus {
+    background-color: var(--danger-dark);
+    border-color: var(--danger-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* Estilos para los modales */
+.modal-custom .modal-content {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.modal-custom .modal-header {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border-bottom: none;
+    padding: 1.25rem 1.5rem;
+}
+
+.modal-custom .modal-title {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.modal-custom .modal-title i {
+    margin-right: 0.75rem;
+    font-size: 1.1rem;
+}
+
+.modal-custom .modal-header .close {
+    color: var(--white);
+    opacity: 0.8;
+    text-shadow: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-custom .modal-header .close:hover {
+    opacity: 1;
+}
+
+.modal-custom .modal-body {
+    padding: 1.5rem;
+}
+
+.modal-custom .modal-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 1rem 1.5rem;
+}
+
+.modal-custom .form-group label {
+    font-weight: 500;
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.modal-custom .form-group label i {
+    margin-right: 0.5rem;
+    color: var(--primary-color);
+}
+
+.modal-custom .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(58, 90, 138, 0.25);
+}
+
+.modal-delete .modal-header {
+    background-color: var(--danger);
+}
+
+.modal-delete .modal-body {
+    text-align: center;
+    padding: 2rem 1.5rem;
+}
+
+.modal-delete .warning-icon {
+    font-size: 3rem;
+    color: var(--danger);
+    margin-bottom: 1rem;
+}
+
+/* Estilos para la celda vacía */
+.empty-message {
+    text-align: center;
+    padding: 2rem;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Estilos para descripción truncada */
+.description-cell {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Animación para filas */
+.animate-row {
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}

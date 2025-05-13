@@ -30,6 +30,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="{{ asset('css/master.css') }}"> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -81,7 +82,7 @@
             <div class="sidebar">
                 <!-- Sidebar logo -->
                 <div class="sidebar-logo" style="padding-bottom: 5px; margin-bottom: 0; text-align: center;">
-                    <a href="">
+                    <a href="{{route ('pserenacefa.admin.welcome') }}">
                         <img src="{{ asset('img/serena.png') }}" alt="Logo" class="img-fluid" style="max-height: 150px; display: block; margin: auto;">
                     </a>
                 </div>
@@ -147,20 +148,20 @@
                             </ul>
                         </li>
 
-                        <!-- Gestion de Usuarios por rol -->
+                        <!-- Gestion de horarios a los ambientes -->
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
-                                <i class="fas fa-users nav-icon"></i>
+                                <i class="far fa-calendar-alt"></i>
                                 <p>
-                                    Gestion De Usuarios
+                                    Gestion De Horarios
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="fas fa-user-plus nav-icon"></i>
-                                        <p>Registrar Usuario</p>
+                                    <a href="{{ route('pserenacefa.admin.admin.createhorarios') }}" class="nav-link">
+                                        <i class="far fa-clock"></i>
+                                        <p>Asignar Horarios A Ambientes</p>
                                     </a>
                                 </li>
                             </ul>
