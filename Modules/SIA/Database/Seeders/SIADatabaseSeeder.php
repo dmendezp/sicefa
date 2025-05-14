@@ -24,6 +24,7 @@ class SIADatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class); // Ejecutar Seeder de usuarios
         $this->call(RolesTableSeeder::class); // Ejecutar Seeder de roles para usuarios
         $this->call(PermissionsTableSeeder::class); // Ejecutar Seeder de permisos para roles
+        $this->call(GroupsTableSeeder::class); // Ejecutar Seeder de grupos
 
         // Sección para pruebas de desarrollo
         /* $this->call(ProjectsTableSeeder::class); // Ejecutar Seeder de proyectos

@@ -10,7 +10,7 @@ use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\EPS;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Course;
-use Modules\SICA\Entities\Group;
+use Modules\SIA\Entities\Group;
 use Modules\SIA\Entities\Project;
 
 class ApprenticeResearcher extends Model
