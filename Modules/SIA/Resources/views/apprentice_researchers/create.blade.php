@@ -162,7 +162,7 @@
             <label for="group_id">Grupo</label>
             <select name="group_id" class="form-control @error('group_id') is-invalid @enderror" required>
                 <option value="">Seleccione un grupo</option>
-                @foreach (\Modules\SICA\Entities\Group::all() as $group)
+                @foreach (\Modules\SIA\Entities\Group::all() as $group)
                     <option value="{{ $group->id }}" {{ old('group_id') == $group->id ? 'selected' : '' }}>{{ $group->name }}</option>
                 @endforeach
             </select>
