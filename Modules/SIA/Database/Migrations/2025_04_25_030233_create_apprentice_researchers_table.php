@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateApprenticeResearchersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('program_id')->constrained('programs')->onDelete('cascade'); 
             $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
             $table->foreignId('group_id')->constrained('groups')->onDelete('cascade'); 
+
             $table->foreignId('project_id')->nullable()->constrained('projects')->onDelete('set null'); 
             $table->string('institution', 100)->nullable(); 
             $table->date('start_date'); 
