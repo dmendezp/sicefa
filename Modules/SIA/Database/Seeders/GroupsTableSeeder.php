@@ -7,12 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class GroupsTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
         $groups = [
             [

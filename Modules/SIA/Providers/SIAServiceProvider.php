@@ -24,10 +24,17 @@ class SIAServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerTranslations();
-        $this->registerConfig();
-        $this->registerViews();
-        $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+        // Cargar migraciones desde el directorio del módulo
+        $this->loadMigrationsFrom(module_path('SIA', 'Database/Migrations'));
+
+        // Cargar rutas desde Routes/web.php
+        $this->loadRoutesFrom(module_path('SIA', 'Routes/web.php'));
+
+        // Cargar vistas
+        $this->loadViewsFrom(module_path('SIA', 'Resources/views'), 'sia');
+
+        // Cargar traducciones
+        $this->loadTranslationsFrom(module_path('SIA', 'Resources/lang'), 'sia');
     }
 
     /**
