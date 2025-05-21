@@ -1,82 +1,43 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="{{ asset('images/Favicon2.png') }}" type="image/x-icon">
-    <title>Semillero de investigacion la angostura</title>
-    
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- OverlayScrollbars -->
-    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/adminlte.min.css') }}">
-    
-    <!-- Scripts cargados de forma diferida -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ trans('sia::mainPage.Title_General') }}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    @stack('head')
 </head>
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand navbar-dark">
-        <ul class="navbar-nav">
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="{{ route('login') }}" class="nav-link">Inicio</a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                @auth
-                    @if(Auth::check())
-                        @if(checkRol('agrosoft.admin'))
-                            <li class="nav-item d-none d-sm-inline-block" style="margin-right: 80px;">
-                                <a href="{{ route('agrosoft.admin.welcome') }}" 
-                                   class="nav-link @if(Route::is('agrosoft.admin.*')) active @endif">
-                                    Administrador
-                                </a>
-                            </li>
-                        @endif
-                    @endif
-                @endauth
-            </li>
-        </ul>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url('/') }}">S.I.A.</a>
+            <!-- Agrega enlaces de navegación según sea necesario -->
+        </div>
     </nav>
 
-    <!-- Contenido principal -->
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 text-center mt-5">
-                <h1 class="display-4">Bienvenid@ al semillero de investigacion la angostura</h1>
-                <p class="lead">
-                   
-                </p>
-                @auth
-                    <a href="{{ route('login') }}" class="btn btn-primary btn-lg mt-3">
-                        Iniciar Sesión
-                    </a>
-                @endauth
-            </div>
-        </div>
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url('/') }}">Inicio</a></li>
+                @stack('breadcrumbs')
+            </ol>
+        </nav>
+
+        @yield('content')
     </div>
 
-    <!-- Footer -->
-    <footer style="width: 100%; position: fixed; bottom: 0; left: 0; background-color: #343a40; color: white; padding: 10px 20px;">
-        <strong>Copyright &copy; 2023-2025 <a href="#" style="color: #3c8dbc;">GDF</a>.</strong> Todos los derechos reservados.
-        <div class="float-right d-none d-sm-inline-block">
-            <b>Versión</b> 3.2.0
-        </div>
-    </footer>
-
-    <!-- Scripts -->
-    <script src="{{ asset('AdminLTE/plugins/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('AdminLTE/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        $.widget.bridge('uibutton', $.ui.button);
+        AOS.init();
     </script>
-    <script src="{{ asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-    <script src="{{ asset('AdminLTE/dist/js/adminlte.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>

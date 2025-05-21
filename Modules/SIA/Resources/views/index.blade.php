@@ -2,7 +2,9 @@
 
 @push('head')
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMt23cez/3paNdF+Zl5Y5z5F5F5F5F5F5F5F5F5F5F5F5" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Revolution Slider CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/revslider/5.4.8/css/settings.min.css">
 @endpush
 
 @push('breadcrumbs')
@@ -18,42 +20,42 @@
                     <!-- Slide 1 -->
                     <li data-transition="zoomin" data-slotamount="default" data-easein="Power4.easeInOut"
                         data-easeout="Power4.easeInOut" data-masterspeed="2000">
-                        <img src="{{ asset('modules/cafeto/images/index/coffee.webp') }}" alt="Slide Background Image"
+                        <img src="{{ asset('modules/sia/images/index/research.webp') }}" alt="Investigación"
                             width="1920" height="1280" />
                         <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="-130"
                             data-whitespace="nowrap" data-width="none" data-height="none"
                             data-frames='[{"delay":1500,"speed":1000,"frame":"0","from":"y:-50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'>
-                            <div class="slide--subheadline">{{ trans('cafeto::mainPage.TitleWelcomeApp') }}</div>
+                            <div class="slide--subheadline">{{ trans('sia::mainPage.TitleWelcomeApp') }}</div>
                         </div>
                         <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="-65"
                             data-whitespace="nowrap" data-width="none" data-height="none"
                             data-frames='[{"delay":1750,"speed":1000,"frame":"0","from":"x:-50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'>
-                            <div class="slide--headline">{{ trans('cafeto::mainPage.TitleWelcome') }}</div>
+                            <div class="slide--headline">{{ trans('sia::mainPage.TitleWelcome') }}</div>
                         </div>
                         <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="100"
                             data-width="none" data-height="none" data-whitespace="nowrap"
                             data-frames='[{"delay":2000,"speed":1500,"frame":"0","from":"y:bottom;rX:-20deg;rY:-20deg;rZ:0deg;","to":"o:1;","ease":"Power3.easeOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'>
                             <div class="slide-action">
-                                <a class="btn btn--white btn--bordered btn--rounded btn--lg" href="#espresso-section"
-                                    id="scroll-to-section">{{ trans('cafeto::mainPage.ViewProducts') }}</a>
+                                <a class="btn btn--white btn--bordered btn--rounded btn--lg" href="#research-section"
+                                    id="scroll-to-section">{{ trans('sia::mainPage.ViewProjects') }}</a>
                             </div>
                         </div>
                     </li>
                     <!-- Slide 2 -->
                     <li data-transition="slideoverdown" data-slotamount="default" data-easein="Power4.easeInOut"
                         data-easeout="Power4.easeInOut" data-masterspeed="2000">
-                        <img src="{{ asset('modules/cafeto/images/index/coffee-2.webp') }}" alt="Slide Background Image"
+                        <img src="{{ asset('modules/sia/images/index/innovation.webp') }}" alt="Innovación"
                             width="1920" height="1280" />
                         <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="-130"
                             data-whitespace="nowrap" data-width="none" data-height="none"
                             data-frames='[{"delay":1500,"speed":1500,"frame":"0","from":"z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'>
-                            <div class="slide--subheadline">{{ trans('cafeto::mainPage.TitleInfoS2') }}</div>
+                            <div class="slide--subheadline">{{ trans('sia::mainPage.TitleInfoS2') }}</div>
                         </div>
                         <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="-65"
                             data-whitespace="nowrap" data-width="none" data-height="none"
                             data-frames='[{"delay":1750,"speed":1000,"frame":"0","from":"z:0;rX:0deg;rY:0;rZ:0;sX:2;sY:2;skX:0;skY:0;opacity:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'>
                             <div class="slide--headline extend">
-                                {{ trans('cafeto::mainPage.TextInfoS2') }}
+                                {{ trans('sia::mainPage.TextInfoS2') }}
                             </div>
                         </div>
                     </li>
@@ -76,33 +78,30 @@
                         </div>
                     </div>
                     <div class="d-flex flex-wrap justify-content-center mt-3">
-
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <h5 class="text-center">{{ trans('sia::mainPage.T_Item_Research') }}</h5>
                             <div class="card-projects mx-auto">
-                                <img src="{{ asset('modules/sia/images/cardsIndex/Research.webp') }}" alt="ResearchImage"
+                                <img src="{{ asset('modules/sia/images/cardsIndex/Research.webp') }}" alt="Investigación"
                                     class="card-img-top" width="180px" height="260px">
                                 <div class="card-body">
                                     <p class="card-text head">{{ trans('sia::mainPage.T_Name_Research') }}</p>
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <h5 class="text-center">{{ trans('sia::mainPage.T_Item_Events') }}</h5>
                             <div class="card-projects mx-auto">
-                                <img src="{{ asset('modules/sia/images/cardsIndex/Events.webp') }}" alt="EventsImage"
+                                <img src="{{ asset('modules/sia/images/cardsIndex/Events.webp') }}" alt="Eventos"
                                     class="card-img-top" width="140px" height="260px">
                                 <div class="card-body">
                                     <p class="card-text head">{{ trans('sia::mainPage.T_Name_Events') }}</p>
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <h5 class="text-center">{{ trans('sia::mainPage.T_Item_Resources') }}</h5>
                             <div class="card-projects mx-auto">
-                                <img src="{{ asset('modules/sia/images/cardsIndex/Resources.webp') }}" alt="ResourcesImage"
+                                <img src="{{ asset('modules/sia/images/cardsIndex/Resources.webp') }}" alt="Recursos"
                                     class="card-img-top" width="140px" height="260px">
                                 <div class="card-body">
                                     <p class="card-text head">{{ trans('sia::mainPage.T_Name_Resources') }}</p>
@@ -120,10 +119,10 @@
                         <div class="col-md-7 order-md-2">
                             <h3 class="featurette-heading">{{ trans('sia::mainPage.Title_Card_Advertising') }} <span
                                     class="text-muted">{{ trans('sia::mainPage.Title_Card_Advertising_pt2') }}</span></h3>
-                            <p class="lead">{{ trans('sia::mainPage.Description_Advertising') }} </p>
+                            <p class="lead">{{ trans('sia::mainPage.Description_Advertising') }}</p>
                         </div>
                         <div class="col-md-5 order-md-1">
-                            <img src="{{ asset('modules/sia/images/cardsIndex/Innovation.webp') }}" alt="InnovationImage"
+                            <img src="{{ asset('modules/sia/images/cardsIndex/Innovation.webp') }}" alt="Innovación"
                                 class="img-fluid" width="290" height="290">
                         </div>
                     </div>
@@ -140,7 +139,7 @@
                     <div class="container text-center">
                         <div class="row">
                             <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sia/images/developers/Developer1.webp') }}" alt="Developer1" width="140" height="140">
+                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sia/images/developers/Developer1.webp') }}" alt="Desarrollador 1" width="140" height="140">
                                 <h4>{{ trans('sia::mainPage.Description_Apprentice') }}</h4>
                                 <p>Jesús David Guevara Munar</p>
                                 <a class="btn btn-primary" href="https://www.linkedin.com/in/jdgm0331/">
@@ -154,7 +153,7 @@
                                 </a>
                             </div>
                             <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sia/images/developers/Developer2.webp') }}" alt="Developer2" width="140" height="140">
+                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sia/images/developers/Developer2.webp') }}" alt="Desarrollador 2" width="140" height="140">
                                 <h4>{{ trans('sia::mainPage.Description_Apprentice') }}</h4>
                                 <p>Manuel Steven Ossa Lievano</p>
                                 <a class="btn btn-primary" href="https://www.linkedin.com/in/manuel-steven-ossa-lievano-014b3b267/">
@@ -168,10 +167,10 @@
                                 </a>
                             </div>
                             <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sia/images/developers/Developer3.webp') }}" alt="Developer3" width="140" height="140">
+                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sia/images/developers/Developer3.webp') }}" alt="Desarrollador 3" width="140" height="140">
                                 <h4>{{ trans('sia::mainPage.Description_Apprentice') }}</h4>
                                 <p>Nelsy Yulied Gomez Morales</p>
-                                <a class="btn btn-primary" href="www.linkedin.com/in/nelsy-yulied-gomez-morales-5b1b37267">
+                                <a class="btn btn-primary" href="https://www.linkedin.com/in/nelsy-yulied-gomez-morales-5b1b37267">
                                     <i class="fab fa-linkedin-in"></i>
                                 </a>
                                 <a class="btn btn-dark" href="https://github.com/nelsygomez11">
@@ -179,7 +178,7 @@
                                 </a>
                             </div>
                             <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sia/images/developers/Developer4.webp') }}" alt="Developer4" width="140" height="140">
+                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sia/images/developers/Developer4.webp') }}" alt="Desarrollador 4" width="140" height="140">
                                 <h4>{{ trans('sia::mainPage.Description_Apprentice') }}</h4>
                                 <p>Anyi Katherine Rojas Arce</p>
                                 <a class="btn btn-primary" href="https://www.linkedin.com/in/anyi-rojas-25a003268/">
@@ -208,12 +207,26 @@
 @endsection
 
 @push('scripts')
+    <!-- Revolution Slider JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/revslider/5.4.8/js/jquery.themepunch.tools.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/revslider/5.4.8/js/jquery.themepunch.revolution.min.js"></script>
     <!-- Animación de scroll -->
     <script>
         $(document).ready(function() {
+            $("#slider1").revolution({
+                sliderType: "standard",
+                sliderLayout: "auto",
+                delay: 5000,
+                navigation: {
+                    arrows: { enable: true }
+                },
+                gridwidth: 1230,
+                gridheight: 720
+            });
+
             $("#scroll-to-section").click(function() {
                 $("html, body").animate({
-                    scrollTop: $("#espresso-section").offset().top
+                    scrollTop: $("#research-section").offset().top
                 }, 1000);
                 return false;
             });
