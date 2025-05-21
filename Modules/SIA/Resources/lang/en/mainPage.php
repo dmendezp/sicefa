@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'Breadcrumb_Active_Main' => 'Home',
+    'TitleWelcomeApp' => 'Welcome to S.I.A.',
+    'TitleWelcome' => 'Discover Our Research Platform',
+    'ViewProjects' => 'Explore Projects',
+    'TitleInfoS2' => 'Innovate with Us',
+    'TextInfoS2' => 'Join our community of researchers and innovators.',
+    'Title_General' => 'Academic Research System',
+    'Description_General' => 'Fostering innovation and knowledge creation.',
+    'Title_Card_Projects' => 'Our Projects',
+    'T_Item_Research' => 'Research',
+    'T_Name_Research' => 'Explore our research initiatives.',
+    'T_Item_Events' => 'Events',
+    'T_Name_Events' => 'Join our upcoming events.',
+    'T_Item_Resources' => 'Resources',
+    'T_Name_Resources' => 'Access our resources.',
+    'Title_Card_Advertising' => 'Innovate Today',
+    'Title_Card_Advertising_pt2' => 'Join Us',
+    'Description_Advertising' => 'Become part of our research community.',
+    'Title_Developers' => 'Meet Our Team',
+    'Description_Apprentice' => 'Developer Apprentice',
+    'View_Credits' => 'View Credits',
+];

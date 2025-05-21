@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'Breadcrumb_Active_Main' => 'Inicio',
+    'TitleWelcomeApp' => 'Bienvenido a S.I.A.',
+    'TitleWelcome' => 'Descubre Nuestra Plataforma de Investigación',
+    'ViewProjects' => 'Explorar Proyectos',
+    'TitleInfoS2' => 'Innava con Nosotros',
+    'TextInfoS2' => 'Únete a nuestra comunidad de investigadores e innovadores.',
+    'Title_General' => 'Sistema de Investigación Académica',
+    'Description_General' => 'Fomentando la innovación y la creación de conocimiento.',
+    'Title_Card_Projects' => 'Nuestros Proyectos',
+    'T_Item_Research' => 'Investigación',
+    'T_Name_Research' => 'Explora nuestras iniciativas de investigación.',
+    'T_Item_Events' => 'Eventos',
+    'T_Name_Events' => 'Únete a nuestros próximos eventos.',
+    'T_Item_Resources' => 'Recursos',
+    'T_Name_Resources' => 'Accede a nuestros recursos.',
+    'Title_Card_Advertising' => 'Innova Hoy',
+    'Title_Card_Advertising_pt2' => 'Únete',
+    'Description_Advertising' => 'Forma parte de nuestra comunidad de investigación.',
+    'Title_Developers' => 'Conoce a Nuestro Equipo',
+    'Description_Apprentice' => 'Aprendiz Desarrollador',
+    'View_Credits' => 'Ver Créditos',
+];
