@@ -1,4 +1,6 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
 use Modules\SIA\Http\Controllers\SIAController;
 use Modules\SIA\Http\Controllers\ApprenticeResearcherController;
 
@@ -9,19 +11,18 @@ use Modules\SIA\Http\Controllers\ApprenticeResearcherController;
 |
 | Aquí puedes registrar las rutas web para tu aplicación. Estas rutas
 | son cargadas por el RouteServiceProvider dentro de un grupo que
-| contiene el middleware "web". ¡Crea algo grandioso!
+| contiene el middleware "web".
 |
 */
-Route::prefix('sia')->group(function() {
-    Route::get('/', 'SIAController@index');
-});
 
 Route::middleware(['lang'])->prefix('sia')->group(function () {
     // Ruta principal del módulo SIA
-    Route::get('/index', [SIAController::class, 'index'])->name('cefa.sia.index');
+    Route::get('/', function () {
+        return view('sia::index');
+    })->name('sia.home')->name('home'); // Agregar nombre 'home'
 
     // Ruta para la vista de administrador
-    Route::get('/admin/..', [SIAController::class, 'admin'])->name('cefa.sia...');
+    Route::get('/admin', [SIAController::class, 'admin'])->name('sia.admin');
 });
 
 Route::prefix('apprentice_researchers')->name('sia.apprentice_researchers.')->middleware(['auth', 'role:administrator'])->group(function () {
