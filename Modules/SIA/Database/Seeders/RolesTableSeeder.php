@@ -42,7 +42,7 @@ class RolesTableSeeder extends Seeder
             'name' => 'Administrador',
             'description' => 'Rol administrador de la aplicación SIA',
             'description_english' => 'SIA application administrator role',
-            'full_access' => 'yes',
+            'full_access' => 'no',
             'app_id' => $app->id
         ]);
 
