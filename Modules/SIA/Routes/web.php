@@ -16,10 +16,16 @@ use Modules\SIA\Http\Controllers\ApprenticeResearcherController;
 */
 
 Route::middleware(['lang'])->prefix('sia')->group(function () {
+    // Ruta principal del módulo SIA
     Route::get('/', function () {
         return view('sia::index');
     })->name('sia.home')->name('home');
-});
+
+    // Ruta adicional para /sia/index
+    Route::get('/index', function () {
+        return view('sia::index');
+    })->name('sia.index');
+
     // Ruta para la vista de administrador
     Route::get('/admin', [SIAController::class, 'admin'])->name('sia.admin');
 });
