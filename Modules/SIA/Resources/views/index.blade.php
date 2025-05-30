@@ -10,24 +10,128 @@
     <!-- Revolution Slider CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/revslider/5.4.8/css/settings.min.css">
     <style>
+        /* Paleta de colores */
+        :root {
+            --azul-marino: #2C3E50;
+            --azul-claro: #3498DB;
+            --naranja: #E67E22;
+            --verde-oscuro: #16A085;
+            --gris-claro: #F8F9FA;
+            --gris-azulado: #34495E;
+        }
+
+        /* Estilos del carrusel */
+        .slider .slide--subheadline {
+            color: var(--azul-claro);
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+        .slider .slide--headline {
+            color: var(--azul-marino);
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        .slider .slide--headline.extend {
+            color: var(--naranja);
+        }
+        .slider .slide-action .btn--white {
+            background-color: var(--gris-claro);
+            color: var(--azul-marino);
+            border: 2px solid var(--azul-claro);
+        }
+        .slider .slide-action .btn--white:hover {
+            background-color: var(--azul-claro);
+            color: var(--gris-claro);
+        }
+
+        /* Estilos de la sección personalizada */
         .custom-section {
-            background-color: #f8f9fa;
+            background-color: var(--gris-claro);
             padding: 40px 0;
             text-align: center;
         }
         .custom-section h2 {
-            color: #2c3e50;
+            color: var(--azul-marino);
             font-weight: bold;
             margin-bottom: 10px;
         }
         .custom-section p {
-            color: #34495e;
+            color: var(--gris-azulado);
             font-size: 1.2rem;
             margin-bottom: 15px;
         }
-        .custom-section .highlight {
-            color: #e74c3c;
-            font-style: italic;
+
+        /* Estilos de títulos generales */
+        .display-5 {
+            color: var(--azul-marino);
+            font-weight: bold;
+        }
+        h5[data-aos="fade-down"] {
+            color: var(--gris-azulado);
+        }
+
+        /* Estilos de las tarjetas */
+        .card {
+            border: 1px solid var(--azul-claro);
+            background-color: var(--gris-claro);
+        }
+        .card h5, .card h3 {
+            color: var(--azul-marino);
+        }
+        .card .card-text.head {
+            color: var(--gris-azulado);
+        }
+        .featurette-heading {
+            color: var(--azul-marino);
+        }
+        .featurette-heading .text-muted {
+            color: var(--gris-azulado) !important;
+        }
+        .card .lead {
+            color: var(--gris-azulado);
+        }
+
+        /* Estilos de la sección de desarrolladores */
+        .card h4 {
+            color: var(--azul-marino);
+        }
+        .card p {
+            color: var(--gris-azulado);
+        }
+        .btn-primary {
+            background-color: var(--azul-claro);
+            border-color: var(--azul-claro);
+        }
+        .btn-primary:hover {
+            background-color: var(--azul-marino);
+            border-color: var(--azul-marino);
+        }
+        .btn-dark {
+            background-color: var(--gris-azulado);
+            border-color: var(--gris-azulado);
+        }
+        .btn-dark:hover {
+            background-color: var(--azul-marino);
+            border-color: var(--azul-marino);
+        }
+        .custom-instagram-btn {
+            background-color: var(--verde-oscuro);
+            border-color: var(--verde-oscuro);
+        }
+        .custom-instagram-btn:hover {
+            background-color: var(--azul-marino);
+            border-color: var(--azul-marino);
+        }
+        .custom-twitter-btn {
+            background-color: var(--naranja);
+            border-color: var(--naranja);
+        }
+        .custom-twitter-btn:hover {
+            background-color: var(--azul-marino);
+            border-color: var(--azul-marino);
+        }
+        .animated-icon {
+            color: var(--azul-claro);
         }
     </style>
 @endpush
@@ -156,13 +260,13 @@
         </div>
     </div>
 
-    <!-- Nueva sección centrada con colores -->
+    <!-- Sección centrada con colores -->
     <section class="custom-section">
         <h2>Investigación</h2>
-        <h2 style="color: #3498db;">Bienvenido a S.I.A.</h2>
+        <h2 style="color: var(--azul-claro);">Bienvenido a S.I.A.</h2>
         <p>Descubre Nuestra Plataforma de Investigación</p>
-        <h2 style="color: #e67e22;">Innovación</h2>
-        <p style="color: #16a085;">Innava con Nosotros</p>
+        <h2 style="color: var(--naranja);">Innovación</h2>
+        <p style="color: var(--verde-oscuro);">Innava con Nosotros</p>
         <p>Únete a nuestra comunidad de investigadores e innovadores.</p>
     </section>
 
