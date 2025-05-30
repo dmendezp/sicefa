@@ -9,12 +9,57 @@
     <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @stack('head')
+    <style>
+        :root {
+            --azul-marino: #2C3E50;
+            --azul-claro: #3498DB;
+            --naranja: #E67E22;
+            --verde-oscuro: #16A085;
+            --gris-claro: #F8F9FA;
+            --gris-azulado: #34495E;
+        }
+        .navbar {
+            background-color: var(--gris-claro);
+        }
+        .navbar-brand {
+            color: var(--azul-marino) !important;
+            font-weight: bold;
+        }
+        .navbar-brand:hover {
+            color: var(--azul-claro) !important;
+        }
+        .breadcrumb-item a {
+            color: var(--azul-claro);
+        }
+        .breadcrumb-item a:hover {
+            color: var(--azul-marino);
+        }
+        .btn-login {
+            background-color: var(--azul-claro);
+            border-color: var(--azul-claro);
+            color: #fff;
+        }
+        .btn-login:hover {
+            background-color: var(--azul-marino);
+            border-color: var(--azul-marino);
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">S.I.A.</a>
-            <!-- Agrega enlaces de navegación según sea necesario -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-login" href="{{ route('login') }}">{{ trans('sia::mainPage.Login') }}</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
