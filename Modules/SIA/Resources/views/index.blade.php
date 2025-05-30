@@ -1,3 +1,7 @@
+@php
+    use Modules\SIA\Entities\ApprenticeResearcher;
+@endphp
+
 @extends('sia::layouts.master')
 
 @push('head')
@@ -5,6 +9,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Revolution Slider CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/revslider/5.4.8/css/settings.min.css">
+    <style>
+        .custom-section {
+            background-color: #f8f9fa;
+            padding: 40px 0;
+            text-align: center;
+        }
+        .custom-section h2 {
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .custom-section p {
+            color: #34495e;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        .custom-section .highlight {
+            color: #e74c3c;
+            font-style: italic;
+        }
+    </style>
 @endpush
 
 @push('breadcrumbs')
@@ -130,6 +155,16 @@
             </div>
         </div>
     </div>
+
+    <!-- Nueva sección centrada con colores -->
+    <section class="custom-section">
+        <h2>Investigación</h2>
+        <h2 style="color: #3498db;">Bienvenido a S.I.A.</h2>
+        <p>Descubre Nuestra Plataforma de Investigación</p>
+        <h2 style="color: #e67e22;">Innovación</h2>
+        <p style="color: #16a085;">Innava con Nosotros</p>
+        <p>Únete a nuestra comunidad de investigadores e innovadores.</p>
+    </section>
 
     <div class="row">
         <div class="col-md-12">
