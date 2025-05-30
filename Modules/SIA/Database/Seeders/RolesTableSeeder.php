@@ -4,6 +4,7 @@ namespace Modules\SIA\Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\Role;
 
