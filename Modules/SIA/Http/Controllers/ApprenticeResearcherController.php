@@ -3,6 +3,7 @@
 namespace Modules\SIA\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller; // Importar Controller correctamente
 use App\Models\User;
 use Modules\SICA\Entities\Person;
 use Modules\SIA\Entities\ApprenticeResearcher;
