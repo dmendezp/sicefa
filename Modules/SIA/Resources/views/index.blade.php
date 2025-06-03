@@ -194,6 +194,17 @@
     </section>
     <!-- Fin del carrusel -->
 
+    <!-- Botón para el Panel de Administrador -->
+    @if(auth()->check())
+        @if(auth()->user()->hasPermissionTo('sia.admin.index'))
+            <a href="{{ route('sia.admin.dashboard') }}" class="btn btn-primary">
+                <i class="fas fa-user-shield"></i> Panel de Administrador
+            </a>
+        @endif
+    @else
+        <p>Por favor, <a href="{{ route('login') }}">inicia sesión</a> para acceder a funcionalidades adicionales.</p>
+    @endif
+
     <h5 class="display-5">{{ trans('sia::mainPage.Title_General') }}</h5>
     <h5 data-aos="fade-down">{{ trans('sia::mainPage.Description_General') }}</h5>
 
@@ -280,7 +291,7 @@
                             <div class="col-lg-3 mb-4" data-aos="zoom-in">
                                 <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sia/images/developers/Developer1.webp') }}" alt="Desarrollador 1" width="140" height="140">
                                 <h4>{{ trans('sia::mainPage.Description_Apprentice') }}</h4>
-                                <p>Jesús David Guevara Munar</p>
+                                <p>Jonathan Valderrama Cortes</p>
                                 <a class="btn btn-primary" href="https://www.linkedin.com/in/jdgm0331/">
                                     <i class="fab fa-linkedin-in"></i>
                                 </a>
@@ -294,7 +305,7 @@
                             <div class="col-lg-3 mb-4" data-aos="zoom-in">
                                 <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sia/images/developers/Developer2.webp') }}" alt="Desarrollador 2" width="140" height="140">
                                 <h4>{{ trans('sia::mainPage.Description_Apprentice') }}</h4>
-                                <p>Manuel Steven Ossa Lievano</p>
+                                <p>Nicolas Estiven Soriano Polania</p>
                                 <a class="btn btn-primary" href="https://www.linkedin.com/in/manuel-steven-ossa-lievano-014b3b267/">
                                     <i class="fab fa-linkedin-in"></i>
                                 </a>
@@ -308,26 +319,12 @@
                             <div class="col-lg-3 mb-4" data-aos="zoom-in">
                                 <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sia/images/developers/Developer3.webp') }}" alt="Desarrollador 3" width="140" height="140">
                                 <h4>{{ trans('sia::mainPage.Description_Apprentice') }}</h4>
-                                <p>Nelsy Yulied Gomez Morales</p>
+                                <p>Manuel Esteban Corredo Ortiz</p>
                                 <a class="btn btn-primary" href="https://www.linkedin.com/in/nelsy-yulied-gomez-morales-5b1b37267">
                                     <i class="fab fa-linkedin-in"></i>
                                 </a>
                                 <a class="btn btn-dark" href="https://github.com/nelsygomez11">
                                     <i class="fab fa-github"></i>
-                                </a>
-                            </div>
-                            <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sia/images/developers/Developer4.webp') }}" alt="Desarrollador 4" width="140" height="140">
-                                <h4>{{ trans('sia::mainPage.Description_Apprentice') }}</h4>
-                                <p>Anyi Katherine Rojas Arce</p>
-                                <a class="btn btn-primary" href="https://www.linkedin.com/in/anyi-rojas-25a003268/">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a class="btn btn-dark" href="https://github.com/anyi-rojas">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a class="btn btn-info custom-twitter-btn" href="https://twitter.com/AnyiRojas0">
-                                    <i class="fa-brands fa-twitter"></i>
                                 </a>
                             </div>
                         </div>

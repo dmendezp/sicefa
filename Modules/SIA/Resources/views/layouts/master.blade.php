@@ -9,6 +9,8 @@
     <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @stack('head')
+    <!-- meta tags para el token CSRF -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
         :root {
             --azul-marino: #2C3E50;
