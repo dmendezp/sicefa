@@ -11,7 +11,10 @@ class EnvironmentInstructorProgram extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'instructor_program_id',
+        'environment_id'
+    ];
     
     protected static function newFactory()
     {

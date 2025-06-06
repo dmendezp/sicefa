@@ -109,7 +109,7 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             // Fechas
             Route::get('academic_coordination/programming/dates', 'dates_index')->name('sigac.academic_coordination.programming.dates_index'); // Programación de horarios (Coordinación Académica)
             Route::post('academic_coordination/programming/dates/store_dates', 'store_dates')->name('sigac.academic_coordination.profession.dates_index.store_dates'); // Eliminar profesion (Coordinación Académica)
-            
+
             // Solicitud de Programa
             Route::get('instructor/programming/program_request/table', 'program_request_table')->name('sigac.instructor.programming.program_request.table'); // Solicitud de programa (Instructor)
             Route::get('academic_coordination/programming/program_request/table', 'program_request_table')->name('sigac.academic_coordination.programming.program_request.table'); // Solicitud de programa (Coordinación Académica)
@@ -286,14 +286,49 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
 
             // ---------------- Consultar disponibilidad de ambientes --------------------
             Route::get('academic_coordination/reports/environments/index', 'environments_index')->name('sigac.academic_coordination.reports.environments.index'); // Ambientes (Coordinación Académica)
-            Route::post('academic_coordination/reports/environments/search', 'environments_search')->name('sigac.academic_coordination.reports.environments.search'); // Consultar ambientes (Coordinación Académica)
+            Route::post('academic_coordination/reports/environments/search', 'environments_search')->name('sigac.academic_coordination.reports.environments.search'); // Consultar datos de instructores (Coordinación Académica)
             Route::get('academic_coordination/reports/environments/search_person', 'search_person')->name('sigac.academic_coordination.reports.environments.search_person'); // Buscar personas (Coordinación Académica)
             Route::post('academic_coordination/reports/environments/institucional_request_store', 'institucional_request_store')->name('sigac.academic_coordination.reports.environments.institucional_request_store'); // Guardar reprogramacion (Coordinación Académica)
             
             Route::get('academic_coordination/reports/active_courses/index', 'active_courses_index')->name('sigac.academic_coordination.reports.active_courses.index'); // Ambientes (Coordinación Académica)
             Route::post('academic_coordination/reports/active_courses/search', 'active_courses_search')->name('sigac.academic_coordination.reports.active_courses.search'); // Consultar ambientes (Coordinación Académica)
-
         });
 
+        Route::controller(CommitteeController::class)->group(function () {
+
+            // Faltas Cometidas
+            Route::get('academic_coordination/committee/missing/index', 'missing_index')->name('sigac.academic_coordination.committee.missing.index'); // Registrar programa especial (Cordinacion Academica)
+            Route::post('academic_coordination/committee/missing/store', 'missing_store')->name('sigac.academic_coordination.committee.missing.store'); // Registrar programa especial (Cordinacion Academica)
+            Route::post('academic_coordination/committee/missing/update', 'missing_update')->name('sigac.academic_coordination.committee.missing.update'); // Registrar programa especial (Cordinacion Academica)
+            Route::delete('academic_coordination/committee/missing/destroy/{id}', 'missing_destroy')->name('sigac.academic_coordination.committee.missing.destroy'); // Registrar programa especial (Cordinacion Academica)
+
+            Route::get('instructor/committee/novelty/index', 'novelty_index')->name('sigac.academic_coordination.committee.novelty.index'); // Formulario de reporte de novedad (Instructor)
+            Route::get('instructor/committee/novelty/create', 'novelty_create')->name('sigac.instructor.committee.novelty.create'); // Formulario de reporte de novedad (Instructor)
+            Route::post('instructor/committee/novelty/store', 'novelty_store')->name('sigac.instructor.committee.novelty.store'); // Registrar la novedad del aprendiz (Instructor)
+            Route::get('committee/searchapprentice', 'searchapprentice')->name('sigac.committee.searchapprentice'); // Buscar aprendiz
+            Route::get('committee/searchmissing', 'searchmissing')->name('sigac.committee.searchmissing'); // Buscar falta
+            Route::get('committee/searchlearning', 'searchlearning')->name('sigac.committee.searchlearning'); // Buscar aprendiz
+
+            Route::get('academic_coordination/committee/create/{id}', 'committee_create')->name('sigac.academic_coordination.committee.create'); // Buscar aprendiz
+            Route::get('committee/searchperson', 'searchperson')->name('sigac.committee.searchperson'); // Buscar aprendiz
+            Route::get('academic_coordination/committee/answer/create/{id}', 'answer_create')->name('sigac.academic_coordination.committee.answer.create'); // Buscar aprendiz
+            Route::post('academic_coordination/committee/answer/store', 'answer_store')->name('sigac.academic_coordination.committee.answer.store'); // Buscar aprendiz
+            Route::post('academic_coordination/committee/store', 'committee_store')->name('sigac.academic_coordination.committee.store'); // Buscar aprendiz
+
+            Route::get('instructor/committee/report/consult', 'committee_consult')->name('sigac.instructor.committee.report.consult'); // Buscar aprendiz
+            Route::post('instructor/committee/report/result', 'committee_result')->name('sigac.instructor.committee.report.result'); // Buscar aprendiz
+            Route::get('academic_coordination/committee/report/consult', 'committee_consult')->name('sigac.academic_coordination.committee.report.consult'); // Buscar aprendiz
+            Route::post('academic_coordination/committee/report/result', 'committee_result')->name('sigac.academic_coordination.committee.report.result'); // Buscar aprendiz
+        });
+
+        // Rutas para control de ambientes
+        Route::controller(EnvironmentControlController::class)->group(function () {
+            // 
+            Route::get('academic_coordination/environment_control/authorized_personnels/index', 'authorized_index')->name('sigac.academic_coordination.environment_control.authorized_personnels.authorized_index');
+            Route::post('academic_coordination/environment_control/authorized_personnels/store', 'authorized_store')->name('sigac.academic_coordination.environment_control.authorized_personnels.authorized_store');
+            Route::delete('academic_coordination/environment_control/authorized_personnels/delete/{id}', 'authorized_destroy')->name('sigac.academic_coordination.environment_control.authorized_personnels.authorized_destroy');
+            Route::get('academic_coordination/environment_control/authorized_personnels/search', 'searchperson')->name('sigac.academic_coordination.environment_control.authorized_personnels.searchperson');
+
+        });
     });
 });

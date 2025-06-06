@@ -47,5 +47,8 @@ class Role extends Model implements Auditable
     public function users(){ // Accede todos los usuarios que pertenecen a este rol (PIVOTE)
         return $this->belongsToMany(User::class)->withTimestamps();
     }
+    public function people(){ 
+        return $this->belongsToMany(Person::class)->withTimestamps();
+    }
 
 }

@@ -195,6 +195,42 @@ class ReportController extends Controller
 
     public function environments_search(Request $request){
         $day = $request->day;
+        $currentTime = Carbon::now()->format('H:i:s');
+        
+        $instructor_program = InstructorProgram::where('date', $day)
+        ->where('start_time', '<=', $currentTime)
+        ->where('end_time', '>=', $currentTime)    
+        ->join('environment_instructor_programs', 'instructor_programs.id', '=', 'environment_instructor_programs.instructor_program_id')
+        ->pluck('environment_instructor_programs.environment_id')
+        ->toArray();
+        
+        $environments = Environment::pluck('id')->toArray();
+
+        $available_environment_ids = array_diff($environments, $instructor_program);
+
+        $available_environments = Environment::with('environment_instructor_programs.instructor_program')->whereIn('id', $available_environment_ids)->orderByRaw('LENGTH(name), name')->get();
+
+        $instructor_program_day = InstructorProgram::with('environment_instructor_programs.environment')
+        ->where('date', $day)
+        ->where('start_time', '<=', $currentTime)
+        ->where('end_time', '>=', $currentTime)    
+        ->get();
+
+        return view('sigac::reports.environments.table_available')->with([
+            'available_environments' => $available_environments,
+            'instructor_program' => $instructor_program_day    
+        ]);
+    }
+
+    public function environments_index(){
+        return view('sigac::reports.environments.index')->with([
+            'titlePage' => 'Consultar disponibilidad de ambientes',
+            'titleView' => 'Consultar disponibilidad de ambientes',          
+        ]);
+    }
+
+    public function environments_search2(Request $request){
+        $day = $request->day;
 
         $instructor_program = InstructorProgram::with('environment_instructor_programs.environment', 'instructor_program_people.person')
         ->where('date', $day)
@@ -318,7 +354,6 @@ class ReportController extends Controller
             ]);
         }
 
-
-       
     }
+
 }
