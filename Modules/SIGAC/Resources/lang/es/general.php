@@ -8,6 +8,7 @@ return [
     'Wellness'             => 'Bienestar',
     'Apprentice'           => 'Aprendiz',
     'Support'              => 'Apoyo',
+    'Securitystaff'        => 'Personal Seguridad',
     'Log In'               => 'Iniciar Sesión',
     'Internacionalization' => 'Internacionalización',
     'English'              => 'Inglés',

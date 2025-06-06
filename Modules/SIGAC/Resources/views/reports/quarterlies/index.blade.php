@@ -1,4 +1,37 @@
 @extends('sigac::layouts.master')
+
+@push('head')
+    <style>
+        /* Aplica posición sticky a ambas filas del encabezado */
+        table thead tr:first-child th {
+            position: sticky;
+            top: 0; /* Para la primera fila */
+            background-color: rgb(228, 228, 228);
+            z-index: 15;
+        }
+
+        table thead tr:nth-child(2) th {
+            position: sticky;
+            top: 50px; /* Ajusta este valor para que coincida con la altura de la primera fila */
+            background-color: rgb(219, 219, 219) !important;
+            z-index: 10;
+            border-bottom: 2px solid #ddd; /* Mejora la separación visual */
+        }
+
+        /* Opcional: Para agregar un borde inferior a la fila sticky y mejorar la visibilidad */
+        table thead th {
+            border-bottom: 2px solid #ddd;
+        }
+
+        /* Asegura que la tabla use todo el ancho disponible */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            overflow-x: auto;
+        }
+    </style>
+@endpush
+
 @section('content')
     <div class="content">
         <div class="container-fluid">
@@ -40,6 +73,9 @@
     $(document).ready(function() {
         $('#course_id').on('change', function () {
             var course_id = $('#course_id').val();
+            var url = {!! json_encode(route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.reports.quartelies.search', ['course_id' => ':course_id'])) !!}.replace(':course_id', course_id);
+            
+            console.log(url);
             $.ajax({
                     type: 'POST',
                     url: "{{ route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.reports.quartelies.search') }}",

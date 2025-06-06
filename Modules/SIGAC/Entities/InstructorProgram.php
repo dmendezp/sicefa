@@ -16,7 +16,7 @@ class InstructorProgram extends Model implements Auditable
     use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     use HasFactory;
 
-    protected $fillable = ['course_id','state','date','quarter_number','start_time','end_time'];
+    protected $fillable = ['course_id','activity_name','activity_description','date','start_time','end_time','quarter_number','state','modality'];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 
@@ -35,6 +35,9 @@ class InstructorProgram extends Model implements Auditable
     public function course()
     {
         return $this->belongsTo(Course::class);
+    }
+    public function instructor_program_novelties(){
+        return $this->hasMany(InstructorProgramNovelty::class);
     }
     public function instructor_program_people()
     {

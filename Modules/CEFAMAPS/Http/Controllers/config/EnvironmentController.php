@@ -264,9 +264,13 @@ class EnvironmentController extends Controller
         // Obtener los ambientes asociados a la unidad productiva mediante la relación
         $viewenvironments = ProductiveUnit::findOrFail($id)
         ->environment_productive_units()
+        ->whereHas('environment', function ($query){
+            $query->whereNull('deleted_at');
+        })
         ->with('environment') // Cargar la relación con el ambiente
         ->get()
         ->pluck('environment'); // Obtener solo los ambientes
+
         $sector = Sector::get();
         $classenviron = ClassEnvironment::get();
         $unit = ProductiveUnit::where('id',$id)->get();

@@ -1,4 +1,3 @@
-<head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,8 +8,6 @@
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/cssunidades.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/storer/styleinvb.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/styleindex.css')}}">
-       <link rel="stylesheet" href="{{asset('modules/agroindustria/css/navbar.css')}}">
-       <link rel="stylesheet" href="{{asset('modules/agroindustria/css/styleU.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/productos.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/styleFormulation.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/styleRequest.css')}}">
@@ -20,6 +17,30 @@
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/deliveries.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/storer/inventory.css')}}">
        <meta name="csrf-token" content="{{ csrf_token() }}">
+       <link rel="stylesheet" href="{{ asset('modules/agroindustria/css/stylesGeneral.css') }}">
+       <link rel="stylesheet" href="{{ asset('modules/agroindustria/css/customStyles.css') }}">
+       <link rel="stylesheet" href="{{ asset('modules/agroindustria/css/googlefonts.css') }}">
+
+       <!-- Google Font: Source Sans Pro -->
+       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+       <!--  Iconos de Font Awesome versión 6 -->
+       <link rel="stylesheet" href="{{ asset('libs/Fontawesome6/css/all.min.css') }}">
+       <!-- Theme style -->
+       <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/adminlte.min.css') }}">
+       <link rel="stylesheet" href="{{ asset('libs/Bootstrap-5.3.0-alpha/css/bootstrap.min.css') }}">
+       <!-- DataTables -->
+       <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+       <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+       <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+       <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+       <!-- Implementacion de la libreria AOS -->
+       <link href="{{ asset('libs/AOS-2.3.1/dist/aos.css') }}" rel="stylesheet">
+       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+           <!-- Select2 -->
+       <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/select2/css/select2.min.css') }}">
+       <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+       <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -29,11 +50,4 @@
        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
 
         {{-- Scripts que deben ser iniciados en el head para que sirvan sus funcionalidades--}}
-        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        

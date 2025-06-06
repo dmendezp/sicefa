@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="container-fluid">
-        <h1 class="mb-4"> Consultar Postulacion <i class="fas fa-search"></i></h1>
+        <h1 class="mb-4">{{ trans('bienestar::consult.Consult_postulation') }}<i class="fas fa-search"></i></h1>
         <div class="row justify-content-md-center pt-4">
             <div class="card shadow col-md-8">
                 <div class="card-body">

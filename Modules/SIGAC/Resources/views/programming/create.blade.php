@@ -126,7 +126,7 @@
 
                             <div class="col-2">
                                 <div class="form-group">
-                                    {!! Form::number('hour[]', null, ['class' => 'form-control', 'required']) !!}
+                                    {!! Form::number('hour[]', null, ['class' => 'form-control', 'id' => 'hour', 'required']) !!}
                                 </div>
                             </div>
                             <div class="col-2">
@@ -159,28 +159,35 @@
                             </div>
                         </div>
                     </div>
-                    {!! Form::label('environmentlabel', 'Ambiente') !!}
+                    
                     <div id="environments_container">
+                        {!! Form::label('environmentlabel', 'Ambiente') !!}
                         <!-- Campo de selección de ambiente -->
                         <div class="row align-items-center environment_row">
-                            <div class="col-8">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <div class="input-select">
                                         {!! Form::select('environment[]', [], old('environment[]'), [
-                                            'class' => 'form-control select2 environments',
-                                            'required',
+                                            'class' => 'form-control select2 environments'
                                         ]) !!}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-2">
                                 <div class="form-group">
                                     <button type="button" class="btn btn-primary add_environment"><i
                                             class="fas fa-plus"></i></button>
                                 </div>
                             </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    {!! Form::checkbox('modality', 1, null, ['id' => 'modality']) !!}
+                                    {!! Form::label('modality', 'Medios tecnologicos') !!}
+                                </div>
+                            </div>
                         </div>
                     </div>
+                        
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
@@ -255,8 +262,19 @@
     crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() {
+
         $('#course').select2(); // Inicializa el campo course como select2
         $('#quaterlie').hide(); // Ocultar trimestralizacion
+
+        $('#modality').on('change', function(){
+            var modality = $(this).is(':checked');
+
+            if (modality) {
+                $('.environments').prop('disabled', true);
+            } else {
+                $('.environments').prop('disabled', false);
+            }
+        });
 
         $('#course').change(function() {
             var course_id = $('#course').val();
@@ -270,6 +288,7 @@
                 },
                 success: function(data) {
                     var quarter_number = $('#quarter_number');
+                    console.log(data.modality);
 
                     quarter_number.empty();
                     quarter_number.append(new Option('Seleccione el trimestre', ''));
@@ -277,6 +296,13 @@
                     $.each(data.results, function(index, result) {
                         quarter_number.append(new Option(result, result));
                     });
+
+                    if(data.modality == 'Virtual'){
+                        $('#environments_container').hide();
+                    }else{
+                        $('#environments_container').show();
+                    }
+
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
@@ -285,6 +311,8 @@
 
         });
 
+        var plannedHoursMap = {};
+        var learningOutcomeMap = {};
 
         $('#quarter_number').on('change', function() {
             var course_id = $('#course').val();
@@ -302,11 +330,45 @@
                         // Construye el HTML con la información recibida
                         $('#quaterlie').show(); // Mostrar trimestralizacion
                         var html = '';
+
+                        $.each(response.outcomes_not_programming, function(competencie_pass, results_pass) {
+                            html += '<h6><b>' + competencie_pass + ' - No programado</b></h6><ul>';
+                            $.each(results_pass, function(index, result_pass) {
+                                var totalHours = 0;
+                                if (result_pass.learning_outcome.instructor_program_outcomes.length > 0) {
+                                    // Asumimos que si hay outcomes, estamos verificando si ha sido "ejecutado"
+                                    let ejecutado = false;
+                                    result_pass.learning_outcome.instructor_program_outcomes.forEach((outcome) => {
+                                        // Verificamos si instructor_program existe y si coincide con el course_id
+                                        if (outcome.instructor_program && outcome.instructor_program.course_id == course_id) {
+                                            ejecutado = true;  // Marcamos que ha sido ejecutado
+                                            totalHours = result_pass.hour - outcome.hour; // Restamos horas planeadas menos ejecutadas
+                                        }
+                                    });
+
+                                    // Si no se encuentra ningún resultado ejecutado
+                                    if (!ejecutado) {
+                                        totalHours = result_pass.hour;  // Si no ha sido ejecutado, mostramos horas planeadas
+                                    }
+                                } else {
+                                    // Si no hay resultados de aprendizaje ejecutados, ponemos las horas planeadas
+                                    totalHours = result_pass.hour;
+                                }
+                                console.log(totalHours);
+
+                                html += '<li>' + result_pass.learning_outcome.name + '<strong> Horas restantes: </strong>' + totalHours + ' - <strong>Trimestre: </strong>'+ result_pass.quarter_number +'</li>';
+                                plannedHoursMap[result_pass.learning_outcome.id] = result_pass.hour;
+                                learningOutcomeMap[result_pass.learning_outcome.id] = result_pass.learning_outcome.name;
+                            });
+                            html += '</ul>';
+                        });
+
                         $.each(response.quarterlie, function(competencie, results) {
                             html += '<h6><b>' + competencie + '</b></h6><ul>';
                             $.each(results, function(index, result) {
-                                html += '<li>' + result.learning_outcome
-                                    .name + '</li>';
+                                html += '<li>' + result.learning_outcome.name + '<strong> Horas: </strong>' + result.hour + '</li>';
+                                plannedHoursMap[result.learning_outcome.id] = result.hour;
+                                learningOutcomeMap[result.learning_outcome.id] = result.learning_outcome.name;
                             });
                             html += '</ul>';
                         });
@@ -324,61 +386,27 @@
 
             }
         });
-        $('.learning_outcome_select').on('change', function() {
-            var learning_outcome_id = $(this).val();
+
+        $('#learning_outcomes_container').on('input', 'input[name="hour[]"]', function() {
+            var inputHour = $(this).val(); // Obtener la hora ingresada
+            var row = $(this).closest('.learning_outcomes_row'); // Obtener la fila asociada al input
+            var learning_outcome_id = row.find('.learning_outcome_select').val(); // Obtener el resultado de aprendizaje seleccionado
+            
             if (learning_outcome_id) {
+                var plannedHour = plannedHoursMap[learning_outcome_id]; // Obtener la hora planeada del mapa
+                var learningOutcome = learningOutcomeMap[learning_outcome_id];
 
-                // Obtener instructor para el nuevo select
-                getInstructorForNewRow();
-
-                // Obtener ambientes para el nuevo select
-                getEnvironmentForNewRow();
-
-                $.ajax({
-                    url: '{{ route('sigac.academic_coordination.programming.management.filterstatelearning') }}',
-                    method: 'GET',
-                    data: {
-                        learning_outcome_id: learning_outcome_id,
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        if (response.status === 'Programado') {
-                            var scheduledInfo = response.scheduled_info;
-                            var message =
-                                '<p>El resultado de aprendizaje está programado. Detalles:</p><ul>';
-                            scheduledInfo.forEach(function(info) {
-                                var startTimeParts = info.start_time.split(':');
-                                var endTimeParts = info.end_time.split(':');
-                                var startHours = parseInt(startTimeParts[0], 10);
-                                var startMinutes = parseInt(startTimeParts[1], 10);
-                                var endHours = parseInt(endTimeParts[0], 10);
-                                var endMinutes = parseInt(endTimeParts[1], 10);
-                                var durationHours = endHours - startHours;
-                                var durationMinutes = endMinutes - startMinutes;
-                                if (durationMinutes < 0) {
-                                    durationHours--;
-                                    durationMinutes += 60;
-                                }
-                                message += '<li><strong>Fecha:</strong> ' + info
-                                    .date + ', <strong>Duración:</strong> ' +
-                                    durationHours + ' horas ' + durationMinutes +
-                                    ' minutos</li>';
-                            });
-                            message += '</ul>';
-                            Swal.fire({
-                                icon: 'info',
-                                title: 'Información',
-                                html: message,
-                            });
-                        } else {}
-                    },
-                    error: function() {
-                        console.error('Error en la solicitud AJAX');
-                    }
-                });
-
-            } else {
-
+                // Comparar las horas ingresadas con las horas planeadas
+                if (inputHour && plannedHour && inputHour > plannedHour) {
+                    var message = '<p>La hora registrada es mayor que la programada para el resultado de aprendizaje seleccionado.</p>';
+                    message += '<p><strong>'+ learningOutcome +'</strong></p>'
+                    message += '<p><strong>Horas planeadas: </strong>' + plannedHour + ' <strong>Horas registradas: </strong> ' + inputHour + '</p>';
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Advertencia',
+                        html: message,
+                    });
+                }
             }
         });
 
@@ -396,7 +424,7 @@
                     </div>
                     <div class="col-2">
                             <div class="form-group">
-                                {!! Form::number('hour[]', null, ['class' => 'form-control', 'required']) !!}
+                                {!! Form::number('hour[]', null, ['class' => 'form-control', 'id' => 'hour', 'required']) !!}
                             </div>
                         </div>
                     <div class="col-2">
@@ -411,6 +439,77 @@
 
             // Obtener resultados de aprendizaje para el nuevo select
             getLearningOutcomesForNewRow();
+        });
+
+
+        $('.learning_outcome_select').on('change', function() {
+            var learning_outcome_id = $(this).val();
+            var course_id = $('#course').val();
+
+            if (learning_outcome_id) {
+                
+                // Obtener instructor para el nuevo select
+                getInstructorForNewRow();
+
+                // Obtener ambientes para el nuevo select
+                getEnvironmentForNewRow();
+
+                $.ajax({
+                    url: '{{ route('sigac.academic_coordination.programming.management.filterstatelearning') }}',
+                    method: 'GET',
+                    data: {
+                        learning_outcome_id: learning_outcome_id,
+                        course_id: course_id,
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if (response.status === 'Programado') {
+                            var scheduledInfo = response.scheduled_info;
+
+                            var totalHours = 0;
+                            var totalMinutes = 0;
+                            var message =
+                                '<p>El resultado de aprendizaje está programado. Detalles:</p><ul>';
+                            scheduledInfo.forEach(function(info) {
+                                var startTimeParts = info.start_time.split(':');
+                                var endTimeParts = info.end_time.split(':');
+                                var startHours = parseInt(startTimeParts[0], 10);
+                                var startMinutes = parseInt(startTimeParts[1], 10);
+                                var endHours = parseInt(endTimeParts[0], 10);
+                                var endMinutes = parseInt(endTimeParts[1], 10);
+                                var durationHours = endHours - startHours;
+                                var durationMinutes = endMinutes - startMinutes;
+                                
+                                totalHours += durationHours;
+                                totalMinutes += durationMinutes;
+
+                                if (durationMinutes < 0) {
+                                    durationHours--;
+                                    durationMinutes += 60;
+                                    
+                                }
+                                message += '<li><strong>Fecha:</strong> ' + info
+                                    .date + ', <strong>Duración:</strong> ' +
+                                    durationHours + ' horas ' + durationMinutes +
+                                    ' minutos</li>';
+                            });
+                            message += '</ul>';
+                            message += '<p><strong>Total horas: </strong>'+ totalHours +' horas '+ totalMinutes +' minutos</p>'
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Información',
+                                html: message,
+                            });
+                        } else {}
+                    },
+                    error: function() {
+                        console.error('Error en la solicitud AJAX');
+                    }
+                });
+
+            } else {
+
+            }
         });
 
         // Función para eliminar fila de resultado de aprendizaje
@@ -432,6 +531,7 @@
                     if (response.learning_outcome) {
 
                         var learning_outcomeSelect = $('.learning_outcome_select').last();
+
                         learning_outcomeSelect.empty();
                         learning_outcomeSelect.append(new Option(
                             'Seleccione el resultado de aprendizaje', ''));
@@ -440,6 +540,67 @@
                         });
                     }
                     $('.learning_outcome_select').select2();
+
+                    learning_outcomeSelect.on('change', function() {
+                        var learning_outcome_id = $(this).val();
+                        var course_id = $('#course').val();
+
+                        if (learning_outcome_id) {
+                            $.ajax({
+                                url: '{{ route('sigac.academic_coordination.programming.management.filterstatelearning') }}',
+                                method: 'GET',
+                                data: {
+                                    learning_outcome_id: learning_outcome_id,
+                                    course_id: course_id,
+                                },
+                                success: function(response) {
+                                    if (response.status === 'Programado') {
+                                        var scheduledInfo = response.scheduled_info;
+
+                                        var totalHours = 0;
+                                        var totalMinutes = 0;
+                                        var message = '<p>El resultado de aprendizaje está programado. Detalles:</p><ul>';
+                                        scheduledInfo.forEach(function(info) {
+                                            var startTimeParts = info.start_time.split(':');
+                                            var endTimeParts = info.end_time.split(':');
+                                            var startHours = parseInt(startTimeParts[0], 10);
+                                            var startMinutes = parseInt(startTimeParts[1], 10);
+                                            var endHours = parseInt(endTimeParts[0], 10);
+                                            var endMinutes = parseInt(endTimeParts[1], 10);
+                                            var durationHours = endHours - startHours;
+                                            var durationMinutes = endMinutes - startMinutes;
+
+                                            var hours = info.hours; 
+
+                                            totalHours = hours;
+                                            totalMinutes += durationMinutes;
+
+                                            if (durationMinutes < 0) {
+                                                durationHours--;
+                                                durationMinutes += 60;
+                                            }
+                                            message += '<li><strong>Fecha:</strong> ' + info.date + ', <strong>Duración:</strong> ' + durationHours + ' horas ' + durationMinutes + ' minutos</li>';
+                                        });
+                                        message += '</ul>';
+
+                                        message += '<p><strong>'+ totalHours +'</strong> Horas programadas.</p>';
+                                        
+                                        // Mostrar alerta
+                                        Swal.fire({
+                                            icon: 'info',
+                                            title: 'Información',
+                                            html: message,
+                                        });
+                                    }
+                                },
+                                error: function() {
+                                    console.error('Error en la solicitud AJAX');
+                                }
+                            });
+                        }
+                    });
+
+                    
                 },
                 error: function() {
                     console.error('Error en la solicitud AJAX');

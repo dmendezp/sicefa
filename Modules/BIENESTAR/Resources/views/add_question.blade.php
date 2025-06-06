@@ -3,7 +3,7 @@
 @section('title', 'Editar Formulario')
 
 @section('content_header')
-<h1>Editar Formulario</h1>
+<h1>{{ trans('bienestar::form.Edit_Form') }}</h1>
 @stop
 
 @section('content')
@@ -24,7 +24,6 @@
                         <option value="Alimentacion">Alimentación</option>
                         <option value="Transporte">Transporte</option>
                     </select>
-
                 </div>
                 <div class="form-group" id="respuestas">
                     <label for="respuestas">Respuestas</label>

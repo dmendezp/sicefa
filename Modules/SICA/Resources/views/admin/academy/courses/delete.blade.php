@@ -23,8 +23,20 @@
                 <div class="col-8">{{ $course->program->name }}</div>
             </div>
             <div class="row">
+                <div class="col-4 text-right"><b>{{trans('sica::menu.Leading Instructor')}}</b></div>
+                <div class="col-8">{{ $course->person->full_name }}</div>
+            </div>
+            <div class="row">
                 <div class="col-4 text-right"><b>{{trans('sica::menu.Start Date')}}</b></div>
                 <div class="col-8">{{ $course->star_date }}</div>
+            </div>
+            <div class="row">
+                <div class="col-4 text-right"><b>{{trans('sica::menu.End Of School Year')}}</b></div>
+                <div class="col-8">{{ $course->school_end_date }}</div>
+            </div>
+            <div class="row">
+                <div class="col-4 text-right"><b>{{trans('sica::menu.Start Productive')}}</b></div>
+                <div class="col-8">{{ $course->star_production_date }}</div>
             </div>
             <div class="row">
                 <div class="col-4 text-right"><b>{{trans('sica::menu.End Date')}}</b></div>
@@ -35,7 +47,7 @@
                 <div class="col-8">{{ $course->status }}</div>
             </div>
             <div class="row">
-                <div class="col-4 text-right"><b>{{trans('sica::menu.Deschooling')}}</b></div>
+                <div class="col-4 text-right"><b>{{trans('sica::menu.Modality')}}</b></div>
                 <div class="col-8">{{ $course->deschooling }}</div>
             </div>
         </div>

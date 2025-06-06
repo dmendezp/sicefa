@@ -18,11 +18,14 @@ use Modules\AGROINDUSTRIA\Entities\Formulation;
 use Modules\AGROINDUSTRIA\Entities\RequestExternal;
 use Modules\AGROCEFA\Entities\Executor;
 use Modules\SIGAC\Entities\CompetencePerson;
+use Modules\SIGAC\Entities\InstructorProgram;
+use Modules\SIGAC\Entities\InstitucionalRequest;
 use Modules\SIGAC\Entities\InstructorProgramPerson;
 use Modules\SIGAC\Entities\Profession;
 use Modules\SIGAC\Entities\AttendanceApprentice;
 use Modules\SIGAC\Entities\EvaluativeJudgment;
 use Modules\SIGAC\Entities\Key;
+use Modules\PQRS\Entities\Pqrs;
 
 class Person extends Model implements Auditable
 {
@@ -134,6 +137,9 @@ class Person extends Model implements Auditable
     public function cash_counts(){ // Accede a todas las sesiones de caja asociados a esta persona
         return $this->hasMany(CashCount::class);
     }
+    public function courses(){ // Accede a todos los cursos que han sido asociados con esta persona
+        return $this->hasMany(Course::class);
+    }
     public function evaluative_judgments(){ // Accede a todos los juicios evaluativos de esta persona
         return $this->hasMany(EvaluativeJudgment::class);
     }
@@ -177,6 +183,12 @@ class Person extends Model implements Auditable
     {
         return $this->hasMany(InstructorProgramPerson::class);
     }
+    public function institucional_requests(){
+        return $this->hasMany(InstitucionalRequest::class);
+    }
+    public function instructor_programs(){ // Accede a todas las programaciones de este instructor
+        return $this->hasMany(InstructorProgram::class);
+    }
     public function juries(){ // Accede a todos los jurados que están registrados con esta persona
         return $this->hasMany(Jury::class);
     }
@@ -194,6 +206,9 @@ class Person extends Model implements Auditable
     }
     public function population_group(){ // Accede al grupo poblacional que pertenece
         return $this->belongsTo(PopulationGroup::class);
+    }
+    public function pqrs(){ // Accede a todos los pqrs que pertenecen a esta persona (PIVOTE)
+        return $this->belongsToMany(Pqrs::class)->withPivot('date_time', 'type')->withTimestamps();
     }
     public function productive_units(){ // Accede a todas las unidades productivas que lidera esta persona
         return $this->hasMany(ProductiveUnit::class);

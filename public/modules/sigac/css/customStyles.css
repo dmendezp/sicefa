@@ -180,4 +180,12 @@ a[id^="fc-dom-"] {
     background-color:#e6e6e6 !important;
   }
   
+  .fc-myCustomButton-button.fc-button.fc-button-primary {
+    background-color: red !important;
+    border-color: red !important;
+    color: white !important;
+  }
+
+
+
   

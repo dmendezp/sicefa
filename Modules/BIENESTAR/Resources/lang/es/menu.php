@@ -53,6 +53,7 @@ return [
     'Departure Time' => 'Hora de Salida',
     'Plate' => 'Placa',
     'Edit Route' => 'Editar Rutas',
+    'Transportation_Assistance_Record' => 'Registro de Asistencia de Transporte',
     'Transportation Route Assistance' => 'Asistencia de Ruta de Transporte',
     'Transportation Route' => 'Ruta de Transporte',
     'Municipality of Residence'=>'Municipio de Residencia',

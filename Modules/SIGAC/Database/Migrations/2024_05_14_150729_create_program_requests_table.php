@@ -19,6 +19,7 @@ class CreateProgramRequestsTable extends Migration
             $table->foreignId('program_id')->constrained()->onDelete('cascade');
             $table->foreignId('special_program_id')->constrained()->onDelete('cascade');
             $table->foreignId('municipality_id')->constrained()->onDelete('cascade');
+            $table->integer('hours');
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->integer('quotas');
@@ -27,7 +28,7 @@ class CreateProgramRequestsTable extends Migration
             $table->string('empresa')->nullable();
             $table->string('applicant')->nullable();
             $table->string('email')->nullable();
-            $table->integer('telephone')->nullable();
+            $table->bigInteger('telephone')->nullable();
             $table->date('date_characterization')->nullable();
             $table->integer('code_empresa')->nullable();
             $table->integer('code_course')->nullable();

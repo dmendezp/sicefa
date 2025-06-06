@@ -15,6 +15,7 @@ use Modules\SICA\Entities\Country;
 use Modules\SICA\Entities\Department;
 use Modules\SICA\Entities\LearningOutcomePerson;
 use Modules\SICA\Entities\Municipality;
+use Modules\SICA\Entities\Holiday;
 use Modules\SIGAC\Entities\InstructorProgram;
 use Modules\SIGAC\Entities\ExternalActivity;
 use Modules\SIGAC\Entities\Profession;
@@ -23,15 +24,16 @@ use Modules\SIGAC\Entities\SpecialProgram;
 use Modules\SIGAC\Entities\ProgramRequest;
 use Modules\SIGAC\Entities\ProgramRequestDate;
 use Modules\SIGAC\Entities\InstructorProgramNovelty;
+use Modules\SIGAC\Entities\ProgramNovelty;
 use Modules\SIGAC\Entities\InstructorProgramPerson;
 use Modules\SIGAC\Entities\EnvironmentInstructorProgram;
 use Modules\SIGAC\Entities\InstructorProgramOutcome;
+use Modules\SIGAC\Entities\ProgramRequestDocument;
 use DB;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Competencie;
 use Modules\SICA\Entities\LearningOutcome;
-use Modules\SICA\Entities\Holiday;
 use Modules\SICA\Entities\KnowledgeNetwork;
 use Modules\SICA\Entities\Network;
 use Modules\SICA\Entities\Line;
@@ -39,20 +41,78 @@ use Carbon\Carbon;
 use Modules\SIGAC\Imports\ApprenticeLearningOutcomeImport;
 use Modules\SIGAC\Imports\ProgramImport;
 use Modules\SIGAC\Exports\ProgramCourseExport;
-
+use Modules\SICA\Entities\App;
+use Modules\SICA\Entities\Role;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Carbon\CarbonPeriod;
+use Illuminate\Support\Facades\Storage;
+use ZipArchive;
 use Excel, Exception;
+use Illuminate\Support\Str;
+
 class ProgrammeController extends Controller
 {
     // Programación de horarios
     public function programming()
     {
+        $app = App::where('name', 'SIGAC')->orWhere('name', 'CEFAMAPS')->get();
+
+        foreach ($app as $a) {
+            $app_id[] = $a->id;
+        }
+
+        $user = Auth::user();
+        $roles = '';
+        if($user){
+            $slug  = Role::whereIn('app_id', $app_id)
+            ->whereHas('users', function ($query) use ($user) {
+                $query->where('users.id', $user->id);
+            })->pluck('slug')->first();        
+    
+            if($slug == 'sigac.academic_coordinator' || $slug == 'superadmin'){
+                $roles = 'academic_coordination';
+            }else{
+                $roles = Str::replaceFirst('sigac.', '', $slug);
+            }
+        }
+        
+
+        $days = [
+            'Monday' => 'Lunes',
+            'Tuesday' => 'Martes',
+            'Wednesday' => 'Miercoles',
+            'Thursday' => 'Jueves',
+            'Friday' => 'Viernes',
+            'Saturday' => 'Sábado',
+            'Sunday' => 'Domingo'
+        ];
+
+        $quarter = [
+            '1' => '1',
+            '2' => '2',
+            '3' => '3',
+            '4' => '4',
+            '5' => '5',
+            '6' => '6',
+            '7' => '7',
+        ];
+
+        $holidays = Holiday::get();
+
         $view = [
             'titlePage' => trans('sigac::controllers.SIGAC_programming_schedules_title_page'),
             'titleView' => trans('sigac::controllers.SIGAC_programming_schedules_title_view'),
+            'days' => $days,
+            'quarter' => $quarter,
+            'holidays' => json_encode($holidays),
+            'role' => $roles
         ];
+
 
         return view('sigac::programming.index', $view);
     }
+    
 
     // Gestion de la programacion
     public function management_programming()
@@ -71,6 +131,38 @@ class ProgrammeController extends Controller
     {
         $course_id = $request->input('course_id');
         $quarter_number =$request->input('quarter_number');
+
+        $executed_programming = InstructorProgramOutcome::whereHas('instructor_program', function($query) use ($course_id){
+            $query->where('instructor_programs.course_id', $course_id);
+        })
+        ->select('learning_outcome_id', \DB::raw('hour as total_executed_hours'))
+        ->groupBy('hour', 'learning_outcome_id')
+        ->pluck('total_executed_hours', 'learning_outcome_id')
+        ->toArray();
+
+        
+
+        $outcomes_not_programming = Quarterly::with('learning_outcome.competencie', 'learning_outcome.instructor_program_outcomes.instructor_program')
+        ->whereHas('training_project.courses', function($query) use ($course_id) {
+            $query->where('courses.id', $course_id);
+        })
+        ->where('quarter_number', '<', $quarter_number)
+        ->get() // Obtener todos los resultados relevantes
+        ->filter(function ($quarterly) use ($executed_programming) {
+            $learning_outcome_id = $quarterly->learning_outcome_id;
+            $planned_hours = $quarterly->hour; // Horas planeadas en 'Quarterly'
+            $executed_hours = $executed_programming[$learning_outcome_id] ?? 0; // Horas ejecutadas o 0 si no existe
+
+            // Incluir si el resultado no ha sido ejecutado o si las horas ejecutadas son menores a las horas planeadas
+            return $executed_hours < $planned_hours;
+        })
+        ->groupBy(function ($quarterly) use ($quarter_number) {
+            $competencieName = $quarterly->learning_outcome->competencie->name;
+            return str_replace('-' . $quarter_number, '', $competencieName); // Agrupar por nombre de competencia
+        });
+    
+        debug($outcomes_not_programming);
+
         $quarterlie = Quarterly::with('learning_outcome.competencie')
         ->where('quarter_number', $quarter_number)
         ->whereHas('training_project.courses', function($query) use ($course_id) {
@@ -81,8 +173,9 @@ class ProgrammeController extends Controller
             $competencieName = $quarterly->learning_outcome->competencie->name;
             return str_replace('-' . $quarter_number, '', $competencieName);
         });
+
     
-        return response()->json(['quarterlie' => $quarterlie]);
+        return response()->json(['quarterlie' => $quarterlie, 'outcomes_not_programming' => $outcomes_not_programming]);
     }
 
     public function management_programming_filterlearning(Request $request)
@@ -159,11 +252,14 @@ class ProgrammeController extends Controller
     public function management_programming_filterstatelearning(Request $request)
     {
         $learning_outcome_id = $request->input('learning_outcome_id');
+        $course_id = $request->input('course_id');
 
         // Obtener la lista de programas de instructor asociados al resultado de aprendizaje
         $instructor_programs = InstructorProgram::whereHas('instructor_program_outcomes', function($query) use ($learning_outcome_id) {
             $query->where('learning_outcome_id', $learning_outcome_id);
-        })->get();
+        })
+        ->where('course_id', $course_id)
+        ->get();
 
         // Verificar si el resultado de aprendizaje está programado
         if ($instructor_programs->isEmpty()) {
@@ -175,11 +271,24 @@ class ProgrammeController extends Controller
             // Recorrer los programas de instructor para obtener la información de fecha y hora
             $scheduled_info = [];
             foreach ($instructor_programs as $program) {
-                $scheduled_info[] = [
-                    'date' => $program->date,
-                    'start_time' => $program->start_time,
-                    'end_time' => $program->end_time
-                ];
+                foreach ($program->instructor_program_outcomes as $outcome) {
+                    // Verificamos que sea el resultado de aprendizaje seleccionado
+                    if ($outcome->learning_outcome_id == $learning_outcome_id) {
+                        // Sumamos las horas de este resultado de aprendizaje
+                        $hours = $outcome->hour;
+            
+                        // Guardamos la información programada para este resultado de aprendizaje
+                        $scheduled_info[] = [
+                            'date' => $program->date,
+                            'hours' => $hours,
+                            'start_time' => $program->start_time,
+                            'end_time' => $program->end_time
+                        ];
+            
+                        // Rompemos el ciclo porque solo necesitamos registrar una vez el resultado de aprendizaje seleccionado
+                        break;
+                    }
+                }
             }
         }
 
@@ -193,6 +302,7 @@ class ProgrammeController extends Controller
     public function management_programming_store(Request $request)
     {
         $days = $request->days;
+        $modality = $request->has('modality') ? 1 : 0;
         $fechas = [];
         $fechaActual = Carbon::parse($request->start_date);
         while ($fechaActual->lte(Carbon::parse($request->end_date))) {
@@ -209,30 +319,55 @@ class ProgrammeController extends Controller
         $hours = $request->hour;
         $querter_number = $request->querter_number;
 
+        $c_modality = Course::findOrFail($course_id);
+
         foreach ($fechas as $f) {
-            $programming = InstructorProgram::where('date', $f)
-            ->where(function ($query) use ($request) {
-                $query->where(function ($q) use ($request) {
-                    $q->where('start_time', '>=', $request->start_time)
-                        ->where('start_time', '<=', $request->end_time);
+            if($modality == 1 || $c_modality->deschooling == 'Virtual'){
+                $programming = InstructorProgram::where('date', $f)
+                ->where(function ($query) use ($request) {
+                    $query->where(function ($q) use ($request) {
+                        $q->where('start_time', '>=', $request->start_time)
+                            ->where('start_time', '<=', $request->end_time);
+                    })
+                    ->orWhere(function ($q) use ($request) {
+                        $q->where('end_time', '>=', $request->start_time)
+                            ->where('end_time', '<=', $request->end_time);
+                    })
+                    ->orWhere(function ($q) use ($request) {
+                        $q->where('start_time', '<=', $request->start_time)
+                            ->where('end_time', '>=', $request->end_time);
+                    });
                 })
-                ->orWhere(function ($q) use ($request) {
-                    $q->where('end_time', '>=', $request->start_time)
-                        ->where('end_time', '<=', $request->end_time);
+                ->whereHas('instructor_program_people', function ($query) use ($instructors) {
+                    $query->whereIn('person_id', $instructors);
                 })
-                ->orWhere(function ($q) use ($request) {
-                    $q->where('start_time', '<=', $request->start_time)
-                        ->where('end_time', '>=', $request->end_time);
-                });
-            })
-            ->whereHas('instructor_program_people', function ($query) use ($instructors) {
-                $query->whereIn('person_id', $instructors);
-            })
-            ->whereHas('environment_instructor_programs', function ($query) use ($environments) {
-                $query->whereIn('environment_id', $environments);
-            })
-            ->where('course_id', $course_id)
-            ->exists();
+                ->where('course_id', $course_id)
+                ->exists();
+            }else{
+                $programming = InstructorProgram::where('date', $f)
+                ->where(function ($query) use ($request) {
+                    $query->where(function ($q) use ($request) {
+                        $q->where('start_time', '>=', $request->start_time)
+                            ->where('start_time', '<=', $request->end_time);
+                    })
+                    ->orWhere(function ($q) use ($request) {
+                        $q->where('end_time', '>=', $request->start_time)
+                            ->where('end_time', '<=', $request->end_time);
+                    })
+                    ->orWhere(function ($q) use ($request) {
+                        $q->where('start_time', '<=', $request->start_time)
+                            ->where('end_time', '>=', $request->end_time);
+                    });
+                })
+                ->whereHas('instructor_program_people', function ($query) use ($instructors) {
+                    $query->whereIn('person_id', $instructors);
+                })
+                ->whereHas('environment_instructor_programs', function ($query) use ($environments) {
+                    $query->whereIn('environment_id', $environments);
+                })
+                ->where('course_id', $course_id)
+                ->exists();
+            }
 
             $holidays = Holiday::where('date', $f)->exists();
 
@@ -250,15 +385,36 @@ class ProgrammeController extends Controller
             try {
                 DB::beginTransaction();
 
-                $p = new InstructorProgram;
-                $p->date = $f;
-                $p->start_time = $request->start_time;
-                $p->end_time = $request->end_time;
-                $p->course_id = $request->course;
-                $p->quarter_number = $querter_number;
-                $p->state = 'Programado';
-                $p->save();
-                $instructor_program_id = $p->id;
+                if($modality == 1 || $c_modality->deschooling == 'Virtual'){
+                    $p = new InstructorProgram;
+                    $p->date = $f;
+                    $p->start_time = $request->start_time;
+                    $p->end_time = $request->end_time;
+                    $p->course_id = $request->course;
+                    $p->quarter_number = $querter_number;
+                    $p->state = 'Programado';
+                    $p->modality = 'Medios Tecnologicos';
+                    $p->save();
+                    $instructor_program_id = $p->id;
+                }else{
+                    $p = new InstructorProgram;
+                    $p->date = $f;
+                    $p->start_time = $request->start_time;
+                    $p->end_time = $request->end_time;
+                    $p->course_id = $request->course;
+                    $p->quarter_number = $querter_number;
+                    $p->state = 'Programado';
+                    $p->modality = 'Presencial';
+                    $p->save();
+                    $instructor_program_id = $p->id;
+                    
+                    foreach ($environments as $index => $environment_id) {
+                        $environment_instructor_programs = new EnvironmentInstructorProgram;
+                        $environment_instructor_programs->instructor_program_id = $instructor_program_id;
+                        $environment_instructor_programs->environment_id = $environment_id;
+                        $environment_instructor_programs->save();
+                    }
+                }
 
                 foreach ($instructors as $index => $instructor_id) {
                     $instructor_program_people = new InstructorProgramPerson;
@@ -267,12 +423,6 @@ class ProgrammeController extends Controller
                     $instructor_program_people->save();
                 }
                 
-                foreach ($environments as $index => $environment_id) {
-                    $environment_instructor_programs = new EnvironmentInstructorProgram;
-                    $environment_instructor_programs->instructor_program_id = $instructor_program_id;
-                    $environment_instructor_programs->environment_id = $environment_id;
-                    $environment_instructor_programs->save();
-                }
                 foreach ($learning_outcomes as $index => $learning_outcome_id) {
                     $hour = $hours[$index];
                     $instructor_program_outcomes = new InstructorProgramOutcome;
@@ -287,7 +437,9 @@ class ProgrammeController extends Controller
             } catch (\Exception $e) {
                 // En caso de error, realiza un rollback de la transacción y maneja el error
                 DB::rollBack();
-            
+                $mensaje = 'Ocurrio un error al registrar la programación.';
+                return redirect()->back()->with(['error'=> $mensaje]);
+    
                 \Log::error('Error en el registro: ' . $e->getMessage());
                 \Log::error('Error en el registro: ' . $e->getTraceAsString());
             }
@@ -304,14 +456,94 @@ class ProgrammeController extends Controller
         }
     }
 
+    public function management_programming_search_course(Request $request){
+        $term = $request->get('code_course');
+        $course = Course::where('code', 'LIKE', '%' . $term . '%')
+        ->get();
 
-    public function management_search_quarter_number(Request $request)
-    {
+        foreach ($course as $c) {
+            $name = $c->program->name;
+        }
+        return response()->json([
+            'program' => $name,
+        ]);
+    }
+
+    public function management_programming_destroy(Request $request){
+        try {
+            $instructor = $request->input('person_id');
+            $code_course = $request->input('code_course');
+            $quarter = $request->input('quarter');
+            $daysSelected = $request->input('days');
+            
+            $year = Carbon::now()->year; 
+            
+            $daysOfWeek = [
+                'Sunday' => Carbon::SUNDAY,
+                'Monday' => Carbon::MONDAY,
+                'Tuesday' => Carbon::TUESDAY,
+                'Wednesday' => Carbon::WEDNESDAY,
+                'Thursday' => Carbon::THURSDAY,
+                'Friday' => Carbon::FRIDAY,
+                'Saturday' => Carbon::SATURDAY,
+            ];
+           
+            
+            $dayOfWeek = $daysOfWeek[$daysSelected] ?? null;
+            
+            // Verificar si el día es válido
+            if ($dayOfWeek !== null) {
+                $datesForDay = [];
+
+                // Generar las fechas para el año actual directamente
+                $startDate = Carbon::create($year, 1, 1); // Inicio del año
+                $endDate = Carbon::create($year, 12, 31); // Fin del año
+
+                $period = CarbonPeriod::create($startDate, $endDate);
+                
+                foreach ($period as $date) {
+                    if ($date->dayOfWeek === $dayOfWeek) {
+                        $datesForDay[] = $date->format('Y-m-d'); // Agregar la fecha al array
+                    }
+                }
+
+                $instructor_program_ids = InstructorProgram::where('quarter_number', $quarter)
+                ->whereIn('date', $datesForDay)
+                ->whereHas('course', function ($query) use ($code_course) {
+                    $query->where('code', $code_course);
+                })
+                ->whereHas('instructor_program_people.person', function ($query) use ($instructor) {
+                    $query->where('id', $instructor);
+                })->pluck('id'); // Obtener solo los IDs
+
+                if($instructor_program_ids->isEmpty()){
+                    return redirect()->back()->with(['error'=> 'No existe programación del trimestre '. $quarter .' para el día '. $daysSelected .'.']);
+                }else{
+                    InstructorProgram::whereIn('id', $instructor_program_ids)->delete();
+                    $mensaje = 'Programación eliminada con éxito.';
+                    return redirect()->back()->with(['success'=> $mensaje]);
+                }
+
+                // Eliminar los registros usando los IDs obtenidos
+            } else {
+                return redirect()->back()->with(['error'=> 'Error al eliminar la programación']);
+            }
+
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with(['error'=> 'Error al eliminar la programación']);
+        }  
+    }
+
+    public function management_search_quarter_number(Request $request){
 
         $course_id = $request->input('course_id');
 
         $course = Course::findOrFail($course_id);
         $quarter_number = $course->program->quarter_number;
+
+        $modality = $course->deschooling;
 
         // Crear una colección con números desde 1 hasta quarter_number
         $results = collect(range(1, $quarter_number));
@@ -319,11 +551,11 @@ class ProgrammeController extends Controller
 
         return response()->json([
             'results' => $results,
+            'modality' => $modality
         ]);
     }
 
-    public function management_filter(Request $request)
-    {
+    public function management_filter(Request $request){
 
         $filter = $request->input('filter');
 
@@ -402,7 +634,7 @@ class ProgrammeController extends Controller
 
         if ($option == 1) {
 
-            $programmingEvents = InstructorProgram::with('instructor_program_people.person', 'course.program', 'course.municipality.department','environment_instructor_programs.environment','instructor_program_outcomes.learning_outcome')->whereHas('instructor_program_people.person', function ($query) use ($filter) {
+            $programmingEvents = InstructorProgram::with('instructor_program_people.person', 'course.program', 'course.municipality.department','environment_instructor_programs.environment','instructor_program_outcomes.learning_outcome','instructor_program_novelties')->whereHas('instructor_program_people.person', function ($query) use ($filter) {
                 $query->where('id', $filter);
             })
             ->where('state','=','Programado')
@@ -420,6 +652,7 @@ class ProgrammeController extends Controller
             ->where('state','=','Programado')
             ->get();
         }
+
 
         foreach ($programmingEvents as $programmingEvent) {
             foreach ($programmingEvent->instructor_program_people as $asociacion) {
@@ -1043,6 +1276,31 @@ class ProgrammeController extends Controller
         }
     }
 
+    public function program_request_table(){
+        $user = Auth::user();
+        $person_id = $user->person->id;
+        foreach($user->roles as $u){
+            $rol = $u->slug;
+        }
+        if ($rol == 'sigac.instructor') {
+            $program_request = ProgramRequest::with('person', 'program', 'special_program', 'program_request_documents')
+            ->where('person_id', $person_id)
+            ->where('state', 'Pendiente')
+            ->orWhere('state', 'Cancelado')
+            ->get();
+        }elseif ($rol == 'sigac.academic_coordinator' || checkRol('superadmin')) {
+            $program_request = ProgramRequest::with('person', 'program', 'special_program', 'program_request_documents')
+            ->where('state', 'Pendiente')
+            ->orWhere('state', 'Cancelado')
+            ->get();
+        }
+        return view('sigac::programming.program_request.table', [
+            'titlePage' => trans('Solicitudes de programa'),
+            'titleView' => trans('Solicitudes de programa'),
+            'program_requests' => $program_request
+        ]);
+    }
+
     // Solicitar programa
     public function program_request_index()
     {
@@ -1083,13 +1341,53 @@ class ProgrammeController extends Controller
         $municipalities = Municipality::whereIn('department_id',$department_id)->orderBy('name','Asc')->get()->mapWithKeys(function ($munipality) {
             return [$munipality->id => $munipality->name];
         });
+
+        $today = Carbon::today();
+
+        // Obtener los festivos de la tabla 'holidays' que son posteriores a hoy
+        $holidays = Holiday::where('date', '>=', $today)->pluck('date')->toArray();
+
+        // Calcular la fecha mínima (5 días hábiles)
+        $workingDays = 0;
+        $minDate = $today->copy();
+
+        while ($workingDays < 5) {
+            $minDate->addDay();
+
+            if ($minDate->isWeekday() && !in_array($minDate->toDateString(), $holidays)) {
+                $workingDays++;
+            }
+        }
+
+        // Calcular la fecha máxima (30 días hábiles)
+        $workingDays = 0;
+        $maxDate = $minDate->copy();
+
+        while ($workingDays < 30) {
+            $maxDate->addDay();
+
+            if ($maxDate->isWeekday() && !in_array($maxDate->toDateString(), $holidays)) {
+                $workingDays++;
+            }
+        }
+
+        $user = Auth::user();
+        if($user){
+            $idPersona = $user->person->id;
+            $name = $user->person->first_name . ' ' . $user->person->first_last_name . ' ' . $user->person->second_last_name;
+            
+        }
+
         return view('sigac::programming.program_request.index', [
             'titlePage' => trans('Solicitar Programa'),
             'titleView' => trans('Solicitar Programa'),
             'program'=>$program,
             'instructors' => $instructors,
             'program_especial'=>$program_especial,
-            'municipalities'=>$municipalities
+            'municipalities'=>$municipalities,
+            'minDate' => $minDate->toDateString(),
+            'maxDate' => $maxDate->toDateString(),
+            'person' => $name
         ]);
     }
     
@@ -1134,7 +1432,7 @@ class ProgrammeController extends Controller
     {
         $term = $request->get('q');
         $empresas = ProgramRequest::where('empresa', 'LIKE', '%' . $term . '%')
-            ->select('id', 'empresa as text', 'address') // selecciona solo los campos necesarios
+            ->select('empresa as text', 'address') // selecciona solo los campos necesarios
             ->get();
 
         return response()->json($empresas);
@@ -1144,7 +1442,7 @@ class ProgrammeController extends Controller
     {
         $term = $request->get('q');
         $applicants = ProgramRequest::where('applicant', 'LIKE', '%' . $term . '%')
-            ->select('id', 'applicant as text', 'email','telephone') // selecciona solo los campos necesarios
+            ->select('applicant as text', 'email','telephone') // selecciona solo los campos necesarios
             ->get();
 
         return response()->json($applicants);
@@ -1158,11 +1456,13 @@ class ProgrammeController extends Controller
             $instructor = $request->input('instructor');
             $program_id = $request->input('program_id');
             $special_program_id = $request->input('program_especial_id');
+            $hours = $request->input('total_hours');
             $quota = $request->input('quota');
             $start_date = $request->input('start_date');
             $end_date = $request->input('end_date');
             $municipality_id = $request->input('municipality_id');
             $dates = $request->input('dates');
+            
             $start_times = $request->input('start_time');
             $end_times = $request->input('end_time');
             $observation = $request->input('observation');
@@ -1171,8 +1471,34 @@ class ProgrammeController extends Controller
             $applicant = $request->input('applicant');
             $email = $request->input('email');
             $telephone = $request->input('telephone');
-    
+
             DB::beginTransaction();
+
+            $program_request = new ProgramRequest;
+            if(checkRol('sigac.academic_coordinator')){
+                $program_request->person_id = $instructor;
+            }else{
+                $user = Auth::user();
+                if($user){
+                    $idPersona = $user->person->id;
+                    $program_request->person_id = $idPersona;
+                }
+            }
+            $program_request->program_id = $program_id;
+            $program_request->special_program_id = $special_program_id;
+            $program_request->municipality_id = $municipality_id;
+            $program_request->hours = $hours;
+            $program_request->start_date = $start_date;
+            $program_request->end_date = $end_date ?? null;
+            $program_request->quotas = $quota;
+            $program_request->address = $address;
+            $program_request->observation = $observation ?? null;
+            $program_request->empresa = $empresa;
+            $program_request->applicant = $applicant;
+            $program_request->email = $email;
+            $program_request->telephone = $telephone;
+            $program_request->state = 'Pendiente';
+            $program_request->save();
     
             $conflicting_dates = [];
     
@@ -1214,30 +1540,30 @@ class ProgrammeController extends Controller
                     return redirect()->route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.index')->with('success', $conflicting_message);
                     
                 } else {
-                    $program_request = new ProgramRequest;
-                    $program_request->person_id = $instructor;
-                    $program_request->program_id = $program_id;
-                    $program_request->special_program_id = $special_program_id;
-                    $program_request->municipality_id = $municipality_id;
-                    $program_request->start_date = $start_date;
-                    $program_request->end_date = $end_date ?? null;
-                    $program_request->quotas = $quota;
-                    $program_request->address = $address;
-                    $program_request->observation = $observation ?? null;
-                    $program_request->empresa = $empresa;
-                    $program_request->applicant = $applicant;
-                    $program_request->email = $email;
-                    $program_request->telephone = $telephone;
-                    $program_request->save();
-                    $program_request_id = $program_request->id;
-
-
                     $program_request_date = new ProgramRequestDate;
-                    $program_request_date->program_request_id = $program_request_id;
+                    $program_request_date->program_request_id = $program_request->id;
                     $program_request_date->date = $date;
                     $program_request_date->start_time = $start_time;
                     $program_request_date->end_time = $end_time;
                     $program_request_date->save();
+
+                    if ($request->hasFile('documents')) {
+                        $files  = $request->file('documents');
+                        foreach ($files  as $file) {
+                            if ($file->isValid()) {
+                                // Guardar el archivo en el sistema de archivos
+                                $path = $file->store('documents');
+                                $program_request_document = new ProgramRequestDocument;
+                                $program_request_document->program_request_id = $program_request->id;
+                                $program_request_document->name = $file->getClientOriginalName();
+                                $program_request_document->path = $path;
+                                $program_request_document->save();
+                            }else {
+                                return redirect()->back()->with('error', 'Uno de los archivos no es válido.');
+                            }
+                        }
+                    }
+                    
                 }
             }
     
@@ -1245,7 +1571,44 @@ class ProgrammeController extends Controller
     
             $success_message = 'Solicitud enviada';
     
-            return redirect()->route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.index')->with('success', $success_message);
+            return redirect()->route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.table')->with('success', $success_message);
+        } catch (\Exception $e) {
+            dd($e);
+            DB::rollBack();
+            \Log::error('Error en el registro: ' . $e->getMessage());
+            return response()->json(['error' => 'Error interno del servidor',$e], 500);
+        }
+    }
+
+    public function program_request_document_store(Request $request, $id)
+    {
+        try{
+            if ($request->hasFile('documents')) {
+                $files  = $request->file('documents');
+                foreach ($files  as $file) {
+                    if ($file->isValid()) {
+                        // Guardar el archivo en el sistema de archivos
+                        $program_request = ProgramRequest::find($id);
+                        $program_request->state = 'Pendiente';
+                        $program_request->save();
+
+                        $path = $file->store('documents');
+                        $program_request_document = new ProgramRequestDocument;
+                        $program_request_document->program_request_id = $program_request->id;
+                        $program_request_document->name = $file->getClientOriginalName();
+                        $program_request_document->path = $path;
+                        $program_request_document->save();
+                    }else {
+                        return redirect()->back()->with('error', 'Uno de los archivos no es válido.');
+                    }
+                }
+            }    
+
+            DB::commit();
+
+            $success_message = 'Se agregaron los archivos faltantes';
+    
+            return redirect()->route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.programming.program_request.table')->with('success', $success_message);
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error('Error en el registro: ' . $e->getMessage());
@@ -1253,15 +1616,65 @@ class ProgrammeController extends Controller
         }
     }
 
+    public function program_request_download($id)
+    {
+        $documents = ProgramRequestDocument::where('program_request_id', $id)->get();
+
+        if ($documents->isEmpty()) {
+            return redirect()->back()->with('error', 'No existen archivos para este programa.');
+        }
+    
+        $zip = new ZipArchive;
+        $zipFileName = 'documents.zip';
+        $zipFilePath = storage_path('app/' . $zipFileName);
+    
+        if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+            foreach ($documents as $document) {
+                $filePath = storage_path('app/' . $document->path);
+    
+                if (file_exists($filePath)) {
+                    $filename = $document->name;
+    
+                    // Evitar nombres duplicados en el ZIP
+                    $i = 1;
+                    while ($zip->locateName($filename) !== false) {
+                        $filename = pathinfo($document->name, PATHINFO_FILENAME) . "_$i." . pathinfo($document->name, PATHINFO_EXTENSION);
+                        $i++;
+                    }
+    
+                    // Añadir el archivo al ZIP
+                    $zip->addFile($filePath, $filename);
+                }
+            }
+    
+            $zip->close();
+    
+            // Descargar el archivo ZIP y eliminarlo después de la descarga
+            return response()->download($zipFilePath)->deleteFileAfterSend(true);
+        } else {
+            return redirect()->back()->with('error', 'No se pudo crear el archivo ZIP.');
+        }
+    }
+
     // Solicitudes de caracterización
     public function program_request_characterization()
     {
-        $program_request = ProgramRequest::orderBy('created_at','Asc')->get();
+        $program_requests = ProgramRequest::with(['program_request_dates' => function ($query) {
+            $query->orderBy('date', 'asc');
+        }])->orderBy('created_at', 'Asc')->get();
+
+        // Agrupar las fechas por hora de inicio y fin
+        foreach ($program_requests as $program_request) {
+            $groupedDates = $program_request->program_request_dates->groupBy(function ($date) {
+                return $date->start_time . '-' . $date->end_time;
+            });
+            $program_request->groupedDates = $groupedDates;
+        }
 
         return view('sigac::programming.program_request.characterization', [
             'titlePage' => trans('Caracterización'),
             'titleView' => trans('Caracterización'),
-            'program_request'=>$program_request
+            'program_request'=>$program_requests
         ]);
 
 
@@ -1290,7 +1703,6 @@ class ProgrammeController extends Controller
             $course->star_date = $program_request->start_date;
             $course->end_date = $program_request->end_date;
             $course->status = 'Activo';
-            $course->modality = 'Presencial';
             $course->program_id = $program_request->program_id;
             $course->municipality_id = $program_request->municipality_id;
             $course->save();
@@ -1300,18 +1712,22 @@ class ProgrammeController extends Controller
                 $instructor_program->date = $dates->date;
                 $instructor_program->start_time = $dates->start_time;
                 $instructor_program->end_time = $dates->end_time;
-                $instructor_program->person_id = $program_request->person_id;
                 $instructor_program->course_id = $course->id;
-                $instructor_program->environment_id = 1;
-                $instructor_program->learning_outcome_id = 1;
-                $instructor_program->state = 'Pendiente';
+                $instructor_program->state = 'Programado';
+                $instructor_program->modality = 'Complementaria';
                 $instructor_program->save();
+
+                $instructor_program_people = new InstructorProgramPerson;
+                $instructor_program_people->instructor_program_id = $instructor_program->id;
+                $instructor_program_people->person_id = $program_request->person_id;
+                $instructor_program_people->save();
             }
 
             DB::commit();
     
             return redirect()->route('sigac.support.programming.program_request.characterization.index')->with('success', 'Caracterizacion confirmada');
         } catch (\Exception $e) {
+            dd($e);
             DB::rollBack();
             \Log::error('Error en el registro: ' . $e->getMessage());
             return response()->json(['error' => 'Error interno del servidor',$e], 500);
@@ -1348,25 +1764,204 @@ class ProgrammeController extends Controller
             $activity = $request->input('activity');
             $observation = $request->input('observation');
             $option = $request->input('option');
+
+            $date = InstructorProgram::where('id', $instructor_program_id)->pluck('date')->first();
+
             DB::beginTransaction();
-                $instructor_program_novelty = InstructorProgramNovelty::findOrFail($id);
+                $instructor_program_novelty = new InstructorProgramNovelty;
                 $instructor_program_novelty->instructor_program_id = $instructor_program_id;
+                $instructor_program_novelty->date = $date;
                 $instructor_program_novelty->activity = $activity;
                 $instructor_program_novelty->observation = $observation;
                 $instructor_program_novelty->save();
 
-                if ($option == true) {
+                if ($option == 'yes') {
                     $instructor_program = InstructorProgram::findOrFail($instructor_program_id);
                     $instructor_program->state = 'Cancelado';
                     $instructor_program->save();
                 }
             DB::commit();
     
-            return redirect()->route('sigac.academic_coordination.programming.management.index')->with('success', 'Novedad Enviada');
+            return redirect()->route('sigac.programming.index')->with('success', 'Novedad Enviada');
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error('Error en el registro: ' . $e->getMessage());
             return response()->json(['error' => 'Error interno del servidor',$e], 500);
         }
+    }
+
+    public function external_activities_index(){
+        $external_activities = InstructorProgram::with('instructor_program_people.person', 'course')
+        ->whereNotNull('activity_name')
+        ->where('state', 'Pendiente')
+        ->get()
+        ->groupBy('activity_name');
+
+        return view('sigac::programming.external_activities.index', [
+            'titlePage' => 'Actividades externas',
+            'titleView' => 'Actividades externas',
+            'external_activities' => $external_activities
+        ]);
+    }
+
+    public function external_activities_create(){
+        $courses = Course::where('status', 'Activo')->where('deschooling', 'Presencial')->get();
+
+        $course = $courses->map(function($c){
+            $id = $c->id;
+            $name = $c->code . ' - ' . $c->program->name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        });
+
+        return view('sigac::programming.external_activities.create', [
+            'titlePage' => 'Crear actividades externas',
+            'titleView' => 'Crear actividades externas',
+            'course' => $course
+        ]);
+    }
+
+    public function external_activities_search_course(Request $request){
+        $name = $request->input('name');
+
+        $courses = Course::where('status', 'Activo')
+        ->where('deschooling', 'Presencial')
+        ->whereHas('program', function($query) use ($name){
+            $query->where('name', 'LIKE', '%'. $name . '%');
+        })->get();
+
+        $output = '';
+        foreach ($courses as $course) {
+            $output .= '<div class="form-check">';
+            $output .= '<input type="checkbox" class="form-check-input courses" name="courses[]" value="' . $course->id . '">';
+            $output .= '<label class="form-check-label">'. $course->code . ' - ' . $course->program->name . '</label>';
+            $output .= '</div>';
+        }
+
+        return response()->json($output);
+    }
+
+    public function external_activities_search_person(Request $request){
+        $term = $request->get('term');
+        $persons = Person::whereRaw("CONCAT(first_name, ' ', first_last_name, ' ', second_last_name) LIKE ?", ['%' . $term . '%'])->get();
+
+        $results = [];
+        foreach ($persons as $person) {
+            $results[] = [
+                'id' => $person->id,
+                'text' => $person->full_name,
+            ];
+        }
+
+        return response()->json($results);
+    }
+
+    public function external_activities_store(Request $request){   
+        $courses = $request->courses;
+        $date = $request->date;
+        $start_time = $request->start_time;
+        $end_time = $request->end_time;
+        $activity_description = $request->description;
+        $responsible = $request->responsible;
+        $app_id = App::where('name', 'SIGAC')->pluck('id')->first();
+
+        $user = Auth::user();
+  
+        $slug  = Role::where('app_id', $app_id)
+        ->whereHas('users', function ($query) use ($user) {
+            $query->where('users.id', $user->id);
+        })->pluck('slug')->first();  
+        
+        $roles = Str::replaceFirst('sigac.', '', $slug);
+
+        $route = getRoleRouteName(Route::currentRouteName());
+        try {
+
+            DB::beginTransaction();
+
+            if($route == 'academic_coordination' || $roles == 'academic_coordinator'){
+                foreach($courses as $c){
+                    $instructor_program = new InstructorProgram;
+                    $instructor_program->course_id = $c;
+                    $instructor_program->activity_name = 'Coordinación Académica';
+                    $instructor_program->activity_description = $activity_description;
+                    $instructor_program->date = $date;
+                    $instructor_program->start_time = $start_time;
+                    $instructor_program->end_time = $end_time;
+                    $instructor_program->state = 'Pendiente';
+                    $instructor_program->save();
+
+                    $instructor_program_people = new InstructorProgramPerson;
+                    $instructor_program_people->instructor_program_id = $instructor_program->id;
+                    $instructor_program_people->person_id = $responsible;
+                    $instructor_program_people->save();
+                }
+            }else if ($route == 'wellness' || $roles == 'wellness'){
+                foreach($courses as $c){
+                    $instructor_program = new InstructorProgram;
+                    $instructor_program->course_id = $c;
+                    $instructor_program->activity_name = 'Bienestar';
+                    $instructor_program->activity_description = $activity_description;
+                    $instructor_program->date = $date;
+                    $instructor_program->start_time = $start_time;
+                    $instructor_program->end_time = $end_time;
+                    $instructor_program->state = 'Pendiente';
+                    $instructor_program->save();
+
+                    $instructor_program_people = new InstructorProgramPerson;
+                    $instructor_program_people->instructor_program_id = $instructor_program->id;
+                    $instructor_program_people->person_id = $responsible;
+                    $instructor_program_people->save();
+                }
+            }
+            DB::commit();
+                
+            
+            return redirect()->route('sigac.'. $route .'.programming.external_activities.index')->with('success', 'Actividad externa registrada exitosamente')->with('typealert', 'success');
+        } catch (\Exception $e){
+            DB::rollBack();
+            return back()->with(['error' => 'Error interno del servidor.'], 500);
+        }
+    }
+
+    public function approved_external_activities(Request $request){
+        $ids = $request->input('id'); // Puede ser un único ID o un array de IDs
+
+        // Si es un solo ID, convertirlo en un array
+        if (!is_array($ids)) {
+            $ids = [$ids];
+        }
+
+        // Encontrar todas las actividades con esos IDs
+        $instructorPrograms = InstructorProgram::whereIn('id', $ids)->get();
+
+        foreach ($instructorPrograms as $i) {
+            $i->state = 'Programado';
+            $i->save(); // Guardar cada actividad actualizada
+        }
+
+        return redirect()->route('sigac.academic_coordination.programming.external_activities.index')->with('success', 'Actividad externa aprobada exitosamente')->with('typealert', 'success');
+    }
+
+    public function cancel_external_activities(Request $request){
+        $ids = $request->input('id'); // Puede ser un único ID o un array de IDs
+
+        // Si es un solo ID, convertirlo en un array
+        if (!is_array($ids)) {
+            $ids = [$ids];
+        }
+
+        // Encontrar todas las actividades con esos IDs
+        $instructorPrograms = InstructorProgram::whereIn('id', $ids)->get();
+
+        foreach ($instructorPrograms as $i) {
+            $i->state = 'Cancelado';
+            $i->save(); // Guardar cada actividad actualizada
+        }
+
+        return redirect()->route('sigac.academic_coordination.programming.external_activities.index')->with('success', 'Actividad externa no aprobada exitosamente')->with('typealert', 'success');
     }
 }

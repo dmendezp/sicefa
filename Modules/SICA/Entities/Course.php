@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Apprentice;
 use Modules\SENAEMPRESA\Entities\Vacancy;
@@ -27,10 +28,13 @@ class Course extends Model implements Auditable
         'code',
         'star_date',
         'end_date',
+        'star_production_date',
+        'school_end_date',
         'status',
         'modality',
         'program_id',
         'municipality_id',
+        'person_id',
         'deschooling'
     ];
 
@@ -64,6 +68,11 @@ class Course extends Model implements Auditable
     public function municipality()
     { //Accede a senaempresa registrados
         return $this->belongsTo(Municipality::class);
+    }
+
+    public function person()
+    { //Accede a senaempresa registrados
+        return $this->belongsTo(Person::class);
     }
 
     public function program(){ // Accede al programa de formación al que pertenece

@@ -101,6 +101,8 @@ class TempTablesController extends Controller
             $course_code_program_name = explode(" - ", $array[0][0][2]); // Obtener la ficha del curso y el nombre del programa en un arreglo
             $course_code = $course_code_program_name[0];
             $program_name = $course_code_program_name[1];
+            $program_name = str_replace('.', '', $program_name);
+
             $apprentices_data = array_splice($array[0], 4, count($array[0])); // Obtener solo los registros de los datos de los aprendices
 
             $municipality = Municipality::where('name','=','Campoalegre')->first(); // Obtener municipio
@@ -115,7 +117,7 @@ class TempTablesController extends Controller
                 $program = Program::where('name', $program_name)->first();
                 if (!$program) {
                     DB::rollBack(); // Devolver cambios realizados durante la transacción
-                    return back()->with('message', 'El programa no existe. <hr> <strong>Error: </strong> ('.$e->getMessage().').')->with('typealert', 'danger');
+                    return back()->with('message', 'El programa no existe.')->with('typealert', 'danger');
                 }
                 $course = Course::firstOrCreate(['code' => $course_code],[ // Consultar o registrar curso
                     'star_date' => now()->format('Y-m-d'),
@@ -177,8 +179,8 @@ class TempTablesController extends Controller
 
             } catch (Exception $e) {
                 DB::rollBack(); // Devolver cambios realizados durante la transacción
-                return back()->with('message', 'Ocurrio un error en la importación y/o registro de datos del archivo excel cargado. <hr> <strong>Error: </strong> ('.$e->getMessage().').')->with('typealert', 'danger');
-             }
+                return back()->with('message', 'Ocurrió un error en la importación y/o registro de datos del archivo Excel cargado. <hr> <strong>Error: </strong> ('.$e->getMessage().').')->with('typealert', 'danger');
+            }
         }
     }
 

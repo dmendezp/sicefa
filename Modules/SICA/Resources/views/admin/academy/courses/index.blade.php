@@ -23,16 +23,19 @@
                             @endif
                         </div>
                         <div class="mtop16">
-                            <table id="tableCourses" class="table table-bordered table-striped">
+                            <table id="tableCourses" class="display table table-bordered table-striped table-sm">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
                                         <th>{{ trans('sica::menu.Fiche') }}</th>
                                         <th>{{ trans('sica::menu.Name') }}</th>
+                                        <th>{{ trans('sica::menu.Leading Instructor') }}</th>
                                         <th>{{ trans('sica::menu.Start Date') }}</th>
+                                        <th>{{ trans('sica::menu.End Of School Year') }}</th>
+                                        <th>{{ trans('sica::menu.Start Productive') }}</th>
                                         <th>{{ trans('sica::menu.End Date') }}</th>
                                         <th>{{ trans('sica::menu.Status') }}</th>
-                                        <th>{{ trans('sica::menu.Deschooling') }}</th>
+                                        <th>{{ trans('sica::menu.Modality') }}</th>
                                         <th class="text-center">{{ trans('sica::menu.Actions') }}</th>
                                     </tr>
                                 </thead>
@@ -42,7 +45,10 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $c->code }}</td>
                                             <td>{{ $c->program->name }}</td>
+                                            <td>{{ $c->person->full_name }}</td>
                                             <td>{{ $c->star_date }}</td>
+                                            <td>{{ $c->school_end_date }}</td>
+                                            <td>{{ $c->star_production_date }}</td>
                                             <td>{{ $c->end_date }}</td>
                                             <td>{{ $c->status }}</td>
                                             <td>{{ $c->deschooling }}</td>

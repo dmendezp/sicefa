@@ -68,6 +68,14 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
+        // Registrar o actualizar rol del personal de seguridad
+        $rol_security = Role::firstOrCreate(['slug' => 'sigac.securitystaff'], [
+            'name' => 'Personal Seguridad',
+            'description' => 'Rol Personal Seguridad de la aplicación SIGAC',
+            'description_english' => 'Role security staff of the SIGAC application',
+            'app_id' => $app->id
+        ]);
+
 
       /*   // Consulta de usuarios
         $user_academic_coordinator = User::where('nickname', 'mgonzalezg')->first(); // Usuario Coordinador Académico (María Antonia Gonzáles Gonzáles)

@@ -29,33 +29,25 @@
     
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto group">
-    @auth
-    @if(checkRol('bienestar.transportation_benefits_leader'))
-    <li class="nav-item dropdown"><a href="" class="nav-link"><i class="fas fa-bell"></i></a></li>
-    @endif 
-    @endauth
-     <!-- Botón de cambio de idioma -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          {{ session('lang')}} <i class="fas fa-globe-americas"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right">
-          <!-- Contenido del menú desplegable de usuario -->
-          <a href="{{ url('lang', ['es']) }}" class="dropdown-item">Español</a>
-          <a href="{{ url('lang', ['en']) }}" class="dropdown-item">Inglés</a>
-        </div>
-      </li>
-    <!--Icono Manual de Usuarios -->
-      <li class="nav-item dropdown"><a href="{{route('cefa.bienestar.user_manual')}}" class="nav-link"><i class="far fa-question-circle"></i></a></li>
-      <!-- Icono de usuario -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="fas fa-user"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right">
-          <!-- Contenido del menú desplegable de usuario -->     
-          <a href="#" class="dropdown-item">{{ trans('bienestar::menu.Log Out')}}</a>
-        </div>
-      </li>
+      @auth
+      @if(checkRol('bienestar.transportation_benefits_leader'))
+      <li class="nav-item dropdown"><a href="" class="nav-link"><i class="fas fa-bell"></i></a></li>
+      @endif 
+      @endauth
+      <!-- Botón de cambio de idioma -->
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            {{ session('lang')}} <i class="fas fa-globe-americas"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <!-- Contenido del menú desplegable de usuario -->
+            <a href="{{ url('lang', ['es']) }}" class="dropdown-item">Español</a>
+            <a href="{{ url('lang', ['en']) }}" class="dropdown-item">Inglés</a>
+          </div>
+        </li>
+      <!--Icono Manual de Usuarios -->
+        <li class="nav-item dropdown">
+          <a href="{{ route('cefa.bienestar.user_manual') }}" class="nav-link"><i class="fas fa-book"></i></a>
+        </li>
     </ul>
   </nav>

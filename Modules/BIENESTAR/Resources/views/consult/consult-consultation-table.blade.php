@@ -5,14 +5,14 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Documento</th>
-                            <th>Nombre</th>
-                            <th>Primer Apellido</th>
-                            <th>Segundo Apellido</th>
-                            <th>Código del Curso</th>
-                            <th>Programa</th>
-                            <th>Estado</th>
-                            <th>Beneficio</th>
+                            <th>{{ trans('bienestar::consult.Document') }}</th>
+                            <th>{{ trans('bienestar::consult.Name') }}</th>
+                            <th>{{ trans('bienestar::consult.first_name') }}</th>
+                            <th>{{ trans('bienestar::consult.second_last_name') }}</th>
+                            <th>{{ trans('bienestar::consult.code') }}</th>
+                            <th>{{ trans('bienestar::consult.course') }}</th>
+                            <th>{{ trans('bienestar::consult.status') }}</th>
+                            <th>{{ trans('bienestar::consult.benefit') }}</th>
                         </tr>
                     </thead>
                     <tbody>

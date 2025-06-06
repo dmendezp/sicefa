@@ -1,6 +1,6 @@
 @extends('sigac::layouts.master')
 @section('content')
-<h2>{{ trans('agrocefa::movements.Entry_Form') }}</h2>  
+<h2>{{ trans('Verificación de Ambiente') }}</h2>  
 
 <div class="container" style="margin-left: 5px">
     <div class="card" style="width: 110%">
@@ -37,9 +37,8 @@
                 </div>
             </div>
             <br>
-            {!! Form::submit( trans('agrocefa::movements.Btn_Register_Entrance'), ['class' => 'btn btn-primary','id' => 'standcolor']) !!}
+            {!! Form::submit( trans('Verificar'), ['class' => 'btn btn-primary','id' => 'standcolor']) !!}
             {!! Form::close() !!}
-            
         </div>
     </div>
     <!-- Div para mostrar notificaciones -->
@@ -70,21 +69,22 @@
                     $('#inventory-checkboxes').empty();
                     $('.titlei').text('Inventario');
                     // Iterar sobre la respuesta y generar los checkboxes
-                    response.forEach(function(item) {
+                    response.forEach(function(item, index) {
                         var checkboxHtml = `
                             <div class="form-check">
                                 <div class="row">
                                     <div class="col-6">
-                                        <input class="form-check-input" type="checkbox" name="inventory[]" value="${item.id}" id="inventory-${item.id}" checked>
+                                        <input type="hidden" name="inventory[${index}][checked]" value="0">
+                                        <input class="form-check-input" type="checkbox" name="inventory[${index}][checked]" value="1" id="inventory-${item.id}" checked>
+                                        <input type="hidden" name="inventory[${index}][id]" value="${item.id}">
                                         <label class="form-check-label" for="inventory-${item.id}">
                                             ${item.element.name} (Cantidad: ${item.amount})
                                         </label>
                                     </div>
                                     <div class="col-6">
-                                        {!! Form::textarea('observation[]', null,  ['class' => 'form-control', 'style' => 'max-height: 30px;','placeholder' => 'Observación']) !!}
+                                        <textarea name="inventory[${index}][observation]" class="form-control" style="max-height: 30px;" placeholder="Observación"></textarea>
                                     </div>
                                 </div>
-                                
                             </div>
                         `;
                         $('#inventory-checkboxes').append(checkboxHtml);

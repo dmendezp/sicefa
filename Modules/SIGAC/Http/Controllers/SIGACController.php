@@ -3,12 +3,37 @@
 namespace Modules\SIGAC\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\Apprentice;
+use Modules\SICA\Entities\Employee;
+use Modules\SICA\Entities\Contractor;
+use Modules\SICA\Entities\Course;
 
 class SIGACController extends Controller
 {
 
     public function index(){
-        $view = ['titlePage'=>trans('sigac::controllers.SIGAC_index_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_index_title_view')];
+        $employees = Employee::where('employee_type_id', 2)->where('state', 'Activo')->get();
+        $contractors = Contractor::where('contract_end_date', '>=', today())->where('employee_type_id', 2)->get();
+        $apprentices = Apprentice::where('apprentice_status', 'EN FORMACIÓN')->get();
+        $school = Course::where('star_date', '<=', today())
+        ->where('end_date', '>=', today())
+        ->where('status', 'Activo')
+        ->get();
+
+        $productive = Course::where('star_production_date', '<=', today())
+        ->where('school_end_date', '<=', today())
+        ->where('status', 'Activo')
+        ->get();
+
+        $view = [
+            'titlePage'=>trans('sigac::controllers.SIGAC_index_title_page'), 
+            'titleView'=>trans('sigac::controllers.SIGAC_index_title_view'),
+            'apprentices' => $apprentices,
+            'employees' => $employees,
+            'contractors' => $contractors,
+            'school' => $school,
+            'productive' => $productive
+        ];
         return view('sigac::index', $view);
     }
 
@@ -53,6 +78,12 @@ class SIGACController extends Controller
 
     /* Panel de control de apoyo */
     public function support_dashboard(){
+        $view = ['titlePage'=>trans('sigac::controllers.SIGAC_support_dashboard_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_support_dashboard_title_view')];
+        return view('sigac::index_wellness', $view);
+    }
+
+    /* Panel de control de apoyo */
+    public function securitystaff_dashboard(){
         $view = ['titlePage'=>trans('sigac::controllers.SIGAC_support_dashboard_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_support_dashboard_title_view')];
         return view('sigac::index_wellness', $view);
     }
