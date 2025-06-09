@@ -133,6 +133,21 @@
         .animated-icon {
             color: var(--azul-claro);
         }
+
+        /* Estilos para el nuevo apartado de administrador */
+        .admin-section {
+            background-color: var(--gris-claro);
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+            border: 1px solid var(--azul-claro);
+            border-radius: 5px;
+        }
+        .admin-section h4 {
+            color: var(--azul-marino);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
     </style>
 @endpush
 
@@ -203,6 +218,16 @@
         @endif
     @else
         <p>Por favor, <a href="{{ route('login') }}">inicia sesión</a> para acceder a funcionalidades adicionales.</p>
+    @endif
+
+    <!-- Nuevo apartado para administradores -->
+    @if(auth()->check() && auth()->user()->hasPermissionTo('sia.admin.index'))
+        <section class="admin-section">
+            <h4>Funciones de Administrador</h4>
+            <a href="{{ route('sia.admin.dashboard') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-cogs"></i> Seleccionar Funciones de Admin
+            </a>
+        </section>
     @endif
 
     <h5 class="display-5">{{ trans('sia::mainPage.Title_General') }}</h5>
