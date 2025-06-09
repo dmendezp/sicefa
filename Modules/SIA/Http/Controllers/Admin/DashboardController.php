@@ -2,7 +2,7 @@
 
 namespace Modules\SIA\Http\Controllers\Admin;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {

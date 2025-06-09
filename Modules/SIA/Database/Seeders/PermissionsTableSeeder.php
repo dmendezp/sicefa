@@ -3,7 +3,6 @@
 namespace Modules\SIA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\Permission;
 use Modules\SICA\Entities\Role;
