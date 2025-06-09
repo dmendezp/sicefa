@@ -23,17 +23,13 @@ Route::prefix('sia')->group(function () {
         return view('sia::index');
     })->name('sia.home');
 
-    // Ruta adicional para /sia/index (pública)
-    Route::get('/index', function () {
-        return view('sia::index');
-    })->name('sia.index');
-
     // Ruta para información o desarrolladores (pública)
     Route::get('/developers', [SIAController::class, 'developers'])->name('sia.developers');
 
     // Rutas para administradores (protegidas con autenticación y permisos)
     Route::prefix('admin')->middleware(['auth', 'permission:sia.admin.index'])->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('sia.admin.dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('sia.admin.dashboard');
+});
     });
 
     // Rutas para gestión de aprendices investigadores (protegidas con autenticación y rol)
@@ -46,4 +42,3 @@ Route::prefix('sia')->group(function () {
         Route::put('/{id}', [ApprenticeResearcherController::class, 'update'])->name('update');
         Route::delete('/{id}', [ApprenticeResearcherController::class, 'destroy'])->name('destroy');
     });
-});
