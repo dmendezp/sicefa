@@ -1,0 +1,13 @@
+{
+    "name": "SC",
+    "alias": "sc",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SC\\Providers\\SCServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
