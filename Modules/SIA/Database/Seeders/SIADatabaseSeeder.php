@@ -27,7 +27,7 @@ class SIADatabaseSeeder extends Seeder
         $this->call(GroupsTableSeeder::class); 
 
         // Sección para pruebas de desarrollo
-        $this->call(ApprenticeResearchersTableSeeder::class);
+        /*$this->call(ApprenticeResearchersTableSeeder::class);*/
 
         DB::commit(); // Finalizar transacción
     }

@@ -21,7 +21,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_instructor = []; // Permisos para Instructor Investigador
         $permissions_apprentice = []; // Permisos para Aprendiz Investigador
 
-        // Consultar aplicación SIA para registrar los permisos
+        // Consultar aplicación SICA para registrar los permisos
         $app = App::where('name', 'SIA')->first();
 
         // ===================== Registro de todos los permisos de la aplicación SIA ==================
@@ -87,8 +87,8 @@ class PermissionsTableSeeder extends Seeder
 
         // Consulta de roles
         $rol_admin = Role::where('slug', 'sia.admin')->first(); // Rol Administrador
-        $rol_instructor = Role::where('slug', 'sia.instructor_investigator')->first(); // Rol Instructor Investigador
-        $rol_apprentice = Role::where('slug', 'sia.apprentice_investigator')->first(); // Rol Aprendiz Investigador
+        $rol_instructor = Role::where('slug', 'sia.inst-inv')->first(); // Rol Instructor Investigador
+        $rol_apprentice = Role::where('slug', 'sia.ap-inv')->first(); // Rol Aprendiz Investigador
 
         // Asignación de permisos a los roles (Sincronización de las relaciones sin eliminar las existentes)
         $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);

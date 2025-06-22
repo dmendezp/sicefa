@@ -16,16 +16,13 @@ class AppTableSeeder extends Seeder
      */
     public function run()
     {
-        // Ejemplo de inserción de datos en la tabla 'apps'
-        DB::table('apps')->insert([
-            [
-                'name' => 'SIA',
-                'color' => '#7fc722',
+        $app = App::updateOrCreate(['name' => 'SIA'], [
+            'url' => '/sia/index',
+            'color' => '#7fc722',
             'icon' => 'fas fa-flask fas fa-users',
             'description' => 'Semillero de investigación la angostura.',
             'description_english' => 'Angostura research seedbed.',
-            'url' => '/sia/index'
-            ],
+           
         ]);
 
     }
