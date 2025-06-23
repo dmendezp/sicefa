@@ -172,14 +172,14 @@
                     @if (Auth::user()->havePermission('cafeto.admin.formulations'))
                         <li class="nav-item">
                             <a href="{{ route('cafeto.admin.formulations.index') }}"
-                                class="nav-link {{ !Route::is('cafeto.admin.formulations.*') ?: 'active' }} text-light">
+                                class="nav-link {{ !Route::is('cafeto.admin.formulations.*') ?: 'active' }} text-orange">
                                 <i class="nav-icon fa-solid fa-flask"></i>
                                 <p>{{ trans('cafeto::formulations.Title') ?: 'Formulations' }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('cafeto.admin.formulations.create') }}"
-                                class="nav-link {{ !Route::is('cafeto.admin.formulations.create') ?: 'active' }} text-light">
+                                class="nav-link {{ !Route::is('cafeto.admin.formulations.create') ?: 'active' }} text-orange">
                                 <i class="nav-icon fa-solid fa-plus"></i>
                                 <p>{{ trans('cafeto::formulations.Create') ?: 'Create Formulation' }}</p>
                             </a>
@@ -264,14 +264,14 @@
                     @if (Auth::user()->havePermission('cafeto.cashier.formulations'))
                         <li class="nav-item">
                             <a href="{{ route('cafeto.cashier.formulations.index') }}"
-                                class="nav-link {{ !Route::is('cafeto.cashier.formulations.*') ?: 'active' }} text-light">
+                                class="nav-link {{ !Route::is('cafeto.cashier.formulations.*') ?: 'active' }} text-orange">
                                 <i class="nav-icon fa-solid fa-flask"></i>
                                 <p>{{ trans('cafeto::formulations.Title') ?: 'Formulations' }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('cafeto.cashier.formulations.create') }}"
-                                class="nav-link {{ !Route::is('cafeto.cashier.formulations.create') ?: 'active' }} text-light">
+                                class="nav-link {{ !Route::is('cafeto.cashier.formulations.create') ?: 'active' }} text-orange">
                                 <i class="nav-icon fa-solid fa-plus"></i>
                                 <p>{{ trans('cafeto::formulations.Create') ?: 'Create Formulation' }}</p>
                             </a>
@@ -283,6 +283,35 @@
                                 class="nav-link {{ !Route::is('cafeto.cashier.configuration*') ?: 'active' }} text-light">
                                 <i class="nav-icon fa-solid fa-gears"></i>
                                 <p>{{ trans('cafeto::general.Configuration') }}</p>
+                            </a>
+                        </li>
+                    @endif
+                @endif
+
+                <!-- Menú de opciones para instructor -->
+                @if (Route::is('cafeto.instructor.*'))
+                    @if (Auth::user()->havePermission('cafeto.instructor.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('cafeto.instructor.index') }}"
+                                class="nav-link {{ !Route::is('cafeto.instructor.index') ?: 'active' }} text-light">
+                                <i class="nav-icon fa-solid fa-house-chimney"></i>
+                                <p>{{ trans('cafeto::general.dashboard') }}</p>
+                            </a>
+                        </li>
+                    @endif
+                    @if (Auth::user()->havePermission('cafeto.instructor.formulations'))
+                        <li class="nav-item">
+                            <a href="{{ route('cafeto.instructor.formulations.index') }}"
+                                class="nav-link {{ !Route::is('cafeto.instructor.formulations.*') ?: 'active' }} text-orange">
+                                <i class="nav-icon fa-solid fa-flask"></i>
+                                <p>{{ trans('cafeto::formulations.Title') ?: 'Formulations' }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('cafeto.instructor.formulations.create') }}"
+                                class="nav-link {{ !Route::is('cafeto.instructor.formulations.create') ?: 'active' }} text-orange">
+                                <i class="nav-icon fa-solid fa-plus"></i>
+                                <p>{{ trans('cafeto::formulations.Create') ?: 'Create Formulation' }}</p>
                             </a>
                         </li>
                     @endif

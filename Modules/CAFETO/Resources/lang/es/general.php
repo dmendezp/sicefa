@@ -48,6 +48,7 @@ return [
     'Cash Control'   => 'Control de Caja',
     'Reports Panel' => 'Panel de Reportes',
     'Movement History' => 'Historial de Movimientos',
+    'AddCashier'         => 'Agregar Cajero',
 
     // ControlSidebar
     'Browse'           => 'Navega!',

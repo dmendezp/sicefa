@@ -50,6 +50,7 @@ return [
     'Cash Control'     => 'Cash Control',
     'Reports Panel'    => 'Reports Panel',
     'Movement History' => 'Movement History',
+    'AddCashier'         => 'Add Cashier',
 
     // ControlSidebar
     'Browse'           => 'Browse!',
