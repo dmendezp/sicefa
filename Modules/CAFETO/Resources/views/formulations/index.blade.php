@@ -98,21 +98,24 @@
                                         </span>
                                     </td>
                                     <td class="text-center">
+                                        @php
+                                            $routePrefix = getRoleRouteName(Route::currentRouteName());
+                                        @endphp
                                         <div class="d-flex justify-content-center gap-1">
-                                            <a href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.formulations.show', $formulation->id) }}"
+                                            <a href="{{ route('cafeto.' . $routePrefix . '.formulations.show', $formulation->id) }}"
                                                class="btn btn-outline-light btn-sm" data-bs-toggle="tooltip" data-bs-placement="top"
                                                title="{{ trans('cafeto::formulations.View') }}">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
-                                            @if (Auth::user()->havePermission('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.formulations.edit'))
-                                                <a href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.formulations.edit', $formulation->id) }}"
+                                            @if (Auth::user()->havePermission('cafeto.' . $routePrefix . '.formulations.edit'))
+                                                <a href="{{ route('cafeto.' . $routePrefix . '.formulations.edit', $formulation->id) }}"
                                                    class="btn btn-outline-light btn-sm" data-bs-toggle="tooltip" data-bs-placement="top"
                                                    title="{{ trans('cafeto::formulations.Edit') }}">
                                                     <i class="fa-solid fa-edit"></i>
                                                 </a>
                                             @endif
-                                            @if (Auth::user()->havePermission('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.formulations.destroy'))
-                                                <form action="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.formulations.destroy', $formulation->id) }}"
+                                            @if (Auth::user()->havePermission('cafeto.' . $routePrefix . '.formulations.destroy'))
+                                                <form action="{{ route('cafeto.' . $routePrefix . '.formulations.destroy', $formulation->id) }}"
                                                       method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
@@ -124,8 +127,8 @@
                                                     </button>
                                                 </form>
                                             @endif
-                                            @if ($formulation->proccess !== 'approved' && Auth::user()->havePermission('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.formulations.approve'))
-                                                <form action="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.formulations.approve', $formulation->id) }}"
+                                            @if ($formulation->proccess !== 'approved' && Auth::user()->havePermission('cafeto.' . $routePrefix . '.formulations.approve'))
+                                                <form action="{{ route('cafeto.' . $routePrefix . '.formulations.approve', $formulation->id) }}"
                                                       method="POST" class="d-inline">
                                                     @csrf
                                                     <button type="submit" class="btn btn-outline-light btn-sm"
@@ -144,7 +147,7 @@
                                             <h6 class="text-light">{{ trans('cafeto::formulations.Ingredients') }}</h6>
                                             <ul class="text-light">
                                                 @foreach ($formulation->ingredients ?? [] as $ingredient)
-                                                    <li>{{ $ingredient->element->name }}: {{ $ingredient->amount }} {{ $ingredient->unit }}</li>
+                                                    <li>{{ $ingredient->element->name }}: {{ $ingredient->amount }} g</li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -166,21 +169,24 @@
                                 {{ $formulation->proccess }}
                             </span>
                         </p>
-                        <div class="d-flex justify-content-start gap-1">
-                            <a href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.formulations.show', $formulation->id) }}"
+                        @php
+                            $routePrefix = getRoleRouteName(Route::currentRouteName());
+                        @endphp
+                        <div class="d-flex justify-content-center gap-1">
+                            <a href="{{ route('cafeto.' . $routePrefix . '.formulations.show', $formulation->id) }}"
                                class="btn btn-outline-light btn-sm" data-bs-toggle="tooltip" data-bs-placement="top"
                                title="{{ trans('cafeto::formulations.View') }}">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
-                            @if (Auth::user()->havePermission('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.formulations.edit'))
-                                <a href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.formulations.edit', $formulation->id) }}"
+                            @if (Auth::user()->havePermission('cafeto.' . $routePrefix . '.formulations.edit'))
+                                <a href="{{ route('cafeto.' . $routePrefix . '.formulations.edit', $formulation->id) }}"
                                    class="btn btn-outline-light btn-sm" data-bs-toggle="tooltip" data-bs-placement="top"
                                    title="{{ trans('cafeto::formulations.Edit') }}">
                                     <i class="fa-solid fa-edit"></i>
                                 </a>
                             @endif
-                            @if (Auth::user()->havePermission('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.formulations.destroy'))
-                                <form action="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.formulations.destroy', $formulation->id) }}"
+                            @if (Auth::user()->havePermission('cafeto.' . $routePrefix . '.formulations.destroy'))
+                                <form action="{{ route('cafeto.' . $routePrefix . '.formulations.destroy', $formulation->id) }}"
                                       method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
@@ -192,8 +198,8 @@
                                     </button>
                                 </form>
                             @endif
-                            @if ($formulation->proccess !== 'approved' && Auth::user()->havePermission('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.formulations.approve'))
-                                <form action="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.formulations.approve', $formulation->id) }}"
+                            @if ($formulation->proccess !== 'approved' && Auth::user()->havePermission('cafeto.' . $routePrefix . '.formulations.approve'))
+                                <form action="{{ route('cafeto.' . $routePrefix . '.formulations.approve', $formulation->id) }}"
                                       method="POST" class="d-inline">
                                     @csrf
                                     <button type="submit" class="btn btn-outline-light btn-sm"
@@ -208,7 +214,7 @@
                             <h6 class="text-light">{{ trans('cafeto::formulations.Ingredients') }}</h6>
                             <ul class="text-light">
                                 @foreach ($formulation->ingredients ?? [] as $ingredient)
-                                    <li>{{ $ingredient->element->name }}: {{ $ingredient->amount }} {{ $ingredient->unit }}</li>
+                                    <li>{{ $ingredient->element->name }}: {{ $ingredient->amount }} g</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -228,5 +234,93 @@
 @push('scripts')
     <script src="{{ asset('libs/AOS-2.3.1/dist/aos.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="{{ asset('modules/cafeto/js/formulations/index.js') }}"></script>
+    <script>
+        AOS.init();
+
+        function toggleDetails(row, id) {
+            const detailsRow = document.getElementById(`details-${id}`);
+            detailsRow.style.display = detailsRow.style.display === 'table-row' ? 'none' : 'table-row';
+        }
+
+        function toggleMobileDetails(id) {
+            const details = document.getElementById(`mobile-details-${id}`);
+            details.style.display = details.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function handleDelete(event, message) {
+            event.preventDefault();
+            Swal.fire({
+                title: '{{ trans('cafeto::formulations.Confirm Delete') }}',
+                text: message,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '{{ trans('cafeto::formulations.Yes, delete it!') }}',
+                cancelButtonText: '{{ trans('cafeto::formulations.Cancel') }}'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    event.target.closest('form').submit();
+                }
+            });
+            return false;
+        }
+
+        function debouncedFilterTable() {
+            clearTimeout(window.filterTimeout);
+            window.filterTimeout = setTimeout(filterTable, 300);
+        }
+
+        function filterTable() {
+            const elementFilter = document.getElementById('filter-element').value.toLowerCase();
+            const statusFilter = document.getElementById('filter-status').value;
+            const dateFilter = document.getElementById('filter-date').value;
+            const rows = document.querySelectorAll('#tableFormulations tbody tr.table-row');
+            rows.forEach(row => {
+                const element = row.cells[0].textContent.toLowerCase();
+                const status = row.cells[3].textContent.toLowerCase();
+                const date = row.cells[2].textContent;
+                const matchesElement = element.includes(elementFilter);
+                const matchesStatus = !statusFilter || status === statusFilter;
+                const matchesDate = !dateFilter || date === dateFilter;
+                row.style.display = matchesElement && matchesStatus && matchesDate ? '' : 'none';
+                const detailsRow = row.nextElementSibling;
+                if (detailsRow && detailsRow.classList.contains('details-row')) {
+                    detailsRow.style.display = 'none';
+                }
+            });
+        }
+
+        function exportTable(format) {
+            if (format === 'csv') {
+                let csv = 'Element,Amount,Date,Status\n';
+                document.querySelectorAll('#tableFormulations tbody tr.table-row').forEach(row => {
+                    const element = row.cells[0].textContent;
+                    const amount = row.cells[1].textContent;
+                    const date = row.cells[2].textContent;
+                    const status = row.cells[3].textContent;
+                    csv += `"${element}","${amount}","${date}","${status}"\n`;
+                });
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'formulations.csv';
+                link.click();
+            } else if (format === 'pdf') {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                doc.text('Formulations Report', 10, 10);
+                let y = 20;
+                document.querySelectorAll('#tableFormulations tbody tr.table-row').forEach(row => {
+                    const element = row.cells[0].textContent;
+                    const amount = row.cells[1].textContent;
+                    const date = row.cells[2].textContent;
+                    const status = row.cells[3].textContent;
+                    doc.text(`Element: ${element}, Amount: ${amount}, Date: ${date}, Status: ${status}`, 10, y);
+                    y += 10;
+                });
+                doc.save('formulations.pdf');
+            }
+        }
+    </script>
 @endpush

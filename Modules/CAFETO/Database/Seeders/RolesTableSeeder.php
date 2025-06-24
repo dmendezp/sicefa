@@ -41,15 +41,6 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
-        // Registrar o actualizar rol de CAJERO PASANTE
-        $rol_cashier_intern = Role::updateOrCreate(['slug' => 'cafeto.cashier_intern'], [
-            'name' => 'Cajero Pasante',
-            'description' => 'Rol de cajero pasante de la aplicación CAFETO',
-            'description_english' => 'CAFETO application cashier intern role',
-            'full_access' => 'no',
-            'app_id' => $app->id
-        ]);
-
         // Consulta de usuarios
         $user_admin = User::where('nickname', 'LFHerre')->firstOrFail();
         $user_cashier = User::where('nickname', 'Resmerveilons')->firstOrFail();
@@ -62,6 +53,5 @@ class RolesTableSeeder extends Seeder
         $user_cashier->roles()->syncWithoutDetaching([$rol_cashier->id]);
         $user_superadmin->roles()->syncWithoutDetaching([$rol_superadmin->id]);
         $user_instructor->roles()->syncWithoutDetaching([$rol_instructor->id]);
-        $user_cashier_intern->roles()->syncWithoutDetaching([$rol_cashier_intern->id]);
     }
 }

@@ -739,10 +739,17 @@ class PermissionsTableSeeder extends Seeder
         $permissions_instructor[] = $permission->id;
 
         // Eliminar formulaciones (Instructor)
-        $permission = Permission::updateOrCreate(['slug' => 'cafeto.instructor.formulations.destroy'], [
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.instructor.formulations.delete'], [
             'name' => 'Eliminar formulaciones (Instructor)',
             'description' => 'Permite eliminar formulaciones',
             'description_english' => 'Allows deleting formulations',
+            'app_id' => $app->id
+        ]);
+        // Eliminar formulaciones (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.instructor.formulations.destroy'], [
+            'name' => 'Eliminar formulaciones (Instructor)',
+            'description' => 'Permite eliminar formulaciones',
+            'description_english' => 'Allows deleting formulaciones',
             'app_id' => $app->id
         ]);
         $permissions_instructor[] = $permission->id;
@@ -765,6 +772,42 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_cashier[] = $permission->id;
 
+        // Vista principal de formulaciones (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.formulations.index'], [
+            'name' => 'Vista principal de formulaciones (Cajero)',
+            'description' => 'Permite ver la vista principal de formulaciones propias',
+            'description_english' => 'Allows viewing the main view of own formulations',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id;
+
+        // Vista de creación de formulaciones (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.formulations.create'], [
+            'name' => 'Vista de creación de formulaciones (Cajero)',
+            'description' => 'Permite acceder a la vista para crear formulaciones',
+            'description_english' => 'Allows accessing the formulation creation view',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id;
+
+        // Guardar formulaciones (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.formulations.store'], [
+            'name' => 'Guardar formulaciones (Cajero)',
+            'description' => 'Permite guardar nuevas formulaciones',
+            'description_english' => 'Allows saving new formulations',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id;
+
+        // Ver detalles de formulaciones (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.formulations.show'], [
+            'name' => 'Ver detalles de formulaciones (Cajero)',
+            'description' => 'Permite consultar detalles de formulaciones propias',
+            'description_english' => 'Allows viewing details of own formulations',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id;
+
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'cafeto.admin')->first();
         $rol_cashier = Role::where('slug', 'cafeto.cashier')->first();
@@ -776,4 +819,3 @@ class PermissionsTableSeeder extends Seeder
         $rol_instructor->permissions()->syncWithoutDetaching($permissions_instructor);
     }
 }
-?>

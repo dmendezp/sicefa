@@ -8,16 +8,16 @@
 @push('breadcrumbs')
     <li class="breadcrumb-item">
         <a href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.formulations.index') }}"
-        class="text-decoration-none">{{ trans('cafeto::formulations.Breadcrumb_Formulations_1') }}</a>
+           class="text-decoration-none text-white">{{ trans('cafeto::formulations.Breadcrumb_Formulations_1') }}</a>
     </li>
-    <li class="breadcrumb-item active">{{ trans('cafeto::formulations.Breadcrumb_Active_Create_Formulations_1') }}</li>
+    <li class="breadcrumb-item active text-white">{{ trans('cafeto::formulations.Breadcrumb_Active_Create_Formulations_1') }}</li>
 @endpush
 
 @section('content')
     <div class="container">
         <div class="card card-dark shadow-sm" data-aos="fade-up">
             <div class="card-body">
-                <div class="progress mb-3" style="height: 25px;">
+                <div class="progress mb-3 progress-custom">
                     <div class="progress-bar" role="progressbar" style="width: 0%;" id="form-progress">0%</div>
                 </div>
 
@@ -37,6 +37,8 @@
                             $user = Auth::user();
                             $roles = $user->roles->pluck('slug')->toArray();
                             $routePrefix = in_array('cafeto.admin', $roles) ? 'admin' : (in_array('cafeto.instructor', $roles) ? 'instructor' : 'cashier');
+                            $person_id = $user->person ? $user->person->id : $user->id;
+                            $person_name = $user->person ? $user->person->full_name : $user->name;
                         @endphp
 
                         <form action="{{ route('cafeto.' . $routePrefix . '.formulations.store') }}" method="POST" id="formulation-form">
@@ -44,34 +46,35 @@
                             <div class="row mx-3 align-items-end" data-aos="fade-up" data-aos-delay="100">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>
+                                        <label class="label-white">
                                             <strong class="text-danger">*</strong> {{ trans('cafeto::formulations.Title_Form_Owner') }}
-                                            <i class="fas fa-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ trans('cafeto::formulations.Tooltip_Owner') }}"></i>
+                                            <i class="fas fa-info-circle text-light-gray" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ trans('cafeto::formulations.Tooltip_Owner') }}"></i>
                                         </label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text input-group-dark">
-                                                    <i class="fa-solid fa-user-tag"></i>
+                                                    <i class="fa-solid fa-user-tag text-light-gray"></i>
                                                 </span>
                                             </div>
-                                            <input type="hidden" name="person_id" value="{{ Auth::user()->person_id }}">
-                                            <input type="text" class="form-control input-dark" value="{{ Auth::user()->person->full_name }}" readonly>
+                                            <input type="hidden" name="person_id" value="{{ $person_id }}">
+                                            <input type="text" class="form-control input-dark input-owner" value="{{ $person_name }}" readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>
-                                            <strong class="text-danger">*</strong> {{ trans('cafeto::formulations.Element') }}
-                                            <i class="fas fa-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ trans('cafeto::formulations.Tooltip_Element') }}"></i>
+                                        <label class="label-white">
+                                            {{ trans('cafeto::formulations.Element') }}
+                                            <i class="fas fa-info-circle text-light-gray" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ trans('cafeto::formulations.Tooltip_Element') }}"></i>
                                         </label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text input-group-dark">
-                                                    <i class="fas fa-list"></i>
+                                                    <i class="fas fa-list text-light-gray"></i>
                                                 </span>
                                             </div>
-                                            <select name="element_id" class="form-select input-dark" required onchange="updatePreview()">
+                                            <select name="element_id" class="form-select input-dark" onchange="updatePreview()">
+                                                <option value="">{{ trans('cafeto::formulations.None') }}</option>
                                                 @foreach ($elements as $element)
                                                     <option value="{{ $element->id }}" {{ old('element_id') == $element->id ? 'selected' : '' }}>{{ $element->name }}</option>
                                                 @endforeach
@@ -81,14 +84,14 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>
+                                        <label class="label-white">
                                             <strong class="text-danger">*</strong> {{ trans('cafeto::formulations.Date') }}
-                                            <i class="fas fa-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ trans('cafeto::formulations.Tooltip_Date') }}"></i>
+                                            <i class="fas fa-info-circle text-light-gray" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ trans('cafeto::formulations.Tooltip_Date') }}"></i>
                                         </label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text input-group-dark">
-                                                    <i class="fa-solid fa-calendar-days"></i>
+                                                    <i class="fa-solid fa-calendar-days text-light-gray"></i>
                                                 </span>
                                             </div>
                                             <input type="date" name="date" value="{{ old('date', \Carbon\Carbon::now()->toDateString()) }}" class="form-control text-center input-dark" required onchange="updatePreview()">
@@ -97,17 +100,17 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>
+                                        <label class="label-white">
                                             <strong class="text-danger">*</strong> {{ trans('cafeto::formulations.Amount') }}
-                                            <i class="fas fa-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ trans('cafeto::formulations.Tooltip_Amount') }}"></i>
+                                            <i class="fas fa-info-circle text-light-gray" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ trans('cafeto::formulations.Tooltip_Amount') }}"></i>
                                             <button type="button" class="btn btn-sm btn-outline-light ms-2" onclick="startVoiceInput('amount')" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ trans('cafeto::formulations.Tooltip_Voice') }}">
-                                                <i class="fas fa-microphone"></i>
+                                                <i class="fas fa-microphone text-light-gray"></i>
                                             </button>
                                         </label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text input-group-dark">
-                                                    <i class="far fa-keyboard"></i>
+                                                    <i class="far fa-keyboard text-light-gray"></i>
                                                 </span>
                                             </div>
                                             <input type="number" id="amount" name="amount" value="{{ old('amount', 1) }}" class="form-control text-center input-dark" required min="0" oninput="validateAmount(this); updatePreview()">
@@ -121,17 +124,17 @@
                             <div class="col-md-12" data-aos="fade-up" data-aos-delay="200">
                                 <div class="card card-dark-inner">
                                     <div class="collapsible-header" data-bs-toggle="collapse" data-bs-target="#ingredients-collapse">
-                                        <h5 class="mb-0">{{ trans('cafeto::formulations.Ingredients') }} <i class="fas fa-chevron-down float-end"></i></h5>
+                                        <h5 class="mb-0 text-white">{{ trans('cafeto::formulations.Ingredients') }} <i class="fas fa-chevron-down float-end text-light-gray"></i></h5>
                                     </div>
                                     <div id="ingredients-collapse" class="collapse show">
                                         <div class="card-body" id="ingredients">
                                             <div class="row ingredient-group mb-3" draggable="true">
-                                                <div class="col-md-4">
+                                                <div class="col-md-5">
                                                     <label class="mt-3 label-white">{{ trans('cafeto::formulations.Element') }}</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text input-group-dark">
-                                                                <i class="fas fa-list"></i>
+                                                                <i class="fas fa-list text-light-gray"></i>
                                                             </span>
                                                         </div>
                                                         <input type="text" class="form-control typeahead input-dark" name="ingredients[0][element_name]" placeholder="{{ trans('cafeto::formulations.Search_Element') }}" required oninput="updatePreview()">
@@ -139,12 +142,12 @@
                                                         <div class="typeahead-list" style="display: none;"></div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2">
+                                                <div class="col-md-3">
                                                     <label class="mt-3 label-white">{{ trans('cafeto::formulations.Amount') }}</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text input-group-dark">
-                                                                <i class="far fa-keyboard"></i>
+                                                                <i class="far fa-keyboard text-light-gray"></i>
                                                             </span>
                                                         </div>
                                                         <input type="number" name="ingredients[0][amount]" value="{{ old('ingredients.0.amount') }}" class="form-control input-dark" required placeholder="{{ trans('cafeto::formulations.Amount') }}" min="0" oninput="validateAmount(this); updatePreview()">
@@ -155,7 +158,7 @@
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text input-group-dark">
-                                                                <i class="fas fa-list"></i>
+                                                                <i class="fas fa-list text-light-gray"></i>
                                                             </span>
                                                         </div>
                                                         <select name="ingredients[0][unit]" class="form-select input-dark" required onchange="updatePreview()">
@@ -164,10 +167,6 @@
                                                             <option value="ml" {{ old('ingredients.0.unit') === 'ml' ? 'selected' : '' }}>{{ trans('cafeto::formulations.Milliliters') }}</option>
                                                         </select>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <label class="mt-3 label-white">{{ trans('cafeto::formulations.Convert') }}</label>
-                                                    <button type="button" class="btn btn-outline-light btn-sm d-block" onclick="convertUnit(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ trans('cafeto::formulations.Tooltip_Convert') }}">Convertir</button>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <label class="form-label mt-3"> </label>
@@ -188,7 +187,7 @@
                                 <div class="row">
                                     <div class="col-auto mx-auto">
                                         <button type="submit" class="btn btn-dark form-control text-truncate btn-dark-custom" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ trans('cafeto::formulations.Tooltip_Save') }}" onclick="checkProgress(event)">
-                                            {{ trans('cafeto::formulations.Save') }} <i class="fas fa-plus"></i>
+                                            {{ trans('cafeto::formulations.Save') }} <i class="fas fa-plus text-light-gray"></i>
                                         </button>
                                         <a href="{{ route('cafeto.' . $routePrefix . '.formulations.index') }}" class="btn btn-dark form-control mt-2 btn-dark-custom" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ trans('cafeto::formulations.Tooltip_Back') }}">
                                             {{ trans('cafeto::formulations.Back') }}
@@ -200,12 +199,12 @@
                     </div>
                     <div class="col-md-4">
                         <div class="preview-card" data-aos="fade-left" data-aos-delay="400">
-                            <h5>{{ trans('cafeto::formulations.Preview') }}</h5>
-                            <p><strong>{{ trans('cafeto::formulations.Element') }}:</strong> <span id="preview-element">{{ trans('cafeto::formulations.None') }}</span></p>
-                            <p><strong>{{ trans('cafeto::formulations.Amount') }}:</strong> <span id="preview-amount">0</span></p>
-                            <p><strong>{{ trans('cafeto::formulations.Date') }}:</strong> <span id="preview-date">{{ \Carbon\Carbon::now()->toDateString() }}</span></p>
-                            <h6>{{ trans('cafeto::formulations.Ingredients') }}</h6>
-                            <ul id="preview-ingredients">
+                            <h5 class="text-white">{{ trans('cafeto::formulations.Preview') }}</h5>
+                            <p class="text-light-gray"><strong>{{ trans('cafeto::formulations.Element') }}:</strong> <span id="preview-element">{{ trans('cafeto::formulations.None') }}</span></p>
+                            <p class="text-light-gray"><strong>{{ trans('cafeto::formulations.Amount') }}:</strong> <span id="preview-amount">0</span></p>
+                            <p class="text-light-gray"><strong>{{ trans('cafeto::formulations.Date') }}:</strong> <span id="preview-date">{{ \Carbon\Carbon::now()->toDateString() }}</span></p>
+                            <h6 class="text-white">{{ trans('cafeto::formulations.Ingredients') }}</h6>
+                            <ul id="preview-ingredients" class="text-light-gray">
                                 <li>{{ trans('cafeto::formulations.None') }}</li>
                             </ul>
                         </div>
@@ -219,7 +218,6 @@
 @push('scripts')
     @livewireScripts()
     <script src="{{ asset('libs/AOS-2.3.1/dist/aos.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script>
         AOS.init();
 
@@ -240,13 +238,7 @@
 
         // Check Progress on Submit
         function checkProgress(event) {
-            if (updateProgress() === 100) {
-                confetti({
-                    particleCount: 100,
-                    spread: 70,
-                    origin: { y: 0.6 }
-                });
-            }
+            updateProgress();
         }
 
         // Real-Time Amount Validation
@@ -294,12 +286,12 @@
             div.className = 'row ingredient-group mb-3';
             div.draggable = true;
             div.innerHTML = `
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <label class="mt-3 label-white">{{ trans('cafeto::formulations.Element') }}</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text input-group-dark">
-                                <i class="fas fa-list"></i>
+                                <i class="fas fa-list text-light-gray"></i>
                             </span>
                         </div>
                         <input type="text" class="form-control typeahead input-dark" name="ingredients[${ingredientCount}][element_name]" placeholder="{{ trans('cafeto::formulations.Search_Element') }}" required oninput="updatePreview()">
@@ -307,12 +299,12 @@
                         <div class="typeahead-list" style="display: none;"></div>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label class="mt-3 label-white">{{ trans('cafeto::formulations.Amount') }}</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text input-group-dark">
-                                <i class="far fa-keyboard"></i>
+                                <i class="far fa-keyboard text-light-gray"></i>
                             </span>
                         </div>
                         <input type="number" name="ingredients[${ingredientCount}][amount]" class="form-control input-dark" required placeholder="{{ trans('cafeto::formulations.Amount') }}" min="0" oninput="validateAmount(this); updatePreview()">
@@ -323,7 +315,7 @@
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text input-group-dark">
-                                <i class="fas fa-list"></i>
+                                <i class="fas fa-list text-light-gray"></i>
                             </span>
                         </div>
                         <select name="ingredients[${ingredientCount}][unit]" class="form-select input-dark" required onchange="updatePreview()">
@@ -332,10 +324,6 @@
                             <option value="ml">{{ trans('cafeto::formulations.Milliliters') }}</option>
                         </select>
                     </div>
-                </div>
-                <div class="col-md-2">
-                    <label class="mt-3 label-white">{{ trans('cafeto::formulations.Convert') }}</label>
-                    <button type="button" class="btn btn-outline-light btn-sm d-block" onclick="convertUnit(${ingredientCount})" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ trans('cafeto::formulations.Tooltip_Convert') }}">Convertir</button>
                 </div>
                 <div class="col-md-2">
                     <label class="form-label mt-3"> </label>
@@ -411,7 +399,11 @@
                 const list = this.nextElementSibling.nextElementSibling;
                 list.innerHTML = '';
                 if (query) {
-                    const matches = Object.keys(elements).filter(id => elements[id].toLowerCase().includes(query));
+                    const matches = Object.keys(elements).filter(id => {
+                        const isSelected = Array.from(document.querySelectorAll('input[name*="[element_id]"]'))
+                            .some(el => el.value === id && el !== this.nextElementSibling);
+                        return elements[id].toLowerCase().includes(query) && !isSelected;
+                    });
                     if (matches.length) {
                         matches.forEach(id => {
                             const item = document.createElement('div');
@@ -455,29 +447,6 @@
                 }
             };
             recognition.start();
-        }
-
-        // Unit Conversion
-        function convertUnit(index) {
-            const amountInput = document.querySelector(`input[name="ingredients[${index}][amount]"]`);
-            const unitSelect = document.querySelector(`select[name="ingredients[${index}][unit]"]`);
-            let amount = parseFloat(amountInput.value);
-            if (isNaN(amount)) return;
-            const currentUnit = unitSelect.value;
-            let newUnit = currentUnit;
-            if (currentUnit === 'g') {
-                amount *= 1000; // g to mg
-                newUnit = 'mg';
-            } else if (currentUnit === 'mg') {
-                amount /= 1000; // mg to g
-                newUnit = 'g';
-            } else if (currentUnit === 'ml') {
-                amount *= 1000; // ml to mg (assuming 1ml = 1g for simplicity)
-                newUnit = 'mg';
-            }
-            amountInput.value = amount.toFixed(2);
-            unitSelect.value = newUnit;
-            updatePreview();
         }
 
         document.addEventListener('DOMContentLoaded', () => {

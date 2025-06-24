@@ -1,0 +1,120 @@
+/* CSS Variables for consistent theming */
+:root {
+    --dark-bg: #1a1a1a;
+    --darker-bg: rgba(0, 0, 0, 0.71);
+    --gray-bg: #333333;
+    --light-gray-bg: #2a2a2a;
+    --text-light: #fff;
+    --border-color: #333333;
+    --approved-bg: #000000;
+    --pending-bg: #4a4a4a;
+}
+
+/* Custom card styling for show view */
+.custom-card-show {
+    background: var(--dark-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    margin: 20px auto;
+    max-width: 800px;
+    color: var(--text-light);
+}
+
+/* Formulation details container */
+.formulation-details {
+    padding: 15px;
+}
+
+/* Detail item styling */
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.95em;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.detail-value {
+    color: var(--text-light);
+}
+
+/* Status badge styling */
+.status-badge {
+    font-size: 0.9em;
+    padding: 5px 10px;
+    border-radius: 12px;
+}
+
+.bg-approved {
+    background: var(--approved-bg) !important;
+    color: var(--text-light);
+}
+
+.bg-pending {
+    background: var(--pending-bg) !important;
+    color: var(--text-light);
+}
+
+/* Ingredient list styling */
+.ingredient-list {
+    list-style-type: square;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.ingredient-item {
+    margin-bottom: 8px;
+    font-size: 0.95em;
+}
+
+/* Button styling */
+.btn-dark {
+    background: var(--gray-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-light);
+    transition: background-color 0.3s ease;
+}
+
+.btn-dark:hover {
+    background: var(--darker-bg);
+    color: var(--text-light);
+}
+
+/* Alert styling */
+.alert-success {
+    background: var(--light-gray-bg);
+    color: var(--text-light);
+    border-color: var(--border-color);
+    margin-bottom: 15px;
+}
+
+/* Tooltip styling */
+.tooltip-inner {
+    background: var(--gray-bg);
+    color: var(--text-light);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .custom-card-show {
+        margin: 15px;
+        padding: 10px;
+    }
+
+    .detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .btn-dark {
+        width: 100%;
+        text-align: center;
+    }
+}

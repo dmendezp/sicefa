@@ -1,4 +1,131 @@
-/* Existing styles */
+/* General dark theme styles */
+body {
+    background-color: #121212; /* Dark background for the entire page */
+    color: #ffffff; /* Default text color */
+}
+
+/* Card styles */
+.card-dark {
+    border: 1px solid #333333;
+    background: #1a1a1a;
+    color: #ffffff;
+    border-radius: 8px;
+}
+
+.card-dark-inner {
+    background: #1a1a1a;
+    border: 1px solid #333333;
+    border-radius: 5px;
+}
+
+/* Input styles */
+.input-dark {
+    background: #2a2a2a;
+    color: #ffffff;
+    border: 1px solid #333333;
+    border-radius: 4px;
+}
+
+.input-dark:focus {
+    background: #2a2a2a;
+    color: #ffffff;
+    border-color: #4a4a4a;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+}
+
+/* Owner input specific styles */
+.input-owner {
+    background: #333333; /* Fixed darker background */
+    color: #cccccc; /* Fixed light gray text */
+    border: 1px solid #333333;
+    border-radius: 4px;
+    cursor: default; /* Prevent pointer cursor to indicate non-interactivity */
+}
+
+.input-owner:focus,
+.input-owner:hover,
+.input-owner:active {
+    background: #333333; /* No change on focus/hover/active */
+    color: #cccccc;
+    borderս
+    border-color: #333333;
+    box-shadow: none;
+}
+
+.input-group-dark {
+    background: #333333;
+    color: #ffffff;
+    border: 1px solid #333333;
+    border-radius: 4px;
+}
+
+/* Alert styles */
+.alert-dark {
+    background: #2a2a2a;
+    color: #ffffff;
+    border: 1px solid #333333;
+    border-radius: 5px;
+}
+
+/* Horizontal rule */
+.hr-dark {
+    border-color: #333333;
+}
+
+/* Labels */
+.label-white {
+    color: #ffffff;
+}
+
+/* Buttons */
+.btn-dark-custom {
+    background: #000000;
+    color: #ffffff;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-dark-custom:hover {
+    background: #333333;
+    color: #ffffff;
+}
+
+.btn-dark-custom:active {
+    background: #4a4a4a;
+}
+
+.btn-outline-light {
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.btn-outline-light:hover {
+    background: #4a4a4a;
+    color: #ffffff;
+}
+
+.btn-outline-light:disabled {
+    border-color: #666666;
+    color: #666666;
+    cursor: not-allowed;
+}
+
+/* Progress bar */
+.progress-custom {
+    height: 25px;
+    background: #2a2a2a;
+    border-radius: 5px;
+}
+
+.progress-bar {
+    transition: width 0.3s ease;
+    background: #4a4a4a;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Ingredient group */
 .ingredient-group {
     transition: all 0.3s ease;
 }
@@ -8,56 +135,46 @@
     background-color: #333333;
 }
 
+/* Sticky footer */
 .sticky-footer {
     position: sticky;
     bottom: 0;
-    background: #000000; /* Pure black */
+    background: #121212;
     padding: 15px;
     border-top: 1px solid #333333;
     z-index: 100;
-    color: #fff;
 }
 
-.progress-bar {
-    transition: width 0.3s ease;
-    background: #4a4a4a; /* Dark gray */
-}
-
+/* Collapsible header */
 .collapsible-header {
     cursor: pointer;
-    background: #000000;
-    color: #fff;
+    background: #1a1a1a;
+    color: #ffffff;
     padding: 10px;
     border-radius: 5px;
 }
 
+/* Preview card */
 .preview-card {
     background: #1a1a1a;
-    color: #fff;
+    color: #ffffff;
     border: 1px solid #333333;
     border-radius: 5px;
     padding: 15px;
     margin-bottom: 20px;
 }
 
-.tooltip-inner {
-    background: #000000;
-    color: #fff;
-}
-
-.tooltip .arrow::before {
-    border-top-color: #000000;
-}
-
+/* Typeahead */
 .typeahead-list {
     position: absolute;
     background: #2a2a2a;
-    color: #fff;
+    color: #ffffff;
     border: 1px solid #333333;
     max-height: 200px;
     overflow-y: auto;
     z-index: 1000;
     width: 100%;
+    border-radius: 4px;
 }
 
 .typeahead-item {
@@ -66,55 +183,55 @@
 }
 
 .typeahead-item:hover {
-    background: #333333;
+    background: #4a4a4a;
 }
 
+/* Tooltip */
+.tooltip-inner {
+    background: #000000;
+    color: #ffffff;
+}
+
+.tooltip .arrow::before {
+    border-top-color: #000000;
+}
+
+/* Custom text colors */
+.text-light-gray {
+    color: #cccccc;
+}
+
+/* Breadcrumb */
+.breadcrumb-item a {
+    color: #ffffff;
+}
+
+.breadcrumb-item.active {
+    color: #cccccc;
+}
+
+/* Form select */
+.form-select.input-dark {
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border: 1px solid #333333;
+}
+
+.form-select.input-dark:focus {
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border-color: #4a4a4a;
+}
+
+/* Ensure placeholder text is visible */
+.input-dark::placeholder {
+    color: #999999;
+}
+
+/* Dark mode toggle */
 .dark-mode-toggle {
     position: fixed;
     top: 20px;
     right: 20px;
     z-index: 1000;
-}
-
-/* New styles to replace inline styles */
-.card-dark {
-    border: 1px solid #333333;
-    background: #1a1a1a;
-    color: #fff;
-}
-
-.card-dark-inner {
-    background: #1a1a1a;
-    border-color: #333333;
-}
-
-.input-dark {
-    background: #2a2a2a;
-    color: #fff;
-    border-color: #333333;
-}
-
-.input-group-dark {
-    background: #333333;
-    color: #fff;
-}
-
-.alert-dark {
-    background: #2a2a2a;
-    color: #fff;
-    border-color: #333333;
-}
-
-.hr-dark {
-    border-color: #333333;
-}
-
-.label-white {
-    color: #fff;
-}
-
-.btn-dark-custom {
-    background: #000000;
-    color: #fff;
-    border: 1px solid #333333;
 }

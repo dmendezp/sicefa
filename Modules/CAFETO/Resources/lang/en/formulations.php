@@ -64,7 +64,12 @@ return [
     'Milliliters' => 'Milliliters (ml)',
     'Back to Formulations' => 'Back to Formulations',
     'Convert' => 'Convert',
-
+    'Breadcrumb_Active_Formulation_Show' => 'Formulation Details',
+    'Delete' => 'Delete',
+    'Confirm Delete' => 'Are you sure you want to delete this formulation? This action cannot be undone.',
+    'Cancel' => 'Cancel',
+    'Yes, delete it!' => 'Yes, delete it!',
+    
     // Validation
     'validation' => [
         'ingredients_required' => 'At least one ingredient is required.',

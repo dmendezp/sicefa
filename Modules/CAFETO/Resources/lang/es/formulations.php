@@ -33,12 +33,13 @@ return [
     'Search_Element' => 'Buscar Elemento', // Added for typeahead placeholder
     'Preview' => 'Vista Previa', // Added for preview panel
     'Voice_Not_Supported' => 'El reconocimiento de voz no es compatible con este navegador.', // Added for voice input error
-
+    
     // Messages
     'Created' => 'Formulación creada exitosamente.',
     'Updated' => 'Formulación actualizada exitosamente.',
     'Approved' => 'Formulación aprobada exitosamente.',
     'Deleted' => 'Formulación eliminada exitosamente.',
+    
 
     // Form Fields
     'Element' => 'Elemento',
@@ -63,6 +64,13 @@ return [
     'Milliliters' => 'Mililitros (ml)',
     'Back to Formulations' => 'Volver a Formulaciones',
     'Convert' => 'Convertir', // Added for unit conversion button
+    'Breadcrumb_Active_Formulation_Show' => 'Detalles de la Formulación',
+    'Delete' => 'Eliminar',
+    'Confirm Delete' => '¿Estás seguro de que deseas eliminar esta formulación? Esta acción no se puede deshacer.',
+    'Cancel' => 'Cancelar',
+    'Yes, delete it!' => 'Sí, Eliminar',
+    
+
 
     // Validation
     'validation' => [
