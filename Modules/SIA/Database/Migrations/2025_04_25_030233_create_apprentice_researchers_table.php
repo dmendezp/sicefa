@@ -22,7 +22,7 @@ return new class extends Migration{
             $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
             $table->foreignId('group_id')->constrained('groups')->onDelete('cascade'); 
             $table->foreignId('project_id')->nullable()->constrained('projects')->onDelete('set null'); 
-            $table->string('institution', 100)->nullable();  
+            $table->string('institution', 100);  
             $table->foreignId('default_role_id')->constrained('roles')->onDelete('cascade'); 
             $table->timestamps(); // created_at y updated_at
             $table->softDeletes(); // deleted_at para eliminación lógica

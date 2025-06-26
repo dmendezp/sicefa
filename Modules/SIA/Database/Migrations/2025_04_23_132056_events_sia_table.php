@@ -16,9 +16,9 @@ return new class extends Migration{
     {
         Schema::create('events_sia', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('role_user_id')->nullable()->constrained('role_user')->onDelete('set null');
+            $table->foreignId('role_id')->constrained('roles')->onDelete('restrict'); 
             $table->string('name');
-            $table->string('imagen_evento');
+            $table->string('event_image');
             $table->string('location')->nullable();
             $table->date('start_date');
             $table->date('end_date');

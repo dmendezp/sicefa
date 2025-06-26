@@ -16,8 +16,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('projects', function (Blueprint $table) {
-            $table->id(); // Identificador único
-               
+            $table->id(); 
             $table->string('name'); 
             $table->text('description')->nullable(); 
             $table->date('start_date'); 
@@ -25,13 +24,14 @@ return new class extends Migration
             $table->foreignId('leader_id')->constrained('users')->onDelete('cascade'); // Relación con el líder del proyecto (usuario)
             $table->timestamps(); // created_at y updated_at
             $table->softDeletes(); // deleted_at para eliminación lógica
-            $table->index('updated_at', 'proejcts_updated_at_index'); // Índice para consultas por updated_at
+            $table->index('updated_at', 'projects_updated_at_index'); 
         });
 
         Schema::create('project_role', function (Blueprint $table) {
-            $table->id(); // Clave primaria
+            $table->id(); 
             $table->foreignId('project_id')->constrained('projects')->onDelete('cascade'); 
-            $table->foreignId('role_user_id')->nullable()->constrained('role_user')->onDelete('set null');
+            $table->foreignId('role_id')->nullable()->constrained('roles')->onDelete('set null');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); 
             $table->timestamps(); // created_at y updated_at
             $table->unique(['project_id', 'user_id']); // Evitar duplicados
         });
