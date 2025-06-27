@@ -2,78 +2,31 @@
 
 namespace Modules\SIA\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class SIAController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
     public function index()
     {
-        return view('sia::index');
+        $view = ['titlePage' => trans('sia::controllers.SIA_index_title_page'), 'titleView' => trans('sia::controllers.SIA_index_title_view')];
+        return view('sia::index', compact('view'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
+    public function devs()
     {
-        return view('sia::create');
+        $view = ['titlePage' => trans('sia::controllers.SIA_devs_title_page'), 'titleView' => trans('sia::controllers.SIA_devs_title_view')];
+        return view('sia::developers.index', compact('view'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
+    public function info()
     {
-        //
+        $view = ['titlePage' => trans('sia::controllers.SIA_info_title_page'), 'titleView' => trans('sia::controllers.SIA_info_title_page')];
+        return view('sia::information.index', compact('view'));
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
+    public function admin()
     {
-        return view('sia::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('sia::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        $view = ['titlePage' => trans('sia::controllers.SIA_admin_title_page'), 'titleView' => trans('sia::controllers.SIA_admin_title_view')];
+        return view('sia::admin-index', compact('view'));
     }
 }
