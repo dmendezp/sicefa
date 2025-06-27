@@ -1,8 +1,8 @@
 <aside class="main-sidebar sidebar-dark-green elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ route('sia.index') }}" class="brand-link pb-1 text-decoration-none">
+    <a href="{{ route('cefa.sia.index') }}" class="brand-link pb-1 text-decoration-none">
         <h4 class="text-light">
-            <i class="nav-icon fas fa-mug-hot ml-3 mr-1"></i>
+           <i class="nav-icon fas fa-users mr-1"></i>
             <span class="brand-text">SIA</span>
         </h4>
     </a>
@@ -59,7 +59,7 @@
                     <a href="{{ route('cefa.welcome') }}"
                         class="nav-link {{ !Route::is('cefa.contact.maps') ?: 'active' }}">
                         <i class="nav-icon fas fa-puzzle-piece"></i>
-                        <p>{{ trans('sia::general.Back to SIA') }}</p>
+                        <p>{{ trans('sia::general.Back to SICEFA') }}</p>
                     </a>
                 </li>
             </ul>

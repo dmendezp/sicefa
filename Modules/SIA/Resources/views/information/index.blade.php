@@ -81,8 +81,8 @@
                             <i class="fas fa-tachometer-alt fs-4"></i>
                         </div>
                         <div>
-                            <h4 class="fw-semibold mb-0">{{ trans('sia::about.Title_Card_Desing') }}</h4>
-                            <p class="text-body-secondary">{{ trans('sia::about.Text_Card_Desing') }}</p>
+                            <h4 class="fw-semibold mb-0">{{ trans('sia::about.Title_Card_Design') }}</h4>
+                            <p class="text-body-secondary">{{ trans('sia::about.Text_Card_Design') }}</p>
                         </div>
                     </div>
 
