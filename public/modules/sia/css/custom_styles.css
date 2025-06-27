@@ -1,0 +1,82 @@
+/* -------------------ZONE CUSTOM GENERAL STYLES ---------------------- */
+
+/* Creacion de ajustes de tamaño para la card de inventario, aqui se configura para que esta tenga un tamaño definido y lo que tenga dentro tambien sea adaptable */
+.custom-height {
+  height: 70px;
+  /* Ajusta la altura según tus necesidades */
+}
+
+.object-fit {
+  object-fit: cover;
+  height: 100%;
+  /* Establece la altura de la imagen en 100% para que se ajuste a la altura de la tarjeta */
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Animacion del boton para ver los creditos */
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animated-icon {
+  animation: bounce 1s infinite;
+  font-size: 24px;
+}
+
+/* Estilos para el texto centrado en la tabla de entrada de inventarios */
+.vertical-center {
+  vertical-align: middle;
+}
+
+/* Cambia el color del borde superiro de las cards que se usan en el aplicativo */
+.custom-border-color {
+  border-top-color: #bc6c25 !important;
+}
+
+/* Cambia el color del header de las cards que se usan en el aplicativo */
+.custom-card-header {
+  background-color: #bc6c25 !important; /* Cambia el color de fondo de la cabecera a #bc6c25 */
+}
+
+/* Seccion de acceso rapido a aplicaciones */
+/* Ajusta el tamano de la caja donde se encuentra el icono de la aplicacion y a la vez se realizan los ajustes personalizables de bordes, tamaño, alto y ancho especifico */
+.services .icon-box {
+  box-shadow: 0px 0 25px 0 rgba(0, 0, 0, 0.1);
+  padding: 15px 20px 10px 20px;
+  border-radius: 10px;
+  transition: all ease-in-out 0.4s;
+  background: #fff;
+  min-width: 80px;
+  /* Ancho fijo deseado */
+}
+
+/* Ajusta el tamaño y color que tiene en el primer momento de mostra la seccion de aplicaciones, aqui se puede ajustar el tamaño del icono y a la vez el color que tiene por defecto si pasar el mouse aun sobre el */
+.services .icon-box .icon-img i {
+  color: rgba(0, 0, 0);
+  font-size: 30px;
+  transition: 0.3s;
+}
+
+.services .icon-box h4 a {
+  color: #4B4B4B;
+  transition: ease-in-out 0.3s;
+}
+
+.services .icon-box:hover {
+  transform: translateY(-5px);
+}
