@@ -73,7 +73,6 @@ class PermissionsTableSeeder extends Seeder
         $permissions_admin[] = $permission->id;
         $permissions_instructor[] = $permission->id;
         $permissions_apprentice[] = $permission->id;
-
         // Permiso para gestionar usuarios (Solo Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sia.users.manage'], [
             'name' => 'Gestionar usuarios',
@@ -82,6 +81,26 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
+
+        // Permiso para gestionar grupos de semilleros (Solo Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sia.groups.manage'], [
+            'name' => 'Gestionar grupos de semilleros',
+            'description' => 'Puede crear, editar y eliminar grupos de semilleros',
+            'description_english' => 'Can create, edit and delete seedbed groups',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id;
+
+        // Permiso para ver grupos de semilleros (Todos los roles y público)
+        $permission = Permission::updateOrCreate(['slug' => 'sia.groups.view'], [
+            'name' => 'Ver grupos de semilleros',
+            'description' => 'Puede ver los grupos de semilleros en la página pública y privada',
+            'description_english' => 'Can view seedbed groups on public and private pages',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id;
+        $permissions_instructor[] = $permission->id;
+        $permissions_apprentice[] = $permission->id;
 
         // ===================== Asignación de permisos a los roles =====================
 
@@ -94,5 +113,5 @@ class PermissionsTableSeeder extends Seeder
         $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
         $rol_instructor->permissions()->syncWithoutDetaching($permissions_instructor);
         $rol_apprentice->permissions()->syncWithoutDetaching($permissions_apprentice);
-    }
+        }
 }
