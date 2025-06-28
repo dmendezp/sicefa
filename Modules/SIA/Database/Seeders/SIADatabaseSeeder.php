@@ -19,18 +19,16 @@ class SIADatabaseSeeder extends Seeder
         DB::beginTransaction(); // Iniciar transacción
 
         // Sección de lanzamiento para producción
-        $this->call(PeopleTableSeeder::class); // Ejecutar Seeder de personas
-        $this->call(AppTableSeeder::class); // Ejecutar Seeder de aplicación SIA
-        $this->call(UsersTableSeeder::class); // Ejecutar Seeder de usuarios
-        $this->call(RolesTableSeeder::class); // Ejecutar Seeder de roles para usuarios
-        $this->call(PermissionsTableSeeder::class); // Ejecutar Seeder de permisos para roles
-        $this->call(GroupsTableSeeder::class); // Ejecutar Seeder de grupos
+        $this->call(PeopleTableSeeder::class); 
+        $this->call(AppTableSeeder::class); 
+        $this->call(UsersTableSeeder::class); 
+        $this->call(RolesTableSeeder::class); 
+        $this->call(PermissionsTableSeeder::class); 
+        $this->call(GroupsTableSeeder::class); 
 
         // Sección para pruebas de desarrollo
-        /* $this->call(ProjectsTableSeeder::class); // Ejecutar Seeder de proyectos
-        $this->call(EventsTableSeeder::class); // Ejecutar Seeder de eventos
-        $this->call(ResourcesTableSeeder::class); // Ejecutar Seeder de recursos */
-    
+        /*$this->call(ApprenticeResearchersTableSeeder::class);*/
+
         DB::commit(); // Finalizar transacción
     }
 }

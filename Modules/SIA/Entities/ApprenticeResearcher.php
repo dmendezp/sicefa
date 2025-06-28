@@ -3,15 +3,14 @@
 namespace Modules\SIA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\User;
 use Modules\SICA\Entities\Person;
-use Modules\SICA\Entities\EPS;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Course;
 use Modules\SIA\Entities\Group;
 use Modules\SIA\Entities\Project;
+use Modules\SICA\Entities\Role;
 
 class ApprenticeResearcher extends Model
 {
@@ -20,53 +19,44 @@ class ApprenticeResearcher extends Model
     protected $table = 'apprentice_researchers';
 
     protected $fillable = [
-        'user_id',
-        'person_id',
-        'eps_id',
-        'program_id',
-        'course_id',
-        'group_id',
-        'project_id',
-        'institution',
-        'start_date',
+        'user_id', 'person_id', 'program_id', 'course_id', 'group_id', 'project_id', 'institution', 'default_role_id',
     ];
 
-    protected $casts = [
-        'start_date' => 'date',
-    ];
+    protected $dates = ['deleted_at'];
 
-    public function user(): BelongsTo
+    // Relationships
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function person(): BelongsTo
+    public function person()
     {
         return $this->belongsTo(Person::class);
     }
 
-    public function eps(): BelongsTo
-    {
-        return $this->belongsTo(EPS::class);
-    }
-
-    public function program(): BelongsTo
+    public function program()
     {
         return $this->belongsTo(Program::class);
     }
 
-    public function course(): BelongsTo
+    public function course()
     {
         return $this->belongsTo(Course::class);
     }
 
-    public function group(): BelongsTo
+    public function group()
     {
         return $this->belongsTo(Group::class);
     }
 
-    public function project(): BelongsTo
+    public function project()
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function defaultRole()
+    {
+        return $this->belongsTo(Role::class, 'default_role_id');
     }
 }

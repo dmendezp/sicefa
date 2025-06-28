@@ -20,7 +20,7 @@ class RolesTableSeeder extends Seeder
         $app = App::where('name', 'SIA')->firstOrFail();
 
         // Registrar o actualizar rol de INSTRUCTOR INVESTIGADOR
-        $rol_instructor = Role::updateOrCreate(['slug' => 'sia.inst.inv'], [
+        $rol_instructor = Role::updateOrCreate(['slug' => 'sia.inst-inv'], [
             'name' => 'Instructor Investigador',
             'description' => 'Rol instructor investigador de la aplicación SIA',
             'description_english' => 'SIA application instructor investigator role',
@@ -29,7 +29,7 @@ class RolesTableSeeder extends Seeder
         ]);
 
         // Registrar o actualizar rol de APRENDIZ INVESTIGADOR
-        $rol_apprentice = Role::updateOrCreate(['slug' => 'sia.ap.inv'], [
+        $rol_apprentice = Role::updateOrCreate(['slug' => 'sia.ap-inv'], [
             'name' => 'Aprendiz Investigador',
             'description' => 'Rol aprendiz investigador de la aplicación SIA',
             'description_english' => 'SIA application apprentice investigator role',
@@ -48,9 +48,8 @@ class RolesTableSeeder extends Seeder
 
         // Consulta de usuarios
         $user_instructor = User::where('nickname', 'LFHerre')->firstOrFail(); // Usuario Instructor Investigador (Lola Fernanda Herrera Hernandez)
-        $user_apprentice = User::where('nickname', 'NESoriano')->firstOrFail(); // Usuario Aprendiz Investigador (Nicolas Estiven Soriano Polania) 
-        $user_admin = User::updateOrCreate(['nickname' => 'ydmoreno'], [ // Usuario administrador (Yoly Dayana Moreno Ortega)
-        ]);
+        $user_apprentice = User::where('nickname', 'Nicolas Soriano')->firstOrFail(); // Usuario Aprendiz Investigador (Nicolas Estiven Soriano Polania) 
+        $user_admin = User::where('nickname', 'ydmoreno')->firstOrFail(); // Usuario administrador (Yoly Dayana Moreno Ortega)
 
         // Asignación de ROLES para los USUARIOS de la aplicación SIA (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $user_instructor->roles()->syncWithoutDetaching([$rol_instructor->id]);

@@ -1,235 +1,370 @@
-@extends('sia::layouts.master')
+@php
+    
+@endphp
+
+@extends('sia::layouts.mainPage.master-mainPage')
 
 @push('head')
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Revolution Slider CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/revslider/5.4.8/css/settings.min.css">
-@endpush
-
-@push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('sia::mainPage.Breadcrumb_Active_Main') }}</li>
 @endpush
 
 @section('content')
-    <!-- Carrusel integrado -->
+    <!-- Hero Section -->
     <section id="slider" class="slider slide-overlay-dark">
+        <!-- START REVOLUTION SLIDER 5.0 -->
         <div class="rev_slider_wrapper">
             <div id="slider1" class="rev_slider" data-version="5.0">
                 <ul>
-                    <!-- Slide 1 -->
+                    <!-- slide 1 -->
                     <li data-transition="zoomin" data-slotamount="default" data-easein="Power4.easeInOut"
                         data-easeout="Power4.easeInOut" data-masterspeed="2000">
-                        <img src="{{ asset('modules/sia/images/index/research.webp') }}" alt="Investigación"
+                        <!-- MAIN IMAGE Imagen de Negative-Space en Pixabay -->
+                        <img src="{{ asset('modules/sia/images/index/1.webp') }}" alt="Slide Background Image"
                             width="1920" height="1280" />
+                        <!-- LAYER NR. 1 -->
                         <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="-130"
                             data-whitespace="nowrap" data-width="none" data-height="none"
-                            data-frames='[{"delay":1500,"speed":1000,"frame":"0","from":"y:-50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'>
+                            data-frames='[{"delay":1500,"speed":1000,"frame":"0","from":"y:-50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                            data-splitin="none" data-splitout="none" data-responsive_offset="on">
                             <div class="slide--subheadline">{{ trans('sia::mainPage.TitleWelcomeApp') }}</div>
                         </div>
+
+                        <!-- LAYER NR. 2 -->
                         <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="-65"
                             data-whitespace="nowrap" data-width="none" data-height="none"
-                            data-frames='[{"delay":1750,"speed":1000,"frame":"0","from":"x:-50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'>
+                            data-frames='[{"delay":1750,"speed":1000,"frame":"0","from":"x:-50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                            data-splitin="none" data-splitout="none" data-responsive_offset="on">
                             <div class="slide--headline">{{ trans('sia::mainPage.TitleWelcome') }}</div>
                         </div>
+
+                        <!-- LAYER NR. 3 -->
+                        <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="20"
+                            data-width="none" data-height="none"
+                            data-frames='[{"delay":2000,"speed":1000,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
+                            data-splitin="none" data-splitout="none" data-responsive_offset="on">
+                        </div>
+
+                        <!-- LAYER NR. 4 -->
                         <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="100"
-                            data-width="none" data-height="none" data-whitespace="nowrap"
-                            data-frames='[{"delay":2000,"speed":1500,"frame":"0","from":"y:bottom;rX:-20deg;rY:-20deg;rZ:0deg;","to":"o:1;","ease":"Power3.easeOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'>
+                            data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;"
+                            data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:300;e:Power3.easeOut;"
+                            data-style_hover="c:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);"
+                            data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;"
+                            data-transform_out="y:[175%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;"
+                            data-mask_out="x:inherit;y:inherit;" data-start="1250" data-splitin="none" data-splitout="none"
+                            data-frames='[{"delay":2000,"speed":1500,"frame":"0","from":"y:bottom;rX:-20deg;rY:-20deg;rZ:0deg;","to":"o:1;","ease":"Power3.easeOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                            data-basealign="slide" data-responsive_offset="on" data-responsive="off">
                             <div class="slide-action">
-                                <a class="btn btn--white btn--bordered btn--rounded btn--lg" href="#research-section"
-                                    id="scroll-to-section">{{ trans('sia::mainPage.ViewProjects') }}</a>
+                                <a class="btn btn--white btn--bordered btn--rounded btn--lg" href="#espresso-section"
+                                    id="scroll-to-section">{{ trans('sia::mainPage.ViewProducts') }}</a>
                             </div>
                         </div>
                     </li>
-                    <!-- Slide 2 -->
+
+                    <!-- slide 2 -->
                     <li data-transition="slideoverdown" data-slotamount="default" data-easein="Power4.easeInOut"
                         data-easeout="Power4.easeInOut" data-masterspeed="2000">
-                        <img src="{{ asset('modules/sia/images/index/innovation.webp') }}" alt="Innovación"
+                        <!-- MAIN IMAGE by: Imagen de StockSnap en Pixabay -->
+                        <img src="{{ asset('modules/sia/images/index/2.webp') }}" alt="Slide Background Image"
                             width="1920" height="1280" />
+                        <!-- LAYER NR. 1 -->
                         <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="-130"
                             data-whitespace="nowrap" data-width="none" data-height="none"
-                            data-frames='[{"delay":1500,"speed":1500,"frame":"0","from":"z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'>
+                            data-frames='[{"delay":1500,"speed":1500,"frame":"0","from":"z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                            data-splitin="none" data-splitout="none" data-responsive_offset="on">
                             <div class="slide--subheadline">{{ trans('sia::mainPage.TitleInfoS2') }}</div>
                         </div>
+
+                        <!-- LAYER NR. 2 -->
                         <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="-65"
                             data-whitespace="nowrap" data-width="none" data-height="none"
-                            data-frames='[{"delay":1750,"speed":1000,"frame":"0","from":"z:0;rX:0deg;rY:0;rZ:0;sX:2;sY:2;skX:0;skY:0;opacity:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'>
+                            data-frames='[{"delay":1750,"speed":1000,"frame":"0","from":"z:0;rX:0deg;rY:0;rZ:0;sX:2;sY:2;skX:0;skY:0;opacity:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                            data-splitin="none" data-splitout="none" data-responsive_offset="on">
                             <div class="slide--headline extend">
                                 {{ trans('sia::mainPage.TextInfoS2') }}
+                            </div>
+                        </div>
+
+                        <!-- LAYER NR. 3 -->
+                        <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="20"
+                            data-width="none" data-height="none"
+                            data-frames='[{"delay":2000,"speed":300,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
+                            data-splitin="none" data-splitout="none" data-responsive_offset="on">
+                            <div class="slide--bio text--center">
+                                {{ trans('sia::mainPage.DescriptionS21') }}<br>
+                                {{ trans('sia::mainPage.DescriptionS22') }}<br>
+                                {{ trans('sia::mainPage.DescriptionS23') }}
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- slide 3 -->
+                    <li data-transition="zoomout" data-slotamount="default" data-easein="Power4.easeInOut"
+                        data-easeout="Power4.easeInOut" data-masterspeed="2000">
+                        <!-- MAIN IMAGE by: Imagen de StockSnap en Pixabay -->
+                        <img src="{{ asset('modules/sia/images/index/3.webp') }}" alt="Slide Background Image"
+                            width="1920" height="1280" />
+                        <!-- LAYER NR. 1 -->
+                        <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="-65"
+                            data-whitespace="nowrap" data-width="none" data-height="none"
+                            data-frames='[{"delay":1500,"speed":1500,"frame":"0","from":"x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                            data-splitin="none" data-splitout="none" data-responsive_offset="on">
+                            <div class="slide--subheadline">{{ trans('sia::mainPage.TitleInfoS3') }}</div>
+                        </div>
+
+                        <!-- LAYER NR. 2 -->
+                        <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="0"
+                            data-whitespace="nowrap" data-width="none" data-height="none"
+                            data-frames='[{"delay":1750,"speed":1500,"frame":"0","from":"z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                            data-splitin="none" data-splitout="none" data-responsive_offset="on">
+                            <div class="slide--headline">{{ trans('sia::mainPage.TextInfoS3') }}</div>
+                        </div>
+
+                        <!-- LAYER NR. 3 -->
+                        <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="100"
+                            data-width="none" data-height="none"
+                            data-frames='[{"delay":2000,"speed":2000,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                            data-splitin="none" data-splitout="none" data-responsive_offset="on">
+                            <div class="slide--bio text--center">
+                                {{ trans('sia::mainPage.DescriptionS31') }} <br>
+                                {{ trans('sia::mainPage.DescriptionS32') }} <br>
+                                {{ trans('sia::mainPage.DescriptionS33') }}
                             </div>
                         </div>
                     </li>
                 </ul>
             </div>
+            <!-- END REVOLUTION SLIDER -->
+        </div>
+        <!-- END OF SLIDER WRAPPER -->
+    </section>
+
+    <!-- Menu Board -->
+    <section id="menuBoard" class="pb-90">
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
+                    <div class="heading heading-1 mb-50 text--center" id="frase-del-dia"
+                        data-morning-greeting="{{ trans('sia::mainPage.Morning') }}"
+                        data-quote="{{ trans('sia::mainPage.Quote') }}"
+                        data-morning-quote="{{ trans('sia::mainPage.MorningQuote') }}"
+                        data-afternoon-greeting="{{ trans('sia::mainPage.Afternoon') }}"
+                        data-afternoon-quote="{{ trans('sia::mainPage.AfternoonQuote') }}"
+                        data-night-greeting="{{ trans('sia::mainPage.Night') }}"
+                        data-night-quote="{{ trans('sia::mainPage.NightQuote') }}">
+                        <!-- Seccion para la frase segun la hora del dia -->
+                    </div>
+                </div>
+                <!-- .col-md-8 end -->
+            </div>
+            <!-- .row end -->
+        </div>
+
+        <section id="divider5" class="section-divider3 bg-overlay bg-parallax bg-overlay-dark4">
+            <div class="bg-section">
+                <img src="{{ asset('modules/sia/images/index/26.webp') }}" alt="Background" />
+            </div>
+            <div class="container" id="espresso-section">
+                <div class="divider--shape-1up"></div>
+                <div class="row clearfix">
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
+                        <div class="heading heading-3 text--center">
+                            <p class="heading--subtitle">{{ trans('sia::mainPage.TitleMenu') }}</p>
+                            <h2 class="heading--title mb-0 text-white">{{ trans('sia::mainPage.TextMenu') }}</h2>
+                        </div>
+                    </div>
+                    <!-- .col-md-8 end -->
+                </div>
+                <!-- .row end -->
+                <div class="divider--shape-4down"></div>
+            </div>
+            <!-- .container end -->
+        </section>
+        <!-- #divider1 end -->
+
+        <!-- .container end -->
+        <div class="container-fluid tabs">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <!-- .tab-pane end -->
+                        <div class="tab-pane fade in active" id="drinks">
+                            <!-- Menu #7 -->
+                            <div class="menu menu-board text-center">
+                                <div class="row">
+                                    <div class="dishes-wrapper">
+                                        <!-- Dish #1 -->
+                                        <div class="col-xs-12 col-sm-12 col-md-6">
+                                            <div class="row dish-panel">
+                                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                                    <div class="dish--content">
+                                                        <div class="dish--tag">
+                                                            {{ trans('sia::mainPage.TitlePopular') }}</div>
+                                                        <span class="dish--price">$3.000</span>
+                                                        <h3 class="dish--title">
+                                                            {{ trans('sia::mainPage.TitleCapuccino') }}
+                                                        </h3>
+                                                        <div class="divider--shape-4"></div>
+                                                        <p class="dish--desc">
+                                                            {{ trans('sia::mainPage.TextCapuccino') }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                                    <div class="dish--img">
+                                                        <div class="divider--shape-left"></div>
+                                                        <img src="{{ asset('modules/sia/images/menu-board/agricola.webp') }}"
+                                                            alt="dish img" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- .col-md-6 end -->
+                                        <!-- Dish #2 -->
+                                        <div class="col-xs-12 col-sm-12 col-md-6">
+                                            <div class="row dish-panel">
+                                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                                    <div class="dish--content">
+                                                        <span class="dish--price">$1.500</span>
+                                                        <h3 class="dish--title">{{ trans('sia::mainPage.TitleAmerican') }}</h3>
+                                                        <div class="divider--shape-4"></div>
+                                                        <p class="dish--desc">
+                                                            {{ trans('sia::mainPage.TextAmerican') }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                                    <div class="dish--img">
+                                                        <div class="divider--shape-left"></div>
+                                                        <img src="{{ asset('modules/sia/images/menu-board/idear.webp') }}"
+                                                            alt="dish img" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- .col-md-6 end -->
+                                        <!-- Dish #3 -->
+                                        <div class="col-xs-12 col-sm-12 col-md-6">
+                                            <div class="row dish-panel">
+                                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                                    <div class="dish--img">
+                                                        <div class="divider--shape-right"></div>
+                                                        <img src="{{ asset('modules/sia/images/menu-board/sebi.webp') }}"
+                                                            alt="dish img" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                                    <div class="dish--content">
+                                                        <span class="dish--price">$1.500</span>
+                                                        <h3 class="dish--title">{{ trans('sia::mainPage.TitleFarmer') }}</h3>
+                                                        <div class="divider--shape-4"></div>
+                                                        <p class="dish--desc">
+                                                            {{ trans('sia::mainPage.TextFarmer') }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- .col-md-6 end -->
+                                        <!-- Dish #4 -->
+                                        <div class="col-xs-12 col-sm-12 col-md-6">
+                                            <div class="row dish-panel">
+                                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                                    <div class="dish--img">
+                                                        <div class="divider--shape-right"></div>
+                                                        <img src="{{ asset('modules/sia/images/menu-board/tedaf.webp') }}"
+                                                            alt="dish img" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                                    <div class="dish--content">
+                                                        <span class="dish--price">$2.000</span>
+                                                        <h3 class="dish--title">{{ trans('sia::mainPage.TitleSlushie') }}</h3>
+                                                        <div class="divider--shape-4"></div>
+                                                        <p class="dish--desc">
+                                                            {{ trans('sia::mainPage.TextSlushie') }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- .col-md-6 end -->
+                                    </div>
+                                    <!-- .row end -->
+                                </div>
+                                <!-- .row end -->
+                            </div>
+                        </div>
+                        <!-- .tab-pane end -->
+                    </div>
+                    <!-- .tabs-content end -->
+                </div>
+                <!-- .col-md-12 end -->
+            </div>
+            <!-- .row end -->
         </div>
     </section>
-    <!-- Fin del carrusel -->
-
-    <h5 class="display-5">{{ trans('sia::mainPage.Title_General') }}</h5>
-    <h5 data-aos="fade-down">{{ trans('sia::mainPage.Description_General') }}</h5>
-
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card text-center mb-3 shadow-sm" data-aos="fade-right">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <div>
-                            <h5 class="text-center">{{ trans('sia::mainPage.Title_Card_Projects') }}</h5>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-wrap justify-content-center mt-3">
-                        <div class="col-lg-4 col-md-6 col-sm-12">
-                            <h5 class="text-center">{{ trans('sia::mainPage.T_Item_Research') }}</h5>
-                            <div class="card-projects mx-auto">
-                                <img src="{{ asset('modules/sia/images/cardsIndex/Research.webp') }}" alt="Investigación"
-                                    class="card-img-top" width="180px" height="260px">
-                                <div class="card-body">
-                                    <p class="card-text head">{{ trans('sia::mainPage.T_Name_Research') }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12">
-                            <h5 class="text-center">{{ trans('sia::mainPage.T_Item_Events') }}</h5>
-                            <div class="card-projects mx-auto">
-                                <img src="{{ asset('modules/sia/images/cardsIndex/Events.webp') }}" alt="Eventos"
-                                    class="card-img-top" width="140px" height="260px">
-                                <div class="card-body">
-                                    <p class="card-text head">{{ trans('sia::mainPage.T_Name_Events') }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12">
-                            <h5 class="text-center">{{ trans('sia::mainPage.T_Item_Resources') }}</h5>
-                            <div class="card-projects mx-auto">
-                                <img src="{{ asset('modules/sia/images/cardsIndex/Resources.webp') }}" alt="Recursos"
-                                    class="card-img-top" width="140px" height="260px">
-                                <div class="card-body">
-                                    <p class="card-text head">{{ trans('sia::mainPage.T_Name_Resources') }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card text-center mb-3 shadow-sm" data-aos="fade-left">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-md-7 order-md-2">
-                            <h3 class="featurette-heading">{{ trans('sia::mainPage.Title_Card_Advertising') }} <span
-                                    class="text-muted">{{ trans('sia::mainPage.Title_Card_Advertising_pt2') }}</span></h3>
-                            <p class="lead">{{ trans('sia::mainPage.Description_Advertising') }}</p>
-                        </div>
-                        <div class="col-md-5 order-md-1">
-                            <img src="{{ asset('modules/sia/images/cardsIndex/Innovation.webp') }}" alt="Innovación"
-                                class="img-fluid" width="290" height="290">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <h3 class="text-center mt-2">{{ trans('sia::mainPage.Title_Developers') }}</h3>
-                <div class="card-body">
-                    <div class="container text-center">
-                        <div class="row">
-                            <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sia/images/developers/Developer1.webp') }}" alt="Desarrollador 1" width="140" height="140">
-                                <h4>{{ trans('sia::mainPage.Description_Apprentice') }}</h4>
-                                <p>Jesús David Guevara Munar</p>
-                                <a class="btn btn-primary" href="https://www.linkedin.com/in/jdgm0331/">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a class="btn btn-dark" href="https://github.com/JDGM0331">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a class="btn btn-primary" href="https://www.facebook.com/JDGM0331">
-                                    <i class="fab fa-facebook"></i>
-                                </a>
-                            </div>
-                            <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sia/images/developers/Developer2.webp') }}" alt="Desarrollador 2" width="140" height="140">
-                                <h4>{{ trans('sia::mainPage.Description_Apprentice') }}</h4>
-                                <p>Manuel Steven Ossa Lievano</p>
-                                <a class="btn btn-primary" href="https://www.linkedin.com/in/manuel-steven-ossa-lievano-014b3b267/">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a class="btn btn-dark" href="https://github.com/SrManuel-1">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a class="btn btn-info custom-instagram-btn" href="https://www.instagram.com/st._.manuel07/">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </a>
-                            </div>
-                            <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sia/images/developers/Developer3.webp') }}" alt="Desarrollador 3" width="140" height="140">
-                                <h4>{{ trans('sia::mainPage.Description_Apprentice') }}</h4>
-                                <p>Nelsy Yulied Gomez Morales</p>
-                                <a class="btn btn-primary" href="https://www.linkedin.com/in/nelsy-yulied-gomez-morales-5b1b37267">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a class="btn btn-dark" href="https://github.com/nelsygomez11">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </div>
-                            <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sia/images/developers/Developer4.webp') }}" alt="Desarrollador 4" width="140" height="140">
-                                <h4>{{ trans('sia::mainPage.Description_Apprentice') }}</h4>
-                                <p>Anyi Katherine Rojas Arce</p>
-                                <a class="btn btn-primary" href="https://www.linkedin.com/in/anyi-rojas-25a003268/">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a class="btn btn-dark" href="https://github.com/anyi-rojas">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a class="btn btn-info custom-twitter-btn" href="https://twitter.com/AnyiRojas0">
-                                    <i class="fa-brands fa-twitter"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="d-flex justify-content-center">
-                        <a class="btn" id="scrollButton">
-                            <h5>{{ trans('sia::mainPage.View_Credits') }}</h5>
-                            <i class="fas fa-chevron-down animated-icon"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- #menuBoard end -->
 @endsection
 
 @push('scripts')
-    <!-- Revolution Slider JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/revslider/5.4.8/js/jquery.themepunch.tools.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/revslider/5.4.8/js/jquery.themepunch.revolution.min.js"></script>
-    <!-- Animación de scroll -->
+    <!-- Animacion que hace scroll hacia la seccion de especificada -->
     <script>
         $(document).ready(function() {
-            $("#slider1").revolution({
-                sliderType: "standard",
-                sliderLayout: "auto",
-                delay: 5000,
-                navigation: {
-                    arrows: { enable: true }
-                },
-                gridwidth: 1230,
-                gridheight: 720
-            });
-
             $("#scroll-to-section").click(function() {
                 $("html, body").animate({
-                    scrollTop: $("#research-section").offset().top
-                }, 1000);
+                    scrollTop: $("#espresso-section").offset().top
+                }, 1000); // Puedes ajustar la velocidad (en milisegundos) según tus preferencias
                 return false;
             });
+        });
+    </script>
+
+    <!-- Detecta la hora de ingreso y da una frase segun la jornada -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var horaActual = new Date().getHours();
+            var fraseDelDia = document.getElementById("frase-del-dia");
+
+            var morningGreeting = fraseDelDia.getAttribute("data-morning-greeting");
+            var quote = fraseDelDia.getAttribute("data-quote");
+            var morningQuote = fraseDelDia.getAttribute("data-morning-quote");
+            var afternoonGreeting = fraseDelDia.getAttribute("data-afternoon-greeting");
+            var afternoonQuote = fraseDelDia.getAttribute("data-afternoon-quote");
+            var nightGreeting = fraseDelDia.getAttribute("data-night-greeting");
+            var nightQuote = fraseDelDia.getAttribute("data-night-quote");
+
+            if (horaActual >= 6 && horaActual < 12) {
+                // Mañana (6:00 AM - 11:59 AM)
+                fraseDelDia.innerHTML = `
+                    <p class="heading--subtitle">${morningGreeting}</p>
+                    <h2 class="heading--title mb-0">${quote}</h2>
+                    <div class="divider--shape-4"></div>
+                    <p class="heading--desc">
+                        ${morningQuote}
+                    </p>
+                `;
+            } else if (horaActual >= 12 && horaActual < 18) {
+                // Tarde (12:00 PM - 5:59 PM)
+                fraseDelDia.innerHTML = `
+                    <p class="heading--subtitle">${afternoonGreeting}</p>
+                    <h2 class="heading--title mb-0">${quote}</h2>
+                    <div class="divider--shape-4"></div>
+                    <p class="heading--desc">
+                        ${afternoonQuote}
+                    </p>
+                `;
+            } else {
+                // Noche (6:00 PM - 5:59 AM)
+                fraseDelDia.innerHTML = `
+                    <p class="heading--subtitle">${nightGreeting}</p>
+                    <h2 class="heading--title mb-0">${quote}</h2>
+                    <div class="divider--shape-4"></div>
+                    <p class="heading--desc">
+                        ${nightQuote}
+                    </p>
+                `;
+            }
         });
     </script>
 @endpush

@@ -1,25 +1,46 @@
 <?php
 
 return [
-    'Breadcrumb_Active_Main' => 'Inicio',
-    'TitleWelcomeApp' => 'Bienvenido a S.I.A.',
-    'TitleWelcome' => 'Descubre Nuestra Plataforma de Investigación',
-    'ViewProjects' => 'Explorar Proyectos',
-    'TitleInfoS2' => 'Innava con Nosotros',
-    'TextInfoS2' => 'Únete a nuestra comunidad de investigadores e innovadores.',
-    'Title_General' => 'Sistema de Investigación Académica',
-    'Description_General' => 'Fomentando la innovación y la creación de conocimiento.',
-    'Title_Card_Projects' => 'Nuestros Proyectos',
-    'T_Item_Research' => 'Investigación',
-    'T_Name_Research' => 'Explora nuestras iniciativas de investigación.',
-    'T_Item_Events' => 'Eventos',
-    'T_Name_Events' => 'Únete a nuestros próximos eventos.',
-    'T_Item_Resources' => 'Recursos',
-    'T_Name_Resources' => 'Accede a nuestros recursos.',
-    'Title_Card_Advertising' => 'Innova Hoy',
-    'Title_Card_Advertising_pt2' => 'Únete',
-    'Description_Advertising' => 'Forma parte de nuestra comunidad de investigación.',
-    'Title_Developers' => 'Conoce a Nuestro Equipo',
-    'Description_Apprentice' => 'Aprendiz Desarrollador',
-    'View_Credits' => 'Ver Créditos',
+    // Card Slider 1
+    'TitleWelcome'    => 'Bienvenidos a SIA',
+    'TitleWelcomeApp' => 'Semillero de investigacion la Angostura',
+    'ViewProducts'    => '¡Explora los proyectos!',
+
+    // Card Slider 2
+    'TitleInfoS2'     => 'Descubre nuestras soluciones',
+    'TextInfoS2'      => '¡Innovación!',
+    'DescriptionS21'  => 'Estamos apasionados por la agroindustria y buscamos ofrecerte una experiencia excepcional en gestión de información.',
+    'DescriptionS22'  => 'Explora nuestro rango de proyectos innovadores y recursos de diversos sectores agroindustriales, mejorando la productividad y la sostenibilidad.',
+    'DescriptionS23'  => 'Ven y descubre la diversidad de herramientas e insights que el mundo agroindustrial tiene para ofrecer.',
+
+    // Card Slider 3
+    'TitleInfoS3'     => 'La calidad es nuestra prioridad',
+    'TextInfoS3'      => '¡Visítanos!',
+    'DescriptionS31'  => 'Sumérgete en un mundo de datos confiables e insights accionables.',
+    'DescriptionS32'  => 'Nuestra información cuidadosamente curada y recursos ofrecen una experiencia única para la gestión agroindustrial.',
+    'DescriptionS33'  => 'Disfruta de la precisión en cada reporte y descubre la dedicación que ponemos en cada solución que brindamos.',
+
+    // Section for the quote according to the time of the day
+    'Morning'         => 'Buenos días',
+    'Quote'           => '¡con una gran frase!',
+    'MorningQuote'    => '"El conocimiento agroindustrial es como un amanecer, iluminando el camino hacia un crecimiento sostenible con cada insight."',
+    'Afternoon'       => 'Buenas tardes',
+    'AfternoonQuote'  => '"En la tarde, los datos se convierten en la herramienta perfecta para refinar estrategias y planificar un futuro próspero."',
+    'Night'           => 'Buenas noches',
+    'NightQuote'      => '"En la noche, los insights de SIA son como una guía silenciosa, moldeando el paisaje agroindustrial con precisión pensada."',
+
+    // Menu
+    'TitleMenu'       => '¡Explora!',
+    'TextMenu'        => 'Menú de Proyectos',
+
+    // Products (Adapted to Projects/Resources)
+    'TitlePopular'    => 'Populares en SIA',
+    'TitleProject1'   => 'Gestión de Proyectos',
+    'TextProject1'    => 'La Gestión de Proyectos en SIA integra planificación, seguimiento y asignación de recursos, creando un enfoque optimizado para iniciativas agroindustriales con hitos y resultados claros.',
+    'TitleResource'   => 'Seguimiento de Recursos',
+    'TextResource'    => 'El Seguimiento de Recursos proporciona un panorama completo al agregar datos detallados a los recursos, resultando en un sistema organizado y accesible para operaciones agroindustriales.',
+    'TitleReport'     => 'Herramientas de Reportes',
+    'TextReport'      => 'Las Herramientas de Reportes ofrecen un análisis robusto y detallado, a menudo compilado con datos integrados, y presentado en un formato amigable para las necesidades de reportes agroindustriales.',
+    'TitleAnalysis'   => 'Análisis de Datos',
+    'TextAnalysis'    => 'El Análisis de Datos es un enfoque refrescante para interpretar datos agroindustriales, mezclado con análisis avanzados para proporcionar insights accionables de manera clara y concisa.',
 ];
