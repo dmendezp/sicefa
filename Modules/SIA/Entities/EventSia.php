@@ -3,69 +3,59 @@
 namespace Modules\SIA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EventSia extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
     protected $table = 'events_sia';
 
     protected $fillable = [
-        'role_user_id', 'name', 'imagen_evento', 'location', 'start_date', 'end_date',
-        'organizer', 'contact_email', 'contact_phone', 'status',
+        'name',
+        'event_image',
+        'location',
+        'start_date',
+        'end_date',
+        'organizer',
+        'contact_email',
+        'contact_phone',
+        'status',
     ];
 
-    protected $casts = [
-        'status' => 'string',
-        'start_date' => 'date',
-        'end_date' => 'date',
-    ];
+    protected $dates = ['start_date', 'end_date', 'deleted_at'];
 
-    public function roleUser()
+    /**
+     * Verifica si el evento está activo (no eliminado ni cancelado).
+     */
+    public function isActive()
     {
-        return $this->belongsTo(\App\Models\RoleUser::class, 'role_user_id');
+        return !$this->trashed() && $this->status !== 'cancelled';
     }
 
-    // Relación indirecta con User a través de RoleUser
-    public function user()
+    /**
+     * Método para eliminar lógicamente el registro.
+     */
+    public function remove()
     {
-        return $this->hasOneThrough(
-            \App\Models\User::class,
-            \App\Models\RoleUser::class,
-            'id', // role_user.id
-            'id', // users.id
-            'role_user_id', // events_sia.role_user_id
-            'user_id' // role_user.user_id
-        );
+        return $this->delete();
     }
 
-    // Scope para filtrar eventos por rango de fechas
-    public function scopeByDateRange($query, $startDate, $endDate)
+    /**
+     * Muestra la información del evento.
+     */
+    public function mostrarEvento()
     {
-        return $query->where(function ($query) use ($startDate, $endDate) {
-            $query->whereBetween('start_date', [$startDate, $endDate])
-                  ->orWhereBetween('end_date', [$startDate, $endDate])
-                  ->orWhere(function ($query) use ($startDate, $endDate) {
-                      $query->where('start_date', '<=', $startDate)
-                            ->where('end_date', '>=', $endDate);
-                  });
-        });
-    }
-
-    // Scope para eventos próximos
-    public function scopeUpcoming($query, $days = 7)
-    {
-        return $query->where('start_date', '>=', now())
-                     ->where('start_date', '<=', now()->addDays($days))
-                     ->where('status', 'scheduled')
-                     ->orderBy('start_date');
-    }
-
-    // Fábrica del modelo
-    protected static function newFactory()
-    {
-        return \Modules\SIA\Database\factories\EventSiaFactory::new();
+        return [
+            'nombre del evento' => $this->name ?? trans('sia::general.not_defined'),
+            'imagen del evento' => $this->event_image ?? trans('sia::general.not_defined'),
+            'ubicacion' => $this->location ?? trans('sia::general.not_defined'),
+            'fecha_inicio' => $this->start_date ? $this->start_date->format('Y-m-d') : trans('sia::general.not_defined'),
+            'fecha_fin' => $this->end_date ? $this->end_date->format('Y-m-d') : trans('sia::general.not_defined'),
+            'organizador' => $this->organizer ?? trans('sia::general.not_defined'),
+            'correo electronico' => $this->contact_email ?? trans('sia::general.not_defined'),
+            'numero celular' => $this->contact_phone ?? trans('sia::general.not_defined'),
+            'estado' => $this->status ?? trans('sia::general.not_defined'),
+        ];
     }
 }
