@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Modules\SIA\Entities\Administrator;
 use Modules\SICA\Entities\Person;
 use App\Models\User;
-use Modules\SIGAc\Entities\Profession;
+use Modules\SIGAC\Entities\Profession;
 
 class AdministratorController extends Controller
 {
