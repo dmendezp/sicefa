@@ -17,15 +17,14 @@ return new class extends Migration
     {
         Schema::create('administrators', function (Blueprint $table) {
             $table->id(); 
-            $table->foreignId('user_id')->unique()->constrained('users')->onDelete('cascade'); // Relación uno a uno con users
             $table->foreignId('person_id')->nullable()->unique()->constrained('people')->onDelete('set null'); // Relación uno a uno con people
             $table->foreignId('profession_id')->nullable()->constrained('professions')->onDelete('set null'); // Relación con professions
-            $table->text('specialization_areas'); // Áreas de especialización
+            $table->foreignId('user_id')->unique()->constrained('users')->onDelete('cascade'); // Relación uno a uno con users
             $table->text('research_skills'); // Habilidades de investigación
             $table->timestamps(); // created_at y updated_at 
             $table->softDeletes(); // deleted_at para eliminación lógica
-            $table->index('user_id'); // Índice para consultas por user_id
             $table->index('person_id'); // Índice para consultas por person_id
+            $table->index('user_id'); // Índice para consultas por user_id
         });
     }
 
