@@ -16,13 +16,12 @@ return new class extends Migration{
     {
         Schema::create('events_sia', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('role_id')->constrained('roles')->onDelete('restrict'); 
-            $table->string('name');
+            $table->text('name');
             $table->string('event_image');
-            $table->string('location')->nullable();
+            $table->string('location');
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('organizer')->nullable();
+            $table->text('organizer');
             $table->string('contact_email');
             $table->string('contact_phone')->nullable();
             $table->enum('status', ['scheduled', 'ongoing', 'completed', 'cancelled'])->default('scheduled');
