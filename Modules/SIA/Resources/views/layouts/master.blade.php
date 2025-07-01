@@ -77,6 +77,13 @@
     <!-- REQUIRED SCRIPTS -->
     @include('sia::layouts.partials.scripts')
     @stack('scripts')
+
+    <!-- SweetAlert2 Plugin -->
+    @include('sia::layouts.partials.plugins.sweetalert2')
+    <!-- DataTables Plugin -->
+    @include('sia::layouts.partials.plugins.datatables')
+    <!-- Toastr Plugin -->
+    @include('sia::layouts.partials.plugins.toastr')
 </body>
 
 </html>
