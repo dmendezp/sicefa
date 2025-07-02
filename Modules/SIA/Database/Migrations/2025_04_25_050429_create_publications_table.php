@@ -17,20 +17,17 @@ return new class extends Migration
     {
         Schema::create('publications', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('author_id');
-            $table->unsignedBigInteger('reviewer_id')->nullable();
+            $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('reviewer_id')->constrained('users')->onDelete('set null'); 
             $table->string('title');
-            $table->longText('content');
-            $table->string('location');
+            $table->string('pdf_path');
             $table->date('publication_date');
             $table->enum('status', ['pending', 'published', 'rejected'])->default('pending');
-            $table->date('review_date')->nullable();
+            $table->date('review_date')->nullable(); 
             $table->text('reviewer_comments')->nullable();
             $table->timestamps();
-
-            // Foreign keys
-            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('reviewer_id')->references('id')->on('users')->onDelete('set null');
+            $table->softDeletes();
+            $table->index(['status', 'publication_date']);
         });
     }
 
