@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'index_title_page' => 'List of Alliances',
+    'index_title_view' => 'Alliances',
+    'create_title_page' => 'Create Alliance',
+    'create_title_view' => 'Alliance Registration',
+    'edit_title_page' => 'Edit Alliance',
+    'edit_title_view' => 'Alliance Edition',
+    'name' => 'Name',
+    'description' => 'Description',
+    'organization' => 'Organization',
+    'email' => 'Email',
+    'start_date' => 'Start Date',
+    'end_date' => 'End Date',
+    'status' => 'Status',
+    'actions' => 'Actions',
+    'no_records' => 'No alliances available',
+    'action_create' => 'Create',
+    'action_edit' => 'Edit',
+    'action_delete' => 'Delete',
+    'action_cancel' => 'Cancel',
+    'action_update' => 'Update',
+    'processing' => 'Processing...',
+    'confirm_delete' => 'Are you sure you want to delete this alliance?',
+    'status_active' => 'Active',
+    'status_inactive' => 'Inactive',
+];

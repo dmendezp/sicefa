@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'index_title_page' => 'Lista de Alianzas',
+    'index_title_view' => 'Alianzas',
+    'create_title_page' => 'Crear Alianza',
+    'create_title_view' => 'Registro de Alianza',
+    'edit_title_page' => 'Editar Alianza',
+    'edit_title_view' => 'Edición de Alianza',
+    'name' => 'Nombre',
+    'description' => 'Descripción',
+    'organization' => 'Organización',
+    'email' => 'Correo',
+    'start_date' => 'Fecha de Inicio',
+    'end_date' => 'Fecha de Fin',
+    'status' => 'Estado',
+    'actions' => 'Acciones',
+    'no_records' => 'No hay alianzas disponibles',
+    'action_create' => 'Crear',
+    'action_edit' => 'Editar',
+    'action_delete' => 'Eliminar',
+    'action_cancel' => 'Cancelar',
+    'action_update' => 'Actualizar',
+    'processing' => 'Procesando...',
+    'confirm_delete' => '¿Estás seguro de eliminar esta alianza?',
+    'status_active' => 'Activa',
+    'status_inactive' => 'Inactiva',
+];
