@@ -5,7 +5,7 @@ return [
     'Breadcrumb_Active_About' => 'Acerca de',
 
     // Card About
-    'Description_About'   => 'Nació en el año 2025, como un módulo de SICEFA, su objetivo es gestionar y administrar el sistema de información del simillero de investigación del centro de formación "La Angostura".',
+    'Description_About'   => 'Nació en el año 2025, como un módulo de SICEFA, su objetivo es gestionar y administrar el sistema de información del semillero de investigación del centro de formación "La Angostura".',
     // Card Find Us
     'Title_Card_Find'     => 'Encuéntranos!',
     'Text_Card_Find'      => 'Centro de Formación Agroindustrial "La Angostura"',

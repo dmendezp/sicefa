@@ -3,44 +3,33 @@
 return [
     // Card Slider 1
     'TitleWelcome'    => 'Welcome to SIA',
-    'TitleWelcomeApp' => 'Agroindustrial Information System',
-    'ViewProducts'    => 'Explore Projects!',
+    'TitleWelcomeApp' => 'La Angostura Research Seedbed',
+    'ViewProducts'    => 'Research Seedbeds!',
 
     // Card Slider 2
-    'TitleInfoS2'     => 'Discover Our Solutions',
-    'TextInfoS2'      => 'Innovation!',
-    'DescriptionS21'  => 'We are passionate about agroindustry and aim to provide you with an exceptional information management experience.',
-    'DescriptionS22'  => 'Explore our range of innovative projects and resources from various agroindustrial sectors, enhancing productivity and sustainability.',
-    'DescriptionS23'  => 'Come and uncover the diversity of tools and insights that the agroindustrial world has to offer.',
+    'TitleInfoS2'     => 'Seedbeds',
+    'TextInfoS2'      => 'Who we are',
+    'DescriptionS21'  => 'We are a group composed of SENA learners and instructors, who promote research capacity through theoretical study.',
+    'DescriptionS22'  => 'The application of knowledge to business reality, in socioeconomic and agricultural areas, is fundamental to developing teamwork skills.',
+    'DescriptionS23'  => 'In addition, we seek to promote autonomous learning and facilitate the interaction between academia and practice.',
 
     // Card Slider 3
-    'TitleInfoS3'     => 'Quality is Our Priority',
-    'TextInfoS3'      => 'Visit Us!',
-    'DescriptionS31'  => 'Immerse yourself in a world of reliable data and actionable insights.',
-    'DescriptionS32'  => 'Our meticulously curated information and resources offer a unique experience for agroindustrial management.',
-    'DescriptionS33'  => 'Enjoy precision in every report and discover the dedication we put into every solution we provide.',
+    'TitleInfoS3'     => 'Innovative Solutions for the Industry',
+    'TextInfoS3'      => 'What we do',
+    'DescriptionS31'  => 'We are a group that promotes research capacity through theoretical study and the application of knowledge to solve problems in the productive sector.',
+    'DescriptionS32'  => 'We immerse ourselves in a world of reliable data and actionable insights, offering a unique experience.',
+    'DescriptionS33'  => 'Enjoy the precision in each of our research articles and discover the dedication we put into every solution we provide.',
 
     // Section for the quote according to the time of the day
     'Morning'         => 'Good Morning',
     'Quote'           => 'with a great quote!',
-    'MorningQuote'    => '"Agroindustrial knowledge is like a sunrise, illuminating the path to sustainable growth with every insight."',
+    'MorningQuote'    => '"Knowledge is like a sunrise, lighting the path to sustainable growth with every insight."',
     'Afternoon'       => 'Good Afternoon',
     'AfternoonQuote'  => '"In the afternoon, data becomes the perfect tool to refine strategies and plan for a prosperous future."',
     'Night'           => 'Good Night',
-    'NightQuote'      => '"At night, insights from SIA are like a quiet guide, shaping the agroindustrial landscape with thoughtful precision."',
-
+    'NightQuote'      => '"At night, SIA\'s insights are like a silent guide, shaping the landscape with thoughtful precision."',
+    
     // Menu
     'TitleMenu'       => 'Explore!',
-    'TextMenu'        => 'Project Menu',
-
-    // Products (Adapted to Projects/Resources)
-    'TitlePopular'    => 'Popular in SIA',
-    'TitleProject1'   => 'Project Management',
-    'TextProject1'    => 'Project Management in SIA integrates planning, tracking, and resource allocation, creating a streamlined approach to agroindustrial initiatives with clear milestones and outcomes.',
-    'TitleResource'   => 'Resource Tracking',
-    'TextResource'    => 'Resource Tracking provides a comprehensive overview by adding detailed data to resources, resulting in an organized and accessible system for agroindustrial operations.',
-    'TitleReport'     => 'Reporting Tools',
-    'TextReport'      => 'Reporting Tools offer a robust and detailed analysis, often compiled with integrated data, and presented in a user-friendly format typical of agroindustrial reporting needs.',
-    'TitleAnalysis'   => 'Data Analysis',
-    'TextAnalysis'    => 'Data Analysis is a refreshing approach to interpreting agroindustrial data, mixed with advanced analytics to provide actionable insights in a clear and concise manner.',
+    'TextMenu'        => 'The research seedbed groups',
 ];

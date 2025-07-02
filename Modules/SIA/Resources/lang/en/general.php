@@ -4,6 +4,8 @@ return [
     // Navbar
     'Home'             => 'Home',
     'admin'            => 'Administrator',
+    'instructor'       => 'Instructor',
+    'apprentice'       => 'Apprentice',
     'Language'         => 'Internationalization',
     'English'          => 'English',
     'Spanish'          => 'Spanish',
@@ -19,35 +21,32 @@ return [
     'AboutUs'          => 'About Us',
     'Developers'       => 'Developers',
     'Administration'   => 'Administration',
+    'Users'            => 'Users',
+    'AdminPanel'       => 'Administrators Panel',
+    'InstructorPanel'  => 'Instructors Panel',
+    'ApprenticePanel'  => 'Apprentices Panel',
     'Projects'         => 'Projects',
+    'ManageGroups'     => 'Manage Groups',
+    'Content'          => 'Content',
+    'Posts'            => 'Posts',
+    'Events'           => 'Events',
+    'Alliances'        => 'Alliances',
     'Resources'        => 'Resources',
     'ReportsPanel'     => 'Reports Panel',
     'MovementHistory'  => 'Movement History',
     'Configuration'    => 'Configuration',
     'Logout'           => 'Logout',
-    'English'          => 'English',
-    'Spanish'          => 'Spanish',
 
     // Sidebar
     'Session'          => 'Sign In',
     'Back to SICEFA'   => 'Back to SICEFA',
     'dashboard'        => 'Dashboard',
-    'Projects'         => 'Projects',
-    'Resources'        => 'Resources',
-    'Reports Panel'    => 'Reports Panel',
-    'Movement History' => 'Movement History',
-    'Configuration'    => 'Configuration',
-    'Developers'       => 'Developers',
     'About us'         => 'About us',
-
-    // ControlSidebar
-    'Browse'           => 'Browse!',
-    'Clic'             => 'If you want to go to another app just click.',
-
-    // Footer
-    'All Rights Reserved.' => 'All Rights Reserved.',
 
     // Tooltips
     'InSession'   => 'Sign In / Log In',
     'ExitSession' => 'Exit',
+
+    // Footer
+    'All Rights Reserved.' => 'All Rights Reserved.'
 ];
