@@ -1,4 +1,4 @@
-<nav class="main-header navbar-background-cafeto navbar navbar-expand navbar-warning navbar-light">
+ <nav class="main-header navbar-background-cafeto navbar navbar-expand navbar-warning navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item mx-2">
@@ -20,7 +20,7 @@
             @endif
             @if(checkRol('sia.ap-inv'))
             <li class="nav-item d-none d-sm-inline-block mx-2">
-                <a href="{{ route('sia.apprentice.index') }}" class="nav-link text-light @if(Route::is('sia.apprentice*')) active @endif">{{ trans('sia::general.aprendiz') }}</a>
+                <a href="{{ route('sia.apprentice.index') }}" class="nav-link text-light @if(Route::is('sia.apprentice*')) active @endif">{{ trans('sia::general.apprentice') }}</a>
             </li>
             @endif
         @endauth
@@ -116,4 +116,6 @@
             </a>
         </li>
     </ul>
-</nav>
+</nav>                                     
+
+ 

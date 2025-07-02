@@ -1,4 +1,4 @@
-<nav id="primary-menu" class="navbar navbar-fixed-top" 
+<nav id="primary-menu" class="navbar navbar-fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -13,7 +13,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-right" id="navbar-collapse-1">
             <ul class="nav navbar-nav nav-pos-right navbar-left">
-                <!-- Home público -->
+                <!-- Aquí puedes integrar el contenido de tu menú SIA adaptando las rutas y traducciones según tu módulo -->
+                <!-- Ejemplo de Home público -->
                 @if (Route::is('cefa.sia.*'))
                     <li class="has-dropdown mega-dropdown active">
                         <a href="{{ route('cefa.sia.index') }}" class="dropdown-toggle menu-item"><i
@@ -50,24 +51,24 @@
 
                 <!-- Menú de opciones públicas -->
                 @if (Route::is('cefa.sia.*'))
-                    <!-- Info and credits -->
                     <li class="has-dropdown">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-item" 
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-item"
                             data-hover="shop">{{ trans('sia::general.Information') }}</a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="{{ route('cefa.sia.info') }}">
-                                    <i class="fa-solid fa-info"></i> - {{ trans('sia::general.AboutUs') }}
+                                    <i class="fa-solid fa-info"></i> {{ trans('sia::general.AboutUs') }}
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('cefa.sia.devs') }}">
-                                    <i class="fa-solid fa-code"></i> - {{ trans('sia::general.Developers') }}
+                                    <i class="fa-solid fa-code"></i> {{ trans('sia::general.Developers') }}
                                 </a>
                             </li>
                         </ul>
                     </li>
                 @endif
+
                 <!-- Menú de opciones para administrador -->
                 @if (Route::is('sia.admin.*'))
                     <li class="has-dropdown mega-dropdown">
@@ -77,77 +78,86 @@
                             <li>
                                 <div class="container">
                                     <div class="row">
-                                        <!-- Column #1 -->
+                                        <!-- Column #1: Gestión de Usuarios -->
                                         <div class="col-md-3">
                                             <a href="#">{{ trans('sia::general.Users') }}</a>
                                             <ul>
                                                 @if (Auth::user()->havePermission('sia.users.manage'))
                                                     <li>
-                                                        <a href="{{ route('sia.admin.admin.index') }}">
-                                                            <i class="fa-solid fa-user-shield"></i> {{ trans('sia::general.AdminPanel') }}
-                                                        </a>
+                                                        <a href="{{ route('sia.admin.administrators.index') }}"><i class="fa-solid fa-user-shield"></i> {{ trans('sia::general.AdminPanel') }}</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{ route('sia.admin.instructor.index') }}">
-                                                            <i class="fa-solid fa-chalkboard-teacher"></i> {{ trans('sia::general.InstructorPanel') }}
-                                                        </a>
+                                                        <a href="{{ route('sia.admin.instructor-researchers.index') }}"><i class="fa-solid fa-chalkboard-teacher"></i> {{ trans('sia::general.InstructorPanel') }}</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{ route('sia.admin.apprentice.index') }}">
-                                                            <i class="fa-solid fa-user-graduate"></i> {{ trans('sia::general.ApprenticePanel') }}
-                                                        </a>
+                                                        <a href="{{ route('sia.admin.apprentice-researchers.index') }}"><i class="fa-solid fa-user-graduate"></i> {{ trans('sia::general.ApprenticePanel') }}</a>
                                                     </li>
                                                 @endif
                                             </ul>
                                         </div>
-                                         <!-- Column #2 -->
+                                        <!-- Column #2: Gestión de Proyectos -->
                                         <div class="col-md-3">
                                             <a href="#">{{ trans('sia::general.Projects') }}</a>
                                             <ul>
-                                                @if (Auth::user()->havePermission('sia.projects.manage'))
+                                                @if (Auth::user()->havePermission('sia.projects.manage') || Auth::user()->havePermission('sia.projects.view'))
                                                     <li>
-                                                        <a href="{{ route('sia.admin.projects.index') }}">
-                                                            <i class="fa-solid fa-project-diagram"></i>{{ trans('sia::general.Projects') }}
-                                                        </a>
+                                                        <a href="{{ route('sia.admin.projects.index') }}"><i class="fa-solid fa-project-diagram"></i> {{ trans('sia::general.Projects') }}</a>
                                                     </li>
                                                 @endif
                                             </ul>
                                         </div>
-                                        <!-- Column #3 -->
+                                        <!-- Column #3: Gestión de Grupos de Semilleros -->
                                         <div class="col-md-3">
                                             <a href="#">{{ trans('sia::general.ManageGroups') }}</a>
                                             <ul>
-                                                @if (Auth::user()->havePermission('sia.groups.manage'))
+                                                @if (Auth::user()->havePermission('sia.groups.manage') || Auth::user()->havePermission('sia.groups.view'))
                                                     <li>
-                                                        <a href="{{ route('sia.admin.groups.index') }}">
-                                                            <i class="fa-solid fa-users-gear"></i> {{ trans('sia::general.ManageGroups') }}
-                                                        </a>
+                                                        <a href="{{ route('sia.admin.groups.index') }}"><i class="fa-solid fa-users-gear"></i> {{ trans('sia::general.ManageGroups') }}</a>
                                                     </li>
                                                 @endif
                                             </ul>
                                         </div>
-                                        <!-- .col-md-3 end -->
+                                        <!-- Column #4: Gestión de Publicaciones y Eventos -->
+                                        <div class="col-md-3">
+                                            <a href="#">{{ trans('sia::general.Content') }}</a>
+                                            <ul>
+                                                @if (Auth::user()->havePermission('sia.posts.manage'))
+                                                    <li>
+                                                        <a href="{{ route('sia.admin.publications.index') }}"><i class="fa-solid fa-newspaper"></i> {{ trans('sia::general.Posts') }}</a>
+                                                    </li>
+                                                @endif
+                                                @if (Auth::user()->havePermission('sia.events.crud'))
+                                                    <li>
+                                                        <a href="{{ route('sia.admin.events.index') }}"><i class="fa-solid fa-calendar-days"></i> {{ trans('sia::general.Events') }}</a>
+                                                    </li>
+                                                @endif
+                                            </ul>
+                                        </div>
+                                        <!-- Column #5: Gestión de Alianzas -->
+                                        <div class="col-md-3">
+                                            <a href="#">{{ trans('sia::general.Alliances') }}</a>
+                                            <ul>
+                                                @if (Auth::user()->havePermission('sia.alliances.crud'))
+                                                    <li>
+                                                        <a href="{{ route('sia.admin.alliances.index') }}"><i class="fa-solid fa-handshake"></i> {{ trans('sia::general.Alliances') }}</a>
+                                                    </li>
+                                                @endif
+                                            </ul>
+                                        </div>
                                     </div>
-                                     <!-- .row end -->
                                 </div>
-                                 <!-- container end -->
                             </li>
                         </ul>
-                         <!-- .mega-dropdown-menu end -->
                     </li>
                 @endif
 
-                <!-- Menú de opciones para instructor investigador -->
-                
-                <!-- Menu de opciones para aprendiz investigador -->
-                
                 <!-- Mode User -->
                 @guest
                 @else
                     @auth
                         @if (checkRol('sia.admin'))
                             <div class="module module-reservation pull-left">
-                                <a href="{{ route('sia.admin.index') }}" class="btn-popup btn-popup-theme"
+                                <a href="{{ route('sia.admin.index') }}" class="btn-popup btn-popup-theme">
                                     {{ trans('sia::general.ModeA') }}</a>
                             </div>
                         @endif
@@ -166,7 +176,7 @@
                     @endauth
                 @endguest
 
-                <!-- Menu Session -->
+                <!-- Menu Session-->
                 <li class="has-dropdown">
                     @guest
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-item">{{ trans('sia::general.Log In') }}</a>
@@ -224,7 +234,7 @@
                             <li>
                                 <a class="menu-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <i class="fa-solid fa-right-to-bracket"></i> {{ trans('sia::general.Logout') }}
+                                    <i class="fa-solid fa-right-to-bracket"></i> {{ trans('sia::general.Logout') }} 
                                 </a>
                             </li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -233,7 +243,7 @@
                         @endguest
                     </ul>
                 </li>
-                <!-- Menu Lang -->
+                <!-- Menu Lang-->
                 <li class="has-dropdown">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-item"><i
                             class="fas fa-globe-americas"></i> {{ session('lang') }}</a>
@@ -246,7 +256,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url('lang', ['es']) }}" class="menu-item"
+                            <a href="{{ url('lang', ['es']) }}" class="menu-item">
                                 <img src="{{ asset('modules/sia/images/flags/colombia.webp') }}" alt=""
                                     width="20px">
                                     {{ trans('sia::general.Spanish') }}
@@ -256,5 +266,7 @@
                 </li>
             </ul>
         </div>
+        <!-- /.navbar-collapse -->
     </div>
-</nav>
+    <!-- /.container-fluid -->
+</nav>   
