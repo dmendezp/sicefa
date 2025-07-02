@@ -15,4 +15,14 @@ class Group extends Model
         'name',
         'description',
     ];
+
+    protected $dates = ['deleted_at'];
+
+    /**
+     * Obtiene la fecha de creación formateada.
+     */
+    public function getCreatedAtAttribute($value)
+    {
+        return $this->asDateTime($value)->format('Y-m-d H:i');
+    }
 }
