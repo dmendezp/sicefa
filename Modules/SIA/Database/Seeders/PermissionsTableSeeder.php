@@ -53,14 +53,22 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_apprentice[] = $permission->id;
 
-        // Permiso para gestionar proyectos (Administrador e Instructor)
+    // Permiso para gestionar todos los proyectos (Administrador)
+    $permission = Permission::updateOrCreate(['slug' => 'sia.projects.manage_all'], [
+        'name' => 'Gestionar todos los proyectos',
+        'description' => 'Puede gestionar todos los proyectos creados por el administrador e instructor',
+        'description_english' => 'Can manage all projects created by administrator and instructor',
+        'app_id' => $app->id
+    ]);
+    $permissions_admin[] = $permission->id;
+   
+        // Permiso para gestionar proyectos (Instructor)
         $permission = Permission::updateOrCreate(['slug' => 'sia.projects.manage'], [
             'name' => 'Gestionar proyectos',
             'description' => 'Puede gestionar proyectos de investigación',
             'description_english' => 'You can manage research projects',
             'app_id' => $app->id
         ]);
-        $permissions_admin[] = $permission->id;
         $permissions_instructor[] = $permission->id;
 
         // Permiso para ver proyectos (Todos los roles)
@@ -73,11 +81,73 @@ class PermissionsTableSeeder extends Seeder
         $permissions_admin[] = $permission->id;
         $permissions_instructor[] = $permission->id;
         $permissions_apprentice[] = $permission->id;
+
         // Permiso para gestionar usuarios (Solo Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sia.users.manage'], [
             'name' => 'Gestionar usuarios',
             'description' => 'Puede gestionar usuarios del sistema',
             'description_english' => 'You can manage system users',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id;
+
+        // Permiso para editar su propio perfil (Todos los roles)
+        $permission = Permission::updateOrCreate(['slug' => 'sia.profile.edit'], [
+            'name' => 'Editar su propio perfil',
+            'description' => 'Puede editar su propio perfil de usuario',
+            'description_english' => 'Can edit their own user profile',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id;
+        $permissions_instructor[] = $permission->id;
+        $permissions_apprentice[] = $permission->id;
+
+        // Permiso para eliminar su propio perfil (Todos los roles)
+        $permission = Permission::updateOrCreate(['slug' => 'sia.profile.delete'], [
+            'name' => 'Eliminar su propio perfil',
+            'description' => 'Puede eliminar su propio perfil de usuario',
+            'description_english' => 'Can delete their own user profile',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id;
+        $permissions_instructor[] = $permission->id;
+        $permissions_apprentice[] = $permission->id;
+
+        // Permiso para gestionar todas las publicaciones (Solo Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sia.posts.manage'], [
+            'name' => 'Gestionar todas las publicaciones',
+            'description' => 'Puede crear, editar y eliminar todas las publicaciones',
+            'description_english' => 'Can create, edit and delete all posts',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id;
+
+        // Permiso para gestionar sus propias publicaciones (Administrador, Instructor e Aprendiz)
+        $permission = Permission::updateOrCreate(['slug' => 'sia.posts.crud'], [
+            'name' => 'Crear, editar y eliminar publicaciones',
+            'description' => 'Puede crear, editar y eliminar sus propias publicaciones',
+            'description_english' => 'Can create, edit and delete their own posts',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id;
+        $permissions_instructor[] = $permission->id;
+        $permissions_apprentice[] = $permission->id;
+
+        // Permiso para gestionar eventos (Administrador e Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'sia.events.crud'], [
+            'name' => 'Crear, editar y eliminar eventos',
+            'description' => 'Puede crear, editar y eliminar eventos',
+            'description_english' => 'Can create, edit and delete events',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id;
+        $permissions_instructor[] = $permission->id;
+
+        // Permiso para gestionar alianzas (Solo Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sia.alliances.crud'], [
+            'name' => 'Crear, editar y eliminar alianzas',
+            'description' => 'Puede crear, editar y eliminar alianzas',
+            'description_english' => 'Can create, edit and delete alliances',
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
@@ -101,6 +171,8 @@ class PermissionsTableSeeder extends Seeder
         $permissions_admin[] = $permission->id;
         $permissions_instructor[] = $permission->id;
         $permissions_apprentice[] = $permission->id;
+
+        
 
         // ===================== Asignación de permisos a los roles =====================
 
