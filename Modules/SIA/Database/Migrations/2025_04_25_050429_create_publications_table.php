@@ -18,7 +18,7 @@ return new class extends Migration
         Schema::create('publications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('reviewer_id')->constrained('users')->onDelete('set null'); 
+            $table->foreignId('reviewer_id')->nullable()->constrained('users')->onDelete('set null'); 
             $table->string('title');
             $table->string('pdf_path');
             $table->date('publication_date');

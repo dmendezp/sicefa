@@ -57,8 +57,9 @@ class Publication extends Model
         $this->update([
             'status' => $status,
             'reviewer_id' => $reviewerId,
-            'review_date' => $status !== 'pending' ? now() : null, // Solo actualiza review_date si no es pending
+            'review_date' => $status !== 'pending' ? now() : null,
             'reviewer_comments' => $comments,
         ]);
+        return $this;
     }
 }
