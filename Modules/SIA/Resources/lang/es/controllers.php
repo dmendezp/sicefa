@@ -121,7 +121,7 @@ return [
     'SIA_publication_edit_title_view' => 'Edición de Publicación',
     'SIA_publication_pending_title_page' => 'Publicaciones Pendientes',
     'SIA_publication_pending_title_view' => 'Revisión de Publicaciones',
-    'SIA_publication_store_success' => 'Publicación registrada exitosamente',
+    'SIA_publication_store_success' => 'Publicación creada exitosamente',
     'SIA_publication_update_success' => 'Publicación actualizada exitosamente',
     'SIA_publication_destroy_success' => 'Publicación eliminada exitosamente',
     'SIA_publication_destroy_error' => 'Error al eliminar la publicación',
@@ -131,9 +131,12 @@ return [
     'SIA_publication_date_required' => 'La fecha de publicación es obligatoria',
     'SIA_publication_date_valid' => 'La fecha de publicación debe ser hoy o posterior',
     'SIA_publication_status_required' => 'El estado es obligatorio',
-    'SIA_publication_status_valid' => 'El estado debe ser pending, published o rejected',
+    'SIA_publication_status_valid' => 'El estado debe ser "pending", "published" o "rejected"',
     'SIA_publication_review_status_required' => 'El estado de revisión es obligatorio',
-    'SIA_publication_review_status_valid' => 'El estado de revisión debe ser published o rejected',
+    'SIA_publication_review_status_valid' => 'El estado de revisión debe ser "published" o "rejected"',
+    'SIA_publication_pdf_must_be_file' => 'El archivo debe ser un documento válido.',
+    'SIA_publication_pdf_must_be_pdf' => 'El archivo debe ser un PDF.',
+    'SIA_publication_pdf_max_size' => 'El archivo no debe superar los 2MB.',
 
     // -----ProjectController-----
     'SIA_project_index_title_page' => 'Lista de Proyectos',
