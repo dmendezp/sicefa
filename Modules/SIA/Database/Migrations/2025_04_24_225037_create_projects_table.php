@@ -32,7 +32,6 @@ return new class extends Migration
         Schema::create('project_role', function (Blueprint $table) {
             $table->id(); 
             $table->foreignId('project_id')->constrained('projects')->onDelete('cascade'); 
-            $table->foreignId('role_id')->nullable()->constrained('roles')->onDelete('set null');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); 
             $table->timestamps(); // created_at y updated_at
             $table->unique(['project_id', 'user_id']); // Evitar duplicados
@@ -50,5 +49,3 @@ return new class extends Migration
         Schema::dropIfExists('projects');
     }
 };
-
-
