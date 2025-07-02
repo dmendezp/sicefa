@@ -21,7 +21,6 @@ return new class extends Migration
             $table->text('description');
             $table->string('organization');
             $table->string('email');
-            $table->string('phone')->nullable();
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
