@@ -19,11 +19,6 @@ use Modules\SICA\Entities\PensionEntity;
 
 class ApprenticeResearcherController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('role:admin');
-    }
-
     public function index()
     {
         $view = [

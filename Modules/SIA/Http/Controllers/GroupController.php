@@ -10,11 +10,6 @@ use Auth;
 
 class GroupController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('role:admin');
-    }
-
     /**
      * Muestra la lista de grupos.
      */

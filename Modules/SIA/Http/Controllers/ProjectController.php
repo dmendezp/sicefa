@@ -10,11 +10,6 @@ use Auth;
 
 class ProjectController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('role:admin|sia.inst-inv|sia.appr-inv');
-    }
-
     /**
      * Muestra la lista de proyectos.
      */

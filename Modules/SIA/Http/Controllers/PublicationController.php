@@ -11,11 +11,6 @@ use Auth;
 
 class PublicationController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('role:admin|sia.inst-inv|sia.appr-inv');
-    }
-
     /**
      * Muestra la lista de publicaciones.
      */

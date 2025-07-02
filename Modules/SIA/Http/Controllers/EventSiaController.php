@@ -10,11 +10,6 @@ use Auth;
 
 class EventSiaController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('role:admin|sia.inst-inv'); // Ambos roles pueden acceder
-    }
-
     /**
      * Muestra la lista de eventos.
      */
