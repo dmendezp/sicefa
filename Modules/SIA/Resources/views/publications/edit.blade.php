@@ -15,7 +15,7 @@
         @method('PUT')
         <div class="card shadow-sm border-0 mb-4">
             <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">{{ $view['titleView'] }}</h4>
+                <h4 class="mb-0">{{ trans('sia::publications.edit_title_view') }}</h4>
             </div>
             <div class="card-body">
                 @if ($errors->any())
@@ -31,48 +31,47 @@
                 <div class="row g-3">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="titulo" class="form-label">{{ trans('sia::publications.title') }} <span class="text-danger">*</span></label>
-                            <input type="text" name="titulo" id="titulo" class="form-control @error('titulo') is-invalid @enderror" required
-                                value="{{ old('titulo', $publication->title) }}">
-                            @error('titulo')
+                            <label for="title" class="form-label">{{ trans('sia::publications.title') }} <span class="text-danger">*</span></label>
+                            <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" required
+                                value="{{ old('title', $publication->title) }}">
+                            @error('title')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="contenido" class="form-label">{{ trans('sia::publications.pdf_path') }} <span class="text-danger">*</span></label>
-                            <input type="file" name="contenido" id="contenido" class="form-control @error('contenido') is-invalid @enderror"
+                            <label for="pdf_path" class="form-label">{{ trans('sia::publications.pdf_path') }} <span class="text-danger">*</span></label>
+                            <input type="file" name="pdf_path" id="pdf_path" class="form-control @error('pdf_path') is-invalid @enderror" required
                                 accept=".pdf">
-                            <small class="text-muted">{{ $publication->pdf_path }}</small>
-                            @error('contenido')
+                            <small class="text-muted">{{ trans('sia::publications.current_pdf') }}: {{ $publication->pdf_path }}</small>
+                            @error('pdf_path')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="fecha_publicacion" class="form-label">{{ trans('sia::publications.publication_date') }} <span class="text-danger">*</span></label>
-                            <input type="date" name="fecha_publicacion" id="fecha_publicacion" class="form-control @error('fecha_publicacion') is-invalid @enderror" required
-                                value="{{ old('fecha_publicacion', $publication->publication_date ? $publication->publication_date->format('Y-m-d') : '') }}"
-                                min="{{ now()->format('Y-m-d') }}">
-                            @error('fecha_publicacion')
+                            <label for="publication_date" class="form-label">{{ trans('sia::publications.publication_date') }} <span class="text-danger">*</span></label>
+                            <input type="date" name="publication_date" id="publication_date" class="form-control @error('publication_date') is-invalid @enderror" required
+                                value="{{ old('publication_date', $publication->publication_date) }}" min="{{ now()->format('Y-m-d') }}">
+                            @error('publication_date')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="estado" class="form-label">{{ trans('sia::publications.status') }} <span class="text-danger">*</span></label>
-                            <select name="estado" id="estado" class="form-select @error('estado') is-invalid @enderror" required>
+                            <label for="status" class="form-label">{{ trans('sia::publications.status') }} <span class="text-danger">*</span></label>
+                            <select name="status" id="status" class="form-select @error('status') is-invalid @enderror" required>
                                 <option value="">{{ trans('sia::publications.select_status') }}</option>
-                                <option value="PENDIENTE" {{ old('estado', $publication->status) == 'PENDIENTE' ? 'selected' : '' }}>
+                                <option value="pending" {{ old('status', $publication->status) == 'pending' ? 'selected' : '' }}>
                                     {{ trans('sia::publications.status_pending') }}
                                 </option>
-                                <option value="PUBLICADO" {{ old('estado', $publication->status) == 'PUBLICADO' ? 'selected' : '' }}>
+                                <option value="published" {{ old('status', $publication->status) == 'published' ? 'selected' : '' }}>
                                     {{ trans('sia::publications.status_published') }}
                                 </option>
-                                <option value="RECHAZADO" {{ old('estado', $publication->status) == 'RECHAZADO' ? 'selected' : '' }}>
+                                <option value="rejected" {{ old('status', $publication->status) == 'rejected' ? 'selected' : '' }}>
                                     {{ trans('sia::publications.status_rejected') }}
                                 </option>
                             </select>
-                            @error('estado')
+                            @error('status')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -100,7 +99,7 @@
                 );
             });
 
-            $('#titulo, #contenido, #fecha_publicacion, #estado').on('input change', function() {
+            $('#title, #pdf_path, #publication_date, #status').on('input change', function() {
                 $(this).removeClass('is-invalid');
                 $(this).next('.invalid-feedback').remove();
             });

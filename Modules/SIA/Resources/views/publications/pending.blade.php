@@ -12,7 +12,7 @@
 @section('content')
     <div class="card shadow-sm border-0 mb-4">
         <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">{{ $view['titleView'] }}</h4>
+            <h4 class="mb-0">{{ trans('sia::publications.pending_title_view') }}</h4>
         </div>
         <div class="card-body">
             @if (session('message_sia'))
@@ -26,21 +26,23 @@
                     <thead class="table-primary">
                         <tr>
                             <th>{{ trans('sia::publications.title') }}</th>
-                            <th>{{ trans('sia::publications.publication_date') }}</th>
                             <th>{{ trans('sia::publications.author') }}</th>
-                            <th>{{ trans('sia::publications.table_actions') }}</th>
+                            <th>{{ trans('sia::publications.publication_date') }}</th>
+                            <th>{{ trans('sia::publications.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($publications as $publication)
                             <tr>
                                 <td>{{ $publication->title ?? 'N/A' }}</td>
-                                <td>{{ $publication->publication_date ? $publication->publication_date->format('Y-m-d') : 'N/A' }}</td>
                                 <td>{{ $publication->author->name ?? 'N/A' }}</td>
+                                <td>{{ $publication->publication_date ?? 'N/A' }}</td>
                                 <td>
-                                    <a href="{{ route('sia.admin.publications.review', $publication->id) }}" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-check"></i> {{ trans('sia::publications.action_review') }}
-                                    </a>
+                                    @if (Auth::user()->hasRole('admin|sia.inst-inv'))
+                                        <a href="{{ route('sia.admin.publications.review', $publication->id) }}" class="btn btn-info btn-sm me-1">
+                                            <i class="fas fa-eye"></i> {{ trans('sia::publications.action_review') }}
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                         @empty
@@ -63,7 +65,7 @@
             $('#pendingPublicationsTable').DataTable({
                 language: window.language_datatables,
                 pageLength: 10,
-                order: [[1, 'desc']],
+                order: [[2, 'desc']],
                 responsive: true
             });
         });
