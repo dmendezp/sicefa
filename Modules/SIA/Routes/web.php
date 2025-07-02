@@ -8,6 +8,8 @@ Route::middleware(['lang'])->group(function () {
             Route::get('developers', 'devs')->name('cefa.sia.devs');
             Route::get('information', 'info')->name('cefa.sia.info');
             Route::get('admin', 'admin')->name('sia.admin.index');
+            Route::get('instructor', 'instructor')->name('sia.instructor.index');
+            Route::get('apprentice', 'apprentice')->name('sia.apprentice.index');
         });
 
         // Rutas para el CRUD de Aprendices Investigadores
