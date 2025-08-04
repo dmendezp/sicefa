@@ -34,6 +34,15 @@ class GroupsTableSeeder extends Seeder
                 'name' => 'SEMILLERO FISENSO',
                 'description' => 'Somos un grupo compuesto por aprendices e instructores del Sena, que promueven la capacidad investigativa mediante el estudio teórico y la aplicación del conocimiento al desarrollo pedagógico y social, en las áreas de la educación, psicología y humanística, cuyo fin es desarrollar la habilidad de trabajo en equipo, promover el aprendizaje autónomo y facilitar la interacción entre lo académico y lo práctico, aplicado a fortalecer la formación Profesional Integral.',
             ],
+             [
+                'name' => 'SEMILLERO INNOVACIÓN AGROINDUSTRIAL',
+                'description' => 'Somos un grupo compuesto por aprendices e instructores del SENA, que promueven la capacidad investigativa mediante el estudio teórico y la aplicación de conocimiento a la realidad empresarial en las áreas de software Generando conocimientos y avances tecnológicos, para generar la habilidad de trabajo en equipo, promover el aprendizaje autónomo facilitar la interacción entre lo académico y lo práctico.',
+            ],
+             [
+                'name' => 'SEMILLERO SIPPA',
+                'description' => 'Es una estrategia que promueve la agrupación de estudiantes y profesores para realizar actividades de investigación que van más allá del proceso académico formal y que dinamizan la adquisición de competencias investigativas.
+                                  Se caracteriza por ser un equipo de trabajo interdisciplinario, que fomenta el interés por la investigación y el desarrollo de procesos relacionados con la producción pecuaria sostenible; la inclusión de estudiantes de las diferentes titulaciones relacionadas con la red de conocimiento y la transferencia a productores de la zona, buscando un ejercicio constante de intercambio de conocimiento a partir de la articulación de la comunidad académica y el sector productivo.',
+            ],
         ];
 
         foreach ($groups as $group) {

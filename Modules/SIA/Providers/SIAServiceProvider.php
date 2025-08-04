@@ -24,14 +24,10 @@ class SIAServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Cargar migraciones desde el directorio del módulo
-        $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
-        // Cargar vistas
+      $this->registerTranslations();
+        $this->registerConfig();
         $this->registerViews();
-        // Cargar traducciones
-        $this->registerTranslations();
-        
-         $this->registerConfig();
+        $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
      
     }
 

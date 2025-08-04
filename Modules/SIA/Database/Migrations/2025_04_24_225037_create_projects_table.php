@@ -18,9 +18,11 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id(); 
             $table->string('name'); 
-            $table->text('description')->nullable(); 
+            $table->text('description'); 
             $table->date('start_date'); 
-            $table->date('end_date')->nullable(); 
+            $table->date('end_date'); 
+            $table->enum('estado', ['EN_CURSO', 'FINALIZADO', 'CANCELADO'])->default('EN_CURSO'); 
+            $table->string('pdf_report_path')->nullable()->comment('Ruta del archivo PDF de avances/informes del proyecto');
             $table->foreignId('leader_id')->constrained('users')->onDelete('cascade'); // Relación con el líder del proyecto (usuario)
             $table->timestamps(); // created_at y updated_at
             $table->softDeletes(); // deleted_at para eliminación lógica
@@ -30,7 +32,6 @@ return new class extends Migration
         Schema::create('project_role', function (Blueprint $table) {
             $table->id(); 
             $table->foreignId('project_id')->constrained('projects')->onDelete('cascade'); 
-            $table->foreignId('role_id')->nullable()->constrained('roles')->onDelete('set null');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); 
             $table->timestamps(); // created_at y updated_at
             $table->unique(['project_id', 'user_id']); // Evitar duplicados
@@ -48,5 +49,3 @@ return new class extends Migration
         Schema::dropIfExists('projects');
     }
 };
-
-

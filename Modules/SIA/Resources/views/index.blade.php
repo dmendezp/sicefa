@@ -196,25 +196,20 @@
                                         <!-- Dish #1 -->
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="row dish-panel">
+                                                <!-- Imagen 1 -->
                                                 <div class="col-xs-12 col-sm-6 col-md-6">
-                                                    <div class="dish--content">
-                                                        <div class="dish--tag">
-                                                            {{ trans('sia::mainPage.TitlePopular') }}</div>
-                                                        <span class="dish--price">$3.000</span>
-                                                        <h3 class="dish--title">
-                                                            {{ trans('sia::mainPage.TitleCapuccino') }}
-                                                        </h3>
-                                                        <div class="divider--shape-4"></div>
-                                                        <p class="dish--desc">
-                                                            {{ trans('sia::mainPage.TextCapuccino') }}
-                                                        </p>
+                                                    <div class="dish--img">
+                                                        <div class="divider--shape-left"></div>
+                                                        <img src="{{ asset('modules/sia/images/menu-board/sebi.webp') }}"
+                                                            alt="dish img" />
                                                     </div>
                                                 </div>
+                                                <!-- Imagen 2 -->
                                                 <div class="col-xs-12 col-sm-6 col-md-6">
                                                     <div class="dish--img">
                                                         <div class="divider--shape-left"></div>
                                                         <img src="{{ asset('modules/sia/images/menu-board/agricola.webp') }}"
-                                                            alt="dish img" />
+                                                            alt="dish img extra" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -223,21 +218,20 @@
                                         <!-- Dish #2 -->
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="row dish-panel">
+                                                <!-- Imagen 1 -->
                                                 <div class="col-xs-12 col-sm-6 col-md-6">
-                                                    <div class="dish--content">
-                                                        <span class="dish--price">$1.500</span>
-                                                        <h3 class="dish--title">{{ trans('sia::mainPage.TitleAmerican') }}</h3>
-                                                        <div class="divider--shape-4"></div>
-                                                        <p class="dish--desc">
-                                                            {{ trans('sia::mainPage.TextAmerican') }}
-                                                        </p>
+                                                    <div class="dish--img">
+                                                        <div class="divider--shape-left"></div>
+                                                        <img src="{{ asset('modules/sia/images/menu-board/tedaf.webp') }}"
+                                                            alt="dish img" />
                                                     </div>
                                                 </div>
+                                                <!-- Imagen 2 -->
                                                 <div class="col-xs-12 col-sm-6 col-md-6">
                                                     <div class="dish--img">
                                                         <div class="divider--shape-left"></div>
                                                         <img src="{{ asset('modules/sia/images/menu-board/idear.webp') }}"
-                                                            alt="dish img" />
+                                                            alt="dish img extra" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -246,21 +240,20 @@
                                         <!-- Dish #3 -->
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="row dish-panel">
+                                                <!-- Imagen 1 -->
                                                 <div class="col-xs-12 col-sm-6 col-md-6">
                                                     <div class="dish--img">
                                                         <div class="divider--shape-right"></div>
-                                                        <img src="{{ asset('modules/sia/images/menu-board/sebi.webp') }}"
+                                                        <img src="{{ asset('modules/sia/images/menu-board/agrogestion.avif') }}"
                                                             alt="dish img" />
                                                     </div>
                                                 </div>
+                                                <!-- Imagen 2 -->
                                                 <div class="col-xs-12 col-sm-6 col-md-6">
-                                                    <div class="dish--content">
-                                                        <span class="dish--price">$1.500</span>
-                                                        <h3 class="dish--title">{{ trans('sia::mainPage.TitleFarmer') }}</h3>
-                                                        <div class="divider--shape-4"></div>
-                                                        <p class="dish--desc">
-                                                            {{ trans('sia::mainPage.TextFarmer') }}
-                                                        </p>
+                                                    <div class="dish--img">
+                                                        <div class="divider--shape-right"></div>
+                                                        <img src="{{ asset('modules/sia/images/menu-board/fisenso.avif') }}"
+                                                            alt="dish img extra" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -269,21 +262,20 @@
                                         <!-- Dish #4 -->
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="row dish-panel">
+                                                <!-- Imagen 1 -->
                                                 <div class="col-xs-12 col-sm-6 col-md-6">
                                                     <div class="dish--img">
                                                         <div class="divider--shape-right"></div>
-                                                        <img src="{{ asset('modules/sia/images/menu-board/tedaf.webp') }}"
+                                                        <img src="{{ asset('modules/sia/images/menu-board/agroindustrial.avif') }}"
                                                             alt="dish img" />
                                                     </div>
                                                 </div>
+                                                <!-- Imagen 2 -->
                                                 <div class="col-xs-12 col-sm-6 col-md-6">
-                                                    <div class="dish--content">
-                                                        <span class="dish--price">$2.000</span>
-                                                        <h3 class="dish--title">{{ trans('sia::mainPage.TitleSlushie') }}</h3>
-                                                        <div class="divider--shape-4"></div>
-                                                        <p class="dish--desc">
-                                                            {{ trans('sia::mainPage.TextSlushie') }}
-                                                        </p>
+                                                    <div class="dish--img">
+                                                        <div class="divider--shape-right"></div>
+                                                        <img src="{{ asset('modules/sia/images/menu-board/sippa.avif') }}"
+                                                            alt="dish img extra" />
                                                     </div>
                                                 </div>
                                             </div>

@@ -2,198 +2,237 @@
 
 namespace Modules\SIA\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller; 
-use App\Models\User;
-use Modules\SICA\Entities\Person;
+use Illuminate\Support\Facades\Validator;
 use Modules\SIA\Entities\ApprenticeResearcher;
+use Modules\SICA\Entities\Person;
+use App\Models\User;
+use Modules\SICA\Entities\Program;
+use Modules\SICA\Entities\Course;
+use Modules\SIA\Entities\Group;
+use Modules\SIA\Entities\Project;
 use Modules\SICA\Entities\Role;
-use Illuminate\Support\Facades\Log;
+use Modules\SICA\Entities\EPS;
+use Modules\SICA\Entities\PopulationGroup;
+use Modules\SICA\Entities\PensionEntity;
 
 class ApprenticeResearcherController extends Controller
 {
     public function index()
     {
-        $apprentices = ApprenticeResearcher::with(['user', 'person', 'program', 'course', 'group', 'project', 'defaultRole'])->get();
-        return view('sia::apprentice_researchers.index', compact('apprentices'));
+        $view = [
+            'titlePage' => trans('sia::controllers.SIA_apprentice_index_title_page'),
+            'titleView' => trans('sia::controllers.SIA_apprentice_index_title_view')
+        ];
+        $apprentices = ApprenticeResearcher::with(['person', 'user', 'program', 'course'])->get();
+        return view('sia::apprentice-researchers.index', compact('view', 'apprentices'));
     }
 
     public function create()
     {
-        return view('sia::apprentice_researchers.create');
+        $view = [
+            'titlePage' => trans('sia::controllers.SIA_apprentice_create_title_page'),
+            'titleView' => trans('sia::controllers.SIA_apprentice_create_title_view')
+        ];
+        $programs = Program::orderBy('name', 'ASC')->get();
+        $courses = Course::orderBy('code', 'ASC')->get();
+        $groups = Group::orderBy('name', 'ASC')->get();
+        $projects = Project::orderBy('name', 'ASC')->get();
+        $epsList = EPS::orderBy('name', 'ASC')->get();
+        $populationGroups = PopulationGroup::orderBy('name', 'ASC')->get();
+        $pensionEntities = PensionEntity::orderBy('name', 'ASC')->get();
+
+        return view('sia::apprentice-researchers.create', compact(
+            'view', 'programs', 'courses', 'groups', 'projects',
+            'epsList', 'populationGroups', 'pensionEntities'
+        ));
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nickname' => 'required|string|max:255|unique:users',
-            'email' => 'required|email|max:255|unique:users',
-            'document_type' => 'required|in:Cédula de ciudadanía,Tarjeta de identidad,Cédula de extranjería,Pasaporte,Documento nacional de identidad,Registro civil',
-            'document_number' => 'required|numeric|unique:people',
-            'first_name' => 'required|string|max:255',
-            'first_last_name' => 'required|string|max:255',
-            'second_last_name' => 'nullable|string|max:255',
+        $request->merge(['password' => bcrypt($request->input('password'))]);
+        $rules = [
+            'tipo_documento' => 'required|in:Cédula de ciudadanía,Tarjeta de identidad,Cédula de extranjería,Pasaporte,Documento nacional de identidad,Registro civil',
+            'numero_documento' => 'required|numeric|unique:people,document_number,' . ($request->input('person_id') ?: 'NULL'),
+            'nombres' => 'required|string|max:255',
+            'primer_apellido' => 'required|string|max:255',
+            'segundo_apellido' => 'nullable|string|max:255',
             'eps_id' => 'required|exists:e_p_s,id',
-            'telephone1' => 'required|numeric',
+            'numero_celular' => 'required|numeric|digits:10',
             'population_group_id' => 'required|exists:population_groups,id',
             'pension_entity_id' => 'required|exists:pension_entities,id',
+            'nickname' => 'required|string|max:255|unique:users,nickname',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8',
             'program_id' => 'required|exists:programs,id',
             'course_id' => 'required|exists:courses,id',
             'group_id' => 'required|exists:groups,id',
             'project_id' => 'nullable|exists:projects,id',
             'institution' => 'required|string|max:100',
-        ]);
+        ];
 
-        try {
-            // Create Person record
-            $person = Person::create([
-                'document_type' => $validated['document_type'],
-                'document_number' => $validated['document_number'],
-                'first_name' => $validated['first_name'],
-                'first_last_name' => $validated['first_last_name'],
-                'second_last_name' => $validated['second_last_name'],
-                'eps_id' => $validated['eps_id'],
-                'telephone1' => $validated['telephone1'],
-                'population_group_id' => $validated['population_group_id'],
-                'pension_entity_id' => $validated['pension_entity_id'],
-            ]);
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
-            // Create User record
+        \DB::transaction(function () use ($request) {
+            $personId = $request->input('person_id');
+            if (!$personId) {
+                $person = Person::create([
+                    'document_type' => $request->input('tipo_documento'),
+                    'document_number' => $request->input('numero_documento'),
+                    'first_name' => $request->input('nombres'),
+                    'first_last_name' => $request->input('primer_apellido'),
+                    'second_last_name' => $request->input('segundo_apellido'),
+                    'eps_id' => $request->input('eps_id'),
+                    'telephone1' => $request->input('numero_celular'),
+                    'population_group_id' => $request->input('population_group_id'),
+                    'pension_entity_id' => $request->input('pension_entity_id'),
+                ]);
+                $personId = $person->id;
+            }
+
             $user = User::create([
-                'nickname' => $validated['nickname'],
-                'person_id' => $person->id,
-                'email' => $validated['email'],
+                'nickname' => $request->input('nickname'),
+                'person_id' => $personId,
+                'email' => $request->input('email'),
+                'password' => $request->input('password'),
             ]);
 
-            // Get the default 'Aprendiz Investigador' role (ID 41)
-            $defaultRole = Role::find(41); // ID 41 corresponds to "Aprendiz Investigador"
-
-            // Create Apprentice Researcher record with default role
             $apprentice = ApprenticeResearcher::create([
+                'person_id' => $personId,
                 'user_id' => $user->id,
-                'person_id' => $person->id,
-                'program_id' => $validated['program_id'],
-                'course_id' => $validated['course_id'],
-                'group_id' => $validated['group_id'],
-                'project_id' => $validated['project_id'],
-                'institution' => $validated['institution'],
-                'default_role_id' => $defaultRole->id,
+                'program_id' => $request->input('program_id'),
+                'course_id' => $request->input('course_id'),
+                'group_id' => $request->input('group_id'),
+                'project_id' => $request->input('project_id'),
+                'institution' => $request->input('institution'),
             ]);
 
-            // Assign the role to the user via role_user
-            $user->roles()->sync([$defaultRole->id]);
+            // Asignar rol usando el slug 'sia.ap-inv'
+            $role = Role::where('slug', 'sia.ap-inv')->first();
+            if ($role) {
+                $user->roles()->syncWithoutDetaching([$role->id]);
+            }
 
-            Log::info('Aprendiz investigador registrado: ', ['user_id' => $user->id, 'person_id' => $person->id]);
+            session()->flash('message_sia', 'Aprendiz registrado exitosamente por el administrador');
+            session()->flash('message_sia_type', 'success');
+        });
 
-            return redirect()->route('sia.apprentice_researchers.index')
-                ->with('message', 'Aprendiz investigador registrado exitosamente.')
-                ->with('typealert', 'success');
-        } catch (\Exception $e) {
-            Log::error('Error al registrar aprendiz investigador: ' . $e->getMessage());
-            return redirect()->back()
-                ->with('message', 'Error al registrar el aprendiz investigador: ' . $e->getMessage())
-                ->with('typealert', 'danger')
-                ->withInput();
-        }
+        return redirect()->route('sia.admin.apprentice-researchers.index');
     }
 
-    public function edit($id)
+    public function edit(ApprenticeResearcher $apprentice)
     {
-        $apprentice = ApprenticeResearcher::with(['user', 'person', 'program', 'course', 'group', 'project', 'defaultRole'])->findOrFail($id);
-        return view('sia::apprentice_researchers.edit', compact('apprentice'));
+        $view = [
+            'titlePage' => trans('sia::controllers.SIA_apprentice_edit_title_page'),
+            'titleView' => trans('sia::controllers.SIA_apprentice_edit_title_view')
+        ];
+        $programs = Program::orderBy('name', 'ASC')->get();
+        $courses = Course::orderBy('code', 'ASC')->get();
+        $groups = Group::orderBy('name', 'ASC')->get();
+        $projects = Project::orderBy('name', 'ASC')->get();
+        $epsList = EPS::orderBy('name', 'ASC')->get();
+        $populationGroups = PopulationGroup::orderBy('name', 'ASC')->get();
+        $pensionEntities = PensionEntity::orderBy('name', 'ASC')->get();
+
+        return view('sia::apprentice-researchers.edit', compact(
+            'view', 'apprentice', 'programs', 'courses', 'groups', 'projects',
+            'epsList', 'populationGroups', 'pensionEntities'
+        ));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, ApprenticeResearcher $apprentice)
     {
-        $apprentice = ApprenticeResearcher::findOrFail($id);
-        $user = $apprentice->user;
-        $person = $apprentice->person;
-
-        $validated = $request->validate([
-            'nickname' => 'required|string|max:255|unique:users,nickname,' . $user->id,
-            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-            'document_type' => 'required|in:Cédula de ciudadanía,Tarjeta de identidad,Cédula de extranjería,Pasaporte,Documento nacional de identidad,Registro civil',
-            'document_number' => 'required|numeric|unique:people,document_number,' . $person->id,
-            'first_name' => 'required|string|max:255',
-            'first_last_name' => 'required|string|max:255',
-            'second_last_name' => 'nullable|string|max:255',
+        $rules = [
+            'tipo_documento' => 'required|in:Cédula de ciudadanía,Tarjeta de identidad,Cédula de extranjería,Pasaporte,Documento nacional de identidad,Registro civil',
+            'numero_documento' => 'required|numeric|unique:people,document_number,' . ($apprentice->person_id ?: 'NULL'),
+            'nombres' => 'required|string|max:255',
+            'primer_apellido' => 'required|string|max:255',
+            'segundo_apellido' => 'nullable|string|max:255',
             'eps_id' => 'required|exists:e_p_s,id',
-            'telephone1' => 'required|numeric',
+            'numero_celular' => 'required|numeric|digits:10',
             'population_group_id' => 'required|exists:population_groups,id',
             'pension_entity_id' => 'required|exists:pension_entities,id',
+            'nickname' => 'required|string|max:255|unique:users,nickname,' . $apprentice->user_id,
+            'email' => 'required|email|unique:users,email,' . $apprentice->user_id,
+            'password' => 'nullable|string|min:8',
             'program_id' => 'required|exists:programs,id',
             'course_id' => 'required|exists:courses,id',
             'group_id' => 'required|exists:groups,id',
             'project_id' => 'nullable|exists:projects,id',
             'institution' => 'required|string|max:100',
-        ]);
+        ];
 
-        try {
-            // Update Person
-            $person->update([
-                'document_type' => $validated['document_type'],
-                'document_number' => $validated['document_number'],
-                'first_name' => $validated['first_name'],
-                'first_last_name' => $validated['first_last_name'],
-                'second_last_name' => $validated['second_last_name'],
-                'eps_id' => $validated['eps_id'],
-                'telephone1' => $validated['telephone1'],
-                'population_group_id' => $validated['population_group_id'],
-                'pension_entity_id' => $validated['pension_entity_id'],
-            ]);
-
-            // Update User
-            $user->update([
-                'nickname' => $validated['nickname'],
-                'email' => $validated['email'],
-            ]);
-
-            // Get the default 'Aprendiz Investigador' role (ID 41)
-            $defaultRole = Role::find(41); // ID 41 corresponds to "Aprendiz Investigador"
-
-            // Update Apprentice Researcher with default role
-            $apprentice->update([
-                'program_id' => $validated['program_id'],
-                'course_id' => $validated['course_id'],
-                'group_id' => $validated['group_id'],
-                'project_id' => $validated['project_id'],
-                'institution' => $validated['institution'],
-                'default_role_id' => $defaultRole->id,
-            ]);
-
-            // Sync the role with the user
-            $user->roles()->sync([$defaultRole->id]);
-
-            Log::info('Aprendiz investigador actualizado: ', ['user_id' => $user->id, 'person_id' => $person->id]);
-
-            return redirect()->route('sia.apprentice_researchers.index')
-                ->with('message', 'Aprendiz investigador actualizado exitosamente.')
-                ->with('typealert', 'success');
-        } catch (\Exception $e) {
-            Log::error('Error al actualizar aprendiz investigador: ' . $e->getMessage());
-            return redirect()->back()
-                ->with('message', 'Error al actualizar el aprendiz investigador: ' . $e->getMessage())
-                ->with('typealert', 'danger')
-                ->withInput();
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
+
+        \DB::transaction(function () use ($request, $apprentice) {
+            $person = $apprentice->person;
+            $person->update([
+                'document_type' => $request->input('tipo_documento'),
+                'document_number' => $request->input('numero_documento'),
+                'first_name' => $request->input('nombres'),
+                'first_last_name' => $request->input('primer_apellido'),
+                'second_last_name' => $request->input('segundo_apellido'),
+                'eps_id' => $request->input('eps_id'),
+                'telephone1' => $request->input('numero_celular'),
+                'population_group_id' => $request->input('population_group_id'),
+                'pension_entity_id' => $request->input('pension_entity_id'),
+            ]);
+
+            $user = $apprentice->user;
+            $user->update([
+                'nickname' => $request->input('nickname'),
+                'email' => $request->input('email'),
+                'password' => $request->filled('password') ? bcrypt($request->input('password')) : $user->password,
+            ]);
+
+            $apprentice->update([
+                'program_id' => $request->input('program_id'),
+                'course_id' => $request->input('course_id'),
+                'group_id' => $request->input('group_id'),
+                'project_id' => $request->input('project_id'),
+                'institution' => $request->input('institution'),
+            ]);
+
+            // Asignar o actualizar rol usando el slug 'sia.ap-inv'
+            $role = Role::where('slug', 'sia.ap-inv')->first();
+            if ($role) {
+                $user->roles()->sync([$role->id]);
+            }
+
+            session()->flash('message_sia', 'Aprendiz actualizado exitosamente por el administrador');
+            session()->flash('message_sia_type', 'success');
+        });
+
+        return redirect()->route('sia.admin.apprentice-researchers.index');
     }
 
-    public function destroy($id)
+    public function destroy(ApprenticeResearcher $apprentice)
     {
-        try {
-            $apprentice = ApprenticeResearcher::findOrFail($id);
-            $apprentice->delete(); // This will cascade to users and people due to onDelete('cascade')
-
-            Log::info('Aprendiz investigador eliminado: ', ['id' => $id]);
-
-            return redirect()->route('sia.apprentice_researchers.index')
-                ->with('message', 'Aprendiz investigador eliminado exitosamente.')
-                ->with('typealert', 'success');
-        } catch (\Exception $e) {
-            Log::error('Error al eliminar aprendiz investigador: ' . $e->getMessage());
-            return redirect()->back()
-                ->with('message', 'Error al eliminar el aprendiz investigador: ' . $e->getMessage())
-                ->with('typealert', 'danger');
+        if ($apprentice->remove()) {
+            session()->flash('message_sia', 'Aprendiz eliminado exitosamente por el administrador');
+            session()->flash('message_sia_type', 'success');
+        } else {
+            session()->flash('message_sia', 'Se ha producido un error al eliminar el aprendiz');
+            session()->flash('message_sia_type', 'error');
         }
+        return redirect()->route('sia.admin.apprentice-researchers.index');
+    }
+
+    public function checkDocument(Request $request)
+    {
+        $documentNumber = $request->input('document_number');
+        $person = Person::where('document_number', $documentNumber)->first();
+
+        return response()->json([
+            'exists' => $person ? true : false,
+            'person_id' => $person ? $person->id : null
+        ]);
     }
 }

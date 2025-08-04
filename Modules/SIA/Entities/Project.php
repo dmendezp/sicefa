@@ -3,12 +3,12 @@
 namespace Modules\SIA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\User;
 
 class Project extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
     protected $table = 'projects';
 
@@ -17,59 +17,34 @@ class Project extends Model
         'description',
         'start_date',
         'end_date',
+        'estado',
+        'pdf_report_path',
         'leader_id',
     ];
 
-    protected $casts = [
-        'start_date' => 'date',
-        'end_date' => 'date',
-    ];
+    protected $dates = ['start_date', 'end_date', 'deleted_at'];
 
     /**
-     * Relación con el líder del proyecto (usuario).
+     * Relación con el líder del proyecto.
      */
     public function leader()
     {
-        return $this->belongsTo(\App\Models\User::class, 'leader_id');
+        return $this->belongsTo(User::class, 'leader_id');
     }
 
     /**
-     * Relación muchos a muchos con RoleUser a través de la tabla pivote project_role.
+     * Relación muchos-a-muchos con usuarios a través de project_role.
      */
-    public function roleUsers()
+    public function users()
     {
-        return $this->belongsToMany(
-            \App\Models\RoleUser::class,
-            'project_role',
-            'project_id',
-            'role_user_id'
-        )->withTimestamps();
+        return $this->belongsToMany(User::class, 'project_role')->withTimestamps();
     }
 
     /**
-     * Relación uno a muchos con el modelo pivote ProjectRole.
+     * Verifica si el proyecto está en curso.
      */
-    public function projectRoles()
+    public function isInProgress()
     {
-        return $this->hasMany(ProjectRole::class, 'project_id');
-    }
-
-    /**
-     * Scope para filtrar proyectos activos (los que no han terminado).
-     */
-    public function scopeActive($query)
-    {
-        return $query->where(function ($q) {
-            $q->whereNull('end_date')
-              ->orWhere('end_date', '>=', now());
-        });
-    }
-
-    /**
-     * Fábrica del modelo.
-     */
-    protected static function newFactory()
-    {
-        return \Modules\SIA\Database\factories\ProjectFactory::new();
+        return $this->estado === 'EN_CURSO';
     }
 }

@@ -1,8 +1,8 @@
 <aside class="main-sidebar sidebar-dark-green elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ route('sia.index') }}" class="brand-link pb-1 text-decoration-none">
+    <a href="{{ route('cefa.sia.index') }}" class="brand-link pb-1 text-decoration-none">
         <h4 class="text-light">
-            <i class="nav-icon fas fa-mug-hot ml-3 mr-1"></i>
+           <i class="nav-icon fas fa-users mr-1"></i>
             <span class="brand-text">SIA</span>
         </h4>
     </a>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="col-auto info float-right mt-2">
                     <a href="{{ route('logout') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right"
-                        data-bs-title={{ trans('sia::general.ExitSession') }} style="color: #FFFFFF;"
+                        data-bs-title={{ trans('sia::general.ExitSession') }} 
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
@@ -59,7 +59,7 @@
                     <a href="{{ route('cefa.welcome') }}"
                         class="nav-link {{ !Route::is('cefa.contact.maps') ?: 'active' }}">
                         <i class="nav-icon fas fa-puzzle-piece"></i>
-                        <p>{{ trans('sia::general.Back to SIA') }}</p>
+                        <p>{{ trans('sia::general.Back to SICEFA') }}</p>
                     </a>
                 </li>
             </ul>
@@ -94,26 +94,135 @@
                 @endif
 
                 <!-- Menú de opciones para administrador -->
-                @if (Route::is('sia.admin.*'))
-                    @if (Auth::user()->havePermission('sia.admin.index'))
-                        <li class="nav-item">
-                            <a href="{{ route('sia.admin.index') }}"
-                                class="nav-link {{ !Route::is('sia.admin.index') ?: 'active' }} text-light">
-                                <i class="nav-icon fa-solid fa-house-chimney"></i>
-                                <p>{{ trans('sia::general.dashboard') }}</p>
-                            </a>
-                        </li>
-                    @endif
-                    @if (Auth::user()->havePermission('sia.admin.users.index'))
-                        <li class="nav-item">
-                            <a href="{{ route('sia.admin.users.index') }}"
-                                class="nav-link {{ !Route::is('sia.admin.users.index*') ?: 'active' }} text-light">
-                                <i class="nav-icon fa-solid fa-users"></i>
-                                <p>{{ trans('sia::general.Users') }}</p>
-                            </a>
-                        </li>
-                    @endif
-                @endif
+               <!-- Menú de opciones para administrador -->
+@if (Route::is('sia.admin.*'))
+    @if (Auth::user()->havePermission('sia.admin.index'))
+        <li class="nav-item">
+            <a href="{{ route('sia.admin.index') }}" class="nav-link {{ Route::is('sia.admin.index') ? 'active' : '' }} text-light">
+                <i class="nav-icon fa-solid fa-house-chimney"></i>
+                <p>{{ trans('sia::general.dashboard') }}</p>
+            </a>
+        </li>
+    @endif
+
+    <!-- Columna 1: Usuarios -->
+    <li class="nav-item has-treeview">
+        <a href="#" class="nav-link {{ (Route::is('sia.admin.administrators.index') || Route::is('sia.admin.administrators.*') || Route::is('sia.admin.apprentice-researchers.index')) ? 'active' : '' }} text-light">
+            <i class="nav-icon fa-solid fa-users"></i>
+            <p>
+                {{ trans('sia::general.users') }}
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            @if (Auth::user()->havePermission('sia.users.manage'))
+                <li class="nav-item">
+                    <a href="{{ route('sia.admin.administrators.index') }}" class="nav-link {{ Route::is('sia.admin.administrators.*') ? 'active' : '' }} text-light">
+                        <i class="nav-icon fa-solid fa-user-tie"></i>
+                        <p>{{ trans('sia::general.administrators') }}</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('sia.admin.instructor-researchers.index') }}" class="nav-link {{ Route::is('sia.admin.instructor-researchers.*') ? 'active' : '' }} text-light">
+                        <i class="nav-icon fa-solid fa-chalkboard-teacher"></i>
+                        <p>{{ trans('sia::general.instructor_researchers') }}</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('sia.admin.apprentice-researchers.index') }}" class="nav-link {{ Route::is('sia.admin.apprentice-researchers.*') ? 'active' : '' }} text-light">
+                        <i class="nav-icon fa-solid fa-user-graduate"></i>
+                        <p>{{ trans('sia::general.apprentice_researchers') }}</p>
+                    </a>
+                </li>
+            @endif
+        </ul>
+    </li>
+
+    <!-- Columna 2: Publicar -->
+    <li class="nav-item has-treeview">
+        <a href="#" class="nav-link {{ (Route::is('sia.admin.publications.index') || Route::is('sia.admin.publications.pending')) ? 'active' : '' }} text-light">
+            <i class="nav-icon fa-solid fa-book"></i>
+            <p>
+                {{ trans('sia::general.publish') }}
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            @if (Auth::user()->havePermission('sia.posts.manage'))
+                <li class="nav-item">
+                    <a href="{{ route('sia.admin.publications.index') }}" class="nav-link {{ Route::is('sia.admin.publications.index') ? 'active' : '' }} text-light">
+                        <i class="nav-icon fa-solid fa-list"></i>
+                        <p>{{ trans('sia::general.all_publications') }}</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('sia.admin.publications.pending') }}" class="nav-link {{ Route::is('sia.admin.publications.pending') ? 'active' : '' }} text-light">
+                        <i class="nav-icon fa-solid fa-clock"></i>
+                        <p>{{ trans('sia::general.pending_publications') }}</p>
+                    </a>
+                </li>
+            @endif
+        </ul>
+    </li>
+
+    <!-- Columna 3: Proyectos y Eventos -->
+    <li class="nav-item has-treeview">
+        <a href="#" class="nav-link {{ (Route::is('sia.admin.projects.index') || Route::is('sia.admin.events.index')) ? 'active' : '' }} text-light">
+            <i class="nav-icon fa-solid fa-briefcase"></i>
+            <p>
+                {{ trans('sia::general.projects_events') }}
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            @if (Auth::user()->havePermission('sia.projects.manage_all'))
+                <li class="nav-item">
+                    <a href="{{ route('sia.admin.projects.index') }}" class="nav-link {{ Route::is('sia.admin.projects.index') ? 'active' : '' }} text-light">
+                        <i class="nav-icon fa-solid fa-diagram-project"></i>
+                        <p>{{ trans('sia::general.projects') }}</p>
+                    </a>
+                </li>
+            @endif
+            @if (Auth::user()->havePermission('sia.events.crud'))
+                <li class="nav-item">
+                    <a href="{{ route('sia.admin.events.index') }}" class="nav-link {{ Route::is('sia.admin.events.index') ? 'active' : '' }} text-light">
+                        <i class="nav-icon fa-solid fa-calendar-days"></i>
+                        <p>{{ trans('sia::general.events') }}</p>
+                    </a>
+                </li>
+            @endif
+        </ul>
+    </li>
+
+    <!-- Columna 4: Alianzas y Semilleros de Investigación -->
+    <li class="nav-item has-treeview">
+        <a href="#" class="nav-link {{ (Route::is('sia.admin.alliances.index') || Route::is('sia.admin.groups.index')) ? 'active' : '' }} text-light">
+            <i class="nav-icon fa-solid fa-handshake"></i>
+            <p>
+                {{ trans('sia::general.alliances_groups') }}
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            @if (Auth::user()->havePermission('sia.alliances.crud'))
+                <li class="nav-item">
+                    <a href="{{ route('sia.admin.alliances.index') }}" class="nav-link {{ Route::is('sia.admin.alliances.index') ? 'active' : '' }} text-light">
+                        <i class="nav-icon fa-solid fa-link"></i>
+                        <p>{{ trans('sia::general.alliances') }}</p>
+                    </a>
+                </li>
+            @endif
+            @if (Auth::user()->havePermission('sia.groups.manage'))
+                <li class="nav-item">
+                    <a href="{{ route('sia.admin.groups.index') }}" class="nav-link {{ Route::is('sia.admin.groups.index') ? 'active' : '' }} text-light">
+                        <i class="nav-icon fa-solid fa-users-class"></i>
+                        <p>{{ trans('sia::general.research_seedbeds') }}</p>
+                    </a>
+                </li>
+            @endif
+        </ul>
+    </li>
+@endif
 
                 <!-- Menu de opciones para instructor investigador -->
 
