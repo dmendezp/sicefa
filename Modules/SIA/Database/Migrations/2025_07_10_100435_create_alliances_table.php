@@ -1,12 +1,10 @@
 <?php
 
-namespace Modules\SIA\Database\Migrations;    
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
+class CreateAlliancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('contacts', function (Blueprint $table) {
+        Schema::create('alliances', function (Blueprint $table) {
             $table->id();
-            $table->string('names');
-            $table->string('surnames');
-            $table->string('email');
+            $table->string('name');
             $table->text('description');
+            $table->string('organization');
+            $table->string('email');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contacts');
+        Schema::dropIfExists('alliances');
     }
-};
+}
