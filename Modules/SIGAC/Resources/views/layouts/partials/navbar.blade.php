@@ -8,7 +8,7 @@
             <a href="{{ route('cefa.sigac.index') }}" class="nav-link @if(Route::is('cefa.sigac.index')) active @endif">{{ trans('sigac::general.Home') }}</a>
         </li>
         @auth
-            @if (checkRol('sigac.academic_coordinator'))
+            @if (checkRol('sigac.academic_coordination'))
                 <li class="nav-item d-none d-sm-inline-block mx-1">
                     <a href="{{ route('sigac.academic_coordination.dashboard') }}" class="nav-link @if(Route::is('sigac.academic_coordination.*')) active @endif">{{ trans('sigac::general.AcademicCoordination') }}</a>
                 </li>
@@ -33,9 +33,9 @@
                     <a href="{{ route('sigac.support.dashboard') }}" class="nav-link @if(Route::is('sigac.support.*')) active @endif">{{ trans('sigac::general.Support') }}</a>
                 </li>
             @endif
-            @if (checkRol('sigac.securitystaff'))
+            @if (checkRol('sigac.security'))
                 <li class="nav-item d-none d-sm-inline-block mx-1">
-                    <a href="{{ route('sigac.securitystaff.dashboard') }}" class="nav-link @if(Route::is('sigac.securitystaff.*')) active @endif">{{ trans('sigac::general.Securitystaff') }}</a>
+                    <a href="{{ route('sigac.security.dashboard') }}" class="nav-link @if(Route::is('sigac.security.*')) active @endif">{{ trans('sigac::general.Security') }}</a>
                 </li>
             @endif
         @endauth

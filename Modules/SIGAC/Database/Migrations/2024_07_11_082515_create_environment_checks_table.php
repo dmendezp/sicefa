@@ -20,8 +20,9 @@ class CreateEnvironmentChecksTable extends Migration
             $table->foreignId('environment_id')->constrained()->onDelete('cascade');
             $table->date('date');
             $table->time('start_time');
-            $table->time('end_time');
+            $table->time('end_time')->nullable();
             $table->enum('state',['Verificado Entrada','Verificado Salida','Novedad']);
+            $table->boolean('approved')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

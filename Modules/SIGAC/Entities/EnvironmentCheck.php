@@ -13,7 +13,7 @@ class EnvironmentCheck extends Model implements Auditable
     use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     use HasFactory;
 
-    protected $fillable = ['security_id','responsability_id','environment_id','date','start_time','end_time','state'];
+    protected $fillable = [];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 
@@ -37,6 +37,10 @@ class EnvironmentCheck extends Model implements Auditable
 
     public function environment(){ // Accede a la información de los datos personales de la persona responsable
         return $this->belongsTo(Environment::class);
+    }
+
+    public function novelty_checks(){ // Accede a la información de los datos personales de la persona responsable
+        return $this->hasMany(NoveltyCheck::class);
     }
     
     

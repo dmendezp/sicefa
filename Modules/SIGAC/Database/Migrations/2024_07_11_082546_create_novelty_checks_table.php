@@ -17,7 +17,9 @@ class CreateNoveltyChecksTable extends Migration
             $table->id();
             $table->foreignId('inventory_id')->constrained()->onDelete('cascade');
             $table->foreignId('environment_check_id')->constrained()->onDelete('cascade');
-            $table->text('observation');
+            $table->text('observation')->nullable();
+            $table->enum('state', ['No', 'Si'])->default('No');
+            $table->text('solution')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

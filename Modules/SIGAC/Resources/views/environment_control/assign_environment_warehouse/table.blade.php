@@ -18,7 +18,7 @@
                     <td class="text-center">{{ $assign->person->fullname }}</td>
                     <td class="text-center">
                         <form id="delete-professionprogram-form-{{ $assign->environment_id }}{{ $assign->warehouse_id }}"
-                            action="{{ route('sigac.instructor.environmentcontrol.assign_environment_warehouse.destroy', ['environment_id' => $assign->environment_id, 'warehouse_id' => $assign->warehouse_id]) }}"
+                            action="{{ route('sigac.academic_coordination.environmentcontrol.assign_environment_warehouse.destroy', ['environment_id' => $assign->environment_id, 'warehouse_id' => $assign->warehouse_id]) }}"
                             method="POST">
                             @csrf
                             @method('DELETE')

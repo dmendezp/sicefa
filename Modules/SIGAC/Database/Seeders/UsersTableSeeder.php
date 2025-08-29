@@ -52,6 +52,25 @@ class UsersTableSeeder extends Seeder
         ]);
 
 
+        // Usuario de Prueba super admin
+        $person = Person::where('document_number', 1012345442)->first(); // Consultar Persona
+        User::updateOrCreate(['nickname' => 'Chimbaco08'], [ // Actualizar o crear usuario
+            'person_id' => $person->id,
+            'email' => 'afmendez01@gmail.com' //Anch5442 , 
+        ]);
 
+        // Usuario de Prueba seguridad
+        $person = Person::where('document_number', 1079389100)->first(); // Consultar Persona
+        User::updateOrCreate(['nickname' => 'Emmanuel_01'], [ // Actualizar o crear usuario
+            'person_id' => $person->id,
+            'email' => 'fernandocedielbastidas@gmail.com' //Emce9100
+        ]);
+
+        // Usuario de Prueba seguridad
+        $person = Person::where('document_number', 1087634893)->first(); // Consultar Persona
+        User::updateOrCreate(['nickname' => 'Maicol3'], [ // Actualizar o crear usuario
+            'person_id' => $person->id,
+            'email' => 'maicol01@gmail.com' //Maca4893
+        ]);
     }
 }

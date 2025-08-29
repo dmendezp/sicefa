@@ -46,10 +46,16 @@
                                 @foreach ($i->environment_instructor_programs as $e)                          
                                     <tr>
                                         <td class="text-center">{{ $e->environment->name }}</td>
-                                        <td class="text-center">{{ $i->start_time }} - {{ $i->end_time }}</td>
-
+                                        <td class="text-center">{{ $i->start_time }} - {{ $i->end_time }} (Formación)</td>
                                     </tr>
                                 @endforeach
+                            @endforeach
+                            
+                            @foreach ($extraordinary_activities as $activity)
+                                <tr>
+                                    <td class="text-center">{{ $activity->environment->name }}</td>
+                                    <td class="text-center">{{ $activity->start_time }} - {{ $activity->end_time }} (Actividad: {{ $activity->activity_name }})</td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

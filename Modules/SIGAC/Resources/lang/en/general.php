@@ -8,7 +8,7 @@ return [
 	'Wellness'             => 'Wellness',
 	'Apprentice'           => 'Apprentice',
     'Support'              => 'Support',
-    'Securitystaff'        => 'Security Staff',
+    'Security'             => 'Security',
     'Log In'               => 'Log In',
     'Internacionalization' => 'Internacionalization',
     'English'              => 'English',

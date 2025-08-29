@@ -16,7 +16,6 @@ class CreateInstructorProgramNoveltiesTable extends Migration
         Schema::create('instructor_program_novelties', function (Blueprint $table) {
             $table->id();
             $table->foreignId('instructor_program_id')->constrained()->onDelete('cascade');
-            $table->date('date');
             $table->enum('activity',['Formación','Atención medios tecnológicos','Investigación','Permiso','Compromiso Institucional']);
             $table->text('observation')->nullable();
             $table->softDeletes();

@@ -5,7 +5,7 @@
 <div class="container" style="margin-left: 5px">
     <div class="card" style="width: 110%">
         <div class="card-body">
-            {!! Form::open(['route' => 'sigac.instructor.environmentcontrol.environment_inventory_movement.entrance.store', 'method' => 'POST']) !!}
+            {!! Form::open(['route' => 'sigac.academic_coordination.environmentcontrol.environment_inventory_movement.entrance.store', 'method' => 'POST']) !!}
             @csrf
             <div class="row">
                 <div class="col-md-6">
@@ -187,6 +187,7 @@
 
                     measurementUnitField.text('Unidad de medida : ' + response.unidad_medida ||
                         'Unidad de medida no encontrada');
+                    console.log(response.categoria);
                     categoryField.val(response.categoria || 'Categoría no encontrada');
                     nameField.val(response.name || 'Nombre no encontrada');
                 },

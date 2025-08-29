@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMissingCommitteesTable extends Migration
+class CreateUploadedFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateMissingCommitteesTable extends Migration
      */
     public function up()
     {
-        Schema::create('missing_committees', function (Blueprint $table) {
+        Schema::create('uploaded_files', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->enum('type',['Leve','Grave','Gravisima']);
-            $table->softDeletes();
-            $table->timestamps();
+            $table->string('hash')->unique();
+            $table->timestamp('uploaded_at');
         });
     }
 
@@ -29,7 +27,6 @@ class CreateMissingCommitteesTable extends Migration
      */
     public function down()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('missing_committees');
+        Schema::dropIfExists('uploaded_files');
     }
 }

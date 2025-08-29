@@ -5,14 +5,14 @@ namespace Modules\SIGAC\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class MissingCommittee extends Model
+class UploadedFile extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = [];
     
     protected static function newFactory()
     {
-        return \Modules\SIGAC\Database\factories\MissingCommitteeFactory::new();
+        return \Modules\SIGAC\Database\factories\UploadedFileFactory::new();
     }
 }

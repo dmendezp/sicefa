@@ -8,8 +8,6 @@
             <div class="modal-body">
                 <h5><b>Empresa</b></h5>
                 <p>{{ $prom->empresa }}</p>
-                <h5><b>Dirección</b></h5>
-                <p>{{ $prom->address }}</p>
                 <h5><b>Nombre</b></h5>
                 <p>{{ $prom->applicant }}</p>
                 <h5><b>Correo</b></h5>

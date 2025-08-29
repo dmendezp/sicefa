@@ -8,6 +8,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Modules\CEFAMAPS\Entities\Coordinate;
 use Modules\CEFAMAPS\Entities\Page;
 use Modules\AGROCEFA\Entities\Crop;
+use Modules\SIGAC\Entities\EnvironmentActivityProgram;
 use Modules\SIGAC\Entities\Key;
 use Modules\SIGAC\Entities\InstructorProgram;
 use Modules\SIGAC\Entities\EnvironmentInstructorProgram;
@@ -61,6 +62,10 @@ class Environment extends Model implements Auditable
     public function environment_productive_units(){ // Accede a todos los registros de las asociaciones de ambientes y unidades productivas que pertenecen a este ambiente
         return $this->hasMany(EnvironmentProductiveUnit::class);
     }
+    public function environment_activity_programs(){ // Accede a todos los registros de las asociaciones de ambientes y unidades productivas que pertenecen a este ambiente
+        return $this->hasMany(EnvironmentActivityProgram::class);
+    }
+
     public function farm(){ // Accede a la información de la granja al que pertenece
         return $this->belongsTo(Farm::class);
     }

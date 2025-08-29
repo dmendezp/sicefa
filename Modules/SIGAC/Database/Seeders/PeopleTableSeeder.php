@@ -76,5 +76,38 @@ class PeopleTableSeeder extends Seeder
             'population_group_id' => $population_group->id,
             'pension_entity_id' => $pension_entity->id
         ]);
+
+        // Super admin de Prueba
+        Person::firstOrCreate(['document_number' => 1012345442], [ // Consultar o registrar Persona
+            'document_type' => 'Cédula de ciudadanía',
+            'first_name' => 'ANDRES FELIPE',
+            'first_last_name' => 'CHIMBACO',
+            'second_last_name' => 'MENDEZ',
+            'eps_id' => $eps->id,
+            'population_group_id' => $population_group->id,
+            'pension_entity_id' => $pension_entity->id
+        ]);
+
+        // usuario de prueba seguridad
+        Person::firstOrCreate(['document_number' => 1079389100], [ // Consultar o registrar Persona
+            'document_type' => 'Cédula de ciudadanía',
+            'first_name' => 'EMMANUEL ',
+            'first_last_name' => 'CEDIEL',
+            'second_last_name' => 'BASTIDAS',
+            'eps_id' => $eps->id,
+            'population_group_id' => $population_group->id,
+            'pension_entity_id' => $pension_entity->id
+        ]);
+
+        // usuario de prueba instructor
+        Person::firstOrCreate(['document_number' => 1087634893], [ // Consultar o registrar Persona
+            'document_type' => 'Cédula de ciudadanía',
+            'first_name' => 'MAICOL ',
+            'first_last_name' => 'MENDEZ',
+            'second_last_name' => 'BUSTAMANTE',
+            'eps_id' => $eps->id,
+            'population_group_id' => $population_group->id,
+            'pension_entity_id' => $pension_entity->id
+        ]);
     }
 }

@@ -9,6 +9,20 @@
 @endpush
 
 @section('content')
+
+    <div class="d-flex justify-content-end mb-3">
+        <!-- Botón Ayuda -->
+        <a href="{{ asset('manuales/Manual_Usuario_Seguridad.pdf') }}" target="_blank" class="btn btn-primary" title="Ver manual de usuario" style="width: 10%">
+            <i class="fa-solid fa-circle-question"></i> Ayuda
+        </a>
+
+        <!-- Botón Descargar Manual con ícono de libro -->
+        <a href="{{ asset('manuales/Manual_Usuario_Seguridad.pdf') }}" download class="btn btn-primary ms-2" title="Descargar manual de usuario" style="width: 10%">
+            <i class="fa-solid fa-book"></i>
+        </a>
+    </div>
+
+
     <div class="container">
         <div class="row">
             <div class="col-lg-7 col-md-8 col-12">

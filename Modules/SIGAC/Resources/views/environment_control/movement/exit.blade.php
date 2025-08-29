@@ -53,7 +53,7 @@
         <div id="notification" class="alert alert-danger" style="display: none;"></div>
         <div class="card">
             <div class="card-body">
-                {!! Form::open(['route' => 'sigac.instructor.environmentcontrol.environment_inventory_movement.exit.store', 'method' => 'POST']) !!}
+                {!! Form::open(['route' => 'sigac.academic_coordination.environmentcontrol.environment_inventory_movement.exit.store', 'method' => 'POST']) !!}
                 @csrf
                 <div class="row">
                     <div class="col-md-6">
@@ -229,7 +229,7 @@
 
                 // Realizar una solicitud AJAX para enviar el ID seleccionado a la ruta o función de Laravel
                 $.ajax({
-                    url: '{{ route('sigac.instructor.environmentcontrol.environment_inventory_movement.exit.searchelement') }}', // Reemplaza 'agrocefa.obtenerelementos' con la ruta adecuada
+                    url: '{{ route('sigac.academic_coordination.environmentcontrol.environment_inventory_movement.exit.searchelement') }}', // Reemplaza 'agrocefa.obtenerelementos' con la ruta adecuada
                     method: 'GET', // Puedes usar GET u otro método según tu configuración
                     data: {
                         environment: selectedenvironmentId

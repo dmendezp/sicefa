@@ -5,18 +5,18 @@
             <div class="row d-flex justify-content-center">
                 <div class="card card-blue card-outline shadow col-md-10">
                     <div class="card-header">
-                        <h3 class="card-title">Consultar Trimestralización</h3>
+                        <h3 class="card-title">Consultar Chequeos de Ambiente</h3>
                     </div>
                     <div class="card-body">
                         <div class="form_search" id="form_search">
                             <div class="row">
                                 <div class="col-md-10">
                                     <div class="form-group">
-                                        {!! Form::select('course_id', $courses, null, [
+                                        {!! Form::label('environment_id', trans('Ambiente')) !!}
+                                        {!! Form::select('environment_id', $environments, NULL, [
                                             'class' => 'form-control',
-                                            'placeholder' => '-- Seleccione --',
-                                            'id' => 'course_id',
-                                            'height' => '50px',
+                                            'id' => 'environment',
+                                            'required'
                                         ]) !!}
                                     </div>
                                 </div>
@@ -25,7 +25,7 @@
                     </div>
                 </div>
             </div>
-            <div id="divApprentices">
+            <div id="divResult">
             </div>
         </div>
     </div>
@@ -33,24 +33,20 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script>
-    $(function() {
-        $('#course_id').select2();
-    })
+    $(document).ready(function() {  
+        $('#environment').select2();
 
-    $(document).ready(function() {
-        $('#course_id').on('change', function () {
-            var course_id = $('#course_id').val();
+        $('#environment').on('change', function () {
+            var environment_id = $('#environment').val();
             $.ajax({
                     type: 'POST',
-                    url: "{{ route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.reports.quartelies.search') }}",
+                    url: "{{ route('sigac.' . getRoleRouteName(Route::currentRouteName()) . '.environmentcontrol.check.report.result') }}",
                     data: {
                         _token: "{{ csrf_token() }}",
-                        course_id: course_id
+                        environment_id: environment_id
                     },
                     success: function(data) {
-                        // Actualizar el contenedor con los resultados filtrados
-                        console.log(data);
-                        $('#divApprentices').html(data);
+                        $('#divResult').html(data);
                         $('#table').DataTable({
 
                         });
