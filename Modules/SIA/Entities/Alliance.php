@@ -3,36 +3,16 @@
 namespace Modules\SIA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Alliance extends Model
 {
-    protected $table = 'alliances';
+    use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'description',
-        'organization',
-        'email',
-        'start_date',
-        'end_date',
-        'status',
-    ];
-
-    protected $dates = ['start_date', 'end_date'];
-
-    /**
-     * Obtiene la fecha de inicio formateada.
-     */
-    public function getStartDateAttribute($value)
+    protected $fillable = ['name', 'description', 'organization', 'email', 'start_date' , 'end_date', 'status'];
+    
+    protected static function newFactory()
     {
-        return $this->asDateTime($value)->format('Y-m-d');
-    }
-
-    /**
-     * Obtiene la fecha de fin formateada.
-     */
-    public function getEndDateAttribute($value)
-    {
-        return $value ? $this->asDateTime($value)->format('Y-m-d') : null;
+        return \Modules\SIA\Database\factories\AllianceFactory::new();
     }
 }

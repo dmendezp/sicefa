@@ -3,63 +3,28 @@
 namespace Modules\SIA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\SICA\Entities\Person;
 
 class Publication extends Model
 {
-    use SoftDeletes;
+    use HasFactory;
 
-    protected $table = 'publications';
+    protected $fillable = ['author_id', 'reviewer_id', 'title', 'description', 'image', 'pdf_path', 'publication_date', 'review_date', 'status', 'reviewer_comments'];
+    
+    protected static function newFactory()
+    {
+        return \Modules\SIA\Database\factories\PublicationFactory::new();
+    }
 
-    protected $fillable = [
-        'author_id',
-        'reviewer_id',
-        'title',
-        'pdf_path',
-        'publication_date',
-        'status',
-        'review_date',
-        'reviewer_comments',
-    ];
-
-    protected $dates = ['publication_date', 'review_date', 'deleted_at'];
-
-    /**
-     * Relación con el autor de la publicación.
-     */
     public function author()
     {
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsTo(Person::class, 'author_id');
     }
 
-    /**
-     * Relación con el revisor de la publicación.
-     */
     public function reviewer()
     {
-        return $this->belongsTo(User::class, 'reviewer_id');
+        return $this->belongsTo(Person::class, 'reviewer_id');
     }
-
-    /**
-     * Verifica si la publicación está pendiente de revisión.
-     */
-    public function isPending()
-    {
-        return $this->status === 'pending';
-    }
-
-    /**
-     * Actualiza el estado y datos de revisión.
-     */
-    public function updateStatus($status, $reviewerId = null, $comments = null)
-    {
-        $this->update([
-            'status' => $status,
-            'reviewer_id' => $reviewerId,
-            'review_date' => $status !== 'pending' ? now() : null,
-            'reviewer_comments' => $comments,
-        ]);
-        return $this;
-    }
+    
 }
