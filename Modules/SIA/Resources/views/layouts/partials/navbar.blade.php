@@ -13,12 +13,12 @@
                 <a href="{{ route('sia.admin.index') }}" class="nav-link text-light @if(Route::is('sia.admin*')) active @endif">{{ trans('sia::general.admin') }}</a>
             </li>
             @endif
-            @if(checkRol('sia.inst-inv'))
+            @if(checkRol('sia.instructor'))
             <li class="nav-item d-none d-sm-inline-block mx-2">
                 <a href="{{ route('sia.instructor.index') }}" class="nav-link text-light @if(Route::is('sia.instructor*')) active @endif">{{ trans('sia::general.instructor') }}</a>
             </li>
             @endif
-            @if(checkRol('sia.ap-inv'))
+            @if(checkRol('sia.aprrentice'))
             <li class="nav-item d-none d-sm-inline-block mx-2">
                 <a href="{{ route('sia.apprentice.index') }}" class="nav-link text-light @if(Route::is('sia.apprentice*')) active @endif">{{ trans('sia::general.apprentice') }}</a>
             </li>

@@ -1,12 +1,63 @@
 @php
-    
+
 @endphp
 
 @extends('sia::layouts.mainPage.master-mainPage')
 
 @push('head')
 @endpush
+<style>
+    .blog-card {
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
 
+    .blog-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .blog-card-img img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+
+    .blog-card-body {
+        padding: 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .blog-card-title {
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .blog-card-description {
+        flex: 1;
+        font-size: 0.95rem;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    .blog-card-date {
+        font-size: 0.8rem;
+        color: #999;
+        margin-bottom: 10px;
+    }
+
+    .btn-outline-primary {
+        border-radius: 50px;
+        font-size: 0.9rem;
+    }
+</style>
 @section('content')
     <!-- Hero Section -->
     <section id="slider" class="slider slide-overlay-dark">
@@ -297,6 +348,97 @@
         </div>
     </section>
     <!-- #menuBoard end -->
+    <!-- Sección de Eventos Programados -->
+    <section id="events" class="pt-80 pb-80 bg-gray">
+        <div class="container">
+            <div class="row mb-50 text-center">
+                <div class="col-md-12">
+                    <div class="heading heading-2">
+                        <p class="heading--subtitle text-primary">Próximos Eventos</p>
+                        <h2 class="heading--title">No te pierdas nuestros próximos eventos</h2>
+                        <div class="divider--shape-4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                @forelse($events as $event)
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="blog-card h-100 shadow-sm">
+                            <div class="blog-card-img">
+                                <img src="{{ $event->event_image ? asset($event->event_image) : asset('modules/sia/images/default-event.jpg') }}"
+                                    alt="Imagen evento" class="img-fluid">
+                            </div>
+                            <div class="blog-card-body">
+                                <h5 class="blog-card-title">{{ $event->name }}</h5>
+                                <p class="blog-card-description">{{ Str::limit($event->description, 120) }}</p>
+                                <p class="blog-card-date">
+                                    <i class="fas fa-calendar-alt me-2 m"></i>
+                                    {{ \Carbon\Carbon::parse($event->start_date)->format('d/m/Y H:i') }}
+                                    - {{ \Carbon\Carbon::parse($event->end_date)->format('d/m/Y H:i') }}
+                                </p>
+                                <p class="blog-card-date">
+                                    <i class="fas fa-map-marker-alt me-2"></i>{{ $event->location }}
+                                </p>
+                                <p class="blog-card-date">
+                                    <i class="fas fa-user me-2"></i>Organiza: {{ $event->organizer }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-12 text-center">
+                        <p class="lead">No hay eventos programados por ahora.</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Publicaciones Destacadas - Diseño Editorial Mejorado -->
+    <section id="publications" class="pt-80 pb-80 bg-light">
+        <div class="container">
+            <div class="row mb-50 text-center">
+                <div class="col-md-12">
+                    <div class="heading heading-2">
+                        <p class="heading--subtitle text-primary">Publicaciones recientes</p>
+                        <div class="divider--shape-4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                @forelse($publications as $publication)
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="blog-card h-100 shadow-sm">
+                            <div class="blog-card-img">
+                                <img src="{{ $publication->image ? asset($publication->image) : asset('modules/sia/images/default-publication.jpg') }}"
+                                    alt="Imagen publicación" class="img-fluid">
+                            </div>
+                            <div class="blog-card-body">
+                                <h5 class="blog-card-title">{{ $publication->title }}</h5>
+                                <p class="blog-card-description">
+                                    {{ Str::limit($publication->description, 120) }}
+                                </p>
+                                <p class="blog-card-date">
+                                    <small class="text-muted">Publicado el
+                                        {{ \Carbon\Carbon::parse($publication->publication_date)->format('d/m/Y') }}</small>
+                                </p>
+                                <a href="{{ asset($publication->pdf_path) }}" target="_blank"
+                                    class="btn btn-outline-primary w-100">
+                                    <i class="fas fa-file-pdf me-2"></i> Ver PDF
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-12 text-center">
+                        <p class="lead">No hay publicaciones disponibles por ahora.</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </section>
 @endsection
 
 @push('scripts')
