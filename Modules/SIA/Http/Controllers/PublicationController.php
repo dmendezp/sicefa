@@ -11,226 +11,90 @@ use Auth;
 
 class PublicationController extends Controller
 {
-    /**
-     * Muestra la lista de publicaciones.
-     */
+    // Mostrar publicaciones a gestionar
     public function index()
     {
-        $view = [
-            'titlePage' => trans('sia::controllers.SIA_publication_index_title_page'),
-            'titleView' => trans('sia::controllers.SIA_publication_index_title_view'),
-        ];
-        $user = Auth::user();
-        $publications = $user->hasRole('admin|sia.inst-inv')
-            ? Publication::withTrashed()->paginate(10)
-            : Publication::where('author_id', $user->id)->withTrashed()->paginate(10);
-        return view('sia::publications.index', compact('view', 'publications'));
+        $view = ['titlePage' => 'Gestión de Publicaciones', 'titleView' => 'Gestión de Publicaciones'];
+        $publications = Publication::with('author')->latest()->get();
+        return view('sia::publication.index', compact('publications', 'view'));
     }
 
-    /**
-     * Muestra el formulario para crear una nueva publicación.
-     */
+    // Actualizar estado y observación
+    public function updateStatus(Request $request, $publication)
+    {
+        $publication = Publication::find($publication);
+        $publication->status = $request->input('status');
+        $publication->reviewer_id = auth()->user()->person->id;
+        $publication->review_date = now();
+        $publication->reviewer_comments = $request->input('reviewer_comments');
+        $publication->save();
+
+        return redirect()->back()->with('success', 'Publicación actualizada correctamente.');
+    }
+
+    public function store_admin(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required',
+            'author_id' => 'required|exists:people,id',
+            'publication_date' => 'required|date',
+            'pdf' => 'required|mimes:pdf|max:10240',
+            'image' => 'nullable|image|max:2048',
+        ]);
+
+        $pdfPath = $request->file('pdf')->store('publications/pdfs', 'public');
+        $imagePath = $request->hasFile('image') ?
+            $request->file('image')->store('publications/images', 'public') : null;
+
+        Publication::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'author_id' => $request->author_id,
+            'publication_date' => $request->publication_date,
+            'pdf_path' => 'storage/' . $pdfPath,
+            'image' => $imagePath ? 'storage/' . $imagePath : null,
+            'status' => 'Publicada',
+        ]);
+
+        return redirect()->route('sia.admin.publication.index')->with('success', 'Publicación creada correctamente.');
+    }
+
+
     public function create()
     {
-        $this->authorize('create', Publication::class);
-        $view = [
-            'titlePage' => trans('sia::controllers.SIA_publication_create_title_page'),
-            'titleView' => trans('sia::controllers.SIA_publication_create_title_view'),
-        ];
-        return view('sia::publications.create', compact('view'));
+        $view = ['titlePage' => 'Publicaciones', 'titleView' => 'Mis Publicaciones'];
+        $publications = Publication::where('author_id', auth()->user()->person->id)->latest()->get();
+        return view('sia::publication.create', compact('publications', 'view'));
     }
 
-    /**
-     * Almacena una nueva publicación en la base de datos.
-     */
     public function store(Request $request)
     {
-        $this->authorize('create', Publication::class);
-        $rules = [
+        $request->validate([
             'title' => 'required|string|max:255',
-            'pdf_path' => 'required|file|mimes:pdf|max:2048', // Máximo 2MB
-            'publication_date' => 'required|date|after_or_equal:today',
-            'status' => 'required|in:pending,published,rejected',
-        ];
+            'description' => 'required|string',
+            'pdf_file' => 'required|mimes:pdf|max:2048',
+            'image' => 'nullable|image|max:2048',
+            'publication_date' => 'required|date',
+        ]);
 
-        $messages = [
-            'title.required' => trans('sia::controllers.SIA_publication_title_required'),
-            'pdf_path.required' => trans('sia::controllers.SIA_publication_pdf_path_required'),
-            'pdf_path.file' => trans('sia::controllers.SIA_publication_pdf_must_be_file'),
-            'pdf_path.mimes' => trans('sia::controllers.SIA_publication_pdf_must_be_pdf'),
-            'pdf_path.max' => trans('sia::controllers.SIA_publication_pdf_max_size'),
-            'publication_date.required' => trans('sia::controllers.SIA_publication_date_required'),
-            'publication_date.after_or_equal' => trans('sia::controllers.SIA_publication_date_valid'),
-            'status.required' => trans('sia::controllers.SIA_publication_status_required'),
-            'status.in' => trans('sia::controllers.SIA_publication_status_valid'),
-        ];
+        $pdfPath = $request->file('pdf_file')->store('public/publications');
+        $imagePath = null;
 
-        $validator = Validator::make($request->all(), $rules, $messages);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/publications/images');
         }
 
-        $status = Auth::user()->hasRole('admin|sia.inst-inv') ? $request->input('status') : 'pending';
-        $pdfPath = $request->file('pdf_path')->store('publications', 'public');
-        
-        \DB::transaction(function () use ($request, $status, $pdfPath) {
-            Publication::create([
-                'author_id' => Auth::id(),
-                'reviewer_id' => null,
-                'title' => $request->input('title'),
-                'pdf_path' => $pdfPath,
-                'publication_date' => $request->input('publication_date'),
-                'status' => $status,
-                'review_date' => null,
-                'reviewer_comments' => null,
-            ]);
-        });
+        Publication::create([
+            'author_id' => auth()->user()->person->id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'pdf_path' => Storage::url($pdfPath),
+            'image' => $imagePath ? Storage::url($imagePath) : null,
+            'publication_date' => $request->publication_date,
+            'status' => 'Pendiente',
+        ]);
 
-        return redirect()->route('sia.admin.publications.index')
-            ->with('message_sia', trans('sia::controllers.SIA_publication_store_success'))
-            ->with('message_sia_type', 'success');
-    }
-
-    /**
-     * Muestra el formulario para editar una publicación existente.
-     */
-    public function edit(Publication $publication)
-    {
-        $user = Auth::user();
-        if (!$user->hasRole('admin|sia.inst-inv')) {
-            abort(403, 'Unauthorized action');
-        }
-        $this->authorize('update', $publication);
-        $view = [
-            'titlePage' => trans('sia::controllers.SIA_publication_edit_title_page'),
-            'titleView' => trans('sia::controllers.SIA_publication_edit_title_view'),
-        ];
-        return view('sia::publications.edit', compact('view', 'publication'));
-    }
-
-    /**
-     * Actualiza una publicación en la base de datos.
-     */
-    public function update(Request $request, Publication $publication)
-    {
-        $user = Auth::user();
-        if (!$user->hasRole('admin|sia.inst-inv')) {
-            abort(403, 'Unauthorized action');
-        }
-        $this->authorize('update', $publication);
-
-        $rules = [
-            'title' => 'required|string|max:255',
-            'pdf_path' => 'nullable|file|mimes:pdf|max:2048', // Opcional en actualización
-            'publication_date' => 'required|date|after_or_equal:today',
-            'status' => 'required|in:pending,published,rejected',
-        ];
-
-        $messages = [
-            'title.required' => trans('sia::controllers.SIA_publication_title_required'),
-            'pdf_path.file' => trans('sia::controllers.SIA_publication_pdf_must_be_file'),
-            'pdf_path.mimes' => trans('sia::controllers.SIA_publication_pdf_must_be_pdf'),
-            'pdf_path.max' => trans('sia::controllers.SIA_publication_pdf_max_size'),
-            'publication_date.required' => trans('sia::controllers.SIA_publication_date_required'),
-            'publication_date.after_or_equal' => trans('sia::controllers.SIA_publication_date_valid'),
-            'status.required' => trans('sia::controllers.SIA_publication_status_required'),
-            'status.in' => trans('sia::controllers.SIA_publication_status_valid'),
-        ];
-
-        $validator = Validator::make($request->all(), $rules, $messages);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        \DB::transaction(function () use ($request, $publication) {
-            $pdfPath = $publication->pdf_path;
-            if ($request->hasFile('pdf_path')) {
-                // Eliminar el archivo anterior si existe
-                if ($publication->pdf_path && Storage::disk('public')->exists($publication->pdf_path)) {
-                    Storage::disk('public')->delete($publication->pdf_path);
-                }
-                $pdfPath = $request->file('pdf_path')->store('publications', 'public');
-            }
-
-            $publication->update([
-                'title' => $request->input('title'),
-                'pdf_path' => $pdfPath,
-                'publication_date' => $request->input('publication_date'),
-                'status' => $request->input('status'),
-            ]);
-        });
-
-        return redirect()->route('sia.admin.publications.index')
-            ->with('message_sia', trans('sia::controllers.SIA_publication_update_success'))
-            ->with('message_sia_type', 'success');
-    }
-
-    /**
-     * Elimina una publicación de la base de datos.
-     */
-    public function destroy(Publication $publication)
-    {
-        $user = Auth::user();
-        if (!$user->hasRole('admin|sia.inst-inv')) {
-            abort(403, 'Unauthorized action');
-        }
-        $this->authorize('delete', $publication);
-
-        if ($publication->pdf_path && Storage::disk('public')->exists($publication->pdf_path)) {
-            Storage::disk('public')->delete($publication->pdf_path);
-        }
-
-        if ($publication->delete()) {
-            return redirect()->route('sia.admin.publications.index')
-                ->with('message_sia', trans('sia::controllers.SIA_publication_destroy_success'))
-                ->with('message_sia_type', 'success');
-        }
-        return redirect()->route('sia.admin.publications.index')
-            ->with('message_sia', trans('sia::controllers.SIA_publication_destroy_error'))
-            ->with('message_sia_type', 'error');
-    }
-
-    /**
-     * Muestra la lista de publicaciones pendientes para revisión.
-     */
-    public function pending()
-    {
-        $this->authorize('viewAny', [Publication::class, 'pending']);
-        $view = [
-            'titlePage' => trans('sia::controllers.SIA_publication_pending_title_page'),
-            'titleView' => trans('sia::controllers.SIA_publication_pending_title_view'),
-        ];
-        $publications = Publication::where('status', 'pending')->withTrashed()->paginate(10);
-        return view('sia::publications.pending', compact('view', 'publications'));
-    }
-
-    /**
-     * Procesa la revisión de una publicación.
-     */
-    public function review(Request $request, Publication $publication)
-    {
-        $this->authorize('update', $publication);
-        $rules = [
-            'status' => 'required|in:published,rejected',
-            'reviewer_comments' => 'nullable|string',
-        ];
-
-        $messages = [
-            'status.required' => trans('sia::controllers.SIA_publication_review_status_required'),
-            'status.in' => trans('sia::controllers.SIA_publication_review_status_valid'),
-        ];
-
-        $validator = Validator::make($request->all(), $rules, $messages);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        \DB::transaction(function () use ($request, $publication) {
-            $publication->updateStatus($request->input('status'), Auth::id(), $request->input('reviewer_comments'));
-        });
-
-        return redirect()->route('sia.admin.publications.pending')
-            ->with('message_sia', trans('sia::controllers.SIA_publication_review_success'))
-            ->with('message_sia_type', 'success');
+        return redirect()->back()->with('success', 'Publicación enviada para revisión.');
     }
 }

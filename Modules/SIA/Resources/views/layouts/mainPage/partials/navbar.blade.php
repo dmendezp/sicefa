@@ -76,74 +76,83 @@
                                 class="fa-solid fa-sitemap"></i> {{ trans('sia::general.Administration') }}</a>
                         <ul class="dropdown-menu mega-dropdown-menu">
                             <li>
-                                <div class="container">
-                                    <div class="row">
-                                        <!-- Column #1: Gestión de Usuarios -->
-                                        <div class="col-md-3">
-                                            <a href="#">{{ trans('sia::general.Users') }}</a>
-                                            <ul>
-                                                @if (Auth::user()->havePermission('sia.users.manage'))
-                                                    <li>
-                                                        <a href="{{ route('sia.admin.administrators.index') }}"><i class="fa-solid fa-user-shield"></i> {{ trans('sia::general.AdminPanel') }}</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="{{ route('sia.admin.instructor-researchers.index') }}"><i class="fa-solid fa-chalkboard-teacher"></i> {{ trans('sia::general.InstructorPanel') }}</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="{{ route('sia.admin.apprentice-researchers.index') }}"><i class="fa-solid fa-user-graduate"></i> {{ trans('sia::general.ApprenticePanel') }}</a>
-                                                    </li>
-                                                @endif
-                                            </ul>
-                                        </div>
-                                        <!-- Column #2: Gestión de Proyectos -->
-                                        <div class="col-md-3">
-                                            <a href="#">{{ trans('sia::general.Projects') }}</a>
-                                            <ul>
-                                                @if (Auth::user()->havePermission('sia.projects.manage') || Auth::user()->havePermission('sia.projects.view'))
-                                                    <li>
-                                                        <a href="{{ route('sia.admin.projects.index') }}"><i class="fa-solid fa-project-diagram"></i> {{ trans('sia::general.Projects') }}</a>
-                                                    </li>
-                                                @endif
-                                            </ul>
-                                        </div>
-                                        <!-- Column #3: Gestión de Grupos de Semilleros -->
-                                        <div class="col-md-3">
-                                            <a href="#">{{ trans('sia::general.ManageGroups') }}</a>
-                                            <ul>
-                                                @if (Auth::user()->havePermission('sia.groups.manage') || Auth::user()->havePermission('sia.groups.view'))
-                                                    <li>
-                                                        <a href="{{ route('sia.admin.groups.index') }}"><i class="fa-solid fa-users-gear"></i> {{ trans('sia::general.ManageGroups') }}</a>
-                                                    </li>
-                                                @endif
-                                            </ul>
-                                        </div>
-                                        <!-- Column #4: Gestión de Publicaciones y Eventos -->
-                                        <div class="col-md-3">
-                                            <a href="#">{{ trans('sia::general.Content') }}</a>
-                                            <ul>
-                                                @if (Auth::user()->havePermission('sia.posts.manage'))
-                                                    <li>
-                                                        <a href="{{ route('sia.admin.publications.index') }}"><i class="fa-solid fa-newspaper"></i> {{ trans('sia::general.Posts') }}</a>
-                                                    </li>
-                                                @endif
-                                                @if (Auth::user()->havePermission('sia.events.crud'))
-                                                    <li>
-                                                        <a href="{{ route('sia.admin.events.index') }}"><i class="fa-solid fa-calendar-days"></i> {{ trans('sia::general.Events') }}</a>
-                                                    </li>
-                                                @endif
-                                            </ul>
-                                        </div>
-                                        <!-- Column #5: Gestión de Alianzas -->
-                                        <div class="col-md-3">
-                                            <a href="#">{{ trans('sia::general.Alliances') }}</a>
-                                            <ul>
-                                                @if (Auth::user()->havePermission('sia.alliances.crud'))
-                                                    <li>
-                                                        <a href="{{ route('sia.admin.alliances.index') }}"><i class="fa-solid fa-handshake"></i> {{ trans('sia::general.Alliances') }}</a>
-                                                    </li>
-                                                @endif
-                                            </ul>
-                                        </div>
+                                    <!-- Column #1: Gestión de Proyectos -->
+<div class="col-md-3">
+    <a href="#">{{ trans('sia::general.Projects') }}</a>
+    <ul>
+        @if (
+            Auth::user()->havePermission('sia.admin.research_project.index') ||
+            Auth::user()->havePermission('sia.admin.research_project.store') ||
+            Auth::user()->havePermission('sia.admin.research_project.update') ||
+            Auth::user()->havePermission('sia.admin.research_project.destroy')
+        )
+            <li>
+                <a href="{{ route('sia.admin.research_project.index') }}">
+                    <i class="fa-solid fa-project-diagram"></i>
+                    {{ trans('sia::general.Projects') }}
+                </a>
+            </li>
+        @endif
+    </ul>
+</div>
+                                      <!-- Column: Gestión de Publicaciones -->
+<div class="col-md-3">
+    <a href="#">{{ trans('sia::general.Posts') }}</a>
+    <ul>
+        @if (
+            Auth::user()->havePermission('sia.admin.publication.index') ||
+            Auth::user()->havePermission('sia.admin.publication.store') ||
+            Auth::user()->havePermission('sia.admin.publication.update')
+        )
+            <li>
+                <a href="{{ route('sia.admin.publication.index') }}">
+                    <i class="fa-solid fa-newspaper"></i>
+                    {{ trans('sia::general.Posts') }}
+                </a>
+            </li>
+        @endif
+    </ul>
+</div>
+
+<!-- Column: Gestión de Eventos -->
+<div class="col-md-3">
+    <a href="#">{{ trans('sia::general.Events') }}</a>
+    <ul>
+        @if (
+            Auth::user()->havePermission('sia.admin.event.index') ||
+            Auth::user()->havePermission('sia.admin.event.store') ||
+            Auth::user()->havePermission('sia.admin.event.update') ||
+            Auth::user()->havePermission('sia.admin.event.destroy')
+        )
+            <li>
+                <a href="{{ route('sia.admin.event.index') }}">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    {{ trans('sia::general.Events') }}
+                </a>
+            </li>
+        @endif
+    </ul>
+</div>
+                                       <!-- Column: Gestión de Alianzas -->
+<div class="col-md-3">
+    <a href="#">{{ trans('sia::general.Alliances') }}</a>
+    <ul>
+        @if (
+            Auth::user()->havePermission('sia.admin.alliance.index') ||
+            Auth::user()->havePermission('sia.admin.alliance.store') ||
+            Auth::user()->havePermission('sia.admin.alliance.update') ||
+            Auth::user()->havePermission('sia.admin.alliance.destroy')
+        )
+            <li>
+                <a href="{{ route('sia.admin.alliance.index') }}">
+                    <i class="fa-solid fa-handshake"></i>
+                    {{ trans('sia::general.Alliances') }}
+                </a>
+            </li>
+        @endif
+    </ul>
+</div>
+
                                     </div>
                                 </div>
                             </li>

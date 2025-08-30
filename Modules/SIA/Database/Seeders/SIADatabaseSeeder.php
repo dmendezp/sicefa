@@ -24,7 +24,7 @@ class SIADatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class); 
         $this->call(RolesTableSeeder::class); 
         $this->call(PermissionsTableSeeder::class); 
-        $this->call(GroupsTableSeeder::class); 
+        //$this->call(GroupsTableSeeder::class); 
 
         DB::commit(); // Finalizar transacción
     }

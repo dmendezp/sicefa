@@ -13,6 +13,7 @@
         "elibyy/tcpdf-laravel": "^10.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.8",
+        "illuminate/support": "*",
         "intervention/image": "^2.7",
         "jenssegers/date": "*",
         "kwn/number-to-words": "^2.8",
