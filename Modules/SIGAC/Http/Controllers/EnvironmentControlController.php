@@ -1273,23 +1273,24 @@ class EnvironmentControlController extends Controller
 
     public function activity_store(Request $request)
     {
+        // Validaciones básicas
         $request->validate([
             'environment_id' => 'required|exists:environments,id',
             'activity_name' => 'required|string|max:255',
             'date' => 'required|date|after_or_equal:today',
-            'start_time' => 'required',
-            'end_time' => 'required|after:start_time',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i|after:start_time',
         ], [
-            
             'date.after_or_equal' => 'La fecha debe ser hoy o posterior.',
             'end_time.after' => 'La hora de finalización debe ser posterior a la hora de inicio.',
+            'start_time.date_format' => 'El formato de hora de inicio debe ser HH:MM (ej: 08:30).',
+            'end_time.date_format' => 'El formato de hora de finalización debe ser HH:MM (ej: 10:30).',
             'date.required' => 'El campo fecha es obligatorio.',
             'start_time.required' => 'El campo hora de inicio es obligatorio.',
             'end_time.required' => 'El campo hora de finalización es obligatorio.',
             'activity_name.required' => 'El nombre de la actividad es obligatorio.',
             'environment_id.required' => 'Debe seleccionar un ambiente.',
         ], [
-            
             'date' => 'fecha',
             'start_time' => 'hora de inicio',
             'end_time' => 'hora de finalización',
@@ -1297,40 +1298,116 @@ class EnvironmentControlController extends Controller
             'environment_id' => 'ambiente',
         ]);
 
+        // Validaciones adicionales de horarios
+        $startTime = $request->start_time;
+        $endTime = $request->end_time;
+        $date = $request->date;
+
+        // Validar horarios de trabajo (6:00 AM - 10:00 PM)
+        if ($startTime < '06:00' || $endTime > '22:00') {
+            return back()->with('error', 'Los horarios deben estar entre las 6:00 AM y las 10:00 PM.')
+                ->withInput();
+        }
+
+        // Validar que la duración no sea excesiva (máximo 8 horas)
+        $start = \Carbon\Carbon::createFromFormat('H:i', $startTime);
+        $end = \Carbon\Carbon::createFromFormat('H:i', $endTime);
+        $duration = $end->diffInHours($start);
+        
+        if ($duration > 8) {
+            return back()->with('error', 'La duración de la actividad no puede ser mayor a 8 horas.')
+                ->withInput();
+        }
+
+        // Validar que no sea domingo (opcional - descomenta si es necesario)
+        // $dayOfWeek = \Carbon\Carbon::parse($date)->dayOfWeek;
+        // if ($dayOfWeek == 0) { // 0 = Domingo
+        //     return back()->with('error', 'No se pueden programar actividades los domingos.')
+        //         ->withInput();
+        // }
+
+        // Validar días festivos (opcional - descomenta si tienes tabla de holidays)
+        // $isHoliday = \Modules\SICA\Entities\Holiday::where('date', $date)->exists();
+        // if ($isHoliday) {
+        //     return back()->with('error', 'No se pueden programar actividades en días festivos.')
+        //         ->withInput();
+        // }
+
         $environmentId = $request->environment_id;
         $date = $request->date;
         $startTime = $request->start_time;
         $endTime = $request->end_time;
 
+        // Validar conflictos con actividades extraordinarias existentes
         $conflictActivity = EnvironmentActivityProgram::where('environment_id', $environmentId)
             ->where('date', $date)
             ->where(function ($query) use ($startTime, $endTime) {
-                $query->whereBetween('start_time', [$startTime, $endTime])
-                    ->orWhereBetween('end_time', [$startTime, $endTime])
-                    ->orWhere(function ($q) use ($startTime, $endTime) {
-                        $q->where('start_time', '<=', $startTime)
-                            ->where('end_time', '>=', $endTime);
-                    });
+                // Verificar si hay solapamiento de horarios
+                $query->where(function ($q) use ($startTime, $endTime) {
+                    // Caso 1: La nueva actividad empieza dentro de una existente
+                    $q->where('start_time', '<=', $startTime)
+                      ->where('end_time', '>', $startTime);
+                })->orWhere(function ($q) use ($startTime, $endTime) {
+                    // Caso 2: La nueva actividad termina dentro de una existente
+                    $q->where('start_time', '<', $endTime)
+                      ->where('end_time', '>=', $endTime);
+                })->orWhere(function ($q) use ($startTime, $endTime) {
+                    // Caso 3: La nueva actividad contiene completamente una existente
+                    $q->where('start_time', '>=', $startTime)
+                      ->where('end_time', '<=', $endTime);
+                })->orWhere(function ($q) use ($startTime, $endTime) {
+                    // Caso 4: Una actividad existente contiene completamente la nueva
+                    $q->where('start_time', '<=', $startTime)
+                      ->where('end_time', '>=', $endTime);
+                });
             })
-            ->exists();
+            ->first();
 
+        // Validar conflictos con programación de formación
         $conflictFormation = EnvironmentInstructorProgram::where('environment_id', $environmentId)
             ->whereHas('instructor_program', function ($q) use ($date, $startTime, $endTime) {
                 $q->where('date', $date)
                     ->where('state', 'Programado')
                     ->where(function ($query) use ($startTime, $endTime) {
-                        $query->whereBetween('start_time', [$startTime, $endTime])
-                            ->orWhereBetween('end_time', [$startTime, $endTime])
-                            ->orWhere(function ($q2) use ($startTime, $endTime) {
-                                $q2->where('start_time', '<=', $startTime)
-                                    ->where('end_time', '>=', $endTime);
-                            });
+                        // Verificar si hay solapamiento de horarios
+                        $query->where(function ($q2) use ($startTime, $endTime) {
+                            // Caso 1: La nueva actividad empieza dentro de una formación existente
+                            $q2->where('start_time', '<=', $startTime)
+                               ->where('end_time', '>', $startTime);
+                        })->orWhere(function ($q2) use ($startTime, $endTime) {
+                            // Caso 2: La nueva actividad termina dentro de una formación existente
+                            $q2->where('start_time', '<', $endTime)
+                               ->where('end_time', '>=', $endTime);
+                        })->orWhere(function ($q2) use ($startTime, $endTime) {
+                            // Caso 3: La nueva actividad contiene completamente una formación existente
+                            $q2->where('start_time', '>=', $startTime)
+                               ->where('end_time', '<=', $endTime);
+                        })->orWhere(function ($q2) use ($startTime, $endTime) {
+                            // Caso 4: Una formación existente contiene completamente la nueva actividad
+                            $q2->where('start_time', '<=', $startTime)
+                               ->where('end_time', '>=', $endTime);
+                        });
                     });
             })
-            ->exists();
+            ->first();
 
-        if ($conflictActivity || $conflictFormation) {
-            return back()->with('error', 'El ambiente ya tiene una programación en la fecha y horario seleccionados.');
+        // Generar mensajes de error específicos
+        if ($conflictActivity) {
+            $conflictStart = $conflictActivity->start_time;
+            $conflictEnd = $conflictActivity->end_time;
+            $conflictName = $conflictActivity->activity_name;
+            
+            return back()->with('error', "El ambiente ya tiene programada la actividad '{$conflictName}' de {$conflictStart} a {$conflictEnd} en esta fecha.")
+                ->withInput();
+        }
+
+        if ($conflictFormation) {
+            $formation = $conflictFormation->instructor_program;
+            $conflictStart = $formation->start_time;
+            $conflictEnd = $formation->end_time;
+            
+            return back()->with('error', "El ambiente ya tiene programada una formación de {$conflictStart} a {$conflictEnd} en esta fecha.")
+                ->withInput();
         }
 
         EnvironmentActivityProgram::create([

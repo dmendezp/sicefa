@@ -426,7 +426,7 @@ class ProgrammeController extends Controller
         $extraordinaryActivities = collect();
         if ($option == 2) {
             \Log::info("🔍 Buscando actividades extraordinarias para ambiente ID: $filter");
-            $extraordinaryActivities = EnvironmentActivityProgram::with('environment')
+            $extraordinaryActivities = EnvironmentActivityProgram::with(['environment', 'person'])
                 ->where('environment_id', $filter)
                 ->get();
             \Log::info("📊 Actividades extraordinarias encontradas: " . $extraordinaryActivities->count());

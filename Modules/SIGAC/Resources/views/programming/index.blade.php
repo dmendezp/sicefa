@@ -2,6 +2,24 @@
 
 @push('head')
     <link rel="stylesheet" href="{{ asset('modules/sigac/css/customStyles.css') }}">
+    <style>
+        /* Asegurar que las actividades extraordinarias se muestren en morado */
+        .fc-event[style*="background-color: rgb(111, 66, 193)"] {
+            background-color: #6f42c1 !important;
+            border-color: #6f42c1 !important;
+        }
+        
+        .fc-event[style*="background-color: #6f42c1"] {
+            background-color: #6f42c1 !important;
+            border-color: #6f42c1 !important;
+        }
+        
+        /* Estilo específico para actividades extraordinarias */
+        .fc-event.extraordinary-activity {
+            background-color: #6f42c1 !important;
+            border-color: #6f42c1 !important;
+        }
+    </style>
 @endpush
 
 @push('breadcrumbs')
@@ -148,6 +166,44 @@
                 var option = $('#option').val();
                 console.log(option);
                 console.log(eventData);
+
+                // Verificar si es una actividad extraordinaria
+                if (eventData.type === 'extraordinary_activity') {
+                    var activity = eventData.extraordinary_activity;
+                    
+                    // Limpiar contenido del modal
+                    $('#environments').empty();
+                    $('#instructor').empty();
+                    $('#course').empty();
+                    $('#modality').empty();
+                    $('#date').empty();
+                    $('#start_time').empty();
+                    $('#end_time').empty();
+                    $('#municipality').empty();
+                    $('#learning_outcome').empty();
+                    
+                    // Mostrar detalles de la actividad extraordinaria
+                    $('#environments').html('<strong>Ambiente:</strong> ' + activity.environment.name);
+                    $('#date').html('<strong>Fecha:</strong> ' + (info.event.start ? info.event.start.toLocaleDateString() : 'N/A'));
+                    $('#start_time').html('<strong>Hora de inicio:</strong> ' + (info.event.start ? info.event.start.toLocaleTimeString() : 'N/A'));
+                    $('#end_time').html('<strong>Hora de fin:</strong> ' + (info.event.end ? info.event.end.toLocaleTimeString() : 'N/A'));
+                    $('#course').html('<strong>Nombre de la actividad:</strong> ' + activity.activity_name);
+                    $('#modality').html('<strong>Descripción:</strong> ' + (activity.activity_description || 'Sin descripción'));
+                    $('#instructor').html('<strong>Persona responsable:</strong> ' + (activity.person ? activity.person.first_name + ' ' + activity.person.first_last_name + ' ' + activity.person.second_last_name : 'No asignada'));
+                    
+                    // Cambiar el título del modal
+                    $('#eventDetailsModalLabel').text('Detalles de la Actividad Extraordinaria');
+                    
+                    // Ocultar el acordeón de novedades para actividades extraordinarias
+                    $('#accordionFlushExample').hide();
+                    
+                    $('#eventDetailsModal').modal('show');
+                    return;
+                }
+
+                // Restaurar título del modal para programación normal
+                $('#eventDetailsModalLabel').text('Detalles de la Programación');
+                $('#accordionFlushExample').show();
 
                 if (option == 1) {
                     // Mostrar información de los ambientes
@@ -332,8 +388,9 @@
                                     title: titleWithActivity,
                                     start: activityData.date + 'T' + activityData.start_time,
                                     end: activityData.date + 'T' + activityData.end_time,
-                                    backgroundColor: '#dc3545', // Color rojo para diferenciar
-                                    borderColor: '#dc3545',
+                                    backgroundColor: '#6f42c1', // Color morado para actividades extraordinarias
+                                    borderColor: '#6f42c1',
+                                    className: 'extraordinary-activity', // Clase CSS específica
                                     extendedProps: {
                                         timeRange: `(${formatTime(activityData.start_time)} - ${formatTime(activityData.end_time)})`,
                                         extraordinary_activity: activityData,
