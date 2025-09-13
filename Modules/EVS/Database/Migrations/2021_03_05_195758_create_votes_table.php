@@ -15,7 +15,7 @@ class CreateVotesTable extends Migration
     {
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('candidate_id')->constrained()->onDelete('cascade');
+            $table->foreignId('candidate_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('election_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();

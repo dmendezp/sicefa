@@ -1,4 +1,3 @@
-
 @extends('evs::layouts.master')
 
 @section('title','Candidates')
@@ -11,7 +10,7 @@
 
 @section('content')
     <!-- Main content -->
-    <section class="content">
+    <section class="content" >
       <div class="container-fluid">
 
 		<div class="">
@@ -21,84 +20,88 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-          <!-- Timelime example  -->
-
-	        <!-- Timelime example  -->
 	  	<div class="row">
-	  <div class="col-md-12">
+	      <div class="col-md-12">
 	            <!-- The time line -->
 	            <div class="timeline">
-	              <!-- timeline time label -->
 	              <div class="time-label">
 	                <span class="bg-blue">Elecciones</span>
 	              </div>
-	              <!-- /.timeline-label -->
-	              <!-- timeline item -->
                 
-	              @foreach($candidates as $election)
-
+	              @forelse($candidates as $election)
 	              <div>
 	                <i class="fas fa-calendar-alt bg-green"></i>
 	                <div class="timeline-item">
-	                  <span class="time"><i class="fas fa-clock"></i> {{ $election->start_date." -> ".$election->end_date }} </span>
-	                  <h3 class="timeline-header">{{ $election->name }}</h3>
+	                  <span class="time">
+                        <i class="fas fa-clock"></i> 
+                        {{ $election->start_date ?? '---' }} -> {{ $election->end_date ?? '---' }}
+                      </span>
+	                  <h3 class="timeline-header">{{ $election->name ?? 'Sin nombre' }}</h3>
 
 	                  <div class="timeline-body row">
-	                  	@foreach($election->candidates as $candidate)
-	                  	<div class="col-md-3">
-	                  	    <div class="card card-purple card-outline shadow">
-                                <img class="profile-user-img mtop16"
-                                   src="{{ asset('storage/'.$candidate->avatar) }}"
-                                   alt="User profile picture">
-                                  <div class="card-body box-profile">
+	                  	@forelse($election->candidates as $candidate)
+                        <div class="col-md-3 d-flex align-items-stretch">
+                            <div class="card card-purple card-outline shadow w-100">
+                                <!-- Imagen uniforme -->
+                                <div class="text-center mt-3">
+                                    <img class="img-fluid rounded-circle"
+                                        style="width:120px; height:120px; object-fit:cover; border:3px solid #6f42c1;"
+                                        src="{{ $candidate->avatar ? asset($candidate->avatar) : asset('images/default-avatar.png') }}"
+                                        alt="Foto Candidato">
+                                </div>
+
+                                <div class="card-body d-flex flex-column">
                                   
-                                  <h5 class="profile-username text-center">{{ $candidate->person->first_name." ".$candidate->person->first_last_name." ".$candidate->person->second_last_name }}</h5>
-                                  <p class="text-muted text-center">Titulacion</p>
-                                  <p class="text-muted text-center">{{ $candidate->number }}</p>
+                                  <h5 class="profile-username text-center">
+                                      {{ $candidate->person->first_name ?? '' }}
+                                      {{ $candidate->person->first_last_name ?? '' }}
+                                      {{ $candidate->person->second_last_name ?? '' }}
+                                  </h5>
+                                  
+                                  <p class="text-muted text-center">
+                                      {{ $candidate->person->apprentices[0]->course->program->name ?? 'No asignado' }}
+                                  </p>
+
+                                  <p class="text-muted text-center">{{ $candidate->number ?? '---' }}</p>
                                 </div>
                                 <div class="mbottom16 text-center">
-                                 	@if($election->status=='Activo')
+                                 	@if(($election->status ?? '') == 'Activo')
                                     <a href="{{ url('evs/admin/candidates/edit/'.$candidate->id) }}" class="btn btn-warning btn-circle" title="Editar"><i class="fas fa-edit"></i></a>
-                                    <a class="btn btn-danger btn-circle btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="{{ $candidate->id }}" data-path="evs/admin/candidates" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
+                                  <a href="{{ route('evs.admin.candidates.delete', $candidate->id) }}"
+                                    onclick="return confirm('¿Seguro que deseas eliminar este candidato?')"
+                                    class="btn btn-danger btn-circle"
+                                    title="Eliminar">
+                                    <i class="fas fa-trash-alt"></i>
+                                  </a>
                              		@endif
                                 </div>
                              </div>
                         </div>
-                        @endforeach
+                        @empty
+                          <div class="col-12 text-center text-muted">No hay candidatos registrados</div>
+                        @endforelse
 	                  </div>
+
 	                  <div class="timeline-footer">
-	                  	@if($election->status=='Activo')
+	                  	@if(($election->status ?? '') == 'Activo')
 	                    <a class="btn btn-info btn-sm" href="{{ url('evs/admin/candidates/add/'.$election->id) }}">Agregar Candidato</a>
 	                    @endif
 	                  </div>
 	                </div>
 	              </div>
-	              @endforeach
+	              @empty
+	                <div class="text-center text-muted">No hay elecciones registradas</div>
+	              @endforelse
                 
-	              <!-- END timeline item -->
-              <div>
-                <i class="fas fa-clock bg-gray"></i>
-              </div>
+	              <div>
+                    <i class="fas fa-clock bg-gray"></i>
+                  </div>
             </div>
           </div>
-          <!-- /.col -->
         </div>
       </div>
-      <!-- /.timeline -->
-
-
-
-
           </div>
         </div>
       </div>
-
-
-      </div>
-
-
-
   </section>
-
-
 @stop

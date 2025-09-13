@@ -12,19 +12,20 @@
 @endsection
 
 @section('content')
-<!-- Main content -->
 <div class="content">
-
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 			<div class="card card-purple card-outline shadow col-md-4">
 				<div class="card-header">
 					<h3 class="card-title">Add Election</h3>
 				</div>
-				<!-- /.card-header -->
 				<div class="card-body">
+
+					<!-- Alert placeholder -->
+					<div id="alertPlaceholder"></div>
+
+					{!! Form::open(['url' => route('evs.admin.elections.add.post'), 'id' => 'electionForm']) !!}
 					
-					{!! Form::open(['url' => route('evs.admin.elections.add')]) !!}
 					<label for="name">Nombre Evento:</label>
 					<div class="input-group">
 						<div class="input-group-prepend">
@@ -32,8 +33,9 @@
 								<i class="far fa-keyboard"></i>
 							</span>
 						</div>
-						{!! Form::text('name',null, ['class'=>'form-control']) !!}
+						{!! Form::text('name', null, ['class'=>'form-control']) !!}
 					</div>
+
 					<label for="start_date" class="mtop16">Inicia:</label>
 					<div class="input-group">
 						<div class="input-group-prepend">
@@ -41,8 +43,9 @@
 								<i class="far fa-calendar-alt"></i>
 							</span>
 						</div>
-						{{ Form::input('dateTime-local', 'start_date', null, ['id' => 'game-date-time-text', 'class' => 'form-control']) }}
+						{{ Form::input('datetime-local', 'start_date', null, ['id' => 'start_date', 'class' => 'form-control']) }}
 					</div>
+
 					<label for="end_date" class="mtop16">Termina:</label>
 					<div class="input-group">
 						<div class="input-group-prepend">
@@ -50,19 +53,54 @@
 								<i class="far fa-calendar-alt"></i>
 							</span>
 						</div>
-						{{ Form::input('dateTime-local', 'end_date', null, ['id' => 'game-date-time-text', 'class' => 'form-control']) }}
+						{{ Form::input('datetime-local', 'end_date', null, ['id' => 'end_date', 'class' => 'form-control']) }}
 					</div>
-					
+					<br>
 					{!! Form::submit('Guardar',['class'=>'btn btn-success mtop16']) !!}
 					
 					{!! Form::close() !!}
-					
 				</div>
-				<!-- /.card-body -->
 			</div>
-			<!-- /.card -->
 		</div>
 	</div>
-</div><!-- /.container-fluid -->
-<!-- /.content -->
-@stop
+</div>
+
+<script>
+// Función para mostrar alertas de Bootstrap
+function showAlert(message, type = 'danger') {
+	const alertPlaceholder = document.getElementById('alertPlaceholder');
+	alertPlaceholder.innerHTML = `
+		<div class="alert alert-${type} alert-dismissible fade show" role="alert">
+			${message}
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	`;
+}
+
+document.getElementById('electionForm').addEventListener('submit', function(e) {
+	const start = document.getElementById('start_date').value;
+	const end = document.getElementById('end_date').value;
+
+	if (!start || !end) {
+		showAlert('Por favor, completa ambas fechas.');
+		e.preventDefault();
+		return;
+	}
+
+	const startDate = new Date(start);
+	const endDate = new Date(end);
+
+	if (startDate > endDate) {
+		showAlert('La fecha de inicio no puede ser mayor a la fecha de fin.');
+		e.preventDefault();
+		return;
+	}
+
+	if (endDate < startDate) {
+		showAlert('La fecha de fin no puede ser menor a la fecha de inicio.');
+		e.preventDefault();
+		return;
+	}
+});
+</script>
+@endsection

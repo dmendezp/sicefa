@@ -27,17 +27,17 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           @if(session('lang')!='en')
-            <img src="{{ asset('general/images/colombia_r.svg') }}" class="icon-bar" alt="User Image" style="width: 20px; height: 20px;">
+            <img src="{{ asset('modules/evs/images/colombia_r.svg') }}" class="icon-bar" alt="User Image" style="width: 20px; height: 20px;">
           @else
-            <img src="{{ asset('general/images/estados-unidos-de-america_r.svg') }}" class="icon-bar" alt="User Image" style="width: 20px; height: 20px;">
+            <img src="{{ asset('modules/evs/images/estados-unidos-de-america_r.svg') }}" class="icon-bar" alt="User Image" style="width: 20px; height: 20px;">
           @endif
         </a>
         <div class="dropdown-menu dropdown-menu-right p-0">
           <a href="{{ url('lang', ['en']) }}" class="dropdown-item">
-            <img src="{{ asset('general/images/estados-unidos-de-america_r.svg') }}" class="icon-bar" alt="User Image" style="width: 20px; height: 20px;"> English
+            <img src="{{ asset('modules/evs/images/estados-unidos-de-america_r.svg') }}" class="icon-bar" alt="User Image" style="width: 20px; height: 20px;"> English
           </a>
           <a href="{{ url('lang', ['es']) }}" class="dropdown-item">
-            <img src="{{ asset('general/images/colombia_r.svg') }}" class="icon-bar" alt="User Image" style="width: 20px; height: 20px;"> Español
+            <img src="{{ asset('modules/evs/images/colombia_r.svg') }}" class="icon-bar" alt="User Image" style="width: 20px; height: 20px;"> Español
           </a>
         </div>
       </li>

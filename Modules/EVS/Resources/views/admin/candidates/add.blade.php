@@ -1,4 +1,3 @@
-
 @extends('evs::layouts.master')
 
 @section('title','Candidates')
@@ -27,10 +26,10 @@
           <!-- Timelime example  -->
 
           	<div class="form_search" id="form_search">
-				{!! Form::open(['url' => 'evs/admin/candidates/search/'.$election->id]) !!}
+				{!! Form::open(['url' => 'evs/admin/candidates/search/'.$election->id ,  'method' => 'POST']) !!}
 				<div class="row">
 					<div class="col-md-8">
-						{!! Form::text('search', null, ['class' => 'form-control', 'placeholder' => 'Ingrese su busqueda', 'required']) !!}
+						{!! Form::text('search', null, ['class' => 'form-control', 'placeholder' => 'Ingrese su búsqueda', 'required']) !!}
 					</div>
 					<div class="col-md-4">
 						{!! Form::submit('Buscar', ['class' => 'btn btn-primary']) !!}
@@ -38,64 +37,77 @@
 				</div>
 				{!! Form::close() !!}
 			</div>
+
 		  	@if(isset($people))
 		  		@if(is_null($people))
-		  			<h1>"Documento NO encontrado"<h1>
+		  			<h1>"Documento NO encontrado"</h1>
 				@else					
-					{!! Form::open(['url' => route('evs.admin.candidates.add')]) !!}
+					{!! Form::open(['route' => 'evs.admin.candidates.add.post', 'method' => 'POST', 'files' => true, 'id' => 'candidateForm']) !!}
+
 					<label class="mtop16" for="name">Nombre: </label>
 					<div>
 						{{ $people->first_name." ".$people->first_last_name." ".$people->second_last_name }}
-						{!! Form::hidden('election_id', $election->id, ['class' => 'form-control', 'placeholder' => 'Ingrese su busqueda', 'required']) !!}
-						{!! Form::hidden('person_id', $people->id, ['class' => 'form-control', 'placeholder' => 'Ingrese su busqueda', 'required']) !!}
-						
+						{!! Form::hidden('election_id', $election->id) !!}
+						{!! Form::hidden('person_id', $people->id) !!}
 					</div>
-					<label class="mtop16" for="name">Número:</label>
+
+					<label class="mtop16" for="number">Número:</label>
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<span class="input-group-text" id="basic-addon1">
-								<i class="far fa-keyboard"></i>
-							</span>
+							<span class="input-group-text"><i class="far fa-keyboard"></i></span>
 						</div>
-						{!! Form::number('number',null, ['class'=>'form-control']) !!}
+						{!! Form::number('number', null, [
+							'class'=>'form-control',
+							'id'=>'number',
+							'required',
+							'min' => 1 // ✅ Validación en HTML5
+						]) !!}
 					</div>
-					<label class="mtop16" for="name">Fotografía:</label>
+
+					<label class="mtop16" for="avatar">Fotografía:</label>
 					<div class="input-group">
 					   <span class="input-group-btn">
 					     <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-info">
 					       <i class="fas fa-image"></i>
 					     </a>
 					   </span>
-					   {!! Form::text('avatar',null, ['class'=>'form-control','id'=>'thumbnail']) !!}
+					   {!! Form::file('avatar', ['class'=>'form-control', 'id'=>'avatar', 'accept'=>'image/*', 'required']) !!}
 					</div>
 					<div id="holder" style="margin-top:15px;max-height:100px;"></div>
 						
-					
 					<div class="text-center">
-					{!! Form::submit('Guardar',['class'=>'btn btn-success mtop16']) !!}
+						{!! Form::submit('Guardar',['class'=>'btn btn-success mtop16']) !!}
 					</div>
 					{!! Form::close() !!}
 				@endif
 			@endif	
 
       		</div>
-
-
       </div>
-
   </section>
+
   <script>
   	var route_prefix = "/filemanager";
   </script>
-
   <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
-	
- <script>
-    //var route_prefix = base+"/filemanager";
+  <script>
  		$('#lfm').filemanager('image', {prefix: route_prefix});
+
+		// 🔎 Validación extra en JS
+		document.getElementById('candidateForm')?.addEventListener('submit', function(e){
+			let number = parseInt(document.getElementById('number').value.trim());
+			let avatar = document.getElementById('avatar').files.length;
+
+			if(isNaN(number) || number <= 0){
+				e.preventDefault();
+				alert("⚠️ El número debe ser mayor a 0.");
+				return;
+			}
+
+			if(avatar === 0){
+				e.preventDefault();
+				alert("⚠️ Debe seleccionar una fotografía antes de guardar.");
+			}
+		});
   </script>
-
-
-
-
 @stop

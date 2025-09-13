@@ -7,7 +7,7 @@ Route::middleware(['lang'])->group(function () {
 
 	Route::prefix('evs')->group(function() {
 
-		Route::get('/index','EVSController@index')->name('cefa.evs.voto.index');
+		Route::get('/index',action: 'EVSController@index')->name('cefa.evs.voto.index');
 
 		//ruta de formulario para validad
 		Route::get('/votar','EVSController@getVotar')->name('cefa.evs.voto.votar');

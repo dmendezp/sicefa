@@ -16,17 +16,24 @@ class ElectedsController extends Controller
 {
     public function getElected(){
         //Gate::authorize('haveaccess', 'elected.list');
+
+
+        // $e = Election::all();
+        // dd($e->toArray());
         
-        $electeds = Elected::with('candidate.person')->with('election')->orderBy('id','Desc')->get();
+        $electeds = Election::with('candidates.person')
+        ->orderBy('id','Desc')->get();
         $data = ['electeds'=>$electeds];
-        return view('evs::admin.electeds.home', $data);
+    //    dd($electeds->toArray());
+        return view('evs::admin.electeds.home', data: $data);
     }
 
     public function getElectedAdd(){
-        Gate::authorize('haveaccess', 'electeds.add');
+        Gate::authorize('haveaccess', 'evs.admin.electeds.add');
         $elections = Election::pluck('name', 'id');
         $data = ['elections'=>$elections];
-        return view('evs::admin.electeds.add', $data);
+
+        return view('evs::admin.electeds.add',  data: $data);
     }
 
 

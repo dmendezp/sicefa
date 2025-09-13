@@ -15,7 +15,7 @@ class Jury extends Model implements Auditable
     protected $hidden = ['created_at','update_at'];
 
     public function election(){
-    	return $this->belongsTo(Election::class);
+    	return $this->belongsTo(Election::class, 'election_id');
     }
 
     public function person(){

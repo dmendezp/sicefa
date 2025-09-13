@@ -50,7 +50,12 @@
                                 <div class="mbottom16 text-center">
                                   @if($election->status=='Activo')
                                     <a href="{{ url('evs/admin/juries/edit/'.$jury->id) }}" class="btn btn-warning btn-circle"><i class="fas fa-edit"></i></a>
-                                    <a class="btn btn-danger btn-circle btn-delete"  data-action="delete" data-toggle='tooltip' data-placement="top" data-object="{{ $jury->id }}" data-path="evs/admin/juries"><i class="fas fa-trash-alt"></i></a>
+                                    <a href="{{ route('evs.admin.juries.delete', $jury->id) }}"
+                                      onclick="return confirm('¿Seguro que deseas eliminar este jurado?')"
+                                      class="btn btn-danger btn-circle"
+                                      title="Eliminar">
+                                      <i class="fas fa-trash-alt"></i>
+                                    </a>
                                   @endif
                                 </div>
                               </div>

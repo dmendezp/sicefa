@@ -3,7 +3,7 @@
 namespace Modules\EVS\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class EVSDatabaseSeeder extends Seeder
 {
@@ -12,10 +12,17 @@ class EVSDatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+        public function run()
     {
-        Model::unguard();
+        DB::beginTransaction();
 
-        // $this->call("OthersTableSeeder");
+        $this->call(AppTableSeeder::class);
+        $this->call(PeopleTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
+
+        DB::commit();
     }
+
 }

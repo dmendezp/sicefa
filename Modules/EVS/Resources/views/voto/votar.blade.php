@@ -22,7 +22,8 @@
                 </div>
                 <div class="card-body pt-0">
 
-                  {!! Form::open(['url' => route('cefa.evs.voto.votar.validar')]) !!}
+                    {!! Form::open(['url' => route('cefa.evs.voto.votar.validar'), 'method' => 'POST']) !!}
+
                   <label for="name">Documento:</label>
                   <div class="input-group">
                     <div class="input-group-prepend">
@@ -41,8 +42,11 @@
                     </div>
                     {!! Form::password('securityCode', ['class'=>'form-control']) !!}
                   </div>
+                  <br>
                   
                   {!! Form::submit('Enviar',['class'=>'btn btn-success mtop16']) !!}
+
+                  
                   
                   {!! Form::close() !!}
 

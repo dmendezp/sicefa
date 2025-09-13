@@ -2,9 +2,12 @@
 
 namespace Modules\EVS\Http\Controllers\Admin;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+
 
 use Validator, Str;
 
@@ -14,18 +17,21 @@ use Illuminate\Support\Facades\Gate;
 class ElectionsController extends Controller
 {
     public function getElections(){
-        Gate::authorize('haveaccess', 'elections.list');
+        /* Gate::authorize('haveaccess', 'elections.list'); */
         $elections = Election::orderBy('id','Desc')->get();
         $data = ['elections'=>$elections];
         return view('evs::admin.elections.home', $data);
     }
 
     public function getElectionAdd(){
-        Gate::authorize('haveaccess', 'elections.add');
+        Gate::authorize('haveaccess', 'evs.admin.elections.add');
+
         return view('evs::admin.elections.add');
     }
 
     public function postElectionAdd(Request $request){
+
+       
         $rules = [
             'name' => 'required',
             'start_date' => 'required',
@@ -52,7 +58,9 @@ class ElectionsController extends Controller
         endif; 
     }
 
-    public function getElectionEdit($id){
+    public function getElectionEdit($id): Factory|View{
+
+    
         $election = Election::findOrFail($id);
         $data = ['election' => $election];
         return view('evs::admin.elections.edit',$data);
@@ -65,11 +73,23 @@ class ElectionsController extends Controller
             'end_date' => 'required'
         ];
 
+
+
         $messages = [
             'name.required' => 'Se requiere un nombre para el Electiono.',
             'start_date.required' => 'Se requiere la fecha y hora de inicio de la elección.',
             'end_date.required' => 'Se requiere la fecha y hora de finalización del elección.',
         ];
+
+        $v = Election::where("status","Activo")->first();
+
+
+
+        if($v && $request->input('status') == 'Activo'){
+              return back()->with('message', 'Ya existe una eleccion activa')->with('typealert', 'danger');
+        }
+
+
         $validator = Validator::make($request->all(), $rules, $messages);
         if($validator->fails()):
             return back()->withErrors($validator)->with('message', 'Se ha producido un error')->with('typealert', 'danger');
@@ -78,7 +98,7 @@ class ElectionsController extends Controller
             $e->name = e($request->input('name'));
             $e->start_date = $request->input('start_date');
             $e->end_date = e($request->input('end_date'));
-            $e->status = e($request->input('status'));;
+            $e->status = e($request->input('status'));
             if($e->save()){
                 return redirect('evs/admin/elections')->with('message', 'Guardado con éxito')->with('typealert', 'success');
             }

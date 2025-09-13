@@ -22,6 +22,7 @@
 					<h3 class="card-title">Add Election</h3>
 				</div>
 				<!-- /.card-header -->
+				
 				<div class="card-body">
 					
 					{!! Form::open(['url' => route('evs.admin.electeds.add')]) !!}
@@ -32,6 +33,7 @@
 								<i class="far fa-keyboard"></i>
 							</span>
 						</div>
+						<br>
 						{!! Form::select('election_id', $elections, null, ['class'=>'custom-select', 'placeholder'=>'Seleccione...']) !!}
 					</div>
 					<div id="data-elected"></div>

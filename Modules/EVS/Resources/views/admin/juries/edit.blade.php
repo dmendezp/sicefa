@@ -42,6 +42,7 @@
             </div>
             {!! Form::password('password', ['class'=>'form-control']) !!}
           </div>
+          <br>
           
           
           {!! Form::submit('Guardar',['class'=>'btn btn-success mtop16']) !!}

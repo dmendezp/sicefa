@@ -26,7 +26,7 @@
           	<div class="card-body">
           <!-- Timelime example  -->
 					
-					{!! Form::open(['url' => 'evs/admin/candidates/edit/'.$candidate->id]) !!}
+					{!! Form::open(['url' => 'evs/admin/candidates/edit/'.$candidate->id , 'files' => true ]) !!}
 					<label for="name">Nombre: </label>
 					<div>
 						{{ $name_people }}
@@ -42,15 +42,24 @@
 					</div>
 					<label class="mtop16" for="name">Fotografía:</label>
 					<div class="input-group">
-					   <span class="input-group-btn">
-					     <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-info">
-					       <i class="fas fa-image"></i>
-					     </a>
-					   </span>
-					   {!! Form::text('avatar',$candidate->avatar, ['class'=>'form-control','id'=>'thumbnail']) !!}
+					<span class="input-group-btn">
+						{{-- 🔹 El label funciona como botón, al estar vinculado con el input --}}
+						<label for="avatar" class="btn btn-info m-0">
+						<i class="fas fa-image"></i>
+						</label>
+					</span>
+					{{-- 🔹 Input oculto, se abre al dar clic en el icono --}}
+					{!! Form::file('avatar', [
+						'class' => 'd-none',
+						'id' => 'avatar',
+						'accept' => 'image/*'
+					]) !!}
+						</div>					
+					
 					</div>
+
 					<div id="holder" style="margin-top:15px;max-height:100px;">
-						<img src="{{ asset('storage/'.$candidate->avatar) }}" style="height: 5rem;">
+						<img src="{{ asset(path: $candidate->avatar) }}" style="height: 5rem;">
 					</div>
 					
 					<div class="text-center">

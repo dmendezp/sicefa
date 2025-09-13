@@ -216,7 +216,7 @@ class Person extends Model implements Auditable
          return $this->hasMany(Tecnomecanic::class);
      }
     public function users(){ // Accede a todos los usuarios registrados con esta persona
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class, 'person_id');
     }
     
 

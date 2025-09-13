@@ -17,7 +17,7 @@ class SICADatabaseSeeder extends Seeder
 
         DB::beginTransaction(); // Iniciar transacción
 
-        /* $this->call(AppTableSeeder::class); // Ejecutar Seeder de aplicación
+        $this->call(class: AppTableSeeder::class); // Ejecutar Seeder de aplicación
         $this->call(PeopleTableSeeder::class); // Ejecutar Seeder de personas
         $this->call(UsersTableSeeder::class); // Ejecutar Seeder de usuarios */
         $this->call(RolesTableSeeder::class); // Ejecutar Seeder de roles para usuarios
