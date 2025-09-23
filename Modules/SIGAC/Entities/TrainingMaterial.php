@@ -12,7 +12,7 @@ class TrainingMaterial extends Model implements Auditable
     use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = ['training_project_id','element_id'];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 

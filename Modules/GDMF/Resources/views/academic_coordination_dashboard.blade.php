@@ -1,6 +1,7 @@
 @extends('gdmf::layouts.master')
 
 @push('head')
+
 @endpush
 
 @push('breadcrumbs')
@@ -95,6 +96,7 @@
             </div>
         </div>
     </div>
+    
 @endsection
 
 @push('scripts')

@@ -4,6 +4,7 @@ namespace Modules\GDMF\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class GDMFDatabaseSeeder extends Seeder
 {
@@ -14,8 +15,15 @@ class GDMFDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        DB::beginTransaction(); // Iniciar transacción
 
-        // $this->call("OthersTableSeeder");
+        // Sección de lanzamiento para producción
+        $this->call(AppTableSeeder::class); // Ejecutar Seeder de aplicación
+        $this->call(PeopleTableSeeder::class); // Ejecutar Seeder de personas
+        $this->call(UsersTableSeeder::class); // Ejecutar Seeder de usuarios
+        $this->call(RolesTableSeeder::class); // Ejecutar Seeder de roles para usuarios
+        /* $this->call(PermissionsTableSeeder::class); // Ejecutar Seeder de permisos para roles */
+
+        DB::commit(); // Finalizar transación
     }
 }

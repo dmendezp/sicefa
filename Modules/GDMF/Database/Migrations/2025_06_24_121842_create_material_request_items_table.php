@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTrainingMaterialsTable extends Migration
+class CreateMaterialRequestItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateTrainingMaterialsTable extends Migration
      */
     public function up()
     {
-        Schema::create('training_materials', function (Blueprint $table) {
+        Schema::create('material_request_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('training_project_id')->constrained()->onDelete('cascade');
+            $table->foreignId('material_request_id')->constrained()->onDelete('cascade');
             $table->foreignId('element_id')->constrained()->onDelete('cascade');
-            $table->softDeletes();
+            $table->integer('quantity');
+            $table->decimal('unit_price', 15);
+            $table->decimal('subtotal', 15);
             $table->timestamps();
         });
     }
@@ -29,7 +31,6 @@ class CreateTrainingMaterialsTable extends Migration
      */
     public function down()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('training_materials');
+        Schema::dropIfExists('material_request_items');
     }
 }

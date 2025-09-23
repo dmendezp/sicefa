@@ -14,66 +14,42 @@ class GDMFController extends Controller
      */
     public function index()
     {
-        return view('gdmf::index');
+        $view = [
+            'titlePage' => 'Pagina Principal',
+            'titleView' => trans('sigac::controllers.SIGAC_index_title_view'),
+        ];
+        return view('gdmf::index', $view);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
+    public function proof()
     {
-        return view('gdmf::create');
+        $view = ['titlePage' => trans('sigac::controllers.SIGAC_index_title_page'), 'titleView' => trans('sigac::controllers.SIGAC_index_title_view')];
+        return view('sigac::proof', $view);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
+    public function info()
     {
-        //
+        $view = ['titlePage' => trans('sigac::controllers.SIGAC_info_title_page'), 'titleView' => trans('sigac::controllers.SIGAC_info_title_view')];
+        return view('sigac::information.index', $view);
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
+    public function devs()
     {
-        return view('gdmf::show');
+        $view = ['titlePage' => trans('sigac::controllers.SIGAC_devs_title_page'), 'titleView' => trans('sigac::controllers.SIGAC_devs_title_view')];
+        return view('sigac::developers.index', $view);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
+    /* Panel de control de coordinación académica */
+    public function academic_coordination_dashboard()
     {
-        return view('gdmf::edit');
+        $view = ['titlePage' => trans('sigac::controllers.SIGAC_academic_coordination_dashboard_title_page'), 'titleView' => trans('sigac::controllers.SIGAC_academic_coordination_dashboard_title_view')];
+        return view('gdmf::academic_coordination_dashboard', $view);
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
+    /* Panel de control del instructor */
+    public function instructor_dashboard()
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        $view = ['titlePage' => trans('sigac::controllers.SIGAC_instructor_dashboard_title_page'), 'titleView' => trans('sigac::controllers.SIGAC_instructor_dashboard_title_view')];
+        return view('gdmf::instructor_dashboard', $view);
     }
 }
