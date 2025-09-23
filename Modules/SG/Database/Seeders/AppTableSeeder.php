@@ -18,7 +18,7 @@ class AppTableSeeder extends Seeder
   
         /* Registro o actualización de la nueva aplicación para Estación de Café */
         $app = App::updateOrCreate(
-            ['name' => ' SG'],
+            ['name' => 'SG'],
              [
             'url' => '/sg/index',
             'color' => '#76250C',
