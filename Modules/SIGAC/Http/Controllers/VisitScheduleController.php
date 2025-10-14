@@ -16,11 +16,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use App\Support\IcsBuilder;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use App\Mail\VisitScheduledMail;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\VisitUpdateMail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\VisitScheduledMail;
+use App\Mail\VisitUpdateMail;
+
 
 
 
@@ -128,22 +129,25 @@ class VisitScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        $minDate = \Carbon\Carbon::today('America/Bogota')->addDays(5)->toDateString();
+        $minDate = \Illuminate\Support\Carbon::today('America/Bogota')->addDays()->toDateString();
 
         $validated = $request->validate([
             'visit_request_id'     => 'required|exists:visit_requests,id',
-            'person_in_charge_id'  => 'nullable|exists:people,id',
+            'person_in_charge_id'  => 'required|exists:people,id',
+            'notification_email'   => 'nullable|email',
             'activity'             => 'required|string',
             'date'                 => ['required', 'date', 'after_or_equal:' . $minDate],
             'start_time'           => ['required', 'date_format:H:i'],
             'end_time'             => ['required', 'date_format:H:i', 'after:start_time'],
-            'environment_id'       => ['nullable', 'exists:environments,id'],
-            'observations'         => ['nullable', 'string'],
+            'environment_id'       => 'nullable|exists:environments,id',
+            'observations'         => 'nullable|string',
         ]);
 
-        $schedule = VisitSchedule::create([
+        // 1️⃣ Crear programación
+        $schedule = \Modules\SIGAC\Entities\VisitSchedule::create([
             'visit_request_id'     => $validated['visit_request_id'],
-            'person_in_charge_id'  => $validated['person_in_charge_id'] ?? null,
+            'person_in_charge_id'  => $validated['person_in_charge_id'],
+            'notification_email'   => $validated['notification_email'] ?? null,
             'activity'             => $validated['activity'],
             'date'                 => $validated['date'],
             'start_time'           => $validated['start_time'],
@@ -152,25 +156,37 @@ class VisitScheduleController extends Controller
             'observations'         => $validated['observations'] ?? null,
         ]);
 
-        $visitRequest = VisitRequest::findOrFail($validated['visit_request_id']);
-        $visitRequest->update(['state' => 'Agendada']);
+        // 2️⃣ Actualizar solicitud
+        $visitRequest = \Modules\SIGAC\Entities\VisitRequest::findOrFail($validated['visit_request_id']);
+        $visitRequest->state = 'Agendada';
+        $visitRequest->save();
 
-        // 🔔 Notificación (no bloquea si faltan emails)
-        $schedule->load(['personInCharge', 'environment', 'visitRequest.company']);
-        $res = $this->notifyChanges($schedule, [], 'created');
-
-        $msg = 'Visita agendada.';
-        if (!empty($res['sent'])) {
-            $msg .= ' Notificaciones enviadas a: ' . implode(', ', $res['sent']) . '.';
-        }
-        if (!empty($res['skipped'])) {
-            $msg .= ' Sin correo para: ' . implode(', ', $res['skipped']) . '.';
+        // 3️⃣ Determinar destinatario
+        $to = $schedule->notification_email;
+        if (!$to) {
+            $to = $this->bestEmailFromPerson($schedule->personInCharge);
         }
 
-        return redirect()
-            ->route('sigac.academic_coordination.dashboard')
-            ->with('success', $msg);
+        if (!$to) {
+            return redirect()
+                ->route('sigac.academic_coordination.dashboard')
+                ->with('warning', 'Visita agendada, pero no se envió correo: el encargado no tiene email válido.');
+        }
+
+        // 4️⃣ Enviar automáticamente
+        try {
+            Mail::to($to)->send(new VisitScheduledMail($visitRequest, $schedule));
+            return redirect()
+                ->route('sigac.academic_coordination.dashboard')
+                ->with('success', 'Visita agendada correctamente y correo enviado a ' . $to);
+        } catch (\Throwable $e) {
+            \Log::error('Error enviando correo: ' . $e->getMessage(), ['to' => $to]);
+            return redirect()
+                ->route('sigac.academic_coordination.dashboard')
+                ->with('error', 'Visita agendada, pero el correo no se envió. Detalle: ' . $e->getMessage());
+        }
     }
+
 
     public function available_environments(Request $request)
     {
@@ -265,10 +281,7 @@ class VisitScheduleController extends Controller
                 })
         );
     }
-    public function environment()
-    {
-        return $this->belongsTo(\Modules\SICA\Entities\Environment::class, 'environment_id');
-    }
+
     public function calendarAll()
     {
         // Vista del calendario general (centrado en hoy)
@@ -362,83 +375,105 @@ class VisitScheduleController extends Controller
     }
     public function notify(VisitRequest $visit)
     {
-        // Busca la agenda más reciente de esta solicitud
         $schedule = VisitSchedule::where('visit_request_id', $visit->id)
-            ->latest('id')
-            ->first();
+            ->with('personInCharge')
+            ->latest('id')->first();
 
         if (!$schedule) {
             return back()->with('error', 'No hay una agenda asociada a esta solicitud.');
         }
 
-        if (empty($visit->contact_email)) {
-            return back()->with('error', 'La solicitud no tiene correo de contacto.');
+        $to = $schedule->notification_email ?: $this->bestEmailFromPerson($schedule->personInCharge);
+        if (!$to) {
+            return back()->with('error', 'El encargado no tiene correo registrado en People.');
         }
 
         try {
-            Mail::to($visit->contact_email)->send(new VisitScheduledMail($visit, $schedule));
-            return back()->with('success', 'Notificación enviada correctamente.');
+            \Mail::to($to)->send(new \App\Mail\VisitScheduledMail($visit, $schedule));
+            return back()->with('success', 'Notificación enviada a ' . $to);
         } catch (\Throwable $e) {
-            report($e);
-            return back()->with('error', 'No se pudo enviar el correo. Verifica la configuración de correo.');
+            \Log::error('Error enviando correo (notify): ' . $e->getMessage(), ['to' => $to, 'schedule_id' => $schedule->id]);
+            return back()->with('error', 'No se pudo enviar el correo. Detalle: ' . $e->getMessage());
         }
     }
-    public function quickReschedule(Request $request, VisitSchedule $schedule)
-    {
-        $minDate = Carbon::today('America/Bogota')->addDays(5)->toDateString();
 
-        $validated = $request->validate([
-            'date'           => ['required', 'date', 'after_or_equal:' . $minDate], // 👈
-            'start_time'     => ['required'],
-            'end_time'       => ['required'],
-            'environment_id' => ['nullable', 'exists:environments,id'],
-        ], [
-            'date.after_or_equal' => "La fecha debe ser igual o posterior a $minDate.",
-        ]);
 
-        // ... resto tal cual (actualizas date, start_time, end_time, etc.)
-    }
     public function update(Request $request, VisitSchedule $schedule)
     {
-        $minDate = \Carbon\Carbon::today('America/Bogota')->addDays(5)->toDateString();
+        $minDate = \Illuminate\Support\Carbon::today('America/Bogota')->addDays()->toDateString();
 
         $validated = $request->validate([
-            'date'                => ['required', 'date', 'after_or_equal:' . $minDate],
-            'start_time'          => ['required', 'date_format:H:i'],
-            'end_time'            => ['required', 'date_format:H:i', 'after:start_time'],
-            'environment_id'      => ['nullable', 'exists:environments,id'],
-            'person_in_charge_id' => ['nullable', 'exists:people,id'],
-            'observations'        => ['nullable', 'string'],
+            'date'                 => ['required', 'date', 'after_or_equal:' . $minDate],
+            'start_time'           => ['required', 'date_format:H:i'],
+            'end_time'             => ['required', 'date_format:H:i', 'after:start_time'],
+            'environment_id'       => ['nullable', 'exists:environments,id'],
+            'person_in_charge_id'  => ['nullable', 'exists:people,id'],
+            'notification_email'   => ['nullable', 'email'],
+            'activity'             => ['nullable', 'string'],
+            'observations'         => ['nullable', 'string'],
+        ], [
+            'date.after_or_equal'  => "La fecha debe ser igual o posterior a $minDate.",
+            'end_time.after'       => 'La hora de fin debe ser mayor que la hora de inicio.',
         ]);
 
+        // ----- CLONAR ANTES
         $before = $schedule->replicate(['id', 'created_at', 'updated_at']);
+        $before->setRelation('environment',   $schedule->environment);
+        $before->setRelation('personInCharge', $schedule->personInCharge);
+        $before->setRelation('visitRequest',  $schedule->visitRequest);
 
+        // ----- APLICAR CAMBIOS (TODO puede cambiar, incluso encargado/correo)
         $schedule->fill([
-            'date'                => $validated['date'],
-            'start_time'          => $validated['start_time'],
-            'end_time'            => $validated['end_time'],
-            'environment_id'      => $validated['environment_id'] ?? null,
-            'person_in_charge_id' => $validated['person_in_charge_id'] ?? $schedule->person_in_charge_id,
-            'observations'        => $validated['observations'] ?? $schedule->observations,
-        ])->save();
+            'date'                 => $validated['date'],
+            'start_time'           => $validated['start_time'],
+            'end_time'             => $validated['end_time'],
+            'environment_id'       => $validated['environment_id'] ?? null,
+            'person_in_charge_id'  => $validated['person_in_charge_id'] ?? $schedule->person_in_charge_id,
+            'notification_email'   => $validated['notification_email'] ?? $schedule->notification_email,
+            'activity'             => $validated['activity'] ?? $schedule->activity,
+            'observations'         => $validated['observations'] ?? $schedule->observations,
+        ]);
+        $schedule->save();
 
+        // ----- RECARGAR RELACIONES / ESTADO
+        $schedule->load(['environment', 'personInCharge', 'visitRequest']);
         $schedule->visitRequest?->update(['state' => 'Agendada']);
 
-        $schedule->load(['personInCharge', 'environment', 'visitRequest.company']);
-        $changed = $this->changedFields($before, $schedule);
-
-        $res = $this->notifyChanges($schedule, $changed, 'updated');
-
-        $msg = 'Visita actualizada.';
-        if (!empty($res['sent'])) {
-            $msg .= ' Notificaciones enviadas a: ' . implode(', ', $res['sent']) . '.';
-        }
-        if (!empty($res['skipped'])) {
-            $msg .= ' Sin correo para: ' . implode(', ', $res['skipped']) . '.';
+        // ----- DETECTAR CAMBIOS
+        $changes = $this->changedFields($before, $schedule);
+        if (empty($changes)) {
+            return back()->with('info', 'No hubo cambios en la visita.');
         }
 
-        return back()->with('success', $msg);
+        // ----- DEFINIR EVENTO (para asunto y plantilla)
+        $event = (isset($changes['schedule']) || isset($changes['environment']))
+            ? 'rescheduled'    // hubo cambio de fecha/hora/ambiente → reprogramación
+            : 'updated';       // otros cambios (encargado/correo/observaciones/actividad)
+
+        // ----- DESTINATARIOS (contacto + nuevo encargado + anterior si cambió)
+        $recipients = $this->recipientsForUpdate($before, $schedule);
+
+        // ----- ENVIAR
+        try {
+            foreach ($recipients as $to) {
+                Mail::to($to)->send(new \App\Mail\VisitUpdateMail(
+                    $schedule->visitRequest,
+                    $schedule,
+                    $changes,
+                    $event
+                ));
+            }
+            return back()->with('success', 'Visita actualizada y notificaciones enviadas.');
+        } catch (\Throwable $e) {
+            \Log::error('Error enviando notificaciones de actualización: ' . $e->getMessage(), [
+                'schedule_id' => $schedule->id,
+                'recipients'  => $recipients,
+            ]);
+            return back()->with('warning', 'Visita actualizada, pero falló el envío de correos.');
+        }
     }
+
+
 
 
     /**
@@ -446,48 +481,213 @@ class VisitScheduleController extends Controller
      */
     public function cancel(VisitSchedule $schedule, Request $request)
     {
+        $before = $schedule->replicate(['id', 'created_at', 'updated_at']);
+        $before->setRelation('personInCharge', $schedule->personInCharge);
+        $before->setRelation('visitRequest', $schedule->visitRequest);
+
         $schedule->visitRequest?->update(['state' => 'Cancelada']);
 
-        if ($reason = trim((string) $request->input('reason'))) {
+        if ($reason = trim((string)$request->input('reason'))) {
             $schedule->observations = trim(($schedule->observations ? $schedule->observations . "\n" : '') . 'Cancelada: ' . $reason);
             $schedule->save();
         }
 
-        $schedule->load(['personInCharge', 'environment', 'visitRequest.company']);
-        $res = $this->notifyChanges($schedule, ['canceled' => true], 'canceled');
+        $schedule->load(['personInCharge', 'visitRequest']);
 
-        $msg = 'Visita cancelada.';
-        if (!empty($res['sent'])) {
-            $msg .= ' Notificaciones enviadas a: ' . implode(', ', $res['sent']) . '.';
+        $recipients = $this->recipientsForUpdate($before, $schedule); // usaremos mismos destinatarios
+
+        try {
+            foreach ($recipients as $to) {
+                Mail::to($to)->send(new VisitUpdateMail($schedule->visitRequest, $schedule, ['canceled' => true], 'canceled'));
+            }
+            return back()->with('success', 'Visita cancelada y notificaciones enviadas.');
+        } catch (\Throwable $e) {
+            Log::error('Error enviando notificaciones de cancelación: ' . $e->getMessage(), [
+                'schedule_id' => $schedule->id,
+                'recipients'  => $recipients,
+            ]);
+            return back()->with('warning', 'Visita cancelada, pero falló el envío de correos.');
         }
-        if (!empty($res['skipped'])) {
-            $msg .= ' Sin correo para: ' . implode(', ', $res['skipped']) . '.';
+    }
+    /**
+     * Envía correos al contacto de la solicitud y al encargado asignado.
+     * $event: 'created' | 'updated' | 'canceled'
+     */
+    private function notifyChanges(\Modules\SIGAC\Entities\VisitSchedule $schedule, array $changed, string $event): array
+    {
+        // Asegura las relaciones
+        $schedule->load(['personInCharge', 'visitRequest']);
+        $visit = $schedule->visitRequest;
+
+        // 🔎 DEPURACIÓN (usa dd() temporalmente)
+        /*
+    dd([
+        'schedule_id'    => $schedule->id,
+        'visit_id'       => optional($visit)->id,
+        'person_id'      => optional($schedule->personInCharge)->id,
+        'misena_email'   => optional($schedule->personInCharge)->misena_email,
+        'sena_email'     => optional($schedule->personInCharge)->sena_email,
+        'personal_email' => optional($schedule->personInCharge)->personal_email,
+        'contact_email'  => optional($visit)->contact_email,
+    ]);
+       */
+        // Valida y normaliza el correo de contacto
+        $contactEmail  = $this->isValidEmail(optional($visit)->contact_email) ? strtolower(trim($visit->contact_email)) : null;
+        // Toma el correo del encargado con prioridad y validación
+        $assigneeEmail = $this->getPersonEmail($schedule->personInCharge);
+
+        // Log de diagnóstico (deja esto aunque quites el dd)
+        \Log::info('SIGAC notifyChanges()', [
+            'visit_id'        => optional($visit)->id,
+            'schedule_id'     => $schedule->id,
+            'contact_email'   => $contactEmail,
+            'assignee_person' => optional($schedule->personInCharge)->id,
+            'misena_email'    => optional($schedule->personInCharge)->misena_email,
+            'sena_email'      => optional($schedule->personInCharge)->sena_email,
+            'personal_email'  => optional($schedule->personInCharge)->personal_email,
+            'assignee_email'  => $assigneeEmail,
+            'event'           => $event,
+        ]);
+
+        $sent = [];
+        $skipped = [];
+
+        // Evita duplicados y nulos
+        $targets = array_filter([
+            'Contacto'  => $contactEmail,
+            'Encargado' => $assigneeEmail,
+        ]);
+
+        foreach ($targets as $label => $to) {
+            try {
+                \Mail::to($to)->send(new \App\Mail\VisitUpdateMail($visit, $schedule, $event, $changed));
+                $sent[] = $label;
+            } catch (\Throwable $e) {
+                \Log::warning("Fallo enviando correo a {$label} ({$to}): " . $e->getMessage());
+                $skipped[] = $label;
+            }
         }
 
-        return back()->with('success', $msg);
+        // Si alguno vino vacío lo marcamos como omitido
+        foreach (['Contacto', 'Encargado'] as $lbl) {
+            if (!isset($targets[$lbl])) $skipped[] = $lbl;
+        }
+
+        return ['sent' => $sent, 'skipped' => $skipped];
     }
 
+
+
+
+    /**
+     * Extrae email desde People (ajusta campo si en tu esquema es distinto).
+     */
+    private function getPersonEmail($person): ?string
+    {
+        if (!$person) return null;
+
+        $candidates = [
+            $person->misena_email ?? null,
+            $person->sena_email ?? null,
+            $person->personal_email ?? null,
+        ];
+
+        foreach ($candidates as $mail) {
+            if ($this->isValidEmail($mail)) {
+                return strtolower(trim($mail));
+            }
+        }
+        return null;
+    }
+
+    private function isValidEmail($value): bool
+    {
+        if (!is_string($value)) return false;
+        $value = trim($value);
+        if ($value === '') return false;
+        return (bool) filter_var($value, FILTER_VALIDATE_EMAIL);
+    }
+
+    public function viewPeopleList(VisitRequest $visit)
+    {
+        $excelPathRaw = (string) ($visit->people_list_path ?? '');
+        if ($excelPathRaw === '') {
+            return back()->with('error', 'No hay archivo asociado a esta solicitud.');
+        }
+
+        // Normaliza separadores y elimina prefijo "storage/app/" si viene así guardado
+        $excelPath = str_replace('\\', '/', $excelPathRaw);
+        if (Str::startsWith($excelPath, ['storage/app/', '/storage/app/'])) {
+            $excelPath = Str::after($excelPath, 'storage/app/');
+        }
+
+        if (!Storage::disk('local')->exists($excelPath)) {
+            return back()->with('error', 'El archivo no existe en el almacenamiento.');
+        }
+
+        $fullPath = storage_path('app/' . $excelPath);
+        $mime = mime_content_type($fullPath) ?: 'application/octet-stream';
+
+        // Servir inline (si el navegador no puede, propondrá descarga)
+        return response()->file($fullPath, [
+            'Content-Type'        => $mime,
+            'Content-Disposition' => 'inline; filename="' . basename($excelPath) . '"',
+        ]);
+    }
+    private function bestEmailFromPerson(?Person $p): ?string
+    {
+        if (!$p) return null;
+        foreach (['sena_email', 'misena_email', 'personal_email'] as $f) {
+            $v = trim((string)($p->$f ?? ''));
+            if ($v && filter_var($v, FILTER_VALIDATE_EMAIL)) return $v;
+        }
+        return null;
+    }
+
+    public function personEmails(Person $person)
+    {
+        // Ajusta nombres de campos si varían
+        $candidates = [
+            'sena_email'    => trim((string)($person->sena_email ?? '')),
+            'misena_email'  => trim((string)($person->misena_email ?? '')),
+            'personal_email' => trim((string)($person->personal_email ?? '')),
+        ];
+
+        $emails = [];
+        foreach ($candidates as $label => $value) {
+            if ($value && filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                $emails[] = ['label' => $label, 'email' => $value];
+            }
+        }
+
+        return response()->json($emails); // [{label,email}, ...]
+    }
 
     /**
      * Devuelve qué campos relevantes cambiaron.
      * @return array<string, mixed>
      */
-    private function changedFields(VisitSchedule $before, VisitSchedule $after): array
+    private function changedFields(\Modules\SIGAC\Entities\VisitSchedule $before, \Modules\SIGAC\Entities\VisitSchedule $after): array
     {
         $changes = [];
 
+        // Cambio de horario (fecha/hora)
         if ($before->date !== $after->date || $before->start_time !== $after->start_time || $before->end_time !== $after->end_time) {
             $changes['schedule'] = [
-                'before' => "{$before->date} {$before->start_time}-{$before->end_time}",
-                'after'  => "{$after->date} {$after->start_time}-{$after->end_time}",
+                'before' => "{$before->date} {$before->start_time} - {$before->end_time}",
+                'after'  => "{$after->date} {$after->start_time} - {$after->end_time}",
             ];
         }
+
+        // Cambio de ambiente
         if ((int) $before->environment_id !== (int) $after->environment_id) {
             $changes['environment'] = [
                 'before' => optional($before->environment)->name ?? '—',
                 'after'  => optional($after->environment)->name ?? '—',
             ];
         }
+
+        // Cambio de encargado
         if ((int) $before->person_in_charge_id !== (int) $after->person_in_charge_id) {
             $changes['assignee'] = [
                 'before' => optional($before->personInCharge)->first_name
@@ -497,106 +697,38 @@ class VisitScheduleController extends Controller
             ];
         }
 
+        // Cambio de correo de notificación
+        if (trim((string)$before->notification_email) !== trim((string)$after->notification_email)) {
+            $changes['notification_email'] = [
+                'before' => $before->notification_email ?: '—',
+                'after'  => $after->notification_email ?: '—',
+            ];
+        }
+
         return $changes;
     }
-
     /**
-     * Envía correos al contacto de la solicitud y al encargado asignado.
-     * $event: 'created' | 'updated' | 'canceled'
+     * @return array<string> correos únicos
      */
-    private function notifyChanges(VisitSchedule $schedule, array $changed, string $event): array
+    private function recipientsForUpdate(VisitSchedule $before, VisitSchedule $after): array
     {
-        $visit = $schedule->visitRequest;
+        $emails = [];
 
-        // Destinos posibles
-        $contactEmail  = filter_var($visit->contact_email, FILTER_VALIDATE_EMAIL) ? $visit->contact_email : null;
-        $assigneeEmail = $this->getPersonEmail($schedule->personInCharge);
+        // contacto de la solicitud
+        $contactEmail = filter_var($after->visitRequest->contact_email, FILTER_VALIDATE_EMAIL) ? $after->visitRequest->contact_email : null;
+        if ($contactEmail) $emails[] = $contactEmail;
 
-        $sent = [];
-        $skipped = [];
+        // correo nuevo elegido (o bestEmail del nuevo encargado)
+        $newAssigneeEmail = $after->notification_email ?: $this->bestEmailFromPerson($after->personInCharge);
+        if ($newAssigneeEmail) $emails[] = $newAssigneeEmail;
 
-        $targets = [
-            'Contacto'  => $contactEmail,
-            'Encargado' => $assigneeEmail,
-        ];
-
-        foreach ($targets as $label => $to) {
-            if ($to) {
-                try {
-                    \Mail::to($to)->send(new \App\Mail\VisitUpdateMail($visit, $schedule, $event, $changed));
-                    $sent[] = $label;
-                } catch (\Throwable $e) {
-                    \Log::warning("Fallo enviando correo a {$label} ({$to}): " . $e->getMessage());
-                    $skipped[] = $label; // si falla el envío, lo marcamos como omitido
-                }
-            } else {
-                $skipped[] = $label; // sin correo → omitido
-            }
+        // si cambió el encargado, notificar al anterior también
+        if ((int)$before->person_in_charge_id !== (int)$after->person_in_charge_id) {
+            $oldAssigneeEmail = $this->bestEmailFromPerson($before->personInCharge);
+            if ($oldAssigneeEmail) $emails[] = $oldAssigneeEmail;
         }
 
-        return ['sent' => $sent, 'skipped' => $skipped];
-    }
-
-
-    /**
-     * Extrae email desde People (ajusta campo si en tu esquema es distinto).
-     */
-    private function getPersonEmail(?\Modules\SICA\Entities\Person $p): ?string
-    {
-        if (!$p) return null;
-
-        $candidatos = [
-            $p->misena_email ?? null,
-            $p->sena_email ?? null,
-            $p->personal_email ?? null,
-        ];
-
-        foreach ($candidatos as $email) {
-            if ($email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                return $email;
-            }
-        }
-        return null;
-    }
-    public function viewPeopleList(\Modules\SIGAC\Entities\VisitRequest $visit)
-    {
-        // Ruta guardada en BD (campo people_list_path)
-        $excelPathRaw = (string) $visit->people_list_path;
-
-        if (empty($excelPathRaw)) {
-            return back()->with('error', 'No hay archivo asociado a esta solicitud.');
-        }
-
-        // Normaliza separadores
-        $excelPath = str_replace('\\', '/', $excelPathRaw);
-
-        // Ajusta si está guardado con prefijo "storage/app/"
-        if (str_starts_with($excelPath, 'storage/app/')) {
-            $excelPath = Str::after($excelPath, 'storage/app/');
-        }
-
-        // Verifica que exista
-        if (!Storage::disk('local')->exists($excelPath)) {
-            return back()->with('error', 'El archivo no existe en el almacenamiento.');
-        }
-
-        // Obtiene ruta absoluta
-        $fullPath = storage_path('app/' . $excelPath);
-        $mime = mime_content_type($fullPath);
-
-        // Si es Excel, lo mostramos usando Office Viewer online
-        if (in_array($mime, [
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'application/vnd.ms-excel'
-        ])) {
-            $publicUrl = url('/storage/' . basename($fullPath));
-            return redirect()->away('https://view.officeapps.live.com/op/view.aspx?src=' . urlencode($publicUrl));
-        }
-
-        // Si no es Excel, lo descarga directamente
-        return response()->file($fullPath, [
-            'Content-Type' => $mime,
-            'Content-Disposition' => 'inline; filename="' . basename($excelPath) . '"',
-        ]);
+        // únicos
+        return array_values(array_unique($emails));
     }
 }

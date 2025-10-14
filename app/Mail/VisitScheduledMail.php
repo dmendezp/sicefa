@@ -5,75 +5,35 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Support\IcsBuilder;
-use Carbon\Carbon;
+use Modules\SIGAC\Entities\VisitRequest;
+use Modules\SIGAC\Entities\VisitSchedule;
 
-class VisitUpdateMail extends Mailable
+class VisitScheduledMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $visitRequest;
-    public $schedule;
-    public $event;    // created|updated|canceled
-    public $changed;  // array con detalles
-    public $googleAddUrl;
-    public $icsContent;
-    public $invitationUrl;
+    public $visitSchedule;
 
-    public function __construct($visitRequest, $schedule, string $event, array $changed = [])
+    /**
+     * Crea una nueva instancia del mensaje.
+     */
+    public function __construct(VisitRequest $visitRequest, VisitSchedule $visitSchedule)
     {
         $this->visitRequest = $visitRequest;
-        $this->schedule     = $schedule;
-        $this->event        = $event;
-        $this->changed      = $changed;
-
-        $summary = 'Visita - ' . optional($visitRequest->company)->name;
-        $description = "Actividad: {$schedule->activity}\n"
-                     . "Encargado: " . (optional($schedule->person)->first_name ?? 'N/D') . "\n"
-                     . "Observaciones: " . ($schedule->observations ?? '—');
-        $location = optional($schedule->environment)->name ?? 'Por definir';
-
-        // .ics
-        $this->icsContent = IcsBuilder::singleEvent([
-            'uid'         => "visit-{$schedule->id}@sicefa.local",
-            'summary'     => $summary,
-            'description' => $description,
-            'location'    => $location,
-            'start'       => "{$schedule->date} {$schedule->start_time}",
-            'end'         => "{$schedule->date} {$schedule->end_time}",
-            'organizer'   => config('mail.from.address'),
-            'attendees'   => array_filter([$visitRequest->contact_email ?? null]),
-        ]);
-
-        // Google Calendar URL (opcional)
-        $startUtc = Carbon::parse("{$schedule->date} {$schedule->start_time}", 'America/Bogota')->utc()->format('Ymd\THis\Z');
-        $endUtc   = Carbon::parse("{$schedule->date} {$schedule->end_time}", 'America/Bogota')->utc()->format('Ymd\THis\Z');
-        $this->googleAddUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
-            . '&text=' . urlencode($summary)
-            . '&dates=' . $startUtc . '/' . $endUtc
-            . '&details=' . urlencode($description)
-            . '&location=' . urlencode($location)
-            . '&sf=true&output=xml';
-
-        // Invitación (tu ruta pública firmada)
-        $this->invitationUrl = route('sigac.visits.invitation', $schedule); // si la tienes firmada, usa signedRoute
+        $this->visitSchedule = $visitSchedule;
     }
 
+    /**
+     * Construye el mensaje.
+     */
     public function build()
     {
-        $subject = match ($this->event) {
-            'created'  => 'Visita agendada',
-            'updated'  => 'Visita actualizada',
-            'canceled' => 'Visita cancelada',
-            default    => 'Actualización de visita',
-        } . ' - ' . (optional($this->visitRequest->company)->name ?? 'SICEFA');
-
-        $filename = "visita-{$this->schedule->id}.ics";
-
-        return $this->subject($subject)
-            ->view('emails.visit_update') // 👈 crea esta vista
-            ->attachData($this->icsContent, $filename, [
-                'mime' => 'text/calendar; charset=utf-8',
-            ]);
+        return $this->subject('📅 Nueva visita agendada')
+                    ->view('sigac::emails.visit_scheduled') // 👈 vista del correo
+                    ->with([
+                        'visitRequest'  => $this->visitRequest,
+                        'visitSchedule' => $this->visitSchedule,
+                    ]);
     }
 }

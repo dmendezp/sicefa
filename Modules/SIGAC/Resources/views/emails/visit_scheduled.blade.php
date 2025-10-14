@@ -1,18 +1,29 @@
-<p>Hola,</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Visita Agendada</title>
+</head>
+<body>
+    <h2>📅 Visita agendada correctamente</h2>
 
-<p>Tu visita ha sido agendada:</p>
+    <p>Estimado/a {{ $visitSchedule->personInCharge->full_name ?? 'Encargado' }},</p>
 
-<ul>
-    <li><strong>Empresa:</strong> {{ optional($visitRequest->company)->name }}</li>
-    <li><strong>Fecha:</strong> {{ $schedule->date }}</li>
-    <li><strong>Hora:</strong> {{ $schedule->start_time }} - {{ $schedule->end_time }}</li>
-    <li><strong>Actividad:</strong> {{ $schedule->activity }}</li>
-    <li><strong>Ambiente:</strong> {{ optional($schedule->environment)->name ?? 'SENA' }}</li>
-</ul>
+    <p>Se ha programado una nueva visita asociada a la solicitud <strong>#{{ $visitRequest->id }}</strong>:</p>
 
-<p>
-    👉 Puedes <a href="{{ route('sigac.academic_coordination.visitschedule.ics', ['schedule' => $schedule->id]) }}">descargar la invitación (.ics)</a> y abrirla con tu calendario.<br>
-    👉 O añadirlo en Google Calendar con un click: <a href="{{ $googleAddUrl }}" target="_blank">Añadir a Google Calendar</a>
-</p>
+    <ul>
+        <li><strong>Actividad:</strong> {{ $visitSchedule->activity }}</li>
+        <li><strong>Fecha:</strong> {{ \Carbon\Carbon::parse($visitSchedule->date)->format('d/m/Y') }}</li>
+        <li><strong>Hora:</strong> {{ $visitSchedule->start_time }} - {{ $visitSchedule->end_time }}</li>
+        @if($visitSchedule->environment)
+            <li><strong>Ambiente:</strong> {{ $visitSchedule->environment->name }}</li>
+        @endif
+        <li><strong>Observaciones:</strong> {{ $visitSchedule->observations ?? '—' }}</li>
+    </ul>
 
-<p>¡Gracias!</p>
+    <p>Por favor, verifique la programación y confirme su disponibilidad.</p>
+
+    <p>Atentamente,<br>
+    <strong>Equipo SIGAC / SICEFA</strong></p>
+</body>
+</html>

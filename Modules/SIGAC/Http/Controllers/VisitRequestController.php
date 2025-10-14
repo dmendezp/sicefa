@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\SIGAC\Entities\VisitRequest;
 use Modules\SIGAC\Entities\Company;
+use Modules\SICA\Entities\Environment;
 
 class VisitRequestController extends Controller
 {
@@ -14,17 +15,24 @@ class VisitRequestController extends Controller
      */
     public function application_index()
     {
-        $visitRequests = VisitRequest::with(['company', 'person'])
-            ->orderBy('id', 'desc')
+        $visitRequests = VisitRequest::with([
+                'company',
+                'person',
+                'schedules.environment', // <-- para que last()->environment no dispare N+1
+            ])
+            ->orderByDesc('id')
             ->get();
+
+        // Para el modal de edición (select de ambientes)
+        $environments = Environment::orderBy('name')->pluck('name', 'id');
 
         return view('sigac::visitrequest.index', [
             'visitRequests' => $visitRequests,
+            'environments'  => $environments, // <-- pásalo a la vista
             'titlePage'     => 'Solicitudes de visita',
             'titleView'     => 'Solicitudes de visita',
         ]);
     }
-
     /**
      * Mostrar formulario de creación.
      */
