@@ -273,14 +273,18 @@
                                                         </label>
                                                     </div>
 
-                                                    {{-- Bloque buscador de encargado (oculto por defecto) --}}
+                                                    {{-- Indicador para el backend --}}
+                                                    <input type="hidden" name="change_assignee"
+                                                        id="change-assignee-{{ $scheduleId }}" value="0">
+
+                                                    {{-- Bloque buscador de encargado (oculto y deshabilitado por defecto) --}}
                                                     <div id="assign-box-{{ $scheduleId }}" class="border rounded p-3"
                                                         style="display:none;">
                                                         <div class="row g-2 align-items-end">
                                                             <div class="col-md-3">
                                                                 <label class="form-label">Tipo</label>
                                                                 <select class="form-select js-staff-type"
-                                                                    data-schedule="{{ $scheduleId }}">
+                                                                    data-schedule="{{ $scheduleId }}" disabled>
                                                                     <option value="all">Todos</option>
                                                                     <option value="employee">Planta</option>
                                                                     <option value="contractor">Contratista</option>
@@ -290,9 +294,10 @@
                                                                 <label class="form-label">Buscar persona</label>
                                                                 <input type="text" class="form-control js-staff-search"
                                                                     data-schedule="{{ $scheduleId }}"
-                                                                    placeholder="Nombre o apellido..." autocomplete="off">
+                                                                    placeholder="Nombre o apellido..." autocomplete="off"
+                                                                    disabled>
                                                                 <input type="hidden" name="person_in_charge_id"
-                                                                    id="personInChargeId-{{ $scheduleId }}">
+                                                                    id="personInChargeId-{{ $scheduleId }}" disabled>
                                                                 <div id="staffResults-{{ $scheduleId }}"
                                                                     class="list-group mt-2"></div>
                                                             </div>
@@ -300,7 +305,8 @@
 
                                                         {{-- Correos del encargado nuevo --}}
                                                         <input type="hidden" name="notification_email"
-                                                            id="notification_email-{{ $scheduleId }}">
+                                                            id="notification_email-{{ $scheduleId }}" disabled>
+
                                                         <div id="assigneeEmailsBox-{{ $scheduleId }}" class="mt-3"
                                                             style="display:none;">
                                                             <label class="form-label">Correo para notificaciones</label>
@@ -380,137 +386,149 @@
 @endsection
 
 @push('scripts')
-    <script>
-        (() => {
-            const SEARCH_URL = `{{ route('sigac.academic_coordination.visit.staff.search') }}`;
-            const EMAILS_URL = `{{ route('sigac.academic_coordination.people.emails', ['person' => 'PERSON_ID']) }}`;
+<script>
+(function(){
+  // Rutas para AJAX
+  const SEARCH_URL = `{{ route('sigac.academic_coordination.visit.staff.search') }}`;
+  const EMAILS_URL = `{{ route('sigac.academic_coordination.people.emails', ['person' => 'PERSON_ID']) }}`;
 
-            // Mostrar/ocultar bloque de asignación
-            document.addEventListener('change', e => {
-                if (!e.target.matches('.js-toggle-assign')) return;
-                const sched = e.target.dataset.schedule;
-                const box = document.getElementById(`assign-box-${sched}`);
-                // Si lo apagan, limpiamos campos de cambio para que NO cambie el encargado
-                if (e.target.checked) {
-                    box.style.display = 'block';
-                } else {
-                    box.style.display = 'none';
-                    const pid = document.getElementById(`personInChargeId-${sched}`);
-                    const mail = document.getElementById(`notification_email-${sched}`);
-                    const res = document.getElementById(`staffResults-${sched}`);
-                    const emailsBox = document.getElementById(`assigneeEmailsBox-${sched}`);
-                    if (pid) pid.value = '';
-                    if (mail) mail.value = '';
-                    if (res) res.innerHTML = '';
-                    if (emailsBox) emailsBox.style.display = 'none';
-                }
-            });
+  // Debounce genérico
+  const debounce = (fn, delay=250) => { let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), delay); }; };
 
-            // debounce
-            const debounce = (fn, d = 250) => {
-                let t;
-                return (...a) => {
-                    clearTimeout(t);
-                    t = setTimeout(() => fn(...a), d);
-                };
-            };
+  // 1) Encender/apagar bloque de cambio de encargado
+  document.addEventListener('change', (e)=>{
+    if (!e.target.matches('.js-toggle-assign')) return;
+    const sched = e.target.dataset.schedule;
+    const on = e.target.checked;
 
-            const doSearch = debounce((inputEl) => {
-                const sched = inputEl.dataset.schedule;
-                const q = (inputEl.value || '').trim();
-                const type = document.querySelector(`.js-staff-type[data-schedule="${sched}"]`)?.value || 'all';
-                const list = document.getElementById(`staffResults-${sched}`);
-                if (!list) return;
-                if (q.length < 2) {
-                    list.innerHTML = '';
-                    return;
-                }
+    // hidden para backend
+    const flag = document.getElementById(`change-assignee-${sched}`);
+    if (flag) flag.value = on ? '1' : '0';
 
-                fetch(`${SEARCH_URL}?q=${encodeURIComponent(q)}&type=${encodeURIComponent(type)}`)
-                    .then(r => r.json())
-                    .then(items => {
-                        list.innerHTML = items.map(it => `
+    const box   = document.getElementById(`assign-box-${sched}`);
+    const type  = document.querySelector(`.js-staff-type[data-schedule="${sched}"]`);
+    const input = document.querySelector(`.js-staff-search[data-schedule="${sched}"]`);
+    const pid   = document.getElementById(`personInChargeId-${sched}`);
+    const mail  = document.getElementById(`notification_email-${sched}`);
+
+    if (box)  box.style.display = on ? 'block' : 'none';
+    [type, input, pid, mail].forEach(el => { if (el) el.disabled = !on; });
+
+    if (!on) {
+      // Limpia selección si apagan el switch
+      if (input) input.value = '';
+      if (pid)   pid.value = '';
+      if (mail)  mail.value = '';
+      const list = document.getElementById(`staffResults-${sched}`);
+      if (list) list.innerHTML = '';
+      const boxEmails = document.getElementById(`assigneeEmailsBox-${sched}`);
+      const listEmails = document.getElementById(`assigneeEmails-${sched}`);
+      if (boxEmails) boxEmails.style.display = 'none';
+      if (listEmails) listEmails.innerHTML = '';
+    }
+  });
+
+  // 2) Búsqueda de personas
+  const doSearch = debounce((inputEl)=>{
+    const sched = inputEl.dataset.schedule;
+    const q     = (inputEl.value||'').trim();
+    const type  = document.querySelector(`.js-staff-type[data-schedule="${sched}"]`)?.value || 'all';
+    const list  = document.getElementById(`staffResults-${sched}`);
+    if (!list) return;
+    if (q.length < 2) { list.innerHTML = ''; return; }
+
+    fetch(`${SEARCH_URL}?q=${encodeURIComponent(q)}&type=${encodeURIComponent(type)}`)
+      .then(r=>r.json())
+      .then(items=>{
+        list.innerHTML = items.map(it=>`
           <button type="button"
-            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center js-pick-person"
-            data-schedule="${sched}" data-id="${it.person_id}" data-name="${it.name}" data-type="${it.type}">
+                  class="list-group-item list-group-item-action d-flex justify-content-between align-items-center js-pick-person"
+                  data-schedule="${sched}" data-id="${it.person_id}" data-name="${it.name}" data-type="${it.type}">
             <span>${it.name}</span>
             <span class="badge ${it.type==='employee'?'bg-success':'bg-warning text-dark'}">
               ${it.type==='employee'?'Planta':'Contratista'}
             </span>
-          </button>
-        `).join('');
-                    })
-                    .catch(() => {
-                        list.innerHTML = '';
-                    });
-            });
+          </button>`).join('');
+      }).catch(()=>{ list.innerHTML=''; });
+  });
 
-            // buscar por texto y cambiar tipo
-            document.addEventListener('input', e => {
-                if (e.target.matches('.js-staff-search')) doSearch(e.target);
-            });
-            document.addEventListener('change', e => {
-                if (e.target.matches('.js-staff-type')) {
-                    const sched = e.target.dataset.schedule;
-                    const search = document.querySelector(`.js-staff-search[data-schedule="${sched}"]`);
-                    if (search) doSearch(search);
-                }
-            });
+  document.addEventListener('input', (e)=>{
+    if (e.target.matches('.js-staff-search') && !e.target.disabled) doSearch(e.target);
+  });
+  document.addEventListener('change', (e)=>{
+    if (e.target.matches('.js-staff-type') && !e.target.disabled) {
+      const sched = e.target.dataset.schedule;
+      const input = document.querySelector(`.js-staff-search[data-schedule="${sched}"]`);
+      if (input) doSearch(input);
+    }
+  });
 
-            // Elegir persona ⇒ set hidden + cargar correos
-            document.addEventListener('click', e => {
-                const btn = e.target.closest('.js-pick-person');
-                if (!btn) return;
-                const sched = btn.dataset.schedule;
-                const id = btn.dataset.id;
-                const name = btn.dataset.name;
-                const type = btn.dataset.type === 'employee' ? '(Planta)' : '(Contratista)';
+  // 3) Elegir persona → set hidden + cargar correos
+  document.addEventListener('click', (e)=>{
+    const btn = e.target.closest('.js-pick-person'); if (!btn) return;
+    const sched = btn.dataset.schedule;
+    const id    = btn.dataset.id;
+    const name  = btn.dataset.name;
+    const label = btn.dataset.type==='employee' ? '(Planta)' : '(Contratista)';
 
-                document.querySelector(`.js-staff-search[data-schedule="${sched}"]`).value = `${name} ${type}`;
-                document.getElementById(`personInChargeId-${sched}`).value = id;
-                document.getElementById(`staffResults-${sched}`).innerHTML = '';
+    const input = document.querySelector(`.js-staff-search[data-schedule="${sched}"]`);
+    const pid   = document.getElementById(`personInChargeId-${sched}`);
+    const list  = document.getElementById(`staffResults-${sched}`);
 
-                loadPersonEmails(sched, id);
-            });
+    if (pid)   pid.value = id;
+    if (input) input.value = `${name} ${label}`;
+    if (list)  list.innerHTML = '';
 
-            function loadPersonEmails(sched, personId) {
-                const box = document.getElementById(`assigneeEmailsBox-${sched}`);
-                const list = document.getElementById(`assigneeEmails-${sched}`);
-                const hid = document.getElementById(`notification_email-${sched}`);
-                if (!box || !list || !hid) return;
+    loadEmails(sched, id);
+  });
 
-                list.innerHTML = '';
-                box.style.display = 'none';
-                hid.value = '';
+  function loadEmails(sched, personId){
+    const box  = document.getElementById(`assigneeEmailsBox-${sched}`);
+    const list = document.getElementById(`assigneeEmails-${sched}`);
+    const hid  = document.getElementById(`notification_email-${sched}`);
+    if (!box || !list || !hid) return;
 
-                fetch(EMAILS_URL.replace('PERSON_ID', personId))
-                    .then(r => r.json())
-                    .then(arr => {
-                        if (!Array.isArray(arr) || arr.length === 0) {
-                            list.innerHTML =
-                                '<div class="text-muted">Esta persona no tiene correos registrados.</div>';
-                            box.style.display = 'block';
-                            return;
-                        }
-                        list.innerHTML = arr.map((it, idx) => `
+    list.innerHTML=''; box.style.display='none'; hid.value='';
+
+    fetch(EMAILS_URL.replace('PERSON_ID', personId))
+      .then(r=>r.json())
+      .then(arr=>{
+        if (!Array.isArray(arr) || arr.length===0) {
+          list.innerHTML = '<div class="text-muted">Esta persona no tiene correos registrados.</div>';
+          box.style.display='block';
+          return;
+        }
+        list.innerHTML = arr.map((it,idx)=>`
           <label class="list-group-item d-flex align-items-center gap-2">
             <input type="radio" name="assignee_email_choice_${sched}" value="${it.email}" ${idx===0?'checked':''}>
             <span class="badge bg-secondary text-uppercase">${it.label.replace('_',' ')}</span>
             <span>${it.email}</span>
-          </label>
-        `).join('');
-                        box.style.display = 'block';
-                        const first = list.querySelector('input[type=radio]');
-                        if (first) hid.value = first.value;
-                        list.querySelectorAll('input[type=radio]').forEach(r => {
-                            r.addEventListener('change', () => hid.value = r.value);
-                        });
-                    })
-                    .catch(() => {
-                        list.innerHTML = '<div class="text-danger">No se pudieron cargar los correos.</div>';
-                        box.style.display = 'block';
-                    });
-            }
-        })();
-    </script>
+          </label>`).join('');
+        box.style.display='block';
+        const first = list.querySelector('input[type=radio]');
+        if (first) hid.value = first.value;
+        list.querySelectorAll('input[type=radio]').forEach(r=>{
+          r.addEventListener('change', ()=> hid.value = r.value);
+        });
+      })
+      .catch(()=>{
+        list.innerHTML = '<div class="text-danger">No se pudieron cargar los correos.</div>';
+        box.style.display='block';
+      });
+  }
+
+  // 4) Al abrir el modal, deja el switch apagado y todo deshabilitado
+  document.addEventListener('shown.bs.modal', (e)=>{
+    const id = e.target.id || '';
+    if (!id.startsWith('reprogram-')) return;
+    const sched = id.replace('reprogram-','');
+
+    const toggle = document.getElementById(`toggle-assign-${sched}`);
+    if (toggle) {
+      toggle.checked = false;
+      toggle.dispatchEvent(new Event('change')); // fuerza estado inicial off
+    }
+  });
+})();
+</script>
 @endpush

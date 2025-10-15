@@ -316,9 +316,16 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('academic_coordination/visit-schedule/events', 'eventsAll')->name('sigac.academic_coordination.visitschedule.events.all');
             Route::get('academic_coordination/visit-schedule/{schedule}/ics','downloadIcs')->name('sigac.academic_coordination.visitschedule.ics');
             Route::post('academic_coordination/visit-request/{visit}/notify', 'notify')->name('sigac.academic_coordination.visitrequest.notify');
-            Route::post('sigac/academic_coordination/visit-schedule/{schedule}/update','update')->name('sigac.academic_coordination.visitschedule.update');            Route::post('academic_coordination/visit-schedule/{schedule}/cancel','cancel')->name('sigac.academic_coordination.visitschedule.cancel');
-            Route::get('academic_coordination/visitas/people-list/ver/{visit}','viewPeopleList')->name('sigac.visits.peoplelist.view');
+            Route::post('sigac/academic_coordination/visit-schedule/{schedule}/update','update')->name('sigac.academic_coordination.visitschedule.update');            
+            Route::post('academic_coordination/visit-schedule/{schedule}/cancel','cancel')->name('sigac.academic_coordination.visitschedule.cancel');
+            Route::get('academic_coordination/visitas/people-list/ver/{visit}', 'viewPeopleList')->name('sigac.visits.peoplelist.view');
             Route::get('academic_coordination/people/{person}/emails', 'personEmails')->name('sigac.academic_coordination.people.emails'); // GET /sigac/people/{person}/emails
         });
     });
-});    
+    Route::prefix('sigac')->group(function () {  // agrega el prefijo en la url (sicefa.test/sigac/...)
+        Route::controller(VisitScheduleController::class)->group(function () {
+            Route::get('visit-schedule/{schedule}/invitation','invitation')->name('visitschedule.invitation.show');
+            Route::post('visit-schedule/{schedule}/invite', 'sendInvitation')->name('visitschedule.invitation.send');
+        });
+    });
+});
