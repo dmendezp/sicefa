@@ -1,162 +1,187 @@
 @extends('sigac::layouts.master')
 
+{{-- (Opcional) Solo deja estos CDN si tu layout NO incluye Bootstrap ya --}}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
 @section('content')
-    <div class="card">
-        <div class="card-header">
-            <h2>Solicitudes de visita</h2>
-        </div>
-        <div class="card-body">
-            @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-            @if (session('error'))
-                <div class="alert alert-danger">{{ session('error') }}</div>
-            @endif
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <strong>Revisa los datos:</strong>
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <h2 class="mb-0">Solicitudes de visita</h2>
+    </div>
 
-            <div class="table-responsive">
-                <table class="table table-bordered align-middle">
-                    <thead class="table-light">
-                        <tr>
-                            <th>ID</th>
-                            <th>Empresa</th>
-                            <th>NIT</th>
-                            <th>Solicitante</th>
-                            <th>Fecha de recepción</th>
-                            <th>Tipo</th>
-                            <th>Estado</th>
-                            <th>Nº personas</th>
-                            <th style="width: 350px;">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($visitRequests as $visit)
-                            @php
-                                $hasEmail = filled($visit->contact_email);
-                                $lastSchedule = optional($visit->schedules)->last();
-                                $scheduleId = $lastSchedule->id ?? null;
+    <div class="card-body">
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <strong>Revisa los datos:</strong>
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-                                $excelPathRaw = (string) ($visit->people_list_path ?? '');
-                                $excelPath = str_replace('\\', '/', $excelPathRaw);
-                                if (
-                                    \Illuminate\Support\Str::startsWith($excelPath, ['storage/app/', '/storage/app/'])
-                                ) {
-                                    $excelPath = \Illuminate\Support\Str::after($excelPath, 'storage/app/');
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Empresa</th>
+                        <th>NIT</th>
+                        <th>Solicitante</th>
+                        <th>Fecha de recepción</th>
+                        <th>Tipo</th>
+                        <th>Estado</th>
+                        <th>Nº personas</th>
+                        <th style="width: 420px;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($visitRequests as $visit)
+                        @php
+                            // ======= Variables por fila =======
+                            $hasEmail = filled($visit->contact_email);
+                            $lastSchedule = optional($visit->schedules)->last();
+                            $scheduleId = $lastSchedule->id ?? null;
+
+                            // Excel
+                            $excelPathRaw = (string) ($visit->people_list_path ?? '');
+                            $excelPath = str_replace('\\', '/', $excelPathRaw);
+                            if (\Illuminate\Support\Str::startsWith($excelPath, ['storage/app/', '/storage/app/'])) {
+                                $excelPath = \Illuminate\Support\Str::after($excelPath, 'storage/app/');
+                            }
+                            $canViewExcel = $excelPath && \Illuminate\Support\Facades\Storage::disk('local')->exists($excelPath);
+
+                            // Estado runtime
+                            $tz = 'America/Bogota';
+                            $now = \Illuminate\Support\Carbon::now($tz);
+
+                            if (!$lastSchedule) {
+                                $rtState = 'Sin agendar';
+                                $rtColor = 'secondary';
+                            } else {
+                                $day = \Illuminate\Support\Carbon::parse($lastSchedule->date, $tz);
+                                $ini = \Illuminate\Support\Carbon::parse($lastSchedule->date.' '.$lastSchedule->start_time, $tz);
+                                $fin = \Illuminate\Support\Carbon::parse($lastSchedule->date.' '.$lastSchedule->end_time, $tz);
+
+                                if (strcasecmp((string) $visit->state, 'Cancelada') === 0) {
+                                    $rtState = 'Cancelada';
+                                    $rtColor = 'danger';
+                                } elseif ($now->lt($day->copy()->startOfDay())) {
+                                    $rtState = 'Agendada';
+                                    $rtColor = 'primary';
+                                } elseif ($now->isSameDay($day)) {
+                                    if ($now->lt($ini)) {
+                                        $rtState = 'Hoy';
+                                        $rtColor = 'info';
+                                    } elseif ($now->between($ini, $fin, true)) {
+                                        $rtState = 'En curso';
+                                        $rtColor = 'warning';
+                                    } else {
+                                        $rtState = 'Finalizada';
+                                        $rtColor = 'secondary';
+                                    }
+                                } elseif ($now->gt($day->copy()->endOfDay())) {
+                                    $rtState = 'Finalizada';
+                                    $rtColor = 'secondary';
+                                } else {
+                                    $rtState = 'Agendada';
+                                    $rtColor = 'primary';
                                 }
-                                $canViewExcel =
-                                    $excelPath &&
-                                    \Illuminate\Support\Facades\Storage::disk('local')->exists($excelPath);
-                            @endphp
+                            }
 
-                            <tr>
-                                <td>{{ $visit->id }}</td>
-                                <td>{{ $visit->company->name }}</td>
-                                <td>{{ $visit->company->nit ?? '—' }}</td>
-                                <td>{{ $visit->person->full_name ?? '—' }}</td>
-                                <td>{{ $visit->date_received }}</td>
-                                <td class="text-capitalize">{{ $visit->type }}</td>
-                                <td>
-                                    <span
-                                        class="badge bg-{{ $visit->state === 'Agendada' ? 'success' : ($visit->state === 'Cancelada' ? 'danger' : 'secondary') }}">
-                                        {{ $visit->state }}
-                                    </span>
-                                </td>
-                                <td>{{ $visit->number_of_people ?? '—' }}</td>
+                            // Chip “Próxima ≤ 24h”
+                            $soonBadge = null;
+                            if ($lastSchedule) {
+                                $startDiffH = \Illuminate\Support\Carbon::parse($lastSchedule->date.' '.$lastSchedule->start_time, $tz)
+                                    ->diffInHours($now, false);
+                                if ($startDiffH < 0 && abs($startDiffH) <= 24 && $rtState === 'Agendada') {
+                                    $soonBadge = 'Próxima ≤ 24h';
+                                }
+                            }
+                        @endphp
 
-                                <td class="d-flex flex-wrap gap-2 align-items-center">
-                                    {{-- 👁️ Ver (icono) --}}
-                                    <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal"
-                                        data-bs-target="#modal{{ $visit->id }}" title="Ver detalle">
-                                        <i class="bi bi-eye-fill"></i>
+                        <tr data-state="{{ $rtState }}" data-visit-id="{{ $visit->id }}">
+                            <td>{{ $visit->id }}</td>
+                            <td>{{ $visit->company->name }}</td>
+                            <td>{{ $visit->company->nit ?? '—' }}</td>
+                            <td>{{ $visit->person->full_name ?? '—' }}</td>
+                            <td>{{ $visit->date_received }}</td>
+                            <td class="text-capitalize">{{ $visit->type }}</td>
+                            <td>
+                                <span class="badge bg-{{ $rtColor }}">{{ $rtState }}</span>
+                                @if ($soonBadge)
+                                    <span class="badge bg-warning text-dark ms-1">{{ $soonBadge }}</span>
+                                @endif
+                            </td>
+                            <td>{{ $visit->number_of_people ?? '—' }}</td>
+
+                            <td>
+                                <div class="d-flex gap-2 flex-wrap align-items-center js-actions" role="group"
+                                     aria-label="Acciones solicitud {{ $visit->id }}">
+                                    {{-- 👁️ Ver (abre modal) --}}
+                                    <button type="button"
+                                        class="btn btn-light btn-icon shadow-sm js-tip"
+                                        title="Ver detalle"
+                                        data-bs-title="Ver detalle"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modal{{ $visit->id }}">
+                                        <i class="bi bi-eye"></i>
                                     </button>
 
-                                    {{-- 🗓️ Agendar (icono) o acciones --}}
-                                    @if ($visit->state === 'Sin agendar')
+                                    {{-- 🗓️ Agendar / ✉️ Notificar / 🔄 Reprogramar / ❌ Cancelar --}}
+                                    @if (!$lastSchedule)
                                         <a href="{{ route('sigac.academic_coordination.visitschedule.create', ['request' => $visit->id]) }}"
-                                            class="btn btn-sm btn-outline-primary" title="Agendar">
-                                            <i class="bi bi-calendar-plus-fill"></i>
+                                            class="btn btn-primary btn-icon shadow-sm"
+                                            data-bs-title="Agendar visita">
+                                            <i class="bi bi-calendar-plus"></i>
                                         </a>
                                     @else
-                                        {{-- ✉️ Notificar (icono) --}}
-                                        @if (Route::has('sigac.academic_coordination.visitrequest.notify'))
-                                            @if ($hasEmail)
-                                                <form
-                                                    action="{{ route('sigac.academic_coordination.visitrequest.notify', $visit->id) }}"
-                                                    method="POST" class="d-inline"
-                                                    onsubmit="return confirm('¿Enviar notificación a {{ $visit->contact_email }}?');">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-sm btn-outline-success"
-                                                        title="Notificar">
-                                                        <i class="bi bi-envelope-paper-heart-fill"></i>
-                                                    </button>
-                                                </form>
-                                            @else
-                                                <form
-                                                    action="{{ route('sigac.academic_coordination.visitrequest.notify', $visit->id) }}"
-                                                    method="POST" class="d-inline d-flex align-items-center gap-2"
-                                                    onsubmit="
-                                                    const v = this.querySelector('input[name=override_email]').value.trim();
-                                                    if(!v){ alert('Por favor ingresa un correo válido.'); return false; }
-                                                    return confirm('Se enviará la notificación a ' + v + '. ¿Continuar?');
-                                                  ">
-                                                    @csrf
-                                                    <input type="email" name="override_email"
-                                                        class="form-control form-control-sm"
-                                                        placeholder="correo@empresa.com" required style="max-width: 200px;">
-                                                    <button type="submit" class="btn btn-sm btn-outline-success"
-                                                        title="Enviar correo">
-                                                        <i class="bi bi-send-fill"></i>
-                                                    </button>
-                                                </form>
-                                            @endif
-                                        @endif
 
-                                        {{-- 🔄 Reprogramar (abre modal) --}}
                                         @if ($scheduleId)
-                                            <button type="button" class="btn btn-sm btn-outline-warning"
-                                                data-bs-toggle="modal" data-bs-target="#reprogram-{{ $scheduleId }}"
-                                                title="Reprogramar">
-                                                <i class="bi bi-calendar2-event-fill"></i>
+                                            <button type="button" class="btn btn-warning btn-icon shadow-sm"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#reprogram-{{ $scheduleId }}"
+                                                data-bs-title="Reprogramar">
+                                                <i class="bi bi-calendar2-event"></i>
                                             </button>
-                                        @endif
 
-                                        {{-- ❌ Cancelar (abre modal) --}}
-                                        @if ($scheduleId)
-                                            <button type="button" class="btn btn-sm btn-outline-danger"
-                                                data-bs-toggle="modal" data-bs-target="#cancel-{{ $scheduleId }}"
-                                                title="Cancelar visita">
-                                                <i class="bi bi-x-octagon-fill"></i>
+                                            <button type="button" class="btn btn-danger btn-icon shadow-sm"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#cancel-{{ $scheduleId }}"
+                                                data-bs-title="Cancelar visita">
+                                                <i class="bi bi-x-octagon"></i>
                                             </button>
                                         @endif
                                     @endif
 
-                                    {{-- 📎 Excel (icono) --}}
+                                    {{-- 📎 Excel --}}
                                     @if ($canViewExcel)
-                                        <a href="{{ \Illuminate\Support\Facades\URL::temporarySignedRoute('sigac.visits.peoplelist.view', now()->addDays(7), [
-                                            'visit' => $visit->id,
-                                        ]) }}"
-                                            class="btn btn-sm btn-outline-secondary" target="_blank" rel="noopener"
-                                            title="Ver listado Excel">
-                                            <i class="bi bi-file-earmark-excel-fill"></i>
+                                        <a href="{{ \Illuminate\Support\Facades\URL::temporarySignedRoute('sigac.visits.peoplelist.view', now()->addDays(7), ['visit' => $visit->id]) }}"
+                                           class="btn btn-success btn-icon shadow-sm" target="_blank" rel="noopener"
+                                           data-bs-title="Ver listado Excel">
+                                            <i class="bi bi-file-earmark-excel"></i>
                                         </a>
                                     @else
-                                        <button class="btn btn-sm btn-outline-secondary" disabled title="Sin archivo">
-                                            <i class="bi bi-file-earmark-x-fill"></i>
+                                        <button class="btn btn-secondary btn-icon shadow-sm" disabled
+                                            data-bs-title="Sin archivo">
+                                            <i class="bi bi-file-earmark-x"></i>
                                         </button>
                                     @endif
-                                </td>
-                            </tr>
+                                </div>
+                            </td>
+                        </tr>
 
-                            {{-- 📄 Modal detalle --}}
+                        {{-- ====== Modales (empújalos a un stack para renderizarlos FUERA de la tabla) ====== --}}
+                        @push('modals')
+                            {{-- 📄 Modal Detalle --}}
                             <div class="modal fade" id="modal{{ $visit->id }}" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-lg modal-dialog-centered">
                                     <div class="modal-content">
@@ -192,9 +217,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-outline-secondary"
-                                                data-bs-dismiss="modal">
-                                                Cerrar
-                                            </button>
+                                                data-bs-dismiss="modal">Cerrar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -202,55 +225,49 @@
 
                             @if ($scheduleId)
                                 @php $sch = $lastSchedule; @endphp
-                                <div class="modal fade" id="reprogram-{{ $scheduleId }}" tabindex="-1"
-                                    aria-hidden="true">
+
+                                {{-- 🔄 Modal Reprogramar --}}
+                                <div class="modal fade" id="reprogram-{{ $scheduleId }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-lg modal-dialog-centered">
                                         <div class="modal-content">
-                                            <form method="POST"
-                                                action="{{ route('sigac.academic_coordination.visitschedule.update', $scheduleId) }}">
-                                                @csrf {{-- IMPORTANTE: sin @method('PUT') si tu ruta acepta POST --}}
+                                            <form method="POST" action="{{ route('sigac.academic_coordination.visitschedule.update', $scheduleId) }}">
+                                                @csrf
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">
-                                                        Reprogramar visita — Solicitud #{{ $visit->id }}
-                                                    </h5>
-                                                    <button type="button" class="btn-close"
-                                                        data-bs-dismiss="modal"></button>
+                                                    <h5 class="modal-title">Reprogramar visita — Solicitud #{{ $visit->id }}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
-
                                                 <div class="modal-body">
-                                                    {{-- Fecha y horas --}}
                                                     <div class="row g-3 mb-3">
                                                         <div class="col-12 col-md-4">
                                                             <label class="form-label">Día</label>
                                                             <input type="date" name="date" class="form-control"
-                                                                value="{{ $sch->date }}" required>
+                                                                   value="{{ $sch->date }}" required>
                                                         </div>
                                                         <div class="col-6 col-md-4">
                                                             <label class="form-label">Inicio</label>
                                                             <input type="time" name="start_time" class="form-control"
-                                                                value="{{ $sch->start_time }}" required>
+                                                                   value="{{ $sch->start_time }}" required>
                                                         </div>
                                                         <div class="col-6 col-md-4">
                                                             <label class="form-label">Fin</label>
                                                             <input type="time" name="end_time" class="form-control"
-                                                                value="{{ $sch->end_time }}" required>
+                                                                   value="{{ $sch->end_time }}" required>
                                                         </div>
                                                     </div>
 
-                                                    {{-- Actividad / Ambiente (opcional) --}}
                                                     <div class="row g-3 mb-3">
                                                         <div class="col-md-6">
                                                             <label class="form-label">Actividad (opcional)</label>
                                                             <input type="text" name="activity" class="form-control"
-                                                                value="{{ $sch->activity }}">
+                                                                   value="{{ $sch->activity }}">
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label class="form-label">Ambiente (opcional)</label>
                                                             <select name="environment_id" class="form-select">
                                                                 <option value="">(Asignar después)</option>
                                                                 @foreach ($environments ?? [] as $envId => $envName)
-                                                                    <option value="{{ $envId }}"
-                                                                        @selected($sch->environment_id == $envId)>{{ $envName }}
+                                                                    <option value="{{ $envId }}" @selected($sch->environment_id == $envId)>
+                                                                        {{ $envName }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
@@ -262,29 +279,22 @@
                                                         <textarea name="observations" rows="2" class="form-control">{{ $sch->observations }}</textarea>
                                                     </div>
 
-                                                    {{-- 🔁 Cambiar encargado (opcional) --}}
                                                     <div class="form-check form-switch mb-2">
                                                         <input class="form-check-input js-toggle-assign" type="checkbox"
-                                                            id="toggle-assign-{{ $scheduleId }}"
-                                                            data-schedule="{{ $scheduleId }}">
-                                                        <label class="form-check-label"
-                                                            for="toggle-assign-{{ $scheduleId }}">
+                                                               id="toggle-assign-{{ $scheduleId }}"
+                                                               data-schedule="{{ $scheduleId }}">
+                                                        <label class="form-check-label" for="toggle-assign-{{ $scheduleId }}">
                                                             Cambiar encargado
                                                         </label>
                                                     </div>
 
-                                                    {{-- Indicador para el backend --}}
-                                                    <input type="hidden" name="change_assignee"
-                                                        id="change-assignee-{{ $scheduleId }}" value="0">
+                                                    <input type="hidden" name="change_assignee" id="change-assignee-{{ $scheduleId }}" value="0">
 
-                                                    {{-- Bloque buscador de encargado (oculto y deshabilitado por defecto) --}}
-                                                    <div id="assign-box-{{ $scheduleId }}" class="border rounded p-3"
-                                                        style="display:none;">
+                                                    <div id="assign-box-{{ $scheduleId }}" class="border rounded p-3" style="display:none;">
                                                         <div class="row g-2 align-items-end">
                                                             <div class="col-md-3">
                                                                 <label class="form-label">Tipo</label>
-                                                                <select class="form-select js-staff-type"
-                                                                    data-schedule="{{ $scheduleId }}" disabled>
+                                                                <select class="form-select js-staff-type" data-schedule="{{ $scheduleId }}" disabled>
                                                                     <option value="all">Todos</option>
                                                                     <option value="employee">Planta</option>
                                                                     <option value="contractor">Contratista</option>
@@ -293,40 +303,28 @@
                                                             <div class="col-md-9">
                                                                 <label class="form-label">Buscar persona</label>
                                                                 <input type="text" class="form-control js-staff-search"
-                                                                    data-schedule="{{ $scheduleId }}"
-                                                                    placeholder="Nombre o apellido..." autocomplete="off"
-                                                                    disabled>
-                                                                <input type="hidden" name="person_in_charge_id"
-                                                                    id="personInChargeId-{{ $scheduleId }}" disabled>
-                                                                <div id="staffResults-{{ $scheduleId }}"
-                                                                    class="list-group mt-2"></div>
+                                                                       data-schedule="{{ $scheduleId }}"
+                                                                       placeholder="Nombre o apellido..." autocomplete="off" disabled>
+                                                                <input type="hidden" name="person_in_charge_id" id="personInChargeId-{{ $scheduleId }}" disabled>
+                                                                <div id="staffResults-{{ $scheduleId }}" class="list-group mt-2"></div>
                                                             </div>
                                                         </div>
 
-                                                        {{-- Correos del encargado nuevo --}}
-                                                        <input type="hidden" name="notification_email"
-                                                            id="notification_email-{{ $scheduleId }}" disabled>
+                                                        <input type="hidden" name="notification_email" id="notification_email-{{ $scheduleId }}" disabled>
 
-                                                        <div id="assigneeEmailsBox-{{ $scheduleId }}" class="mt-3"
-                                                            style="display:none;">
+                                                        <div id="assigneeEmailsBox-{{ $scheduleId }}" class="mt-3" style="display:none;">
                                                             <label class="form-label">Correo para notificaciones</label>
-                                                            <div id="assigneeEmails-{{ $scheduleId }}"
-                                                                class="list-group"></div>
-                                                            <small class="text-muted">Selecciona a qué correo se enviarán
-                                                                las notificaciones.</small>
+                                                            <div id="assigneeEmails-{{ $scheduleId }}" class="list-group"></div>
+                                                            <small class="text-muted">Selecciona a qué correo se enviarán las notificaciones.</small>
                                                         </div>
                                                     </div>
 
                                                     <div class="alert alert-info small mt-3 mb-0">
-                                                        Se notificará automáticamente al contacto, al encargado nuevo y al
-                                                        anterior si cambias el encargado,
-                                                        y a las partes en caso de reprogramación o cancelación.
+                                                        Se notificará al contacto y a los encargados si reprogramas o cambias el encargado.
                                                     </div>
                                                 </div>
-
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-outline-secondary"
-                                                        data-bs-dismiss="modal">Cerrar</button>
+                                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
                                                     <button type="submit" class="btn btn-warning">
                                                         <i class="bi bi-check2-circle"></i> Guardar
                                                     </button>
@@ -336,34 +334,25 @@
                                     </div>
                                 </div>
 
-                                {{-- ❌ Modal Cancelar (con motivo) --}}
-                                <div class="modal fade" id="cancel-{{ $scheduleId }}" tabindex="-1"
-                                    aria-hidden="true">
+                                {{-- ❌ Modal Cancelar --}}
+                                <div class="modal fade" id="cancel-{{ $scheduleId }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-md modal-dialog-centered">
                                         <div class="modal-content">
-                                            <form method="POST"
-                                                action="{{ route('sigac.academic_coordination.visitschedule.cancel', $scheduleId) }}">
+                                            <form method="POST" action="{{ route('sigac.academic_coordination.visitschedule.cancel', $scheduleId) }}">
                                                 @csrf
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">
-                                                        Cancelar visita — Solicitud #{{ $visit->id }}
-                                                    </h5>
-                                                    <button type="button" class="btn-close"
-                                                        data-bs-dismiss="modal"></button>
+                                                    <h5 class="modal-title">Cancelar visita — Solicitud #{{ $visit->id }}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <label class="form-label">Motivo (opcional)</label>
                                                     <textarea name="reason" rows="3" class="form-control" placeholder="Escribe el motivo..."></textarea>
                                                     <div class="alert alert-warning mt-3 mb-0">
-                                                        Esta acción marcará la solicitud como <strong>Cancelada</strong> y
-                                                        notificará a las partes.
+                                                        Esta acción marcará la solicitud como <strong>Cancelada</strong> y notificará a las partes.
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-outline-secondary"
-                                                        data-bs-dismiss="modal">
-                                                        Cerrar
-                                                    </button>
+                                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
                                                     <button type="submit" class="btn btn-danger">
                                                         <i class="bi bi-x-octagon-fill"></i> Confirmar
                                                     </button>
@@ -373,162 +362,213 @@
                                     </div>
                                 </div>
                             @endif
-                        @empty
-                            <tr>
-                                <td colspan="9" class="text-center">No hay solicitudes registradas.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+                        @endpush
+                    @empty
+                        <tr>
+                            <td colspan="9" class="text-center">No hay solicitudes registradas.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
+
+        {{-- Renderiza todos los modales aquí, FUERA de la tabla --}}
+        @stack('modals')
     </div>
+</div>
 @endsection
 
+@push('styles')
+<style>
+    /* Botón redondo con ícono */
+    .btn-icon {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 36px; height: 36px; border-radius: 50%;
+        transition: all .2s ease-in-out;
+    }
+    .btn-icon i { font-size: 1.1rem; }
+    .btn-icon:hover { transform: scale(1.08); box-shadow: 0 4px 8px rgba(0,0,0,.15); }
+
+    /* Si está cancelada, opacar acciones (menos “Ver”) */
+    .js-actions.is-cancelled { opacity: .6; }
+    .js-actions.is-cancelled .btn, .js-actions.is-cancelled a.btn { cursor: not-allowed !important; }
+    .js-actions.is-cancelled .btn.btn-light { cursor: pointer !important; opacity: 1; }
+</style>
+@endpush
+
 @push('scripts')
+{{-- (Opcional) Solo deja este bundle si tu layout NO incluye Bootstrap ya --}}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
 (function(){
-  // Rutas para AJAX
-  const SEARCH_URL = `{{ route('sigac.academic_coordination.visit.staff.search') }}`;
-  const EMAILS_URL = `{{ route('sigac.academic_coordination.people.emails', ['person' => 'PERSON_ID']) }}`;
+    // Rutas AJAX
+    const SEARCH_URL = `{{ route('sigac.academic_coordination.visit.staff.search') }}`;
+    const EMAILS_URL = `{{ route('sigac.academic_coordination.people.emails', ['person' => 'PERSON_ID']) }}`;
 
-  // Debounce genérico
-  const debounce = (fn, delay=250) => { let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), delay); }; };
+    // Tooltips: permite usar solo data-bs-title sin cambiar el toggle del modal
+    document.querySelectorAll('[data-bs-title]').forEach(el => new bootstrap.Tooltip(el));
 
-  // 1) Encender/apagar bloque de cambio de encargado
-  document.addEventListener('change', (e)=>{
-    if (!e.target.matches('.js-toggle-assign')) return;
-    const sched = e.target.dataset.schedule;
-    const on = e.target.checked;
+    // Debounce
+    const debounce = (fn, d=250) => { let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), d); } };
 
-    // hidden para backend
-    const flag = document.getElementById(`change-assignee-${sched}`);
-    if (flag) flag.value = on ? '1' : '0';
+    // Switch "Cambiar encargado"
+    document.addEventListener('change', (e) => {
+        if (!e.target.matches('.js-toggle-assign')) return;
+        const sched = e.target.dataset.schedule, on = e.target.checked;
+        const flag = document.getElementById(`change-assignee-${sched}`);
+        const box  = document.getElementById(`assign-box-${sched}`);
+        const type = document.querySelector(`.js-staff-type[data-schedule="${sched}"]`);
+        const input= document.querySelector(`.js-staff-search[data-schedule="${sched}"]`);
+        const pid  = document.getElementById(`personInChargeId-${sched}`);
+        const mail = document.getElementById(`notification_email-${sched}`);
 
-    const box   = document.getElementById(`assign-box-${sched}`);
-    const type  = document.querySelector(`.js-staff-type[data-schedule="${sched}"]`);
-    const input = document.querySelector(`.js-staff-search[data-schedule="${sched}"]`);
-    const pid   = document.getElementById(`personInChargeId-${sched}`);
-    const mail  = document.getElementById(`notification_email-${sched}`);
-
-    if (box)  box.style.display = on ? 'block' : 'none';
-    [type, input, pid, mail].forEach(el => { if (el) el.disabled = !on; });
-
-    if (!on) {
-      // Limpia selección si apagan el switch
-      if (input) input.value = '';
-      if (pid)   pid.value = '';
-      if (mail)  mail.value = '';
-      const list = document.getElementById(`staffResults-${sched}`);
-      if (list) list.innerHTML = '';
-      const boxEmails = document.getElementById(`assigneeEmailsBox-${sched}`);
-      const listEmails = document.getElementById(`assigneeEmails-${sched}`);
-      if (boxEmails) boxEmails.style.display = 'none';
-      if (listEmails) listEmails.innerHTML = '';
-    }
-  });
-
-  // 2) Búsqueda de personas
-  const doSearch = debounce((inputEl)=>{
-    const sched = inputEl.dataset.schedule;
-    const q     = (inputEl.value||'').trim();
-    const type  = document.querySelector(`.js-staff-type[data-schedule="${sched}"]`)?.value || 'all';
-    const list  = document.getElementById(`staffResults-${sched}`);
-    if (!list) return;
-    if (q.length < 2) { list.innerHTML = ''; return; }
-
-    fetch(`${SEARCH_URL}?q=${encodeURIComponent(q)}&type=${encodeURIComponent(type)}`)
-      .then(r=>r.json())
-      .then(items=>{
-        list.innerHTML = items.map(it=>`
-          <button type="button"
-                  class="list-group-item list-group-item-action d-flex justify-content-between align-items-center js-pick-person"
-                  data-schedule="${sched}" data-id="${it.person_id}" data-name="${it.name}" data-type="${it.type}">
-            <span>${it.name}</span>
-            <span class="badge ${it.type==='employee'?'bg-success':'bg-warning text-dark'}">
-              ${it.type==='employee'?'Planta':'Contratista'}
-            </span>
-          </button>`).join('');
-      }).catch(()=>{ list.innerHTML=''; });
-  });
-
-  document.addEventListener('input', (e)=>{
-    if (e.target.matches('.js-staff-search') && !e.target.disabled) doSearch(e.target);
-  });
-  document.addEventListener('change', (e)=>{
-    if (e.target.matches('.js-staff-type') && !e.target.disabled) {
-      const sched = e.target.dataset.schedule;
-      const input = document.querySelector(`.js-staff-search[data-schedule="${sched}"]`);
-      if (input) doSearch(input);
-    }
-  });
-
-  // 3) Elegir persona → set hidden + cargar correos
-  document.addEventListener('click', (e)=>{
-    const btn = e.target.closest('.js-pick-person'); if (!btn) return;
-    const sched = btn.dataset.schedule;
-    const id    = btn.dataset.id;
-    const name  = btn.dataset.name;
-    const label = btn.dataset.type==='employee' ? '(Planta)' : '(Contratista)';
-
-    const input = document.querySelector(`.js-staff-search[data-schedule="${sched}"]`);
-    const pid   = document.getElementById(`personInChargeId-${sched}`);
-    const list  = document.getElementById(`staffResults-${sched}`);
-
-    if (pid)   pid.value = id;
-    if (input) input.value = `${name} ${label}`;
-    if (list)  list.innerHTML = '';
-
-    loadEmails(sched, id);
-  });
-
-  function loadEmails(sched, personId){
-    const box  = document.getElementById(`assigneeEmailsBox-${sched}`);
-    const list = document.getElementById(`assigneeEmails-${sched}`);
-    const hid  = document.getElementById(`notification_email-${sched}`);
-    if (!box || !list || !hid) return;
-
-    list.innerHTML=''; box.style.display='none'; hid.value='';
-
-    fetch(EMAILS_URL.replace('PERSON_ID', personId))
-      .then(r=>r.json())
-      .then(arr=>{
-        if (!Array.isArray(arr) || arr.length===0) {
-          list.innerHTML = '<div class="text-muted">Esta persona no tiene correos registrados.</div>';
-          box.style.display='block';
-          return;
+        if (flag) flag.value = on ? '1' : '0';
+        if (box)  box.style.display = on ? 'block' : 'none';
+        [type, input, pid, mail].forEach(el => el && (el.disabled = !on));
+        if (!on) {
+            if (input) input.value = '';
+            if (pid)   pid.value = '';
+            if (mail)  mail.value = '';
+            const list = document.getElementById(`staffResults-${sched}`);
+            if (list) list.innerHTML = '';
+            const boxE = document.getElementById(`assigneeEmailsBox-${sched}`);
+            const listE= document.getElementById(`assigneeEmails-${sched}`);
+            if (boxE) boxE.style.display = 'none';
+            if (listE) listE.innerHTML = '';
         }
-        list.innerHTML = arr.map((it,idx)=>`
-          <label class="list-group-item d-flex align-items-center gap-2">
-            <input type="radio" name="assignee_email_choice_${sched}" value="${it.email}" ${idx===0?'checked':''}>
-            <span class="badge bg-secondary text-uppercase">${it.label.replace('_',' ')}</span>
-            <span>${it.email}</span>
-          </label>`).join('');
-        box.style.display='block';
-        const first = list.querySelector('input[type=radio]');
-        if (first) hid.value = first.value;
-        list.querySelectorAll('input[type=radio]').forEach(r=>{
-          r.addEventListener('change', ()=> hid.value = r.value);
-        });
-      })
-      .catch(()=>{
-        list.innerHTML = '<div class="text-danger">No se pudieron cargar los correos.</div>';
-        box.style.display='block';
-      });
-  }
+    });
 
-  // 4) Al abrir el modal, deja el switch apagado y todo deshabilitado
-  document.addEventListener('shown.bs.modal', (e)=>{
-    const id = e.target.id || '';
-    if (!id.startsWith('reprogram-')) return;
-    const sched = id.replace('reprogram-','');
+    // Buscar personas
+    const doSearch = debounce((inputEl) => {
+        const sched = inputEl.dataset.schedule;
+        const q = (inputEl.value || '').trim();
+        const type = document.querySelector(`.js-staff-type[data-schedule="${sched}"]`)?.value || 'all';
+        const list = document.getElementById(`staffResults-${sched}`);
+        if (!list) return;
+        if (q.length < 2) { list.innerHTML = ''; return; }
 
-    const toggle = document.getElementById(`toggle-assign-${sched}`);
-    if (toggle) {
-      toggle.checked = false;
-      toggle.dispatchEvent(new Event('change')); // fuerza estado inicial off
+        fetch(`${SEARCH_URL}?q=${encodeURIComponent(q)}&type=${encodeURIComponent(type)}`)
+            .then(r => r.json())
+            .then(items => {
+                list.innerHTML = items.map(it => `
+                    <button type="button"
+                        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center js-pick-person"
+                        data-schedule="${sched}" data-id="${it.person_id}" data-name="${it.name}" data-type="${it.type}">
+                        <span>${it.name}</span>
+                        <span class="badge ${it.type==='employee'?'bg-success':'bg-warning text-dark'}">
+                            ${it.type==='employee'?'Planta':'Contratista'}
+                        </span>
+                    </button>
+                `).join('');
+            }).catch(() => { list.innerHTML = ''; });
+    });
+
+    document.addEventListener('input', (e) => {
+        if (e.target.matches('.js-staff-search') && !e.target.disabled) doSearch(e.target);
+    });
+    document.addEventListener('change', (e) => {
+        if (e.target.matches('.js-staff-type') && !e.target.disabled) {
+            const sched = e.target.dataset.schedule;
+            const input = document.querySelector(`.js-staff-search[data-schedule="${sched}"]`);
+            if (input) doSearch(input);
+        }
+    });
+
+    // Elegir persona -> set hidden + correos
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.js-pick-person');
+        if (!btn) return;
+        const sched = btn.dataset.schedule, id = btn.dataset.id, name = btn.dataset.name;
+        const label = btn.dataset.type === 'employee' ? '(Planta)' : '(Contratista)';
+        const input = document.querySelector(`.js-staff-search[data-schedule="${sched}"]`);
+        const pid   = document.getElementById(`personInChargeId-${sched}`);
+        const list  = document.getElementById(`staffResults-${sched}`);
+        if (pid)   pid.value = id;
+        if (input) input.value = `${name} ${label}`;
+        if (list)  list.innerHTML = '';
+        loadEmails(sched, id);
+    });
+
+    function loadEmails(sched, personId) {
+        const box = document.getElementById(`assigneeEmailsBox-${sched}`);
+        const list= document.getElementById(`assigneeEmails-${sched}`);
+        const hid = document.getElementById(`notification_email-${sched}`);
+        if (!box || !list || !hid) return;
+
+        list.innerHTML = '';
+        box.style.display = 'none';
+        hid.value = '';
+        fetch(EMAILS_URL.replace('PERSON_ID', personId))
+            .then(r => r.json())
+            .then(arr => {
+                if (!Array.isArray(arr) || arr.length === 0) {
+                    list.innerHTML = '<div class="text-muted">Esta persona no tiene correos registrados.</div>';
+                    box.style.display = 'block';
+                    return;
+                }
+                list.innerHTML = arr.map((it, idx) => `
+                    <label class="list-group-item d-flex align-items-center gap-2">
+                        <input type="radio" name="assignee_email_choice_${sched}" value="${it.email}" ${idx===0?'checked':''}>
+                        <span class="badge bg-secondary text-uppercase">${it.label.replace('_',' ')}</span>
+                        <span>${it.email}</span>
+                    </label>
+                `).join('');
+                box.style.display = 'block';
+                const first = list.querySelector('input[type=radio]');
+                if (first) hid.value = first.value;
+                list.querySelectorAll('input[type=radio]').forEach(r => r.addEventListener('change', ()=> hid.value = r.value));
+            })
+            .catch(() => {
+                list.innerHTML = '<div class="text-danger">No se pudieron cargar los correos.</div>';
+                box.style.display = 'block';
+            });
     }
-  });
+
+    // BLOQUEO de acciones si la solicitud está Cancelada (deja solo “Ver”)
+    function disableActionsForRow(tr) {
+        const state = (tr.getAttribute('data-state') || '').trim().toLowerCase();
+        if (state !== 'cancelada') return;
+        const actionsBox = tr.querySelector('.js-actions');
+        if (!actionsBox) return;
+        actionsBox.classList.add('is-cancelled');
+
+        const visitId = tr.getAttribute('data-visit-id');
+        const isViewBtn = (el) =>
+            (el.matches(`button[data-bs-target="#modal${visitId}"]`) ||
+             (el.matches('.btn-light') && el.querySelector('.bi-eye')));
+
+        actionsBox.querySelectorAll('a, button, input, select, textarea').forEach(el => {
+            if (isViewBtn(el)) return; // deja “Ver”
+            if (el.tagName === 'A') {
+                el.classList.add('disabled'); el.style.pointerEvents = 'none';
+                el.setAttribute('aria-disabled', 'true'); el.title = 'Solicitud cancelada';
+            }
+            if (el.tagName === 'BUTTON') {
+                el.disabled = true; el.title = 'Solicitud cancelada';
+                el.removeAttribute('data-bs-toggle'); el.removeAttribute('data-bs-target');
+            }
+            if (['INPUT','SELECT','TEXTAREA'].includes(el.tagName)) el.disabled = true;
+        });
+
+        actionsBox.querySelectorAll('form').forEach(f => {
+            f.addEventListener('submit', (e)=>{ e.preventDefault(); e.stopPropagation(); }, {capture:true});
+            f.title = 'Solicitud cancelada';
+        });
+    }
+
+    document.querySelectorAll('tbody tr[data-state]').forEach(disableActionsForRow);
+
+    // Observar inyecciones dinámicas
+    const tbody = document.querySelector('table tbody');
+    if (tbody && 'MutationObserver' in window) {
+        const mo = new MutationObserver((muts) => {
+            muts.forEach(m => m.addedNodes.forEach(n => {
+                if (n.nodeType === 1 && n.matches('tr[data-state]')) disableActionsForRow(n);
+            }));
+        });
+        mo.observe(tbody, { childList: true });
+    }
 })();
 </script>
 @endpush

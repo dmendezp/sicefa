@@ -8,6 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Modules\SIGAC\Entities\VisitRequest;
 use Modules\SIGAC\Entities\VisitSchedule;
 
+// App\Mail\VisitUpdateMail.php
 class VisitUpdateMail extends Mailable
 {
     use Queueable, SerializesModels;
@@ -15,21 +16,24 @@ class VisitUpdateMail extends Mailable
     public VisitRequest $visitRequest;
     public VisitSchedule $visitSchedule;
     public array $changes;
-    public string $event;          // 'updated' | 'rescheduled' | 'canceled'
-    public array $summaryLines;    // frases legibles (opcional)
+    public string $event;
+    public array $summaryLines;
+    public ?string $publicUrl;   // 👈
 
     public function __construct(
         VisitRequest $visitRequest,
         VisitSchedule $visitSchedule,
         array $changes = [],
         string $event = 'updated',
-        array $summaryLines = []
+        array $summaryLines = [],
+        ?string $publicUrl = null   // 👈
     ) {
         $this->visitRequest  = $visitRequest->load(['company']);
         $this->visitSchedule = $visitSchedule->load(['environment','personInCharge']);
         $this->changes       = $changes;
         $this->event         = $event;
         $this->summaryLines  = $summaryLines;
+        $this->publicUrl     = $publicUrl; // 👈
     }
 
     public function build()
@@ -41,13 +45,14 @@ class VisitUpdateMail extends Mailable
         };
 
         return $this->subject($subject)
-            // 👇 Usa la vista del módulo con su namespace
             ->view('sigac::emails.visit_updated', [
-                'visitRequest'   => $this->visitRequest,
-                'visitSchedule'  => $this->visitSchedule,
-                'changes'        => $this->changes,
-                'event'          => $this->event,
-                'summaryLines'   => $this->summaryLines,
+                'visitRequest'  => $this->visitRequest,
+                'visitSchedule' => $this->visitSchedule,
+                'changes'       => $this->changes,
+                'event'         => $this->event,
+                'summaryLines'  => $this->summaryLines,
+                'publicUrl'     => $this->publicUrl, // 👈
             ]);
     }
 }
+

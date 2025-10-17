@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use App\Mail\VisitScheduledMail;
 use App\Mail\VisitUpdateMail;
-
+use Illuminate\Support\Facades\URL;
 
 
 
@@ -129,28 +129,31 @@ class VisitScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        $minDate = \Illuminate\Support\Carbon::today('America/Bogota')->addDays()->toDateString();
+        // 🗓️ Mínimo: desde hoy (Bogotá) + 1 día
+        $minDate = \Illuminate\Support\Carbon::today('America/Bogota')->addDay()->toDateString();
+
+        // ⏱️ Normaliza HH:MM:SS → HH:MM
         foreach (['start_time', 'end_time'] as $f) {
             $v = (string) $request->input($f, '');
-            // si llega "08:30:00", recorta a "08:30"
             if (preg_match('/^\d{2}:\d{2}:\d{2}$/', $v)) {
                 $request->merge([$f => substr($v, 0, 5)]);
             }
         }
 
+        // ✅ Validación
         $validated = $request->validate([
             'visit_request_id'     => 'required|exists:visit_requests,id',
             'person_in_charge_id'  => 'required|exists:people,id',
             'notification_email'   => 'nullable|email',
             'activity'             => 'required|string',
             'date'                 => ['required', 'date', 'after_or_equal:' . $minDate],
-            'start_time' => ['required', 'date_format:H:i'],
-            'end_time'   => ['required', 'date_format:H:i', 'after:start_time'],
+            'start_time'           => ['required', 'date_format:H:i'],
+            'end_time'             => ['required', 'date_format:H:i', 'after:start_time'],
             'environment_id'       => 'nullable|exists:environments,id',
             'observations'         => 'nullable|string',
         ]);
 
-        // 1️⃣ Crear programación
+        // 1) Crear programación
         $schedule = \Modules\SIGAC\Entities\VisitSchedule::create([
             'visit_request_id'     => $validated['visit_request_id'],
             'person_in_charge_id'  => $validated['person_in_charge_id'],
@@ -163,36 +166,36 @@ class VisitScheduleController extends Controller
             'observations'         => $validated['observations'] ?? null,
         ]);
 
-        // 2️⃣ Actualizar solicitud
+        // 2) Actualizar estado de la solicitud
         $visitRequest = \Modules\SIGAC\Entities\VisitRequest::findOrFail($validated['visit_request_id']);
         $visitRequest->state = 'Agendada';
         $visitRequest->save();
 
-        // 3️⃣ Determinar destinatario
-        $to = $schedule->notification_email;
-        if (!$to) {
-            $to = $this->bestEmailFromPerson($schedule->personInCharge);
-        }
-
+        // 3) Destinatario
+        $to = $schedule->notification_email ?: $this->bestEmailFromPerson($schedule->personInCharge);
         if (!$to) {
             return redirect()
                 ->route('sigac.academic_coordination.dashboard')
                 ->with('warning', 'Visita agendada, pero no se envió correo: el encargado no tiene email válido.');
         }
 
-        // 4️⃣ Enviar automáticamente
+        // 4) Enlace público firmado (expira fin del día de la visita)
+        $publicUrl = $this->buildPublicLink($schedule);
+
+        // 5) Enviar correo
         try {
-            Mail::to($to)->send(new VisitScheduledMail($visitRequest, $schedule));
+            \Mail::to($to)->send(new \App\Mail\VisitScheduledMail($visitRequest, $schedule, $publicUrl));
             return redirect()
-                ->route('sigac.academic_coordination.dashboard')
+                ->route('sigac.academic_coordination.visitschedule.calendar.general')
                 ->with('success', 'Visita agendada correctamente y correo enviado a ' . $to);
         } catch (\Throwable $e) {
-            \Log::error('Error enviando correo: ' . $e->getMessage(), ['to' => $to]);
+            \Log::error('Error enviando correo (store): ' . $e->getMessage(), ['to' => $to, 'schedule_id' => $schedule->id]);
             return redirect()
-                ->route('sigac.academic_coordination.dashboard')
+                ->route('sigac.academic_coordination.visitschedule.calendar.general')
                 ->with('error', 'Visita agendada, pero el correo no se envió. Detalle: ' . $e->getMessage());
         }
     }
+
 
 
     public function available_environments(Request $request)
@@ -274,6 +277,7 @@ class VisitScheduleController extends Controller
                 ->where('visit_request_id', $request->id)
                 ->get()
                 ->map(function ($v) {
+                    $rt = $this->runtimeStateForSchedule($v);
                     return [
                         'id'    => 'visit-' . $v->id,
                         'title' => $v->activity ?: 'Visita',
@@ -283,6 +287,9 @@ class VisitScheduleController extends Controller
                         'extendedProps' => [
                             'activity'         => $v->activity,
                             'environment_name' => $v->environment?->name,
+                            // 👇 nuevo
+                            'runtime_state'    => $rt['state'],
+                            'runtime_color'    => $rt['color'],
                         ],
                     ];
                 })
@@ -307,32 +314,22 @@ class VisitScheduleController extends Controller
      */
     public function eventsAll(Request $request)
     {
-        $from = $request->query('from'); // opcional
-        $to   = $request->query('to');   // opcional
-
-        $q = VisitSchedule::query()
-            ->with(['environment', 'visitRequest.company'])
-            ->when($from, fn($qq) => $qq->whereDate('date', '>=', $from))
-            ->when($to,   fn($qq) => $qq->whereDate('date', '<=', $to))
-            ->when($request->query('environment_id'), fn($qq, $envId) => $qq->where('environment_id', $envId))
-            ->when($request->query('company'), function ($qq, $companyName) {
-                $qq->whereHas('visitRequest.company', function ($c) use ($companyName) {
-                    $c->where('name', 'like', "%{$companyName}%");
-                });
-            })
-            ->orderBy('date');
+        // ... (tu query actual)
 
         $events = $q->get()->map(function ($v) {
-            $env = $v->environment?->name ?? 'Ambiente';
-            $comp = $v->visitRequest?->company?->name ?? 'Empresa';
+            $env   = $v->environment?->name ?? 'Ambiente';
+            $comp  = $v->visitRequest?->company?->name ?? 'Empresa';
             $title = trim(($v->activity ?: 'Visita') . ' — ' . $env);
+
+            // 👇 Estado runtime del schedule
+            $rt = $this->runtimeStateForSchedule($v);
 
             return [
                 'id'    => 'visit-' . $v->id,
                 'title' => $title,
                 'start' => $v->date . 'T' . $v->start_time,
                 'end'   => $v->date . 'T' . $v->end_time,
-                'color' => '#5b9bd5', // azul
+                'color' => '#5b9bd5',
                 'extendedProps' => [
                     'activity'          => $v->activity,
                     'environment_name'  => $env,
@@ -342,12 +339,16 @@ class VisitScheduleController extends Controller
                     'date'              => $v->date,
                     'start_time'        => $v->start_time,
                     'end_time'          => $v->end_time,
+                    // 👇 nuevo
+                    'runtime_state'     => $rt['state'],
+                    'runtime_color'     => $rt['color'],
                 ],
             ];
         });
 
         return response()->json($events);
     }
+
 
     public function downloadIcs(VisitSchedule $schedule)
     {
@@ -409,7 +410,7 @@ class VisitScheduleController extends Controller
     {
         $minDate = \Illuminate\Support\Carbon::today('America/Bogota')->toDateString();
 
-        // Normaliza HH:MM:SS → HH:MM
+        // ⏱️ Normaliza HH:MM:SS → HH:MM
         foreach (['start_time', 'end_time'] as $f) {
             $v = (string) $request->input($f, '');
             if (preg_match('/^\d{2}:\d{2}:\d{2}$/', $v)) {
@@ -417,6 +418,7 @@ class VisitScheduleController extends Controller
             }
         }
 
+        // ✅ Validación
         $validated = $request->validate([
             'date'                => ['sometimes', 'required', 'date', 'after_or_equal:' . $minDate],
             'start_time'          => ['sometimes', 'required', 'date_format:H:i'],
@@ -426,21 +428,20 @@ class VisitScheduleController extends Controller
             'notification_email'  => ['sometimes', 'nullable', 'email'],
             'activity'            => ['sometimes', 'nullable', 'string'],
             'observations'        => ['sometimes', 'nullable', 'string'],
-            'change_assignee'     => ['sometimes'] // viene del switch del modal
+            'change_assignee'     => ['sometimes'], // switch del modal
         ], [
             'date.after_or_equal' => "La fecha debe ser igual o posterior a $minDate.",
             'end_time.after'      => 'La hora de fin debe ser mayor que la hora de inicio.',
         ]);
 
-        // ----- CLONAR ANTES
+        // ----- Clonar "antes" para detectar cambios
         $before = $schedule->replicate(['id', 'created_at', 'updated_at']);
         $before->setRelation('environment',    $schedule->environment);
         $before->setRelation('personInCharge', $schedule->personInCharge);
         $before->setRelation('visitRequest',   $schedule->visitRequest);
 
-        // ----- APLICAR CAMBIOS (respeta el switch "Cambiar encargado")
+        // ----- Aplicar cambios (respetando switch "Cambiar encargado")
         $payload = $validated;
-
         $changeAssignee = $request->boolean('change_assignee', false);
         if (!$changeAssignee) {
             unset($payload['person_in_charge_id'], $payload['notification_email']);
@@ -449,11 +450,11 @@ class VisitScheduleController extends Controller
         $schedule->fill($payload);
         $schedule->save();
 
-        // ----- RECARGAR RELACIONES / ESTADO
+        // ----- Recargar relaciones / estado
         $schedule->load(['environment', 'personInCharge', 'visitRequest']);
         $schedule->visitRequest?->update(['state' => 'Agendada']);
 
-        // ----- DETECTAR CAMBIOS
+        // ----- Detectar cambios
         $changes = $this->changedFields($before, $schedule);
         if (empty($changes)) {
             return back()->with('info', 'No hubo cambios en la visita.');
@@ -462,9 +463,13 @@ class VisitScheduleController extends Controller
         $event        = (!empty($changes['_schedule_changed'])) ? 'rescheduled' : 'updated';
         $summaryLines = $this->humanizeChanges($changes);
 
-        // ----- DESTINATARIOS
+        // ----- Destinatarios
         $recipients = $this->recipientsForUpdate($before, $schedule);
 
+        // 🔗 Enlace público firmado
+        $publicUrl = $this->buildPublicLink($schedule);
+
+        // ----- Envío
         try {
             foreach ($recipients as $to) {
                 \Mail::to($to)->send(new \App\Mail\VisitUpdateMail(
@@ -472,7 +477,8 @@ class VisitScheduleController extends Controller
                     $schedule,
                     $changes,
                     $event,
-                    $summaryLines    // 👈 PASAMOS el resumen
+                    $summaryLines,
+                    $publicUrl // incluye el enlace en el correo
                 ));
             }
             return back()->with('success', 'Visita actualizada y notificaciones enviadas.');
@@ -489,27 +495,45 @@ class VisitScheduleController extends Controller
 
 
 
+
     /**
      * Cancela la visita y notifica.
      */
     public function cancel(VisitSchedule $schedule, Request $request)
     {
+        // ----- Clonar "antes" para detectar cambio de encargado y destinatarios previos
         $before = $schedule->replicate(['id', 'created_at', 'updated_at']);
         $before->setRelation('personInCharge', $schedule->personInCharge);
-        $before->setRelation('visitRequest', $schedule->visitRequest);
+        $before->setRelation('visitRequest',   $schedule->visitRequest);
 
+        // ----- Actualizar estado de la solicitud
         $schedule->visitRequest?->update(['state' => 'Cancelada']);
 
-        if ($reason = trim((string)$request->input('reason'))) {
+        // ----- Guardar motivo en observaciones (acumulando)
+        $reason = trim((string) $request->input('reason', ''));
+        if ($reason !== '') {
             $schedule->observations = trim(($schedule->observations ? $schedule->observations . "\n" : '') . 'Cancelada: ' . $reason);
-            $schedule->save();
+        }
+        $schedule->save();
+
+        // ----- Recargar relaciones
+        $schedule->load(['personInCharge', 'visitRequest', 'environment']);
+
+        // ----- Destinatarios (contacto, nuevo encargado y encargado anterior si cambió)
+        $recipients = $this->recipientsForUpdate($before, $schedule);
+        if (empty($recipients)) {
+            return back()->with('warning', 'La visita fue cancelada, pero no hay destinatarios con correo válido para notificar.');
         }
 
-        $schedule->load(['personInCharge', 'visitRequest']);
+        // ----- Resumen legible para el correo
+        $summaryLines = [
+            'La visita fue <strong>cancelada</strong>' . ($reason ? " (motivo: {$reason})" : '') . '.'
+        ];
 
-        $recipients   = $this->recipientsForUpdate($before, $schedule);
-        $summaryLines = ['La visita fue <strong>cancelada</strong>' . ($reason ? " (motivo: {$reason})" : '') . '.'];
+        // 🔗 Enlace público firmado (opcional: deja ver la ficha en estado Cancelada)
+        $publicUrl = $this->buildPublicLink($schedule);
 
+        // ----- Enviar correos
         try {
             foreach ($recipients as $to) {
                 \Mail::to($to)->send(new \App\Mail\VisitUpdateMail(
@@ -517,7 +541,8 @@ class VisitScheduleController extends Controller
                     $schedule,
                     ['canceled' => true],
                     'canceled',
-                    $summaryLines
+                    $summaryLines,
+                    $publicUrl // incluye el enlace en el correo
                 ));
             }
             return back()->with('success', 'Visita cancelada y notificaciones enviadas.');
@@ -529,6 +554,7 @@ class VisitScheduleController extends Controller
             return back()->with('warning', 'Visita cancelada, pero falló el envío de correos.');
         }
     }
+
 
     /**
      * Envía correos al contacto de la solicitud y al encargado asignado.
@@ -853,5 +879,90 @@ class VisitScheduleController extends Controller
             \Log::error('Error enviando invitación: ' . $e->getMessage(), ['schedule_id' => $schedule->id, 'to' => $to]);
             return back()->with('error', 'No se pudo enviar la invitación: ' . $e->getMessage());
         }
+    }
+    // En VisitScheduleController
+    public function publicView($scheduleId)
+{
+    \Log::info('publicView hit', ['scheduleId' => $scheduleId]);
+
+    $schedule = VisitSchedule::/*withTrashed()->*/  // ⬅️ quita withTrashed()
+        with(['visitRequest.company', 'environment', 'personInCharge'])
+        ->findOrFail($scheduleId);
+
+    if ($schedule->date && now('America/Bogota')->gt(\Illuminate\Support\Carbon::parse($schedule->date, 'America/Bogota')->endOfDay())) {
+        abort(403, 'Este enlace ya no está disponible.');
+    }
+
+    return view('sigac::visitschedule.invitation', [
+        'schedule'  => $schedule,
+        'visit'     => $schedule->visitRequest,
+        'titlePage' => 'Detalle de visita',
+        'titleView' => 'Detalle de visita',
+    ]);
+}
+
+    private function buildPublicLink(\Modules\SIGAC\Entities\VisitSchedule $schedule): string
+    {
+        $expiresAt = $schedule->date
+            ? Carbon::parse($schedule->date, 'America/Bogota')->endOfDay()
+            : now('America/Bogota')->addDays(3);
+
+        return URL::temporarySignedRoute('cefa.sigac.visit.public', $expiresAt, [
+            'schedule' => $schedule->id,
+        ]);
+    }
+    // === Helpers de estado runtime (no persisten en BD) ===
+
+    /**
+     * Estado calculado a partir del último agendamiento de una solicitud.
+     * Retorna ['state' => string, 'color' => bootstrapColor].
+     */
+    private function runtimeStateForVisit(VisitRequest $visit): array
+    {
+        // Respeta "Cancelada" guardada
+        if (strcasecmp((string)$visit->state, 'Cancelada') === 0) {
+            return ['state' => 'Cancelada', 'color' => 'danger'];
+        }
+
+        $last = VisitSchedule::where('visit_request_id', $visit->id)
+            ->orderByDesc('date')
+            ->orderByDesc('start_time')
+            ->first();
+
+        if (!$last) {
+            return ['state' => 'Sin agendar', 'color' => 'secondary'];
+        }
+
+        return $this->runtimeStateForSchedule($last);
+    }
+
+    /**
+     * Estado calculado para un único schedule.
+     * Retorna ['state' => string, 'color' => bootstrapColor].
+     */
+    private function runtimeStateForSchedule(VisitSchedule $s): array
+    {
+        $tz  = 'America/Bogota';
+        $now = \Illuminate\Support\Carbon::now($tz);
+        $day = \Illuminate\Support\Carbon::parse($s->date, $tz);
+        $ini = \Illuminate\Support\Carbon::parse("{$s->date} {$s->start_time}", $tz);
+        $fin = \Illuminate\Support\Carbon::parse("{$s->date} {$s->end_time}",   $tz);
+
+        // Hoy / En curso / Finalizada / Agendada
+        if ($now->lt($day->copy()->startOfDay())) {
+            return ['state' => 'Agendada', 'color' => 'primary'];
+        }
+
+        if ($now->isSameDay($day)) {
+            if ($now->lt($ini))                return ['state' => 'Hoy',       'color' => 'info'];
+            if ($now->betweenIncluded($ini, $fin)) return ['state' => 'En curso',  'color' => 'warning'];
+            if ($now->gt($fin))                return ['state' => 'Finalizada', 'color' => 'secondary'];
+        }
+
+        if ($now->gt($day->copy()->endOfDay())) {
+            return ['state' => 'Finalizada', 'color' => 'secondary'];
+        }
+
+        return ['state' => 'Agendada', 'color' => 'primary'];
     }
 }

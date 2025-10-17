@@ -137,10 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Si quieres link al calendario por-solicitud:
             @php $routeByReq = route('sigac.academic_coordination.visitschedule.calendar', ['request' => 999999]); @endphp
-            if (xp.request_id) {
-                const url = "{{ route('sigac.academic_coordination.visitschedule.calendar', ['request' => 'REQ_ID']) }}".replace('REQ_ID', xp.request_id);
-                reqEl.innerHTML = `<a href="${url}" class="btn btn-sm btn-outline-primary">Ver calendario de la solicitud ${req}</a>`;
-            }
+           
 
             new bootstrap.Modal(document.getElementById('visitDetailModal')).show();
         }

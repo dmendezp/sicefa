@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Environment;
 use Modules\SIGAC\Entities\VisitRequest; // <-- añade este use si faltaba
+//use Illuminate\Database\Eloquent\SoftDeletes;
 
 class VisitSchedule extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable, HasFactory;
+    //use SoftDeletes;
 
     protected $table = 'visit_schedules';
 
