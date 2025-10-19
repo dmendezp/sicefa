@@ -17,23 +17,22 @@ use Modules\SICA\Entities\WarehouseMovement;
 
 class RegisterLow extends Component
 {
-    public $puw; // Unidad productiva y bodega de la aplicación
-    public $products; // Productos (elementos) disponibles
+    public $puw;
+    public $products;
     public $inventory_id;
-    public Collection $selected_products; // Productos (elementos) seleccionados
+    public Collection $selected_products;
     public $inventory;
-    public $product_amount; // Cantidad del producto (elemento) seleccionado
-    public $observation; // Observación del movimiento
+    public $product_amount;
+    public $observation;
 
     public function __construct()
     {
-        $this->selected_products = collect(); // Inicializa la variable que contiene la información de los productos seleccionados
+        $this->selected_products = collect();
     }
 
-    // La siquiente función es ejecutada cuando el componente es llamado por primera vez
     public function mount()
     {
-        $this->defaultAction(); // Restablecer valores de todos los atributos y consultar productos disponibles para la venta
+        $this->defaultAction();
     }
 
     public function render()
@@ -41,11 +40,10 @@ class RegisterLow extends Component
         return view('cafeto::livewire.inventory.register-low');
     }
 
-    // Establecer bodega
     public function defaultAction()
     {
-        $this->reset(); // Vaciar los valores de todos los atributos para evitar irregularidades en los valores de estos
-        $this->puw = PUW::getAppPuw(); // Obtener unidad productiva y bodega relacionada
+        $this->reset();
+        $this->puw = PUW::getAppPuw();
         $this->products = Inventory::where('productive_unit_warehouse_id', $this->puw->id)
             ->join('elements', 'inventories.element_id', '=', 'elements.id')
             ->orderBy('elements.name', 'ASC')
@@ -54,7 +52,6 @@ class RegisterLow extends Component
             ->get();
     }
 
-    // Detectar cambio del select de unidad productiva de origen
     public function updatedInventoryId($value)
     {
         $this->reset('inventory', 'product_amount');
@@ -68,7 +65,6 @@ class RegisterLow extends Component
         }
     }
 
-    // Agregar producto a la sección de los productos seleccionado
     public function addProduct()
     {
         if ($this->product_amount <> 0) {
@@ -80,6 +76,7 @@ class RegisterLow extends Component
                         'inventory_id' => $product['inventory_id'],
                         'product_name' => $product['product_name'],
                         'product_lot_number' => $product['product_lot_number'],
+                        'product_inventory_code' => $product['product_inventory_code'],
                         'product_production_date' => $product['product_production_date'],
                         'product_expiration_date' => $product['product_expiration_date'],
                         'product_mark' => $product['product_mark'],
@@ -106,7 +103,7 @@ class RegisterLow extends Component
             }
         }
         $this->reset('inventory', 'product_amount', 'inventory_id');
-        $this->emit('input-product-amount', 0); // Actualizar cantidad máxima del producto y desactivarlo
+        $this->emit('input-product-amount', 0);
     }
 
     public function editProduct($product_index)
@@ -130,15 +127,10 @@ class RegisterLow extends Component
         $this->verifySelectedProduct();
         if ($this->selected_products->isNotEmpty()) {
             try {
-
                 DB::beginTransaction();
-
-                // Consultar tipo de movimiento para una venta
                 $error = 'TIPO DE MOVIMIENTO';
                 $current_datetime = now()->milliseconds(0);
                 $movement_type = MovementType::where('name', 'Baja')->firstOrFail();
-
-                // Registrar Movimiento
                 $error = 'MOVIMIENTO';
                 $movement = Movement::create([
                     'registration_date' => $current_datetime,
@@ -146,10 +138,8 @@ class RegisterLow extends Component
                     'voucher_number' => 0,
                     'state' => 'Aprobado',
                     'observation' => $this->observation,
-                    'price' => 0
+                    'price' => 0,
                 ]);
-
-                // Registrar detalles de movimiento y actualizar cantidades de inventario
                 $error = 'DETALLES DE MOVIMIENTO';
                 $movement_price = 0;
                 foreach ($this->selected_products as $product) {
@@ -157,59 +147,43 @@ class RegisterLow extends Component
                     $inventory->amount -= $product['product_amount'];
                     $inventory->state = ($inventory->amount > 0) ? 'Disponible' : 'No disponible';
                     $inventory->save();
-
                     MovementDetail::create([
                         'movement_id' => $movement->id,
                         'inventory_id' => $inventory->id,
                         'amount' => $product['product_amount'],
-                        'price' => $inventory->price
+                        'price' => $inventory->price,
                     ]);
-
                     $movement_price += $inventory->price * $product['product_amount'];
                 }
-
-                // Registrar responsables del movimiento
                 $error = 'RESPONSABLES DE MOVIMIENTO';
                 MovementResponsibility::create([
                     'person_id' => Auth::user()->person_id,
                     'movement_id' => $movement->id,
                     'role' => 'ENTREGA',
-                    'date' => $current_datetime
+                    'date' => $current_datetime,
                 ]);
-
-                // Registrar movimientos de bodega
                 $error = 'MOVIMIENTOS DE BODEGA';
                 WarehouseMovement::create([
                     'productive_unit_warehouse_id' => $this->puw->id,
                     'movement_id' => $movement->id,
-                    'role' => 'Entrega'
+                    'role' => 'Entrega',
                 ]);
-
-                // Actualizar el consecutivo del tipo de movimiento
                 $error = 'NÚMERO DE COMPROBANTE';
                 $movement_type->update(['consecutive' => $movement_type->consecutive + 1]);
                 $movement->update([
                     'voucher_number' => $movement_type->consecutive,
                     'price' => $movement_price,
                 ]);
-
-                DB::commit(); // Confirmar cambios realizados durante la transacción
-
-                // Transacción completada exitosamente
+                DB::commit();
                 $this->emit('message', 'success', 'Operación realizada', 'Baja de inventario registrada exitosamente');
-
-                // Obtener toda la información necesario para generar la orden de impresión
                 $final_movement = Movement::with('warehouse_movements.productive_unit_warehouse.warehouse', 'movement_details.inventory.element.measurement_unit', 'movement_responsibilities.person')->find($movement->id);
-                $this->emit('printTicket', $final_movement); // Enviar orden de impresión
-
-                $this->defaultAction(); // Refrescar totalmente los componentes
-            } catch (Exception $e) { // Capturar error durante la transacción
-                // Transacción rechazada
-                DB::rollBack(); // Devolver cambios realizados durante la transacción
-                $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la baja en ' . $error . '. Por favor intente nuevamente.', null);
+                $this->emit('printTicket', $final_movement);
+                $this->defaultAction();
+            } catch (Exception $e) {
+                DB::rollBack();
+                $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la baja en ' . $error . '. Por favor intente nuevamente.');
             }
         } else {
-            // Emitir mensaje de advertencia cuando el producto no esta seleccionado
             $this->emit('message', 'alert-warning', null, 'Es necesario agregar al menos un producto.');
         }
     }

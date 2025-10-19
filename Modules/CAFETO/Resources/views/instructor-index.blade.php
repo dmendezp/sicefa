@@ -2,172 +2,7 @@
 
 @push('head')
     <title>{{ __('cafeto::mainPage.TitlePage', [], app()->getLocale()) }}</title>
-    <style>
-        /* General section styling */
-        .section-hero {
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        .section-menu {
-            background: #fff;
-            padding: 40px 0;
-        }
-
-        /* Carousel improvements */
-        .slider {
-            background: #1a1a1a;
-        }
-        .slide--subheadline {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #f5e9dd;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-        }
-        .slide--headline {
-            font-size: 3rem;
-            font-weight: 800;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        .slide--bio {
-            font-size: 1.2rem;
-            color: #fff;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-        }
-        .slide-action .btn--custom {
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: 600;
-            border-radius: 25px;
-            background-color: #6b4e31;
-            color: #fff;
-            border: 2px solid #6b4e31;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .slide-action .btn--custom:hover {
-            background-color: #8b6f47;
-            border-color: #8b6f47;
-            transform: translateY(-2px);
-        }
-
-        /* Quote section */
-        .quote-section {
-            padding: 40px 0;
-            background: #e6d5b8;
-            text-align: center;
-            border-radius: 15px;
-            margin-bottom: 40px;
-        }
-        .quote-section .heading--subtitle {
-            font-size: 1.2rem;
-            color: #6b4e31;
-            text-transform: uppercase;
-        }
-        .quote-section .heading--title {
-            font-size: 2rem;
-            color: #4a3721;
-            margin: 10px 0;
-        }
-        .quote-section .heading--desc {
-            font-size: 1.1rem;
-            color: #6b4e31;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Product menu enhancements */
-        .dish-panel {
-            background: #f8f1e9;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            transition: transform 0.3s ease;
-        }
-        .dish-panel:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-        .dish--content {
-            padding: 20px;
-            text-align: left;
-        }
-        .dish--title {
-            font-size: 1.8rem;
-            color: #4a3721;
-            margin-bottom: 10px;
-        }
-        .dish--price {
-            font-size: 1.4rem;
-            color: #6b4e31;
-            font-weight: 600;
-        }
-        .dish--desc {
-            font-size: 1rem;
-            color: #6b4e31;
-            line-height: 1.5;
-        }
-        .dish--tag {
-            background: #d4a373;
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-        .dish--img img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        /* Divider section */
-        .section-divider3 {
-            padding: 60px 0;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{{ asset('modules/cafeto/images/index/26.webp') }}') no-repeat center/cover;
-        }
-        .heading--subtitle {
-            font-size: 1.2rem;
-            color: #f5e9dd;
-            text-transform: uppercase;
-        }
-        .heading--title {
-            font-size: 2.5rem;
-            color: #fff;
-            font-weight: 700;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .slide--headline {
-                font-size: 2rem;
-            }
-            .slide--subheadline {
-                font-size: 1.2rem;
-            }
-            .slide--bio {
-                font-size: 1rem;
-            }
-            .dish-panel {
-                flex-direction: column;
-            }
-            .dish--img img {
-                height: 150px;
-            }
-            .heading--title {
-                font-size: 2rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('modules/cafeto/css/instructor/index.css') }}">
 @endpush
 
 @section('content')
@@ -273,7 +108,7 @@
                         <!-- LAYER NR. 3 -->
                         <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="100"
                              data-width="none" data-height="none"
-                             data-frames='[{"delay":2000,"speed":2000,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                             data-frames='[{"delay.2000,"speed":2000,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
                              data-splitin="none" data-splitout="none" data-responsive_offset="on">
                             <div class="slide--bio text--center">
                                 {{ __('cafeto::mainPage.DescriptionS31', [], app()->getLocale()) }}<br>
@@ -467,7 +302,9 @@
                 message = messages.night;
             }
 
-            fraseDelDia.innerHTML = `
+            fraseDelDia
+
+.innerHTML = `
                 <p class="heading--subtitle">${message.greeting}</p>
                 <h2 class="heading--title mb-0">${message.quote}</h2>
                 <div class="divider--shape-4"></div>

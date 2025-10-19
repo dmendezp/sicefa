@@ -101,8 +101,7 @@
                 <div class="row">
                   <div class="col-md-8">
                     <ol>
-                      <li class="text-sm">Ingresar al link de elecciones 
- http://siscefa.com/evs/votar</li>
+                      <li class="text-sm">Ingresar al link de elecciones https://siscefa.com/evs/votar</li>
                       <li class="text-sm">Digitar su número de documento de identificación y código suministrado</li>
                       <li class="text-sm">Votar por el/la candidata  de su preferencia</li>
                       <li class="text-sm">Diligenciar el link de asistencia</li>
