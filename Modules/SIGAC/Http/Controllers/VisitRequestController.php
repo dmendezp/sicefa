@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Modules\SIGAC\Entities\VisitRequest;
 use Modules\SIGAC\Entities\Company;
 use Modules\SICA\Entities\Environment;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class VisitRequestController extends Controller
 {
@@ -66,7 +68,10 @@ class VisitRequestController extends Controller
             'response_date'         => 'nullable|date|after_or_equal:date_received',
             'response_method'       => 'nullable|string|max:120',
             'number_of_people'      => 'nullable|integer|min:1',
-            'people_list'           => 'nullable|file|mimes:xlsx,csv',
+
+            // 👇 ahora validamos el archivo pero lo guardaremos en disco público
+            'people_list'           => 'nullable|file|mimes:xlsx,csv|max:20480',
+
             'observations'          => 'nullable|string|max:2000',
             // Contacto directo
             'contact_name'          => 'required|string|max:120',
@@ -102,7 +107,6 @@ class VisitRequestController extends Controller
                 'address'       => $validated['company_address'] ?? null,
             ]
         );
-        // Actualiza datos si vinieron
         $company->nit           = $validated['company_nit']           ?? $company->nit;
         $company->contact_name  = $validated['company_contact_name']  ?? $company->contact_name;
         $company->contact_phone = $validated['company_contact_phone'] ?? $company->contact_phone;
@@ -116,7 +120,7 @@ class VisitRequestController extends Controller
         // Crear solicitud
         $visitRequest = new VisitRequest();
         $visitRequest->company_id       = $company->id;
-        $visitRequest->person_id        = $user->person->id ?? null; // ajusta si tu usuario podría no tener person
+        $visitRequest->person_id        = $user->person->id ?? null;
         $visitRequest->user_id          = $user->id;
 
         $visitRequest->date_received    = $validated['date_received'] ?? now()->toDateString();
@@ -125,15 +129,25 @@ class VisitRequestController extends Controller
         $visitRequest->state            = 'Sin agendar';
         $visitRequest->number_of_people = $validated['number_of_people'] ?? null;
 
+        // 🔵 Guarda el archivo en el DISCO PÚBLICO sigac_visit
         if ($request->hasFile('people_list')) {
-            $visitRequest->people_list_path = $request->file('people_list')->store('visit_people_lists');
+            $file = $request->file('people_list');
+
+            $dir  = 'visit_people_lists'; // quedará en public/modules/sigac/files/visit/visit_people_lists
+            $name = now('America/Bogota')->format('Ymd_His') . '_' . Str::random(16) . '.' .
+                strtolower($file->getClientOriginalExtension() ?: 'bin');
+
+            Storage::disk('sigac_visit')->putFileAs($dir, $file, $name);
+
+            // ruta relativa portable
+            $visitRequest->people_list_path = $dir . '/' . $name;
         }
 
         $visitRequest->contact_name     = $validated['contact_name'];
         $visitRequest->contact_phone    = $validated['contact_phone'];
         $visitRequest->contact_email    = $validated['contact_email'];
 
-        $visitRequest->type                  = $validated['type']; // visita | practica
+        $visitRequest->type                  = $validated['type'];
         $visitRequest->practice_requirements = $validated['type'] === 'practica'
             ? ($validated['practice_requirements'] ?? null)
             : null;
@@ -164,21 +178,24 @@ class VisitRequestController extends Controller
     public function application_update(Request $request)
     {
         $request->validate([
-            'id'                    => ['required','exists:visit_requests,id'],
-            'company_id'            => ['required','exists:companies,id'],
-            'date_received'         => ['nullable','date'],
-            'response_date'         => ['nullable','date','after_or_equal:date_received'],
-            'response_method'       => ['nullable','string','max:120'],
-            'state'                 => ['required','string','max:40'],
-            'number_of_people'      => ['nullable','integer','min:1'],
-            'people_list'           => ['nullable','file','mimes:xlsx,csv'],
-            'observations'          => ['nullable','string','max:2000'],
+            'id'                    => ['required', 'exists:visit_requests,id'],
+            'company_id'            => ['required', 'exists:companies,id'],
+            'date_received'         => ['nullable', 'date'],
+            'response_date'         => ['nullable', 'date', 'after_or_equal:date_received'],
+            'response_method'       => ['nullable', 'string', 'max:120'],
+            'state'                 => ['required', 'string', 'max:40'],
+            'number_of_people'      => ['nullable', 'integer', 'min:1'],
+
+            // 🚫 NO permitir modificar el archivo en UPDATE
+            'people_list'           => ['prohibited'],
+
+            'observations'          => ['nullable', 'string', 'max:2000'],
             // Nuevos
-            'contact_name'          => ['required','string','max:120'],
-            'contact_phone'         => ['required','string','max:30'],
-            'contact_email'         => ['required','email','max:160'],
-            'type'                  => ['required','in:visita,practica'],
-            'practice_requirements' => ['nullable','string','max:2000'],
+            'contact_name'          => ['required', 'string', 'max:120'],
+            'contact_phone'         => ['required', 'string', 'max:30'],
+            'contact_email'         => ['required', 'email', 'max:160'],
+            'type'                  => ['required', 'in:visita,practica'],
+            'practice_requirements' => ['nullable', 'string', 'max:2000'],
         ]);
 
         $vr = VisitRequest::findOrFail($request->id);
@@ -196,9 +213,7 @@ class VisitRequestController extends Controller
         $vr->state            = $request->state ?? $vr->state;
         $vr->number_of_people = $request->number_of_people ?? $vr->number_of_people;
 
-        if ($request->hasFile('people_list')) {
-            $vr->people_list_path = $request->file('people_list')->store('visit_people_lists');
-        }
+        // 🚫 NO tocar $vr->people_list_path (queda el que se creó)
 
         $vr->contact_name     = $request->contact_name;
         $vr->contact_phone    = $request->contact_phone;

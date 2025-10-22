@@ -135,7 +135,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-handshake"></i>
                                 <p>
-                                    Visitas
+                                    {{ trans('sigac::general.Visits') }}
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -145,7 +145,7 @@
                                         <a href="{{route('sigac.academic_coordination.visitrequest.index') }}"
                                             class="nav-link {{ Route::is('sigac.academic_coordination.visitrequest.*') ? 'active' : '' }}">
                                             <i class="nav-icon fas fa-list"></i>
-                                            <p>Solicitudes</p>
+                                            <p>{{ trans('sigac::general.Requests') }}</p>
                                         </a>
                                     </li>
                                 @endif
@@ -154,7 +154,7 @@
                                         <a href="{{route('sigac.academic_coordination.visitrequest.create') }}"
                                             class="nav-link {{ Route::is('sigac.academic_coordination.visitrequest.*') ? 'active' : '' }}">
                                             <i class="nav-icon fas fa-list"></i>
-                                            <p>Crear</p>
+                                            <p>{{ trans('sigac::general.Create_Request') }}</p>
                                         </a>
                                     </li>
                                 @endif
@@ -163,7 +163,7 @@
                                         <a href="{{route('sigac.academic_coordination.visitschedule.calendar.general') }}"
                                             class="nav-link {{ Route::is('sigac.academic_coordination.visitschedule.*') ? 'active' : '' }}">
                                             <i class="nav-icon fas fa-list"></i>
-                                            <p>Calendario</p>
+                                            <p>{{ trans('sigac::general.Calendar') }}</p>
                                         </a>
                                     </li>
                                 @endif

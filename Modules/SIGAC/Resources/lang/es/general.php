@@ -17,6 +17,10 @@ return [
     'Full Screen Mode'     => 'Modo Pantalla Completa',
 
     // Sidebar
+    'Visits'         => 'Visitas',
+    'Requests'       => 'Solicitudes',
+    'Create_Request' => 'Crear Solicitud',
+    'Calendar'       => 'Calendario',
     // Function - Sesion
     'Session'                 => 'Iniciar Sesión',
     'Back to SICEFA'          => 'Volver a SICEFA',

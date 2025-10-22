@@ -348,39 +348,6 @@ class VisitScheduleController extends Controller
 
         return response()->json($events);
     }
-
-
-    public function downloadIcs(VisitSchedule $schedule)
-    {
-        $visitRequest = VisitRequest::find($schedule->visit_request_id);
-
-        $summary = 'Visita - ' . optional($visitRequest->company)->name;
-        $description = "Actividad: {$schedule->activity}\n"
-            . "Encargado: " . optional($visitRequest->person)->first_name . "\n"
-            . "Observaciones: " . ($schedule->observations ?? '—');
-
-        $ics = IcsBuilder::singleEvent([
-            'uid'         => "visit-{$schedule->id}@sicefa.local",
-            'summary'     => $summary,
-            'description' => $description,
-            'location'    => optional($schedule->environment)->name ?? 'SENA',
-            'start'       => "{$schedule->date} {$schedule->start_time}",
-            'end'         => "{$schedule->date} {$schedule->end_time}",
-            'organizer'   => config('mail.from.address'),
-            'attendees'   => array_filter([
-                $visitRequest->contact_email ?? null,
-            ]),
-        ]);
-
-        $filename = "visita-{$schedule->id}.ics";
-
-        return new StreamedResponse(function () use ($ics) {
-            echo $ics;
-        }, 200, [
-            'Content-Type'        => 'text/calendar; charset=utf-8',
-            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
-        ]);
-    }
     public function notify(VisitRequest $visit)
     {
         $schedule = VisitSchedule::where('visit_request_id', $visit->id)
@@ -657,28 +624,22 @@ class VisitScheduleController extends Controller
 
     public function viewPeopleList(VisitRequest $visit)
     {
-        $excelPathRaw = (string) ($visit->people_list_path ?? '');
-        if ($excelPathRaw === '') {
-            return back()->with('error', 'No hay archivo asociado a esta solicitud.');
+        [$fullPath, $mime, $publicUrl] = $this->resolvePeopleList($visit);
+
+        if (!$fullPath) {
+            return back()->with('error', 'No se encontró el archivo asociado a esta solicitud.');
         }
 
-        // Normaliza separadores y elimina prefijo "storage/app/" si viene así guardado
-        $excelPath = str_replace('\\', '/', $excelPathRaw);
-        if (Str::startsWith($excelPath, ['storage/app/', '/storage/app/'])) {
-            $excelPath = Str::after($excelPath, 'storage/app/');
+        // Si tienes URL pública (disco nuevo), puedes redirigir para que el navegador lo abra directo.
+        // Si prefieres siempre "inline" vía PHP, comenta el redirect.
+        if ($publicUrl) {
+            return redirect()->away($publicUrl);
         }
 
-        if (!Storage::disk('local')->exists($excelPath)) {
-            return back()->with('error', 'El archivo no existe en el almacenamiento.');
-        }
-
-        $fullPath = storage_path('app/' . $excelPath);
-        $mime = mime_content_type($fullPath) ?: 'application/octet-stream';
-
-        // Servir inline (si el navegador no puede, propondrá descarga)
+        // Legacy / sin URL pública -> servir inline
         return response()->file($fullPath, [
             'Content-Type'        => $mime,
-            'Content-Disposition' => 'inline; filename="' . basename($excelPath) . '"',
+            'Content-Disposition' => 'inline; filename="' . basename($fullPath) . '"',
         ]);
     }
     private function bestEmailFromPerson(?Person $p): ?string
@@ -964,5 +925,57 @@ class VisitScheduleController extends Controller
         }
 
         return ['state' => 'Agendada', 'color' => 'primary'];
+    }
+    private function resolvePeopleList(VisitRequest $visit): array
+    {
+        $raw = trim((string) ($visit->people_list_path ?? ''));
+        if ($raw === '') {
+            return [null, null, null]; // fullPath, mime, publicUrl
+        }
+
+        // Normaliza separadores y limpia prefijos legacy "storage/app/"
+        $rel = str_replace('\\', '/', $raw);
+        if (\Illuminate\Support\Str::startsWith($rel, ['storage/app/', '/storage/app/'])) {
+            $rel = \Illuminate\Support\Str::after($rel, 'storage/app/');
+        }
+
+        // 1) Intento en el disco nuevo (sigac_visit -> public/modules/sigac/files/visit)
+        $disk = \Storage::disk('sigac_visit');
+        if ($disk->exists($rel)) {
+            $full = $disk->path($rel);
+            $mime = mime_content_type($full) ?: 'application/octet-stream';
+            $url  = $disk->url($rel);
+            return [$full, $mime, $url];
+        }
+
+        // 2) Fallback legacy (storage/app/…)
+        if (\Storage::disk('local')->exists($rel)) {
+            $full = storage_path('app/' . $rel);
+            $mime = mime_content_type($full) ?: 'application/octet-stream';
+            // No hay URL pública directa para legacy; se sirve por controlador
+            return [$full, $mime, null];
+        }
+
+        // 3) Último intento: por si guardaron la ruta absoluta ya normalizada
+        if (is_file($rel)) {
+            $mime = mime_content_type($rel) ?: 'application/octet-stream';
+            return [$rel, $mime, null];
+        }
+
+        return [null, null, null];
+    }
+    private function peopleListPublicUrl(?VisitRequest $visit): ?string
+    {
+        if (!$visit) return null;
+        $raw = trim((string) ($visit->people_list_path ?? ''));
+        if ($raw === '') return null;
+
+        $rel = str_replace('\\', '/', $raw);
+        if (\Illuminate\Support\Str::startsWith($rel, ['storage/app/', '/storage/app/'])) {
+            $rel = \Illuminate\Support\Str::after($rel, 'storage/app/');
+        }
+
+        $disk = \Storage::disk('sigac_visit');
+        return $disk->exists($rel) ? $disk->url($rel) : null;
     }
 }

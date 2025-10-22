@@ -14,8 +14,9 @@ class PermissionsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run(){
-    
+    public function run()
+    {
+
         // Definir arreglos de PERMISOS que van ser asignados a los ROLES
         $permissions_academic_coordination = []; // Permisos para Coordinación Académica
         $permissions_instructor = []; // Permisos para el Instructor
@@ -108,7 +109,7 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
-        
+
         // Exportar programas y cursos (Coordinación Académica)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.programs.export'], [ // Registro o actualización de permiso
             'name' => 'Exportar programas y cursos (Coordinación Académica)',
@@ -212,7 +213,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
 
-            
+
         // ACTIVIDADES EXTERNAS
 
         // Registrar actividad externa (Coordinación Académica)
@@ -513,7 +514,7 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
-        
+
         // Registrar trimestralizaciòn (Coordinación Académica)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.quarterlie.store'], [ // Registro o actualización de permiso
             'name' => 'Registrar trimestralizaciòn (Coordinación Académica)',
@@ -616,7 +617,7 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
-        
+
         // Consultar profesiones asignadas por programa (Coordinación Académica)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession.table'], [ // Registro o actualización de permiso
             'name' => 'Consultar profesiones asignadas por programa (Coordinación Académica)',
@@ -634,7 +635,7 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
-        
+
         // Asignar profesion a la competencia (Coordinación Académica)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.assign_learning_outcomes.competencie_profession_store'], [ // Registro o actualización de permiso
             'name' => 'Asignar profesion a la competencia (Coordinación Académica)',
@@ -652,7 +653,7 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
-        
+
 
         // COMPETENCIA POR CALSE DE AMBIENTE
 
@@ -684,7 +685,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
 
         // JUICIO EVALUATIVO
-        
+
         // Vista de juicio evaluativo (Coordinación Académica)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.curriculum_planning.evaluative_judgment.index'], [ // Registro o actualización de permiso
             'name' => 'Vista de juicio evaluativo (Coordinación Académica)',
@@ -730,7 +731,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
 
-        
+
 
         // INSTRUCTOR X PROFESION
 
@@ -780,7 +781,7 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
-        
+
         // Asociar resultado de aprendizaje al instructor (Coordinación Académica)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.human_talent.assign_learning_outcomes.store'], [ // Registro o actualización de permiso
             'name' => 'Asociar resultado de aprendizaje al instructor (Coordinación Académica)',
@@ -845,7 +846,7 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
- 
+
         // Reporte de instructores (Coordinación Académica)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.reports.instructors.index'], [ // Registro o actualización de permiso
             'name' => 'Reporte de instructores (Coordinación Académica)',
@@ -909,7 +910,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
-    
+
         // Formulario de solicitud de actividad externa
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.external_activities.external_activities_create'], [ // Registro o actualización de permiso
             'name' => 'Formulario de solicitud de actividad externa (Coordinación Académica)',
@@ -969,7 +970,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
-        
+
 
         //  ----------------------------------- ROL INSTRUCTOR ------------------------------------------
 
@@ -983,7 +984,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
 
         // ASISTENCIA
-        
+
         // Vista registro de asistencia (Instructor)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.attendances.attendance.index'], [ // Registro o actualización de permiso
             'name' => 'Vista registro de asistencia (Instructor)',
@@ -1001,7 +1002,7 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
-        
+
         // Vista solicitar programa (Instructor)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.programming.program_request.index'], [ // Registro o actualización de permiso
             'name' => 'Vista solicitar programa (Instructor)',
@@ -1019,7 +1020,7 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
-        
+
         // Consultar profesion del instructor (Instructor)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.programming.program_request.searchprofession'], [ // Registro o actualización de permiso
             'name' => 'Consultar profesion del instructor (Instructor)',
@@ -1329,7 +1330,7 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
-        
+
         // Cargar documentos para la solicitud del programa (Coordiandor Academico)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.program_request.document_store'], [ // Registro o actualización de permiso
             'name' => 'Cargar los documentos de la solicitud del programa (Coordiandor Academico)',
@@ -1380,58 +1381,182 @@ class PermissionsTableSeeder extends Seeder
         $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
 
         //VISITAS 
-        // Crear solicitud de visita (Cordinacion_Academica)
-        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visitrequest.create'], [
-            'name' => 'Crear solicitud de visita (Coordinación Académica)',
-            'description' => 'Permite a la coordinación académica registrar una solicitud de visita',
-            'description_english' => 'Create a visit request (Coordinación Académica)',
-            'app_id' => $app->id,
-        ]);
-        $permissions_academic_coordination[] = $permission->id;
+        // =====================
+        // VISIT REQUEST (Solicitudes)
+        // =====================
 
-        // Guardar solicitud de visita (Cordinacion_Academica)
-        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visitrequest.create'], [
-            'name' => 'Registrar solicitud de visita (Coordinación Académica)',
-            'description' => 'Permite a la coordinación académica guardar la solicitud de visita',
-            'description_english' => 'Store visit request (Coordinación Académica)',
-            'app_id' => $app->id,
-        ]);
-        $permissions_academic_coordination[] = $permission->id;
-        //Vista de solicitudes(Cordinacion_Academica)
+        // Ver listado de solicitudes (Coordinación Académica)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visitrequest.index'], [
             'name' => 'Ver solicitudes de visita (Coordinación Académica)',
-            'description' => 'Permite a la coordinación académica abrir el la vista de las solicitudes de visita hechas',
+            'description' => 'Permite a la coordinación académica ver el listado de solicitudes de visita',
             'description_english' => 'Show Visit Requests (Academic Coordination)',
             'app_id' => $app->id,
         ]);
         $permissions_academic_coordination[] = $permission->id;
 
-        // Crear agenda de visita (Coordinación Académica)
+        // Crear solicitud (abrir formulario) (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visitrequest.create'], [
+            'name' => 'Crear solicitud de visita (Coordinación Académica)',
+            'description' => 'Permite a la coordinación académica abrir el formulario de solicitud de visita',
+            'description_english' => 'Open create Visit Request form (Academic Coordination)',
+            'app_id' => $app->id,
+        ]);
+        $permissions_academic_coordination[] = $permission->id;
+
+        // Guardar solicitud (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visitrequest.store'], [
+            'name' => 'Registrar solicitud de visita (Coordinación Académica)',
+            'description' => 'Permite a la coordinación académica guardar la solicitud de visita',
+            'description_english' => 'Store Visit Request (Academic Coordination)',
+            'app_id' => $app->id,
+        ]);
+        $permissions_academic_coordination[] = $permission->id;
+
+        // Actualizar solicitud (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visitrequest.update'], [
+            'name' => 'Actualizar solicitud de visita (Coordinación Académica)',
+            'description' => 'Permite a la coordinación académica actualizar la solicitud de visita',
+            'description_english' => 'Update Visit Request (Academic Coordination)',
+            'app_id' => $app->id,
+        ]);
+        $permissions_academic_coordination[] = $permission->id;
+
+        // Notificar solicitud (envío de correos) (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visitrequest.notify'], [
+            'name' => 'Notificar solicitud de visita (Coordinación Académica)',
+            'description' => 'Permite enviar notificaciones relacionadas con la solicitud de visita',
+            'description_english' => 'Notify Visit Request (Academic Coordination)',
+            'app_id' => $app->id,
+        ]);
+        $permissions_academic_coordination[] = $permission->id;
+
+
+        // =====================
+        // VISIT SCHEDULE (Agendamiento)
+        // =====================
+
+        // Crear agenda (abrir formulario) (Coordinación Académica)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visitschedule.create'], [
             'name' => 'Agendar visita (Coordinación Académica)',
-            'description' => 'Permite a la coordinación académica abrir el formulario de agenda de visita',
-            'description_english' => 'Show schedule visit form (Academic Coordination)',
+            'description' => 'Permite abrir el formulario para agendar una visita',
+            'description_english' => 'Open schedule visit form (Academic Coordination)',
             'app_id' => $app->id,
         ]);
         $permissions_academic_coordination[] = $permission->id;
 
-        // Guardar agenda de visita (Coordinación Académica)
+        // Guardar agenda (Coordinación Académica)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visitschedule.store'], [
             'name' => 'Registrar agenda de visita (Coordinación Académica)',
-            'description' => 'Permite a la coordinación académica guardar la agenda de la visita',
-            'description_english' => 'Store visit schedule (Academic Coordination)',
+            'description' => 'Permite guardar la agenda de la visita',
+            'description_english' => 'Store Visit Schedule (Academic Coordination)',
             'app_id' => $app->id,
         ]);
         $permissions_academic_coordination[] = $permission->id;
 
-        // Guardar agenda de visita (Coordinación Académica)
+        // Ver calendario general (Coordinación Académica)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visitschedule.calendar.general'], [
-            'name' => 'Ver agenda de visita (Coordinación Académica)',
-            'description' => 'Permite a la coordinación académica Ver las agenda de la visitas',
-            'description_english' => 'See the training center visit schedule (Academic Coordination)',
+            'name' => 'Ver agenda general de visitas (Coordinación Académica)',
+            'description' => 'Permite ver el calendario general de visitas del centro',
+            'description_english' => 'View general visit schedule (Academic Coordination)',
             'app_id' => $app->id,
         ]);
         $permissions_academic_coordination[] = $permission->id;
+
+        // Ver eventos generales (feed) (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visitschedule.events.all'], [
+            'name' => 'Ver eventos generales de visitas (Coordinación Académica)',
+            'description' => 'Permite consultar el feed general de eventos de visitas',
+            'description_english' => 'View general visit events feed (Academic Coordination)',
+            'app_id' => $app->id,
+        ]);
+        $permissions_academic_coordination[] = $permission->id;
+
+        // Ver calendario por solicitud (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visitschedule.calendar'], [
+            'name' => 'Ver agenda por solicitud (Coordinación Académica)',
+            'description' => 'Permite ver el calendario vinculado a una solicitud específica',
+            'description_english' => 'View schedule by request (Academic Coordination)',
+            'app_id' => $app->id,
+        ]);
+        $permissions_academic_coordination[] = $permission->id;
+
+        // Ver eventos por solicitud (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visitschedule.events.byrequest'], [
+            'name' => 'Ver eventos por solicitud (Coordinación Académica)',
+            'description' => 'Permite ver los eventos vinculados a una solicitud específica',
+            'description_english' => 'View events by request (Academic Coordination)',
+            'app_id' => $app->id,
+        ]);
+        $permissions_academic_coordination[] = $permission->id;
+
+        // Actualizar agenda (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visitschedule.update'], [
+            'name' => 'Actualizar agenda de visita (Coordinación Académica)',
+            'description' => 'Permite actualizar la agenda de una visita',
+            'description_english' => 'Update Visit Schedule (Academic Coordination)',
+            'app_id' => $app->id,
+        ]);
+        $permissions_academic_coordination[] = $permission->id;
+
+        // Cancelar agenda (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visitschedule.cancel'], [
+            'name' => 'Cancelar agenda de visita (Coordinación Académica)',
+            'description' => 'Permite cancelar una agenda de visita',
+            'description_english' => 'Cancel Visit Schedule (Academic Coordination)',
+            'app_id' => $app->id,
+        ]);
+        $permissions_academic_coordination[] = $permission->id;
+
+        // Descargar ICS interno (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visitschedule.ics'], [
+            'name' => 'Descargar ICS de visita (Coordinación Académica)',
+            'description' => 'Permite descargar el archivo ICS de una visita (uso interno)',
+            'description_english' => 'Download visit ICS (Academic Coordination)',
+            'app_id' => $app->id,
+        ]);
+        $permissions_academic_coordination[] = $permission->id;
+
+
+        // =====================
+        // BÚSQUEDAS / DATOS SENSIBLES
+        // =====================
+
+        // Buscar ambientes disponibles (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visit.environments.search'], [
+            'name' => 'Buscar ambientes disponibles (Coordinación Académica)',
+            'description' => 'Permite consultar ambientes disponibles para agendar visitas',
+            'description_english' => 'Search available environments (Academic Coordination)',
+            'app_id' => $app->id,
+        ]);
+        $permissions_academic_coordination[] = $permission->id;
+
+        // Buscar personal (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visit.staff.search'], [
+            'name' => 'Buscar personal para la visita (Coordinación Académica)',
+            'description' => 'Permite buscar instructores/personas para asignación en la visita',
+            'description_english' => 'Search staff (Academic Coordination)',
+            'app_id' => $app->id,
+        ]);
+        $permissions_academic_coordination[] = $permission->id;
+
+        // Ver correos de una persona (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.people.emails'], [
+            'name' => 'Ver correos de una persona (Coordinación Académica)',
+            'description' => 'Permite ver los correos electrónicos asociados a una persona',
+            'description_english' => 'View person emails (Academic Coordination)',
+            'app_id' => $app->id,
+        ]);
+        $permissions_academic_coordination[] = $permission->id;
+
+        // Ver lista de personas de la visita (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.visits.peoplelist.view'], [
+            'name' => 'Ver lista de personas de la visita (Coordinación Académica)',
+            'description' => 'Permite ver la lista de personas asociadas a una visita',
+            'description_english' => 'View visit people list (Academic Coordination)',
+            'app_id' => $app->id,
+        ]);
+        $permissions_academic_coordination[] = $permission->id;
+
 
 
         // Consulta de ROLES

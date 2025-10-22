@@ -3,7 +3,7 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h2>Crear solicitud de visita</h2>
+        <h2>{{ trans('sigac::visits.title.create_request') }}</h2>
     </div>
 
     <div class="card-body">
@@ -16,7 +16,7 @@
 
         {{-- Empresa --}}
         <div class="mb-3">
-            {!! Form::label('company_name', 'Empresa o Institución') !!}
+            {!! Form::label('company_name', trans('sigac::visits.company.label')) !!}
             {!! Form::text('company_name', old('company_name'), [
                 'class' => 'form-control',
                 'list' => 'companies-list',
@@ -33,30 +33,30 @@
         {{-- Datos de contacto directo --}}
         <div class="row">
             <div class="col-md-4 mb-3">
-                {!! Form::label('contact_name', 'Nombre de contacto') !!}
+                {!! Form::label('contact_name', trans('sigac::visits.company.label')) !!}
                 {!! Form::text('contact_name', old('contact_name'), ['class'=>'form-control', 'required']) !!}
             </div>
             <div class="col-md-4 mb-3">
-                {!! Form::label('contact_phone', 'Teléfono') !!}
+                {!! Form::label('contact_phone', trans('sigac::visits.contact.phone')) !!}
                 {!! Form::text('contact_phone', old('contact_phone'), ['class'=>'form-control', 'required']) !!}
             </div>
             <div class="col-md-4 mb-3">
-                {!! Form::label('contact_email', 'Correo electrónico') !!}
+                {!! Form::label('contact_email', trans('sigac::visits.contact.email')) !!}
                 {!! Form::email('contact_email', old('contact_email'), ['class'=>'form-control', 'required']) !!}
             </div>
         </div>
 
         {{-- Tipo de solicitud --}}
         <div class="mb-3">
-            <label class="form-label d-block">Tipo de solicitud</label>
+            <label class="form-label d-block">{{ trans('sigac::visits.request.type.label') }}</label>
             <div class="btn-group">
                 <input type="radio" name="type" value="visita" id="type_visita" class="btn-check"
                        {{ old('type','visita') === 'visita' ? 'checked' : '' }}>
-                <label class="btn btn-outline-primary" for="type_visita">Visita</label>
+                <label class="btn btn-outline-primary" for="type_visita">{{ trans('sigac::visits.request.type.visit') }}</label>
 
                 <input type="radio" name="type" value="practica" id="type_practica" class="btn-check"
                        {{ old('type') === 'practica' ? 'checked' : '' }}>
-                <label class="btn btn-outline-primary" for="type_practica">Práctica</label>
+                <label class="btn btn-outline-primary" for="type_practica">{{ trans('sigac::visits.request.type.practice') }}</label>
             </div>
         </div>
 
@@ -74,11 +74,11 @@
         {{-- Datos adicionales --}}
         <div class="row">
             <div class="col-md-6 mb-3">
-                {!! Form::label('number_of_people', 'Cantidad de personas') !!}
+                {!! Form::label('number_of_people', trans('sigac::visits.people.count')) !!}
                 {!! Form::number('number_of_people', old('number_of_people'), ['class'=>'form-control', 'min'=>1]) !!}
             </div>
             <div class="col-md-6 mb-3">
-                {!! Form::label('people_list', 'Listado de personas (Excel)') !!}
+                {!! Form::label('people_list', trans('sigac::visits.people.list')) !!}
                 {!! Form::file('people_list', ['class' => 'form-control']) !!}
             </div>
         </div>
@@ -108,7 +108,7 @@
         </div>
 
         <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary">Enviar solicitud</button>
+            <button type="submit" class="btn btn-primary">{{ trans('sigac::visits.actions.submit') }}</button>
         </div>
 
         {!! Form::close() !!}
