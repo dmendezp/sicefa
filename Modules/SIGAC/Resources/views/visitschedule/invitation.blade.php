@@ -58,6 +58,25 @@
         </div>
       </div>
 
+      {{-- 🔗 Botón Ver Excel --}}
+      @if($visit->people_list_path)
+        <div class="mt-4 text-center">
+          <a href="{{ \Illuminate\Support\Facades\URL::temporarySignedRoute(
+              'sigac.academic_coordination.visits.peoplelist.preview',
+              now()->addDays(7),
+              ['visit' => $visit->id]
+          ) }}"
+          class="btn btn-success px-4 shadow-sm" target="_blank" rel="noopener">
+            <i class="bi bi-file-earmark-excel"></i> Ver listado Excel
+          </a>
+        </div>
+      @else
+        <div class="mt-4 text-center text-muted">
+          <i class="bi bi-file-earmark-x"></i> No hay listado Excel asociado a esta visita.
+        </div>
+      @endif
+
+      {{-- 🔙 Volver al sitio --}}
       <div class="mt-4 text-center">
         <a href="{{ route('sigac.academic_coordination.dashboard') }}" class="btn btn-outline-secondary">
           Ir al sitio SICEFA

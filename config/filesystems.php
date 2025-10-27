@@ -44,8 +44,9 @@ return [
         'sigac_visit' => [
             'driver'     => 'local',
             'root'       => public_path('modules/sigac/files/visit'),
-            'url'        => env('APP_URL') . '/modules/sigac/files/visit',
+            'url'        => NULL,
             'visibility' => 'public',
+            'throw'      => false,
         ],
 
         'uploads' => [

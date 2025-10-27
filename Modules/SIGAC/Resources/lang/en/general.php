@@ -21,6 +21,7 @@ return [
     'Requests'       => 'Requests',
     'Create_Request' => 'Create Request',
     'Calendar'       => 'Calendar',
+    'Application registered' => 'Application registered',
     // Sesion
     'Session'                 => 'Sign in',
     'Back to SICEFA'          => 'Back to SICEFA',

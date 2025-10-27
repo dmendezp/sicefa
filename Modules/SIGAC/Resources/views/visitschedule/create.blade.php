@@ -3,7 +3,7 @@
 @section('content')
 <div class="card">
   <div class="card-header">
-    <h2>Agendar visita (Solicitud #{{ $request->id }})</h2>
+    <h2>{{ trans('sigac::visits.title.schedule') }} ({{ trans('sigac::visits.modal.request') }} #{{ $request->id }})</h2>
   </div>
 
   <div class="card-body">
@@ -20,23 +20,27 @@
     <div class="row">
       {{-- Encargado (buscador unificado) --}}
       <div class="mb-3">
-        <label class="form-label">Encargado</label>
+        <label class="form-label">{{ trans('sigac::visits.schedule.in_charge') }}</label>
         <div class="row g-2">
           <div class="col-md-3">
             <select id="staffType" class="form-select">
-              <option value="all">Todos</option>
-              <option value="employee">Planta</option>
-              <option value="contractor">Contratista</option>
+              <option value="all">{{ trans('sigac::visits.schedule.type.all') }}</option>
+              <option value="employee">{{ trans('sigac::visits.schedule.type.employee') }}</option>
+              <option value="contractor">{{ trans('sigac::visits.schedule.type.contractor') }}</option>
             </select>
           </div>
           <div class="col-md-9">
-            <input type="text" id="staffSearch" class="form-control"
-                   placeholder="Buscar por nombre o apellido..." autocomplete="off">
+            <input
+              type="text"
+              id="staffSearch"
+              class="form-control"
+              placeholder="{{ trans('sigac::visits.schedule.search_placeholder') }}"
+              autocomplete="off">
             <input type="hidden" name="person_in_charge_id" id="personInChargeId">
             <div id="staffResults" class="list-group mt-2"></div>
           </div>
         </div>
-        <div class="form-text">Escribe al menos 2 caracteres y selecciona una persona.</div>
+        <div class="form-text">{{ trans('sigac::visits.schedule.search_hint') }}</div>
       </div>
 
       {{-- correo elegido para notificación --}}
@@ -44,13 +48,13 @@
 
       {{-- Correos del encargado (visibles al elegir) --}}
       <div id="assigneeEmailsBox" class="mt-2" style="display:none;">
-        <label class="form-label">Correo para notificaciones</label>
+        <label class="form-label">{{ trans('sigac::visits.schedule.email_label') }}</label>
         <div id="assigneeEmails" class="list-group"></div>
-        <small class="text-muted">Selecciona a qué correo se enviarán las notificaciones.</small>
+        <small class="text-muted">{{ trans('sigac::visits.schedule.email_hint') }}</small>
       </div>
 
       <div class="col-6 mb-3">
-        {!! Form::label('activity', 'Actividad a realizar') !!}
+        {!! Form::label('activity', trans('sigac::visits.schedule.activity')) !!}
         {!! Form::text('activity', null, [
             'class' => 'form-control',
             'list' => 'activities',
@@ -67,42 +71,44 @@
 
     <div class="row">
       <div class="col-4 mb-3">
-        {!! Form::label('date', 'Día') !!}
+        {!! Form::label('date', trans('sigac::visits.schedule.day')) !!}
         {!! Form::date('date', null, ['class' => 'form-control', 'id' => 'date', 'required']) !!}
       </div>
       <div class="col-4 mb-3">
-        {!! Form::label('start_time', 'Hora de inicio') !!}
+        {!! Form::label('start_time', trans('sigac::visits.schedule.start_time')) !!}
         {!! Form::time('start_time', null, ['class' => 'form-control', 'id' => 'start_time', 'required']) !!}
       </div>
       <div class="col-4 mb-3">
-        {!! Form::label('end_time', 'Hora de fin') !!}
+        {!! Form::label('end_time', trans('sigac::visits.schedule.end_time')) !!}
         {!! Form::time('end_time', null, ['class' => 'form-control', 'id' => 'end_time', 'required']) !!}
       </div>
     </div>
 
     {{-- Ambiente (opcional) --}}
     <div class="form-group mb-2">
-      {!! Form::label('environment_id', 'Ambiente (opcional)') !!}
+      {!! Form::label('environment_id', trans('sigac::visits.schedule.environment_label')) !!}
       {!! Form::select('environment_id', [], null, [
           'class' => 'form-control',
           'id' => 'environment_id',
-          'placeholder' => 'Seleccione fecha y horas para cargar ambientes...',
+          'placeholder' => trans('sigac::visits.schedule.environment_placeholder'),
           'disabled' => true,
       ]) !!}
       <div class="form-check mt-2">
         <input class="form-check-input" type="checkbox" id="no_env" checked>
-        <label class="form-check-label" for="no_env">No asignar ambiente por ahora</label>
+        <label class="form-check-label" for="no_env">{{ trans('sigac::visits.schedule.no_environment_label') }}</label>
       </div>
       <small id="env-helper" class="form-text text-muted"></small>
     </div>
 
     <div class="mb-3">
-      {!! Form::label('observations', 'Observaciones') !!}
+      {!! Form::label('observations', trans('sigac::visits.schedule.observations')) !!}
       {!! Form::textarea('observations', null, ['class' => 'form-control', 'rows' => 3]) !!}
     </div>
 
     <div class="d-flex justify-content-end">
-      <button id="submitBtn" type="submit" class="btn btn-primary" disabled>Agendar</button>
+      <button id="submitBtn" type="submit" class="btn btn-primary" disabled>
+        {{ trans('sigac::visits.schedule.button.submit') }}
+      </button>
     </div>
 
     {!! Form::close() !!}
@@ -110,6 +116,20 @@
 </div>
 
 <script>
+/* ========== Mensajes traducidos para JS (no hardcodear textos) ========== */
+const MSG = {
+  no_emails: @json(trans('sigac::visits.people.no_emails')),
+  emails_error: @json(trans('sigac::visits.people.emails_error')),
+  assign_later: @json(trans('sigac::visits.common.assign_later')),
+  env_assign_later_hint: @json(trans('sigac::visits.schedule.env_assign_later_hint')),
+  env_select_prompt: @json(trans('sigac::visits.schedule.env_select_prompt')),
+  env_loading: @json(trans('sigac::visits.schedule.env_loading')),
+  env_range_invalid: @json(trans('sigac::visits.schedule.env_range_invalid')),
+  env_none_available: @json(trans('sigac::visits.schedule.env_none_available')),
+  env_loaded_ok: @json(trans('sigac::visits.schedule.env_loaded_ok')),
+  env_loaded_empty: @json(trans('sigac::visits.schedule.env_loaded_empty')),
+};
+
 /* ===================== Buscador Encargado + Correos ===================== */
 (function() {
   const search   = document.getElementById('staffSearch');
@@ -137,7 +157,7 @@
                   data-id="${it.person_id}" data-name="${it.name}" data-type="${it.type}">
             <span>${it.name}</span>
             <span class="badge ${it.type==='employee'?'bg-success':'bg-warning text-dark'}">
-              ${it.type==='employee'?'Planta':'Contratista'}
+              ${it.type==='employee' ? @json(trans('sigac::visits.people.types.employee')) : @json(trans('sigac::visits.people.types.contractor'))}
             </span>
           </button>
         `).join('');
@@ -154,11 +174,14 @@
     if (!btn) return;
 
     hiddenId.value = btn.dataset.id;
-    search.value = `${btn.dataset.name} ${btn.dataset.type==='employee'?'(Planta)':'(Contratista)'}`;
+    const label = btn.dataset.type === 'employee'
+      ? @json('(' . trans('sigac::visits.people.types.employee') . ')')
+      : @json('(' . trans('sigac::visits.people.types.contractor') . ')');
+    search.value = `${btn.dataset.name} ${label}`;
     results.innerHTML = '';
 
     loadPersonEmails(hiddenId.value);
-    validateReady(); // habilita submit si cumple condiciones
+    validateReady();
   });
 
   function loadPersonEmails(personId) {
@@ -170,7 +193,7 @@
       .then(r => r.json())
       .then(list => {
         if (!Array.isArray(list) || list.length === 0) {
-          emailsDiv.innerHTML = '<div class="text-muted">Esta persona no tiene correos registrados.</div>';
+          emailsDiv.innerHTML = `<div class="text-muted">${MSG.no_emails}</div>`;
           emailsBox.style.display = 'block';
           return;
         }
@@ -178,7 +201,7 @@
         emailsDiv.innerHTML = list.map((it, idx) => `
           <label class="list-group-item d-flex align-items-center gap-2">
             <input type="radio" name="assignee_email_choice" value="${it.email}" ${idx===0 ? 'checked' : ''}>
-            <span class="badge bg-secondary text-uppercase">${it.label.replace('_',' ')}</span>
+            <span class="badge bg-secondary text-uppercase">${(it.label || '').replace('_',' ')}</span>
             <span>${it.email}</span>
           </label>
         `).join('');
@@ -194,7 +217,7 @@
         });
       })
       .catch(() => {
-        emailsDiv.innerHTML = '<div class="text-danger">No se pudieron cargar los correos.</div>';
+        emailsDiv.innerHTML = `<div class="text-danger">${MSG.emails_error}</div>`;
         emailsBox.style.display = 'block';
       });
   }
@@ -225,7 +248,7 @@
     const baseOk = activity.value.trim()
       && date.value && startTime.value && endTime.value
       && (startTime.value < endTime.value)
-      && personId.value; // ¡Debe haber encargado!
+      && personId.value; // Debe haber encargado
     const envOk = noEnvCB.checked ? true : (envSelect.value !== undefined);
 
     submitBtn.disabled = !(baseOk && envOk);
@@ -235,10 +258,10 @@
     if (noEnvCB.checked) {
       envSelect.value = '';
       envSelect.setAttribute('disabled', 'disabled');
-      helper.textContent = 'El ambiente se puede asignar después.';
+      helper.textContent = MSG.env_assign_later_hint;
     } else {
       envSelect.removeAttribute('disabled');
-      helper.textContent = 'Seleccione un ambiente disponible (o marque "No asignar" para omitir).';
+      helper.textContent = MSG.env_select_prompt;
       if (date.value && startTime.value && endTime.value && startTime.value < endTime.value) {
         fetchEnvironments();
       }
@@ -250,10 +273,10 @@
     envSelect.innerHTML = '';
     const optNone = document.createElement('option');
     optNone.value = '';
-    optNone.textContent = '(Asignar después)';
+    optNone.textContent = MSG.assign_later;
     envSelect.appendChild(optNone);
     if (!noEnvCB.checked) envSelect.disabled = false;
-    helper.textContent = (msg || 'No hay ambientes disponibles para el rango seleccionado.') + ' También puedes dejar "(Asignar después)".';
+    helper.textContent = (msg || MSG.env_none_available) + ' ' + MSG.env_assign_later_hint;
     validateReady();
   }
 
@@ -261,12 +284,12 @@
     if (noEnvCB.checked) { validateReady(); return; }
 
     const d = date.value, s = startTime.value, e = endTime.value;
-    if (!d || !s || !e) { setEmpty('Seleccione fecha y horas para consultar.'); return; }
-    if (s >= e)         { setEmpty('La hora de inicio debe ser menor a la hora de fin.'); return; }
+    if (!d || !s || !e) { setEmpty(MSG.env_select_prompt); return; }
+    if (s >= e)         { setEmpty(MSG.env_range_invalid); return; }
 
     envSelect.innerHTML = '';
     envSelect.disabled  = true;
-    helper.textContent  = 'Cargando ambientes disponibles...';
+    helper.textContent  = MSG.env_loading;
 
     try {
       const res = await fetch(url, {
@@ -274,14 +297,14 @@
         headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': token },
         body: JSON.stringify({ date: d, start_time: s, end_time: e })
       });
-      if (!res.ok) throw new Error('Error de servidor ' + res.status);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
 
       const data = await res.json(); // [{id,name}]
       envSelect.innerHTML = '';
 
       const optNone = document.createElement('option');
       optNone.value = '';
-      optNone.textContent = '(Asignar después)';
+      optNone.textContent = MSG.assign_later;
       envSelect.appendChild(optNone);
 
       if (Array.isArray(data) && data.length) {
@@ -291,14 +314,14 @@
           envSelect.appendChild(opt);
         });
         envSelect.disabled = false;
-        helper.textContent = 'Ambientes libres para la fecha y rango. También puedes dejar "(Asignar después)".';
+        helper.textContent = MSG.env_loaded_ok;
       } else {
         envSelect.disabled = false;
-        helper.textContent = 'No hay ambientes libres. Puedes dejar "(Asignar después)".';
+        helper.textContent = MSG.env_loaded_empty;
       }
     } catch (err) {
       console.error(err);
-      setEmpty('No se pudieron cargar los ambientes. Puedes dejar "(Asignar después)".');
+      setEmpty(MSG.env_loaded_empty);
     } finally {
       validateReady();
     }

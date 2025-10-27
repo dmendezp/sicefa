@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Mail\VisitScheduledMail;
 use App\Mail\VisitUpdateMail;
 use Illuminate\Support\Facades\URL;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 
 
 
@@ -298,8 +300,7 @@ class VisitScheduleController extends Controller
 
     public function calendarAll()
     {
-        // Vista del calendario general (centrado en hoy)
-        $initialDate = now()->toDateString();
+        $initialDate = now('America/Bogota')->toDateString();
 
         return view('sigac::visitschedule.calendar_all', [
             'initialDate' => $initialDate,
@@ -308,38 +309,71 @@ class VisitScheduleController extends Controller
         ]);
     }
 
+
     /**
      * Feed de eventos para FullCalendar (todas las visitas).
      * Soporta filtros opcionales por ?from=YYYY-MM-DD&to=YYYY-MM-DD&environment_id=&company=
      */
     public function eventsAll(Request $request)
     {
-        // ... (tu query actual)
+        // Filtros opcionales ?from=YYYY-MM-DD&to=YYYY-MM-DD&environment_id=ID&company=texto
+        $from          = trim((string) $request->query('from', ''));
+        $to            = trim((string) $request->query('to', ''));
+        $environmentId = $request->query('environment_id'); // null|int
+        $companyLike   = trim((string) $request->query('company', ''));
+
+        $q = \Modules\SIGAC\Entities\VisitSchedule::query()
+            ->with([
+                'environment:id,name',
+                'visitRequest.company:id,name',
+            ]);
+
+        if ($from !== '') {
+            $q->whereDate('date', '>=', $from);
+        }
+        if ($to !== '') {
+            $q->whereDate('date', '<=', $to);
+        }
+        if (!empty($environmentId)) {
+            $q->where('environment_id', (int) $environmentId);
+        }
+        if ($companyLike !== '') {
+            $needle = '%' . str_replace(' ', '%', $companyLike) . '%';
+            $q->whereHas('visitRequest.company', function ($w) use ($needle) {
+                $w->where('name', 'like', $needle);
+            });
+        }
+
+        // Orden sano para calendario
+        $q->orderBy('date')->orderBy('start_time');
 
         $events = $q->get()->map(function ($v) {
-            $env   = $v->environment?->name ?? 'Ambiente';
-            $comp  = $v->visitRequest?->company?->name ?? 'Empresa';
-            $title = trim(($v->activity ?: 'Visita') . ' — ' . $env);
+            // Texto mostrado en el calendario
+            $envName  = $v->environment?->name ?? 'Ambiente';
+            $title    = trim(($v->activity ?: 'Visita') . ' — ' . $envName);
 
-            // 👇 Estado runtime del schedule
-            $rt = $this->runtimeStateForSchedule($v);
+            // Empresa (extended)
+            $company  = $v->visitRequest?->company?->name ?? 'Empresa';
+
+            // Estado calculado runtime (usa tu helper ya existente)
+            $rt = $this->runtimeStateForSchedule($v); // ['state' => ..., 'color' => bootstrapColor]
 
             return [
                 'id'    => 'visit-' . $v->id,
                 'title' => $title,
                 'start' => $v->date . 'T' . $v->start_time,
                 'end'   => $v->date . 'T' . $v->end_time,
+                // Color base para FullCalendar; usamos uno fijo y pasamos color “semantic” por extendedProps
                 'color' => '#5b9bd5',
                 'extendedProps' => [
                     'activity'          => $v->activity,
-                    'environment_name'  => $env,
-                    'company'           => $comp,
+                    'environment_name'  => $envName,
+                    'company'           => $company,
                     'request_id'        => $v->visit_request_id,
                     'observations'      => $v->observations,
                     'date'              => $v->date,
                     'start_time'        => $v->start_time,
                     'end_time'          => $v->end_time,
-                    // 👇 nuevo
                     'runtime_state'     => $rt['state'],
                     'runtime_color'     => $rt['color'],
                 ],
@@ -626,22 +660,43 @@ class VisitScheduleController extends Controller
     {
         [$fullPath, $mime, $publicUrl] = $this->resolvePeopleList($visit);
 
-        if (!$fullPath) {
+        if (!$fullPath || !is_file($fullPath)) {
             return back()->with('error', 'No se encontró el archivo asociado a esta solicitud.');
         }
 
-        // Si tienes URL pública (disco nuevo), puedes redirigir para que el navegador lo abra directo.
-        // Si prefieres siempre "inline" vía PHP, comenta el redirect.
-        if ($publicUrl) {
-            return redirect()->away($publicUrl);
+        // Forzar MIME correcto para Excel si mime_content_type() no lo detecta
+        $ext = Str::lower(pathinfo($fullPath, PATHINFO_EXTENSION));
+        if ($ext === 'xlsx') {
+            $mime = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+        } elseif ($ext === 'csv') {
+            $mime = 'text/csv';
+        } elseif (!$mime) {
+            $mime = 'application/octet-stream';
         }
 
-        // Legacy / sin URL pública -> servir inline
-        return response()->file($fullPath, [
+        $filename = basename($fullPath);
+
+        // Stream sin cargar el archivo completo en memoria
+        return new StreamedResponse(function () use ($fullPath) {
+            $fh = fopen($fullPath, 'rb');
+            if ($fh !== false) {
+                while (!feof($fh)) {
+                    echo fread($fh, 8192);
+                    @ob_flush();
+                    flush();
+                }
+                fclose($fh);
+            }
+        }, 200, [
             'Content-Type'        => $mime,
-            'Content-Disposition' => 'inline; filename="' . basename($fullPath) . '"',
+            // inline para intentar abrir en el navegador; cambia a "attachment" si prefieres descarga
+            'Content-Disposition' => 'inline; filename="' . $filename . '"',
+            'Content-Length'      => (string) filesize($fullPath),
+            'X-Content-Type-Options' => 'nosniff',
         ]);
     }
+
+
     private function bestEmailFromPerson(?Person $p): ?string
     {
         if (!$p) return null;
@@ -977,5 +1032,66 @@ class VisitScheduleController extends Controller
 
         $disk = \Storage::disk('sigac_visit');
         return $disk->exists($rel) ? $disk->url($rel) : null;
+    }
+    public function previewPeopleListHtml(VisitRequest $visit)
+    {
+        [$fullPath, $mime] = $this->resolvePeopleList($visit);
+
+        if (!$fullPath || !is_file($fullPath)) {
+            return back()->with('error', 'No se encontró el archivo asociado a esta solicitud.');
+        }
+
+        $ext = Str::lower(pathinfo($fullPath, PATHINFO_EXTENSION));
+
+        // Si es CSV, lo mostramos como tabla simple sin PhpSpreadsheet
+        if ($ext === 'csv') {
+            $rows = [];
+            if (($h = fopen($fullPath, 'r')) !== false) {
+                while (($data = fgetcsv($h, 0, ',')) !== false) {
+                    $rows[] = $data;
+                }
+                fclose($h);
+            }
+            return response()->view('sigac::visitschedule.preview_csv', [
+                'rows'       => $rows,
+                'filename'   => basename($fullPath),
+                'titlePage'  => 'Vista previa del listado',
+                'titleView'  => 'Vista previa del listado',
+            ]);
+        }
+
+        // Para xlsx/xls -> PhpSpreadsheet a HTML
+        if (in_array($ext, ['xlsx', 'xls'])) {
+            // Requiere ext-zip y (opcional) ext-gd para imágenes
+            $spreadsheet = IOFactory::load($fullPath);
+
+            // (Opcional) Solo 1ra hoja: $sheet = $spreadsheet->getSheet(0);
+            // $spreadsheet->removeSheetByIndex(...); // si quieres limpiar otras
+
+            $writer = IOFactory::createWriter($spreadsheet, 'Html');
+
+            // Opcional: estilo mínimo en línea
+            if (method_exists($writer, 'setPreCalculateFormulas')) {
+                $writer->setPreCalculateFormulas(false);
+            }
+
+            ob_start();
+            $writer->save('php://output');
+            $html = ob_get_clean();
+
+            // Envuélvelo en tu layout Blade
+            return response()->view('sigac::visitschedule.preview_html', [
+                'html'       => $html,
+                'filename'   => basename($fullPath),
+                'titlePage'  => 'Vista previa del listado', // 👈 agregado
+                'titleView'  => 'Vista previa del listado',
+            ]);
+        }
+
+        // Otros tipos -> descarga inline como fallback
+        return response()->file($fullPath, [
+            'Content-Type'        => $mime ?: 'application/octet-stream',
+            'Content-Disposition' => 'inline; filename="' . basename($fullPath) . '"',
+        ]);
     }
 }

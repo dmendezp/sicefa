@@ -21,6 +21,8 @@ return [
     'Requests'       => 'Solicitudes',
     'Create_Request' => 'Crear Solicitud',
     'Calendar'       => 'Calendario',
+    'Application registered' => 'Solicitud registrada',
+    
     // Function - Sesion
     'Session'                 => 'Iniciar Sesión',
     'Back to SICEFA'          => 'Volver a SICEFA',

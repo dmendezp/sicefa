@@ -319,9 +319,11 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::post('academic_coordination/visit-request/{visit}/notify', 'notify')->name('sigac.academic_coordination.visitrequest.notify');
             Route::post('academic_coordination/sigac/academic_coordination/visit-schedule/{schedule}/update','update')->name('sigac.academic_coordination.visitschedule.update');
             Route::post('academic_coordination/visit-schedule/{schedule}/cancel', 'cancel')->name('sigac.academic_coordination.visitschedule.cancel');
-            Route::get('academic_coordination/visitas/people-list/ver/{visit}', 'viewPeopleList')->name('sigac.visits.peoplelist.view');
+            Route::get('academic_coordination/visitas/people-list/ver/{visit}', 'viewPeopleList')->name('sigac.academic_coordination.visits.peoplelist.view')->middleware('signed');;
             Route::get('academic_coordination/people/{person}/emails', 'personEmails')->name('sigac.academic_coordination.people.emails'); // GET /sigac/people/{person}/emails
             Route::get('visitas/ver/{schedule}', 'publicView')->name('cefa.sigac.visit.public')->middleware('signed');
+            Route::get('academic_coordination/visitas/people-list/html/{visit}','previewPeopleListHtml')->name('sigac.academic_coordination.visits.peoplelist.preview')->middleware('signed');
+
         });
     });
 });
