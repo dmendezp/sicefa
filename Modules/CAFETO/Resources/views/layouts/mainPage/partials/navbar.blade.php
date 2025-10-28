@@ -136,7 +136,8 @@
                                                 @endif
                                             </ul>
                                         </div>
-                                        <!-- Column #4 -->
+                                        <!-- {{-- Column #4 - Comentado para eliminar la sección de "Recipes Control" --}}
+                                        {{--
                                         <div class="col-md-3">
                                             <a href="#">{{ trans('cafeto::general.Recipes') }}</a>
                                             <ul>
@@ -149,6 +150,7 @@
                                                 @endif
                                             </ul>
                                         </div>
+                                        --}} -->
                                         <!-- Column #5 -->
                                         <div class="col-md-3">
                                             <a href="#">{{ trans('cafeto::general.Configuration') }}</a>
@@ -164,7 +166,7 @@
                                         </div>
                                         <!-- Column #6 -->
                                         <div class="col-md-3">
-                                            <a href="{{ route('cafeto.admin.formulations.index') }}">{{ trans('cafeto::general.navbarForm') }}</a>
+                                            <a href="#">{{ trans('cafeto::general.navbarForm') }}</a>
                                             <ul>
                                                 @if (Auth::user()->havePermission('cafeto.admin.formulations'))
                                                     <li>
@@ -255,7 +257,8 @@
                                                 @endif
                                             </ul>
                                         </div>
-                                        <!-- Column #4 -->
+                                        {{-- Column #4 - Comentado para eliminar la sección de "Recipes Control" --}}
+                                        {{--
                                         <div class="col-md-3">
                                             <a href="#">{{ trans('cafeto::general.Recipes') }}</a>
                                             <ul>
@@ -268,6 +271,7 @@
                                                 @endif
                                             </ul>
                                         </div>
+                                        --}}
                                         <!-- Column #5 -->
                                         <div class="col-md-3">
                                             <a href="#">{{ trans('cafeto::general.Configuration') }}</a>
@@ -283,7 +287,7 @@
                                         </div>
                                         <!-- Column #6 -->
                                         <div class="col-md-3">
-                                            <a href="{{ route('cafeto.cashier.formulations.index') }}">{{ trans('cafeto::general.navbarForm') }}</a>
+                                            <a href="#">{{ trans('cafeto::general.navbarForm') }}</a>
                                             <ul>
                                                 @if (Auth::user()->havePermission('cafeto.cashier.formulations'))
                                                     <li>

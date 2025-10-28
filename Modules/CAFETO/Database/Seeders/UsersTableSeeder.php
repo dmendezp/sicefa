@@ -5,6 +5,7 @@ namespace Modules\CAFETO\Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\Role;
 
 class UsersTableSeeder extends Seeder
 {
@@ -67,7 +68,7 @@ class UsersTableSeeder extends Seeder
             }
         }
 
-        // Registrar o actualizar usuario para Jesús David Quizá Roa
+        // Registrar o actualizar usuario para Jesús David Quiza Roa
         $person = Person::where('document_number', 1077224582)->first();
         if ($person) {
             $existingUser = User::where('person_id', $person->id)->first();
@@ -103,6 +104,38 @@ class UsersTableSeeder extends Seeder
                     'password' => bcrypt('password')
                 ]);
             }
+        }
+
+        // Asignar roles (asumiendo que los roles existen)
+        $rol_admin = Role::where('slug', 'cafeto.admin')->first();
+        $rol_cashier = Role::where('slug', 'cafeto.cashier')->first();
+        $rol_instructor = Role::where('slug', 'cafeto.instructor')->first();
+
+        // Asigna a usuarios específicos
+        $user_admin = User::where('nickname', 'LFHerre')->first(); // Admin
+        if ($user_admin && $rol_admin) {
+            $user_admin->roles()->syncWithoutDetaching([$rol_admin->id]);
+        }
+
+        $user_cashier = User::where('nickname', 'SofiaAscencio')->first(); // Cajero
+        if ($user_cashier && $rol_cashier) {
+            $user_cashier->roles()->syncWithoutDetaching([$rol_cashier->id]);
+        }
+
+        $user_instructor = User::where('nickname', 'InstructorJesu')->first(); // Instructor
+        if ($user_instructor && $rol_instructor) {
+            $user_instructor->roles()->syncWithoutDetaching([$rol_instructor->id]);
+        }
+
+        // Asigna a devs como admin
+        $user_dev1 = User::where('nickname', 'Resmerveilons')->first();
+        if ($user_dev1 && $rol_admin) {
+            $user_dev1->roles()->syncWithoutDetaching([$rol_admin->id]);
+        }
+
+        $user_dev2 = User::where('nickname', 'JDGM0331')->first();
+        if ($user_dev2 && $rol_admin) {
+            $user_dev2->roles()->syncWithoutDetaching([$rol_admin->id]);
         }
     }
 }

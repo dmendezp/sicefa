@@ -140,4 +140,14 @@ return [
     // Tooltips
     'Tooltip1' => 'Actualizar Producto',
     'Tooltip2' => 'Eliminar Producto',
+
+    // ---Section Consumptions---
+    'Title_Consumptions'  => 'Consumos por formulaciones',
+    'Formulation_ID'      => 'ID Formulación',
+    'Date'                => 'Fecha',
+    'Produced_Product'    => 'Producto Producido',
+    'Consumed_Product'    => 'Producto Consumido',
+    'Consumed_Amount'     => 'Cantidad Consumida',
+    'Actions'             => 'Acciones',
+    'No_Consumptions'     => 'No hay consumos disponibles',
 ];

@@ -7,7 +7,9 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\Movement;
+use Modules\SICA\Entities\MovementDetail;
 use Modules\SICA\Entities\MovementType;
+use Modules\AGROINDUSTRIA\Entities\Formulation;
 use TCPDF;
 
 class InventoryController extends Controller
@@ -40,7 +42,27 @@ class InventoryController extends Controller
         foreach ($groups as $group) {
             $groupedInventories->push($group);
         }
-        return view('cafeto::inventory.index', compact('view', 'groupedInventories'));
+
+        // Consulta para consumos por formulaciones (insumos consumidos) desde Formulation en lugar de MovementDetail
+        $puw = PUW::getAppPuw();
+        $formulations = Formulation::where('productive_unit_id', $puw->productive_unit_id)
+            ->with('ingredients.element', 'element')
+            ->get();
+
+        $consumptions = collect();
+        foreach ($formulations as $formulation) {
+            foreach ($formulation->ingredients as $ingredient) {
+                $consumptions->push((object) [
+                    'formulation_id' => $formulation->id,
+                    'date' => $formulation->date,
+                    'produced_product' => $formulation->element ? $formulation->element->name : 'N/A',
+                    'consumed_product' => $ingredient->element->name,
+                    'consumed_amount' => $ingredient->amount * $formulation->amount,
+                ]);
+            }
+        }
+
+        return view('cafeto::inventory.index', compact('view', 'groupedInventories', 'consumptions'));
     }
 
     // Formulario de registro (entrada) de inventario

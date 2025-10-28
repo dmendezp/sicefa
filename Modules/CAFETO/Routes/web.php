@@ -90,15 +90,15 @@ Route::middleware(['lang'])->group(function () {
             Route::post('cashier/movement/consult', 'consult')->name('cafeto.cashier.movements.consult');
         });
 
-        // Rutas para Recetas
-        Route::controller(RecipesController::class)->group(function () {
-            Route::get('admin/recipes/index', 'index')->name('cafeto.admin.recipes.index');
-            Route::get('cashier/recipes/index', 'index')->name('cafeto.cashier.recipes.index');
-            Route::get('admin/recipes/create', 'create')->name('cafeto.admin.recipes.create');
-            Route::get('cashier/recipes/create', 'create')->name('cafeto.cashier.recipes.create');
-            Route::get('admin/recipes/details', 'details')->name('cafeto.admin.recipes.details');
-            Route::get('cashier/recipes/details', 'details')->name('cafeto.cashier.recipes.details');
-        });
+        // // Rutas para Recetas
+        // Route::controller(RecipesController::class)->group(function () {
+        //     Route::get('admin/recipes/index', 'index')->name('cafeto.admin.recipes.index');
+        //     Route::get('cashier/recipes/index', 'index')->name('cafeto.cashier.recipes.index');
+        //     Route::get('admin/recipes/create', 'create')->name('cafeto.admin.recipes.create');
+        //     Route::get('cashier/recipes/create', 'create')->name('cafeto.cashier.recipes.create');
+        //     Route::get('admin/recipes/details', 'details')->name('cafeto.admin.recipes.details');
+        //     Route::get('cashier/recipes/details', 'details')->name('cafeto.cashier.recipes.details');
+        // });
 
         // Rutas para Formulaciones
         Route::controller(FormulationsController::class)->group(function () {

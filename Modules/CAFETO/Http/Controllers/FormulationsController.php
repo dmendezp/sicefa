@@ -6,6 +6,11 @@ use Illuminate\Routing\Controller;
 use Modules\AGROINDUSTRIA\Entities\Formulation;
 use Modules\AGROINDUSTRIA\Entities\Ingredient;
 use Modules\SICA\Entities\Element;
+use Modules\SICA\Entities\Inventory;
+use Modules\SICA\Entities\Movement;
+use Modules\SICA\Entities\MovementDetail;
+use Modules\SICA\Entities\MovementType;
+use Modules\SICA\Entities\WarehouseMovement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -120,6 +125,10 @@ class FormulationsController extends Controller
                 ]);
             }
 
+            if ($proccess === 'approved') {
+                $this->consumeInventory($formulation);
+            }
+
             DB::commit();
             \Log::info('Transaction committed', ['formulation_id' => $formulation->id]);
             return redirect()->route($this->getRedirectRoute($user) . '.formulations.index')
@@ -127,7 +136,7 @@ class FormulationsController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error('Failed to create formulation', ['error' => $e->getMessage(), 'user_id' => Auth::id(), 'request' => $request->all()]);
-            return back()->withErrors(['error' => trans('cafeto::formulations.errors.create_failed', [], 'Failed to create formulation. Please try again.')]);
+            return back()->withErrors(['error' => trans('cafeto::formulations.errors.create_failed', [], 'Failed to create formulation. Please try again.') . ' Details: ' . $e->getMessage()]);
         }
     }
 
@@ -207,7 +216,7 @@ class FormulationsController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Failed to update formulation: ' . $e->getMessage(), ['user_id' => Auth::id(), 'formulation_id' => $formulation->id]);
-            return back()->withErrors(['error' => trans('cafeto::formulations.errors.update_failed', [], 'Failed to update formulation. Please try again.')]);
+            return back()->withErrors(['error' => trans('cafeto::formulations.errors.update_failed', [], 'Failed to update formulation. Please try again.') . ' Details: ' . $e->getMessage()]);
         }
     }
 
@@ -224,11 +233,12 @@ class FormulationsController extends Controller
         try {
             $user = $this->getAuthenticatedUser();
             $formulation->update(['proccess' => 'approved']);
+            $this->consumeInventory($formulation);
             return redirect()->route($this->getRedirectRoute($user) . '.formulations.index')
                 ->with('success', trans('cafeto::formulations.Approved', [], 'Formulation approved successfully.'));
         } catch (\Exception $e) {
             Log::error('Failed to approve formulation: ' . $e->getMessage(), ['user_id' => Auth::id(), 'formulation_id' => $formulation->id]);
-            return back()->withErrors(['error' => trans('cafeto::formulations.errors.approve_failed', [], 'Failed to approve formulation. Please try again.')]);
+            return back()->withErrors(['error' => trans('cafeto::formulations.errors.approve_failed', [], 'Failed to approve formulation. Please try again.') . ' Details: ' . $e->getMessage()]);
         }
     }
 
@@ -249,7 +259,7 @@ class FormulationsController extends Controller
                 ->with('success', trans('cafeto::formulations.Deleted', [], 'Formulation deleted successfully.'));
         } catch (\Exception $e) {
             Log::error('Failed to delete formulation: ' . $e->getMessage(), ['user_id' => Auth::id(), 'formulation_id' => $formulation->id]);
-            return back()->withErrors(['error' => trans('cafeto::formulations.errors.delete_failed', [], 'Failed to delete formulation. Please try again.')]);
+            return back()->withErrors(['error' => trans('cafeto::formulations.errors.delete_failed', [], 'Failed to delete formulation. Please try again.') . ' Details: ' . $e->getMessage()]);
         }
     }
 
@@ -277,6 +287,112 @@ class FormulationsController extends Controller
             'formulation' => $formulation->load('ingredients.element', 'element'),
             'view' => ['titlePage' => trans('cafeto::formulations.Show', [], 'Formulation Details')]
         ]);
+    }
+
+    /**
+     * Consume inventory based on the formulation ingredients and add the produced product to inventory.
+     *
+     * @param Formulation $formulation
+     * @return void
+     * @throws \Exception
+     */
+    private function consumeInventory(Formulation $formulation)
+    {
+        $movementTypeBaja = MovementType::where('name', 'Baja')->first();
+        if (!$movementTypeBaja) {
+            throw new \Exception('Movement type "Baja" not found.');
+        }
+
+        // Movement for consuming ingredients (Baja)
+        $movementConsume = new Movement();
+        $movementConsume->movement_type_id = $movementTypeBaja->id;
+        $movementConsume->registration_date = now();
+        $movementConsume->state = 'Aprobado';
+        $movementConsume->price = 0; // Set to 0 or calculate if needed
+        $movementConsume->voucher_number = $formulation->id; // Use integer ID
+        $movementConsume->save();
+
+        $warehouseMovementConsume = new WarehouseMovement();
+        $warehouseMovementConsume->productive_unit_warehouse_id = PUW::getAppPuw()->id;
+        $warehouseMovementConsume->role = 'Entrega';
+        $warehouseMovementConsume->movement_id = $movementConsume->id;
+        $warehouseMovementConsume->save();
+
+        foreach ($formulation->ingredients as $ingredient) {
+            $totalToDeduct = $ingredient->amount * $formulation->amount;
+
+            $inventories = Inventory::where('element_id', $ingredient->element_id)
+                ->where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
+                ->where('amount', '>', 0)
+                ->orderBy('production_date', 'asc') // FIFO
+                ->get();
+
+            foreach ($inventories as $inv) {
+                if ($totalToDeduct <= 0) break;
+
+                $deduct = min($inv->amount, $totalToDeduct);
+                $inv->amount -= $deduct;
+                $inv->save();
+
+                $movementDetail = new MovementDetail();
+                $movementDetail->movement_id = $movementConsume->id;
+                $movementDetail->inventory_id = $inv->id;
+                $movementDetail->amount = - $deduct;
+                $movementDetail->price = $inv->price;
+                $movementDetail->save();
+
+                $totalToDeduct -= $deduct;
+            }
+
+            if ($totalToDeduct > 0) {
+                throw new \Exception('Not enough stock for ingredient ' . $ingredient->element->name);
+            }
+        }
+
+        // Add the produced product to inventory if element_id is set
+        if ($formulation->element_id) {
+            $movementTypeEntry = MovementType::where('name', 'Movimiento Interno')->first(); // Assuming 'Movimiento Interno' is for entries
+            if (!$movementTypeEntry) {
+                throw new \Exception('Movement type "Movimiento Interno" not found.');
+            }
+
+            // Create new Inventory for the produced product
+            $newInventory = new Inventory();
+            $newInventory->productive_unit_warehouse_id = PUW::getAppPuw()->id;
+            $newInventory->element_id = $formulation->element_id;
+            $newInventory->amount = $formulation->amount;
+            $newInventory->price = 0; // Set price to 0 or calculate based on ingredients if needed
+            $newInventory->production_date = $formulation->date;
+            $newInventory->expiration_date = null; // Set if needed
+            $newInventory->lot_number = 'FORM-' . $formulation->id; // Generate lot number
+            $newInventory->inventory_code = null; // Set if needed
+            $newInventory->state = 'Disponible';
+            $newInventory->destination = null; // Set if needed
+            $newInventory->save();
+
+            // Movement for adding produced product (Entry)
+            $movementProduce = new Movement();
+            $movementProduce->movement_type_id = $movementTypeEntry->id;
+            $movementProduce->registration_date = now();
+            $movementProduce->state = 'Aprobado';
+            $movementProduce->price = 0; // Set to 0 or calculate
+            $movementProduce->voucher_number = $formulation->id; // Use integer ID
+            $movementProduce->save();
+
+            $warehouseMovementProduce = new WarehouseMovement();
+            $warehouseMovementProduce->productive_unit_warehouse_id = PUW::getAppPuw()->id;
+            $warehouseMovementProduce->role = 'Recibe'; // Receiving the produced product
+            $warehouseMovementProduce->movement_id = $movementProduce->id;
+            $warehouseMovementProduce->save();
+
+            // Movement Detail for the produced product
+            $movementDetailProduce = new MovementDetail();
+            $movementDetailProduce->movement_id = $movementProduce->id;
+            $movementDetailProduce->inventory_id = $newInventory->id;
+            $movementDetailProduce->amount = $formulation->amount;
+            $movementDetailProduce->price = $newInventory->price;
+            $movementDetailProduce->save();
+        }
     }
 
     /**

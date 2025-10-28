@@ -137,9 +137,12 @@
                                                                 <i class="fas fa-list text-light-gray"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="text" class="form-control typeahead input-dark" name="ingredients[0][element_name]" placeholder="{{ trans('cafeto::formulations.Search_Element') }}" required oninput="updatePreview()">
-                                                        <input type="hidden" name="ingredients[0][element_id]">
-                                                        <div class="typeahead-list" style="display: none;"></div>
+                                                        <select name="ingredients[0][element_id]" class="form-select input-dark" required onchange="updatePreview()">
+                                                            <option value="">{{ trans('cafeto::formulations.None') }}</option>
+                                                            @foreach ($elements as $element)
+                                                                <option value="{{ $element->id }}" {{ old('ingredients.0.element_id') == $element->id ? 'selected' : '' }}>{{ $element->name }}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
@@ -270,7 +273,8 @@
                 previewIngredients.innerHTML = '<li>{{ trans('cafeto::formulations.None') }}</li>';
             } else {
                 ingredients.forEach((group, index) => {
-                    const elementName = group.querySelector(`input[name="ingredients[${index}][element_name]"]`)?.value || '{{ trans('cafeto::formulations.None') }}';
+                    const elementSelect = group.querySelector(`select[name="ingredients[${index}][element_id]"]`);
+                    const elementName = elementSelect.options[elementSelect.selectedIndex]?.text || '{{ trans('cafeto::formulations.None') }}';
                     const amount = group.querySelector(`input[name="ingredients[${index}][amount]"]`)?.value || '0';
                     const unit = group.querySelector(`select[name="ingredients[${index}][unit]"]`)?.value || 'g';
                     previewIngredients.innerHTML += `<li>${elementName}: ${amount} ${unit}</li>`;
@@ -294,9 +298,12 @@
                                 <i class="fas fa-list text-light-gray"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control typeahead input-dark" name="ingredients[${ingredientCount}][element_name]" placeholder="{{ trans('cafeto::formulations.Search_Element') }}" required oninput="updatePreview()">
-                        <input type="hidden" name="ingredients[${ingredientCount}][element_id]">
-                        <div class="typeahead-list" style="display: none;"></div>
+                        <select name="ingredients[${ingredientCount}][element_id]" class="form-select input-dark" required onchange="updatePreview()">
+                            <option value="">{{ trans('cafeto::formulations.None') }}</option>
+                            @foreach ($elements as $element)
+                                <option value="{{ $element->id }}">{{ $element->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -334,7 +341,6 @@
             ingredientCount++;
             attachDeleteListeners();
             attachDragListeners();
-            attachTypeahead(div.querySelector('.typeahead'));
             updateProgress();
             updatePreview();
         }
@@ -391,45 +397,6 @@
             }, { offset: Number.NEGATIVE_INFINITY }).element;
         }
 
-        // Typeahead for Ingredients
-        function attachTypeahead(input) {
-            const elements = @json($elements->pluck('name', 'id')->toArray());
-            input.addEventListener('input', function() {
-                const query = this.value.toLowerCase();
-                const list = this.nextElementSibling.nextElementSibling;
-                list.innerHTML = '';
-                if (query) {
-                    const matches = Object.keys(elements).filter(id => {
-                        const isSelected = Array.from(document.querySelectorAll('input[name*="[element_id]"]'))
-                            .some(el => el.value === id && el !== this.nextElementSibling);
-                        return elements[id].toLowerCase().includes(query) && !isSelected;
-                    });
-                    if (matches.length) {
-                        matches.forEach(id => {
-                            const item = document.createElement('div');
-                            item.className = 'typeahead-item';
-                            item.textContent = elements[id];
-                            item.addEventListener('click', () => {
-                                input.value = elements[id];
-                                input.nextElementSibling.value = id;
-                                list.style.display = 'none';
-                                updatePreview();
-                            });
-                            list.appendChild(item);
-                        });
-                        list.style.display = 'block';
-                    } else {
-                        list.style.display = 'none';
-                    }
-                } else {
-                    list.style.display = 'none';
-                }
-            });
-            input.addEventListener('blur', () => {
-                setTimeout(() => input.nextElementSibling.nextElementSibling.style.display = 'none', 200);
-            });
-        }
-
         // Voice Input
         function startVoiceInput(fieldId) {
             if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
@@ -452,7 +419,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             attachDeleteListeners();
             attachDragListeners();
-            document.querySelectorAll('.typeahead').forEach(attachTypeahead);
             updateProgress();
             updatePreview();
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');

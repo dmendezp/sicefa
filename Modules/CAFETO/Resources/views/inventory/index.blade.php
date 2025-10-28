@@ -105,6 +105,54 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- Nueva sección para consumos por formulaciones -->
+            <hr>
+
+            <div class="row">
+                <div class="col">
+                    <h5 class="text-center"><em>{{ trans('cafeto::inventory.Title_Consumptions') }}</em></h5>
+                </div>
+            </div>
+
+            <div class="table-responsive px-1" data-aos="zoom-in">
+                <table class="table table-bordered border-secondary table-hover">
+                    <thead class="table-dark">
+                        <tr class="border-dark">
+                            <th class="text-center">{{ trans('cafeto::inventory.1T_Number') }}</th>
+                            <th>{{ trans('cafeto::inventory.Formulation_ID') }}</th>
+                            <th class="text-center">{{ trans('cafeto::inventory.Date') }}</th>
+                            <th>{{ trans('cafeto::inventory.Produced_Product') }}</th>
+                            <th>{{ trans('cafeto::inventory.Consumed_Product') }}</th>
+                            <th class="text-center">{{ trans('cafeto::inventory.Consumed_Amount') }}</th>
+                            <th class="text-center">{{ trans('cafeto::inventory.Actions') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($consumptions as $consumption)
+                            <tr>
+                                <td class="text-center border-secondary">{{ $loop->iteration }}</td>
+                                <td class="border-secondary">{{ $consumption->formulation_id }}</td>
+                                <td class="text-center border-secondary">{{ $consumption->date }}</td>
+                                <td class="border-secondary">{{ $consumption->produced_product }}</td>
+                                <td class="border-secondary">{{ $consumption->consumed_product }}</td>
+                                <td class="text-center border-secondary">{{ $consumption->consumed_amount }}</td>
+                                <td class="text-center border-secondary">
+                                    @if (Auth::user()->havePermission('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.formulations.edit'))
+                                        <a href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.formulations.edit', $consumption->formulation_id) }}" class="btn btn-sm btn-primary">
+                                            <i class="fa-solid fa-edit"></i> {{ trans('cafeto::general.Edit') }}
+                                        </a>
+                                    @endif
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7" class="text-center border-secondary">{{ trans('cafeto::inventory.No_Consumptions') }}</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 @endsection
