@@ -39,4 +39,6 @@ class ApprenticeController extends Controller
     // Retornar la vista
     return view('sigac::points.apprentice', $datos);
 }
+
+
 }

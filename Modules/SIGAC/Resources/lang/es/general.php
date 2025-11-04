@@ -15,6 +15,8 @@ return [
     'Spanish'              => 'Español',
     'Apps'                 => 'Aplicaciones',
     'Full Screen Mode'     => 'Modo Pantalla Completa',
+    'Tutor'                => 'Tutor',
+    
 
     // Sidebar
     'Visits'         => 'Visitas',

@@ -22,4 +22,7 @@ class InstructorProgramPerson extends Model implements Auditable
     {
         return $this->belongsTo(Person::class);
     }
+    public function instructor_program(){
+        return $this->belongsTo(InstructorProgram::class);
+    }
 }

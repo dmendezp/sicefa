@@ -51,6 +51,11 @@ class SIGACController extends Controller
         $view = ['titlePage'=>trans('sigac::controllers.SIGAC_instructor_dashboard_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_instructor_dashboard_title_view')];
         return view('sigac::index_instructor', $view);
     }
+    /* Panel de control del Supervisor del Internado */
+    public function tutor_dashboards(){
+        $view = ['titlePage'=>trans('sigac::controllers.SIGAC_instructor_dashboard_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_instructor_dashboard_title_view')];
+        return view('sigac::index_tutor', $view);
+    }
 
     /* Panel de control de bienestar */
     public function wellness_dashboard(){
@@ -75,4 +80,11 @@ class SIGACController extends Controller
         $view = ['titlePage'=>trans('sigac::controllers.SIGAC_support_dashboard_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_support_dashboard_title_view')];
         return view('sigac::index_wellness', $view);
     }
+    /* Panel de control de personal de seguridad */
+    public function securitypersonnel_dashboard(){
+        $view = ['titlePage'=>trans('sigac::controllers.SIGAC_support_dashboard_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_support_dashboard_title_view')];
+        return view('sigac::index_security_personnel', $view);
+    }
+
+    
 }   

@@ -18,7 +18,13 @@
                     <a href="{{ route('sigac.instructor.dashboard') }}" class="nav-link @if(Route::is('sigac.instructor.*')) active @endif">{{ trans('sigac::general.Instructor') }}</a>
                 </li>
             @endif
-            @if (checkRol('sigac.wellness'))
+            @if (checkRol('sigac.tutor'))
+                <li class="nav-item d-none d-sm-inline-block mx-1">
+                <a href="{{ route('sigac.tutor.dashboard') }}" class="nav-link @if(Route::is('sigac.tutor.*')) active @endif">{{ trans('sigac::general.Tutor')}}</a>
+                </li>
+            @endif
+       
+            @if (checkRol('sigac.wellbeing'))
                 <li class="nav-item d-none d-sm-inline-block mx-1">
                     <a href="{{ route('sigac.wellness.dashboard') }}" class="nav-link @if(Route::is('sigac.wellness.*')) active @endif">{{ trans('sigac::general.Wellness') }}</a>
                 </li>
@@ -38,6 +44,13 @@
                     <a href="{{ route('sigac.securitystaff.dashboard') }}" class="nav-link @if(Route::is('sigac.securitystaff.*')) active @endif">{{ trans('sigac::general.Securitystaff') }}</a>
                 </li>
             @endif
+            
+            @if (checkRol('sigac.security.personnel'))
+                <li class="nav-item d-none d-sm-inline-block mx-1">
+                    <a href="{{ route('sigac.securitypersonnel.dashboard') }}" class="nav-link @if(Route::is('sigac.security.personnel.*')) active @endif">{{ trans('sigac::general.Securitystaff') }}</a>
+                </li>
+            @endif
+
         @endauth
     </ul>
 

@@ -4,7 +4,7 @@ namespace Modules\SIGAC\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use DataTables;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request;    
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Modules\SICA\Entities\Employee;
@@ -53,9 +53,12 @@ use Illuminate\Support\Str;
 
 class ProgrammeController extends Controller
 {
+  
+
     // Programación de horarios
     public function programming()
     {
+
         $app = App::where('name', 'SIGAC')->orWhere('name', 'CEFAMAPS')->get();
 
         foreach ($app as $a) {

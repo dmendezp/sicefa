@@ -23,9 +23,54 @@ class PermissionsTableSeeder extends Seeder
         $permissions_wellness = []; // Permisos para Bienestar
         $permissions_apprentice = []; // Permisos para Aprendiz
         $permissions_support = []; // Permisos para Aprendiz
+        $permission_tutor = []; // Permisos para tutor
+        $permission_security_personnel =[];
 
         // Consultar aplicación SICA para registrar los roles
         $app = App::where('name', 'SIGAC')->firstOrFail();
+
+
+
+
+
+
+
+
+
+
+
+       $permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.securitypersonnel.dashboard'], // Buscar por slug o crear nuevo permiso
+    [
+        'name' => 'Panel de control de personal de seguridad (Apoyo)',
+        'description' => 'Permiso para acceder y gestionar el panel de control de personal de seguridad de apoyo',
+        'description_english' => 'Permission to access and manage the security personnel support dashboard',
+        'app_id' => $app->id
+    ]
+);
+
+$permission_security_personnel[] = $permission->id; // Guardar ID del permiso para asignarlo a un rol
+
+
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.security.personnel.permission.index'], // Permiso para Solicitud de permisos.
+    [
+        'name' => 'Ver permisos aprobados (Personal de Seguridad)',
+        'description' => 'Permite al personal de seguridad ver únicamente las solicitudes de permisos aprobados',
+        'description_english' => 'Allows security personnel to view only approved permit applications',
+        'app_id' => $app->id
+    ]
+);
+
+$permissions_security_personnel[] = $permission->id; // Almacenar permiso para rol
+
+
+
+
+
+
+
+
 
 
         // ===================== Registro de todos los permisos de la aplicación SIGAC ==================
@@ -40,6 +85,8 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+      
 
         // Programación de horarios (Coordinación Académica)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming.index'], [ // Registro o actualización de permiso
@@ -1058,6 +1105,40 @@ class PermissionsTableSeeder extends Seeder
         $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
 
 
+
+
+        //  ----------------------------------- ROL SUPERVISOR INTERNADO ------------------------------------------
+
+
+        // Panel de control de bienestar (TUTOR)
+$permission = Permission::updateOrCreate(
+['slug' => 'sigac.tutor.dashboard'], // Registro o actualización de permiso
+[
+    'name' => 'Panel de control de tutor',
+    'description' => 'Panel de control para tutor',
+    'description_english' => 'Tutor control panel',
+    'app_id' => $app->id
+]
+);
+
+$permission_tutor[] = $permission->id; // Almacenar permiso para rol
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         //  ----------------------------------- ROL BIENESTAR ------------------------------------------
 
         // Panel de control de bienestar (Bienestar)
@@ -1157,6 +1238,65 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
+
+
+
+//ESTOS SON LOS PERMISOS DE LA SOLICITUD DE PERMISO DEL APRENDIZ
+
+
+
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.apprentice.permission.index'], [ // Permiso para Solicitud de permisos.
+            'name' => 'Solicitudes de permiso (Aprendiz)',
+            'description' => 'solicitudes de permisos',
+            'description_english' => "permit applications",
+            'app_id' => $app->id
+        ]);
+        $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
+
+
+
+$permission = Permission::updateOrCreate(['slug' => 'sigac.apprentice.permission.getInstructor'], [
+    'name' => 'Consulta de instructor asignado (Aprendiz)',
+    'description' => 'Permite consultar el instructor según fecha y hora',
+    'description_english' => 'Allows querying instructor by date and time',
+    'app_id' => $app->id
+]);
+$permissions_apprentice[] = $permission->id;
+
+
+$permission = Permission::updateOrCreate(['slug' => 'sigac.apprentice.permission.store'], [
+    'name' => 'Envío de solicitud de permiso (Aprendiz)',
+    'description' => 'Permite que el aprendiz envíe una solicitud de permiso indicando la razón, fecha, hora y evidencia.',
+    'description_english' => 'Allows the apprentice to submit a permission request indicating the reason, date, time, and evidence.',
+    'app_id' => $app->id
+]);
+
+$permissions_apprentice[] = $permission->id;
+
+
+
+$permission = Permission::updateOrCreate(['slug' => 'sigac.apprentice.permission.cancel'], [
+    'name' => 'Cancelación de solicitud de permiso (Aprendiz)',
+    'description' => 'Permite que el aprendiz cancele una solicitud de permiso que haya enviado, sin importar el estado en que se encuentre.',
+    'description_english' => 'Allows the apprentice to cancel a permission request they have submitted, regardless of its current status.',
+    'app_id' => $app->id
+]);
+
+$permissions_apprentice[] = $permission->id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // Consultar filtro de horario (Aprendiz)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.apprentice.programming.management.filter'], [ // Registro o actualización de permiso
@@ -1559,18 +1699,312 @@ class PermissionsTableSeeder extends Seeder
 
 
 
-        // Consulta de ROLES
-        $rol_academic_coordination = Role::where('slug', 'sigac.academic_coordinator')->firstOrFail(); // Rol Coordinador Académico
-        $rol_instructor = Role::where('slug', 'sigac.instructor')->firstOrFail(); // Rol Instructor
-        $rol_wellness = Role::where('slug', 'sigac.wellbeing')->firstOrFail(); // Rol Bienestar
-        $rol_apprentice = Role::where('slug', 'sigac.apprentice')->firstOrFail(); // Rol Aprendiz
-        $rol_support = Role::where('slug', 'sigac.support')->firstOrFail(); // Rol Apoyo
 
-        // Asignación de PERMISOS para los ROLES de la aplicación SIGAC (Sincronización de las relaciones sin eliminar las relaciones existentes)
-        $rol_academic_coordination->permissions()->syncWithoutDetaching($permissions_academic_coordination);
-        $rol_instructor->permissions()->syncWithoutDetaching($permissions_instructor);
-        $rol_apprentice->permissions()->syncWithoutDetaching($permissions_apprentice);
-        $rol_wellness->permissions()->syncWithoutDetaching($permissions_wellness);
-        $rol_support->permissions()->syncWithoutDetaching($permissions_support);
+
+
+      // ======================================================
+// 🧩 PERMISOS DE VALIDACIÓN DE SOLICITUDES DE PERMISOS
+// ======================================================
+
+// 🔹 INSTRUCTOR
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.instructor.PermissionValidation.index'],
+    [
+        'name' => 'Ver solicitudes de permisos (Instructor)',
+        'description' => 'Permite al instructor ver las solicitudes de permisos realizadas por los aprendices.',
+        'description_english' => 'Allows the instructor to view permission requests made by apprentices.',
+        'app_id' => $app->id,
+    ]
+);
+$permissions_instructor[] = $permission->id;
+
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.instructor.PermissionValidation.store'],
+    [
+        'name' => 'Aprobar o rechazar solicitudes (Instructor)',
+        'description' => 'Permite al instructor aprobar o rechazar las solicitudes de permisos.',
+        'app_id' => $app->id,
+    ]
+);
+$permissions_instructor[] = $permission->id;
+
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.instructor.PermissionValidation.cancel'], // permiso único para cancelar validación
+    [
+        'name' => 'Cancelar solicitudes de permisos de aprendices (Instructor)',
+        'description' => 'Permite al instructor cancelar las solicitudes de permisos realizadas por los aprendices',
+        'description_english' => 'Allows the instructor to cancel permission requests made by apprentices',
+        'app_id' => $app->id,
+    ]
+);
+
+$permissions_instructor[] = $permission->id;
+
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.instructor.PermissionValidation.instructorValidationHistory'], 
+    [
+        'name' => 'Ver historial de validaciones de permisos (Instructor)',
+        'description' => 'Permite al instructor ver el historial completo de las solicitudes de permisos que ha validado, rechazado o modificado',
+        'description_english' => 'Allows the instructor to view the complete history of permission requests they have validated, rejected, or modified',
+        'app_id' => $app->id,
+    ]
+);
+
+$permissions_instructor[] = $permission->id;
+
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.instructor.PermissionValidation.instructorUpdateValidation'], 
+    [
+        'name' => 'Actualizar estado de solicitudes de permisos (Instructor)',
+        'description' => 'Permite al instructor modificar el estado de las solicitudes de permisos que ha validado o rechazado',
+        'description_english' => 'Allows the instructor to modify the status of permission requests they have previously approved or rejected',
+        'app_id' => $app->id,
+    ]
+);
+
+$permissions_instructor[] = $permission->id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 🔹 TUTOR
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.tutor.PermissionValidation.index'],
+    [
+        'name' => 'Ver solicitudes de permisos (Tutor)',
+        'description' => 'Permite al tutor ver las solicitudes de permisos de pasantes.',
+        'app_id' => $app->id,
+    ]
+);
+$permissions_tutor[] = $permission->id;
+
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.tutor.PermissionValidation.store'],
+    [
+        'name' => 'Aprobar o rechazar solicitudes (Tutor)',
+        'description' => 'Permite al tutor aprobar o rechazar solicitudes de permisos.',
+        'app_id' => $app->id,
+    ]
+);
+$permissions_tutor[] = $permission->id;
+
+
+// TUTOR
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.tutor.PermissionValidation.cancel'],
+    [
+        'name' => 'Cancelar solicitudes de permisos de aprendices (Tutor)',
+        'description' => 'Permite al tutor cancelar las solicitudes de permisos realizadas por los aprendices',
+        'description_english' => 'Allows the tutor to cancel permission requests made by apprentices',
+        'app_id' => $app->id,
+    ]
+);
+$permissions_tutor[] = $permission->id;
+
+
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.tutor.PermissionValidation.tutorValidationHistory'], 
+    [
+        'name' => 'Ver historial de validaciones de permisos (Instructor)',
+        'description' => 'Permite al tutor ver el historial completo de las solicitudes de permisos que ha validado, rechazado o modificado',
+        'description_english' => 'Allows the tutor to view the complete history of permission requests they have validated, rejected, or modified',
+        'app_id' => $app->id,
+    ]
+);
+
+$permissions_tutor[] = $permission->id;
+
+
+
+
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.tutor.PermissionValidation.tutorUpdateValidation'], 
+    [
+        'name' => 'Actualizar estado de solicitudes de permisos (Tutor)',
+        'description' => 'Permite al tutor modificar el estado de las solicitudes de permisos que ha validado o rechazado',
+        'description_english' => 'Allows the tutor to modify the status of permission requests they have previously approved or rejected',
+        'app_id' => $app->id,
+    ]
+);
+
+$permissions_tutor[] = $permission->id;
+
+
+
+
+
+
+
+
+
+
+// 🔹 BIENESTAR
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.bienestar.PermissionValidation.index'],
+    [
+        'name' => 'Ver solicitudes especiales (Bienestar)',
+        'description' => 'Permite al personal de Bienestar revisar solicitudes por enfermedad, cita médica o menores de edad.',
+        'app_id' => $app->id,
+    ]
+);
+$permissions_wellness[] = $permission->id;
+
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.bienestar.PermissionValidation.store'],
+    [
+        'name' => 'Aprobar o rechazar solicitudes especiales (Bienestar)',
+        'description' => 'Permite al personal de Bienestar aprobar o rechazar solicitudes especiales.',
+        'app_id' => $app->id,
+    ]
+);
+$permissions_wellness[] = $permission->id;
+
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.bienestar.PermissionValidation.cancel'],
+    [
+        'name' => 'Cancelar solicitudes de permisos de aprendices (Bienestar)',
+        'description' => 'Permite al personal de Bienestar cancelar las solicitudes de permisos realizadas por los aprendices',
+        'description_english' => 'Allows the wellness staff to cancel permission requests made by apprentices',
+        'app_id' => $app->id,
+    ]
+);
+$permissions_wellness[] = $permission->id;
+
+
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.wellness.PermissionValidation.wellnessValidationHistory'], 
+    [
+        'name' => 'Ver historial de validaciones de permisos (BIENESTAR)',
+        'description' => 'Permite al área de Bienestar ver el historial completo de las solicitudes de permiso que ha validado, rechazado o modificado',
+         'description_english' => 'Allows the Wellness team to view the complete history of permission requests they have validated, rejected, or modified',
+
+        'app_id' => $app->id,
+    ]
+);
+
+$permissions_wellness[] = $permission->id;
+
+
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.wellness.PermissionValidation.wellnessUpdateValidation'], 
+    [
+        'name' => 'Actualizar estado de solicitudes especiales (Bienestar)',
+        'description' => 'Permite al personal de Bienestar modificar el estado de las solicitudes especiales que ha aprobado o rechazado',
+        'description_english' => 'Allows the wellness staff to modify the status of special requests they have previously approved or rejected',
+        'app_id' => $app->id,
+    ]
+);
+
+$permissions_wellness[] = $permission->id;
+
+
+
+
+
+
+
+
+// 🔹 COORDINACIÓN ACADÉMICA
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.coordinador.PermissionValidation.index'],
+    [
+        'name' => 'Ver todas las solicitudes (Coordinador Académico)',
+        'description' => 'Permite al Coordinador Académico visualizar todas las solicitudes de permisos.',
+        'app_id' => $app->id,
+    ]
+);
+$permissions_academic_coordination[] = $permission->id;
+
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.coordinador.PermissionValidation.store'],
+    [
+        'name' => 'Aprobar o rechazar permisos (Coordinador Académico)',
+        'description' => 'Permite al Coordinador Académico aprobar o rechazar solicitudes de permisos.',
+        'app_id' => $app->id,
+    ]
+);
+$permissions_academic_coordination[] = $permission->id;
+
+
+
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.coordinador.PermissionValidation.cancel'],
+    [
+        'name' => 'Cancelar solicitudes de permisos de aprendices (Coordinador Académico)',
+        'description' => 'Permite al Coordinador Académico cancelar las solicitudes de permisos realizadas por los aprendices',
+        'description_english' => 'Allows the academic coordinator to cancel permission requests made by apprentices',
+        'app_id' => $app->id,
+    ]
+);
+$permissions_academic_coordination[] = $permission->id;
+
+
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.academic_coordination.PermissionValidation.academicCoordinationUpdateValidation'], 
+    [
+        'name' => 'Actualizar estado de solicitudes especiales (Coordinación Académica)',
+        'description' => 'Permite a la Coordinación Académica modificar el estado de las solicitudes especiales que ha aprobado o rechazado',
+        'description_english' => 'Allows the Academic Coordination to modify the status of special requests they have previously approved or rejected',
+        'app_id' => $app->id,
+    ]
+);
+
+$permissions_academic_coordination[] = $permission->id;
+
+
+
+$permission = Permission::updateOrCreate(
+    ['slug' => 'sigac.academic_coordination.PermissionValidation.academicCoordinationValidationHistory'], 
+    [
+        'name' => 'Ver historial de validaciones de permisos (Coordinación Académica)',
+        'description' => 'Permite a la Coordinación Académica ver el historial completo de las solicitudes de permiso que ha validado, rechazado o modificado',
+        'description_english' => 'Allows the Academic Coordination to view the complete history of permission requests they have validated, rejected, or modified',
+        'app_id' => $app->id,
+    ]
+);
+
+$permissions_academic_coordination[] = $permission->id;
+
+
+
+
+
+
+
+
+
+
+        // Consulta de ROLES
+     // Consulta de ROLES
+// Consultar roles existentes
+$rol_academic_coordination = Role::where('slug', 'sigac.academic_coordinator')->firstOrFail(); // Rol Coordinador Académico
+$rol_instructor             = Role::where('slug', 'sigac.instructor')->firstOrFail();          // Rol Instructor
+$rol_tutor                  = Role::where('slug', 'sigac.tutor')->firstOrFail();               // Rol Tutor
+$rol_wellness               = Role::where('slug', 'sigac.wellbeing')->firstOrFail();           // Rol Bienestar
+$rol_apprentice             = Role::where('slug', 'sigac.apprentice')->firstOrFail();          // Rol Aprendiz
+$rol_support                = Role::where('slug', 'sigac.support')->firstOrFail();             // Rol Apoyo
+$rol_security_personnel     = Role::where('slug', 'sigac.security.personnel')->firstOrFail();   // Rol Personal de Seguridad
+
+
+// Asignación de PERMISOS a los ROLES (sin eliminar relaciones existentes)
+$rol_academic_coordination->permissions()->syncWithoutDetaching($permissions_academic_coordination);
+$rol_instructor->permissions()->syncWithoutDetaching($permissions_instructor);
+$rol_tutor->permissions()->syncWithoutDetaching($permissions_tutor);
+$rol_apprentice->permissions()->syncWithoutDetaching($permissions_apprentice);
+$rol_wellness->permissions()->syncWithoutDetaching($permissions_wellness);
+$rol_support->permissions()->syncWithoutDetaching($permissions_support);
+$rol_security_personnel->permissions()->syncWithoutDetaching($permissions_security_personnel); // ✅ Nuevo rol agregado
+
+
     }
 }

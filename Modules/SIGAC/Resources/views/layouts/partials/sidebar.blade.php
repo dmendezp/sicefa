@@ -407,6 +407,33 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>
+                                        Solicitudes permisos
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview items">
+                                    <li class="nav-item">
+                                        <a href="{{ route('sigac.coordinador.PermissionValidation.index') }}"
+                                            class="nav-link">
+                                            <i class="nav-icon fas fa-file-invoice"></i>
+                                            <p>Solicitud</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview items">
+                                    <li class="nav-item">
+                                        <a href="{{ route('sigac.academic_coordination.PermissionValidation.academicCoordinationValidationHistory') }}"
+                                            class="nav-link">
+                                            <i class="nav-icon fas fa-file-invoice"></i>
+                                            <p>Historial Solicitud</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                         @endif
                     @endif
 
@@ -563,7 +590,66 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Solicitudes permisos
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items">
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.instructor.PermissionValidation.index') }}"
+                                        class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice"></i>
+                                        <p>solicitud</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.instructor.PermissionValidation.instructorValidationHistory') }}"
+                                        class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice"></i>
+                                        <p>Historial Permisos</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     @endif
+
+
+                    {{-- SOLICITUDES DE PERMISOS PARA EL ROL DE TUTOR --}}
+
+                    @if (Route::is('sigac.tutor.*'))
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Solicitudes permisos
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items">
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.tutor.PermissionValidation.index') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice"></i>
+                                        <p>Solicitud</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview items">
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.tutor.PermissionValidation.tutorValidationHistory') }}"
+                                        class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice"></i>
+                                        <p>Historial Permiso</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
+
+
 
                     <!-- Menú de opciones para Bienestar -->
                     @if (Route::is('sigac.wellness.*'))
@@ -640,6 +726,33 @@
                                 @endif
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Solicitudes permisos
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview items">
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.bienestar.PermissionValidation.index') }}"
+                                        class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice"></i>
+                                        <p>Solicitud</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview items">
+                                <li class="nav-item">
+                                    <a href="{{ route('sigac.wellness.PermissionValidation.wellnessValidationHistory') }}"
+                                        class="nav-link">
+                                        <i class="nav-icon fas fa-file-invoice"></i>
+                                        <p>Historial Permisos</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     @endif
 
                     <!-- Menú de opciones para Aprendiz -->
@@ -649,10 +762,37 @@
                                 <a href="{{ route('sigac.apprentice.programming.index') }}"
                                     class="nav-link {{ !Route::is('sigac.apprentice.programming.*') ?: 'active' }}">
                                     <i class="nav-icon far fa-calendar-alt"></i>
-                                    <p>{{ trans('sigac::general.Scheduling') }}</p>
+                                    <p>Horario</p>
                                 </a>
                             </li>
                         @endif
+                        @if (Auth::user()->havePermission('sigac.apprentice.permission.index'))
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>
+                                        Solicitudes permisos
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview items">
+                                    <li class="nav-item">
+                                        <a href="{{ route('sigac.apprentice.permission.index') }}" class="nav-link">
+                                            <i class="nav-icon fas fa-file-invoice"></i>
+                                            <p>Solicitud</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('sigac.apprentice.permission.statuses') }}"
+                                            class="nav-link">
+                                            <i class="nav-icon fas fa-file-invoice"></i>
+                                            <p>Seguimiento Solicitud</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
+
                         @if (Auth::user()->havePermission('sigac.apprentice.apprentice'))
                             <li class="nav-item">
                                 <a href="" class="nav-link">
@@ -744,6 +884,34 @@
                             </ul>
                         </li>
                     @endif
+                    {{-- DEBUG: Ver nombre de la ruta actual --}}
+
+                    {{-- Verifica si el usuario tiene el permiso "sigac.securitypersonnel.dashboard" --}}
+                    @if (Route::is('sigac.securitypersonnel.*'))
+                            @if (Auth::user()->havePermission('sigac.securitypersonnel.dashboard'))
+                                <li class="nav-item">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-book"></i>
+                                        <p>
+                                            Solicitudes permisos
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview items">
+                                        <li class="nav-item">
+                                            <a href="{{ route('sigac.security.personnel.permission.index') }}"
+                                                class="nav-link">
+                                                <i class="nav-icon fas fa-file-invoice"></i>
+                                                <p>Solicitud</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                </li>
+                            @endif
+                            @endif
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

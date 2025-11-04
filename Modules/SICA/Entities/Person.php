@@ -227,4 +227,23 @@ class Person extends Model implements Auditable
         return \Modules\SICA\Database\factories\PersonFactory::new();
     }
 
+    public function intern()
+{
+    return $this->hasOne(\Modules\SIGAC\Entities\Intern::class, 'person_id');
+}
+// Modules/SIGAC/Entities/Person.php
+public function boardingSchools()
+{
+    return $this->hasMany(\Modules\SIGAC\Entities\BoardingSchool::class, 'person_id');
+}
+
+public function interns()
+{
+    return $this->hasMany(\Modules\SIGAC\Entities\Intern::class, 'person_id');
+}
+public function user()
+{
+    return $this->hasOne(\App\Models\User::class); // O ajusta según la ubicación de tu modelo User
+}
+
 }

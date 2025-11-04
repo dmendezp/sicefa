@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         // Registrar o actualizar usuario para María Antonia Gonzáles Gonzáles
-        $person = Person::where('document_number', 36281368)->first(); // Consultar Persona
+     /*   $person = Person::where('document_number', 36281368)->first(); // Consultar Persona
         User::updateOrCreate(['nickname' => 'mgonzalezg'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
             'email' => 'mgonzalezg@sena.edu.co',
@@ -49,6 +49,14 @@ class UsersTableSeeder extends Seeder
         User::updateOrCreate(['nickname' => 'Resmerveilons'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
             'email' => 'manuelstevenossa@gmail.com'//Maos6706
+        ]);
+
+*/
+        // Registrar o actualizar usuario para Manuel Steven Ossa Lievano
+        $person = Person::where('document_number', 1079174055)->first(); // Consultar Persona
+        User::updateOrCreate(['nickname' => 'DUFETRLLA'], [ // Actualizar o crear usuario
+            'person_id' => 144261 ,
+            'email' => 'Duvan@gmail.com'//Dutr4055
         ]);
 
 

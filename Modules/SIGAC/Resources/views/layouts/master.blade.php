@@ -2,6 +2,9 @@
 <html lang="es">
     <head>
         @include('sigac::layouts.partials.head')
+        <!-- ✅ Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
         @stack('head')
     </head>
     <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
