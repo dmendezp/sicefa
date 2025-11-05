@@ -2,11 +2,33 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 
 
 Route::middleware(['lang'])->group(function () { //Middleware que permite la internacionalizacion
 
     Route::prefix('sigac')->group(function () {  // agrega el prefijo en la url (sicefa.test/sigac/...)
+
+
+
+
+   Route::controller(ApprenticePermissionsController::class)->group(function () {
+    Route::get('/aprendices/permission', 'index')->name('sigac.apprentice.permission.index');
+    Route::get('/aprendices/get-instructor', 'getInstructor')->name('sigac.apprentice.permission.getInstructor');
+    Route::post('/aprendices/post-instructor', 'store')->name('sigac.apprentice.permission.store');
+    Route::get('/apprentice/permissions/status','statuses')->name('sigac.apprentice.permission.statuses');
+    Route::put('/permissions/{id}/cancel', 'cancel')->name('sigac.apprentice.permission.cancel');
+
+   });
+
+
+
+
+
+
 
         // RUTAS GENERALES
         Route::controller(SIGACController::class)->group(function () { // Agregar por única vez el controlodaar para posteriormente solo definir rutas con el formato (url, método_controlador)->name(nombre_de_ruta)
@@ -15,10 +37,12 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('developers', 'devs')->name('cefa.sigac.devs'); // Vista sobre desarrolladores y creditos sobre SIGAC y pública de la aplicación (Pública)
             Route::get('academic_coordination', 'academic_coordination_dashboard')->name('sigac.academic_coordination.dashboard'); // Panel de control de coordinación académica (Coordinación Académica)
             Route::get('instructor', 'instructor_dashboards')->name('sigac.instructor.dashboard'); // Panel de control del instructor (Instructor)
+            Route::get('tutor', 'tutor_dashboards')->name('sigac.tutor.dashboard'); // Panel de control del instructor (Instructor)
             Route::get('wellness', 'wellness_dashboard')->name('sigac.wellness.dashboard'); // Panel de control de bienestar (Bienestar)
             Route::get('apprentice', 'apprentice_dashboard')->name('sigac.apprentice.dashboard'); // Panel de control de aprendiz (Aprendiz)
             Route::get('support', 'support_dashboard')->name('sigac.support.dashboard'); // Panel de control de apoyo (Apoyo)
             Route::get('securitystaff', 'securitystaff_dashboard')->name('sigac.securitystaff.dashboard'); // Panel de control de apoyo (Apoyo)
+            Route::get('securitypersonnel', 'securitypersonnel_dashboard')->name('sigac.securitypersonnel.dashboard'); // Panel de control del personal de seguridad (Apoyo)
 
         });
 
@@ -94,6 +118,7 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('support/programming/index', 'programming')->name('sigac.support.programming.index'); // Programación de horarios
             Route::get('apprentice/programming/index', 'programming')->name('sigac.apprentice.programming.index'); // Programación de horarios
             Route::get('wellness/programming/index', 'programming')->name('sigac.wellness.programming.index'); // Programación de horarios
+
       
             Route::post('academic_coordination/programming/management/filter', 'management_filter')->name('sigac.academic_coordination.programming.management.filter'); // Consultar filtro de horario
             Route::post('academic_coordination/programming/management/search', 'management_search')->name('sigac.academic_coordination.programming.management.search'); // Consultar programaciones del instructor
@@ -325,5 +350,54 @@ Route::middleware(['lang'])->group(function () { //Middleware que permite la int
             Route::get('academic_coordination/visitas/people-list/html/{visit}','previewPeopleListHtml')->name('sigac.academic_coordination.visits.peoplelist.preview')->middleware('signed');
 
         });
+
+        //RUTAS PARA SOLICITUDES DE PERMISOS
+   Route::controller(PermissionValidationController::class)->group(function () {
+    // INSTRUCTOR
+    Route::prefix('instructor/apprentice_permissions')->group(function () {
+        Route::get('index', 'index')->name('sigac.instructor.PermissionValidation.index');
+        Route::post('post', 'store')->name('sigac.instructor.PermissionValidation.store');
+        Route::post('cancel', 'cancel')->name('sigac.instructor.PermissionValidation.cancel');
+        // Mostrar historial
+        Route::get('instructorValidationHistory', 'instructorValidationHistory')->name('sigac.instructor.PermissionValidation.instructorValidationHistory');
+
+        // Actualizar validación (PUT con id)
+        Route::put('instructorValidationHistory/{id}', 'instructorUpdateValidation')->name('sigac.instructor.PermissionValidation.instructorUpdateValidation');
+
+    });
+
+    // TUTOR
+    Route::prefix('tutor/apprentice_permissions')->group(function () {
+        Route::get('index', 'index')->name('sigac.tutor.PermissionValidation.index');
+        Route::post('post', 'store')->name('sigac.tutor.PermissionValidation.store');
+        Route::post('cancel', 'cancel')->name('sigac.tutor.PermissionValidation.cancel');
+        Route::get('tutorValidationHistory', 'tutorValidationHistory')->name('sigac.tutor.PermissionValidation.tutorValidationHistory');
+        Route::put('tutorValidationHistory/{id}', 'tutorUpdateValidation')->name('sigac.tutor.PermissionValidation.tutorUpdateValidation');
+    
+    });
+
+    // BIENESTAR
+    Route::prefix('bienestar/apprentice_permissions')->group(function () {
+        Route::get('index', 'index')->name('sigac.bienestar.PermissionValidation.index');
+        Route::post('post', 'store')->name('sigac.bienestar.PermissionValidation.store');
+        Route::post('cancel', 'cancel')->name('sigac.bienestar.PermissionValidation.cancel');
+        Route::get('wellnessValidationHistory', 'wellnessValidationHistory')->name('sigac.wellness.PermissionValidation.wellnessValidationHistory');
+        Route::put('wellnessValidationHistory/{id}', 'wellnessUpdateValidation')->name('sigac.wellness.PermissionValidation.wellnessUpdateValidation');
+    });
+
+    // COORDINADOR
+    Route::prefix('coordinador/apprentice_permissions')->group(function () {
+        Route::get('index', 'index')->name('sigac.coordinador.PermissionValidation.index');
+        Route::post('post', 'store')->name('sigac.coordinador.PermissionValidation.store');
+        Route::post('cancel', 'cancel')->name('sigac.coordinador.PermissionValidation.cancel');
+        Route::get('academicCoordinationValidationHistory', 'academicCoordinationValidationHistory')->name('sigac.academic_coordination.PermissionValidation.academicCoordinationValidationHistory');
+        Route::put('academicCoordinationUpdateValidation/{id}', 'academicCoordinationUpdateValidation')->name('sigac.academic_coordination.PermissionValidation.academicCoordinationUpdateValidation');
+       
+    });
+    Route::prefix('securitypersoneel/apprentice_permissions')->group(function () {
+        Route::get('index', 'index_security_personnel')->name('sigac.security.personnel.permission.index');
+    });
+});
+
     });
 });
