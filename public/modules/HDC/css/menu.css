@@ -1,0 +1,147 @@
+.hero {
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    max-height: 800px;
+    position: relative;
+    display: grid;
+    grid-template-rows: 100px 1fr;
+    color: #fff;
+    justify-items: center;
+    align-items: center;
+}
+.hero::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(180deg, #0000008c 0%,#0000008c 100%), url('/public/modules/HDC/img/plants2.jpg');
+    background-size: cover;
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 95%, 0 80%);
+    z-index: -1;
+}
+/* HERO CONTAINER*/
+
+.hero_container{
+    max-width: 800px;
+    --padding-container:0;
+    display: grid;
+    grid-auto-rows: max-content;
+    align-content: center;
+    gap: 1em;
+    padding-bottom: 100px;
+    text-align: center;
+}
+
+.hero_title{
+    font-size: 3rem;
+}
+
+.hero_paragraph{
+     margin-bottom: 20px;
+}
+.cta{
+    display: inline-block;
+    background-color: #2091F9;
+    justify-self: center;
+    color: #fff;
+    text-decoration: none;
+    padding: 13px 30px;
+    border-radius: 32px;
+}
+
+/* tarjeta*/
+
+.price_table {
+    display: flex;
+    justify-content: space-between;
+}
+
+.price_element {
+    flex: 0 0 auto;
+}
+
+  .card {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    color: #2e2d31;
+    background: #131313;
+    overflow: hidden;
+    border-radius: 20px;
+    margin-right: 20px; /* Espaciado entre las tarjetas */
+  }
+
+  .temporary_text {
+    font-weight: bold;
+    font-size: 24px;
+    padding: 6px 12px;
+    color: #f8f8f8;
+  }
+
+  .card_title {
+    font-weight: bold;
+  }
+
+  .card_content {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+      /* edit the width to fit card */
+    width: 100%;
+    padding: 20px;
+    background: #f2f2f2;
+    border-top-left-radius: 20px;
+      /* edit here to change the height of the content box */
+    transform: translateY(150px);
+    transition: transform .25s;
+  }
+
+  .card_content::before {
+    content: '';
+    position: absolute;
+    top: -47px;
+    right: -45px;
+    width: 100px;
+    height: 100px;
+    transform: rotate(-175deg);
+    border-radius: 50%;
+    box-shadow: inset 48px 48px #f2f2f2;
+  }
+
+  .card_title {
+    color: #131313;
+    line-height: 15px;
+  }
+
+  .card_subtitle {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .card_description {
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity .5s;
+  }
+
+  .card:hover .card_content {
+    transform: translateY(0);
+  }
+
+  .card:hover .card_description {
+    opacity: 1;
+    transition-delay: .25s;
+  }
+  /*Tamaño imagenes de las cards*/
+
+  .icopor{
+    width: 500px;
+  }
+
+
+
+

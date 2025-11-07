@@ -1,0 +1,45 @@
+.mbottom16{
+  margin-bottom: 16px;
+}
+
+.mtop16{
+  margin-top: 16px;
+}
+
+.mleft8{
+  margin-left: 8px;
+}
+
+.jumbotron{
+  background-color: #feece7 !important;
+  padding: 5px 20px;
+}
+
+.btn-app {
+  height: 80px;
+  min-width: 100px;
+}
+
+.btn-app-2 {
+  height: 110px !important;
+  min-width: 130px !important;
+}
+
+.btn-app i {
+  font-size: 30px !important;
+}
+
+.btn-app-2 i {
+  margin-top:  8px !important;
+  font-size: 45px !important;
+}
+
+.btn-app>.badge{
+  font-size: 15px;
+  top:  -8px !important;
+}
+
+.btn-app-2>.badge{
+  font-size: 16px;
+  top:  -8px !important;
+}

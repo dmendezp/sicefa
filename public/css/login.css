@@ -1,0 +1,173 @@
+
+body {
+    background-color: #F95928;
+    display: grid;
+    place-items: center
+}
+
+.card {
+    padding: 0px 15px;
+    border-radius: 20px
+}
+
+.c1 {
+    background-color: #fff2f1;
+    border-radius: 20px
+}
+
+a {
+    margin: 0px;
+    font-size: 13px;
+    border-radius: 7px;
+    text-decoration: none;
+    color: black
+}
+
+a:hover {
+    color: #e0726c;
+    background-color: #fff2f1
+}
+
+.nav-link {
+    padding: 1rem 1.4rem;
+    margin: 0rem 0.7rem
+}
+
+.ac {
+    font-weight: bold;
+    color: #e0726c;
+    font-size: 12px
+}
+
+input,button {
+    width: 96%;
+    background-color: #fff2f1;
+    border-radius: 8px;
+    padding: 8px 17px;
+    font-size: 13px;
+    border: 1px solid #f5f0ef;
+}
+input:hover  {
+    border: 1px solid #e0726c;
+
+}
+
+/* class input */
+.input {
+    width: 96%;
+    background-color: #fff2f1;
+    border-radius: 8px;
+    padding: 8px 17px;
+    font-size: 13px;
+    border: 1px solid #f5f0ef;
+}
+.input:hover  {
+    border: 1px solid #e0726c;
+
+}
+
+
+input {
+    text-decoration: none
+}
+
+.bt {
+    background-color: #ff4133;
+    border: 1px solid rgb(300, 200, 200)
+}
+
+form {
+    margin-top: 70px
+}
+
+form>* {
+    margin: 10px 0px
+}
+
+#forgot {
+    margin: 0px -60px
+}
+
+#register {
+    text-align: center
+}
+
+h3 {
+    color: #4B4B4B;
+}
+
+.wlcm {
+    font-size: 30px;
+}
+
+.sp1 {
+    font-size: 5px
+}
+
+.sp1>span {
+    background-color: #f0c3be
+}
+
+#hero {
+  width: 100%;
+  height: auto !important;
+}
+
+.co {
+    height: 70%;
+    align-content: center;
+    width: 110%;
+    margin-top: 90px;
+}
+
+.title {
+    margin-top: 40px;
+    margin-bottom: 0px;
+}
+
+.google {
+    max-width: 320px;
+    display: flex;
+    padding: 0.5rem 1.4rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    vertical-align: middle;
+    align-items: center;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    gap: 0.75rem;
+    color: rgb(65, 63, 63);
+    background-color: #fff;
+    cursor: pointer;
+    transition: all .6s ease;
+  }
+  
+  .google svg {
+    height: 24px;
+  }
+  
+  .google:hover {
+    transform: scale(1.02);
+  }
+
+  .forgot {
+    margin-left: 50px;
+  }
+
+  .btlogin{
+    width: 45%;
+    height: 35px;
+    background-color: #ff4133;
+    border: 1px solid rgb(300, 200, 200);
+    border-radius: 7px;
+    font-size: 14px;
+    margin-top: 5px;
+
+  }
+
+  .btlogin:hover{
+    background-color: #ff4133;
+  }

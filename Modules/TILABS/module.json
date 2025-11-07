@@ -1,0 +1,13 @@
+{
+    "name": "TILABS",
+    "alias": "tilabs",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\TILABS\\Providers\\TILABSServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

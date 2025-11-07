@@ -1,0 +1,38 @@
+*,*:after, *:before{
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+#contenedor_carga{
+	background-color: rgba(40, 58, 90, 0.9);
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	-webkit-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	transition: all 1s ease;
+	z-index: 10000;
+}
+
+#carga{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	-webkit-animation: imag 1s linear infinite;
+	-o-animation: imag 1s linear infinite;	
+	animation: imag 1s linear infinite;	
+}
+
+@keyframes imag {
+	0%	 { opacity: 0.2; width: 20%; }
+	25%	 { opacity: 0.5; width: 40%; }
+	50%	 { opacity: 0.9; width: 60%; }
+	75%	 { opacity: 0.5; width: 40%; }
+	100% { opacity: 0.2; width: 20%; }
+}

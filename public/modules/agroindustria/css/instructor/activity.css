@@ -1,0 +1,62 @@
+.activities-card {
+    background-color: #ffffff; 
+    padding: 2%; /* Utilizamos un porcentaje para que se ajuste automáticamente */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgb(0, 0, 0);
+    max-width: 100%; /* Evita que la tarjeta sea más ancha que el contenedor principal */
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
+}
+
+.activitiescard-header {
+    background-color: #eae1e1;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0);
+    text-align: center;
+    color: #f8b6c1;
+    font-weight: bold;
+}
+
+.activitiescard-header h2 {
+    font-weight: bold;
+}
+
+.activities-footer {
+    background-color: #f7f4f4;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: #f8b6c1;
+}
+
+.activities-footer p {
+    color: #f8b6c1;
+    font-weight: bold;
+}
+
+.actividades-container {
+    width: 95%;
+    margin: 0 auto; /* Centra el contenedor */
+    max-width: 1200px; /* Establece un ancho máximo para evitar que sea demasiado ancho en pantallas grandes */
+}
+
+.card {
+    margin-top: 2rem !important;
+}
+
+.p {
+    text-align: justify;
+}
+
+#observations {
+    height: 0;
+}
+
+/* Consultas de medios para hacer ajustes adicionales en tamaños de pantalla específicos */
+@media only screen and (max-width: 768px) {
+    .actividades-container {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

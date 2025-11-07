@@ -1,0 +1,78 @@
+.table_formulation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.form-formulation{
+    width: 1200px;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 4px;
+}
+
+#proccess{
+    height: 0px;
+}
+
+.button_receipe{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.save_receipe{
+    background-color: #fa9cb2;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    margin-top: 15px;
+    padding: 10px 30px 10px 30px;
+}
+
+p{
+    font-size: large
+}
+
+#add-ingredients-formulation{
+    width: 545px;
+    padding: 5px 0px 5px 0px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    color: white;
+}
+
+#add-utencils-formulation{
+    width: 545px;
+    padding: 5px 0px 5px 0px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    color: white;
+}
+
+.remove-ingredient{
+    padding: 10px 10px 10px 10px;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: red;
+    border-radius: 4px;
+    border: none;
+    position: relative;
+    left: 15px;
+}
+
+.remove-utencils{
+    padding: 10px 10px 10px 10px;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: red;
+    border-radius: 4px;
+    border: none;
+    position: relative;
+    left: 15px;
+}

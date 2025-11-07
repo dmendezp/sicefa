@@ -1,0 +1,263 @@
+/* Colores personalizados para la aplicación de CAFETO */
+:root {
+    --color-primario: #212529; /* Color principal suave */
+    --color-secundario: #343a40; /* Color secundario suave */
+    --color-terciario: #2b3035; /* Color terciario suave  */
+    --color-blanco: #ffffff; /* Color blanco */
+}
+
+/* ---- Personalizacion de estilos de cada boton del sidebar ---- */
+
+/* Estilos del navbar personalizados: En caso de no quererlos solo borre la clase CSS */
+/* Color de la barra de navegacion superior, donde se agregan los botones como iniciar sesion, entre otros */
+.navbar{
+    background-color: var(--color-primario);
+  }
+  
+  /* Color de los iconos, botones o links que se agreguen a la barra de navegacion superior */
+  .navbar-nav .nav-item .nav-link {
+    color:  var(--color-blanco) !important;
+  }
+  
+  /* Color del texto o icono al pasar el mouse sobre el, va ajuntado con el  */
+  .navbar-nav .nav-item .nav-link:hover {
+    color:  #bc6c25 !important;
+  }
+  
+  /* Similar al estilo anterior solo que este es cuanto el boton se quede activado */
+  .navbar-nav .active {
+    background-color: var(--color-blanco) !important;
+    border-radius: 5px;
+  }
+  
+  /* Color para el boton o icono del navbar al pasar el mouse */
+  .navbar-nav .nav-item:hover {
+    background-color: var(--color-secundario) !important;
+    border-radius: 5px;
+  }
+  
+  /* Estilos del sidebar personalizados: En caso de no quererlos solo borre la clase CSS */
+  /* Color del sidebar */
+  .sidebar-dark-green{
+    background-color: var(--color-primario) !important;
+  }
+  
+  .sidebar-mini.sidebar-collapse .info {
+    animation-name: fadeOut;
+    animation-duration: .3s;
+    animation-fill-mode: both;
+    display: none;
+  }
+  
+  
+  .sidebar-collapse .main-sidebar:hover .info {
+    animation-name: fadeIn;
+    animation-duration: .1s;
+    display: block !important;
+  }
+  
+  /* Al ir a una funcion del sidebar este quedara activo mientras se esta en el grupo de vistas de las rutas especificadas */
+  .nav-item .active{
+    background-color: var(--color-terciario) !important;
+    color:  #bc6c25 !important;
+  }
+  
+  /* Al pasar el Mouse se aplicara el color asigando */
+  .nav-item:hover {
+    background-color: var(--color-secundario) !important;
+    color: #fff !important;
+    border-radius: 5px;
+  }
+  
+  /* Color de los botones que se encuentran en el sidebar */
+  .nav-link{
+    color: #ffffff !important;
+  }
+  
+  /* Al pasar el Mouse por el boton */
+  .nav-item .active:hover {
+    color: #bc6c25 !important;
+    border-radius: 5px;
+  }
+
+  /* Estilos de color del footer */
+.footer-background-cafeto {
+    background: var(--color-primario) !important;
+}
+  
+  /* Borde del siderbar que separa el nombre y el logo del las opciones del sidebar */
+  .brand-link{
+    border-bottom: 1px solid #ffffff83 !important;
+    box-shadow: 0px 2px 3px rgba(191, 191, 191, 0.3);
+  }
+  
+  
+  /* Estilos varios personalizados: En caso de no quererlos solo borre la clase CSS */
+  /* Color de la zona de trabajo */
+  .content-wrapper{
+    background-color: var(--color-blanco);
+  }
+  
+  /* Al navegar por las vistas la primera en la guia del breadcrum tendra un tono mas claro */
+  .breadcrumb-item a{
+    color:  #6c757d !important;
+  }
+  
+  /* CSS del boton de iniciar sesion (Estos estilos estan adaptados solo para el boton de iniciar sesion, con el fin de evitar cambios inesperados en otros botones implementados) */
+  .button-login{
+    position: relative;
+    padding: 6px 45px;
+    background: #ffffff;
+    font-size: 17px;
+    font-weight: 500;
+    color: #181818;
+    border-radius: 8px;
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, .2));
+  }
+  
+  .button-login:hover {
+    background: linear-gradient(85deg, #bc6c25, #bc6c25da, #bc6c25af, #bc6c25da, #bc6c25);
+    animation: wind 2s ease-in-out infinite; /* Mantener la animación en hover */
+  }
+  
+  @keyframes wind {
+    0% {
+      background-position: 0% 50%;
+    }
+  
+    0% {
+      background-position: 50% 100%;
+    }
+  
+    0% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .icon-1 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    transform-origin: 0 0;
+    transform: rotate(10deg);
+    transition: all .5s ease-in-out;
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, .3));
+  }
+  
+  .button-login:hover .icon-1{
+    animation: slay-1 3s cubic-bezier(0.52, 0, 0.58, 1) infinite;
+    transform: rotate(10deg);
+  }
+  
+  @keyframes slay-1 {
+    0% {
+      transform: rotate(10deg);
+    }
+  
+    50% {
+      transform: rotate(-5deg);
+    }
+  
+    100% {
+      transform: rotate(10deg);
+    }
+  }
+  
+  .icon-2 {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    width: 9px;
+    transform-origin: 50% 0;
+    transform: rotate(10deg);
+    transition: all 1s ease-in-out;
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, .5));
+  }
+  
+  .button-login:hover .icon-2 {
+    animation: slay-2 3s cubic-bezier(0.52, 0, 0.58, 1) 1s infinite;
+    transform: rotate(0);
+  }
+  
+  @keyframes slay-2 {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    50% {
+      transform: rotate(15deg);
+    }
+  
+    100% {
+      transform: rotate(0);
+    }
+  }
+  
+  .icon-3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 25px;
+    transform-origin: 50% 0;
+    transform: rotate(-5deg);
+    transition: all 1s ease-in-out;
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, .5));
+  }
+  
+  .button-login:hover .icon-3 {
+    animation: slay-3 2s cubic-bezier(0.52, 0, 0.58, 1) 1s infinite;
+    transform: rotate(0);
+  }
+  
+  @keyframes slay-3 {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    50% {
+      transform: rotate(-5deg);
+    }
+  
+    100% {
+      transform: rotate(0);
+    }
+  }
+  
+  /* Fin de estilos del boton de iniciar sesion */
+  
+  /* ----------------------ZONE TESTING CSS----------------- */
+  
+  .custom-tooltip {
+    --bs-tooltip-bg: var(--bs-primary);
+  }
+  
+  .card {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .card-img-top {
+    width: 100%;
+    height: auto;
+  }
+  
+  @media (min-width: 576px) {
+    .card-columns {
+      column-count: 2;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .card-columns {
+      column-count: 3;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .card-columns {
+      column-count: 4;
+    }
+  }
+  
+  

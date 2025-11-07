@@ -1,0 +1,13 @@
+{
+    "name": "SICA",
+    "alias": "sica",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SICA\\Providers\\SICAServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

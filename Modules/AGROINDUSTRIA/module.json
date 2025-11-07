@@ -1,0 +1,13 @@
+{
+    "name": "AGROINDUSTRIA",
+    "alias": "agroindustria",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AGROINDUSTRIA\\Providers\\AGROINDUSTRIAServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

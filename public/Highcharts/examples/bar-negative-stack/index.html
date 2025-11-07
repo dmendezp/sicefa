@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Highcharts Example</title>
+
+		<style type="text/css">
+#container {
+    height: 400px;
+}
+
+.highcharts-figure,
+.highcharts-data-table table {
+    min-width: 310px;
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #ebebeb;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+    padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+
+		</style>
+	</head>
+	<body>
+<script src="../../code/highcharts.js"></script>
+<script src="../../code/modules/exporting.js"></script>
+<script src="../../code/modules/export-data.js"></script>
+<script src="../../code/modules/accessibility.js"></script>
+
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+        Bar chart showing Somalian population distribution by using a mirrored
+        horizontal column chart with stacking and two x-axes.
+    </p>
+</figure>
+
+
+		<script type="text/javascript">
+// Age categories
+var categories = [
+    '0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-40', '40-45',
+    '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', '75-79', '80+'
+];
+
+Highcharts.chart('container', {
+    chart: {
+        type: 'bar'
+    },
+    title: {
+        text: 'Population pyramid for Somalia, 2021'
+    },
+    subtitle: {
+        text: 'Source: <a ' +
+            'href="https://countryeconomy.com/demography/population-structure/somalia"' +
+            'target="_blank">countryeconomy.com</a>'
+    },
+    accessibility: {
+        point: {
+            valueDescriptionFormat: '{index}. Age {xDescription}, {value}%.'
+        }
+    },
+    xAxis: [{
+        categories: categories,
+        reversed: false,
+        labels: {
+            step: 1
+        },
+        accessibility: {
+            description: 'Age (male)'
+        }
+    }, { // mirror axis on right side
+        opposite: true,
+        reversed: false,
+        categories: categories,
+        linkedTo: 0,
+        labels: {
+            step: 1
+        },
+        accessibility: {
+            description: 'Age (female)'
+        }
+    }],
+    yAxis: {
+        title: {
+            text: null
+        },
+        labels: {
+            formatter: function () {
+                return Math.abs(this.value) + '%';
+            }
+        },
+        accessibility: {
+            description: 'Percentage population',
+            rangeDescription: 'Range: 0 to 5%'
+        }
+    },
+
+    plotOptions: {
+        series: {
+            stacking: 'normal'
+        }
+    },
+
+    tooltip: {
+        formatter: function () {
+            return '<b>' + this.series.name + ', age ' + this.point.category + '</b><br/>' +
+                'Population: ' + Highcharts.numberFormat(Math.abs(this.point.y), 1) + '%';
+        }
+    },
+
+    series: [{
+        name: 'Male',
+        data: [
+            -8.98, -7.52, -6.65, -5.72, -4.85,
+            -3.71, -2.76, -2.07, -1.70, -1.47,
+            -1.22, -0.99, -0.81, -0.62, -0.41,
+            -0.23, -0.15
+        ]
+    }, {
+        name: 'Female',
+        data: [
+            8.84, 7.42, 6.57, 5.68, 4.83,
+            3.74, 2.80, 2.14, 1.79, 1.59,
+            1.34, 1.06, 0.83, 0.63, 0.43,
+            0.25, 0.19
+        ]
+    }]
+});
+		</script>
+	</body>
+</html>

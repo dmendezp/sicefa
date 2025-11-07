@@ -1,0 +1,13 @@
+{
+    "name": "BOLMETEOR",
+    "alias": "bolmeteor",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\BOLMETEOR\\Providers\\BOLMETEORServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

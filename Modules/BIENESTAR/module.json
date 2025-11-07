@@ -1,0 +1,13 @@
+{
+    "name": "BIENESTAR",
+    "alias": "bienestar",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\BIENESTAR\\Providers\\BIENESTARServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

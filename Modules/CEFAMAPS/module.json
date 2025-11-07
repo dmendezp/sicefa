@@ -1,0 +1,13 @@
+{
+    "name": "CEFAMAPS",
+    "alias": "cefamaps",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\CEFAMAPS\\Providers\\CEFAMAPSServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

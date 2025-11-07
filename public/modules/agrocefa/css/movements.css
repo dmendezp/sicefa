@@ -1,0 +1,32 @@
+#containermovements
+{
+    margin-top: 20px;
+    margin-left: 0px;
+}
+
+#card_header
+{
+    background-color: #695cfe;
+}
+
+#card
+{
+    border-top: solid;
+}
+#title
+{
+    margin-bottom: 30px;
+
+}
+
+.small-font
+{
+    font-size: 13px;
+    color: red;
+    font-weight: bold;
+}
+
+#button
+{
+    margin-right: 4px;
+}

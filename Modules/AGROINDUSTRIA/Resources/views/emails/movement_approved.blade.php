@@ -1,0 +1,1 @@
+<div>Elemento :{{$inventory->element->name}}</div>

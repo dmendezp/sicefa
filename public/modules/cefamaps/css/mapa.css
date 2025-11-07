@@ -1,0 +1,57 @@
+.nubes,
+.mapa {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
+.nubes {
+  width: 300px;
+  height: 300px;
+}
+
+.nubes img {
+  position: relative;
+  z-index: 20;
+}
+
+.mapa {
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  box-shadow: -30px -20px 0 0 rgba(0, 0, 0, .1) inset,
+              -70px -30px 0 0 rgba(0, 0, 0, .1) inset,
+              5px 5px 0 0 rgba(255, 255, 255, .2) inset;
+  background: url(../images/mapa.jpg);
+  background-size: cover;
+
+  -webkit-animation: tierra-girando 5s infinite linear;
+}
+
+@-webkit-keyframes tierra-girando {
+  from {
+    background-position: left center;
+  }
+  to {
+    background-position: right center;
+  }
+}
+/*
+  To Do: falta que se muestren bien las estrellas
+  To Do: falta hacerle el movimiento a las estrellas
+*/
+/* Inicio de las estrella */
+.estrella {
+  width: 2px;
+  height: 2px;
+  background: #fff;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  border-radius: 50%;
+  box-shadow: 0 0 15px 15px rgba(255, 255, 2555, .3);
+}
+/* Fin de las estrella */

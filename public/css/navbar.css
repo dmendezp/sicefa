@@ -1,0 +1,94 @@
+.navbar-nav {
+    flex-direction: row;
+  }
+  
+.lang {
+margin-left: 30px;
+padding-top: 13px;
+}
+
+.developers {
+    margin-left: 20px;
+}
+.navbar-nav .dropdown-menu {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-nav .dropdown-menu a {
+    display: block;
+    padding: 10px 15px;
+    color: #212529;
+    text-decoration: none;
+}
+
+.navbar-nav .dropdown-menu a:hover {
+    background-color: #f8f9fa;
+}
+
+.navbar-nav .dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Barra de Categorias */
+
+/* Barra de Categorias */
+/* Barra de Categorias */
+#portfolio-flters-container {
+    display: flex; /* Cambia el display a flex */
+    width: auto; /* Establece el ancho automático para que se ajuste al contenido */
+    overflow-x: auto; /* Habilita el desplazamiento horizontal */
+    overflow-y: hidden; /* Oculta la barra de desplazamiento vertical */
+    white-space: nowrap;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer/Edge */
+}
+
+#portfolio-flters-container::-webkit-scrollbar {
+    display: none; /* Oculta la barra de desplazamiento en navegadores WebKit */
+}
+
+#portfolio-flters li {
+    margin-right: 10px; /* Ajusta este valor según sea necesario */
+}
+
+.horizontal-scroll-container {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer/Edge */
+}
+
+/* Ajusta la posición absoluta de las flechas */
+.scroll-prev,
+.scroll-next {
+    position: absolute;
+    top: 50%;
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.scroll-prev {
+    left: 5px;
+}
+
+.scroll-next {
+    right: 5px;
+}
+
+.portfolio-image {
+    width: 100%; /* Establece un ancho del 100% para que las imágenes se ajusten al contenedor */
+    height: auto; /* Permite que la altura se ajuste automáticamente para mantener la proporción de aspecto */
+    max-width: 100%; /* Asegura que las imágenes no se expandan más allá de su tamaño original */
+    display: block; /* Asegura que las imágenes se muestren correctamente como bloques */
+}
+

@@ -1,0 +1,13 @@
+{
+    "name": "SOLICITUD",
+    "alias": "solicitud",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SOLICITUD\\Providers\\SOLICITUDServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

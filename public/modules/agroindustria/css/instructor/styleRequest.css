@@ -1,0 +1,99 @@
+.container_create,
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form {
+    width: 1000px;
+    max-width: 155%; /* Hacemos que el formulario sea responsive */
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 4px;
+}
+
+.form-body {
+    padding: 10px;
+}
+
+.form-header {
+    background-color: rgb(247, 244, 244);
+    border-bottom: 1px solid rgb(0, 0, 0);
+    font-weight: bold;
+    padding-left: 4px;
+}
+
+label {
+    font-weight: bold;
+}
+
+#products {
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+.available-quantity {
+    position: absolute;
+    margin-top: 5px;
+    color: #666;
+    font-size: 14px;
+}
+
+#add-product {
+    position: relative;
+    width: 73px;
+    padding: 5px 0px 5px 0px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+}
+
+.remove-product {
+    position: relative;
+    left: 5%;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: red;
+    border-radius: 4px;
+    border: none;
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 767px) {
+    .col-md-9 {
+        width: 100%;
+    }
+
+    .form {
+        width: 100%; /* Ajustamos el formulario al ancho completo */
+    }
+
+    .form-formulation {
+        padding: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .button_receipe {
+        text-align: center;
+    }
+
+    #add-product {
+        width: 100%; /* Ajuste para ocupar el ancho completo */
+        margin: 10px 0; /* Ajustamos el margen para pantallas más pequeñas */
+    }
+    .remove-product {
+        margin-top: 10px;
+    }
+}
+
+#products .product {
+    margin-top: 10px;
+}

@@ -1,0 +1,19 @@
+.card {
+    /* Estilos para la card */
+    border-radius: 2px;
+    padding: 10px;
+
+}
+
+.tabla-container {
+    max-height: 350px;
+    /* Establece una altura máxima para el contenedor */
+    overflow: auto;
+    /* Habilita las barras de desplazamiento cuando sea necesario */
+}
+
+.tabla-estilo {
+    /* Estilos para las tablas */
+    border-collapse: collapse;
+    width: 100%;
+}

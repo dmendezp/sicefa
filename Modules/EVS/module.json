@@ -1,0 +1,13 @@
+{
+    "name": "EVS",
+    "alias": "evs",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\EVS\\Providers\\EVSServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

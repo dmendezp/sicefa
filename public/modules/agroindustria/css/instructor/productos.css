@@ -1,0 +1,37 @@
+/* Estilos para el contenedor de las tarjetas */
+.formulations-container {
+    clear: both; /* Limpia los floats para evitar problemas de diseño */
+}
+
+/* Estilos para las tarjetas */
+.formulationcard {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    width: 300px; /* Ancho de la tarjeta */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    float: left; /* Hace que las tarjetas floten a la izquierda */
+}
+
+/* Estilos para el encabezado de la tarjeta */
+.formulationscard-header {
+    background-color: #f8b6c1;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Estilos para el contenido de la tarjeta */
+.formulations-card {
+    padding: 10px;
+}
+
+/* Estilos para las listas de ingredientes y utensilios */
+ul {
+    list-style-type: disc;
+    margin-left: 20px; /* Espacio de margen a la izquierda */
+}
+
+/* Estilos para los elementos de la lista */
+li {
+    margin: 5px 0;
+}
