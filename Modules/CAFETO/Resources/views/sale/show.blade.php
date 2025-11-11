@@ -95,6 +95,40 @@
                         </tfoot>
                     </table>
                 </div>
+                <hr>
+                <h5>Consumos por Ingrediente</h5>
+                <table class="table">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Ingrediente</th>
+                            <th>Cantidad Consumida</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($movement->movement_details as $detail)
+                            @php
+                                // Asumir que si es producto terminado, obtener formulación y calcular
+                                $formulation = \Modules\AGROINDUSTRIA\Entities\Formulation::where('element_id', $detail->inventory->element_id)
+                                    ->where('proccess', 'approved')
+                                    ->orderBy('date', 'desc')
+                                    ->first();
+                            @endphp
+                            @if ($formulation)
+                                @foreach ($formulation->ingredients as $ingredient)
+                                    <tr>
+                                        <td>{{ $ingredient->element->name }}</td>
+                                        <td>{{ $ingredient->amount * $detail->amount }} (según receta)</td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td>{{ $detail->inventory->element->product_name }}</td>
+                                    <td>{{ $detail->amount }}</td>
+                                </tr>
+                            @endif
+                        @endforeach
+                    </tbody>
+                </table>
                 <div class="text-center mt-4">
                     <button class="btn btn-success" onclick="printTicket()" id="printButton">{{ trans('cafeto::sales.Btn_Generate_Ticket') }}</button>
                 </div>

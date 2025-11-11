@@ -20,10 +20,8 @@ class PermissionsTableSeeder extends Seeder
         $permissions_admin = []; // Permisos para Administrador
         $permissions_cashier = []; // Permisos para Cajero
         $permissions_instructor = []; // Permisos para Instructor
-
         // Consultar aplicación SICA para registrar los permisos
-        $app = App::where('name', 'CAFETO')->first();
-
+        $app = App::where('name', 'CAFETO')->firstOrFail();
         // ===================== Registro de todos los permisos de la aplicación CAFETO ==================
         // Vista principal del administrador
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.index'], [
@@ -33,7 +31,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Vista principal del cajero
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.index'], [
             'name' => 'Vista principal del cajero',
@@ -42,7 +39,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Vista principal del instructor
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.instructor.index'], [
             'name' => 'Vista principal del instructor',
@@ -51,7 +47,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_instructor[] = $permission->id;
-
         // Vista de configuración (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.configuration.index'], [
             'name' => 'Vista de configuración (Administrador)',
@@ -60,7 +55,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Vista de configuración (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.configuration.index'], [
             'name' => 'Vista de configuración (Cajero)',
@@ -69,7 +63,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Generar impresión POS de prueba (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.configuration.postprinting'], [
             'name' => 'Generar impresión POS de prueba (Administrador)',
@@ -78,7 +71,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Generar impresión POS de prueba (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.configuration.postprinting'], [
             'name' => 'Generar impresión POS de prueba (Cajero)',
@@ -87,7 +79,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Vista del inventario actual (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.inventory.index'], [
             'name' => 'Vista del inventario actual (Administrador)',
@@ -96,7 +87,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Vista del inventario actual (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.inventory.index'], [
             'name' => 'Vista del inventario actual (Cajero)',
@@ -105,7 +95,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Formulario de registro de entrada de inventario (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.inventory.create'], [
             'name' => 'Formulario de registro de entrada de inventario (Administrador)',
@@ -114,7 +103,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Formulario de registro de entrada de inventario (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.inventory.create'], [
             'name' => 'Formulario de registro de entrada de inventario (Cajero)',
@@ -123,7 +111,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Registro de entrada de inventario (Administrador y/o Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin-cashier.inventory.store'], [
             'name' => 'Registro de entrada de inventario (Administrador y/o Cajero)',
@@ -133,7 +120,6 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id;
         $permissions_cashier[] = $permission->id;
-
         // Ver productos vencidos y por vencer (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.inventory.status'], [
             'name' => 'Ver productos vencidos y por vencer (Administrador)',
@@ -142,7 +128,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Ver productos vencidos y por vencer (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.inventory.status'], [
             'name' => 'Ver productos vencidos y por vencer (Cajero)',
@@ -151,7 +136,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Formulario de registro de bajas de inventario (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.inventory.low'], [
             'name' => 'Formulario de registro de bajas de inventario (Administrador)',
@@ -160,7 +144,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Formulario de registro de bajas de inventario (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.inventory.low'], [
             'name' => 'Formulario de registro de bajas de inventario (Cajero)',
@@ -169,7 +152,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Vista principal de la sección de reportes (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.reports.index'], [
             'name' => 'Vista principal de la sección de reportes (Administrador)',
@@ -178,7 +160,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Vista principal de la sección de reportes (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.reports.index'], [
             'name' => 'Vista principal de la sección de reportes (Cajero)',
@@ -187,7 +168,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Generar PDF del inventario actual (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.reports.inventory.generate.pdf'], [
             'name' => 'Generar PDF del inventario actual (Administrador)',
@@ -196,7 +176,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Generar PDF del inventario actual (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.reports.inventory.generate.pdf'], [
             'name' => 'Generar PDF del inventario actual (Cajero)',
@@ -205,7 +184,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Vista de consulta de entradas de inventario por fecha (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.reports.inventory.entries'], [
             'name' => 'Vista de consulta de entradas de inventario por fecha (Administrador)',
@@ -214,7 +192,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Vista de consulta de entradas de inventario por fecha (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.reports.inventory.entries'], [
             'name' => 'Vista de consulta de entradas de inventario por fecha (Cajero)',
@@ -223,7 +200,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Realizar consulta de entradas de inventario por fechas recibidas (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.reports.generate.inventory.entries'], [
             'name' => 'Consulta de entradas de inventario por fechas (Administrador)',
@@ -232,7 +208,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Realizar consulta de entradas de inventario por fechas recibidas (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.reports.generate.inventory.entries'], [
             'name' => 'Consulta de entradas de inventario por fechas (Cajero)',
@@ -241,7 +216,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Generar PDF de entradas de inventario (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.reports.generate.entries.pdf'], [
             'name' => 'Generar PDF de entradas de inventario (Administrador)',
@@ -250,7 +224,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Generar PDF de entradas de inventario (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.reports.generate.entries.pdf'], [
             'name' => 'Generar PDF de entradas de inventario (Cajero)',
@@ -259,7 +232,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Vista de consulta de ventas realizadas por fechas (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.reports.sales'], [
             'name' => 'Vista de consulta de ventas por fechas (Administrador)',
@@ -268,7 +240,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Vista de consulta de ventas realizadas por fechas (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.reports.sales'], [
             'name' => 'Vista de consulta de ventas por fechas (Cajero)',
@@ -277,7 +248,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Realizar consulta de ventas realizadas por fechas recibidas (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.reports.generate.sales'], [
             'name' => 'Consulta de ventas por fechas (Administrador)',
@@ -286,7 +256,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Realizar consulta de ventas realizadas por fechas recibidas (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.reports.generate.sales'], [
             'name' => 'Consulta de ventas por fechas (Cajero)',
@@ -295,7 +264,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Generar PDF de ventas realizadas (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.reports.generate.sales.pdf'], [
             'name' => 'Generar PDF de ventas realizadas (Administrador)',
@@ -304,7 +272,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Generar PDF de ventas realizadas (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.reports.generate.sales.pdf'], [
             'name' => 'Generar PDF de ventas realizadas (Cajero)',
@@ -313,7 +280,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Ver detalle de movimiento interno (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.movements.entries.show'], [
             'name' => 'Ver detalle de movimiento interno (Administrador)',
@@ -322,7 +288,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Ver detalle de movimiento interno (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.movements.entries.show'], [
             'name' => 'Ver detalle de movimiento interno (Cajero)',
@@ -331,7 +296,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Ver detalle de baja (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.movements.low.show'], [
             'name' => 'Ver detalle de baja (Administrador)',
@@ -340,7 +304,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Ver detalle de baja (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.movements.low.show'], [
             'name' => 'Ver detalle de baja (Cajero)',
@@ -349,7 +312,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Vista principal de ventas realizadas en sesión de caja (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.sale.index'], [
             'name' => 'Vista principal de ventas en sesión de caja (Administrador)',
@@ -358,7 +320,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Vista principal de ventas realizadas en sesión de caja (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.sale.index'], [
             'name' => 'Vista principal de ventas en sesión de caja (Cajero)',
@@ -367,7 +328,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Formulario de registro de venta (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.sale.register'], [
             'name' => 'Formulario de registro de venta (Administrador)',
@@ -376,7 +336,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Formulario de registro de venta (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.sale.register'], [
             'name' => 'Formulario de registro de venta (Cajero)',
@@ -385,7 +344,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Registro de venta (Administrador y/o Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin-cashier.generate.sale'], [
             'name' => 'Registro de venta (Administrador y/o Cajero)',
@@ -395,7 +353,6 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id;
         $permissions_cashier[] = $permission->id;
-
         // Ver detalle de venta (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.movements.sale.show'], [
             'name' => 'Ver detalle de venta (Administrador)',
@@ -404,7 +361,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Ver detalle de venta (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.movements.sale.show'], [
             'name' => 'Ver detalle de venta (Cajero)',
@@ -413,7 +369,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Vista principal de productos (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.element.index'], [
             'name' => 'Vista principal de productos (Administrador)',
@@ -422,7 +377,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Formulario para actualizar producto (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.element.edit'], [
             'name' => 'Formulario para actualizar producto (Administrador)',
@@ -431,7 +385,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Actualizar producto (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.element.update'], [
             'name' => 'Actualizar producto (Administrador)',
@@ -440,7 +393,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Formulario de registro de producto (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.element.create'], [
             'name' => 'Formulario de registro de producto (Administrador)',
@@ -449,7 +401,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Registrar producto (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.element.store'], [
             'name' => 'Registrar producto (Administrador)',
@@ -458,7 +409,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Vista principal de sesión de caja activa e historico de sesiones de caja (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.cash.index'], [
             'name' => 'Vista principal de sesiones de caja (Administrador)',
@@ -467,7 +417,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Vista principal de sesión de caja activa e historico de sesiones de caja (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.cash.index'], [
             'name' => 'Vista principal de sesiones de caja (Cajero)',
@@ -476,7 +425,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Registrar caja cuando no hay ninguna activa (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.cash.store'], [
             'name' => 'Registrar caja (Administrador)',
@@ -485,7 +433,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Registrar caja cuando no hay ninguna activa (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.cash.store'], [
             'name' => 'Registrar caja (Cajero)',
@@ -494,7 +441,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Cerrar sesión de caja (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.cash.close'], [
             'name' => 'Cerrar sesión de caja (Administrador)',
@@ -503,7 +449,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Cerrar sesión de caja (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.cash.close'], [
             'name' => 'Cerrar sesión de caja (Cajero)',
@@ -512,7 +457,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Vista principal de historico de movimientos (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.movements.index'], [
             'name' => 'Vista principal de movimientos (Administrador)',
@@ -521,7 +465,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Vista principal de historico de movimientos (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.movements.index'], [
             'name' => 'Vista principal de movimientos (Cajero)',
@@ -530,7 +473,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Consultar movimientos por fecha y actor (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.movements.consult'], [
             'name' => 'Consultar movimientos (Administrador)',
@@ -539,7 +481,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Consultar movimientos por fecha y actor (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.movements.consult'], [
             'name' => 'Consultar movimientos (Cajero)',
@@ -548,7 +489,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Vista principal de recetas (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.recipes.index'], [
             'name' => 'Vista principal de recetas (Administrador)',
@@ -557,7 +497,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Vista principal de recetas (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.recipes.index'], [
             'name' => 'Vista principal de recetas (Cajero)',
@@ -566,7 +505,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Vista de creación de recetas (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.recipes.create'], [
             'name' => 'Vista de creación de recetas (Administrador)',
@@ -575,7 +513,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Vista de creación de recetas (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.recipes.create'], [
             'name' => 'Vista de creación de recetas (Cajero)',
@@ -584,7 +521,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Vista detalles de una receta (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.recipes.details'], [
             'name' => 'Vista detalles de una receta (Administrador)',
@@ -593,7 +529,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Vista detalles de una receta (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.recipes.details'], [
             'name' => 'Vista detalles de una receta (Cajero)',
@@ -602,7 +537,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Vista principal de formulaciones (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.formulations.index'], [
             'name' => 'Vista principal de formulaciones (Administrador)',
@@ -611,7 +545,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Vista de creación de formulaciones (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.formulations.create'], [
             'name' => 'Vista de creación de formulaciones (Administrador)',
@@ -620,7 +553,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Guardar formulaciones (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.formulations.store'], [
             'name' => 'Guardar formulaciones (Administrador)',
@@ -629,7 +561,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Vista de edición de formulaciones (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.formulations.edit'], [
             'name' => 'Editar formulaciones (Administrador)',
@@ -638,7 +569,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Actualizar formulaciones (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.formulations.update'], [
             'name' => 'Actualizar formulaciones (Administrador)',
@@ -647,7 +577,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Aprobar formulaciones (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.formulations.approve'], [
             'name' => 'Aprobar formulaciones (Administrador)',
@@ -656,7 +585,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Eliminar formulaciones (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.formulations.destroy'], [
             'name' => 'Eliminar formulaciones (Administrador)',
@@ -665,7 +593,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Ver detalles de formulaciones (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.formulations.show'], [
             'name' => 'Ver detalles de formulaciones (Administrador)',
@@ -674,7 +601,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Gestión de formulaciones (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.formulations'], [
             'name' => 'Gestión de formulaciones (Administrador)',
@@ -683,7 +609,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id;
-
         // Gestión de formulaciones (Instructor)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.instructor.formulations'], [
             'name' => 'Gestión de formulaciones (Instructor)',
@@ -692,7 +617,14 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_instructor[] = $permission->id;
-
+        // Vista principal de formulaciones (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.instructor.formulations.index'], [
+            'name' => 'Vista principal de formulaciones (Instructor)',
+            'description' => 'Permite ver la vista principal de formulaciones',
+            'description_english' => 'Allows viewing the main formulations view',
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id;
         // Vista de creación de formulaciones (Instructor)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.instructor.formulations.create'], [
             'name' => 'Vista de creación de formulaciones (Instructor)',
@@ -701,7 +633,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_instructor[] = $permission->id;
-
         // Guardar formulaciones (Instructor)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.instructor.formulations.store'], [
             'name' => 'Guardar formulaciones (Instructor)',
@@ -710,7 +641,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_instructor[] = $permission->id;
-
         // Editar formulaciones (Instructor)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.instructor.formulations.edit'], [
             'name' => 'Editar formulaciones (Instructor)',
@@ -719,7 +649,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_instructor[] = $permission->id;
-
         // Actualizar formulaciones (Instructor)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.instructor.formulations.update'], [
             'name' => 'Actualizar formulaciones (Instructor)',
@@ -728,7 +657,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_instructor[] = $permission->id;
-
         // Aprobar formulaciones (Instructor)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.instructor.formulations.approve'], [
             'name' => 'Aprobar formulaciones (Instructor)',
@@ -737,23 +665,14 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_instructor[] = $permission->id;
-
         // Eliminar formulaciones (Instructor)
-        $permission = Permission::updateOrCreate(['slug' => 'cafeto.instructor.formulations.delete'], [
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.instructor.formulations.destroy'], [
             'name' => 'Eliminar formulaciones (Instructor)',
             'description' => 'Permite eliminar formulaciones',
             'description_english' => 'Allows deleting formulations',
             'app_id' => $app->id
         ]);
-        // Eliminar formulaciones (Instructor)
-        $permission = Permission::updateOrCreate(['slug' => 'cafeto.instructor.formulations.destroy'], [
-            'name' => 'Eliminar formulaciones (Instructor)',
-            'description' => 'Permite eliminar formulaciones',
-            'description_english' => 'Allows deleting formulaciones',
-            'app_id' => $app->id
-        ]);
         $permissions_instructor[] = $permission->id;
-
         // Ver detalles de formulaciones (Instructor)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.instructor.formulations.show'], [
             'name' => 'Ver detalles de formulaciones (Instructor)',
@@ -762,7 +681,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_instructor[] = $permission->id;
-
         // Gestión de formulaciones (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.formulations'], [
             'name' => 'Gestión de formulaciones (Cajero)',
@@ -771,7 +689,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Vista principal de formulaciones (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.formulations.index'], [
             'name' => 'Vista principal de formulaciones (Cajero)',
@@ -780,7 +697,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Vista de creación de formulaciones (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.formulations.create'], [
             'name' => 'Vista de creación de formulaciones (Cajero)',
@@ -789,7 +705,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Guardar formulaciones (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.formulations.store'], [
             'name' => 'Guardar formulaciones (Cajero)',
@@ -798,7 +713,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Ver detalles de formulaciones (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.formulations.show'], [
             'name' => 'Ver detalles de formulaciones (Cajero)',
@@ -807,12 +721,10 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id;
-
         // Consulta de ROLES
-        $rol_admin = Role::where('slug', 'cafeto.admin')->first();
-        $rol_cashier = Role::where('slug', 'cafeto.cashier')->first();
-        $rol_instructor = Role::where('slug', 'cafeto.instructor')->first();
-
+        $rol_admin = Role::where('slug', 'cafeto.admin')->firstOrFail();
+        $rol_cashier = Role::where('slug', 'cafeto.cashier')->firstOrFail();
+        $rol_instructor = Role::where('slug', 'cafeto.instructor')->firstOrFail();
         // Asignación de PERMISOS para los ROLES de la aplicación CAFETO
         $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
         $rol_cashier->permissions()->syncWithoutDetaching($permissions_cashier);

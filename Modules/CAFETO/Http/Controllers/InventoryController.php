@@ -39,8 +39,14 @@ class InventoryController extends Controller
         }
 
         // Convertimos los grupos a la colección final
-        foreach ($groups as $group) {
+        foreach ($groups as &$group) {
             $groupedInventories->push($group);
+            $first = $group->first();
+            $type = 'producto_terminado'; // Default
+            if (stripos($first->element->name, 'prima') !== false) $type = 'materia_prima';
+            elseif (stripos($first->element->name, 'semi') !== false) $type = 'semielaborado';
+            $group->type = $type;
+            $group->origin = $first->description ?? 'Desconocido'; // Usa description para origen
         }
 
         // Consulta para consumos por formulaciones (insumos consumidos) desde Formulation en lugar de MovementDetail

@@ -368,6 +368,7 @@ class FormulationsController extends Controller
             $newInventory->inventory_code = null; // Set if needed
             $newInventory->state = 'Disponible';
             $newInventory->destination = null; // Set if needed
+            $newInventory->description = 'Origen: Agroindustria';
             $newInventory->save();
 
             // Movement for adding produced product (Entry)

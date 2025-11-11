@@ -239,42 +239,64 @@ class GenerateSale extends Component
                 // Registrar detalles de movimiento (productos, cantidades y precios)
                 $error = 'DETALLES DE MOVIMIENTO';
                 foreach ($this->selected_products as $product) {
-                    $amountLeft = $product['product_amount']; // Definir cantidad restante (cantidad del producto a vender)
+                    $formulation = Formulation::where('element_id', $product['product_element_id'])
+                        ->where('proccess', 'approved')
+                        ->orderBy('date', 'desc') // Receta activa más reciente
+                        ->first();
 
-                    // Consultar todo el inventario del producto seleccionado
-                    $inventories = Inventory::where('productive_unit_warehouse_id', $this->puw->id)
-                                            ->where('element_id', $product['product_element_id'])
-                                            ->where('amount','>',0)
-                                            ->where('destination','Producción')
-                                            ->where('state','Disponible')
-                                            ->where(function ($query) {
-                                                $query->whereDate('expiration_date', '>=', now())
-                                                    ->orWhereNull('expiration_date');
-                                            })
-                                            ->orderBy('expiration_date', 'asc')
-                                            ->get();
+                    if ($formulation) {
+                        // Descontar ingredientes de la formulación
+                        foreach ($formulation->ingredients as $ingredient) {
+                            $amountLeft = $ingredient->amount * $product['product_amount']; // Ajustar por cantidad vendida
+                            $inventories = Inventory::where('productive_unit_warehouse_id', $this->puw->id)
+                                ->where('element_id', $ingredient->element_id)
+                                ->where('amount', '>', 0)
+                                ->orderBy('production_date', 'asc')
+                                ->get();
 
-                    // Recorrer inventario y disminuir cantidades de acuerdo a la cantidad requerida para la venta
-                    foreach ($inventories as $inventory) {
-                        if ($amountLeft <= 0) { // Validar si la cantidad restante es menor o igual a cero
-                            break;
+                            foreach ($inventories as $inventory) {
+                                if ($amountLeft <= 0) break;
+                                $amountToSubtract = min($amountLeft, $inventory->amount);
+                                $inventory->amount -= $amountToSubtract;
+                                $inventory->state = ($inventory->amount > 0) ? 'Disponible' : 'No disponible';
+                                $inventory->save();
+                                $amountLeft -= $amountToSubtract;
+
+                                MovementDetail::create([
+                                    'movement_id' => $movement->id,
+                                    'inventory_id' => $inventory->id,
+                                    'amount' => -$amountToSubtract, // Salida
+                                    'price' => $inventory->price
+                                ]);
+                            }
+                            if ($amountLeft > 0) {
+                                throw new \Exception('Stock insuficiente para ingrediente: ' . $ingredient->element->name);
+                            }
                         }
+                    } else {
+                        // Si no hay formulación, descontar producto directo (lógica original)
+                        $amountLeft = $product['product_amount'];
+                        $inventories = Inventory::where('productive_unit_warehouse_id', $this->puw->id)
+                            ->where('element_id', $product['product_element_id'])
+                            ->where('amount','>',0)
+                            ->orderBy('expiration_date', 'asc')
+                            ->get();
 
-                        $amountToSubtract = min($amountLeft, $inventory->amount); // Cantidad para restar del inventario actual
+                        foreach ($inventories as $inventory) {
+                            if ($amountLeft <= 0) break;
+                            $amountToSubtract = min($amountLeft, $inventory->amount);
+                            $inventory->amount -= $amountToSubtract;
+                            $inventory->state = ($inventory->amount > 0) ? 'Disponible' : 'No disponible';
+                            $inventory->save();
+                            $amountLeft -= $amountToSubtract;
 
-                        // Actualizar inventario
-                        $inventory->amount -= $amountToSubtract;
-                        $inventory->state = ($inventory->amount > 0) ? 'Disponible' : 'No disponible';
-                        $inventory->save();
-
-                        $amountLeft -= $amountToSubtract; // Disminuir cantidad restante
-
-                        MovementDetail::create([ // Registrar detalle de movimiento
-                            'movement_id' => $movement->id,
-                            'inventory_id' => $inventory->id,
-                            'amount' => $amountToSubtract,
-                            'price' => revertPriceFormat($product['product_price'])
-                        ]);
+                            MovementDetail::create([
+                                'movement_id' => $movement->id,
+                                'inventory_id' => $inventory->id,
+                                'amount' => $amountToSubtract,
+                                'price' => revertPriceFormat($product['product_price'])
+                            ]);
+                        }
                     }
                 }
 
