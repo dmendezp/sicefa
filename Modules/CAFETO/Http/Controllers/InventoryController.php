@@ -392,33 +392,170 @@ class InventoryController extends Controller
     // Método para realizar la consulta de ventas y redirigir a la vista
     public function generateSales(Request $request)
     {
-        // Captura las fechas ingresadas en el formulario.
-        $startDateInput = $request->input('start_date');
-        $endDateInput = $request->input('end_date');
-
-        // Convertir las fechas al formato "Y-m-d" (año-mes-día) si es necesario.
-        $startDateInput = Carbon::parse($startDateInput)->format('Y-m-d');
-        $endDateInput = Carbon::parse($endDateInput)->format('Y-m-d');
-
-        // Convertir las fechas a objetos Carbon y establecer las horas específicas.
+        $startDateInput = Carbon::parse($request->input('start_date'))->format('Y-m-d');
+        $endDateInput   = Carbon::parse($request->input('end_date'))->format('Y-m-d');
         $startDate = Carbon::createFromFormat('Y-m-d', $startDateInput)->startOfDay();
-        $endDate = Carbon::createFromFormat('Y-m-d', $endDateInput)->endOfDay();
+        $endDate   = Carbon::createFromFormat('Y-m-d', $endDateInput)->endOfDay();
 
-        // Consulta para obtener los registros de MovementType con nombre "Venta"
         $movement_type = MovementType::where('name', 'Venta')->firstOrFail();
 
-        // Consulta para obtener los registros de Movement entre las fechas seleccionadas
-        $movements = Movement::whereHas('warehouse_movements', function ($query) {
-            $query->where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
-                ->where('role', 'Entrega');
-        })
+        $movements = Movement::whereHas('warehouse_movements', function ($q) {
+                $q->where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
+                  ->where('role', 'Entrega');
+            })
             ->where('movement_type_id', $movement_type->id)
             ->where('state', 'Aprobado')
             ->whereBetween('registration_date', [$startDate, $endDate])
             ->orderBy('registration_date', 'ASC')
             ->get();
 
-        return $this->showSalesForm()->with('movements', $movements);
+        // Agrupar solo por nombre de producto (eliminada referencia)
+        $groupedProducts = [];
+        foreach ($movements as $movement) {
+            foreach ($movement->movement_details as $detail) {
+                $el   = $detail->inventory->element;
+                $name = $el->product_name ?? 'N/A'; // Fallback seguro
+                $key  = $name;
+
+                $price = $detail->price;
+                $amount = $detail->amount;
+                $subtotal = $amount * $price;
+
+                if (!isset($groupedProducts[$key])) {
+                    $groupedProducts[$key] = [
+                        'producto'   => $name,
+                        'cantidad'   => 0,
+                        'min_price'  => $price,
+                        'max_price'  => $price,
+                        'subtotal'   => 0,
+                    ];
+                }
+                $groupedProducts[$key]['cantidad'] += $amount;
+                $groupedProducts[$key]['subtotal'] += $subtotal;
+                $groupedProducts[$key]['min_price'] = min($groupedProducts[$key]['min_price'], $price);
+                $groupedProducts[$key]['max_price'] = max($groupedProducts[$key]['max_price'], $price);
+            }
+        }
+
+        $view = [
+            'titlePage' => trans('cafeto::controllers.CAFETO_sales_title_page'),
+            'titleView' => trans('cafeto::controllers.CAFETO_sales_title_view')
+        ];
+
+        return view('cafeto::reports.sales-form', [
+            'view'          => $view,
+            'start_date'    => $startDateInput,
+            'end_date'      => $endDateInput,
+            'movements'     => $movements,
+            'groupedProducts' => array_values($groupedProducts),
+        ]);
+    }
+
+    public function generateSalesProductsPDF(Request $request)
+    {
+        $startDateInput = $request->input('start_date');
+        $endDateInput   = $request->input('end_date');
+        if (!$startDateInput || !$endDateInput) {
+            return redirect()->back()->withErrors(['error' => 'Las fechas de inicio y fin son obligatorias.']);
+        }
+
+        $startDate = Carbon::parse($startDateInput)->startOfDay();
+        $endDate   = Carbon::parse($endDateInput)->endOfDay();
+
+        $movement_type = MovementType::where('name', 'Venta')->firstOrFail();
+        $movements = Movement::whereHas('warehouse_movements', function ($q) {
+                $q->where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
+                  ->where('role', 'Entrega');
+            })
+            ->where('movement_type_id', $movement_type->id)
+            ->where('state', 'Aprobado')
+            ->whereBetween('registration_date', [$startDate, $endDate])
+            ->orderBy('registration_date', 'ASC')
+            ->get();
+
+        // Agrupar y calcular datos
+        $grouped = [];
+        foreach ($movements as $movement) {
+            foreach ($movement->movement_details as $detail) {
+                $el   = $detail->inventory->element;
+                $name = optional($el)->product_name ?? 'N/A';
+                $key  = $name;
+
+                $price = $detail->price ?? 0;
+                $amount = $detail->amount ?? 0;
+                $subtotal = $amount * $price;
+
+                if (!isset($grouped[$key])) {
+                    $grouped[$key] = [
+                        'producto'   => $name,
+                        'cantidad'   => 0,
+                        'min_price'  => $price,
+                        'max_price'  => $price,
+                        'subtotal'   => 0,
+                    ];
+                }
+                $grouped[$key]['cantidad'] += $amount;
+                $grouped[$key]['subtotal'] += $subtotal;
+                $grouped[$key]['min_price'] = min($grouped[$key]['min_price'], $price);
+                $grouped[$key]['max_price'] = max($grouped[$key]['max_price'], $price);
+            }
+        }
+
+        // Ordenar alfabéticamente por nombre de producto
+        ksort($grouped);
+
+        $puw = PUW::getAppPuw();
+        $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+        $title = 'Reporte de Productos Vendidos - '.$startDateInput.' al '.$endDateInput;
+        $pdf->SetTitle($title);
+        $pdf->SetFont('helvetica', '', 10);
+        $pdf->AddPage();
+        $pdf->SetY(15);
+        $pdf->Cell(0, 0, 'Centro de Formación Agroindustrial "La Angostura" | Campoalegre - Huila', 0, 1, 'C');
+
+        $html  = '<h4 style="text-align:center;"><strong>Bodega:</strong> '.$puw->warehouse->name.' - <strong>Unidad Productiva:</strong> '.$puw->productive_unit->name.'</h4>';
+        $html .= '<h3 style="text-align:center;">'.$title.'</h3>';
+        
+        // Tabla con líneas verticales y horizontales reforzadas
+        $html .= '<table style="border-collapse:collapse; width:100%; font-size:10pt; border:1px solid #000;">';
+        $html .= '<thead style="background-color:#f2f2f2; border-bottom:2px solid #000;"><tr>
+            <th style="border:1px solid #000; text-align:center; padding:10px; width:5%;"><strong>#</strong></th>
+            <th style="border:1px solid #000; text-align:right; padding:10px; width:35%;"><strong>Producto</strong></th>
+            <th style="border:1px solid #000; text-align:center; padding:10px; width:20%;"><strong>Cantidad</strong></th>
+            <th style="border:1px solid #000; text-align:center; padding:10px; width:20%;"><strong>Precio</strong></th>
+            <th style="border:1px solid #000; text-align:center; padding:10px; width:20%;"><strong>Subtotal</strong></th>
+        </tr></thead><tbody>';
+
+        $total = 0; $i = 0;
+        if (empty($grouped)) {
+            $html .= '<tr><td colspan="5" style="text-align:center; padding:10px; border:1px solid #000;">No hay datos para el rango seleccionado.</td></tr>';
+        } else {
+            foreach ($grouped as $item) {
+                $i++;
+                $total += $item['subtotal'];
+                $priceLabel = ($item['min_price'] == $item['max_price'])
+                    ? priceFormat($item['min_price'])
+                    : priceFormat($item['min_price']) . ' - ' . priceFormat($item['max_price']);
+                $cantidad = number_format($item['cantidad'], 0, '.', ','); // Cantidad sin decimales
+
+                $html .= "<tr>
+                    <td style='border:1px solid #000; text-align:center; padding:10px;'>{$i}</td>
+                    <td style='border:1px solid #000; text-align:right; padding:10px;'>{$item['producto']}</td>
+                    <td style='border:1px solid #000; text-align:center; padding:10px;'>{$cantidad}</td>
+                    <td style='border:1px solid #000; text-align:center; padding:10px;'>{$priceLabel}</td>
+                    <td style='border:1px solid #000; text-align:center; padding:10px;'>".priceFormat($item['subtotal'])."</td>
+                </tr>";
+            }
+        }
+
+        $html .= '</tbody><tfoot><tr>
+            <td colspan="4" style="border:1px solid #000; text-align:right; padding:10px; font-weight:bold; background-color:#f2f2f2;">Total General:</td>
+            <td style="border:1px solid #000; text-align:center; padding:10px; font-weight:bold; background-color:#f2f2f2;">'.priceFormat($total).'</td>
+        </tr></tfoot></table>';
+
+        $pdf->writeHTML($html, true, false, true, false, '');
+        $filename = 'Reporte_productos_vendidos_'.$startDateInput.'_al_'.$endDateInput.'.pdf';
+        $pdf->Output($filename, 'I');
     }
 
     // Método para generar el reporte PDF de ventas
@@ -442,7 +579,7 @@ class InventoryController extends Controller
         // Consulta para obtener los registros de Movement entre las fechas seleccionadas
         $movements = Movement::whereHas('warehouse_movements', function ($query) {
             $query->where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
-                ->where('role', 'Entrega');
+                  ->where('role', 'Entrega');
         })
             ->where('movement_type_id', $movement_type->id)
             ->where('state', 'Aprobado')
@@ -533,7 +670,8 @@ class InventoryController extends Controller
         // Agregar el contenido HTML al PDF
         $pdf->writeHTML($html, true, false, true, false, '');
 
-        // Generar el PDF y devolverlo para su descarga
-        $pdf->Output('reporte_ventas.pdf', 'I');
+        // Generar el PDF y devolverlo para su descarga con las fechas en el nombre del archivo
+        $filename = 'Reporte_ventas_' . $startDateInput . '_al_' . $endDateInput . '.pdf';
+        $pdf->Output($filename, 'I');
     }
 }

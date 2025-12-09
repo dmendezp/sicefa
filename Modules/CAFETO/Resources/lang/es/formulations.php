@@ -7,12 +7,31 @@ return [
     'Create' => 'Crear Formulación',
     'Edit' => 'Editar Formulación',
     'Show' => 'Detalles de Formulación',
+
     'Breadcrumb_Formulations_1' => 'Formulaciones',
     'Breadcrumb_Active_Formulations_1' => 'Lista de Formulaciones',
     'Breadcrumb_Active_Create_Formulations_1' => 'Crear Formulación',
+    'Breadcrumb_Active_Formulation_Show' => 'Detalles de la Formulación',
+
+    // Nuevo para la pantalla de aprobar
+    'Breadcrumb_Active_Approve_Formulations' => 'Aprobar Formulación',
+
     'Title_Form_Owner' => 'Propietario',
+
+    // Bloque producto producido / aprobar
+    'Produced Product Details' => 'Detalles del producto producido',
+    'Formulation Details' => 'Detalles de la formulación',
+
+    'Expiration Date' => 'Fecha de vencimiento',
+    'Lot Number' => 'Número de lote',
+    'Inventory Code' => 'Código de inventario',
+    'Mark' => 'Marca',
+    'Destination' => 'Destino',
+    'Select Destination' => 'Seleccione un destino',
+
     'Unit' => 'Unidad',
     'Delete_Ingredient' => 'Eliminar Ingrediente',
+
     'Tooltip_Owner' => 'El propietario de la formulación, asignado automáticamente al usuario actual.',
     'Tooltip_Element' => 'Seleccione el elemento principal para la formulación.',
     'Tooltip_Date' => 'Seleccione la fecha de creación de la formulación.',
@@ -33,13 +52,22 @@ return [
     'Search_Element' => 'Buscar Elemento', // Added for typeahead placeholder
     'Preview' => 'Vista Previa', // Added for preview panel
     'Voice_Not_Supported' => 'El reconocimiento de voz no es compatible con este navegador.', // Added for voice input error
-    
+
+    // Tooltips nuevos para producto producido / aprobar
+    'Tooltip_Expiration_Date' => 'Seleccione la fecha de vencimiento del producto elaborado.',
+    'Tooltip_Lot_Number' => 'Ingrese el número de lote del producto elaborado para su trazabilidad.',
+    'Tooltip_Inventory_Code' => 'Código interno que identifica el producto en el módulo de inventarios.',
+    'Tooltip_Mark' => 'Marca o referencia comercial del producto elaborado.',
+    'Tooltip_Destination' => 'Seleccione el destino operativo del producto elaborado.',
+    'Tooltip_Approve' => 'Aprobar la formulación y registrar el producto elaborado en inventarios.',
+
     // Messages
     'Created' => 'Formulación creada exitosamente.',
     'Updated' => 'Formulación actualizada exitosamente.',
-    'Approved' => 'Formulación aprobada exitosamente.',
+    // OJO: este key "Approved" ya se usa arriba como estado ("Aprobado").
+    // Si quieres un mensaje distinto, es mejor usar otro nombre, por ejemplo:
+    'Approved_Message' => 'Formulación aprobada exitosamente.',
     'Deleted' => 'Formulación eliminada exitosamente.',
-    
 
     // Form Fields
     'Element' => 'Elemento',
@@ -64,13 +92,10 @@ return [
     'Milliliters' => 'Mililitros (ml)',
     'Back to Formulations' => 'Volver a Formulaciones',
     'Convert' => 'Convertir', // Added for unit conversion button
-    'Breadcrumb_Active_Formulation_Show' => 'Detalles de la Formulación',
     'Delete' => 'Eliminar',
     'Confirm Delete' => '¿Estás seguro de que deseas eliminar esta formulación? Esta acción no se puede deshacer.',
     'Cancel' => 'Cancelar',
     'Yes, delete it!' => 'Sí, Eliminar',
-    
-
 
     // Validation
     'validation' => [

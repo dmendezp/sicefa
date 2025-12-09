@@ -52,6 +52,7 @@ return [
     // Btns
     'Btn_Search'       => 'Buscar',
     'Btn_Generate_PDF' => 'Generar Reporte',
+    'Btn_Generate_Sales_Report'=> 'Reporte de Productos',
     
     //Sweetalert2
     'Title'   => 'Debes realizar primero la consulta, luego si genera el reporte.',

@@ -64,9 +64,12 @@ class FormulationsController extends Controller
             ['name' => 'Mililitros', 'abbreviation' => 'ml'],
         ];
 
+        $destinations = ['Venta', 'Producción', 'Consumo Interno']; // Hardcoded from enum values in inventory
+
         return view('cafeto::formulations.create', [
             'elements' => $elements,
             'units' => $units,
+            'destinations' => $destinations,
             'view' => ['titlePage' => trans('cafeto::formulations.Create', [], 'Create Formulation')]
         ]);
     }
@@ -83,13 +86,19 @@ class FormulationsController extends Controller
         $this->authorizeFormulationAccess();
 
         $request->validate([
-            'element_id' => 'nullable|exists:elements,id',
+            'element_id' => 'required|exists:elements,id',
             'amount' => 'required|numeric|min:0',
             'date' => 'required|date',
             'ingredients' => 'required|array|min:1',
             'ingredients.*.element_id' => 'required|exists:elements,id',
             'ingredients.*.amount' => 'required|numeric|min:0',
-            'ingredients.*.unit' => 'required|in:g,mg,ml', // Validación en el frontend
+            'ingredients.*.unit' => 'required|in:g,mg,ml',
+            // Nuevos campos para producto producido (no se guardan en BD, se usan en consume si approved)
+            'produced_expiration_date' => 'nullable|date|after:date',
+            'produced_lot_number' => 'required|string|max:255',
+            'produced_inventory_code' => 'nullable|string|max:255',
+            'produced_mark' => 'nullable|string|max:255',
+            'produced_destination' => 'required|in:Venta,Producción,Consumo Interno',
         ], [
             'ingredients.min' => trans('cafeto::formulations.validation.ingredients_required', [], 'At least one ingredient is required.')
         ]);
@@ -126,7 +135,14 @@ class FormulationsController extends Controller
             }
 
             if ($proccess === 'approved') {
-                $this->consumeInventory($formulation);
+                $producedData = $request->only([
+                    'produced_expiration_date',
+                    'produced_lot_number',
+                    'produced_inventory_code',
+                    'produced_mark',
+                    'produced_destination'
+                ]);
+                $this->consumeInventory($formulation, $producedData);
             }
 
             DB::commit();
@@ -221,19 +237,64 @@ class FormulationsController extends Controller
     }
 
     /**
-     * Approve the specified formulation.
+     * Show the form for approving the specified formulation.
      *
      * @param \Modules\AGROINDUSTRIA\Entities\Formulation $formulation
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\View\View
      */
     public function approve(Formulation $formulation)
     {
         $this->authorizeAdminOrInstructor();
 
+        $units = [
+            ['name' => 'Gramos', 'abbreviation' => 'g'],
+            ['name' => 'Miligramos', 'abbreviation' => 'mg'],
+            ['name' => 'Mililitros', 'abbreviation' => 'ml'],
+        ];
+
+        $destinations = ['Venta', 'Producción', 'Consumo Interno'];
+
+        return view('cafeto::formulations.approve', [
+            'formulation' => $formulation->load('ingredients.element', 'element'),
+            'units' => $units,
+            'destinations' => $destinations,
+            'view' => ['titlePage' => trans('cafeto::formulations.Approve', [], 'Approve Formulation')]
+        ]);
+    }
+
+    /**
+     * Approve the specified formulation with produced data.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Modules\AGROINDUSTRIA\Entities\Formulation $formulation
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function approveStore(Request $request, Formulation $formulation)
+    {
+        $this->authorizeAdminOrInstructor();
+
+        $request->validate([
+            'produced_expiration_date' => 'nullable|date|after:date',
+            'produced_lot_number' => 'required|string|max:255',
+            'produced_inventory_code' => 'nullable|string|max:255',
+            'produced_mark' => 'nullable|string|max:255',
+            'produced_destination' => 'required|in:Venta,Producción,Consumo Interno',
+        ]);
+
         try {
             $user = $this->getAuthenticatedUser();
             $formulation->update(['proccess' => 'approved']);
-            $this->consumeInventory($formulation);
+
+            $producedData = $request->only([
+                'produced_expiration_date',
+                'produced_lot_number',
+                'produced_inventory_code',
+                'produced_mark',
+                'produced_destination'
+            ]);
+
+            $this->consumeInventory($formulation, $producedData);
+
             return redirect()->route($this->getRedirectRoute($user) . '.formulations.index')
                 ->with('success', trans('cafeto::formulations.Approved', [], 'Formulation approved successfully.'));
         } catch (\Exception $e) {
@@ -293,10 +354,11 @@ class FormulationsController extends Controller
      * Consume inventory based on the formulation ingredients and add the produced product to inventory.
      *
      * @param Formulation $formulation
+     * @param array $producedData
      * @return void
      * @throws \Exception
      */
-    private function consumeInventory(Formulation $formulation)
+    private function consumeInventory(Formulation $formulation, array $producedData = [])
     {
         $movementTypeBaja = MovementType::where('name', 'Baja')->first();
         if (!$movementTypeBaja) {
@@ -318,8 +380,11 @@ class FormulationsController extends Controller
         $warehouseMovementConsume->movement_id = $movementConsume->id;
         $warehouseMovementConsume->save();
 
+        $totalCost = 0; // Inicializar costo total de insumos
+
         foreach ($formulation->ingredients as $ingredient) {
             $totalToDeduct = $ingredient->amount * $formulation->amount;
+            \Log::info('Consuming ingredient', ['element_id' => $ingredient->element_id, 'total_to_deduct' => $totalToDeduct]);
 
             $inventories = Inventory::where('element_id', $ingredient->element_id)
                 ->where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
@@ -327,12 +392,21 @@ class FormulationsController extends Controller
                 ->orderBy('production_date', 'asc') // FIFO
                 ->get();
 
+            \Log::info('Available inventories for ingredient', ['element_id' => $ingredient->element_id, 'count' => $inventories->count(), 'total_available' => $inventories->sum('amount')]);
+
+            if ($inventories->sum('amount') < $totalToDeduct) {
+                throw new \Exception('Not enough stock for ingredient ' . $ingredient->element->name . '. Required: ' . $totalToDeduct . ', Available: ' . $inventories->sum('amount'));
+            }
+
             foreach ($inventories as $inv) {
                 if ($totalToDeduct <= 0) break;
 
                 $deduct = min($inv->amount, $totalToDeduct);
                 $inv->amount -= $deduct;
                 $inv->save();
+
+                // Acumular costo total basado en el precio del insumo y la cantidad deductida
+                $totalCost += $deduct * $inv->price;
 
                 $movementDetail = new MovementDetail();
                 $movementDetail->movement_id = $movementConsume->id;
@@ -356,19 +430,24 @@ class FormulationsController extends Controller
                 throw new \Exception('Movement type "Movimiento Interno" not found.');
             }
 
+            // Calcular precio por unidad del producto producido (costo total / cantidad producida)
+            $pricePerUnit = ($formulation->amount > 0) ? $totalCost / $formulation->amount : 0;
+
             // Create new Inventory for the produced product
             $newInventory = new Inventory();
+            $newInventory->person_id = $formulation->person_id; // Asignar person_id para consistencia
             $newInventory->productive_unit_warehouse_id = PUW::getAppPuw()->id;
             $newInventory->element_id = $formulation->element_id;
+            $newInventory->destination = $producedData['produced_destination'] ?? 'Venta'; // Usar del array o default
+            $newInventory->price = $pricePerUnit; // Precio calculado basado en insumos
             $newInventory->amount = $formulation->amount;
-            $newInventory->price = 0; // Set price to 0 or calculate based on ingredients if needed
+            $newInventory->stock = 0; // Stock inicial
             $newInventory->production_date = $formulation->date;
-            $newInventory->expiration_date = null; // Set if needed
-            $newInventory->lot_number = 'FORM-' . $formulation->id; // Generate lot number
-            $newInventory->inventory_code = null; // Set if needed
+            $newInventory->expiration_date = $producedData['produced_expiration_date'] ?? null;
+            $newInventory->lot_number = $producedData['produced_lot_number'] ?? 'FORM-' . $formulation->id;
+            $newInventory->inventory_code = $producedData['produced_inventory_code'] ?? null;
             $newInventory->state = 'Disponible';
-            $newInventory->destination = null; // Set if needed
-            $newInventory->description = 'Origen: Agroindustria';
+            $newInventory->mark = $producedData['produced_mark'] ?? null;
             $newInventory->save();
 
             // Movement for adding produced product (Entry)
@@ -376,7 +455,7 @@ class FormulationsController extends Controller
             $movementProduce->movement_type_id = $movementTypeEntry->id;
             $movementProduce->registration_date = now();
             $movementProduce->state = 'Aprobado';
-            $movementProduce->price = 0; // Set to 0 or calculate
+            $movementProduce->price = $totalCost; // Precio total del movimiento (costo total de insumos)
             $movementProduce->voucher_number = $formulation->id; // Use integer ID
             $movementProduce->save();
 
@@ -391,7 +470,7 @@ class FormulationsController extends Controller
             $movementDetailProduce->movement_id = $movementProduce->id;
             $movementDetailProduce->inventory_id = $newInventory->id;
             $movementDetailProduce->amount = $formulation->amount;
-            $movementDetailProduce->price = $newInventory->price;
+            $movementDetailProduce->price = $pricePerUnit;
             $movementDetailProduce->save();
         }
     }
