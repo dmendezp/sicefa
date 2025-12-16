@@ -23,6 +23,7 @@ use Modules\SICA\Entities\WarehouseMovement;
 
 use Modules\AGROINDUSTRIA\Entities\Formulation;
 
+
 class GenerateSale extends Component
 {
     public $puw; // Almacena la unidad productia y bodega asociada a la aplicación
