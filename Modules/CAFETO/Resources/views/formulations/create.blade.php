@@ -10,7 +10,7 @@
         <a href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.formulations.index') }}"
            class="text-decoration-none text-white">{{ trans('cafeto::formulations.Breadcrumb_Formulations_1') }}</a>
     </li>
-    <li class="breadcrumb-item active text-white">{{ trans('cafeto::formulations.Breadcrumb_Active_Create_Formulations_1') }}</li>
+    <li class="breadcrumb-item active text-light-gray">{{ trans('cafeto::formulations.Breadcrumb_Active_Create_Formulations_1') }}</li>
 @endpush
 
 @section('content')
@@ -39,6 +39,18 @@
                             $routePrefix = in_array('cafeto.admin', $roles) ? 'admin' : (in_array('cafeto.instructor', $roles) ? 'instructor' : 'cashier');
                             $person_id = $user->person ? $user->person->id : $user->id;
                             $person_name = $user->person ? $user->person->full_name : $user->name;
+
+                            $oldElementName = old('element_name');
+                            if (old('element_id') && !$oldElementName) {
+                                $oldElement = $elements->firstWhere('id', old('element_id'));
+                                $oldElementName = $oldElement ? $oldElement->name : '';
+                            }
+
+                            $oldIngredientName0 = old('ingredients.0.element_name');
+                            if (old('ingredients.0.element_id') && !$oldIngredientName0) {
+                                $oldIngredient0 = $elements->firstWhere('id', old('ingredients.0.element_id'));
+                                $oldIngredientName0 = $oldIngredient0 ? $oldIngredient0->name : '';
+                            }
                         @endphp
 
                         <form action="{{ route('cafeto.' . $routePrefix . '.formulations.store') }}" method="POST" id="formulation-form">
@@ -73,12 +85,13 @@
                                                     <i class="fas fa-list text-light-gray"></i>
                                                 </span>
                                             </div>
-                                            <select name="element_id" class="form-select input-dark" onchange="updatePreview()">
+                                            <input name="element_name" list="element-list" class="form-control input-dark" value="{{ $oldElementName }}" placeholder="{{ trans('cafeto::formulations.Search_Element') }}" oninput="updatePreview()">
+                                            <datalist id="element-list">
                                                 <option value="">{{ trans('cafeto::formulations.None') }}</option>
                                                 @foreach ($elements as $element)
-                                                    <option value="{{ $element->id }}" {{ old('element_id') == $element->id ? 'selected' : '' }}>{{ $element->name }}</option>
+                                                    <option value="{{ $element->name }}"></option>
                                                 @endforeach
-                                            </select>
+                                            </datalist>
                                         </div>
                                     </div>
                                 </div>
@@ -239,12 +252,7 @@
                                                                 <i class="fas fa-list text-light-gray"></i>
                                                             </span>
                                                         </div>
-                                                        <select name="ingredients[0][element_id]" class="form-select input-dark" required onchange="updatePreview()">
-                                                            <option value="">{{ trans('cafeto::formulations.None') }}</option>
-                                                            @foreach ($elements as $element)
-                                                                <option value="{{ $element->id }}" {{ old('ingredients.0.element_id') == $element->id ? 'selected' : '' }}>{{ $element->name }}</option>
-                                                            @endforeach
-                                                        </select>
+                                                        <input name="ingredients[0][element_name]" list="element-list" class="form-control input-dark" required placeholder="{{ trans('cafeto::formulations.Search_Element') }}" value="{{ $oldIngredientName0 }}" oninput="updatePreview()">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
@@ -367,11 +375,11 @@
 
         // Live Preview Update
         function updatePreview() {
-            const elementSelect = document.querySelector('select[name="element_id"]');
+            const elementInput = document.querySelector('input[name="element_name"]');
             const amountInput = document.querySelector('input[name="amount"]');
             const dateInput = document.querySelector('input[name="date"]');
             const ingredients = document.querySelectorAll('.ingredient-group');
-            document.getElementById('preview-element').textContent = elementSelect.options[elementSelect.selectedIndex]?.text || '{{ trans('cafeto::formulations.None') }}';
+            document.getElementById('preview-element').textContent = elementInput.value || '{{ trans('cafeto::formulations.None') }}';
             document.getElementById('preview-amount').textContent = amountInput.value || '0';
             document.getElementById('preview-date').textContent = dateInput.value || '{{ \Carbon\Carbon::now()->toDateString() }}';
             document.getElementById('preview-produced-expiration-date').textContent = document.querySelector('input[name="produced_expiration_date"]')?.value || 'N/A';
@@ -386,8 +394,7 @@
                 previewIngredients.innerHTML = '<li>{{ trans('cafeto::formulations.None') }}</li>';
             } else {
                 ingredients.forEach((group, index) => {
-                    const elementSelect = group.querySelector(`select[name="ingredients[${index}][element_id]"]`);
-                    const elementName = elementSelect.options[elementSelect.selectedIndex]?.text || '{{ trans('cafeto::formulations.None') }}';
+                    const elementName = group.querySelector(`input[name="ingredients[${index}][element_name]"]`)?.value || '{{ trans('cafeto::formulations.None') }}';
                     const amount = group.querySelector(`input[name="ingredients[${index}][amount]"]`)?.value || '0';
                     const unit = group.querySelector(`select[name="ingredients[${index}][unit]"]`)?.value || 'g';
                     previewIngredients.innerHTML += `<li>${elementName}: ${amount} ${unit}</li>`;
@@ -411,12 +418,7 @@
                                 <i class="fas fa-list text-light-gray"></i>
                             </span>
                         </div>
-                        <select name="ingredients[${ingredientCount}][element_id]" class="form-select input-dark" required onchange="updatePreview()">
-                            <option value="">{{ trans('cafeto::formulations.None') }}</option>
-                            @foreach ($elements as $element)
-                                <option value="{{ $element->id }}">{{ $element->name }}</option>
-                            @endforeach
-                        </select>
+                        <input name="ingredients[${ingredientCount}][element_name]" list="element-list" class="form-control input-dark" required placeholder="{{ trans('cafeto::formulations.Search_Element') }}" oninput="updatePreview()">
                     </div>
                 </div>
                 <div class="col-md-3">

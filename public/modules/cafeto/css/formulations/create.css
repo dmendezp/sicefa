@@ -47,7 +47,6 @@ body {
 .input-owner:active {
     background: #333333; /* No change on focus/hover/active */
     color: #cccccc;
-    borderս
     border-color: #333333;
     box-shadow: none;
 }
@@ -162,28 +161,6 @@ body {
     border-radius: 5px;
     padding: 15px;
     margin-bottom: 20px;
-}
-
-/* Typeahead */
-.typeahead-list {
-    position: absolute;
-    background: #2a2a2a;
-    color: #ffffff;
-    border: 1px solid #333333;
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 1000;
-    width: 100%;
-    border-radius: 4px;
-}
-
-.typeahead-item {
-    padding: 8px;
-    cursor: pointer;
-}
-
-.typeahead-item:hover {
-    background: #4a4a4a;
 }
 
 /* Tooltip */

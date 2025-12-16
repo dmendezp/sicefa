@@ -29,6 +29,9 @@ return [
     'Mark' => 'Brand',
     'Destination' => 'Destination',
     'Select Destination' => 'Select a destination',
+    'Venta' => 'Sale',
+    'Producción' => 'Production',
+    'Consumo Interno' => 'Internal Consumption',
 
     'Unit' => 'Unit',
     'Delete_Ingredient' => 'Delete Ingredient',

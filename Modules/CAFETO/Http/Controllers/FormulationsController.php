@@ -86,11 +86,11 @@ class FormulationsController extends Controller
         $this->authorizeFormulationAccess();
 
         $request->validate([
-            'element_id' => 'required|exists:elements,id',
+            'element_name' => 'required|string|max:255',
             'amount' => 'required|numeric|min:0',
             'date' => 'required|date',
             'ingredients' => 'required|array|min:1',
-            'ingredients.*.element_id' => 'required|exists:elements,id',
+            'ingredients.*.element_name' => 'required|string|max:255',
             'ingredients.*.amount' => 'required|numeric|min:0',
             'ingredients.*.unit' => 'required|in:g,mg,ml',
             // Nuevos campos para producto producido (no se guardan en BD, se usan en consume si approved)
@@ -114,8 +114,10 @@ class FormulationsController extends Controller
             $proccess = in_array('cafeto.cashier', $roles) ? 'pending' : 'approved';
             $person_id = $user->person ? $user->person->id : $user->id;
 
+            $element = Element::firstOrCreate(['name' => $request->element_name]);
+
             $formulation = Formulation::create([
-                'element_id' => $request->element_id,
+                'element_id' => $element->id,
                 'person_id' => $person_id,
                 'productive_unit_id' => $productiveUnitId,
                 'proccess' => $proccess,
@@ -124,12 +126,13 @@ class FormulationsController extends Controller
             ]);
             \Log::info('Formulation created', ['formulation_id' => $formulation->id]);
 
-            foreach ($request->ingredients as $ingredient) {
-                \Log::info('Creating ingredient', $ingredient);
+            foreach ($request->ingredients as $ingredientData) {
+                $ingredientElement = Element::firstOrCreate(['name' => $ingredientData['element_name']]);
+                \Log::info('Creating ingredient', $ingredientData);
                 Ingredient::create([
                     'formulation_id' => $formulation->id,
-                    'element_id' => $ingredient['element_id'],
-                    'amount' => $ingredient['amount'],
+                    'element_id' => $ingredientElement->id,
+                    'amount' => $ingredientData['amount'],
                     // 'unit' no se guarda porque no está en $fillable
                 ]);
             }
@@ -394,9 +397,7 @@ class FormulationsController extends Controller
 
             \Log::info('Available inventories for ingredient', ['element_id' => $ingredient->element_id, 'count' => $inventories->count(), 'total_available' => $inventories->sum('amount')]);
 
-            if ($inventories->sum('amount') < $totalToDeduct) {
-                throw new \Exception('Not enough stock for ingredient ' . $ingredient->element->name . '. Required: ' . $totalToDeduct . ', Available: ' . $inventories->sum('amount'));
-            }
+            // No longer throw if not enough, proceed to deduct and allow negative
 
             foreach ($inventories as $inv) {
                 if ($totalToDeduct <= 0) break;
@@ -418,8 +419,29 @@ class FormulationsController extends Controller
                 $totalToDeduct -= $deduct;
             }
 
+            // If still need to deduct more, create a new inventory and set to negative
             if ($totalToDeduct > 0) {
-                throw new \Exception('Not enough stock for ingredient ' . $ingredient->element->name);
+                $newInv = new Inventory();
+                $newInv->element_id = $ingredient->element_id;
+                $newInv->productive_unit_warehouse_id = PUW::getAppPuw()->id;
+                $newInv->amount = 0;
+                $newInv->price = 0;
+                $newInv->production_date = now();
+                $newInv->state = 'Disponible';
+                // Add other required fields if necessary
+                $newInv->save();
+
+                $newInv->amount -= $totalToDeduct;
+                $newInv->save();
+
+                $movementDetail = new MovementDetail();
+                $movementDetail->movement_id = $movementConsume->id;
+                $movementDetail->inventory_id = $newInv->id;
+                $movementDetail->amount = - $totalToDeduct;
+                $movementDetail->price = 0;
+                $movementDetail->save();
+
+                $totalCost += $totalToDeduct * 0;
             }
         }
 
