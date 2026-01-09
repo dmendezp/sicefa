@@ -22,7 +22,7 @@ class AppTableSeeder extends Seeder
              [
             'url' => '/sg/index',
             'color' => '#76250C',
-            'icon' => 'fas fa-mug-hot',
+            'icon' => '<i class="fas fa-cow" aria-hidden="true"></i>',
             'description' => 'Sistema de ganaderia',
             'description_english' => 'Sales record at CEFA Coffee Station'
         ]);

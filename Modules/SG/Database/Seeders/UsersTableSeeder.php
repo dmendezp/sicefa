@@ -4,7 +4,6 @@ namespace Modules\SG\Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 use Modules\SICA\Entities\Person;
 
 class UsersTableSeeder extends Seeder
@@ -16,12 +15,22 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-     
-    // Registrar o actualizar usuario para Lola Fernanda Herrera Hernandez
         $person = Person::where('document_number', 1116914471)->first(); // Consultar Persona
         User::updateOrCreate(['nickname' => 'Darwin'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
-            'email' => 'darwin123@gmail.com'
-        ]); // Dama4471
+            'email' => 'darwinmartinezgrajales@gmail.com',//Dama4471
+        ]);
+
+        $person = Person::where('document_number', 1079604392)->first(); // Consultar Persona
+        User::updateOrCreate(['nickname' => 'Danna'], [ // Actualizar o crear usuario
+            'person_id' => $person->id,
+            'email' => 'dannalizethperezcastaneda@gmail.com',//Dape4392
+        ]);
+
+        $person = Person::where('document_number', 7714668)->first(); // Consultar Persona
+        User::updateOrCreate(['nickname' => 'Oscar'], [ // Actualizar o crear usuario
+            'person_id' => $person->id,
+            'email' => 'oecordobac@sena.edu.co',//Osed4668
+        ]);
     }
 }

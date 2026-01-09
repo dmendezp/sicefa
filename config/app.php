@@ -168,6 +168,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Nwidart\Modules\LaravelModulesServiceProvider::class,
 
         /*
          * Application Service Providers...

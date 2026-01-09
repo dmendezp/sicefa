@@ -17,6 +17,26 @@ class SGController extends Controller
         return view('sg::index');
     }
 
+    public function welcome()
+    {
+        return view('sg::welcome');
+    }
+
+    public function admin()
+    {
+        return view('sg::welcome');
+    }
+
+    public function liderDeUnidad()
+    {
+        return view('sg::panelLider');
+    }
+
+    public function aprendiz()
+    {
+        return view('sg::panelAprendiz');
+    }
+
     /**
      * Show the form for creating a new resource.
      * @return Renderable
