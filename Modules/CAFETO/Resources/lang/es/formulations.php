@@ -31,6 +31,8 @@ return [
     'Venta' => 'Venta',
     'Producción' => 'Producción',
     'Consumo Interno' => 'Consumo Interno',
+    'Product' => 'Productos',
+    'Select Product' => 'Seleccione el producto',
 
     'Unit' => 'Unidad',
     'Delete_Ingredient' => 'Eliminar Ingrediente',

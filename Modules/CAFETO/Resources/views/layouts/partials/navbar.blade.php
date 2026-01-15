@@ -168,7 +168,7 @@
                                         <div class="col-md-3">
                                             <a href="#">{{ trans('cafeto::general.navbarForm') }}</a>
                                             <ul>
-                                                @if (Auth::user()->havePermission('cafeto.admin.formulations'))
+                                                @if (Auth::user()->havePermission('cafeto.admin.formulations.index'))
                                                     <li>
                                                         <a href="{{ route('cafeto.admin.formulations.index') }}">
                                                             <i class="fa-solid fa-flask"></i>{{ trans('cafeto::general.Formulations') }}

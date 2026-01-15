@@ -16,14 +16,19 @@ class Formulation extends Model implements Auditable
     SoftDeletes, // Borrado suave
     HasFactory; // Generación de datos de prueba
 
-    protected $fillable = [ // Atributos modificables (asginación masivaa)
-        'name',
+    protected $fillable = [ // Atributos modificables (asignación masiva)
+        'name',  // Puedes usar este campo para almacenar datos extras como JSON si no quieres migrar
         'element_id',
         'person_id',
         'productive_unit_id',
         'proccess',
         'amount',
         'date',
+        'produced_expiration_date',  // Agregar este campo (requiere migración)
+        'produced_lot_number',       // Agregar este campo (requiere migración)
+        'produced_inventory_code',   // Agregar este campo (requiere migración)
+        'produced_mark',             // Agregar este campo (requiere migración)
+        'produced_destination',      // Agregar este campo (requiere migración)
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
@@ -58,4 +63,3 @@ class Formulation extends Model implements Auditable
     }
 
 }
-
