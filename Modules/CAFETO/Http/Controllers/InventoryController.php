@@ -5,6 +5,8 @@ namespace Modules\CAFETO\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementDetail;
@@ -14,71 +16,428 @@ use TCPDF;
 
 class InventoryController extends Controller
 {
-    // Listado del inventario actual
-    public function index()
+ public function index()
     {
-        $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_index_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_index_title_view')];
-        $inventories = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
-            ->where('amount', '<>', 0)
-            ->orderBy('updated_at', 'DESC')
-            ->get();
-        $groupedInventories = collect(); // Creamos una nueva colección para almacenar el resultado
-        $groups = []; // Creamos un array para mantener el seguimiento de los grupos
+        $view = [
+            'titlePage' => trans('cafeto::controllers.CAFETO_inventory_index_title_page'),
+            'titleView' => trans('cafeto::controllers.CAFETO_inventory_index_title_view')
+        ];
 
-        foreach ($inventories as $inventory) {
-            $elementId = $inventory->element_id;
-
-            // Verificamos si el grupo ya existe en el array de grupos
-            if (array_key_exists($elementId, $groups)) {
-                // Si el grupo ya existe, agregamos el registro al grupo existente
-                $groups[$elementId]->push($inventory);
-            } else {
-                // Si el grupo no existe, lo creamos y agregamos el registro al nuevo grupo
-                $groups[$elementId] = collect([$inventory]);
-            }
-        }
-
-        // Convertimos los grupos a la colección final
-        foreach ($groups as &$group) {
-            $groupedInventories->push($group);
-            $first = $group->first();
-            $type = 'producto_terminado'; // Default
-            if (stripos($first->element->name, 'prima') !== false) $type = 'materia_prima';
-            elseif (stripos($first->element->name, 'semi') !== false) $type = 'semielaborado';
-            $group->type = $type;
-            $group->origin = $first->description ?? 'Desconocido'; // Usa description para origen
-        }
-
-        // Consulta para consumos por formulaciones (insumos consumidos) desde Formulation en lugar de MovementDetail
         $puw = PUW::getAppPuw();
-        $formulations = Formulation::where('productive_unit_id', $puw->productive_unit_id)
-            ->with('ingredients.element', 'element')
+
+        // =====================
+        // Inventarios + populares (igual, pero exponiendo lote principal y origen)
+        // =====================
+        $inventories = Inventory::query()
+            ->where('productive_unit_warehouse_id', $puw->id)
+            ->with('element')
             ->get();
 
+        $popularRanks = $this->getPopularRanks($puw->id);
+
+        $groupedInventories = $inventories
+            ->groupBy('element_id')
+            ->map(function ($group) use ($popularRanks) {
+                $group = $group->sortByDesc('updated_at')->values();
+                $first = $group->first();
+
+                $totalStock = (int) $group->sum('amount');
+
+                // ✅ Si algún lote fue creado por formulación (token robusto en description)
+                $madeByFormulation = $group->contains(function ($i) {
+                    $d = (string) ($i->description ?? '');
+                    return (bool) preg_match('/\[\s*FORM\s*:\s*\d+\s*\]/i', $d);
+                });
+
+                // ✅ Origen pedido: Agroindustria vs Formulación
+                $origin = $madeByFormulation ? 'Formulación' : 'Agroindustria';
+
+                // Lote principal (para mostrar destino/lote/fechas)
+                $primaryLot = $group->first(fn($i) => (int)$i->amount > 0) ?? $group->first();
+
+                $entryAvg = $group->count()
+                    ? round((float) $group->avg('price'), 2)
+                    : 0;
+
+                $elementId = (int) $first->element_id;
+
+                return (object) [
+                    'element_id' => $elementId,
+                    'slug'       => $first->element?->slug,
+                    'name'       => $first->element?->name ?? 'Producto',
+                    'sale_price' => (float) ($first->element?->price ?? 0),
+                    'entry_price_avg' => $entryAvg,
+                    'total_stock' => $totalStock,
+                    'made_by_formulation' => $madeByFormulation,
+
+                    // ✅ NUEVO (para Acciones)
+                    'origin' => $origin,
+
+                    'last_update' => $group->first()?->updated_at,
+                    'primary_lot' => $primaryLot,
+                    'popular_rank' => $popularRanks[$elementId] ?? null,
+
+                    // ✅ Exponer datos del lote principal (tu blade ya los usa)
+                    'destination' => $primaryLot?->destination,
+                    'lot_number' => $primaryLot?->lot_number,
+                    'production_date' => $primaryLot?->production_date,
+                    'expiration_date' => $primaryLot?->expiration_date,
+                ];
+            })
+            ->values()
+            ->sortBy(function ($row) {
+                $rank = $row->popular_rank ?? 999;
+                return sprintf('%03d_%s', $rank, mb_strtolower($row->name));
+            })
+            ->values();
+
+        $popularList = collect($popularRanks)
+            ->sort()
+            ->map(function ($rank, $elementId) use ($groupedInventories) {
+                $row = $groupedInventories->firstWhere('element_id', (int) $elementId);
+                return (object) [
+                    'rank'       => $rank,
+                    'element_id' => (int) $elementId,
+                    'name'       => $row?->name ?? 'Producto',
+                    'price'      => $row?->sale_price ?? null,
+                ];
+            })
+            ->values();
+
+        // =====================
+        // ✅ CONSUMOS POR FORMULACIONES (SUMADOS SEGÚN VENTAS)
+        //   - Agrupa por: fecha + formulación + producto consumido
+        // =====================
         $consumptions = collect();
-        foreach ($formulations as $formulation) {
-            foreach ($formulation->ingredients as $ingredient) {
-                $consumptions->push((object) [
-                    'formulation_id' => $formulation->id,
-                    'date' => $formulation->date,
-                    'produced_product' => $formulation->element ? $formulation->element->name : 'N/A',
-                    'consumed_product' => $ingredient->element->name,
-                    'consumed_amount' => $ingredient->amount * $formulation->amount,
-                ]);
+
+        $saleType = MovementType::where('name', 'Venta')->first();
+
+        if ($saleType) {
+            $sales = Movement::whereHas('warehouse_movements', function ($q) use ($puw) {
+                    $q->where('productive_unit_warehouse_id', $puw->id)
+                      ->where('role', 'Entrega');
+                })
+                ->where('movement_type_id', $saleType->id)
+                ->where('state', 'Aprobado')
+                ->with([
+                    'movement_details.inventory' => function ($q) {
+                        $q->with('element');
+                    }
+                ])
+                ->orderBy('registration_date', 'DESC')
+                ->get();
+
+            $formulationCache = [];
+            $bucket = []; // clave => acumulado
+
+            foreach ($sales as $sale) {
+                $date = optional($sale->registration_date)->format('Y-m-d') ?? (string)$sale->registration_date;
+
+                foreach ($sale->movement_details as $detail) {
+                    $inv = $detail->inventory;
+                    if (!$inv) continue;
+
+                    $desc = (string) ($inv->description ?? '');
+
+                    // ✅ SOLO productos vendidos que vengan de formulación (token robusto)
+                    if (!preg_match('/\[\s*FORM\s*:\s*(\d+)\s*\]/i', $desc, $m)) continue;
+
+                    $formulationId = (int) $m[1];
+
+                    if (!isset($formulationCache[$formulationId])) {
+                        $formulationCache[$formulationId] = Formulation::with('ingredients.element', 'element')
+                            ->find($formulationId);
+                    }
+
+                    $formulation = $formulationCache[$formulationId];
+                    if (!$formulation) continue;
+
+$soldQty = abs((float) ($detail->amount ?? 0)); // ✅ ventas suelen ir negativas
+if ($soldQty <= 0) continue;
+
+
+                    $producedName = $inv->element?->name
+                        ?? ($formulation->element?->name ?? 'N/A');
+
+                    foreach ($formulation->ingredients as $ingredient) {
+                        $ingElId = (int) ($ingredient->element_id ?? 0);
+                        $consumedName = $ingredient->element?->name ?? 'N/A';
+
+                        // consumo total = consumo_unitario * cantidad vendida
+                        $consumedAmount = (float) $ingredient->amount * $soldQty;
+
+                        // ✅ Agrupar: fecha + formulación + ingrediente
+                        $key = $date.'|'.$formulationId.'|'.$ingElId;
+
+                        if (!isset($bucket[$key])) {
+                            $bucket[$key] = (object) [
+                                'formulation_id'   => $formulationId,
+                                'date'             => $date,
+                                'produced_product' => $producedName,
+                                'consumed_product' => $consumedName,
+                                'consumed_amount'  => 0.0,
+                            ];
+                        }
+
+                        $bucket[$key]->consumed_amount += $consumedAmount;
+                    }
+                }
             }
+
+            $consumptions = collect(array_values($bucket))
+                ->sortByDesc('date')
+                ->values();
         }
 
-        return view('cafeto::inventory.index', compact('view', 'groupedInventories', 'consumptions'));
+        return view('cafeto::inventory.index', compact(
+            'view',
+            'groupedInventories',
+            'consumptions',
+            'popularRanks',
+            'popularList'
+        ));
     }
 
-    // Formulario de registro (entrada) de inventario
-    public function create()
+
+
+
+
+
+
+ public function togglePopular($elementId)
+    {
+        $puw = PUW::getAppPuw();
+
+        $inventories = Inventory::query()
+            ->where('productive_unit_warehouse_id', $puw->id)
+            ->where('element_id', $elementId)
+            ->get();
+
+        if ($inventories->isEmpty()) {
+            return redirect()->back()->with('error', 'No hay inventario para este producto.');
+        }
+
+        $popularRanks = $this->getPopularRanks($puw->id);
+        $currentRank  = $popularRanks[$elementId] ?? null;
+
+        if ($currentRank !== null) {
+            $this->removePopularTokenFromElement($puw->id, $elementId);
+
+            foreach ($popularRanks as $eId => $rank) {
+                if ((int)$eId === (int)$elementId) continue;
+                if ($rank > $currentRank) {
+                    $this->setPopularRankOnElement($puw->id, (int)$eId, $rank - 1);
+                }
+            }
+
+            return redirect()->back()->with('success', 'Producto removido de Populares.');
+        }
+
+        $count = count($popularRanks);
+
+        if ($count < 4) {
+            $newRank = $count + 1;
+            $this->setPopularRankOnElement($puw->id, $elementId, $newRank);
+            return redirect()->back()->with('success', "Producto marcado como Popular (#{$newRank}).");
+        }
+
+        $oldestElementId = collect($popularRanks)->sort()->keys()->first();
+
+        $this->removePopularTokenFromElement($puw->id, (int)$oldestElementId);
+
+        foreach ($popularRanks as $eId => $rank) {
+            $eId = (int)$eId;
+            if ($eId === (int)$oldestElementId) continue;
+            $this->setPopularRankOnElement($puw->id, $eId, $rank - 1);
+        }
+
+        $this->setPopularRankOnElement($puw->id, $elementId, 4);
+
+        return redirect()->back()->with('success', 'Favorito actualizado: se reemplazó el más antiguo y este quedó como Popular (#4).');
+    }
+
+    private function getPopularRanks(int $puwId): array
+    {
+        $rows = Inventory::query()
+            ->where('productive_unit_warehouse_id', $puwId)
+            ->whereNotNull('description')
+            ->where('description', 'like', '%[POP%')
+            ->get(['element_id', 'description']);
+
+        $map = [];
+
+        foreach ($rows as $row) {
+            $rank = $this->parsePopularRank((string)$row->description);
+            if ($rank === null) continue;
+            $eid = (int)$row->element_id;
+            if (!isset($map[$eid]) || $rank < $map[$eid]) {
+                $map[$eid] = $rank;
+            }
+        }
+
+        asort($map);
+        $normalized = [];
+        $i = 1;
+        foreach ($map as $eid => $rank) {
+            $normalized[(int)$eid] = $i;
+            $i++;
+            if ($i > 4) break;
+        }
+
+        foreach ($normalized as $eid => $rank) {
+            $this->setPopularRankOnElement($puwId, $eid, $rank);
+        }
+
+        return $normalized;
+    }
+
+    private function parsePopularRank(string $desc): ?int
+    {
+        if (preg_match('/\[POP:(\d)\]/', $desc, $m)) {
+            $r = (int)$m[1];
+            return ($r >= 1 && $r <= 4) ? $r : null;
+        }
+        if (str_contains($desc, '[POP]')) {
+            return 4;
+        }
+        return null;
+    }
+
+    private function removePopularToken(string $desc): string
+    {
+        $desc = preg_replace('/\s*\[POP(:\d)?\]\s*/', ' ', $desc);
+        $desc = preg_replace('/\s+/', ' ', $desc);
+        return trim($desc);
+    }
+
+    private function setPopularToken(string $desc, int $rank): string
+    {
+        $desc = $this->removePopularToken($desc);
+        $token = "[POP:{$rank}]";
+        return trim($desc . ' ' . $token);
+    }
+
+    private function removePopularTokenFromElement(int $puwId, int $elementId): void
+    {
+        $inventories = Inventory::where('productive_unit_warehouse_id', $puwId)
+            ->where('element_id', $elementId)
+            ->get();
+
+        foreach ($inventories as $inv) {
+            $desc = (string)($inv->description ?? '');
+            $desc = $this->removePopularToken($desc);
+            $inv->description = $desc !== '' ? $desc : null;
+            $inv->save();
+        }
+    }
+
+    private function setPopularRankOnElement(int $puwId, int $elementId, int $rank): void
+    {
+        $inventories = Inventory::where('productive_unit_warehouse_id', $puwId)
+            ->where('element_id', $elementId)
+            ->get();
+
+        foreach ($inventories as $inv) {
+            $desc = (string)($inv->description ?? '');
+            $desc = $this->setPopularToken($desc, $rank);
+            $inv->description = $desc;
+            $inv->save();
+        }
+    }
+
+
+  public function create()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_create_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_create_title_view')];
         return view('cafeto::inventory.create', compact('view'));
     }
 
-    // Lista de productos vencidos y por vencer
+    public function store(Request $request)
+    {
+        $puw = PUW::getAppPuw();
+
+        $rawAmount =
+            $request->input('amount')
+            ?? $request->input('cantidad')
+            ?? $request->input('quantity')
+            ?? $request->input('stock')
+            ?? $request->input('entry_amount');
+
+        $amount = (int) preg_replace('/[^\d]/', '', (string) $rawAmount);
+
+        $rawPrice = $request->input('price', 0);
+        $price = (float) preg_replace('/[^\d]/', '', (string) $rawPrice);
+
+        \Log::info('CAFETO inventory.store payload', [
+            'route' => optional(\Route::current())->getName(),
+            'element_id' => $request->input('element_id'),
+            'rawAmount' => $rawAmount,
+            'amountParsed' => $amount,
+            'rawPrice' => $rawPrice,
+            'priceParsed' => $price,
+            'lot_number' => $request->input('lot_number'),
+            'puw_id' => optional($puw)->id,
+            'all_keys' => array_keys($request->all()),
+        ]);
+
+        $validator = Validator::make([
+            'element_id' => $request->input('element_id'),
+            'amount'     => $amount,
+            'price'      => $price,
+            'lot_number' => $request->input('lot_number'),
+            'production_date' => $request->input('production_date'),
+            'expiration_date' => $request->input('expiration_date'),
+        ], [
+            'element_id' => 'required|integer|exists:elements,id',
+            'amount'     => 'required|integer|min:1',
+            'price'      => 'required|numeric|min:0',
+            'lot_number' => 'required|string|max:50',
+            'production_date' => 'nullable|date',
+            'expiration_date' => 'nullable|date|after_or_equal:production_date',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        DB::beginTransaction();
+        try {
+            $inventory = Inventory::query()
+                ->where('productive_unit_warehouse_id', $puw->id)
+                ->where('element_id', (int)$request->input('element_id'))
+                ->where('lot_number', $request->input('lot_number'))
+                ->first();
+
+            if ($inventory) {
+                $inventory->amount = (int)$inventory->amount + $amount;
+            } else {
+                $inventory = new Inventory();
+                $inventory->productive_unit_warehouse_id = $puw->id;
+                $inventory->element_id = (int)$request->input('element_id');
+                $inventory->lot_number = $request->input('lot_number');
+                $inventory->amount = $amount;
+            }
+
+            $inventory->price = $price;
+
+            if ($request->filled('destination')) $inventory->destination = $request->input('destination');
+            if ($request->filled('production_date')) $inventory->production_date = $request->input('production_date');
+            if ($request->filled('expiration_date')) $inventory->expiration_date = $request->input('expiration_date');
+
+            $inventory->save();
+
+            DB::commit();
+
+            return redirect()
+                ->route('cafeto.' . getRoleRouteName(\Route::currentRouteName()) . '.inventory.index')
+                ->with('success', 'Entrada de inventario registrada correctamente.');
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            \Log::error('CAFETO inventory.store error: '.$e->getMessage(), ['trace' => $e->getTraceAsString()]);
+            return redirect()->back()->with('error', 'Error registrando inventario.')->withInput();
+        }
+    }
+
     public function status(Request $request)
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_status_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_status_title_view')];
@@ -96,94 +455,72 @@ class InventoryController extends Controller
         return view('cafeto::inventory.status', compact('view', 'productosVencidos', 'productosPorVencer'));
     }
 
-    /* Ingresar a registro de bajas de inventario */
     public function low_create()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_low_create_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_low_create_title_view')];
         return view('cafeto::inventory.low', compact('view'));
     }
 
-    /* Ver detalle de movimiento interno */
     public function show_entry(Movement $movement)
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_show_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_show_title_view')];
         return view('cafeto::inventory.show-entry', compact('view', 'movement'));
     }
 
-    /* Ver detalle de baja de inventario */
     public function showLow(Movement $movement)
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_show_low_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_show_low_title_view')];
         return view('cafeto::inventory.show-low', compact('view', 'movement'));
     }
 
-    //======================================== Funciones para reporte de inventario =========================================
-    //Vista principal del panel de reportes
     public function reports()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_reports_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_reports_title_view')];
         return view('cafeto::reports.index', compact('view'));
     }
 
-    // Método para generar el reporte PDF de inventario actual
     public function generateInventoryPDF(Request $request)
     {
         $inventories = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
-            ->where('amount', '<>', 0)
+        // temporal para depurar
+// ->where('amount', '<>', 0)
+
             ->orderBy('updated_at', 'DESC')
             ->get();
 
-        // Se accede al nombre de la bodega y unidad productiva
         $puw = PUW::getAppPuw();
 
-        $groupedInventories = collect(); // Creamos una nueva colección para almacenar el resultado
-        $groups = []; // Creamos un array para mantener el seguimiento de los grupos
+        $groupedInventories = collect();
+        $groups = [];
 
         foreach ($inventories as $inventory) {
             $elementId = $inventory->element_id;
-
-            // Verificamos si el grupo ya existe en el array de grupos
             if (array_key_exists($elementId, $groups)) {
-                // Si el grupo ya existe, agregamos el registro al grupo existente
                 $groups[$elementId]->push($inventory);
             } else {
-                // Si el grupo no existe, lo creamos y agregamos el registro al nuevo grupo
                 $groups[$elementId] = collect([$inventory]);
             }
         }
 
-        // Convertimos los grupos a la colección final
         foreach ($groups as $group) {
             $groupedInventories->push($group);
         }
 
-        // Crear una nueva instancia de TCPDF
         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
-
-        // Establecer el título del documento con la fecha actual
         $title = 'Reporte de Inventario - ' . date('Y-m-d');
         $pdf->SetTitle($title);
-
-        // Definir la fuente y el tamaño para el contenido del PDF
         $pdf->SetFont('helvetica', '', 10);
-
-        // Agregar una nueva página
         $pdf->AddPage();
-
-        // Método Header para establecer el contenido centrado del encabezado
-        $pdf->SetY(15); // Ajustar la posición vertical del texto del encabezado
+        $pdf->SetY(15);
         $header = 'Centro de Formación Agroindustrial "La Angostura" | Campoalegre - Huila';
         $pdf->Cell(0, 0, $header, 0, 1, 'C');
 
-        // Establecer el contenido del PDF
         $html = '<h4 style="text-align: center;"><strong>Bodega:</strong> ' . $puw->warehouse->name . ' - <strong>Unidad Productiva:</strong> ' . $puw->productive_unit->name . '</h4>';
         $html .= '<h3 style="text-align: center;">' . $title . '</h3>';
         $html .= '<table style="border-collapse: collapse; width: 100%;">';
         $html .= '<thead style="background-color: #f2f2f2;">';
         $html .= '<tr>';
-        // Columna del #
         $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 10px; width: 25px;"><b>#</b></th>';
-        // Resto de columnas
         $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 130px;"><b>Producto</b></th>';
         $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 45px;"><b>N° Lote</b></th>';
         $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 62px;"><b>Fecha Producción</b></th>';
@@ -200,7 +537,7 @@ class InventoryController extends Controller
             $firstRecord = $group->first();
             $rowspan = $group->count();
             $html .= '<tr>';
-            $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 25px;">' . $key + 1 . '</td>';
+            $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 25px;">' . ($key + 1) . '</td>';
             $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 130px;">' . $firstRecord->element->name . '</td>';
             $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 45px;">' . $firstRecord->lot_number . '</td>';
             $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 62px;">' . $firstRecord->production_date . '</td>';
@@ -225,42 +562,32 @@ class InventoryController extends Controller
         $html .= '</table>';
 
         $pdf->writeHTML($html, true, false, true, false, '');
-
-        // Generar el PDF y devolverlo para su descarga con la fecha en el nombre del archivo
         $filename = 'reporte_inventarios_' . date('Ymd') . '.pdf';
         $pdf->Output($filename, 'I');
     }
 
-    // Método para mostrar la vista del formulario de entradas de inventario
     public function showInventoryEntriesForm()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_show_entries_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_show_entries_title_view')];
-        // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
         $start_date = request()->input('start_date', now()->format('Y-m-d'));
         $end_date = request()->input('end_date', now()->format('Y-m-d'));
 
         return view('cafeto::reports.inventory-entries-form', compact('view', 'start_date', 'end_date'));
     }
 
-    // Método para realizar la consulta de entradas de inventario y redirigir a la vista
     public function generateInventoryEntries(Request $request)
     {
-        // Captura las fechas ingresadas en el formulario.
         $startDateInput = $request->input('start_date');
         $endDateInput = $request->input('end_date');
 
-        // Convertir las fechas al formato "Y-m-d" (año-mes-día) si es necesario.
         $startDateInput = Carbon::parse($startDateInput)->format('Y-m-d');
         $endDateInput = Carbon::parse($endDateInput)->format('Y-m-d');
 
-        // Convertir las fechas a objetos Carbon y establecer las horas específicas.
         $startDate = Carbon::createFromFormat('Y-m-d', $startDateInput)->startOfDay();
         $endDate = Carbon::createFromFormat('Y-m-d', $endDateInput)->endOfDay();
 
-        // Consulta para obtener los registros de MovementType con nombre "Movimiento Interno"
         $movement_type = MovementType::where('name', 'Movimiento Interno')->firstOrFail();
 
-        // Consulta para obtener los registros de Movement entre las fechas seleccionadas
         $movements = Movement::whereHas('warehouse_movements', function ($query) {
             $query->where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
                 ->where('role', 'Recibe');
@@ -274,25 +601,19 @@ class InventoryController extends Controller
         return $this->showInventoryEntriesForm()->with('movements', $movements);
     }
 
-    // Método para generar el reporte PDF de entradas de inventario
     public function generateInventoryEntriesPDF(Request $request)
     {
-        // Captura las fechas ingresadas en el formulario.
         $startDateInput = $request->input('start_date');
         $endDateInput = $request->input('end_date');
 
-        // Convertir las fechas al formato "Y-m-d" (año-mes-día) si es necesario.
         $startDateInput = Carbon::parse($startDateInput)->format('Y-m-d');
         $endDateInput = Carbon::parse($endDateInput)->format('Y-m-d');
 
-        // Convertir las fechas a objetos Carbon y establecer las horas específicas.
         $startDate = Carbon::createFromFormat('Y-m-d', $startDateInput)->startOfDay();
         $endDate = Carbon::createFromFormat('Y-m-d', $endDateInput)->endOfDay();
 
-        // Consulta para obtener los registros de MovementType con nombre "Movimiento Interno"
         $movement_type = MovementType::where('name', 'Movimiento Interno')->firstOrFail();
 
-        // Consulta para obtener los registros de Movement entre las fechas seleccionadas
         $movements = Movement::whereHas('warehouse_movements', function ($query) {
             $query->where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
                 ->where('role', 'Recibe');
@@ -303,32 +624,19 @@ class InventoryController extends Controller
             ->orderBy('registration_date', 'ASC')
             ->get();
 
-        // Se accede al nombre de la bodega y unidad productiva
         $puw = PUW::getAppPuw();
 
-        // Crear una nueva instancia de TCPDF
         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
-
-        // Establecer el título del documento con las fechas seleccionadas
         $title = 'Reporte de Entradas de Inventario - ' . $startDateInput . ' al ' . $endDateInput;
         $pdf->SetTitle($title);
-
-        // Definir la fuente y el tamaño para el contenido del PDF
         $pdf->SetFont('helvetica', '', 10);
-
-        // Agregar una nueva página
         $pdf->AddPage();
-
-        // Método Header para establecer el contenido centrado del encabezado
-        $pdf->SetY(15); // Ajustar la posición vertical del texto del encabezado
+        $pdf->SetY(15);
         $header = 'Centro de Formación Agroindustrial "La Angostura" | Campoalegre - Huila';
         $pdf->Cell(0, 0, $header, 0, 1, 'C');
 
-        // Establecer el contenido del PDF con el título (incluyendo las fechas)
         $html = '<h4 style="text-align: center;"><strong>Bodega:</strong> ' . $puw->warehouse->name . ' - <strong>Unidad Productiva:</strong> ' . $puw->productive_unit->name . '</h4>';
         $html .= '<h3 style="text-align: center;">' . $title . '</h3>';
-
-        // Crear el encabezado de la tabla
         $html .= '<table style="border-collapse: collapse; width: 100%;">';
         $html .= '<thead style="background-color: #f2f2f2;">';
         $html .= '<tr>';
@@ -343,14 +651,12 @@ class InventoryController extends Controller
         $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;"><b>Total</b></th>';
         $html .= '</tr>';
         $html .= '</thead>';
-
-        // Crear el cuerpo de la tabla con los datos de los movimientos
         $html .= '<tbody>';
+
         foreach ($movements as $key => $movement) {
             foreach ($movement->movement_details as $index => $movement_detail) {
                 $html .= '<tr>';
                 if ($index === 0) {
-                    // Solo mostrar información del movimiento en la primera fila
                     $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 25px;" rowspan="' . count($movement->movement_details) . '">' . ($key + 1) . '</td>';
                     $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 52px;" rowspan="' . count($movement->movement_details) . '">' . $movement->voucher_number . '</td>';
                     $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 72px;" rowspan="' . count($movement->movement_details) . '">' . $movement->movement_responsibilities->where('role', 'ENTREGA')->first()->person->full_name . '</td>';
@@ -361,35 +667,29 @@ class InventoryController extends Controller
                 $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . priceFormat($movement_detail->price) . '</td>';
                 $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . priceFormat($movement_detail->amount * $movement_detail->price) . '</td>';
                 if ($index === 0) {
-                    // Solo mostrar el precio en la primera fila del movimiento
                     $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;" rowspan="' . count($movement->movement_details) . '">' . priceFormat($movement->price) . '</td>';
                 }
                 $html .= '</tr>';
             }
         }
+
         $html .= '</tbody>';
         $html .= '</table>';
 
-        // Agregar el contenido HTML al PDF
         $pdf->writeHTML($html, true, false, true, false, '');
-
-        // Generar el PDF y devolverlo para su descarga con las fechas en el nombre del archivo
         $filename = 'Reporte_entradas_inventario_' . $startDateInput . '_al_' . $endDateInput . '.pdf';
         $pdf->Output($filename, 'I');
     }
 
-    // Método para mostrar la vista del formulario de ventas
     public function showSalesForm()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_sales_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_sales_title_view')];
-        // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
         $start_date = request()->input('start_date', now()->format('Y-m-d'));
         $end_date = request()->input('end_date', now()->format('Y-m-d'));
 
         return view('cafeto::reports.sales-form', compact('view', 'start_date', 'end_date'));
     }
 
-    // Método para realizar la consulta de ventas y redirigir a la vista
     public function generateSales(Request $request)
     {
         $startDateInput = Carbon::parse($request->input('start_date'))->format('Y-m-d');
@@ -409,12 +709,11 @@ class InventoryController extends Controller
             ->orderBy('registration_date', 'ASC')
             ->get();
 
-        // Agrupar solo por nombre de producto (eliminada referencia)
         $groupedProducts = [];
         foreach ($movements as $movement) {
             foreach ($movement->movement_details as $detail) {
                 $el   = $detail->inventory->element;
-                $name = $el->product_name ?? 'N/A'; // Fallback seguro
+                $name = $el->product_name ?? 'N/A';
                 $key  = $name;
 
                 $price = $detail->price;
@@ -473,7 +772,6 @@ class InventoryController extends Controller
             ->orderBy('registration_date', 'ASC')
             ->get();
 
-        // Agrupar y calcular datos
         $grouped = [];
         foreach ($movements as $movement) {
             foreach ($movement->movement_details as $detail) {
@@ -501,7 +799,6 @@ class InventoryController extends Controller
             }
         }
 
-        // Ordenar alfabéticamente por nombre de producto
         ksort($grouped);
 
         $puw = PUW::getAppPuw();
@@ -516,7 +813,6 @@ class InventoryController extends Controller
         $html  = '<h4 style="text-align:center;"><strong>Bodega:</strong> '.$puw->warehouse->name.' - <strong>Unidad Productiva:</strong> '.$puw->productive_unit->name.'</h4>';
         $html .= '<h3 style="text-align:center;">'.$title.'</h3>';
         
-        // Tabla con líneas verticales y horizontales reforzadas
         $html .= '<table style="border-collapse:collapse; width:100%; font-size:10pt; border:1px solid #000;">';
         $html .= '<thead style="background-color:#f2f2f2; border-bottom:2px solid #000;"><tr>
             <th style="border:1px solid #000; text-align:center; padding:10px; width:5%;"><strong>#</strong></th>
@@ -536,7 +832,7 @@ class InventoryController extends Controller
                 $priceLabel = ($item['min_price'] == $item['max_price'])
                     ? priceFormat($item['min_price'])
                     : priceFormat($item['min_price']) . ' - ' . priceFormat($item['max_price']);
-                $cantidad = number_format($item['cantidad'], 0, '.', ','); // Cantidad sin decimales
+                $cantidad = number_format($item['cantidad'], 0, '.', ',');
 
                 $html .= "<tr>
                     <td style='border:1px solid #000; text-align:center; padding:10px;'>{$i}</td>
@@ -558,25 +854,19 @@ class InventoryController extends Controller
         $pdf->Output($filename, 'I');
     }
 
-    // Método para generar el reporte PDF de ventas
     public function generateSalesPDF(Request $request)
     {
-        // Captura las fechas ingresadas en el formulario.
         $startDateInput = $request->input('start_date');
         $endDateInput = $request->input('end_date');
 
-        // Convertir las fechas al formato "Y-m-d" (año-mes-día) si es necesario.
         $startDateInput = Carbon::parse($startDateInput)->format('Y-m-d');
         $endDateInput = Carbon::parse($endDateInput)->format('Y-m-d');
 
-        // Convertir las fechas a objetos Carbon y establecer las horas específicas.
         $startDate = Carbon::createFromFormat('Y-m-d', $startDateInput)->startOfDay();
         $endDate = Carbon::createFromFormat('Y-m-d', $endDateInput)->endOfDay();
 
-        // Consulta para obtener los registros de MovementType con nombre "Venta"
         $movement_type = MovementType::where('name', 'Venta')->firstOrFail();
 
-        // Consulta para obtener los registros de Movement entre las fechas seleccionadas
         $movements = Movement::whereHas('warehouse_movements', function ($query) {
             $query->where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
                   ->where('role', 'Entrega');
@@ -587,32 +877,19 @@ class InventoryController extends Controller
             ->orderBy('registration_date', 'ASC')
             ->get();
 
-        // Se accede al nombre de la bodega y unidad productiva
         $puw = PUW::getAppPuw();
 
-        // Crear una nueva instancia de TCPDF
         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
-
-        // Establecer el título del documento con las fechas seleccionadas
         $title = 'Reporte de Ventas - ' . $startDateInput . ' al ' . $endDateInput;
         $pdf->SetTitle($title);
-
-        // Definir la fuente y el tamaño para el contenido del PDF
         $pdf->SetFont('helvetica', '', 10);
-
-        // Agregar una nueva página
         $pdf->AddPage();
-
-        // Método Header para establecer el contenido centrado del encabezado
-        $pdf->SetY(15); // Ajustar la posición vertical del texto del encabezado
+        $pdf->SetY(15);
         $header = 'Centro de Formación Agroindustrial "La Angostura" | Campoalegre - Huila';
         $pdf->Cell(0, 0, $header, 0, 1, 'C');
 
-        // Establecer el contenido del PDF con el título (incluyendo las fechas)
         $html = '<h4 style="text-align: center;"><strong>Bodega:</strong> ' . $puw->warehouse->name . ' - <strong>Unidad Productiva:</strong> ' . $puw->productive_unit->name . '</h4>';
         $html .= '<h3 style="text-align: center;">' . $title . '</h3>';
-
-        // Crear el encabezado de la tabla
         $html .= '<table style="border-collapse: collapse; width: 100%;">';
         $html .= '<thead style="background-color: #f2f2f2;">';
         $html .= '<tr>';
@@ -628,16 +905,13 @@ class InventoryController extends Controller
         $html .= '</tr>';
         $html .= '</thead>';
 
-        // Variables para almacenar los totales
         $totalTotal = 0;
 
-        // Crear el cuerpo de la tabla con los datos de los movimientos
         $html .= '<tbody>';
         foreach ($movements as $key => $movement) {
             foreach ($movement->movement_details as $index => $movement_detail) {
                 $html .= '<tr>';
                 if ($index === 0) {
-                    // Solo mostrar información del movimiento en la primera fila
                     $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 25px;" rowspan="' . count($movement->movement_details) . '">' . ($key + 1) . '</td>';
                     $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 52px;" rowspan="' . count($movement->movement_details) . '">' . $movement->voucher_number . '</td>';
                     $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 72px;" rowspan="' . count($movement->movement_details) . '">' . $movement->movement_responsibilities->where('role', 'CLIENTE')->first()->person->full_name . '</td>';
@@ -648,29 +922,23 @@ class InventoryController extends Controller
                 $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . priceFormat($movement_detail->price) . '</td>';
                 $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . priceFormat($movement_detail->amount * $movement_detail->price) . '</td>';
                 if ($index === 0) {
-                    // Solo mostrar el precio en la primera fila del movimiento
                     $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;" rowspan="' . count($movement->movement_details) . '">' . priceFormat($movement->price) . '</td>';
                 }
                 $html .= '</tr>';
             }
-            // Actualizar el totalTotal con el precio del movimiento
             $totalTotal += $movement->price;
         }
         $html .= '</tbody>';
 
-        // Pie de pagina que muestra los totales de cantidad, precio, subtotal y total
         $html .= '<tfoot>';
         $html .= '<tr>';
-        $html .= '<td style="border: 1px solid #dddddd; text-align: right; padding: 8px; width: 478px;"><strong> Total: </strong></td>'; // Celdas vacías para las columnas sin totales
+        $html .= '<td style="border: 1px solid #dddddd; text-align: right; padding: 8px; width: 478px;"><strong> Total: </strong></td>';
         $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;"><strong>' . priceFormat($totalTotal) . '</strong></td>';
         $html .= '</tr>';
         $html .= '</tfoot>';
         $html .= '</table>';
 
-        // Agregar el contenido HTML al PDF
         $pdf->writeHTML($html, true, false, true, false, '');
-
-        // Generar el PDF y devolverlo para su descarga con las fechas en el nombre del archivo
         $filename = 'Reporte_ventas_' . $startDateInput . '_al_' . $endDateInput . '.pdf';
         $pdf->Output($filename, 'I');
     }

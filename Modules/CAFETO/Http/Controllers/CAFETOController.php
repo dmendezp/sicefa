@@ -3,28 +3,80 @@
 namespace Modules\CAFETO\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Modules\CAFETO\Http\Controllers\PUW;
+use Modules\SICA\Entities\Element;
+use Modules\SICA\Entities\Inventory;
 
 class CAFETOController extends Controller
 {
     /**
-     * Display the main page.
-     *
-     * @return \Illuminate\View\View
+     * Carga data compartida para los dashboards por rol.
      */
-    public function index()
+    private function getDashboardData(): array
     {
         $view = [
             'titlePage' => trans('cafeto::mainPage.TitlePage') ?: 'Welcome to CAFETO',
             'titleView' => trans('cafeto::mainPage.TitleWelcome') ?: 'Welcome'
         ];
-        return view('cafeto::index', compact('view'));
+
+        $puw = PUW::getAppPuw();
+
+        // Populares por token [POP] o [POP:1..4]
+        // NO filtres por amount>0, para no perder populares con stock 0
+        $popularElementIds = Inventory::query()
+            ->where('productive_unit_warehouse_id', $puw->id)
+            ->whereNotNull('description')
+            ->where('description', 'like', '%[POP%')
+            ->pluck('element_id')
+            ->unique()
+            ->values()
+            ->toArray();
+
+        $popularProducts = Element::query()
+            ->whereIn('id', $popularElementIds)
+            ->orderBy('name', 'ASC')
+            ->take(4)
+            ->get();
+
+        return compact('view', 'popularProducts');
     }
 
     /**
-     * Display the developers page.
-     *
-     * @return \Illuminate\View\View
+     * Landing pública (mantiene tu comportamiento actual)
      */
+    public function index()
+    {
+        $data = $this->getDashboardData();
+        return view('cafeto::admin-index', $data);
+    }
+
+    /**
+     * Home Admin (mantiene tu vista actual)
+     */
+    public function admin()
+    {
+        $data = $this->getDashboardData();
+        return view('cafeto::admin-index', $data);
+    }
+
+    /**
+     * ✅ Home Cashier (NUEVA VISTA: cafeto::cashier-index)
+     */
+    public function cashier()
+    {
+        $data = $this->getDashboardData();
+        return view('cafeto::cashier-index', $data);
+    }
+
+    /**
+     * ✅ Home Instructor (NUEVA VISTA: cafeto::instructor-index)
+     */
+    public function instructor()
+    {
+        $data = $this->getDashboardData();
+        return view('cafeto::instructor-index', $data);
+    }
+
     public function devs()
     {
         $view = [
@@ -34,11 +86,6 @@ class CAFETOController extends Controller
         return view('cafeto::developers.index', compact('view'));
     }
 
-    /**
-     * Display the information page.
-     *
-     * @return \Illuminate\View\View
-     */
     public function info()
     {
         $view = [
@@ -48,11 +95,6 @@ class CAFETOController extends Controller
         return view('cafeto::information.index', compact('view'));
     }
 
-    /**
-     * Display the configuration page.
-     *
-     * @return \Illuminate\View\View
-     */
     public function configuration()
     {
         $view = [
@@ -61,47 +103,4 @@ class CAFETOController extends Controller
         ];
         return view('cafeto::configuration.index', compact('view'));
     }
-
-    /**
-     * Display the admin dashboard.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function admin()
-    {
-        $view = [
-            'titlePage' => trans('cafeto::controllers.CAFETO_admin_title_page') ?: 'Admin Dashboard',
-            'titleView' => trans('cafeto::controllers.CAFETO_admin_title_view') ?: 'Admin Panel'
-        ];
-        return view('cafeto::admin-index', compact('view'));
-    }
-
-    /**
-     * Display the cashier dashboard.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function cashier()
-    {
-        $view = [
-            'titlePage' => trans('cafeto::controllers.CAFETO_cashier_title_page') ?: 'Cashier Dashboard',
-            'titleView' => trans('cafeto::controllers.CAFETO_cashier_title_view') ?: 'Cashier Panel'
-        ];
-        return view('cafeto::cashier-index', compact('view'));
-    }
-
-    /**
-     * Display the instructor dashboard.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function instructor()
-    {
-        $view = [
-            'titlePage' => trans('cafeto::mainPage.TitlePage') ?: 'Instructor Dashboard',
-            'titleView' => trans('cafeto::mainPage.TitleWelcome') ?: 'Welcome Instructor'
-        ];
-        return view('cafeto::instructor-index', compact('view'));
-    }
 }
-?>

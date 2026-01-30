@@ -5,7 +5,8 @@ namespace Modules\CAFETO\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Blade;
+use Livewire\Livewire;
+use Modules\CAFETO\Http\Livewire\Formulation\SelectProduct;
 
 class CAFETOServiceProvider extends ServiceProvider
 {
@@ -25,37 +26,37 @@ class CAFETOServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-public function boot(Router $router)
-{
-    $this->registerTranslations();
-    $this->registerConfig();
-    $this->registerViews();
-    $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
-    $router->aliasMiddleware('skip.csrf.formulations', \Modules\CAFETO\Http\Middleware\SkipCsrfForFormulations::class);
+    public function boot(Router $router): void
+    {
+        $this->registerTranslations();
+        $this->registerConfig();
+        $this->registerViews();
 
-    // Register Blade components
+        $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
 
-}
+        // Middleware alias
+        $router->aliasMiddleware(
+            'skip.csrf.formulations',
+            \Modules\CAFETO\Http\Middleware\SkipCsrfForFormulations::class
+        );
+
+        // Livewire components (tag name: <livewire:cafeto.formulation.select-product />)
+        Livewire::component('cafeto.formulation.select-product', SelectProduct::class);
+    }
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->register(RouteServiceProvider::class);
     }
 
     /**
      * Register the module's configuration.
-     *
-     * @return void
      */
-    protected function registerConfig()
+    protected function registerConfig(): void
     {
         $configPath = module_path($this->moduleName, 'Config/config.php');
 
@@ -68,10 +69,8 @@ public function boot(Router $router)
 
     /**
      * Register the module's views.
-     *
-     * @return void
      */
-    protected function registerViews()
+    protected function registerViews(): void
     {
         $viewPath = resource_path('views/modules/' . $this->moduleNameLower);
         $sourcePath = module_path($this->moduleName, 'Resources/views');
@@ -85,10 +84,8 @@ public function boot(Router $router)
 
     /**
      * Register the module's translations.
-     *
-     * @return void
      */
-    protected function registerTranslations()
+    protected function registerTranslations(): void
     {
         $langPath = resource_path('lang/modules/' . $this->moduleNameLower);
 
@@ -100,22 +97,19 @@ public function boot(Router $router)
 
     /**
      * Get the services provided by the provider.
-     *
-     * @return array
      */
-    public function provides()
+    public function provides(): array
     {
         return [];
     }
 
     /**
      * Get the paths for publishable views.
-     *
-     * @return array
      */
     private function getPublishableViewPaths(): array
     {
         $paths = [];
+
         foreach (Config::get('view.paths', []) as $path) {
             $moduleViewPath = "{$path}/modules/{$this->moduleNameLower}";
             if (is_dir($moduleViewPath)) {

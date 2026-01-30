@@ -42,6 +42,9 @@ class RegisterEntry extends Component
     public $product_mark;
     public $product_destination = 'Producción';
 
+    // NUEVO (solo Livewire, NO BD)
+    public $product_is_popular = false;
+
     protected $rules = [
         'product_element_id' => 'required|exists:elements,id',
         'product_amount' => 'required|numeric|min:1',
@@ -78,6 +81,8 @@ class RegisterEntry extends Component
         $this->productive_units = ProductiveUnit::whereHas('productive_unit_warehouses')->orderBy('name', 'ASC')->get();
         $this->destinations = getEnumValues('inventories', 'destination');
         $this->selected_products = collect();
+        $this->product_destination = 'Producción';
+        $this->product_is_popular = false;
     }
 
     public function updatedDpuId($value)
@@ -115,7 +120,7 @@ class RegisterEntry extends Component
 
         $this->selected_products->push([
             'product_element_id' => $this->product_element_id,
-            'product_name' => $product->product_name,
+            'product_name' => $product->product_name ?? $product->name,
             'product_price' => $product->price,
             'product_amount' => $this->product_amount,
             'product_production_date' => $this->product_production_date,
@@ -124,6 +129,7 @@ class RegisterEntry extends Component
             'product_inventory_code' => $this->product_inventory_code,
             'product_mark' => $this->product_mark,
             'product_destination' => $this->product_destination,
+            'product_is_popular' => (bool) $this->product_is_popular,
         ]);
 
         $this->emit('message', 'success', null, 'Producto añadido correctamente.');
@@ -132,12 +138,24 @@ class RegisterEntry extends Component
 
     public function resetValuesProduct()
     {
-        $this->reset('product_element_id', 'product_price', 'product_amount', 'product_production_date', 'product_expiration_date', 'product_lot_number', 'product_inventory_code', 'product_mark', 'product_destination');
+        $this->reset(
+            'product_element_id',
+            'product_price',
+            'product_amount',
+            'product_production_date',
+            'product_expiration_date',
+            'product_lot_number',
+            'product_inventory_code',
+            'product_mark',
+            'product_destination',
+            'product_is_popular'
+        );
     }
 
     public function editProduct($product_index)
     {
         $product = $this->selected_products[$product_index];
+
         $this->product_element_id = $product['product_element_id'];
         $this->product_price = $product['product_price'];
         $this->product_amount = $product['product_amount'];
@@ -147,6 +165,8 @@ class RegisterEntry extends Component
         $this->product_inventory_code = $product['product_inventory_code'];
         $this->product_mark = $product['product_mark'];
         $this->product_destination = $product['product_destination'];
+        $this->product_is_popular = (bool) ($product['product_is_popular'] ?? false);
+
         $this->selected_products->forget($product_index);
     }
 
@@ -186,7 +206,15 @@ class RegisterEntry extends Component
             ]);
 
             $movement_price = 0;
+
             foreach ($this->selected_products as $product) {
+
+                // Token popular en inventories.description
+                $desc = null;
+                if (!empty($product['product_is_popular'])) {
+                    $desc = '[POP]';
+                }
+
                 $inventory = Inventory::create([
                     'person_id' => $this->puw->productive_unit->person_id,
                     'productive_unit_warehouse_id' => $this->puw->id,
@@ -201,6 +229,7 @@ class RegisterEntry extends Component
                     'state' => 'Disponible',
                     'mark' => $product['product_mark'],
                     'inventory_code' => $product['product_inventory_code'],
+                    'description' => $desc,
                 ]);
 
                 MovementDetail::create([
@@ -248,12 +277,18 @@ class RegisterEntry extends Component
             DB::commit();
 
             $this->emit('message', 'success', 'Operación realizada', 'Entrada de inventario registrada exitosamente.');
-            $final_movement = Movement::with('warehouse_movements.productive_unit_warehouse.warehouse', 'movement_details.inventory.element.measurement_unit', 'movement_responsibilities.person')->find($movement->id);
+            $final_movement = Movement::with(
+                'warehouse_movements.productive_unit_warehouse.warehouse',
+                'movement_details.inventory.element.measurement_unit',
+                'movement_responsibilities.person'
+            )->find($movement->id);
+
             $this->emit('printTicket', $final_movement);
             $this->defaultAction();
+
         } catch (Exception $e) {
             DB::rollBack();
-            $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la entrada de inventario: ' . $e->getMessage());
+            $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro: ' . $e->getMessage());
         }
     }
 }

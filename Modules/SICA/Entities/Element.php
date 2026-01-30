@@ -11,7 +11,6 @@ use Modules\AGROINDUSTRIA\Entities\Formulation;
 use Modules\AGROINDUSTRIA\Entities\Ingredient;
 use Modules\AGROINDUSTRIA\Entities\Supply;
 use Modules\AGROINDUSTRIA\Entities\Utensil;
-use Modules\AGROINDUSTRIA\Entities\Production;
 use Modules\SIGAC\Entities\TrainingMaterial;
 
 class Element extends Model implements Auditable

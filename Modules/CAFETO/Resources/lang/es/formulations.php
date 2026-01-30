@@ -37,6 +37,7 @@ return [
     'Unit' => 'Unidad',
     'Delete_Ingredient' => 'Eliminar Ingrediente',
 
+    // Tooltips
     'Tooltip_Owner' => 'El propietario de la formulación, asignado automáticamente al usuario actual.',
     'Tooltip_Element' => 'Seleccione el elemento principal para la formulación.',
     'Tooltip_Date' => 'Seleccione la fecha de creación de la formulación.',
@@ -46,31 +47,29 @@ return [
     'Tooltip_Create' => 'Crear una nueva formulación.',
     'Tooltip_Export_CSV' => 'Exportar la lista de formulaciones como CSV.',
     'Tooltip_Export_PDF' => 'Exportar la lista de formulaciones como PDF.',
+    'Tooltip_Dark_Mode' => 'Alternar entre modo oscuro y claro.',
+    'Tooltip_Voice' => 'Ingresar cantidad usando voz.',
+    'Tooltip_Convert' => 'Convertir la unidad del ingrediente.',
+    'Voice_Not_Supported' => 'El reconocimiento de voz no es compatible con este navegador.',
+
+    // Filtros y UI
     'Filter_Element' => 'Filtrar por Elemento',
     'All_Statuses' => 'Todos los Estados',
     'Approved' => 'Aprobado',
     'Pending' => 'Pendiente',
     'Show_Details' => 'Mostrar Detalles',
-    'Tooltip_Dark_Mode' => 'Alternar entre modo oscuro y claro.', // Added for dark mode toggle
-    'Tooltip_Voice' => 'Ingresar cantidad usando voz.', // Added for voice input
-    'Tooltip_Convert' => 'Convertir la unidad del ingrediente.', // Added for unit conversion
-    'Search_Element' => 'Buscar Elemento', // Added for typeahead placeholder
-    'Preview' => 'Vista Previa', // Added for preview panel
-    'Voice_Not_Supported' => 'El reconocimiento de voz no es compatible con este navegador.', // Added for voice input error
+    'Search_Element' => 'Buscar Elemento',
+    'Preview' => 'Vista Previa',
 
-    // Tooltips nuevos para producto producido / aprobar
-    'Tooltip_Expiration_Date' => 'Seleccione la fecha de vencimiento del producto elaborado.',
-    'Tooltip_Lot_Number' => 'Ingrese el número de lote del producto elaborado para su trazabilidad.',
-    'Tooltip_Inventory_Code' => 'Código interno que identifica el producto en el módulo de inventarios.',
-    'Tooltip_Mark' => 'Marca o referencia comercial del producto elaborado.',
-    'Tooltip_Destination' => 'Seleccione el destino operativo del producto elaborado.',
-    'Tooltip_Approve' => 'Aprobar la formulación y registrar el producto elaborado en inventarios.',
+    // Estados (para pintar approved/pending guardados en BD)
+    'status' => [
+        'approved' => 'Aprobado',
+        'pending' => 'Pendiente',
+    ],
 
-    // Messages
+    // Mensajes
     'Created' => 'Formulación creada exitosamente.',
     'Updated' => 'Formulación actualizada exitosamente.',
-    // OJO: este key "Approved" ya se usa arriba como estado ("Aprobado").
-    // Si quieres un mensaje distinto, es mejor usar otro nombre, por ejemplo:
     'Approved_Message' => 'Formulación aprobada exitosamente.',
     'Deleted' => 'Formulación eliminada exitosamente.',
 
@@ -96,11 +95,46 @@ return [
     'Milligrams' => 'Miligramos (mg)',
     'Milliliters' => 'Mililitros (ml)',
     'Back to Formulations' => 'Volver a Formulaciones',
-    'Convert' => 'Convertir', // Added for unit conversion button
+    'Convert' => 'Convertir',
     'Delete' => 'Eliminar',
     'Confirm Delete' => '¿Estás seguro de que deseas eliminar esta formulación? Esta acción no se puede deshacer.',
     'Cancel' => 'Cancelar',
     'Yes, delete it!' => 'Sí, Eliminar',
+
+    // Campos extra usados en show/index/create
+    'Dash' => '—',
+    'Category' => 'Categoría',
+    'No ingredients registered' => 'No hay ingredientes registrados.',
+    'Process' => 'Proceso',
+    'Describe the process' => 'Describe el proceso...',
+    'Review the following fields' => 'Revisa los siguientes campos:',
+
+    // Producto producido / aprobar (tooltips)
+    'Tooltip_Expiration_Date' => 'Seleccione la fecha de vencimiento del producto elaborado.',
+    'Tooltip_Lot_Number' => 'Ingrese el número de lote del producto elaborado para su trazabilidad.',
+    'Tooltip_Inventory_Code' => 'Código interno que identifica el producto en el módulo de inventarios.',
+    'Tooltip_Mark' => 'Marca o referencia comercial del producto elaborado.',
+    'Tooltip_Destination' => 'Seleccione el destino operativo del producto elaborado.',
+    'Tooltip_Approve' => 'Aprobar la formulación y registrar el producto elaborado en inventarios.',
+
+    // Precio de venta (create)
+    'Sale Price' => 'Precio de venta',
+    'Sale Price Placeholder' => 'Ej: 2500',
+    'Sale Price Help' => 'Se guarda en el producto (Element) y es el precio usado para vender.',
+
+    // Código inventario (create)
+    'Inventory Code Placeholder' => 'Solo números (opcional)',
+    'Inventory Code Help' => 'Consejo: si escribes letras, el sistema las eliminará automáticamente.',
+
+    // JS messages (create)
+    'Ingredient added message' => 'Ingrediente agregado. Totales actualizados en los campos.',
+    'Ingredients auto-updated message' => 'Ingredientes actualizados automáticamente en los campos.',
+    'Amount affects ingredients message' => 'Cantidad = :amount. Los ingredientes se actualizan en los campos (Base × Cantidad).',
+    'Inventory code numbers only' => 'Solo se permiten números en el Código de inventario.',
+    'Inventory code paste cleaned' => 'Pegaste caracteres no numéricos; se eliminaron automáticamente.',
+
+    // Reportes
+    'Formulations Report' => 'Reporte de formulaciones',
 
     // Validation
     'validation' => [

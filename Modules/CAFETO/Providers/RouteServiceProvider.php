@@ -4,6 +4,7 @@ namespace Modules\CAFETO\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Modules\SICA\Entities\Element;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,16 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Permite que {element} resuelva por ID o por SLUG.
+        // Esto corrige el 404 cuando entras a:
+        // /cafeto/admin/element/edit/prueba-del-cafe-1
+        Route::bind('element', function ($value) {
+            return Element::query()
+                ->where('id', $value)
+                ->orWhere('slug', $value)
+                ->firstOrFail();
+        });
+
         parent::boot();
     }
 
@@ -34,7 +45,6 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
-
         $this->mapWebRoutes();
     }
 

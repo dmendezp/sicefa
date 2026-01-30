@@ -58,17 +58,21 @@
                         </thead>
                         <tbody>
                             @foreach ($movements as $movement)
-                                @php $movement_type = $movement->movement_type->name @endphp
+                                @php
+                                    $movement_type = optional($movement->movement_type)->name;
+
+                                    // Responsable (puede no existir en algunos movimientos -> evitar 500)
+                                    $mr = $movement->movement_responsibilities->first(function ($value) {
+                                        return in_array($value->role, ['CLIENTE', 'REGISTRO', 'ENTREGA']);
+                                    });
+                                @endphp
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">{{ $movement->registration_date }}</td>
-                                    @php
-                                        $mr = $movement->movement_responsibilities->first(function ($value, $key) {
-                                            return in_array($value->role, ['CLIENTE', 'REGISTRO', 'ENTREGA']);
-                                        });
-                                    @endphp
-                                    <td>{{ $mr->role }}</td>
-                                    <td>{{ $mr->person->full_name }}</td>
+
+                                    <td>{{ $mr ? $mr->role : 'N/A' }}</td>
+                                    <td>{{ ($mr && $mr->person) ? $mr->person->full_name : 'Sin responsable' }}</td>
+
                                     <td>
                                         @if ($movement_type == 'Movimiento Interno')
                                             Entrada de inventario
@@ -76,26 +80,33 @@
                                             {{ $movement_type }}
                                         @endif
                                     </td>
+
                                     <td class="text-center fw-bold">{{ priceFormat($movement->price) }}</td>
+
                                     <td class="text-center">
                                         @if ($movement_type == 'Venta')
                                             <a href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.movements.sale.show', $movement) }}"
                                                 class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left"
-                                                data-bs-title={{ trans('cafeto::movement.Tooltip') }}>
-                                            @elseif ($movement_type == 'Movimiento Interno')
-                                                <a href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.movements.entries.show', $movement) }}"
-                                                    class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left"
-                                                    data-bs-title={{ trans('cafeto::movement.Tooltip') }}>
-                                                @elseif ($movement_type == 'Baja')
-                                                    <a href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.movements.low.show', $movement) }}"
-                                                        class="btn bg-olive" data-bs-toggle="tooltip"
-                                                        data-bs-placement="left"
-                                                        data-bs-title={{ trans('cafeto::movement.Tooltip') }}>
-                                                    @else
-                                                        <a href="#">{{ $movement_type }}
+                                                data-bs-title="{{ trans('cafeto::movement.Tooltip') }}">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
+                                        @elseif ($movement_type == 'Movimiento Interno')
+                                            <a href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.movements.entries.show', $movement) }}"
+                                                class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left"
+                                                data-bs-title="{{ trans('cafeto::movement.Tooltip') }}">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
+                                        @elseif ($movement_type == 'Baja')
+                                            <a href="{{ route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.movements.low.show', $movement) }}"
+                                                class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left"
+                                                data-bs-title="{{ trans('cafeto::movement.Tooltip') }}">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
+                                        @else
+                                            <a href="#" class="btn bg-olive disabled" aria-disabled="true">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
                                         @endif
-                                        <i class="fa-solid fa-eye"></i>
-                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -135,15 +146,14 @@
     <script>
         $(document).ready(function() {
             // Opciones comunes para todas las tablas DataTable
-            var dataTableOptions = {
-
-            };
+            var dataTableOptions = {};
 
             // Verifica el idioma actual y decide si agregar la opción de idioma
             if ('{{ session('lang') }}' === 'es') {
                 dataTableOptions.language = language_datatables;
             }
-            /* Inicialización of Datatables para movement_details */
+
+            /* Inicialización de Datatables para movements */
             $('#tableMovementsDetails').DataTable(dataTableOptions);
         });
     </script>

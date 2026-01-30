@@ -214,159 +214,265 @@ class GenerateSale extends Component
     }
 
     // Registrar venta
-    public function registerSale($value){
-        Gate::authorize('haveaccess', 'cafeto.admin-cashier.generate.sale'); // Verificar permiso por parte del usuario
-        $this->verifySelectedProduct(); // Verficar seleccion de productos
-        // Verificar si el cliente (persona) seleccionado se encuentra registrado en la base de datos
-        if (Person::where('document_number', $this->customer_document_number)->exists()) {
-            // Registrar venta como movimiento
-            try {
-                DB::beginTransaction(); // Iniciar transacción
+public function registerSale($value)
+{
+    Gate::authorize('haveaccess', 'cafeto.admin-cashier.generate.sale');
+    $this->verifySelectedProduct();
 
-                $current_datetime = now()->milliseconds(0); // Generer fecha y hora actual
+    // Validar cliente
+    if (!Person::where('document_number', $this->customer_document_number)->exists()) {
+        $this->emit('message', 'alert-warning', null, trans('cafeto::sales.Alert_Select_Client'), null);
+        $this->customer_document_number = null;
+        $this->customer_document_type = '----------------';
+        $this->customer_full_name = '----------------';
+        return;
+    }
 
-                // Consultar tipo de movimiento para una venta
-                $error = 'TIPO DE MOVIMIENTO';
-                $movementType = MovementType::where('name','Venta')->firstOrFail();
+    $error = null;
 
-                // Registrar movimiento
-                $error = 'MOVIMIENTO';
-                $movement = Movement::create([
-                    'registration_date' => $current_datetime,
-                    'movement_type_id' => $movementType->id,
-                    'voucher_number' => 0,
-                    'state' => 'Aprobado',
-                    'price' => $this->total
-                ]);
+    try {
+        DB::beginTransaction();
 
-                // Registrar detalles de movimiento (productos, cantidades y precios)
-                $error = 'DETALLES DE MOVIMIENTO';
-                foreach ($this->selected_products as $product) {
-                    $formulation = Formulation::where('element_id', $product['product_element_id'])
-                        ->where('proccess', 'approved')
-                        ->orderBy('date', 'desc') // Receta activa más reciente
-                        ->first();
+        $current_datetime = now()->milliseconds(0);
 
-                    if ($formulation) {
-                        // Descontar ingredientes de la formulación
-                        foreach ($formulation->ingredients as $ingredient) {
-                            $amountLeft = $ingredient->amount * $product['product_amount']; // Ajustar por cantidad vendida
-                            $inventories = Inventory::where('productive_unit_warehouse_id', $this->puw->id)
-                                ->where('element_id', $ingredient->element_id)
-                                ->where('amount', '>', 0)
-                                ->orderBy('production_date', 'asc')
-                                ->get();
+        // Tipo movimiento
+        $error = 'TIPO DE MOVIMIENTO';
+        $movementType = MovementType::where('name', 'Venta')->firstOrFail();
 
-                            foreach ($inventories as $inventory) {
-                                if ($amountLeft <= 0) break;
-                                $amountToSubtract = min($amountLeft, $inventory->amount);
-                                $inventory->amount -= $amountToSubtract;
-                                $inventory->state = ($inventory->amount > 0) ? 'Disponible' : 'No disponible';
-                                $inventory->save();
-                                $amountLeft -= $amountToSubtract;
+        // Movimiento
+        $error = 'MOVIMIENTO';
+        $movement = Movement::create([
+            'registration_date' => $current_datetime,
+            'movement_type_id'  => $movementType->id,
+            'voucher_number'    => 0,
+            'state'             => 'Aprobado',
+            'price'             => $this->total
+        ]);
 
-                                MovementDetail::create([
-                                    'movement_id' => $movement->id,
-                                    'inventory_id' => $inventory->id,
-                                    'amount' => -$amountToSubtract, // Salida
-                                    'price' => $inventory->price
-                                ]);
-                            }
-                            if ($amountLeft > 0) {
-                                throw new \Exception('Stock insuficiente para ingrediente: ' . $ingredient->element->name);
-                            }
-                        }
-                    } else {
-                        // Si no hay formulación, descontar producto directo (lógica original)
-                        $amountLeft = $product['product_amount'];
-                        $inventories = Inventory::where('productive_unit_warehouse_id', $this->puw->id)
-                            ->where('element_id', $product['product_element_id'])
-                            ->where('amount','>',0)
-                            ->orderBy('expiration_date', 'asc')
-                            ->get();
+        // Detalles
+        $error = 'DETALLES DE MOVIMIENTO';
+        foreach ($this->selected_products as $product) {
 
-                        foreach ($inventories as $inventory) {
-                            if ($amountLeft <= 0) break;
-                            $amountToSubtract = min($amountLeft, $inventory->amount);
-                            $inventory->amount -= $amountToSubtract;
-                            $inventory->state = ($inventory->amount > 0) ? 'Disponible' : 'No disponible';
-                            $inventory->save();
-                            $amountLeft -= $amountToSubtract;
+            $productElementId = (int) $product['product_element_id'];
+            $sellQty = (int) $product['product_amount'];
+            $sellPrice = (float) revertPriceFormat($product['product_price']);
 
-                            MovementDetail::create([
-                                'movement_id' => $movement->id,
-                                'inventory_id' => $inventory->id,
-                                'amount' => $amountToSubtract,
-                                'price' => revertPriceFormat($product['product_price'])
-                            ]);
+            if ($productElementId <= 0 || $sellQty <= 0) {
+                continue;
+            }
+
+            // Buscar formulación aprobada más reciente
+            $formulation = Formulation::with(['ingredients.element', 'element'])
+                ->where('element_id', $productElementId)
+                ->where('proccess', 'approved')
+                ->orderBy('date', 'desc')
+                ->first();
+
+            // ------------------------------------------------------------
+            // CASO A: Producto con formulación -> descontar PRODUCTO FINAL
+            // ------------------------------------------------------------
+            if ($formulation) {
+
+                $need = $sellQty;
+
+                // Lotes del producto final que correspondan a esa formulación (token [FORM:id])
+                $lots = Inventory::query()
+                    ->where('productive_unit_warehouse_id', $this->puw->id)
+                    ->where('element_id', $productElementId)
+                    ->where('amount', '>', 0)
+                    ->where('destination', 'Producción')
+                    ->where('state', 'Disponible')
+                    ->where(function ($q) {
+                        $q->whereDate('expiration_date', '>=', now())
+                          ->orWhereNull('expiration_date');
+                    })
+                    ->where('description', 'like', '%[FORM:' . $formulation->id . ']%')
+                    ->orderByRaw('CASE WHEN expiration_date IS NULL THEN 1 ELSE 0 END, expiration_date ASC')
+                    ->orderBy('production_date', 'asc')
+                    ->lockForUpdate()
+                    ->get();
+
+                $available = (float) $lots->sum('amount');
+
+                // No hay suficiente producto final: mostrar ingredientes faltantes para producir más
+                if ($available + 1e-9 < $need) {
+
+                    $missingUnits = (float) ($need - $available);
+
+                    $missingIngredients = [];
+                    foreach ($formulation->ingredients as $ing) {
+                        $req = (float) $ing->amount * (float) $missingUnits;
+
+                        $ingAvailable = (float) Inventory::query()
+                            ->where('productive_unit_warehouse_id', $this->puw->id)
+                            ->where('element_id', (int) $ing->element_id)
+                            ->where('amount', '>', 0)
+                            ->where('destination', 'Producción')
+                            ->where('state', 'Disponible')
+                            ->where(function ($q) {
+                                $q->whereDate('expiration_date', '>=', now())
+                                  ->orWhereNull('expiration_date');
+                            })
+                            ->sum('amount');
+
+                        if ($ingAvailable + 1e-9 < $req) {
+                            $missingIngredients[] = $ing->element?->name ?? ('Ingrediente #' . $ing->element_id);
                         }
                     }
+
+                    $productName = $formulation->element?->name
+                        ?? Element::find($productElementId)?->name
+                        ?? 'Producto';
+
+                    $msg = "Inventario insuficiente para {$productName}. Necesita {$need} y hay {$available}.";
+                    if (!empty($missingIngredients)) {
+                        $msg .= ' Sin stock de ingredientes para producir más: ' . implode(', ', array_unique($missingIngredients)) . '.';
+                    }
+
+                    throw new \Exception($msg);
                 }
 
-                // Registrar responsables de movimientos
-                $error = 'RESPONSABLES DE MOVIMIENTO';
-                MovementResponsibility::create([ // Registrar Vendedor
-                    'person_id' => Auth::user()->person_id,
-                    'movement_id' => $movement->id,
-                    'role' => 'VENDEDOR',
-                    'date' => $current_datetime
-                ]);
-                MovementResponsibility::create([ // Registrar Cliente
-                    'person_id' => Person::where('document_number',$this->customer_document_number)->first()->id,
-                    'movement_id' => $movement->id,
-                    'role' => 'CLIENTE',
-                    'date' => $current_datetime
-                ]);
+                // Descontar lotes del producto final y registrar movement_details (positivo)
+                foreach ($lots as $lot) {
+                    if ($need <= 0) break;
 
-                // Registrar movimientos de bodega
-                $error = 'MOVIMIENTOS DE BODEGA';
-                WarehouseMovement::create([
-                    'productive_unit_warehouse_id' => $this->puw->id,
-                    'movement_id' => $movement->id,
-                    'role' => 'Entrega'
-                ]);
+                    $take = min((float) $lot->amount, (float) $need);
 
-                // Actualizar caja
-                $error = 'CAJA';
-                $cashCount = CashCount::where('productive_unit_warehouse_id', $this->puw->id)
-                                        ->where('state', 'Abierta')
-                                        ->first();
-                if ($cashCount) {
-                    $cashCount->total_sales += $movement->price;
-                    $cashCount->save();
+                    $lot->amount = (float) $lot->amount - (float) $take;
+                    $lot->state = ($lot->amount > 0) ? 'Disponible' : 'No disponible';
+                    $lot->save();
+
+                    MovementDetail::create([
+                        'movement_id'  => $movement->id,
+                        'inventory_id' => $lot->id,
+                        'amount'       => (float) $take, // ✅ POSITIVO (venta del producto final)
+                        'price'        => $sellPrice
+                    ]);
+
+                    $need -= $take;
                 }
 
-                // Generar número de comprobante
-                $error = 'NÚMERO DE COMPROBANTE';
-                $movementType = MovementType::where('name','Venta')->first();
-                $movementType->update(['consecutive' => $movementType->consecutive + 1]);
-                $movement->update(['voucher_number' => $movementType->consecutive]);
-
-                DB::commit(); // Confirmar cambios realizados durante la transacción
-
-                // Transacción completada exitosamente
-                $this->emit('message', 'success', trans('cafeto::sales.Alert_Successful_Sale'), 'Operación realizada',  $value);
-
-
-                // Obtener toda la información necesario para generar la orden de impresión
-                $final_movement = Movement::with('warehouse_movements.productive_unit_warehouse.warehouse','movement_details.inventory.element.measurement_unit','movement_responsibilities.person')->find($movement->id);
-                $this->emit('printTicket', $final_movement); // Enviar orden de impresión
-
-                $this->defaultAction(); // Restaurar totalmente los datos del componente
-                $this->emit('clear-sale-values'); // Limpiar valores de venta
-            } catch (Exception $e) { // Capturar error durante la transacción
-                // Transacción rechazada
-                DB::rollBack(); // Devolver cambios realizados durante la transacción
-                $this->emit('change_value'); // Calcular valor de cambio
-                $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la venta en '.$error.'. Por favor intente nuevamente.', null);
+                continue;
             }
-        }else{
-            $this->emit('message', 'alert-warning', null, trans('cafeto::sales.Alert_Select_Client'), null); // Emitir mensaje de advertencia para seleccionar un cliente válido
-            $this->customer_document_number = null;
-            $this->customer_document_type = '----------------';
-            $this->customer_full_name = '----------------';
+
+            // ------------------------------------------------------------
+            // CASO B: Sin formulación -> descontar producto directo (original)
+            // ------------------------------------------------------------
+            $amountLeft = $sellQty;
+
+            $inventories = Inventory::query()
+                ->where('productive_unit_warehouse_id', $this->puw->id)
+                ->where('element_id', $productElementId)
+                ->where('amount', '>', 0)
+                ->where('destination', 'Producción')
+                ->where('state', 'Disponible')
+                ->where(function ($q) {
+                    $q->whereDate('expiration_date', '>=', now())
+                      ->orWhereNull('expiration_date');
+                })
+                ->orderByRaw('CASE WHEN expiration_date IS NULL THEN 1 ELSE 0 END, expiration_date ASC')
+                ->orderBy('production_date', 'asc')
+                ->lockForUpdate()
+                ->get();
+
+            $available = (float) $inventories->sum('amount');
+            if ($available + 1e-9 < $amountLeft) {
+                $name = Element::find($productElementId)?->name ?? 'Producto';
+                throw new \Exception("Inventario insuficiente para {$name}. Necesita {$amountLeft} y hay {$available}.");
+            }
+
+            foreach ($inventories as $inventory) {
+                if ($amountLeft <= 0) break;
+
+                $amountToSubtract = min((float) $amountLeft, (float) $inventory->amount);
+
+                $inventory->amount -= $amountToSubtract;
+                $inventory->state = ($inventory->amount > 0) ? 'Disponible' : 'No disponible';
+                $inventory->save();
+
+                $amountLeft -= $amountToSubtract;
+
+                MovementDetail::create([
+                    'movement_id'  => $movement->id,
+                    'inventory_id' => $inventory->id,
+                    'amount'       => (float) $amountToSubtract, // ✅ POSITIVO
+                    'price'        => $sellPrice
+                ]);
+            }
         }
+
+        // Responsables
+        $error = 'RESPONSABLES DE MOVIMIENTO';
+        MovementResponsibility::create([
+            'person_id'   => Auth::user()->person_id,
+            'movement_id' => $movement->id,
+            'role'        => 'VENDEDOR',
+            'date'        => $current_datetime
+        ]);
+
+        MovementResponsibility::create([
+            'person_id'   => Person::where('document_number', $this->customer_document_number)->first()->id,
+            'movement_id' => $movement->id,
+            'role'        => 'CLIENTE',
+            'date'        => $current_datetime
+        ]);
+
+        // Movimientos bodega
+        $error = 'MOVIMIENTOS DE BODEGA';
+        WarehouseMovement::create([
+            'productive_unit_warehouse_id' => $this->puw->id,
+            'movement_id'                  => $movement->id,
+            'role'                         => 'Entrega'
+        ]);
+
+        // Caja
+        $error = 'CAJA';
+        $cashCount = CashCount::where('productive_unit_warehouse_id', $this->puw->id)
+            ->where('state', 'Abierta')
+            ->first();
+
+        if ($cashCount) {
+            $cashCount->total_sales += $movement->price;
+            $cashCount->save();
+        }
+
+        // Consecutivo comprobante
+        $error = 'NÚMERO DE COMPROBANTE';
+        $movementType = MovementType::where('name', 'Venta')->first();
+        $movementType->update(['consecutive' => $movementType->consecutive + 1]);
+        $movement->update(['voucher_number' => $movementType->consecutive]);
+
+        DB::commit();
+
+        // Éxito
+        $this->emit('message', 'success', trans('cafeto::sales.Alert_Successful_Sale'), 'Operación realizada', $value);
+
+        $final_movement = Movement::with(
+            'warehouse_movements.productive_unit_warehouse.warehouse',
+            'movement_details.inventory.element.measurement_unit',
+            'movement_responsibilities.person'
+        )->find($movement->id);
+
+        $this->emit('printTicket', $final_movement);
+
+        $this->defaultAction();
+        $this->emit('clear-sale-values');
+
+    } catch (Exception $e) {
+        DB::rollBack();
+        $this->emit('change_value');
+
+        // Mostrar el error real (incluye ingredientes faltantes si aplica)
+        $this->emit(
+            'message',
+            'error',
+            'Operación rechazada',
+            $e->getMessage() ?: ('Ha ocurrido un error en el registro de la venta en ' . ($error ?? 'PROCESO') . '. Por favor intente nuevamente.'),
+            null
+        );
     }
+}
+
 
     // Consultar cliente para el registro de la venta
     public function consultCustomer(){

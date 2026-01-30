@@ -69,6 +69,26 @@
                                     <i class="fa-brands fa-twitter"></i>
                                 </a>
                             </div>
+                             <div class="col-lg-3 mb-4" data-aos="zoom-in">
+                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/cafeto/images/developers/Mauro_Dev_386.png') }}" alt="MauroProfile" width="140" height="140">
+                                <h4>{{ trans('cafeto::devs.Description_Apprentice') }}</h4>
+                                <p>Mauro Suárez Ariaz</p>
+                                <a class="btn btn-primary" href="https://www.linkedin.com/in/mauro-su%C3%A1rez-ariza-32575a384/">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a class="btn btn-dark" href="https://github.com/Mau2105">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a class="btn btn-primary" href="https://www.facebook.com/Mauro.Suarez.ATS?locale=es_LA">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                                <a class="btn btn-info custom-instagram-btn" href="https://www.instagram.com/maur_2105/">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+                                <a class="btn btn-info custom-twitter-btn" href="https://x.com/_mau_05">
+                                    <i class="fa-brands fa-twitter"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <br>
