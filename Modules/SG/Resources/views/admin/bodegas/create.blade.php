@@ -1,75 +1,118 @@
 @extends('sg::layouts.master')
 
 @section('content')
-<br><br>
-<div>
-    <div name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Nueva Bodega</h2>
-    <div>
+<br><br><br>
 
-    <div class="py-12">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-8">
+<div class="container">
 
-                <form action="{{ route('sg.admin.sg.bodegas.store') }}" method="POST">
-                    @csrf
+    {{-- HEADER --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="font-weight-bold mb-0">
+                <i class="fas fa-warehouse text-indigo-600"></i>
+                Nueva Bodega
+            </h3>
+            <small class="text-muted">
+                Registro de una nueva bodega o almacén
+            </small>
+        </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Código *</label>
-                            <input type="text" name="code" value="{{ old('code') }}"
-                                   class="w-full px-4 py-2 border rounded-lg @error('code') border-red-500 @enderror"
-                                   placeholder="Ej: BOD-01, FARM-01">
-                            @error('code')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
+        <a href="{{ route('sg.admin.sg.bodegas.index') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Volver
+        </a>
+    </div>
 
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Nombre *</label>
-                            <input type="text" name="name" value="{{ old('name') }}"
-                                   class="w-full px-4 py-2 border rounded-lg @error('name') border-red-500 @enderror"
-                                   placeholder="Ej: Bodega Principal">
-                            @error('name')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
+    {{-- CARD PRINCIPAL --}}
+    <div class="card shadow-lg border-0">
+        <div class="card-body p-5">
 
-                        <div class="md:col-span-2">
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Ubicación</label>
-                            <input type="text" name="location" value="{{ old('location') }}"
-                                   class="w-full px-4 py-2 border rounded-lg"
-                                   placeholder="Ej: Al lado del corral de ordeño">
-                        </div>
+            <form action="{{ route('sg.admin.sg.bodegas.store') }}" method="POST">
+                @csrf
 
-                        <div class="md:col-span-2">
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Descripción</label>
-                            <textarea name="description" rows="4"
-                                      class="w-full px-4 px-4 py-2 border rounded-lg">{{ old('description') }}</textarea>
-                        </div>
+                <div class="row">
 
-                        <div>
-                            <label class="flex items-center">
-                                <input type="checkbox" name="is_active" value="1" {{ old('is_active', 1) ? 'checked' : '' }}
-                                       class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                <span class="ml-2 text-sm text-gray-700">Bodega activa</span>
+                    {{-- CÓDIGO --}}
+                    <div class="col-md-6 mb-4">
+                        <label class="font-weight-bold text-gray-700">
+                            Código <span class="text-danger">*</span>
+                        </label>
+                        <input type="text"
+                               name="code"
+                               value="{{ old('code') }}"
+                               class="form-control @error('code') is-invalid @enderror"
+                               placeholder="Ej: BOD-01, FARM-01">
+                        @error('code')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- NOMBRE --}}
+                    <div class="col-md-6 mb-4">
+                        <label class="font-weight-bold text-gray-700">
+                            Nombre <span class="text-danger">*</span>
+                        </label>
+                        <input type="text"
+                               name="name"
+                               value="{{ old('name') }}"
+                               class="form-control @error('name') is-invalid @enderror"
+                               placeholder="Ej: Bodega Principal">
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- UBICACIÓN --}}
+                    <div class="col-md-12 mb-4">
+                        <label class="font-weight-bold text-gray-700">Ubicación</label>
+                        <input type="text"
+                               name="location"
+                               value="{{ old('location') }}"
+                               class="form-control"
+                               placeholder="Ej: Al lado del corral de ordeño">
+                    </div>
+
+                    {{-- DESCRIPCIÓN --}}
+                    <div class="col-md-12 mb-4">
+                        <label class="font-weight-bold text-gray-700">Descripción</label>
+                        <textarea name="description"
+                                  rows="4"
+                                  class="form-control"
+                                  placeholder="Información adicional sobre la bodega">{{ old('description') }}</textarea>
+                    </div>
+
+                    {{-- ESTADO --}}
+                    <div class="col-md-12 mb-2">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   id="is_active"
+                                   name="is_active"
+                                   value="1"
+                                   {{ old('is_active', 1) ? 'checked' : '' }}>
+                            <label class="custom-control-label font-weight-bold" for="is_active">
+                                Bodega activa
                             </label>
                         </div>
                     </div>
 
-                    <div class="flex justify-end mt-10 space-x-4">
-                        <a href="{{ route('sg.admin.sg.bodegas.index') }}"
-                           class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded">
-                            Cancelar
-                        </a>
-                        <button type="submit"
-                                class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded">
-                            Guardar Bodega
-                        </button>
-                    </div>
-                </form>
-            </div>
+                </div>
+
+                {{-- BOTONES --}}
+                <div class="d-flex justify-content-end mt-5">
+                    <a href="{{ route('sg.admin.sg.bodegas.index') }}"
+                       class="btn btn-secondary mr-3">
+                        Cancelar
+                    </a>
+
+                    <button type="submit" class="btn btn-indigo px-4">
+                        <i class="fas fa-save"></i> Guardar Bodega
+                    </button>
+                </div>
+
+            </form>
+
         </div>
     </div>
+
 </div>
 @endsection

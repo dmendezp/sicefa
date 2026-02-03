@@ -1,73 +1,145 @@
 @extends('sg::layouts.master')
 
 @section('content')
-<br><br>
-<div class="container-fluid mt-4">
+<br><br><br>
 
-    {{-- Header --}}
+<div class="container">
+
+    {{-- HEADER --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="font-weight-bold mb-0">Detalle del Insumo: {{ $supply->code }}</h3>
-        <a href="{{ route('sg.admin.sg.insumos.index') }}" class="btn btn-secondary">
-            <i class="fas fa-arrow-left"></i> Volver al Inventario
-        </a>
+        <div>
+            <h3 class="font-weight-bold mb-0">
+                <i class="fas fa-box-open text-success"></i>
+                Detalle del Insumo
+            </h3>
+            <small class="text-muted">
+                Código: {{ $supply->code }}
+            </small>
+        </div>
+
+        <div>
+            <a href="{{ route('sg.admin.sg.insumos.index') }}" class="btn btn-secondary mr-2">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+            <a href="{{ route('sg.admin.sg.insumos.edit', $supply) }}" class="btn btn-warning">
+                <i class="fas fa-edit"></i> Editar
+            </a>
+        </div>
     </div>
 
-    {{-- Card Principal --}}
-    <div class="card shadow-sm">
+    {{-- ALERTAS --}}
+    @if($supply->current_stock <= $supply->minimum_stock)
+        <div class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle"></i>
+            Stock bajo: el nivel actual está por debajo del mínimo permitido.
+        </div>
+    @endif
+
+    @if($supply->expiration_date && $supply->expiration_date < now())
+        <div class="alert alert-warning">
+            <i class="fas fa-clock"></i>
+            Este insumo se encuentra vencido.
+        </div>
+    @endif
+
+    {{-- CARD PRINCIPAL --}}
+    <div class="card shadow-lg border-0">
+
+        {{-- CABECERA --}}
         <div class="card-header bg-success text-white">
             <h4 class="mb-0">{{ $supply->name }}</h4>
-            <p class="mb-0 small">{{ $supply->type_in_spanish }}</p>
+            <small>{{ $supply->type_in_spanish }}</small>
         </div>
 
         <div class="card-body">
+
             <div class="row">
-                {{-- Información General --}}
+
+                {{-- INFORMACIÓN GENERAL --}}
                 <div class="col-md-4 mb-4">
-                    <div class="card border-0 bg-light">
+                    <div class="card h-100 border-0 bg-light">
                         <div class="card-body">
-                            <h5 class="card-title font-weight-bold mb-3">Información General</h5>
-                            <p><strong>Código:</strong> <span class="badge badge-primary">{{ $supply->code }}</span></p>
-                            <p><strong>Nombre:</strong> {{ $supply->name }}</p>
-                            <p><strong>Tipo:</strong> 
-                                <span class="badge badge-pill
+                            <h5 class="font-weight-bold mb-3">
+                                📦 Información General
+                            </h5>
+
+                            <p>
+                                <strong>Código:</strong><br>
+                                <span class="badge badge-primary">{{ $supply->code }}</span>
+                            </p>
+
+                            <p><strong>Nombre:</strong><br>{{ $supply->name }}</p>
+
+                            <p>
+                                <strong>Tipo:</strong><br>
+                                <span class="badge
                                     {{ $supply->type==='MEDICINE' ? 'badge-danger' : '' }}
                                     {{ $supply->type==='VACCINE' ? 'badge-info' : '' }}
                                     {{ $supply->type==='FEED' ? 'badge-success' : '' }}
-                                    {{ $supply->type==='SUPPLEMENT' ? 'badge-purple' : '' }}
+                                    {{ $supply->type==='SUPPLEMENT' ? 'badge-warning' : '' }}
                                     {{ $supply->type==='OTHER' ? 'badge-secondary' : '' }}">
-                                    {{ $supply->type }}
+                                    {{ $supply->type_in_spanish }}
                                 </span>
                             </p>
-                            <p><strong>Presentación:</strong> {{ $supply->presentation ?: 'No especificada' }}</p>
-                            <p><strong>Unidad:</strong> {{ $supply->unit }}</p>
+
+                            <p><strong>Presentación:</strong><br>
+                                {{ $supply->presentation ?: 'No especificada' }}
+                            </p>
+
+                            <p><strong>Unidad:</strong><br>{{ strtoupper($supply->unit) }}</p>
                         </div>
                     </div>
                 </div>
 
-                {{-- Inventario --}}
+                {{-- INVENTARIO --}}
                 <div class="col-md-4 mb-4">
-                    <div class="card border-0 bg-light">
+                    <div class="card h-100 border-0 bg-light">
                         <div class="card-body">
-                            <h5 class="card-title font-weight-bold mb-3">Inventario</h5>
-                            <p><strong>Stock Actual:</strong> 
-                                <span class="{{ $supply->current_stock <= $supply->minimum_stock ? 'text-danger font-weight-bold' : '' }}">
+                            <h5 class="font-weight-bold mb-3">
+                                📊 Inventario
+                            </h5>
+
+                            <p>
+                                <strong>Stock Actual:</strong><br>
+                                <span class="font-weight-bold
+                                    {{ $supply->current_stock <= $supply->minimum_stock ? 'text-danger' : 'text-success' }}">
                                     {{ number_format($supply->current_stock, 2) }} {{ $supply->unit }}
                                 </span>
                             </p>
-                            <p><strong>Stock Mínimo:</strong> {{ number_format($supply->minimum_stock, 2) }} {{ $supply->unit }}</p>
-                            <p><strong>Precio Unitario:</strong> {{ $supply->unit_price ? '$'.number_format($supply->unit_price, 2) : '—' }}</p>
+
+                            <p>
+                                <strong>Stock Mínimo:</strong><br>
+                                {{ number_format($supply->minimum_stock, 2) }} {{ $supply->unit }}
+                            </p>
+
+                            <p>
+                                <strong>Precio Unitario:</strong><br>
+                                {{ $supply->unit_price ? '$'.number_format($supply->unit_price, 2) : '—' }}
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                {{-- Proveedor y Lote --}}
+                {{-- PROVEEDOR Y TRAZABILIDAD --}}
                 <div class="col-md-4 mb-4">
-                    <div class="card border-0 bg-light">
+                    <div class="card h-100 border-0 bg-light">
                         <div class="card-body">
-                            <h5 class="card-title font-weight-bold mb-3">Proveedor y Lote</h5>
-                            <p><strong>Proveedor:</strong> {{ $supply->supplier ?: 'No registrado' }}</p>
-                            <p><strong>Lote:</strong> {{ $supply->batch_number ?: 'Sin lote' }}</p>
-                            <p><strong>Vencimiento:</strong> 
+                            <h5 class="font-weight-bold mb-3">
+                                🧾 Trazabilidad
+                            </h5>
+
+                            <p>
+                                <strong>Proveedor:</strong><br>
+                                {{ $supply->supplier ?: 'No registrado' }}
+                            </p>
+
+                            <p>
+                                <strong>Número de Lote:</strong><br>
+                                {{ $supply->batch_number ?: 'Sin lote' }}
+                            </p>
+
+                            <p>
+                                <strong>Fecha de Vencimiento:</strong><br>
                                 @if($supply->expiration_date)
                                     <span class="{{ $supply->expiration_date < now() ? 'text-danger font-weight-bold' : '' }}">
                                         {{ $supply->expiration_date->format('d/m/Y') }}
@@ -79,31 +151,35 @@
                         </div>
                     </div>
                 </div>
+
             </div>
 
-            {{-- Observaciones --}}
+            {{-- OBSERVACIONES --}}
             @if($supply->observations)
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <div class="card border-0 bg-light">
-                            <div class="card-body">
-                                <h5 class="card-title font-weight-bold mb-3">Observaciones</h5>
-                                <p class="text-gray-700">{{ $supply->observations }}</p>
-                            </div>
-                        </div>
+                <div class="card border-0 bg-light mt-3">
+                    <div class="card-body">
+                        <h5 class="font-weight-bold mb-2">
+                            📝 Observaciones
+                        </h5>
+                        <p class="mb-0">{{ $supply->observations }}</p>
                     </div>
                 </div>
             @endif
+
         </div>
 
-        <div class="card-footer d-flex justify-content-between">
-            <a href="{{ route('sg.admin.sg.insumos.index') }}" class="btn btn-secondary">
-                <i class="fas fa-arrow-left"></i> Volver
-            </a>
-            <a href="{{ route('sg.admin.sg.insumos.edit', $supply->id) }}" class="btn btn-warning">
-                <i class="fas fa-edit"></i> Editar Insumo
+        {{-- FOOTER --}}
+        <div class="card-footer d-flex justify-content-between bg-white">
+            <small class="text-muted">
+                Creado: {{ $supply->created_at->format('d/m/Y H:i') }} |
+                Última actualización: {{ $supply->updated_at->format('d/m/Y H:i') }}
+            </small>
+
+            <a href="{{ route('sg.admin.sg.insumos.edit', $supply) }}" class="btn btn-warning btn-sm">
+                <i class="fas fa-edit"></i> Editar
             </a>
         </div>
+
     </div>
 </div>
 @endsection

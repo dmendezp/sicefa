@@ -1,127 +1,176 @@
 @extends('sg::layouts.master')
 
 @section('content')
-<br><br>
-<div>
-    <div name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Nuevo Insumo Ganadero
-        </h2>
+<br><br><br>
+
+<div class="container">
+
+    {{-- HEADER --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="font-weight-bold mb-0">
+                <i class="fas fa-boxes text-success"></i> Nuevo Insumo Ganadero
+            </h3>
+            <small class="text-muted">Registro de medicamentos, vacunas, alimentos y suplementos</small>
+        </div>
+        <span class="badge badge-success p-2">Nuevo Registro</span>
     </div>
 
-    <div class="py-12">
-        <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-2xl rounded-lg p-8">
+    <div class="card shadow-lg border-0">
+        <div class="card-body p-4">
 
-                <form action="{{ route('sg.admin.sg.insumos.store') }}" method="POST">
-                    @csrf
+            <form action="{{ route('sg.admin.sg.insumos.store') }}" method="POST">
+                @csrf
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {{-- SECCIÓN GENERAL --}}
+                <h5 class="font-weight-bold text-success border-bottom pb-2 mb-4">
+                    📦 Información General
+                </h5>
 
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Código *</label>
-                            <input type="text" name="code" value="{{ old('code') }}" required
-                                   class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 @error('code') border-red-500 @enderror"
-                                   placeholder="Ej: INS-001, VAC-2025">
-                            @error('code') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                        </div>
+                <div class="form-row">
 
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Nombre *</label>
-                            <input type="text" name="name" value="{{ old('name') }}" required
-                                   class="w-full px-4 py-3 border rounded-lg @error('name') border-red-500 @enderror"
-                                   placeholder="Ej: Albendazol 10%, Sal Mineralizada">
-                            @error('name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Tipo *</label>
-                            <select name="type" required class="w-full px-4 py-3 border rounded-lg">
-                                <option value="">Seleccionar tipo</option>
-                                <option value="MEDICINE" {{ old('type') === 'MEDICINE' ? 'selected' : '' }}>Medicamento</option>
-                                <option value="VACCINE" {{ old('type') === 'VACCINE' ? 'selected' : '' }}>Vacuna</option>
-                                <option value="FEED" {{ old('type') === 'FEED' ? 'selected' : '' }}>Alimento</option>
-                                <option value="SUPPLEMENT" {{ old('type') === 'SUPPLEMENT' ? 'selected' : '' }}>Suplemento</option>
-                                <option value="OTHER" {{ old('type') === 'OTHER' ? 'selected' : '' }}>Otro</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Unidad *</label>
-                            <select name="unit" required class="w-full px-4 py-3 border rounded-lg">
-                                <option value="ml" {{ old('unit') === 'ml' ? 'selected' : '' }}>Mililitros (ml)</option>
-                                <option value="cm³" {{ old('unit') === 'cm³' ? 'selected' : '' }}>Centímetros cúbicos</option>
-                                <option value="g" {{ old('unit') === 'g' ? 'selected' : '' }}>Gramos (g)</option>
-                                <option value="kg" {{ old('unit') === 'kg' ? 'selected' : '' }}>Kilogramos (kg)</option>
-                                <option value="units" {{ old('unit') === 'units' ? 'selected' : '' }}>Unidades</option>
-                                <option value="liters" {{ old('unit') === 'liters' ? 'selected' : '' }}>Litros</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Presentación</label>
-                            <input type="text" name="presentation" value="{{ old('presentation') }}"
-                                   class="w-full px-4 py-3 border rounded-lg"
-                                   placeholder="Ej: Frasco 500ml, Bolsa 25kg">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Proveedor</label>
-                            <input type="text" name="supplier" value="{{ old('supplier') }}"
-                                   class="w-full px-4 py-3 border rounded-lg"
-                                   placeholder="Ej: AgroVeterinaria La Angostura">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Precio Unitario</label>
-                            <input type="number" step="0.01" name="unit_price" value="{{ old('unit_price') }}"
-                                   class="w-full px-4 py-3 border rounded-lg"
-                                   placeholder="0.00">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Stock Actual *</label>
-                            <input type="number" step="0.001" name="current_stock" value="{{ old('current_stock', 0) }}" required
-                                   class="w-full px-4 py-3 border rounded-lg">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Stock Mínimo *</label>
-                            <input type="number" step="0.001" name="minimum_stock" value="{{ old('minimum_stock', 10) }}" required
-                                   class="w-full px-4 py-3 border rounded-lg">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Fecha de Vencimiento</label>
-                            <input type="date" name="expiration_date" value="{{ old('expiration_date') }}"
-                                   class="w-full px-4 py-3 border rounded-lg">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Número de Lote</label>
-                            <input type="text" name="batch_number" value="{{ old('batch_number') }}"
-                                   class="w-full px-4 py-3 border rounded-lg">
-                        </div>
-
-                        <div class="lg:col-span-3">
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Observaciones</label>
-                            <textarea name="observations" rows="4"
-                                      class="w-full px-4 py-3 border rounded-lg">{{ old('observations') }}</textarea>
-                        </div>
+                    <div class="form-group col-md-4">
+                        <label>Código <span class="text-danger">*</span></label>
+                        <input type="text" name="code" value="{{ old('code') }}"
+                               class="form-control @error('code') is-invalid @enderror"
+                               placeholder="INS-001" required>
+                        @error('code') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
 
-                    <div class="flex justify-end mt-10 space-x-4">
-                        <a href="{{ route('sg.admin.sg.insumos.index') }}"
-                           class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-lg">
-                            Cancelar
-                        </a>
-                        <button type="submit"
-                                class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform hover:scale-105 transition">
-                            Guardar Insumo
-                        </button>
+                    <div class="form-group col-md-4">
+                        <label>Nombre <span class="text-danger">*</span></label>
+                        <input type="text" name="name" value="{{ old('name') }}"
+                               class="form-control @error('name') is-invalid @enderror"
+                               placeholder="Albendazol 10%" required>
+                        @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
-                </form>
-            </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Tipo <span class="text-danger">*</span></label>
+                        <select name="type" class="form-control" required>
+                            <option value="">Seleccionar tipo</option>
+                            <option value="MEDICINE">Medicamento</option>
+                            <option value="VACCINE">Vacuna</option>
+                            <option value="FEED">Alimento</option>
+                            <option value="SUPPLEMENT">Suplemento</option>
+                            <option value="OTHER">Otro</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                {{-- PRESENTACIÓN --}}
+                <h5 class="font-weight-bold text-info border-bottom pb-2 mt-4 mb-4">
+                    🧴 Presentación y Unidad
+                </h5>
+
+                <div class="form-row">
+
+                    <div class="form-group col-md-4">
+                        <label>Unidad <span class="text-danger">*</span></label>
+                        <select name="unit" class="form-control" required>
+                            <option value="ml">Mililitros</option>
+                            <option value="cm³">cm³</option>
+                            <option value="g">Gramos</option>
+                            <option value="kg">Kilogramos</option>
+                            <option value="units">Unidades</option>
+                            <option value="liters">Litros</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Presentación</label>
+                        <input type="text" name="presentation"
+                               value="{{ old('presentation') }}"
+                               class="form-control"
+                               placeholder="Frasco 500 ml">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Proveedor</label>
+                        <input type="text" name="supplier"
+                               value="{{ old('supplier') }}"
+                               class="form-control"
+                               placeholder="AgroVeterinaria Central">
+                    </div>
+
+                </div>
+
+                {{-- STOCK --}}
+                <h5 class="font-weight-bold text-warning border-bottom pb-2 mt-4 mb-4">
+                    📊 Control de Stock
+                </h5>
+
+                <div class="form-row">
+
+                    <div class="form-group col-md-4">
+                        <label>Stock Actual <span class="text-danger">*</span></label>
+                        <input type="number" step="0.001" name="current_stock"
+                               value="{{ old('current_stock', 0) }}"
+                               class="form-control text-success font-weight-bold" required>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Stock Mínimo <span class="text-danger">*</span></label>
+                        <input type="number" step="0.001" name="minimum_stock"
+                               value="{{ old('minimum_stock', 10) }}"
+                               class="form-control text-danger font-weight-bold" required>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Precio Unitario</label>
+                        <input type="number" step="0.01" name="unit_price"
+                               value="{{ old('unit_price') }}"
+                               class="form-control"
+                               placeholder="0.00">
+                    </div>
+
+                </div>
+
+                {{-- TRAZABILIDAD --}}
+                <h5 class="font-weight-bold text-secondary border-bottom pb-2 mt-4 mb-4">
+                    🧾 Trazabilidad
+                </h5>
+
+                <div class="form-row">
+
+                    <div class="form-group col-md-4">
+                        <label>Fecha de Vencimiento</label>
+                        <input type="date" name="expiration_date"
+                               value="{{ old('expiration_date') }}"
+                               class="form-control">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Número de Lote</label>
+                        <input type="text" name="batch_number"
+                               value="{{ old('batch_number') }}"
+                               class="form-control">
+                    </div>
+
+                </div>
+
+                {{-- OBSERVACIONES --}}
+                <div class="form-group mt-4">
+                    <label>Observaciones</label>
+                    <textarea name="observations" rows="3"
+                              class="form-control"
+                              placeholder="Notas adicionales...">{{ old('observations') }}</textarea>
+                </div>
+
+                {{-- ACCIONES --}}
+                <div class="d-flex justify-content-end mt-4">
+                    <a href="{{ route('sg.admin.sg.insumos.index') }}"
+                       class="btn btn-secondary mr-3">
+                        <i class="fas fa-arrow-left"></i> Cancelar
+                    </a>
+
+                    <button type="submit" class="btn btn-success px-4">
+                        <i class="fas fa-save"></i> Guardar Insumo
+                    </button>
+                </div>
+
+            </form>
         </div>
     </div>
 </div>

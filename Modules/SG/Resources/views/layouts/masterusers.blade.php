@@ -4,17 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIGANA - Sistema de Gestión Ganadera</title>
+    <title>GANASOFT - Sistema de Gestión Ganadera</title>
     <link rel="icon" href="{{ asset('images/Favicon2.png') }}" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #0f172a; }
         html { scroll-behavior: smooth; }
-        .fade-up { animation: fadeUp 1s ease-out; }
+        .fade-up { animation: fadeUp 0.8s ease-out; }
+        .fade-in { animation: fadeIn 0.8s ease-out; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px);} to {opacity:1; transform:translateY(0);} }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideInLeft { from { opacity: 0; transform: translateX(-50px);} to {opacity:1; transform:translateX(0);} }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(50px);} to {opacity:1; transform:translateX(0);} }
+        @keyframes pulse-scale { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+        .slide-left { animation: slideInLeft 0.8s ease-out; }
+        .slide-right { animation: slideInRight 0.8s ease-out; }
+        .pulse-animation { animation: pulse-scale 2s ease-in-out infinite; }
+        .float-animation { animation: float 3s ease-in-out infinite; }
         #bg-video { position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; opacity: 0.35; }
-    </style>
+        .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 16px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; background-color: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.3s ease; }
+        .dot.active { background-color: #22c55e; width: 30px; border-radius: 6px; }
+        .carousel-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); z-index: 20; background-color: rgba(0,0,0,0.5); color: white; border: none; padding: 12px 16px; cursor: pointer; font-size: 20px; border-radius: 4px; transition: all 0.3s ease; }
+        .carousel-nav-btn:hover { background-color: rgba(0,0,0,0.8); }
+        .stat-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .stat-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(34, 197, 94, 0.2); }
+    </link>
 </head>
 <body class="text-slate-100">
 
@@ -88,24 +106,31 @@
   </div>
 </nav>
 
-<!-- Hero con carrusel de fondo -->
+<!-- Hero con carrusel mejorado -->
 <section id="inicio" class="relative flex items-center justify-center min-h-screen text-center px-6 pt-24 overflow-hidden">
 
-    <!-- Carrusel de fondo usando <img> en lugar de background-image -->
+    <!-- Carrusel de fondo con indicadores -->
     <div id="hero-carousel" class="absolute inset-0 z-0">
-      <div class="slide absolute inset-0 opacity-0 animate-fade" style="animation-delay: 0s">
-        <img src="{{ asset('images/imagen1.jpg') }}" alt="imagen1" class="w-full h-full object-cover">
+      <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-1000" data-slide="0">
+        <img src="{{ asset('images/imagen1.jpg') }}" alt="Ganadería" class="w-full h-full object-cover">
       </div>
-      <div class="slide absolute inset-0 opacity-0 animate-fade" style="animation-delay: 5s">
-        <img src="{{ asset('images/imagen2.jpg') }}" alt="imagen2" class="w-full h-full object-cover">
+      <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-1000" data-slide="1">
+        <img src="{{ asset('images/imagen2.jpg') }}" alt="Ganado" class="w-full h-full object-cover">
       </div>
-      <div class="slide absolute inset-0 opacity-0 animate-fade" style="animation-delay: 10s">
-        <img src="{{ asset('images/imagen3.jpg') }}" alt="imagen3" class="w-full h-full object-cover">
+      <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-1000" data-slide="2">
+        <img src="{{ asset('images/imagen3.jpg') }}" alt="Producción" class="w-full h-full object-cover">
       </div>
-      <div class="absolute inset-0 bg-black/50"></div>
-      <div class="slide absolute inset-0 opacity-0 animate-fade" style="animation-delay: 0s">
-        <img src="{{ asset('images/imagen4.jpg') }}" alt="imagen4" class="w-full h-full object-cover">
+      <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-1000" data-slide="3">
+        <img src="{{ asset('images/imagen4.jpg') }}" alt="Gestión" class="w-full h-full object-cover">
       </div>
+      <div class="absolute inset-0 bg-black/40"></div>
+
+      <!-- Controles del carrusel -->
+      <button id="prev-carousel" class="carousel-nav-btn left-4"><i class="fas fa-chevron-left"></i></button>
+      <button id="next-carousel" class="carousel-nav-btn right-4"><i class="fas fa-chevron-right"></i></button>
+
+      <!-- Indicadores -->
+      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 carousel-dots" id="carousel-dots"></div>
     </div>
 
     <!-- Contenido principal -->
@@ -115,90 +140,327 @@
         </h1>
         <p class="text-lg text-slate-200/90 leading-relaxed">
             Monitorea, organiza y mejora tus procesos productivos con la plataforma GANASOFT.
-            Datos reales, decisiones inteligentes.
+            Datos reales, decisiones inteligentes. Resultados extraordinarios.
         </p>
 
         @guest
             <a href="{{ route('login') }}"
-               class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 shadow-lg text-lg">
-                Iniciar Sesión
+               class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 shadow-lg text-lg transform hover:scale-105">
+                <i class="fas fa-sign-in-alt mr-2"></i>Iniciar Sesión
             </a>
         @else
             <a href="{{ url('/') }}"
-               class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 shadow-lg text-lg">
-                Ir al Panel
+               class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 shadow-lg text-lg transform hover:scale-105">
+                <i class="fas fa-dashboard mr-2"></i>Ir al Panel
             </a>
         @endguest
     </div>
 </section>
 
-<!-- Animaciones del carrusel -->
-<style>
-@keyframes fade {
-  0%, 33.33%, 100% { opacity: 0; }
-  10%, 23.33% { opacity: 1; }
-}
-.slide:nth-child(1) { animation-delay: 0s; }
-.slide:nth-child(2) { animation-delay: 5s; }
-.slide:nth-child(3) { animation-delay: 10s; }
-.animate-fade {
-  animation: fade 15s infinite;
-  transition: opacity 1s ease-in-out;
-}
-</style>
+<!-- Script del carrusel mejorado -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dotsContainer = document.getElementById('carousel-dots');
+    const prevBtn = document.getElementById('prev-carousel');
+    const nextBtn = document.getElementById('next-carousel');
+    let currentSlide = 0;
+    let autoplayInterval;
+
+    // Crear indicadores
+    slides.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.className = 'dot' + (index === 0 ? ' active' : '');
+        dot.onclick = () => goToSlide(index);
+        dotsContainer.appendChild(dot);
+    });
+
+    function showSlide(n) {
+        slides.forEach((slide, index) => {
+            slide.style.opacity = index === n ? '1' : '0';
+        });
+        
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === n);
+        });
+    }
+
+    function goToSlide(n) {
+        currentSlide = n % slides.length;
+        showSlide(currentSlide);
+        resetAutoplay();
+    }
+
+    function nextSlide() {
+        goToSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+        goToSlide(currentSlide - 1 + slides.length);
+    }
+
+    function resetAutoplay() {
+        clearInterval(autoplayInterval);
+        autoplayInterval = setInterval(nextSlide, 6000);
+    }
+
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+
+    showSlide(0);
+    resetAutoplay();
+
+    // Pausar autoplay al pasar mouse
+    document.getElementById('hero-carousel').addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+    document.getElementById('hero-carousel').addEventListener('mouseleave', resetAutoplay);
+});
+</script>
 
 
-<!-- Sección módulos -->
+<!-- Sección módulos mejorada -->
 <section id="modulos" class="py-20 bg-black/40 backdrop-blur-md fade-up">
   <div class="max-w-6xl mx-auto px-6 text-center">
-    <h2 class="text-4xl font-bold text-green-400 mb-12">Módulos Principales</h2>
+    <h2 class="text-4xl font-bold text-green-400 mb-4">Módulos Principales</h2>
+    <p class="text-slate-300 mb-12 text-lg">Herramientas especializadas para maximizar tu productividad ganadera</p>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="p-8 bg-slate-900/70 rounded-2xl shadow-lg hover:scale-105 transition">
-        <img src="{{ asset('images/imagen5.jpg') }}" class="rounded-lg h-40 w-full object-cover mb-4">
-        <h3 class="text-xl font-semibold mb-2">Gestión Eficiente</h3>
-        <p class="text-slate-300 text-sm">Controla la reproducción, alimentación y salud del ganado.</p>
+      <div class="p-8 bg-gradient-to-br from-slate-900/80 to-slate-900/40 rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border border-green-500/10 hover:border-green-500/40">
+        <div class="relative mb-4 h-40 rounded-lg overflow-hidden">
+          <img src="{{ asset('images/imagen5.jpg') }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-110">
+          <div class="absolute inset-0 bg-black/40"></div>
+          <i class="fas fa-cow absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-green-400"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-2 text-green-400">Gestión de Ganado</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">Controla la reproducción, alimentación, salud y bienestar de tu rebaño con fichas individuales detalladas.</p>
       </div>
-      <div class="p-8 bg-slate-900/70 rounded-2xl shadow-lg hover:scale-105 transition">
-        <img src="{{ asset('images/imagen6.webp') }}" class="rounded-lg h-40 w-full object-cover mb-4">
-        <h3 class="text-xl font-semibold mb-2">Estadísticas Inteligentes</h3>
-        <p class="text-slate-300 text-sm">Analiza indicadores clave y toma decisiones precisas.</p>
+      <div class="p-8 bg-gradient-to-br from-slate-900/80 to-slate-900/40 rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border border-green-500/10 hover:border-green-500/40">
+        <div class="relative mb-4 h-40 rounded-lg overflow-hidden">
+          <img src="{{ asset('images/imagen6.webp') }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-110">
+          <div class="absolute inset-0 bg-black/40"></div>
+          <i class="fas fa-chart-line absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-green-400"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-2 text-green-400">Análisis de Datos</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">Analiza indicadores clave, tendencias y toma decisiones precisas basadas en datos reales de tu operación.</p>
       </div>
-      <div class="p-8 bg-slate-900/70 rounded-2xl shadow-lg hover:scale-105 transition">
-        <img src="{{ asset('images/imagen7.jpg') }}" class="rounded-lg h-40 w-full object-cover mb-4">
-        <h3 class="text-xl font-semibold mb-2">Control de Actividades</h3>
-        <p class="text-slate-300 text-sm">Registra tareas diarias y optimiza tu productividad.</p>
+      <div class="p-8 bg-gradient-to-br from-slate-900/80 to-slate-900/40 rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border border-green-500/10 hover:border-green-500/40">
+        <div class="relative mb-4 h-40 rounded-lg overflow-hidden">
+          <img src="{{ asset('images/imagen7.jpg') }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-110">
+          <div class="absolute inset-0 bg-black/40"></div>
+          <i class="fas fa-tasks absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-green-400"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-2 text-green-400">Gestión de Actividades</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">Registra tareas diarias, establece recordatorios y optimiza la productividad de tu equipo de trabajo.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Estadísticas -->
+<!-- Sección de Beneficios -->
+<section id="beneficios" class="py-20 bg-gradient-to-b from-black/60 to-black/40 backdrop-blur-md">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-4xl font-bold text-green-400 mb-4 text-center">¿Por qué elegir GANASOFT?</h2>
+    <p class="text-slate-300 text-center mb-12 text-lg">Potencia tu unidad ganadera con tecnología pensada para ti</p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="p-6 bg-slate-900/70 rounded-xl border border-green-500/20 hover:border-green-500/50 transition-all duration-300">
+        <div class="text-4xl text-green-400 mb-3"><i class="fas fa-tachometer-alt"></i></div>
+        <h3 class="text-lg font-semibold mb-2">Control en Tiempo Real</h3>
+        <p class="text-slate-400 text-sm">Monitorea cada aspecto de tu unidad en vivo desde cualquier dispositivo.</p>
+      </div>
+      <div class="p-6 bg-slate-900/70 rounded-xl border border-green-500/20 hover:border-green-500/50 transition-all duration-300">
+        <div class="text-4xl text-green-400 mb-3"><i class="fas fa-shield-alt"></i></div>
+        <h3 class="text-lg font-semibold mb-2">Seguridad de Datos</h3>
+        <p class="text-slate-400 text-sm">Tus datos están protegidos con encriptación de nivel empresarial.</p>
+      </div>
+      <div class="p-6 bg-slate-900/70 rounded-xl border border-green-500/20 hover:border-green-500/50 transition-all duration-300">
+        <div class="text-4xl text-green-400 mb-3"><i class="fas fa-mobile-alt"></i></div>
+        <h3 class="text-lg font-semibold mb-2">Acceso Móvil</h3>
+        <p class="text-slate-400 text-sm">Gestiona tu operación desde el campo con nuestra app responsive.</p>
+      </div>
+      <div class="p-6 bg-slate-900/70 rounded-xl border border-green-500/20 hover:border-green-500/50 transition-all duration-300">
+        <div class="text-4xl text-green-400 mb-3"><i class="fas fa-headset"></i></div>
+        <h3 class="text-lg font-semibold mb-2">Soporte 24/7</h3>
+        <p class="text-slate-400 text-sm">Equipo técnico disponible siempre que lo necesites para ayudarte.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sección de Procesos Ganaderos -->
+<section id="procesos" class="py-20 bg-black/60 backdrop-blur-md fade-up">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-4xl font-bold text-green-400 mb-4 text-center">Procesos Ganaderos Integrados</h2>
+    <p class="text-slate-300 text-center mb-12 text-lg">Gestiona todos los aspectos de tu operación desde una plataforma unificada</p>
+    
+    <div class="space-y-8">
+      <!-- Proceso 1 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div class="slide-left">
+          <h3 class="text-2xl font-bold text-green-400 mb-4"><i class="fas fa-heart mr-3"></i>Salud Animal</h3>
+          <p class="text-slate-300 mb-4">Mantén registros completos de vacunaciones, tratamientos veterinarios, revisiones clínicas y estado sanitario de cada animal. Recibe alertas automáticas para intervenciones preventivas.</p>
+          <ul class="space-y-2 text-slate-300">
+            <li><i class="fas fa-check text-green-400 mr-2"></i>Historial médico individual</li>
+            <li><i class="fas fa-check text-green-400 mr-2"></i>Alertas de vacunación</li>
+            <li><i class="fas fa-check text-green-400 mr-2"></i>Control de medicamentos</li>
+          </ul>
+        </div>
+        <div class="rounded-lg overflow-hidden shadow-lg">
+          <img src="{{ asset('images/imagen1.jpg') }}" alt="Salud Animal" class="w-full h-64 object-cover hover:scale-110 transition-transform duration-300">
+        </div>
+      </div>
+
+      <!-- Proceso 2 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div class="rounded-lg overflow-hidden shadow-lg order-2 md:order-1">
+          <img src="{{ asset('images/imagen2.jpg') }}" alt="Reproducción" class="w-full h-64 object-cover hover:scale-110 transition-transform duration-300">
+        </div>
+        <div class="slide-right order-1 md:order-2">
+          <h3 class="text-2xl font-bold text-green-400 mb-4"><i class="fas fa-dna mr-3"></i>Reproducción</h3>
+          <p class="text-slate-300 mb-4">Planifica estratégicamente tu programa reproductivo con herramientas para identificar hembras en celo, registrar servicios, y monitorear embarazos.</p>
+          <ul class="space-y-2 text-slate-300">
+            <li><i class="fas fa-check text-green-400 mr-2"></i>Calendario reproductivo</li>
+            <li><i class="fas fa-check text-green-400 mr-2"></i>Seguimiento de preñez</li>
+            <li><i class="fas fa-check text-green-400 mr-2"></i>Genealogía familiar</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Proceso 3 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div class="slide-left">
+          <h3 class="text-2xl font-bold text-green-400 mb-4"><i class="fas fa-leaf mr-3"></i>Nutrición y Alimentación</h3>
+          <p class="text-slate-300 mb-4">Diseña planes nutricionales equilibrados, registra consumos, y optimiza costos de alimentación con recomendaciones basadas en datos de tu rebaño.</p>
+          <ul class="space-y-2 text-slate-300">
+            <li><i class="fas fa-check text-green-400 mr-2"></i>Planes de alimentación</li>
+            <li><i class="fas fa-check text-green-400 mr-2"></i>Control de pastos</li>
+            <li><i class="fas fa-check text-green-400 mr-2"></i>Análisis de costos</li>
+          </ul>
+        </div>
+        <div class="rounded-lg overflow-hidden shadow-lg">
+          <img src="{{ asset('images/imagen3.jpg') }}" alt="Nutrición" class="w-full h-64 object-cover hover:scale-110 transition-transform duration-300">
+        </div>
+      </div>
+
+      <!-- Proceso 4 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div class="rounded-lg overflow-hidden shadow-lg order-2 md:order-1">
+          <img src="{{ asset('images/imagen4.jpg') }}" alt="Producción" class="w-full h-64 object-cover hover:scale-110 transition-transform duration-300">
+        </div>
+        <div class="slide-right order-1 md:order-2">
+          <h3 class="text-2xl font-bold text-green-400 mb-4"><i class="fas fa-industry mr-3"></i>Producción</h3>
+          <p class="text-slate-300 mb-4">Registra volúmenes de producción de leche o carne, analiza tendencias de productividad y calidad, e identifica oportunidades de mejora.</p>
+          <ul class="space-y-2 text-slate-300">
+            <li><i class="fas fa-check text-green-400 mr-2"></i>Registro de producción</li>
+            <li><i class="fas fa-check text-green-400 mr-2"></i>Control de calidad</li>
+            <li><i class="fas fa-check text-green-400 mr-2"></i>Análisis de rendimiento</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Estadísticas mejoradas -->
 <section id="estadisticas" class="py-20 fade-up bg-black/60 backdrop-blur-md">
   <div class="max-w-6xl mx-auto px-6 text-center">
-    <h2 class="text-4xl font-bold text-green-400 mb-12">Monitoreo en Tiempo Real</h2>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-      <div class="bg-slate-900/70 p-6 rounded-xl shadow text-center">
-        <p class="text-3xl font-bold text-green-400">95%</p>
-        <p class="text-slate-400 text-sm">Salud Animal</p>
+    <h2 class="text-4xl font-bold text-green-400 mb-4">Monitoreo en Tiempo Real</h2>
+    <p class="text-slate-300 mb-12 text-lg">Métricas clave de tu unidad ganadera</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="stat-card bg-gradient-to-br from-green-500/10 to-green-900/20 p-8 rounded-xl shadow-lg border border-green-500/30">
+        <div class="text-5xl font-bold text-green-400 mb-2 pulse-animation">95%</div>
+        <p class="text-slate-400 text-sm font-semibold">Salud Animal</p>
+        <p class="text-xs text-slate-500 mt-2">Rebaño en óptimas condiciones</p>
       </div>
-      <div class="bg-slate-900/70 p-6 rounded-xl shadow text-center">
-        <p class="text-3xl font-bold text-green-400">+320</p>
-        <p class="text-slate-400 text-sm">Cabezas Registradas</p>
+      <div class="stat-card bg-gradient-to-br from-blue-500/10 to-blue-900/20 p-8 rounded-xl shadow-lg border border-blue-500/30">
+        <div class="text-5xl font-bold text-blue-400 mb-2 pulse-animation">+320</div>
+        <p class="text-slate-400 text-sm font-semibold">Cabezas Registradas</p>
+        <p class="text-xs text-slate-500 mt-2">Ganado en la operación</p>
       </div>
-      <div class="bg-slate-900/70 p-6 rounded-xl shadow text-center">
-        <p class="text-3xl font-bold text-green-400">4.2kg</p>
-        <p class="text-slate-400 text-sm">Ganancia Diaria Promedio</p>
+      <div class="stat-card bg-gradient-to-br from-yellow-500/10 to-yellow-900/20 p-8 rounded-xl shadow-lg border border-yellow-500/30">
+        <div class="text-5xl font-bold text-yellow-400 mb-2 pulse-animation">4.2kg</div>
+        <p class="text-slate-400 text-sm font-semibold">Ganancia Diaria Promedio</p>
+        <p class="text-xs text-slate-500 mt-2">Por animal en crecimiento</p>
       </div>
-      <div class="bg-slate-900/70 p-6 rounded-xl shadow text-center">
-        <p class="text-3xl font-bold text-green-400">12</p>
-        <p class="text-slate-400 text-sm">Alertas Activas</p>
+      <div class="stat-card bg-gradient-to-br from-red-500/10 to-red-900/20 p-8 rounded-xl shadow-lg border border-red-500/30">
+        <div class="text-5xl font-bold text-red-400 mb-2">12</div>
+        <p class="text-slate-400 text-sm font-semibold">Alertas Activas</p>
+        <p class="text-xs text-slate-500 mt-2">Requieren atención inmediata</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Contacto / Footer -->
-<footer class="bg-green-900 text-green-100">
+<!-- Sección de Testimonios -->
+<section id="testimonios" class="py-20 bg-gradient-to-b from-black/40 to-black/60 backdrop-blur-md">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-4xl font-bold text-green-400 mb-4 text-center">Lo que dicen nuestros Usuarios</h2>
+    <p class="text-slate-300 text-center mb-12 text-lg">Transformando operaciones ganaderas en toda la región</p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="p-6 bg-slate-900/70 rounded-lg border border-green-500/20 hover:border-green-500/50 transition-all duration-300">
+        <div class="flex items-center mb-4">
+          <div class="flex text-yellow-400">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+        </div>
+        <p class="text-slate-300 mb-4 italic">"GANASOFT cambió completamente la forma en que gestiono mi unidad. Los datos en tiempo real me permiten tomar decisiones mucho más inteligentes."</p>
+        <div class="font-semibold text-green-400">Juan Pérez</div>
+        <div class="text-xs text-slate-500">Ganadero, Ganadería Versalles</div>
+      </div>
+      
+      <div class="p-6 bg-slate-900/70 rounded-lg border border-green-500/20 hover:border-green-500/50 transition-all duration-300">
+        <div class="flex items-center mb-4">
+          <div class="flex text-yellow-400">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+        </div>
+        <p class="text-slate-300 mb-4 italic">"Hemos reducido costos significativamente. El control de alimentación es mucho más preciso y los registros de salud nos ahorran problemas."</p>
+        <div class="font-semibold text-green-400">María González</div>
+        <div class="text-xs text-slate-500">Administradora, Finca Santa Cruz</div>
+      </div>
+      
+      <div class="p-6 bg-slate-900/70 rounded-lg border border-green-500/20 hover:border-green-500/50 transition-all duration-300">
+        <div class="flex items-center mb-4">
+          <div class="flex text-yellow-400">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+        </div>
+        <p class="text-slate-300 mb-4 italic">"La interfaz es muy intuitiva. Mis trabajadores aprendieron a usarla sin dificultad. Excelente inversión para el futuro."</p>
+        <div class="font-semibold text-green-400">Carlos López</div>
+        <div class="text-xs text-slate-500">Gerente General, Hacienda el Roble</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sección CTA (Call to Action) -->
+<section id="cta" class="py-24 bg-gradient-to-r from-green-600/20 to-green-900/20 backdrop-blur-md border-t border-b border-green-500/30">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <h2 class="text-4xl md:text-5xl font-bold mb-6">
+      ¿Listo para transformar tu Unidad Ganadera?
+    </h2>
+    <p class="text-lg text-slate-300 mb-8">
+      Únete a cientos de ganaderos que ya confían en GANASOFT para gestionar sus operaciones de forma profesional y eficiente.
+    </p>
+    <div class="flex flex-col md:flex-row gap-4 justify-center">
+      @guest
+        <a href="{{ route('login') }}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-12 rounded-full transition-all duration-300 shadow-lg text-lg transform hover:scale-105">
+          <i class="fas fa-rocket mr-2"></i>Comenzar Ahora
+        </a>
+        <a href="#modulos" class="inline-block bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 px-12 rounded-full transition-all duration-300">
+          <i class="fas fa-info-circle mr-2"></i>Conocer Más
+        </a>
+      @else
+        <a href="{{ url('/') }}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-12 rounded-full transition-all duration-300 shadow-lg text-lg transform hover:scale-105">
+          <i class="fas fa-dashboard mr-2"></i>Ir a mi Panel
+        </a>
+      @endguest
+    </div>
+  </div>
+</section>
+
+<!-- Contacto / Footer Mejorado -->
+<footer class="bg-gradient-to-b from-slate-900 to-black text-slate-100">
     <!-- Mapa -->
     <div class="w-full h-96">
       <iframe
@@ -213,69 +475,105 @@
       </iframe>
     </div>
 
-    <!-- Info -->
-    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-gray-700">
+    <!-- Info mejorada -->
+    <div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-8 border-t border-slate-700">
       <!-- Sobre -->
       <div>
-        <h3 class="text-xl font-semibold mb-4">Sobre Nosotros</h3>
-        <p class="text-gray-400 text-sm">
-          Centro de Formación Agroindustrial La Angostura – SENA. Comprometidos con la formación integral para el desarrollo agroindustrial del país.
+        <h3 class="text-xl font-semibold mb-4 text-green-400">Sobre GANASOFT</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          Plataforma integral de gestión ganadera creada en alianza con el Centro de Formación Agroindustrial La Angostura – SENA. Comprometidos con la innovación agropecuaria.
         </p>
       </div>
 
-      {{-- <!-- Enlaces -->
+      <!-- Enlaces Rápidos -->
       <div>
-        <h3 class="text-xl font-semibold mb-4">Enlaces Rápidos</h3>
-        <ul class="text-gray-400 text-sm space-y-2">
-          <li><a href="#" class="hover:text-white transition">Inicio</a></li>
-          <li><a href="#" class="hover:text-white transition">Programas</a></li>
-          <li><a href="#" class="hover:text-white transition">Contacto</a></li>
-          <li><a href="#" class="hover:text-white transition">Términos y Condiciones</a></li>
+        <h3 class="text-xl font-semibold mb-4 text-green-400">Enlaces Rápidos</h3>
+        <ul class="text-slate-400 text-sm space-y-2">
+          <li><a href="#inicio" class="hover:text-green-400 transition"><i class="fas fa-arrow-right mr-2"></i>Inicio</a></li>
+          <li><a href="#modulos" class="hover:text-green-400 transition"><i class="fas fa-arrow-right mr-2"></i>Módulos</a></li>
+          <li><a href="#procesos" class="hover:text-green-400 transition"><i class="fas fa-arrow-right mr-2"></i>Procesos</a></li>
+          <li><a href="#testimonios" class="hover:text-green-400 transition"><i class="fas fa-arrow-right mr-2"></i>Testimonios</a></li>
         </ul>
-      </div> --}}
+      </div>
 
+      <!-- Características -->
+      <div>
+        <h3 class="text-xl font-semibold mb-4 text-green-400">Características</h3>
+        <ul class="text-slate-400 text-sm space-y-2">
+          <li><i class="fas fa-check text-green-400 mr-2"></i>Gestión de ganado</li>
+          <li><i class="fas fa-check text-green-400 mr-2"></i>Análisis de datos</li>
+          <li><i class="fas fa-check text-green-400 mr-2"></i>Reportes en tiempo real</li>
+          <li><i class="fas fa-check text-green-400 mr-2"></i>Soporte técnico</li>
+        </ul>
+      </div>
 
-    <!-- Redes -->
-    <div>
-        <h3 class="text-xl font-semibold mb-4">Síguenos</h3>
-        <div class="flex space-x-4">
+      <!-- Redes -->
+      <div>
+        <h3 class="text-xl font-semibold mb-4 text-green-400">Síguenos</h3>
+        <div class="flex flex-col space-y-3">
           <!-- Facebook -->
-          <a href="https://www.facebook.com/share/1Dt2viGR4v/" class="text-gray-400 hover:text-white">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M22.675 0H1.325C.6 0 0 .6 0 1.326v21.348C0 23.4.6 24 1.326 24h11.495V14.706h-3.13v-3.622h3.13V8.413c0-3.1 1.894-4.788 4.66-4.788 1.325 0 2.463.098 2.794.142v3.24l-1.917.001c-1.504 0-1.794.715-1.794 1.763v2.312h3.587l-.467 3.622h-3.12V24h6.116C23.4 24 24 23.4 24 22.674V1.326C24 .6 23.4 0 22.675 0z"/>
-            </svg>
+          <a href="https://www.facebook.com/share/1Dt2viGR4v/" class="text-slate-400 hover:text-green-400 transition flex items-center">
+            <i class="fab fa-facebook mr-3"></i>Facebook
           </a>
 
           <!-- Instagram -->
-          <a href="https://www.instagram.com/cefa_angostura?igsh=Y2gwbng3MGYwb25l" class="text-gray-400 hover:text-white">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.33 3.608 1.304.975.974 1.242 2.242 1.305 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.33 2.633-1.305 3.608-.974.975-2.242 1.242-3.608 1.305-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.33-3.608-1.305-.975-.974-1.242-2.242-1.305-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.33-2.633 1.305-3.608C4.517 2.493 5.784 2.226 7.15 2.163c1.266-.058 1.646-.07 4.85-.07zm0-2.163C8.741 0 8.332.012 7.052.07 5.697.129 4.417.391 3.293 1.515 2.169 2.639 1.907 3.919 1.848 5.274.79 6.552.778 6.962.778 12c0 5.038.012 5.448.07 6.726.059 1.355.321 2.635 1.445 3.759 1.124 1.124 2.404 1.386 3.759 1.445 1.278.058 1.687.07 6.726.07s5.448-.012 6.726-.07c1.355-.059 2.635-.321 3.759-1.445 1.124-1.124 1.386-2.404 1.445-3.759.058-1.278.07-1.687.07-6.726s-.012-5.448-.07-6.726c-.059-1.355-.321-2.635-1.445-3.759C20.635.391 19.355.129 18 .07 16.722.012 16.313 0 12 0z"/>
-              <path d="M12 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zM18.406 4.594a1.44 1.44 0 1 0 0 2.879 1.44 1.44 0 0 0 0-2.879z"/>
-            </svg>
+          <a href="https://www.instagram.com/cefa_angostura?igsh=Y2gwbng3MGYwb25l" class="text-slate-400 hover:text-green-400 transition flex items-center">
+            <i class="fab fa-instagram mr-3"></i>Instagram
           </a>
 
-          {{-- <!-- TikTok -->
-          <a href="#" class="text-gray-400 hover:text-white">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M16.5 1.5H13.5V14.25C13.5 16.3211 11.8211 18 9.75 18C7.67893 18 6 16.3211 6 14.25C6 12.1789 7.67893 10.5 9.75 10.5C10.2361 10.5 10.6939 10.6053 11.1015 10.7978V7.65318C10.7235 7.58249 10.337 7.54688 9.94531 7.54688C6.85362 7.54688 4.3125 10.088 4.3125 13.1797C4.3125 16.2714 6.85362 18.8125 9.94531 18.8125C13.037 18.8125 15.5781 16.2714 15.5781 13.1797V6.8025C16.0733 7.0986 16.6194 7.30728 17.1995 7.41562C17.7776 7.52408 18.3719 7.53089 18.9492 7.43594V4.48125C18.2635 4.52988 17.5793 4.42789 16.9375 4.18125C16.2961 3.93483 15.7111 3.54774 15.2188 3.04688C14.7263 2.54584 14.3361 1.94777 14.0709 1.29375H16.5V1.5Z"/>
-            </svg>
-          </a> --}}
-
           <!-- X (Twitter) -->
-          <a href="https://x.com/SENAComunica?t=hrAJagK-mGfI1n321dVquA&s=09" class="text-gray-400 hover:text-white">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M22.254 0L13.768 9.073l10.646 14.927h-5.052L12.106 14.51 4.735 24H0l9.094-10.067L-.03 0h5.128l7.203 9.819L19.247 0z"/>
-            </svg>
+          <a href="https://x.com/SENAComunica?t=hrAJagK-mGfI1n321dVquA&s=09" class="text-slate-400 hover:text-green-400 transition flex items-center">
+            <i class="fab fa-x-twitter mr-3"></i>X (Twitter)
           </a>
         </div>
       </div>
     </div>
 
-    <!-- Créditos -->
-    <div class="bg-gray-800 text-center py-4 text-sm text-gray-400">
-      © 2025 Centro de Formación Agroindustrial La Angostura – SENA. Todos los derechos reservados. version:3.2.0
+    <!-- Créditos mejorados -->
+    <div class="bg-black/80 backdrop-blur-md text-center py-6 text-sm text-slate-500 border-t border-slate-700">
+      <p>© 2025 Centro de Formación Agroindustrial La Angostura – SENA. Todos los derechos reservados.</p>
+      <p class="mt-2">Versión 3.2.0 | GANASOFT - Sistema de Gestión Ganadera</p>
     </div>
-  </footer>
+</footer>
+
+<!-- Script adicional para scroll suave y animaciones -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animaciones al scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-up');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observar secciones
+    document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
+    });
+
+    // Smooth scroll para enlaces
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href !== '#' && document.querySelector(href)) {
+                e.preventDefault();
+                document.querySelector(href).scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+});
+</script>
 
 </body>
 </html>

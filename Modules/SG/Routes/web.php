@@ -98,6 +98,172 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/sg/salud/{id}', 'HealthRecordCattleRaisingController@update')->name('sg.admin.sg.salud.update');
             Route::delete('/sg/salud/{id}', 'HealthRecordCattleRaisingController@destroy')->name('sg.admin.sg.salud.destroy');
             Route::get('/sg/salud/{id}', 'HealthRecordCattleRaisingController@show')->name('sg.admin.sg.salud.show');
+
+            // Rutas para la gestión de tratamientos de ganadería
+            Route::get('/sg/tratamientos', 'TreatmentCattleRaisingController@index')->name('sg.admin.sg.tratamientos.index');
+            Route::get('/sg/tratamientos/create', 'TreatmentCattleRaisingController@create')->name('sg.admin.sg.tratamientos.create');
+            Route::post('/sg/tratamientos', 'TreatmentCattleRaisingController@store')->name('sg.admin.sg.tratamientos.store');
+            Route::get('/sg/tratamientos/{id}/edit', 'TreatmentCattleRaisingController@edit')->name('sg.admin.sg.tratamientos.edit');
+            Route::put('/sg/tratamientos/{id}', 'TreatmentCattleRaisingController@update')->name('sg.admin.sg.tratamientos.update');
+            Route::delete('/sg/tratamientos/{id}', 'TreatmentCattleRaisingController@destroy')->name('sg.admin.sg.tratamientos.destroy');
+            Route::get('/sg/tratamientos/{id}', 'TreatmentCattleRaisingController@show')->name('sg.admin.sg.tratamientos.show');
+
+            // Rutas para la gestión de pruebas diagnósticas de ganadería
+            Route::get('/sg/diagnosticos', 'TestController@index')->name('sg.admin.sg.diagnosticos.index');
+            Route::get('/sg/diagnosticos/create', 'TestController@create')->name('sg.admin.sg.diagnosticos.create');
+            Route::post('/sg/diagnosticos', 'TestController@store')->name('sg.admin.sg.diagnosticos.store');
+            Route::get('/sg/diagnosticos/{id}/edit', 'TestController@edit')->name('sg.admin.sg.diagnosticos.edit');
+            Route::put('/sg/diagnosticos/{id}', 'TestController@update')->name('sg.admin.sg.diagnosticos.update');
+            Route::delete('/sg/diagnosticos/{id}', 'TestController@destroy')->name('sg.admin.sg.diagnosticos.destroy');
+            Route::get('/sg/diagnosticos/{id}', 'TestController@show')->name('sg.admin.sg.diagnosticos.show');
+
+            // Rutas para la gestión de inseminaciones de ganadería
+            Route::get('/sg/inseminaciones', 'InseminationController@index')->name('sg.admin.sg.inseminaciones.index');
+            Route::get('/sg/inseminaciones/create', 'InseminationController@create')->name('sg.admin.sg.inseminaciones.create');
+            Route::post('/sg/inseminaciones', 'InseminationController@store')->name('sg.admin.sg.inseminaciones.store');
+            Route::get('/sg/inseminaciones/{id}/edit', 'InseminationController@edit')->name('sg.admin.sg.inseminaciones.edit');
+            Route::put('/sg/inseminaciones/{id}', 'InseminationController@update')->name('sg.admin.sg.inseminaciones.update');
+            Route::delete('/sg/inseminaciones/{id}', 'InseminationController@destroy')->name('sg.admin.sg.inseminaciones.destroy');
+            Route::get('/sg/inseminaciones/{id}', 'InseminationController@show')->name('sg.admin.sg.inseminaciones.show');
+
+            // Rutas para la gestión de nacimientos de ganadería
+            Route::get('/sg/nacimientos', 'BirthController@index')->name('sg.admin.sg.nacimientos.index');
+            Route::get('/sg/nacimientos/create', 'BirthController@create')->name('sg.admin.sg.nacimientos.create');
+            Route::post('/sg/nacimientos', 'BirthController@store')->name('sg.admin.sg.nacimientos.store');
+            Route::get('/sg/nacimientos/{id}/edit', 'BirthController@edit')->name('sg.admin.sg.nacimientos.edit');
+            Route::put('/sg/nacimientos/{id}', 'BirthController@update')->name('sg.admin.sg.nacimientos.update');
+            Route::delete('/sg/nacimientos/{id}', 'BirthController@destroy')->name('sg.admin.sg.nacimientos.destroy');
+            Route::get('/sg/nacimientos/{id}', 'BirthController@show')->name('sg.admin.sg.nacimientos.show');
+
+            // Rutas para la gestión de registros de peso de ganadería
+            Route::get('/sg/pesos', 'WeightRecordController@index')->name('sg.admin.sg.pesos.index');
+            Route::get('/sg/pesos/create', 'WeightRecordController@create')->name('sg.admin.sg.pesos.create');
+            Route::post('/sg/pesos', 'WeightRecordController@store')->name('sg.admin.sg.pesos.store');
+            Route::get('/sg/pesos/{id}/edit', 'WeightRecordController@edit')->name('sg.admin.sg.pesos.edit');
+            Route::put('/sg/pesos/{id}', 'WeightRecordController@update')->name('sg.admin.sg.pesos.update');
+            Route::delete('/sg/pesos/{id}', 'WeightRecordController@destroy')->name('sg.admin.sg.pesos.destroy');
+            Route::get('/sg/pesos/{id}', 'WeightRecordController@show')->name('sg.admin.sg.pesos.show');
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //rutas para los aprendices
+            //rutas para la gestion de animal por parte del aprendiz
+            Route::get('/ANIMALES', 'AnimalController@indexaprendiz')->name('sg.aprendiz.sg.ANIMALES.index');
+            Route::get('/ANIMALES/create', 'AnimalController@createaprendiz')->name('sg.aprendiz.sg.ANIMALES.create');
+            Route::post('/ANIMALES', 'AnimalController@storeaprendiz')->name('sg.aprendiz.sg.ANIMALES.store');
+            Route::get('/ANIMALES/{id}/edit', 'AnimalController@editaprendiz')->name('sg.aprendiz.sg.ANIMALES.edit');
+            Route::put('/ANIMALES/{id}', 'AnimalController@updateaprendiz')->name('sg.aprendiz.sg.ANIMALES.update');
+            Route::delete('/ANIMALES/{id}', 'AnimalController@destroyaprendiz')->name('sg.aprendiz.sg.ANIMALES.destroy');
+            Route::get('/ANIMALES/{id}', 'AnimalController@showaprendiz')->name('sg.aprendiz.sg.ANIMALES.show');
+
+            //rutas para la gestion de produccion de leche por parte del aprendiz
+            Route::get('/sg/PRODUCCION', 'MilkProductionController@indexaprendiz')->name('sg.aprendiz.sg.PRODUCCION.index');
+            Route::get('/sg/PRODUCCION/create', 'MilkProductionController@createaprendiz')->name('sg.aprendiz.sg.PRODUCCION.create');
+            Route::post('/sg/PRODUCCION', 'MilkProductionController@storeaprendiz')->name('sg.aprendiz.sg.PRODUCCION.store');
+            Route::get('/sg/PRODUCCION/{id}/edit', 'MilkProductionController@editaprendiz')->name('sg.aprendiz.sg.PRODUCCION.edit');
+            Route::put('/sg/PRODUCCION/{id}', 'MilkProductionController@updateaprendiz')->name('sg.aprendiz.sg.PRODUCCION.update');
+            Route::delete('/sg/PRODUCCION/{id}', 'MilkProductionController@destroyaprendiz')->name('sg.aprendiz.sg.PRODUCCION.destroy');
+            Route::get('/sg/PRODUCCION/{id}', 'MilkProductionController@showaprendiz')->name('sg.aprendiz.sg.PRODUCCION.show');
+
+            //rutas para la gestion de registros de peso por parte del aprendiz
+            Route::get('/sg/PESOS', 'WeightRecordController@indexaprendiz')->name('sg.aprendiz.sg.PESOS.index');
+            Route::get('/sg/PESOS/create', 'WeightRecordController@createaprendiz')->name('sg.aprendiz.sg.PESOS.create');
+            Route::post('/sg/PESOS', 'WeightRecordController@storeaprendiz')->name('sg.aprendiz.sg.PESOS.store');
+            Route::get('/sg/PESOS/{id}/edit', 'WeightRecordController@editaprendiz')->name('sg.aprendiz.sg.PESOS.edit');
+            Route::put('/sg/PESOS/{id}', 'WeightRecordController@updateaprendiz')->name('sg.aprendiz.sg.PESOS.update');
+            Route::delete('/sg/PESOS/{id}', 'WeightRecordController@destroyaprendiz')->name('sg.aprendiz.sg.PESOS.destroy');
+            Route::get('/sg/PESOS/{id}', 'WeightRecordController@showaprendiz')->name('sg.aprendiz.sg.PESOS.show');
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //rutas para los lideres de unidad
+            //rutas para la gestion de animales por parte del lider de unidad
+            Route::get('/animals', 'AnimalController@indexliderDeUnidad')->name('sg.liderDeUnidad.sg.animals.index');
+            Route::get('/animals/create', 'AnimalController@createliderDeUnidad')->name('sg.liderDeUnidad.sg.animals.create');
+            Route::post('/animals', 'AnimalController@storeliderDeUnidad')->name('sg.liderDeUnidad.sg.animals.store');
+            Route::get('/animals/{id}/edit', 'AnimalController@editliderDeUnidad')->name('sg.liderDeUnidad.sg.animals.edit');
+            Route::put('/animals/{id}', 'AnimalController@updateliderDeUnidad')->name('sg.liderDeUnidad.sg.animals.update');
+            Route::delete('/animals/{id}', 'AnimalController@destroyliderDeUnidad')->name('sg.liderDeUnidad.sg.animals.destroy');
+            Route::get('/animals/{id}', 'AnimalController@showliderDeUnidad')->name('sg.liderDeUnidad.sg.animals.show');
+
+            //rutas para las razas por parte del lider de unidad
+            Route::get('/breeds', 'BreedController@indexliderDeUnidad')->name('sg.liderDeUnidad.sg.breeds.index');
+            Route::get('/breeds/create', 'BreedController@createliderDeUnidad')->name('sg.liderDeUnidad.sg.breeds.create');
+            Route::post('/breeds', 'BreedController@storeliderDeUnidad')->name('sg.liderDeUnidad.sg.breeds.store');
+            Route::get('/breeds/{id}/edit', 'BreedController@editliderDeUnidad')->name('sg.liderDeUnidad.sg.breeds.edit');
+            Route::put('/breeds/{id}', 'BreedController@updateliderDeUnidad')->name('sg.liderDeUnidad.sg.breeds.update');
+            Route::delete('/breeds/{id}', 'BreedController@destroyliderDeUnidad')->name('sg.liderDeUnidad.sg.breeds.destroy');
+            Route::get('/breeds/{id}', 'BreedController@showliderDeUnidad')->name('sg.liderDeUnidad.sg.breeds.show');
+
+            // Rutas para la gestión de medicamentos por parte del lider de unidad
+            Route::get('/medicines', 'MedicineController@indexliderDeUnidad')->name('sg.liderDeUnidad.sg.medicines.index');
+            Route::get('/medicines/create', 'MedicineController@createliderDeUnidad')->name('sg.liderDeUnidad.sg.medicines.create');
+            Route::post('/medicines', 'MedicineController@storeliderDeUnidad')->name('sg.liderDeUnidad.sg.medicines.store');
+            Route::get('/medicines/{id}/edit', 'MedicineController@editliderDeUnidad')->name('sg.liderDeUnidad.sg.medicines.edit');
+            Route::put('/medicines/{id}', 'MedicineController@updateliderDeUnidad')->name('sg.liderDeUnidad.sg.medicines.update');
+            Route::delete('/medicines/{id}', 'MedicineController@destroyliderDeUnidad')->name('sg.liderDeUnidad.sg.medicines.destroy');
+            Route::get('/medicines/{id}', 'MedicineController@showliderDeUnidad')->name('sg.liderDeUnidad.sg.medicines.show');
+
+            // Rutas para la gestión de inseminaciones por parte del lider de unidad
+            Route::get('/sg/inseminations', 'InseminationController@indexliderDeUnidad')->name('sg.liderDeUnidad.sg.inseminations.index');
+            Route::get('/sg/inseminations/create', 'InseminationController@createliderDeUnidad')->name('sg.liderDeUnidad.sg.inseminations.create');
+            Route::post('/sg/inseminations', 'InseminationController@storeliderDeUnidad')->name('sg.liderDeUnidad.sg.inseminations.store');
+            Route::get('/sg/inseminations/{id}/edit', 'InseminationController@editliderDeUnidad')->name('sg.liderDeUnidad.sg.inseminations.edit');
+            Route::put('/sg/inseminations/{id}', 'InseminationController@updateliderDeUnidad')->name('sg.liderDeUnidad.sg.inseminations.update');
+            Route::delete('/sg/inseminations/{id}', 'InseminationController@destroyliderDeUnidad')->name('sg.liderDeUnidad.sg.inseminations.destroy');
+            Route::get('/sg/inseminations/{id}', 'InseminationController@showliderDeUnidad')->name('sg.liderDeUnidad.sg.inseminations.show');
+
+            // Rutas para la gestión de nacimientos por parte del lider de unidad
+            Route::get('/sg/births', 'BirthController@indexliderDeUnidad')->name('sg.liderDeUnidad.sg.births.index');
+            Route::get('/sg/births/create', 'BirthController@createliderDeUnidad')->name('sg.liderDeUnidad.sg.births.create');
+            Route::post('/sg/births', 'BirthController@storeliderDeUnidad')->name('sg.liderDeUnidad.sg.births.store');
+            Route::get('/sg/births/{id}/edit', 'BirthController@editliderDeUnidad')->name('sg.liderDeUnidad.sg.births.edit');
+            Route::put('/sg/births/{id}', 'BirthController@updateliderDeUnidad')->name('sg.liderDeUnidad.sg.births.update');
+            Route::delete('/sg/births/{id}', 'BirthController@destroyliderDeUnidad')->name('sg.liderDeUnidad.sg.births.destroy');
+            Route::get('/sg/births/{id}', 'BirthController@showliderDeUnidad')->name('sg.liderDeUnidad.sg.births.show');
+
+            // Rutas para la gestión de historias clínicas por parte del lider de unidad
+            Route::get('/sg/health', 'HealthRecordCattleRaisingController@indexliderDeUnidad')->name('sg.liderDeUnidad.sg.health.index');
+            Route::get('/sg/health/create', 'HealthRecordCattleRaisingController@createliderDeUnidad')->name('sg.liderDeUnidad.sg.health.create');
+            Route::post('/sg/health', 'HealthRecordCattleRaisingController@storeliderDeUnidad')->name('sg.liderDeUnidad.sg.health.store');
+            Route::get('/sg/health/{id}/edit', 'HealthRecordCattleRaisingController@editliderDeUnidad')->name('sg.liderDeUnidad.sg.health.edit');
+            Route::put('/sg/health/{id}', 'HealthRecordCattleRaisingController@updateliderDeUnidad')->name('sg.liderDeUnidad.sg.health.update');
+            Route::delete('/sg/health/{id}', 'HealthRecordCattleRaisingController@destroyliderDeUnidad')->name('sg.liderDeUnidad.sg.health.destroy');
+            Route::get('/sg/health/{id}', 'HealthRecordCattleRaisingController@showliderDeUnidad')->name('sg.liderDeUnidad.sg.health.show');
+
+            // Rutas para la gestión de tratamientos por parte del lider de unidad
+            Route::get('/sg/treatments', 'TreatmentCattleRaisingController@indexliderDeUnidad')->name('sg.liderDeUnidad.sg.treatments.index');
+            Route::get('/sg/treatments/create', 'TreatmentCattleRaisingController@createliderDeUnidad')->name('sg.liderDeUnidad.sg.treatments.create');
+            Route::post('/sg/treatments', 'TreatmentCattleRaisingController@storeliderDeUnidad')->name('sg.liderDeUnidad.sg.treatments.store');
+            Route::get('/sg/treatments/{id}/edit', 'TreatmentCattleRaisingController@editliderDeUnidad')->name('sg.liderDeUnidad.sg.treatments.edit');
+            Route::put('/sg/treatments/{id}', 'TreatmentCattleRaisingController@updateliderDeUnidad')->name('sg.liderDeUnidad.sg.treatments.update');
+            Route::delete('/sg/treatments/{id}', 'TreatmentCattleRaisingController@destroyliderDeUnidad')->name('sg.liderDeUnidad.sg.treatments.destroy');
+            Route::get('/sg/treatments/{id}', 'TreatmentCattleRaisingController@showliderDeUnidad')->name('sg.liderDeUnidad.sg.treatments.show');
+
+            // Rutas para la gestión de pruebas diagnósticas por parte del lider de unidad
+            Route::get('/sg/diagnostics', 'TestController@indexliderDeUnidad')->name('sg.liderDeUnidad.sg.diagnostics.index');
+            Route::get('/sg/diagnostics/create', 'TestController@createliderDeUnidad')->name('sg.liderDeUnidad.sg.diagnostics.create');
+            Route::post('/sg/diagnostics', 'TestController@storeliderDeUnidad')->name('sg.liderDeUnidad.sg.diagnostics.store');
+            Route::get('/sg/diagnostics/{id}/edit', 'TestController@editliderDeUnidad')->name('sg.liderDeUnidad.sg.diagnostics.edit');
+            Route::put('/sg/diagnostics/{id}', 'TestController@updateliderDeUnidad')->name('sg.liderDeUnidad.sg.diagnostics.update');
+            Route::delete('/sg/diagnostics/{id}', 'TestController@destroyliderDeUnidad')->name('sg.liderDeUnidad.sg.diagnostics.destroy');
+            Route::get('/sg/diagnostics/{id}', 'TestController@showliderDeUnidad')->name('sg.liderDeUnidad.sg.diagnostics.show');
+
+            //rutas para la gestion de produccion de leche por parte del lider de unidad
+            Route::get('/sg/production', 'MilkProductionController@indexliderDeUnidad')->name('sg.liderDeUnidad.sg.production.index');
+            Route::get('/sg/production/create', 'MilkProductionController@createliderDeUnidad')->name('sg.liderDeUnidad.sg.production.create');
+            Route::post('/sg/production', 'MilkProductionController@storeliderDeUnidad')->name('sg.liderDeUnidad.sg.production.store');
+            Route::get('/sg/production/{id}/edit', 'MilkProductionController@editliderDeUnidad')->name('sg.liderDeUnidad.sg.production.edit');
+            Route::put('/sg/production/{id}', 'MilkProductionController@updateliderDeUnidad')->name('sg.liderDeUnidad.sg.production.update');
+            Route::delete('/sg/production/{id}', 'MilkProductionController@destroyliderDeUnidad')->name('sg.liderDeUnidad.sg.production.destroy');
+            Route::get('/sg/production/{id}', 'MilkProductionController@showliderDeUnidad')->name('sg.liderDeUnidad.sg.production.show');
+
+            //rutas para la gestion de registros de peso por parte del lider de unidad
+            Route::get('/sg/weight', 'WeightRecordController@indexliderDeUnidad')->name('sg.liderDeUnidad.sg.weight.index');
+            Route::get('/sg/weight/create', 'WeightRecordController@createliderDeUnidad')->name('sg.liderDeUnidad.sg.weight.create');
+            Route::post('/sg/weight', 'WeightRecordController@storeliderDeUnidad')->name('sg.liderDeUnidad.sg.weight.store');
+            Route::get('/sg/weight/{id}/edit', 'WeightRecordController@editliderDeUnidad')->name('sg.liderDeUnidad.sg.weight.edit');
+            Route::put('/sg/weight/{id}', 'WeightRecordController@updateliderDeUnidad')->name('sg.liderDeUnidad.sg.weight.update');
+            Route::delete('/sg/weight/{id}', 'WeightRecordController@destroyliderDeUnidad')->name('sg.liderDeUnidad.sg.weight.destroy');
+            Route::get('/sg/weight/{id}', 'WeightRecordController@showliderDeUnidad')->name('sg.liderDeUnidad.sg.weight.show');
 });
 });
 

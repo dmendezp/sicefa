@@ -1,80 +1,162 @@
 @extends('sg::layouts.master')
 
 @section('content')
-<br><br>
-<div>
-    <div name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Bovinos Registrados</h2>
+<br><br><br>
+
+<div class="container-fluid">
+
+    {{-- HEADER --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="font-weight-bold mb-0">
+                <i class="fas fa-cow text-success"></i> Bovinos Registrados
+            </h3>
+            <small class="text-muted">Gestión y control del hato ganadero</small>
+        </div>
+
+        <a href="{{ route('sg.admin.sg.animales.create') }}"
+           class="btn btn-success btn-lg shadow-sm animate-btn">
+            <i class="fas fa-plus-circle"></i> Registrar Bovino
+        </a>
     </div>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white shadow-xl sm:rounded-lg p-6">
+    {{-- CARD --}}
+    <div class="card shadow-lg border-0 animate-fade">
+        <div class="card-body p-0">
 
-                <div class="flex justify-between items-center mb-8">
-                    <h3 class="text-3xl font-bold text-gray-800">Gestión de Bovinos</h3>
-                    <a href="{{ route('sg.admin.sg.animales.create') }}"
-                       class="btn btn-primary">
-                        + Registrar Bovino
-                    </a>
-                </div>
-
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead class="thead-light">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped mb-0">
+                    <thead class="thead-dark">
                         <tr>
-                            <th style="width:90px">Foto</th>
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Raza</th>
                             <th>Sexo</th>
-                            <th>Fecha de Nacimiento </th>
-                            <th>Fecha de Ingreso </th>
-                            <th>Peso Actual (kg)  </th>
-                            <th>Lote / Corral  </th>
+                            <th>Nacimiento</th>
+                            <th>Ingreso</th>
+                            <th>Peso</th>
+                            <th>Lote</th>
                             <th>Edad</th>
-                            <th>Observaciones</th>
                             <th>Etapa</th>
-                            <th style="width:210px">Acciones</th>
+                            <th class="text-center">Acciones</th>
                         </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($animals as $animal)
-                            <tr>
-                                <td>
-                                    <img src="{{ $animal->photo_url }}" alt="{{ $animal->name ?: $animal->id }}" class="img-thumbnail" style="width:72px;height:48px;object-fit:cover;">
-                                </td>
-                                <td>{{ $animal->id }}</td>
-                                <td>{{ $animal->name ?: 'Sin nombre' }}</td>
-                                <td>{{ $animal->breed?->name }}</td>
-                                <td>{{ $animal->sex === 'FEMALE' ? 'Vaca' : ($animal->sex === 'MALE' ? 'Toro' : $animal->sex) }}</td>
-                                <td>{{ $animal->birth_date ? \Carbon\Carbon::parse($animal->birth_date)->format('d/m/Y') : '' }}</td>
-                                <td>{{ $animal->entry_date ? \Carbon\Carbon::parse($animal->entry_date)->format('d/m/Y') : '' }}</td>
-                                <td>{{ $animal->weight_kg }}</td>
-                                <td>{{ $animal->lot}}</td>
-                                <td>{{ $animal->age_text }}</td>
-                                <td>{{ $animal->observations }}</td>
-                                <td>{{ $animal->production_stage === 'MILKING' ? 'En producción' : $animal->production_stage }}</td>
-                                <td>
-                                    <a href="{{ route('sg.admin.sg.animales.show', $animal->id) }}" class="btn btn-sm btn-outline-primary">Ver</a>
-                                    <a href="{{ route('sg.admin.sg.animales.edit', $animal) }}" class="btn btn-sm btn-outline-warning">Editar</a>
-                                    <form action="{{ route('sg.admin.sg.animales.destroy', $animal) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Está seguro?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                    </thead>
 
-                <div class="mt-8">
-                    {{ $animals->links() }}
-                </div>
+                    <tbody>
+                    @foreach($animals as $animal)
+                        <tr class="row-hover">
+
+                            <td class="font-weight-bold text-primary">{{ $animal->id }}</td>
+
+                            <td>{{ $animal->name ?: 'Sin nombre' }}</td>
+
+                            <td>{{ $animal->breed?->name ?: '—' }}</td>
+
+                            {{-- SEXO --}}
+                            <td>
+                                <span class="badge badge-pill 
+                                    {{ $animal->sex === 'FEMALE' ? 'badge-danger' : 'badge-primary' }}">
+                                    {{ $animal->sex === 'FEMALE' ? 'Vaca' : 'Toro' }}
+                                </span>
+                            </td>
+
+                            <td>{{ optional($animal->birth_date)->format('d/m/Y') }}</td>
+                            <td>{{ optional($animal->entry_date)->format('d/m/Y') }}</td>
+
+                            {{-- PESO --}}
+                            <td>
+                                <span class="badge badge-info">
+                                    {{ $animal->weight_kg }} kg
+                                </span>
+                            </td>
+
+                            <td>{{ $animal->lot ?: '—' }}</td>
+                            <td>{{ $animal->age_text }}</td>
+
+                            {{-- ETAPA --}}
+                            <td>
+                                <span class="badge badge-pill
+                                    {{ $animal->production_stage === 'MILKING' ? 'badge-success' : 'badge-secondary' }}">
+                                    {{ $animal->production_stage === 'MILKING' ? 'Producción' : 'Otro' }}
+                                </span>
+                            </td>
+
+                            {{-- ACCIONES --}}
+                            <td class="text-center">
+                                <a href="{{ route('sg.admin.sg.animales.show', $animal) }}"
+                                   class="btn btn-sm btn-outline-primary action-btn"
+                                   data-toggle="tooltip" title="Ver">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+
+                                <a href="{{ route('sg.admin.sg.animales.edit', $animal) }}"
+                                   class="btn btn-sm btn-outline-warning action-btn"
+                                   data-toggle="tooltip" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+
+                                <form action="{{ route('sg.admin.sg.animales.destroy', $animal) }}"
+                                      method="POST" class="d-inline"
+                                      onsubmit="return confirm('¿Eliminar este bovino?')">
+                                    @csrf @method('DELETE')
+                                    <button class="btn btn-sm btn-outline-danger action-btn"
+                                            data-toggle="tooltip" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
+
+        </div>
+
+        {{-- PAGINACIÓN --}}
+        <div class="card-footer bg-white">
+            {{ $animals->links() }}
         </div>
     </div>
 </div>
+
+{{-- ESTILOS --}}
+<style>
+.animate-fade {
+    animation: fadeIn .6s ease-in-out;
+}
+
+.animate-btn {
+    transition: transform .2s ease;
+}
+.animate-btn:hover {
+    transform: scale(1.05);
+}
+
+.row-hover:hover {
+    background-color: #f9fafb;
+    transition: background-color .2s;
+}
+
+.action-btn {
+    transition: all .2s ease;
+}
+.action-btn:hover {
+    transform: scale(1.15);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+{{-- JS --}}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+
 @endsection

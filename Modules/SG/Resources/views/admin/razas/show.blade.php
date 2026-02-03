@@ -1,52 +1,94 @@
 @extends('sg::layouts.master')
 
 @section('content')
-<br><br>
-<div>
-    <div name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Detalle de Raza: {{ $breed->name }}
-        </h2>
+<br><br><br>
+
+<div class="container">
+
+    {{-- HEADER --}}
+    <div class="mb-4">
+        <h3 class="font-weight-bold text-dark">
+            🧬 Detalle de la Raza
+        </h3>
+        <p class="text-muted">
+            Información completa de la raza registrada
+        </p>
     </div>
 
-    <div class="py-12">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-700">ID</h3>
-                        <p class="text-gray-900">{{ $breed->id }}</p>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-700">Nombre</h3>
-                        <p class="text-gray-900 font-bold text-xl">{{ $breed->name }}</p>
-                    </div>
-                    <div class="md:col-span-2">
-                        <h3 class="text-lg font-semibold text-gray-700">Descripción</h3>
-                        <p class="text-gray-900">{{ $breed->description ?: 'Sin descripción' }}</p>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-700">Creado</h3>
-                        <p class="text-gray-900">{{ $breed->created_at->format('d/m/Y H:i') }}</p>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-700">Última actualización</h3>
-                        <p class="text-gray-900">{{ $breed->updated_at->format('d/m/Y H:i') }}</p>
-                    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card shadow-lg border-0">
+
+                {{-- CABECERA --}}
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0 font-weight-bold">
+                        {{ $breed->name }}
+                    </h4>
                 </div>
 
-                <div class="mt-8 flex space-x-4">
-                    <a href="{{ route('sg.admin.sg.razas.edit', $breed) }}"
-                       class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-6 rounded">
-                        Editar
-                    </a>
+                {{-- CUERPO --}}
+                <div class="card-body p-4">
+
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3">
+                            <small class="text-muted">ID</small>
+                            <p class="font-weight-bold text-primary mb-0">
+                                {{ $breed->id }}
+                            </p>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <small class="text-muted">Nombre de la Raza</small>
+                            <p class="font-weight-bold text-dark mb-0">
+                                {{ $breed->name }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <small class="text-muted">Descripción</small>
+                        <div class="border rounded p-3 bg-light">
+                            {{ $breed->description ?: 'Sin descripción registrada' }}
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row text-muted">
+                        <div class="col-md-6 mb-2">
+                            <small>Fecha de creación</small>
+                            <p class="mb-0">
+                                {{ $breed->created_at->format('d/m/Y H:i') }}
+                            </p>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <small>Última actualización</small>
+                            <p class="mb-0">
+                                {{ $breed->updated_at->format('d/m/Y H:i') }}
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                {{-- FOOTER --}}
+                <div class="card-footer bg-white d-flex justify-content-between">
                     <a href="{{ route('sg.admin.sg.razas.index') }}"
-                       class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded">
+                       class="btn btn-outline-secondary">
                         ← Volver al listado
                     </a>
+
+                    <a href="{{ route('sg.admin.sg.razas.edit', $breed) }}"
+                       class="btn btn-warning text-white">
+                        ✏️ Editar Raza
+                    </a>
                 </div>
+
             </div>
+
         </div>
     </div>
+
 </div>
 @endsection

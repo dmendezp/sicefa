@@ -1,57 +1,153 @@
 @extends('sg::layouts.master')
 
 @section('content')
-<br><br>
-<div class="container-fluid mt-4">
+<br><br><br>
 
-    {{-- Header --}}
+<div class="container-fluid">
+
+    {{-- HEADER --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h3 class="font-weight-bold mb-0">Detalle de Producción Lechera</h3>
-            <small class="text-muted">Información detallada del ordeño</small>
+            <h3 class="font-weight-bold mb-0">🥛 Producción Lechera</h3>
+            <small class="text-muted">
+                {{ $milkProduction->production_date->format('d/m/Y') }} • 
+                {{ $milkProduction->shift_in_spanish }}
+            </small>
         </div>
-        <a href="{{ route('sg.admin.sg.produccion.edit', $milkProduction) }}" class="btn btn-warning btn-lg shadow-sm">
-            <i class="fas fa-edit"></i> Editar Registro
-        </a>
-    </div>
 
-    {{-- Información del Animal --}}
-    <div class="card mb-4 shadow-sm">
-        <div class="card-body">
-            <h3 class="font-weight-bold">Información del Animal</h3>
-            <p><strong>Código:</strong> <span class="font-mono text-indigo-600">{{ $milkProduction->animal->id }}</span></p>
-            <p><strong>Nombre:</strong> {{ $milkProduction->animal->name ?: 'Sin nombre' }}</p>
-            <p><strong>Raza:</strong> {{ $milkProduction->animal->breed?->name }}</p>
-            <p><strong>Edad:</strong> {{ $milkProduction->animal->age_text }}</p>
+        <div>
+            <a href="{{ route('sg.admin.sg.produccion.edit', $milkProduction) }}"
+               class="btn btn-warning btn-lg shadow-sm">
+                <i class="fas fa-edit"></i> Editar
+            </a>
         </div>
     </div>
 
-    {{-- Detalles del Ordeño --}}
-    <div class="card mb-4 shadow-sm">
-        <div class="card-body">
-            <h3 class="font-weight-bold">Detalles del Ordeño</h3>
-            <p><strong>Turno:</strong> {{ $milkProduction->shift_in_spanish ?: 'Sin turno' }}</p>
-            <p><strong>Calidad:</strong> {{ $milkProduction->quality_in_spanish }}</p>
-            <p><strong>Temperatura:</strong> {{ $milkProduction->milk_temperature ? $milkProduction->milk_temperature . '°C' : 'No registrada' }}</p>
-            <p><strong>Responsable:</strong> {{ $milkProduction->responsible ?: 'No especificado' }}</p>
-        </div>
-    </div>
+    {{-- KPIs --}}
+    <div class="row mb-4">
 
-    {{-- Observaciones --}}
-    @if($milkProduction->observations)
-        <div class="card mb-4 shadow-sm">
-            <div class="card-body">
-                <h3 class="font-weight-bold">Observaciones</h3>
-                <p class="text-gray-700">{{ $milkProduction->observations }}</p>
+        {{-- LITROS --}}
+        <div class="col-md-3">
+            <div class="card shadow-sm border-left-success">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">Litros Producidos</h6>
+                    <h2 class="font-weight-bold text-success">
+                        {{ $milkProduction->liters }} L
+                    </h2>
+                </div>
             </div>
         </div>
-    @endif
 
-    {{-- Botón Volver --}}
-    <div class="mt-4">
-        <a href="{{ route('sg.admin.sg.produccion.index') }}" class="btn btn-secondary">
+        {{-- CALIDAD --}}
+        <div class="col-md-3">
+            <div class="card shadow-sm border-left-info">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">Calidad</h6>
+                    <span class="badge badge-pill px-4 py-2
+                        {{ $milkProduction->quality === 'HIGH' ? 'badge-success' : 
+                           ($milkProduction->quality === 'MEDIUM' ? 'badge-warning' : 'badge-danger') }}">
+                        {{ $milkProduction->quality_in_spanish }}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        {{-- TURNO --}}
+        <div class="col-md-3">
+            <div class="card shadow-sm border-left-primary">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">Turno</h6>
+                    <h4 class="font-weight-bold text-primary">
+                        {{ $milkProduction->shift_in_spanish }}
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        {{-- TEMPERATURA --}}
+        <div class="col-md-3">
+            <div class="card shadow-sm border-left-secondary">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">Temperatura</h6>
+                    <h4 class="font-weight-bold">
+                        {{ $milkProduction->milk_temperature ? $milkProduction->milk_temperature . ' °C' : '—' }}
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        {{-- INFO ANIMAL --}}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-light font-weight-bold">
+                    🐄 Animal
+                </div>
+                <div class="card-body">
+                    <p><strong>Código:</strong> {{ $milkProduction->animal->id }}</p>
+                    <p><strong>Nombre:</strong> {{ $milkProduction->animal->name ?: 'Sin nombre' }}</p>
+                    <p><strong>Raza:</strong> {{ $milkProduction->animal->breed?->name }}</p>
+                    <p><strong>Edad:</strong> {{ $milkProduction->animal->age_text }}</p>
+                    <p>
+                        <strong>Etapa:</strong>
+                        <span class="badge badge-info">
+                            {{ $milkProduction->animal->production_stage }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        {{-- DETALLES ORDEÑO --}}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-light font-weight-bold">
+                    🧑‍🌾 Detalles del Ordeño
+                </div>
+                <div class="card-body">
+                    <p><strong>Fecha:</strong> {{ $milkProduction->production_date->format('d/m/Y') }}</p>
+                    <p><strong>Turno:</strong> {{ $milkProduction->shift_in_spanish }}</p>
+                    <p><strong>Responsable:</strong> {{ $milkProduction->responsible ?: 'No especificado' }}</p>
+                    <p><strong>Registro:</strong> {{ $milkProduction->created_at->format('d/m/Y H:i') }}</p>
+                </div>
+            </div>
+        </div>
+
+        {{-- OBSERVACIONES --}}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-light font-weight-bold">
+                    📝 Observaciones
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">
+                        {{ $milkProduction->observations ?: 'Sin observaciones registradas' }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {{-- ACCIONES --}}
+    <div class="d-flex justify-content-between mt-4">
+        <a href="{{ route('sg.admin.sg.produccion.index') }}"
+           class="btn btn-outline-secondary btn-lg">
             ← Volver al Control
         </a>
+
+        <form action="{{ route('sg.admin.sg.produccion.destroy', $milkProduction) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-outline-danger btn-lg"
+                    onclick="return confirm('¿Eliminar este registro?')">
+                🗑 Eliminar
+            </button>
+        </form>
     </div>
+
 </div>
 @endsection

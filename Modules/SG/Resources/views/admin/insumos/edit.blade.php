@@ -1,121 +1,197 @@
 @extends('sg::layouts.master')
 
 @section('content')
-<br><br>
-<div>
-    <div name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Editar Insumo: {{ $supply->code }} - {{ $supply->name }}
-        </h2>
+<br><br><br>
+
+<div class="container">
+
+    {{-- HEADER --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="font-weight-bold mb-0">
+                <i class="fas fa-edit text-warning"></i>
+                Editar Insumo
+            </h3>
+            <small class="text-muted">
+                {{ $supply->code }} • {{ $supply->name }}
+            </small>
+        </div>
+
+        <span class="badge badge-warning p-2">
+            Edición
+        </span>
     </div>
 
-    <div class="py-12">
-        <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-2xl rounded-lg p-8">
+    {{-- ALERTAS CONTEXTUALES --}}
+    @if($supply->current_stock <= $supply->minimum_stock)
+        <div class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle"></i>
+            Stock bajo: el nivel actual está por debajo del mínimo.
+        </div>
+    @endif
 
-                <form action="{{ route('sg.admin.sg.insumos.update', $supply) }}" method="POST">
-                    @csrf @method('PUT')
+    @if($supply->expiration_date && $supply->expiration_date < now())
+        <div class="alert alert-warning">
+            <i class="fas fa-clock"></i>
+            Este insumo se encuentra vencido.
+        </div>
+    @endif
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Código *</label>
-                            <input type="text" name="code" value="{{ old('code', $supply->code) }}" required
-                                   class="w-full px-4 py-3 border rounded-lg @error('code') border-red-500 @enderror">
-                            @error('code') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                        </div>
+    <div class="card shadow-lg border-0">
+        <div class="card-body p-4">
 
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Nombre *</label>
-                            <input type="text" name="name" value="{{ old('name', $supply->name) }}" required
-                                   class="w-full px-4 py-3 border rounded-lg @error('name') border-red-500 @enderror">
-                            @error('name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                        </div>
+            <form action="{{ route('sg.admin.sg.insumos.update', $supply) }}" method="POST">
+                @csrf
+                @method('PUT')
 
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Tipo *</label>
-                            <select name="type" required class="w-full px-4 py-3 border rounded-lg">
-                                <option value="MEDICINE" {{ $supply->type === 'MEDICINE' ? 'selected' : '' }}>Medicamento</option>
-                                <option value="VACCINE" {{ $supply->type === 'VACCINE' ? 'selected' : '' }}>Vacuna</option>
-                                <option value="FEED" {{ $supply->type === 'FEED' ? 'selected' : '' }}>Alimento</option>
-                                <option value="SUPPLEMENT" {{ $supply->type === 'SUPPLEMENT' ? 'selected' : '' }}>Suplemento</option>
-                                <option value="OTHER" {{ $supply->type === 'OTHER' ? 'selected' : '' }}>Otro</option>
-                            </select>
-                        </div>
+                {{-- INFO GENERAL --}}
+                <h5 class="font-weight-bold text-success border-bottom pb-2 mb-4">
+                    📦 Información General
+                </h5>
 
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Unidad *</label>
-                            <select name="unit" required class="w-full px-4 py-3 border rounded-lg">
-                                <option value="ml" {{ $supply->unit === 'ml' ? 'selected' : '' }}>Mililitros (ml)</option>
-                                <option value="cm³" {{ $supply->unit === 'cm³' ? 'selected' : '' }}>Centímetros cúbicos</option>
-                                <option value="g" {{ $supply->unit === 'g' ? 'selected' : '' }}>Gramos (g)</option>
-                                <option value="kg" {{ $supply->unit === 'kg' ? 'selected' : '' }}>Kilogramos (kg)</option>
-                                <option value="units" {{ $supply->unit === 'units' ? 'selected' : '' }}>Unidades</option>
-                                <option value="liters" {{ $supply->unit === 'liters' ? 'selected' : '' }}>Litros</option>
-                            </select>
-                        </div>
+                <div class="form-row">
 
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Presentación</label>
-                            <input type="text" name="presentation" value="{{ old('presentation', $supply->presentation) }}"
-                                   class="w-full px-4 py-3 border rounded-lg">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Proveedor</label>
-                            <input type="text" name="supplier" value="{{ old('supplier', $supply->supplier) }}"
-                                   class="w-full px-4 py-3 border rounded-lg">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Precio Unitario</label>
-                            <input type="number" step="0.01" name="unit_price" value="{{ old('unit_price', $supply->unit_price) }}"
-                                   class="w-full px-4 py-3 border rounded-lg">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Stock Actual *</label>
-                            <input type="number" step="0.001" name="current_stock" value="{{ old('current_stock', $supply->current_stock) }}" required
-                                   class="w-full px-4 py-3 border rounded-lg">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Stock Mínimo *</label>
-                            <input type="number" step="0.001" name="minimum_stock" value="{{ old('minimum_stock', $supply->minimum_stock) }}" required
-                                   class="w-full px-4 py-3 border rounded-lg">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Fecha de Vencimiento</label>
-                            <input type="date" name="expiration_date" 
-                                   value="{{ old('expiration_date', $supply->expiration_date?->format('Y-m-d')) }}"
-                                   class="w-full px-4 py-3 border rounded-lg">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Número de Lote</label>
-                            <input type="text" name="batch_number" value="{{ old('batch_number', $supply->batch_number) }}"
-                                   class="w-full px-4 py-3 border rounded-lg">
-                        </div>
-
-                        <div class="lg:col-span-3">
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Observaciones</label>
-                            <textarea name="observations" rows="4"
-                                      class="w-full px-4 py-3 border rounded-lg">{{ old('observations', $supply->observations) }}</textarea>
-                        </div>
+                    <div class="form-group col-md-4">
+                        <label>Código <span class="text-danger">*</span></label>
+                        <input type="text" name="code"
+                               value="{{ old('code', $supply->code) }}"
+                               class="form-control @error('code') is-invalid @enderror"
+                               required>
+                        @error('code') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
 
-                    <div class="flex justify-end mt-10 space-x-4">
-                        <a href="{{ route('sg.admin.sg.insumos.show', $supply) }}"
-                           class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-lg">
-                            Cancelar
-                        </a>
-                        <button type="submit"
-                                class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg">
-                            Actualizar Insumo
-                        </button>
+                    <div class="form-group col-md-4">
+                        <label>Nombre <span class="text-danger">*</span></label>
+                        <input type="text" name="name"
+                               value="{{ old('name', $supply->name) }}"
+                               class="form-control @error('name') is-invalid @enderror"
+                               required>
+                        @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
-                </form>
-            </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Tipo <span class="text-danger">*</span></label>
+                        <select name="type" class="form-control" required>
+                            @foreach(['MEDICINE'=>'Medicamento','VACCINE'=>'Vacuna','FEED'=>'Alimento','SUPPLEMENT'=>'Suplemento','OTHER'=>'Otro'] as $key=>$label)
+                                <option value="{{ $key }}" {{ $supply->type === $key ? 'selected' : '' }}>
+                                    {{ $label }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                </div>
+
+                {{-- PRESENTACIÓN --}}
+                <h5 class="font-weight-bold text-info border-bottom pb-2 mt-4 mb-4">
+                    🧴 Presentación y Unidad
+                </h5>
+
+                <div class="form-row">
+
+                    <div class="form-group col-md-4">
+                        <label>Unidad <span class="text-danger">*</span></label>
+                        <select name="unit" class="form-control" required>
+                            @foreach(['ml','cm³','g','kg','units','liters'] as $unit)
+                                <option value="{{ $unit }}" {{ $supply->unit === $unit ? 'selected' : '' }}>
+                                    {{ strtoupper($unit) }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Presentación</label>
+                        <input type="text" name="presentation"
+                               value="{{ old('presentation', $supply->presentation) }}"
+                               class="form-control">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Proveedor</label>
+                        <input type="text" name="supplier"
+                               value="{{ old('supplier', $supply->supplier) }}"
+                               class="form-control">
+                    </div>
+
+                </div>
+
+                {{-- STOCK --}}
+                <h5 class="font-weight-bold text-warning border-bottom pb-2 mt-4 mb-4">
+                    📊 Control de Stock
+                </h5>
+
+                <div class="form-row">
+
+                    <div class="form-group col-md-4">
+                        <label>Stock Actual <span class="text-danger">*</span></label>
+                        <input type="number" step="0.001" name="current_stock"
+                               value="{{ old('current_stock', $supply->current_stock) }}"
+                               class="form-control font-weight-bold
+                               {{ $supply->current_stock <= $supply->minimum_stock ? 'text-danger' : 'text-success' }}"
+                               required>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Stock Mínimo <span class="text-danger">*</span></label>
+                        <input type="number" step="0.001" name="minimum_stock"
+                               value="{{ old('minimum_stock', $supply->minimum_stock) }}"
+                               class="form-control font-weight-bold"
+                               required>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Precio Unitario</label>
+                        <input type="number" step="0.01" name="unit_price"
+                               value="{{ old('unit_price', $supply->unit_price) }}"
+                               class="form-control">
+                    </div>
+
+                </div>
+
+                {{-- TRAZABILIDAD --}}
+                <h5 class="font-weight-bold text-secondary border-bottom pb-2 mt-4 mb-4">
+                    🧾 Trazabilidad
+                </h5>
+
+                <div class="form-row">
+
+                    <div class="form-group col-md-4">
+                        <label>Fecha de Vencimiento</label>
+                        <input type="date" name="expiration_date"
+                               value="{{ old('expiration_date', optional($supply->expiration_date)->format('Y-m-d')) }}"
+                               class="form-control">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Número de Lote</label>
+                        <input type="text" name="batch_number"
+                               value="{{ old('batch_number', $supply->batch_number) }}"
+                               class="form-control">
+                    </div>
+
+                </div>
+
+                {{-- OBSERVACIONES --}}
+                <div class="form-group mt-4">
+                    <label>Observaciones</label>
+                    <textarea name="observations" rows="3"
+                              class="form-control">{{ old('observations', $supply->observations) }}</textarea>
+                </div>
+
+                {{-- ACCIONES --}}
+                <div class="d-flex justify-content-end mt-4">
+                    <a href="{{ route('sg.admin.sg.insumos.show', $supply) }}"
+                       class="btn btn-secondary mr-3">
+                        <i class="fas fa-times"></i> Cancelar
+                    </a>
+
+                    <button type="submit" class="btn btn-warning px-4">
+                        <i class="fas fa-save"></i> Actualizar Insumo
+                    </button>
+                </div>
+
+            </form>
         </div>
     </div>
 </div>

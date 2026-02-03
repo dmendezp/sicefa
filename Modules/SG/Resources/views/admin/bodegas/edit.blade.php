@@ -1,72 +1,119 @@
 @extends('sg::layouts.master')
 
 @section('content')
-<br><br>
-<div>
-    <div name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Editar Bodega: {{ $warehouse->name }}
-        </h2>
+<br><br><br>
+
+<div class="container-fluid">
+
+    {{-- HEADER --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="font-weight-bold mb-0">
+                <i class="fas fa-warehouse text-indigo-600"></i>
+                Editar Bodega
+            </h3>
+            <small class="text-muted">
+                {{ $warehouse->code }} · {{ $warehouse->name }}
+            </small>
+        </div>
+
+        <a href="{{ route('sg.admin.sg.bodegas.index') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Volver
+        </a>
     </div>
 
-    <div class="py-12">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-8">
+    {{-- CARD FORM --}}
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
 
-                <form action="{{ route('sg.admin.sg.bodegas.update', $warehouse) }}" method="POST">
-                    @csrf
-                    @method('PUT')
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
 
-                    <!-- Mismo formulario que create, solo cambia los valores -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Código *</label>
-                            <input type="text" name="code" value="{{ old('code', $warehouse->code) }}"
-                                   class="w-full px-4 py-2 border rounded-lg @error('code') border-red-500 @enderror">
-                            @error('code') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                    <form action="{{ route('sg.admin.sg.bodegas.update', $warehouse) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="row">
+
+                            {{-- Código --}}
+                            <div class="col-md-6 mb-3">
+                                <label class="font-weight-bold">Código *</label>
+                                <input type="text"
+                                       name="code"
+                                       value="{{ old('code', $warehouse->code) }}"
+                                       class="form-control @error('code') is-invalid @enderror">
+                                @error('code')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            {{-- Nombre --}}
+                            <div class="col-md-6 mb-3">
+                                <label class="font-weight-bold">Nombre *</label>
+                                <input type="text"
+                                       name="name"
+                                       value="{{ old('name', $warehouse->name) }}"
+                                       class="form-control @error('name') is-invalid @enderror">
+                                @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            {{-- Ubicación --}}
+                            <div class="col-md-12 mb-3">
+                                <label class="font-weight-bold">Ubicación</label>
+                                <input type="text"
+                                       name="location"
+                                       value="{{ old('location', $warehouse->location) }}"
+                                       class="form-control"
+                                       placeholder="Ej: Área de ordeño, almacén principal">
+                            </div>
+
+                            {{-- Descripción --}}
+                            <div class="col-md-12 mb-3">
+                                <label class="font-weight-bold">Descripción</label>
+                                <textarea name="description"
+                                          rows="4"
+                                          class="form-control"
+                                          placeholder="Descripción general de la bodega">{{ old('description', $warehouse->description) }}</textarea>
+                            </div>
+
+                            {{-- Estado --}}
+                            <div class="col-md-12 mb-3">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox"
+                                           class="custom-control-input"
+                                           id="is_active"
+                                           name="is_active"
+                                           value="1"
+                                           {{ old('is_active', $warehouse->is_active) ? 'checked' : '' }}>
+                                    <label class="custom-control-label font-weight-bold" for="is_active">
+                                        Bodega activa
+                                    </label>
+                                </div>
+                            </div>
+
                         </div>
 
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Nombre *</label>
-                            <input type="text" name="name" value="{{ old('name', $warehouse->name) }}"
-                                   class="w-full px-4 py-2 border rounded-lg @error('name') border-red-500 @enderror">
-                            @error('name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                        {{-- BOTONES --}}
+                        <div class="d-flex justify-content-end mt-4">
+                            <a href="{{ route('sg.admin.sg.bodegas.index') }}"
+                               class="btn btn-outline-secondary mr-3">
+                                Cancelar
+                            </a>
+
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Actualizar Bodega
+                            </button>
                         </div>
 
-                        <div class="md:col-span-2">
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Ubicación</label>
-                            <input type="text" name="location" value="{{ old('location', $warehouse->location) }}"
-                                   class="w-full px-4 py-2 border rounded-lg">
-                        </div>
+                    </form>
 
-                        <div class="md:col-span-2">
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Descripción</label>
-                            <textarea name="description" rows="4"
-                                      class="w-full px-4 py-2 border rounded-lg">{{ old('description', $warehouse->description) }}</textarea>
-                        </div>
-
-                        <div>
-                            <label class="flex items-center">
-                                <input type="checkbox" name="is_active" value="1" {{ old('is_active', $warehouse->is_active) ? 'checked' : '' }}
-                                       class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                <span class="ml-2 text-sm text-gray-700">Bodega activa</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end mt-10 space-x-4">
-                        <a href="{{ route('sg.admin.sg.bodegas.index') }}"
-                           class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded">
-                            Cancelar
-                        </a>
-                        <button type="submit"
-                                class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded">
-                            Actualizar Bodega
-                        </button>
-                    </div>
-                </form>
+                </div>
             </div>
+
         </div>
     </div>
+
 </div>
 @endsection

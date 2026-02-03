@@ -1,122 +1,181 @@
 @extends('sg::layouts.master')
 
 @section('content')
-<div>
-    <div name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Nueva Herramienta</h2>
+<br><br><br>
+
+<div class="container">
+
+    {{-- HEADER --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="font-weight-bold mb-0">
+                <i class="fas fa-tools text-success"></i>
+                Nueva Herramienta
+            </h3>
+            <small class="text-muted">
+                Registro de herramientas y equipos ganaderos
+            </small>
+        </div>
+
+        <a href="{{ route('sg.admin.sg.herramientas.index') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Volver
+        </a>
     </div>
 
-    <div class="py-12">
-        <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white shadow-2xl rounded-lg p-8">
+    {{-- CARD --}}
+    <div class="card shadow-lg border-0">
+        <div class="card-body p-4">
 
-                <form action="{{ route('sg.admin.sg.herramientas.store') }}" method="POST">
-                    @csrf
+            <form action="{{ route('sg.admin.sg.herramientas.store') }}" method="POST">
+                @csrf
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Código *</label>
-                            <input type="text" name="code" value="{{ old('code') }}" required
-                                   class="w-full px-4 py-3 border rounded-lg @error('code') border-red-500 @enderror"
-                                   placeholder="Ej: HER-001, BAL-2025">
-                            @error('code') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                        </div>
+                {{-- INFORMACIÓN GENERAL --}}
+                <h5 class="font-weight-bold mb-3 text-success">
+                    📦 Información General
+                </h5>
 
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Nombre *</label>
-                            <input type="text" name="name" value="{{ old('name') }}" required
-                                   class="w-full px-4 py-3 border rounded-lg @error('name') border-red-500 @enderror"
-                                   placeholder="Ej: Báscula Electrónica 1000kg">
-                            @error('name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                        </div>
+                <div class="row">
 
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Tipo *</label>
-                            <select name="type" required class="w-full px-4 py-3 border rounded-lg">
-                                <option value="">Seleccionar tipo</option>
-                                <option value="SCALE">Báscula</option>
-                                <option value="EAR_TAG">Arete / Marcador</option>
-                                <option value="SYRINGE">Jeringa</option>
-                                <option value="THERMOMETER">Termómetro</option>
-                                <option value="OTHER">Otro</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Marca</label>
-                            <input type="text" name="brand" value="{{ old('brand') }}"
-                                   class="w-full px-4 py-3 border rounded-lg"
-                                   placeholder="Ej: Tru-Test, Allflex">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Modelo</label>
-                            <input type="text" name="model" value="{{ old('model') }}"
-                                   class="w-full px-4 py-3 border rounded-lg"
-                                   placeholder="Ej: XR5000">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Número de Serie</label>
-                            <input type="text" name="serial_number" value="{{ old('serial_number') }}"
-                                   class="w-full px-4 py-3 border rounded-lg">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Estado *</label>
-                            <select name="status" required class="w-full px-4 py-3 border rounded-lg">
-                                <option value="OPERATIONAL">Operativa</option>
-                                <option value="MAINTENANCE">En Mantenimiento</option>
-                                <option value="DAMAGED">Dañada</option>
-                                <option value="OUT_OF_SERVICE">Fuera de Servicio</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Ubicación</label>
-                            <input type="text" name="location" value="{{ old('location') }}"
-                                   class="w-full px-4 py-3 border rounded-lg"
-                                   placeholder="Ej: Corral de pesaje">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Fecha de Adquisición</label>
-                            <input type="date" name="acquisition_date" value="{{ old('acquisition_date') }}"
-                                   class="w-full px-4 py-3 border rounded-lg">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Valor de Compra</label>
-                            <input type="number" step="0.01" name="purchase_value" value="{{ old('purchase_value') }}"
-                                   class="w-full px-4 py-3 border rounded-lg">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Responsable Actual</label>
-                            <input type="text" name="current_responsible" value="{{ old('current_responsible') }}"
-                                   class="w-full px-4 py-3 border rounded-lg"
-                                   placeholder="Ej: Juan Pérez">
-                        </div>
-
-                        <div class="lg:col-span-3">
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Observaciones</label>
-                            <textarea name="observations" rows="4"
-                                      class="w-full px-4 py-3 border rounded-lg">{{ old('observations') }}</textarea>
-                        </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="font-weight-bold">Código *</label>
+                        <input type="text" name="code" value="{{ old('code') }}" required
+                               class="form-control @error('code') is-invalid @enderror"
+                               placeholder="HER-001, BAL-2025">
+                        @error('code') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
 
-                    <div class="flex justify-end mt-10 space-x-4">
-                        <a href="{{ route('sg.admin.sg.herramientas.index') }}"
-                           class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-lg">
-                            Cancelar
-                        </a>
-                        <button type="submit"
-                                class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg">
-                            Guardar Herramienta
-                        </button>
+                    <div class="col-md-4 mb-3">
+                        <label class="font-weight-bold">Nombre *</label>
+                        <input type="text" name="name" value="{{ old('name') }}" required
+                               class="form-control @error('name') is-invalid @enderror"
+                               placeholder="Báscula Electrónica 1000kg">
+                        @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
-                </form>
-            </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="font-weight-bold">Tipo *</label>
+                        <select name="type" required class="form-control">
+                            <option value="">Seleccionar tipo</option>
+                            <option value="SCALE">Báscula</option>
+                            <option value="EAR_TAG">Arete / Marcador</option>
+                            <option value="SYRINGE">Jeringa</option>
+                            <option value="THERMOMETER">Termómetro</option>
+                            <option value="OTHER">Otro</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <hr>
+
+                {{-- DETALLES DEL EQUIPO --}}
+                <h5 class="font-weight-bold mb-3 text-success">
+                    🛠 Detalles del Equipo
+                </h5>
+
+                <div class="row">
+
+                    <div class="col-md-4 mb-3">
+                        <label class="font-weight-bold">Marca</label>
+                        <input type="text" name="brand" value="{{ old('brand') }}"
+                               class="form-control"
+                               placeholder="Tru-Test, Allflex">
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="font-weight-bold">Modelo</label>
+                        <input type="text" name="model" value="{{ old('model') }}"
+                               class="form-control"
+                               placeholder="XR5000">
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="font-weight-bold">Número de Serie</label>
+                        <input type="text" name="serial_number" value="{{ old('serial_number') }}"
+                               class="form-control">
+                    </div>
+
+                </div>
+
+                <hr>
+
+                {{-- ESTADO Y UBICACIÓN --}}
+                <h5 class="font-weight-bold mb-3 text-success">
+                    📍 Estado y Ubicación
+                </h5>
+
+                <div class="row">
+
+                    <div class="col-md-4 mb-3">
+                        <label class="font-weight-bold">Estado *</label>
+                        <select name="status" required class="form-control">
+                            <option value="OPERATIONAL">Operativa</option>
+                            <option value="MAINTENANCE">En Mantenimiento</option>
+                            <option value="DAMAGED">Dañada</option>
+                            <option value="OUT_OF_SERVICE">Fuera de Servicio</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="font-weight-bold">Ubicación</label>
+                        <input type="text" name="location" value="{{ old('location') }}"
+                               class="form-control"
+                               placeholder="Corral de pesaje">
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="font-weight-bold">Responsable Actual</label>
+                        <input type="text" name="current_responsible" value="{{ old('current_responsible') }}"
+                               class="form-control"
+                               placeholder="Juan Pérez">
+                    </div>
+
+                </div>
+
+                <hr>
+
+                {{-- ADQUISICIÓN --}}
+                <h5 class="font-weight-bold mb-3 text-success">
+                    💰 Información de Adquisición
+                </h5>
+
+                <div class="row">
+
+                    <div class="col-md-4 mb-3">
+                        <label class="font-weight-bold">Fecha de Adquisición</label>
+                        <input type="date" name="acquisition_date" value="{{ old('acquisition_date') }}"
+                               class="form-control">
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="font-weight-bold">Valor de Compra</label>
+                        <input type="number" step="0.01" name="purchase_value" value="{{ old('purchase_value') }}"
+                               class="form-control">
+                    </div>
+
+                </div>
+
+                <hr>
+
+                {{-- OBSERVACIONES --}}
+                <div class="form-group">
+                    <label class="font-weight-bold">Observaciones</label>
+                    <textarea name="observations" rows="4"
+                              class="form-control"
+                              placeholder="Notas adicionales sobre el estado o uso de la herramienta">{{ old('observations') }}</textarea>
+                </div>
+
+                {{-- BOTONES --}}
+                <div class="d-flex justify-content-end mt-4">
+                    <a href="{{ route('sg.admin.sg.herramientas.index') }}" class="btn btn-secondary mr-2">
+                        Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-success btn-lg shadow">
+                        <i class="fas fa-save"></i> Guardar Herramienta
+                    </button>
+                </div>
+
+            </form>
         </div>
     </div>
 </div>

@@ -1,43 +1,82 @@
 @extends('sg::layouts.master')
 
 @section('content')
-    <div name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Editar Raza: {{ $breed->name }}
-        </h2>
+<br><br><br>
+
+<div class="container">
+
+    {{-- HEADER --}}
+    <div class="mb-4">
+        <h3 class="font-weight-bold text-dark">
+            🧬 Editar Raza
+        </h3>
+        <p class="text-muted">
+            {{ $breed->name }}
+        </p>
     </div>
 
-    <div class="py-12">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
-                <form action="{{ route('sg.admin.sg.razas.update', $breed) }}" method="POST">
-                    @csrf @method('PUT')
-                    <div class="mb-6">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Nombre de la Raza *</label>
-                        <input type="text" name="name" value="{{ old('name', $breed->name) }}"
-                               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 @error('name') border-red-500 @enderror">
-                        @error('name')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+    {{-- CARD --}}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
 
-                    <div class="mb-6">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Descripción</label>
-                        <textarea name="description" rows="4"
-                                  class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500">{{ old('description', $breed->description) }}</textarea>
-                    </div>
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-4">
 
-                    <div class="flex items-center justify-between">
-                        <a href="{{ route('sg.admin.sg.razas.index') }}" class="text-gray-600 hover:text-gray-900">
-                            ← Volver
-                        </a>
-                        <button type="submit"
-                                class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded">
-                            Actualizar Raza
-                        </button>
-                    </div>
-                </form>
+                    <form action="{{ route('sg.admin.sg.razas.update', $breed) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+
+                        {{-- NOMBRE --}}
+                        <div class="form-group">
+                            <label class="font-weight-bold">
+                                Nombre de la Raza <span class="text-danger">*</span>
+                            </label>
+                            <input type="text"
+                                   name="name"
+                                   value="{{ old('name', $breed->name) }}"
+                                   class="form-control @error('name') is-invalid @enderror"
+                                   placeholder="Ej: Holstein, Brahman, Jersey">
+
+                            @error('name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- DESCRIPCIÓN --}}
+                        <div class="form-group">
+                            <label class="font-weight-bold">
+                                Descripción
+                            </label>
+                            <textarea name="description"
+                                      rows="4"
+                                      class="form-control"
+                                      placeholder="Características principales de la raza">{{ old('description', $breed->description) }}</textarea>
+                        </div>
+
+                        <hr>
+
+                        {{-- BOTONES --}}
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ route('sg.admin.sg.razas.index') }}"
+                               class="btn btn-outline-secondary">
+                                ← Volver
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-success px-4">
+                                💾 Actualizar Raza
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
             </div>
+
         </div>
     </div>
+
+</div>
 @endsection

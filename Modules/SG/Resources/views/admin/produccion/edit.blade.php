@@ -1,116 +1,148 @@
 @extends('sg::layouts.master')
 
 @section('content')
-<br><br>
-<div>
-    <div name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Editar Producción: {{ $milkProduction->animal->id }} - {{ $milkProduction->production_date->format('d/m/Y') }}
-        </h2>
+<br><br><br>
+
+<div class="container">
+
+    {{-- HEADER --}}
+    <div class="mb-4">
+        <h3 class="font-weight-bold text-dark">
+            🥛 Editar Producción
+        </h3>
+        <p class="text-muted">
+            Vaca {{ $milkProduction->animal->id }} • 
+            {{ $milkProduction->production_date->format('d/m/Y') }}
+        </p>
     </div>
 
-    <div class="py-12">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white shadow-2xl rounded-lg p-8">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
 
-                <form action="{{ route('sg.admin.sg.produccion.update', $milkProduction) }}" method="POST">
-                    @csrf @method('PUT')
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-4">
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <form action="{{ route('sg.admin.sg.produccion.update', $milkProduction) }}" method="POST">
+                        @csrf
+                        @method('PUT')
 
-                        <div>
-                            <label class="block text-lg font-bold text-gray-700 mb-3">Vaca</label>
-                            <div class="px-5 py-4 bg-gray-100 rounded-lg text-xl font-bold">
-                                {{ $milkProduction->animal->id }} - {{ $milkProduction->animal->name ?: 'Sin nombre' }}
+                        <div class="row">
+
+                            {{-- VACA --}}
+                            <div class="col-md-6 mb-4">
+                                <label class="font-weight-bold">Vaca</label>
+                                <div class="form-control bg-light font-weight-bold">
+                                    {{ $milkProduction->animal->id }} - {{ $milkProduction->animal->name ?: 'Sin nombre' }}
+                                </div>
+                                <input type="hidden" name="animal_id" value="{{ $milkProduction->animal->id }}">
                             </div>
-                            <input type="hidden" name="animal_id" value="{{ $milkProduction->animal->id }}">
-                        </div>
 
-                        <div>
-                            <label class="block text-lg font-bold text-gray-700 mb-3">Fecha</label>
-                            <input type="date" name="production_date" value="{{ $milkProduction->production_date->format('Y-m-d') }}"
-                                   class="w-full px-5 py-4 border-2 rounded-lg text-lg" required>
-                        </div>
-
-                        <div>
-                            <label class="block text-lg font-bold text-gray-700 mb-3">Turno</label>
-                            <div class="grid grid-cols-3 gap-4">
-                                <label class="flex items-center justify-center p-6 border-2 rounded-lg cursor-pointer 
-                                       {{ $milkProduction->shift === 'MORNING' ? 'border-blue-600 bg-blue-50' : 'border-gray-300' }}">
-                                    <input type="radio" name="shift" value="MORNING" {{ $milkProduction->shift === 'MORNING' ? 'checked' : '' }} class="hidden">
-                                    <span class="text-2xl">Mañana</span>
-                                </label>
-                                <label class="flex items-center justify-center p-6 border-2 rounded-lg cursor-pointer 
-                                       {{ $milkProduction->shift === 'AFTERNOON' ? 'border-orange-600 bg-orange-50' : 'border-gray-300' }}">
-                                    <input type="radio" name="shift" value="AFTERNOON" {{ $milkProduction->shift === 'AFTERNOON' ? 'checked' : '' }} class="hidden">
-                                    <span class="text-2xl">Tarde</span>
-                                </label>
-                                <label class="flex items-center justify-center p-6 border-2 rounded-lg cursor-pointer 
-                                       {{ $milkProduction->shift === 'NIGHT' ? 'border-purple-600 bg-purple-50' : 'border-gray-300' }}">
-                                    <input type="radio" name="shift" value="NIGHT" {{ $milkProduction->shift === 'NIGHT' ? 'checked' : '' }} class="hidden">
-                                    <span class="text-2xl">Noche</span>
-                                </label>
+                            {{-- FECHA --}}
+                            <div class="col-md-6 mb-4">
+                                <label class="font-weight-bold">Fecha *</label>
+                                <input type="date"
+                                       name="production_date"
+                                       value="{{ $milkProduction->production_date->format('Y-m-d') }}"
+                                       class="form-control"
+                                       required>
                             </div>
-                        </div>
 
-                        <div>
-                            <label class="block text-lg font-bold text-gray-700 mb-3">Litros Producidos *</label>
-                            <input type="number" step="0.01" name="liters" value="{{ $milkProduction->liters }}" required
-                                   class="w-full px-5 py-4 border-2 rounded-lg text-3xl text-center font-bold text-green-600">
-                        </div>
-
-                        <div>
-                            <label class="block text-lg font-bold text-gray-700 mb-3">Calidad de la Leche *</label>
-                            <div class="grid grid-cols-3 gap-4">
-                                <label class="flex items-center justify-center p-6 border-2 rounded-lg cursor-pointer 
-                                       {{ $milkProduction->quality === 'HIGH' ? 'border-green-600 bg-green-50' : 'border-gray-300' }}">
-                                    <input type="radio" name="quality" value="HIGH" {{ $milkProduction->quality === 'HIGH' ? 'checked' : '' }} class="hidden">
-                                    <span class="text-2xl font-bold text-green-600">Alta</span>
-                                </label>
-                                <label class="flex items-center justify-center p-6 border-2 rounded-lg cursor-pointer 
-                                       {{ $milkProduction->quality === 'MEDIUM' ? 'border-yellow-600 bg-yellow-50' : 'border-gray-300' }}">
-                                    <input type="radio" name="quality" value="MEDIUM" {{ $milkProduction->quality === 'MEDIUM' ? 'checked' : '' }} class="hidden">
-                                    <span class="text-2xl font-bold text-yellow-600">Media</span>
-                                </label>
-                                <label class="flex items-center justify-center p-6 border-2 rounded-lg cursor-pointer 
-                                       {{ $milkProduction->quality === 'LOW' ? 'border-red-600 bg-red-50' : 'border-gray-300' }}">
-                                    <input type="radio" name="quality" value="LOW" {{ $milkProduction->quality === 'LOW' ? 'checked' : '' }} class="hidden">
-                                    <span class="text-2xl font-bold text-red-600">Baja</span>
-                                </label>
+                            {{-- TURNO --}}
+                            <div class="col-md-12 mb-4">
+                                <label class="font-weight-bold d-block mb-2">Turno *</label>
+                                <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+                                    <label class="btn btn-outline-primary {{ $milkProduction->shift === 'MORNING' ? 'active' : '' }}">
+                                        <input type="radio" name="shift" value="MORNING" {{ $milkProduction->shift === 'MORNING' ? 'checked' : '' }}>
+                                        ☀️ Mañana
+                                    </label>
+                                    <label class="btn btn-outline-warning {{ $milkProduction->shift === 'AFTERNOON' ? 'active' : '' }}">
+                                        <input type="radio" name="shift" value="AFTERNOON" {{ $milkProduction->shift === 'AFTERNOON' ? 'checked' : '' }}>
+                                        🌤️ Tarde
+                                    </label>
+                                    <label class="btn btn-outline-dark {{ $milkProduction->shift === 'NIGHT' ? 'active' : '' }}">
+                                        <input type="radio" name="shift" value="NIGHT" {{ $milkProduction->shift === 'NIGHT' ? 'checked' : '' }}>
+                                        🌙 Noche
+                                    </label>
+                                </div>
                             </div>
+
+                            {{-- LITROS --}}
+                            <div class="col-md-6 mb-4">
+                                <label class="font-weight-bold">Litros Producidos *</label>
+                                <input type="number"
+                                       step="0.01"
+                                       name="liters"
+                                       value="{{ $milkProduction->liters }}"
+                                       class="form-control form-control-lg text-center font-weight-bold text-success"
+                                       required>
+                            </div>
+
+                            {{-- CALIDAD --}}
+                            <div class="col-md-6 mb-4">
+                                <label class="font-weight-bold d-block mb-2">Calidad *</label>
+                                <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+                                    <label class="btn btn-outline-success {{ $milkProduction->quality === 'HIGH' ? 'active' : '' }}">
+                                        <input type="radio" name="quality" value="HIGH" {{ $milkProduction->quality === 'HIGH' ? 'checked' : '' }}>
+                                        Alta
+                                    </label>
+                                    <label class="btn btn-outline-warning {{ $milkProduction->quality === 'MEDIUM' ? 'active' : '' }}">
+                                        <input type="radio" name="quality" value="MEDIUM" {{ $milkProduction->quality === 'MEDIUM' ? 'checked' : '' }}>
+                                        Media
+                                    </label>
+                                    <label class="btn btn-outline-danger {{ $milkProduction->quality === 'LOW' ? 'active' : '' }}">
+                                        <input type="radio" name="quality" value="LOW" {{ $milkProduction->quality === 'LOW' ? 'checked' : '' }}>
+                                        Baja
+                                    </label>
+                                </div>
+                            </div>
+
+                            {{-- TEMPERATURA --}}
+                            <div class="col-md-6 mb-4">
+                                <label class="font-weight-bold">Temperatura de la Leche (°C)</label>
+                                <input type="number"
+                                       step="0.1"
+                                       name="milk_temperature"
+                                       value="{{ $milkProduction->milk_temperature }}"
+                                       class="form-control text-center">
+                            </div>
+
+                            {{-- RESPONSABLE --}}
+                            <div class="col-md-6 mb-4">
+                                <label class="font-weight-bold">Responsable</label>
+                                <input type="text"
+                                       name="responsible"
+                                       value="{{ $milkProduction->responsible }}"
+                                       class="form-control">
+                            </div>
+
+                            {{-- OBSERVACIONES --}}
+                            <div class="col-md-12 mb-4">
+                                <label class="font-weight-bold">Observaciones</label>
+                                <textarea name="observations"
+                                          rows="4"
+                                          class="form-control">{{ $milkProduction->observations }}</textarea>
+                            </div>
+
                         </div>
 
-                        <div>
-                            <label class="block text-lg font-bold text-gray-700 mb-3">Temperatura de la Leche (°C)</label>
-                            <input type="number" step="0.1" name="milk_temperature" value="{{ $milkProduction->milk_temperature }}"
-                                   class="w-full px-5 py-4 border-2 rounded-lg text-2xl text-center">
+                        {{-- BOTONES --}}
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{{ route('sg.admin.sg.produccion.index') }}"
+                               class="btn btn-outline-secondary btn-lg">
+                                Cancelar
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-warning btn-lg font-weight-bold">
+                                💾 Actualizar Producción
+                            </button>
                         </div>
 
-                        <div>
-                            <label class="block text-lg font-bold text-gray-700 mb-3">Responsable</label>
-                            <input type="text" name="responsible" value="{{ $milkProduction->responsible }}"
-                                   class="w-full px-5 py-4 border-2 rounded-lg text-lg">
-                        </div>
+                    </form>
 
-                        <div class="md:col-span-2">
-                            <label class="block text-lg font-bold text-gray-700 mb-3">Observaciones</label>
-                            <textarea name="observations" rows="4"
-                                      class="w-full px-5 py-4 border-2 rounded-lg text-lg">{{ $milkProduction->observations }}</textarea>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end mt-12 space-x-6">
-                        <a href="{{ route('sg.admin.sg.produccion.index') }}"
-                           class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-4 px-10 rounded-lg text-xl">
-                            Cancelar
-                        </a>
-                        <button type="submit"
-                                class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-4 px-12 rounded-lg text-xl shadow-lg">
-                            Actualizar Producción
-                        </button>
-                    </div>
-                </form>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
