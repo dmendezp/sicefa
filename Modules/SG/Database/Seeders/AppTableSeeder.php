@@ -21,13 +21,10 @@ class AppTableSeeder extends Seeder
             ['name' => 'SG'],
              [
             'url' => '/sg/index',
-            'color' => '#76250C',
-            'icon' => '<i class="fas fa-cow" aria-hidden="true"></i>',
-            'description' => 'Sistema de ganaderia',
-            'description_english' => 'Sales record at CEFA Coffee Station'
+            'color' => '#2D5016',
+            'icon' => 'fas fa-hat-cowboy',
+            'description' => 'software de gestion ganadera',
+            'description_english' => 'Livestock management software'
         ]);
-
-   
-    
     }
 }

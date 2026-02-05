@@ -126,7 +126,7 @@
         <div class="d-flex justify-content-end mb-5">
             <a href="{{ route('sg.admin.sg.produccion.index') }}"
                class="btn btn-secondary btn-lg mr-3">
-                Cancelar
+                Listado
             </a>
 
             <button type="submit"

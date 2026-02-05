@@ -43,7 +43,7 @@ height: 85%;
   bottom: 0;
   z-index: 9999;
   overflow: hidden;
-  background: #37517e;
+  background: #2d6a4f;
 }
 
 #preloader:before {
@@ -51,7 +51,7 @@ height: 85%;
   position: fixed;
   top: calc(50% - 30px);
   left: calc(50% - 30px);
-  border: 6px solid #37517e;
+  border: 6px solid #2d6a4f;
   border-top-color: #fff;
   border-bottom-color: #fff;
   border-radius: 50%;
@@ -335,7 +335,7 @@ height: 85%;
 
 .navbar-mobile .getstarted {
   margin: 15px;
-  color: #37517e;
+  color: #2d6a4f;
 }
 
 .navbar-mobile .dropdown ul {
@@ -771,7 +771,7 @@ section {
 .skills .content h3 {
   font-weight: 700;
   font-size: 32px;
-  color: #37517e;
+  color: #2d6a4f;
   font-family: "Poppins", sans-serif;
 }
 
@@ -808,7 +808,7 @@ section {
   display: block;
   font-weight: 600;
   font-family: "Poppins", sans-serif;
-  color: #37517e;
+  color: #2d6a4f;
 }
 
 .skills .progress .skill .val {
@@ -1196,12 +1196,12 @@ section {
   font-weight: 500;
   margin-bottom: 15px;
   font-size: 20px;
-  color: #37517e;
+  color: #2d6a4f;
 }
 
 .pricing h4 {
   font-size: 48px;
-  color: #37517e;
+  color: #2d6a4f;
   font-weight: 400;
   font-family: "Jost", sans-serif;
   margin-bottom: 25px;
@@ -1362,7 +1362,7 @@ section {
 }
 
 .faq .faq-list a.collapsed {
-  color: #37517e;
+  color: #2d6a4f;
   transition: 0.3s;
 }
 
@@ -1601,7 +1601,7 @@ section {
 .breadcrumbs h2 {
   font-size: 28px;
   font-weight: 600;
-  color: #37517e;
+  color: #2d6a4f;
 }
 
 .breadcrumbs ol {

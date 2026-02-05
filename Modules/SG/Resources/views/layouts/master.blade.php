@@ -431,14 +431,14 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button" title="Alternar menú">
                         <i class="fas fa-bars"></i>
                     </a>
-                </li>
+                </li
+>
                 <li class="nav-item d-none d-sm-inline-block ml-3">
                     <a href="http://127.0.0.1:8000/sg/index" class="nav-link" title="Ir a inicio">
                         <i class="fas fa-home"></i> Inicio
                     </a>
                 </li>
             </ul>
-
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item d-none d-sm-inline-block mr-3">
@@ -471,13 +471,13 @@
         <!-- Main Sidebar -->
         <aside class="main-sidebar elevation-4">
             <!-- Brand Logo -->
-            <div class="brand-link d-flex justify-content-center align-items-center">
+            <!-- <div class="brand-link d-flex justify-content-center align-items-center">
                 <a href="#" class="d-block text-center" onclick="showImageModal(event)">
                     <img src="{{ asset('images/logo.jpg') }}" alt="SG Logo" 
                     class="rounded-circle border border-success shadow" 
                     style="cursor: pointer; transition: all 0.3s ease;" />
                 </a>
-            </div>
+            </div> -->
 
             <!-- Modal para mostrar imagen -->
             <div id="imageModal" class="modal"
@@ -527,15 +527,15 @@
                             <i class="fas fa-cow"></i> Gestión de Animales
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('sg.admin.sg.animales.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-list-ul"></i>
-                                <p>Listado de Bovinos</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="{{ route('sg.admin.sg.animales.create') }}" class="nav-link">
                                 <i class="nav-icon fas fa-plus-circle"></i>
                                 <p>Registrar Nuevo Bovino</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('sg.admin.sg.animales.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-list-ul"></i>
+                                <p>Listado de Bovinos</p>
                             </a>
                         </li>
 
@@ -713,7 +713,7 @@
                         <div class="footer-info-badge">
                             <img src="{{ asset('images/logo.jpg') }}" alt="SG Logo" style="height:32px;width:auto;border-radius:4px;">
                             <span>
-                                <strong>&copy; 2023-2025 <a href="#">GANASOFT</a></strong> • Todos los derechos reservados
+                                <strong>&copy; 2025-2026 <a href="#">GANASOFT</a></strong> • Todos los derechos reservados
                             </span>
                         </div>
                     </div>

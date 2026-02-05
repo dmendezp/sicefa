@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GANASOFT - Sistema de Gestión Ganadera</title>
-    <link rel="icon" href="{{ asset('images/Favicon2.png') }}" type="image/x-icon">
+    <title>GANASOFT</title>
+    <link rel="icon" href="{{ asset('images/icono2.jpg') }}" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -42,64 +42,84 @@
 </video>
 
 <!-- Navbar -->
-<nav class="fixed top-0 w-full z-50 bg-black/20 backdrop-blur-md">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-    <div class="flex items-center">
-      <!-- Modifica el enlace del logo y agrega el modal -->
-<a href="#" id="logo-link" class="flex items-center text-white font-bold text-2xl tracking-tight">
-  <img src="{{ asset('images/logo.jpg') }}" alt="sg" class="w-20 h-20 mr-3 rounded-full object-cover border-2 border-white shadow">
-</a>
+<nav class="fixed top-0 w-full z-50 bg-gradient-to-b from-black/40 to-black/20 backdrop-blur-lg border-b border-green-500/10">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+    <!-- Logo Section -->
+    <div class="flex items-center gap-6">
+      <button id="logo-link" class="group flex items-center hover:opacity-80 transition duration-300">
+        <img src="{{ asset('images/logo.jpg') }}" alt="GANASOFT" class="w-14 h-14 rounded-full object-cover border-2 border-green-500/50 group-hover:border-green-400 shadow-lg transition duration-300">
+        <span class="ml-3 text-white font-bold text-lg hidden sm:inline">GANASOFT</span>
+      </button>
 
-<!-- Modal oculto por defecto, solo el logo en círculo y sin fondo blanco -->
-<div id="logo-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-start justify-center z-50 hidden">
-  <div class="relative mt-32">
-    <button id="close-logo-modal" class="absolute -top-8 right-0 text-gray-200 hover:text-red-400 text-3xl font-bold">&times;</button>
-    <img src="{{ asset('images/logo.jpg') }}" alt="Logo grande" class="w-64 h-64 rounded-full object-cover border-4 border-white shadow-xl mx-auto">
-  </div>
-</div>
+      <!-- Modal Logo Expandido -->
+      <div id="logo-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="relative">
+          <button id="close-logo-modal" class="absolute -top-10 right-0 text-slate-300 hover:text-red-400 text-3xl font-bold transition">×</button>
+          <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="w-80 h-80 rounded-full object-cover border-4 border-green-500 shadow-2xl">
+        </div>
+      </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const logoLink = document.getElementById('logo-link');
-    const logoModal = document.getElementById('logo-modal');
-    const closeModal = document.getElementById('close-logo-modal');
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const logoLink = document.getElementById('logo-link');
+          const logoModal = document.getElementById('logo-modal');
+          const closeModal = document.getElementById('close-logo-modal');
 
-    logoLink.addEventListener('click', function(e) {
-      e.preventDefault();
-      logoModal.classList.remove('hidden');
-    });
+          logoLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            logoModal.classList.remove('hidden');
+          });
 
-    closeModal.addEventListener('click', function() {
-      logoModal.classList.add('hidden');
-    });
+          closeModal.addEventListener('click', function() {
+            logoModal.classList.add('hidden');
+          });
 
-    // Opcional: cerrar el modal al hacer clic fuera de la imagen
-    logoModal.addEventListener('click', function(e) {
-      if (e.target === logoModal) {
-        logoModal.classList.add('hidden');
-      }
-    });
-  });
-</script>
-      <!-- Modal para mostrar el logo -->
-      <a href="" class="ml-4 hover:text-green-400 transition text-base font-normal flex items-center">
-        <!-- Icono de usuario/desarrollador -->
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M16 21v-2a4 4 0 0 0-8 0v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/>
-        </svg>
-        Desarrolladores
-      </a>
+          logoModal.addEventListener('click', function(e) {
+            if (e.target === logoModal) {
+              logoModal.classList.add('hidden');
+            }
+          });
+        });
+      </script>
+
+      <!-- Dropdown Menu -->
+      <div class="relative group">
+        <button class="flex items-center gap-2 text-slate-300 hover:text-green-400 transition duration-300 text-sm font-medium px-3 py-2 rounded-lg hover:bg-green-500/10">
+          <i class="fas fa-ellipsis-v mr-1"></i>
+          <span>Recursos</span>
+        </button>
+        
+        <!-- Dropdown Items -->
+        <div class="absolute left-0 mt-0 w-48 bg-slate-900/95 backdrop-blur-lg border border-green-500/30 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300 z-40">
+          <a href="{{ route('sg.desarrolladores') }}" class="flex items-center gap-2 text-slate-300 hover:text-green-400 hover:bg-green-500/10 transition duration-300 text-sm font-medium px-4 py-3 first:rounded-t-lg">
+            <i class="fas fa-code"></i>
+            <span>Desarrolladores</span>
+          </a>
+          <a href="{{ route('sg.manual') }}" class="flex items-center gap-2 text-slate-300 hover:text-green-400 hover:bg-green-500/10 transition duration-300 text-sm font-medium px-4 py-3 last:rounded-b-lg">
+            <i class="fas fa-book"></i>
+            <span>Manual de Usuario</span>
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="hidden md:flex space-x-6 text-sm font-semibold">
+
+    <!-- Navigation Links -->
+    <div class="hidden md:flex items-center gap-2">
       @auth
         @if(checkRol('sg.admin'))
-          <a href="{{ route('sg.admin.welcome') }}" class="hover:text-green-400 transition">Administrador</a>
+          <a href="{{ route('sg.admin.welcome') }}" class="text-slate-300 hover:text-green-400 transition duration-300 text-sm font-medium px-4 py-2 rounded-lg hover:bg-green-500/10">
+            <i class="fas fa-shield-alt mr-1.5"></i>Admin
+          </a>
         @endif
         @if(checkRol('sg.liderDeUnidad'))
-          <a href="{{ route('sg.liderDeUnidad.panelLider') }}" class="hover:text-green-400 transition">Líder de Unidad</a>
+          <a href="{{ route('sg.liderDeUnidad.panelLider') }}" class="text-slate-300 hover:text-green-400 transition duration-300 text-sm font-medium px-4 py-2 rounded-lg hover:bg-green-500/10">
+            <i class="fas fa-users mr-1.5"></i>Líder
+          </a>
         @endif
         @if(checkRol('sg.aprendiz'))
-          <a href="{{ route('sg.aprendiz.panelAprendiz') }}" class="hover:text-green-400 transition">Aprendiz</a>
+          <a href="{{ route('sg.aprendiz.panelAprendiz') }}" class="text-slate-300 hover:text-green-400 transition duration-300 text-sm font-medium px-4 py-2 rounded-lg hover:bg-green-500/10">
+            <i class="fas fa-graduation-cap mr-1.5"></i>Aprendiz
+          </a>
         @endif
       @endauth
     </div>

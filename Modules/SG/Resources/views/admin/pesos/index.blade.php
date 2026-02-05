@@ -113,25 +113,27 @@
                                 {{ $record->observations ?: '-' }}
                             </td>
 
+                            {{-- ACCIONES --}}
                             <td class="text-center">
                                 <a href="{{ route('sg.admin.sg.pesos.show', $record) }}"
-                                   class="btn btn-sm btn-outline-primary">
-                                    Ver
+                                   class="btn btn-sm btn-outline-primary action-btn"
+                                   data-toggle="tooltip" title="Ver">
+                                    <i class="fas fa-eye"></i>
                                 </a>
 
                                 <a href="{{ route('sg.admin.sg.pesos.edit', $record) }}"
-                                   class="btn btn-sm btn-outline-warning mx-1">
-                                    Editar
+                                   class="btn btn-sm btn-outline-warning action-btn"
+                                   data-toggle="tooltip" title="Editar">
+                                    <i class="fas fa-edit"></i>
                                 </a>
 
                                 <form action="{{ route('sg.admin.sg.pesos.destroy', $record) }}"
-                                      method="POST"
-                                      class="d-inline"
+                                      method="POST" class="d-inline"
                                       onsubmit="return confirm('¿Eliminar este registro de peso?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-outline-danger">
-                                        Eliminar
+                                    @csrf @method('DELETE')
+                                    <button class="btn btn-sm btn-outline-danger action-btn"
+                                            data-toggle="tooltip" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
                             </td>

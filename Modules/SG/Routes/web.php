@@ -24,6 +24,10 @@ Route::middleware(['lang'])->group(function () {
     });
 });
 
+Route::get('/desarrolladores', 'SGController@devs')->name('sg.desarrolladores');
+Route::get('/manual', 'SGController@manual')->name('sg.manual');
+
+
 Route::middleware(['auth'])->group(function () {
         Route::prefix('sg')->group(function () {
 

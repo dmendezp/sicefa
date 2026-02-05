@@ -453,7 +453,7 @@
                         <i class="fas fa-user-circle"></i> {{ Auth::user()->nickname }}
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <h6 class="dropdown-header">Cuenta</h6>
+                        <h6 class="dropdown-header">Aprendiz</h6>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -576,7 +576,7 @@
                         <div class="footer-info-badge">
                             <img src="{{ asset('images/logo.jpg') }}" alt="SG Logo" style="height:28px;width:auto;border-radius:4px;">
                             <span>
-                                <strong>&copy; 2023-2025 <a href="#" style="text-decoration: none;">GANASOFT</a></strong> • Todos los derechos reservados
+                                <strong>&copy; 2025-2026 <a href="#" style="text-decoration: none;">GANASOFT</a></strong> • Todos los derechos reservados
                             </span>
                         </div>
                     </div>

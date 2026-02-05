@@ -1,7 +1,7 @@
 @extends('sg::layouts.master')
 
 @section('content')
-<br><br><br>
+<br>
 
 <div class="container-fluid">
 

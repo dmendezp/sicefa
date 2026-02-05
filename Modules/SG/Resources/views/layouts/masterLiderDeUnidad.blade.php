@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="{{ asset('images/flati.jpg') }}" type="image/x-icon">
-    <title>SG - Panel Administrativo</title>
+    <title>SG - Panel Lider de Unidad</title>
     <!-- Google Font: Inter & Poppins -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap">
@@ -453,7 +453,7 @@
                         <i class="fas fa-user-circle"></i> {{ Auth::user()->nickname }}
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <h6 class="dropdown-header">Cuenta Administrativo</h6>
+                        <h6 class="dropdown-header">Lider de Unidad</h6>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -713,7 +713,7 @@
                         <div class="footer-info-badge">
                             <img src="{{ asset('images/logo.jpg') }}" alt="SG Logo" style="height:32px;width:auto;border-radius:4px;">
                             <span>
-                                <strong>&copy; 2023-2025 <a href="#">GANASOFT</a></strong> • Todos los derechos reservados
+                                <strong>&copy; 2025-2026 <a href="#">GANASOFT</a></strong> • Todos los derechos reservados
                             </span>
                         </div>
                     </div>

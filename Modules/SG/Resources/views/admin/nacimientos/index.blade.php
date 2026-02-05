@@ -138,26 +138,30 @@
                                     {{ $birth->observations ?: '-' }}
                                 </td>
 
-                                <td class="text-center">
-                                    <a href="{{ route('sg.admin.sg.nacimientos.show', $birth) }}"
-                                       class="btn btn-sm btn-outline-primary">
-                                        Ver
-                                    </a>
+                                {{-- ACCIONES --}}
+                            <td class="text-center">
+                                <a href="{{ route('sg.admin.sg.nacimientos.show', $birth) }}"
+                                   class="btn btn-sm btn-outline-primary action-btn"
+                                   data-toggle="tooltip" title="Ver">
+                                    <i class="fas fa-eye"></i>
+                                </a>
 
-                                    <a href="{{ route('sg.admin.sg.nacimientos.edit', $birth) }}"
-                                       class="btn btn-sm btn-outline-warning">
-                                        Editar
-                                    </a>
+                                <a href="{{ route('sg.admin.sg.nacimientos.edit', $birth) }}"
+                                   class="btn btn-sm btn-outline-warning action-btn"
+                                   data-toggle="tooltip" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
 
-                                    <form action="{{ route('sg.admin.sg.nacimientos.destroy', $birth) }}"
-                                          method="POST" class="d-inline">
-                                        @csrf @method('DELETE')
-                                        <button class="btn btn-sm btn-outline-danger"
-                                                onclick="return confirm('¿Eliminar este registro de parto?')">
-                                            Eliminar
-                                        </button>
-                                    </form>
-                                </td>
+                                <form action="{{ route('sg.admin.sg.nacimientos.destroy', $birth) }}"
+                                      method="POST" class="d-inline"
+                                      onsubmit="return confirm('¿Eliminar este registro de parto?')">
+                                    @csrf @method('DELETE')
+                                    <button class="btn btn-sm btn-outline-danger action-btn"
+                                            data-toggle="tooltip" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
                             </tr>
                         @empty
                             <tr>

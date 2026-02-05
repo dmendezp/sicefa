@@ -37,6 +37,16 @@ class SGController extends Controller
         return view('sg::panelAprendiz');
     }
 
+    public function devs()
+    {
+        return view('sg::desarrolladores.index');
+    }
+
+    public function manual()
+    {
+        return view('sg::manual.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      * @return Renderable
