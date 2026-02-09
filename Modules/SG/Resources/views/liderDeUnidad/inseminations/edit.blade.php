@@ -28,13 +28,13 @@
                     <div class="card-body">
 
                         <div class="form-group">
-                            <label>Código del animal *</label>
+                            <label>Placa del animal *</label>
                             <input type="text"
-                                   class="form-control @error('animal_id') is-invalid @enderror"
-                                   name="animal_id"
-                                   value="{{ old('animal_id', $insemination->animal_id) }}"
+                                   class="form-control @error('animal_plate') is-invalid @enderror"
+                                   name="animal_plate"
+                                   value="{{ old('animal_plate', $insemination->animal->plate) }}"
                                    required>
-                            @error('animal_id')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                            @error('animal_plate')<span class="invalid-feedback">{{ $message }}</span>@enderror
                         </div>
 
                         <div class="alert alert-info mb-0">

@@ -119,7 +119,7 @@
                     <tr>
 
                         <td>
-                            <strong class="text-primary">#{{ $prod->animal->id }}</strong><br>
+                            <strong class="text-primary">{{ $prod->animal->plate }}</strong><br>
                             <small class="text-muted">{{ $prod->animal->name ?? 'Sin nombre' }}</small>
                         </td>
 

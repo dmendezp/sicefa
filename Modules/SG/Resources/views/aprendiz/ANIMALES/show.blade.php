@@ -87,6 +87,7 @@
                             <p><strong>Sexo:</strong> {{ $animal->sex === 'FEMALE' ? 'Hembra' : 'Macho' }}</p>
                             <p><strong>Edad:</strong> {{ $animal->age_text }}</p>
                             <p><strong>Lote / Corral:</strong> {{ $animal->lot ?: 'Sin asignar' }}</p>
+                            <p><strong>Placa:</strong> {{ $animal->plate ?: 'Sin placa' }}</p>
                         </div>
                     </div>
                 </div>

@@ -15,10 +15,6 @@ class AnimalController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    // public function index()
-    // {
-    //     return view('sg::index');
-    // }
 
     public function index()
     {
@@ -73,6 +69,7 @@ class AnimalController extends Controller
     {
         $request->validate([
             'name'           => 'nullable|string|max:100',
+            'plate'              => 'nullable|string|max:50',
             'breed_id'       => 'required|exists:breeds,id',
             'sex'            => 'required|in:MALE,FEMALE',
             'birth_date'     => 'required|date|before_or_equal:today',
@@ -114,6 +111,7 @@ class AnimalController extends Controller
     {
         $request->validate([
             'name'           => 'nullable|string|max:100',
+            'plate'              => 'nullable|string|max:50',
             'breed_id'       => 'required|exists:breeds,id',
             'sex'            => 'required|in:MALE,FEMALE',
             'birth_date'     => 'required|date|before_or_equal:today',
@@ -155,6 +153,7 @@ class AnimalController extends Controller
     {
         $request->validate([
             'name'           => 'nullable|string|max:100',
+            'plate'              => 'nullable|string|max:50',
             'breed_id'       => 'required|exists:breeds,id',
             'sex'            => 'required|in:MALE,FEMALE',
             'birth_date'     => 'required|date|before_or_equal:today',
@@ -257,6 +256,7 @@ class AnimalController extends Controller
 
         $request->validate([
             'name'           => 'nullable|string|max:100',
+            'plate'              => 'nullable|string|max:50',
             'breed_id'       => 'required|exists:breeds,id',
             'sex'            => 'required|in:MALE,FEMALE',
             'birth_date'     => 'required|date|before_or_equal:today',
@@ -283,6 +283,7 @@ class AnimalController extends Controller
 
         $data = [
             'name'           => $request->input('name'),
+            'plate'              => $request->input('plate'),
             'breed_id'       => $request->input('breed_id'),
             'sex'            => $request->input('sex'),
             'birth_date'     => $request->input('birth_date'),
@@ -309,6 +310,7 @@ class AnimalController extends Controller
 
         $request->validate([
             'name'           => 'nullable|string|max:100',
+            'plate'              => 'nullable|string|max:50',
             'breed_id'       => 'required|exists:breeds,id',
             'sex'            => 'required|in:MALE,FEMALE',
             'birth_date'     => 'required|date|before_or_equal:today',
@@ -335,6 +337,7 @@ class AnimalController extends Controller
 
         $data = [
             'name'           => $request->input('name'),
+            'plate'              => $request->input('plate'),
             'breed_id'       => $request->input('breed_id'),
             'sex'            => $request->input('sex'),
             'birth_date'     => $request->input('birth_date'),
@@ -361,6 +364,7 @@ class AnimalController extends Controller
 
         $request->validate([
             'name'           => 'nullable|string|max:100',
+            'plate'              => 'nullable|string|max:50',
             'breed_id'       => 'required|exists:breeds,id',
             'sex'            => 'required|in:MALE,FEMALE',
             'birth_date'     => 'required|date|before_or_equal:today',
@@ -387,6 +391,7 @@ class AnimalController extends Controller
 
         $data = [
             'name'           => $request->input('name'),
+            'plate'              => $request->input('plate'),
             'breed_id'       => $request->input('breed_id'),
             'sex'            => $request->input('sex'),
             'birth_date'     => $request->input('birth_date'),
@@ -406,8 +411,6 @@ class AnimalController extends Controller
 
         return redirect()->route('sg.liderDeUnidad.sg.animals.index')->with('success', "Bovino {$animal->id} actualizado correctamente");
     }
-
-
 
     /**
      * Remove the specified resource from storage.

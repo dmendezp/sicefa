@@ -33,7 +33,7 @@
                     <div class="border rounded p-3 h-100 bg-light">
                         <small class="text-muted d-block">Animal</small>
                         <h5 class="font-weight-bold text-primary mb-0">
-                            {{ $record->animal->id }} - {{ $record->animal->name ?: 'Sin nombre' }}
+                            {{ $record->animal->plate }} - {{ $record->animal->name ?: 'Sin nombre' }}
                         </h5>
                     </div>
                 </div>

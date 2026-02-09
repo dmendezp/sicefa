@@ -32,9 +32,9 @@
                             <div class="col-md-6 mb-4">
                                 <label class="font-weight-bold">Vaca</label>
                                 <div class="form-control bg-light font-weight-bold">
-                                    {{ $milkProduction->animal->id }} - {{ $milkProduction->animal->name ?: 'Sin nombre' }}
+                                    {{ $milkProduction->animal->plate }} - {{ $milkProduction->animal->name ?: 'Sin nombre' }}
                                 </div>
-                                <input type="hidden" name="animal_id" value="{{ $milkProduction->animal->id }}">
+                                <input type="hidden" name="animal_id" value="{{ $milkProduction->animal->plate }}">
                             </div>
 
                             {{-- FECHA --}}

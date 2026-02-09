@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::create('animals', function (Blueprint $table) {
             $table->string('id', 50)->primary(); // ej: 9028-H, B123, V456-M
+            $table->string('plate', 50)->nullable();
             $table->string('name', 100)->nullable();
             $table->foreignId('breed_id')->nullable()->constrained('breeds')->nullOnDelete();
             $table->enum('sex', ['MALE', 'FEMALE']);

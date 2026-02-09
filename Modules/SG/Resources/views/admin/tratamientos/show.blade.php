@@ -45,9 +45,9 @@
                             </h5>
 
                             <p class="mb-2">
-                                <strong>Código:</strong>
+                                <strong>Placa:</strong>
                                 <span class="badge badge-info">
-                                    {{ $treatment->healthRecord->animal->id }}
+                                    {{ $treatment->healthRecord->animal->plate }}
                                 </span>
                             </p>
 

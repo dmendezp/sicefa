@@ -62,6 +62,19 @@
 
                 <div class="row">
 
+                <div class="col-md-6 form-group">
+                    <label>Placa *</label>
+                    <input type="text"
+                           name="plate"
+                           value="{{ old('plate') }}"
+                           class="form-control"
+                           placeholder="Ej: 001, A-001"
+                           required>
+                    @error('plate')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+
                     <div class="col-md-6 form-group">
                         <label>Nombre (opcional)</label>
                         <input type="text"

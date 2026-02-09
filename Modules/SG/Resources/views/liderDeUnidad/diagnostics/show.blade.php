@@ -54,9 +54,9 @@
                             </h5>
 
                             <p class="mb-2">
-                                <strong>Código:</strong>
+                                <strong>Placa:</strong>
                                 <span class="text-primary font-weight-bold">
-                                    {{ $test->animal->id }}
+                                    {{ $test->animal->plate }}
                                 </span>
                             </p>
 

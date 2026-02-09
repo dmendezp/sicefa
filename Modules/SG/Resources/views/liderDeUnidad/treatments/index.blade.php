@@ -75,7 +75,7 @@
                     <tr>
                         <td>
                             <span class="font-weight-bold text-primary">
-                                {{ $treatment->healthRecord->animal->id }}
+                                {{ $treatment->healthRecord->animal->plate }}
                             </span>
                             <br>
                             <small class="text-muted">

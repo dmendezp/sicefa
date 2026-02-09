@@ -471,14 +471,6 @@
         <!-- Main Sidebar -->
         <aside class="main-sidebar elevation-4">
             <!-- Brand Logo -->
-            <div class="brand-link d-flex justify-content-center align-items-center">
-                <a href="#" class="d-block text-center" onclick="showImageModal(event)">
-                    <img src="{{ asset('images/logo.jpg') }}" alt="SG Logo" 
-                    class="rounded-circle border border-success shadow" 
-                    style="cursor: pointer; transition: all 0.3s ease;" />
-                </a>
-            </div>
-
             <!-- Modal para mostrar imagen -->
             <div id="imageModal" class="modal"
                 style="display: none; position: fixed; z-index: 1050; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6);">

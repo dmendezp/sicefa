@@ -80,7 +80,7 @@
                         @forelse($births as $birth)
                             <tr>
                                 <td>
-                                    <strong class="text-primary">{{ $birth->mother->id }}</strong><br>
+                                    <strong class="text-primary">{{ $birth->mother->plate }}</strong><br>
                                     <small class="text-muted">{{ $birth->mother->name ?: 'Sin nombre' }}</small>
                                 </td>
 

@@ -35,11 +35,11 @@
                     <div class="form-group col-md-6">
                         <label class="font-weight-bold">Bovino *</label>
                         <input type="text"
-                               name="animal_id"
-                               value="{{ old('animal_id', $healthRecord->animal_id ?? '') }}"
-                               class="form-control @error('animal_id') is-invalid @enderror"
+                               name="animal_plate"
+                               value="{{ old('animal_plate', $healthRecord->animal->plate ?? '') }}"
+                               class="form-control @error('animal_plate') is-invalid @enderror"
                                required>
-                        @error('animal_id')
+                        @error('animal_plate')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

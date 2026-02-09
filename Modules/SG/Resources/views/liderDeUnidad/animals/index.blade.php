@@ -29,6 +29,7 @@
                     <thead class="thead-dark">
                         <tr>
                             <th>ID</th>
+                            <th>Placa</th>
                             <th>Nombre</th>
                             <th>Raza</th>
                             <th>Sexo</th>
@@ -48,6 +49,8 @@
                         <tr class="row-hover">
 
                             <td class="font-weight-bold text-primary">{{ $animal->id }}</td>
+
+                            <td>{{ $animal->plate ?: 'Sin placa' }}</td>
 
                             <td>{{ $animal->name ?: 'Sin nombre' }}</td>
 

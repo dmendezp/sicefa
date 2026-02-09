@@ -83,7 +83,7 @@
                     <tr>
 
                         <td>
-                            <span class="font-weight-bold text-primary">{{ $ins->animal->id }}</span>
+                            <span class="font-weight-bold text-primary">{{ $ins->animal->plate }}</span>
                             - {{ $ins->animal->name ?: 'Sin nombre' }}
                         </td>
 

@@ -79,7 +79,7 @@
                 @forelse($tests as $test)
                     <tr>
                         <td>
-                            <span class="font-weight-bold text-primary">{{ $test->animal->id }}</span>
+                            <span class="font-weight-bold text-primary">{{ $test->animal->plate }}</span>
                             - {{ $test->animal->name ?: 'Sin nombre' }}
                         </td>
 

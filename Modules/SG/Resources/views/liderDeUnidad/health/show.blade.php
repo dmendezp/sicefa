@@ -36,9 +36,9 @@
             <div class="row text-center">
 
                 <div class="col-md-4">
-                    <h6 class="text-muted">Código</h6>
+                    <h6 class="text-muted">Placa</h6>
                     <h4 class="font-weight-bold text-primary">
-                        {{ $healthRecord->animal->id }}
+                        {{ $healthRecord->animal->plate }}
                     </h4>
                 </div>
 

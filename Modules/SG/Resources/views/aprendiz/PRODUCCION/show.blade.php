@@ -87,7 +87,7 @@
                     🐄 Animal
                 </div>
                 <div class="card-body">
-                    <p><strong>Código:</strong> {{ $milkProduction->animal->id }}</p>
+                    <p><strong>Placa:</strong> {{ $milkProduction->animal->plate }}</p>
                     <p><strong>Nombre:</strong> {{ $milkProduction->animal->name ?: 'Sin nombre' }}</p>
                     <p><strong>Raza:</strong> {{ $milkProduction->animal->breed?->name }}</p>
                     <p><strong>Edad:</strong> {{ $milkProduction->animal->age_text }}</p>

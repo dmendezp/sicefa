@@ -83,7 +83,7 @@
 
                             <td>
                                 <span class="font-weight-bold text-primary">
-                                    {{ $record->animal->id }}
+                                    {{ $record->animal->plate }}
                                 </span>
                                 <br>
                                 <small class="text-muted">

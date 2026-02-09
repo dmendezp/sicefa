@@ -51,7 +51,7 @@
                                 <i class="fas fa-cow"></i> Información de la Vaca
                             </h6>
 
-                            <p><strong>Código:</strong> {{ $insemination->animal->id }}</p>
+                            <p><strong>placa:</strong> {{ $insemination->animal->plate }}</p>
                             <p><strong>Nombre:</strong> {{ $insemination->animal->name ?: 'Sin nombre' }}</p>
                             <p class="mb-0"><strong>Raza:</strong> {{ $insemination->animal->breed?->name ?? '—' }}</p>
                         </div>

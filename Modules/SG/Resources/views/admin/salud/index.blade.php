@@ -77,7 +77,7 @@
                     <tr>
 
                         <td class="font-weight-bold text-primary">
-                            #{{ $record->animal->id }}
+                            {{ $record->animal->plate }}
                             <div class="text-muted small">
                                 {{ $record->animal->name ?: 'Sin nombre' }}
                             </div>

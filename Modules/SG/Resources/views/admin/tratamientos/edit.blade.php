@@ -35,7 +35,7 @@
                     <div class="form-group col-md-6">
                         <label class="block text-lg font-bold text-gray-700 mb-3">Historia Clínica *</label>
                         <div class="px-5 py-4 bg-gray-100 rounded-lg text-xl font-bold">
-                            {{ $treatment->healthRecord->animal->id }} - {{ $treatment->healthRecord->record_date->format('d/m/Y') }}
+                            {{ $treatment->healthRecord->animal->plate }} - {{ $treatment->healthRecord->record_date->format('d/m/Y') }}
                         </div>
                         <input type="hidden" name="health_record_id" value="{{ old('health_record_id', $treatment->health_record_id ?? '') }}">
                         @error('health_record_id')
