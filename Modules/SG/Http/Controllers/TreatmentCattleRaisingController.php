@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SG\Entities\TreatmentCattleRaising;
+use Modules\SG\Entities\TreatmentCattleRaisingHistory;
 use Modules\SG\Entities\HealthRecordCattleRaising;
 use Modules\SG\Entities\Medicine;
 
@@ -121,13 +122,13 @@ class TreatmentCattleRaisingController extends Controller
 
     public function show($id)
     {
-        $treatment = TreatmentCattleRaising::with(['healthRecord.animal', 'medicine'])->findOrFail($id);
+        $treatment = TreatmentCattleRaising::with(['healthRecord.animal', 'medicine', 'histories'])->findOrFail($id);
         return view('sg::admin.tratamientos.show', compact('treatment'));
     }
 
     public function showliderDeUnidad($id)
     {
-        $treatment = TreatmentCattleRaising::with(['healthRecord.animal', 'medicine'])->findOrFail($id);
+        $treatment = TreatmentCattleRaising::with(['healthRecord.animal', 'medicine', 'histories'])->findOrFail($id);
         return view('sg::liderDeUnidad.treatments.show', compact('treatment'));
     }
 
@@ -175,6 +176,20 @@ class TreatmentCattleRaisingController extends Controller
             'observations'           => 'nullable|string',
         ]);
 
+        // Guardar snapshot previo en historial
+        try {
+            $createdBy = auth()->check() ? optional(auth()->user())->name : null;
+        } catch (\Throwable $e) {
+            $createdBy = null;
+        }
+
+        $historyData = $treatment->toArray();
+        $treatment->histories()->create([
+            'health_record_id' => $treatment->health_record_id,
+            'snapshot'         => $historyData,
+            'created_by'       => $createdBy,
+        ]);
+
         $treatment->update($request->all());
 
         return redirect()->route('sg.admin.sg.tratamientos.index')->with('success', 'Tratamiento actualizado exitosamente');
@@ -192,6 +207,20 @@ class TreatmentCattleRaisingController extends Controller
             'administration_route'   => 'nullable|string|max:50',
             'frequency'              => 'nullable|string|max:100',
             'observations'           => 'nullable|string',
+        ]);
+
+        // Guardar snapshot previo en historial
+        try {
+            $createdBy = auth()->check() ? optional(auth()->user())->name : null;
+        } catch (\Throwable $e) {
+            $createdBy = null;
+        }
+
+        $historyData = $treatment->toArray();
+        $treatment->histories()->create([
+            'health_record_id' => $treatment->health_record_id,
+            'snapshot'         => $historyData,
+            'created_by'       => $createdBy,
         ]);
 
         $treatment->update($request->all());

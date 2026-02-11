@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SG\Entities\HealthRecordCattleRaising;
+use Modules\SG\Entities\HealthRecordCattleRaisingHistory;
 use Modules\SG\Entities\Animal;
 
 class HealthRecordCattleRaisingController extends Controller
@@ -94,6 +95,13 @@ class HealthRecordCattleRaisingController extends Controller
             'observations'        => 'nullable|string',
         ]);
 
+        // Si ya existe una historia clínica para este animal, redirigir a edición
+        $existing = HealthRecordCattleRaising::where('animal_id', $request->animal_id)->first();
+        if ($existing) {
+            return redirect()->route('sg.admin.sg.salud.edit', $existing->id)
+                ->with('warning', 'Ya existe una historia clínica para este animal. Puede actualizarla y se guardará un historial de cambios.');
+        }
+
         HealthRecordCattleRaising::create($request->all());
 
         return redirect()->route('sg.admin.sg.salud.index')->with('success', 'Historia clínica registrada exitosamente');
@@ -117,6 +125,12 @@ class HealthRecordCattleRaisingController extends Controller
             'observations'        => 'nullable|string',
         ]);
 
+        $existing = HealthRecordCattleRaising::where('animal_id', $request->animal_id)->first();
+        if ($existing) {
+            return redirect()->route('sg.liderDeUnidad.sg.health.edit', $existing->id)
+                ->with('warning', 'Ya existe una historia clínica para este animal. Puede actualizarla y se guardará un historial de cambios.');
+        }
+
         HealthRecordCattleRaising::create($request->all());
 
         return redirect()->route('sg.liderDeUnidad.sg.health.index')->with('success', 'Historia clínica registrada exitosamente');
@@ -130,13 +144,13 @@ class HealthRecordCattleRaisingController extends Controller
     
     public function show($id)
     {
-        $healthRecord = HealthRecordCattleRaising::findOrFail($id);
+        $healthRecord = HealthRecordCattleRaising::with('histories')->findOrFail($id);
         return view('sg::admin.salud.show', compact('healthRecord'));
     }
 
     public function showliderDeUnidad($id)
     {
-        $healthRecord = HealthRecordCattleRaising::findOrFail($id);
+        $healthRecord = HealthRecordCattleRaising::with('histories')->findOrFail($id);
         return view('sg::liderDeUnidad.health.show', compact('healthRecord'));
     }
     
@@ -186,6 +200,21 @@ class HealthRecordCattleRaisingController extends Controller
         ]);
 
         $healthRecord = HealthRecordCattleRaising::findOrFail($id);
+
+        // Guardar snapshot previo en historial
+        try {
+            $createdBy = auth()->check() ? optional(auth()->user())->name : null;
+        } catch (\Throwable $e) {
+            $createdBy = null;
+        }
+
+        $historyData = $healthRecord->toArray();
+        $healthRecord->histories()->create([
+            'animal_id' => $healthRecord->animal_id,
+            'snapshot'  => $historyData,
+            'created_by'=> $createdBy,
+        ]);
+
         $healthRecord->update($validated);
 
         return redirect()->route('sg.admin.sg.salud.index')->with('success', 'Historia clínica actualizada exitosamente');
@@ -210,6 +239,20 @@ class HealthRecordCattleRaisingController extends Controller
         ]);
 
         $healthRecord = HealthRecordCattleRaising::findOrFail($id);
+
+        try {
+            $createdBy = auth()->check() ? optional(auth()->user())->name : null;
+        } catch (\Throwable $e) {
+            $createdBy = null;
+        }
+
+        $historyData = $healthRecord->toArray();
+        $healthRecord->histories()->create([
+            'animal_id' => $healthRecord->animal_id,
+            'snapshot'  => $historyData,
+            'created_by'=> $createdBy,
+        ]);
+
         $healthRecord->update($validated);
 
         return redirect()->route('sg.liderDeUnidad.sg.health.index')->with('success', 'Historia clínica actualizada exitosamente');

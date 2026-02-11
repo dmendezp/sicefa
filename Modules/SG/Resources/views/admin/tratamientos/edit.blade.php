@@ -15,6 +15,16 @@
         </a>
     </div>
 
+    {{-- ALERTA DE HISTORIAL --}}
+    @if(isset($treatment->id))
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <i class="fas fa-info-circle"></i> <strong>Nota:</strong> Al actualizar este tratamiento, los datos anteriores serán guardados automáticamente en el historial para llevar un registro completo de todos los cambios realizados.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
+
     <form action="{{ isset($treatment->id)
             ? route('sg.admin.sg.tratamientos.update', $treatment->id)
             : route('sg.admin.sg.tratamientos.store') }}"

@@ -26,6 +26,11 @@
                 <i class="fas fa-arrow-left"></i> Volver
             </a>
         </div>
+
+                <a href="{{ route('sg.admin.sg.salud.index', $animal) }}"
+                   class="btn btn-info">
+                    <i class="fas fa-stethoscope"></i> Historial Clínico
+                </a>
     </div>
 
     {{-- CARD PRINCIPAL --}}

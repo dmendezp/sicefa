@@ -44,6 +44,12 @@ class HealthRecordCattleRaising extends Model
         return $this->hasMany(TreatmentCattleRaising::class, 'health_record_id');
     }
 
+    // Relación con historial de cambios (versiones)
+    public function histories()
+    {
+        return $this->hasMany(HealthRecordCattleRaisingHistory::class, 'health_record_id');
+    }
+
     // Scope para registros recientes (últimos 30 días)
     public function scopeRecent($query)
     {

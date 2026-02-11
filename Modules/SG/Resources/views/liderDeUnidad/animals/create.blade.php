@@ -186,7 +186,7 @@
                     </div>
 
                     <div class="col-md-6 form-group">
-                        <label>Grupo de Edad</label>
+                        <label>Grupo Etario</label>
                         <input type="text"
                                name="age_group"
                                value="{{ old('age_group') }}"

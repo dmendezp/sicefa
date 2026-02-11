@@ -103,25 +103,36 @@
                         <td>{{ Str::limit($record->observations ?? '—', 30) }}</td>
 
                         <td class="text-center">
-                            <a href="{{ route('sg.admin.sg.salud.show', $record) }}"
-                               class="btn btn-sm btn-outline-primary">
-                                <i class="fas fa-eye"></i>
-                            </a>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <a href="{{ route('sg.admin.sg.salud.show', $record) }}"
+                                   class="btn btn-outline-primary"
+                                   title="Ver historia clínica">
+                                    <i class="fas fa-eye"></i>
+                                </a>
 
-                            <a href="{{ route('sg.admin.sg.salud.edit', $record) }}"
-                               class="btn btn-sm btn-outline-warning">
-                                <i class="fas fa-edit"></i>
-                            </a>
+                                <a href="{{ route('sg.admin.sg.salud.edit', $record) }}"
+                                   class="btn btn-outline-warning"
+                                   title="Editar historia clínica">
+                                    <i class="fas fa-edit"></i>
+                                </a>
 
-                            <form method="POST"
-                                  action="{{ route('sg.admin.sg.salud.destroy', $record) }}"
-                                  class="d-inline">
-                                @csrf @method('DELETE')
-                                <button class="btn btn-sm btn-outline-danger"
-                                        onclick="return confirm('¿Eliminar esta historia clínica?')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
+                                <a href="{{ route('sg.admin.sg.tratamientos.index', ['health_record_id' => $record->id]) }}"
+                                   class="btn btn-outline-info"
+                                   title="Ver tratamientos">
+                                    <i class="fas fa-pills"></i>
+                                </a>
+
+                                <form method="POST"
+                                      action="{{ route('sg.admin.sg.salud.destroy', $record) }}"
+                                      class="d-inline">
+                                    @csrf @method('DELETE')
+                                    <button class="btn btn-sm btn-outline-danger"
+                                            onclick="return confirm('¿Eliminar esta historia clínica?')"
+                                            title="Eliminar historia clínica">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
 
                     </tr>

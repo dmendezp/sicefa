@@ -31,7 +31,7 @@
                             <option value="">Seleccione un bovino</option>
                             @foreach($animals as $animal)
                                 <option value="{{ $animal->id }}">
-                                    {{ $animal->id }} - {{ $animal->name ?: 'Sin nombre' }} ({{ $animal->breed?->name }})
+                                    {{ $animal->id }} - {{ $animal->plate ?: 'sin placa' }} ({{ $animal->breed?->name }})
                                 </option>
                             @endforeach
                         </select>

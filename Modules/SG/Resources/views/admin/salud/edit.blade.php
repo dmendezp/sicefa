@@ -15,6 +15,16 @@
         </a>
     </div>
 
+    {{-- ALERTA DE HISTORIAL --}}
+    @if(isset($healthRecord->id))
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <i class="fas fa-info-circle"></i> <strong>Nota:</strong> Al actualizar esta historia clínica, los datos anteriores serán guardados automáticamente en el historial para llevar un registro completo de todos los cambios realizados al animal.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
+
     <form action="{{ isset($healthRecord->id)
             ? route('sg.admin.sg.salud.update', $healthRecord->id)
             : route('sg.admin.sg.salud.store') }}"
@@ -34,12 +44,22 @@
 
                     <div class="form-group col-md-6">
                         <label class="font-weight-bold">Bovino *</label>
-                        <input type="text"
-                               name="animal_plate"
-                               value="{{ old('animal_plate', $healthRecord->animal->plate ?? '') }}"
-                               class="form-control @error('animal_plate') is-invalid @enderror"
-                               required>
-                        @error('animal_plate')
+                        <select name="animal_id"
+                                class="form-control @error('animal_id') is-invalid @enderror"
+                                @if(isset($healthRecord->id)) disabled @endif
+                                required>
+                            <option value="">Seleccionar Bovino</option>
+                            @foreach($animals as $animal)
+                                <option value="{{ $animal->id }}"
+                                        {{ old('animal_id', $healthRecord->animal_id ?? '') == $animal->id ? 'selected' : '' }}>
+                                    {{ $animal->plate }} - {{ $animal->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @if(isset($healthRecord->id))
+                            <input type="hidden" name="animal_id" value="{{ $healthRecord->animal_id }}">
+                        @endif
+                        @error('animal_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

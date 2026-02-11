@@ -36,6 +36,12 @@ class TreatmentCattleRaising extends Model
         return $this->belongsTo(Medicine::class, 'medicine_id');
     }
 
+    // Relación con historial de cambios (versiones)
+    public function histories()
+    {
+        return $this->hasMany(TreatmentCattleRaisingHistory::class, 'treatment_id');
+    }
+
     // Accessor para mostrar medicamento con fallback
     public function getMedicineNameAttribute()
     {
