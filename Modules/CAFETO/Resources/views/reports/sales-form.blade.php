@@ -57,18 +57,18 @@
                                 </form>
                             @endif
 
-                            @if(Auth::user()->havePermission('cafeto.'.getRoleRouteName(Route::currentRouteName()).'.reports.generate.products.pdf'))
-                                <form action="{{ route('cafeto.'.getRoleRouteName(Route::currentRouteName()).'.reports.generate.products.pdf') }}"
-                                      method="post" target="_blank" class="m-0">
-                                    @csrf
-                                    <input type="hidden" name="start_date" value="{{ $start_date }}">
-                                    <input type="hidden" name="end_date" value="{{ $end_date }}">
-                                    <button type="submit" class="btn btn-outline-secondary">
-                                        {{ trans('cafeto::reports.Btn_Generate_Products_Report') }}
-                                        <i class="fa-solid fa-box-open"></i>
-                                    </button>
-                                </form>
-                            @endif
+@if(Auth::user()->havePermission('cafeto.'.getRoleRouteName(Route::currentRouteName()).'.reports.generate.sales.products.pdf'))
+    <form action="{{ route('cafeto.'.getRoleRouteName(Route::currentRouteName()).'.reports.generate.sales.products.pdf') }}"
+          method="post" target="_blank" class="m-0">
+        @csrf
+        <input type="hidden" name="start_date" value="{{ $start_date }}">
+        <input type="hidden" name="end_date" value="{{ $end_date }}">
+        <button type="submit" class="btn btn-outline-secondary">
+            {{ trans('cafeto::reports.Btn_Generate_Products_Report') }}
+            <i class="fa-solid fa-box-open"></i>
+        </button>
+    </form>
+@endif
                         </div>
                     </div>
 

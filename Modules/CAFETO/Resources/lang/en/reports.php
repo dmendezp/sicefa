@@ -53,6 +53,7 @@ return [
     'Btn_Search'       => 'Search',
     'Btn_Generate_PDF' => 'Generate Report',
     'Btn_Generate_Sales_Report'=> 'Generate Products Report',
+    'Btn_Generate_Products_Report' => 'Report of Sales',
     
     //Sweetalert2
     'Title'   => 'You must first perform the query, then if you generate the report.',
